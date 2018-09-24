@@ -1,0 +1,5 @@
+amiga:
+  service:
+    aaa:
+      local:
+        enable-local-test: true

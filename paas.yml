@@ -1,0 +1,2 @@
+dockerfile_template: com.inditex.otec.dockerfile:dockerfile-springboot:1.0.0
+openshift_template: com.inditex.otec.openshift:openshift-springboot:1.11.1

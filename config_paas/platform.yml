@@ -1,0 +1,11 @@
+app:
+  context_path: /ICMCLCWB
+  health_probe:
+   initial_delay_seconds: 80
+  has_spnego: true
+  services: 
+    http: 
+      route: 
+        tls: 
+          enabled: true
+          insecure_termination_policy: Redirect

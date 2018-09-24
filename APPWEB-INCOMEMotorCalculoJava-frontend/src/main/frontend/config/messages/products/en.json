@@ -1,0 +1,9 @@
+{
+  "amiga.components.layout.title": "Archetype App",
+  "products.page.title": "PRODUCTS LIST",
+  "products.menu.label": "PRODUCTS",
+  "products.table.header.id": "ID",
+  "products.table.header.name": "NAME",
+  "products.table.noRegisters": "NO PRODUCTS FOUND",
+  "products.table.loadingRegisters": "LOADING PRODUCTS"
+}

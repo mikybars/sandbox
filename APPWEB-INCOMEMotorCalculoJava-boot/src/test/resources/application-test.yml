@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: ICMCLCWB
+  profiles:
+    active: test
+app:
+  version: @project.version@
+server:
+  port: 8095
+logging:
+  level:
+    root: INFO
+amiga:
+  service:
+    aaa:
+      local:
+        enable-local-test: true

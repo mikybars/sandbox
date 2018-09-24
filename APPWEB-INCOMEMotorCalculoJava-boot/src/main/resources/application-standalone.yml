@@ -1,0 +1,17 @@
+server:
+  context-path: /ICMCLCWB
+  port: 8080
+logging:
+  level:
+    root: INFO
+amiga:
+  service:
+    web:
+      cache-control:
+        enabled: true
+    aaa:
+      local:
+        enable-local-test: true
+    rest:
+      logging:
+        is-production: false          

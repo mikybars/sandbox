@@ -1,0 +1,15 @@
+<!-- <replicated-cache name="products" mode="SYNC" -->
+<!--     statistics="true"> -->
+<!--     <memory> -->
+<!--             <object size="1000"/> -->
+<!--     </memory> -->
+<!--     <expiration max-idle="6000000" /> -->
+<!-- </replicated-cache> -->
+
+<!-- <replicated-cache name="formacion" mode="SYNC" -->
+<!--     statistics="true"> -->
+<!--     <memory> -->
+<!--             <object size="1000"/> -->
+<!--     </memory> -->
+<!--     <expiration max-idle="6000000" /> -->
+<!-- </replicated-cache> -->

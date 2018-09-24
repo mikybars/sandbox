@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: ICMCLCWB
+  profiles:
+    active: standalone
+app:
+  version: @project.version@
+logging:
+  level:
+    root: ERROR
+amiga:
+  service:
+    web:
+      cache-control:
+        enabled: true
+    aaa:
+      paths:
+        app-public-path: /web/**,/
+      classic:
+        sso:
+          applicationSSO: customSSOName
+    rest-swagger:
+      ui:
+        title: '@project.name@'
+        description: '@project.description@'
+        #contact: SomeContactName
+        #web: http://www.inditex.com
+        #email: your_team_email@inditex.com
