@@ -9,7 +9,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceBuilder;
@@ -36,5 +38,10 @@ public class DataSourceSecondaryConfig {
 						.packages("com.inditex.rrhh.icmclcwb.model.secondary.entity").properties(hibernateProperties)
 						.jta(true).build();
 	}
+	
+	@Bean(name = "secondaryJdbcTemplate")
+    public JdbcTemplate secondaryJdbcTemplate(final DataSource secondaryDataSource) {
+        return new JdbcTemplate(secondaryDataSource);
+    }
 
 }

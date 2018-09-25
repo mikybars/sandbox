@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceBuilder;
@@ -39,5 +40,11 @@ public class DataSourcePrimaryConfig {
 						.packages("com.inditex.rrhh.icmclcwb.model.primary.entity").properties(hibernateProperties)
 						.jta(true).build();
 	}
+	
+	@Bean(name = "primaryJdbcTemplate")
+    @Primary
+    public JdbcTemplate primaryJdbcTemplate(final DataSource primaryDataSource) {
+        return new JdbcTemplate(primaryDataSource);
+    }
 
 }

@@ -33,6 +33,10 @@
       <artifactId>data-framework-starter-hibernate</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.inditex.aqsw.framework.data</groupId>
+      <artifactId>data-framework-starter-jdbc</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.inditex.aqsw.framework.common</groupId>
       <artifactId>common-framework-starter-async</artifactId>
     </dependency>

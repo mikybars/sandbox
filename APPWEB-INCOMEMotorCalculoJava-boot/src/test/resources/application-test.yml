@@ -1,6 +1,7 @@
 spring:
   application:
-    name: ICMCLCWB
+    #TODO APP Cambiar por el id del jira
+    name: customJiraKey
   profiles:
     active: test
 app:
@@ -9,9 +10,30 @@ server:
   port: 8095
 logging:
   level:
-    root: INFO
+    root: WARN
+    com: 
+      inditex: 
+        myproject: DEBUG
 amiga:
   service:
     aaa:
       local:
         enable-local-test: true
+  data:
+    jdbc:
+      datasource:        
+        primary:
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:INDITEX;MODE=DB2;INIT=CREATE SCHEMA IF NOT EXISTS MAESTROS
+          password: sa
+          user: sa
+        secondary:
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer
+          password: sa
+          user: sa
+    hibernate:
+      primary:
+        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+      secondary:
+        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
