@@ -1,24 +1,63 @@
 spring:
   application:
+    #TODO APP Cambiar por el id del jira
     name: ICMCLCWB
   profiles:
     active: standalone
+
 app:
+  id: ${spring.application.name}
   version: @project.version@
+  envars:
+    meta4:
+      login:
+        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl"
+      income:
+        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl"
 logging:
   level:
-    root: ERROR
+    root: WARN
+    com: 
+      inditex: 
+        myproject: DEBUG
 amiga:
+  common:
+    logging:
+      file:
+        enabled: false
+        #directory: ${user.home}/logs/${app.id}
+    async:
+      default-executor:
+        # Número de hilos iniciales en el pool
+        core-pool-size: 10
+        # Máximo número de hilos que puede tener el pool
+        max-pool-size: 100
+        # Tiempo, en SEGUNDOS, que se mantendrá un hilo desocupado en el pool, antes de eliminarlo del pool.
+        keep-alive: 60
+    rest:
+      virtual:
+        base-url: http://virtualhost:8081   
+      client:
+        # Timeout de conexión por defecto en milisegundos que heredarán todos los clientes rest
+        defaultConnectTimeout: 5000
+        # Timeout de lectura por defecto en milisegundos que heredarán todos los clientes rest
+        defaultReadTimeout: 30000
+        ptrClientVentaEmpleado:
+          base-url: http://axdesptrosb01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service/ventaEmpleado
+          send-itx-headers: true
+          ref-project-key: test_project_key
+          auth-method: BASIC
+          username: rcastro
+          password: c0ntras3nha
+          virtualized: false
+          response-validated: false
   service:
-    web:
-      cache-control:
-        enabled: true
     aaa:
-      paths:
-        app-public-path: /web/**,/
       classic:
         sso:
-          applicationSSO: customSSOName
+          #TODO APP Cambiar por el nombre de la aplicacion en el SSO
+          applicationSSO: AppJoinFashionIntegracion
+          #applicationSSO: customSSOName
     rest-swagger:
       ui:
         title: '@project.name@'
@@ -26,3 +65,21 @@ amiga:
         #contact: SomeContactName
         #web: http://www.inditex.com
         #email: your_team_email@inditex.com
+  data:
+    jdbc:
+      datasource:        
+        primary:
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:INDITEX;MODE=DB2;INIT=CREATE SCHEMA IF NOT EXISTS MAESTROS
+          password: sa
+          user: sa
+        secondary:
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer
+          password: sa
+          user: sa
+    hibernate:
+      primary:
+        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+      secondary:
+        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'

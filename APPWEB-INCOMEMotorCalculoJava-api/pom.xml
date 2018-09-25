@@ -1,22 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.inditex.rrhh.icmclcwb</groupId>
-        <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
-    <name>${project.groupId}:${project.artifactId}</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.inditex.rrhh.icmclcwb</groupId>
+    <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
+  <name>${project.groupId}:${project.artifactId}</name>
 
-    <description>Este módulo se proporciona para que el ejemplo funcione, pero lo recomendable es que no exista
+  <description>Este módulo se proporciona para que el ejemplo funcione, pero lo recomendable es que no exista
         dentro dle proyecto, y en su lugar se importe una librería con el api y el acceso a datos.</description>
+
+  <dependencies>
+
+    <!-- FWK DEPENDENCIES -->
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.common</groupId>
+      <artifactId>common-framework-starter-api-validation</artifactId>
+    </dependency>
     
-    <dependencies>
-        <dependency>
-            <groupId>com.inditex.aqsw.framework.common</groupId>
-            <artifactId>common-framework-starter-api-validation</artifactId>
-        </dependency>
-    </dependencies>
+    <!-- OTHER DEPENDENCIES -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>generateWSClients</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-codegen-plugin</artifactId>
+            <version>${app.cxf.version}</version>
+            <executions>
+              <execution>
+                <id>generate-sources</id>
+                <phase>generate-sources</phase>
+                <configuration>
+                  <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
+                  <wsdlOptions>
+                    <wsdlOption>
+                      <wsdl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl</wsdl>
+                      <!-- <wsdl>https://axpreweb1.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl</wsdl> -->
+                      <extraargs>
+                        <extraarg>-p</extraarg>
+                        <extraarg>http://schemas.meta4.com/=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas</extraarg>
+                        <extraarg>-p</extraarg>
+                        <extraarg>http://exception.soapservices.meta4.com=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.soapservices.exception</extraarg>
+                      </extraargs>
+                    </wsdlOption>
+                    <wsdlOption>
+                      <wsdl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl</wsdl>
+                      <!-- <wsdl>https://axpreweb1.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl</wsdl> -->
+                      <extraargs>
+                        <extraarg>-p</extraarg>
+                        <extraarg>http://schemas.meta4.com/=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas</extraarg>
+                        <extraarg>-p</extraarg>
+                        <extraarg>http://exception.soapservices.meta4.com=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.soapservices.exception</extraarg>
+                      </extraargs>
+                    </wsdlOption>
+                  </wsdlOptions>
+                </configuration>
+                <goals>
+                  <goal>wsdl2java</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

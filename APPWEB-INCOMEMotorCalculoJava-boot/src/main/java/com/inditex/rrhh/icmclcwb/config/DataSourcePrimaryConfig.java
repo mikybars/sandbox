@@ -1,0 +1,43 @@
+package com.inditex.rrhh.icmclcwb.config;
+
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+
+import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceBuilder;
+import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceType;
+
+@Configuration
+@EnableJpaRepositories(entityManagerFactoryRef = "primaryEntityManagerFactory", basePackages = {
+				"com.inditex.rrhh.icmclcwb.model.primary" })
+public class DataSourcePrimaryConfig {
+
+	@Value("#{${amiga.data.hibernate.primary.properties}}")
+	Map<String, String> hibernateProperties;
+
+	@Bean(name = "primaryDataSource")
+	@Primary
+	@ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.primary")
+	public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
+		return dataSourceBuilder.build(DataSourceType.NONXA);
+	}
+
+	@Bean(name = "primaryEntityManagerFactory")
+	@Primary
+	public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(EntityManagerFactoryBuilder emBuilder,
+					DataSourceBuilder dsBuilder) {
+		return emBuilder.dataSource(primaryDataSource(dsBuilder)).persistenceUnit("primaryPersistenceUnit")
+						.packages("com.inditex.rrhh.icmclcwb.model.primary.entity").properties(hibernateProperties)
+						.jta(true).build();
+	}
+
+}
