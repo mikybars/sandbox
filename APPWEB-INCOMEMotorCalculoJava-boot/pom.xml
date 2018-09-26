@@ -44,6 +44,10 @@
       <groupId>com.inditex.aqsw.framework.common</groupId>
       <artifactId>common-framework-starter-rest-client</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.common</groupId>
+      <artifactId>common-framework-starter-graylog-hub</artifactId>
+    </dependency>
 
     <!-- CLIENT DEPENDENCIES -->
     <dependency>

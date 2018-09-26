@@ -1,29 +1,16 @@
+## Define propiedades de la aplicación en local
 server:
-  #TODO APP Cambiar si se quiere un contexto personalizado
-  #context-path: /ICMCLCWB
   port: 8080
-logging:
-  level:
-    root: WARN
-    com: 
-      inditex: 
-        myproject: DEBUG
 amiga:
-  common: 
-    logging: 
-      file:
-        enabled: false 
-        #directory: /appserv/data/logs/my-app-rest/
-        #numMax: 20
-        #size: 20MB
-        
   service:
     aaa:
       local:
+        # Deshabilita el modo de autenticación para test
         enable-local-test: true
         json-sso-file: /local-sso-ext.json
     rest:
       logging:
+        # Limita la información devuelta en el caso de errores.
         is-production: false
   data:
     jdbc:
@@ -43,3 +30,11 @@ amiga:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
       secondary:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.SQLServerNativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+app:
+  # Variables de entorno propias de la aplicación
+  envars:
+    meta4:
+      login:
+        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl"
+      income:
+        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl"
