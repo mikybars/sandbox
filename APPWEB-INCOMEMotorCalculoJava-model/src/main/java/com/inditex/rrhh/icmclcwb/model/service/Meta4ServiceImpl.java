@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.service.impl;
+package com.inditex.rrhh.icmclcwb.model.service;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

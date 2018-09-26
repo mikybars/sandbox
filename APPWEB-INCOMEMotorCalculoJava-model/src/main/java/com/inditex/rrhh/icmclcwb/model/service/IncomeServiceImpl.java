@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.service.impl;
+package com.inditex.rrhh.icmclcwb.model.service;
 
 import java.io.File;
 import java.io.FileInputStream;
