@@ -19,36 +19,36 @@ import lombok.Data;
 @Table(name = "M4HSW_SOLR_QUEUE")
 @Data
 public class SolrQueue {
-    
+
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private /*BigInteger*/ Long id;
-    
+	private /* BigInteger */ Long id;
+
 	@Column(name = "SOLR_INDEX", nullable = false)
 	@NotBlank
 	@Size(max = 1)
-    private String index;
-	
+	private String index;
+
 	@Column(name = "ITEM_DEF", nullable = false)
 	@NotBlank
 	@Size(max = 62)
-    private String def;
-	
+	private String def;
+
 	@Column(name = "ITEM_VALUE", nullable = false)
 	@NotBlank
-    private Clob value;
-	
+	private Clob value;
+
 	@Column(name = "STATUS", nullable = false)
 	@NotBlank
 	@Size(max = 5)
-    private String status;
-	
+	private String status;
+
 	@Column(name = "HSW_ORD", nullable = true)
-	private /*BigInteger*/ Long orden;
-	
+	private /* BigInteger */ Long orden;
+
 	@Column(name = "DT_ACCESS", nullable = false)
 	@NotNull
-    private Date fecha;
-	
+	private Date fecha;
+
 }
