@@ -44,6 +44,6 @@ app:
   envars:
     meta4:
       login:
-        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl"
+        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login"
       income:
-        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl"
+        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME"

@@ -11,9 +11,8 @@ server:
 logging:
   level:
     root: WARN
-    com: 
-      inditex: 
-        myproject: DEBUG
+    com.inditex.rrhh.icmclcwb: DEBUG
+    org.apache.cxf: TRACE
 amiga:
   service:
     aaa:

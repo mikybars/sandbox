@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.service;
 
+import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.dto.JobDTO;
 import com.inditex.rrhh.icmclcwb.api.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.service.JobService;
@@ -66,6 +67,12 @@ public class JobServiceImpl implements JobService {
 		CompletableFuture<Void> fin = CompletableFuture.allOf(obtenerEmpleadosTiendaResult);
 		try {
 			result = obtenerEmpleadosTiendaResult.get();
+			if (Boolean.TRUE.equals(result)) {
+				LOG.info("Ha funcionado");
+			} else {
+				LOG.info("Ha fallado");
+				//throw new ApplicationException("Ha fallado");
+			}
 		} catch (InterruptedException | ExecutionException e) {
 			LOG.error("Error no controlado");
 		}

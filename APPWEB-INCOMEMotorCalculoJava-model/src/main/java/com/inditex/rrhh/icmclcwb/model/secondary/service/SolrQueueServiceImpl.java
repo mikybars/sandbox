@@ -2,13 +2,13 @@ package com.inditex.rrhh.icmclcwb.model.secondary.service;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.service.SolrQueueService;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.GETCALENDARIOTIENDA;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.GetcalendariotiendaOutput;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.IcmWsIncomeService;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas.Login;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas.LoginService;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas.M4LoginOutput;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas.ObjectFactory;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.GETCALENDARIOTIENDA;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.GetcalendariotiendaOutput;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmWsIncomeService;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.Login;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.LoginService;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.M4LoginOutput;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.ObjectFactory;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PaisRepository;
 import com.inditex.rrhh.icmclcwb.model.secondary.repository.SolrQueueRepository;
 
@@ -62,7 +62,7 @@ public class SolrQueueServiceImpl implements SolrQueueService {
 		meta4ClientIncome.retrieveM4Session(loginOutput001.getSessionID());
 		
 		// Generación de objetos de INCOME
-		com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.ObjectFactory ofIncome = new com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.ObjectFactory();
+		com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.ObjectFactory ofIncome = new com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.ObjectFactory();
 		// Llamada a servicio de INCOME
 		GETCALENDARIOTIENDA paramGetcalendariotienda = ofIncome.createGETCALENDARIOTIENDA();
 		//TODO Validar objeto de entrada

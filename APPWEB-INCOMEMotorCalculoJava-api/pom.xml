@@ -21,13 +21,13 @@
       <groupId>com.inditex.aqsw.framework.common</groupId>
       <artifactId>common-framework-starter-api-validation</artifactId>
     </dependency>
-    
+
     <!-- OTHER DEPENDENCIES -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
     </dependency>
-    
+
   </dependencies>
 
   <profiles>
@@ -47,23 +47,29 @@
                   <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
                   <wsdlOptions>
                     <wsdlOption>
-                      <wsdl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl</wsdl>
+                      <wsdl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl=1</wsdl>
+                      <!-- <wsdl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl</wsdl> -->
                       <!-- <wsdl>https://axpreweb1.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl</wsdl> -->
                       <extraargs>
                         <extraarg>-p</extraarg>
-                        <extraarg>http://schemas.meta4.com/=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas</extraarg>
+                        <extraarg>http://schemas.meta4.com/=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login</extraarg>
                         <extraarg>-p</extraarg>
-                        <extraarg>http://exception.soapservices.meta4.com=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.soapservices.exception</extraarg>
+                        <extraarg>http://exception.soapservices.meta4.com=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login</extraarg>
+                        <extraarg>-impl</extraarg>
+                        <extraarg>-verbose</extraarg>
                       </extraargs>
                     </wsdlOption>
                     <wsdlOption>
-                      <wsdl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl</wsdl>
+                      <wsdl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl=1</wsdl>
+                      <!-- <wsdl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl</wsdl> -->
                       <!-- <wsdl>https://axpreweb1.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl</wsdl> -->
                       <extraargs>
                         <extraarg>-p</extraarg>
-                        <extraarg>http://schemas.meta4.com/=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas</extraarg>
+                        <extraarg>http://schemas.meta4.com/=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income</extraarg>
                         <extraarg>-p</extraarg>
-                        <extraarg>http://exception.soapservices.meta4.com=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.soapservices.exception</extraarg>
+                        <extraarg>http://exception.soapservices.meta4.com=com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income</extraarg>
+                        <extraarg>-impl</extraarg>
+                        <extraarg>-verbose</extraarg>
                       </extraargs>
                     </wsdlOption>
                   </wsdlOptions>
@@ -77,6 +83,51 @@
         </plugins>
       </build>
     </profile>
+    <!-- <profile> -->
+    <!-- <id>generateWSClients</id> -->
+    <!-- <build> -->
+    <!-- <plugins> -->
+    <!-- <plugin> -->
+    <!-- <groupId>org.codehaus.mojo</groupId> -->
+    <!-- <artifactId>jaxws-maven-plugin</artifactId> -->
+    <!-- <version>1.12</version> -->
+    <!-- <executions> -->
+    <!-- <execution> -->
+    <!-- <id>Login</id> -->
+    <!-- <phase>generate-sources</phase> -->
+    <!-- <goals> -->
+    <!-- <goal>wsimport</goal> -->
+    <!-- </goals> -->
+    <!-- <configuration> -->
+    <!-- <wsdlUrls> -->
+    <!-- <wsdlUrl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login?wsdl=1</wsdlUrl> -->
+    <!-- </wsdlUrls> -->
+    <!-- <sourceDestDir>src/main/java</sourceDestDir> -->
+    <!-- <packageName>com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login</packageName> -->
+    <!-- </configuration> -->
+    <!-- </execution> -->
+    <!-- <execution> -->
+    <!-- <id>ICM_WS_INCOME</id> -->
+    <!-- <phase>generate-sources</phase> -->
+    <!-- <goals> -->
+    <!-- <goal>wsimport</goal> -->
+    <!-- </goals> -->
+    <!-- <configuration> -->
+    <!-- <wsdlUrls> -->
+    <!-- <wsdlUrl>https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME?wsdl=1</wsdlUrl> -->
+    <!-- </wsdlUrls> -->
+    <!-- <sourceDestDir>src/main/java</sourceDestDir> -->
+    <!-- <packageName>com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income</packageName> -->
+    <!-- </configuration> -->
+    <!-- </execution> -->
+    <!-- </executions> -->
+    <!-- <configuration> -->
+    <!-- <extension>true</extension> -->
+    <!-- </configuration> -->
+    <!-- </plugin> -->
+    <!-- </plugins> -->
+    <!-- </build> -->
+    <!-- </profile> -->
   </profiles>
 
 </project>
