@@ -82,5 +82,13 @@ public class JobController {
         this.jobService.deleteJob(id);
         return id;
     }
+    
+    @GetMapping(path = "/test/")
+    @ApiOperation("Get the number of jobs")
+    public Boolean test() {
+    	Boolean result = Boolean.FALSE;
+    	result = this.jobService.test();
+    	return result;
+    }
 
 }

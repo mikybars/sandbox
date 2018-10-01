@@ -19,4 +19,6 @@ public interface JobService {
     
     Long countJobs();
     
+    Boolean test();
+    
 }
