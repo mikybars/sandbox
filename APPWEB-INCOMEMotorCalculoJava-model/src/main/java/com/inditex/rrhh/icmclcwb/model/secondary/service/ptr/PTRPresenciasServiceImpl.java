@@ -31,7 +31,8 @@ import com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr.PTRPresenciasRep
 @Service
 @Validated
 public class PTRPresenciasServiceImpl implements PTRPresenciasService {
-    @Autowired
+	/**
+	@Autowired
     private Logger logger;
     
     @Autowired
@@ -39,13 +40,11 @@ public class PTRPresenciasServiceImpl implements PTRPresenciasService {
     
     @Autowired
     private PresenciasMapper presenciasMapper;
+    **/
     
-
 	@Override
 	public PresenciasDetalleResonseDTO PresenciasDetalle(PresenciasDetalleRequestDTO presencias) {
-		//Falta añadir identificador en el logger  del DTO
-		this.logger.debug("Presencias detalle {}");
-		//return this.presenciasRepository;
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -74,7 +73,6 @@ public class PTRPresenciasServiceImpl implements PTRPresenciasService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 
 }

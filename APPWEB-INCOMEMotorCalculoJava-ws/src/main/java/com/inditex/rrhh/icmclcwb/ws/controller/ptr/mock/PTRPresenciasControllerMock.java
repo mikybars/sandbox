@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionableRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaSeccionRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiposHorasRequestDTO;
@@ -18,7 +16,6 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleComisiona
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaSeccionResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.service.ProductService;
 import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasService;
 
 import io.swagger.annotations.Api;
@@ -41,12 +38,12 @@ public class PTRPresenciasControllerMock {
 
 	
 	@ApiOperation(value = "GetPresenciasDetalleComisionable")
-	@GetMapping(path = "/presenciasDetalle")
+	@GetMapping(path = "/presenciasDetalleComisionable")
 	public PresenciasDetalleComisionableResponseDTO presenciasDetalle(PresenciasDetalleComisionableRequestDTO  presencias){
 		return null;
 	}
 	
-	
+	/**
 	@ApiOperation(value = "GetPresenciasTotalTienda")
 	@GetMapping(path = "/presenciasTotalTienda")
 	public PresenciasTotalTiendaResponseDTO presenciasTotalTienda(PresenciasTotalTiendaRequestDTO  presencias){
@@ -70,5 +67,5 @@ public class PTRPresenciasControllerMock {
 	@GetMapping(path = "/tiposHoras")
 	public TiposHorasResponseDTO tiposHoras (TiposHorasRequestDTO tiposHoras){
 		return this.presenciasService.findTiposHoras(tiposHoras);
-	}
+	}**/
 }

@@ -17,7 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.rrhh.icmclcwb.api.dto.ProductDTO;
-
 /**
  * Tests del servicio ProductService. NOTE: Se prueban varias características de la implementación del servicio. Se
  * recomienda que se borre esta clase y que se cree otra u otras con las necesidades del proyecto.

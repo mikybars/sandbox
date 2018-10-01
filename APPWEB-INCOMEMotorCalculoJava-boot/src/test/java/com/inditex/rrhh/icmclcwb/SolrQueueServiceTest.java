@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb;
 
 import static org.junit.Assert.assertEquals;
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class SolrQueueServiceTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    @Ignore
     @Test
     public void count() {
         this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
