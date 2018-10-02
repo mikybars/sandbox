@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.service;
 
+import java.util.Date;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.service.Meta4LoginService;
 import com.inditex.rrhh.icmclcwb.api.service.Meta4Service;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaFilterDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.PageDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.login.LoginDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.GetempleadostiendaOutput;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrospaginacionBlock;
@@ -38,6 +43,26 @@ public class Meta4ServiceImpl implements Meta4Service {
 		if (meta4LoginService.retrieveM4Session() || meta4LoginService.login(new LoginDTO("INCOME", "123", "2"))) {
 			
 			String defaultValue = StringUtils.EMPTY;
+			
+			GetEmpleadosTiendaRequestDTO asas = new GetEmpleadosTiendaRequestDTO();
+			
+			PageDTO page = new PageDTO();
+			page.setIdBusqueda(defaultValue);
+			page.setCampoOrden(defaultValue);
+			page.setNumeroPagina(1);
+			page.setNumeroRegistrosPagina(1000);
+			page.setNumeroTotalPaginas(null);
+			page.setNumeroTotalResultados(null);
+			page.setTipoOrden("ASC");
+			asas.setPage(page);
+			
+			GetEmpleadosTiendaFilterDTO data = new GetEmpleadosTiendaFilterDTO();
+			data.setFechaInicio(new Date());
+			data.setFechaFin(new Date());
+			data.setIdLugarTrabajo("T160");
+			data.setIdEstado(defaultValue);
+			data.setIdEstadoMtu(defaultValue);
+			asas.setData(data);
 			
 			IcmParametrospaginacionBlock icmParametrospaginacionBlock = new IcmParametrospaginacionBlock();
 			icmParametrospaginacionBlock.setIdbusqueda(defaultValue);
