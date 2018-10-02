@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.dto.ptr.request;
 
 import java.util.List;
-/**
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder**/
+@Builder
 public class PresenciasTotalTiendaSeccionRequestDTO {
 
 		private List<TiendaSeccionDTO> tiendaSeccion;
@@ -20,6 +20,8 @@ public class PresenciasTotalTiendaSeccionRequestDTO {
 		private String fechaHasta;
 		private Integer tipo;
 		private Integer cadena;
+		
+		
 		public List<TiendaSeccionDTO> getTiendaSeccion() {
 			return tiendaSeccion;
 		}

@@ -1,5 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.dto.ptr.request;
-/**
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString**/
+@ToString
 public class TiendaSeccionDTO {
 
 	private Integer tienda;

@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.dto.ptr.request;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-/**
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString**/
+@ToString
 public class PresenciasDetalleComisionableRequestDTO  implements Serializable {
 
 

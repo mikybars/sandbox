@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +18,16 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.rrhh.icmclcwb.api.dto.ProductDTO;
-/**
- * Tests del servicio ProductService. NOTE: Se prueban varias características de la implementación del servicio. Se
- * recomienda que se borre esta clase y que se cree otra u otras con las necesidades del proyecto.
- */
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
 @ActiveProfiles({"standalone", "test"})
 @EnableAutoConfiguration
+@Ignore
 public class ProductServiceTest {
 
-    private static final String PATH_PRODUCT_FIND_BY_ID = "/product/%d";
-    private static final String PATH_SECURE_URI = "/product/findByIdSecure/%d";
+    private static final String PATH_PRESENCIAS_SERVICE = "/product/%d";
+    private static final String PATH_FIND_PRESENCIAS = "/product/findByIdSecure/%d";
 
     /**
      * The my rest client.
@@ -45,7 +44,7 @@ public class ProductServiceTest {
     public void getProduct() {
         this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
 
-        this.getForEntity(String.format(PATH_PRODUCT_FIND_BY_ID, 1), HttpStatus.SC_OK);
+        this.getForEntity(String.format(PATH_PRESENCIAS_SERVICE, 1), HttpStatus.SC_OK);
     }
 
     /**
@@ -56,7 +55,7 @@ public class ProductServiceTest {
     public void getProductFromSecureMethod() {
         this.testRestTemplate = this.testRestTemplate.withBasicAuth("username300", "username300p");
 
-        Throwable thrown = catchThrowable(() -> this.getForEntity(String.format(PATH_SECURE_URI, 1), HttpStatus.SC_OK));
+        Throwable thrown = catchThrowable(() -> this.getForEntity(String.format(PATH_FIND_PRESENCIAS, 1), HttpStatus.SC_OK));
         assertThat(thrown).isNull();
     }
 
@@ -69,7 +68,7 @@ public class ProductServiceTest {
         this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
 
         Throwable thrown = catchThrowable(
-                () -> this.getForEntity(String.format(PATH_SECURE_URI, 1), HttpStatus.SC_FORBIDDEN));
+                () -> this.getForEntity(String.format(PATH_FIND_PRESENCIAS, 1), HttpStatus.SC_FORBIDDEN));
         assertThat(thrown).isNull();
     }
 

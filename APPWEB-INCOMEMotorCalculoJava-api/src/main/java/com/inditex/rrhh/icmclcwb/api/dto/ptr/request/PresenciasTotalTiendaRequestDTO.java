@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.dto.ptr.request;
 
 import java.io.Serializable;
 import java.util.List;
-/**
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString**/
+@ToString
 public class PresenciasTotalTiendaRequestDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;

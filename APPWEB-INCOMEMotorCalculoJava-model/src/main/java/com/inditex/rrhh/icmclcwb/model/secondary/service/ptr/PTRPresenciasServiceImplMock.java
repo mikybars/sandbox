@@ -15,37 +15,34 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaReques
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaSeccionRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiposHorasRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleComisionableResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResonseDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaSeccionResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasService;
-import com.inditex.rrhh.icmclcwb.model.mapper.ProductMapper;
+import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasServiceMock;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciasMapper;
-import com.inditex.rrhh.icmclcwb.model.repository.ProductRepository;
-import com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr.PTRPresenciasRepositoryImplMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr.PTRPresenciasRepositoryMock;
 
 /**
  * Implementación del servicio de producto
  */
 @Service
 @Validated
-public class PTRPresenciasServiceImpl implements PTRPresenciasService {
-	/**
+public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
+	
 	@Autowired
     private Logger logger;
     
     @Autowired
-    private PTRPresenciasRepositoryImplMock presenciasRepository;
+    private PTRPresenciasRepositoryMock presenciasRepository;
     
     @Autowired
     private PresenciasMapper presenciasMapper;
-    **/
     
+    //Traduce el objecto, lo envia a la función y la salida la vuelve a traducir
 	@Override
-	public PresenciasDetalleResonseDTO PresenciasDetalle(PresenciasDetalleRequestDTO presencias) {
-		// TODO Auto-generated method stub
-		return null;
+	public PresenciasDetalleResponseDTO PresenciasDetalle(final Integer id) {
+		return this.presenciasMapper.asPresenciaDetalleDTO(this.presenciasRepository.findPresencias(id));
 	}
 
 	@Override
@@ -69,7 +66,7 @@ public class PTRPresenciasServiceImpl implements PTRPresenciasService {
 	}
 
 	@Override
-	public TiposHorasResponseDTO findTiposHoras(TiposHorasRequestDTO tiposHoras) {
+	public TiposHorasResponseDTO TiposHoras(TiposHorasRequestDTO tiposHoras) {
 		// TODO Auto-generated method stub
 		return null;
 	}

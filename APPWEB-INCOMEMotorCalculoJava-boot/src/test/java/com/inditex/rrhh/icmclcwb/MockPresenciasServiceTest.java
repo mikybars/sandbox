@@ -1,6 +1,10 @@
 package com.inditex.rrhh.icmclcwb;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.apache.http.HttpStatus;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,36 +17,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.*;
+
+/**
+ * Tests del servicio ProductService. NOTE: Se prueban varias características de la implementación del servicio. Se
+ * recomienda que se borre esta clase y que se cree otra u otras con las necesidades del proyecto.
+ */
+
+
+//@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
 @ActiveProfiles({"standalone", "test"})
 @EnableAutoConfiguration
-@Ignore
-public class SolrQueueServiceTest {
-	
+public class MockPresenciasServiceTest {
+
     @Autowired
-    private TestRestTemplate testRestTemplate;
-
-    @Ignore
-    @Test
-    public void count() {
-        this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
-        ResponseEntity<Long> ret = this.testRestTemplate.getForEntity("/solrQueue/count/", Long.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
+    private TestRestTemplate testRestTemplate; 
     
     @Test
-    public void async() {
+    public void presenciasDetalle() {
         this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
-        ResponseEntity<Void> ret = this.testRestTemplate.getForEntity("/solrQueue/async/", Void.class);
+        ResponseEntity<PresenciasDetalleResponseDTO> ret = this.testRestTemplate.getForEntity("/presenciasServiceMock/presenciasDetalle/1", PresenciasDetalleResponseDTO.class);
+        System.out.println("");
+        System.out.println("");
+        System.out.println(ret.getBody().getMinutos());
+        System.out.println("");
+        System.out.println("");
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
     }
-    
-    @Test
-    public void reactor() {
-        this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
-        ResponseEntity<Void> ret = this.testRestTemplate.getForEntity("/solrQueue/reactor/", Void.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
-
 }
