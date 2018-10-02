@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.mapper;
 
 import com.inditex.rrhh.icmclcwb.api.dto.ProductDTO;
 import com.inditex.rrhh.icmclcwb.model.repository.Product;
-import org.springframework.stereotype.Component;
 import org.mapstruct.Mapper;
 import java.util.List;
 
