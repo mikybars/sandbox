@@ -6,12 +6,26 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
+import org.jvnet.jaxb2_commons.lang.CopyTo2;
+import org.jvnet.jaxb2_commons.lang.Equals2;
+import org.jvnet.jaxb2_commons.lang.EqualsStrategy2;
+import org.jvnet.jaxb2_commons.lang.HashCode2;
+import org.jvnet.jaxb2_commons.lang.HashCodeStrategy2;
+import org.jvnet.jaxb2_commons.lang.JAXBCopyStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBToStringStrategy;
+import org.jvnet.jaxb2_commons.lang.ToString2;
+import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
+import org.jvnet.jaxb2_commons.locator.ObjectLocator;
+import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType>
@@ -32,13 +46,14 @@ import javax.xml.bind.annotation.XmlType;
     "getcondicionesventaReturn"
 })
 @XmlRootElement(name = "GETCONDICIONESVENTAResponse")
-public class GETCONDICIONESVENTAResponse {
+public class GETCONDICIONESVENTAResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     @XmlElement(name = "GETCONDICIONESVENTAReturn", required = true)
     protected GetcondicionesventaOutput getcondicionesventaReturn;
 
     /**
-     * Gets the value of the getcondicionesventaReturn property.
+     * Obtiene el valor de la propiedad getcondicionesventaReturn.
      * 
      * @return
      *     possible object is
@@ -50,7 +65,7 @@ public class GETCONDICIONESVENTAResponse {
     }
 
     /**
-     * Sets the value of the getcondicionesventaReturn property.
+     * Define el valor de la propiedad getcondicionesventaReturn.
      * 
      * @param value
      *     allowed object is
@@ -59,6 +74,103 @@ public class GETCONDICIONESVENTAResponse {
      */
     public void setGETCONDICIONESVENTAReturn(GetcondicionesventaOutput value) {
         this.getcondicionesventaReturn = value;
+    }
+
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
+        }
+        if (this == object) {
+            return true;
+        }
+        final GETCONDICIONESVENTAResponse that = ((GETCONDICIONESVENTAResponse) object);
+        {
+            GetcondicionesventaOutput lhsGETCONDICIONESVENTAReturn;
+            lhsGETCONDICIONESVENTAReturn = this.getGETCONDICIONESVENTAReturn();
+            GetcondicionesventaOutput rhsGETCONDICIONESVENTAReturn;
+            rhsGETCONDICIONESVENTAReturn = that.getGETCONDICIONESVENTAReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getcondicionesventaReturn", lhsGETCONDICIONESVENTAReturn), LocatorUtils.property(thatLocator, "getcondicionesventaReturn", rhsGETCONDICIONESVENTAReturn), lhsGETCONDICIONESVENTAReturn, rhsGETCONDICIONESVENTAReturn, (this.getcondicionesventaReturn!= null), (that.getcondicionesventaReturn!= null))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            GetcondicionesventaOutput theGETCONDICIONESVENTAReturn;
+            theGETCONDICIONESVENTAReturn = this.getGETCONDICIONESVENTAReturn();
+            strategy.appendField(locator, this, "getcondicionesventaReturn", buffer, theGETCONDICIONESVENTAReturn, (this.getcondicionesventaReturn!= null));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            GetcondicionesventaOutput theGETCONDICIONESVENTAReturn;
+            theGETCONDICIONESVENTAReturn = this.getGETCONDICIONESVENTAReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getcondicionesventaReturn", theGETCONDICIONESVENTAReturn), currentHashCode, theGETCONDICIONESVENTAReturn, (this.getcondicionesventaReturn!= null));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof GETCONDICIONESVENTAResponse) {
+            final GETCONDICIONESVENTAResponse copy = ((GETCONDICIONESVENTAResponse) draftCopy);
+            {
+                Boolean getcondicionesventaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getcondicionesventaReturn!= null));
+                if (getcondicionesventaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetcondicionesventaOutput sourceGETCONDICIONESVENTAReturn;
+                    sourceGETCONDICIONESVENTAReturn = this.getGETCONDICIONESVENTAReturn();
+                    GetcondicionesventaOutput copyGETCONDICIONESVENTAReturn = ((GetcondicionesventaOutput) strategy.copy(LocatorUtils.property(locator, "getcondicionesventaReturn", sourceGETCONDICIONESVENTAReturn), sourceGETCONDICIONESVENTAReturn, (this.getcondicionesventaReturn!= null)));
+                    copy.setGETCONDICIONESVENTAReturn(copyGETCONDICIONESVENTAReturn);
+                } else {
+                    if (getcondicionesventaReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getcondicionesventaReturn = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new GETCONDICIONESVENTAResponse();
     }
 
 }

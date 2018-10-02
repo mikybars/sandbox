@@ -21,6 +21,8 @@ public class PageDTO implements Serializable {
 	
 	private String campoOrden;
 	
+	private String idBusqueda;
+	
 	private Integer numeroPagina;
 	
 	private Integer numeroTotalPaginas;
@@ -28,7 +30,5 @@ public class PageDTO implements Serializable {
 	private Integer numeroRegistrosPagina;
 	
 	private Integer numeroTotalResultados;
-	
-	private String idBusqueda;
 
 }

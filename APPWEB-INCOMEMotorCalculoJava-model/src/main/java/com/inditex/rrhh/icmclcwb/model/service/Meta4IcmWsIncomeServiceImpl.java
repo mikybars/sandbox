@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.service;
 
-import java.util.Date;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.service.Meta4IcmWsIncomeService;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaFilterDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.PageDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.GetempleadostiendaOutput;
@@ -19,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_inco
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrostiendaBlock;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrostiendaRecord;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmWsIncomeService;
+import com.inditex.rrhh.icmclcwb.model.mapper.IcmWsIncomeMapper;
 
 // http://www.springboottutorial.com/spring-boot-and-aop-with-spring-boot-starter-aop
 // @After
@@ -31,11 +29,21 @@ public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 	@Autowired
 	@Qualifier("meta4ClientIncome")
 	private IcmWsIncomeService meta4ClientIncome;
+	
+	@Autowired
+    private IcmWsIncomeMapper icmWsIncomeMapper;
 
 	@Override
 	public boolean obtenerEmpleadosTienda(GetEmpleadosTiendaRequestDTO getEmpleadosTiendaRequestDTO) throws Exception {
 		boolean result = false;
 		String defaultValue = StringUtils.EMPTY;
+		
+		IcmParametrospaginacionBlock param1 = icmWsIncomeMapper.asIcmParametrospaginacionBlock(getEmpleadosTiendaRequestDTO.getPage());
+		PageDTO param1DTO = icmWsIncomeMapper.asPageDTO(param1);
+		LOG.info("param1: " + param1.toString());
+		LOG.info("param1DTO: " + param1DTO.toString());
+		
+		//IcmParametrostiendaBlock param2 = icmWsIncomeMapper.asIcmParametrostiendaBlock(getEmpleadosTiendaRequestDTO.getData());
 		
 		IcmParametrospaginacionBlock icmParametrospaginacionBlock = new IcmParametrospaginacionBlock();
 		icmParametrospaginacionBlock.setIdbusqueda(defaultValue);

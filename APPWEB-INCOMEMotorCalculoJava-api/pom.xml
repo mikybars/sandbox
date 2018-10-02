@@ -27,6 +27,11 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.jvnet.jaxb2_commons</groupId>
+      <artifactId>jaxb2-basics-runtime</artifactId>
+      <version>1.11.1</version>
+    </dependency>
 
   </dependencies>
 
@@ -147,6 +152,112 @@
     <!-- </properties> -->
     <!-- </profile> -->
 
+    <!-- <profile> -->
+    <!-- <properties> -->
+    <!-- <urlServidor>http://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services</urlServidor> -->
+    <!-- <bindingDirectory>${basedir}/src/main/resources/bindings</bindingDirectory> -->
+    <!-- <sourceDestDir>src/main/java</sourceDestDir> -->
+    <!-- <sourceDestDirWsdl>src/main/resources/wsdls</sourceDestDirWsdl> -->
+    <!-- <generatedPackageBase>com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome</generatedPackageBase> -->
+
+    <!-- <loginExecution>login</loginExecution> -->
+    <!-- <loginService>Login?wsdl=1</loginService> -->
+    <!-- <loginServiceName>Login</loginServiceName> -->
+    <!-- <loginServicePackageName>login</loginServicePackageName> -->
+
+    <!-- <icmwsincomeExecution>icmwsincome</icmwsincomeExecution> -->
+    <!-- <icmwsincomeService>ICM_WS_INCOME?wsdl=1</icmwsincomeService> -->
+    <!-- <icmwsincomeServiceName>ICM_WS_INCOME</icmwsincomeServiceName> -->
+    <!-- <icmwsincomeServicePackageName>icm_ws_income</icmwsincomeServicePackageName> -->
+
+    <!-- </properties> -->
+
+    <!-- <id>generateWSClients</id> -->
+    <!-- <build> -->
+    <!-- <plugins> -->
+    <!-- <plugin> -->
+    <!-- <groupId>org.codehaus.mojo</groupId> -->
+    <!-- <artifactId>jaxws-maven-plugin</artifactId> -->
+    <!-- <version>1.12</version> -->
+    <!-- <executions> -->
+
+    <!-- <execution> -->
+    <!-- <id>generateWSClients_${loginExecution}</id> -->
+    <!-- <phase>generate-sources</phase> -->
+    <!-- <goals> -->
+    <!-- <goal>wsimport</goal> -->
+    <!-- </goals> -->
+    <!-- <configuration> -->
+    <!-- <bindingDirectory>${bindingDirectory}</bindingDirectory> -->
+    <!-- <wsdlUrls> -->
+    <!-- <wsdlUrl>${urlServidor}/${loginService}</wsdlUrl> -->
+    <!-- </wsdlUrls> -->
+    <!-- <sourceDestDir>${sourceDestDir}</sourceDestDir> -->
+    <!-- <packageName>${generatedPackageBase}.${loginServicePackageName}</packageName> -->
+    <!-- </configuration> -->
+    <!-- </execution> -->
+
+    <!-- <execution> -->
+    <!-- <id>generateWSClients_${icmwsincomeExecution}</id> -->
+    <!-- <phase>generate-sources</phase> -->
+    <!-- <goals> -->
+    <!-- <goal>wsimport</goal> -->
+    <!-- </goals> -->
+    <!-- <configuration> -->
+    <!-- <bindingDirectory>${bindingDirectory}</bindingDirectory> -->
+    <!-- <wsdlUrls> -->
+    <!-- <wsdlUrl>${urlServidor}/${icmwsincomeService}</wsdlUrl> -->
+    <!-- </wsdlUrls> -->
+    <!-- <sourceDestDir>${sourceDestDir}</sourceDestDir> -->
+    <!-- <packageName>${generatedPackageBase}.${icmwsincomeServicePackageName}</packageName> -->
+    <!-- </configuration> -->
+    <!-- </execution> -->
+    <!-- </executions> -->
+
+    <!-- <configuration> -->
+    <!-- <extension>true</extension> -->
+    <!-- </configuration> -->
+
+    <!-- </plugin> -->
+
+    <!-- <plugin> -->
+    <!-- <groupId>org.codehaus.mojo</groupId> -->
+    <!-- <artifactId>wagon-maven-plugin</artifactId> -->
+    <!-- <version>1.0-beta-4</version> -->
+    <!-- <executions> -->
+
+    <!-- <execution> -->
+    <!-- <id>download-${loginExecution}</id> -->
+    <!-- <phase>process-resources</phase> -->
+    <!-- <goals> -->
+    <!-- <goal>download-single</goal> -->
+    <!-- </goals> -->
+    <!-- <configuration> -->
+    <!-- <url>${urlServidor}</url> -->
+    <!-- <fromFile>${loginService}</fromFile> -->
+    <!-- <toFile>${sourceDestDirWsdl}/${loginServiceName}.wsdl</toFile> -->
+    <!-- </configuration> -->
+    <!-- </execution> -->
+
+    <!-- <execution> -->
+    <!-- <id>download-${icmwsincomeExecution}</id> -->
+    <!-- <phase>process-resources</phase> -->
+    <!-- <goals> -->
+    <!-- <goal>download-single</goal> -->
+    <!-- </goals> -->
+    <!-- <configuration> -->
+    <!-- <url>${urlServidor}</url> -->
+    <!-- <fromFile>${icmwsincomeService}</fromFile> -->
+    <!-- <toFile>${sourceDestDirWsdl}/${icmwsincomeServiceName}.wsdl</toFile> -->
+    <!-- </configuration> -->
+    <!-- </execution> -->
+
+    <!-- </executions> -->
+    <!-- </plugin> -->
+    <!-- </plugins> -->
+    <!-- </build> -->
+    <!-- </profile> -->
+
     <profile>
       <properties>
         <urlServidor>http://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services</urlServidor>
@@ -173,9 +284,32 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>jaxws-maven-plugin</artifactId>
-            <version>1.12</version>
+            <version>2.5</version>
+            <dependencies>
+              <dependency>
+                <groupId>org.jvnet.jaxb2_commons</groupId>
+                <artifactId>jaxb2-basics</artifactId>
+                <version>1.11.1</version>
+              </dependency>
+            </dependencies>
+            <configuration>
+              <extension>true</extension>
+              <xjcArgs>
+                <xjcArg>-Xequals</xjcArg>
+                <xjcArg>-XtoString</xjcArg>
+                <xjcArg>-XhashCode</xjcArg>
+                <xjcArg>-Xcopyable</xjcArg>
+              </xjcArgs>
+              <plugins>
+                <plugin>
+                  <groupId>org.jvnet.jaxb2_commons</groupId>
+                  <artifactId>jaxb2-basics</artifactId>
+                  <version>1.11.1</version>
+                </plugin>
+              </plugins>
+            </configuration>
             <executions>
-            
+
               <execution>
                 <id>generateWSClients_${loginExecution}</id>
                 <phase>generate-sources</phase>
@@ -191,7 +325,7 @@
                   <packageName>${generatedPackageBase}.${loginServicePackageName}</packageName>
                 </configuration>
               </execution>
-              
+
               <execution>
                 <id>generateWSClients_${icmwsincomeExecution}</id>
                 <phase>generate-sources</phase>
@@ -208,11 +342,7 @@
                 </configuration>
               </execution>
             </executions>
-            
-            <configuration>
-              <extension>true</extension>
-            </configuration>
-            
+
           </plugin>
 
           <plugin>
@@ -220,9 +350,9 @@
             <artifactId>wagon-maven-plugin</artifactId>
             <version>1.0-beta-4</version>
             <executions>
-            
+
               <execution>
-                <id>download-${loginExecution}</id>
+                <id>download_${loginExecution}</id>
                 <phase>process-resources</phase>
                 <goals>
                   <goal>download-single</goal>
@@ -233,9 +363,9 @@
                   <toFile>${sourceDestDirWsdl}/${loginServiceName}.wsdl</toFile>
                 </configuration>
               </execution>
-              
+
               <execution>
-                <id>download-${icmwsincomeExecution}</id>
+                <id>download_${icmwsincomeExecution}</id>
                 <phase>process-resources</phase>
                 <goals>
                   <goal>download-single</goal>
@@ -246,7 +376,7 @@
                   <toFile>${sourceDestDirWsdl}/${icmwsincomeServiceName}.wsdl</toFile>
                 </configuration>
               </execution>
-              
+
             </executions>
           </plugin>
         </plugins>

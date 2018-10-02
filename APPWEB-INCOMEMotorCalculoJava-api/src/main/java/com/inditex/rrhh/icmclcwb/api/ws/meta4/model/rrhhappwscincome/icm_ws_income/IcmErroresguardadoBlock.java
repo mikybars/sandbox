@@ -7,12 +7,26 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
+import org.jvnet.jaxb2_commons.lang.CopyTo2;
+import org.jvnet.jaxb2_commons.lang.Equals2;
+import org.jvnet.jaxb2_commons.lang.EqualsStrategy2;
+import org.jvnet.jaxb2_commons.lang.HashCode2;
+import org.jvnet.jaxb2_commons.lang.HashCodeStrategy2;
+import org.jvnet.jaxb2_commons.lang.JAXBCopyStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBToStringStrategy;
+import org.jvnet.jaxb2_commons.lang.ToString2;
+import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
+import org.jvnet.jaxb2_commons.locator.ObjectLocator;
+import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Java class for Icm_ErroresguardadoBlock complex type.
+ * <p>Clase Java para Icm_ErroresguardadoBlock complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="Icm_ErroresguardadoBlock">
@@ -34,7 +48,8 @@ import javax.xml.bind.annotation.XmlType;
     "resultado",
     "icmErroresguardadoRecordSet"
 })
-public class IcmErroresguardadoBlock {
+public class IcmErroresguardadoBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     @XmlElement(required = true, nillable = true)
     protected String resultado;
@@ -42,7 +57,7 @@ public class IcmErroresguardadoBlock {
     protected List<IcmErroresguardadoRecord> icmErroresguardadoRecordSet;
 
     /**
-     * Gets the value of the resultado property.
+     * Obtiene el valor de la propiedad resultado.
      * 
      * @return
      *     possible object is
@@ -54,7 +69,7 @@ public class IcmErroresguardadoBlock {
     }
 
     /**
-     * Sets the value of the resultado property.
+     * Define el valor de la propiedad resultado.
      * 
      * @param value
      *     allowed object is
@@ -92,6 +107,140 @@ public class IcmErroresguardadoBlock {
             icmErroresguardadoRecordSet = new ArrayList<IcmErroresguardadoRecord>();
         }
         return this.icmErroresguardadoRecordSet;
+    }
+
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
+        }
+        if (this == object) {
+            return true;
+        }
+        final IcmErroresguardadoBlock that = ((IcmErroresguardadoBlock) object);
+        {
+            String lhsResultado;
+            lhsResultado = this.getResultado();
+            String rhsResultado;
+            rhsResultado = that.getResultado();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "resultado", lhsResultado), LocatorUtils.property(thatLocator, "resultado", rhsResultado), lhsResultado, rhsResultado, (this.resultado!= null), (that.resultado!= null))) {
+                return false;
+            }
+        }
+        {
+            List<IcmErroresguardadoRecord> lhsIcmErroresguardadoRecordSet;
+            lhsIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))?this.getIcmErroresguardadoRecordSet():null);
+            List<IcmErroresguardadoRecord> rhsIcmErroresguardadoRecordSet;
+            rhsIcmErroresguardadoRecordSet = (((that.icmErroresguardadoRecordSet!= null)&&(!that.icmErroresguardadoRecordSet.isEmpty()))?that.getIcmErroresguardadoRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmErroresguardadoRecordSet", lhsIcmErroresguardadoRecordSet), LocatorUtils.property(thatLocator, "icmErroresguardadoRecordSet", rhsIcmErroresguardadoRecordSet), lhsIcmErroresguardadoRecordSet, rhsIcmErroresguardadoRecordSet, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty())), ((that.icmErroresguardadoRecordSet!= null)&&(!that.icmErroresguardadoRecordSet.isEmpty())))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            String theResultado;
+            theResultado = this.getResultado();
+            strategy.appendField(locator, this, "resultado", buffer, theResultado, (this.resultado!= null));
+        }
+        {
+            List<IcmErroresguardadoRecord> theIcmErroresguardadoRecordSet;
+            theIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))?this.getIcmErroresguardadoRecordSet():null);
+            strategy.appendField(locator, this, "icmErroresguardadoRecordSet", buffer, theIcmErroresguardadoRecordSet, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty())));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            String theResultado;
+            theResultado = this.getResultado();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "resultado", theResultado), currentHashCode, theResultado, (this.resultado!= null));
+        }
+        {
+            List<IcmErroresguardadoRecord> theIcmErroresguardadoRecordSet;
+            theIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))?this.getIcmErroresguardadoRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmErroresguardadoRecordSet", theIcmErroresguardadoRecordSet), currentHashCode, theIcmErroresguardadoRecordSet, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty())));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof IcmErroresguardadoBlock) {
+            final IcmErroresguardadoBlock copy = ((IcmErroresguardadoBlock) draftCopy);
+            {
+                Boolean resultadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.resultado!= null));
+                if (resultadoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceResultado;
+                    sourceResultado = this.getResultado();
+                    String copyResultado = ((String) strategy.copy(LocatorUtils.property(locator, "resultado", sourceResultado), sourceResultado, (this.resultado!= null)));
+                    copy.setResultado(copyResultado);
+                } else {
+                    if (resultadoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.resultado = null;
+                    }
+                }
+            }
+            {
+                Boolean icmErroresguardadoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty())));
+                if (icmErroresguardadoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
+                    List<IcmErroresguardadoRecord> sourceIcmErroresguardadoRecordSet;
+                    sourceIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))?this.getIcmErroresguardadoRecordSet():null);
+                    @SuppressWarnings("unchecked")
+                    List<IcmErroresguardadoRecord> copyIcmErroresguardadoRecordSet = ((List<IcmErroresguardadoRecord> ) strategy.copy(LocatorUtils.property(locator, "icmErroresguardadoRecordSet", sourceIcmErroresguardadoRecordSet), sourceIcmErroresguardadoRecordSet, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))));
+                    copy.icmErroresguardadoRecordSet = null;
+                    if (copyIcmErroresguardadoRecordSet!= null) {
+                        List<IcmErroresguardadoRecord> uniqueIcmErroresguardadoRecordSetl = copy.getIcmErroresguardadoRecordSet();
+                        uniqueIcmErroresguardadoRecordSetl.addAll(copyIcmErroresguardadoRecordSet);
+                    }
+                } else {
+                    if (icmErroresguardadoRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmErroresguardadoRecordSet = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new IcmErroresguardadoBlock();
     }
 
 }

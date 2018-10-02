@@ -7,12 +7,26 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
+import org.jvnet.jaxb2_commons.lang.CopyTo2;
+import org.jvnet.jaxb2_commons.lang.Equals2;
+import org.jvnet.jaxb2_commons.lang.EqualsStrategy2;
+import org.jvnet.jaxb2_commons.lang.HashCode2;
+import org.jvnet.jaxb2_commons.lang.HashCodeStrategy2;
+import org.jvnet.jaxb2_commons.lang.JAXBCopyStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBToStringStrategy;
+import org.jvnet.jaxb2_commons.lang.ToString2;
+import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
+import org.jvnet.jaxb2_commons.locator.ObjectLocator;
+import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Java class for Icm_CalendariotiendaBlock complex type.
+ * <p>Clase Java para Icm_CalendariotiendaBlock complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="Icm_CalendariotiendaBlock">
@@ -36,7 +50,8 @@ import javax.xml.bind.annotation.XmlType;
     "sysSentenceA",
     "icmCalendariotiendaRecordSet"
 })
-public class IcmCalendariotiendaBlock {
+public class IcmCalendariotiendaBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     @XmlElement(name = "sys_Param_A", required = true, nillable = true)
     protected String sysParamA;
@@ -46,7 +61,7 @@ public class IcmCalendariotiendaBlock {
     protected List<IcmCalendariotiendaRecord> icmCalendariotiendaRecordSet;
 
     /**
-     * Gets the value of the sysParamA property.
+     * Obtiene el valor de la propiedad sysParamA.
      * 
      * @return
      *     possible object is
@@ -58,7 +73,7 @@ public class IcmCalendariotiendaBlock {
     }
 
     /**
-     * Sets the value of the sysParamA property.
+     * Define el valor de la propiedad sysParamA.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +85,7 @@ public class IcmCalendariotiendaBlock {
     }
 
     /**
-     * Gets the value of the sysSentenceA property.
+     * Obtiene el valor de la propiedad sysSentenceA.
      * 
      * @return
      *     possible object is
@@ -82,7 +97,7 @@ public class IcmCalendariotiendaBlock {
     }
 
     /**
-     * Sets the value of the sysSentenceA property.
+     * Define el valor de la propiedad sysSentenceA.
      * 
      * @param value
      *     allowed object is
@@ -120,6 +135,172 @@ public class IcmCalendariotiendaBlock {
             icmCalendariotiendaRecordSet = new ArrayList<IcmCalendariotiendaRecord>();
         }
         return this.icmCalendariotiendaRecordSet;
+    }
+
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
+        }
+        if (this == object) {
+            return true;
+        }
+        final IcmCalendariotiendaBlock that = ((IcmCalendariotiendaBlock) object);
+        {
+            String lhsSysParamA;
+            lhsSysParamA = this.getSysParamA();
+            String rhsSysParamA;
+            rhsSysParamA = that.getSysParamA();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "sysParamA", lhsSysParamA), LocatorUtils.property(thatLocator, "sysParamA", rhsSysParamA), lhsSysParamA, rhsSysParamA, (this.sysParamA!= null), (that.sysParamA!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsSysSentenceA;
+            lhsSysSentenceA = this.getSysSentenceA();
+            String rhsSysSentenceA;
+            rhsSysSentenceA = that.getSysSentenceA();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "sysSentenceA", lhsSysSentenceA), LocatorUtils.property(thatLocator, "sysSentenceA", rhsSysSentenceA), lhsSysSentenceA, rhsSysSentenceA, (this.sysSentenceA!= null), (that.sysSentenceA!= null))) {
+                return false;
+            }
+        }
+        {
+            List<IcmCalendariotiendaRecord> lhsIcmCalendariotiendaRecordSet;
+            lhsIcmCalendariotiendaRecordSet = (((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty()))?this.getIcmCalendariotiendaRecordSet():null);
+            List<IcmCalendariotiendaRecord> rhsIcmCalendariotiendaRecordSet;
+            rhsIcmCalendariotiendaRecordSet = (((that.icmCalendariotiendaRecordSet!= null)&&(!that.icmCalendariotiendaRecordSet.isEmpty()))?that.getIcmCalendariotiendaRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmCalendariotiendaRecordSet", lhsIcmCalendariotiendaRecordSet), LocatorUtils.property(thatLocator, "icmCalendariotiendaRecordSet", rhsIcmCalendariotiendaRecordSet), lhsIcmCalendariotiendaRecordSet, rhsIcmCalendariotiendaRecordSet, ((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty())), ((that.icmCalendariotiendaRecordSet!= null)&&(!that.icmCalendariotiendaRecordSet.isEmpty())))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            String theSysParamA;
+            theSysParamA = this.getSysParamA();
+            strategy.appendField(locator, this, "sysParamA", buffer, theSysParamA, (this.sysParamA!= null));
+        }
+        {
+            String theSysSentenceA;
+            theSysSentenceA = this.getSysSentenceA();
+            strategy.appendField(locator, this, "sysSentenceA", buffer, theSysSentenceA, (this.sysSentenceA!= null));
+        }
+        {
+            List<IcmCalendariotiendaRecord> theIcmCalendariotiendaRecordSet;
+            theIcmCalendariotiendaRecordSet = (((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty()))?this.getIcmCalendariotiendaRecordSet():null);
+            strategy.appendField(locator, this, "icmCalendariotiendaRecordSet", buffer, theIcmCalendariotiendaRecordSet, ((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty())));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            String theSysParamA;
+            theSysParamA = this.getSysParamA();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "sysParamA", theSysParamA), currentHashCode, theSysParamA, (this.sysParamA!= null));
+        }
+        {
+            String theSysSentenceA;
+            theSysSentenceA = this.getSysSentenceA();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "sysSentenceA", theSysSentenceA), currentHashCode, theSysSentenceA, (this.sysSentenceA!= null));
+        }
+        {
+            List<IcmCalendariotiendaRecord> theIcmCalendariotiendaRecordSet;
+            theIcmCalendariotiendaRecordSet = (((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty()))?this.getIcmCalendariotiendaRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmCalendariotiendaRecordSet", theIcmCalendariotiendaRecordSet), currentHashCode, theIcmCalendariotiendaRecordSet, ((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty())));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof IcmCalendariotiendaBlock) {
+            final IcmCalendariotiendaBlock copy = ((IcmCalendariotiendaBlock) draftCopy);
+            {
+                Boolean sysParamAShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.sysParamA!= null));
+                if (sysParamAShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceSysParamA;
+                    sourceSysParamA = this.getSysParamA();
+                    String copySysParamA = ((String) strategy.copy(LocatorUtils.property(locator, "sysParamA", sourceSysParamA), sourceSysParamA, (this.sysParamA!= null)));
+                    copy.setSysParamA(copySysParamA);
+                } else {
+                    if (sysParamAShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.sysParamA = null;
+                    }
+                }
+            }
+            {
+                Boolean sysSentenceAShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.sysSentenceA!= null));
+                if (sysSentenceAShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceSysSentenceA;
+                    sourceSysSentenceA = this.getSysSentenceA();
+                    String copySysSentenceA = ((String) strategy.copy(LocatorUtils.property(locator, "sysSentenceA", sourceSysSentenceA), sourceSysSentenceA, (this.sysSentenceA!= null)));
+                    copy.setSysSentenceA(copySysSentenceA);
+                } else {
+                    if (sysSentenceAShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.sysSentenceA = null;
+                    }
+                }
+            }
+            {
+                Boolean icmCalendariotiendaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty())));
+                if (icmCalendariotiendaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
+                    List<IcmCalendariotiendaRecord> sourceIcmCalendariotiendaRecordSet;
+                    sourceIcmCalendariotiendaRecordSet = (((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty()))?this.getIcmCalendariotiendaRecordSet():null);
+                    @SuppressWarnings("unchecked")
+                    List<IcmCalendariotiendaRecord> copyIcmCalendariotiendaRecordSet = ((List<IcmCalendariotiendaRecord> ) strategy.copy(LocatorUtils.property(locator, "icmCalendariotiendaRecordSet", sourceIcmCalendariotiendaRecordSet), sourceIcmCalendariotiendaRecordSet, ((this.icmCalendariotiendaRecordSet!= null)&&(!this.icmCalendariotiendaRecordSet.isEmpty()))));
+                    copy.icmCalendariotiendaRecordSet = null;
+                    if (copyIcmCalendariotiendaRecordSet!= null) {
+                        List<IcmCalendariotiendaRecord> uniqueIcmCalendariotiendaRecordSetl = copy.getIcmCalendariotiendaRecordSet();
+                        uniqueIcmCalendariotiendaRecordSetl.addAll(copyIcmCalendariotiendaRecordSet);
+                    }
+                } else {
+                    if (icmCalendariotiendaRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmCalendariotiendaRecordSet = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new IcmCalendariotiendaBlock();
     }
 
 }

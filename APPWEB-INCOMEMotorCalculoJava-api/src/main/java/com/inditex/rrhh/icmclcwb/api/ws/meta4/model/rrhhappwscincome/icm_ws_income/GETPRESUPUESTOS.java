@@ -6,12 +6,26 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
+import org.jvnet.jaxb2_commons.lang.CopyTo2;
+import org.jvnet.jaxb2_commons.lang.Equals2;
+import org.jvnet.jaxb2_commons.lang.EqualsStrategy2;
+import org.jvnet.jaxb2_commons.lang.HashCode2;
+import org.jvnet.jaxb2_commons.lang.HashCodeStrategy2;
+import org.jvnet.jaxb2_commons.lang.JAXBCopyStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy;
+import org.jvnet.jaxb2_commons.lang.JAXBToStringStrategy;
+import org.jvnet.jaxb2_commons.lang.ToString2;
+import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
+import org.jvnet.jaxb2_commons.locator.ObjectLocator;
+import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType>
@@ -34,7 +48,8 @@ import javax.xml.bind.annotation.XmlType;
     "icmparametrospresupuesto"
 })
 @XmlRootElement(name = "GETPRESUPUESTOS")
-public class GETPRESUPUESTOS {
+public class GETPRESUPUESTOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
@@ -42,7 +57,7 @@ public class GETPRESUPUESTOS {
     protected IcmParametrospresupuestoBlock icmparametrospresupuesto;
 
     /**
-     * Gets the value of the icmparametrospaginacion property.
+     * Obtiene el valor de la propiedad icmparametrospaginacion.
      * 
      * @return
      *     possible object is
@@ -54,7 +69,7 @@ public class GETPRESUPUESTOS {
     }
 
     /**
-     * Sets the value of the icmparametrospaginacion property.
+     * Define el valor de la propiedad icmparametrospaginacion.
      * 
      * @param value
      *     allowed object is
@@ -66,7 +81,7 @@ public class GETPRESUPUESTOS {
     }
 
     /**
-     * Gets the value of the icmparametrospresupuesto property.
+     * Obtiene el valor de la propiedad icmparametrospresupuesto.
      * 
      * @return
      *     possible object is
@@ -78,7 +93,7 @@ public class GETPRESUPUESTOS {
     }
 
     /**
-     * Sets the value of the icmparametrospresupuesto property.
+     * Define el valor de la propiedad icmparametrospresupuesto.
      * 
      * @param value
      *     allowed object is
@@ -87,6 +102,135 @@ public class GETPRESUPUESTOS {
      */
     public void setICMPARAMETROSPRESUPUESTO(IcmParametrospresupuestoBlock value) {
         this.icmparametrospresupuesto = value;
+    }
+
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
+        }
+        if (this == object) {
+            return true;
+        }
+        final GETPRESUPUESTOS that = ((GETPRESUPUESTOS) object);
+        {
+            IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
+            lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
+            rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION), LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null), (that.icmparametrospaginacion!= null))) {
+                return false;
+            }
+        }
+        {
+            IcmParametrospresupuestoBlock lhsICMPARAMETROSPRESUPUESTO;
+            lhsICMPARAMETROSPRESUPUESTO = this.getICMPARAMETROSPRESUPUESTO();
+            IcmParametrospresupuestoBlock rhsICMPARAMETROSPRESUPUESTO;
+            rhsICMPARAMETROSPRESUPUESTO = that.getICMPARAMETROSPRESUPUESTO();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospresupuesto", lhsICMPARAMETROSPRESUPUESTO), LocatorUtils.property(thatLocator, "icmparametrospresupuesto", rhsICMPARAMETROSPRESUPUESTO), lhsICMPARAMETROSPRESUPUESTO, rhsICMPARAMETROSPRESUPUESTO, (this.icmparametrospresupuesto!= null), (that.icmparametrospresupuesto!= null))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+        }
+        {
+            IcmParametrospresupuestoBlock theICMPARAMETROSPRESUPUESTO;
+            theICMPARAMETROSPRESUPUESTO = this.getICMPARAMETROSPRESUPUESTO();
+            strategy.appendField(locator, this, "icmparametrospresupuesto", buffer, theICMPARAMETROSPRESUPUESTO, (this.icmparametrospresupuesto!= null));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION), currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+        }
+        {
+            IcmParametrospresupuestoBlock theICMPARAMETROSPRESUPUESTO;
+            theICMPARAMETROSPRESUPUESTO = this.getICMPARAMETROSPRESUPUESTO();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospresupuesto", theICMPARAMETROSPRESUPUESTO), currentHashCode, theICMPARAMETROSPRESUPUESTO, (this.icmparametrospresupuesto!= null));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof GETPRESUPUESTOS) {
+            final GETPRESUPUESTOS copy = ((GETPRESUPUESTOS) draftCopy);
+            {
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion!= null));
+                if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
+                    sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null)));
+                    copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
+                } else {
+                    if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparametrospaginacion = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparametrospresupuestoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospresupuesto!= null));
+                if (icmparametrospresupuestoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParametrospresupuestoBlock sourceICMPARAMETROSPRESUPUESTO;
+                    sourceICMPARAMETROSPRESUPUESTO = this.getICMPARAMETROSPRESUPUESTO();
+                    IcmParametrospresupuestoBlock copyICMPARAMETROSPRESUPUESTO = ((IcmParametrospresupuestoBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrospresupuesto", sourceICMPARAMETROSPRESUPUESTO), sourceICMPARAMETROSPRESUPUESTO, (this.icmparametrospresupuesto!= null)));
+                    copy.setICMPARAMETROSPRESUPUESTO(copyICMPARAMETROSPRESUPUESTO);
+                } else {
+                    if (icmparametrospresupuestoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparametrospresupuesto = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new GETPRESUPUESTOS();
     }
 
 }
