@@ -10,23 +10,23 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para Icm_ParametrospresupuestoBlock complex type.
+ * <p>Java class for Icm_ParametrospresupuestoBlock complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParametrospresupuestoBlock"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="idcadena" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="ejercicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="Icm_ParametrospresupuestoRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrospresupuestoRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="Icm_ParametrospresupuestoBlock">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="idcadena" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ejercicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Icm_ParametrospresupuestoRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrospresupuestoRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -50,7 +50,7 @@ public class IcmParametrospresupuestoBlock {
     protected List<IcmParametrospresupuestoRecord> icmParametrospresupuestoRecordSet;
 
     /**
-     * Obtiene el valor de la propiedad idcadena.
+     * Gets the value of the idcadena property.
      * 
      * @return
      *     possible object is
@@ -62,7 +62,7 @@ public class IcmParametrospresupuestoBlock {
     }
 
     /**
-     * Define el valor de la propiedad idcadena.
+     * Sets the value of the idcadena property.
      * 
      * @param value
      *     allowed object is
@@ -74,7 +74,7 @@ public class IcmParametrospresupuestoBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad ejercicio.
+     * Gets the value of the ejercicio property.
      * 
      * @return
      *     possible object is
@@ -86,7 +86,7 @@ public class IcmParametrospresupuestoBlock {
     }
 
     /**
-     * Define el valor de la propiedad ejercicio.
+     * Sets the value of the ejercicio property.
      * 
      * @param value
      *     allowed object is
@@ -98,7 +98,7 @@ public class IcmParametrospresupuestoBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad idlugartrabajo.
+     * Gets the value of the idlugartrabajo property.
      * 
      * @return
      *     possible object is
@@ -110,7 +110,7 @@ public class IcmParametrospresupuestoBlock {
     }
 
     /**
-     * Define el valor de la propiedad idlugartrabajo.
+     * Sets the value of the idlugartrabajo property.
      * 
      * @param value
      *     allowed object is

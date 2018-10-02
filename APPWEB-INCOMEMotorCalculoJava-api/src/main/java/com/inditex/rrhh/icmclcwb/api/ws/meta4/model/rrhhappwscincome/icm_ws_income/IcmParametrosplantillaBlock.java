@@ -10,24 +10,24 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para Icm_ParametrosplantillaBlock complex type.
+ * <p>Java class for Icm_ParametrosplantillaBlock complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParametrosplantillaBlock"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="idestructura" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="tipocondicion" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="tiposplantillas" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="subtipocondicion" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="Icm_ParametrosplantillaRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrosplantillaRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="Icm_ParametrosplantillaBlock">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="idestructura" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="tipocondicion" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="tiposplantillas" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="subtipocondicion" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Icm_ParametrosplantillaRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrosplantillaRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -54,7 +54,7 @@ public class IcmParametrosplantillaBlock {
     protected List<IcmParametrosplantillaRecord> icmParametrosplantillaRecordSet;
 
     /**
-     * Obtiene el valor de la propiedad idestructura.
+     * Gets the value of the idestructura property.
      * 
      * @return
      *     possible object is
@@ -66,7 +66,7 @@ public class IcmParametrosplantillaBlock {
     }
 
     /**
-     * Define el valor de la propiedad idestructura.
+     * Sets the value of the idestructura property.
      * 
      * @param value
      *     allowed object is
@@ -78,7 +78,7 @@ public class IcmParametrosplantillaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad tipocondicion.
+     * Gets the value of the tipocondicion property.
      * 
      * @return
      *     possible object is
@@ -90,7 +90,7 @@ public class IcmParametrosplantillaBlock {
     }
 
     /**
-     * Define el valor de la propiedad tipocondicion.
+     * Sets the value of the tipocondicion property.
      * 
      * @param value
      *     allowed object is
@@ -102,7 +102,7 @@ public class IcmParametrosplantillaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad tiposplantillas.
+     * Gets the value of the tiposplantillas property.
      * 
      * @return
      *     possible object is
@@ -114,7 +114,7 @@ public class IcmParametrosplantillaBlock {
     }
 
     /**
-     * Define el valor de la propiedad tiposplantillas.
+     * Sets the value of the tiposplantillas property.
      * 
      * @param value
      *     allowed object is
@@ -126,7 +126,7 @@ public class IcmParametrosplantillaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad subtipocondicion.
+     * Gets the value of the subtipocondicion property.
      * 
      * @return
      *     possible object is
@@ -138,7 +138,7 @@ public class IcmParametrosplantillaBlock {
     }
 
     /**
-     * Define el valor de la propiedad subtipocondicion.
+     * Sets the value of the subtipocondicion property.
      * 
      * @param value
      *     allowed object is

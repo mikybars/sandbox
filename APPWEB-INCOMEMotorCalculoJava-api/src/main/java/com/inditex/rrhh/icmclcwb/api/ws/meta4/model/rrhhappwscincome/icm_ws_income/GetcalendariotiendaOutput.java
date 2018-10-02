@@ -10,22 +10,22 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para GetcalendariotiendaOutput complex type.
+ * <p>Java class for GetcalendariotiendaOutput complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="GetcalendariotiendaOutput"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Calendariotienda" type="{http://schemas.meta4.com/}Icm_CalendariotiendaBlock"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="GetcalendariotiendaOutput">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Icm_Calendariotienda" type="{http://schemas.meta4.com/}Icm_CalendariotiendaBlock"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -46,7 +46,7 @@ public class GetcalendariotiendaOutput {
     protected IcmCalendariotiendaBlock icmCalendariotienda;
 
     /**
-     * Obtiene el valor de la propiedad return.
+     * Gets the value of the return property.
      * 
      */
     public double getReturn() {
@@ -54,7 +54,7 @@ public class GetcalendariotiendaOutput {
     }
 
     /**
-     * Define el valor de la propiedad return.
+     * Sets the value of the return property.
      * 
      */
     public void setReturn(double value) {
@@ -91,7 +91,7 @@ public class GetcalendariotiendaOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmCalendariotienda.
+     * Gets the value of the icmCalendariotienda property.
      * 
      * @return
      *     possible object is
@@ -103,7 +103,7 @@ public class GetcalendariotiendaOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmCalendariotienda.
+     * Sets the value of the icmCalendariotienda property.
      * 
      * @param value
      *     allowed object is

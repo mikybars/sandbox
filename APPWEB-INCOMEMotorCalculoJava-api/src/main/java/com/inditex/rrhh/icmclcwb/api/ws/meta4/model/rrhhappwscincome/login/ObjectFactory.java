@@ -34,35 +34,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Login }
+     * Create an instance of {@link RetrieveM4Session }
      * 
      */
-    public Login createLogin() {
-        return new Login();
-    }
-
-    /**
-     * Create an instance of {@link LoginResponse }
-     * 
-     */
-    public LoginResponse createLoginResponse() {
-        return new LoginResponse();
-    }
-
-    /**
-     * Create an instance of {@link M4LoginOutput }
-     * 
-     */
-    public M4LoginOutput createM4LoginOutput() {
-        return new M4LoginOutput();
-    }
-
-    /**
-     * Create an instance of {@link M4SoapException }
-     * 
-     */
-    public M4SoapException createM4SoapException() {
-        return new M4SoapException();
+    public RetrieveM4Session createRetrieveM4Session() {
+        return new RetrieveM4Session();
     }
 
     /**
@@ -74,11 +50,59 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Login }
+     * 
+     */
+    public Login createLogin() {
+        return new Login();
+    }
+
+    /**
+     * Create an instance of {@link LoginWithCertificate }
+     * 
+     */
+    public LoginWithCertificate createLoginWithCertificate() {
+        return new LoginWithCertificate();
+    }
+
+    /**
+     * Create an instance of {@link M4LoginOutput }
+     * 
+     */
+    public M4LoginOutput createM4LoginOutput() {
+        return new M4LoginOutput();
+    }
+
+    /**
+     * Create an instance of {@link LoginWithCertificateResponse }
+     * 
+     */
+    public LoginWithCertificateResponse createLoginWithCertificateResponse() {
+        return new LoginWithCertificateResponse();
+    }
+
+    /**
+     * Create an instance of {@link RetrieveM4SessionResponse }
+     * 
+     */
+    public RetrieveM4SessionResponse createRetrieveM4SessionResponse() {
+        return new RetrieveM4SessionResponse();
+    }
+
+    /**
      * Create an instance of {@link LoginWithRoleResponse }
      * 
      */
     public LoginWithRoleResponse createLoginWithRoleResponse() {
         return new LoginWithRoleResponse();
+    }
+
+    /**
+     * Create an instance of {@link LoginResponse }
+     * 
+     */
+    public LoginResponse createLoginResponse() {
+        return new LoginResponse();
     }
 
     /**
@@ -98,35 +122,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LoginWithCertificate }
+     * Create an instance of {@link M4SoapException }
      * 
      */
-    public LoginWithCertificate createLoginWithCertificate() {
-        return new LoginWithCertificate();
-    }
-
-    /**
-     * Create an instance of {@link LoginWithCertificateResponse }
-     * 
-     */
-    public LoginWithCertificateResponse createLoginWithCertificateResponse() {
-        return new LoginWithCertificateResponse();
-    }
-
-    /**
-     * Create an instance of {@link RetrieveM4Session }
-     * 
-     */
-    public RetrieveM4Session createRetrieveM4Session() {
-        return new RetrieveM4Session();
-    }
-
-    /**
-     * Create an instance of {@link RetrieveM4SessionResponse }
-     * 
-     */
-    public RetrieveM4SessionResponse createRetrieveM4SessionResponse() {
-        return new RetrieveM4SessionResponse();
+    public M4SoapException createM4SoapException() {
+        return new M4SoapException();
     }
 
     /**

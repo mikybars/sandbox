@@ -10,53 +10,53 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para M4LoadobjectOutput complex type.
+ * <p>Java class for M4LoadobjectOutput complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="M4LoadobjectOutput"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Ws_Tools" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/&gt;
- *         &lt;element name="Icm_Ventamanual" type="{http://schemas.meta4.com/}Icm_VentamanualBlock"/&gt;
- *         &lt;element name="Icm_Globaltienda" type="{http://schemas.meta4.com/}Icm_GlobaltiendaBlock"/&gt;
- *         &lt;element name="Icm_Presupuestos" type="{http://schemas.meta4.com/}Icm_PresupuestosBlock"/&gt;
- *         &lt;element name="Icm_Buscadortienda" type="{http://schemas.meta4.com/}Icm_BuscadortiendaBlock"/&gt;
- *         &lt;element name="Icm_Cabeceratienda" type="{http://schemas.meta4.com/}Icm_CabeceratiendaBlock"/&gt;
- *         &lt;element name="Icm_Datosgentienda" type="{http://schemas.meta4.com/}Icm_DatosgentiendaBlock"/&gt;
- *         &lt;element name="Icm_Globalempleado" type="{http://schemas.meta4.com/}Icm_GlobalempleadoBlock"/&gt;
- *         &lt;element name="Icm_Ws_Operaciones" type="{http://schemas.meta4.com/}Icm_Ws_OperacionesBlock"/&gt;
- *         &lt;element name="Icm_Empleadostienda" type="{http://schemas.meta4.com/}Icm_EmpleadostiendaBlock"/&gt;
- *         &lt;element name="Icm_Parametrosexcel" type="{http://schemas.meta4.com/}Icm_ParametrosexcelBlock"/&gt;
- *         &lt;element name="Icm_Presenciamanual" type="{http://schemas.meta4.com/}Icm_PresenciamanualBlock"/&gt;
- *         &lt;element name="Icm_Cabeceraempleado" type="{http://schemas.meta4.com/}Icm_CabeceraempleadoBlock"/&gt;
- *         &lt;element name="Icm_Calendariotienda" type="{http://schemas.meta4.com/}Icm_CalendariotiendaBlock"/&gt;
- *         &lt;element name="Icm_Condicionesventa" type="{http://schemas.meta4.com/}Icm_CondicionesventaBlock"/&gt;
- *         &lt;element name="Icm_Datosgenempleado" type="{http://schemas.meta4.com/}Icm_DatosgenempleadoBlock"/&gt;
- *         &lt;element name="Icm_Empleadosdespent" type="{http://schemas.meta4.com/}Icm_EmpleadosdespentBlock"/&gt;
- *         &lt;element name="Icm_Empleadosdespsal" type="{http://schemas.meta4.com/}Icm_EmpleadosdespsalBlock"/&gt;
- *         &lt;element name="Icm_Parametrostienda" type="{http://schemas.meta4.com/}Icm_ParametrostiendaBlock"/&gt;
- *         &lt;element name="Icm_Resultadoguardado" type="{http://schemas.meta4.com/}Icm_ResultadoguardadoBlock"/&gt;
- *         &lt;element name="Icm_Bandaspresupuestos" type="{http://schemas.meta4.com/}Icm_BandaspresupuestosBlock"/&gt;
- *         &lt;element name="Icm_Calendarioempleado" type="{http://schemas.meta4.com/}Icm_CalendarioempleadoBlock"/&gt;
- *         &lt;element name="Icm_Parametrosempleado" type="{http://schemas.meta4.com/}Icm_ParametrosempleadoBlock"/&gt;
- *         &lt;element name="Icm_Tiendacomisionable" type="{http://schemas.meta4.com/}Icm_TiendacomisionableBlock"/&gt;
- *         &lt;element name="Icm_Empleadosestructura" type="{http://schemas.meta4.com/}Icm_EmpleadosestructuraBlock"/&gt;
- *         &lt;element name="Icm_Parametrosplantilla" type="{http://schemas.meta4.com/}Icm_ParametrosplantillaBlock"/&gt;
- *         &lt;element name="Icm_Tpcalculopaiscadena" type="{http://schemas.meta4.com/}Icm_TpcalculopaiscadenaBlock"/&gt;
- *         &lt;element name="Icm_Estadostiendaseccion" type="{http://schemas.meta4.com/}Icm_EstadostiendaseccionBlock"/&gt;
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
- *         &lt;element name="Icm_Parametrospaiscadena" type="{http://schemas.meta4.com/}Icm_ParametrospaiscadenaBlock"/&gt;
- *         &lt;element name="Icm_Plantillacondiciones" type="{http://schemas.meta4.com/}Icm_PlantillacondicionesBlock"/&gt;
- *         &lt;element name="Icm_Parametrospresupuesto" type="{http://schemas.meta4.com/}Icm_ParametrospresupuestoBlock"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="M4LoadobjectOutput">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Icm_Ws_Tools" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/>
+ *         &lt;element name="Icm_Ventamanual" type="{http://schemas.meta4.com/}Icm_VentamanualBlock"/>
+ *         &lt;element name="Icm_Globaltienda" type="{http://schemas.meta4.com/}Icm_GlobaltiendaBlock"/>
+ *         &lt;element name="Icm_Presupuestos" type="{http://schemas.meta4.com/}Icm_PresupuestosBlock"/>
+ *         &lt;element name="Icm_Buscadortienda" type="{http://schemas.meta4.com/}Icm_BuscadortiendaBlock"/>
+ *         &lt;element name="Icm_Cabeceratienda" type="{http://schemas.meta4.com/}Icm_CabeceratiendaBlock"/>
+ *         &lt;element name="Icm_Datosgentienda" type="{http://schemas.meta4.com/}Icm_DatosgentiendaBlock"/>
+ *         &lt;element name="Icm_Globalempleado" type="{http://schemas.meta4.com/}Icm_GlobalempleadoBlock"/>
+ *         &lt;element name="Icm_Ws_Operaciones" type="{http://schemas.meta4.com/}Icm_Ws_OperacionesBlock"/>
+ *         &lt;element name="Icm_Empleadostienda" type="{http://schemas.meta4.com/}Icm_EmpleadostiendaBlock"/>
+ *         &lt;element name="Icm_Parametrosexcel" type="{http://schemas.meta4.com/}Icm_ParametrosexcelBlock"/>
+ *         &lt;element name="Icm_Presenciamanual" type="{http://schemas.meta4.com/}Icm_PresenciamanualBlock"/>
+ *         &lt;element name="Icm_Cabeceraempleado" type="{http://schemas.meta4.com/}Icm_CabeceraempleadoBlock"/>
+ *         &lt;element name="Icm_Calendariotienda" type="{http://schemas.meta4.com/}Icm_CalendariotiendaBlock"/>
+ *         &lt;element name="Icm_Condicionesventa" type="{http://schemas.meta4.com/}Icm_CondicionesventaBlock"/>
+ *         &lt;element name="Icm_Datosgenempleado" type="{http://schemas.meta4.com/}Icm_DatosgenempleadoBlock"/>
+ *         &lt;element name="Icm_Empleadosdespent" type="{http://schemas.meta4.com/}Icm_EmpleadosdespentBlock"/>
+ *         &lt;element name="Icm_Empleadosdespsal" type="{http://schemas.meta4.com/}Icm_EmpleadosdespsalBlock"/>
+ *         &lt;element name="Icm_Parametrostienda" type="{http://schemas.meta4.com/}Icm_ParametrostiendaBlock"/>
+ *         &lt;element name="Icm_Resultadoguardado" type="{http://schemas.meta4.com/}Icm_ResultadoguardadoBlock"/>
+ *         &lt;element name="Icm_Bandaspresupuestos" type="{http://schemas.meta4.com/}Icm_BandaspresupuestosBlock"/>
+ *         &lt;element name="Icm_Calendarioempleado" type="{http://schemas.meta4.com/}Icm_CalendarioempleadoBlock"/>
+ *         &lt;element name="Icm_Parametrosempleado" type="{http://schemas.meta4.com/}Icm_ParametrosempleadoBlock"/>
+ *         &lt;element name="Icm_Tiendacomisionable" type="{http://schemas.meta4.com/}Icm_TiendacomisionableBlock"/>
+ *         &lt;element name="Icm_Empleadosestructura" type="{http://schemas.meta4.com/}Icm_EmpleadosestructuraBlock"/>
+ *         &lt;element name="Icm_Parametrosplantilla" type="{http://schemas.meta4.com/}Icm_ParametrosplantillaBlock"/>
+ *         &lt;element name="Icm_Tpcalculopaiscadena" type="{http://schemas.meta4.com/}Icm_TpcalculopaiscadenaBlock"/>
+ *         &lt;element name="Icm_Estadostiendaseccion" type="{http://schemas.meta4.com/}Icm_EstadostiendaseccionBlock"/>
+ *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
+ *         &lt;element name="Icm_Parametrospaiscadena" type="{http://schemas.meta4.com/}Icm_ParametrospaiscadenaBlock"/>
+ *         &lt;element name="Icm_Plantillacondiciones" type="{http://schemas.meta4.com/}Icm_PlantillacondicionesBlock"/>
+ *         &lt;element name="Icm_Parametrospresupuesto" type="{http://schemas.meta4.com/}Icm_ParametrospresupuestoBlock"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -170,7 +170,7 @@ public class M4LoadobjectOutput {
     protected IcmParametrospresupuestoBlock icmParametrospresupuesto;
 
     /**
-     * Obtiene el valor de la propiedad return.
+     * Gets the value of the return property.
      * 
      */
     public double getReturn() {
@@ -178,7 +178,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad return.
+     * Sets the value of the return property.
      * 
      */
     public void setReturn(double value) {
@@ -215,7 +215,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmWsTools.
+     * Gets the value of the icmWsTools property.
      * 
      * @return
      *     possible object is
@@ -227,7 +227,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmWsTools.
+     * Sets the value of the icmWsTools property.
      * 
      * @param value
      *     allowed object is
@@ -239,7 +239,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmVentamanual.
+     * Gets the value of the icmVentamanual property.
      * 
      * @return
      *     possible object is
@@ -251,7 +251,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmVentamanual.
+     * Sets the value of the icmVentamanual property.
      * 
      * @param value
      *     allowed object is
@@ -263,7 +263,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmGlobaltienda.
+     * Gets the value of the icmGlobaltienda property.
      * 
      * @return
      *     possible object is
@@ -275,7 +275,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmGlobaltienda.
+     * Sets the value of the icmGlobaltienda property.
      * 
      * @param value
      *     allowed object is
@@ -287,7 +287,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmPresupuestos.
+     * Gets the value of the icmPresupuestos property.
      * 
      * @return
      *     possible object is
@@ -299,7 +299,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmPresupuestos.
+     * Sets the value of the icmPresupuestos property.
      * 
      * @param value
      *     allowed object is
@@ -311,7 +311,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmBuscadortienda.
+     * Gets the value of the icmBuscadortienda property.
      * 
      * @return
      *     possible object is
@@ -323,7 +323,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmBuscadortienda.
+     * Sets the value of the icmBuscadortienda property.
      * 
      * @param value
      *     allowed object is
@@ -335,7 +335,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmCabeceratienda.
+     * Gets the value of the icmCabeceratienda property.
      * 
      * @return
      *     possible object is
@@ -347,7 +347,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmCabeceratienda.
+     * Sets the value of the icmCabeceratienda property.
      * 
      * @param value
      *     allowed object is
@@ -359,7 +359,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmDatosgentienda.
+     * Gets the value of the icmDatosgentienda property.
      * 
      * @return
      *     possible object is
@@ -371,7 +371,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmDatosgentienda.
+     * Sets the value of the icmDatosgentienda property.
      * 
      * @param value
      *     allowed object is
@@ -383,7 +383,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmGlobalempleado.
+     * Gets the value of the icmGlobalempleado property.
      * 
      * @return
      *     possible object is
@@ -395,7 +395,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmGlobalempleado.
+     * Sets the value of the icmGlobalempleado property.
      * 
      * @param value
      *     allowed object is
@@ -407,7 +407,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmWsOperaciones.
+     * Gets the value of the icmWsOperaciones property.
      * 
      * @return
      *     possible object is
@@ -419,7 +419,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmWsOperaciones.
+     * Sets the value of the icmWsOperaciones property.
      * 
      * @param value
      *     allowed object is
@@ -431,7 +431,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmEmpleadostienda.
+     * Gets the value of the icmEmpleadostienda property.
      * 
      * @return
      *     possible object is
@@ -443,7 +443,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmEmpleadostienda.
+     * Sets the value of the icmEmpleadostienda property.
      * 
      * @param value
      *     allowed object is
@@ -455,7 +455,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrosexcel.
+     * Gets the value of the icmParametrosexcel property.
      * 
      * @return
      *     possible object is
@@ -467,7 +467,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrosexcel.
+     * Sets the value of the icmParametrosexcel property.
      * 
      * @param value
      *     allowed object is
@@ -479,7 +479,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmPresenciamanual.
+     * Gets the value of the icmPresenciamanual property.
      * 
      * @return
      *     possible object is
@@ -491,7 +491,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmPresenciamanual.
+     * Sets the value of the icmPresenciamanual property.
      * 
      * @param value
      *     allowed object is
@@ -503,7 +503,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmCabeceraempleado.
+     * Gets the value of the icmCabeceraempleado property.
      * 
      * @return
      *     possible object is
@@ -515,7 +515,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmCabeceraempleado.
+     * Sets the value of the icmCabeceraempleado property.
      * 
      * @param value
      *     allowed object is
@@ -527,7 +527,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmCalendariotienda.
+     * Gets the value of the icmCalendariotienda property.
      * 
      * @return
      *     possible object is
@@ -539,7 +539,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmCalendariotienda.
+     * Sets the value of the icmCalendariotienda property.
      * 
      * @param value
      *     allowed object is
@@ -551,7 +551,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmCondicionesventa.
+     * Gets the value of the icmCondicionesventa property.
      * 
      * @return
      *     possible object is
@@ -563,7 +563,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmCondicionesventa.
+     * Sets the value of the icmCondicionesventa property.
      * 
      * @param value
      *     allowed object is
@@ -575,7 +575,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmDatosgenempleado.
+     * Gets the value of the icmDatosgenempleado property.
      * 
      * @return
      *     possible object is
@@ -587,7 +587,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmDatosgenempleado.
+     * Sets the value of the icmDatosgenempleado property.
      * 
      * @param value
      *     allowed object is
@@ -599,7 +599,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmEmpleadosdespent.
+     * Gets the value of the icmEmpleadosdespent property.
      * 
      * @return
      *     possible object is
@@ -611,7 +611,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmEmpleadosdespent.
+     * Sets the value of the icmEmpleadosdespent property.
      * 
      * @param value
      *     allowed object is
@@ -623,7 +623,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmEmpleadosdespsal.
+     * Gets the value of the icmEmpleadosdespsal property.
      * 
      * @return
      *     possible object is
@@ -635,7 +635,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmEmpleadosdespsal.
+     * Sets the value of the icmEmpleadosdespsal property.
      * 
      * @param value
      *     allowed object is
@@ -647,7 +647,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrostienda.
+     * Gets the value of the icmParametrostienda property.
      * 
      * @return
      *     possible object is
@@ -659,7 +659,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrostienda.
+     * Sets the value of the icmParametrostienda property.
      * 
      * @param value
      *     allowed object is
@@ -671,7 +671,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmResultadoguardado.
+     * Gets the value of the icmResultadoguardado property.
      * 
      * @return
      *     possible object is
@@ -683,7 +683,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmResultadoguardado.
+     * Sets the value of the icmResultadoguardado property.
      * 
      * @param value
      *     allowed object is
@@ -695,7 +695,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmBandaspresupuestos.
+     * Gets the value of the icmBandaspresupuestos property.
      * 
      * @return
      *     possible object is
@@ -707,7 +707,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmBandaspresupuestos.
+     * Sets the value of the icmBandaspresupuestos property.
      * 
      * @param value
      *     allowed object is
@@ -719,7 +719,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmCalendarioempleado.
+     * Gets the value of the icmCalendarioempleado property.
      * 
      * @return
      *     possible object is
@@ -731,7 +731,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmCalendarioempleado.
+     * Sets the value of the icmCalendarioempleado property.
      * 
      * @param value
      *     allowed object is
@@ -743,7 +743,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrosempleado.
+     * Gets the value of the icmParametrosempleado property.
      * 
      * @return
      *     possible object is
@@ -755,7 +755,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrosempleado.
+     * Sets the value of the icmParametrosempleado property.
      * 
      * @param value
      *     allowed object is
@@ -767,7 +767,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmTiendacomisionable.
+     * Gets the value of the icmTiendacomisionable property.
      * 
      * @return
      *     possible object is
@@ -779,7 +779,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmTiendacomisionable.
+     * Sets the value of the icmTiendacomisionable property.
      * 
      * @param value
      *     allowed object is
@@ -791,7 +791,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmEmpleadosestructura.
+     * Gets the value of the icmEmpleadosestructura property.
      * 
      * @return
      *     possible object is
@@ -803,7 +803,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmEmpleadosestructura.
+     * Sets the value of the icmEmpleadosestructura property.
      * 
      * @param value
      *     allowed object is
@@ -815,7 +815,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrosplantilla.
+     * Gets the value of the icmParametrosplantilla property.
      * 
      * @return
      *     possible object is
@@ -827,7 +827,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrosplantilla.
+     * Sets the value of the icmParametrosplantilla property.
      * 
      * @param value
      *     allowed object is
@@ -839,7 +839,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmTpcalculopaiscadena.
+     * Gets the value of the icmTpcalculopaiscadena property.
      * 
      * @return
      *     possible object is
@@ -851,7 +851,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmTpcalculopaiscadena.
+     * Sets the value of the icmTpcalculopaiscadena property.
      * 
      * @param value
      *     allowed object is
@@ -863,7 +863,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmEstadostiendaseccion.
+     * Gets the value of the icmEstadostiendaseccion property.
      * 
      * @return
      *     possible object is
@@ -875,7 +875,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmEstadostiendaseccion.
+     * Sets the value of the icmEstadostiendaseccion property.
      * 
      * @param value
      *     allowed object is
@@ -887,7 +887,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrospaginacion.
+     * Gets the value of the icmParametrospaginacion property.
      * 
      * @return
      *     possible object is
@@ -899,7 +899,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrospaginacion.
+     * Sets the value of the icmParametrospaginacion property.
      * 
      * @param value
      *     allowed object is
@@ -911,7 +911,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrospaiscadena.
+     * Gets the value of the icmParametrospaiscadena property.
      * 
      * @return
      *     possible object is
@@ -923,7 +923,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrospaiscadena.
+     * Sets the value of the icmParametrospaiscadena property.
      * 
      * @param value
      *     allowed object is
@@ -935,7 +935,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmPlantillacondiciones.
+     * Gets the value of the icmPlantillacondiciones property.
      * 
      * @return
      *     possible object is
@@ -947,7 +947,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmPlantillacondiciones.
+     * Sets the value of the icmPlantillacondiciones property.
      * 
      * @param value
      *     allowed object is
@@ -959,7 +959,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrospresupuesto.
+     * Gets the value of the icmParametrospresupuesto property.
      * 
      * @return
      *     possible object is
@@ -971,7 +971,7 @@ public class M4LoadobjectOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrospresupuesto.
+     * Sets the value of the icmParametrospresupuesto property.
      * 
      * @param value
      *     allowed object is

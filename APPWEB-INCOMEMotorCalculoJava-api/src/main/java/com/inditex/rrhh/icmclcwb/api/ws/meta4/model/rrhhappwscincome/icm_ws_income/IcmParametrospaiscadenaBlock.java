@@ -10,27 +10,27 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para Icm_ParametrospaiscadenaBlock complex type.
+ * <p>Java class for Icm_ParametrospaiscadenaBlock complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParametrospaiscadenaBlock"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idcadena" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="fechafindesde" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="fechafinhasta" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="fechainiciodesde" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="fechainiciohasta" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="Icm_ParametrospaiscadenaRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrospaiscadenaRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="Icm_ParametrospaiscadenaBlock">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idcadena" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechafindesde" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechafinhasta" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechainiciodesde" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechainiciohasta" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Icm_ParametrospaiscadenaRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrospaiscadenaRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -66,7 +66,7 @@ public class IcmParametrospaiscadenaBlock {
     protected List<IcmParametrospaiscadenaRecord> icmParametrospaiscadenaRecordSet;
 
     /**
-     * Obtiene el valor de la propiedad fechafin.
+     * Gets the value of the fechafin property.
      * 
      * @return
      *     possible object is
@@ -78,7 +78,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Define el valor de la propiedad fechafin.
+     * Sets the value of the fechafin property.
      * 
      * @param value
      *     allowed object is
@@ -90,7 +90,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad idcadena.
+     * Gets the value of the idcadena property.
      * 
      * @return
      *     possible object is
@@ -102,7 +102,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Define el valor de la propiedad idcadena.
+     * Sets the value of the idcadena property.
      * 
      * @param value
      *     allowed object is
@@ -114,7 +114,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechainicio.
+     * Gets the value of the fechainicio property.
      * 
      * @return
      *     possible object is
@@ -126,7 +126,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Define el valor de la propiedad fechainicio.
+     * Sets the value of the fechainicio property.
      * 
      * @param value
      *     allowed object is
@@ -138,7 +138,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechafindesde.
+     * Gets the value of the fechafindesde property.
      * 
      * @return
      *     possible object is
@@ -150,7 +150,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Define el valor de la propiedad fechafindesde.
+     * Sets the value of the fechafindesde property.
      * 
      * @param value
      *     allowed object is
@@ -162,7 +162,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechafinhasta.
+     * Gets the value of the fechafinhasta property.
      * 
      * @return
      *     possible object is
@@ -174,7 +174,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Define el valor de la propiedad fechafinhasta.
+     * Sets the value of the fechafinhasta property.
      * 
      * @param value
      *     allowed object is
@@ -186,7 +186,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechainiciodesde.
+     * Gets the value of the fechainiciodesde property.
      * 
      * @return
      *     possible object is
@@ -198,7 +198,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Define el valor de la propiedad fechainiciodesde.
+     * Sets the value of the fechainiciodesde property.
      * 
      * @param value
      *     allowed object is
@@ -210,7 +210,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechainiciohasta.
+     * Gets the value of the fechainiciohasta property.
      * 
      * @return
      *     possible object is
@@ -222,7 +222,7 @@ public class IcmParametrospaiscadenaBlock {
     }
 
     /**
-     * Define el valor de la propiedad fechainiciohasta.
+     * Sets the value of the fechainiciohasta property.
      * 
      * @param value
      *     allowed object is

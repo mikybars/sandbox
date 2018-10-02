@@ -10,23 +10,23 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para GetestadostiendaseccionOutput complex type.
+ * <p>Java class for GetestadostiendaseccionOutput complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="GetestadostiendaseccionOutput"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
- *         &lt;element name="Icm_Estadostiendaseccion" type="{http://schemas.meta4.com/}Icm_EstadostiendaseccionBlock"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="GetestadostiendaseccionOutput">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
+ *         &lt;element name="Icm_Estadostiendaseccion" type="{http://schemas.meta4.com/}Icm_EstadostiendaseccionBlock"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -50,7 +50,7 @@ public class GetestadostiendaseccionOutput {
     protected IcmEstadostiendaseccionBlock icmEstadostiendaseccion;
 
     /**
-     * Obtiene el valor de la propiedad return.
+     * Gets the value of the return property.
      * 
      */
     public double getReturn() {
@@ -58,7 +58,7 @@ public class GetestadostiendaseccionOutput {
     }
 
     /**
-     * Define el valor de la propiedad return.
+     * Sets the value of the return property.
      * 
      */
     public void setReturn(double value) {
@@ -95,7 +95,7 @@ public class GetestadostiendaseccionOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrospaginacion.
+     * Gets the value of the icmParametrospaginacion property.
      * 
      * @return
      *     possible object is
@@ -107,7 +107,7 @@ public class GetestadostiendaseccionOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrospaginacion.
+     * Sets the value of the icmParametrospaginacion property.
      * 
      * @param value
      *     allowed object is
@@ -119,7 +119,7 @@ public class GetestadostiendaseccionOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmEstadostiendaseccion.
+     * Gets the value of the icmEstadostiendaseccion property.
      * 
      * @return
      *     possible object is
@@ -131,7 +131,7 @@ public class GetestadostiendaseccionOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmEstadostiendaseccion.
+     * Sets the value of the icmEstadostiendaseccion property.
      * 
      * @param value
      *     allowed object is

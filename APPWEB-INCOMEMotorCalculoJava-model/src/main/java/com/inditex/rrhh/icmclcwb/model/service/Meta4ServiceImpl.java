@@ -13,7 +13,9 @@ import com.inditex.rrhh.icmclcwb.api.service.Meta4Service;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.GetempleadostiendaOutput;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmEmpleadostiendaRecord;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrospaginacionBlock;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrospaginacionRecord;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrostiendaBlock;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrostiendaRecord;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.Login;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.LoginService;
@@ -98,15 +100,18 @@ public class Meta4ServiceImpl implements Meta4Service {
 		boolean result = false;
 		if (this.retrieveM4Session() || this.login()) {
 			
+			String defaultValue = StringUtils.EMPTY;
+			
 			IcmParametrospaginacionBlock icmParametrospaginacionBlock = new IcmParametrospaginacionBlock();
-			icmParametrospaginacionBlock.setIdbusqueda(StringUtils.EMPTY);
-			icmParametrospaginacionBlock.setCampoorden(StringUtils.EMPTY);
+			icmParametrospaginacionBlock.setIdbusqueda(defaultValue);
+			icmParametrospaginacionBlock.setCampoorden(defaultValue);
 			icmParametrospaginacionBlock.setNumeropagina("1");
 			icmParametrospaginacionBlock.setNumeroregistrospagina("1000");
-			icmParametrospaginacionBlock.setNumerototalpaginas(StringUtils.EMPTY);
-			icmParametrospaginacionBlock.setNumerototalresultados(StringUtils.EMPTY);
+			icmParametrospaginacionBlock.setNumerototalpaginas(defaultValue);
+			icmParametrospaginacionBlock.setNumerototalresultados(defaultValue);
 			icmParametrospaginacionBlock.setTipoorden("ASC");
-			icmParametrospaginacionBlock.getIcmParametrospaginacionRecordSet();
+			icmParametrospaginacionBlock.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+//			icmParametrospaginacionBlock.getIcmParametrospaginacionRecordSet();
 //			ArrayOfIcmParametrospaginacionRecord arrayOfIcmParametrospaginacionRecord = new ArrayOfIcmParametrospaginacionRecord();
 //			arrayOfIcmParametrospaginacionRecord.getItem();
 //			icmParametrospaginacionBlock.setIcmParametrospaginacionRecordSet(arrayOfIcmParametrospaginacionRecord);
@@ -115,9 +120,10 @@ public class Meta4ServiceImpl implements Meta4Service {
 			icmParametrostiendaBlock.setFechainicio("2017-09-01T00:00:00.000Z");
 			icmParametrostiendaBlock.setFechafin("2017-09-30T00:00:00.000Z");
 			icmParametrostiendaBlock.setIdlugartrabajo("T160");
-			icmParametrostiendaBlock.setIdestado(StringUtils.EMPTY);
-			icmParametrostiendaBlock.setIdestadomtu(StringUtils.EMPTY);
-			icmParametrostiendaBlock.getIcmParametrostiendaRecordSet();
+			icmParametrostiendaBlock.setIdestado(defaultValue);
+			icmParametrostiendaBlock.setIdestadomtu(defaultValue);
+			icmParametrostiendaBlock.getIcmParametrostiendaRecordSet().add(new IcmParametrostiendaRecord());
+//			icmParametrostiendaBlock.getIcmParametrostiendaRecordSet();
 //			ArrayOfIcmParametrostiendaRecord arrayOfIcmParametrostiendaRecord = new ArrayOfIcmParametrostiendaRecord();
 //			arrayOfIcmParametrostiendaRecord.getItem();
 //			icmParametrostiendaBlock.setIcmParametrostiendaRecordSet(arrayOfIcmParametrostiendaRecord);

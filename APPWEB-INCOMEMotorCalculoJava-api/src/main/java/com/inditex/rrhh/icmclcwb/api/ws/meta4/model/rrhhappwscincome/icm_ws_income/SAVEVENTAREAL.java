@@ -9,20 +9,20 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="ICM_PRESUPUESTOS" type="{http://schemas.meta4.com/}Icm_PresupuestosBlock"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="ICM_PRESUPUESTOS" type="{http://schemas.meta4.com/}Icm_PresupuestosBlock"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -38,7 +38,7 @@ public class SAVEVENTAREAL {
     protected IcmPresupuestosBlock icmpresupuestos;
 
     /**
-     * Obtiene el valor de la propiedad icmpresupuestos.
+     * Gets the value of the icmpresupuestos property.
      * 
      * @return
      *     possible object is
@@ -50,7 +50,7 @@ public class SAVEVENTAREAL {
     }
 
     /**
-     * Define el valor de la propiedad icmpresupuestos.
+     * Sets the value of the icmpresupuestos property.
      * 
      * @param value
      *     allowed object is

@@ -9,20 +9,20 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="GETEMPLEADOSDESPENTReturn" type="{http://schemas.meta4.com/}GetempleadosdespentOutput"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="GETEMPLEADOSDESPENTReturn" type="{http://schemas.meta4.com/}GetempleadosdespentOutput"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -38,7 +38,7 @@ public class GETEMPLEADOSDESPENTResponse {
     protected GetempleadosdespentOutput getempleadosdespentReturn;
 
     /**
-     * Obtiene el valor de la propiedad getempleadosdespentReturn.
+     * Gets the value of the getempleadosdespentReturn property.
      * 
      * @return
      *     possible object is
@@ -50,7 +50,7 @@ public class GETEMPLEADOSDESPENTResponse {
     }
 
     /**
-     * Define el valor de la propiedad getempleadosdespentReturn.
+     * Sets the value of the getempleadosdespentReturn property.
      * 
      * @param value
      *     allowed object is

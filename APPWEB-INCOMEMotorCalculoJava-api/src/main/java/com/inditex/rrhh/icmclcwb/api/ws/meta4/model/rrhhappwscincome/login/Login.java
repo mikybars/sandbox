@@ -9,22 +9,22 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="in0" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="in1" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="in2" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="in0" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="in1" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="in2" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -46,7 +46,7 @@ public class Login {
     protected String in2;
 
     /**
-     * Obtiene el valor de la propiedad in0.
+     * Gets the value of the in0 property.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class Login {
     }
 
     /**
-     * Define el valor de la propiedad in0.
+     * Sets the value of the in0 property.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class Login {
     }
 
     /**
-     * Obtiene el valor de la propiedad in1.
+     * Gets the value of the in1 property.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class Login {
     }
 
     /**
-     * Define el valor de la propiedad in1.
+     * Sets the value of the in1 property.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +94,7 @@ public class Login {
     }
 
     /**
-     * Obtiene el valor de la propiedad in2.
+     * Gets the value of the in2 property.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class Login {
     }
 
     /**
-     * Define el valor de la propiedad in2.
+     * Sets the value of the in2 property.
      * 
      * @param value
      *     allowed object is

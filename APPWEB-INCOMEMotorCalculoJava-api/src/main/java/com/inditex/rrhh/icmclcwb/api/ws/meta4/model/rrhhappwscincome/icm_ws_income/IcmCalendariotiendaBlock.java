@@ -10,22 +10,22 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para Icm_CalendariotiendaBlock complex type.
+ * <p>Java class for Icm_CalendariotiendaBlock complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Icm_CalendariotiendaBlock"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="sys_Param_A" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="sys_Sentence_A" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="Icm_CalendariotiendaRecordSet" type="{http://schemas.meta4.com/}Icm_CalendariotiendaRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="Icm_CalendariotiendaBlock">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="sys_Param_A" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="sys_Sentence_A" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Icm_CalendariotiendaRecordSet" type="{http://schemas.meta4.com/}Icm_CalendariotiendaRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -46,7 +46,7 @@ public class IcmCalendariotiendaBlock {
     protected List<IcmCalendariotiendaRecord> icmCalendariotiendaRecordSet;
 
     /**
-     * Obtiene el valor de la propiedad sysParamA.
+     * Gets the value of the sysParamA property.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class IcmCalendariotiendaBlock {
     }
 
     /**
-     * Define el valor de la propiedad sysParamA.
+     * Sets the value of the sysParamA property.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class IcmCalendariotiendaBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad sysSentenceA.
+     * Gets the value of the sysSentenceA property.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class IcmCalendariotiendaBlock {
     }
 
     /**
-     * Define el valor de la propiedad sysSentenceA.
+     * Sets the value of the sysSentenceA property.
      * 
      * @param value
      *     allowed object is

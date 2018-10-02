@@ -10,22 +10,22 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para GetcabeceratiendaOutput complex type.
+ * <p>Java class for GetcabeceratiendaOutput complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="GetcabeceratiendaOutput"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Cabeceratienda" type="{http://schemas.meta4.com/}Icm_CabeceratiendaBlock"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="GetcabeceratiendaOutput">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Icm_Cabeceratienda" type="{http://schemas.meta4.com/}Icm_CabeceratiendaBlock"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -46,7 +46,7 @@ public class GetcabeceratiendaOutput {
     protected IcmCabeceratiendaBlock icmCabeceratienda;
 
     /**
-     * Obtiene el valor de la propiedad return.
+     * Gets the value of the return property.
      * 
      */
     public double getReturn() {
@@ -54,7 +54,7 @@ public class GetcabeceratiendaOutput {
     }
 
     /**
-     * Define el valor de la propiedad return.
+     * Sets the value of the return property.
      * 
      */
     public void setReturn(double value) {
@@ -91,7 +91,7 @@ public class GetcabeceratiendaOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmCabeceratienda.
+     * Gets the value of the icmCabeceratienda property.
      * 
      * @return
      *     possible object is
@@ -103,7 +103,7 @@ public class GetcabeceratiendaOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmCabeceratienda.
+     * Sets the value of the icmCabeceratienda property.
      * 
      * @param value
      *     allowed object is

@@ -8,23 +8,23 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para LogMessage complex type.
+ * <p>Java class for LogMessage complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="LogMessage"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="severity" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="LogMessage">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="severity" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -48,7 +48,7 @@ public class LogMessage {
     protected String title;
 
     /**
-     * Obtiene el valor de la propiedad code.
+     * Gets the value of the code property.
      * 
      * @return
      *     possible object is
@@ -60,7 +60,7 @@ public class LogMessage {
     }
 
     /**
-     * Define el valor de la propiedad code.
+     * Sets the value of the code property.
      * 
      * @param value
      *     allowed object is
@@ -72,7 +72,7 @@ public class LogMessage {
     }
 
     /**
-     * Obtiene el valor de la propiedad description.
+     * Gets the value of the description property.
      * 
      * @return
      *     possible object is
@@ -84,7 +84,7 @@ public class LogMessage {
     }
 
     /**
-     * Define el valor de la propiedad description.
+     * Sets the value of the description property.
      * 
      * @param value
      *     allowed object is
@@ -96,7 +96,7 @@ public class LogMessage {
     }
 
     /**
-     * Obtiene el valor de la propiedad severity.
+     * Gets the value of the severity property.
      * 
      * @return
      *     possible object is
@@ -108,7 +108,7 @@ public class LogMessage {
     }
 
     /**
-     * Define el valor de la propiedad severity.
+     * Sets the value of the severity property.
      * 
      * @param value
      *     allowed object is
@@ -120,7 +120,7 @@ public class LogMessage {
     }
 
     /**
-     * Obtiene el valor de la propiedad title.
+     * Gets the value of the title property.
      * 
      * @return
      *     possible object is
@@ -132,7 +132,7 @@ public class LogMessage {
     }
 
     /**
-     * Define el valor de la propiedad title.
+     * Sets the value of the title property.
      * 
      * @param value
      *     allowed object is

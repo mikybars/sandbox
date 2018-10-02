@@ -71,7 +71,7 @@ public class JobServiceImpl implements JobService {
 				LOG.info("Ha funcionado");
 			} else {
 				LOG.info("Ha fallado");
-				//throw new ApplicationException("Ha fallado");
+				throw new ApplicationException("Ha fallado");
 			}
 		} catch (InterruptedException | ExecutionException e) {
 			LOG.error("Error no controlado");

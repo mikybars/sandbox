@@ -10,23 +10,23 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para SearchtiendasOutput complex type.
+ * <p>Java class for SearchtiendasOutput complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="SearchtiendasOutput"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Buscadortienda" type="{http://schemas.meta4.com/}Icm_BuscadortiendaBlock"/&gt;
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="SearchtiendasOutput">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Icm_Buscadortienda" type="{http://schemas.meta4.com/}Icm_BuscadortiendaBlock"/>
+ *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -50,7 +50,7 @@ public class SearchtiendasOutput {
     protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
     /**
-     * Obtiene el valor de la propiedad return.
+     * Gets the value of the return property.
      * 
      */
     public double getReturn() {
@@ -58,7 +58,7 @@ public class SearchtiendasOutput {
     }
 
     /**
-     * Define el valor de la propiedad return.
+     * Sets the value of the return property.
      * 
      */
     public void setReturn(double value) {
@@ -95,7 +95,7 @@ public class SearchtiendasOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmBuscadortienda.
+     * Gets the value of the icmBuscadortienda property.
      * 
      * @return
      *     possible object is
@@ -107,7 +107,7 @@ public class SearchtiendasOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmBuscadortienda.
+     * Sets the value of the icmBuscadortienda property.
      * 
      * @param value
      *     allowed object is
@@ -119,7 +119,7 @@ public class SearchtiendasOutput {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrospaginacion.
+     * Gets the value of the icmParametrospaginacion property.
      * 
      * @return
      *     possible object is
@@ -131,7 +131,7 @@ public class SearchtiendasOutput {
     }
 
     /**
-     * Define el valor de la propiedad icmParametrospaginacion.
+     * Sets the value of the icmParametrospaginacion property.
      * 
      * @param value
      *     allowed object is

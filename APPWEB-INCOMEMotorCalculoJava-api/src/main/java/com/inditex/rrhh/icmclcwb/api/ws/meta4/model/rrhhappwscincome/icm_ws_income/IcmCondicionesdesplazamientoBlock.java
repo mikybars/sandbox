@@ -10,23 +10,23 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para Icm_CondicionesdesplazamientoBlock complex type.
+ * <p>Java class for Icm_CondicionesdesplazamientoBlock complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Icm_CondicionesdesplazamientoBlock"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="orcomision" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idplantilla" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idestructura" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="Icm_CondicionesdesplazamientoRecordSet" type="{http://schemas.meta4.com/}Icm_CondicionesdesplazamientoRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="Icm_CondicionesdesplazamientoBlock">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="orcomision" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idplantilla" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idestructura" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Icm_CondicionesdesplazamientoRecordSet" type="{http://schemas.meta4.com/}Icm_CondicionesdesplazamientoRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -50,7 +50,7 @@ public class IcmCondicionesdesplazamientoBlock {
     protected List<IcmCondicionesdesplazamientoRecord> icmCondicionesdesplazamientoRecordSet;
 
     /**
-     * Obtiene el valor de la propiedad orcomision.
+     * Gets the value of the orcomision property.
      * 
      * @return
      *     possible object is
@@ -62,7 +62,7 @@ public class IcmCondicionesdesplazamientoBlock {
     }
 
     /**
-     * Define el valor de la propiedad orcomision.
+     * Sets the value of the orcomision property.
      * 
      * @param value
      *     allowed object is
@@ -74,7 +74,7 @@ public class IcmCondicionesdesplazamientoBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad idplantilla.
+     * Gets the value of the idplantilla property.
      * 
      * @return
      *     possible object is
@@ -86,7 +86,7 @@ public class IcmCondicionesdesplazamientoBlock {
     }
 
     /**
-     * Define el valor de la propiedad idplantilla.
+     * Sets the value of the idplantilla property.
      * 
      * @param value
      *     allowed object is
@@ -98,7 +98,7 @@ public class IcmCondicionesdesplazamientoBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad idestructura.
+     * Gets the value of the idestructura property.
      * 
      * @return
      *     possible object is
@@ -110,7 +110,7 @@ public class IcmCondicionesdesplazamientoBlock {
     }
 
     /**
-     * Define el valor de la propiedad idestructura.
+     * Sets the value of the idestructura property.
      * 
      * @param value
      *     allowed object is

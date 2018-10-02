@@ -10,33 +10,33 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para Icm_Ws_ToolsBlock complex type.
+ * <p>Java class for Icm_Ws_ToolsBlock complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Icm_Ws_ToolsBlock"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="sys_Param" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="icm_Prp_Copy" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="sys_Sentence" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="icm_M4_Object" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="icm_Have_Paging" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="icm_Parent_Node" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="icm_Share_Policy" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="icm_Close_Channel" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="icm_Prp_Copy_Type" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="icm_Prp_Load_Type" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="icm_Prp_Last_Level" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="icm_Prp_Load_Depth" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="icm_Have_Idexecution" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="Icm_Ws_ToolsRecordSet" type="{http://schemas.meta4.com/}Icm_Ws_ToolsRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="Icm_Ws_ToolsBlock">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="sys_Param" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="icm_Prp_Copy" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="sys_Sentence" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="icm_M4_Object" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="icm_Have_Paging" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="icm_Parent_Node" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="icm_Share_Policy" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="icm_Close_Channel" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="icm_Prp_Copy_Type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="icm_Prp_Load_Type" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="icm_Prp_Last_Level" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="icm_Prp_Load_Depth" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="icm_Have_Idexecution" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="Icm_Ws_ToolsRecordSet" type="{http://schemas.meta4.com/}Icm_Ws_ToolsRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -90,7 +90,7 @@ public class IcmWsToolsBlock {
     protected List<IcmWsToolsRecord> icmWsToolsRecordSet;
 
     /**
-     * Obtiene el valor de la propiedad sysParam.
+     * Gets the value of the sysParam property.
      * 
      * @return
      *     possible object is
@@ -102,7 +102,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad sysParam.
+     * Sets the value of the sysParam property.
      * 
      * @param value
      *     allowed object is
@@ -114,7 +114,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmPrpCopy.
+     * Gets the value of the icmPrpCopy property.
      * 
      * @return
      *     possible object is
@@ -126,7 +126,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmPrpCopy.
+     * Sets the value of the icmPrpCopy property.
      * 
      * @param value
      *     allowed object is
@@ -138,7 +138,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad sysSentence.
+     * Gets the value of the sysSentence property.
      * 
      * @return
      *     possible object is
@@ -150,7 +150,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad sysSentence.
+     * Sets the value of the sysSentence property.
      * 
      * @param value
      *     allowed object is
@@ -162,7 +162,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmM4Object.
+     * Gets the value of the icmM4Object property.
      * 
      * @return
      *     possible object is
@@ -174,7 +174,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmM4Object.
+     * Sets the value of the icmM4Object property.
      * 
      * @param value
      *     allowed object is
@@ -186,7 +186,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmHavePaging.
+     * Gets the value of the icmHavePaging property.
      * 
      * @return
      *     possible object is
@@ -198,7 +198,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmHavePaging.
+     * Sets the value of the icmHavePaging property.
      * 
      * @param value
      *     allowed object is
@@ -210,7 +210,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParentNode.
+     * Gets the value of the icmParentNode property.
      * 
      * @return
      *     possible object is
@@ -222,7 +222,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmParentNode.
+     * Sets the value of the icmParentNode property.
      * 
      * @param value
      *     allowed object is
@@ -234,7 +234,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmSharePolicy.
+     * Gets the value of the icmSharePolicy property.
      * 
      * @return
      *     possible object is
@@ -246,7 +246,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmSharePolicy.
+     * Sets the value of the icmSharePolicy property.
      * 
      * @param value
      *     allowed object is
@@ -258,7 +258,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmCloseChannel.
+     * Gets the value of the icmCloseChannel property.
      * 
      * @return
      *     possible object is
@@ -270,7 +270,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmCloseChannel.
+     * Sets the value of the icmCloseChannel property.
      * 
      * @param value
      *     allowed object is
@@ -282,7 +282,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmPrpCopyType.
+     * Gets the value of the icmPrpCopyType property.
      * 
      * @return
      *     possible object is
@@ -294,7 +294,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmPrpCopyType.
+     * Sets the value of the icmPrpCopyType property.
      * 
      * @param value
      *     allowed object is
@@ -306,7 +306,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmPrpLoadType.
+     * Gets the value of the icmPrpLoadType property.
      * 
      * @return
      *     possible object is
@@ -318,7 +318,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmPrpLoadType.
+     * Sets the value of the icmPrpLoadType property.
      * 
      * @param value
      *     allowed object is
@@ -330,7 +330,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmPrpLastLevel.
+     * Gets the value of the icmPrpLastLevel property.
      * 
      * @return
      *     possible object is
@@ -342,7 +342,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmPrpLastLevel.
+     * Sets the value of the icmPrpLastLevel property.
      * 
      * @param value
      *     allowed object is
@@ -354,7 +354,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmPrpLoadDepth.
+     * Gets the value of the icmPrpLoadDepth property.
      * 
      * @return
      *     possible object is
@@ -366,7 +366,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmPrpLoadDepth.
+     * Sets the value of the icmPrpLoadDepth property.
      * 
      * @param value
      *     allowed object is
@@ -378,7 +378,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad icmHaveIdexecution.
+     * Gets the value of the icmHaveIdexecution property.
      * 
      * @return
      *     possible object is
@@ -390,7 +390,7 @@ public class IcmWsToolsBlock {
     }
 
     /**
-     * Define el valor de la propiedad icmHaveIdexecution.
+     * Sets the value of the icmHaveIdexecution property.
      * 
      * @param value
      *     allowed object is

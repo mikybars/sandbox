@@ -10,24 +10,24 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para Icm_ParametrosexcelBlock complex type.
+ * <p>Java class for Icm_ParametrosexcelBlock complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParametrosexcelBlock"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="blob" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="blobvacio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="extension" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="nombrefichero" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="Icm_ParametrosexcelRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrosexcelRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="Icm_ParametrosexcelBlock">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="blob" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="blobvacio" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="extension" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="nombrefichero" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Icm_ParametrosexcelRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrosexcelRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -54,7 +54,7 @@ public class IcmParametrosexcelBlock {
     protected List<IcmParametrosexcelRecord> icmParametrosexcelRecordSet;
 
     /**
-     * Obtiene el valor de la propiedad blob.
+     * Gets the value of the blob property.
      * 
      * @return
      *     possible object is
@@ -66,7 +66,7 @@ public class IcmParametrosexcelBlock {
     }
 
     /**
-     * Define el valor de la propiedad blob.
+     * Sets the value of the blob property.
      * 
      * @param value
      *     allowed object is
@@ -78,7 +78,7 @@ public class IcmParametrosexcelBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad blobvacio.
+     * Gets the value of the blobvacio property.
      * 
      * @return
      *     possible object is
@@ -90,7 +90,7 @@ public class IcmParametrosexcelBlock {
     }
 
     /**
-     * Define el valor de la propiedad blobvacio.
+     * Sets the value of the blobvacio property.
      * 
      * @param value
      *     allowed object is
@@ -102,7 +102,7 @@ public class IcmParametrosexcelBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad extension.
+     * Gets the value of the extension property.
      * 
      * @return
      *     possible object is
@@ -114,7 +114,7 @@ public class IcmParametrosexcelBlock {
     }
 
     /**
-     * Define el valor de la propiedad extension.
+     * Sets the value of the extension property.
      * 
      * @param value
      *     allowed object is
@@ -126,7 +126,7 @@ public class IcmParametrosexcelBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad nombrefichero.
+     * Gets the value of the nombrefichero property.
      * 
      * @return
      *     possible object is
@@ -138,7 +138,7 @@ public class IcmParametrosexcelBlock {
     }
 
     /**
-     * Define el valor de la propiedad nombrefichero.
+     * Sets the value of the nombrefichero property.
      * 
      * @param value
      *     allowed object is

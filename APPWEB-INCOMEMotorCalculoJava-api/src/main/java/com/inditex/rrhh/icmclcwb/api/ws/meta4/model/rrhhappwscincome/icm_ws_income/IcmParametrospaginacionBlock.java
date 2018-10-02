@@ -10,27 +10,27 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para Icm_ParametrospaginacionBlock complex type.
+ * <p>Java class for Icm_ParametrospaginacionBlock complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParametrospaginacionBlock"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="tipoorden" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="campoorden" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idbusqueda" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="numeropagina" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="numerototalpaginas" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="numeroregistrospagina" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="numerototalresultados" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="Icm_ParametrospaginacionRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="Icm_ParametrospaginacionBlock">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="tipoorden" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="campoorden" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idbusqueda" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="numeropagina" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="numerototalpaginas" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="numeroregistrospagina" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="numerototalresultados" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Icm_ParametrospaginacionRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -66,7 +66,7 @@ public class IcmParametrospaginacionBlock {
     protected List<IcmParametrospaginacionRecord> icmParametrospaginacionRecordSet;
 
     /**
-     * Obtiene el valor de la propiedad tipoorden.
+     * Gets the value of the tipoorden property.
      * 
      * @return
      *     possible object is
@@ -78,7 +78,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Define el valor de la propiedad tipoorden.
+     * Sets the value of the tipoorden property.
      * 
      * @param value
      *     allowed object is
@@ -90,7 +90,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad campoorden.
+     * Gets the value of the campoorden property.
      * 
      * @return
      *     possible object is
@@ -102,7 +102,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Define el valor de la propiedad campoorden.
+     * Sets the value of the campoorden property.
      * 
      * @param value
      *     allowed object is
@@ -114,7 +114,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad idbusqueda.
+     * Gets the value of the idbusqueda property.
      * 
      * @return
      *     possible object is
@@ -126,7 +126,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Define el valor de la propiedad idbusqueda.
+     * Sets the value of the idbusqueda property.
      * 
      * @param value
      *     allowed object is
@@ -138,7 +138,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad numeropagina.
+     * Gets the value of the numeropagina property.
      * 
      * @return
      *     possible object is
@@ -150,7 +150,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Define el valor de la propiedad numeropagina.
+     * Sets the value of the numeropagina property.
      * 
      * @param value
      *     allowed object is
@@ -162,7 +162,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad numerototalpaginas.
+     * Gets the value of the numerototalpaginas property.
      * 
      * @return
      *     possible object is
@@ -174,7 +174,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Define el valor de la propiedad numerototalpaginas.
+     * Sets the value of the numerototalpaginas property.
      * 
      * @param value
      *     allowed object is
@@ -186,7 +186,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad numeroregistrospagina.
+     * Gets the value of the numeroregistrospagina property.
      * 
      * @return
      *     possible object is
@@ -198,7 +198,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Define el valor de la propiedad numeroregistrospagina.
+     * Sets the value of the numeroregistrospagina property.
      * 
      * @param value
      *     allowed object is
@@ -210,7 +210,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Obtiene el valor de la propiedad numerototalresultados.
+     * Gets the value of the numerototalresultados property.
      * 
      * @return
      *     possible object is
@@ -222,7 +222,7 @@ public class IcmParametrospaginacionBlock {
     }
 
     /**
-     * Define el valor de la propiedad numerototalresultados.
+     * Sets the value of the numerototalresultados property.
      * 
      * @param value
      *     allowed object is

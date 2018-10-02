@@ -9,20 +9,20 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="SAVEPRESENCIASTIENDAReturn" type="{http://schemas.meta4.com/}SavepresenciastiendaOutput"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="SAVEPRESENCIASTIENDAReturn" type="{http://schemas.meta4.com/}SavepresenciastiendaOutput"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -38,7 +38,7 @@ public class SAVEPRESENCIASTIENDAResponse {
     protected SavepresenciastiendaOutput savepresenciastiendaReturn;
 
     /**
-     * Obtiene el valor de la propiedad savepresenciastiendaReturn.
+     * Gets the value of the savepresenciastiendaReturn property.
      * 
      * @return
      *     possible object is
@@ -50,7 +50,7 @@ public class SAVEPRESENCIASTIENDAResponse {
     }
 
     /**
-     * Define el valor de la propiedad savepresenciastiendaReturn.
+     * Sets the value of the savepresenciastiendaReturn property.
      * 
      * @param value
      *     allowed object is
