@@ -37,8 +37,13 @@ public interface IcmWsIncomeMapper {
 	// "numerototalresultados") })
 	IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(PageDTO src);
 
+	@Mappings({ @Mapping(source = "fechafin", target = "fechaFin"), @Mapping(source = "idestado", target = "idEstado"),
+					@Mapping(source = "fechainicio", target = "fechaInicio"),
+					@Mapping(source = "idestadomtu", target = "idEstadoMtu"),
+					@Mapping(source = "idlugartrabajo", target = "idLugarTrabajo") })
 	GetEmpleadosTiendaFilterDTO asGetEmpleadosTiendaFilterDTO(IcmParametrostiendaBlock src);
 
+	@InheritInverseConfiguration
 	IcmParametrostiendaBlock asIcmParametrostiendaBlock(GetEmpleadosTiendaFilterDTO src);
 
 }

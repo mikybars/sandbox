@@ -9,14 +9,14 @@ public class GetEmpleadosTiendaFilterDTO implements Serializable {
 
 	private static final long serialVersionUID = 8671345877698808568L;
 
+	private Date fechaFin;
+	
+	private String idEstado;
+	
 	private Date fechaInicio;
 
-	private Date fechaFin;
-
-	private String idLugarTrabajo;
-
-	private String idEstado;
-
 	private String idEstadoMtu;
+	
+	private String idLugarTrabajo;
 
 }
