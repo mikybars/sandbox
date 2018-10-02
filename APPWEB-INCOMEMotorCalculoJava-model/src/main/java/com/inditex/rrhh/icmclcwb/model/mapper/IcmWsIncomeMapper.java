@@ -4,13 +4,16 @@ import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.PageDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.IcmParametrostiendaBlock;
+import com.inditex.rrhh.icmclcwb.model.mapper.decorator.IcmWsIncomeMapperDecorator;
 
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper
+@DecoratedWith(IcmWsIncomeMapperDecorator.class)
 public interface IcmWsIncomeMapper {
 
 	@Mappings({ @Mapping(source = "tipoorden", target = "tipoOrden"),
