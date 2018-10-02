@@ -111,10 +111,6 @@ public class Meta4ServiceImpl implements Meta4Service {
 			icmParametrospaginacionBlock.setNumerototalresultados(defaultValue);
 			icmParametrospaginacionBlock.setTipoorden("ASC");
 			icmParametrospaginacionBlock.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
-//			icmParametrospaginacionBlock.getIcmParametrospaginacionRecordSet();
-//			ArrayOfIcmParametrospaginacionRecord arrayOfIcmParametrospaginacionRecord = new ArrayOfIcmParametrospaginacionRecord();
-//			arrayOfIcmParametrospaginacionRecord.getItem();
-//			icmParametrospaginacionBlock.setIcmParametrospaginacionRecordSet(arrayOfIcmParametrospaginacionRecord);
 			
 			IcmParametrostiendaBlock icmParametrostiendaBlock = new IcmParametrostiendaBlock();
 			icmParametrostiendaBlock.setFechainicio("2017-09-01T00:00:00.000Z");
@@ -123,17 +119,13 @@ public class Meta4ServiceImpl implements Meta4Service {
 			icmParametrostiendaBlock.setIdestado(defaultValue);
 			icmParametrostiendaBlock.setIdestadomtu(defaultValue);
 			icmParametrostiendaBlock.getIcmParametrostiendaRecordSet().add(new IcmParametrostiendaRecord());
-//			icmParametrostiendaBlock.getIcmParametrostiendaRecordSet();
-//			ArrayOfIcmParametrostiendaRecord arrayOfIcmParametrostiendaRecord = new ArrayOfIcmParametrostiendaRecord();
-//			arrayOfIcmParametrostiendaRecord.getItem();
-//			icmParametrostiendaBlock.setIcmParametrostiendaRecordSet(arrayOfIcmParametrostiendaRecord);
 			
 			GetempleadostiendaOutput getempleadostiendaOutput = meta4ClientIncome.getempleadostienda(icmParametrospaginacionBlock, icmParametrostiendaBlock);
 			LOG.info("getempleadostiendaOutput.getReturn(): " + getempleadostiendaOutput.getReturn());
 			if (getempleadostiendaOutput != null && getempleadostiendaOutput.getIcmEmpleadostienda() != null && getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet() != null && CollectionUtils.isNotEmpty(getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet())) {
-				for (IcmEmpleadostiendaRecord item : getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet()) {
-					LOG.info("Item: " + item.toString());
-				}
+				LOG.info("Se han recuperado: " + getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet().size());
+			} else {
+				LOG.info("No hay elementos");
 			}
 			result = true;
 		} else {
