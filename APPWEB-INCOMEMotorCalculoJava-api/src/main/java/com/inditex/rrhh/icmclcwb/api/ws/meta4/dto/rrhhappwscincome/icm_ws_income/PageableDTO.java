@@ -16,9 +16,9 @@ import com.inditex.rrhh.icmclcwb.api.ws.meta4.rrhhappwscincome.icm_ws_income.Pag
 @Builder
 @ToString
 public class PageableDTO<T> implements Pageable<T>, Serializable {
-	
+
 	private static final long serialVersionUID = -1674424926992562719L;
-	
+
 	T data;
 
 	PageDTO page;

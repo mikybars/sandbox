@@ -6,6 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.service.JobService;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,7 +72,7 @@ public class JobServiceImpl implements JobService {
 			CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTiendaResult = chunkService.obtenerEmpleadosTienda("T160");
 			CompletableFuture<Void> fin = CompletableFuture.allOf(obtenerEmpleadosTiendaResult);
 			result = obtenerEmpleadosTiendaResult.get();
-			if (Boolean.TRUE.equals(result)) {
+			if (CollectionUtils.isNotEmpty(result)) {
 				LOG.info("Ha funcionado: " + result.size());
 			} else {
 				LOG.info("No se han recuperado registros");
