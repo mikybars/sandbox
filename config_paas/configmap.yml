@@ -13,7 +13,8 @@ amiga:
         # Timeout de lectura por defecto en milisegundos que heredarán todos los clientes rest
         defaultReadTimeout: 30000
         ptrClientVenta:
-          base-url: https://axdesptrosb01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
+          #base-url: https://axdesptrosb01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
+          base-url: http://axpreptrosb01-vip:10313/VTIMPACESB
           send-itx-headers: true
           ref-project-key: test_project_key
           auth-method: BASIC
