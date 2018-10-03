@@ -52,21 +52,18 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 
 	@Override
 	public PresenciasTotalTiendaResponseDTO PresenciasTotalTienda(PresenciasTotalTiendaRequestDTO presencias) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.presenciasMapper.asPresenciasTotalTiendaDTO(this.presenciasRepository.findPresenciasTotalTienda(this.presenciasMapper.asPresenciasTotalTienda(presencias)));
 	}
 
 	@Override
 	public PresenciasTotalTiendaSeccionResponseDTO PresenciasTotalTiendaSeccion(
 			PresenciasTotalTiendaSeccionRequestDTO presencias) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.presenciasMapper.asPresenciasTotalTiendaSeccionDTO(this.presenciasRepository.findPresenciasTotalTiendaSeccion(this.presenciasMapper.asPresenciasTotalTiendaSeccion(presencias)));
 	}
 
 	@Override
 	public TiposHorasResponseDTO TiposHoras(TiposHorasRequestDTO tiposHoras) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.presenciasMapper.asTiposHorasDTO(this.presenciasRepository.findTiposHorass(this.presenciasMapper.asTiposHoras(tiposHoras)));
 	}
 
 
