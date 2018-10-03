@@ -41,15 +41,13 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
     
     //Traduce el objecto, lo envia a la función y la salida la vuelve a traducir
 	@Override
-	public PresenciasDetalleResponseDTO PresenciasDetalle(final Integer id) {
-		return this.presenciasMapper.asPresenciaDetalleDTO(this.presenciasRepository.findPresencias(id));
+	public PresenciasDetalleResponseDTO PresenciasDetalle(PresenciasDetalleRequestDTO presencias) {
+		return this.presenciasMapper.asPresenciaDetalleDTO(this.presenciasRepository.findPresencias(this.presenciasMapper.asPresenciaDetalle(presencias)));
 	}
 
 	@Override
-	public PresenciasDetalleComisionableResponseDTO PresenciasDetalleComisionable(
-			PresenciasDetalleComisionableRequestDTO presencias) {
-		// TODO Auto-generated method stub
-		return null;
+	public PresenciasDetalleComisionableResponseDTO PresenciasDetalleComisionable(PresenciasDetalleComisionableRequestDTO presencias) {
+		return this.presenciasMapper.asPresenciaDetalleComisionableDTO(this.presenciasRepository.findPresenciasComisionable(this.presenciasMapper.asPresenciaDetalleComisionable(presencias)));
 	}
 
 	@Override
@@ -70,6 +68,8 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 }

@@ -12,7 +12,11 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResponseD
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaSeccionResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.Presencia;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleComisionableMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaSeccionMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
 
 import org.mapstruct.Mapper;
 import java.util.List;
@@ -20,41 +24,41 @@ import java.util.List;
 @Mapper
 public interface PresenciasMapper {
 	//PRESENCIAS DETALLE COMISIONABLE
-    PresenciasDetalleComisionableResponseDTO asPresenciaDetalleComisionableDTO(Presencia src);
+    PresenciasDetalleComisionableResponseDTO asPresenciaDetalleComisionableDTO(PresenciaDetalleComisionableMock src);
 
-    Presencia asPresenciaDetalleComisionable(PresenciasDetalleComisionableRequestDTO src);
+    PresenciaDetalleComisionableMock asPresenciaDetalleComisionable(PresenciasDetalleComisionableRequestDTO src);
 
-    List<PresenciasDetalleComisionableResponseDTO> asPresenciaDetalleComisionableDTOs(List<Presencia> src);
+    List<PresenciasDetalleComisionableResponseDTO> asPresenciaDetalleComisionableDTOs(List<PresenciaDetalleComisionableMock> src);
     
     //PRESENCIAS DETALLE
-    PresenciasDetalleResponseDTO asPresenciaDetalleDTO(Presencia src);
+    PresenciasDetalleResponseDTO asPresenciaDetalleDTO(PresenciaDetalleMock src);
 
-    Presencia asPresenciaComisionable(PresenciasDetalleRequestDTO src);
+    PresenciaDetalleMock asPresenciaDetalle(PresenciasDetalleRequestDTO src);
 
-    List<PresenciasDetalleResponseDTO> asPresenciaDetalleDTOs(List<Presencia> src);
+    List<PresenciasDetalleResponseDTO> asPresenciaDetalleDTOs(List<PresenciaDetalleMock> src);
     
     
     //PRESENCIAS TIENDA
-    PresenciasTotalTiendaResponseDTO asPresenciasTotalTiendaDTO(Presencia src);
+    PresenciasTotalTiendaResponseDTO asPresenciasTotalTiendaDTO(PresenciaTotalTiendaMock src);
 
-    Presencia asPresenciasTotalTienda(PresenciasTotalTiendaRequestDTO src);
+    PresenciaTotalTiendaMock asPresenciasTotalTienda(PresenciasTotalTiendaRequestDTO src);
 
-    List<PresenciasTotalTiendaResponseDTO> asPresenciasTotalTiendaDTOs(List<Presencia> src);
+    List<PresenciasTotalTiendaResponseDTO> asPresenciasTotalTiendaDTOs(List<PresenciaTotalTiendaMock> src);
     
     //PRESENCIAS TIENDA SECCION
-    PresenciasTotalTiendaSeccionResponseDTO asPresenciasTotalTiendaSeccionDTO(Presencia src);
+    PresenciasTotalTiendaSeccionResponseDTO asPresenciasTotalTiendaSeccionDTO(PresenciaTotalTiendaSeccionMock src);
 
-    Presencia asPresenciasTotalTiendaSeccion(PresenciasTotalTiendaSeccionRequestDTO src);
+    PresenciaTotalTiendaSeccionMock asPresenciasTotalTiendaSeccion(PresenciasTotalTiendaSeccionRequestDTO src);
 
-    List<PresenciasTotalTiendaSeccionResponseDTO> asPresenciasTotalTiendaSeccionDTOs(List<Presencia> src);
+    List<PresenciasTotalTiendaSeccionResponseDTO> asPresenciasTotalTiendaSeccionDTOs(List<PresenciaTotalTiendaSeccionMock> src);
     
-    
+    	
     //TIPOS HORAS
-    TiposHorasResponseDTO asTiposHorasDTO(Presencia src);
+    TiposHorasResponseDTO asTiposHorasDTO(TiposHorasMock src);
 
-    Presencia asTiposHoras(TiposHorasRequestDTO src);
+    TiposHorasMock asTiposHoras(TiposHorasRequestDTO src);
 
-    List<TiposHorasResponseDTO> asTiposHorasDTOs(List<Presencia> src);
+    List<TiposHorasResponseDTO> asTiposHorasDTOs(List<TiposHorasMock> src);
 }
 
 

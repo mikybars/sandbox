@@ -1,14 +1,19 @@
 package com.inditex.rrhh.icmclcwb.ws.controller.ptr.mock;
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inditex.rrhh.icmclcwb.api.dto.ProductDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionableRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaRequestDTO;
@@ -40,35 +45,35 @@ public class PTRPresenciasControllerMock {
     private PTRPresenciasServiceMock presenciasService;
 
 	
-	@ApiOperation(value = "GetPresenciasDetalleComisionable")
-	@GetMapping(path = "/presenciasDetalleComisionable")
-	public PresenciasDetalleComisionableResponseDTO presenciasDetalleComisionable(PresenciasDetalleComisionableRequestDTO  presencias){
+	@ApiOperation(value = "PostPresenciasDetalleComisionable")
+	@PostMapping(path = "/presenciasDetalleComisionable")
+	public PresenciasDetalleComisionableResponseDTO presenciasDetalleComisionable(@Valid @RequestBody final PresenciasDetalleComisionableRequestDTO presencias){
 		return this.presenciasService.PresenciasDetalleComisionable(presencias);
 	}
 	
-	@ApiOperation(value = "GetPresenciasDetalle")
-	@GetMapping(path = "/presenciasDetalle/{id}")
-	public PresenciasDetalleResponseDTO presenciasDetalle(@PathVariable final Integer  id){
-		return this.presenciasService.PresenciasDetalle(id);
+	@ApiOperation(value = "PostPresenciasDetalle")
+	@PostMapping(path = "/presenciasDetalle")
+	public PresenciasDetalleResponseDTO presenciasDetalle(@Valid @RequestBody final PresenciasDetalleRequestDTO presencias){
+		return this.presenciasService.PresenciasDetalle(presencias);
 	}
 	
 	
-	@ApiOperation(value = "GetPresenciasTotalTienda")
-	@GetMapping(path = "/presenciasTotalTienda")
-	public PresenciasTotalTiendaResponseDTO presenciasTotalTienda(PresenciasTotalTiendaRequestDTO  presencias){
+	@ApiOperation(value = "PostPresenciasTotalTienda")
+	@PostMapping(path = "/presenciasTotalTienda")
+	public PresenciasTotalTiendaResponseDTO presenciasTotalTienda(@Valid @RequestBody final PresenciasTotalTiendaRequestDTO  presencias){
 		return this.presenciasService.PresenciasTotalTienda(presencias);
 	}
 	
-	@ApiOperation(value = "GetPresenciasTotalTiendaSeccion")
-	@GetMapping(path = "/presenciasTotalTiendaSeccion")
-	public PresenciasTotalTiendaSeccionResponseDTO presenciasTiendaSeccion( PresenciasTotalTiendaSeccionRequestDTO  presencias){
-		return this.presenciasService.PresenciasTotalTiendaSeccion(presencias);
+	@ApiOperation(value = "PostPresenciasTotalTiendaSeccion")
+	@PostMapping(path = "/presenciasTotalTiendaSeccion")
+	public PresenciasTotalTiendaSeccionResponseDTO presenciasTiendaSeccion(@Valid @RequestBody final PresenciasTotalTiendaSeccionRequestDTO  presencias){
+		return this.presenciasService.PresenciasTotalTiendaSeccion(presencias); 
 	}
 	
 	
-	@ApiOperation(value = "GetTiposHoras")
-	@GetMapping(path = "/tiposHoras")
-	public TiposHorasResponseDTO tiposHoras (TiposHorasRequestDTO tiposHoras){
+	@ApiOperation(value = "PostTiposHoras")
+	@PostMapping(path = "/tiposHoras")
+	public TiposHorasResponseDTO tiposHoras (@Valid @RequestBody final TiposHorasRequestDTO tiposHoras){
 		return this.presenciasService.TiposHoras(tiposHoras);
 	}
 }

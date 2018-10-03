@@ -18,6 +18,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionableRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.*;
 
 /**
@@ -26,7 +28,6 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.*;
  */
 
 
-//@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
 @ActiveProfiles({"standalone", "test"})
@@ -39,12 +40,21 @@ public class MockPresenciasServiceTest {
     @Test
     public void presenciasDetalle() {
         this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
-        ResponseEntity<PresenciasDetalleResponseDTO> ret = this.testRestTemplate.getForEntity("/presenciasServiceMock/presenciasDetalle/1", PresenciasDetalleResponseDTO.class);
-        System.out.println("");
-        System.out.println("");
-        System.out.println(ret.getBody().getMinutos());
-        System.out.println("");
-        System.out.println("");
+        PresenciasDetalleRequestDTO req = new PresenciasDetalleRequestDTO();
+        req.setCadena(165); 
+        ResponseEntity<PresenciasDetalleResponseDTO> ret = this.testRestTemplate.postForEntity("/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+        assertEquals(ret.getBody().getCadena().intValue(), 165);
+        
+    }
+    @Test
+    public void presenciasDetalleComisionable(){
+    	this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
+    	PresenciasDetalleComisionableRequestDTO req = new PresenciasDetalleComisionableRequestDTO();
+        req.setCadena(185); 
+        ResponseEntity<PresenciasDetalleComisionableResponseDTO> ret = this.testRestTemplate.postForEntity("/presenciasServiceMock/presenciasDetalleComisionable/", req, PresenciasDetalleComisionableResponseDTO.class);
+        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+        assertEquals(ret.getBody().getCadena().intValue(), 185);
+        
     }
 }

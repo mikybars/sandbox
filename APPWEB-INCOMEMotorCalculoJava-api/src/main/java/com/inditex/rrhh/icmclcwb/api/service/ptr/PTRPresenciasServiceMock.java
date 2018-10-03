@@ -14,7 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
 
 public interface PTRPresenciasServiceMock {
 	
-	PresenciasDetalleResponseDTO PresenciasDetalle(final Integer id);
+	PresenciasDetalleResponseDTO PresenciasDetalle(final PresenciasDetalleRequestDTO presencias);
 	
 	PresenciasDetalleComisionableResponseDTO PresenciasDetalleComisionable(final PresenciasDetalleComisionableRequestDTO presencias);
 	

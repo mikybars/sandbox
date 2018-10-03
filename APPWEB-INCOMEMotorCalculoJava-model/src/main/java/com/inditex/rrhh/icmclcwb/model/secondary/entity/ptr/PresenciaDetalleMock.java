@@ -20,18 +20,9 @@ import lombok.Data;
 
 //@Entity
 @Table(name = "TEST_INCOME_JOB")
-public class Presencia {
+public class PresenciaDetalleMock {
 	
-	
-	
-	/**	private Integer tienda;
-	private Integer seccion;
-	private List<Integer> persona;
-	private Date fechaDesde;
-	private Date fechaHasta;
-	private Integer tipo;
-	private Integer cadena;
-	**/
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -56,8 +47,78 @@ public class Presencia {
 
 	@Column(name = "FECHA_VENCIMIENTO", nullable = true)
 	private Date fechaFinJob;
+
+
+	@Column(name = "TIPO", nullable = false)
+	private Integer tipo;
+
+	@Column(name = "CADENA", nullable = true)
+	private Integer cadena;
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
+	}
+
+	public Integer getSeccion() {
+		return seccion;
+	}
+
+	public void setSeccion(Integer seccion) {
+		this.seccion = seccion;
+	}
+
+	public Integer getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Integer persona) {
+		this.persona = persona;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Date getFechaFinJob() {
+		return fechaFinJob;
+	}
+
+	public void setFechaFinJob(Date fechaFinJob) {
+		this.fechaFinJob = fechaFinJob;
+	}
 	
 	
-	//FALTAN HORAS Y TOTAL HORAS
-	
+	public Integer getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
+
+	public Integer getCadena() {
+		return cadena;
+	}
+
+	public void setCadena(Integer cadena) {
+		this.cadena = cadena;
+	}
+
 }
