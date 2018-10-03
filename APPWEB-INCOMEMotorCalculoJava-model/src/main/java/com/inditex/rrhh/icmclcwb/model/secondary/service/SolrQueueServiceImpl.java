@@ -42,8 +42,8 @@ public class SolrQueueServiceImpl implements SolrQueueService {
 	private IcmWsIncomeService meta4ClientIncome;
 	
 	@Autowired
-	@Qualifier("ptrClientVentaEmpleado")
-    private RestClient ptrClientVentaEmpleado;
+	@Qualifier("ptrClientVenta")
+    private RestClient ptrClientVenta;
     
     @Override
     public Long count() throws Exception {
@@ -127,7 +127,7 @@ public class SolrQueueServiceImpl implements SolrQueueService {
 	@Override
 	public void testPtr() throws Exception {
 		LOG.info("INICIO PROBANDO PTR");
-		if (ptrClientVentaEmpleado != null) {
+		if (ptrClientVenta != null) {
 			LOG.info("PROBANDO PTR no null");
 		}
 		LOG.info("FIN PROBANDO PTR");
