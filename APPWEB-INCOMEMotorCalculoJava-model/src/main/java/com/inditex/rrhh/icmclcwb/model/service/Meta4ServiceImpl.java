@@ -1,19 +1,29 @@
 package com.inditex.rrhh.icmclcwb.model.service;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.service.Meta4IcmWsIncomeService;
+import com.inditex.rrhh.icmclcwb.api.service.Meta4LoginService;
 import com.inditex.rrhh.icmclcwb.api.service.Meta4Service;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.GETCALENDARIOTIENDA;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.GetcalendariotiendaOutput;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.IcmWsIncomeService;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas.Login;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas.LoginService;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas.M4LoginOutput;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.schemas.ObjectFactory;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaFilterDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.PageDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.login.LoginDTO;
 
+// http://www.springboottutorial.com/spring-boot-and-aop-with-spring-boot-starter-aop
+// @After
 @Service
 public class Meta4ServiceImpl implements Meta4Service {
 
@@ -21,46 +31,53 @@ public class Meta4ServiceImpl implements Meta4Service {
     private Logger LOG;
 	
 	@Autowired
-	@Qualifier("meta4ClientLogin")
-	private LoginService meta4ClientLogin;
+	private Meta4LoginService meta4LoginService;
 	
 	@Autowired
-	@Qualifier("meta4ClientIncome")
-	private IcmWsIncomeService meta4ClientIncome;
+	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
 
 	@Override
-	public void test() throws Exception {
-		
-		// Generación de objetos de LOGIN
-		ObjectFactory ofLogin = new ObjectFactory();
-		// Llamada a servicio de LOGIN
-		Login login = ofLogin.createLogin();
-		login.setIn0("HSW_USER_PRUEBA_4" /*user*/);
-		login.setIn1("Inditex" /*pass*/);
-		login.setIn2("2" /*lang*/);
-		//TODO Validar objeto de entrada
-		final M4LoginOutput loginOutput001 = meta4ClientLogin.login(login.getIn0() /*user*/, login.getIn1() /*pass*/, login.getIn2() /*lang*/);
-		LOG.info("SessionID001: " + loginOutput001.getSessionID());
-		// Recuperar la sesion 001
-		meta4ClientIncome.retrieveM4Session(loginOutput001.getSessionID());
-		//final M4LoginOutput loginOutput002 = meta4ClientLogin.login(login.getIn0() /*user*/, login.getIn1() /*pass*/, login.getIn2() /*lang*/);
-		//logger.info("SessionID002: " + loginOutput002.getSessionID());
-		
-		// Generación de objetos de INCOME
-		com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.ObjectFactory ofIncome = new com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.icm_ws_income.schemas.ObjectFactory();
-		// Llamada a servicio de INCOME
-		GETCALENDARIOTIENDA paramGetcalendariotienda = ofIncome.createGETCALENDARIOTIENDA();
-		//TODO Validar objeto de entrada
-		GetcalendariotiendaOutput getcalendariotiendaOutput001 = meta4ClientIncome.getcalendariotienda(paramGetcalendariotienda.getICMPARAMETROSTIENDA());
-		
-		int resultLogout001 = meta4ClientLogin.logout();
-		LOG.info("resultLogout001: " + resultLogout001);
-		// Recuperar la sesion 002
-		//meta4ClientIncome.retrieveM4Session(loginOutput002.getSessionID());
-		//GetcalendariotiendaOutput getcalendariotiendaOutput002 = meta4ClientIncome.getcalendariotienda(paramGetcalendariotienda.getICMPARAMETROSTIENDA());
-		//int resultLogout002 = meta4ClientLogin.logout();
-		//logger.info("resultLogout002: " + resultLogout002);
-		
+	public List<GetEmpleadosTiendaResultItemDTO> obtenerEmpleadosTienda(String idTienda) throws Exception {
+		List<GetEmpleadosTiendaResultItemDTO> result = new ArrayList<>();
+		if (meta4LoginService.retrieveM4Session() || meta4LoginService.login(new LoginDTO("INCOME", "123", "2"))) {
+			
+			GetEmpleadosTiendaRequestDTO param = new GetEmpleadosTiendaRequestDTO();
+			PageDTO page = new PageDTO();
+			page.setIdBusqueda(StringUtils.EMPTY);
+			page.setCampoOrden("idempleado");
+			page.setNumeroPagina(1);
+			page.setNumeroRegistrosPagina(10);
+			page.setNumeroTotalPaginas(null);
+			page.setNumeroTotalResultados(null);
+			page.setTipoOrden("DESC");
+			param.setPage(page);
+			
+			GetEmpleadosTiendaFilterDTO data = new GetEmpleadosTiendaFilterDTO();
+			data.setFechaInicio(LocalDateTime.of(2017, Month.SEPTEMBER, 01, 00, 00));
+			data.setFechaFin(LocalDateTime.of(2017, Month.SEPTEMBER, 01, 00, 00).with(TemporalAdjusters.lastDayOfMonth()));
+			data.setIdLugarTrabajo(idTienda);
+			data.setIdEstado(StringUtils.EMPTY);
+			data.setIdEstadoMtu(StringUtils.EMPTY);
+			param.setData(data);
+			
+			boolean hasNext = false;
+			do {
+				hasNext = false;
+				GetEmpleadosTiendaResponseDTO response = meta4IcmWsIncomeService.obtenerEmpleadosTienda(param);
+				if (response != null) {
+					if (CollectionUtils.isNotEmpty(response.getData())) {
+						result.addAll(response.getData());
+					}
+					if (response.getPage() != null && response.getPage().hasNext()) {
+						hasNext = true;
+						param.setPage(response.getPage().next());
+					}
+				}
+			} while (hasNext);
+		} else {
+			LOG.error("No tenemos sesión válida");
+		}
+		return result;
 	}
 
 }
