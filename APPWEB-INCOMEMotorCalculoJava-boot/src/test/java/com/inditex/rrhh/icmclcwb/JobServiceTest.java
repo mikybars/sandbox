@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb;
 
 import static org.junit.Assert.assertEquals;
+
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,7 @@ public class JobServiceTest {
     @Test
     public void test() {
         this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
-        ResponseEntity<Boolean> ret = this.testRestTemplate.getForEntity("/job/test/", Boolean.class);
+        ResponseEntity<Object[]> ret = this.testRestTemplate.getForEntity("/job/test/", Object[].class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
     }
 

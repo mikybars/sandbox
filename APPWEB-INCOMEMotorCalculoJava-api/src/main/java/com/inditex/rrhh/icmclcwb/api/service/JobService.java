@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.service;
 
 import com.inditex.rrhh.icmclcwb.api.dto.JobDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,6 +20,6 @@ public interface JobService {
     
     Long countJobs();
     
-    Boolean test();
+    List<GetEmpleadosTiendaResultItemDTO> test();
     
 }

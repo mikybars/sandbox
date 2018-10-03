@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.dto.JobDTO;
 import com.inditex.rrhh.icmclcwb.api.service.JobService;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -85,10 +87,8 @@ public class JobController {
     
     @GetMapping(path = "/test/")
     @ApiOperation("Get the number of jobs")
-    public Boolean test() {
-    	Boolean result = Boolean.FALSE;
-    	result = this.jobService.test();
-    	return result;
+    public List<GetEmpleadosTiendaResultItemDTO> test() {
+    	return this.jobService.test();
     }
 
 }

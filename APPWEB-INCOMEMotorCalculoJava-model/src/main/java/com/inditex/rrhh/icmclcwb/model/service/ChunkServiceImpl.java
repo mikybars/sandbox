@@ -2,6 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.service;
 
 import com.inditex.rrhh.icmclcwb.api.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.service.Meta4Service;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +25,10 @@ public class ChunkServiceImpl implements ChunkService {
 	
 	@Async
 	@Override
-	public CompletableFuture<Boolean> obtenerEmpleadosTienda(String idTienda) {
-		Boolean result = Boolean.FALSE;
+	public CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTienda(String idTienda) {
+		List<GetEmpleadosTiendaResultItemDTO> result = new ArrayList<GetEmpleadosTiendaResultItemDTO>();
 		try {
-			meta4Service.obtenerEmpleadosTienda(idTienda);
-			result = Boolean.TRUE;
+			result = meta4Service.obtenerEmpleadosTienda(idTienda);
 		} catch (Exception e) {
 			LOG.error("Error no controlado", e);
 		}

@@ -4,10 +4,14 @@ import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.dto.JobDTO;
 import com.inditex.rrhh.icmclcwb.api.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.service.JobService;
+import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -61,17 +65,16 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public Boolean test() {
-		Boolean result = Boolean.FALSE;
-		CompletableFuture<Boolean> obtenerEmpleadosTiendaResult = chunkService.obtenerEmpleadosTienda("T160");
-		CompletableFuture<Void> fin = CompletableFuture.allOf(obtenerEmpleadosTiendaResult);
+	public List<GetEmpleadosTiendaResultItemDTO> test() {
+		List<GetEmpleadosTiendaResultItemDTO> result = new ArrayList<GetEmpleadosTiendaResultItemDTO>();
 		try {
+			CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTiendaResult = chunkService.obtenerEmpleadosTienda("T160");
+			CompletableFuture<Void> fin = CompletableFuture.allOf(obtenerEmpleadosTiendaResult);
 			result = obtenerEmpleadosTiendaResult.get();
 			if (Boolean.TRUE.equals(result)) {
-				LOG.info("Ha funcionado");
+				LOG.info("Ha funcionado: " + result.size());
 			} else {
-				LOG.info("Ha fallado");
-				throw new ApplicationException("Ha fallado");
+				LOG.info("No se han recuperado registros");
 			}
 		} catch (InterruptedException | ExecutionException e) {
 			LOG.error("Error no controlado");
