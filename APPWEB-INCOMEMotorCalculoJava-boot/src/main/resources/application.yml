@@ -1,6 +1,8 @@
 ## Define propiedades de la aplicación
 ## Propiedades comunes a todos los entornos (local y despliegues en OpenShift).
 ## https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Listado+de+propiedades+configurables#Listadodepropiedadesconfigurables-2.3Propiedadesespec%C3%ADficasparaaplicacionesSpringBoot
+server:
+  port: 8081
 spring:
   # La key del proyecto JIRA de la aplicación
   application:
@@ -65,6 +67,14 @@ amiga:
           password: c0ntras3nha
           virtualized: false
           response-validated: false
+        ptrClientPresenciaMock:
+          base-url: http://localhost:8081
+          send-itx-headers: true
+          ref-project-key: test_project_key
+          auth-method: BASIC
+          username: username100
+          password: username100
+          
   service:
     session:
       session-type: REMOTE

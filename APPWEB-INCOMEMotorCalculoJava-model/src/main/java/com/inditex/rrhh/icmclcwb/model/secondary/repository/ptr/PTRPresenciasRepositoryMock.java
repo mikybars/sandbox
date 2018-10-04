@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTienda
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
 
 
+
 public interface PTRPresenciasRepositoryMock {
 
 	PresenciaDetalleMock findPresencias( final PresenciaDetalleMock presencia);

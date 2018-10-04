@@ -3,10 +3,8 @@ spring:
     name: ICMCLCWB
   profiles:
     active: test
-app:
-  version: @project.version@
 server:
-  port: 8095
+  port: 8081
 logging:
   level:
     root: INFO
