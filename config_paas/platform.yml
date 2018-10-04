@@ -1,6 +1,8 @@
 ## Define parte de la infraestructura
 ## https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Listado+de+propiedades+configurables#Listadodepropiedadesconfigurables-1.Propiedadesdelosficherosplatform
 app:
+  #TODO Levantar en DES con cuatro replicas por defecto para probar
+  replicas: 4
   # Cambia el context root de la aplicación. El context root por defecto para las aplicaciones desplegadas en Openshift es "/".
   #context_path: /ICMCLCWB
   context_path: /
@@ -27,3 +29,9 @@ app:
           # None: no permite usar HTTP.
           # Redirect: Redirige las peticiones HTTP a HTTPS.
           insecure_termination_policy: Redirect
+#TODO SESION
+datagrid:
+  application_cache:
+    enabled: true
+  session:
+    enabled: true

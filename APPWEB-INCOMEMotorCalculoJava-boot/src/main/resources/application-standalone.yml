@@ -3,6 +3,12 @@ server:
   port: 8080
 amiga:
   common:
+    #TODO SESION
+    cache:
+      remote:
+        enabled: false
+      embedded:
+        enabled: true
     rest:
       virtual:
         base-url: http://virtualhost:8081   
@@ -31,6 +37,9 @@ amiga:
           virtualized: false
           response-validated: false
   service:
+    #TODO SESION
+    session:
+      session-type: EMBEDDED
     aaa:
       local:
         # Deshabilita el modo de autenticación para test

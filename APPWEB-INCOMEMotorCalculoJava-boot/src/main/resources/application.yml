@@ -80,6 +80,11 @@ amiga:
         # Crea una traza con nivel INFO con la información a nivel de response, será de este estilo Tiempo transcurrido (ms): *** . Estado de la respuesta: ***
         #log-end-enabled: true
     aaa:
+      #TODO TEST LOCAL
+      local:
+        # Deshabilita el modo de autenticación para test
+        enable-local-test: true
+        json-sso-file: /local-sso-ext.json
       classic:
         sso:
           #TODO APP Cambiar por el nombre de la aplicacion en el SSO

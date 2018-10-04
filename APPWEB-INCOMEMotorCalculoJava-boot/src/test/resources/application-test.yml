@@ -14,6 +14,12 @@ logging:
     #org.apache.cxf: TRACE
 amiga:
   common:
+    #TODO SESION
+    cache:
+      remote:
+        enabled: false
+      embedded:
+        enabled: true
     rest:
       virtual:
         base-url: http://virtualhost:8081   
@@ -45,6 +51,9 @@ amiga:
     aaa:
       local:
         enable-local-test: true
+    #TODO SESION
+    session:
+      session-type: EMBEDDED
   data:
     jdbc:
       datasource:        
