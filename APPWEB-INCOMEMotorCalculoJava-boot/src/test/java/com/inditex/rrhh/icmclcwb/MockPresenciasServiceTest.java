@@ -80,7 +80,7 @@ public class MockPresenciasServiceTest {
     	req.setCadena(5);;
         ResponseEntity<PresenciasTotalTiendaSeccionResponseDTO> ret = this.testRestTemplate.postForEntity("/presenciasServiceMock/presenciasTotalTiendaSeccion/", req, PresenciasTotalTiendaSeccionResponseDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getSeccion().intValue(), 5);   
+        assertEquals(ret.getBody().getFechaDesde(), req.getFechaDesde());   
     }
     @Test
     public void tiposHoras(){

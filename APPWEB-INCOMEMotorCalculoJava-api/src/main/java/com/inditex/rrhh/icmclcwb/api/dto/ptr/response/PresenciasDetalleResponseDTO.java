@@ -7,7 +7,7 @@ import java.util.List;
 public class PresenciasDetalleResponseDTO implements Serializable{
 	private Integer tienda;
 	private Integer seccion;
-	private List<Integer> persona;
+	private Integer persona;
 	private Date fechaDesde;
 	private Date fechaHasta;
 	private Integer minutos;
@@ -36,10 +36,10 @@ public class PresenciasDetalleResponseDTO implements Serializable{
 	public void setSeccion(Integer seccion) {
 		this.seccion = seccion;
 	}
-	public List<Integer> getPersona() {
+	public Integer getPersona() {
 		return persona;
 	}
-	public void setPersona(List<Integer> persona) {
+	public void setPersona(Integer persona) {
 		this.persona = persona;
 	}
 	public Date getFechaDesde() {

@@ -13,9 +13,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.Job;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.JobEstado;
-
 import lombok.Data;
 
 //@Entity

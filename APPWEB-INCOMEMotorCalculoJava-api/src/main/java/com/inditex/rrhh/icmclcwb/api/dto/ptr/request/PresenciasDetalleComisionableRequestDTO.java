@@ -24,7 +24,7 @@ public class PresenciasDetalleComisionableRequestDTO  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer tienda;
 	private Integer seccion;
-	private List<Integer> persona;
+	private Integer persona;
 	private Date fechaDesde;
 	private Date fechaHasta;
 	private Integer tipo;
@@ -44,10 +44,10 @@ public class PresenciasDetalleComisionableRequestDTO  implements Serializable {
 	public void setSeccion(Integer seccion) {
 		this.seccion = seccion;
 	}
-	public List<Integer> getPersona() {
+	public Integer getPersona() {
 		return persona;
 	}
-	public void setPersona(List<Integer> persona) {
+	public void setPersona(Integer persona) {
 		this.persona = persona;
 	}
 	public Date getFechaDesde() {
