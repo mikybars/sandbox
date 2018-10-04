@@ -25,7 +25,7 @@ public class JobServiceTest {
     @Test
     public void test() {
         this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
-        ResponseEntity<Object[]> ret = this.testRestTemplate.getForEntity("/job/test/", Object[].class);
+        ResponseEntity<Boolean> ret = this.testRestTemplate.getForEntity("/job/test/", Boolean.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
     }
 

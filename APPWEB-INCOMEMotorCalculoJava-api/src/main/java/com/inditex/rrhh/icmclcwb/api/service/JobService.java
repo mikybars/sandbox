@@ -20,6 +20,6 @@ public interface JobService {
     
     Long countJobs();
     
-    List<GetEmpleadosTiendaResultItemDTO> test();
+    Boolean test();
     
 }

@@ -74,7 +74,7 @@ public class IncomeServiceImpl implements IncomeService {
 		final XMLEventReader eventReader = factory.createXMLEventReader(fis);
 		final SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-		final List<VentaDTO> ventas = new ArrayList<VentaDTO>();
+		final List<VentaDTO> ventas = new ArrayList<>();
 		VentaDTO venta = null;
 		while (eventReader.hasNext()) {
 			XMLEvent event = eventReader.nextEvent();
@@ -173,7 +173,7 @@ public class IncomeServiceImpl implements IncomeService {
 		final XMLEventReader eventReader = factory.createXMLEventReader(fis);
 		final SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-		final List<VentaDTO> ventas = new ArrayList<VentaDTO>();
+		final List<VentaDTO> ventas = new ArrayList<>();
 		VentaDTO venta = null;
 		while (eventReader.hasNext()) {
 			XMLEvent event = eventReader.nextEvent();
