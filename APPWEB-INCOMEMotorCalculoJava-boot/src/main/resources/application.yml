@@ -16,6 +16,9 @@ logging:
     com.inditex.rrhh.icmclcwb: DEBUG
 amiga:
   common:
+    cache:
+      remote:
+        enabled: true
     # https://axdesitxws2.central.inditex.grp/software/AMIGA/COMMFRAM/1.16.1/logging.html
     logging:
       # Para que el framework incorpore la información incluida en el MDC
@@ -63,6 +66,8 @@ amiga:
           virtualized: false
           response-validated: false
   service:
+    session:
+      session-type: REMOTE
     core:
       # Enriquece la información relativa a las peticiones HTTP
       # https://axdesitxws2.central.inditex.grp/software/AMIGA/SERVFRKL/1.16.2/mdcFilter.html
