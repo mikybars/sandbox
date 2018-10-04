@@ -74,12 +74,13 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
 	@Override
 	public boolean retrieveM4Session() {
 		boolean result = false;
+		LOG.info("sessionID (check): " + sessionID);
 		if (StringUtils.isNotBlank(sessionID)) {
 			try {
 				int retrieveM4SessionResult = meta4ClientLogin.retrieveM4Session(sessionID);
 				if (retrieveM4SessionResult == 0) {
 					result = true;
-					LOG.info("sessionID activo");
+					LOG.info("sessionID activo: " + sessionID);
 				} else {
 					LOG.error("Error no controlado: " + retrieveM4SessionResult);
 				}

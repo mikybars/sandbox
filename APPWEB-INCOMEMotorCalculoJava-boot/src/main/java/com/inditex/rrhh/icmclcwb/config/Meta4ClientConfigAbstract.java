@@ -7,10 +7,10 @@ import javax.xml.ws.BindingProvider;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.interceptor.StaxOutInterceptor;
+import org.apache.cxf.interceptor.LoggingInInterceptor;
+import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.transport.http.HTTPConduit;
-import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +57,9 @@ public abstract class Meta4ClientConfigAbstract<T> {
 
 			// client.getEndpoint().put(StaxOutInterceptor.FORCE_START_DOCUMENT,
 			// Boolean.TRUE);
+			
+			client.getInInterceptors().add(new LoggingInInterceptor());
+			client.getOutInterceptors().add(new LoggingOutInterceptor());
 		}
 		LOG.info("FIN build()");
 		return result;

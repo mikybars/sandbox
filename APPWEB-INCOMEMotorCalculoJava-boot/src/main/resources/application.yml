@@ -16,6 +16,9 @@ logging:
     com.inditex.rrhh.icmclcwb: DEBUG
 amiga:
   common:
+    cache:
+      remote:
+        enabled: true
     # https://axdesitxws2.central.inditex.grp/software/AMIGA/COMMFRAM/1.16.1/logging.html
     logging:
       # Para que el framework incorpore la información incluida en el MDC
@@ -63,6 +66,8 @@ amiga:
           virtualized: false
           response-validated: false
   service:
+    session:
+      session-type: REMOTE
     core:
       # Enriquece la información relativa a las peticiones HTTP
       # https://axdesitxws2.central.inditex.grp/software/AMIGA/SERVFRKL/1.16.2/mdcFilter.html
@@ -80,6 +85,11 @@ amiga:
         # Crea una traza con nivel INFO con la información a nivel de response, será de este estilo Tiempo transcurrido (ms): *** . Estado de la respuesta: ***
         #log-end-enabled: true
     aaa:
+      #TODO TEST LOCAL
+      local:
+        # Deshabilita el modo de autenticación para test
+        enable-local-test: true
+        json-sso-file: /local-sso-ext.json
       classic:
         sso:
           #TODO APP Cambiar por el nombre de la aplicacion en el SSO
