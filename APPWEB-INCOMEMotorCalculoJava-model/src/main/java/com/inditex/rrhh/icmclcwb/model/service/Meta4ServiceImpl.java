@@ -39,7 +39,7 @@ public class Meta4ServiceImpl implements Meta4Service {
 	@Override
 	public List<GetEmpleadosTiendaResultItemDTO> obtenerEmpleadosTienda(String idTienda) throws Exception {
 		List<GetEmpleadosTiendaResultItemDTO> result = new ArrayList<>();
-		if (meta4LoginService.retrieveM4Session() || meta4LoginService.login(new LoginDTO("INCOME", "123", "2"))) {
+//		if (meta4LoginService.retrieveM4Session() || meta4LoginService.login(new LoginDTO("INCOME", "123", "2"))) {
 			
 			GetEmpleadosTiendaRequestDTO param = new GetEmpleadosTiendaRequestDTO();
 			PageDTO page = new PageDTO();
@@ -74,9 +74,9 @@ public class Meta4ServiceImpl implements Meta4Service {
 					}
 				}
 			} while (hasNext);
-		} else {
-			LOG.error("No tenemos sesión válida");
-		}
+//		} else {
+//			LOG.error("No tenemos sesión válida");
+//		}
 		return result;
 	}
 
