@@ -31,9 +31,6 @@ public class Meta4ServiceImpl implements Meta4Service {
     private Logger LOG;
 	
 	@Autowired
-	private Meta4LoginService meta4LoginService;
-	
-	@Autowired
 	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
 
 	@Override
