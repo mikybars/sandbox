@@ -9,7 +9,7 @@ server:
   port: 8095
 logging:
   level:
-    root: WARN
+    root: INFO
     com.inditex.rrhh.icmclcwb: DEBUG
     #org.apache.cxf: TRACE
 amiga:
