@@ -5,6 +5,8 @@ import com.inditex.rrhh.icmclcwb.api.dto.JobDTO;
 import com.inditex.rrhh.icmclcwb.api.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.service.JobService;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.ptr.dto.venta.GetVentaTotalizadoRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ws.ptr.dto.venta.GetVentaTotalizadoResponseDTO;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -12,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -66,14 +71,29 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public List<GetEmpleadosTiendaResultItemDTO> test() {
-		List<GetEmpleadosTiendaResultItemDTO> result = new ArrayList<GetEmpleadosTiendaResultItemDTO>();
+	public Boolean test() {
+		Boolean result = Boolean.FALSE;
 		try {
-			CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTiendaResult = chunkService.obtenerEmpleadosTienda("T160");
-			CompletableFuture<Void> fin = CompletableFuture.allOf(obtenerEmpleadosTiendaResult);
-			result = obtenerEmpleadosTiendaResult.get();
-			if (CollectionUtils.isNotEmpty(result)) {
-				LOG.info("Ha funcionado: " + result.size());
+			List<GetEmpleadosTiendaResultItemDTO> obtenerEmpleadosTiendaResult = new ArrayList<>();
+			CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTiendaResponse = chunkService.obtenerEmpleadosTienda("T160");
+			CompletableFuture<Void> fin = CompletableFuture.allOf(obtenerEmpleadosTiendaResponse);
+			obtenerEmpleadosTiendaResult = obtenerEmpleadosTiendaResponse.get();
+			if (CollectionUtils.isNotEmpty(obtenerEmpleadosTiendaResult)) {
+				LOG.info("Ha funcionado (obtenerEmpleadosTiendaRResult): " + obtenerEmpleadosTiendaResult.size());
+				GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = new GetVentaTotalizadoRequestDTO();
+				paramGetVentaTotalizado.setFechaDesde("2017-11-01");
+				paramGetVentaTotalizado.setFechaHasta("2017-11-30");
+				paramGetVentaTotalizado.setPais("11");
+				paramGetVentaTotalizado.setCadena("1");
+				//paramGetVentaTotalizado.setTienda(Arrays.asList("160"));
+				paramGetVentaTotalizado.setTienda(new ArrayList<>());
+				CompletableFuture<GetVentaTotalizadoResponseDTO> getVentaTotalizadoResponse = chunkService.getVentaTotalizado(paramGetVentaTotalizado);
+				CompletableFuture<Void> finGetVentaTotalizado = CompletableFuture.allOf(getVentaTotalizadoResponse);
+				GetVentaTotalizadoResponseDTO getVentaTotalizadoResult = getVentaTotalizadoResponse.get();
+				if (getVentaTotalizadoResult != null && CollectionUtils.isNotEmpty(getVentaTotalizadoResult.getVentaTotalizado())) {
+					LOG.info("Ha funcionado (obtenerEmpleadosTiendaRResult): " + getVentaTotalizadoResult.getVentaTotalizado().size());
+				}
+				result = Boolean.TRUE;
 			} else {
 				LOG.info("No se han recuperado registros");
 			}

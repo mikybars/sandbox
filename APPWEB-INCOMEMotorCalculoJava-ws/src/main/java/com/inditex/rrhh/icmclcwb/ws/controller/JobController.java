@@ -87,7 +87,7 @@ public class JobController {
     
     @GetMapping(path = "/test/")
     @ApiOperation("Get the number of jobs")
-    public List<GetEmpleadosTiendaResultItemDTO> test() {
+    public Boolean test() {
     	return this.jobService.test();
     }
 
