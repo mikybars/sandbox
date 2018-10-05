@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.model.mapper.LoginMapper;
 @Service
 public class Meta4LoginServiceImpl implements Meta4LoginService {
 
-	public static String sessionID;
+	private static String sessionID;
 	
 	private final Semaphore semaforo = new Semaphore(1);
 	

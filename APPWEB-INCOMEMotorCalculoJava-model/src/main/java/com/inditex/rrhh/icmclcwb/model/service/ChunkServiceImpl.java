@@ -6,6 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.service.PTRVentaService;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.ptr.dto.venta.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.ptr.dto.venta.GetVentaTotalizadoResponseDTO;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +33,16 @@ public class ChunkServiceImpl implements ChunkService {
 	@Autowired
 	private PTRVentaService ptrVentaService;
 	
+	@Autowired
+	private SessionRepository sessionRepository;
+	
 	@Async
 	@Override
 	public CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTienda(String idTienda) {
 		List<GetEmpleadosTiendaResultItemDTO> result = new ArrayList<>();
 		try {
+			sessionRepository.jdbcTemplate();
+			sessionRepository.entityManager();
 			result = meta4Service.obtenerEmpleadosTienda(idTienda);
 		} catch (Exception e) {
 			LOG.error("Error no controlado", e);

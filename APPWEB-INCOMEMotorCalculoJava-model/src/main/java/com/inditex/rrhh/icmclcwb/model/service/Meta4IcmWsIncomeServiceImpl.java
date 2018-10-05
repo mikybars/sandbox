@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.service.Meta4IcmWsIncomeService;
+import com.inditex.rrhh.icmclcwb.api.util.annotation.Meta4Session;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaFilterDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResponseDTO;
@@ -36,6 +37,7 @@ public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 	@Autowired
 	private IcmWsIncomeMapper icmWsIncomeMapper;
 
+	@Meta4Session
 	@Override
 	public GetEmpleadosTiendaResponseDTO obtenerEmpleadosTienda(GetEmpleadosTiendaRequestDTO getEmpleadosTiendaRequestDTO) throws Exception {
 		GetEmpleadosTiendaResponseDTO result = new GetEmpleadosTiendaResponseDTO();
