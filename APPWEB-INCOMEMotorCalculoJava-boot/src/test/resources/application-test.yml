@@ -45,6 +45,15 @@ amiga:
           password: c0ntras3nha
           virtualized: false
           response-validated: false
+        ptrClientPresenciaMock:
+          base-url: http://localhost:8081
+          send-itx-headers: false
+          ref-project-key: test_project_key
+          auth-method: BASIC
+          username: username100
+          password: username100p
+          virtualized: false
+          response-validated: false
   service:
     aaa:
       local:

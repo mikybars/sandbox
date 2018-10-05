@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResponseD
 
 public interface PTRPresenciasService {
 
-	PresenciasDetalleResponseDTO getVentaTotalizado(@Valid final PresenciasDetalleRequestDTO presencias) throws Exception;
+	PresenciasDetalleResponseDTO getPresenciaDetalle(@Valid final PresenciasDetalleRequestDTO presencias) throws Exception;
 
 	
 }

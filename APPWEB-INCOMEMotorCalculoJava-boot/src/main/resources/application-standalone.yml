@@ -1,6 +1,6 @@
 ## Define propiedades de la aplicación en local
 server:
-  port: 8080
+  port: 8081
 amiga:
   common:
     #TODO SESION

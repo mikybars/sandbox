@@ -26,7 +26,7 @@ public class PTRPresenciasServiceImpl implements PTRPresenciasService{
 	
 	
 	@Override
-	public PresenciasDetalleResponseDTO getVentaTotalizado(@Valid PresenciasDetalleRequestDTO presencias)
+	public PresenciasDetalleResponseDTO getPresenciaDetalle(@Valid PresenciasDetalleRequestDTO presencias)
 			throws Exception {
 		PresenciasDetalleResponseDTO result = null;
 		LOG.info("Consultando: " + "/ventaGeneralService/getVentaTotalizado");
