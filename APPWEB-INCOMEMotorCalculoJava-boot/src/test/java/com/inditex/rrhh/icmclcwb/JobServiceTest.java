@@ -22,11 +22,11 @@ public class JobServiceTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @Test
-    public void test() {
-        this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
-        ResponseEntity<Boolean> ret = this.testRestTemplate.getForEntity("/job/test/", Boolean.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
+//    @Test
+//    public void test() {
+//        this.testRestTemplate = this.testRestTemplate.withBasicAuth("username100", "username100p");
+//        ResponseEntity<Boolean> ret = this.testRestTemplate.getForEntity("/job/test/", Boolean.class);
+//        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+//    }
 
 }
