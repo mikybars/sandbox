@@ -90,10 +90,10 @@ public class SessionRepositoryImpl implements SessionRepository {
 
 			LOG.info(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
 							new ArrayList<>(Arrays.asList("1, 17", "2, 18", "3, 20"))));
-			final int[] result2 = jdbcTemplate.batchUpdate(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
-							new ArrayList<>(Arrays.asList("61, 117", "62, 118", "63, 120"))));
+			final int[] result2 = jdbcTemplate.batchUpdate(createInsertValues(TABLE_EMPLEADO_NAME,
+							INSERT_EMPLEADO_FIELD, new ArrayList<>(Arrays.asList("61, 117", "62, 118", "63, 120"))));
 			LOG.info("jdbcTemplate.batchUpdate: " + Arrays.toString(result2));
-			
+
 		} else {
 			LOG.info("No tenemos jdbcTemplate");
 		}
