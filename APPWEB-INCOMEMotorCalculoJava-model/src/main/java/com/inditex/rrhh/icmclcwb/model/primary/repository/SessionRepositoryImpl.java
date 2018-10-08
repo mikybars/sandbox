@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +18,7 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,27 +37,62 @@ public class SessionRepositoryImpl implements SessionRepository {
 
 	private final static String CREATE_TABLE_BASE = "DECLARE GLOBAL TEMPORARY TABLE ${table} (${field}) ON COMMIT PRESERVE ROWS NOT LOGGED";
 	private final static String CREATE_INDEX_TABLE_BASE = "CREATE INDEX ${table}_${id} ON ${table} (${field})";
-	private final static String CREATE_INSERT_BASE = "INSERT INTO ${table} (${field}) VALUES ${value}";
-	private final static String CREATE_INSERT_VALUE_BASE = "(${value})";
-	
+	private final static String INSERT_BASE = "INSERT INTO ${table} (${field})";
+	private final static String INSERT_SELECT_BASE = INSERT_BASE + " ${value}";
+	private final static String INSERT_VALUES_BASE = INSERT_BASE + " VALUES ${value}";
+	private final static String INSERT_VALUES_VALUE_BASE = "(${value})";
+	private final static String INSERT_VALUES_VALUE_PARAMETER_BASE = "?";
+
 	private final static String TABLE_EMPLEADO_NAME = "SESSION.EMPLEADO";
 	private final static String CREATE_TABLE_EMPLEADO_FIELD = "ID BIGINT, ID_DATA BIGINT";
 	private final static List<String> CREATE_INDEX_TABLE_EMPLEADO_NAME = Arrays.asList("ID, ID_DATA", "ID_DATA");
+	private final static String INSERT_EMPLEADO_FIELD = "ID, ID_DATA";
 
 	@Override
 	public void jdbcTemplate() {
 		if (jdbcTemplate != null) {
 			LOG.info("Tenemos jdbcTemplate");
-			// jdbcTemplate.execute(crearTablaTemporal(TABLE_EMPLEADO_NAME,
-			// CREATE_TABLE_EMPLEADO_FIELD));
-			// IntStream.range(0, CREATE_INDEX_TABLE_EMPLEADO_NAME.size())
-			// .forEach(idx ->
-			// jdbcTemplate.execute(crearIndiceTablaTemporal(TABLE_EMPLEADO_NAME,
-			// idx, CREATE_INDEX_TABLE_EMPLEADO_NAME.get(idx))));
+
 			LOG.info(crearTablaTemporal(TABLE_EMPLEADO_NAME, CREATE_TABLE_EMPLEADO_FIELD));
+			jdbcTemplate.execute(crearTablaTemporal(TABLE_EMPLEADO_NAME, CREATE_TABLE_EMPLEADO_FIELD));
+
 			IntStream.range(0, CREATE_INDEX_TABLE_EMPLEADO_NAME.size())
 							.forEach(idx -> LOG.info(crearIndiceTablaTemporal(TABLE_EMPLEADO_NAME, idx,
 											CREATE_INDEX_TABLE_EMPLEADO_NAME.get(idx))));
+			IntStream.range(0, CREATE_INDEX_TABLE_EMPLEADO_NAME.size())
+							.forEach(idx -> jdbcTemplate.execute(crearIndiceTablaTemporal(TABLE_EMPLEADO_NAME, idx,
+											CREATE_INDEX_TABLE_EMPLEADO_NAME.get(idx))));
+
+			LOG.info(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD, new ArrayList<>()));
+			final int[] result = jdbcTemplate.batchUpdate(
+							createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD, new ArrayList<>()),
+							new BatchPreparedStatementSetter() {
+
+								@Override
+								public void setValues(PreparedStatement ps, int i) throws SQLException {
+									ps.setInt(1, i + 100);
+									ps.setInt(2, i + 1000);
+								}
+
+								@Override
+								public int getBatchSize() {
+									return 3;
+								}
+
+							});
+			LOG.info("jdbcTemplate.batchUpdate: " + Arrays.toString(result));
+
+			LOG.info(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
+							new ArrayList<>(Arrays.asList("1, 17", "2, 18", "3, 20"))));
+			jdbcTemplate.execute(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
+							new ArrayList<>(Arrays.asList("1, 17", "2, 18", "3, 20"))));
+			LOG.info("jdbcTemplate.execute");
+
+			LOG.info(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
+							new ArrayList<>(Arrays.asList("1, 17", "2, 18", "3, 20"))));
+			final int[] result2 = jdbcTemplate.batchUpdate(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
+							new ArrayList<>(Arrays.asList("61, 117", "62, 118", "63, 120"))));
+			LOG.info("jdbcTemplate.batchUpdate: " + Arrays.toString(result2));
 			
 		} else {
 			LOG.info("No tenemos jdbcTemplate");
@@ -85,20 +124,36 @@ public class SessionRepositoryImpl implements SessionRepository {
 		StrSubstitutor sub = new StrSubstitutor(valuesMap);
 		return sub.replace(CREATE_INDEX_TABLE_BASE);
 	}
-	
-	private String createInsert(String table, String field, List<String> values) {
-		String value = null;
+
+	private String createInsertValues(String table, String field, List<String> values) {
 		if (CollectionUtils.isEmpty(values)) {
-			int valueLength = StringUtils.join(field, ",").length();
-		} else {
-			
+			// if (values == null) {
+			// values = new ArrayList<>();
+			// }
+			final int fieldLength = StringUtils.split(field, ",").length;
+			List<String> valueParam = new ArrayList<>();
+			IntStream.range(0, fieldLength).forEach(idx -> {
+				LOG.info("INSERT_VALUE_PARAMETER_BASE: " + idx);
+				valueParam.add(INSERT_VALUES_VALUE_PARAMETER_BASE);
+			});
+			values.add(StringUtils.join(valueParam, ","));
 		}
+
+		final int valuesLength = values.size();
+		IntStream.range(0, valuesLength).forEach(idx -> {
+			LOG.info("INSERT_VALUE_BASE: " + idx);
+			Map<String, String> valuesMap = new HashMap<>();
+			valuesMap.put("value", values.get(idx));
+			StrSubstitutor sub = new StrSubstitutor(valuesMap);
+			values.set(idx, sub.replace(INSERT_VALUES_VALUE_BASE));
+		});
+
 		Map<String, String> valuesMap = new HashMap<>();
 		valuesMap.put("table", table);
 		valuesMap.put("field", field);
-		valuesMap.put("value", value);
+		valuesMap.put("value", StringUtils.join(values, ","));
 		StrSubstitutor sub = new StrSubstitutor(valuesMap);
-		return sub.replace(CREATE_INDEX_TABLE_BASE);
+		return sub.replace(INSERT_VALUES_BASE);
 	}
 
 }
