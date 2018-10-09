@@ -62,6 +62,23 @@ amiga:
     session:
       session-type: EMBEDDED
   data:
+#    jdbc:
+#      datasource:        
+#        primary:
+#          driverClassName: com.ibm.db2.jcc.DB2Driver
+#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+#          user: ugesbul
+#          password: bjtmqg
+#        secondary:
+#          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
+#          user: People7
+#          password: people7
+#    hibernate:
+#      primary:
+#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+#      secondary:
+#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.SQLServerNativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
     jdbc:
       datasource:        
         primary:
