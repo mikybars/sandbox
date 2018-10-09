@@ -35,7 +35,9 @@ public class SessionRepositoryImpl implements SessionRepository {
 	@Qualifier("primaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 
-	private final static String CREATE_TABLE_BASE = "DECLARE GLOBAL TEMPORARY TABLE ${table} (${field}) ON COMMIT PRESERVE ROWS NOT LOGGED";
+	private final static String CREATE_TABLE_BASE_H2 = "CREATE MEMORY LOCAL TEMPORARY TABLE ${table} (${field})";
+	private final static String CREATE_TABLE_BASE_SQL = "DECLARE GLOBAL TEMPORARY TABLE ${table} (${field}) ON COMMIT PRESERVE ROWS NOT LOGGED";
+	private final static String CREATE_TABLE_BASE = CREATE_TABLE_BASE_H2;
 	private final static String CREATE_INDEX_TABLE_BASE = "CREATE INDEX ${table}_${id} ON ${table} (${field})";
 	private final static String INSERT_BASE = "INSERT INTO ${table} (${field})";
 	private final static String INSERT_SELECT_BASE = INSERT_BASE + " ${value}";
@@ -52,20 +54,14 @@ public class SessionRepositoryImpl implements SessionRepository {
 	public void jdbcTemplate() {
 		if (jdbcTemplate != null) {
 			LOG.info("Tenemos jdbcTemplate");
-
-			LOG.info(crearTablaTemporal(TABLE_EMPLEADO_NAME, CREATE_TABLE_EMPLEADO_FIELD));
+			// Tablas
 			jdbcTemplate.execute(crearTablaTemporal(TABLE_EMPLEADO_NAME, CREATE_TABLE_EMPLEADO_FIELD));
-
-			IntStream.range(0, CREATE_INDEX_TABLE_EMPLEADO_NAME.size())
-							.forEach(idx -> LOG.info(crearIndiceTablaTemporal(TABLE_EMPLEADO_NAME, idx,
-											CREATE_INDEX_TABLE_EMPLEADO_NAME.get(idx))));
+			// Índices
 			IntStream.range(0, CREATE_INDEX_TABLE_EMPLEADO_NAME.size())
 							.forEach(idx -> jdbcTemplate.execute(crearIndiceTablaTemporal(TABLE_EMPLEADO_NAME, idx,
 											CREATE_INDEX_TABLE_EMPLEADO_NAME.get(idx))));
-
-			LOG.info(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD, new ArrayList<>()));
-			final int[] result = jdbcTemplate.batchUpdate(
-							createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD, new ArrayList<>()),
+			// Insert
+			jdbcTemplate.batchUpdate(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD, new ArrayList<>()),
 							new BatchPreparedStatementSetter() {
 
 								@Override
@@ -80,19 +76,10 @@ public class SessionRepositoryImpl implements SessionRepository {
 								}
 
 							});
-			LOG.info("jdbcTemplate.batchUpdate: " + Arrays.toString(result));
-
-			LOG.info(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
-							new ArrayList<>(Arrays.asList("1, 17", "2, 18", "3, 20"))));
 			jdbcTemplate.execute(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
 							new ArrayList<>(Arrays.asList("1, 17", "2, 18", "3, 20"))));
-			LOG.info("jdbcTemplate.execute");
-
-			LOG.info(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
-							new ArrayList<>(Arrays.asList("1, 17", "2, 18", "3, 20"))));
-			final int[] result2 = jdbcTemplate.batchUpdate(createInsertValues(TABLE_EMPLEADO_NAME,
-							INSERT_EMPLEADO_FIELD, new ArrayList<>(Arrays.asList("61, 117", "62, 118", "63, 120"))));
-			LOG.info("jdbcTemplate.batchUpdate: " + Arrays.toString(result2));
+			jdbcTemplate.batchUpdate(createInsertValues(TABLE_EMPLEADO_NAME, INSERT_EMPLEADO_FIELD,
+							new ArrayList<>(Arrays.asList("61, 117", "62, 118", "63, 120"))));
 
 		} else {
 			LOG.info("No tenemos jdbcTemplate");
@@ -113,7 +100,9 @@ public class SessionRepositoryImpl implements SessionRepository {
 		valuesMap.put("table", table);
 		valuesMap.put("field", field);
 		StrSubstitutor sub = new StrSubstitutor(valuesMap);
-		return sub.replace(CREATE_TABLE_BASE);
+		String result = sub.replace(CREATE_TABLE_BASE);
+		LOG.info("crearTablaTemporal: " + result);
+		return result;
 	}
 
 	private String crearIndiceTablaTemporal(String table, int id, String field) {
@@ -122,7 +111,9 @@ public class SessionRepositoryImpl implements SessionRepository {
 		valuesMap.put("id", String.valueOf(id));
 		valuesMap.put("field", field);
 		StrSubstitutor sub = new StrSubstitutor(valuesMap);
-		return sub.replace(CREATE_INDEX_TABLE_BASE);
+		String result = sub.replace(CREATE_INDEX_TABLE_BASE);
+		LOG.info("crearIndiceTablaTemporal: " + result);
+		return result;
 	}
 
 	private String createInsertValues(String table, String field, List<String> values) {
@@ -153,7 +144,9 @@ public class SessionRepositoryImpl implements SessionRepository {
 		valuesMap.put("field", field);
 		valuesMap.put("value", StringUtils.join(values, ","));
 		StrSubstitutor sub = new StrSubstitutor(valuesMap);
-		return sub.replace(INSERT_VALUES_BASE);
+		String result = sub.replace(INSERT_VALUES_BASE);
+		LOG.info("createInsertValues: " + result);
+		return result;
 	}
 
 }
