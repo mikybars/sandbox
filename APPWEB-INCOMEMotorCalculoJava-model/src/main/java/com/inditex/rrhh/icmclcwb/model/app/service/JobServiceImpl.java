@@ -8,6 +8,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.JobMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JobRepository;
+import com.inditex.rrhh.icmclcwb.ms.Sender;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +39,15 @@ public class JobServiceImpl implements JobService {
 	@Autowired
 	private ChunkService chunkService;
 
+	@Autowired
+	private Sender sender;
+	
 	@Override
 	public JobDto createJob(@Valid JobDto job) {
 		JobDto result = new JobDto();
 		LOG.info("Inicio :: JobService.createJob(): " + job.toString());
 		result = jobMapper.jobToJobDto(jobRepository.save(jobMapper.jobDtoToJob(job)));
+		sender.send(result);
 		LOG.info("Fin :: JobService.createJob(): " + result.toString());
 		return result;
 	}

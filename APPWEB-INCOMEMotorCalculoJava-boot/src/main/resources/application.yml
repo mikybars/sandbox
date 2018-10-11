@@ -89,7 +89,7 @@ amiga:
       local:
         # Deshabilita el modo de autenticación para test
         enable-local-test: true
-        json-sso-file: /local-sso-ext.json
+        #json-sso-file: /local-sso-ext.json
       classic:
         sso:
           #TODO APP Cambiar por el nombre de la aplicacion en el SSO

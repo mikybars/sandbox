@@ -92,3 +92,14 @@ amiga:
         properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
       secondary:
         properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+    jms:
+      connectionFactory:
+        broker1:
+            brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+            userName: root
+            password: V3ct0r1nd1t3x
+      client:
+         primary:
+           destinationName: proceso.queue     
+           receiveTimeout: 100
+           pubSubDomain: false

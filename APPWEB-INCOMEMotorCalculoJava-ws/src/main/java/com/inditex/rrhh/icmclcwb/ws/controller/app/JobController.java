@@ -25,10 +25,10 @@ public class JobController {
 	@Autowired
 	private JobService jobService;
 
-    @PostMapping
-    @ApiOperation("Inserta un nuevo trabajo")
-    public @Valid JobDto insert(@Valid @RequestBody final JobDto job) {
-        return this.jobService.createJob(job);
-    }
+	@PostMapping
+	@ApiOperation("Inserta un nuevo trabajo")
+	public @Valid JobDto insert(@Valid @RequestBody final JobDto job) {
+		return jobService.createJob(job);
+	}
 
 }

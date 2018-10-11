@@ -52,7 +52,7 @@ amiga:
       local:
         # Deshabilita el modo de autenticación para test
         enable-local-test: true
-        json-sso-file: /local-sso-ext.json
+        #json-sso-file: /local-sso-ext.json
     rest:
       logging:
         # Limita la información devuelta en el caso de errores.
@@ -92,6 +92,17 @@ amiga:
 #        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
 #      secondary:
 #        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.SQLServerNativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+    jms:
+      connectionFactory:
+        broker1:
+            brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+            userName: root
+            password: V3ct0r1nd1t3x
+      client:
+         primary:
+           destinationName: proceso.queue
+           receiveTimeout: 100
+           pubSubDomain: false
 app:
   # Variables de entorno propias de la aplicación
   envars:
