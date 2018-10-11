@@ -40,15 +40,6 @@ public class ScheduleServiceTest {
 	@Autowired
 	private TestRestTemplate testRestTemplate;
 
-	@Mock
-	private ScheduleDto s;
-
-	@InjectMocks
-	private ScheduleDto s1;
-
-	@MockBean
-	private ScheduleDto s2;
-
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
