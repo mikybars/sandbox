@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.model.rrhhappwscincome.login.LoginService;
+import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 
 @Configuration
 public class Meta4ClientLoginConfig extends Meta4ClientConfigAbstract<LoginService> {
