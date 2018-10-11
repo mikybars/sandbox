@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleJobDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
 import com.inditex.rrhh.icmclcwb.api.app.service.ScheduleService;
@@ -14,6 +15,8 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 @Service
 @Validated
@@ -45,6 +48,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 			result.add(scheduleJobDto);
 		});
 		LOG.info("Fin :: ScheduleService.run(): " + result.toString());
+		return result;
+	}
+
+	@Override
+	public ScheduleDto createSchedule(@Valid ScheduleDto schedule) {
+		ScheduleDto result = new ScheduleDto();
+		LOG.info("Inicio :: ScheduleService.createSchedule(): " + schedule.toString());
+		result = scheduleMapper.scheduleToScheduleDto(scheduleRepository.save(scheduleMapper.scheduleDtoToSchedule(schedule)));
+		LOG.info("Fin :: ScheduleService.createSchedule(): " + result.toString());
 		return result;
 	}
 

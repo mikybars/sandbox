@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -16,6 +18,8 @@ public class ScheduleDto implements Serializable {
 
 	@Size(max = 20)
 	@NotEmpty
+	@NotNull
+	@NotBlank
 	private String name;
 
 }
