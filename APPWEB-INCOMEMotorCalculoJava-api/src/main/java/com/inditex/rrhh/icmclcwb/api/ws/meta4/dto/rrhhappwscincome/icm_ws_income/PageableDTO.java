@@ -8,7 +8,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.rrhhappwscincome.icm_ws_income.Pageable;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.dto.Pageable;
 
 @Data
 @AllArgsConstructor

@@ -56,6 +56,9 @@ amiga:
           response-validated: false
   service:
     aaa:
+      security:
+        headers:
+          frame-options: DISABLE
       local:
         enable-local-test: true
     #TODO SESION
@@ -83,7 +86,7 @@ amiga:
       datasource:        
         primary:
           driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:INDITEX;MODE=DB2;INIT=CREATE SCHEMA IF NOT EXISTS MAESTROS
+          url: jdbc:h2:mem:INDITEX;MODE=DB2;INIT=CREATE SCHEMA IF NOT EXISTS INCOME
           password: sa
           user: sa
         secondary:
