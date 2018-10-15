@@ -14,9 +14,6 @@ logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: DEBUG
-amq:
-  enabled: true
-  force: true
 amiga:
   common:
     cache:

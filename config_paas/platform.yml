@@ -37,3 +37,6 @@ datagrid:
     enabled: true
   session:
     enabled: true
+amq:
+  enabled: true
+  force: true
