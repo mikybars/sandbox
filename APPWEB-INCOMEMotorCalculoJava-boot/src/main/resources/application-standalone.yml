@@ -100,7 +100,7 @@ amiga:
             password: V3ct0r1nd1t3x
       client:
          primary:
-           destinationName: proceso.queue
+           destinationName: global.core.icmclcwb.private.jobs-develop
            receiveTimeout: 100
            pubSubDomain: false
 app:

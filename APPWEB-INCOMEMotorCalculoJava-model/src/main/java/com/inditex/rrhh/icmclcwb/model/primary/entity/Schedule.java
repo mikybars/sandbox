@@ -23,16 +23,16 @@ public class Schedule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "ID_PROGRAMACION")
 	private /* BigInteger */ Long id;
-
+	
 	@Size(max = 20)
 	@NotEmpty
 	@Column(name = "NAME")
 	private String name;
 	
 //	@NotNull
-//	@Column(name = "HORA", nullable = false)
+//	@Column(name = "HORA_PROGRAMACION", nullable = false)
 //	private Time hora;
 //
 //	@NotNull
@@ -44,16 +44,16 @@ public class Schedule {
 //
 //	@Column(name = "ID_CADENA", nullable = true)
 //	private String idCadena;
-//	
+//
 //	@Column(name = "ID_TIENDA", nullable = true)
 //	private String idTienda;
 //
 //	@Column(name = "ID_EMPLEADO", nullable = true)
 //	private String idEmpleado;
-//	
+//
 //	@NotBlank
-//	@Column(name = "USUARIO", nullable = false)
-//	private String usuario;
+//	@Column(name = "ID_USUARIO", nullable = false)
+//	private String idUsuario;
 //
 //	@NotNull
 //	@Column(name = "PERIODO", nullable = false)
@@ -64,7 +64,7 @@ public class Schedule {
 //	private Date fechaCreacion;
 //
 //	@NotNull
-//	@Column(name = "FECHA_EJECUCION", nullable = false)
-//	private Date fechaEjecucion;
+//	@Column(name = "FECHA_SIGUIENTE_EJECUCION", nullable = false)
+//	private Date fechaSiguienteEjecucion;
 
 }

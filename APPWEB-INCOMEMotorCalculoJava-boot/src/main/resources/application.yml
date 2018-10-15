@@ -36,13 +36,20 @@ amiga:
     jms:
       connectionFactory:
         broker1:
-            brokerURL: tcp://middleware-amq-tcp:61616
-            userName: usr-admin            
+          # tcp/openwire
+          brokerURL: tcp://middleware-amq-tcp:61616
+          # mqtt
+          #brokerURL: mqtt://middleware-amq-mqtt:1883
+          # stomp
+          #brokerURL: stomp://middleware-amq-stomp:61613
+          userName: usr-admin
       client:
-         primary:
-           destinationName: proceso.queue     
-           receiveTimeout: 100
-           pubSubDomain: false
+        primary:
+          #<tenant_del_productor>.<domain_del_productor>[.<microservice_productor>].<scope>.topic
+          #destinationName: proceso.queue
+          destinationName: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.jobs-${metadata.slot}
+          receiveTimeout: 100
+          pubSubDomain: false
   common:
     cache:
       remote:
