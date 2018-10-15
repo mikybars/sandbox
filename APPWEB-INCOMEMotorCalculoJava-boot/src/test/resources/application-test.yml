@@ -95,9 +95,10 @@ amiga:
     jms:
       connectionFactory:
         broker1:
-            brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-            userName: root
-            password: V3ct0r1nd1t3x
+          brokerURL: tcp://localvm:16667
+          #brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+          #userName: root
+          #password: V3ct0r1nd1t3x
       client:
          primary:
            destinationName: proceso.queue     
