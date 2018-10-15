@@ -2,35 +2,6 @@
 ## Las propiedades definidas en estos ficheros configmap tendrán a su vez precedencia
 ## sobre variables definidas den los ficheros internos del fatJAR o WAR (p.ej src/main/resources/application.yml en aplicaciones Spring Boot).
 ## https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Listado+de+propiedades+configurables#Listadodepropiedadesconfigurables-1.Propiedadesdelosficherosplatform
-amiga:
-  data:
-    jdbc:
-      datasource:        
-        primary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:INDITEX;MODE=DB2;INIT=CREATE SCHEMA IF NOT EXISTS INCOME
-          user: sa
-          password: sa
-        secondary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer
-          user: sa
-          password: sa
-    hibernate:
-      primary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
-      secondary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
-    jms:
-      connectionFactory:
-        broker1:
-            brokerURL: tcp://middleware-amq-tcp:61616
-            userName: usr-admin            
-      client:
-         primary:
-           destinationName: proceso.queue     
-           receiveTimeout: 100
-           pubSubDomain: false
 app:
   # Variables de entorno propias de la aplicación
   envars:

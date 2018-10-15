@@ -15,6 +15,34 @@ logging:
     root: WARN
     com.inditex.rrhh.icmclcwb: DEBUG
 amiga:
+  data:
+    jdbc:
+      datasource:        
+        primary:
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:INDITEX;MODE=DB2;INIT=CREATE SCHEMA IF NOT EXISTS INCOME
+          user: sa
+          password: sa
+        secondary:
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer
+          user: sa
+          password: sa
+    hibernate:
+      primary:
+        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+      secondary:
+        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+    jms:
+      connectionFactory:
+        broker1:
+            brokerURL: tcp://middleware-amq-tcp:61616
+            userName: usr-admin            
+      client:
+         primary:
+           destinationName: proceso.queue     
+           receiveTimeout: 100
+           pubSubDomain: false
   common:
     cache:
       remote:
