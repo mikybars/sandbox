@@ -14,42 +14,10 @@ logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: DEBUG
+amq:
+  enabled: true
+  force: true
 amiga:
-  data:
-    jdbc:
-      datasource:        
-        primary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:INDITEX;MODE=DB2;INIT=CREATE SCHEMA IF NOT EXISTS INCOME
-          user: sa
-          password: sa
-        secondary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer
-          user: sa
-          password: sa
-    hibernate:
-      primary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
-      secondary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
-    jms:
-      connectionFactory:
-        broker1:
-          # tcp/openwire
-          brokerURL: tcp://middleware-amq-tcp:61616
-          # mqtt
-          #brokerURL: mqtt://middleware-amq-mqtt:1883
-          # stomp
-          #brokerURL: stomp://middleware-amq-stomp:61613
-          userName: usr-admin
-      client:
-        primary:
-          #<tenant_del_productor>.<domain_del_productor>[.<microservice_productor>].<scope>.topic
-          #destinationName: proceso.queue
-          destinationName: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.jobs-${metadata.slot}
-          receiveTimeout: 100
-          pubSubDomain: false
   common:
     cache:
       remote:
@@ -135,4 +103,13 @@ amiga:
         description: '@project.description@'
         #contact: SomeContactName
         #web: http://www.inditex.com
-        #email: your_team_email@inditex.com 
+        #email: your_team_email@inditex.com
+    jms:
+      primary:
+        destination-fqdn: global.core.icmclcwb.private.jobs-develop
+        #destination-fqdn: ${amiga.service.jms.primary.tenant}.${amiga.service.jms.primary.domain}.${amiga.service.jms.primary.microservice}.${amiga.service.jms.primary.destination-visibility}.${amiga.service.jms.primary.destination-name} 
+        #tenant: testTenant
+        #domain: testDomain
+        #microservice: testMicroService
+        #destination-visibility: public
+        #destination-name: testQueue

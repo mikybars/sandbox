@@ -96,12 +96,13 @@ amiga:
       connectionFactory:
         broker1:
           #brokerURL: tcp://localvm:16667
-          brokerURL: tcp://middleware-amq-tcp:61616
-          #brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-          #userName: root
-          #password: V3ct0r1nd1t3x
+          #brokerURL: tcp://middleware-amq-tcp:61616
+          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+          userName: root
+          password: V3ct0r1nd1t3x
       client:
          primary:
-           destinationName: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.jobs-${metadata.slot}
+           #destinationName: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.jobs-${metadata.slot}
+           destinationName: global.core.icmclcwb.private.jobs-develop
            receiveTimeout: 100
            pubSubDomain: false

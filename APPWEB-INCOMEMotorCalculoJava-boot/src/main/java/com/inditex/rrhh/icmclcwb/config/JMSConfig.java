@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.config;
 
 import javax.jms.ConnectionFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,12 +17,6 @@ import com.inditex.aqsw.framework.service.jms.JmsListenerContainerFactoryBuilder
 @Configuration
 @EnableAutoConfiguration
 public class JMSConfig {
-
-	@Autowired
-	private JmsClientBuilder jmsClientBuilder;
-
-	@Autowired
-	private JmsConnectionFactoryBuilder builderCF;
 
 	@Bean
 	@ConfigurationProperties(prefix = "amiga.data.jms.connectionFactory.broker1")
@@ -42,7 +35,7 @@ public class JMSConfig {
 	@ConfigurationProperties(prefix = "amiga.data.jms.client.primary")
 	public JmsClient primaryJmsClient(final JmsClientBuilder builder,
 					@Qualifier("broker1CF") final ConnectionFactory cf) throws Exception {
-		return jmsClientBuilder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();
+		return builder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();
 	}
 
 }
