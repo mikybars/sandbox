@@ -30,7 +30,7 @@ amiga:
           #brokerURL: mqtt://middleware-amq-mqtt:1883
           # stomp
           #brokerURL: stomp://middleware-amq-stomp:61613
-          userName: usr-admin
+          userName: "usr-admin"
       client:
         primary:
           #<tenant_del_productor>.<domain_del_productor>[.<microservice_productor>].<scope>.topic

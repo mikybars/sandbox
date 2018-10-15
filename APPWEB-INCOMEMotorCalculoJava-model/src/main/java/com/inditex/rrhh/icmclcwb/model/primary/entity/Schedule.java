@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
-import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,10 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import lombok.Data;
 
 @Entity
@@ -26,45 +23,40 @@ public class Schedule {
 	@Column(name = "ID_PROGRAMACION")
 	private /* BigInteger */ Long id;
 	
-	@Size(max = 20)
-	@NotEmpty
-	@Column(name = "NAME")
-	private String name;
-	
-//	@NotNull
-//	@Column(name = "HORA_PROGRAMACION", nullable = false)
-//	private Time hora;
-//
-//	@NotNull
-//	@Column(name = "ACTIVA", nullable = false)
-//	private Boolean activa;
-//
-//	@Column(name = "ID_PAIS", nullable = true)
-//	private String idPais;
-//
-//	@Column(name = "ID_CADENA", nullable = true)
-//	private String idCadena;
-//
-//	@Column(name = "ID_TIENDA", nullable = true)
-//	private String idTienda;
-//
-//	@Column(name = "ID_EMPLEADO", nullable = true)
-//	private String idEmpleado;
-//
-//	@NotBlank
-//	@Column(name = "ID_USUARIO", nullable = false)
-//	private String idUsuario;
-//
-//	@NotNull
-//	@Column(name = "PERIODO", nullable = false)
-//	private /* BigInteger */ Long periodo;
-//
-//	@NotNull
-//	@Column(name = "FECHA_CREACION", nullable = false)
-//	private Date fechaCreacion;
-//
-//	@NotNull
-//	@Column(name = "FECHA_SIGUIENTE_EJECUCION", nullable = false)
-//	private Date fechaSiguienteEjecucion;
+	@NotNull
+	@Column(name = "HORA_PROGRAMACION", nullable = false)
+	private Date hora;
+
+	@NotNull
+	@Column(name = "ACTIVA", nullable = false)
+	private Boolean activa;
+
+	@Column(name = "ID_PAIS", nullable = true)
+	private String idPais;
+
+	@Column(name = "ID_CADENA", nullable = true)
+	private String idCadena;
+
+	@Column(name = "ID_TIENDA", nullable = true)
+	private String idTienda;
+
+	@Column(name = "ID_EMPLEADO", nullable = true)
+	private String idEmpleado;
+
+	@NotBlank
+	@Column(name = "ID_USUARIO", nullable = false)
+	private String idUsuario;
+
+	@NotNull
+	@Column(name = "PERIODO", nullable = false)
+	private /* BigInteger */ Long periodo;
+
+	@NotNull
+	@Column(name = "FECHA_CREACION", nullable = false)
+	private LocalDateTime fechaCreacion;
+
+	@NotNull
+	@Column(name = "FECHA_SIGUIENTE_EJECUCION", nullable = false)
+	private LocalDateTime fechaSiguienteEjecucion;
 
 }
