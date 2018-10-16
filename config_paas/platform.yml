@@ -1,42 +1,18 @@
-## Define parte de la infraestructura
-## https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Listado+de+propiedades+configurables#Listadodepropiedadesconfigurables-1.Propiedadesdelosficherosplatform
 app:
-  #TODO Levantar en DES con replicas por defecto para probar
-  replicas: 4
-  # Cambia el context root de la aplicacion. El context root por defecto para las aplicaciones desplegadas en Openshift es "/".
-  #context_path: /ICMCLCWB
   context_path: /
-  # Propiedad por defecto para las propiedades app.liveness_probe y app.readiness_probe.
-  # https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Propiedades+de+health+de+Openshift+configurables
   health_probe:
-    # Habilita el health
-    #enabled: true
-    # Path del health en la aplicacion
-    #http_path: /amiga/health
-    # Los segundos que tarda la aplicacion en estar disponible
     initial_delay_seconds: 80
-  # Autenticacion con SPNEGO
-  # https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Despliegue+de+aplicaciones+en+Openshift#DesplieguedeaplicacionesenOpenshift-4.4Autenticaci%C3%B3nconSPNEGO
   has_spnego: true
-  services: 
-    http: 
-      route: 
-        tls: 
-          # Si se habilita el route pasa a ser HTTPS en lugar de HTTP
+  services:
+    http:
+      route:
+        tls:
           enabled: true
-          # Si TLS esta habilitado este parametro indica que hacer ante una peticion HTTP.
-          # Allow: permite usar ambos protocolos (http:// y https://) .
-          # None: no permite usar HTTP.
-          # Redirect: Redirige las peticiones HTTP a HTTPS.
           insecure_termination_policy: Redirect
-#TODO SESION
 datagrid:
-  #TODO Levantar en DES con replicas por defecto para probar
-  replicas: 2
   application_cache:
     enabled: true
   session:
     enabled: true
 amq:
   enabled: true
-  force: true

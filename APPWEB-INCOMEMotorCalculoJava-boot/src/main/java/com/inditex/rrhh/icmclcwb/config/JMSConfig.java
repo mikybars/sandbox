@@ -1,12 +1,14 @@
 package com.inditex.rrhh.icmclcwb.config;
 
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 
 import com.inditex.aqsw.framework.data.jms.JmsClient;
@@ -18,23 +20,33 @@ import com.inditex.aqsw.framework.service.jms.JmsListenerContainerFactoryBuilder
 @EnableAutoConfiguration
 public class JMSConfig {
 
+	@Primary
 	@Bean
-	@ConfigurationProperties(prefix = "amiga.data.jms.connectionFactory.broker1")
-	public ConnectionFactory broker1CF(JmsConnectionFactoryBuilder builderCF) throws Exception {
-		return builderCF.build();
+	@ConfigurationProperties(prefix = "amiga.data.jms.connectionFactory.brokerLectura")
+	public ConnectionFactory connectionFactoryLectura(JmsConnectionFactoryBuilder builder)
+			throws JMSException {
+		return builder.build();
 	}
 
 	@Bean
-	public JmsListenerContainerFactory<?> containerFactoryListener1(@Qualifier("broker1CF") final ConnectionFactory cf,
-					final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
+	@ConfigurationProperties(prefix = "amiga.data.jms.connectionFactory.brokerEscritura")
+	public ConnectionFactory connectionFactoryEscritura(JmsConnectionFactoryBuilder builder)
+			throws JMSException {
+		return builder.build();
+	}
+
+	@Bean
+	public JmsListenerContainerFactory<?> containerFactoryListener(
+			@Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
+			final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
 		return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
-						.connectionFactory(cf).build();
+				.connectionFactory(cf).build();
 	}
 
-	@Bean("primaryJmsClient")
-	@ConfigurationProperties(prefix = "amiga.data.jms.client.primary")
-	public JmsClient primaryJmsClient(final JmsClientBuilder builder,
-					@Qualifier("broker1CF") final ConnectionFactory cf) throws Exception {
+	@Bean
+	@ConfigurationProperties(prefix = "amiga.data.jms.client.jobJmsClient")
+	public JmsClient jobJmsClient(final JmsClientBuilder builder,
+			@Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
 		return builder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();
 	}
 

@@ -1,52 +1,11 @@
 spring:
-  application:
-    name: ICMCLCWB
   profiles:
     active: test
-app:
-  version: @project.version@
-server:
-  port: 8095
-logging:
-  level:
-    root: INFO
-    com.inditex.rrhh.icmclcwb: DEBUG
-    #org.apache.cxf: TRACE
 amiga:
   common:
-    #TODO SESION
     cache:
-      remote:
-        enabled: false
       embedded:
         enabled: true
-    rest:
-      virtual:
-        base-url: http://virtualhost:8081   
-      client:
-        # Timeout de conexion por defecto en milisegundos que heredaran todos los clientes rest
-        defaultConnectTimeout: 5000
-        # Timeout de lectura por defecto en milisegundos que heredaran todos los clientes rest
-        defaultReadTimeout: 30000
-        ptrClientVenta:
-          #base-url: https://axdesptrosb01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
-          base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-          send-itx-headers: false
-          ref-project-key: test_project_key
-          auth-method: BASIC
-          username: rcastro
-          password: c0ntras3nha
-          virtualized: false
-          response-validated: false
-        ptrClientPresencia:
-          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          send-itx-headers: false
-          ref-project-key: test_project_key
-          auth-method: BASIC
-          username: rcastro
-          password: c0ntras3nha
-          virtualized: false
-          response-validated: false
   service:
     aaa:
       security:
@@ -54,55 +13,5 @@ amiga:
           frame-options: DISABLE
       local:
         enable-local-test: true
-    #TODO SESION
     session:
       session-type: EMBEDDED
-  data:
-#    jdbc:
-#      datasource:        
-#        primary:
-#          driverClassName: com.ibm.db2.jcc.DB2Driver
-#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
-#          user: ugesbul
-#          password: bjtmqg
-#        secondary:
-#          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
-#          user: People7
-#          password: people7
-#    hibernate:
-#      primary:
-#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
-#      secondary:
-#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.SQLServerNativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
-    jdbc:
-      datasource:        
-        primary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:INDITEX;MODE=DB2;INIT=CREATE SCHEMA IF NOT EXISTS INCOME
-          password: sa
-          user: sa
-        secondary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer
-          password: sa
-          user: sa
-    hibernate:
-      primary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
-      secondary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
-    jms:
-      connectionFactory:
-        broker1:
-          #brokerURL: tcp://localvm:16667
-          #brokerURL: tcp://middleware-amq-tcp:61616
-          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-          userName: root
-          password: V3ct0r1nd1t3x
-      client:
-         primary:
-           #destinationName: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.jobs-${metadata.slot}
-           destinationName: global.core.icmclcwb.private.jobs-develop
-           receiveTimeout: 100
-           pubSubDomain: false

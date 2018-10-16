@@ -23,7 +23,7 @@ public class Meta4ClientIncomeConfig extends Meta4ClientConfigAbstract<IcmWsInco
 		return result;
 	}
 
-    @Value("${app.envars.meta4.income.server}")
+    @Value("${app.envars.meta4.icm-ws-income.server}")
 	@Override
 	protected void setServer(String server) {
 		LOG.info("INICIO setServer() server: {}", server);

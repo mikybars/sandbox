@@ -15,12 +15,12 @@ public class Sender {
 	private Logger LOG;
 
 	@Autowired
-	@Qualifier("primaryJmsClient")
-	private JmsClient primaryJmsClient;
+	@Qualifier("jobJmsClient")
+	private JmsClient jobJmsClient;
 
 	public void send(JobDto job) {
 		LOG.info("Inicio :: Sender.send(): " + job.toString());
-		this.primaryJmsClient.convertAndSend(job);
+		jobJmsClient.convertAndSend(job);
 		LOG.info("Fin :: Sender.send(): " + job.toString());
 	}
 

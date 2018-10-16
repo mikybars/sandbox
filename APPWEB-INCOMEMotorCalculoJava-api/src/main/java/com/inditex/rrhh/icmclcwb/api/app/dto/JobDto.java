@@ -12,7 +12,7 @@ public class JobDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
-	@ApiModelProperty(value = "Identificador del trabajo", required = true)
+	@ApiModelProperty(value = "Identificador del trabajo", required = false)
 	private Integer id;
 
 	@ApiModelProperty(value = "Id del páis a ejecutar", required = false)

@@ -2,53 +2,35 @@ logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: DEBUG
-metadata:
-  tenant: global
-  domain: core
-  openshiftproject: icmclcwb
-  slot: develop
-spring:
-  h2:
-    console:
-      enabled: true
 amiga:
   common:
-    cache:
-      remote:
-        enabled: false
-      embedded:
-        enabled: true
+    rest:
+      virtual:
+        base-url: http://virtualhost:8081
+      client:
+        defaultConnectTimeout: 600000
+        defaultReadTimeout: 600000
+        ptrClientVenta:
+          base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
+          send-itx-headers: false
+          ref-project-key: test_project_key
+          auth-method: BASIC
+          username: rcastro
+          virtualized: false
+          response-validated: false
+        ptrClientPresencia:
+          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          send-itx-headers: false
+          ref-project-key: test_project_key
+          auth-method: BASIC
+          username: rcastro
+          virtualized: false
+          response-validated: false
   service:
     jms:
       job-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.job-queue-${metadata.slot}
-    session:
-      session-type: EMBEDDED
-    aaa:
-      security:
-        headers:
-          frame-options: DISABLE
-      local:
-        enable-local-test: true
-    rest:
-      logging:
-        is-production: false
   data:
-    jms:
-      connectionFactory:
-        brokerEscritura:
-          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-          userName: root
-          password: V3ct0r1nd1t3x
-        brokerLectura:
-          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-          userName: root
-          password: V3ct0r1nd1t3x
-      client:
-        jobJmsClient:
-          destinationName: ${amiga.service.jms.job-queue.destination-fqdn}
-          receiveTimeout: 100
-          pubSubDomain: false
     jdbc:
       datasource:
         primary:
@@ -64,6 +46,19 @@ amiga:
         properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
       secondary:
         properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+    jms:
+      connectionFactory:
+        brokerEscritura:
+          brokerURL: tcp://middleware-amq-tcp:61616
+          userName: usr-write
+        brokerLectura:
+          brokerURL: tcp://middleware-amq-tcp:61616
+          userName: usr-read
+      client:
+        jobJmsClient:
+          destinationName: ${amiga.service.jms.job-queue.destination-fqdn}
+          receiveTimeout: 100
+          pubSubDomain: false
 app:
   envars:
     meta4:
