@@ -1,8 +1,8 @@
-## Define propiedades de la aplicación
+## Define propiedades de la aplicacion
 ## Propiedades comunes a todos los entornos (local y despliegues en OpenShift).
 ## https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Listado+de+propiedades+configurables#Listadodepropiedadesconfigurables-2.3Propiedadesespec%C3%ADficasparaaplicacionesSpringBoot
 spring:
-  # La key del proyecto JIRA de la aplicación
+  # La key del proyecto JIRA de la aplicacion
   application:
     name: ICMCLCWB
   profiles:
@@ -21,7 +21,7 @@ amiga:
         enabled: true
     # https://axdesitxws2.central.inditex.grp/software/AMIGA/COMMFRAM/1.16.1/logging.html
     logging:
-      # Para que el framework incorpore la información incluida en el MDC
+      # Para que el framework incorpore la informacion incluida en el MDC
       # https://axdesitxws2.central.inditex.grp/software/AMIGA/SERVFRKL/1.16.2/mdcFilter.html#toc2
       includeFullMDC: true
       file:
@@ -30,9 +30,9 @@ amiga:
         enabled: false
     async:
       default-executor:
-        # Número de hilos iniciales en el pool
+        # Numero de hilos iniciales en el pool
         core-pool-size: 10
-        # Maximo número de hilos que puede tener el pool
+        # Maximo numero de hilos que puede tener el pool
         max-pool-size: 100
         # Tiempo, en SEGUNDOS, que se mantendra un hilo desocupado en el pool, antes de eliminarlo del pool.
         keep-alive: 60
@@ -40,7 +40,7 @@ amiga:
       virtual:
         base-url: http://virtualhost:8081   
       client:
-        # Timeout de conexión por defecto en milisegundos que heredaran todos los clientes rest
+        # Timeout de conexion por defecto en milisegundos que heredaran todos los clientes rest
         #defaultConnectTimeout: 5000
         defaultConnectTimeout: 600000
         # Timeout de lectura por defecto en milisegundos que heredaran todos los clientes rest
@@ -69,16 +69,16 @@ amiga:
     session:
       session-type: REMOTE
     core:
-      # Enriquece la información relativa a las peticiones HTTP
+      # Enriquece la informacion relativa a las peticiones HTTP
       # https://axdesitxws2.central.inditex.grp/software/AMIGA/SERVFRKL/1.16.2/mdcFilter.html
       mdc-filter:
-        # Habilita/deshabilita la ejecución del filtro
+        # Habilita/deshabilita la ejecucion del filtro
         enabled: true
         # Lista de patrones por las que se ejecutara el filtro (separados por comas)
         #patterns: /*
-        # Habilita la recopilación de la informacion a nivel de request
+        # Habilita la recopilacion de la informacion a nivel de request
         #request-enabled: true
-        # Habilita la recopilación de la informacion a nivel de response
+        # Habilita la recopilacion de la informacion a nivel de response
         #response-enabled: true
         # Crea una traza con nivel INFO con la informacion a nivel de request, sera de este estilo Iniciando ejecucion de la URI: *** . Para el usuario: ***
         #log-start-enabled: true
@@ -87,7 +87,7 @@ amiga:
     aaa:
       #TODO TEST LOCAL
       local:
-        # Deshabilita el modo de autenticación para test
+        # Deshabilita el modo de autenticacion para test
         enable-local-test: true
         #json-sso-file: /local-sso-ext.json
       classic:

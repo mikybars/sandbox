@@ -1,4 +1,4 @@
-## Define propiedades de la aplicación en local
+## Define propiedades de la aplicacion en local
 spring:
   h2:
     console:
@@ -18,7 +18,7 @@ amiga:
       virtual:
         base-url: http://virtualhost:8081   
       client:
-        # Timeout de conexión por defecto en milisegundos que heredaran todos los clientes rest
+        # Timeout de conexion por defecto en milisegundos que heredaran todos los clientes rest
         defaultConnectTimeout: 5000
         # Timeout de lectura por defecto en milisegundos que heredaran todos los clientes rest
         defaultReadTimeout: 30000
@@ -50,12 +50,12 @@ amiga:
         headers:
           frame-options: DISABLE
       local:
-        # Deshabilita el modo de autenticación para test
+        # Deshabilita el modo de autenticacion para test
         enable-local-test: true
         #json-sso-file: /local-sso-ext.json
     rest:
       logging:
-        # Limita la información devuelta en el caso de errores.
+        # Limita la informacion devuelta en el caso de errores.
         is-production: false
   data:
     jdbc:
@@ -104,7 +104,7 @@ amiga:
            receiveTimeout: 100
            pubSubDomain: false
 app:
-  # Variables de entorno propias de la aplicación
+  # Variables de entorno propias de la aplicacion
   envars:
     meta4:
       login:

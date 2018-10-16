@@ -3,7 +3,7 @@
 app:
   #TODO Levantar en DES con replicas por defecto para probar
   replicas: 4
-  # Cambia el context root de la aplicación. El context root por defecto para las aplicaciones desplegadas en Openshift es "/".
+  # Cambia el context root de la aplicacion. El context root por defecto para las aplicaciones desplegadas en Openshift es "/".
   #context_path: /ICMCLCWB
   context_path: /
   # Propiedad por defecto para las propiedades app.liveness_probe y app.readiness_probe.
@@ -11,11 +11,11 @@ app:
   health_probe:
     # Habilita el health
     #enabled: true
-    # Path del health en la aplicación
+    # Path del health en la aplicacion
     #http_path: /amiga/health
-    # Los segundos que tarda la aplicación en estar disponible
+    # Los segundos que tarda la aplicacion en estar disponible
     initial_delay_seconds: 80
-  # Autenticación con SPNEGO
+  # Autenticacion con SPNEGO
   # https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Despliegue+de+aplicaciones+en+Openshift#DesplieguedeaplicacionesenOpenshift-4.4Autenticaci%C3%B3nconSPNEGO
   has_spnego: true
   services: 
