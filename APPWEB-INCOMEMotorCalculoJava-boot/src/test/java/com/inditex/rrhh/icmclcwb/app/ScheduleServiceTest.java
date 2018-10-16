@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleJobDto;
 
-//@Ignore("Hay que implementar el mock jms para Bamboo")
+@Ignore("Hay que implementar el mock jms para Bamboo")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
