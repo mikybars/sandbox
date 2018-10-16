@@ -18,9 +18,9 @@ amiga:
       virtual:
         base-url: http://virtualhost:8081   
       client:
-        # Timeout de conexión por defecto en milisegundos que heredarán todos los clientes rest
+        # Timeout de conexión por defecto en milisegundos que heredaran todos los clientes rest
         defaultConnectTimeout: 5000
-        # Timeout de lectura por defecto en milisegundos que heredarán todos los clientes rest
+        # Timeout de lectura por defecto en milisegundos que heredaran todos los clientes rest
         defaultReadTimeout: 30000
         ptrClientVenta:
           #base-url: https://axdesptrosb01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service

@@ -24,7 +24,7 @@ app:
         tls: 
           # Si se habilita el route pasa a ser HTTPS en lugar de HTTP
           enabled: true
-          # Si TLS está habilitado este parámetro indica que hacer ante una petición HTTP.
+          # Si TLS esta habilitado este parametro indica que hacer ante una peticion HTTP.
           # Allow: permite usar ambos protocolos (http:// y https://) .
           # None: no permite usar HTTP.
           # Redirect: Redirige las peticiones HTTP a HTTPS.

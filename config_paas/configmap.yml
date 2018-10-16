@@ -1,5 +1,5 @@
 ## Define propiedades de la aplicación
-## Las propiedades definidas en estos ficheros configmap tendrán a su vez precedencia
+## Las propiedades definidas en estos ficheros configmap tendran a su vez precedencia
 ## sobre variables definidas den los ficheros internos del fatJAR o WAR (p.ej src/main/resources/application.yml en aplicaciones Spring Boot).
 ## https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Listado+de+propiedades+configurables#Listadodepropiedadesconfigurables-1.Propiedadesdelosficherosplatform
 amiga:
