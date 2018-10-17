@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.JobRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
@@ -53,21 +54,16 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public JobDto run(Long id) {
-		JobDto result = new JobDto();
+	public JobRunDto run(Long id) {
+		JobRunDto result = new JobRunDto();
 		LOG.info("Inicio :: JobService.run(): " + id);
-		result = jobMapper.jobToJobDto(jobRepository.findOne(id));
-		LOG.info("Fin :: JobService.run(): " + result.toString());
-		return result;
-	}
-
-	//TODO ELIMINAR
-	private Boolean test() {
-		Boolean result = Boolean.FALSE;
+		JobDto job = jobMapper.jobToJobDto(jobRepository.findOne(id));
+		
+		Boolean resultOp = Boolean.FALSE;
 		try {
 			List<GetEmpleadosTiendaResultItemDTO> obtenerEmpleadosTiendaResult = new ArrayList<>();
 			CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTiendaResponse = chunkService
-							.obtenerEmpleadosTienda("T160");
+							.obtenerEmpleadosTienda(job.getIdTienda());
 			CompletableFuture<Void> fin = CompletableFuture.allOf(obtenerEmpleadosTiendaResponse);
 			obtenerEmpleadosTiendaResult = obtenerEmpleadosTiendaResponse.get();
 			if (CollectionUtils.isNotEmpty(obtenerEmpleadosTiendaResult)) {
@@ -88,13 +84,18 @@ public class JobServiceImpl implements JobService {
 					LOG.info("Ha funcionado (obtenerEmpleadosTiendaRResult): "
 									+ getVentaTotalizadoResult.getVentaTotalizado().size());
 				}
-				result = Boolean.TRUE;
+				resultOp = Boolean.TRUE;
 			} else {
 				LOG.info("No se han recuperado registros");
 			}
 		} catch (InterruptedException | ExecutionException e) {
 			LOG.error("Error no controlado");
 		}
+		
+		result.setJob(job);
+		result.setResult(resultOp);
+		
+		LOG.info("Fin :: JobService.run(): " + result.toString());
 		return result;
 	}
 

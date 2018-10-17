@@ -7,6 +7,7 @@ import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
 
 import javax.jms.JMSException;
 
@@ -15,6 +16,9 @@ public class Receiver {
 
 	@Autowired
 	private Logger LOG;
+	
+	@Autowired
+	private JobService jobService;
 
 	@JmsListener(id = "jobListener", destination = "${amiga.service.jms.job-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "20")
 	public void onMessageJobListener(
@@ -22,6 +26,7 @@ public class Receiver {
 			throws JMSException {
 		LOG.info("Receiver.onMessageJobListener() :: message.getPayload(): " + message.getPayload().toString());
 		LOG.info("Receiver.onMessageJobListener() :: message.getHeaders(): " + message.getHeaders().toString());
+		LOG.info("Receiver.onMessageJobListener() :: jobService.run(message.getPayload().getId())" + jobService.run(message.getPayload().getId()).toString());
 	}
 
 }
