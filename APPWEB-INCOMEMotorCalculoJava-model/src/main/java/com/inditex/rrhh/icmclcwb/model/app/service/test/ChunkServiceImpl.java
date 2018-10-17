@@ -41,8 +41,6 @@ public class ChunkServiceImpl implements ChunkService {
 	public CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTienda(String idTienda) {
 		List<GetEmpleadosTiendaResultItemDTO> result = new ArrayList<>();
 		try {
-			sessionRepository.jdbcTemplate();
-			sessionRepository.entityManager();
 			result = meta4Service.obtenerEmpleadosTienda(idTienda);
 		} catch (Exception e) {
 			LOG.error("Error no controlado", e);
