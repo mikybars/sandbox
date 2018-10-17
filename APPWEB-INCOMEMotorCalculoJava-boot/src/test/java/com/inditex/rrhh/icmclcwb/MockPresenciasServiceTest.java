@@ -41,6 +41,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = {Application.class})
 @ActiveProfiles({"standalone","test"})
 @EnableAutoConfiguration
+//@Ignore
 public class MockPresenciasServiceTest {
 	
 	
@@ -60,6 +61,7 @@ public class MockPresenciasServiceTest {
 
 
     @Test
+    @Ignore
     public void presenciasDetalle() {
         //this.restClient = this.restClient.withBasicAuth("username100", "username100p");
         PresenciasDetalleRequestDTO req = new PresenciasDetalleRequestDTO();
@@ -71,6 +73,7 @@ public class MockPresenciasServiceTest {
     }
     
     @Test
+    @Ignore
     public void presenciasDetalleComisionable(){
     	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	PresenciasDetalleComisionableRequestDTO req = new PresenciasDetalleComisionableRequestDTO();
@@ -81,6 +84,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
+    @Ignore
     public void presenciasTotalTienda(){
     	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	PresenciasTotalTiendaRequestDTO req = new PresenciasTotalTiendaRequestDTO();
@@ -93,6 +97,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
+    @Ignore
     public void presenciasTotalTiendaSeccion(){
     	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	PresenciasTotalTiendaSeccionRequestDTO req = new PresenciasTotalTiendaSeccionRequestDTO();
@@ -109,7 +114,7 @@ public class MockPresenciasServiceTest {
         req.setTipoHora(100);
         ResponseEntity<TiposHorasResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getTipoHora().intValue(),100); 
+        assertEquals(ret.getBody().getOrigen().intValue(),740); 
     }
     
 }

@@ -12,7 +12,6 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasService;
-import com.inditex.rrhh.icmclcwb.api.ws.ptr.dto.venta.GetVentaTotalizadoResponseDTO;
 
 public class PTRPresenciasServiceImpl implements PTRPresenciasService{
 

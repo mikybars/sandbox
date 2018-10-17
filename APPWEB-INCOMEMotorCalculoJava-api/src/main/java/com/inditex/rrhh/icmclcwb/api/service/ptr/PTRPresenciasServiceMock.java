@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.service.ptr;
 
-import com.inditex.rrhh.icmclcwb.api.dto.ProductDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionableRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleRequestDTO;

@@ -66,7 +66,4 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		return this.presenciasMapper.asTiposHorasDTO(this.presenciasRepository.findTiposHorass(this.presenciasMapper.asTiposHoras(tiposHoras)));
 	}
 
-
-
-
 }

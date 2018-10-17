@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -43,7 +44,7 @@ public class DataSourcePrimaryConfig {
 	
 	@Bean(name = "primaryJdbcTemplate")
     @Primary
-    public JdbcTemplate primaryJdbcTemplate(final DataSource primaryDataSource) {
+    public JdbcTemplate primaryJdbcTemplate(@Qualifier("primaryDataSource") final DataSource primaryDataSource) {
         return new JdbcTemplate(primaryDataSource);
     }
 
