@@ -26,7 +26,7 @@ import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleJobDto;
 
-//@Ignore("Hay que implementar el mock jms para Bamboo")
+@Ignore("Hay que implementar el mock jms para Bamboo")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
