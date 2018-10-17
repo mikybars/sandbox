@@ -34,6 +34,9 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
+      security:
+        headers:
+          frame-options: DISABLE
       local:
         enable-local-test: true
       classic:
