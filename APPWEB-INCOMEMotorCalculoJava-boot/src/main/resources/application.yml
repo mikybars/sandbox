@@ -46,9 +46,3 @@ amiga:
       ui:
         title: '@project.name@'
         description: '@project.description@'
----
-spring:
-  profiles: local
-clave:
-  subclave1: valor1
-  subclave2: valor2
