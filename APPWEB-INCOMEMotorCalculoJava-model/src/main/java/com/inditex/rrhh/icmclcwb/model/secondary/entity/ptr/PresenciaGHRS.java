@@ -27,7 +27,7 @@ public class PresenciaGHRS {
 	
 	private Integer persona;
 	
-	private Integer horas;//DUDA
+	private Integer horas;
 	
 	private Integer ccl_id_origen;
 	

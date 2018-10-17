@@ -17,9 +17,8 @@ import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTienda
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciasEspana;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
 
-@Repository
+@Repository("PTRPresenciasRepositoryJDBCTemplate")
 public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryMock{
-
 	@Autowired
 	@Qualifier("secondaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
@@ -34,7 +33,6 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	public PresenciaDetalleMock findPresencias(PresenciaDetalleMock presencia) {
 		List<PresenciasEspana> presencias=(List<PresenciasEspana>) jdbcTemplate.query(consultaPresenciaDetalleEspana,new PresenciaDetalleEspanaRowMapper());
 		PresenciaDetalleMock tiposHoras= new PresenciaDetalleMock();
-		tiposHoras.setCadena(presencias.get(0).getTienda());
 		tiposHoras.setPersona(presencias.get(0).getPersona());
 		return tiposHoras;
 	}
@@ -57,7 +55,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	}
 
 	@Override
-	public TiposHorasMock findTiposHorass(TiposHorasMock presencia) {
+	public TiposHorasMock findTiposHoras(TiposHorasMock presencia) {
 		List<PresenciaGHRS> presencias=(List<PresenciaGHRS>) jdbcTemplate.query(consultaGHRS,new PresenciaGHRSRowMapper());
 		TiposHorasMock tiposHoras= new TiposHorasMock();
 		tiposHoras.setTipoHora(presencias.get(0).getTipo());

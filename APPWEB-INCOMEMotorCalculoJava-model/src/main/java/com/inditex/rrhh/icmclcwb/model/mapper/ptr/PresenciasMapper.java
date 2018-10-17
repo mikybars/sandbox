@@ -37,7 +37,8 @@ public interface PresenciasMapper {
 
     List<PresenciasDetalleResponseDTO> asPresenciaDetalleDTOs(List<PresenciaDetalleMock> src);
     
-    
+   
+  
     //PRESENCIAS TIENDA
     PresenciasTotalTiendaResponseDTO asPresenciasTotalTiendaDTO(PresenciaTotalTiendaMock src);
 

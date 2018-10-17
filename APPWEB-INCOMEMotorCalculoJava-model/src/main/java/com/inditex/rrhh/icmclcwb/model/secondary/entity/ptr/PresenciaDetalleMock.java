@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,20 +16,18 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
-//@Entity
-@Table(name = "TEST_INCOME_JOB")
+@Entity
+@Table(name = "PRESENCIAS_HORARIOS")
+@Data
 public class PresenciaDetalleMock {
 	
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	private /* BigInteger */ Long id;
+	private Integer id;
 
 	@NotNull
-	@OneToOne
-	@JoinColumn(name = "TIENDA", nullable = false)
-	private Integer estado;
+	@Column(name = "TIENDA", nullable = false)
+	private Integer tienda;
 
 	@NotBlank
 	@Column(name = "SECCION", nullable = false)
@@ -39,34 +38,32 @@ public class PresenciaDetalleMock {
 	private Integer persona;
 
 	@NotNull
-	@Column(name = "FECHA", nullable = false)
-	private Date fechaCreacion;
+	@Column(name = "HORAS", nullable = true)
+	private Integer horas;
 
-	@Column(name = "FECHA_VENCIMIENTO", nullable = true)
-	private Date fechaFinJob;
+	@Column(name = "FECHA", nullable = false)
+	private Date fecha;
 
 
 	@Column(name = "TIPO", nullable = false)
 	private Integer tipo;
 
-	@Column(name = "CADENA", nullable = true)
-	private Integer cadena;
 	
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	public Integer getEstado() {
-		return estado;
+		return tienda;
 	}
 
 	public void setEstado(Integer estado) {
-		this.estado = estado;
+		this.tienda = estado;
 	}
 
 	public Integer getSeccion() {
@@ -85,37 +82,31 @@ public class PresenciaDetalleMock {
 		this.persona = persona;
 	}
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
+
+	public Integer getHoras() {
+		return horas;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setHoras(Integer horas) {
+		this.horas = horas;
 	}
 
-	public Date getFechaFinJob() {
-		return fechaFinJob;
-	}
 
-	public void setFechaFinJob(Date fechaFinJob) {
-		this.fechaFinJob = fechaFinJob;
-	}
 	
-	
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
 	public Integer getTipo() {
 		return tipo;
 	}
 
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
-	}
-
-	public Integer getCadena() {
-		return cadena;
-	}
-
-	public void setCadena(Integer cadena) {
-		this.cadena = cadena;
 	}
 
 }
