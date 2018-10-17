@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaDetalleEspanaRowMapper;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaGHRSRowMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleComisionableMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaGHRS;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaSeccionMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciasEspana;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
 
 @Repository
@@ -26,10 +28,15 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	//SELECT top 5 P.[TIPO], P.[TIENDA], P.[FECHA], P.[SECCION], P.[PERSONA], P.[HORAS], P.[CCL_ID_ORIGEN] FROM [dbo].[M4CCL_PRESENCIAS_TA] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION where ERROR = 'OK'
 	
 	private String consultaGHRS ="SELECT top 1 [TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],OP.[CCL_ID_ORIGEN]FROM [dbo].[M4CCL_PRESENCIAS_TA] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION where ERROR = 'OK'";
+	private String consultaPresenciaDetalleEspana = "SELECT TOP 10 [TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],CCL_ID_ORIGEN FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN=11 ";
 	
 	@Override
 	public PresenciaDetalleMock findPresencias(PresenciaDetalleMock presencia) {
-		return presencia;
+		List<PresenciasEspana> presencias=(List<PresenciasEspana>) jdbcTemplate.query(consultaPresenciaDetalleEspana,new PresenciaDetalleEspanaRowMapper());
+		PresenciaDetalleMock tiposHoras= new PresenciaDetalleMock();
+		tiposHoras.setCadena(presencias.get(0).getTienda());
+		tiposHoras.setPersona(presencias.get(0).getPersona());
+		return tiposHoras;
 	}
 
 	@Override

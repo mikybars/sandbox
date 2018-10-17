@@ -61,14 +61,14 @@ public class MockPresenciasServiceTest {
 
 
     @Test
-    @Ignore
     public void presenciasDetalle() {
         //this.restClient = this.restClient.withBasicAuth("username100", "username100p");
         PresenciasDetalleRequestDTO req = new PresenciasDetalleRequestDTO();
         req.setCadena(165);
         ResponseEntity<PresenciasDetalleResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getCadena().intValue(), 165);
+        assertEquals(ret.getBody().getCadena().intValue(), 5111);
+        assertEquals(ret.getBody().getPersona().intValue(), 63795);
         
     }
     
