@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4IcmWsIncomeService;
-import com.inditex.rrhh.icmclcwb.api.app.service.Meta4LoginService;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
-import com.inditex.rrhh.icmclcwb.api.meta4.login.dto.LoginDto;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaFilterDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResponseDTO;

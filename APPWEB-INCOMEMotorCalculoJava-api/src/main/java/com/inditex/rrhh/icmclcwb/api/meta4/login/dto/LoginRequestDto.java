@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @ToString
-public class LoginDto implements Serializable {
+public class LoginRequestDto implements Serializable {
 
 	private static final long serialVersionUID = 8224685868544251698L;
 

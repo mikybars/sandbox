@@ -93,7 +93,7 @@ amiga:
 app:
   envars:
     meta4:
-      userName: INCOME
+      user: INCOME
       password: 123
       language: 2
       login:
