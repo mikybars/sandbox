@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaGHRS;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciasEspana;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
 
-public class PresenciaDetalleEspanaRowMapper implements RowMapper {
+
+public class PresenciaDetalleRowMapper implements RowMapper {
 
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-		PresenciasEspana pre= new PresenciasEspana();
+		PresenciaDetalleMock pre= new PresenciaDetalleMock();
         //pre.setId(rs.getLong("ID"));
 		pre.setTipo(rs.getInt("TIPO"));
 		pre.setTienda(rs.getInt("TIENDA"));
@@ -20,7 +20,6 @@ public class PresenciaDetalleEspanaRowMapper implements RowMapper {
 		pre.setSeccion(rs.getInt("SECCION"));
 		pre.setPersona(rs.getInt("PERSONA"));
 		pre.setHoras(rs.getInt("HORAS"));
-		pre.setCcl_id_origen(rs.getInt("CCL_ID_ORIGEN"));
 		return pre;
 	}
 
