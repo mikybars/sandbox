@@ -13,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -27,13 +31,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Autowired
 	private ScheduleRepository scheduleRepository;
-	
+
 	@Autowired
 	private ScheduleMapper scheduleMapper;
-	
+
 	@Autowired
 	private JobService jobService;
-	
+
 	@Autowired
 	private JobMapper jobMapper;
 
@@ -55,8 +59,34 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public ScheduleDto createSchedule(@Valid ScheduleDto schedule) {
 		ScheduleDto result = new ScheduleDto();
 		LOG.info("Inicio :: ScheduleService.createSchedule(): " + schedule.toString());
-		result = scheduleMapper.scheduleToScheduleDto(scheduleRepository.save(scheduleMapper.scheduleDtoToSchedule(schedule)));
+		result = scheduleMapper
+				.scheduleToScheduleDto(scheduleRepository.save(scheduleMapper.scheduleDtoToSchedule(schedule)));
 		LOG.info("Fin :: ScheduleService.createSchedule(): " + result.toString());
+		return result;
+	}
+
+	@Override
+	public Boolean init() {
+		Boolean result = Boolean.TRUE;
+
+		Random random = new Random();
+		LocalDateTime nowDateTime = LocalDateTime.now();
+		LocalDate nowDate = LocalDate.now();
+		for (int i = 1; i <= 500; i++) {
+			ScheduleDto schedule = new ScheduleDto();
+			LocalTime time = LocalTime.of(random.nextInt(24), random.nextInt(60));
+
+			schedule.setActiva(Boolean.TRUE);
+			schedule.setFechaCreacion(nowDateTime);
+			schedule.setFechaSiguienteEjecucion(LocalDateTime.of(nowDate, time));
+			schedule.setHora(time);
+			schedule.setIdTienda("T" + i);
+			schedule.setIdUsuario("INIT");
+			schedule.setPeriodo(new Long(random.nextInt(1) + 1));
+			
+			createSchedule(schedule);
+		}
+
 		return result;
 	}
 

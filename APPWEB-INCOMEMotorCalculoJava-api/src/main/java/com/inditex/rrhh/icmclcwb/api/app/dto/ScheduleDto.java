@@ -3,10 +3,9 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javax.validation.constraints.NotNull;
 
 @ApiModel(description = "Modelo ScheduleDto")
@@ -20,7 +19,7 @@ public class ScheduleDto implements Serializable {
 	
 	@NotNull
 	@ApiModelProperty(value = "Hora planificada de ejecución", required = true)
-	private Date hora;
+	private LocalTime hora;
 
 	@NotNull
 	@ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true)
@@ -48,10 +47,10 @@ public class ScheduleDto implements Serializable {
 
 	@NotNull
 	@ApiModelProperty(value = "Fecha en la que se creo la planificación", required = true)
-	private Date fechaCreacion;
+	private LocalDateTime fechaCreacion;
 
 	@NotNull
 	@ApiModelProperty(value = "Fecha de la siguiente ejecución", required = true)
-	private Date fechaSiguienteEjecucion;
+	private LocalDateTime fechaSiguienteEjecucion;
 
 }

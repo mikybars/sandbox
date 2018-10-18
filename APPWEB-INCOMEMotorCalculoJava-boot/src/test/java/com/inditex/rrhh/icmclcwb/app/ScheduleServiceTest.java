@@ -3,7 +3,9 @@ package com.inditex.rrhh.icmclcwb.app;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -43,12 +45,11 @@ public class ScheduleServiceTest {
 	public void insert() {
 		ScheduleDto schedule = new ScheduleDto();
 		schedule.setActiva(Boolean.TRUE);
-//		schedule.setFechaCreacion(LocalDateTime.now());
-//		schedule.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), LocalTime.of(00, 00)));
-//		schedule.setHora(LocalTime.of(00, 00));
-		schedule.setFechaCreacion(new Date());
-		schedule.setFechaSiguienteEjecucion(new Date());
-		schedule.setHora(new Date());
+		schedule.setFechaCreacion(LocalDateTime.now());
+		schedule.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15)));
+//		schedule.setFechaCreacion(new Date());
+//		schedule.setFechaSiguienteEjecucion(new Date());
+		schedule.setHora(LocalTime.of(11, 15));
 		schedule.setIdPais("11");
 		schedule.setIdCadena("1");
 		schedule.setIdUsuario("JUNIT");

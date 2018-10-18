@@ -42,5 +42,13 @@ public class ScheduleController {
 	public List<ScheduleJobDto> run() {
 		return scheduleService.run();
 	}
+	
+	//TODO Eliminar cuando no sea necesario
+	@GetMapping(path = "/init/")
+	@ApiOperation("Inicializa datos de prueba")
+	@PreAuthorize("hasAuthority('admin')")
+	public Boolean init() {
+		return scheduleService.init();
+	}
 
 }

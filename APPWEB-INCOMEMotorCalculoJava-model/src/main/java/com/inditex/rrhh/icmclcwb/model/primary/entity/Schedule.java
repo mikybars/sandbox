@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ public class Schedule {
 	
 	@NotNull
 	@Column(name = "HORA_PROGRAMACION", nullable = false)
-	private Date hora;
+	private LocalTime hora;
 
 	@NotNull
 	@Column(name = "ACTIVA", nullable = false)
@@ -53,10 +54,10 @@ public class Schedule {
 
 	@NotNull
 	@Column(name = "FECHA_CREACION", nullable = false)
-	private LocalDateTime fechaCreacion;
+	private Date fechaCreacion;
 
 	@NotNull
 	@Column(name = "FECHA_SIGUIENTE_EJECUCION", nullable = false)
-	private LocalDateTime fechaSiguienteEjecucion;
+	private Date fechaSiguienteEjecucion;
 
 }
