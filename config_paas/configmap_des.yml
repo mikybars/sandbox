@@ -62,7 +62,7 @@ amiga:
 app:
   envars:
     meta4:
-      userName: INCOME
+      user: INCOME
       language: 2
       login:
         server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login
