@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResponseD
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaSeccionResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasDetalleResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasServiceMock;
 
@@ -55,8 +56,11 @@ public class PTRPresenciasControllerMock {
 	
 	@ApiOperation(value = "PostPresenciasDetalle")
 	@PostMapping(path = "/presenciasDetalle")
-	public PresenciasDetalleResponseDTO presenciasDetalle(@Valid @RequestBody final PresenciasDetalleRequestDTO presencias){
-		return this.presenciasService.PresenciasDetalle(presencias);
+	public PresenciasDetalleResponseListDTO presenciasDetalle(@Valid @RequestBody final PresenciasDetalleRequestDTO presencias){
+		List<PresenciasDetalleResponseDTO> list =this.presenciasService.PresenciasDetalle(presencias);
+		PresenciasDetalleResponseListDTO response =new PresenciasDetalleResponseListDTO();
+		response.setList(list);
+		return response;
 	}
 	
 	

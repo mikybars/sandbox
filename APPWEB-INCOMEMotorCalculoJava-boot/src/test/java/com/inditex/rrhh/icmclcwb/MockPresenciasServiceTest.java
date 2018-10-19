@@ -21,6 +21,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.esotericsoftware.minlog.Log;
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionableRequestDTO;
@@ -29,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaReques
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaSeccionRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiposHorasRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.*;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasDetalleResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseListDTO;
 
 /**
@@ -61,11 +64,10 @@ public class MockPresenciasServiceTest {
 
 
     @Test
-    @Ignore
     public void presenciasDetalle() {
         //this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	Calendar cal = Calendar.getInstance();
-    	cal.set(Calendar.YEAR, 1900);
+    	cal.set(Calendar.YEAR, 2005);
     	cal.set(Calendar.MONTH, Calendar.AUGUST);
     	cal.set(Calendar.DAY_OF_MONTH, 1);
     	Date fechaDesde = cal.getTime();
@@ -80,10 +82,11 @@ public class MockPresenciasServiceTest {
         req.setTienda(160);
         req.setFechaDesde(fechaDesde);
         req.setFechaHasta(fechaHasta);
-        ResponseEntity<PresenciasDetalleResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseDTO.class);
+        req.setOrigen(11);
+        ResponseEntity<PresenciasDetalleResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        //assertEquals(ret.getBody().getPersona().intValue(), 240171);
-        
+        assertEquals(ret.getBody().getList().get(0).getPersona().intValue(), 61199);
+        assertEquals(ret.getBody().getList().size(),100);
     }
     
     @Test
@@ -130,6 +133,7 @@ public class MockPresenciasServiceTest {
         ResponseEntity<TiposHorasResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
         assertEquals(ret.getBody().getLista().size(),100);
-    }
+        assertEquals(ret.getBody().getLista().get(0).getExcluidoCalculo(),Boolean.TRUE);
+     }
     
 }

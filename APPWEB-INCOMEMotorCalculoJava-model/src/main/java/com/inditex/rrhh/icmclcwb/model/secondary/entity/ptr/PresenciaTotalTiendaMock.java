@@ -1,36 +1,22 @@
 package com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr;
 
+import java.util.Date;
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class PresenciaTotalTiendaMock {
 	private List<Integer> tienda;
-	private String fechaDesde;
-	private String fechaHasta;
+	private Date fecha;
+
+	private Integer seccion;
+
+	private Integer persona;
+
+	private Integer horas;
 	
+	private Integer tipo;
 	
-	public List<Integer> getTienda() {
-		return tienda;
-	}
-	public void setTienda(List<Integer> tienda) {
-		this.tienda = tienda;
-	}
-	public String getFechaDesde() {
-		return fechaDesde;
-	}
-	public void setFechaDesde(String fechaDesde) {
-		this.fechaDesde = fechaDesde;
-	}
-	public String getFechaHasta() {
-		return fechaHasta;
-	}
-	public void setFechaHasta(String fechaHasta) {
-		this.fechaHasta = fechaHasta;
-	}
-	public Integer getMinutos() {
-		return minutos;
-	}
-	public void setMinutos(Integer minutos) {
-		this.minutos = minutos;
-	}
-	private Integer minutos;
+	private Integer origen;
 }

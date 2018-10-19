@@ -16,38 +16,32 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
-@Entity
-@Table(name = "PRESENCIAS_HORARIOS")
+
 @Data
 public class PresenciaDetalleMock {
 	
-	@Id
-	@Column(name = "ID")
+
 	private Integer id;
 
-	@NotNull
-	@Column(name = "TIENDA", nullable = false)
+
 	private Integer tienda;
 
-	@NotBlank
-	@Column(name = "SECCION", nullable = false)
+
 	private Integer seccion;
 	
-	@NotNull
-	@Column(name = "PERSONA", nullable = false)
+
 	private Integer persona;
 
-	@NotNull
-	@Column(name = "HORAS", nullable = true)
 	private Integer horas;
 
-	@Column(name = "FECHA", nullable = false)
+
 	private Date fecha;
 
 
-	@Column(name = "TIPO", nullable = false)
-	private Integer tipo;
 
+	private Integer tipo;
+	
+	private Integer origen;
 	
 
 	public Integer getId() {

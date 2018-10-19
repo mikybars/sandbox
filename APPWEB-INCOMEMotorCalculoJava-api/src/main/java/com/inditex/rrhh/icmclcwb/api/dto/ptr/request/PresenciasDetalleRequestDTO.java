@@ -24,4 +24,5 @@ public class PresenciasDetalleRequestDTO implements Serializable{
 	private Date fechaHasta;
 	private Integer tipo;
 	private Integer cadena; //Obligatorio
+	private Integer origen;
 }

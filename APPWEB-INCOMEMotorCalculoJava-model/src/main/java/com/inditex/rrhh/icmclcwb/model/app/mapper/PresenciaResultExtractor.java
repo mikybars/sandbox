@@ -7,7 +7,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaGHRS;
 
 public class PresenciaResultExtractor implements ResultSetExtractor {
 

@@ -26,7 +26,6 @@ import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasServiceMock;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciasMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
-import com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr.PTRPresenciasRepositoryJPA;
 import com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr.PTRPresenciasRepositoryMock;
 import org.slf4j.Logger;
 /**
@@ -53,19 +52,19 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
     
     //Traduce el objecto, lo envia a la función y la salida la vuelve a traducir
 	@Override
-	public PresenciasDetalleResponseDTO PresenciasDetalle(PresenciasDetalleRequestDTO presencias) {
+	public List<PresenciasDetalleResponseDTO> PresenciasDetalle(PresenciasDetalleRequestDTO presencias) {
 		String fecha1= formatter.format(presencias.getFechaDesde());
 		String fecha2= formatter.format(presencias.getFechaHasta());
 		
 		//MEDICION TIEMPO Y EJECUCION EN JDBC
-		Object[] param = new Object[]{presencias.getTienda().toString(),fecha1,fecha2};
+		Object[] param = new Object[]{presencias.getOrigen().toString(),presencias.getTienda().toString(),fecha1,fecha2};
 		Log.info("------------------Find Presencias Detalle JDBC: Inicio");
 		Long startTime = System.currentTimeMillis();
 		List<PresenciaDetalleMock> p= this.presenciasRepository.findPresencias(param);
 		Long estimatedTime = System.currentTimeMillis() - startTime;
 		Log.info("------------------ Find Presencias Detalle JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
 		
-		return this.presenciasMapper.asPresenciaDetalleDTO(p.get(0));
+		return this.presenciasMapper.asPresenciaDetalleDTOs(p);
 	}
 
 	@Override

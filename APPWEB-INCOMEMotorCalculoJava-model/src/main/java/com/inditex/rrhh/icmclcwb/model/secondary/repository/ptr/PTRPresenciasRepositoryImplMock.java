@@ -8,14 +8,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaDetalleRowMapper;
-import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaGHRSRowMapper;
+import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaTotalTiendaRowMapper;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.TiposHorasRowMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleComisionableMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaGHRS;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaSeccionMock;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciasEspana;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
 
 @Repository("PTRPresenciasRepositoryJDBCTemplate")
@@ -27,10 +25,12 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	//CONSULTA ORIGINAL CON JOIN
 	//SELECT top 5 P.[TIPO], P.[TIENDA], P.[FECHA], P.[SECCION], P.[PERSONA], P.[HORAS], P.[CCL_ID_ORIGEN] FROM [dbo].[M4CCL_PRESENCIAS_TA] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION where ERROR = 'OK'
 	
-	private String consultaGHRS ="SELECT top 1 [TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],OP.[CCL_ID_ORIGEN]FROM [dbo].[M4CCL_PRESENCIAS_TA] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION where ERROR = 'OK'";
-	private String consultaPresenciaDetalleEspana = "SELECT TOP 1[ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN=11 WHERE TIENDA = ? AND FECHA >= ? AND FECHA <= ? AND ERROR = 'OK'";
-	private String consultaTiposHorasEspana ="SELECT TOP 100 [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN=11 WHERE TIPO = ? AND ERROR = 'OK'";
+	//private String consultaGHRS ="SELECT top 1 [TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],OP.[CCL_ID_ORIGEN]FROM [dbo].[M4CCL_PRESENCIAS_TA] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION where ERROR = 'OK'";
 	
+	
+	private String consultaPresenciaDetalleEspana = "SELECT TOP 100 [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN= ? WHERE TIENDA = ? AND FECHA >= ? AND FECHA <= ? AND ERROR = 'OK'";
+	private String consultaTiposHorasEspana ="SELECT TOP 100 'TRUE' EXCLUIDODENOM,'TRUE' EXCLUIDOCALCULO, [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN=11 WHERE TIPO = ? AND ERROR = 'OK'";
+	private String consultapresenciasTotalTienda = "SELECT TOP 100 [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN=11 WHERE TIENDA = ? AND FECHA >= ? AND FECHA <= ? AND ERROR = 'OK'";
 	
 	
 	@Override
@@ -47,7 +47,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 
 	@Override
 	public List<PresenciaTotalTiendaMock> findPresenciasTotalTienda(Object[] Params) {
-		// TODO Auto-generated method stub
+		List<PresenciaTotalTiendaMock> presencias= (List<PresenciaTotalTiendaMock>) jdbcTemplate.query(consultapresenciasTotalTienda,Params,new PresenciaTotalTiendaRowMapper());
 		return null;
 	}
 

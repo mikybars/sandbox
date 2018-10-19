@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleComisionableMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaGHRS;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaSeccionMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
