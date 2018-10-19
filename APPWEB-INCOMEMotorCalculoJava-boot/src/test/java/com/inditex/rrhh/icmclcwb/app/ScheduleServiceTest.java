@@ -66,7 +66,7 @@ public class ScheduleServiceTest {
 						.exchange("/schedule/run/", HttpMethod.GET, HttpEntity.EMPTY,
 										new ParameterizedTypeReference<List<ScheduleJobDto>>() {
 										});
-		LOG.info("ret: " + ret.toString());
+		LOG.info("ret: {}", ret);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 	}
 
