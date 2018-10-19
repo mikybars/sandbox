@@ -1,0 +1,19 @@
+package com.inditex.rrhh.icmclcwb.api.app.util;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+public class Constants {
+
+	@Getter
+	@RequiredArgsConstructor
+	public enum JobStatusEnum {
+		ESTADO_JOB_PENDIENTE_CALCULO(1L), ESTADO_JOB_EN_CURSO_VALIDACIONES_INICIALES(2L),
+		ESTADO_JOB_EN_CURSO_PRECARGA_DATOS_INTERMEDIOS(3L), ESTADO_JOB_EN_CURSO_EJECUCION_PRECALCULO(4L),
+		ESTADO_JOB_EN_CURSO_EJECUCION_CALCULO(5L), ESTADO_JOB_EN_CURSO_EJECUCION_POSTCALCULO(6L),
+		ESTADO_JOB_PENDIENTE_CONSOLIDACION(7L), ESTADO_JOB_EN_CURSO_CONSOLIDACION(8L), ESTADO_JOB_CALCULADO(9L);
+
+		private final Long id;
+	}
+
+}

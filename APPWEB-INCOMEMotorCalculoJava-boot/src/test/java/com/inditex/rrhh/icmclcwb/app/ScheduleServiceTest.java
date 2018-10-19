@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.app;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -27,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleJobDto;
+import com.inditex.rrhh.icmclcwb.ws.controller.app.ScheduleController.Clock;
 
 @Ignore("Hay que implementar el mock jms para Bamboo")
 @RunWith(SpringRunner.class)
@@ -41,6 +40,14 @@ public class ScheduleServiceTest {
 	@Autowired
 	private TestRestTemplate testRestTemplate;
 
+	//@Test
+	public void clock() {
+		ResponseEntity<Clock> ret = testRestTemplate.withBasicAuth("username300", "username300p")
+				.getForEntity("/schedule/clock/", Clock.class);
+		LOG.info("Clock: {}", ret.getBody());
+		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+	}
+	
 	@Test
 	public void insert() {
 		ScheduleDto schedule = new ScheduleDto();

@@ -7,5 +7,7 @@ public interface Meta4LoginService {
 	boolean login(LoginRequestDto login) throws Exception;
 	
 	boolean retrieveM4Session() throws Exception;
+	
+	boolean logout();
     
 }

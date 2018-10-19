@@ -84,8 +84,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 			schedule.setHora(time);
 			schedule.setIdTienda("T" + i);
 			schedule.setIdUsuario("INIT");
-			schedule.setPeriodo(new Long(random.nextInt(1)));
-			
+			schedule.setPeriodo(new Long(random.nextInt(2)));
+
 			createSchedule(schedule);
 		}
 

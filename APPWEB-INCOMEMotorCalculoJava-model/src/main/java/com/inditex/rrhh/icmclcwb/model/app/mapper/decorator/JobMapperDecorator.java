@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.JobStatusDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.JobMapper;
 
 public abstract class JobMapperDecorator implements JobMapper {

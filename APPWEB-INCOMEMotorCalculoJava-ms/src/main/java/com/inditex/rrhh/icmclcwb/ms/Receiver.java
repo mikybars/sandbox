@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
 
-import javax.jms.JMSException;
-
 @Component
 public class Receiver {
 
@@ -20,10 +18,10 @@ public class Receiver {
 	@Autowired
 	private JobService jobService;
 
-	@JmsListener(id = "jobListener", destination = "${amiga.service.jms.job-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "20")
+	@JmsListener(id = "jobListener", destination = "${amiga.service.jms.job-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "1-5")
 	public void onMessageJobListener(
 			Message<JobDto> message /* JobDto message */ /* JobDto message, @Headers Map headers */)
-			throws JMSException {
+			throws Exception {
 		LOG.info("Receiver.onMessageJobListener() :: message.getPayload(): " + message.getPayload().toString());
 		LOG.info("Receiver.onMessageJobListener() :: message.getHeaders(): " + message.getHeaders().toString());
 		LOG.info("Receiver.onMessageJobListener() :: jobService.run(message.getPayload().getId())" + jobService.run(message.getPayload().getId()).toString());

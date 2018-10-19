@@ -23,8 +23,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
 import javax.validation.Valid;
 
 @Service
@@ -57,20 +55,21 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public JobRunDto run(Long id) {
+	public JobRunDto run(Long id) throws Exception {
 		JobRunDto result = new JobRunDto();
 		Boolean resultOp = Boolean.FALSE;
 		LOG.info("Job[{}] :: Inicio :: JobService.run()", id);
-		try {
-			LOG.info("Job[{}] :: Inicio :: Bloque :: Validaciones y cargas iniciales", id);
 
-			LOG.info("Job[{}] :: Inicio :: jobRepository.findOne()", id);
-			JobDto job = jobMapper.jobToJobDto(jobRepository.findOne(id));
+		LOG.info("Job[{}] :: Inicio :: Bloque :: Validaciones y cargas iniciales", id);
+
+		LOG.info("Job[{}] :: Inicio :: jobRepository.findOne()", id);
+		JobDto job = jobMapper.jobToJobDto(jobRepository.findOne(id));
+		if (job != null) {
 			LOG.info("Job[{}] :: Fin :: jobRepository.findOne(): {}", id, job);
 
 			// TODO Cambiar el estado del Job a en curso (Historificar cambio de estado)
 			LOG.info("Job[{}] :: Inicio :: jobRepository.save(): {}", id, job);
-//			job.setIdEstado(Constants.ESTADO_JOB_EN_CURSO);
+			// job.setIdEstado(Constants.JobStatusEnum.ESTADO_JOB_EN_CURSO_VALIDACIONES_INICIALES.getId());
 			job = jobMapper.jobToJobDto(jobRepository.save(jobMapper.jobDtoToJob(job)));
 			LOG.info("Job[{}] :: Fin :: jobRepository.save(): {}", id, job);
 
@@ -153,9 +152,8 @@ public class JobServiceImpl implements JobService {
 			result.setJob(job);
 			result.setResult(resultOp);
 			LOG.info("Job[{}] :: Inicio :: Bloque :: Validaciones y cargas finales", id);
-
-		} catch (InterruptedException | ExecutionException e) {
-			LOG.error("Error no controlado", e);
+		} else {
+			LOG.error("No existe el job");
 		}
 
 		LOG.info("Fin :: JobService.run(): " + result.toString());

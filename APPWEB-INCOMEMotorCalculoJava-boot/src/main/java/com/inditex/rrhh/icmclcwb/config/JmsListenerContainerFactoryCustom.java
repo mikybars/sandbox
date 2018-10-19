@@ -8,13 +8,14 @@ import org.springframework.jms.support.converter.MessageType;
 import com.inditex.aqsw.framework.service.jms.JmsListenerContainerFactoryCustomizer;
 
 public class JmsListenerContainerFactoryCustom implements JmsListenerContainerFactoryCustomizer {
-
+	
 	@Override
 	public void customize(JmsListenerContainerFactory factory) {
 		if (DefaultJmsListenerContainerFactory.class.isInstance(factory)) {
 			MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
 			converter.setTargetType(MessageType.TEXT);
 			converter.setTypeIdPropertyName("_type");
+			converter.setObjectMapper(new ObjectMapperCustom());
 			((DefaultJmsListenerContainerFactory) factory).setMessageConverter(converter);
 		}
 	}

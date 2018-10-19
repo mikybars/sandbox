@@ -9,6 +9,6 @@ public interface JobService {
 
 	JobDto createJob(@Valid final JobDto job);
 
-	JobRunDto run(final Long id);
+	JobRunDto run(final Long id) throws Exception;
 
 }
