@@ -49,10 +49,10 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public JobDto createJob(@Valid JobDto job) {
 		JobDto result = new JobDto();
-		LOG.info("Inicio :: JobService.createJob(): " + job.toString());
+		LOG.info("Inicio :: JobService.createJob(): {}", job);
 		result = jobMapper.jobToJobDto(jobRepository.save(jobMapper.jobDtoToJob(job)));
 		sender.send(result);
-		LOG.info("Fin :: JobService.createJob(): " + result.toString());
+		LOG.info("Fin :: JobService.createJob(): {}", result);
 		return result;
 	}
 

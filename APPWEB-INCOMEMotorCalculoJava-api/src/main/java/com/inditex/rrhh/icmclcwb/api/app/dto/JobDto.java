@@ -3,12 +3,14 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "Modelo JobDto")
 @Data
 public class JobDto implements Serializable {
 
@@ -16,6 +18,10 @@ public class JobDto implements Serializable {
 
 	@ApiModelProperty(value = "Identificador del trabajo", required = false)
 	private Long id;
+
+	@NotNull
+	@ApiModelProperty(value = "Estado actual del trabajo", required = true)
+	private /* BigInteger */ JobStatusDto estado;
 
 	@ApiModelProperty(value = "Id del páis a ejecutar", required = false)
 	private String idPais;
@@ -34,7 +40,19 @@ public class JobDto implements Serializable {
 	private String idUsuario;
 
 	@NotNull
-	@ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false)
-	private Date fechaCreacion;
+	@ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false, readOnly = true)
+	private LocalDateTime fechaCreacion;
+
+	@ApiModelProperty(value = "Fecha en la que se empieza a procesar", required = false)
+	private LocalDateTime fechaInicioJob;
+
+	@ApiModelProperty(value = "Fecha en la que se termina de procesar", required = false)
+	private LocalDateTime fechaFinJob;
+
+	@ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true)
+	private LocalDate fechaInicioPeriodo;
+
+	@ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
+	private LocalDate fechaFinPeriodo;
 
 }

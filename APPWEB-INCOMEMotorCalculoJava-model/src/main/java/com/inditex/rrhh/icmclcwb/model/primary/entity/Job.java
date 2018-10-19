@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Entity
@@ -23,9 +25,9 @@ public class Job {
 	@Column(name = "ID")
 	private /* BigInteger */ Long id;
 
-	//@NotNull
+	@NotNull
 	@OneToOne
-	@JoinColumn(name = "ID_ESTADO_TRABAJO", /*nullable = false*/ nullable = true)
+	@JoinColumn(name = "ID_ESTADO_TRABAJO", nullable = false)
 	private /* BigInteger */ JobStatus estado;
 
 	@Column(name = "ID_PAIS", nullable = true)
@@ -39,13 +41,12 @@ public class Job {
 
 	@Column(name = "ID_EMPLEADO", nullable = true)
 	private String idEmpleado;
-	
+
 	@NotBlank
 	@Column(name = "ID_USUARIO", nullable = false)
 	private String idUsuario;
 
-	//@NotNull
-	@Column(name = "FECHA_CREACION", /*nullable = false*/ nullable = true)
+	@Column(name = "FECHA_CREACION", nullable = false)
 	private Date fechaCreacion;
 
 	@Column(name = "FECHA_INICIO_JOB", nullable = true)
@@ -53,5 +54,11 @@ public class Job {
 
 	@Column(name = "FECHA_FIN_JOB", nullable = true)
 	private Date fechaFinJob;
+
+	@Column(name = "FECHA_INICIO_PERIODO", nullable = false)
+	private Date fechaInicioPeriodo;
+
+	@Column(name = "FECHA_FIN_PERIODO", nullable = false)
+	private Date fechaFinPeriodo;
 
 }

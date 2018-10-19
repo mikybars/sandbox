@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -12,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Entity
@@ -23,7 +23,7 @@ public class Schedule {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_PROGRAMACION")
 	private /* BigInteger */ Long id;
-	
+
 	@NotNull
 	@Column(name = "HORA_PROGRAMACION", nullable = false)
 	private LocalTime hora;

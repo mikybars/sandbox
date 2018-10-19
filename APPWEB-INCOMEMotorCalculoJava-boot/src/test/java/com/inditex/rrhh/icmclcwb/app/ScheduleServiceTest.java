@@ -45,15 +45,13 @@ public class ScheduleServiceTest {
 	public void insert() {
 		ScheduleDto schedule = new ScheduleDto();
 		schedule.setActiva(Boolean.TRUE);
-		schedule.setFechaCreacion(LocalDateTime.now());
-		schedule.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15)));
-//		schedule.setFechaCreacion(new Date());
-//		schedule.setFechaSiguienteEjecucion(new Date());
+		//schedule.setFechaCreacion(LocalDateTime.now());
+		//schedule.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15)));
 		schedule.setHora(LocalTime.of(11, 15));
 		schedule.setIdPais("11");
 		schedule.setIdCadena("1");
 		schedule.setIdUsuario("JUNIT");
-		schedule.setPeriodo(1L);
+		schedule.setPeriodo(0L);
 
 		ResponseEntity<ScheduleDto> ret = testRestTemplate.withBasicAuth("username300", "username300p")
 						.postForEntity("/schedule/", schedule, ScheduleDto.class);

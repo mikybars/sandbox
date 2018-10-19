@@ -58,10 +58,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public ScheduleDto createSchedule(@Valid ScheduleDto schedule) {
 		ScheduleDto result = new ScheduleDto();
-		LOG.info("Inicio :: ScheduleService.createSchedule(): " + schedule.toString());
+		LOG.info("Inicio :: ScheduleService.createSchedule(): {}", schedule);
+		schedule.setFechaCreacion(LocalDateTime.now());
+		schedule.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), schedule.getHora()));
 		result = scheduleMapper
 				.scheduleToScheduleDto(scheduleRepository.save(scheduleMapper.scheduleDtoToSchedule(schedule)));
-		LOG.info("Fin :: ScheduleService.createSchedule(): " + result.toString());
+		LOG.info("Fin :: ScheduleService.createSchedule(): {}", result);
 		return result;
 	}
 
@@ -82,7 +84,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			schedule.setHora(time);
 			schedule.setIdTienda("T" + i);
 			schedule.setIdUsuario("INIT");
-			schedule.setPeriodo(new Long(random.nextInt(1) + 1));
+			schedule.setPeriodo(new Long(random.nextInt(1)));
 			
 			createSchedule(schedule);
 		}

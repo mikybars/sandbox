@@ -14,7 +14,7 @@ public class ScheduleDto implements Serializable {
 
 	private static final long serialVersionUID = 3665361916795418905L;
 
-	@ApiModelProperty(value = "Identificador de la planificación", required = false)
+	@ApiModelProperty(value = "Identificador de la planificación", required = false, readOnly = true)
 	private Integer id;
 	
 	@NotNull
@@ -45,12 +45,10 @@ public class ScheduleDto implements Serializable {
 	@ApiModelProperty(value = "Cuantos períodos se van a lanzar", required = true)
 	private Long periodo;
 
-	@NotNull
-	@ApiModelProperty(value = "Fecha en la que se creo la planificación", required = true)
+	@ApiModelProperty(value = "Fecha en la que se creo la planificación", required = false, readOnly = true, hidden = true)
 	private LocalDateTime fechaCreacion;
 
-	@NotNull
-	@ApiModelProperty(value = "Fecha de la siguiente ejecución", required = true)
+	@ApiModelProperty(value = "Fecha de la siguiente ejecución", required = false, readOnly = true, hidden = true)
 	private LocalDateTime fechaSiguienteEjecucion;
 
 }
