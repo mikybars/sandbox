@@ -10,21 +10,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
-import org.hibernate.type.CalendarDateType;
+import org.assertj.core.api.StringAssert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.actuate.autoconfigure.LocalManagementPort;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionableRequestDTO;
@@ -33,6 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaReques
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaSeccionRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiposHorasRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.*;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseListDTO;
 
 /**
  * Tests del servicio ProductService. NOTE: Se prueban varias características de la implementación del servicio. Se
@@ -64,6 +61,7 @@ public class MockPresenciasServiceTest {
 
 
     @Test
+    @Ignore
     public void presenciasDetalle() {
         //this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	Calendar cal = Calendar.getInstance();
@@ -124,14 +122,14 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void tiposHoras(){
     	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	TiposHorasRequestDTO req = new TiposHorasRequestDTO();
-        req.setTipoHora(100);
-        ResponseEntity<TiposHorasResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseDTO.class);
+        req.setTipoHora(1);
+        ResponseEntity<TiposHorasResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getOrigen().intValue(),740); 
+        assertEquals(ret.getBody().getLista().size(),100);
     }
     
 }

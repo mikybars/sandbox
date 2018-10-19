@@ -1,6 +1,9 @@
 package com.inditex.rrhh.icmclcwb.api.service.ptr;
 
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResponseDTO;
+
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionableRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaRequestDTO;
@@ -21,6 +24,6 @@ public interface PTRPresenciasServiceMock {
 	
 	PresenciasTotalTiendaSeccionResponseDTO PresenciasTotalTiendaSeccion(final PresenciasTotalTiendaSeccionRequestDTO presencias);
 	
-	TiposHorasResponseDTO TiposHoras(final TiposHorasRequestDTO tiposHoras);
+	List<TiposHorasResponseDTO> TiposHoras(final TiposHorasRequestDTO tiposHoras);
 
 }

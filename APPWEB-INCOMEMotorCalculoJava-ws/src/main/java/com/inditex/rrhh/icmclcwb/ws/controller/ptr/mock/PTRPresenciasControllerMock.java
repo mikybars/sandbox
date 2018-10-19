@@ -1,4 +1,5 @@
 package com.inditex.rrhh.icmclcwb.ws.controller.ptr.mock;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
@@ -24,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasDetalleResponseD
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.PresenciasTotalTiendaSeccionResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasServiceMock;
 
 import io.swagger.annotations.Api;
@@ -73,7 +75,9 @@ public class PTRPresenciasControllerMock {
 	
 	@ApiOperation(value = "PostTiposHoras")
 	@PostMapping(path = "/tiposHoras")
-	public TiposHorasResponseDTO tiposHoras (@Valid @RequestBody final TiposHorasRequestDTO tiposHoras){
-		return this.presenciasService.TiposHoras(tiposHoras);
+	public TiposHorasResponseListDTO tiposHoras (@Valid @RequestBody final TiposHorasRequestDTO tiposHoras){
+		TiposHorasResponseListDTO lista = new TiposHorasResponseListDTO();
+		lista.setLista(this.presenciasService.TiposHoras(tiposHoras));
+		return lista;
 	}
 }

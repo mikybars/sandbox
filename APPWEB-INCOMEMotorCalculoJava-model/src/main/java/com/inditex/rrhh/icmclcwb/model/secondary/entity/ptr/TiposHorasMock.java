@@ -1,33 +1,31 @@
 package com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+
+
+@Data
 public class TiposHorasMock {
-	private Integer origen;
-	private Integer tipoHora;
-	private Boolean excluidoDenom;
-	private Boolean excluidoCalculo;
-	public Integer getOrigen() {
-		return origen;
-	}
-	public void setOrigen(Integer origen) {
-		this.origen = origen;
-	}
-	public Integer getTipoHora() {
-		return tipoHora;
-	}
-	public void setTipoHora(Integer tipoHora) {
-		this.tipoHora = tipoHora;
-	}
-	public Boolean getExcluidoDenom() {
-		return excluidoDenom;
-	}
-	public void setExcluidoDenom(Boolean excluidoDenom) {
-		this.excluidoDenom = excluidoDenom;
-	}
-	public Boolean getExcluidoCalculo() {
-		return excluidoCalculo;
-	}
-	public void setExcluidoCalculo(Boolean excluidoCalculo) {
-		this.excluidoCalculo = excluidoCalculo;
-	}
+
+	private Integer id;
+
+	private Integer tienda;
+
+	private Integer seccion;
+
+	private Integer persona;
+
+	private Integer horas;
+
+	private Date fecha;
+
+	private Integer tipo;
+
 	
 }

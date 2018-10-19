@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasServiceMock;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciasMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr.PTRPresenciasRepositoryJPA;
 import com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr.PTRPresenciasRepositoryMock;
 import org.slf4j.Logger;
@@ -44,10 +45,6 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
     private PTRPresenciasRepositoryMock presenciasRepository;
 	
 	
-	//REPOSITORIO JPA
-	@Autowired
-	PTRPresenciasRepositoryJPA presenciasRepositoryJPA;
-	
     @Autowired
     private PresenciasMapper presenciasMapper;
     
@@ -60,24 +57,15 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		String fecha1= formatter.format(presencias.getFechaDesde());
 		String fecha2= formatter.format(presencias.getFechaHasta());
 		
-		//MEDICION TIEMPO Y EJECUCION EN JPA
-		Log.info("------------------Find Presencias Detalle JPA: Inicio");
-		Long startTime = System.currentTimeMillis();
-		List<PresenciaDetalleMock> listpresencias =this.presenciasRepositoryJPA.findPresencias(presencias.getTienda().toString(),fecha1,fecha2);
-		Long estimatedTime = System.currentTimeMillis() - startTime;
-		Log.info("------------------ Find Presencias Detalle JPA: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
-		
-		
 		//MEDICION TIEMPO Y EJECUCION EN JDBC
 		Object[] param = new Object[]{presencias.getTienda().toString(),fecha1,fecha2};
 		Log.info("------------------Find Presencias Detalle JDBC: Inicio");
-		startTime = System.currentTimeMillis();
+		Long startTime = System.currentTimeMillis();
 		List<PresenciaDetalleMock> p= this.presenciasRepository.findPresencias(param);
-		estimatedTime = System.currentTimeMillis() - startTime;
+		Long estimatedTime = System.currentTimeMillis() - startTime;
 		Log.info("------------------ Find Presencias Detalle JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
 		
-		return this.presenciasMapper.asPresenciaDetalleDTO(listpresencias.get(0));
-		//return this.presenciasMapper.asPresenciaDetalleDTO(p.get(0));
+		return this.presenciasMapper.asPresenciaDetalleDTO(p.get(0));
 	}
 
 	@Override
@@ -100,9 +88,14 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 	}
 
 	@Override
-	public TiposHorasResponseDTO TiposHoras(TiposHorasRequestDTO tiposHoras) {
-		//return this.presenciasMapper.asTiposHorasDTO(this.presenciasRepositoryJPA.findTiposHoras(this.presenciasMapper.asTiposHoras(tiposHoras)));
-		return null;
+	public List<TiposHorasResponseDTO> TiposHoras(TiposHorasRequestDTO tiposHoras) {
+		Object[] param = new Object[]{tiposHoras.getTipoHora().toString()};
+		Log.info("------------------Find Tipos Horas JDBC: Inicio");
+		Long startTime = System.currentTimeMillis();
+		List<TiposHorasMock> p= this.presenciasRepository.findTiposHoras(param);
+		Long estimatedTime = System.currentTimeMillis() - startTime;
+		Log.info("------------------ Find Presencias Detalle JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
+		return this.presenciasMapper.asTiposHorasDTOs(p);
 	}
 
 }
