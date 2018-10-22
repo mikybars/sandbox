@@ -7,16 +7,17 @@ import lombok.Data;
 
 @Data
 public class PresenciaTotalTiendaMock {
-	private List<Integer> tienda;
-	private Date fecha;
+	private Integer Tienda;
+	private Date Fecha;
+	private Integer Seccion;
 
-	private Integer seccion;
+	private Integer Persona;
 
-	private Integer persona;
-
-	private Integer horas;
+	private Integer Horas;
 	
-	private Integer tipo;
+	private Integer Tipo;
 	
-	private Integer origen;
+	private Integer Origen;
+	
+	private Integer Minutos;
 }

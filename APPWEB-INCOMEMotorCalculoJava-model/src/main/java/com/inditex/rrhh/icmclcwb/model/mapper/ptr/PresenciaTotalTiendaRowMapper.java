@@ -12,14 +12,11 @@ public class PresenciaTotalTiendaRowMapper implements RowMapper{
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 		PresenciaTotalTiendaMock pre = new PresenciaTotalTiendaMock();
-		//List<Integer> listaTienda= new Lista
-		pre.setTipo(rs.getInt("TIPO"));
-		//pre.setTienda(rs.getInt("TIENDA"));
+
 		pre.setFecha(rs.getDate("FECHA"));
-		pre.setSeccion(rs.getInt("SECCION"));
-		pre.setPersona(rs.getInt("PERSONA"));
 		pre.setHoras(rs.getInt("HORAS"));
-	
+		pre.setTienda(rs.getInt("TIENDA"));
+		pre.setMinutos(pre.getHoras()*60);
 		return pre;
 	}
 	

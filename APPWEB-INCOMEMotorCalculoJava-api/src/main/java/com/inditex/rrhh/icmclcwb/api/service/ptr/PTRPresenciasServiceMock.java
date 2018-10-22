@@ -20,7 +20,7 @@ public interface PTRPresenciasServiceMock {
 	
 	PresenciasDetalleComisionableResponseDTO PresenciasDetalleComisionable(final PresenciasDetalleComisionableRequestDTO presencias);
 	
-	PresenciasTotalTiendaResponseDTO PresenciasTotalTienda(final PresenciasTotalTiendaRequestDTO presencias);
+	List<PresenciasTotalTiendaResponseDTO> PresenciasTotalTienda(final PresenciasTotalTiendaRequestDTO presencias);
 	
 	PresenciasTotalTiendaSeccionResponseDTO PresenciasTotalTiendaSeccion(final PresenciasTotalTiendaSeccionRequestDTO presencias);
 	

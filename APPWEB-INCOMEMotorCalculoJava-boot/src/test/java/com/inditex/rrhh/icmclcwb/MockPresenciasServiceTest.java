@@ -32,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaSeccio
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiposHorasRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.*;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasDetalleResponseListDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasTotalTiendaResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseListDTO;
 
 /**
@@ -64,6 +65,7 @@ public class MockPresenciasServiceTest {
 
 
     @Test
+    @Ignore
     public void presenciasDetalle() {
         //this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	Calendar cal = Calendar.getInstance();
@@ -101,16 +103,34 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void presenciasTotalTienda(){
     	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	PresenciasTotalTiendaRequestDTO req = new PresenciasTotalTiendaRequestDTO();
+    	
+    	Calendar cal = Calendar.getInstance();
+    	cal.set(Calendar.YEAR, 2008);
+    	cal.set(Calendar.MONTH, Calendar.AUGUST);
+    	cal.set(Calendar.DAY_OF_MONTH, 1);
+    	Date fechaDesde = cal.getTime();
+    	
+    	cal.set(Calendar.YEAR, 2018);
+    	cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
+    	cal.set(Calendar.DAY_OF_MONTH, 1);
+    	Date fechaHasta = cal.getTime();
+    	
     	List<Integer> list = new ArrayList<Integer>();
-    	list.add(5);
-    	req.setTienda(list);
-        ResponseEntity<PresenciasTotalTiendaResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTienda/", req, PresenciasTotalTiendaResponseDTO.class);
+    	list.add(150);
+    	list.add(160);
+    	req.setTiendas(list);
+    	req.setOrigen(11);
+    	req.setFechaDesde(fechaDesde);
+    	req.setFechaHasta(fechaHasta);
+        ResponseEntity<PresenciasTotalTiendaResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTienda/", req, PresenciasTotalTiendaResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getTienda().get(0).intValue(), 5);   
+        assertEquals("4264",ret.getBody().getList().get(0).getTienda().toString());
+        assertEquals("Sat Apr 18 02:00:00 CEST 2009", ret.getBody().getList().get(0).getFecha().toString());
+        Integer numero=(int) (6.40*60);
     }
 
     @Test
@@ -125,7 +145,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void tiposHoras(){
     	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	TiposHorasRequestDTO req = new TiposHorasRequestDTO();

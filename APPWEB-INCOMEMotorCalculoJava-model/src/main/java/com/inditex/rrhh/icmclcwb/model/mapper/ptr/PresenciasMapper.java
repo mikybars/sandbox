@@ -42,7 +42,7 @@ public interface PresenciasMapper {
     //PRESENCIAS TIENDA
     PresenciasTotalTiendaResponseDTO asPresenciasTotalTiendaDTO(PresenciaTotalTiendaMock src);
 
-    PresenciaTotalTiendaMock asPresenciasTotalTienda(PresenciasTotalTiendaRequestDTO src);
+    //PresenciaTotalTiendaMock asPresenciasTotalTienda(PresenciasTotalTiendaRequestDTO src);
 
     List<PresenciasTotalTiendaResponseDTO> asPresenciasTotalTiendaDTOs(List<PresenciaTotalTiendaMock> src);
     
