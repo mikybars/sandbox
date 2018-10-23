@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 
@@ -49,10 +48,12 @@ public class JobDto implements Serializable {
 	@ApiModelProperty(value = "Fecha en la que se termina de procesar", required = false)
 	private LocalDateTime fechaFinJob;
 
+	@NotNull
 	@ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true)
-	private LocalDate fechaInicioPeriodo;
+	private LocalDateTime fechaInicioPeriodo;
 
+	@NotNull
 	@ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
-	private LocalDate fechaFinPeriodo;
+	private LocalDateTime fechaFinPeriodo;
 
 }

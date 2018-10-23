@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
-@Table(name = "PROGRAMACION", schema = "INCOME")
+@Table(name = "INCOME_PROGRAMACION", schema = "DESARROLLO_RRHH")
 @Data
 public class Schedule {
 
