@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto;
+package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

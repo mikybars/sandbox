@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.empleadosestructura.dto;
+package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto;
 
 import lombok.Data;
 import java.io.Serializable;

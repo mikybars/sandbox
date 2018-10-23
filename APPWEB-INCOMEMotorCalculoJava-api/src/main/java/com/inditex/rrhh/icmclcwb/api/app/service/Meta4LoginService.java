@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.service;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.login.dto.LoginRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginRequestDto;
 
 public interface Meta4LoginService {
 	

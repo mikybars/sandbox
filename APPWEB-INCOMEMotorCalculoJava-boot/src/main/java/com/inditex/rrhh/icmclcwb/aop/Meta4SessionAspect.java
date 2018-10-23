@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4LoginService;
-import com.inditex.rrhh.icmclcwb.api.meta4.login.dto.LoginRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginRequestDto;
 
 @Aspect
 @Component

@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.login.mapper;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.login.dto.LoginRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.login.dto.LoginResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.Login;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4LoginOutput;
 import org.mapstruct.Mapper;

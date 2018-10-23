@@ -1,6 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.login.dto;
-
-import javax.validation.constraints.NotBlank;
+package com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,17 +13,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @ToString
-public class LoginRequestDto implements Serializable {
+public class LoginResponseDto implements Serializable {
 
 	private static final long serialVersionUID = 8224685868544251698L;
 
-	@NotBlank
-	private String username;
-	
-	@NotBlank
-	private String password;
-	
-	@NotBlank
-	private String language;
+	private String sessionID;
 
 }

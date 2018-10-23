@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.valorescondiciones.dto;
+package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto;
 
 import java.io.Serializable;
 

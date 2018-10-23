@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.JobRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
-import com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.JobMapper;
