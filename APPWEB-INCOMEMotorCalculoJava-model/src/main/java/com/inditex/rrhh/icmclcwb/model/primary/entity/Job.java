@@ -22,7 +22,7 @@ public class Job {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "ID_TRABAJO")
 	private /* BigInteger */ Long id;
 
 	@NotNull
