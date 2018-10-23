@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.meta4.login.service;
 import java.time.LocalDateTime;
 import java.util.concurrent.Semaphore;
 
+import javax.xml.ws.soap.SOAPFaultException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,8 +111,11 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
 			} else {
 				LOG.info("retrieveM4Session(): tlSesionMeta4Dto inexistente: {}", sesionMeta4Dto);
 			}
+		} catch (SOAPFaultException e) {
+			// No es valida la sesion o algo no controlado ha fallado 
+			LOG.error("Meta4LoginService.retrieveM4Session(): Error no controlado", e);
 		} catch (Exception e) {
-			LOG.info("Meta4LoginService.retrieveM4Session(): Error no controlado", e);
+			LOG.error("Meta4LoginService.retrieveM4Session(): Error no controlado", e);
 			throw e;
 		}
 		LOG.info("Fin :: retrieveM4Session(): {}", sesionMeta4Dto);

@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4IcmWsIncomeService;
@@ -24,6 +24,10 @@ import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income
 @Service
 public class Meta4ServiceImpl implements Meta4Service {
 
+	//TODO DTENREIRO
+//	@Autowired
+//	private ApplicationContext appContext;
+	
 	@Autowired
 	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
 

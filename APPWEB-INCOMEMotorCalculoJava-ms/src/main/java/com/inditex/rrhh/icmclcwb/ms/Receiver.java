@@ -18,7 +18,7 @@ public class Receiver {
 	@Autowired
 	private JobService jobService;
 
-	@JmsListener(id = "jobListener", destination = "${amiga.service.jms.job-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "1-5")
+	@JmsListener(id = "jobListener", destination = "${amiga.service.jms.job-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "50-100")
 	public void onMessageJobListener(
 			Message<JobDto> message /* JobDto message */ /* JobDto message, @Headers Map headers */)
 			throws Exception {

@@ -27,7 +27,7 @@ public abstract class Meta4ClientConfigAbstract<T> {
 	protected abstract T init();
 
 	protected T build(Class<T> classType) {
-		LOG.info("INICIO build()");
+		LOG.info("Inicio :: Meta4ClientConfigAbstract.build(): {}", server);
 		JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
 		pfb.setServiceClass(classType);
 		pfb.setAddress(server);
@@ -61,7 +61,7 @@ public abstract class Meta4ClientConfigAbstract<T> {
 			client.getInInterceptors().add(new LoggingInInterceptor());
 			client.getOutInterceptors().add(new LoggingOutInterceptor());
 		}
-		LOG.info("FIN build()");
+		LOG.info("Fin :: Meta4ClientConfigAbstract.build(): {}", server);
 		return result;
 	}
 
