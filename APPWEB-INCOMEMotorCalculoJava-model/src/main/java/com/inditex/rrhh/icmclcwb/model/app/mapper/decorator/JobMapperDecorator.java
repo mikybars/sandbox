@@ -29,6 +29,7 @@ public abstract class JobMapperDecorator implements JobMapper {
 		LocalDate periodo = LocalDate.now().plusMonths(-src.getPeriodo());
 		result.setFechaInicioPeriodo(periodo.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
 		result.setFechaFinPeriodo(periodo.with(TemporalAdjusters.firstDayOfNextMonth()).atTime(LocalTime.MAX));
+		result.setSchedule(src);
 		return result;
 	}
 

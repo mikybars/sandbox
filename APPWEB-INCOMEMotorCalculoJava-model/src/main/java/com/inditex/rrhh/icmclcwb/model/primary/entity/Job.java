@@ -1,13 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -60,5 +61,12 @@ public class Job {
 
 	@Column(name = "FECHA_FIN_PERIODO", nullable = false)
 	private Date fechaFinPeriodo;
+	
+	@ManyToOne
+	// @ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
+			@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
+					@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION", unique = true) })
+	private Schedule schedule;
 
 }

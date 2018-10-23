@@ -55,5 +55,8 @@ public class JobDto implements Serializable {
 	@NotNull
 	@ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
 	private LocalDateTime fechaFinPeriodo;
+	
+	@ApiModelProperty(value = "Programación asociada", required = false)
+	private ScheduleDto schedule;
 
 }

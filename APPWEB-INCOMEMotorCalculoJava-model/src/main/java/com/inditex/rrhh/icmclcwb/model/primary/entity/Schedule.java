@@ -2,12 +2,17 @@ package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -59,5 +64,12 @@ public class Schedule {
 	@NotNull
 	@Column(name = "FECHA_SIGUIENTE_EJECUCION", nullable = false)
 	private Date fechaSiguienteEjecucion;
+
+	//@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
+			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
+					@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO", unique = true) })
+	private List<Job> jobs;
 
 }
