@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
 import com.inditex.rrhh.icmclcwb.api.app.util.annotation.Meta4Session;
@@ -38,7 +38,7 @@ public class Meta4ServiceImpl implements Meta4Service {
 	
 	@Meta4Session
 	@Override
-	public List<EmpleadosTiendaResultItemDTO> getEmpleadosTienda(JobDto jobDto) throws Exception {
+	public List<EmpleadosTiendaResultItemDTO> getEmpleadosTienda(TrabajoDto trabajo) throws Exception {
 		List<EmpleadosTiendaResultItemDTO> result = new ArrayList<>();
 		
 		EmpleadosTiendaRequestDTO request = new EmpleadosTiendaRequestDTO();
@@ -53,13 +53,13 @@ public class Meta4ServiceImpl implements Meta4Service {
 		request.setPage(page);
 		
 		EmpleadosTiendaFilterDTO data = new EmpleadosTiendaFilterDTO();
-		if (jobDto.getFechaInicioPeriodo() != null) {
-			data.setFechaInicio(jobDto.getFechaInicioPeriodo());
+		if (trabajo.getFechaInicioPeriodo() != null) {
+			data.setFechaInicio(trabajo.getFechaInicioPeriodo());
 		}
-		if (jobDto.getFechaFinPeriodo() != null) {
-			data.setFechaFin(jobDto.getFechaFinPeriodo());
+		if (trabajo.getFechaFinPeriodo() != null) {
+			data.setFechaFin(trabajo.getFechaFinPeriodo());
 		}
-		data.setIdLugarTrabajo(jobDto.getIdTienda());
+		data.setIdLugarTrabajo(trabajo.getIdTienda());
 		request.setData(data);
 		
 		boolean hasNext = false;

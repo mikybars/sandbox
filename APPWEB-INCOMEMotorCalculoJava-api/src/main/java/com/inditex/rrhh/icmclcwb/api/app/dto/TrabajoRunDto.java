@@ -6,14 +6,14 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class JobRunDto implements Serializable {
+public class TrabajoRunDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
 	@ApiModelProperty(value = "Trabajo", required = false)
-	private JobDto job;
+	private TrabajoDto trabajo;
 
 	@ApiModelProperty(value = "Resultado de la operación", required = false)
-	private Boolean result;
+	private Boolean resultado;
 
 }

@@ -31,8 +31,8 @@ amiga:
           response-validated: false
   service:
     jms:
-      job-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.job-queue-${metadata.slot}
+      trabajo-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
   data:
     jdbc:
       datasource:
@@ -58,8 +58,8 @@ amiga:
           brokerURL: tcp://middleware-amq-tcp:61616
           userName: usr-read
       client:
-        jobJmsClient:
-          destinationName: ${amiga.service.jms.job-queue.destination-fqdn}
+        trabajoJmsClient:
+          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
           receiveTimeout: 100
           pubSubDomain: false
 app:

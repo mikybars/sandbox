@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleJobDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.ScheduleService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,24 +30,24 @@ import lombok.Data;
 
 @Validated
 @RestController
-@RequestMapping(path = "/schedule")
+@RequestMapping(path = "/programacion")
 @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
-public class ScheduleController {
+public class ProgramacionController {
 
 	@Autowired
-	private ScheduleService scheduleService;
+	private ProgramacionService programacionService;
 
 	@PostMapping
 	@ApiOperation("Inserta una nueva programación")
-	public @Valid ScheduleDto insert(@Valid @RequestBody final ScheduleDto schedule) {
-		return scheduleService.createSchedule(schedule);
+	public @Valid ProgramacionDto insert(@Valid @RequestBody final ProgramacionDto programacion) {
+		return programacionService.createProgramacion(programacion);
 	}
 
 	@GetMapping(path = "/run/")
 	@ApiOperation("Revisa si hay programaciones pendientes de lanzar y en caso afirmativo, genera el trabajo")
 	@PreAuthorize("hasAuthority('admin')")
-	public List<ScheduleJobDto> run() throws Exception {
-		return scheduleService.run();
+	public List<ProgramacionTrabajoDto> run() throws Exception {
+		return programacionService.run();
 	}
 
 	// TODO Eliminar cuando no sea necesario
@@ -55,7 +55,7 @@ public class ScheduleController {
 	@ApiOperation("Inicializa datos de prueba")
 	@PreAuthorize("hasAuthority('admin')")
 	public Boolean init() throws Exception {
-		return scheduleService.init();
+		return programacionService.init();
 	}
 
 	// TODO Eliminar cuando no sea necesario

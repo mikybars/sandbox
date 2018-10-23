@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.validation.constraints.NotNull;
 
-@ApiModel(description = "Modelo ScheduleDto")
+@ApiModel(description = "Modelo ProgramacionDto")
 @Data
-public class ScheduleDto implements Serializable {
+public class ProgramacionDto implements Serializable {
 
 	private static final long serialVersionUID = 3665361916795418905L;
 
-	@ApiModelProperty(value = "Identificador de la planificación", required = false, readOnly = true)
+	@ApiModelProperty(value = "Identificador de la programación", required = false, readOnly = true)
 	private Integer id;
 	
 	@NotNull

@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
 import com.inditex.rrhh.icmclcwb.api.app.service.PTRVentaService;
@@ -44,10 +44,10 @@ public class ChunkServiceImpl implements ChunkService {
 	
 	@Async
 	@Override
-	public CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(JobDto jobDto) {
+	public CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(TrabajoDto trabajo) {
 		List<EmpleadosTiendaResultItemDTO> result = new ArrayList<>();
 		try {
-			result = meta4Service.getEmpleadosTienda(jobDto);
+			result = meta4Service.getEmpleadosTienda(trabajo);
 		} catch (Exception e) {
 			LOG.error("Error no controlado", e);
 		}

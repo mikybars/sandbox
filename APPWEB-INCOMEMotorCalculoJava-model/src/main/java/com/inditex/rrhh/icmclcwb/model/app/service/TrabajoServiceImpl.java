@@ -15,29 +15,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobRunDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
-import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
-import com.inditex.rrhh.icmclcwb.model.app.mapper.JobMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.JobRepository;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.ms.Sender;
 
 @Service
 @Validated
-public class JobServiceImpl implements JobService {
+public class TrabajoServiceImpl implements TrabajoService {
 
 	@Autowired
 	private Logger LOG;
 
 	@Autowired
-	private JobRepository jobRepository;
+	private TrabajoRepository trabajoRepository;
 
 	@Autowired
-	private JobMapper jobMapper;
+	private TrabajoMapper trabajoMapper;
 
 	@Autowired
 	private ChunkService chunkService;
@@ -46,54 +46,54 @@ public class JobServiceImpl implements JobService {
 	private Sender sender;
 
 	@Override
-	public JobDto createJob(@Valid JobDto job) {
-		JobDto result = new JobDto();
-		LOG.info("Inicio :: JobService.createJob(): {}", job);
-		result = jobMapper.jobToJobDto(jobRepository.save(jobMapper.jobDtoToJob(job)));
+	public TrabajoDto createTrabajo(@Valid TrabajoDto trabajo) {
+		TrabajoDto result = new TrabajoDto();
+		LOG.info("Inicio :: TrabajoService.createTrabajo(): {}", trabajo);
+		result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
 		sender.send(result);
-		LOG.info("Fin :: JobService.createJob(): {}", result);
+		LOG.info("Fin :: TrabajoService.createTrabajo(): {}", result);
 		return result;
 	}
 
 	@Override
-	public JobRunDto run(Long id) throws Exception {
-		JobRunDto result = new JobRunDto();
+	public TrabajoRunDto run(Long id) throws Exception {
+		TrabajoRunDto result = new TrabajoRunDto();
 		Boolean resultOp = Boolean.FALSE;
-		LOG.info("Job[{}] :: Inicio :: JobService.run()", id);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.run()", id);
 
-		LOG.info("Job[{}] :: Inicio :: Bloque :: Validaciones y cargas iniciales", id);
+		LOG.info("Trabajo[{}] :: Inicio :: Bloque :: Validaciones y cargas iniciales", id);
 
-		LOG.info("Job[{}] :: Inicio :: jobRepository.findOne()", id);
-		JobDto job = jobMapper.jobToJobDto(jobRepository.findOne(id));
-		if (job != null) {
-			LOG.info("Job[{}] :: Fin :: jobRepository.findOne(): {}", id, job);
+		LOG.info("Trabajo[{}] :: Inicio :: trabajoRepository.findOne()", id);
+		TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
+		if (trabajo != null) {
+			LOG.info("Trabajo[{}] :: Fin :: trabajoRepository.findOne(): {}", id, trabajo);
 
-			// TODO Cambiar el estado del Job a en curso (Historificar cambio de estado)
-			LOG.info("Job[{}] :: Inicio :: jobRepository.save(): {}", id, job);
-			// job.setIdEstado(Constants.JobStatusEnum.ESTADO_JOB_EN_CURSO_VALIDACIONES_INICIALES.getId());
-			job = jobMapper.jobToJobDto(jobRepository.save(jobMapper.jobDtoToJob(job)));
-			LOG.info("Job[{}] :: Fin :: jobRepository.save(): {}", id, job);
+			// TODO Cambiar el estado del Trabajo a en curso (Historificar cambio de estado)
+			LOG.info("Trabajo[{}] :: Inicio :: trabajoRepository.save(): {}", id, trabajo);
+			// trabajo.setIdEstado(Constants.EstadoTrabajoEnum.ESTADO_TRABAJO_EN_CURSO_VALIDACIONES_INICIALES.getId());
+			trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
+			LOG.info("Trabajo[{}] :: Fin :: trabajoRepository.save(): {}", id, trabajo);
 
-			LOG.info("Job[{}] :: Fin :: Bloque :: Validaciones y cargas iniciales", id);
+			LOG.info("Trabajo[{}] :: Fin :: Bloque :: Validaciones y cargas iniciales", id);
 
-			LOG.info("Job[{}] :: Inicio :: Bloque :: Carga de de datos intermedios", id);
+			LOG.info("Trabajo[{}] :: Inicio :: Bloque :: Carga de de datos intermedios", id);
 
 			// Se recuperan los tipos de horas de forma asincrona
 			// TODO
 
 			// Se recuperan/procesan las tiendas
 			Set<String> tiendas = new HashSet<>();
-			if (StringUtils.isNotBlank(job.getIdEmpleado())) {
+			if (StringUtils.isNotBlank(trabajo.getIdEmpleado())) {
 				// TODO Empleado :: Obtener las tiendas comisionables en las que ha estado el
 				// empleado
-			} else if (StringUtils.isNotBlank(job.getIdTienda())) {
+			} else if (StringUtils.isNotBlank(trabajo.getIdTienda())) {
 				// TODO Tienda :: Directamente se usa la tienda enviada
-				LOG.info("Job[{}] :: Inicio :: tiendas.putIfAbsent(): {}", id, job.getIdTienda());
-				tiendas.add(job.getIdTienda());
-				LOG.info("Job[{}] :: Fin :: tiendas.putIfAbsent(): {}", id, tiendas);
-			} else if (StringUtils.isNotBlank(job.getIdPais()) && StringUtils.isNotBlank(job.getIdCadena())) {
+				LOG.info("Trabajo[{}] :: Inicio :: tiendas.putIfAbsent(): {}", id, trabajo.getIdTienda());
+				tiendas.add(trabajo.getIdTienda());
+				LOG.info("Trabajo[{}] :: Fin :: tiendas.putIfAbsent(): {}", id, tiendas);
+			} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdCadena())) {
 				// TODO Pais + Cadena :: Se obtienen las tiendas
-			} else if (StringUtils.isNotBlank(job.getIdPais())) {
+			} else if (StringUtils.isNotBlank(trabajo.getIdPais())) {
 				// TODO Pais :: Se obtienen las tiendas
 			}
 			// TODO Se valida si no se ha validado antes que las tiendas sean comisionables
@@ -110,10 +110,10 @@ public class JobServiceImpl implements JobService {
 			// datos en un sistema externo tiene que o usar la búsqueda o sino tenemos que
 			// guardar en una tabla temporal el id de empleados y su tienda
 			CompletableFuture<List<EmpleadosTiendaResultItemDTO>> cfEmpleados = chunkService
-					.getEmpleadosTienda(job);
-			LOG.info("Job[{}] :: Inicio :: CompletableFuture.allOf()", id);
+					.getEmpleadosTienda(trabajo);
+			LOG.info("Trabajo[{}] :: Inicio :: CompletableFuture.allOf()", id);
 			CompletableFuture<Void> cfDatosIntermedios = CompletableFuture.allOf(cfEmpleados);
-			LOG.info("Job[{}] :: Inicio :: CompletableFuture.allOf()", id);
+			LOG.info("Trabajo[{}] :: Inicio :: CompletableFuture.allOf()", id);
 
 			// TODO Cuanto termine 'cfEmpleados' se lanza la obtención de datos de empleados
 			CompletableFuture.allOf(cfEmpleados);
@@ -142,22 +142,22 @@ public class JobServiceImpl implements JobService {
 				LOG.info("No se han recuperado registros");
 			}
 
-			LOG.info("Job[{}] :: Fin :: Bloque :: Carga de de datos intermedios", id);
+			LOG.info("Trabajo[{}] :: Fin :: Bloque :: Carga de de datos intermedios", id);
 
-			LOG.info("Job[{}] :: Inicio :: Bloque :: Ejecución del cálculo", id);
+			LOG.info("Trabajo[{}] :: Inicio :: Bloque :: Ejecución del cálculo", id);
 			// TODO
-			LOG.info("Job[{}] :: Fin :: Bloque :: Ejecución del cálculo", id);
+			LOG.info("Trabajo[{}] :: Fin :: Bloque :: Ejecución del cálculo", id);
 
-			LOG.info("Job[{}] :: Inicio :: Bloque :: Validaciones y cargas finales", id);
+			LOG.info("Trabajo[{}] :: Inicio :: Bloque :: Validaciones y cargas finales", id);
 			// TODO
-			result.setJob(job);
-			result.setResult(resultOp);
-			LOG.info("Job[{}] :: Inicio :: Bloque :: Validaciones y cargas finales", id);
+			result.setTrabajo(trabajo);
+			result.setResultado(resultOp);
+			LOG.info("Trabajo[{}] :: Inicio :: Bloque :: Validaciones y cargas finales", id);
 		} else {
-			LOG.error("No existe el job");
+			LOG.error("No existe el trabajo");
 		}
 
-		LOG.info("Fin :: JobService.run(): " + result.toString());
+		LOG.info("Fin :: TrabajoService.run(): " + result.toString());
 		return result;
 	}
 

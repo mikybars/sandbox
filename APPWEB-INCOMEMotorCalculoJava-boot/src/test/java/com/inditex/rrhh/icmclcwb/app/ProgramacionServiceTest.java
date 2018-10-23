@@ -23,16 +23,16 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.rrhh.icmclcwb.Application;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleJobDto;
-import com.inditex.rrhh.icmclcwb.ws.controller.app.ScheduleController.Clock;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
+import com.inditex.rrhh.icmclcwb.ws.controller.app.ProgramacionController.Clock;
 
 @Ignore("Hay que implementar el mock jms para Bamboo")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-public class ScheduleServiceTest {
+public class ProgramacionServiceTest {
 
 	@Autowired
 	private Logger LOG;
@@ -43,26 +43,26 @@ public class ScheduleServiceTest {
 	//@Test
 	public void clock() {
 		ResponseEntity<Clock> ret = testRestTemplate.withBasicAuth("username300", "username300p")
-				.getForEntity("/schedule/clock/", Clock.class);
+				.getForEntity("/programacion/clock/", Clock.class);
 		LOG.info("Clock: {}", ret.getBody());
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 	}
 	
 	@Test
 	public void insert() {
-		ScheduleDto schedule = new ScheduleDto();
-		schedule.setActiva(Boolean.TRUE);
-		//schedule.setFechaCreacion(LocalDateTime.now());
-		//schedule.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15)));
-		schedule.setHora(LocalTime.of(11, 15));
-		schedule.setIdPais("11");
-		schedule.setIdCadena("1");
-		schedule.setIdTienda("T160");
-		schedule.setIdUsuario("JUNIT");
-		schedule.setPeriodo(0L);
+		ProgramacionDto programacion = new ProgramacionDto();
+		programacion.setActiva(Boolean.TRUE);
+		//programacion.setFechaCreacion(LocalDateTime.now());
+		//programacion.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15)));
+		programacion.setHora(LocalTime.of(11, 15));
+		programacion.setIdPais("11");
+		programacion.setIdCadena("1");
+		programacion.setIdTienda("T160");
+		programacion.setIdUsuario("JUNIT");
+		programacion.setPeriodo(0L);
 
-		ResponseEntity<ScheduleDto> ret = testRestTemplate.withBasicAuth("username300", "username300p")
-						.postForEntity("/schedule/", schedule, ScheduleDto.class);
+		ResponseEntity<ProgramacionDto> ret = testRestTemplate.withBasicAuth("username300", "username300p")
+						.postForEntity("/programacion/", programacion, ProgramacionDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertNotNull(ret.getBody());
 		assertNotNull(ret.getBody().getId());
@@ -70,9 +70,9 @@ public class ScheduleServiceTest {
 
 	@Test
 	public void run() {
-		ResponseEntity<List<ScheduleJobDto>> ret = testRestTemplate.withBasicAuth("username300", "username300p")
-						.exchange("/schedule/run/", HttpMethod.GET, HttpEntity.EMPTY,
-										new ParameterizedTypeReference<List<ScheduleJobDto>>() {
+		ResponseEntity<List<ProgramacionTrabajoDto>> ret = testRestTemplate.withBasicAuth("username300", "username300p")
+						.exchange("/programacion/run/", HttpMethod.GET, HttpEntity.EMPTY,
+										new ParameterizedTypeReference<List<ProgramacionTrabajoDto>>() {
 										});
 		LOG.info("ret: {}", ret);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());

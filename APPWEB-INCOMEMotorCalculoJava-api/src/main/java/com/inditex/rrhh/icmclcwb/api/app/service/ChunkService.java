@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDTO;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDTO;
@@ -27,6 +27,6 @@ public interface ChunkService {
 	CompletableFuture<List<ValoresCondicionesResultItemDTO>> getValoresCondiciones(
 			@Valid ValoresCondicionesRequestDTO request);
 
-	CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(JobDto jobDto);
+	CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(TrabajoDto trabajo);
 	
 }

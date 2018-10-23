@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,17 +18,17 @@ import io.swagger.annotations.Authorization;
 
 @Validated
 @RestController
-@RequestMapping(path = "/job")
+@RequestMapping(path = "/trabajo")
 @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
-public class JobController {
+public class TrabajoController {
 
 	@Autowired
-	private JobService jobService;
+	private TrabajoService trabajoService;
 
 	@PostMapping
 	@ApiOperation("Inserta un nuevo trabajo")
-	public @Valid JobDto insert(@Valid @RequestBody final JobDto job) {
-		return jobService.createJob(job);
+	public @Valid TrabajoDto insert(@Valid @RequestBody final TrabajoDto trabajo) {
+		return trabajoService.createTrabajo(trabajo);
 	}
 
 }

@@ -57,12 +57,12 @@ public class JmsConfig {
 	}
 
 	@Bean
-	@ConfigurationProperties(prefix = "amiga.data.jms.client.jobJmsClient")
-	public JmsClient jobJmsClient(final JmsClientBuilder builder,
+	@ConfigurationProperties(prefix = "amiga.data.jms.client.trabajoJmsClient")
+	public JmsClient trabajoJmsClient(final JmsClientBuilder builder,
 			@Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
-		LOG.info("Inicio :: JMSConfig.jobJmsClient(): {} {}", builder, cf);
+		LOG.info("Inicio :: JMSConfig.trabajoJmsClient(): {} {}", builder, cf);
 		JmsClient result = builder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();
-		LOG.info("Fin :: JMSConfig.jobJmsClient(): {}", result);
+		LOG.info("Fin :: JMSConfig.trabajoJmsClient(): {}", result);
 		return result;
 	}
 

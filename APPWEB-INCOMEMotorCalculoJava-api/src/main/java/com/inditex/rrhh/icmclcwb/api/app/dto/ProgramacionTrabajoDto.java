@@ -5,12 +5,12 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class ScheduleJobDto implements Serializable {
+public class ProgramacionTrabajoDto implements Serializable {
 
 	private static final long serialVersionUID = 3665361916795418905L;
 
-	private ScheduleDto schedule;
+	private ProgramacionDto programacion;
 
-	private JobDto job;
+	private TrabajoDto trabajo;
 
 }

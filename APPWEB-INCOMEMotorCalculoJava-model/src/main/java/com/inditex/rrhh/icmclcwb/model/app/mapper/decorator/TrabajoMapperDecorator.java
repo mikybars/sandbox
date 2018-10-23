@@ -7,29 +7,29 @@ import java.time.temporal.TemporalAdjusters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobStatusDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ScheduleDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
-import com.inditex.rrhh.icmclcwb.model.app.mapper.JobMapper;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 
-public abstract class JobMapperDecorator implements JobMapper {
+public abstract class TrabajoMapperDecorator implements TrabajoMapper {
 
 	@Autowired
     @Qualifier("delegate")
-    private JobMapper delegate;
+    private TrabajoMapper delegate;
 
 	@Override
-	public JobDto scheduleDtoToJobDto(ScheduleDto src) {
-		JobDto result = delegate.scheduleDtoToJobDto(src);
+	public TrabajoDto programacionDtoToTrabajoDto(ProgramacionDto src) {
+		TrabajoDto result = delegate.programacionDtoToTrabajoDto(src);
 		result.setFechaCreacion(LocalDateTime.now());
-		JobStatusDto jobStatus = new JobStatusDto();
-		jobStatus.setId(Constants.JobStatusEnum.ESTADO_JOB_PENDIENTE_CALCULO.getId());
-		result.setEstado(jobStatus);
+		EstadoTrabajoDto estadoTrabajo = new EstadoTrabajoDto();
+		estadoTrabajo.setId(Constants.EstadoTrabajoEnum.ESTADO_TRABAJO_PENDIENTE_CALCULO.getId());
+		result.setEstado(estadoTrabajo);
 		LocalDate periodo = LocalDate.now().plusMonths(-src.getPeriodo());
 		result.setFechaInicioPeriodo(periodo.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
 		result.setFechaFinPeriodo(periodo.with(TemporalAdjusters.firstDayOfNextMonth()).atTime(LocalTime.MAX));
-		result.setSchedule(src);
+		result.setProgramacion(src);
 		return result;
 	}
 

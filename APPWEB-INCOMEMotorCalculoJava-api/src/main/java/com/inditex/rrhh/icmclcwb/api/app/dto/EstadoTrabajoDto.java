@@ -6,9 +6,9 @@ import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "Modelo JobStatusDto")
+@ApiModel(description = "Modelo EstadoTrabajoDto")
 @Data
-public class JobStatusDto implements Serializable {
+public class EstadoTrabajoDto implements Serializable {
 
 	private static final long serialVersionUID = 690542159104929423L;
 

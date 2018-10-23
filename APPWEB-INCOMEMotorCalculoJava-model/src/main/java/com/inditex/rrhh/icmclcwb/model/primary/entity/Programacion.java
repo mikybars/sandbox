@@ -22,7 +22,7 @@ import lombok.Data;
 @Entity
 @Table(name = "INCOME_PROGRAMACION", schema = "DESARROLLO_RRHH")
 @Data
-public class Schedule {
+public class Programacion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +70,6 @@ public class Schedule {
 	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO", unique = true) })
-	private List<Job> jobs;
+	private List<Trabajo> trabajo;
 
 }

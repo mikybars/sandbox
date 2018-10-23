@@ -19,7 +19,7 @@ import lombok.Data;
 @Entity
 @Table(name = "INCOME_TRABAJO", schema = "DESARROLLO_RRHH")
 @Data
-public class Job {
+public class Trabajo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Job {
 	@NotNull
 	@OneToOne
 	@JoinColumn(name = "ID_ESTADO_TRABAJO", nullable = false)
-	private /* BigInteger */ JobStatus estado;
+	private /* BigInteger */ EstadoTrabajo estado;
 
 	@Column(name = "ID_PAIS", nullable = true)
 	private String idPais;
@@ -50,11 +50,11 @@ public class Job {
 	@Column(name = "FECHA_CREACION", nullable = false)
 	private Date fechaCreacion;
 
-	@Column(name = "FECHA_INICIO_JOB", nullable = true)
-	private Date fechaInicioJob;
+	@Column(name = "FECHA_INICIO_TRABAJO", nullable = true)
+	private Date fechaInicioTrabajo;
 
-	@Column(name = "FECHA_FIN_JOB", nullable = true)
-	private Date fechaFinJob;
+	@Column(name = "FECHA_FIN_TRABAJO", nullable = true)
+	private Date fechaFinTrabajo;
 
 	@Column(name = "FECHA_INICIO_PERIODO", nullable = false)
 	private Date fechaInicioPeriodo;
@@ -67,6 +67,6 @@ public class Job {
 	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION", unique = true) })
-	private Schedule schedule;
+	private Programacion programacion;
 
 }

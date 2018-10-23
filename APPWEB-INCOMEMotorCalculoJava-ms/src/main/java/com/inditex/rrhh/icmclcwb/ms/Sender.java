@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.data.jms.JmsClient;
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 @Component
 public class Sender {
@@ -15,13 +15,13 @@ public class Sender {
 	private Logger LOG;
 
 	@Autowired
-	@Qualifier("jobJmsClient")
-	private JmsClient jobJmsClient;
+	@Qualifier("trabajoJmsClient")
+	private JmsClient trabajoJmsClient;
 
-	public void send(JobDto job) {
-		LOG.info("Inicio :: Sender.send(): " + job.toString());
-		jobJmsClient.convertAndSend(job);
-		LOG.info("Fin :: Sender.send(): " + job.toString());
+	public void send(TrabajoDto trabajo) {
+		LOG.info("Inicio :: Sender.send(): " + trabajo.toString());
+		trabajoJmsClient.convertAndSend(trabajo);
+		LOG.info("Fin :: Sender.send(): " + trabajo.toString());
 	}
 
 }

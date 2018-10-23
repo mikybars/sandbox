@@ -2,18 +2,22 @@ package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_ESTADO_TRABAJO", schema = "DESARROLLO_RRHH")
+@Table(name = "INCOME_TIPO_CALCULO", schema = "DESARROLLO_RRHH")
 @Data
-public class JobStatus {
+public class TipoCalculo {
 
 	@Id
-	@Column(name = "ID_ESTADO_TRABAJO")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_TIPO_CALCULO")
 	private /* BigInteger */ Long id;
 
 	@NotBlank

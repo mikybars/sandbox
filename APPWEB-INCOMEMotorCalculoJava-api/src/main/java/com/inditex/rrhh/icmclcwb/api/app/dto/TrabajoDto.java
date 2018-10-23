@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "Modelo JobDto")
+@ApiModel(description = "Modelo TrabajoDto")
 @Data
-public class JobDto implements Serializable {
+public class TrabajoDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
@@ -20,7 +20,7 @@ public class JobDto implements Serializable {
 
 	@NotNull
 	@ApiModelProperty(value = "Estado actual del trabajo", required = true)
-	private /* BigInteger */ JobStatusDto estado;
+	private /* BigInteger */ EstadoTrabajoDto estado;
 
 	@ApiModelProperty(value = "Id del páis a ejecutar", required = false)
 	private String idPais;
@@ -43,10 +43,10 @@ public class JobDto implements Serializable {
 	private LocalDateTime fechaCreacion;
 
 	@ApiModelProperty(value = "Fecha en la que se empieza a procesar", required = false)
-	private LocalDateTime fechaInicioJob;
+	private LocalDateTime fechaInicioTrabajo;
 
 	@ApiModelProperty(value = "Fecha en la que se termina de procesar", required = false)
-	private LocalDateTime fechaFinJob;
+	private LocalDateTime fechaFinTrabajo;
 
 	@NotNull
 	@ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true)
@@ -57,6 +57,6 @@ public class JobDto implements Serializable {
 	private LocalDateTime fechaFinPeriodo;
 	
 	@ApiModelProperty(value = "Programación asociada", required = false)
-	private ScheduleDto schedule;
+	private ProgramacionDto programacion;
 
 }
