@@ -5,14 +5,28 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadosestructura.dto.EmpleadosEstructuraRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadosestructura.dto.EmpleadosEstructuraResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto.EmpleadosTiendaRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.valorescondiciones.dto.ValoresCondicionesRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.valorescondiciones.dto.ValoresCondicionesResultItemDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
 
 public interface ChunkService {
     
-	CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> obtenerEmpleadosTienda(String idTienda);
-	
 	CompletableFuture<GetVentaTotalizadoResponseDTO> getVentaTotalizado(@Valid final GetVentaTotalizadoRequestDTO getVentaTotalizadoRequest);
+
+	CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(EmpleadosTiendaRequestDTO request);
+
+	CompletableFuture<List<EmpleadosEstructuraResultItemDTO>> getEmpleadosEstructura(
+			@Valid EmpleadosEstructuraRequestDTO request);
+
+	CompletableFuture<List<ValoresCondicionesResultItemDTO>> getValoresCondiciones(
+			@Valid ValoresCondicionesRequestDTO request);
+
+	CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(JobDto jobDto);
 	
 }

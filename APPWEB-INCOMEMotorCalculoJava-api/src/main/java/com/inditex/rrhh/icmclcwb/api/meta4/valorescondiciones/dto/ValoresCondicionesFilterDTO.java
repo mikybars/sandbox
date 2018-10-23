@@ -1,0 +1,19 @@
+package com.inditex.rrhh.icmclcwb.api.meta4.valorescondiciones.dto;
+
+import lombok.Data;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import javax.xml.bind.annotation.XmlElement;
+
+@Data
+public class ValoresCondicionesFilterDTO implements Serializable {
+
+	private static final long serialVersionUID = -2620395625831508326L;
+	
+	private String idEstructura;
+    private String tipoCondicion;
+    private String tiposPlantillas;
+    private String subtipoCondicion;
+
+}

@@ -1,15 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.JobRunDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
-import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
-import com.inditex.rrhh.icmclcwb.model.app.mapper.JobMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.JobRepository;
-import com.inditex.rrhh.icmclcwb.ms.Sender;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+
+import javax.validation.Valid;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,12 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import javax.validation.Valid;
+import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.JobRunDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
+import com.inditex.rrhh.icmclcwb.api.app.service.JobService;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.JobMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JobRepository;
+import com.inditex.rrhh.icmclcwb.ms.Sender;
 
 @Service
 @Validated
@@ -108,8 +109,8 @@ public class JobServiceImpl implements JobService {
 			// Obtenemos el IdBusqueda de la operación, luego cada operación de obtención de
 			// datos en un sistema externo tiene que o usar la búsqueda o sino tenemos que
 			// guardar en una tabla temporal el id de empleados y su tienda
-			CompletableFuture<List<GetEmpleadosTiendaResultItemDTO>> cfEmpleados = chunkService
-					.obtenerEmpleadosTienda(job.getIdTienda());
+			CompletableFuture<List<EmpleadosTiendaResultItemDTO>> cfEmpleados = chunkService
+					.getEmpleadosTienda(job);
 			LOG.info("Job[{}] :: Inicio :: CompletableFuture.allOf()", id);
 			CompletableFuture<Void> cfDatosIntermedios = CompletableFuture.allOf(cfEmpleados);
 			LOG.info("Job[{}] :: Inicio :: CompletableFuture.allOf()", id);
@@ -117,7 +118,7 @@ public class JobServiceImpl implements JobService {
 			// TODO Cuanto termine 'cfEmpleados' se lanza la obtención de datos de empleados
 			CompletableFuture.allOf(cfEmpleados);
 
-			List<GetEmpleadosTiendaResultItemDTO> empleados = cfEmpleados.get();
+			List<EmpleadosTiendaResultItemDTO> empleados = cfEmpleados.get();
 			if (CollectionUtils.isNotEmpty(empleados)) {
 				LOG.info("Ha funcionado (obtenerEmpleadosTiendaRResult): " + empleados.size());
 				GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = new GetVentaTotalizadoRequestDTO();

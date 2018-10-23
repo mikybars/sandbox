@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.dto;
 
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.PageDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.PageDTO;
 
 public interface Pageable<T> {
 	

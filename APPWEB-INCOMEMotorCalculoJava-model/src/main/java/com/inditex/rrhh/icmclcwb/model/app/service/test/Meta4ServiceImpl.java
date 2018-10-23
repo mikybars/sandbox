@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.service.test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -9,17 +9,23 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.JobDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
 import com.inditex.rrhh.icmclcwb.api.app.util.annotation.Meta4Session;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaFilterDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.PageDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.PageDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadosestructura.dto.EmpleadosEstructuraRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadosestructura.dto.EmpleadosEstructuraResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadosestructura.dto.EmpleadosEstructuraResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto.EmpleadosTiendaFilterDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto.EmpleadosTiendaRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto.EmpleadosTiendaResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.valorescondiciones.dto.ValoresCondicionesRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.valorescondiciones.dto.ValoresCondicionesResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.valorescondiciones.dto.ValoresCondicionesResultItemDTO;
 
 @Service
 public class Meta4ServiceImpl implements Meta4Service {
@@ -31,12 +37,14 @@ public class Meta4ServiceImpl implements Meta4Service {
 	@Autowired
 	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
 
+
+	
 	@Meta4Session
 	@Override
-	public List<GetEmpleadosTiendaResultItemDTO> obtenerEmpleadosTienda(String idTienda) throws Exception {
-		List<GetEmpleadosTiendaResultItemDTO> result = new ArrayList<>();
-
-		GetEmpleadosTiendaRequestDTO param = new GetEmpleadosTiendaRequestDTO();
+	public List<EmpleadosTiendaResultItemDTO> getEmpleadosTienda(JobDto jobDto) throws Exception {
+		List<EmpleadosTiendaResultItemDTO> result = new ArrayList<>();
+		
+		EmpleadosTiendaRequestDTO request = new EmpleadosTiendaRequestDTO();
 		PageDTO page = new PageDTO();
 		page.setIdBusqueda(StringUtils.EMPTY);
 		page.setCampoOrden("idempleado");
@@ -45,27 +53,92 @@ public class Meta4ServiceImpl implements Meta4Service {
 		page.setNumeroTotalPaginas(null);
 		page.setNumeroTotalResultados(null);
 		page.setTipoOrden("DESC");
-		param.setPage(page);
-
-		GetEmpleadosTiendaFilterDTO data = new GetEmpleadosTiendaFilterDTO();
-		data.setFechaInicio(LocalDateTime.of(2017, Month.SEPTEMBER, 01, 00, 00));
-		data.setFechaFin(LocalDateTime.of(2017, Month.SEPTEMBER, 01, 00, 00).with(TemporalAdjusters.lastDayOfMonth()));
-		data.setIdLugarTrabajo(idTienda);
-		data.setIdEstado(StringUtils.EMPTY);
-		data.setIdEstadoMtu(StringUtils.EMPTY);
-		param.setData(data);
-
+		request.setPage(page);
+		
+		EmpleadosTiendaFilterDTO data = new EmpleadosTiendaFilterDTO();
+		if (jobDto.getFechaInicioPeriodo() != null) {
+			data.setFechaInicio(jobDto.getFechaInicioPeriodo());
+		}
+		if (jobDto.getFechaFinPeriodo() != null) {
+			data.setFechaFin(jobDto.getFechaFinPeriodo());
+		}
+		data.setIdLugarTrabajo(jobDto.getIdTienda());
+		request.setData(data);
+		
 		boolean hasNext = false;
 		do {
 			hasNext = false;
-			GetEmpleadosTiendaResponseDTO response = meta4IcmWsIncomeService.obtenerEmpleadosTienda(param);
+			EmpleadosTiendaResponseDTO response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
 			if (response != null) {
 				if (CollectionUtils.isNotEmpty(response.getData())) {
 					result.addAll(response.getData());
 				}
 				if (response.getPage() != null && response.getPage().hasNext()) {
 					hasNext = true;
-					param.setPage(response.getPage().next());
+					request.setPage(response.getPage().next());
+				}
+			}
+		} while (hasNext);
+
+		return result;
+	}
+
+	@Meta4Session
+	@Override
+	public List<EmpleadosTiendaResultItemDTO> getEmpleadosTienda(EmpleadosTiendaRequestDTO request) throws Exception {
+		List<EmpleadosTiendaResultItemDTO> result = new ArrayList<>();
+		
+		boolean hasNext = false;
+		do {
+			hasNext = false;
+			EmpleadosTiendaResponseDTO response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
+			if (response != null) {
+				if (CollectionUtils.isNotEmpty(response.getData())) {
+					result.addAll(response.getData());
+				}
+				if (response.getPage() != null && response.getPage().hasNext()) {
+					hasNext = true;
+					request.setPage(response.getPage().next());
+				}
+			}
+		} while (hasNext);
+
+		return result;
+	}
+
+	
+	@Meta4Session
+	@Override
+	public List<EmpleadosEstructuraResultItemDTO> getEmpleadosEstructura(EmpleadosEstructuraRequestDTO request) throws Exception {
+		List<EmpleadosEstructuraResultItemDTO> result = new ArrayList<>();
+		
+		EmpleadosEstructuraResponseDTO response = meta4IcmWsIncomeService.getEmpleadosEstructura(request);
+
+		if (response != null){
+			if (CollectionUtils.isNotEmpty(response.getData())) {
+				result.addAll(response.getData());
+			}
+		}
+		
+		return result;
+	}
+	
+	@Meta4Session
+	@Override
+	public List<ValoresCondicionesResultItemDTO> getValoresCondiciones(ValoresCondicionesRequestDTO request) throws Exception{
+		List<ValoresCondicionesResultItemDTO> result = new ArrayList<>();
+	
+		boolean hasNext = false;
+		do {
+			hasNext = false;
+			ValoresCondicionesResponseDTO response = meta4IcmWsIncomeService.getValoresCondiciones(request);
+			if (response != null) {
+				if (CollectionUtils.isNotEmpty(response.getData())) {
+					result.addAll(response.getData());
+				}
+				if (response.getPage() != null && response.getPage().hasNext()) {
+					hasNext = true;
+					request.setPage(response.getPage().next());
 				}
 			}
 		} while (hasNext);
