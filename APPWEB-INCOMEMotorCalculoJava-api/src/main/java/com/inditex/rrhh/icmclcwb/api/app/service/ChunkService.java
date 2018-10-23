@@ -19,7 +19,7 @@ public interface ChunkService {
     
 	CompletableFuture<GetVentaTotalizadoResponseDTO> getVentaTotalizado(@Valid final GetVentaTotalizadoRequestDTO getVentaTotalizadoRequest);
 
-	CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(EmpleadosTiendaRequestDTO request);
+	CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(@Valid EmpleadosTiendaRequestDTO request);
 
 	CompletableFuture<List<EmpleadosEstructuraResultItemDTO>> getEmpleadosEstructura(
 			@Valid EmpleadosEstructuraRequestDTO request);
