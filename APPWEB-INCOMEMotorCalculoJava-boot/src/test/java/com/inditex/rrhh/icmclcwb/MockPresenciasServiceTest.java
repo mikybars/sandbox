@@ -65,9 +65,8 @@ public class MockPresenciasServiceTest {
 
 
     @Test
-    @Ignore
+    //@Ignore
     public void presenciasDetalle() {
-        //this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	Calendar cal = Calendar.getInstance();
     	cal.set(Calendar.YEAR, 2005);
     	cal.set(Calendar.MONTH, Calendar.AUGUST);
@@ -94,7 +93,6 @@ public class MockPresenciasServiceTest {
     @Test
     @Ignore
     public void presenciasDetalleComisionable(){
-    	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	PresenciasDetalleComisionableRequestDTO req = new PresenciasDetalleComisionableRequestDTO();
         req.setCadena(185); 
         ResponseEntity<PresenciasDetalleComisionableResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalleComisionable/", req, PresenciasDetalleComisionableResponseDTO.class);
@@ -103,9 +101,8 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void presenciasTotalTienda(){
-    	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	PresenciasTotalTiendaRequestDTO req = new PresenciasTotalTiendaRequestDTO();
     	
     	Calendar cal = Calendar.getInstance();
@@ -128,7 +125,7 @@ public class MockPresenciasServiceTest {
     	req.setFechaHasta(fechaHasta);
         ResponseEntity<PresenciasTotalTiendaResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTienda/", req, PresenciasTotalTiendaResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals("4264",ret.getBody().getList().get(0).getTienda().toString());
+        assertEquals("150",ret.getBody().getList().get(0).getTienda().toString());
         assertEquals("Sat Apr 18 02:00:00 CEST 2009", ret.getBody().getList().get(0).getFecha().toString());
         Integer numero=(int) (6.40*60);
     }
@@ -136,7 +133,6 @@ public class MockPresenciasServiceTest {
     @Test
     @Ignore
     public void presenciasTotalTiendaSeccion(){
-    	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	PresenciasTotalTiendaSeccionRequestDTO req = new PresenciasTotalTiendaSeccionRequestDTO();
     	req.setCadena(5);;
         ResponseEntity<PresenciasTotalTiendaSeccionResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTiendaSeccion/", req, PresenciasTotalTiendaSeccionResponseDTO.class);
@@ -147,12 +143,13 @@ public class MockPresenciasServiceTest {
     @Test
     @Ignore
     public void tiposHoras(){
-    	//this.restClient = this.restClient.withBasicAuth("username100", "username100p");
     	TiposHorasRequestDTO req = new TiposHorasRequestDTO();
         req.setTipoHora(1);
+        req.setOrigen(11);
         ResponseEntity<TiposHorasResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
         assertEquals(ret.getBody().getLista().size(),100);
+        assertEquals(ret.getBody().getLista().get(0).getOrigen().intValue(),11);
         assertEquals(ret.getBody().getLista().get(0).getExcluidoCalculo(),Boolean.TRUE);
      }
     

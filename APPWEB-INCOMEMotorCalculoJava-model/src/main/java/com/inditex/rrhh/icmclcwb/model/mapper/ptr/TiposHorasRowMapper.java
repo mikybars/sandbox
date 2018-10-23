@@ -18,6 +18,7 @@ public class TiposHorasRowMapper implements RowMapper{
 		pre.setSeccion(rs.getInt("SECCION"));
 		pre.setPersona(rs.getInt("PERSONA"));
 		pre.setHoras(rs.getInt("HORAS"));
+		pre.setOrigen(rs.getInt("CCL_ID_ORIGEN"));
 		pre.setExcluidoCalculo(rs.getBoolean("EXCLUIDOCALCULO"));
 		pre.setExcluidoDenom(rs.getBoolean("EXCLUIDODENOM"));
 		return pre;

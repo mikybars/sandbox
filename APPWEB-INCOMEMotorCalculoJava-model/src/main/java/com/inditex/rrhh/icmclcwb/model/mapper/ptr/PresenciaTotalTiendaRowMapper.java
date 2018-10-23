@@ -14,9 +14,8 @@ public class PresenciaTotalTiendaRowMapper implements RowMapper{
 		PresenciaTotalTiendaMock pre = new PresenciaTotalTiendaMock();
 
 		pre.setFecha(rs.getDate("FECHA"));
-		pre.setHoras(rs.getInt("HORAS"));
+		pre.setMinutos(rs.getInt("MINUTOS"));
 		pre.setTienda(rs.getInt("TIENDA"));
-		pre.setMinutos(pre.getHoras()*60);
 		return pre;
 	}
 	

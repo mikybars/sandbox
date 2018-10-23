@@ -19,7 +19,8 @@ public class PresenciaDetalleRowMapper implements RowMapper {
 		pre.setFecha(rs.getDate("FECHA"));
 		pre.setSeccion(rs.getInt("SECCION"));
 		pre.setPersona(rs.getInt("PERSONA"));
-		pre.setHoras(rs.getInt("HORAS"));
+		pre.setMinutos(rs.getInt("MINUTOS"));
+		pre.setModificado_income(rs.getBoolean("MODIFICADO_INCOME"));
 		return pre;
 	}
 

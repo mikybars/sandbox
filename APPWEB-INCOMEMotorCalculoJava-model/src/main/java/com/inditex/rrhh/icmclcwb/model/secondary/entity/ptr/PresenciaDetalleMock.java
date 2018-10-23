@@ -37,70 +37,12 @@ public class PresenciaDetalleMock {
 
 	private Date fecha;
 
-
+	private Integer minutos;
 
 	private Integer tipo;
 	
 	private Integer origen;
 	
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getEstado() {
-		return tienda;
-	}
-
-	public void setEstado(Integer estado) {
-		this.tienda = estado;
-	}
-
-	public Integer getSeccion() {
-		return seccion;
-	}
-
-	public void setSeccion(Integer seccion) {
-		this.seccion = seccion;
-	}
-
-	public Integer getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Integer persona) {
-		this.persona = persona;
-	}
-
-
-	public Integer getHoras() {
-		return horas;
-	}
-
-	public void setHoras(Integer horas) {
-		this.horas = horas;
-	}
-
-
 	
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
-	public Integer getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
-
+	private Boolean modificado_income;
 }

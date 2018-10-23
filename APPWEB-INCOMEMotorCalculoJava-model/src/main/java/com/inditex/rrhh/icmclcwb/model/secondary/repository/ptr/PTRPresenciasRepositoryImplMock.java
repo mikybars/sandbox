@@ -29,11 +29,23 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	//private String consultaGHRS ="SELECT top 1 [TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],OP.[CCL_ID_ORIGEN]FROM [dbo].[M4CCL_PRESENCIAS_TA] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION where ERROR = 'OK'";
 	
 	
-	private String consultaPresenciaDetalleEspana = "SELECT TOP 100 [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN= ? WHERE TIENDA = ? AND FECHA >= ? AND FECHA <= ? AND ERROR = 'OK'";
-	
-	private String consultaTiposHorasEspana ="SELECT TOP 100 'TRUE' EXCLUIDODENOM,'TRUE' EXCLUIDOCALCULO, [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN=11 WHERE TIPO = ? AND ERROR = 'OK'";
+	private String consultaPresenciaDetalleEspana = "SELECT TOP 100 [TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS]*60 'MINUTOS', 'FALSE' 'MODIFICADO_INCOME' "
+													+ "FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN= ? "
+													+ "WHERE TIENDA = ? AND FECHA >= ? AND FECHA <= ? AND ERROR = 'OK'";
+											
+	private String consultaTiposHorasEspana ="SELECT TOP 100 'TRUE' EXCLUIDODENOM,'TRUE' EXCLUIDOCALCULO, [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN]"
+											+ " FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP "
+											+ "ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN= ? WHERE TIPO = ? AND ERROR = 'OK'";
 		
-	private String consultapresenciasTotalTienda1= "SELECT TOP 5 [TIENDA],[FECHA],[HORAS] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN= ? WHERE ( FECHA >= ? AND FECHA <= ? AND ERROR = 'OK')";
+	
+	
+	
+	private String consultapresenciasTotalTienda1= "SELECT TOP 100 [TIENDA],[FECHA],[HORAS]*60  'MINUTOS' "
+			+ "	FROM [dbo].[PRESENCIAS_HORARIOS] P "
+			+ "	INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION "
+			+ "	AND OP.CCL_ID_ORIGEN= ? WHERE ( FECHA >= ? AND FECHA <= ? AND ERROR = 'OK')";
+	
+	
 	@Override
 	public List<PresenciaDetalleMock> findPresencias(Object[] Params) {
 		List<PresenciaDetalleMock> presencias=(List<PresenciaDetalleMock>) jdbcTemplate.query(consultaPresenciaDetalleEspana,Params,new PresenciaDetalleRowMapper());
@@ -52,18 +64,18 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 		String whereTienda= "";
 		for (int i=0;i<lista.size();i++){
 			if (i==0){
-				whereTienda=" OR (";
-				whereTienda= whereTienda + " TIENDA = ? ";
+				whereTienda=" AND (";
+				whereTienda= whereTienda + " TIENDA IN ( ?";
 			}
 			else{
-				whereTienda= whereTienda + " OR TIENDA = ? ";
+				whereTienda= whereTienda + ", ?";
 				if (i==(lista.size()-1)){
-					whereTienda= whereTienda + ")";
+					whereTienda= whereTienda + "))";
 				}
 			}
 		}
 		String consulta = consultapresenciasTotalTienda1+whereTienda;
-		
+		Log.info(consulta);
 		
 		Object[]  primeraParteParametros = {Params[0],Params[1],Params[2]};
 		Object[]  segundaParteParametros = lista.toArray();
