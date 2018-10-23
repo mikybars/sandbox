@@ -57,6 +57,7 @@ public class ScheduleServiceTest {
 		schedule.setHora(LocalTime.of(11, 15));
 		schedule.setIdPais("11");
 		schedule.setIdCadena("1");
+		schedule.setIdTienda("T160");
 		schedule.setIdUsuario("JUNIT");
 		schedule.setPeriodo(0L);
 

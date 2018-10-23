@@ -24,11 +24,10 @@ public interface JobMapper {
 
 	List<JobDto> jobsToJobDtos(List<Job> src);
 
-	@Mappings({ @Mapping(source = "idPais", target = "idPais"),
-		@Mapping(source = "idCadena", target = "idCadena"),
-		@Mapping(source = "idTienda", target = "idTienda"),
-		@Mapping(source = "idEmpleado", target = "idEmpleado"),
-		@Mapping(source = "idUsuario", target = "idUsuario")})
+	@Mappings({ @Mapping(target = "id", ignore = true), @Mapping(source = "idPais", target = "idPais"),
+			@Mapping(source = "idCadena", target = "idCadena"), @Mapping(source = "idTienda", target = "idTienda"),
+			@Mapping(source = "idEmpleado", target = "idEmpleado"),
+			@Mapping(source = "idUsuario", target = "idUsuario") })
 	JobDto scheduleDtoToJobDto(ScheduleDto src);
 
 	List<JobDto> scheduleDTOsToJobDTOs(List<ScheduleDto> src);
@@ -36,5 +35,5 @@ public interface JobMapper {
 	JobStatusDto JobStatusToJobStatusDto(JobStatus src);
 
 	JobStatus JobStatusDtoToJobStatus(JobStatusDto src);
-	
+
 }
