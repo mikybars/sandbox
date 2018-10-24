@@ -46,7 +46,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 		TrabajoDto result = trabajoMapper
 				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
 		sender.send(result);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.createTrabajo(): {}", trabajo.getId(), result);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.createTrabajo(): {}", result.getId(), result);
 		return result;
 	}
 
