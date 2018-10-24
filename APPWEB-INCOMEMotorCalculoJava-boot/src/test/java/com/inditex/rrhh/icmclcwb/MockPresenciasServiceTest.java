@@ -80,14 +80,17 @@ public class MockPresenciasServiceTest {
 
     
         PresenciasDetalleRequestDTO req = new PresenciasDetalleRequestDTO();
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(6795);
+        list.add(5432);
         req.setTienda(160);
         req.setFechaDesde(fechaDesde);
         req.setFechaHasta(fechaHasta);
         req.setOrigen(11);
+        req.setPersonas(list);
         ResponseEntity<PresenciasDetalleResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getList().get(0).getPersona().intValue(), 61199);
-        assertEquals(ret.getBody().getList().size(),100);
+        assertEquals(0,ret.getBody().getList().size());
     }
     
     @Test

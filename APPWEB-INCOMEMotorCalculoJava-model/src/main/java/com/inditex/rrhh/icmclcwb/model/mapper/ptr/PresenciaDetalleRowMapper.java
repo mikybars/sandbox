@@ -21,6 +21,7 @@ public class PresenciaDetalleRowMapper implements RowMapper {
 		pre.setPersona(rs.getInt("PERSONA"));
 		pre.setMinutos(rs.getInt("MINUTOS"));
 		pre.setModificado_income(rs.getBoolean("MODIFICADO_INCOME"));
+		pre.setCadena(rs.getInt("CADENA"));
 		return pre;
 	}
 

@@ -58,7 +58,7 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		String fecha2= formatter.format(presencias.getFechaHasta());
 		
 		//MEDICION TIEMPO Y EJECUCION EN JDBC
-		Object[] param = new Object[]{presencias.getOrigen().toString(),presencias.getTienda().toString(),fecha1,fecha2};
+		Object[] param = new Object[]{presencias.getOrigen().toString(),presencias.getTienda().toString(),fecha1,fecha2,presencias.getPersonas()};
 		Log.info("------------------Find Presencias Detalle JDBC: Inicio");
 		Long startTime = System.currentTimeMillis();
 		List<PresenciaDetalleMock> p= this.presenciasRepository.findPresencias(param);

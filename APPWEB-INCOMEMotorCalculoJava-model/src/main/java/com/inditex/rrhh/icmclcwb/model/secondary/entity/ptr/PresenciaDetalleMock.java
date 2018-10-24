@@ -45,4 +45,6 @@ public class PresenciaDetalleMock {
 	
 	
 	private Boolean modificado_income;
+	
+	private Integer cadena;
 }

@@ -19,7 +19,7 @@ import lombok.ToString;
 public class PresenciasDetalleRequestDTO implements Serializable{
 	private Integer tienda;
 	private Integer seccion;
-	private Integer persona;
+	private List<Integer> personas;
 	private Date fechaDesde;
 	private Date fechaHasta;
 	private Integer tipo;
