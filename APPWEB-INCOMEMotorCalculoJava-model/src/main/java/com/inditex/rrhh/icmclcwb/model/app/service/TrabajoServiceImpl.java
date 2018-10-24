@@ -105,6 +105,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 		TrabajoDto result = modifyTrabajo(trabajo);
 		
 //		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), trabajoMapper.estadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto.builder().id(id).build()));
+//		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), id);
 //		if (i > 0) {
 //			LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo() :: trabajoRepository.updateEstadoTrabajo(): {}", trabajo.getId(), i);
 //		} else {
