@@ -24,8 +24,8 @@ amiga:
         enabled: false
     async:
       default-executor:
-        core-pool-size: 10
-        max-pool-size: 100
+        core-pool-size: 50
+        max-pool-size: 400
         keep-alive: 60
   service:
     session:
