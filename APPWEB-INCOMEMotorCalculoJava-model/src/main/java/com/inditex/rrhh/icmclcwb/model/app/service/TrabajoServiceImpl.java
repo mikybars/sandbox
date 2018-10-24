@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -109,7 +109,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 			// Obtenemos el IdBusqueda de la operación, luego cada operación de obtención de
 			// datos en un sistema externo tiene que o usar la búsqueda o sino tenemos que
 			// guardar en una tabla temporal el id de empleados y su tienda
-			CompletableFuture<List<EmpleadosTiendaResultItemDTO>> cfEmpleados = chunkService
+			CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfEmpleados = chunkService
 					.getEmpleadosTienda(trabajo);
 			LOG.info("Trabajo[{}] :: Inicio :: CompletableFuture.allOf()", id);
 			CompletableFuture<Void> cfDatosIntermedios = CompletableFuture.allOf(cfEmpleados);
@@ -118,7 +118,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 			// TODO Cuanto termine 'cfEmpleados' se lanza la obtención de datos de empleados
 			CompletableFuture.allOf(cfEmpleados);
 
-			List<EmpleadosTiendaResultItemDTO> empleados = cfEmpleados.get();
+			List<EmpleadosTiendaResultItemDto> empleados = cfEmpleados.get();
 			if (CollectionUtils.isNotEmpty(empleados)) {
 				LOG.info("Ha funcionado (obtenerEmpleadosTiendaRResult): " + empleados.size());
 				GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = new GetVentaTotalizadoRequestDTO();

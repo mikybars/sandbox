@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlElement;
 
 @Data
-public class ValoresCondicionesFilterDTO implements Serializable {
+public class ValoresCondicionesFilterDto implements Serializable {
 
 	private static final long serialVersionUID = -2620395625831508326L;
 	

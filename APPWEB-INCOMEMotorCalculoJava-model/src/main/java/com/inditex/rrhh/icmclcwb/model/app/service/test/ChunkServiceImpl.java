@@ -16,12 +16,12 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
 import com.inditex.rrhh.icmclcwb.api.app.service.PTRVentaService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
@@ -44,8 +44,8 @@ public class ChunkServiceImpl implements ChunkService {
 	
 	@Async
 	@Override
-	public CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(TrabajoDto trabajo) {
-		List<EmpleadosTiendaResultItemDTO> result = new ArrayList<>();
+	public CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(TrabajoDto trabajo) {
+		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
 		try {
 			result = meta4Service.getEmpleadosTienda(trabajo);
 		} catch (Exception e) {
@@ -53,10 +53,11 @@ public class ChunkServiceImpl implements ChunkService {
 		}
 		return CompletableFuture.completedFuture(result);
 	}
+	
 	@Async
 	@Override
-	public CompletableFuture<List<EmpleadosTiendaResultItemDTO>> getEmpleadosTienda(@Valid EmpleadosTiendaRequestDTO request){
-		List<EmpleadosTiendaResultItemDTO> result = new ArrayList<>();
+	public CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(@Valid EmpleadosTiendaRequestDto request){
+		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
 		try {
 			result = meta4Service.getEmpleadosTienda(request);
 		} catch (Exception e) {
@@ -80,8 +81,8 @@ public class ChunkServiceImpl implements ChunkService {
 
 	@Async
 	@Override
-	public CompletableFuture<List<EmpleadosEstructuraResultItemDTO>> getEmpleadosEstructura(@Valid EmpleadosEstructuraRequestDTO request){
-		List<EmpleadosEstructuraResultItemDTO> result = new ArrayList<>();
+	public CompletableFuture<List<EmpleadosEstructuraResultItemDto>> getEmpleadosEstructura(@Valid EmpleadosEstructuraRequestDto request){
+		List<EmpleadosEstructuraResultItemDto> result = new ArrayList<>();
 			
 		try {
 			result = meta4Service.getEmpleadosEstructura(request);
@@ -93,8 +94,8 @@ public class ChunkServiceImpl implements ChunkService {
 	
 	@Async
 	@Override
-	public CompletableFuture<List<ValoresCondicionesResultItemDTO>> getValoresCondiciones(@Valid ValoresCondicionesRequestDTO request){
-		List<ValoresCondicionesResultItemDTO> result = new ArrayList<>();
+	public CompletableFuture<List<ValoresCondicionesResultItemDto>> getValoresCondiciones(@Valid ValoresCondicionesRequestDto request){
+		List<ValoresCondicionesResultItemDto> result = new ArrayList<>();
 		
 		try {
 			result = meta4Service.getValoresCondiciones(request);

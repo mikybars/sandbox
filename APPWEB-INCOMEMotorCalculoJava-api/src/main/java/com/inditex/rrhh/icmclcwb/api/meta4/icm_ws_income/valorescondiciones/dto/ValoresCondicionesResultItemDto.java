@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ValoresCondicionesResultItemDTO implements Serializable {
+public class ValoresCondicionesResultItemDto implements Serializable {
 	
 	private static final long serialVersionUID = 4719844473784557670L;
 	
@@ -22,8 +22,8 @@ public class ValoresCondicionesResultItemDTO implements Serializable {
     private String nombrePlantilla;
     private String nombreEstructura;
     private String nombreTipoPlantilla;
-    private List<CondicionesFijasResultItemDTO> condicionesFijas;
-    private List<CondicionesComisionResultItemDTO> condicionesComision;
-    private List<CondicionesPoliticasResultItemDTO> condicionesPoliticas;
+    private List<CondicionesFijasResultItemDto> condicionesFijas;
+    private List<CondicionesComisionResultItemDto> condicionesComision;
+    private List<CondicionesPoliticasResultItemDto> condicionesPoliticas;
 
 }

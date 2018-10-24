@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class EmpleadosTiendaFilterDTO implements Serializable {
+public class EmpleadosTiendaFilterDto implements Serializable {
 
 	private static final long serialVersionUID = 8671345877698808568L;
 

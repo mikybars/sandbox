@@ -6,24 +6,22 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
 import com.inditex.rrhh.icmclcwb.api.app.util.annotation.Meta4Session;
-import com.inditex.rrhh.icmclcwb.api.meta4.PageDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 
 @Service
 public class Meta4ServiceImpl implements Meta4Service {
@@ -34,25 +32,19 @@ public class Meta4ServiceImpl implements Meta4Service {
 	
 	@Autowired
 	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
-
-	
+    
 	@Meta4Session
 	@Override
-	public List<EmpleadosTiendaResultItemDTO> getEmpleadosTienda(TrabajoDto trabajo) throws Exception {
-		List<EmpleadosTiendaResultItemDTO> result = new ArrayList<>();
+	public List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(TrabajoDto trabajo) throws Exception {
+		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
+		EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
+
+		request.setPage(PaginationPropertiesFactory.getProperties(new Object() {}
+	      .getClass()
+	      .getEnclosingMethod()
+	      .getName()));
 		
-		EmpleadosTiendaRequestDTO request = new EmpleadosTiendaRequestDTO();
-		PageDTO page = new PageDTO();
-		page.setIdBusqueda(StringUtils.EMPTY);
-		page.setCampoOrden("idempleado");
-		page.setNumeroPagina(1);
-		page.setNumeroRegistrosPagina(10);
-		page.setNumeroTotalPaginas(null);
-		page.setNumeroTotalResultados(null);
-		page.setTipoOrden("DESC");
-		request.setPage(page);
-		
-		EmpleadosTiendaFilterDTO data = new EmpleadosTiendaFilterDTO();
+		EmpleadosTiendaFilterDto data = new EmpleadosTiendaFilterDto();
 		if (trabajo.getFechaInicioPeriodo() != null) {
 			data.setFechaInicio(trabajo.getFechaInicioPeriodo());
 		}
@@ -67,7 +59,7 @@ public class Meta4ServiceImpl implements Meta4Service {
 		boolean hasNext = false;
 		do {
 			hasNext = false;
-			EmpleadosTiendaResponseDTO response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
+			EmpleadosTiendaResponseDto response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
 			if (response != null) {
 				if (CollectionUtils.isNotEmpty(response.getData())) {
 					result.addAll(response.getData());
@@ -84,13 +76,13 @@ public class Meta4ServiceImpl implements Meta4Service {
 
 	@Meta4Session
 	@Override
-	public List<EmpleadosTiendaResultItemDTO> getEmpleadosTienda(EmpleadosTiendaRequestDTO request) throws Exception {
-		List<EmpleadosTiendaResultItemDTO> result = new ArrayList<>();
+	public List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(EmpleadosTiendaRequestDto request) throws Exception {
+		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
 		
 		boolean hasNext = false;
 		do {
 			hasNext = false;
-			EmpleadosTiendaResponseDTO response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
+			EmpleadosTiendaResponseDto response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
 			if (response != null) {
 				if (CollectionUtils.isNotEmpty(response.getData())) {
 					result.addAll(response.getData());
@@ -108,10 +100,10 @@ public class Meta4ServiceImpl implements Meta4Service {
 	
 	@Meta4Session
 	@Override
-	public List<EmpleadosEstructuraResultItemDTO> getEmpleadosEstructura(EmpleadosEstructuraRequestDTO request) throws Exception {
-		List<EmpleadosEstructuraResultItemDTO> result = new ArrayList<>();
+	public List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(EmpleadosEstructuraRequestDto request) throws Exception {
+		List<EmpleadosEstructuraResultItemDto> result = new ArrayList<>();
 		
-		EmpleadosEstructuraResponseDTO response = meta4IcmWsIncomeService.getEmpleadosEstructura(request);
+		EmpleadosEstructuraResponseDto response = meta4IcmWsIncomeService.getEmpleadosEstructura(request);
 
 		if (response != null){
 			if (CollectionUtils.isNotEmpty(response.getData())) {
@@ -124,13 +116,13 @@ public class Meta4ServiceImpl implements Meta4Service {
 	
 	@Meta4Session
 	@Override
-	public List<ValoresCondicionesResultItemDTO> getValoresCondiciones(ValoresCondicionesRequestDTO request) throws Exception{
-		List<ValoresCondicionesResultItemDTO> result = new ArrayList<>();
+	public List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request) throws Exception{
+		List<ValoresCondicionesResultItemDto> result = new ArrayList<>();
 	
 		boolean hasNext = false;
 		do {
 			hasNext = false;
-			ValoresCondicionesResponseDTO response = meta4IcmWsIncomeService.getValoresCondiciones(request);
+			ValoresCondicionesResponseDto response = meta4IcmWsIncomeService.getValoresCondiciones(request);
 			if (response != null) {
 				if (CollectionUtils.isNotEmpty(response.getData())) {
 					result.addAll(response.getData());

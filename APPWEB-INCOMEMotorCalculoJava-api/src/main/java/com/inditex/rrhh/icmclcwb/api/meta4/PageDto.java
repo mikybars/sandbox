@@ -17,7 +17,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PageDTO implements Serializable {
+public class PageDto implements Serializable {
 	
 	private static final long serialVersionUID = 1951305116634110315L;
 
@@ -48,7 +48,7 @@ public class PageDTO implements Serializable {
 		return result;
 	}
 	
-	public PageDTO next() {
+	public PageDto next() {
 		if (hasNext()) {
 			setNumeroPagina(new Integer(numeroPagina.intValue() + 1));
 		} else {

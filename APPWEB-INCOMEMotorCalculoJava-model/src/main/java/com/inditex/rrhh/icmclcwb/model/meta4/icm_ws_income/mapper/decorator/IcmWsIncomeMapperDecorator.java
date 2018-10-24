@@ -3,10 +3,10 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.mapper.decorator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.PageDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraFilterDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesFilterDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesFilterDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrosempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrosempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrospaginacionBlock;
@@ -25,28 +25,28 @@ public abstract class IcmWsIncomeMapperDecorator implements IcmWsIncomeMapper {
 
 
 	@Override
-	public IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(PageDTO src) {
+	public IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(PageDto src) {
 		IcmParametrospaginacionBlock result = delegate.asIcmParametrospaginacionBlock(src);
 		result.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
 		return result;
 	}
 
 	@Override
-	public IcmParametrostiendaBlock asIcmParametrostiendaBlock(EmpleadosTiendaFilterDTO src) {
+	public IcmParametrostiendaBlock asIcmParametrostiendaBlock(EmpleadosTiendaFilterDto src) {
 		IcmParametrostiendaBlock result = delegate.asIcmParametrostiendaBlock(src);
 		result.getIcmParametrostiendaRecordSet().add(new IcmParametrostiendaRecord());
 		return result;
 	}
 	
 	@Override
-	public IcmParametrosempleadoBlock asIcmParametrosempleadoBlock(EmpleadosEstructuraFilterDTO src) {
+	public IcmParametrosempleadoBlock asIcmParametrosempleadoBlock(EmpleadosEstructuraFilterDto src) {
 		IcmParametrosempleadoBlock result = delegate.asIcmParametrosempleadoBlock(src);
 		result.getIcmParametrosempleadoRecordSet().add(new IcmParametrosempleadoRecord());
 		return result;
 	}
 	
 	@Override
-	public IcmParametrosplantillaBlock asIcmParametrosplantillaBlock(ValoresCondicionesFilterDTO src) {
+	public IcmParametrosplantillaBlock asIcmParametrosplantillaBlock(ValoresCondicionesFilterDto src) {
 		IcmParametrosplantillaBlock result = delegate.asIcmParametrosplantillaBlock(src);
 		result.getIcmParametrosplantillaRecordSet().add(new IcmParametrosplantillaRecord());
 		return result;

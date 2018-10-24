@@ -3,23 +3,23 @@ package com.inditex.rrhh.icmclcwb.api.app.service;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 
 public interface Meta4Service {
 	
-	List<EmpleadosTiendaResultItemDTO> getEmpleadosTienda(
-			EmpleadosTiendaRequestDTO request) throws Exception;
+	List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(
+			EmpleadosTiendaRequestDto request) throws Exception;
 
-	List<EmpleadosEstructuraResultItemDTO> getEmpleadosEstructura(EmpleadosEstructuraRequestDTO request)
+	List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(EmpleadosEstructuraRequestDto request)
 			throws Exception;
 
-	List<ValoresCondicionesResultItemDTO> getValoresCondiciones(ValoresCondicionesRequestDTO request) throws Exception;
+	List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request) throws Exception;
 
-	List<EmpleadosTiendaResultItemDTO> getEmpleadosTienda(TrabajoDto request) throws Exception;
+	List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(TrabajoDto request) throws Exception;
     
 }

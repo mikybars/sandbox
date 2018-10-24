@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class CondicionesComisionResultItemDTO implements Serializable{
+public class CondicionesComisionResultItemDto implements Serializable{
 
 	private static final long serialVersionUID = -8839181586425170273L;
 
@@ -32,7 +32,7 @@ public class CondicionesComisionResultItemDTO implements Serializable{
     private String nombreTipoCondicion;
     private String nombreSeccionCalculo;
     private String nombreSubtipoCondicion;
-    private List<CondicionesTopesResultItemDTO> condicionesTopes;
-    private List<CondicionesResaltaResultItemDTO> condicionesResalta;
-    private List<CondicionesDesplazamientoResultItemDTO> condicionesDesplazamiento;
+    private List<CondicionesTopesResultItemDto> condicionesTopes;
+    private List<CondicionesResaltaResultItemDto> condicionesResalta;
+    private List<CondicionesDesplazamientoResultItemDto> condicionesDesplazamiento;
 }
