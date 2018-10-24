@@ -38,7 +38,8 @@ public class PageDTO implements Serializable {
 	public boolean hasNext() {
 		boolean result = false;
 		if (numeroPagina != null) {
-			if (Integer.compare(numeroPagina, NumberUtils.INTEGER_ZERO) == 0) {
+			// Primera carga, en las iteraciones cuando no hay registros, llega {numeroPagina: 0, numeroTotalPaginas: 0}
+			if (Integer.compare(numeroPagina, NumberUtils.INTEGER_ZERO) == 0 && numeroTotalPaginas == null) {
 				result = true;
 			} else if (numeroTotalPaginas != null && Integer.compare(numeroPagina, numeroTotalPaginas) < 0) {
 				result = true;

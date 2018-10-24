@@ -59,7 +59,9 @@ public class Meta4ServiceImpl implements Meta4Service {
 		if (trabajo.getFechaFinPeriodo() != null) {
 			data.setFechaFin(trabajo.getFechaFinPeriodo());
 		}
-		data.setIdLugarTrabajo(trabajo.getIdTienda());
+		if (StringUtils.isNotBlank(trabajo.getIdTienda())) {
+			data.setIdLugarTrabajo("T" + trabajo.getIdTienda());
+		}
 		request.setData(data);
 		
 		boolean hasNext = false;

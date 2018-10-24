@@ -57,7 +57,7 @@ public class ProgramacionServiceTest {
 		programacion.setHora(LocalTime.of(11, 15));
 		programacion.setIdPais("11");
 		programacion.setIdCadena("1");
-		programacion.setIdTienda("T160");
+		programacion.setIdTienda("160");
 		programacion.setIdUsuario("JUNIT");
 		programacion.setPeriodo(0L);
 

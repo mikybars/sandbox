@@ -68,8 +68,11 @@ public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 						&& getempleadostiendaOutput != null) {
 			// Page
 			if (getempleadostiendaOutput.getIcmParametrospaginacion() != null) {
+				LOG.info("getempleadostiendaOutput.getIcmParametrospaginacion(): {}", getempleadostiendaOutput.getIcmParametrospaginacion());
 				PageDTO page = icmWsIncomeMapper.asPageDTO(getempleadostiendaOutput.getIcmParametrospaginacion());
 				result.setPage(page);
+			} else {
+				LOG.info("No hay paginacion");
 			}
 			// Data
 			if (getempleadostiendaOutput.getIcmEmpleadostienda() != null
