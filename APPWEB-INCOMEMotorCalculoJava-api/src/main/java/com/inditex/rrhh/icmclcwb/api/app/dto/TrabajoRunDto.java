@@ -6,6 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
+@Deprecated
 public class TrabajoRunDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;

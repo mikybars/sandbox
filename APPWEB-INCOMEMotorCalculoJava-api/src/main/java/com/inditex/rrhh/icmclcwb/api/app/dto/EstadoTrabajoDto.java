@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "Modelo EstadoTrabajoDto")
 @Data
+@Builder
 public class EstadoTrabajoDto implements Serializable {
 
 	private static final long serialVersionUID = 690542159104929423L;

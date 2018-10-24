@@ -90,8 +90,8 @@ amiga:
 #          password: people7
 #    hibernate:
 #      primary:
-#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
-#        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+#        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
 #      secondary:
 #        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
     jdbc:
@@ -123,12 +123,12 @@ app:
         server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME
       service: 
         page:
-          - methodName: getEmpleadosTienda 
+          - methodName: getEmpleadosTienda
             numeroPagina: 1
             numeroRegistrosPagina: 10
             tipoOrden: DESC
             campoOrden: idempleado
-          - methodName: getValoresCondiciones 
+          - methodName: getValoresCondiciones
             numeroPagina: 1
             numeroRegistrosPagina: 10
             tipoOrden: DESC
@@ -137,4 +137,4 @@ app:
             numeroPagina: 1
             numeroRegistrosPagina: 10
             tipoOrden: DESC
-            campoOrden: test        
+            campoOrden: test
