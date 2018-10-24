@@ -32,8 +32,8 @@ public interface TrabajoMapper {
 
 	List<TrabajoDto> programacionDtosToTrabajoDtos(List<ProgramacionDto> src);
 
-	EstadoTrabajoDto EstadoTrabajoToEstadoTrabajoDto(EstadoTrabajo src);
+	EstadoTrabajoDto estadoTrabajoToEstadoTrabajoDto(EstadoTrabajo src);
 
-	EstadoTrabajo EstadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto src);
+	EstadoTrabajo estadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto src);
 
 }

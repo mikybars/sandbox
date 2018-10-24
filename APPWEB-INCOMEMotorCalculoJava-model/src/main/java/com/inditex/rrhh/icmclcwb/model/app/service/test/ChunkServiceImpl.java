@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.LongStream;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -106,8 +108,9 @@ public class ChunkServiceImpl implements ChunkService {
 	public CompletableFuture<Void> condicionesEmpleados(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.condicionesEmpleados(): {}", trabajo.getId(), trabajo);
 		Random random = new Random();
-		random.longs(1000, 5000);
-		long time = random.nextLong();
+		LongStream ls = random.longs(1000, 5000);
+		long time = ls.findFirst().getAsLong();
+		ls.close();
 		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.condicionesEmpleados() :: Thread.sleep({})", trabajo.getId(), time);
 		Thread.sleep(time);
 		LOG.info("Trabajo[{}] :: Fin :: ChunkService.condicionesEmpleados() :: Thread.sleep({})", trabajo.getId(), time);
@@ -120,8 +123,9 @@ public class ChunkServiceImpl implements ChunkService {
 	public CompletableFuture<Void> ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.ventaDetalleEmpleado(): {}", trabajo.getId(), trabajo);
 		Random random = new Random();
-		random.longs(1000, 5000);
-		long time = random.nextLong();
+		LongStream ls = random.longs(1000, 5000);
+		long time = ls.findFirst().getAsLong();
+		ls.close();
 		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.ventaDetalleEmpleado() :: Thread.sleep({})", trabajo.getId(), time);
 		Thread.sleep(time);
 		LOG.info("Trabajo[{}] :: Fin :: ChunkService.ventaDetalleEmpleado() :: Thread.sleep({})", trabajo.getId(), time);
@@ -133,8 +137,9 @@ public class ChunkServiceImpl implements ChunkService {
 	public CompletableFuture<Void> tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.tiposHoras(): {}", trabajo.getId(), trabajo);
 		Random random = new Random();
-		random.longs(1000, 5000);
-		long time = random.nextLong();
+		LongStream ls = random.longs(1000, 5000);
+		long time = ls.findFirst().getAsLong();
+		ls.close();
 		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);
 		Thread.sleep(time);
 		LOG.info("Trabajo[{}] :: Fin :: ChunkService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);

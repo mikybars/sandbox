@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.ms.Sender;
 
@@ -99,8 +100,18 @@ public class TrabajoServiceImpl implements TrabajoService {
 	@Override
 	public TrabajoDto modifyEstadoTrabajo(@NotNull @Positive final Long id, @Valid TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
+		
 		trabajo.setEstado(EstadoTrabajoDto.builder().id(id).build());
 		TrabajoDto result = modifyTrabajo(trabajo);
+		
+//		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), trabajoMapper.estadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto.builder().id(id).build()));
+//		if (i > 0) {
+//			LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo() :: trabajoRepository.updateEstadoTrabajo(): {}", trabajo.getId(), i);
+//		} else {
+//			LOG.error("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo() :: trabajoRepository.updateEstadoTrabajo(): {}", trabajo.getId(), i);
+//		}
+//		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(trabajo.getId()));
+		
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
 		return result;
 	}
