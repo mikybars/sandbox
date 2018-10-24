@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NegativeOrZero;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	}
 
 	@Override
-	public TrabajoDto run(@NotNull @NegativeOrZero Long id) throws Exception {
+	public TrabajoDto run(@NotNull @Positive Long id) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.run()", id);
 		TrabajoDto result = runTrabajo(trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id)));
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.run(): {}", id, result);
@@ -97,7 +97,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	}
 
 	@Override
-	public TrabajoDto modifyEstadoTrabajo(@NotNull @NegativeOrZero final Long id, @Valid TrabajoDto trabajo) {
+	public TrabajoDto modifyEstadoTrabajo(@NotNull @Positive final Long id, @Valid TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
 		trabajo.setEstado(EstadoTrabajoDto.builder().id(id).build());
 		TrabajoDto result = modifyTrabajo(trabajo);
