@@ -45,51 +45,51 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	@Async
 	@Override
 	public CompletableFuture<Void> empleadosTienda(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.empleadosTienda(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): {}", trabajo.getId(), trabajo);
 		List<EmpleadosTiendaResultItemDto> result = meta4Service.getEmpleadosTienda(trabajo);
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.empleadosTienda(): {}", trabajo.getId(), result);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.empleadosTienda(): {}", trabajo.getId(), result);
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Async
 	@Override
 	public CompletableFuture<Void> tiendas(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.getTiendasTrabajo(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(): {}", trabajo.getId(), trabajo);
 		// Se recuperan las tiendas relacionadas con la ejecucion
 		Set<String> result = new HashSet<>();
 		if (StringUtils.isNotBlank(trabajo.getIdEmpleado())) {
 			// TODO Empleado :: Obtener las tiendas comisionables en las que ha estado el
 			// empleado
-			LOG.info("Trabajo[{}] :: Inicio :: ChunkService.getTiendasTrabajo(IdEmpleado): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(IdEmpleado): {}", trabajo.getId(),
 					trabajo.getIdEmpleado());
-			LOG.info("Trabajo[{}] :: Fin :: ChunkService.getTiendasTrabajo(IdEmpleado): {}", trabajo.getId(), result);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(IdEmpleado): {}", trabajo.getId(), result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdTienda())) {
 			// TODO Tienda :: Directamente se usa la tienda enviada
-			LOG.info("Trabajo[{}] :: Inicio :: ChunkService.getTiendasTrabajo(IdTienda): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(IdTienda): {}", trabajo.getId(),
 					trabajo.getIdTienda());
 			result.add(trabajo.getIdTienda());
-			LOG.info("Trabajo[{}] :: Fin :: ChunkService.getTiendasTrabajo(IdTienda): {}", trabajo.getId(), result);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(IdTienda): {}", trabajo.getId(), result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdCadena())) {
 			// TODO Pais + Cadena :: Se obtienen las tiendas por pais y cadena
-			LOG.info("Trabajo[{}] :: Inicio :: ChunkService.getTiendasTrabajo(IdPais IdCadena): {} {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(IdPais IdCadena): {} {}", trabajo.getId(),
 					trabajo.getIdPais(), trabajo.getIdCadena());
-			LOG.info("Trabajo[{}] :: Fin :: ChunkService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
 					result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais())) {
 			// TODO Pais :: Se obtienen las tiendas por pais
-			LOG.info("Trabajo[{}] :: Inicio :: ChunkService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
 					trabajo.getIdPais());
-			LOG.info("Trabajo[{}] :: Fin :: ChunkService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
 					result);
 		}
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.getTiendasTrabajo(): {}", trabajo.getId(), result);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(): {}", trabajo.getId(), result);
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Async
 	@Override
 	public CompletableFuture<Void> ventaTotalizadaTienda(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.ventaTotalizadaTienda(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaTotalizadaTienda(): {}", trabajo.getId(), trabajo);
 		GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = new GetVentaTotalizadoRequestDTO();
 		paramGetVentaTotalizado.setFechaDesde("2017-11-01");
 		paramGetVentaTotalizado.setFechaHasta("2017-11-30");
@@ -99,51 +99,51 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		paramGetVentaTotalizado.setTienda(new ArrayList<>());
 		GetVentaTotalizadoResponseDTO getVentaTotalizadoResponse = ptrVentaService
 				.getVentaTotalizado(paramGetVentaTotalizado);
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.ventaTotalizadaTienda()", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaTotalizadaTienda()", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Async
 	@Override
 	public CompletableFuture<Void> condicionesEmpleados(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.condicionesEmpleados(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.condicionesEmpleados(): {}", trabajo.getId(), trabajo);
 		Random random = new Random();
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.condicionesEmpleados() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.condicionesEmpleados() :: Thread.sleep({})", trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.condicionesEmpleados() :: Thread.sleep({})", trabajo.getId(), time);
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.condicionesEmpleados(): {}", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.condicionesEmpleados() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.condicionesEmpleados(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Async
 	@Override
 	public CompletableFuture<Void> ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.ventaDetalleEmpleado(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaDetalleEmpleado(): {}", trabajo.getId(), trabajo);
 		Random random = new Random();
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.ventaDetalleEmpleado() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})", trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.ventaDetalleEmpleado() :: Thread.sleep({})", trabajo.getId(), time);
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.ventaDetalleEmpleado(): {}", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaDetalleEmpleado(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 	
 	@Override
 	public CompletableFuture<Void> tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.tiposHoras(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiposHoras(): {}", trabajo.getId(), trabajo);
 		Random random = new Random();
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: ChunkService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);
-		LOG.info("Trabajo[{}] :: Fin :: ChunkService.tiposHoras(): {}", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiposHoras(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 

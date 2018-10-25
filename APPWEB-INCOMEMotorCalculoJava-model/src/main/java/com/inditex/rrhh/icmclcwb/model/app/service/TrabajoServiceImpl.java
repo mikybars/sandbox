@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -37,7 +37,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	private TrabajoMapper trabajoMapper;
 
 	@Autowired
-	private ChunkService chunkService;
+	private TrabajoAsyncService trabajoAsyncService;
 
 	@Autowired
 	private Sender sender;
@@ -108,20 +108,20 @@ public class TrabajoServiceImpl implements TrabajoService {
 			trabajo = modifyTrabajo(trabajo);
 
 			// Almacenamos las tiendas relacionadas con el trabajo
-			CompletableFuture<Void> cfTiendas = chunkService.tiendas(trabajo);
+			CompletableFuture<Void> cfTiendas = trabajoAsyncService.tiendas(trabajo);
 			// TODO Se valida (si no se ha validado antes) que las tiendas sean
 			// comisionables
-			CompletableFuture<Void> cfTiposHoras = chunkService.tiposHoras(trabajo);
+			CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
 
 			cfTiendas.get();
 			// TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + cadena y pais !!
-			CompletableFuture<Void> cfEmpleados = chunkService.empleadosTienda(trabajo);
+			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
 
-			CompletableFuture<Void> cfVentaTotalizadaTienda = chunkService.ventaTotalizadaTienda(trabajo);
+			CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoAsyncService.ventaTotalizadaTienda(trabajo);
 
 			cfEmpleados.get();
-			CompletableFuture<Void> cfVentaDetalleEmpleado = chunkService.ventaDetalleEmpleado(trabajo);
-			CompletableFuture<Void> cfCondicionesEmpleados = chunkService.condicionesEmpleados(trabajo);
+			CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoAsyncService.ventaDetalleEmpleado(trabajo);
+			CompletableFuture<Void> cfCondicionesEmpleados = trabajoAsyncService.condicionesEmpleados(trabajo);
 
 			CompletableFuture.allOf(cfTiposHoras, cfVentaTotalizadaTienda, cfVentaDetalleEmpleado,
 					cfCondicionesEmpleados);
