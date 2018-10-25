@@ -29,7 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.ws.controller.app.ProgramacionController.Clock;
 
-//@Ignore("Hay que implementar el mock jms para Bamboo")
+@Ignore("Hay que implementar el mock jms para Bamboo")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
