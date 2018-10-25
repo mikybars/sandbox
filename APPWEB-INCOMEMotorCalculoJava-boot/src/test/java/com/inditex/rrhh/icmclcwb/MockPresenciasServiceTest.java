@@ -68,7 +68,7 @@ public class MockPresenciasServiceTest {
     //@Ignore
     public void presenciasDetalle() {
     	Calendar cal = Calendar.getInstance();
-    	cal.set(Calendar.YEAR, 2005);
+    	cal.set(Calendar.YEAR, 1800);
     	cal.set(Calendar.MONTH, Calendar.AUGUST);
     	cal.set(Calendar.DAY_OF_MONTH, 1);
     	Date fechaDesde = cal.getTime();
@@ -81,8 +81,11 @@ public class MockPresenciasServiceTest {
     
         PresenciasDetalleRequestDTO req = new PresenciasDetalleRequestDTO();
         List<Integer> list = new ArrayList<Integer>();
-        list.add(6795);
-        list.add(5432);
+        list.add(160351);
+        list.add(162891);
+        req.setCadena(1);
+        req.setTipo(1);
+        req.setSeccion(1);
         req.setTienda(160);
         req.setFechaDesde(fechaDesde);
         req.setFechaHasta(fechaHasta);
@@ -90,7 +93,9 @@ public class MockPresenciasServiceTest {
         req.setPersonas(list);
         ResponseEntity<PresenciasDetalleResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(0,ret.getBody().getList().size());
+        assertEquals(2007,ret.getBody().getList().size());
+        assertEquals(480,ret.getBody().getList().get(0).getMinutos().intValue());
+
     }
     
     @Test

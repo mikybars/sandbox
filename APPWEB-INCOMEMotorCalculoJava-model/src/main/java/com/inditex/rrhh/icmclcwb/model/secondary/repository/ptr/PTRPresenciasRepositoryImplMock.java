@@ -23,18 +23,25 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	@Qualifier("secondaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 	
-	//CONSULTA ORIGINAL CON JOIN
-	//SELECT top 5 P.[TIPO], P.[TIENDA], P.[FECHA], P.[SECCION], P.[PERSONA], P.[HORAS], P.[CCL_ID_ORIGEN] FROM [dbo].[M4CCL_PRESENCIAS_TA] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION where ERROR = 'OK'
+	private String consultaPresenciaDetalleEspana = "SELECT PH.ID_ORGANIZATION AS 'ORGANIZACION',OP.CCL_ID_ORIGEN AS 'ID_PAIS',PH.PERSONA AS 'EMPLEADO'"
+			+ ",PH.TIENDA AS 'ID_TIENDA',PH.SECCION AS 'ID_SECCION',PH.TIPO AS 'ID_TIPO',PH.FECHA AS 'FECHA', SP.CCL_ID_CADENA AS 'CADENA',"
+			+ " (CAST(PH.HORAS AS INT) * 60) + PARSENAME(PH.HORAS, 1) AS 'MINUTOS','FALSE' 'MODIFICADO_INCOME' "
+			+ " FROM PRESENCIAS_HORARIOS PH WITH (NOLOCK) "
+			+ "INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK)"
+				+ "ON PH.ID_ORGANIZATION = OP.ID_ORGANIZATION "
+			+ "INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) "
+				+" ON SW.CCL_ID_COD_ORIGEN = CAST(PH.TIENDA AS NVARCHAR) "
+			+ " INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) "
+				+ " ON SP.STD_ID_WORK_LOCAT=SW.STD_ID_WORK_LOCAT AND"
+				+ " SP.CCL_DT_START <= FECHA AND FECHA <= SP.CCL_DT_END"
+			+ " WHERE OP.CCL_ID_ORIGEN = ? "
+			+ "AND  FECHA >= ? AND FECHA < ? "
+			+ "AND TIENDA IN ( ? ) "
+			+ "AND PH.SECCION IN ( ? ) "
+			+ "AND PH.TIPO IN ( ? ) "
+			+ "AND SP.CCL_ID_CADENA IN ( ? ) "
+			+ "AND ERROR = 'OK'";
 	
-	//private String consultaGHRS ="SELECT top 1 [TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],OP.[CCL_ID_ORIGEN]FROM [dbo].[M4CCL_PRESENCIAS_TA] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION where ERROR = 'OK'";
-	
-	
-		private String consultaPresenciaDetalleEspana = "SELECT TOP 100 [TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA]"
-				+ ",[HORAS]*60 'MINUTOS', 'FALSE' 'MODIFICADO_INCOME',[SP].[CCL_ID_CADENA] 'CADENA'"
-				+ " FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN= ? "
-				+ " INNER JOIN M4CCL_ATRIB_WLOC SP ON OP.ID_ORGANIZATION=SP.ID_ORGANIZATION"
-				+ " WHERE TIENDA = ? AND FECHA >= ? AND FECHA <= ? AND ERROR = 'OK' AND SP.CCL_DT_START<=P.FECHA AND P.FECHA<=SP.CCL_DT_END";
-											
 	private String consultaTiposHorasEspana ="SELECT TOP 100 'TRUE' EXCLUIDODENOM,'TRUE' EXCLUIDOCALCULO,"
 			+ " [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN]"
 			+ " FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP "
@@ -43,22 +50,23 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	
 	
 	
-	private String consultapresenciasTotalTienda1= "SELECT TOP 100 [TIENDA],[FECHA],[HORAS]*60  'MINUTOS' "
+	private String consultapresenciasTotalTienda= "SELECT TOP 100 [TIENDA],[FECHA],[HORAS]*60  'MINUTOS' "
 			+ "	FROM [dbo].[PRESENCIAS_HORARIOS] P "
 			+ "	INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION "
 			+ "	AND OP.CCL_ID_ORIGEN= ? WHERE ( FECHA >= ? AND FECHA <= ? AND ERROR = 'OK')";
 	
 	
+	
+	 
 	@Override
 	public List<PresenciaDetalleMock> findPresencias(Object[] Params) {
-		List<Integer> lista =(List<Integer>) Params[4];
+		List<Integer> lista =(List<Integer>) Params[7];
 		String wherePersonas= "";
-		
 		//CONSTRUIMOS LA PARTE DEL WHERE DE LA CONSULTA
 		for (int i=0;i<lista.size();i++){
 			if (i==0){
 				wherePersonas=" AND (";
-				wherePersonas= wherePersonas + " P.PERSONA IN ( ?";
+				wherePersonas= wherePersonas + " PH.PERSONA IN ( ?";
 			}
 			else{
 				wherePersonas= wherePersonas + ", ?";
@@ -71,7 +79,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 		Log.info(consulta);
 		
 		//CONSTRUIMOS EL ARRAY CON TODOS LOS PARAMETROS
-		Object[]  primeraParteParametros = {Params[0],Params[1],Params[2],Params[3]};
+		Object[]  primeraParteParametros = {Params[0],Params[1],Params[2],Params[3],Params[4],Params[5],Params[6]};
 		Object[]  segundaParteParametros = lista.toArray();
 	
 		int aLen = primeraParteParametros.length;
@@ -80,6 +88,9 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	
 	    System.arraycopy(primeraParteParametros, 0, result, 0, aLen);
 	    System.arraycopy(segundaParteParametros, 0, result, aLen, bLen);
+	    
+	    
+	   //EJECUTAMOS LA SENTENCIA
 		List<PresenciaDetalleMock> presencias=(List<PresenciaDetalleMock>) jdbcTemplate.query(consulta,result,new PresenciaDetalleRowMapper());
 		return presencias;
 	}
@@ -106,7 +117,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 				}
 			}
 		}
-		String consulta = consultapresenciasTotalTienda1+whereTienda;
+		String consulta = consultapresenciasTotalTienda+whereTienda;
 		Log.info(consulta);
 		
 		Object[]  primeraParteParametros = {Params[0],Params[1],Params[2]};

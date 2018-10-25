@@ -14,11 +14,11 @@ public class PresenciaDetalleRowMapper implements RowMapper {
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 		PresenciaDetalleMock pre= new PresenciaDetalleMock();
         //pre.setId(rs.getLong("ID"));
-		pre.setTipo(rs.getInt("TIPO"));
-		pre.setTienda(rs.getInt("TIENDA"));
+		pre.setTipo(rs.getInt("ID_TIPO"));
+		pre.setTienda(rs.getInt("ID_TIENDA"));
 		pre.setFecha(rs.getDate("FECHA"));
-		pre.setSeccion(rs.getInt("SECCION"));
-		pre.setPersona(rs.getInt("PERSONA"));
+		pre.setSeccion(rs.getInt("ID_SECCION"));
+		pre.setPersona(rs.getInt("EMPLEADO"));
 		pre.setMinutos(rs.getInt("MINUTOS"));
 		pre.setModificado_income(rs.getBoolean("MODIFICADO_INCOME"));
 		pre.setCadena(rs.getInt("CADENA"));
