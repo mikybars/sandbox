@@ -1,6 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.LongStream;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -17,7 +20,6 @@ import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.ms.Sender;
 
@@ -41,7 +43,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	private Sender sender;
 
 	@Override
-	public TrabajoDto createTrabajo(@Valid TrabajoDto trabajo) {
+	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
 		TrabajoDto result = trabajoMapper
 				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
@@ -51,7 +53,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	}
 
 	@Override
-	public TrabajoDto run(@NotNull @Positive Long id) throws Exception {
+	public TrabajoDto run(@NotNull @Positive final Long id) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.run()", id);
 		TrabajoDto result = runTrabajo(trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id)));
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.run(): {}", id, result);
@@ -60,36 +62,16 @@ public class TrabajoServiceImpl implements TrabajoService {
 
 	@Override
 	public TrabajoDto runTrabajo(@Valid TrabajoDto trabajo) throws Exception {
-		
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
-
-		trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.ESTADO_TRABAJO_EN_CURSO_VALIDACIONES_INICIALES.getId(),
-				trabajo);
-
-		// Almacenamos las tiendas relacionadas con el trabajo
-		CompletableFuture<Void> cfTiendas = chunkService.tiendas(trabajo);
-		// TODO Se valida (si no se ha validado antes) que las tiendas sean comisionables
-		CompletableFuture<Void> cfTiposHoras = chunkService.tiposHoras(trabajo);
-		
-		cfTiendas.get();
-		// TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + cadena y pais !!
-		CompletableFuture<Void> cfEmpleados = chunkService.empleadosTienda(trabajo);
-		
-		CompletableFuture<Void> cfVentaTotalizadaTienda = chunkService.ventaTotalizadaTienda(trabajo);
-		
-		cfEmpleados.get();
-		CompletableFuture<Void> cfVentaDetalleEmpleado = chunkService.ventaDetalleEmpleado(trabajo);
-		CompletableFuture<Void> cfCondicionesEmpleados = chunkService.condicionesEmpleados(trabajo);
-
-		CompletableFuture.allOf(cfTiposHoras, cfVentaTotalizadaTienda, cfVentaDetalleEmpleado, cfCondicionesEmpleados);
-		
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
-		
+		trabajo = runTrabajoDatos(trabajo);
+		trabajo = runTrabajoCalculado(trabajo);
+		trabajo = runTrabajoConsolidacion(trabajo);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
 		return trabajo;
 	}
 
 	@Override
-	public TrabajoDto modifyTrabajo(@Valid TrabajoDto trabajo) {
+	public TrabajoDto modifyTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {}", trabajo.getId(), trabajo);
 		TrabajoDto result = trabajoMapper
 				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
@@ -98,12 +80,12 @@ public class TrabajoServiceImpl implements TrabajoService {
 	}
 
 	@Override
-	public TrabajoDto modifyEstadoTrabajo(@NotNull @Positive final Long id, @Valid TrabajoDto trabajo) {
+	public TrabajoDto modifyEstadoTrabajo(@NotNull @Positive final Long id, @Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
-		
+
 		trabajo.setEstado(EstadoTrabajoDto.builder().id(id).build());
 		TrabajoDto result = modifyTrabajo(trabajo);
-		
+
 //		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), trabajoMapper.estadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto.builder().id(id).build()));
 //		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), id);
 //		if (i > 0) {
@@ -112,9 +94,90 @@ public class TrabajoServiceImpl implements TrabajoService {
 //			LOG.error("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo() :: trabajoRepository.updateEstadoTrabajo(): {}", trabajo.getId(), i);
 //		}
 //		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(trabajo.getId()));
-		
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
+
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
 		return result;
+	}
+
+	@Override
+	public TrabajoDto runTrabajoDatos(@Valid TrabajoDto trabajo) throws Exception {
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoDatos(): {}", trabajo.getId(), trabajo);
+		if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
+			trabajo.setFechaInicioTrabajo(LocalDateTime.now());
+			trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
+			trabajo = modifyTrabajo(trabajo);
+
+			// Almacenamos las tiendas relacionadas con el trabajo
+			CompletableFuture<Void> cfTiendas = chunkService.tiendas(trabajo);
+			// TODO Se valida (si no se ha validado antes) que las tiendas sean
+			// comisionables
+			CompletableFuture<Void> cfTiposHoras = chunkService.tiposHoras(trabajo);
+
+			cfTiendas.get();
+			// TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + cadena y pais !!
+			CompletableFuture<Void> cfEmpleados = chunkService.empleadosTienda(trabajo);
+
+			CompletableFuture<Void> cfVentaTotalizadaTienda = chunkService.ventaTotalizadaTienda(trabajo);
+
+			cfEmpleados.get();
+			CompletableFuture<Void> cfVentaDetalleEmpleado = chunkService.ventaDetalleEmpleado(trabajo);
+			CompletableFuture<Void> cfCondicionesEmpleados = chunkService.condicionesEmpleados(trabajo);
+
+			CompletableFuture.allOf(cfTiposHoras, cfVentaTotalizadaTienda, cfVentaDetalleEmpleado,
+					cfCondicionesEmpleados);
+
+			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId(), trabajo);
+		} else {
+			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoDatos() :: El estado del trabajo no es correcto", trabajo.getId());
+		}
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoDatos(): {}", trabajo.getId(), trabajo);
+		return trabajo;
+	}
+
+	@Override
+	public TrabajoDto runTrabajoCalculado(@Valid TrabajoDto trabajo) throws Exception {
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoCalculado(): {}", trabajo.getId(), trabajo);
+		if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
+			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getId(), trabajo);
+			Random random = new Random();
+			LongStream ls = random.longs(1000, 5000);
+			long time = ls.findFirst().getAsLong();
+			ls.close();
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})",
+					trabajo.getId(), time);
+			Thread.sleep(time);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})",
+					trabajo.getId(), time);
+			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId(), trabajo);
+		} else {
+			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoCalculado() :: El estado del trabajo no es correcto", trabajo.getId());
+		}
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado(): {}", trabajo.getId(), trabajo);
+		return trabajo;
+	}
+
+	@Override
+	public TrabajoDto runTrabajoConsolidacion(@Valid TrabajoDto trabajo) throws Exception {
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoConsolidacion(): {}", trabajo.getId(), trabajo);
+		if (EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId().equals(trabajo.getEstado().getId())) {
+			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getId(), trabajo);
+			Random random = new Random();
+			LongStream ls = random.longs(1000, 5000);
+			long time = ls.findFirst().getAsLong();
+			ls.close();
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoConsolidacion() :: Thread.sleep({})",
+					trabajo.getId(), time);
+			Thread.sleep(time);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoConsolidacion() :: Thread.sleep({})",
+					trabajo.getId(), time);
+			trabajo.setFechaFinTrabajo(LocalDateTime.now());
+			trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getId()).build());
+			trabajo = modifyTrabajo(trabajo);
+		} else {
+			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoConsolidacion() :: El estado del trabajo no es correcto", trabajo.getId());
+		}
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoConsolidacion(): {}", trabajo.getId(), trabajo);
+		return trabajo;
 	}
 
 }

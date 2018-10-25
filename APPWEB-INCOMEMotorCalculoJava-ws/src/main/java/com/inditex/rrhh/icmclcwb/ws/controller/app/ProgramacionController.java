@@ -39,14 +39,14 @@ public class ProgramacionController {
 
 	@PostMapping
 	@ApiOperation("Inserta una nueva programación")
-	public @Valid ProgramacionDto insert(@Valid @RequestBody final ProgramacionDto programacion) {
+	public @Valid ProgramacionDto insert(@Valid @RequestBody ProgramacionDto programacion) {
 		return programacionService.createProgramacion(programacion);
 	}
 
 	@GetMapping(path = "/run/")
 	@ApiOperation("Revisa si hay programaciones pendientes de lanzar y en caso afirmativo, genera el trabajo")
 	@PreAuthorize("hasAuthority('admin')")
-	public List<ProgramacionTrabajoDto> run() throws Exception {
+	public List<ProgramacionTrabajoDto> run() {
 		return programacionService.run();
 	}
 
@@ -54,7 +54,7 @@ public class ProgramacionController {
 	@GetMapping(path = "/init/")
 	@ApiOperation("Inicializa datos de prueba")
 	@PreAuthorize("hasAuthority('admin')")
-	public Boolean init() throws Exception {
+	public Boolean init() {
 		return programacionService.init();
 	}
 

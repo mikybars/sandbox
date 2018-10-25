@@ -2,7 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.ProgramacionMapper;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -41,17 +44,34 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 	@Autowired
 	private TrabajoMapper trabajoMapper;
 
+	@Autowired
+	private Meta4Service meta4Service;
+
 	@Override
 	public List<ProgramacionTrabajoDto> run() {
 		List<ProgramacionTrabajoDto> result = new ArrayList<>();
 		LOG.info("Inicio :: ProgramacionService.run()");
-		programacionMapper.programacionToProgramacionDto(programacionRepository.findAll()).stream().forEach(e -> {
-			ProgramacionTrabajoDto programacionTrabajoDto = new ProgramacionTrabajoDto();
-			programacionTrabajoDto.setProgramacion(e);
-			programacionTrabajoDto.setTrabajo(trabajoService.createTrabajo(trabajoMapper.programacionDtoToTrabajoDto(e)));
-			result.add(programacionTrabajoDto);
-		});
-		LOG.info("Fin :: ProgramacionService.run(): " + result.toString());
+		programacionMapper
+				.programacionToProgramacionDto(
+						programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
+				.stream().forEach(programacion -> {
+					meta4Service.periodo().stream().forEach(periodo -> {
+						ProgramacionTrabajoDto programacionTrabajoDto = new ProgramacionTrabajoDto();
+
+						TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacion);
+						trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
+						trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
+						programacionTrabajoDto.setTrabajo(trabajoService.createTrabajo(trabajo));
+
+						programacion.setFechaUltimaEjecucion(LocalDateTime.now());
+						// Programamos la ejecucion para el dia siguiente
+						programacion.setFechaSiguienteEjecucion(programacion.getFechaSiguienteEjecucion().plusDays(1));
+						programacionTrabajoDto.setProgramacion(modifyProgramacion(programacion));
+
+						result.add(programacionTrabajoDto);
+					});
+				});
+		LOG.info("Fin :: ProgramacionService.run(): {}", result);
 		return result;
 	}
 
@@ -61,8 +81,8 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 		LOG.info("Inicio :: ProgramacionService.createProgramacion(): {}", programacion);
 		programacion.setFechaCreacion(LocalDateTime.now());
 		programacion.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), programacion.getHora()));
-		result = programacionMapper
-				.programacionToProgracionDto(programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
+		result = programacionMapper.programacionToProgracionDto(
+				programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
 		LOG.info("Fin :: ProgramacionService.createProgramacion(): {}", result);
 		return result;
 	}
@@ -70,25 +90,26 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 	@Override
 	public Boolean init() {
 		Boolean result = Boolean.TRUE;
-
 		Random random = new Random();
-		LocalDateTime nowDateTime = LocalDateTime.now();
-		LocalDate nowDate = LocalDate.now();
 		for (int i = 1; i <= 500; i++) {
 			ProgramacionDto programacion = new ProgramacionDto();
-			LocalTime time = LocalTime.of(random.nextInt(24), random.nextInt(60));
-
 			programacion.setActiva(Boolean.TRUE);
-			programacion.setFechaCreacion(nowDateTime);
-			programacion.setFechaSiguienteEjecucion(LocalDateTime.of(nowDate, time));
-			programacion.setHora(time);
+			programacion.setHora(LocalTime.of(random.nextInt(24), random.nextInt(60)));
+			programacion.setIdPais("11");
+			programacion.setIdCadena("1");
 			programacion.setIdTienda("T" + i);
 			programacion.setIdUsuario("INIT");
-			programacion.setPeriodo(new Long(random.nextInt(2)));
-
 			createProgramacion(programacion);
 		}
+		return result;
+	}
 
+	@Override
+	public ProgramacionDto modifyProgramacion(@Valid ProgramacionDto programacion) {
+		LOG.info("Inicio :: ProgramacionService.modifyProgramacion(): {}", programacion);
+		ProgramacionDto result = programacionMapper.programacionToProgracionDto(
+				programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
+		LOG.info("Fin :: ProgramacionService.modifyProgramacion(): {}", result);
 		return result;
 	}
 

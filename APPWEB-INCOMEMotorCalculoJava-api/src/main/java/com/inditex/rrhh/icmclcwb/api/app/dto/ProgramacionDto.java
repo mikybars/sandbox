@@ -41,13 +41,12 @@ public class ProgramacionDto implements Serializable {
 	@ApiModelProperty(value = "Id del usuario que planificó la ejecución", required = true)
 	private String idUsuario;
 
-	@NotNull
-	@ApiModelProperty(value = "Cuantos períodos se van a lanzar", required = true)
-	private Long periodo;
-
 	@ApiModelProperty(value = "Fecha en la que se creo la planificación", required = false, readOnly = true, hidden = true)
 	private LocalDateTime fechaCreacion;
 
+	@ApiModelProperty(value = "Fecha de la ultima ejecución", required = false, readOnly = true, hidden = true)
+	private LocalDateTime fechaUltimaEjecucion;
+	
 	@ApiModelProperty(value = "Fecha de la siguiente ejecución", required = false, readOnly = true, hidden = true)
 	private LocalDateTime fechaSiguienteEjecucion;
 

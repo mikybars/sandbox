@@ -54,13 +54,12 @@ public class Programacion {
 	private String idUsuario;
 
 	@NotNull
-	@Column(name = "PERIODO", nullable = false)
-	private /* BigInteger */ Long periodo;
-
-	@NotNull
 	@Column(name = "FECHA_CREACION", nullable = false)
 	private Date fechaCreacion;
 
+	@Column(name = "FECHA_ULTIMA_EJECUCION", nullable = true)
+	private Date fechaUltimaEjecucion;
+	
 	@NotNull
 	@Column(name = "FECHA_SIGUIENTE_EJECUCION", nullable = false)
 	private Date fechaSiguienteEjecucion;

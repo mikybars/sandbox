@@ -11,7 +11,9 @@ public interface ProgramacionService {
 
 	List<ProgramacionTrabajoDto> run();
 
-	ProgramacionDto createProgramacion(@Valid final ProgramacionDto programacion);
+	ProgramacionDto createProgramacion(@Valid ProgramacionDto programacion);
+	
+	ProgramacionDto modifyProgramacion(@Valid final ProgramacionDto programacion);
 
 	Boolean init();
 

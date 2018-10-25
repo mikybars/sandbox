@@ -52,14 +52,11 @@ public class ProgramacionServiceTest {
 	public void insert() {
 		ProgramacionDto programacion = new ProgramacionDto();
 		programacion.setActiva(Boolean.TRUE);
-		//programacion.setFechaCreacion(LocalDateTime.now());
-		//programacion.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 15)));
 		programacion.setHora(LocalTime.of(11, 15));
 		programacion.setIdPais("11");
 		programacion.setIdCadena("1");
 		programacion.setIdTienda("160");
 		programacion.setIdUsuario("JUNIT");
-		programacion.setPeriodo(0L);
 
 		ResponseEntity<ProgramacionDto> ret = testRestTemplate.withBasicAuth("username300", "username300p")
 						.postForEntity("/programacion/", programacion, ProgramacionDto.class);

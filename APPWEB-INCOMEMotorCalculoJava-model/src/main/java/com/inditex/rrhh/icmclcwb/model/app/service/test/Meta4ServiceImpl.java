@@ -1,13 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.app.service.test;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
@@ -26,24 +34,25 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 @Service
 public class Meta4ServiceImpl implements Meta4Service {
 
-	//TODO DTENREIRO
+	@Autowired
+	private Logger LOG;
+
+	// TODO DTENREIRO
 //	@Autowired
 //	private ApplicationContext appContext;
-	
+
 	@Autowired
 	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
-    
+
 	@Meta4Session
 	@Override
 	public List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(TrabajoDto trabajo) throws Exception {
 		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
 		EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
 
-		request.setPage(PaginationPropertiesFactory.getProperties(new Object() {}
-	      .getClass()
-	      .getEnclosingMethod()
-	      .getName()));
-		
+		request.setPage(PaginationPropertiesFactory.getProperties(new Object() {
+		}.getClass().getEnclosingMethod().getName()));
+
 		EmpleadosTiendaFilterDto data = new EmpleadosTiendaFilterDto();
 		if (trabajo.getFechaInicioPeriodo() != null) {
 			data.setFechaInicio(trabajo.getFechaInicioPeriodo());
@@ -55,7 +64,7 @@ public class Meta4ServiceImpl implements Meta4Service {
 			data.setIdLugarTrabajo("T" + trabajo.getIdTienda());
 		}
 		request.setData(data);
-		
+
 		boolean hasNext = false;
 		do {
 			hasNext = false;
@@ -78,7 +87,7 @@ public class Meta4ServiceImpl implements Meta4Service {
 	@Override
 	public List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(EmpleadosTiendaRequestDto request) throws Exception {
 		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
-		
+
 		boolean hasNext = false;
 		do {
 			hasNext = false;
@@ -97,28 +106,29 @@ public class Meta4ServiceImpl implements Meta4Service {
 		return result;
 	}
 
-	
 	@Meta4Session
 	@Override
-	public List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(EmpleadosEstructuraRequestDto request) throws Exception {
+	public List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(EmpleadosEstructuraRequestDto request)
+			throws Exception {
 		List<EmpleadosEstructuraResultItemDto> result = new ArrayList<>();
-		
+
 		EmpleadosEstructuraResponseDto response = meta4IcmWsIncomeService.getEmpleadosEstructura(request);
 
-		if (response != null){
+		if (response != null) {
 			if (CollectionUtils.isNotEmpty(response.getData())) {
 				result.addAll(response.getData());
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	@Meta4Session
 	@Override
-	public List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request) throws Exception{
+	public List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request)
+			throws Exception {
 		List<ValoresCondicionesResultItemDto> result = new ArrayList<>();
-	
+
 		boolean hasNext = false;
 		do {
 			hasNext = false;
@@ -133,7 +143,29 @@ public class Meta4ServiceImpl implements Meta4Service {
 				}
 			}
 		} while (hasNext);
-		
+
+		return result;
+	}
+
+	@Override
+	public List<PeriodoDto> periodo() {
+		LOG.info("Inicio :: Meta4Service.periodo()");
+		List<PeriodoDto> result = new ArrayList<>();
+		Random random = new Random();
+		LongStream lsPeriodos = random.longs(1, 3);
+		long periodos = lsPeriodos.findFirst().getAsLong();
+		lsPeriodos.close();
+		for (int periodo = 1; periodo <= periodos; periodo++) {
+			PeriodoDto item = new PeriodoDto();
+			IntStream isMes = random.ints(1, 12);
+			int mes = isMes.findFirst().getAsInt();
+			isMes.close();
+			LocalDate localDate = LocalDate.of(2017, mes, 1);
+			item.setFechaInicioPeriodo(localDate.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
+			item.setFechaFinPeriodo(localDate.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX));
+			result.add(item);
+		}
+		LOG.info("Inicio :: Meta4Service.periodo(): {}", result);
 		return result;
 	}
 

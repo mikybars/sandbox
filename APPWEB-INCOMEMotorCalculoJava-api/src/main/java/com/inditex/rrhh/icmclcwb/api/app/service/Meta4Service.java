@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
@@ -21,5 +22,7 @@ public interface Meta4Service {
 	List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request) throws Exception;
 
 	List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(TrabajoDto request) throws Exception;
+	
+	List<PeriodoDto> periodo();
     
 }
