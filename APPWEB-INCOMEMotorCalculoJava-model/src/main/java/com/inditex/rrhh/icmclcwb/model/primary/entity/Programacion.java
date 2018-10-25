@@ -46,7 +46,7 @@ public class Programacion {
 //	@Column(name = "ID_TIENDA", nullable = true)
 //	private String idTienda;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany
 	@JoinTable(name = "INCOME_PROGRAMACION_TIENDA", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_TIENDA", referencedColumnName = "ID_TIENDA") })
@@ -55,7 +55,7 @@ public class Programacion {
 //	@Column(name = "ID_EMPLEADO", nullable = true)
 //	private String idEmpleado;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany
 	@JoinTable(name = "INCOME_PROGRAMACION_EMPLEADO", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO") })
