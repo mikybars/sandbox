@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.service.test;
+package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,23 +18,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.ChunkService;
-import com.inditex.rrhh.icmclcwb.api.app.service.Meta4Service;
-import com.inditex.rrhh.icmclcwb.api.app.service.PTRVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
 
 @Service
 @Validated
-public class ChunkServiceImpl implements ChunkService {
+public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 	@Autowired
 	private Logger LOG;
 
 	@Autowired
-	private Meta4Service meta4Service;
+	private Meta4SessionService meta4Service;
 
 	@Autowired
 	private PTRVentaService ptrVentaService;

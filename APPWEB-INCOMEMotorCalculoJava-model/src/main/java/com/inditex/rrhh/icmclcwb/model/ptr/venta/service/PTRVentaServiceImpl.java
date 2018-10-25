@@ -1,9 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.ptr.venta.service;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.rrhh.icmclcwb.api.app.service.PTRVentaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
 
 import javax.validation.Valid;
 

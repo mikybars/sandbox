@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.service;
+package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;

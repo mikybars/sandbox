@@ -6,7 +6,7 @@ import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
-public interface ChunkService {
+public interface TrabajoAsyncService {
 
 	CompletableFuture<Void> condicionesEmpleados(@Valid final TrabajoDto trabajo) throws Exception;
 

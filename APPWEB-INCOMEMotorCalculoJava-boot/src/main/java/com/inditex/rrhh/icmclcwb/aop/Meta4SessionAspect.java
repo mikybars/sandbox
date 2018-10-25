@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
-import com.inditex.rrhh.icmclcwb.api.app.service.Meta4LoginService;
 import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.login.service.Meta4LoginService;
 
 @Aspect
 @Component
@@ -31,20 +31,20 @@ public class Meta4SessionAspect {
 	@Value("${app.envars.meta4.language}")
 	private String language;
 
-	@Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.util.annotation.Meta4Session)")
+	@Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.meta4.util.annotation.Meta4Session)")
 	public void meta4SessionAnnotationPointCutDefinition() {
 	}
 
 	@Before("meta4SessionAnnotationPointCutDefinition()")
 	public void beforeMeta4SessionAnnotationPointCutDefinition() throws Throwable {
-		LOG.info("Inicio :: beforeMeta4SessionAnnotationPointCutDefinition()");
+		LOG.info("Inicio :: Meta4SessionAspect.beforeMeta4SessionAnnotationPointCutDefinition()");
 		if (meta4LoginService.retrieveM4Session() || meta4LoginService.login(new LoginRequestDto(user, password, language))) {
-			LOG.info("Inicio :: beforeMeta4SessionAnnotationPointCutDefinition(): Login = Ok");
+			LOG.info("Meta4SessionAspect.beforeMeta4SessionAnnotationPointCutDefinition(): Login = OK");
 		} else {
-			LOG.error("Inicio :: beforeMeta4SessionAnnotationPointCutDefinition(): Login = Ko");
+			LOG.error("Meta4SessionAspect.beforeMeta4SessionAnnotationPointCutDefinition(): Login = KO");
 			throw new ApplicationException("No se puede invocar un servicio Meta4 sin tener sessionID valido");
 		}
-		LOG.info("Fin :: beforeMeta4SessionAnnotationPointCutDefinition()");
+		LOG.info("Fin :: Meta4SessionAspect.beforeMeta4SessionAnnotationPointCutDefinition()");
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.util.annotation;
+package com.inditex.rrhh.icmclcwb.api.meta4.util.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

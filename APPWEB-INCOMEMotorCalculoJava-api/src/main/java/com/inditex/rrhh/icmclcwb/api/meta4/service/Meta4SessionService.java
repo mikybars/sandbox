@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.service;
+package com.inditex.rrhh.icmclcwb.api.meta4.service;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 
-public interface Meta4Service {
+public interface Meta4SessionService {
 	
 	List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(
 			EmpleadosTiendaRequestDto request) throws Exception;

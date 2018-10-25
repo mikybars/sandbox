@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.service;
+package com.inditex.rrhh.icmclcwb.api.ptr.venta.service;
 
 import javax.validation.Valid;
 
