@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto
 
 import lombok.Data;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import javax.xml.bind.annotation.XmlElement;
 
 @Data
 public class ValoresCondicionesFilterDto implements Serializable {

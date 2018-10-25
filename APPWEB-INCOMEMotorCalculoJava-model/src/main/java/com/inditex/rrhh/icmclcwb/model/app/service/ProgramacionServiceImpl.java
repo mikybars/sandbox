@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
@@ -91,13 +92,18 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 	public Boolean init() {
 		Boolean result = Boolean.TRUE;
 		Random random = new Random();
+		String idPais = "11";
+		String idCadena = "1";
 		for (int i = 1; i <= 500; i++) {
 			ProgramacionDto programacion = new ProgramacionDto();
 			programacion.setActiva(Boolean.TRUE);
 			programacion.setHora(LocalTime.of(random.nextInt(24), random.nextInt(60)));
-			programacion.setIdPais("11");
-			programacion.setIdCadena("1");
-			programacion.setIdTienda("T" + i);
+			programacion.setIdPais(idPais);
+			programacion.setIdCadena(idCadena);
+			TiendaDto tienda = new TiendaDto();
+			tienda.setId(String.valueOf(i));
+			tienda.setIdPais(idPais);
+			tienda.setIdCadena(idCadena);
 			programacion.setIdUsuario("INIT");
 			createProgramacion(programacion);
 		}

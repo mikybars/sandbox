@@ -10,12 +10,12 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;
@@ -38,10 +38,6 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 	@Autowired
 	private Logger LOG;
 
-	// TODO DTENREIRO
-//	@Autowired
-//	private ApplicationContext appContext;
-
 	@Autowired
 	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
 
@@ -49,37 +45,35 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 	@Override
 	public List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(TrabajoDto trabajo) throws Exception {
 		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
-		EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
 
-		request.setPage(PaginationPropertiesFactory.getProperties(new Object() {
-		}.getClass().getEnclosingMethod().getName()));
+		// TODO Hay que recuperar las tiendas de BBDD no del objeto de trabajo
+		for (TiendaDto tienda : trabajo.getTienda()) {
+			EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
 
-		EmpleadosTiendaFilterDto data = new EmpleadosTiendaFilterDto();
-		if (trabajo.getFechaInicioPeriodo() != null) {
+			request.setPage(PaginationPropertiesFactory.getProperties(new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+
+			EmpleadosTiendaFilterDto data = new EmpleadosTiendaFilterDto();
 			data.setFechaInicio(trabajo.getFechaInicioPeriodo());
-		}
-		if (trabajo.getFechaFinPeriodo() != null) {
 			data.setFechaFin(trabajo.getFechaFinPeriodo());
-		}
-		if (StringUtils.isNotBlank(trabajo.getIdTienda())) {
-			data.setIdLugarTrabajo("T" + trabajo.getIdTienda());
-		}
-		request.setData(data);
+			data.setIdLugarTrabajo("T" + tienda);
+			request.setData(data);
 
-		boolean hasNext = false;
-		do {
-			hasNext = false;
-			EmpleadosTiendaResponseDto response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
-			if (response != null) {
-				if (CollectionUtils.isNotEmpty(response.getData())) {
-					result.addAll(response.getData());
+			boolean hasNext = false;
+			do {
+				hasNext = false;
+				EmpleadosTiendaResponseDto response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
+				if (response != null) {
+					if (CollectionUtils.isNotEmpty(response.getData())) {
+						result.addAll(response.getData());
+					}
+					if (response.getPage() != null && response.getPage().hasNext()) {
+						hasNext = true;
+						request.setPage(response.getPage().next());
+					}
 				}
-				if (response.getPage() != null && response.getPage().hasNext()) {
-					hasNext = true;
-					request.setPage(response.getPage().next());
-				}
-			}
-		} while (hasNext);
+			} while (hasNext);
+		}
 
 		return result;
 	}

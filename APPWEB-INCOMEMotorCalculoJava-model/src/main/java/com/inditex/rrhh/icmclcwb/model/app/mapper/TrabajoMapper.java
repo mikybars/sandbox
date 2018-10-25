@@ -1,12 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajo;
-
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,15 +22,11 @@ public interface TrabajoMapper {
 	List<TrabajoDto> trabajosToTrabajosDto(List<Trabajo> src);
 
 	@Mappings({ @Mapping(target = "id", ignore = true), @Mapping(source = "idPais", target = "idPais"),
-			@Mapping(source = "idCadena", target = "idCadena"), @Mapping(source = "idTienda", target = "idTienda"),
-			@Mapping(source = "idEmpleado", target = "idEmpleado"),
+			@Mapping(source = "idCadena", target = "idCadena"), @Mapping(source = "tienda", target = "tienda"),
+			@Mapping(source = "empleado", target = "empleado"),
 			@Mapping(source = "idUsuario", target = "idUsuario") })
 	TrabajoDto programacionDtoToTrabajoDto(ProgramacionDto src);
 
 	List<TrabajoDto> programacionDtosToTrabajoDtos(List<ProgramacionDto> src);
-
-	EstadoTrabajoDto estadoTrabajoToEstadoTrabajoDto(EstadoTrabajo src);
-
-	EstadoTrabajo estadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto src);
 
 }

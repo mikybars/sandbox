@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +11,7 @@ import java.util.stream.LongStream;
 
 import javax.validation.Valid;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
 
 @Service
@@ -32,7 +35,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 	@Autowired
 	private Logger LOG;
-
+	
 	@Autowired
 	private Meta4SessionService meta4Service;
 
@@ -57,29 +60,31 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(): {}", trabajo.getId(), trabajo);
 		// Se recuperan las tiendas relacionadas con la ejecucion
 		Set<String> result = new HashSet<>();
-		if (StringUtils.isNotBlank(trabajo.getIdEmpleado())) {
+		if (CollectionUtils.isNotEmpty(trabajo.getEmpleado())) {
 			// TODO Empleado :: Obtener las tiendas comisionables en las que ha estado el
 			// empleado
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(IdEmpleado): {}", trabajo.getId(),
-					trabajo.getIdEmpleado());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(IdEmpleado): {}", trabajo.getId(), result);
-		} else if (StringUtils.isNotBlank(trabajo.getIdTienda())) {
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Empleado): {}", trabajo.getId(),
+					trabajo.getEmpleado());
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Empleado): {}", trabajo.getId(), result);
+		} else if (CollectionUtils.isNotEmpty(trabajo.getTienda())) {
 			// TODO Tienda :: Directamente se usa la tienda enviada
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(IdTienda): {}", trabajo.getId(),
-					trabajo.getIdTienda());
-			result.add(trabajo.getIdTienda());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(IdTienda): {}", trabajo.getId(), result);
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Tienda): {}", trabajo.getId(),
+					trabajo.getTienda());
+			trabajo.getTienda().stream().forEach(tienda -> {
+				result.add(tienda.getId());
+			});
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Tienda): {}", trabajo.getId(), result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdCadena())) {
 			// TODO Pais + Cadena :: Se obtienen las tiendas por pais y cadena
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(IdPais IdCadena): {} {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Pais Cadena): {} {}", trabajo.getId(),
 					trabajo.getIdPais(), trabajo.getIdCadena());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Pais Cadena): {}", trabajo.getId(),
 					result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais())) {
 			// TODO Pais :: Se obtienen las tiendas por pais
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Pais): {}", trabajo.getId(),
 					trabajo.getIdPais());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(IdPais IdCadena): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Pais): {}", trabajo.getId(),
 					result);
 		}
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(): {}", trabajo.getId(), result);
@@ -95,7 +100,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		paramGetVentaTotalizado.setFechaHasta("2017-11-30");
 		paramGetVentaTotalizado.setPais("11");
 		paramGetVentaTotalizado.setCadena("1");
-		// paramGetVentaTotalizado.setTienda(Arrays.asList("160"));
+		// paramGetVentaTotalizado.setTienda(Arrays.asList("57"));
 		paramGetVentaTotalizado.setTienda(new ArrayList<>());
 		GetVentaTotalizadoResponseDTO getVentaTotalizadoResponse = ptrVentaService
 				.getVentaTotalizado(paramGetVentaTotalizado);

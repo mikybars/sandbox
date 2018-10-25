@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -25,9 +26,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.ws.controller.app.ProgramacionController.Clock;
 
-@Ignore("Hay que implementar el mock jms para Bamboo")
+//@Ignore("Hay que implementar el mock jms para Bamboo")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
@@ -51,11 +53,17 @@ public class ProgramacionServiceTest {
 	@Test
 	public void insert() {
 		ProgramacionDto programacion = new ProgramacionDto();
+		String idPais = "11";
+		String idCadena = "1";
 		programacion.setActiva(Boolean.TRUE);
 		programacion.setHora(LocalTime.of(11, 15));
-		programacion.setIdPais("11");
-		programacion.setIdCadena("1");
-		programacion.setIdTienda("160");
+		programacion.setIdPais(idPais);
+		programacion.setIdCadena(idCadena);
+		TiendaDto tienda = new TiendaDto();
+		tienda.setId("57");
+		tienda.setIdPais(idPais);
+		tienda.setIdCadena(idCadena);
+		programacion.setTienda(Arrays.asList(tienda));
 		programacion.setIdUsuario("JUNIT");
 
 		ResponseEntity<ProgramacionDto> ret = testRestTemplate.withBasicAuth("username300", "username300p")

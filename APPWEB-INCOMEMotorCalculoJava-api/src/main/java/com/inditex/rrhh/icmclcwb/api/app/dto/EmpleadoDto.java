@@ -9,12 +9,12 @@ import javax.validation.constraints.NotBlank;
 import io.swagger.annotations.ApiModelProperty;
 
 @Data
-public class TiendaDto implements Serializable {
+public class EmpleadoDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
-	@ApiModelProperty(value = "Identificador de la tienda", required = false)
-	private String id;
+	@ApiModelProperty(value = "Identificador del empleado", required = false)
+	private Long id;
 
 	@NotBlank
 	@ApiModelProperty(value = "Id del páis", required = false)
