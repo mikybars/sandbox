@@ -51,6 +51,9 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
     
+    
+    
+    
     //Traduce el objecto, lo envia a la función y la salida la vuelve a traducir
 	@Override
 	public List<PresenciasDetalleResponseDTO> PresenciasDetalle(PresenciasDetalleRequestDTO presencias) {
@@ -69,18 +72,35 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		return this.presenciasMapper.asPresenciaDetalleDTOs(p);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public PresenciasDetalleComisionableResponseDTO PresenciasDetalleComisionable(PresenciasDetalleComisionableRequestDTO presencias) {
 		//return this.presenciasMapper.asPresenciaDetalleComisionableDTO(this.presenciasRepositoryJPA.findPresenciasComisionable(this.presenciasMapper.asPresenciaDetalleComisionable(presencias)));
 		return null;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<PresenciasTotalTiendaResponseDTO> PresenciasTotalTienda(PresenciasTotalTiendaRequestDTO presencias) {
 		String fecha1= formatter.format(presencias.getFechaDesde());
 		String fecha2= formatter.format(presencias.getFechaHasta());
 		
-		Object[] param = new Object[]{presencias.getOrigen(),fecha1,fecha2,presencias.getTiendas()};
+		Object[] param = new Object[]{presencias.getOrigen(),fecha1,fecha2,presencias.getTipo(),presencias.getCadena(),presencias.getTiendas()};
 		Log.info("------------------Find Total Tienda JDBC: Inicio");
 		Long startTime = System.currentTimeMillis();
 		List<PresenciaTotalTiendaMock> p= this.presenciasRepository.findPresenciasTotalTienda(param);
@@ -90,6 +110,12 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		return this.presenciasMapper.asPresenciasTotalTiendaDTOs(p);
 	}
 
+	
+	
+	
+	
+	
+	
 	@Override
 	public PresenciasTotalTiendaSeccionResponseDTO PresenciasTotalTiendaSeccion(
 			PresenciasTotalTiendaSeccionRequestDTO presencias) {
@@ -97,6 +123,14 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		return null;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<TiposHorasResponseDTO> TiposHoras(TiposHorasRequestDTO tiposHoras) {
 		Object[] param = new Object[]{tiposHoras.getOrigen().toString(),tiposHoras.getTipoHora().toString()};

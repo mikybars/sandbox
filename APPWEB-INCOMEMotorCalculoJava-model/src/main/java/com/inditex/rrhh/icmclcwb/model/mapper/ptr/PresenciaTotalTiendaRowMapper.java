@@ -15,7 +15,7 @@ public class PresenciaTotalTiendaRowMapper implements RowMapper{
 
 		pre.setFecha(rs.getDate("FECHA"));
 		pre.setMinutos(rs.getInt("MINUTOS"));
-		pre.setTienda(rs.getInt("TIENDA"));
+		pre.setTienda(rs.getInt("ID_TIENDA"));
 		return pre;
 	}
 	

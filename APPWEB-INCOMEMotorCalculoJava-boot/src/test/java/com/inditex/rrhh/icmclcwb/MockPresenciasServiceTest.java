@@ -65,7 +65,7 @@ public class MockPresenciasServiceTest {
 
 
     @Test
-    //@Ignore
+    @Ignore
     public void presenciasDetalle() {
     	Calendar cal = Calendar.getInstance();
     	cal.set(Calendar.YEAR, 1800);
@@ -77,7 +77,6 @@ public class MockPresenciasServiceTest {
     	cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
     	cal.set(Calendar.DAY_OF_MONTH, 1);
     	Date fechaHasta = cal.getTime();
-
     
         PresenciasDetalleRequestDTO req = new PresenciasDetalleRequestDTO();
         List<Integer> list = new ArrayList<Integer>();
@@ -109,18 +108,18 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void presenciasTotalTienda(){
     	PresenciasTotalTiendaRequestDTO req = new PresenciasTotalTiendaRequestDTO();
     	
     	Calendar cal = Calendar.getInstance();
-    	cal.set(Calendar.YEAR, 2008);
-    	cal.set(Calendar.MONTH, Calendar.AUGUST);
+    	cal.set(Calendar.YEAR, 2016);
+    	cal.set(Calendar.MONTH, Calendar.JANUARY);
     	cal.set(Calendar.DAY_OF_MONTH, 1);
     	Date fechaDesde = cal.getTime();
     	
-    	cal.set(Calendar.YEAR, 2018);
-    	cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
+    	cal.set(Calendar.YEAR, 2016);
+    	cal.set(Calendar.MONTH, Calendar.MARCH);
     	cal.set(Calendar.DAY_OF_MONTH, 1);
     	Date fechaHasta = cal.getTime();
     	
@@ -131,11 +130,12 @@ public class MockPresenciasServiceTest {
     	req.setOrigen(11);
     	req.setFechaDesde(fechaDesde);
     	req.setFechaHasta(fechaHasta);
+    	req.setTipo(1);
+    	req.setCadena(1);
         ResponseEntity<PresenciasTotalTiendaResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTienda/", req, PresenciasTotalTiendaResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals("150",ret.getBody().getList().get(0).getTienda().toString());
-        assertEquals("Sat Apr 18 02:00:00 CEST 2009", ret.getBody().getList().get(0).getFecha().toString());
-        Integer numero=(int) (6.40*60);
+        assertEquals(10620,ret.getBody().getList().get(0).getMinutos().intValue());
+        assertEquals(31,ret.getBody().getList().size());
     }
 
     @Test

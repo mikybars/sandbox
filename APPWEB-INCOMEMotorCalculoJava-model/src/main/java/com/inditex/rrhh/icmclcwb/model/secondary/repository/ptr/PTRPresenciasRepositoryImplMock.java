@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.config.ContextLifecycleScheduledTaskRegistrar;
 import org.springframework.stereotype.Repository;
 
 import com.esotericsoftware.minlog.Log;
@@ -49,15 +50,36 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 		
 	
 	
-	
-	private String consultapresenciasTotalTienda= "SELECT TOP 100 [TIENDA],[FECHA],[HORAS]*60  'MINUTOS' "
+	//duda con resecto ao computo e minutos
+	/**private String consultapresenciasTotalTienda= "SELECT TOP 100 [TIENDA],[FECHA],[HORAS]*60  'MINUTOS' "
 			+ "	FROM [dbo].[PRESENCIAS_HORARIOS] P "
 			+ "	INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION "
-			+ "	AND OP.CCL_ID_ORIGEN= ? WHERE ( FECHA >= ? AND FECHA <= ? AND ERROR = 'OK')";
+			+ "	AND OP.CCL_ID_ORIGEN= ? WHERE ( FECHA >= ? AND FECHA <= ? AND ERROR = 'OK')";**/
 	
-	
-	
-	 
+	private String consultapresenciasTotalTienda1 = 
+			"SELECT PH.ID_ORGANIZATION AS 'ORGANIZACION',"
+			       +"OP.CCL_ID_ORIGEN AS 'ID_PAIS',"
+			       +"PH.TIENDA AS 'ID_TIENDA',"
+			       +"PH.FECHA AS 'FECHA',"
+				   +"SUM((CAST(PH.HORAS AS INT) * 60) + PARSENAME(PH.HORAS, 1)) AS 'MINUTOS'"
+			+"FROM PRESENCIAS_HORARIOS PH WITH (NOLOCK) "
+			+"INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) "
+			       +"ON PH.ID_ORGANIZATION = OP.ID_ORGANIZATION "
+			 +"INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) "
+				+"ON SW.CCL_ID_COD_ORIGEN = CAST(PH.TIENDA AS NVARCHAR) "
+			+" INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) "
+				 +"ON SP.STD_ID_WORK_LOCAT=SW.STD_ID_WORK_LOCAT "
+				 +"AND SP.CCL_DT_START <= PH.FECHA AND PH.FECHA <= SP.CCL_DT_END "
+			+"WHERE "
+				+"OP.CCL_ID_ORIGEN = ? "
+				+"AND PH.FECHA >= ? "
+				+"AND PH.FECHA < ? "
+				+"AND PH.TIPO IN (?) "
+				+"AND SP.CCL_ID_CADENA IN (? ) "
+				+"AND ERROR = 'OK' ";
+	private String groupByTotalTienda = " GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA, PH.FECHA";
+													
+ 
 	@Override
 	public List<PresenciaDetalleMock> findPresencias(Object[] Params) {
 		List<Integer> lista =(List<Integer>) Params[7];
@@ -103,7 +125,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 
 	@Override
 	public List<PresenciaTotalTiendaMock> findPresenciasTotalTienda(Object[] Params) {
-		List<Integer> lista =(List<Integer>) Params[3];
+		List<Integer> lista =(List<Integer>) Params[5];
 		String whereTienda= "";
 		for (int i=0;i<lista.size();i++){
 			if (i==0){
@@ -117,10 +139,10 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 				}
 			}
 		}
-		String consulta = consultapresenciasTotalTienda+whereTienda;
+		String consulta = consultapresenciasTotalTienda1+whereTienda+groupByTotalTienda;
 		Log.info(consulta);
 		
-		Object[]  primeraParteParametros = {Params[0],Params[1],Params[2]};
+		Object[]  primeraParteParametros = {Params[0],Params[1],Params[2],Params[3],Params[4]};
 		Object[]  segundaParteParametros = lista.toArray();
 
 
