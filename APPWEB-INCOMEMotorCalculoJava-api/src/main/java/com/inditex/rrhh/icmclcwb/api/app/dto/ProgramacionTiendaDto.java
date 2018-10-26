@@ -16,7 +16,6 @@ public class ProgramacionTiendaDto implements Serializable {
 	@ApiModelProperty(value = "Identificador", required = false)
 	private String id;
 
-	@NotBlank
 	@ApiModelProperty(value = "Programación", required = false)
 	private ProgramacionDto programacion;
 	
