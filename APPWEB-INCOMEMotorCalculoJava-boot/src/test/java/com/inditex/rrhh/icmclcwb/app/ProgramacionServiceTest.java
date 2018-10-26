@@ -25,8 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.ws.controller.app.ProgramacionController.Clock;
 
 @Ignore("Hay que implementar el mock jms para Bamboo")
@@ -42,14 +42,14 @@ public class ProgramacionServiceTest {
 	@Autowired
 	private TestRestTemplate testRestTemplate;
 
-	//@Test
+	// @Test
 	public void clock() {
 		ResponseEntity<Clock> ret = testRestTemplate.withBasicAuth("username300", "username300p")
 				.getForEntity("/programacion/clock/", Clock.class);
 		LOG.info("Clock: {}", ret.getBody());
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 	}
-	
+
 	@Test
 	public void insert() {
 		ProgramacionDto programacion = new ProgramacionDto();
@@ -67,7 +67,7 @@ public class ProgramacionServiceTest {
 		programacion.setIdUsuario("JUNIT");
 
 		ResponseEntity<ProgramacionDto> ret = testRestTemplate.withBasicAuth("username300", "username300p")
-						.postForEntity("/programacion/", programacion, ProgramacionDto.class);
+				.postForEntity("/programacion/", programacion, ProgramacionDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertNotNull(ret.getBody());
 		assertNotNull(ret.getBody().getId());
@@ -75,10 +75,10 @@ public class ProgramacionServiceTest {
 
 	@Test
 	public void run() {
-		ResponseEntity<List<ProgramacionTrabajoDto>> ret = testRestTemplate.withBasicAuth("username300", "username300p")
-						.exchange("/programacion/run/", HttpMethod.GET, HttpEntity.EMPTY,
-										new ParameterizedTypeReference<List<ProgramacionTrabajoDto>>() {
-										});
+		ResponseEntity<List<TrabajoDto>> ret = testRestTemplate.withBasicAuth("username300", "username300p").exchange(
+				"/programacion/run/", HttpMethod.GET, HttpEntity.EMPTY,
+				new ParameterizedTypeReference<List<TrabajoDto>>() {
+				});
 		LOG.info("ret: {}", ret);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 	}

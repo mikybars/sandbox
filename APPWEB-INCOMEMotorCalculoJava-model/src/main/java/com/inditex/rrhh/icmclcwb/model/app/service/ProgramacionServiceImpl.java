@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
@@ -49,27 +48,22 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 	private Meta4SessionService meta4Service;
 
 	@Override
-	public List<ProgramacionTrabajoDto> run() {
-		List<ProgramacionTrabajoDto> result = new ArrayList<>();
+	public List<TrabajoDto> run() {
+		List<TrabajoDto> result = new ArrayList<>();
 		LOG.info("Inicio :: ProgramacionService.run()");
 		programacionMapper
 				.programacionToProgramacionDto(
 						programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
 				.stream().forEach(programacion -> {
+					programacion.setFechaUltimaEjecucion(LocalDateTime.now());
+					programacion.setFechaSiguienteEjecucion(programacion.getFechaSiguienteEjecucion().plusDays(1));
+					modifyProgramacion(programacion);
 					meta4Service.periodo().stream().forEach(periodo -> {
-						ProgramacionTrabajoDto programacionTrabajoDto = new ProgramacionTrabajoDto();
-
 						TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacion);
 						trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
 						trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
-						programacionTrabajoDto.setTrabajo(trabajoService.createTrabajo(trabajo));
-
-						programacion.setFechaUltimaEjecucion(LocalDateTime.now());
-						// Programamos la ejecucion para el dia siguiente
-						programacion.setFechaSiguienteEjecucion(programacion.getFechaSiguienteEjecucion().plusDays(1));
-						programacionTrabajoDto.setProgramacion(modifyProgramacion(programacion));
-
-						result.add(programacionTrabajoDto);
+						trabajo.setProgramacion(programacion);
+						result.add(trabajoService.createTrabajo(trabajo));
 					});
 				});
 		LOG.info("Fin :: ProgramacionService.run(): {}", result);
@@ -111,7 +105,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 	}
 
 	@Override
-	public ProgramacionDto modifyProgramacion(@Valid ProgramacionDto programacion) {
+	public ProgramacionDto modifyProgramacion(@Valid final ProgramacionDto programacion) {
 		LOG.info("Inicio :: ProgramacionService.modifyProgramacion(): {}", programacion);
 		ProgramacionDto result = programacionMapper.programacionToProgracionDto(
 				programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));

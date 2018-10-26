@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
 
 import io.swagger.annotations.Api;
@@ -46,7 +46,7 @@ public class ProgramacionController {
 	@GetMapping(path = "/run/")
 	@ApiOperation("Revisa si hay programaciones pendientes de lanzar y en caso afirmativo, genera el trabajo")
 	@PreAuthorize("hasAuthority('admin')")
-	public List<ProgramacionTrabajoDto> run() {
+	public List<TrabajoDto> run() {
 		return programacionService.run();
 	}
 

@@ -5,11 +5,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 public interface ProgramacionService {
 
-	List<ProgramacionTrabajoDto> run();
+	List<TrabajoDto> run();
 
 	ProgramacionDto createProgramacion(@Valid ProgramacionDto programacion);
 	

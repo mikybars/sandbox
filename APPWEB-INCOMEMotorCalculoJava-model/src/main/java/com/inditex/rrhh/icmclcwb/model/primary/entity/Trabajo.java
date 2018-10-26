@@ -81,7 +81,7 @@ public class Trabajo {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION", unique = true) })
+					@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") })
 	private Programacion programacion;
 
 }

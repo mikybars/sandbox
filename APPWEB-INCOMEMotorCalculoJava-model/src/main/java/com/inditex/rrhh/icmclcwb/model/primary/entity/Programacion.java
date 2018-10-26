@@ -79,7 +79,7 @@ public class Programacion {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO", unique = true) })
+					@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") })
 	private List<Trabajo> trabajo;
 
 }
