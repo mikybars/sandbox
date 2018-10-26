@@ -6,34 +6,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_TRABAJO_EMPLEADO_ESTADO", schema = "DESARROLLO_RRHH")
+@Table(name = "INCOME_PROGRAMACION_EMPLEADO", schema = "DESARROLLO_RRHH")
 @Data
-public class TrabajoEmpleadoEstado {
+public class ProgramacionEmpleado {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TRABAJO_EMPLEADO")
+	@Column(name = "ID_PROGRAMACION_EMPLEADO")
 	private /* BigInteger */ Long id;
 
 	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TRABAJO", nullable = false)
-	private /* BigInteger */ Trabajo trabajo;
+	@ManyToOne
+	@JoinColumn(name = "ID_PROGRAMACION", nullable = false)
+	private /* BigInteger */ Programacion programacion;
 	
 	@NotNull
 	@Column(name = "ID_EMPLEADO", nullable = false)
 	private String idEmpleado;
-	
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_ESTADO_TRABAJO_EMPLEADO", nullable = false)
-	private /* BigInteger */ EstadoTrabajoEmpleado estado;
 
 }

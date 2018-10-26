@@ -60,17 +60,17 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(): {}", trabajo.getId(), trabajo);
 		// Se recuperan las tiendas relacionadas con la ejecucion
 		Set<String> result = new HashSet<>();
-		if (CollectionUtils.isNotEmpty(trabajo.getEmpleado())) {
+		if (CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
 			// TODO Empleado :: Obtener las tiendas comisionables en las que ha estado el
 			// empleado
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Empleado): {}", trabajo.getId(),
-					trabajo.getEmpleado());
+					trabajo.getEmpleados());
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Empleado): {}", trabajo.getId(), result);
-		} else if (CollectionUtils.isNotEmpty(trabajo.getTienda())) {
+		} else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
 			// TODO Tienda :: Directamente se usa la tienda enviada
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Tienda): {}", trabajo.getId(),
-					trabajo.getTienda());
-			trabajo.getTienda().stream().forEach(tienda -> {
+					trabajo.getTiendas());
+			trabajo.getTiendas().stream().forEach(tienda -> {
 				result.add(tienda.getId());
 			});
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Tienda): {}", trabajo.getId(), result);

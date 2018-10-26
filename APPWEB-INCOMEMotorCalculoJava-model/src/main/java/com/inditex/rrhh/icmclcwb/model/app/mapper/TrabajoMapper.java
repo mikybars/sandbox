@@ -22,8 +22,8 @@ public interface TrabajoMapper {
 	List<TrabajoDto> trabajosToTrabajosDto(List<Trabajo> src);
 
 	@Mappings({ @Mapping(target = "id", ignore = true), @Mapping(source = "idPais", target = "idPais"),
-			@Mapping(source = "idCadena", target = "idCadena"), @Mapping(source = "tienda", target = "tienda"),
-			@Mapping(source = "empleado", target = "empleado"),
+			@Mapping(source = "idCadena", target = "idCadena"), @Mapping(source = "tiendas", target = "tiendas"),
+			@Mapping(source = "empleados", target = "empleados"),
 			@Mapping(source = "idUsuario", target = "idUsuario") })
 	TrabajoDto programacionDtoToTrabajoDto(ProgramacionDto src);
 

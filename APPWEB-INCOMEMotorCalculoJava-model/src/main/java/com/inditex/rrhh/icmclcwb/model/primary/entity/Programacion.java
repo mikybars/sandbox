@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,20 +46,34 @@ public class Programacion {
 //	@Column(name = "ID_TIENDA", nullable = true)
 //	private String idTienda;
 
-	@OneToMany
-	@JoinTable(name = "INCOME_PROGRAMACION_TIENDA", schema = "DESARROLLO_RRHH", joinColumns = {
-			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID_TIENDA", referencedColumnName = "ID_TIENDA") })
-	private List<Tienda> tienda;
+//	@OneToMany
+//	@JoinTable(name = "INCOME_PROGRAMACION_TIENDA", schema = "DESARROLLO_RRHH", joinColumns = {
+//			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
+//					@JoinColumn(name = "ID_TIENDA", referencedColumnName = "ID_TIENDA") })
+//	private List<Tienda> tiendas;
+	
+	@OneToMany(mappedBy = "programacion")
+//	@LazyCollection(LazyCollectionOption.FALSE)
+//	@Fetch(value = FetchMode.SUBSELECT)
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION")
+	private Set<ProgramacionTienda> tiendas;
 
 //	@Column(name = "ID_EMPLEADO", nullable = true)
 //	private String idEmpleado;
 
-	@OneToMany
-	@JoinTable(name = "INCOME_PROGRAMACION_EMPLEADO", schema = "DESARROLLO_RRHH", joinColumns = {
-			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO") })
-	private List<Empleado> empleado;
+//	@OneToMany
+//	@JoinTable(name = "INCOME_PROGRAMACION_EMPLEADO", schema = "DESARROLLO_RRHH", joinColumns = {
+//			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
+//					@JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO") })
+//	private List<Empleado> empleados;
+	
+	@OneToMany(mappedBy = "programacion")
+//	@LazyCollection(LazyCollectionOption.FALSE)
+//	@Fetch(value = FetchMode.SUBSELECT)
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION")
+	private Set<ProgramacionEmpleado> empleados;
 
 	@NotBlank
 	@Column(name = "ID_USUARIO", nullable = false)
@@ -80,6 +94,6 @@ public class Programacion {
 	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") })
-	private List<Trabajo> trabajo;
+	private Set<Trabajo> trabajo;
 
 }

@@ -32,6 +32,10 @@ public class TrabajoCalculo {
 	private String idEmpleado;
 	
 	@NotNull
+	@Column(name = "ID_TIENDA", nullable = false)
+	private String idTienda;
+	
+	@NotNull
 	@Column(name = "ID_ESTRUCTURA", nullable = false)
 	private /* BigInteger */ Long idEstructura;
 	

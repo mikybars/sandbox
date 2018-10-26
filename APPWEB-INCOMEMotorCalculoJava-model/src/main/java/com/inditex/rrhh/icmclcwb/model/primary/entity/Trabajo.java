@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,20 +45,44 @@ public class Trabajo {
 //	@Column(name = "ID_TIENDA", nullable = true)
 //	private String idTienda;
 
+//	@OneToMany
+//	@JoinTable(name = "INCOME_TRABAJO_TIENDA", schema = "DESARROLLO_RRHH", joinColumns = {
+//			@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
+//					@JoinColumn(name = "ID_TIENDA", referencedColumnName = "ID_TIENDA") })
+//	private List<Tienda> tiendas;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_TRABAJO")
+	private Set<TrabajoTienda> tiendas;
+	
 	@OneToMany
-	@JoinTable(name = "INCOME_TRABAJO_TIENDA", schema = "DESARROLLO_RRHH", joinColumns = {
-			@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID_TIENDA", referencedColumnName = "ID_TIENDA") })
-	private List<Tienda> tienda;
+	@JoinColumn(name = "ID_TRABAJO")
+	private Set<TrabajoTiendaPresencia> tiendasPresencias;
+	
+	@OneToMany
+	@JoinColumn(name = "ID_TRABAJO")
+	private Set<TrabajoTiendaVenta> tiendasVentas;
 
 //	@Column(name = "ID_EMPLEADO", nullable = true)
 //	private String idEmpleado;
 
+//	@OneToMany
+//	@JoinTable(name = "INCOME_TRABAJO_EMPLEADO", schema = "DESARROLLO_RRHH", joinColumns = {
+//			@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
+//					@JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO") })
+//	private List<Empleado> empleados;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_TRABAJO")
+	private Set<TrabajoEmpleado> empleados;
+	
 	@OneToMany
-	@JoinTable(name = "INCOME_TRABAJO_EMPLEADO", schema = "DESARROLLO_RRHH", joinColumns = {
-			@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO") })
-	private List<Empleado> empleado;
+	@JoinColumn(name = "ID_TRABAJO")
+	private Set<TrabajoEmpleadoEstructura> empleadosEstructuras;
+	
+	@OneToMany
+	@JoinColumn(name = "ID_TRABAJO")
+	private Set<TrabajoEmpleadoPresencia> empleadosPresencias;
 
 	@NotBlank
 	@Column(name = "ID_USUARIO", nullable = false)

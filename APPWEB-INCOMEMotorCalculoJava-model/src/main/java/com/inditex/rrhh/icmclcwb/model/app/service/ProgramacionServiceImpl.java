@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
@@ -19,7 +20,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -94,10 +97,9 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 			programacion.setHora(LocalTime.of(random.nextInt(24), random.nextInt(60)));
 			programacion.setIdPais(idPais);
 			programacion.setIdCadena(idCadena);
-			TiendaDto tienda = new TiendaDto();
+			ProgramacionTiendaDto tienda = new ProgramacionTiendaDto();
 			tienda.setId(String.valueOf(i));
-			tienda.setIdPais(idPais);
-			tienda.setIdCadena(idCadena);
+			programacion.setTiendas(new HashSet<>(Arrays.asList(tienda)));
 			programacion.setIdUsuario("INIT");
 			createProgramacion(programacion);
 		}

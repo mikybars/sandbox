@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
@@ -47,7 +47,7 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
 
 		// TODO Hay que recuperar las tiendas de BBDD no del objeto de trabajo
-		for (TiendaDto tienda : trabajo.getTienda()) {
+		for (TrabajoTiendaDto tienda : trabajo.getTiendas()) {
 			EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
 
 			request.setPage(PaginationPropertiesFactory.getProperties(new Object() {
@@ -56,7 +56,7 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 			EmpleadosTiendaFilterDto data = new EmpleadosTiendaFilterDto();
 			data.setFechaInicio(trabajo.getFechaInicioPeriodo());
 			data.setFechaFin(trabajo.getFechaFinPeriodo());
-			data.setIdLugarTrabajo("T" + tienda);
+			data.setIdLugarTrabajo("T" + tienda.getId());
 			request.setData(data);
 
 			boolean hasNext = false;
