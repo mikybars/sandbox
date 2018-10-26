@@ -62,7 +62,7 @@ public class ProgramacionServiceTest {
 		programacion.setIdPais(idPais);
 		programacion.setIdCadena(idCadena);
 		ProgramacionTiendaDto tienda = new ProgramacionTiendaDto();
-		tienda.setId("57");
+		tienda.setIdTienda("57");
 		programacion.setTiendas(new HashSet<>(Arrays.asList(tienda)));
 		programacion.setIdUsuario("JUNIT");
 

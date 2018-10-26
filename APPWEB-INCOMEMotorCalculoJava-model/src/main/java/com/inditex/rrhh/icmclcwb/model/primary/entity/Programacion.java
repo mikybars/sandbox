@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,8 +52,8 @@ public class Programacion {
 //			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
 //					@JoinColumn(name = "ID_TIENDA", referencedColumnName = "ID_TIENDA") })
 //	private List<Tienda> tiendas;
-	
-	@OneToMany(mappedBy = "programacion")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "programacion"/*, cascade = { CascadeType.ALL }*/)
 //	@LazyCollection(LazyCollectionOption.FALSE)
 //	@Fetch(value = FetchMode.SUBSELECT)
 //	@OneToMany(fetch = FetchType.EAGER)
@@ -67,8 +68,8 @@ public class Programacion {
 //			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
 //					@JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO") })
 //	private List<Empleado> empleados;
-	
-	@OneToMany(mappedBy = "programacion")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "programacion", cascade = CascadeType.ALL)
 //	@LazyCollection(LazyCollectionOption.FALSE)
 //	@Fetch(value = FetchMode.SUBSELECT)
 //	@OneToMany(fetch = FetchType.EAGER)

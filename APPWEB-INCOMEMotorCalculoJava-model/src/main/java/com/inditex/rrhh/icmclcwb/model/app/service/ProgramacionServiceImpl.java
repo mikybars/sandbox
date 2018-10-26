@@ -98,7 +98,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 			programacion.setIdPais(idPais);
 			programacion.setIdCadena(idCadena);
 			ProgramacionTiendaDto tienda = new ProgramacionTiendaDto();
-			tienda.setId(String.valueOf(i));
+			tienda.setIdTienda(String.valueOf(i));
 			programacion.setTiendas(new HashSet<>(Arrays.asList(tienda)));
 			programacion.setIdUsuario("INIT");
 			createProgramacion(programacion);

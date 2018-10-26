@@ -23,10 +23,10 @@ public class ProgramacionTienda {
 	private /* BigInteger */ Long id;
 
 	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "ID_PROGRAMACION", nullable = false)
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION" , nullable = false )
 	private /* BigInteger */ Programacion programacion;
-	
+
 	@NotNull
 	@Column(name = "ID_TIENDA", nullable = false)
 	private String idTienda;
