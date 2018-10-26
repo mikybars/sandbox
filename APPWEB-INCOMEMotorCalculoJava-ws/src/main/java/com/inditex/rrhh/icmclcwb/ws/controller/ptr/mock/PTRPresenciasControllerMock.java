@@ -80,7 +80,7 @@ public class PTRPresenciasControllerMock {
 	public PresenciasTotalTiendaSeccionResponseListDTO presenciasTiendaSeccion(@Valid @RequestBody final PresenciasTotalTiendaSeccionRequestDTO  presencias){
 		PresenciasTotalTiendaSeccionResponseListDTO lista = new PresenciasTotalTiendaSeccionResponseListDTO();
 		lista.setList(this.presenciasService.PresenciasTotalTiendaSeccion(presencias));
-		return lista;
+		return lista;	
 	}
 	
 	

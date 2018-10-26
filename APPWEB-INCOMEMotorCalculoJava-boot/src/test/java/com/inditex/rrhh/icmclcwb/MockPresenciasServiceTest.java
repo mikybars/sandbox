@@ -141,6 +141,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
+    @Ignore
     public void presenciasTotalTiendaSeccion(){
     	PresenciasTotalTiendaSeccionRequestDTO req = new PresenciasTotalTiendaSeccionRequestDTO();
     	//Declaro atributos para el campo TiendaSecciones
@@ -180,14 +181,14 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void tiposHoras(){
     	TiposHorasRequestDTO req = new TiposHorasRequestDTO();
         req.setTipoHora(1);
         req.setOrigen(11);
         ResponseEntity<TiposHorasResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getLista().size(),100);
+        assertEquals(ret.getBody().getLista().size(),1);
         assertEquals(ret.getBody().getLista().get(0).getOrigen().intValue(),11);
         assertEquals(ret.getBody().getLista().get(0).getExcluidoCalculo(),Boolean.TRUE);
      }

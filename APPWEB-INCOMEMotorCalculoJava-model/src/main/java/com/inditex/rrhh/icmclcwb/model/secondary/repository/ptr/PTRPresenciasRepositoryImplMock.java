@@ -46,12 +46,10 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 			+ "AND PH.TIPO IN ( ? ) "
 			+ "AND SP.CCL_ID_CADENA IN ( ? ) "
 			+ "AND ERROR = 'OK'";
+
 	
-	private String consultaTiposHorasEspana ="SELECT TOP 100 'TRUE' EXCLUIDODENOM,'TRUE' EXCLUIDOCALCULO,"
-			+ " [ID],[TIPO],[TIENDA],[FECHA],[SECCION],[PERSONA],[HORAS],[CCL_ID_ORIGEN]"
-			+ " FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP "
-			+ "ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN= ? WHERE TIPO = ? AND ERROR = 'OK'";
-		
+	
+	
 	
 
 	private String consultapresenciasTotalTienda = 
@@ -101,10 +99,25 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 				+" AND PH.TIPO IN ( ? )"
 				+" AND SP.CCL_ID_CADENA IN ( ? )"
 				+" AND ERROR = 'OK' ";
-				//+" AND TIENDA IN ()"
-				//+" AND PH.SECCION IN ()"
+
 	 private String groupByTotalTiendaSeccion = " GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA, PH.SECCION,PH.FECHA";
 	
+
+		private String consultaTiposHorasEspana ="SELECT TOP 100 "
+					+ " 'TRUE' EXCLUIDODENOM, "
+					+ " 'TRUE' EXCLUIDOCALCULO "
+					+ " ,[TIPO] "
+					+ ",[CCL_ID_ORIGEN] "
+				+ " FROM [dbo].[PRESENCIAS_HORARIOS] "
+					+ "P INNER JOIN M4CCL_ORGANIZACION_PAIS OP "
+						+ "ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION "
+				+ "WHERE "
+					+ " TIPO = ? "
+					+ " AND OP.CCL_ID_ORIGEN= ? "
+					+ " AND ERROR = 'OK' "
+				+ " GROUP BY OP.CCL_ID_ORIGEN, TIPO ";			
+		
+		
 	@Override
 	public List<PresenciaDetalleMock> findPresencias(Object[] Params) {
 		List<Integer> lista =(List<Integer>) Params[7];

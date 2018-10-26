@@ -13,11 +13,6 @@ public class TiposHorasRowMapper implements RowMapper{
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 		TiposHorasMock pre= new TiposHorasMock();
 		pre.setTipo(rs.getInt("TIPO"));
-		pre.setTienda(rs.getInt("TIENDA"));
-		pre.setFecha(rs.getDate("FECHA"));
-		pre.setSeccion(rs.getInt("SECCION"));
-		pre.setPersona(rs.getInt("PERSONA"));
-		pre.setHoras(rs.getInt("HORAS"));
 		pre.setOrigen(rs.getInt("CCL_ID_ORIGEN"));
 		pre.setExcluidoCalculo(rs.getBoolean("EXCLUIDOCALCULO"));
 		pre.setExcluidoDenom(rs.getBoolean("EXCLUIDODENOM"));
