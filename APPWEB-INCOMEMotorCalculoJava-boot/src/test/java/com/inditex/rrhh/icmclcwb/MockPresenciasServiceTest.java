@@ -153,6 +153,9 @@ public class MockPresenciasServiceTest {
     	ts2.setSeccion(2);
     	ts2.setTienda(52);
     	tiendasecciones.add(ts2);
+    	TiendaSeccionDTO ts3= new TiendaSeccionDTO();
+    	ts3.setTienda(150);
+    	tiendasecciones.add(ts3);
     	Calendar cal = Calendar.getInstance();
     	cal.set(Calendar.YEAR, 2016);
     	cal.set(Calendar.MONTH, Calendar.JANUARY);
@@ -172,7 +175,8 @@ public class MockPresenciasServiceTest {
     	req.setCadena(1);
         ResponseEntity<PresenciasTotalTiendaSeccionResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTiendaSeccion/", req, PresenciasTotalTiendaSeccionResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(58,ret.getBody().getList().size());
+        assertEquals(44,ret.getBody().getList().size());
+        assertEquals(5580,ret.getBody().getList().get(0).getMinutos().intValue());
     }
 
     @Test
