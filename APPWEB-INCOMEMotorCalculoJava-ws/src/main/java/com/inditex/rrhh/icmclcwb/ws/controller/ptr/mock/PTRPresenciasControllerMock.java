@@ -28,6 +28,7 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.TiposHorasResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasDetalleResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasTotalTiendaResponseListDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasTotalTiendaSeccionResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasServiceMock;
 
 import io.swagger.annotations.Api;
@@ -52,7 +53,8 @@ public class PTRPresenciasControllerMock {
 	@ApiOperation(value = "PostPresenciasDetalleComisionable")
 	@PostMapping(path = "/presenciasDetalleComisionable")
 	public PresenciasDetalleComisionableResponseDTO presenciasDetalleComisionable(@Valid @RequestBody final PresenciasDetalleComisionableRequestDTO presencias){
-		return this.presenciasService.PresenciasDetalleComisionable(presencias);
+		//return this.presenciasService.PresenciasDetalleComisionable(presencias);
+		return null;
 	}
 	
 	@ApiOperation(value = "PostPresenciasDetalle")
@@ -75,8 +77,10 @@ public class PTRPresenciasControllerMock {
 	
 	@ApiOperation(value = "PostPresenciasTotalTiendaSeccion")
 	@PostMapping(path = "/presenciasTotalTiendaSeccion")
-	public PresenciasTotalTiendaSeccionResponseDTO presenciasTiendaSeccion(@Valid @RequestBody final PresenciasTotalTiendaSeccionRequestDTO  presencias){
-		return this.presenciasService.PresenciasTotalTiendaSeccion(presencias); 
+	public PresenciasTotalTiendaSeccionResponseListDTO presenciasTiendaSeccion(@Valid @RequestBody final PresenciasTotalTiendaSeccionRequestDTO  presencias){
+		PresenciasTotalTiendaSeccionResponseListDTO lista = new PresenciasTotalTiendaSeccionResponseListDTO();
+		lista.setList(this.presenciasService.PresenciasTotalTiendaSeccion(presencias));
+		return lista;
 	}
 	
 	

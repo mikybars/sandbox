@@ -1,16 +1,20 @@
 package com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.scheduling.config.ContextLifecycleScheduledTaskRegistrar;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.esotericsoftware.minlog.Log;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiendaSeccionDTO;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaDetalleRowMapper;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaTotalTiendaRowMapper;
+import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaTotalTiendaSeccionRowMapper;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.TiposHorasRowMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleComisionableMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
@@ -49,27 +53,21 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 			+ "ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION AND OP.CCL_ID_ORIGEN= ? WHERE TIPO = ? AND ERROR = 'OK'";
 		
 	
-	
-	//duda con resecto ao computo e minutos
-	/**private String consultapresenciasTotalTienda= "SELECT TOP 100 [TIENDA],[FECHA],[HORAS]*60  'MINUTOS' "
-			+ "	FROM [dbo].[PRESENCIAS_HORARIOS] P "
-			+ "	INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION "
-			+ "	AND OP.CCL_ID_ORIGEN= ? WHERE ( FECHA >= ? AND FECHA <= ? AND ERROR = 'OK')";**/
-	
-	private String consultapresenciasTotalTienda1 = 
+
+	private String consultapresenciasTotalTienda = 
 			"SELECT PH.ID_ORGANIZATION AS 'ORGANIZACION',"
-			       +"OP.CCL_ID_ORIGEN AS 'ID_PAIS',"
-			       +"PH.TIENDA AS 'ID_TIENDA',"
-			       +"PH.FECHA AS 'FECHA',"
-				   +"SUM((CAST(PH.HORAS AS INT) * 60) + PARSENAME(PH.HORAS, 1)) AS 'MINUTOS'"
+		        +"OP.CCL_ID_ORIGEN AS 'ID_PAIS',"
+		        +"PH.TIENDA AS 'ID_TIENDA',"
+		        +"PH.FECHA AS 'FECHA',"
+			    +"SUM((CAST(PH.HORAS AS INT) * 60) + PARSENAME(PH.HORAS, 1)) AS 'MINUTOS'"
 			+"FROM PRESENCIAS_HORARIOS PH WITH (NOLOCK) "
-			+"INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) "
-			       +"ON PH.ID_ORGANIZATION = OP.ID_ORGANIZATION "
-			 +"INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) "
-				+"ON SW.CCL_ID_COD_ORIGEN = CAST(PH.TIENDA AS NVARCHAR) "
-			+" INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) "
-				 +"ON SP.STD_ID_WORK_LOCAT=SW.STD_ID_WORK_LOCAT "
-				 +"AND SP.CCL_DT_START <= PH.FECHA AND PH.FECHA <= SP.CCL_DT_END "
+				+"INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) "
+				    +"ON PH.ID_ORGANIZATION = OP.ID_ORGANIZATION "
+				+"INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) "
+					+"ON SW.CCL_ID_COD_ORIGEN = CAST(PH.TIENDA AS NVARCHAR) "
+				+" INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) "
+					 +"ON SP.STD_ID_WORK_LOCAT=SW.STD_ID_WORK_LOCAT "
+					 +"AND SP.CCL_DT_START <= PH.FECHA AND PH.FECHA <= SP.CCL_DT_END "
 			+"WHERE "
 				+"OP.CCL_ID_ORIGEN = ? "
 				+"AND PH.FECHA >= ? "
@@ -80,6 +78,33 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	private String groupByTotalTienda = " GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA, PH.FECHA";
 													
  
+	private String consultapresenciasTotalTiendaSeccion = 
+		 "SELECT"
+			    +" PH.ID_ORGANIZATION AS 'ORGANIZACION',"
+			    +" OP.CCL_ID_ORIGEN AS 'ID_PAIS',"
+			    +" PH.TIENDA AS 'ID_TIENDA',"
+			    +" PH.SECCION AS 'ID_SECCION',"
+			    +" PH.FECHA AS 'FECHA',"
+			    +" SUM((CAST(PH.HORAS AS INT) * 60) + PARSENAME(PH.HORAS, 1)) AS 'MINUTOS'"
+			+" FROM PRESENCIAS_HORARIOS PH WITH (NOLOCK)"
+				+" INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK)"
+					+" ON PH.ID_ORGANIZATION = OP.ID_ORGANIZATION"
+				+" INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK)"
+					+" ON SW.CCL_ID_COD_ORIGEN = CAST(PH.TIENDA AS NVARCHAR)"
+				+" INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) "
+				 	+" ON SP.STD_ID_WORK_LOCAT=SW.STD_ID_WORK_LOCAT"
+				 	+" AND SP.CCL_DT_START <= PH.FECHA AND PH.FECHA <= SP.CCL_DT_END"
+			+" WHERE "
+				+" OP.CCL_ID_ORIGEN = ? "
+				+" AND FECHA >=  ? "
+				+" AND FECHA < ? "
+				+" AND PH.TIPO IN ( ? )"
+				+" AND SP.CCL_ID_CADENA IN ( ? )"
+				+" AND ERROR = 'OK' ";
+				//+" AND TIENDA IN ()"
+				//+" AND PH.SECCION IN ()"
+	 private String groupByTotalTiendaSeccion = " GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA, PH.SECCION,PH.FECHA";
+	
 	@Override
 	public List<PresenciaDetalleMock> findPresencias(Object[] Params) {
 		List<Integer> lista =(List<Integer>) Params[7];
@@ -139,12 +164,11 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 				}
 			}
 		}
-		String consulta = consultapresenciasTotalTienda1+whereTienda+groupByTotalTienda;
+		String consulta = consultapresenciasTotalTienda+whereTienda+groupByTotalTienda;
 		Log.info(consulta);
 		
 		Object[]  primeraParteParametros = {Params[0],Params[1],Params[2],Params[3],Params[4]};
 		Object[]  segundaParteParametros = lista.toArray();
-
 
 		int aLen = primeraParteParametros.length;
         int bLen = segundaParteParametros.length;
@@ -156,11 +180,102 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 		return presencias;
 	}
 
+	
 	@Override
 	public List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(Object[] Params) {
-		// TODO Auto-generated method stub
-		return null;
+		List<TiendaSeccionDTO> lista =(List<TiendaSeccionDTO>) Params[5];
+
+		String whereTienda= "";
+		String whereSeccion= "";
+		List<Integer> tiendas= new ArrayList<Integer>();
+		List<Integer> secciones= new ArrayList<Integer>();
+		for (int i=0;i<lista.size();i++){
+			if (i==0){
+				Log.info("TIENDA: "+ lista.get(i).getTienda()+"    SECCION: "+lista.get(i).getSeccion());
+				whereTienda=" AND  PH.TIENDA IN ( ? ";
+				whereSeccion=" AND  PH.SECCION IN ( ?";
+				tiendas.add(lista.get(i).getTienda());
+				secciones.add(lista.get(i).getSeccion());
+			}
+			else{
+				Log.info("TIENDA: "+ lista.get(i).getTienda()+"    SECCION: "+lista.get(i).getSeccion());
+				whereTienda= whereTienda + ", ?";
+				whereSeccion= whereSeccion + ", ?";
+				tiendas.add(lista.get(i).getTienda());
+				secciones.add(lista.get(i).getSeccion());
+				if (i==(lista.size()-1)){
+					whereTienda= whereTienda + ")";
+					whereSeccion= whereSeccion + ")";
+				}
+			}
+		}
+		String consulta = consultapresenciasTotalTiendaSeccion+whereTienda+whereSeccion+groupByTotalTiendaSeccion;
+		Log.info(consulta);
+		
+		Object[]  primeraParteParametros = {Params[0],Params[1],Params[2],Params[3],Params[4]};
+		Object[]  segundaParteParametros = tiendas.toArray();
+		Object[]  terceraParteParametros = secciones.toArray();
+		
+		int aLen = primeraParteParametros.length;
+        int bLen = segundaParteParametros.length;
+        int cLen = terceraParteParametros.length;
+        Object[] result = new Object[aLen + bLen + cLen];
+
+
+        System.arraycopy(primeraParteParametros, 0, result, 0, aLen);
+        System.arraycopy(segundaParteParametros, 0, result, aLen, bLen);
+        System.arraycopy(terceraParteParametros, 0, result, aLen+bLen, cLen);
+        
+        for(int e=0;e<(aLen + bLen + cLen);e++){
+        	Log.info("ARGUMENT "+e+":   "+result[e]+"   ");
+        }
+		List<PresenciaTotalTiendaSeccionMock> presencias= (List<PresenciaTotalTiendaSeccionMock>) jdbcTemplate.query(consulta,result,new PresenciaTotalTiendaSeccionRowMapper());
+		return presencias;
 	}
+	
+	/**@Override
+	public List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(Object[] Params) {
+		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate); 
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		
+		parameters.addValue("origen", Params[0]);
+		parameters.addValue("fechaInicio", Params[1]);
+		parameters.addValue("fechaFin", Params[2]);
+		parameters.addValue("tipo", Params[3]);
+		parameters.addValue("cadena", Params[4]);
+		return null;
+		
+		
+		private String consultapresenciasTotalTiendaSeccion = 
+				 "SELECT"
+					    +" PH.ID_ORGANIZATION AS 'ORGANIZACION',"
+					    +" OP.CCL_ID_ORIGEN AS 'ID_PAIS',"
+					    +" PH.TIENDA AS 'ID_TIENDA',"
+					    +" PH.SECCION AS 'ID_SECCION',"
+					    +" PH.FECHA AS 'FECHA',"
+					    +" SUM((CAST(PH.HORAS AS INT) * 60) + PARSENAME(PH.HORAS, 1)) AS 'MINUTOS'"
+					+" FROM PRESENCIAS_HORARIOS PH WITH (NOLOCK)"
+						+" INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK)"
+							+" ON PH.ID_ORGANIZATION = OP.ID_ORGANIZATION"
+						+" INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK)"
+							+" ON SW.CCL_ID_COD_ORIGEN = CAST(PH.TIENDA AS NVARCHAR)"
+						+" INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) "
+						 	+" ON SP.STD_ID_WORK_LOCAT=SW.STD_ID_WORK_LOCAT"
+						 	+" AND SP.CCL_DT_START <= PH.FECHA AND PH.FECHA <= SP.CCL_DT_END"
+					+" WHERE "
+						+" OP.CCL_ID_ORIGEN = ? "
+						+" AND FECHA >=  ? "
+						+" AND FECHA < ? "
+						+" AND PH.TIPO IN ( ? )"
+						+" AND SP.CCL_ID_CADENA IN ( ? )"
+						+" AND ERROR = 'OK'";
+						//+" AND TIENDA IN ()"
+						//+" AND PH.SECCION IN (1,2)"
+			 private String groupByTotalTiendaSeccion = " GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA, PH.SECCION,PH.FECHA";
+		
+		
+	}**/
+	
 	@Override
 	public List<TiposHorasMock> findTiposHoras(Object[] Params) {
 		List<TiposHorasMock> presencias=(List<TiposHorasMock>) jdbcTemplate.query(consultaTiposHorasEspana,Params ,new TiposHorasRowMapper());

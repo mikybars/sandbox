@@ -18,11 +18,11 @@ public interface PTRPresenciasServiceMock {
 	
 	List<PresenciasDetalleResponseDTO> PresenciasDetalle(final PresenciasDetalleRequestDTO presencias);
 	
-	PresenciasDetalleComisionableResponseDTO PresenciasDetalleComisionable(final PresenciasDetalleComisionableRequestDTO presencias);
+	List<PresenciasDetalleComisionableResponseDTO> PresenciasDetalleComisionable(final PresenciasDetalleComisionableRequestDTO presencias);
 	
 	List<PresenciasTotalTiendaResponseDTO> PresenciasTotalTienda(final PresenciasTotalTiendaRequestDTO presencias);
 	
-	PresenciasTotalTiendaSeccionResponseDTO PresenciasTotalTiendaSeccion(final PresenciasTotalTiendaSeccionRequestDTO presencias);
+	List<PresenciasTotalTiendaSeccionResponseDTO> PresenciasTotalTiendaSeccion(final PresenciasTotalTiendaSeccionRequestDTO presencias);
 	
 	List<TiposHorasResponseDTO> TiposHoras(final TiposHorasRequestDTO tiposHoras);
 

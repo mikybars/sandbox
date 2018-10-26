@@ -26,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.api.service.ptr.PTRPresenciasServiceMock;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciasMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaSeccionMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.TiposHorasMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.repository.ptr.PTRPresenciasRepositoryMock;
 import org.slf4j.Logger;
@@ -81,7 +82,7 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 	
 	
 	@Override
-	public PresenciasDetalleComisionableResponseDTO PresenciasDetalleComisionable(PresenciasDetalleComisionableRequestDTO presencias) {
+	public List<PresenciasDetalleComisionableResponseDTO> PresenciasDetalleComisionable(PresenciasDetalleComisionableRequestDTO presencias) {
 		//return this.presenciasMapper.asPresenciaDetalleComisionableDTO(this.presenciasRepositoryJPA.findPresenciasComisionable(this.presenciasMapper.asPresenciaDetalleComisionable(presencias)));
 		return null;
 	}
@@ -106,21 +107,27 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		List<PresenciaTotalTiendaMock> p= this.presenciasRepository.findPresenciasTotalTienda(param);
 		Long estimatedTime = System.currentTimeMillis() - startTime;
 		Log.info("------------------ Find Total Tienda JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
-		Log.info("***********************************"+p.get(0)+"**************************************");
 		return this.presenciasMapper.asPresenciasTotalTiendaDTOs(p);
 	}
 
 	
 	
 	
-	
-	
-	
+
 	@Override
-	public PresenciasTotalTiendaSeccionResponseDTO PresenciasTotalTiendaSeccion(
+	public List<PresenciasTotalTiendaSeccionResponseDTO> PresenciasTotalTiendaSeccion(
 			PresenciasTotalTiendaSeccionRequestDTO presencias) {
-		//return this.presenciasMapper.asPresenciasTotalTiendaSeccionDTO(this.presenciasRepositoryJPA.findPresenciasTotalTiendaSeccion(this.presenciasMapper.asPresenciasTotalTiendaSeccion(presencias)));
-		return null;
+		String fecha1= formatter.format(presencias.getFechaDesde());
+		String fecha2= formatter.format(presencias.getFechaHasta());
+		Object[] param = new Object[]{presencias.getOrigen(),fecha1,fecha2,presencias.getTipo(),presencias.getCadena(),presencias.getTiendaSeccion()};
+				
+		Log.info("------------------Find Total Tienda Seccion JDBC: Inicio");
+		Long startTime = System.currentTimeMillis();
+		List<PresenciaTotalTiendaSeccionMock> p= this.presenciasRepository.findPresenciasTotalTiendaSeccion(param);
+		Long estimatedTime = System.currentTimeMillis() - startTime;
+		Log.info("------------------ Find Total Tienda Seccion JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
+		Log.info("Tiene un tamaño de:  "+ p.size());
+		return this.presenciasMapper.asPresenciasTotalTiendaSeccionDTOs(p);
 	}
 
 	

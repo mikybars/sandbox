@@ -29,10 +29,12 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionab
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaSeccionRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiendaSeccionDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiposHorasRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.*;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasDetalleResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasTotalTiendaResponseListDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasTotalTiendaSeccionResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseListDTO;
 
 /**
@@ -108,7 +110,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void presenciasTotalTienda(){
     	PresenciasTotalTiendaRequestDTO req = new PresenciasTotalTiendaRequestDTO();
     	
@@ -139,13 +141,38 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    @Ignore
     public void presenciasTotalTiendaSeccion(){
     	PresenciasTotalTiendaSeccionRequestDTO req = new PresenciasTotalTiendaSeccionRequestDTO();
-    	req.setCadena(5);;
-        ResponseEntity<PresenciasTotalTiendaSeccionResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTiendaSeccion/", req, PresenciasTotalTiendaSeccionResponseDTO.class);
+    	//Declaro atributos para el campo TiendaSecciones
+    	List<TiendaSeccionDTO> tiendasecciones = new ArrayList<TiendaSeccionDTO>();
+    	TiendaSeccionDTO ts1= new TiendaSeccionDTO();
+    	ts1.setSeccion(1);
+    	ts1.setTienda(18);	
+    	tiendasecciones.add(ts1);
+    	TiendaSeccionDTO ts2= new TiendaSeccionDTO();
+    	ts2.setSeccion(2);
+    	ts2.setTienda(52);
+    	tiendasecciones.add(ts2);
+    	Calendar cal = Calendar.getInstance();
+    	cal.set(Calendar.YEAR, 2016);
+    	cal.set(Calendar.MONTH, Calendar.JANUARY);
+    	cal.set(Calendar.DAY_OF_MONTH, 1);
+    	Date fechaDesde = cal.getTime();
+    	
+    	cal.set(Calendar.YEAR, 2016);
+    	cal.set(Calendar.MONTH, Calendar.MARCH);
+    	cal.set(Calendar.DAY_OF_MONTH, 1);
+    	Date fechaHasta = cal.getTime();
+    	
+    	req.setTiendaSeccion(tiendasecciones);
+    	req.setOrigen(11);
+    	req.setFechaDesde(fechaDesde);
+    	req.setFechaHasta(fechaHasta);
+    	req.setTipo(1);
+    	req.setCadena(1);
+        ResponseEntity<PresenciasTotalTiendaSeccionResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTiendaSeccion/", req, PresenciasTotalTiendaSeccionResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getFechaDesde(), req.getFechaDesde());   
+        assertEquals(58,ret.getBody().getList().size());
     }
 
     @Test
