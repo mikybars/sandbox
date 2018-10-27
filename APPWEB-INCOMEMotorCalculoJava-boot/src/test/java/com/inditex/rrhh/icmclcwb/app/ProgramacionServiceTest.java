@@ -27,11 +27,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.ws.controller.app.ProgramacionController.Clock;
 
-//@Ignore("Hay que implementar el mock jms para Bamboo")
+@Ignore("Hay que implementar el mock jms para Bamboo")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
@@ -62,6 +61,7 @@ public class ProgramacionServiceTest {
 		programacion.setIdPais(idPais);
 		programacion.setIdCadena(idCadena);
 		ProgramacionTiendaDto tienda = new ProgramacionTiendaDto();
+		tienda.setProgramacion(programacion);
 		tienda.setIdTienda("57");
 		programacion.setTiendas(new HashSet<>(Arrays.asList(tienda)));
 		programacion.setIdUsuario("JUNIT");
