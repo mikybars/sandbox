@@ -4,8 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
-
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;
@@ -34,13 +33,13 @@ public class TrabajoDto implements Serializable {
 //	private String idTienda;
 
 	@ApiModelProperty(value = "Ids de las tiendas a ejecutar", required = false)
-	private Set<TrabajoTiendaDto> tiendas;
+	private List<TrabajoTiendaDto> tiendas;
 	
 //	@ApiModelProperty(value = "Id del empleado a ejecutar", required = false)
 //	private String idEmpleado;
 	
 	@ApiModelProperty(value = "Ids de los empleados a ejecutar", required = false)
-	private Set<TrabajoEmpleadoDto> empleados;
+	private List<TrabajoEmpleadoDto> empleados;
 
 	@NotNull
 	@ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = false)

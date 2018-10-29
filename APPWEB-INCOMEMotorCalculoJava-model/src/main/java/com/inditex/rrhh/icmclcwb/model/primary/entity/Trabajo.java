@@ -2,8 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,17 +49,20 @@ public class Trabajo {
 //					@JoinColumn(name = "ID_TIENDA", referencedColumnName = "ID_TIENDA") })
 //	private List<Tienda> tiendas;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_TRABAJO")
-	private Set<TrabajoTienda> tiendas;
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "ID_TRABAJO")
+	@OneToMany(/*fetch = FetchType.EAGER,*/ mappedBy = "trabajo"/*, cascade = { CascadeType.ALL }*/)
+	private List<TrabajoTienda> tiendas;
 	
-	@OneToMany
-	@JoinColumn(name = "ID_TRABAJO")
-	private Set<TrabajoTiendaPresencia> tiendasPresencias;
+//	@OneToMany
+//	@JoinColumn(name = "ID_TRABAJO")
+	@OneToMany(/*fetch = FetchType.EAGER,*/ mappedBy = "trabajo"/*, cascade = { CascadeType.ALL }*/)
+	private List<TrabajoTiendaPresencia> tiendasPresencias;
 	
-	@OneToMany
-	@JoinColumn(name = "ID_TRABAJO")
-	private Set<TrabajoTiendaVenta> tiendasVentas;
+//	@OneToMany
+//	@JoinColumn(name = "ID_TRABAJO")
+	@OneToMany(/*fetch = FetchType.EAGER,*/ mappedBy = "trabajo"/*, cascade = { CascadeType.ALL }*/)
+	private List<TrabajoTiendaVenta> tiendasVentas;
 
 //	@Column(name = "ID_EMPLEADO", nullable = true)
 //	private String idEmpleado;
@@ -72,17 +73,20 @@ public class Trabajo {
 //					@JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO") })
 //	private List<Empleado> empleados;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_TRABAJO")
-	private Set<TrabajoEmpleado> empleados;
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "ID_TRABAJO")
+	@OneToMany(/*fetch = FetchType.EAGER,*/ mappedBy = "trabajo"/*, cascade = { CascadeType.ALL }*/)
+	private List<TrabajoEmpleado> empleados;
 	
-	@OneToMany
-	@JoinColumn(name = "ID_TRABAJO")
-	private Set<TrabajoEmpleadoEstructura> empleadosEstructuras;
+//	@OneToMany
+//	@JoinColumn(name = "ID_TRABAJO")
+	@OneToMany(/*fetch = FetchType.EAGER,*/ mappedBy = "trabajo"/*, cascade = { CascadeType.ALL }*/)
+	private List<TrabajoEmpleadoEstructura> empleadosEstructuras;
 	
-	@OneToMany
-	@JoinColumn(name = "ID_TRABAJO")
-	private Set<TrabajoEmpleadoPresencia> empleadosPresencias;
+//	@OneToMany
+//	@JoinColumn(name = "ID_TRABAJO")
+	@OneToMany(/*fetch = FetchType.EAGER,*/ mappedBy = "trabajo"/*, cascade = { CascadeType.ALL }*/)
+	private List<TrabajoEmpleadoPresencia> empleadosPresencias;
 
 	@NotBlank
 	@Column(name = "ID_USUARIO", nullable = false)

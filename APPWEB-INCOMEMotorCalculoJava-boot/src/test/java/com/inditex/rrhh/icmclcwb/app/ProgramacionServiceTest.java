@@ -61,9 +61,8 @@ public class ProgramacionServiceTest {
 		programacion.setIdPais(idPais);
 		programacion.setIdCadena(idCadena);
 		ProgramacionTiendaDto tienda = new ProgramacionTiendaDto();
-		tienda.setProgramacion(programacion);
 		tienda.setIdTienda("57");
-		programacion.setTiendas(new HashSet<>(Arrays.asList(tienda)));
+		programacion.setTiendas(Arrays.asList(tienda));
 		programacion.setIdUsuario("JUNIT");
 
 		ResponseEntity<ProgramacionDto> ret = testRestTemplate.withBasicAuth("username300", "username300p")

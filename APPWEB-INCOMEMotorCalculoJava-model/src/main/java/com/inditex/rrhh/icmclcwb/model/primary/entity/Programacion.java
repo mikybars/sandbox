@@ -2,9 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,12 +51,12 @@ public class Programacion {
 //					@JoinColumn(name = "ID_TIENDA", referencedColumnName = "ID_TIENDA") })
 //	private List<Tienda> tiendas;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "programacion"/*, cascade = { CascadeType.ALL }*/)
+	@OneToMany(/*fetch = FetchType.EAGER,*/ mappedBy = "programacion"/*, cascade = { CascadeType.ALL }*/)
 //	@LazyCollection(LazyCollectionOption.FALSE)
 //	@Fetch(value = FetchMode.SUBSELECT)
 //	@OneToMany(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION")
-	private Set<ProgramacionTienda> tiendas;
+	private List<ProgramacionTienda> tiendas;
 
 //	@Column(name = "ID_EMPLEADO", nullable = true)
 //	private String idEmpleado;
@@ -69,12 +67,12 @@ public class Programacion {
 //					@JoinColumn(name = "ID_EMPLEADO", referencedColumnName = "ID_EMPLEADO") })
 //	private List<Empleado> empleados;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "programacion", cascade = CascadeType.ALL)
+	@OneToMany(/*fetch = FetchType.EAGER,*/ mappedBy = "programacion"/*, cascade = CascadeType.ALL*/)
 //	@LazyCollection(LazyCollectionOption.FALSE)
 //	@Fetch(value = FetchMode.SUBSELECT)
 //	@OneToMany(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION")
-	private Set<ProgramacionEmpleado> empleados;
+	private List<ProgramacionEmpleado> empleados;
 
 	@NotBlank
 	@Column(name = "ID_USUARIO", nullable = false)
@@ -95,6 +93,6 @@ public class Programacion {
 	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") })
-	private Set<Trabajo> trabajo;
+	private List<Trabajo> trabajo;
 
 }

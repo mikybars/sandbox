@@ -6,8 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Set;
-
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 @ApiModel(description = "Modelo ProgramacionDto")
@@ -37,13 +36,13 @@ public class ProgramacionDto implements Serializable {
 //	private String idTienda;
 
 	@ApiModelProperty(value = "Ids de las tiendas a ejecutar", required = false)
-	private Set<ProgramacionTiendaDto> tiendas;
+	private List<ProgramacionTiendaDto> tiendas;
 
 //	@ApiModelProperty(value = "Id del empleado a ejecutar", required = false)
 //	private String idEmpleado;
 
 	@ApiModelProperty(value = "Ids de los empleados a ejecutar", required = false)
-	private Set<ProgramacionEmpleadoDto> empleados;
+	private List<ProgramacionEmpleadoDto> empleados;
 
 	@NotNull
 	@ApiModelProperty(value = "Id del usuario que planificó la ejecución", required = true)

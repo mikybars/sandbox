@@ -2,15 +2,18 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.ProgramacionMapper;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.ProgramacionTiendaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionTiendaRepository;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +43,12 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
 	@Autowired
 	private ProgramacionMapper programacionMapper;
+	
+	@Autowired
+	private ProgramacionTiendaRepository programacionTiendaRepository;
+
+	@Autowired
+	private ProgramacionTiendaMapper programacionTiendaMapper;
 
 	@Autowired
 	private TrabajoService trabajoService;
@@ -75,12 +84,19 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
 	@Override
 	public ProgramacionDto createProgramacion(@Valid ProgramacionDto programacion) {
-		ProgramacionDto result = new ProgramacionDto();
 		LOG.info("Inicio :: ProgramacionService.createProgramacion(): {}", programacion);
 		programacion.setFechaCreacion(LocalDateTime.now());
 		programacion.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), programacion.getHora()));
-		result = programacionMapper.programacionToProgracionDto(
+		ProgramacionDto result = programacionMapper.programacionToProgracionDto(
 				programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
+		if (CollectionUtils.isNotEmpty(programacion.getTiendas())) {
+			ProgramacionDto programacionId = programacionMapper.programacionDtoToProgracionDtoId(result);
+			programacion.getTiendas().stream().forEach(item -> {
+				item.setProgramacion(programacionId);
+			});
+			List<ProgramacionTienda> tiendas = programacionTiendaRepository.save(programacionTiendaMapper.programacionTiendaDtoToprogramacionTienda(programacion.getTiendas()));
+			result.setTiendas(programacionTiendaMapper.programacionTiendaToprogramacionTiendaDto(tiendas));
+		}
 		LOG.info("Fin :: ProgramacionService.createProgramacion(): {}", result);
 		return result;
 	}
@@ -99,7 +115,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 			programacion.setIdCadena(idCadena);
 			ProgramacionTiendaDto tienda = new ProgramacionTiendaDto();
 			tienda.setIdTienda(String.valueOf(i));
-			programacion.setTiendas(new HashSet<>(Arrays.asList(tienda)));
+			programacion.setTiendas(Arrays.asList(tienda));
 			programacion.setIdUsuario("INIT");
 			createProgramacion(programacion);
 		}
