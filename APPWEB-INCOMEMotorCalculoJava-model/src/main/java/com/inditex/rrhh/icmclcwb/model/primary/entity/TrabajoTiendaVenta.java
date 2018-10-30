@@ -38,11 +38,15 @@ public class TrabajoTiendaVenta {
 	private String idTienda;
 	
 	@NotNull
-	@Column(name = "ID_SECCION", nullable = false)
-	private String idSeccion;
+	@Column(name = "IMPORTE_1", nullable = false)
+	private /* BigInteger */ Double importe1;
 	
 	@NotNull
-	@Column(name = "IMPORTE", nullable = false)
-	private /* BigInteger */ Double importe;
+	@Column(name = "IMPORTE_2", nullable = false)
+	private /* BigInteger */ Double importe2;
+	
+	@NotNull
+	@Column(name = "IMPORTE_3", nullable = false)
+	private /* BigInteger */ Double importe3;
 
 }

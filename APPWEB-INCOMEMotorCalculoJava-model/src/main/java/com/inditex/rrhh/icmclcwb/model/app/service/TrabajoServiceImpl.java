@@ -9,18 +9,24 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaRepository;
 import com.inditex.rrhh.icmclcwb.ms.Sender;
 
 @Service
@@ -35,6 +41,12 @@ public class TrabajoServiceImpl implements TrabajoService {
 
 	@Autowired
 	private TrabajoMapper trabajoMapper;
+	
+	@Autowired
+	private TrabajoTiendaRepository trabajoTiendaRepository;
+	
+	@Autowired
+	private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
 
 	@Autowired
 	private TrabajoAsyncService trabajoAsyncService;
@@ -45,8 +57,17 @@ public class TrabajoServiceImpl implements TrabajoService {
 	@Override
 	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
-		TrabajoDto result = trabajoMapper
+		TrabajoDto parent = trabajoMapper
 				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
+		parent.setTiendas(trabajo.getTiendas());
+		parent.setEmpleados(trabajo.getEmpleados());
+		Trabajo child = trabajoMapper.trabajoDtoToTrabajo(parent);
+		if (CollectionUtils.isNotEmpty(child.getTiendas())) {
+			child.setTiendas(trabajoTiendaRepository.save(child.getTiendas()));
+		} else if (CollectionUtils.isNotEmpty(child.getEmpleados())) {
+			child.setEmpleados(trabajoEmpleadoRepository.save(child.getEmpleados()));
+		}
+		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(child);
 		sender.send(result);
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.createTrabajo(): {}", result.getId(), result);
 		return result;
@@ -61,7 +82,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	}
 
 	@Override
-	public TrabajoDto runTrabajo(@Valid TrabajoDto trabajo) throws Exception {
+	public TrabajoDto runTrabajo(@NotNull @Valid TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
 		trabajo = runTrabajoDatos(trabajo);
 		trabajo = runTrabajoCalculado(trabajo);

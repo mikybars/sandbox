@@ -47,11 +47,15 @@ public class TrabajoEmpleadoPresencia {
 	private /* BigInteger */ TipoHora tipoHora;
 	
 	@NotNull
-	@Column(name = "ID_SECCION", nullable = false)
-	private String idSeccion;
+	@Column(name = "MINUTOS_1", nullable = false)
+	private /* BigInteger */ Long minutos1;
 	
 	@NotNull
-	@Column(name = "MINUTOS", nullable = false)
-	private /* BigInteger */ Long minutos;
+	@Column(name = "MINUTOS_2", nullable = false)
+	private /* BigInteger */ Long minutos2;
+	
+	@NotNull
+	@Column(name = "MINUTOS_3", nullable = false)
+	private /* BigInteger */ Long minutos3;
 
 }

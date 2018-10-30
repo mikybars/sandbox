@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,5 +58,9 @@ public class TrabajoEmpleadoEstructura {
 	@NotNull
 	@Column(name = "ID_PORCENTAJE_3", nullable = false)
 	private /* BigInteger */ Long porcentaje3;
+	
+	@NotNull
+	@Column(name = "FECHA", nullable = false)
+	private Date fecha;
 
 }

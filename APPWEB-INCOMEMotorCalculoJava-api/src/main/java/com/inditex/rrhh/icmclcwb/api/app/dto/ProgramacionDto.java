@@ -16,7 +16,7 @@ public class ProgramacionDto implements Serializable {
 	private static final long serialVersionUID = 3665361916795418905L;
 
 	@ApiModelProperty(value = "Identificador de la programación", required = false, readOnly = true)
-	private Integer id;
+	private Long id;
 
 	@NotNull
 	@ApiModelProperty(value = "Hora planificada de ejecución", required = true)

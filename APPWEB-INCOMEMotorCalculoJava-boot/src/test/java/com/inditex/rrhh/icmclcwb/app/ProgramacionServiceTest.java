@@ -4,8 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -57,12 +56,32 @@ public class ProgramacionServiceTest {
 		String idPais = "11";
 		String idCadena = "1";
 		programacion.setActiva(Boolean.TRUE);
-		programacion.setHora(LocalTime.of(11, 15));
+		programacion.setHora(LocalTime.of(7, 11));
 		programacion.setIdPais(idPais);
 		programacion.setIdCadena(idCadena);
-		ProgramacionTiendaDto tienda = new ProgramacionTiendaDto();
-		tienda.setIdTienda("57");
-		programacion.setTiendas(Arrays.asList(tienda));
+		List<ProgramacionTiendaDto> tiendas = new ArrayList<>();
+		ProgramacionTiendaDto tienda57 = new ProgramacionTiendaDto();
+		tienda57.setIdTienda("57");
+		tiendas.add(tienda57);
+		ProgramacionTiendaDto tienda6479 = new ProgramacionTiendaDto();
+		tienda57.setIdTienda("6479");
+		tiendas.add(tienda6479);
+		ProgramacionTiendaDto tienda64 = new ProgramacionTiendaDto();
+		tienda57.setIdTienda("64");
+		tiendas.add(tienda64);
+		ProgramacionTiendaDto tienda11931 = new ProgramacionTiendaDto();
+		tienda57.setIdTienda("11931");
+		tiendas.add(tienda11931);
+		ProgramacionTiendaDto tienda11836 = new ProgramacionTiendaDto();
+		tienda57.setIdTienda("11836");
+		tiendas.add(tienda11836);
+		ProgramacionTiendaDto tienda691 = new ProgramacionTiendaDto();
+		tienda57.setIdTienda("691");
+		tiendas.add(tienda691);
+		ProgramacionTiendaDto tienda6659 = new ProgramacionTiendaDto();
+		tienda57.setIdTienda("6659");
+		tiendas.add(tienda6659);
+		programacion.setTiendas(tiendas);
 		programacion.setIdUsuario("JUNIT");
 
 		ResponseEntity<ProgramacionDto> ret = testRestTemplate.withBasicAuth("username300", "username300p")

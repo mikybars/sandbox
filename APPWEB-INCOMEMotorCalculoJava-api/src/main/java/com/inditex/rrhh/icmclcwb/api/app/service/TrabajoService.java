@@ -12,7 +12,7 @@ public interface TrabajoService {
 
 	TrabajoDto run(@NotNull @Positive final Long id) throws Exception;
 	
-	TrabajoDto runTrabajo(@Valid TrabajoDto trabajo) throws Exception;
+	TrabajoDto runTrabajo(@NotNull @Valid TrabajoDto trabajo) throws Exception;
 	
 	TrabajoDto modifyTrabajo(@Valid final TrabajoDto trabajo);
 	

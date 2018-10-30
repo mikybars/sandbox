@@ -1,8 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 @Mapper
 public interface TrabajoTiendaMapper {
@@ -10,5 +13,8 @@ public interface TrabajoTiendaMapper {
 	TrabajoTiendaDto trabajoTiendaToTrabajoTiendaDto(TrabajoTienda src);
 
 	TrabajoTienda trabajoTiendaDtoToTrabajoTienda(TrabajoTiendaDto src);
+	
+	@Mappings({ @Mapping(target = "id", ignore = true) })
+	TrabajoTiendaDto programacionTiendaDtoToTrabajoTiendaDto(ProgramacionTiendaDto src);
 
 }

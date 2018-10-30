@@ -1,29 +1,83 @@
 package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.ProgramacionMapperDecorator;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
 
-import org.mapstruct.DecoratedWith;
+import org.apache.commons.collections.CollectionUtils;
+import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-
 import java.util.List;
 
 @Mapper
-@DecoratedWith(ProgramacionMapperDecorator.class)
-public interface ProgramacionMapper {
+public abstract class ProgramacionMapper {
 
-	@Mappings({ @Mapping(target = "tiendas", ignore = true), @Mapping(target = "empleados", ignore = true) })
-	ProgramacionDto programacionToProgracionDto(Programacion src);
+	public abstract ProgramacionDto programacionToProgramacionDto(Programacion src);
 
-	Programacion programacionDtoToProgramacion(ProgramacionDto src);
-
-	List<ProgramacionDto> programacionToProgramacionDto(List<Programacion> src);
-
-	ProgramacionDto programacionDtoToProgracionDtoId(ProgramacionDto src);
-
-	Programacion programacionToProgracionId(Programacion src);
+	public abstract Programacion programacionDtoToProgramacion(ProgramacionDto src);
+	
+	public abstract List<ProgramacionDto> programacionToProgramacionDto(List<Programacion> src);
+	
+	public abstract List<Programacion> programacionDtoToProgramacion(List<ProgramacionDto> src);
+	
+	@BeforeMapping
+	protected void beforeProgramacionDto(ProgramacionDto src) {
+		if (src != null && src.getId() != null) {
+			Long id = src.getId();
+			if (CollectionUtils.isNotEmpty(src.getTiendas())) {
+				src.getTiendas().stream().forEach(item -> {
+					ProgramacionDto programacion = new ProgramacionDto();
+					programacion.setId(id);
+					item.setProgramacion(programacion);
+				});
+			}
+			if (CollectionUtils.isNotEmpty(src.getEmpleados())) {
+				src.getEmpleados().stream().forEach(item -> {
+					ProgramacionDto programacion = new ProgramacionDto();
+					programacion.setId(id);
+					item.setProgramacion(programacion);
+				});
+			}
+		}
+	}
+	
+	@BeforeMapping
+	protected void beforeProgramacionTienda(ProgramacionTienda src) {
+		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
+			Programacion programacion = new Programacion();
+			programacion.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacion);
+		}
+	}
+	
+	@BeforeMapping
+	protected void beforeProgramacionEmpleado(ProgramacionEmpleado src) {
+		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
+			Programacion programacion = new Programacion();
+			programacion.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacion);
+		}
+	}
+	
+	@BeforeMapping
+	protected void beforeProgramacionTiendaDto(ProgramacionTiendaDto src) {
+		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
+			ProgramacionDto programacion = new ProgramacionDto();
+			programacion.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacion);
+		}
+	}
+	
+	@BeforeMapping
+	protected void beforeProgramacionEmpleadoDto(ProgramacionEmpleadoDto src) {
+		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
+			ProgramacionDto programacion = new ProgramacionDto();
+			programacion.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacion);
+		}
+	}
 
 }

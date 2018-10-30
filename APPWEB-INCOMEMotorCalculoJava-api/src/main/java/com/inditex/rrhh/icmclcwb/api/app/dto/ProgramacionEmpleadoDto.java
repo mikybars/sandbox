@@ -16,12 +16,11 @@ public class ProgramacionEmpleadoDto implements Serializable {
 	@ApiModelProperty(value = "Identificador de la tienda", required = false)
 	private String id;
 
+	@ApiModelProperty(value = "Programación", required = false)
+	private ProgramacionDto programacion;
+	
 	@NotBlank
-	@ApiModelProperty(value = "Id del páis", required = false)
-	private String idPais;
-
-	@NotBlank
-	@ApiModelProperty(value = "Id de la cadena", required = false)
-	private String idCadena;
+	@ApiModelProperty(value = "Id del empleado", required = true)
+	private String idEmpleado;
 
 }

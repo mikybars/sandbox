@@ -100,5 +100,17 @@ public class TrabajoCalculoConsolidado {
 	@NotNull
 	@Column(name = "TIENDA_VENTA_IMPORTE_3", nullable = false)
 	private /* BigInteger */ Double tiendaVentaImporte3;
+	
+	@NotNull
+	@Column(name = "IMPORTE_1", nullable = false)
+	private /* BigInteger */ Double importe1;
+	
+	@NotNull
+	@Column(name = "IMPORTE_2", nullable = false)
+	private /* BigInteger */ Double importe2;
+	
+	@NotNull
+	@Column(name = "IMPORTE_3", nullable = false)
+	private /* BigInteger */ Double importe3;
 
 }
