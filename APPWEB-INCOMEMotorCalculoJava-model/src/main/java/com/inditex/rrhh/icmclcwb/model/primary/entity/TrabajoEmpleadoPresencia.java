@@ -43,8 +43,8 @@ public class TrabajoEmpleadoPresencia {
 	
 	@NotNull
 	@OneToOne
-	@JoinColumn(name = "ID_TIPO_HORA", nullable = false)
-	private /* BigInteger */ TipoHora tipoHora;
+	@JoinColumn(name = "ID_TRABAJO_TIPO_HORA", nullable = false)
+	private /* BigInteger */ TrabajoTipoHora tipoHora;
 	
 	@NotNull
 	@Column(name = "MINUTOS_1", nullable = false)
