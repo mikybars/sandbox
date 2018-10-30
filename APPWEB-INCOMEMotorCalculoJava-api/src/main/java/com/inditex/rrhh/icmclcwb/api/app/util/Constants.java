@@ -36,5 +36,15 @@ public class Constants {
 		private final Long id;
 
 	}
+	
+	@Getter
+	@RequiredArgsConstructor
+	public enum TipoTrabajoTiendaEnum {
+
+		PARAMETRO(1L), HISTORICO(2L), PRESENCIA(3L);
+
+		private final Long id;
+
+	}
 
 }

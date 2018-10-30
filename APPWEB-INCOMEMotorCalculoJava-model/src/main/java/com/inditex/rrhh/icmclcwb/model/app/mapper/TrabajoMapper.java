@@ -10,11 +10,13 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoTrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
@@ -86,6 +88,11 @@ public abstract class TrabajoMapper {
 				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
 				src.setEstado(estado);
 			}
+			if (src.getTipo() == null) {
+				TipoTrabajoTienda estado = new TipoTrabajoTienda();
+				estado.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
+				src.setTipo(estado);
+			}
 		}
 	}
 
@@ -113,6 +120,11 @@ public abstract class TrabajoMapper {
 				EstadoTrabajoTiendaDto estado = new EstadoTrabajoTiendaDto();
 				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
 				src.setEstado(estado);
+			}
+			if (src.getTipo() == null) {
+				TipoTrabajoTiendaDto estado = new TipoTrabajoTiendaDto();
+				estado.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
+				src.setTipo(estado);
 			}
 		}
 	}
