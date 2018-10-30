@@ -28,7 +28,12 @@ public class TrabajoTienda {
 	private /* BigInteger */ Trabajo trabajo;
 	
 	@NotNull
-	@Column(name = "ID_TIENDA", nullable = true)
+	@Column(name = "ID_TIENDA", nullable = false)
 	private String idTienda;
+	
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "ID_ESTADO_TRABAJO_EMPLEADO", nullable = false)
+	private /* BigInteger */ EstadoTrabajoTienda estado;
 
 }

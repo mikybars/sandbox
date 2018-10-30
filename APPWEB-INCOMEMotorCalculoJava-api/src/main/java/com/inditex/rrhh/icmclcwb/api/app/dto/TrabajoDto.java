@@ -29,14 +29,8 @@ public class TrabajoDto implements Serializable {
 	@ApiModelProperty(value = "Id de la cadena a ejecutar", required = false)
 	private String idCadena;
 
-//	@ApiModelProperty(value = "Id de la tienda a ejecutar", required = false)
-//	private String idTienda;
-
 	@ApiModelProperty(value = "Ids de las tiendas a ejecutar", required = false)
 	private List<TrabajoTiendaDto> tiendas;
-	
-//	@ApiModelProperty(value = "Id del empleado a ejecutar", required = false)
-//	private String idEmpleado;
 	
 	@ApiModelProperty(value = "Ids de los empleados a ejecutar", required = false)
 	private List<TrabajoEmpleadoDto> empleados;

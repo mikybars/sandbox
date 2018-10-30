@@ -21,7 +21,11 @@ public class TrabajoTiendaDto implements Serializable {
 	private TrabajoDto trabajo;
 	
 	@NotBlank
-	@ApiModelProperty(value = "Id de la tienda", required = false)
+	@ApiModelProperty(value = "Id de la tienda", required = true)
 	private String idTienda;
+	
+	@NotBlank
+	@ApiModelProperty(value = "Estado de la tienda en la operación", required = true)
+	private EstadoTrabajoTiendaDto estado;
 
 }

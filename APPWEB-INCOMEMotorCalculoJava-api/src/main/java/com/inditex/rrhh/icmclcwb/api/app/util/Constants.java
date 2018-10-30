@@ -17,4 +17,24 @@ public class Constants {
 
 	}
 
+	@Getter
+	@RequiredArgsConstructor
+	public enum EstadoTrabajoEmpleadoEnum {
+
+		PENDIENTE(1L), FINALIZADO(2L), ERROR(3L);
+
+		private final Long id;
+
+	}
+	
+	@Getter
+	@RequiredArgsConstructor
+	public enum EstadoTrabajoTiendaEnum {
+
+		PENDIENTE(1L), FINALIZADO(2L), ERROR(3L);
+
+		private final Long id;
+
+	}
+
 }

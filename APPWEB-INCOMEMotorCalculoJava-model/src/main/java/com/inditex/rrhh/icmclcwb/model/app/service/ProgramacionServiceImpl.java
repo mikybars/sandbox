@@ -45,7 +45,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
 	@Autowired
 	private ProgramacionTiendaRepository programacionTiendaRepository;
-	
+
 	@Autowired
 	private ProgramacionEmpleadoRepository programacionEmpleadoRepository;
 
@@ -62,26 +62,20 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 	public List<TrabajoDto> run() {
 		List<TrabajoDto> result = new ArrayList<>();
 		LOG.info("Inicio :: ProgramacionService.run()");
-
-//		programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()).stream().forEach(item -> {
-//			ProgramacionDto nuevo = programacionMapper.programacionToProgramacionDto(item);
-//			LOG.info("Inicio :: ProgramacionService.run(mano) {}", nuevo);
-//		});
-
-		List<ProgramacionDto> programaciones = programacionMapper.programacionToProgramacionDto(
-				programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()));
-		LOG.info("Inicio :: ProgramacionService.run() {}", programaciones);
-		programaciones.stream().forEach(programacion -> {
-			programacion.setFechaUltimaEjecucion(LocalDateTime.now());
-			programacion.setFechaSiguienteEjecucion(programacion.getFechaSiguienteEjecucion().plusDays(1));
-			ProgramacionDto programacionModify = modifyProgramacion(programacion);
-			meta4Service.periodo().stream().forEach(periodo -> {
-				TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacionModify);
-				trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
-				trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
-				result.add(trabajoService.createTrabajo(trabajo));
-			});
-		});
+		programacionMapper
+				.programacionToProgramacionDto(
+						programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
+				.stream().forEach(programacion -> {
+					programacion.setFechaUltimaEjecucion(LocalDateTime.now());
+					programacion.setFechaSiguienteEjecucion(programacion.getFechaSiguienteEjecucion().plusDays(1));
+					ProgramacionDto programacionModify = modifyProgramacion(programacion);
+					meta4Service.periodo().stream().forEach(periodo -> {
+						TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacionModify);
+						trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
+						trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
+						result.add(trabajoService.createTrabajo(trabajo));
+					});
+				});
 		LOG.info("Fin :: ProgramacionService.run(): {}", result);
 		return result;
 	}
