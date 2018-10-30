@@ -58,12 +58,6 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
     //Traduce el objecto, lo envia a la función y la salida la vuelve a traducir
 	@Override
 	public List<PresenciasDetalleResponseDTO> PresenciasDetalle(PresenciasDetalleRequestDTO presencias) {
-		String fecha1= formatter.format(presencias.getFechaDesde());
-		String fecha2= formatter.format(presencias.getFechaHasta());
-		
-		//MEDICION TIEMPO Y EJECUCION EN JDBC
-		//Object[] param = new Object[]{presencias.getOrigen().toString(),presencias.getTienda().toString(),fecha1,fecha2,presencias.getCadena(),presencias.getTipo(),presencias.getSeccion(),presencias.getPersonas()};
-		//Object[] param = new Object[]{presencias.getOrigen().toString(),fecha1,fecha2,presencias.getTienda().toString(),presencias.getSeccion(),presencias.getTipo(),presencias.getCadena(),presencias.getPersonas()};
 		Log.info("------------------Find Presencias Detalle JDBC: Inicio");
 		Long startTime = System.currentTimeMillis();
 		List<PresenciaDetalleMock> p= this.presenciasRepository.findPresencias(presencias);
@@ -112,14 +106,10 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 
 	@Override
 	public List<PresenciasTotalTiendaSeccionResponseDTO> PresenciasTotalTiendaSeccion(
-			PresenciasTotalTiendaSeccionRequestDTO presencias) {
-		String fecha1= formatter.format(presencias.getFechaDesde());
-		String fecha2= formatter.format(presencias.getFechaHasta());
-		Object[] param = new Object[]{presencias.getOrigen(),fecha1,fecha2,presencias.getTipo(),presencias.getCadena(),presencias.getTiendaSeccion()};
-				
+			PresenciasTotalTiendaSeccionRequestDTO presencias) {		
 		Log.info("------------------Find Total Tienda Seccion JDBC: Inicio");
 		Long startTime = System.currentTimeMillis();
-		List<PresenciaTotalTiendaSeccionMock> p= this.presenciasRepository.findPresenciasTotalTiendaSeccion(param);
+		List<PresenciaTotalTiendaSeccionMock> p= this.presenciasRepository.findPresenciasTotalTiendaSeccion(presencias);
 		Long estimatedTime = System.currentTimeMillis() - startTime;
 		Log.info("------------------ Find Total Tienda Seccion JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
 		Log.info("Tiene un tamaño de:  "+ p.size());

@@ -51,7 +51,7 @@ public class MockPresenciasServiceTest {
     private RestClient restClient;
 
     @Test
-    @Ignore
+    //@Ignore
     public void presenciasDetalle() {
     	Calendar cal = Calendar.getInstance();
     	cal.set(Calendar.YEAR, 1800);
@@ -69,8 +69,8 @@ public class MockPresenciasServiceTest {
         list.add(160351);
         list.add(162891);
         req.setCadena(1);
-        //req.setTipo(1);
-        //req.setSeccion(1);
+        req.setTipo(1);
+        req.setSeccion(1);
         req.setTienda(160);
         req.setFechaDesde(fechaDesde);
         req.setFechaHasta(fechaHasta);
@@ -78,19 +78,54 @@ public class MockPresenciasServiceTest {
         req.setPersonas(list);
         ResponseEntity<PresenciasDetalleResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(2956,ret.getBody().getList().size());
-        assertEquals(360,ret.getBody().getList().get(0).getMinutos().intValue());
+        assertEquals(2235,ret.getBody().getList().size());
+        assertEquals(390,ret.getBody().getList().get(0).getMinutos().intValue());
+        assertEquals(1,ret.getBody().getList().get(0).getCadena().intValue());
+        assertEquals(54,ret.getBody().getList().get(0).getTienda().intValue());
+        assertEquals(1,ret.getBody().getList().get(0).getSeccion().intValue());
+        assertEquals(1,ret.getBody().getList().get(0).getTipo().intValue());
+        assertEquals("Sat Nov 24 01:00:00 CET 2007",ret.getBody().getList().get(0).getFecha().toString());
+        assertEquals(Boolean.FALSE,ret.getBody().getList().get(0).getModificado_income());
+        
 
     }
     
     @Test
     @Ignore
     public void presenciasDetalleComisionable(){
-    	PresenciasDetalleComisionableRequestDTO req = new PresenciasDetalleComisionableRequestDTO();
-        req.setCadena(185); 
-        ResponseEntity<PresenciasDetalleComisionableResponseDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalleComisionable/", req, PresenciasDetalleComisionableResponseDTO.class);
+    	Calendar cal = Calendar.getInstance();
+    	cal.set(Calendar.YEAR, 1800);
+    	cal.set(Calendar.MONTH, Calendar.AUGUST);
+    	cal.set(Calendar.DAY_OF_MONTH, 1);
+    	Date fechaDesde = cal.getTime();
+    	
+    	cal.set(Calendar.YEAR, 2018);
+    	cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
+    	cal.set(Calendar.DAY_OF_MONTH, 1);
+    	Date fechaHasta = cal.getTime();
+    
+        PresenciasDetalleRequestDTO req = new PresenciasDetalleRequestDTO();
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(160351);
+        list.add(162891);
+        req.setCadena(1);
+        req.setTipo(1);
+        req.setSeccion(1);
+        req.setTienda(160);
+        req.setFechaDesde(fechaDesde);
+        req.setFechaHasta(fechaHasta);
+        req.setOrigen(11);
+        req.setPersonas(list);
+        ResponseEntity<PresenciasDetalleResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalleComisionable/", req, PresenciasDetalleResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getCadena().intValue(), 185);   
+        assertEquals(2235,ret.getBody().getList().size());
+        assertEquals(390,ret.getBody().getList().get(0).getMinutos().intValue());
+        assertEquals(1,ret.getBody().getList().get(0).getCadena().intValue());
+        assertEquals(54,ret.getBody().getList().get(0).getTienda().intValue());
+        assertEquals(1,ret.getBody().getList().get(0).getSeccion().intValue());
+        assertEquals(1,ret.getBody().getList().get(0).getTipo().intValue());
+        assertEquals("Sat Nov 24 01:00:00 CET 2007",ret.getBody().getList().get(0).getFecha().toString());
+        assertEquals(Boolean.FALSE,ret.getBody().getList().get(0).getModificado_income());
     }
 
     @Test
@@ -111,21 +146,23 @@ public class MockPresenciasServiceTest {
     	
     	List<Integer> list = new ArrayList<Integer>();
     	list.add(150);
-    	//list.add(160);
+    	list.add(160);
     	req.setTiendas(list);
     	req.setOrigen(11);
-    	//req.setFechaDesde(fechaDesde);
+    	req.setFechaDesde(fechaDesde);
     	req.setFechaHasta(fechaHasta);
     	req.setTipo(1);
     	req.setCadena(1);
         ResponseEntity<PresenciasTotalTiendaResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTienda/", req, PresenciasTotalTiendaResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(12330,ret.getBody().getList().get(0).getMinutos().intValue());
-        assertEquals(2408,ret.getBody().getList().size());
+        assertEquals(10620,ret.getBody().getList().get(0).getMinutos().intValue());
+        assertEquals(31,ret.getBody().getList().size());
+        assertEquals("Sat Jan 02 01:00:00 CET 2016",ret.getBody().getList().get(0).getFecha().toString());
+        assertEquals(150,ret.getBody().getList().get(0).getTienda().intValue());
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void presenciasTotalTiendaSeccion(){
     	PresenciasTotalTiendaSeccionRequestDTO req = new PresenciasTotalTiendaSeccionRequestDTO();
     	//Declaro atributos para el campo TiendaSecciones
@@ -162,10 +199,14 @@ public class MockPresenciasServiceTest {
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
         assertEquals(44,ret.getBody().getList().size());
         assertEquals(5580,ret.getBody().getList().get(0).getMinutos().intValue());
+        assertEquals(18,ret.getBody().getList().get(0).getTienda().intValue());
+        assertEquals(1,ret.getBody().getList().get(0).getSeccion().intValue());
+        assertEquals("Sat Jan 02 01:00:00 CET 2016",ret.getBody().getList().get(0).getFecha().toString());
+        
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void tiposHoras(){
     	//Sin parametros
     	TiposHorasRequestDTO req = new TiposHorasRequestDTO();

@@ -53,9 +53,11 @@ public class PTRPresenciasControllerMock {
 	
 	@ApiOperation(value = "PostPresenciasDetalleComisionable")
 	@PostMapping(path = "/presenciasDetalleComisionable")
-	public PresenciasDetalleComisionableResponseDTO presenciasDetalleComisionable(@Valid @RequestBody final PresenciasDetalleComisionableRequestDTO presencias){
-		//return this.presenciasService.PresenciasDetalleComisionable(presencias);
-		return null;
+	public PresenciasDetalleResponseListDTO presenciasDetalleComisionable(@Valid @RequestBody final PresenciasDetalleRequestDTO presencias){
+		List<PresenciasDetalleResponseDTO> list =this.presenciasService.PresenciasDetalle(presencias);
+		PresenciasDetalleResponseListDTO response =new PresenciasDetalleResponseListDTO();
+		response.setList(list);
+		return response;
 	}
 	
 	@ApiOperation(value = "PostPresenciasDetalle")

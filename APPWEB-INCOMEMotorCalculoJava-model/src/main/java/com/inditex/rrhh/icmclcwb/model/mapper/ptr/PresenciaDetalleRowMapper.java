@@ -13,7 +13,6 @@ public class PresenciaDetalleRowMapper implements RowMapper {
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 		PresenciaDetalleMock pre= new PresenciaDetalleMock();
-        //pre.setId(rs.getLong("ID"));
 		pre.setTipo(rs.getInt("ID_TIPO"));
 		pre.setTienda(rs.getInt("ID_TIENDA"));
 		pre.setFecha(rs.getDate("FECHA"));
