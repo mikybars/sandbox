@@ -25,7 +25,7 @@ public class TiposHorasMock {
 
 	private Date fecha;
 
-	private Integer Tipo;
+	private Integer tipoHora;
 	
 	private Integer Origen;
 

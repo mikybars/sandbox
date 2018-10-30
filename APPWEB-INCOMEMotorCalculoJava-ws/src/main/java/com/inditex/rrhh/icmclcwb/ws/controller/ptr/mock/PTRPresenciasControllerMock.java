@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.esotericsoftware.minlog.Log;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleComisionableRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.PresenciasTotalTiendaRequestDTO;
@@ -89,6 +90,7 @@ public class PTRPresenciasControllerMock {
 	public TiposHorasResponseListDTO tiposHoras (@Valid @RequestBody final TiposHorasRequestDTO tiposHoras){
 		TiposHorasResponseListDTO lista = new TiposHorasResponseListDTO();
 		lista.setLista(this.presenciasService.TiposHoras(tiposHoras));
+		Log.info(lista.getLista().get(0).getTipoHora().toString());
 		return lista;
 	}
 }

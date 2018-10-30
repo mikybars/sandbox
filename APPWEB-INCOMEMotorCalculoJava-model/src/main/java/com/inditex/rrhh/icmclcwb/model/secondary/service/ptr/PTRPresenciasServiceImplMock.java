@@ -140,10 +140,9 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 	
 	@Override
 	public List<TiposHorasResponseDTO> TiposHoras(TiposHorasRequestDTO tiposHoras) {
-		Object[] param = new Object[]{tiposHoras.getTipoHora().toString(),tiposHoras.getOrigen().toString()};
 		Log.info("------------------Find Tipos Horas JDBC: Inicio");
 		Long startTime = System.currentTimeMillis();
-		List<TiposHorasMock> p= this.presenciasRepository.findTiposHoras(param);
+		List<TiposHorasMock> p= this.presenciasRepository.findTiposHoras(tiposHoras);
 		Long estimatedTime = System.currentTimeMillis() - startTime;
 		Log.info("------------------ Find Presencias Detalle JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
 		return this.presenciasMapper.asTiposHorasDTOs(p);

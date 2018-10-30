@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiposHorasRequestDTO;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleComisionableMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaDetalleMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.ptr.PresenciaTotalTiendaMock;
@@ -20,5 +21,5 @@ public interface PTRPresenciasRepositoryMock{
 	List<PresenciaDetalleComisionableMock> findPresenciasComisionable( Object[] Params);
 	List<PresenciaTotalTiendaMock> findPresenciasTotalTienda( Object[] Params);
 	List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(Object[] Params);
-	List<TiposHorasMock> findTiposHoras(Object[] Params);
+	List<TiposHorasMock> findTiposHoras(TiposHorasRequestDTO Params);
 }

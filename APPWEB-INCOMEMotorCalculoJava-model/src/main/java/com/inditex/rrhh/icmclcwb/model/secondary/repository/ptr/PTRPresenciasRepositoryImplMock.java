@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.esotericsoftware.minlog.Log;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiendaSeccionDTO;
+import com.inditex.rrhh.icmclcwb.api.dto.ptr.request.TiposHorasRequestDTO;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaDetalleRowMapper;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaTotalTiendaRowMapper;
 import com.inditex.rrhh.icmclcwb.model.mapper.ptr.PresenciaTotalTiendaSeccionRowMapper;
@@ -103,20 +104,9 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	 private String groupByTotalTiendaSeccion = " GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA, PH.SECCION,PH.FECHA";
 	
 
-		private String consultaTiposHorasEspana ="SELECT TOP 100 "
-					+ " 'TRUE' EXCLUIDODENOM, "
-					+ " 'TRUE' EXCLUIDOCALCULO "
-					+ " ,[TIPO] "
-					+ ",[CCL_ID_ORIGEN] "
-				+ " FROM [dbo].[PRESENCIAS_HORARIOS] "
-					+ "P INNER JOIN M4CCL_ORGANIZACION_PAIS OP "
-						+ "ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION "
-				+ "WHERE "
-					+ " TIPO = ? "
-					+ " AND OP.CCL_ID_ORIGEN= ? "
-					+ " AND ERROR = 'OK' "
-				+ " GROUP BY OP.CCL_ID_ORIGEN, TIPO ";			
-		
+		private String consultaTiposHorasEspana ="SELECT TOP 10 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,[TIPO] ,[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ";
+		private String groupByTiposHoras = " GROUP BY OP.CCL_ID_ORIGEN, TIPO";			
+		private String whereTiposHorasOrigen= " AND OP.CCL_ID_ORIGEN= ? ";
 		
 	@Override
 	public List<PresenciaDetalleMock> findPresencias(Object[] Params) {
@@ -157,7 +147,6 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 
 	@Override
 	public List<PresenciaDetalleComisionableMock> findPresenciasComisionable(Object[] Params) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -249,9 +238,21 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	}
 	
 	@Override
-	public List<TiposHorasMock> findTiposHoras(Object[] Params) {
-		List<TiposHorasMock> presencias=(List<TiposHorasMock>) jdbcTemplate.query(consultaTiposHorasEspana,Params ,new TiposHorasRowMapper());
-		return presencias;
+	public List<TiposHorasMock> findTiposHoras(TiposHorasRequestDTO dto) {
+		List<TiposHorasMock> presencias;
+		String consulta;
+		
+		if (dto.getOrigen()==null){
+			consulta =consultaTiposHorasEspana+groupByTiposHoras;
+			presencias=(List<TiposHorasMock>) jdbcTemplate.query(consulta,new TiposHorasRowMapper());
+			return presencias;
+		}
+		else{
+			consulta=consultaTiposHorasEspana+whereTiposHorasOrigen+groupByTiposHoras;
+			Object[] Params = {dto.getOrigen()};
+			presencias=(List<TiposHorasMock>) jdbcTemplate.query(consulta,Params ,new TiposHorasRowMapper());
+			return presencias;
+		}
 	}
 
 

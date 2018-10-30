@@ -37,11 +37,6 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasTotalTienda
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.PresenciasTotalTiendaSeccionResponseListDTO;
 import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseListDTO;
 
-/**
- * Tests del servicio ProductService. NOTE: Se prueban varias características de la implementación del servicio. Se
- * recomienda que se borre esta clase y que se cree otra u otras con las necesidades del proyecto.
- */
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = {Application.class})
@@ -50,21 +45,10 @@ import com.inditex.rrhh.icmclcwb.api.dto.ptr.response.list.TiposHorasResponseLis
 //@Ignore
 public class MockPresenciasServiceTest {
 	
-	
-	//Cliente TEST
-	/**@Autowired
-    private TestRestTemplate restClient; **/
-	
 	//Ciente ptr
 	@Autowired
 	@Qualifier("ptrClientPresenciaMock")
     private RestClient restClient;
-    
-   /** @Autowired
-    @Qualifier("ptrClientPresencia")
-    private RestClient restClient;**/
-	
-
 
     @Test
     @Ignore
@@ -183,14 +167,23 @@ public class MockPresenciasServiceTest {
     @Test
     //@Ignore
     public void tiposHoras(){
+    	//Sin parametros
     	TiposHorasRequestDTO req = new TiposHorasRequestDTO();
-        req.setTipoHora(1);
-        req.setOrigen(11);
         ResponseEntity<TiposHorasResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getLista().size(),1);
-        assertEquals(ret.getBody().getLista().get(0).getOrigen().intValue(),11);
-        assertEquals(ret.getBody().getLista().get(0).getExcluidoCalculo(),Boolean.TRUE);
+        assertEquals(ret.getBody().getLista().size(),10);
+        assertEquals(ret.getBody().getLista().get(0).getTipoHora().intValue(),1);
+        assertEquals(ret.getBody().getLista().get(0).getExcluidoCalculo(),Boolean.FALSE);
+        
+        
+        //Especificando origen
+        TiposHorasRequestDTO req2 = new TiposHorasRequestDTO();
+        req2.setOrigen(11);
+        ResponseEntity<TiposHorasResponseListDTO> ret2 = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseListDTO.class);
+        assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
+        assertEquals(ret2.getBody().getLista().size(),10);
+        assertEquals(ret2.getBody().getLista().get(0).getTipoHora().intValue(),1);
+        assertEquals(ret2.getBody().getLista().get(0).getExcluidoCalculo(),Boolean.FALSE);
      }
     
 }
