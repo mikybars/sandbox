@@ -3,7 +3,7 @@ logging:
     root: WARN
     org.hibernate.tool.hbm2ddl: DEBUG
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
     com.inditex.rrhh.icmclcwb: DEBUG
 metadata:
   tenant: global
