@@ -69,8 +69,8 @@ public class MockPresenciasServiceTest {
         list.add(160351);
         list.add(162891);
         req.setCadena(1);
-        req.setTipo(1);
-        req.setSeccion(1);
+        //req.setTipo(1);
+        //req.setSeccion(1);
         req.setTienda(160);
         req.setFechaDesde(fechaDesde);
         req.setFechaHasta(fechaHasta);
@@ -78,8 +78,8 @@ public class MockPresenciasServiceTest {
         req.setPersonas(list);
         ResponseEntity<PresenciasDetalleResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(2007,ret.getBody().getList().size());
-        assertEquals(480,ret.getBody().getList().get(0).getMinutos().intValue());
+        assertEquals(2956,ret.getBody().getList().size());
+        assertEquals(360,ret.getBody().getList().get(0).getMinutos().intValue());
 
     }
     
@@ -94,7 +94,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void presenciasTotalTienda(){
     	PresenciasTotalTiendaRequestDTO req = new PresenciasTotalTiendaRequestDTO();
     	
@@ -111,17 +111,17 @@ public class MockPresenciasServiceTest {
     	
     	List<Integer> list = new ArrayList<Integer>();
     	list.add(150);
-    	list.add(160);
+    	//list.add(160);
     	req.setTiendas(list);
     	req.setOrigen(11);
-    	req.setFechaDesde(fechaDesde);
+    	//req.setFechaDesde(fechaDesde);
     	req.setFechaHasta(fechaHasta);
     	req.setTipo(1);
     	req.setCadena(1);
         ResponseEntity<PresenciasTotalTiendaResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/presenciasTotalTienda/", req, PresenciasTotalTiendaResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(10620,ret.getBody().getList().get(0).getMinutos().intValue());
-        assertEquals(31,ret.getBody().getList().size());
+        assertEquals(12330,ret.getBody().getList().get(0).getMinutos().intValue());
+        assertEquals(2408,ret.getBody().getList().size());
     }
 
     @Test
@@ -165,7 +165,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void tiposHoras(){
     	//Sin parametros
     	TiposHorasRequestDTO req = new TiposHorasRequestDTO();

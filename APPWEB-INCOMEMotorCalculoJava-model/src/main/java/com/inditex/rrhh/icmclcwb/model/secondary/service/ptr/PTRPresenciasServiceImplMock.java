@@ -63,10 +63,10 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 		
 		//MEDICION TIEMPO Y EJECUCION EN JDBC
 		//Object[] param = new Object[]{presencias.getOrigen().toString(),presencias.getTienda().toString(),fecha1,fecha2,presencias.getCadena(),presencias.getTipo(),presencias.getSeccion(),presencias.getPersonas()};
-		Object[] param = new Object[]{presencias.getOrigen().toString(),fecha1,fecha2,presencias.getTienda().toString(),presencias.getSeccion(),presencias.getTipo(),presencias.getCadena(),presencias.getPersonas()};
+		//Object[] param = new Object[]{presencias.getOrigen().toString(),fecha1,fecha2,presencias.getTienda().toString(),presencias.getSeccion(),presencias.getTipo(),presencias.getCadena(),presencias.getPersonas()};
 		Log.info("------------------Find Presencias Detalle JDBC: Inicio");
 		Long startTime = System.currentTimeMillis();
-		List<PresenciaDetalleMock> p= this.presenciasRepository.findPresencias(param);
+		List<PresenciaDetalleMock> p= this.presenciasRepository.findPresencias(presencias);
 		Long estimatedTime = System.currentTimeMillis() - startTime;
 		Log.info("------------------ Find Presencias Detalle JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
 		
@@ -98,13 +98,9 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 	
 	@Override
 	public List<PresenciasTotalTiendaResponseDTO> PresenciasTotalTienda(PresenciasTotalTiendaRequestDTO presencias) {
-		String fecha1= formatter.format(presencias.getFechaDesde());
-		String fecha2= formatter.format(presencias.getFechaHasta());
-		
-		Object[] param = new Object[]{presencias.getOrigen(),fecha1,fecha2,presencias.getTipo(),presencias.getCadena(),presencias.getTiendas()};
 		Log.info("------------------Find Total Tienda JDBC: Inicio");
 		Long startTime = System.currentTimeMillis();
-		List<PresenciaTotalTiendaMock> p= this.presenciasRepository.findPresenciasTotalTienda(param);
+		List<PresenciaTotalTiendaMock> p= this.presenciasRepository.findPresenciasTotalTienda(presencias);
 		Long estimatedTime = System.currentTimeMillis() - startTime;
 		Log.info("------------------ Find Total Tienda JDBC: Fin........... Tiempo de Ejecucion: "+ estimatedTime.toString()+" ms");
 		return this.presenciasMapper.asPresenciasTotalTiendaDTOs(p);

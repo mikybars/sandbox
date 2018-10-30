@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ public class PresenciasTotalTiendaRequestDTO implements Serializable {
 	private Date fechaDesde;
 	private Date fechaHasta;
 	private Integer tipo;
+	@NotNull
 	private Integer cadena;
 	private Integer origen;
 

@@ -4,15 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Data
 public class PresenciasDetalleResponseDTO implements Serializable{
+	
+	@NotNull
 	private Integer tienda;
 	private Integer seccion;
+	@NotNull
 	private Integer persona;
-	private Date fechaDesde;
-	private Date fechaHasta;
+	@NotNull
+	private Date fecha;
 	private Integer minutos;
 	private Integer tipo;
 	private Integer cadena; //Obligatorio	
