@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +25,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
-import com.inditex.rrhh.icmclcwb.model.app.mapper.TiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
 
 @Service
@@ -35,7 +33,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 	@Autowired
 	private Logger LOG;
-	
+
 	@Autowired
 	private Meta4SessionService meta4Service;
 
@@ -65,27 +63,27 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 			// empleado
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Empleado): {}", trabajo.getId(),
 					trabajo.getEmpleados());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Empleado): {}", trabajo.getId(), result);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Empleado): {}", trabajo.getId(),
+					result);
 		} else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-			// TODO Tienda :: Directamente se usa la tienda enviada
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Tienda): {}", trabajo.getId(),
 					trabajo.getTiendas());
 			trabajo.getTiendas().stream().forEach(tienda -> {
 				result.add(tienda.getId());
 			});
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Tienda): {}", trabajo.getId(), result);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Tienda): {}", trabajo.getId(),
+					result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdCadena())) {
 			// TODO Pais + Cadena :: Se obtienen las tiendas por pais y cadena
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Pais Cadena): {} {}", trabajo.getId(),
-					trabajo.getIdPais(), trabajo.getIdCadena());
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Pais Cadena): {} {}",
+					trabajo.getId(), trabajo.getIdPais(), trabajo.getIdCadena());
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Pais Cadena): {}", trabajo.getId(),
 					result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais())) {
 			// TODO Pais :: Se obtienen las tiendas por pais
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.getTiendasTrabajo(Pais): {}", trabajo.getId(),
 					trabajo.getIdPais());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Pais): {}", trabajo.getId(),
-					result);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(Pais): {}", trabajo.getId(), result);
 		}
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.getTiendasTrabajo(): {}", trabajo.getId(), result);
 		return CompletableFuture.completedFuture(null);
@@ -116,9 +114,11 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.condicionesEmpleados() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.condicionesEmpleados() :: Thread.sleep({})",
+				trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.condicionesEmpleados() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.condicionesEmpleados() :: Thread.sleep({})",
+				trabajo.getId(), time);
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.condicionesEmpleados(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
@@ -131,13 +131,15 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})",
+				trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})",
+				trabajo.getId(), time);
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaDetalleEmpleado(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
-	
+
 	@Override
 	public CompletableFuture<Void> tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiposHoras(): {}", trabajo.getId(), trabajo);
@@ -145,7 +147,8 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(),
+				time);
 		Thread.sleep(time);
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiposHoras(): {}", trabajo.getId());
