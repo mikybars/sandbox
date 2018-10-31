@@ -17,18 +17,18 @@ public class Meta4ClientLoginConfig extends Meta4ClientConfigAbstract<LoginServi
 	@Bean(name = "meta4ClientLogin")
 	@Override
 	public LoginService init() {
-		LOG.info("INICIO init()");
+		LOG.info("Inicio :: Meta4ClientIncomeConfig.init()");
 		LoginService result = super.build(LoginService.class);
-		LOG.info("FIN init()");
+		LOG.info("Fin :: Meta4ClientIncomeConfig.init()");
 		return result;
 	}
 
 	@Value("${app.envars.meta4.login.server}")
 	@Override
 	protected void setServer(String server) {
-		LOG.info("INICIO setServer() server: {}", server);
+		LOG.info("Inicio :: Meta4ClientIncomeConfig.setServer(): {}", server);
 		super.server = server;
-		LOG.info("FIN setServer() server: {}", server);
+		LOG.info("Fin :: Meta4ClientIncomeConfig.setServer(): {}", server);
 	}
 
 }

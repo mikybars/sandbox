@@ -1,0 +1,120 @@
+logging:
+  level:
+    root: WARN
+    org.hibernate.tool.hbm2ddl: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: DEBUG
+    com.inditex.rrhh.icmclcwb: DEBUG
+amiga:
+  common:
+    rest:
+      virtual:
+        base-url: http://virtualhost:8081
+      client:
+        defaultConnectTimeout: 600000
+        defaultReadTimeout: 600000
+        ptrClientVenta:
+          base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
+          send-itx-headers: false
+          ref-project-key: test_project_key
+          auth-method: BASIC
+          username: rcastro
+          virtualized: false
+          response-validated: false
+        ptrClientPresencia:
+          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          send-itx-headers: false
+          ref-project-key: test_project_key
+          auth-method: BASIC
+          username: rcastro
+          virtualized: false
+          response-validated: false
+  service:
+    jms:
+      trabajo-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
+  data:
+    jdbc:
+      datasource:
+        primary:
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          user: oincome
+          password: aMJLp8ahF09w
+        secondary:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
+          user: People7
+          password: people7
+    hibernate:
+      primary:
+        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+      secondary:
+        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+#    jdbc:
+#      datasource:
+#        primary:
+#          driverClassName: org.h2.Driver
+#          url: jdbc:h2:mem:INDITEX;MODE=DB2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS DESARROLLO_RRHH
+#          user: sa
+#        secondary:
+#          driverClassName: org.h2.Driver
+#          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#          user: sa
+#    hibernate:
+#      primary:
+#        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+#      secondary:
+#        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.hbm2ddl.import_files'':''import-secondary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+    jms:
+      connectionFactory:
+        brokerEscritura:
+          brokerURL: tcp://middleware-amq-tcp:61616
+          userName: usr-write
+        brokerLectura:
+          brokerURL: tcp://middleware-amq-tcp:61616
+          userName: usr-read
+      client:
+        trabajoJmsClient:
+          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
+          receiveTimeout: 100
+          pubSubDomain: false
+app:
+  envars:
+    meta4:
+      user: INCOME
+      language: 2
+      login:
+        server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login
+      icm-ws-income:
+        server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME
+      service:
+          getEmpleadosTienda: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 20
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+          getValoresCondiciones:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: idplantilla
+            filter:
+              maxPageSize: 20
+              maxPersistenceSize: 20              
+          getTest:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: test  
+            filter:
+              maxPageSize: 20
+              maxPersistenceSize: 20       

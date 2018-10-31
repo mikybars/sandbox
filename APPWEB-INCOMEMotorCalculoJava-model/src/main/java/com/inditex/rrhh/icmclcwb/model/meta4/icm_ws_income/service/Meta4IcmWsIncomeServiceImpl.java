@@ -9,15 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.service.Meta4IcmWsIncomeService;
-import com.inditex.rrhh.icmclcwb.api.app.util.annotation.Meta4Session;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaFilterDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.GetEmpleadosTiendaResultItemDTO;
-import com.inditex.rrhh.icmclcwb.api.ws.meta4.dto.rrhhappwscincome.icm_ws_income.PageDTO;
+import com.inditex.rrhh.icmclcwb.api.meta4.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.GetempleadoestructuraOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.GetempleadostiendaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.GetvalorescondicionesOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrosempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrospaginacionBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrosplantillaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrostiendaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.mapper.IcmWsIncomeMapper;
@@ -35,50 +44,23 @@ public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 	@Autowired
 	private IcmWsIncomeMapper icmWsIncomeMapper;
 
-	@Meta4Session
 	@Override
-	public GetEmpleadosTiendaResponseDTO obtenerEmpleadosTienda(
-					GetEmpleadosTiendaRequestDTO getEmpleadosTiendaRequestDTO) throws Exception {
-		GetEmpleadosTiendaResponseDTO result = new GetEmpleadosTiendaResponseDTO();
+	public EmpleadosTiendaResponseDto getEmpleadosTienda(
+					EmpleadosTiendaRequestDto getEmpleadosTiendaRequestDTO) throws Exception {
+		EmpleadosTiendaResponseDto result = new EmpleadosTiendaResponseDto();
 
 		IcmParametrospaginacionBlock param1 = icmWsIncomeMapper
 						.asIcmParametrospaginacionBlock(getEmpleadosTiendaRequestDTO.getPage());
-		PageDTO param1DTO = icmWsIncomeMapper.asPageDTO(param1);
+		PageDto param1DTO = icmWsIncomeMapper.asPageDTO(param1);
 		LOG.info("param1: " + param1.toString());
 		LOG.info("param1DTO: " + param1DTO.toString());
 
 		IcmParametrostiendaBlock param2 = icmWsIncomeMapper
 						.asIcmParametrostiendaBlock(getEmpleadosTiendaRequestDTO.getData());
-		GetEmpleadosTiendaFilterDTO param2DTO = icmWsIncomeMapper.asGetEmpleadosTiendaFilterDTO((param2));
+		EmpleadosTiendaFilterDto param2DTO = icmWsIncomeMapper.asGetEmpleadosTiendaFilterDTO((param2));
 		LOG.info("param2: " + param2.toString());
 		LOG.info("param2DTO: " + param2DTO.toString());
 
-		// String defaultValue = StringUtils.EMPTY;
-		// IcmParametrospaginacionBlock icmParametrospaginacionBlock = new
-		// IcmParametrospaginacionBlock();
-		// icmParametrospaginacionBlock.setIdbusqueda(defaultValue);
-		// icmParametrospaginacionBlock.setCampoorden(defaultValue);
-		// icmParametrospaginacionBlock.setNumeropagina("1");
-		// icmParametrospaginacionBlock.setNumeroregistrospagina("1000");
-		// icmParametrospaginacionBlock.setNumerototalpaginas(defaultValue);
-		// icmParametrospaginacionBlock.setNumerototalresultados(defaultValue);
-		// icmParametrospaginacionBlock.setTipoorden("ASC");
-		// icmParametrospaginacionBlock.getIcmParametrospaginacionRecordSet().add(new
-		// IcmParametrospaginacionRecord());
-		//
-		// IcmParametrostiendaBlock icmParametrostiendaBlock = new
-		// IcmParametrostiendaBlock();
-		// icmParametrostiendaBlock.setFechainicio("2017-09-01T00:00:00.000Z");
-		// icmParametrostiendaBlock.setFechafin("2017-09-30T00:00:00.000Z");
-		// icmParametrostiendaBlock.setIdlugartrabajo("T160");
-		// icmParametrostiendaBlock.setIdestado(defaultValue);
-		// icmParametrostiendaBlock.setIdestadomtu(defaultValue);
-		// icmParametrostiendaBlock.getIcmParametrostiendaRecordSet().add(new
-		// IcmParametrostiendaRecord());
-		//
-		// GetempleadostiendaOutput getempleadostiendaOutput =
-		// meta4ClientIncome.getempleadostienda(icmParametrospaginacionBlock,
-		// icmParametrostiendaBlock);
 
 		GetempleadostiendaOutput getempleadostiendaOutput = meta4ClientIncome.getempleadostienda(param1, param2);
 		LOG.info("getempleadostiendaOutput.getReturn(): " + getempleadostiendaOutput.getReturn());
@@ -86,8 +68,11 @@ public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 						&& getempleadostiendaOutput != null) {
 			// Page
 			if (getempleadostiendaOutput.getIcmParametrospaginacion() != null) {
-				PageDTO page = icmWsIncomeMapper.asPageDTO(getempleadostiendaOutput.getIcmParametrospaginacion());
+				LOG.info("getempleadostiendaOutput.getIcmParametrospaginacion(): {}", getempleadostiendaOutput.getIcmParametrospaginacion());
+				PageDto page = icmWsIncomeMapper.asPageDTO(getempleadostiendaOutput.getIcmParametrospaginacion());
 				result.setPage(page);
+			} else {
+				LOG.info("No hay paginacion");
 			}
 			// Data
 			if (getempleadostiendaOutput.getIcmEmpleadostienda() != null
@@ -96,7 +81,7 @@ public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 											.getIcmEmpleadostiendaRecordSet())) {
 				LOG.info("Se han recuperado: " + getempleadostiendaOutput.getIcmEmpleadostienda()
 								.getIcmEmpleadostiendaRecordSet().size());
-				List<GetEmpleadosTiendaResultItemDTO> items = icmWsIncomeMapper.asGetEmpleadosTiendaResultDTOs(
+				List<EmpleadosTiendaResultItemDto> items = icmWsIncomeMapper.asGetEmpleadosTiendaResultDTOs(
 								getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet());
 				result.setData(items);
 			} else {
@@ -105,6 +90,63 @@ public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 		} else {
 			LOG.error("Ha fallado Meta4");
 		}
+		return result;
+	}
+	
+	@Override
+	public EmpleadosEstructuraResponseDto getEmpleadosEstructura(EmpleadosEstructuraRequestDto empleadosEstructuraRequestDTO) throws Exception {
+		
+		EmpleadosEstructuraResponseDto result = new EmpleadosEstructuraResponseDto();
+		IcmParametrosempleadoBlock param = icmWsIncomeMapper.asIcmParametrosempleadoBlock(empleadosEstructuraRequestDTO.getData());
+		
+		GetempleadoestructuraOutput getEmpleadosEstructuraOutput = meta4ClientIncome.getempleadoestructura(param);
+
+		if (Double.compare(NumberUtils.DOUBLE_ZERO, getEmpleadosEstructuraOutput.getReturn()) == 0
+				&& getEmpleadosEstructuraOutput != null) {
+			if(getEmpleadosEstructuraOutput.getIcmEmpleadosestructura() != null 
+					&& getEmpleadosEstructuraOutput.getIcmEmpleadosestructura().getIcmEmpleadosestructuraRecordSet() != null
+					&& CollectionUtils.isNotEmpty(getEmpleadosEstructuraOutput.getIcmEmpleadosestructura().getIcmEmpleadosestructuraRecordSet())){
+				List<EmpleadosEstructuraResultItemDto> items = icmWsIncomeMapper.asEmpleadosEstructuraResultItemDTOs(getEmpleadosEstructuraOutput.getIcmEmpleadosestructura().getIcmEmpleadosestructuraRecordSet());
+				result.setData(items);
+			}
+			
+		} else {
+			LOG.error("Ha fallado Meta4");
+		}
+
+		return result;
+	}
+	
+	@Override
+	public ValoresCondicionesResponseDto getValoresCondiciones(ValoresCondicionesRequestDto valoresCondicionesRequestDTO) throws Exception{
+	
+		ValoresCondicionesResponseDto result = new ValoresCondicionesResponseDto();
+		
+        IcmParametrosplantillaBlock param = icmWsIncomeMapper
+        		.asIcmParametrosplantillaBlock(valoresCondicionesRequestDTO.getData());
+		IcmParametrospaginacionBlock param1 = icmWsIncomeMapper
+				.asIcmParametrospaginacionBlock(valoresCondicionesRequestDTO.getPage());
+        
+		GetvalorescondicionesOutput getValoresCondicionesOutput = meta4ClientIncome.getvalorescondiciones(param, param1);
+
+		if (Double.compare(NumberUtils.DOUBLE_ZERO, getValoresCondicionesOutput.getReturn()) == 0
+				&& getValoresCondicionesOutput != null) {
+			
+			if (getValoresCondicionesOutput.getIcmParametrospaginacion() != null) {
+				PageDto page = icmWsIncomeMapper.asPageDTO(getValoresCondicionesOutput.getIcmParametrospaginacion());
+				result.setPage(page);
+			}
+			if(getValoresCondicionesOutput.getIcmPlantillacondiciones() != null 
+					&& getValoresCondicionesOutput.getIcmPlantillacondiciones().getIcmPlantillacondicionesRecordSet() != null
+					&& CollectionUtils.isNotEmpty(getValoresCondicionesOutput.getIcmPlantillacondiciones().getIcmPlantillacondicionesRecordSet())){
+				List<ValoresCondicionesResultItemDto> items = icmWsIncomeMapper.asValoresCondicionesResultItemDTOs(getValoresCondicionesOutput.getIcmPlantillacondiciones().getIcmPlantillacondicionesRecordSet());
+				result.setData(items);
+			}
+		
+		} else {
+			LOG.error("Ha fallado Meta4");
+		}
+
 		return result;
 	}
 

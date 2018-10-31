@@ -22,6 +22,10 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
+    </dependency>
 
     <!-- FRAMEWORK DEPENDENCIES -->
     <dependency>
@@ -45,6 +49,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>

@@ -1,30 +1,22 @@
-## Define propiedades de la aplicación
-## Propiedades comunes a todos los entornos (local y despliegues en OpenShift).
-## https://axinic.central.inditex.grp/confluence/display/OFICINATECNICA/Listado+de+propiedades+configurables#Listadodepropiedadesconfigurables-2.3Propiedadesespec%C3%ADficasparaaplicacionesSpringBoot
-server:
-  port: 8081
 spring:
-  # La key del proyecto JIRA de la aplicación
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
   application:
     name: ICMCLCWB
   profiles:
     active: standalone
 app:
   id: ${spring.application.name}
-  version: @project.version@
-logging:
-  level:
-    root: WARN
-    com.inditex.rrhh.icmclcwb: DEBUG
+  version: '@project.version@'
 amiga:
   common:
     cache:
       remote:
         enabled: true
-    # https://axdesitxws2.central.inditex.grp/software/AMIGA/COMMFRAM/1.16.1/logging.html
     logging:
-      # Para que el framework incorpore la información incluida en el MDC
-      # https://axdesitxws2.central.inditex.grp/software/AMIGA/SERVFRKL/1.16.2/mdcFilter.html#toc2
       includeFullMDC: true
       file:
         enabled: false
@@ -32,82 +24,26 @@ amiga:
         enabled: false
     async:
       default-executor:
-        # Número de hilos iniciales en el pool
-        core-pool-size: 10
-        # Máximo número de hilos que puede tener el pool
-        max-pool-size: 100
-        # Tiempo, en SEGUNDOS, que se mantendrá un hilo desocupado en el pool, antes de eliminarlo del pool.
-        keep-alive: 60
-    rest:
-      virtual:
-        base-url: http://virtualhost:8081   
-      client:
-        # Timeout de conexión por defecto en milisegundos que heredarán todos los clientes rest
-        #defaultConnectTimeout: 5000
-        defaultConnectTimeout: 600000
-        # Timeout de lectura por defecto en milisegundos que heredarán todos los clientes rest
-        #defaultReadTimeout: 30000
-        defaultReadTimeout: 600000
-        ptrClientVenta:
-          #base-url: https://axdesptrosb01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
-          base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-          send-itx-headers: false
-          ref-project-key: test_project_key
-          auth-method: BASIC
-          username: rcastro
-          password: c0ntras3nha
-          virtualized: false
-          response-validated: false
-        ptrClientPresencia:
-          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          send-itx-headers: false
-          ref-project-key: test_project_key
-          auth-method: BASIC
-          username: rcastro
-          password: c0ntras3nha
-          virtualized: false
-          response-validated: false
-        ptrClientPresenciaMock:
-          base-url: http://localhost:8081
-          send-itx-headers: true
-          ref-project-key: test_project_key
-          auth-method: BASIC
-          username: username100
-          password: username100
-          
+        core-pool-size: 100
+        # async (6) * amiga.service.jms.trabajo-queue.destination-fqdn.concurrency (100)
+        max-pool-size: 600
+        keep-alive: 10
   service:
     session:
       session-type: REMOTE
     core:
-      # Enriquece la información relativa a las peticiones HTTP
-      # https://axdesitxws2.central.inditex.grp/software/AMIGA/SERVFRKL/1.16.2/mdcFilter.html
       mdc-filter:
-        # Habilita/deshabilita la ejecución del filtro
         enabled: true
-        # Lista de patrones por las que se ejecutará el filtro (separados por comas)
-        #patterns: /*
-        # Habilita la recopilación de la información a nivel de request
-        #request-enabled: true
-        # Habilita la recopilación de la información a nivel de response
-        #response-enabled: true
-        # Crea una traza con nivel INFO con la información a nivel de request, será de este estilo Iniciando ejecucion de la URI: *** . Para el usuario: ***
-        #log-start-enabled: true
-        # Crea una traza con nivel INFO con la información a nivel de response, será de este estilo Tiempo transcurrido (ms): *** . Estado de la respuesta: ***
-        #log-end-enabled: true
     aaa:
-      #TODO TEST LOCAL
+      security:
+        headers:
+          frame-options: DISABLE
       local:
-        # Deshabilita el modo de autenticación para test
         enable-local-test: true
-        json-sso-file: /local-sso-ext.json
       classic:
         sso:
-          #TODO APP Cambiar por el nombre de la aplicacion en el SSO
           applicationSSO: AppJoinFashionIntegracion
     rest-swagger:
       ui:
         title: '@project.name@'
         description: '@project.description@'
-        #contact: SomeContactName
-        #web: http://www.inditex.com
-        #email: your_team_email@inditex.com 

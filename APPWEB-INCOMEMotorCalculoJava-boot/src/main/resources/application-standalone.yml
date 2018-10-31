@@ -1,4 +1,15 @@
-## Define propiedades de la aplicación en local
+logging:
+  level:
+    root: WARN
+    org.hibernate.tool.hbm2ddl: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+    com.inditex.rrhh.icmclcwb: DEBUG
+metadata:
+  tenant: global
+  domain: core
+  openshiftproject: icmclcwb
+  slot: develop
 spring:
   h2:
     console:
@@ -8,7 +19,6 @@ server:
   port: 8081
 amiga:
   common:
-    #TODO SESION
     cache:
       remote:
         enabled: false
@@ -16,14 +26,11 @@ amiga:
         enabled: true
     rest:
       virtual:
-        base-url: http://virtualhost:8081   
+        base-url: http://virtualhost:8081
       client:
-        # Timeout de conexión por defecto en milisegundos que heredarán todos los clientes rest
-        defaultConnectTimeout: 5000
-        # Timeout de lectura por defecto en milisegundos que heredarán todos los clientes rest
-        defaultReadTimeout: 30000
+        defaultConnectTimeout: 600000
+        defaultReadTimeout: 600000
         ptrClientVenta:
-          #base-url: https://axdesptrosb01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
           base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
           send-itx-headers: false
           ref-project-key: test_project_key
@@ -42,7 +49,9 @@ amiga:
           virtualized: false
           response-validated: false
   service:
-    #TODO SESION
+    jms:
+      trabajo-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
     session:
       session-type: EMBEDDED
     aaa:
@@ -50,12 +59,9 @@ amiga:
         headers:
           frame-options: DISABLE
       local:
-        # Deshabilita el modo de autenticación para test
         enable-local-test: true
-        json-sso-file: /local-sso-ext.json
     rest:
       logging:
-        # Limita la información devuelta en el caso de errores.
         is-production: false
   data:
 #    jdbc:
@@ -93,10 +99,41 @@ amiga:
       secondary:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.SQLServerNativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
 app:
-  # Variables de entorno propias de la aplicación
   envars:
     meta4:
+      user: INCOME
+      password: 123
+      language: 2
       login:
-        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login"
-      income:
-        server: "https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME"
+        server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login
+      icm-ws-income:
+        server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME
+      service:
+          getEmpleadosTienda: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 20
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+          getValoresCondiciones:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: idplantilla
+            filter:
+              maxPageSize: 20
+              maxPersistenceSize: 20              
+          getTest:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: test  
+            filter:
+              maxPageSize: 20
+              maxPersistenceSize: 20              

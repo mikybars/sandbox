@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.test.VentaDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.IncomeService;
+import com.inditex.rrhh.icmclcwb.api.app.service.test.IncomeService;
 import com.inditex.rrhh.icmclcwb.model.repository.test.DB2Repository;
 import com.inditex.rrhh.icmclcwb.model.repository.test.SQLServerRepository;
 
