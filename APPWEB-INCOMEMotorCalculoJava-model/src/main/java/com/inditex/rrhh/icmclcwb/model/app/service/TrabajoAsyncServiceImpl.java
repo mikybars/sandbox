@@ -2,11 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -18,12 +16,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
@@ -38,7 +37,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoTrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaRepository;
@@ -80,6 +78,10 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	public CompletableFuture<Void> empleadosTienda(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): {}", trabajo.getId(), trabajo);
 
+		PageRequest pageable = new PageRequest(0, 50);
+		Page<TrabajoTienda> tiendasPage = trabajoTiendaRepository.findByTrabajoIdAndEstadoId(trabajo.getId(), Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): trabajoTiendaRepository.findByTrabajoIdEstadoId(): {}", trabajo.getId(), tiendasPage);
+		
 		EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
 		EmpleadosTiendaFilterDto data = trabajoMapper.trabajoDtotoEmpleadosTiendaFilterDto(trabajo);
 
