@@ -1,26 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoTienda;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoTrabajoTienda;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleado;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
-
 import java.time.LocalDateTime;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -31,6 +10,28 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoTienda;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoTrabajoTienda;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
+
 @Mapper
 public abstract class TrabajoMapper {
 
@@ -40,6 +41,11 @@ public abstract class TrabajoMapper {
 
 	@Mappings({ @Mapping(target = "id", ignore = true), @Mapping(target = "fechaCreacion", ignore = true) })
 	public abstract TrabajoDto programacionDtoToTrabajoDto(ProgramacionDto src);
+	
+	
+	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"), 
+		@Mapping(source = "fechaFinPeriodo", target = "fechaFin")})
+	public abstract EmpleadosTiendaFilterDto trabajoDtotoEmpleadosTiendaFilterDto(TrabajoDto src);
 
 	@AfterMapping
 	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto trabajoDto) {

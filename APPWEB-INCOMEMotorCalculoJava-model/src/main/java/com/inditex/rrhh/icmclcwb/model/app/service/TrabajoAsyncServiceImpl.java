@@ -1,11 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 import javax.validation.Valid;
@@ -14,17 +17,23 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
 
 @Service
@@ -43,14 +52,60 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	@Autowired
 	private SessionRepository sessionRepository;
 
+	@Autowired
+	private TrabajoEmpleadoService trabajoEmpleadoService;
+
+	@Autowired
+	private TrabajoMapper trabajoMapper;
+	
+	@Autowired
+	@Qualifier("getEmpleadosTiendaDto")
+	private Meta4PropertiesDto getEmpleadosTiendaDto;
+	
 	@Async
 	@Override
 	public CompletableFuture<Void> empleadosTienda(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): {}", trabajo.getId(), trabajo);
-		List<EmpleadosTiendaResultItemDto> result = meta4Service.getEmpleadosTienda(trabajo);
+		
+		EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
+		EmpleadosTiendaFilterDto data = trabajoMapper.trabajoDtotoEmpleadosTiendaFilterDto(trabajo);
+		
+		request.setPage(getEmpleadosTiendaDto.getPage());
+		
+//		if (StringUtils.isNotBlank(trabajo.getIdTienda())) {
+//			data.setIdLugarTrabajo("T" + trabajo.getIdTienda());
+//		}
+		request.setData(data);
+		
+		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
+		List<CompletableFuture<Void>> cfTienda = new ArrayList<>();
+		
+		do {
+			CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfEmpleadosTienda = meta4Service.getEmpleadosTienda(request); 
+			List<EmpleadosTiendaResultItemDto> persist = cfEmpleadosTienda.get();
+			
+			if(cfTienda.size() < getEmpleadosTiendaDto.getFilter().getMaxPersistenceSize()){
+				cfTienda.add(trabajoEmpleadoService.save(persist, trabajo));
+			}else{
+				CompletableFuture.anyOf((CompletableFuture<?>) Arrays.asList(cfTienda));
+				Map<Boolean, List<CompletableFuture<Void>>> resultPersistence =
+						cfTienda.stream()
+			                .collect(Collectors.partitioningBy(CompletableFuture::isDone));
+				List<CompletableFuture<Void>> cfPersistence = 
+						resultPersistence.values().stream().flatMap(List::stream)
+							.collect(Collectors.toList());
+				cfTienda.removeAll(cfPersistence);
+				cfTienda.add(trabajoEmpleadoService.save(persist, trabajo));
+			}
+
+		} while (request.getPage().hasNext());
+		
+		CompletableFuture.allOf((CompletableFuture<?>) Arrays.asList(cfTienda));
+		
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.empleadosTienda(): {}", trabajo.getId(), result);
 		return CompletableFuture.completedFuture(null);
 	}
+
 
 	@Async
 	@Override
