@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -13,7 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 
 public interface Meta4SessionService {
 	
-	List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(
+	CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(
 			EmpleadosTiendaRequestDto request) throws Exception;
 
 	List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(EmpleadosEstructuraRequestDto request)
@@ -24,5 +25,5 @@ public interface Meta4SessionService {
 	List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(TrabajoDto request) throws Exception;
 	
 	List<PeriodoDto> periodo();
-    
+
 }

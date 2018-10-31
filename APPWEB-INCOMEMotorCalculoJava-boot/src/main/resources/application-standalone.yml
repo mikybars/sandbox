@@ -121,20 +121,32 @@ app:
         server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login
       icm-ws-income:
         server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME
-      service: 
-        page:
-          - methodName: getEmpleadosTienda
-            numeroPagina: 1
-            numeroRegistrosPagina: 10
-            tipoOrden: DESC
-            campoOrden: idempleado
-          - methodName: getValoresCondiciones
-            numeroPagina: 1
-            numeroRegistrosPagina: 10
-            tipoOrden: DESC
-            campoOrden: idplantilla
-          - methodName: getTest
-            numeroPagina: 1
-            numeroRegistrosPagina: 10
-            tipoOrden: DESC
-            campoOrden: test
+      service:
+          getEmpleadosTienda: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 20
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+          getValoresCondiciones:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: idplantilla
+            filter:
+              maxPageSize: 20
+              maxPersistenceSize: 20              
+          getTest:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 10
+              tipoOrden: DESC
+              campoOrden: test  
+            filter:
+              maxPageSize: 20
+              maxPersistenceSize: 20              

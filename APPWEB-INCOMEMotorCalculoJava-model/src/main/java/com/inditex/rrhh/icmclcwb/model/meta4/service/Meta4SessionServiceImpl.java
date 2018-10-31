@@ -6,14 +6,18 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
@@ -30,7 +34,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.annotation.Meta4Session;
-import com.inditex.rrhh.icmclcwb.model.app.service.test.PaginationPropertiesFactory;
 
 @Service
 public class Meta4SessionServiceImpl implements Meta4SessionService {
@@ -40,6 +43,14 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 
 	@Autowired
 	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
+	
+	@Autowired
+	@Qualifier("getEmpleadosTiendaDto")
+	private Meta4PropertiesDto getEmpleadosTiendaDto;
+	
+	@Autowired
+	@Qualifier("getValoresCondicionesDto")
+	private Meta4PropertiesDto getValoresCondicionesDto;
 
 	@Meta4Session
 	@Override
@@ -50,8 +61,7 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 		for (TrabajoTiendaDto tienda : trabajo.getTiendas()) {
 			EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
 
-			request.setPage(PaginationPropertiesFactory.getProperties(new Object() {
-			}.getClass().getEnclosingMethod().getName()));
+			request.setPage(getEmpleadosTiendaDto.getPage());
 
 			EmpleadosTiendaFilterDto data = new EmpleadosTiendaFilterDto();
 			data.setFechaInicio(trabajo.getFechaInicioPeriodo());
@@ -78,9 +88,10 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 		return result;
 	}
 
+	@Async
 	@Meta4Session
 	@Override
-	public List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(EmpleadosTiendaRequestDto request) throws Exception {
+	public CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(EmpleadosTiendaRequestDto request) throws Exception {
 		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
 
 		boolean hasNext = false;
@@ -96,9 +107,9 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 					request.setPage(response.getPage().next());
 				}
 			}
-		} while (hasNext);
+		} while (hasNext && result.size() < getEmpleadosTiendaDto.getFilter().getMaxPageSize());
 
-		return result;
+		return CompletableFuture.completedFuture(result);
 	}
 
 	@Meta4Session
