@@ -51,7 +51,7 @@ public class MockPresenciasServiceTest {
     private RestClient restClient;
 
     @Test
-    //@Ignore
+    @Ignore
     public void presenciasDetalle() {
     	Calendar cal = Calendar.getInstance();
     	cal.set(Calendar.YEAR, 1800);
@@ -94,7 +94,7 @@ public class MockPresenciasServiceTest {
     //MISMO TEST QUE PRESENCIAS DETALLE. POR EL MOMENTO, PRESENCIAS DETALLE COMISIONABLE APUNTA 
     // AL MISMO SERVICIO QUE PRESENCIAS DETALLE
     @Test
-    //@Ignore
+    @Ignore
     public void presenciasDetalleComisionable(){
     	Calendar cal = Calendar.getInstance();
     	cal.set(Calendar.YEAR, 1800);
@@ -132,7 +132,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void presenciasTotalTienda(){
     	PresenciasTotalTiendaRequestDTO req = new PresenciasTotalTiendaRequestDTO();
     	

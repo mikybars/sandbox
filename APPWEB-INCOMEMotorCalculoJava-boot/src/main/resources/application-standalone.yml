@@ -15,8 +15,7 @@ spring:
     console:
       enabled: true
       #path: /h2-console
-server:
-  port: 8081
+
 amiga:
   common:
     cache:
@@ -95,9 +94,9 @@ amiga:
           password: people7
     hibernate:
       primary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
       secondary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.dialect.SQLServerNativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
 app:
   envars:
     meta4:
