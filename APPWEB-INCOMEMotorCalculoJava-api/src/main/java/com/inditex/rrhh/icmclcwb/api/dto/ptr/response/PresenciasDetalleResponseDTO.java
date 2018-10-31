@@ -20,7 +20,7 @@ public class PresenciasDetalleResponseDTO implements Serializable{
 	private Date fecha;
 	private Integer minutos;
 	private Integer tipo;
-	private Integer cadena; //Obligatorio	
+	private Integer cadena;
 	private Boolean modificado_income;
 
 }

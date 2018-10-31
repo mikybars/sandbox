@@ -15,10 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Data
 @ToString
-public class PresenciasTotalTiendaRequestDTO implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-	
+public class PresenciasTotalTiendaRequestDTO implements Serializable {	
 	private List<Integer> tiendas;
 	private Date fechaDesde;
 	private Date fechaHasta;

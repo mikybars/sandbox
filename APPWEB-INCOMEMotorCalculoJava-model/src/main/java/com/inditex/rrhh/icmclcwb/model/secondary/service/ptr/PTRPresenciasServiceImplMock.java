@@ -77,7 +77,6 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 	
 	@Override
 	public List<PresenciasDetalleComisionableResponseDTO> PresenciasDetalleComisionable(PresenciasDetalleComisionableRequestDTO presencias) {
-		//return this.presenciasMapper.asPresenciaDetalleComisionableDTO(this.presenciasRepositoryJPA.findPresenciasComisionable(this.presenciasMapper.asPresenciaDetalleComisionable(presencias)));
 		return null;
 	}
 

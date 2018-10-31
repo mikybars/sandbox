@@ -90,8 +90,11 @@ public class MockPresenciasServiceTest {
 
     }
     
+    
+    //MISMO TEST QUE PRESENCIAS DETALLE. POR EL MOMENTO, PRESENCIAS DETALLE COMISIONABLE APUNTA 
+    // AL MISMO SERVICIO QUE PRESENCIAS DETALLE
     @Test
-    @Ignore
+    //@Ignore
     public void presenciasDetalleComisionable(){
     	Calendar cal = Calendar.getInstance();
     	cal.set(Calendar.YEAR, 1800);
@@ -162,7 +165,7 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void presenciasTotalTiendaSeccion(){
     	PresenciasTotalTiendaSeccionRequestDTO req = new PresenciasTotalTiendaSeccionRequestDTO();
     	//Declaro atributos para el campo TiendaSecciones
@@ -206,25 +209,17 @@ public class MockPresenciasServiceTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void tiposHoras(){
-    	//Sin parametros
-    	TiposHorasRequestDTO req = new TiposHorasRequestDTO();
-        ResponseEntity<TiposHorasResponseListDTO> ret = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseListDTO.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-        assertEquals(ret.getBody().getLista().size(),10);
-        assertEquals(ret.getBody().getLista().get(0).getTipoHora().intValue(),1);
-        assertEquals(ret.getBody().getLista().get(0).getExcluidoCalculo(),Boolean.FALSE);
-        
-        
         //Especificando origen
-        TiposHorasRequestDTO req2 = new TiposHorasRequestDTO();
+    	TiposHorasRequestDTO req2 = new TiposHorasRequestDTO();
         req2.setOrigen(11);
-        ResponseEntity<TiposHorasResponseListDTO> ret2 = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req,TiposHorasResponseListDTO.class);
+        ResponseEntity<TiposHorasResponseListDTO> ret2 = this.restClient.postForEntity("/presenciasServiceMock/tiposHoras/", req2,TiposHorasResponseListDTO.class);
         assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
-        assertEquals(ret2.getBody().getLista().size(),10);
-        assertEquals(ret2.getBody().getLista().get(0).getTipoHora().intValue(),1);
-        assertEquals(ret2.getBody().getLista().get(0).getExcluidoCalculo(),Boolean.FALSE);
+        assertEquals(72,ret2.getBody().getLista().size());
+        assertEquals(102,ret2.getBody().getLista().get(0).getTipoHora().intValue());
+        assertEquals(Boolean.FALSE,ret2.getBody().getLista().get(0).getExcluidoCalculo());
+        assertEquals(Boolean.TRUE, ret2.getBody().getLista().get(0).getExcluidoDenom());
      }
     
 }
