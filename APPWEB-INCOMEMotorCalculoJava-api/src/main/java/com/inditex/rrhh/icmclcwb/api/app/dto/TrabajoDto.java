@@ -18,7 +18,7 @@ public class TrabajoDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
-	@ApiModelProperty(value = "Identificador del trabajo", required = false)
+	@ApiModelProperty(value = "Identificador del trabajo", required = false, readOnly = true)
 	private Long id;
 
 	@ApiModelProperty(value = "Estado actual del trabajo", required = false)
