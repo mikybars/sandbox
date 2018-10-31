@@ -50,9 +50,9 @@ public abstract class TrabajoMapper {
 	@AfterMapping
 	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto trabajoDto) {
 		if (src != null) {
-			ProgramacionDto programacion = new ProgramacionDto();
-			programacion.setId(src.getId());
-			trabajoDto.setProgramacion(programacion);
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getId());
+			trabajoDto.setProgramacion(programacionId);
 
 			trabajoDto.setFechaCreacion(LocalDateTime.now());
 

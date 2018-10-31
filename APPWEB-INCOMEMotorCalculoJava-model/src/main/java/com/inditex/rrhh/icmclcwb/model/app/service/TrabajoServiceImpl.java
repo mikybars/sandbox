@@ -16,13 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
@@ -57,6 +56,12 @@ public class TrabajoServiceImpl implements TrabajoService {
 	@Override
 	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
+		trabajo.setFechaCreacion(LocalDateTime.now());
+		EstadoTrabajoDto estadoTrabajo = new EstadoTrabajoDto();
+		estadoTrabajo.setId(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getId());
+		trabajo.setEstado(estadoTrabajo);
+		//TODO Obtener el id del usuario que lanza la petición o poner un usuario generico MQ
+		trabajo.setIdUsuario("MANUAL");
 		TrabajoDto parent = trabajoMapper
 				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
 		parent.setTiendas(trabajo.getTiendas());

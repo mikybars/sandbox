@@ -21,7 +21,7 @@ public class TrabajoDto implements Serializable {
 	@ApiModelProperty(value = "Identificador del trabajo", required = false, readOnly = true)
 	private Long id;
 
-	@ApiModelProperty(value = "Estado actual del trabajo", required = false)
+	@ApiModelProperty(value = "Estado actual del trabajo", required = false, readOnly = true)
 	private /* BigInteger */ EstadoTrabajoDto estado;
 
 	@NotBlank
@@ -38,17 +38,16 @@ public class TrabajoDto implements Serializable {
 	@ApiModelProperty(value = "Ids de los empleados a ejecutar", required = false)
 	private List<TrabajoEmpleadoDto> empleados;
 
-	@NotBlank
-	@ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = true)
+	@ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = true, readOnly = true)
 	private String idUsuario;
 
 	@ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false, readOnly = true)
 	private LocalDateTime fechaCreacion;
 
-	@ApiModelProperty(value = "Fecha en la que se empieza a procesar", required = false)
+	@ApiModelProperty(value = "Fecha en la que se empieza a procesar", required = false, readOnly = true)
 	private LocalDateTime fechaInicioTrabajo;
 
-	@ApiModelProperty(value = "Fecha en la que se termina de procesar", required = false)
+	@ApiModelProperty(value = "Fecha en la que se termina de procesar", required = false, readOnly = true)
 	private LocalDateTime fechaFinTrabajo;
 
 	@NotNull
@@ -59,7 +58,7 @@ public class TrabajoDto implements Serializable {
 	@ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
 	private LocalDateTime fechaFinPeriodo;
 	
-	@ApiModelProperty(value = "Programación asociada", required = false)
+	@ApiModelProperty(value = "Programación asociada", required = false, readOnly = true)
 	private ProgramacionDto programacion;
 
 }
