@@ -129,12 +129,13 @@ public class TrabajoServiceImpl implements TrabajoService {
 			trabajo = modifyTrabajo(trabajo);
 
 			// Almacenamos las tiendas relacionadas con el trabajo
-			CompletableFuture<Void> cfTiendas = trabajoAsyncService.tiendas(trabajo);
+			CompletableFuture<Void> cfTiendasParametro = trabajoAsyncService.tiendasParametro(trabajo);
+			CompletableFuture<Void> cfTiendasHistorico = trabajoAsyncService.tiendasHistorico(trabajo);
 			// TODO Se valida (si no se ha validado antes) que las tiendas sean
 			// comisionables
 			CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
 
-			cfTiendas.get();
+			cfTiendasParametro.get();
 			// TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + cadena y pais !!
 			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
 

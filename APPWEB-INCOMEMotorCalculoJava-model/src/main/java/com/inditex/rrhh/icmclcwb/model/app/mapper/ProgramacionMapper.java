@@ -26,19 +26,16 @@ public abstract class ProgramacionMapper {
 	@BeforeMapping
 	protected void beforeProgramacionDto(ProgramacionDto src) {
 		if (src != null && src.getId() != null) {
-			Long id = src.getId();
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getId());
 			if (CollectionUtils.isNotEmpty(src.getTiendas())) {
 				src.getTiendas().stream().forEach(item -> {
-					ProgramacionDto programacion = new ProgramacionDto();
-					programacion.setId(id);
-					item.setProgramacion(programacion);
+					item.setProgramacion(programacionId);
 				});
 			}
 			if (CollectionUtils.isNotEmpty(src.getEmpleados())) {
 				src.getEmpleados().stream().forEach(item -> {
-					ProgramacionDto programacion = new ProgramacionDto();
-					programacion.setId(id);
-					item.setProgramacion(programacion);
+					item.setProgramacion(programacionId);
 				});
 			}
 		}
@@ -47,36 +44,36 @@ public abstract class ProgramacionMapper {
 	@BeforeMapping
 	protected void beforeProgramacionTienda(ProgramacionTienda src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
-			Programacion programacion = new Programacion();
-			programacion.setId(src.getProgramacion().getId());
-			src.setProgramacion(programacion);
+			Programacion programacionId = new Programacion();
+			programacionId.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacionId);
 		}
 	}
 	
 	@BeforeMapping
 	protected void beforeProgramacionEmpleado(ProgramacionEmpleado src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
-			Programacion programacion = new Programacion();
-			programacion.setId(src.getProgramacion().getId());
-			src.setProgramacion(programacion);
+			Programacion programacionId = new Programacion();
+			programacionId.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacionId);
 		}
 	}
 	
 	@BeforeMapping
 	protected void beforeProgramacionTiendaDto(ProgramacionTiendaDto src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
-			ProgramacionDto programacion = new ProgramacionDto();
-			programacion.setId(src.getProgramacion().getId());
-			src.setProgramacion(programacion);
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacionId);
 		}
 	}
 	
 	@BeforeMapping
 	protected void beforeProgramacionEmpleadoDto(ProgramacionEmpleadoDto src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
-			ProgramacionDto programacion = new ProgramacionDto();
-			programacion.setId(src.getProgramacion().getId());
-			src.setProgramacion(programacion);
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacionId);
 		}
 	}
 
