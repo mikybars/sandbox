@@ -5,6 +5,8 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;
@@ -19,14 +21,15 @@ public class TrabajoDto implements Serializable {
 	@ApiModelProperty(value = "Identificador del trabajo", required = false)
 	private Long id;
 
-	@NotNull
-	@ApiModelProperty(value = "Estado actual del trabajo", required = true)
+	@ApiModelProperty(value = "Estado actual del trabajo", required = false)
 	private /* BigInteger */ EstadoTrabajoDto estado;
 
-	@ApiModelProperty(value = "Id del páis a ejecutar", required = false)
+	@NotBlank
+	@ApiModelProperty(value = "Id del páis a ejecutar", required = true)
 	private String idPais;
 
-	@ApiModelProperty(value = "Id de la cadena a ejecutar", required = false)
+	@NotBlank
+	@ApiModelProperty(value = "Id de la cadena a ejecutar", required = true)
 	private String idCadena;
 
 	@ApiModelProperty(value = "Ids de las tiendas a ejecutar", required = false)
@@ -35,11 +38,10 @@ public class TrabajoDto implements Serializable {
 	@ApiModelProperty(value = "Ids de los empleados a ejecutar", required = false)
 	private List<TrabajoEmpleadoDto> empleados;
 
-	@NotNull
-	@ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = false)
+	@NotBlank
+	@ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = true)
 	private String idUsuario;
 
-	@NotNull
 	@ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false, readOnly = true)
 	private LocalDateTime fechaCreacion;
 
