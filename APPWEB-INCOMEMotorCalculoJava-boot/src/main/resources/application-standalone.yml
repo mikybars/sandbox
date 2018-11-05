@@ -132,6 +132,7 @@ app:
               maxPageSize: 20
               maxQuerySize: 3
               maxPersistenceSize: 3
+              retryAttempts: 2
           getValoresCondiciones:
             page:
               numeroPagina: 1
@@ -140,7 +141,9 @@ app:
               campoOrden: idplantilla
             filter:
               maxPageSize: 20
-              maxPersistenceSize: 20              
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2       
           getTest:
             page:
               numeroPagina: 1
@@ -149,4 +152,6 @@ app:
               campoOrden: test  
             filter:
               maxPageSize: 20
-              maxPersistenceSize: 20              
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2  
