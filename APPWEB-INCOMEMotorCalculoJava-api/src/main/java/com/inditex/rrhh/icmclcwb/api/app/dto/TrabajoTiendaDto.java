@@ -5,6 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -16,19 +17,19 @@ public class TrabajoTiendaDto implements Serializable {
 	@ApiModelProperty(value = "Identificador de la tienda", required = false)
 	private String id;
 
-	@NotBlank
-	@ApiModelProperty(value = "Trabajo", required = false)
+	@NotNull
+	@ApiModelProperty(value = "Trabajo", required = true)
 	private TrabajoDto trabajo;
 	
 	@NotBlank
 	@ApiModelProperty(value = "Id de la tienda", required = true)
 	private String idTienda;
 	
-	@NotBlank
+	@NotNull
 	@ApiModelProperty(value = "Estado de la tienda en la operación", required = true)
 	private EstadoTrabajoTiendaDto estado;
 	
-	@NotBlank
+	@NotNull
 	@ApiModelProperty(value = "Tipo de la tienda en la operación", required = true)
 	private TipoTrabajoTiendaDto tipo;
 
