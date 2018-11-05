@@ -67,7 +67,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 						programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
 				.stream().forEach(programacion -> {
 					programacion.setFechaUltimaEjecucion(LocalDateTime.now());
-					programacion.setFechaSiguienteEjecucion(programacion.getFechaSiguienteEjecucion().plusDays(1));
+					programacion.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), programacion.getHora()).plusDays(1));
 					ProgramacionDto programacionModify = modifyProgramacion(programacion);
 					meta4Service.periodo().stream().forEach(periodo -> {
 						TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacionModify);

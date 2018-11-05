@@ -41,10 +41,15 @@ public abstract class TrabajoMapper {
 
 	@Mappings({ @Mapping(target = "id", ignore = true), @Mapping(target = "fechaCreacion", ignore = true) })
 	public abstract TrabajoDto programacionDtoToTrabajoDto(ProgramacionDto src);
-	
-	
-	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"), 
-		@Mapping(source = "fechaFinPeriodo", target = "fechaFin")})
+
+	@Mappings({ @Mapping(target = "id", ignore = true) })
+	public abstract TrabajoTiendaDto programacionTiendaDtoToTrabajoTiendaDto(ProgramacionTiendaDto src);
+
+	@Mappings({ @Mapping(target = "id", ignore = true) })
+	public abstract TrabajoEmpleadoDto programacionEmpleadoDtoToTrabajoEmpleadoDto(ProgramacionEmpleadoDto src);
+
+	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"),
+			@Mapping(source = "fechaFinPeriodo", target = "fechaFin") })
 	public abstract EmpleadosTiendaFilterDto trabajoDtotoEmpleadosTiendaFilterDto(TrabajoDto src);
 
 	@AfterMapping
@@ -145,7 +150,7 @@ public abstract class TrabajoMapper {
 			}
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionDto(ProgramacionDto src) {
 		if (src != null && src.getId() != null) {
@@ -163,7 +168,7 @@ public abstract class TrabajoMapper {
 			}
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionTienda(ProgramacionTienda src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
@@ -172,7 +177,7 @@ public abstract class TrabajoMapper {
 			src.setProgramacion(programacionId);
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionEmpleado(ProgramacionEmpleado src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
@@ -181,7 +186,7 @@ public abstract class TrabajoMapper {
 			src.setProgramacion(programacionId);
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionTiendaDto(ProgramacionTiendaDto src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
@@ -190,7 +195,7 @@ public abstract class TrabajoMapper {
 			src.setProgramacion(programacionId);
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionEmpleadoDto(ProgramacionEmpleadoDto src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {

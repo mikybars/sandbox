@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @ApiModel(description = "Modelo ProgramacionDto")
@@ -26,10 +28,12 @@ public class ProgramacionDto implements Serializable {
 	@ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true)
 	private Boolean activa;
 
-	@ApiModelProperty(value = "Id del páis a ejecutar", required = false)
+	@NotBlank
+	@ApiModelProperty(value = "Id del páis a ejecutar", required = true)
 	private String idPais;
 
-	@ApiModelProperty(value = "Id de la cadena a ejecutar", required = false)
+	@NotBlank
+	@ApiModelProperty(value = "Id de la cadena a ejecutar", required = true)
 	private String idCadena;
 
 	@ApiModelProperty(value = "Ids de las tiendas a ejecutar", required = false)
