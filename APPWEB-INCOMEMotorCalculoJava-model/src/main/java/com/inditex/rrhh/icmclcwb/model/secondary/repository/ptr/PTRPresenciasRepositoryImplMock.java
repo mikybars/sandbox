@@ -58,11 +58,10 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		
 		StringBuilder query= new StringBuilder();
-		String fecha1= formatter.format(params.getFechaDesde());
-		String fecha2= formatter.format(params.getFechaHasta());
 		
-				
-				
+		
+		
+		
 		param.addValue("cadena", params.getCadena());
 		query.append( "SELECT PH.PERSONA AS 'EMPLEADO'"
 				+ ",PH.TIENDA AS 'ID_TIENDA',PH.SECCION AS 'ID_SECCION',PH.TIPO AS 'ID_TIPO',PH.FECHA AS 'FECHA', SP.CCL_ID_CADENA AS 'CADENA',"
@@ -82,10 +81,12 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 			param.addValue("origen", params.getOrigen());
 		}
 		if(params.getFechaDesde()!=null){
+			String fecha1= formatter.format(params.getFechaDesde());
 			query.append(" AND FECHA >=  :fechadesde ");
 			param.addValue("fechadesde", fecha1);
 		}
 		if(params.getFechaHasta()!=null){
+			String fecha2= formatter.format(params.getFechaHasta());
 			query.append(" AND FECHA < :fechahasta ");
 			param.addValue("fechahasta", fecha2);
 		}
@@ -97,16 +98,17 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 			query.append(" AND PH.TIPO IN ( :tipo )");
 			param.addValue("tipo", params.getTipo());
 		}
-		
-		int size= params.getPersonas().size();
-		if (size>0){
-			query.append(" AND (PH.PERSONA IN ( :persona0");
-			param.addValue("persona0", params.getPersonas().get(0));
-			for (Integer i=1;i<size;i++){
-					query.append(" , :persona"+i.toString()+" ");
-					param.addValue("persona"+i.toString(), params.getPersonas().get(i));
+		if (params.getPersonas()!=null){
+			int size= params.getPersonas().size();
+			if (size>0){
+				query.append(" AND (PH.PERSONA IN ( :persona0");
+				param.addValue("persona0", params.getPersonas().get(0));
+				for (Integer i=1;i<size;i++){
+						query.append(" , :persona"+i.toString()+" ");
+						param.addValue("persona"+i.toString(), params.getPersonas().get(i));
+				}
+				query.append(" ))");
 			}
-			query.append(" ))");
 		}
 		Log.info(query.toString());
 		return namedParameterJdbcTemplate.query(query.toString(), param, new PresenciaDetalleRowMapper());
@@ -146,16 +148,18 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 			param.addValue("tipo", dto.getTipo());
 		}
 		
-		int size= dto.getTiendas().size();
-		if (size>0){
-			query.append(" AND (TIENDA IN ( :tienda0");
-			param.addValue("tienda0", dto.getTiendas().get(0));
-			
-			for (Integer i=1;i<size;i++){
-					query.append(" ,:tienda"+i.toString()+" ");
-					param.addValue("tienda"+i.toString(),dto.getTiendas().get(i));
-			 }
-			query.append("))");
+		if (dto.getTiendas()!=null){
+			int size= dto.getTiendas().size();
+			if (size>0){
+				query.append(" AND (TIENDA IN ( :tienda0");
+				param.addValue("tienda0", dto.getTiendas().get(0));
+				
+				for (Integer i=1;i<size;i++){
+						query.append(" ,:tienda"+i.toString()+" ");
+						param.addValue("tienda"+i.toString(),dto.getTiendas().get(i));
+				 }
+				query.append("))");
+			}
 		}
 	
 		query.append( " GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA, PH.FECHA");
@@ -192,33 +196,34 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 			query.append("AND PH.TIPO = :tipo");
 			param.addValue("tipo", dto.getTipo());
 		}
-		int size = dto.getTiendaSeccion().size();
-		if (size > 0){
-			if (dto.getTiendaSeccion().get(0).getSeccion()==null){
-				query.append(" AND  ((PH.TIENDA = :tienda0 )" );
-				param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());
-			}else{
-				query.append(" AND  ((PH.TIENDA = :tienda0 AND PH.SECCION = :seccion0 )" );
-				param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());	
-				param.addValue("seccion0", dto.getTiendaSeccion().get(0).getSeccion());
-			}
-		
-			for (Integer i=1;i<size;i++){
-
-				if (dto.getTiendaSeccion().get(i).getSeccion()==null){
-				query.append(" OR  (PH.TIENDA = :tienda"+i.toString()+" )" );
-				param.addValue("tienda"+i.toString(), dto.getTiendaSeccion().get(i).getTienda());
+		if (dto.getTiendaSeccion()!=null){
+			int size = dto.getTiendaSeccion().size();
+			if (size > 0){
+				if (dto.getTiendaSeccion().get(0).getSeccion()==null){
+					query.append(" AND  ((PH.TIENDA = :tienda0 )" );
+					param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());
 				}else{
-					query.append(" OR  (PH.TIENDA = :tienda"+i.toString()+" AND PH.SECCION = :seccion"+i.toString()+" )" );
-					param.addValue("tienda"+i.toString(), dto.getTiendaSeccion().get(i).getTienda());	
-					param.addValue("seccion"+i.toString(), dto.getTiendaSeccion().get(i).getSeccion());
+					query.append(" AND  ((PH.TIENDA = :tienda0 AND PH.SECCION = :seccion0 )" );
+					param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());	
+					param.addValue("seccion0", dto.getTiendaSeccion().get(0).getSeccion());
 				}
-				
-			}
-				query.append(")");
+			
+				for (Integer i=1;i<size;i++){
+	
+					if (dto.getTiendaSeccion().get(i).getSeccion()==null){
+					query.append(" OR  (PH.TIENDA = :tienda"+i.toString()+" )" );
+					param.addValue("tienda"+i.toString(), dto.getTiendaSeccion().get(i).getTienda());
+					}else{
+						query.append(" OR  (PH.TIENDA = :tienda"+i.toString()+" AND PH.SECCION = :seccion"+i.toString()+" )" );
+						param.addValue("tienda"+i.toString(), dto.getTiendaSeccion().get(i).getTienda());	
+						param.addValue("seccion"+i.toString(), dto.getTiendaSeccion().get(i).getSeccion());
+					}
+					
+				}
+					query.append(")");
 			}
 		
-		
+		}
 		query.append( " GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA,PH.SECCION,  PH.FECHA");
 		Log.info(query.toString());
 		return namedParameterJdbcTemplate.query(query.toString(), param, new PresenciaTotalTiendaSeccionRowMapper());

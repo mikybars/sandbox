@@ -63,6 +63,21 @@ amiga:
       logging:
         is-production: false
   data:
+    jms:
+      connectionFactory:
+        brokerEscritura:
+          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+          userName: root
+          password: V3ct0r1nd1t3x
+        brokerLectura:
+          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+          userName: root
+          password: V3ct0r1nd1t3x
+      client:
+        trabajoJmsClient:
+          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
+          receiveTimeout: 100
+          pubSubDomain: false
 #    jdbc:
 #      datasource:        
 #        primary:
