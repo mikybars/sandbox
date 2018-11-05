@@ -3,7 +3,10 @@ package com.inditex.rrhh.icmclcwb.model.app.mapper;
 import java.util.List;
 
 import org.mapstruct.BeforeMapping;
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -15,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleado;
 
 @Mapper
+@DecoratedWith(TrabajoEmpleadoDecorator.class)
 public abstract class TrabajoEmpleadoMapper {
 	
 	public abstract TrabajoEmpleadoDto trabajoEmpleadoToTrabajoEmpleadoDto(TrabajoEmpleado src);
@@ -25,10 +29,12 @@ public abstract class TrabajoEmpleadoMapper {
 
 	public abstract List<TrabajoEmpleado> trabajoEmpleadoDtoToTrabajoEmpleado(List<TrabajoEmpleadoDto> src);
 
-	public abstract TrabajoEmpleadoDto empleadosTiendaResultItemDtoToTrabajoEmpleadoDto(EmpleadosTiendaResultItemDto src);
+	@Mappings({
+        @Mapping(target = "idEmpleado", source = "src.idEmpleado"),
+        @Mapping(target = "trabajo.id", source = "trabajo.id")
+	})
+	public abstract TrabajoEmpleadoDto empleadosTiendaResultItemDtoToTrabajoEmpleadoDto(EmpleadosTiendaResultItemDto src, TrabajoDto trabajo);
 	
-	public abstract List<TrabajoEmpleadoDto> empleadosTiendaResultItemDtoToTrabajoEmpleadoDto(List<EmpleadosTiendaResultItemDto> src);
-
 	@BeforeMapping
 	protected void beforeTrabajoEmpleado(TrabajoEmpleado src) {
 		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
@@ -42,7 +48,7 @@ public abstract class TrabajoEmpleadoMapper {
 			}
 		}
 	}
-
+	
 	@BeforeMapping
 	protected void beforeTrabajoEmpleadoDto(TrabajoEmpleadoDto src) {
 		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
@@ -56,5 +62,9 @@ public abstract class TrabajoEmpleadoMapper {
 			}
 		}
 	}
-	
+
+	public List<TrabajoEmpleadoDto> empleadosTiendaResultItemDtoToTrabajoEmpleadoDto(
+			List<EmpleadosTiendaResultItemDto> src, TrabajoDto trabajo){
+        throw new UnsupportedOperationException("Not implemented");
+	}
 }

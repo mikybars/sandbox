@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
+import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
@@ -30,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
@@ -40,6 +42,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaRepository;
@@ -106,7 +109,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 			// Para cada tienda recuperamos y persistimos los datos de los empleados asociados. 
 			for(TrabajoTienda tienda : tiendasPage.getContent()){
 			
-				request.getData().setIdLugarTrabajo(tienda.getIdTienda());
+				request.getData().setIdLugarTrabajo("T" + tienda.getIdTienda());
 				
 				do {
 					//Consultamos en meta4 los empleados por tienda de forma paginada. 
@@ -130,8 +133,11 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 					
 					result.addAll(persist);
 					
-					List<TrabajoEmpleadoDto> trabajoEmpleadoDto = trabajoEmpleadoMapper.empleadosTiendaResultItemDtoToTrabajoEmpleadoDto(persist);
-					trabajoEmpleadoDto.forEach(f -> f.setTrabajo(trabajo));
+					List<TrabajoEmpleadoDto> trabajoEmpleadoDto = trabajoEmpleadoMapper.empleadosTiendaResultItemDtoToTrabajoEmpleadoDto(persist, trabajo);
+		
+					TrabajoDto trabajoId = new TrabajoDto();
+					trabajoId.setId(trabajo.getId());
+					trabajoEmpleadoDto.forEach(f -> {f.setTrabajo(trabajoId); f.setEstado(EstadoTrabajoEmpleadoDto.builder().id(EstadoTrabajoEmpleadoEnum.PENDIENTE.getId()).build());});
 					
 					CompletableFuture<Void> cfTrabajoEmpleadoSave = new CompletableFuture<>();
 

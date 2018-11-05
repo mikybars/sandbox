@@ -13,7 +13,4 @@ public interface TrabajoEmpleadoService {
 	
 	CompletableFuture<Void> save(@Valid List<TrabajoEmpleadoDto> trabajoEmpleadoDto);
 
-	Boolean existsByIdEmpleado(String idEmpleado);
-
-
 }

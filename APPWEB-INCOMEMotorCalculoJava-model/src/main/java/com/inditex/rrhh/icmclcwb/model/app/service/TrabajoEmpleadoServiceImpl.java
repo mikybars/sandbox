@@ -44,28 +44,13 @@ public class TrabajoEmpleadoServiceImpl implements TrabajoEmpleadoService{
 	@Transactional
 	public CompletableFuture<Void> save(@Valid final List<TrabajoEmpleadoDto> trabajoEmpleadoDto) {
 		LOG.info("TrabajoEmpleado :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoDto);
-		
-		for(TrabajoEmpleadoDto persist : trabajoEmpleadoDto){
-			if(!existsByIdEmpleado(persist.getIdEmpleado())){
-				save(persist);
-			}
-		}
-		
-//		List<TrabajoEmpleadoDto> saved = mapper.trabajoEmpleadoToTrabajoEmpleadoDto(
-//				trabajoEmpleadoRepository.save(
-//						mapper.trabajoEmpleadoDtoToTrabajoEmpleado(trabajoEmpleadoDto)));
+		List<TrabajoEmpleadoDto> saved = mapper.trabajoEmpleadoToTrabajoEmpleadoDto(
+				trabajoEmpleadoRepository.save(
+						mapper.trabajoEmpleadoDtoToTrabajoEmpleado(trabajoEmpleadoDto)));
 		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoDto);
 		return CompletableFuture.completedFuture(null);
 	}
 
-	@Override
-	public Boolean existsByIdEmpleado(String idEmpleado){
-		LOG.info("TrabajoEmpleado :: Inicio :: TrabajoEmpleadoService.findByIdEmpleado(): {}", idEmpleado);
-		
-		Boolean trabajoEmpleadoDto = trabajoEmpleadoRepository.existsByIdEmpleado(idEmpleado);
-		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoService.findByIdEmpleado(): {}", idEmpleado);
 
-		return trabajoEmpleadoDto;
-	}
 
 }
