@@ -9,7 +9,7 @@ metadata:
   tenant: global
   domain: core
   openshiftproject: icmclcwb
-  slot: develop
+  slot: cfernandezcar
 spring:
   h2:
     console:
