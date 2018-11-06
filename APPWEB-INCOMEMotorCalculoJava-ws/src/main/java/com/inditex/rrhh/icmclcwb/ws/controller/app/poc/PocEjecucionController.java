@@ -63,7 +63,7 @@ public class PocEjecucionController {
 		return result;
 	}
 
-	@GetMapping("/java/{periodo}/{idPais}/{idCadena}")
+	@GetMapping("/meta4/{periodo}/{idPais}/{idCadena}")
 	@ApiOperation("Lanza una ejecución en Meta4")
 	public PocEjecucionDto meta4ByPaisAndCadena(@PathVariable(name = "periodo") String periodo,
 			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idCadena") String idCadena) {
@@ -78,7 +78,7 @@ public class PocEjecucionController {
 		return result;
 	}
 
-	@GetMapping("/java/{periodo}/{idPais}/{idCadena}/{tiendas}")
+	@GetMapping("/meta4/{periodo}/{idPais}/{idCadena}/{tiendas}")
 	@ApiOperation("Lanza una ejecución en Meta4")
 	public PocEjecucionDto meta4ByPaisAndCadenaAndTiendas(@PathVariable(name = "periodo") String periodo,
 			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idCadena") String idCadena,
