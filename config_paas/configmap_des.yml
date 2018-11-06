@@ -8,27 +8,17 @@ logging:
 amiga:
   common:
     rest:
-      virtual:
-        base-url: http://virtualhost:8081
       client:
-        defaultConnectTimeout: 600000
-        defaultReadTimeout: 600000
+        defaultConnectTimeout: 300000
+        defaultReadTimeout: 300000
         ptrClientVenta:
           base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-          send-itx-headers: false
-          ref-project-key: test_project_key
           auth-method: BASIC
           username: rcastro
-          virtualized: false
-          response-validated: false
         ptrClientPresencia:
           base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          send-itx-headers: false
-          ref-project-key: test_project_key
           auth-method: BASIC
           username: rcastro
-          virtualized: false
-          response-validated: false
   service:
     jms:
       trabajo-queue:
