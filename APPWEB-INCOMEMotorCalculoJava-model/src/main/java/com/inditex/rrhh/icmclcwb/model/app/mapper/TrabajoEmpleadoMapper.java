@@ -31,9 +31,12 @@ public abstract class TrabajoEmpleadoMapper {
 
 	@Mappings({
         @Mapping(target = "idEmpleado", source = "src.idEmpleado"),
-        @Mapping(target = "trabajo.id", source = "trabajo.id")
+        @Mapping(target = "trabajo.id", source = "trabajo.id"),
+        @Mapping(target = "id", ignore = true),
+        @Mapping(target = "estado", ignore = true)
 	})
 	public abstract TrabajoEmpleadoDto empleadosTiendaResultItemDtoToTrabajoEmpleadoDto(EmpleadosTiendaResultItemDto src, TrabajoDto trabajo);
+	
 	
 	@BeforeMapping
 	protected void beforeTrabajoEmpleado(TrabajoEmpleado src) {
