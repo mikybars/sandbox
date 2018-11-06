@@ -41,7 +41,7 @@ public class Constants {
 	@RequiredArgsConstructor
 	public enum TipoTrabajoTiendaEnum {
 
-		PARAMETRO(1L), HISTORICO(2L), PRESENCIA(3L);
+		INICIAL(1L), PARAMETRO(2L), HISTORICO(3L), PRESENCIA(4L);
 
 		private final Long id;
 

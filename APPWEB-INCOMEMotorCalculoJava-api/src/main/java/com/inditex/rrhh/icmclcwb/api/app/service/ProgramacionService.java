@@ -15,6 +15,4 @@ public interface ProgramacionService {
 	
 	ProgramacionDto modifyProgramacion(@Valid final ProgramacionDto programacion);
 
-	Boolean init();
-
 }

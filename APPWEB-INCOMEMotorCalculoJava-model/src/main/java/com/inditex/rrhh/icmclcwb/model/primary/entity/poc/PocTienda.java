@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.primary.entity;
+package com.inditex.rrhh.icmclcwb.model.primary.entity.poc;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import lombok.Data;
 @Entity
 @Table(name = "INCOME_POC_TIENDA", schema = "DESARROLLO_RRHH")
 @Data
-public class Tienda {
+public class PocTienda {
 
 	@Id
 	@Column(name = "ID_TIENDA")

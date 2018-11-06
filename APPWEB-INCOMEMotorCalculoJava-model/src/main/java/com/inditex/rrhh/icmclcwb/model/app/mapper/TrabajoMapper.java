@@ -41,43 +41,45 @@ public abstract class TrabajoMapper {
 
 	@Mappings({ @Mapping(target = "id", ignore = true), @Mapping(target = "fechaCreacion", ignore = true) })
 	public abstract TrabajoDto programacionDtoToTrabajoDto(ProgramacionDto src);
-	
-	
-	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"), 
-		@Mapping(source = "fechaFinPeriodo", target = "fechaFin")})
+
+	@Mappings({ @Mapping(target = "id", ignore = true) })
+	public abstract TrabajoTiendaDto programacionTiendaDtoToTrabajoTiendaDto(ProgramacionTiendaDto src);
+
+	@Mappings({ @Mapping(target = "id", ignore = true) })
+	public abstract TrabajoEmpleadoDto programacionEmpleadoDtoToTrabajoEmpleadoDto(ProgramacionEmpleadoDto src);
+
+	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"),
+			@Mapping(source = "fechaFinPeriodo", target = "fechaFin") })
 	public abstract EmpleadosTiendaFilterDto trabajoDtotoEmpleadosTiendaFilterDto(TrabajoDto src);
 
 	@AfterMapping
-	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto trabajoDto) {
+	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto target) {
 		if (src != null) {
-			ProgramacionDto programacion = new ProgramacionDto();
-			programacion.setId(src.getId());
-			trabajoDto.setProgramacion(programacion);
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getId());
+			target.setProgramacion(programacionId);
 
-			trabajoDto.setFechaCreacion(LocalDateTime.now());
+			target.setFechaCreacion(LocalDateTime.now());
 
 			EstadoTrabajoDto estadoTrabajo = new EstadoTrabajoDto();
 			estadoTrabajo.setId(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getId());
-			trabajoDto.setEstado(estadoTrabajo);
+			target.setEstado(estadoTrabajo);
 		}
 	}
 
 	@BeforeMapping
 	protected void beforeTrabajoDto(TrabajoDto src) {
 		if (src != null && src.getId() != null) {
-			Long id = src.getId();
+			TrabajoDto trabajoId = new TrabajoDto();
+			trabajoId.setId(src.getId());
 			if (CollectionUtils.isNotEmpty(src.getTiendas())) {
 				src.getTiendas().stream().forEach(item -> {
-					TrabajoDto trabajo = new TrabajoDto();
-					trabajo.setId(id);
-					item.setTrabajo(trabajo);
+					item.setTrabajo(trabajoId);
 				});
 			}
 			if (CollectionUtils.isNotEmpty(src.getEmpleados())) {
 				src.getEmpleados().stream().forEach(item -> {
-					TrabajoDto trabajo = new TrabajoDto();
-					trabajo.setId(id);
-					item.setTrabajo(trabajo);
+					item.setTrabajo(trabajoId);
 				});
 			}
 		}
@@ -86,9 +88,9 @@ public abstract class TrabajoMapper {
 	@BeforeMapping
 	protected void beforeTrabajoTienda(TrabajoTienda src) {
 		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
-			Trabajo programacion = new Trabajo();
-			programacion.setId(src.getTrabajo().getId());
-			src.setTrabajo(programacion);
+			Trabajo trabajoId = new Trabajo();
+			trabajoId.setId(src.getTrabajo().getId());
+			src.setTrabajo(trabajoId);
 			if (src.getEstado() == null) {
 				EstadoTrabajoTienda estado = new EstadoTrabajoTienda();
 				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
@@ -96,7 +98,7 @@ public abstract class TrabajoMapper {
 			}
 			if (src.getTipo() == null) {
 				TipoTrabajoTienda estado = new TipoTrabajoTienda();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
+				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
 				src.setTipo(estado);
 			}
 		}
@@ -105,9 +107,9 @@ public abstract class TrabajoMapper {
 	@BeforeMapping
 	protected void beforeTrabajoEmpleado(TrabajoEmpleado src) {
 		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
-			Trabajo programacion = new Trabajo();
-			programacion.setId(src.getTrabajo().getId());
-			src.setTrabajo(programacion);
+			Trabajo trabajoId = new Trabajo();
+			trabajoId.setId(src.getTrabajo().getId());
+			src.setTrabajo(trabajoId);
 			if (src.getEstado() == null) {
 				EstadoTrabajoEmpleado estado = new EstadoTrabajoEmpleado();
 				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
@@ -119,9 +121,9 @@ public abstract class TrabajoMapper {
 	@BeforeMapping
 	protected void beforeTrabajoTiendaDto(TrabajoTiendaDto src) {
 		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
-			TrabajoDto programacion = new TrabajoDto();
-			programacion.setId(src.getTrabajo().getId());
-			src.setTrabajo(programacion);
+			TrabajoDto trabajoId = new TrabajoDto();
+			trabajoId.setId(src.getTrabajo().getId());
+			src.setTrabajo(trabajoId);
 			if (src.getEstado() == null) {
 				EstadoTrabajoTiendaDto estado = new EstadoTrabajoTiendaDto();
 				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
@@ -129,7 +131,7 @@ public abstract class TrabajoMapper {
 			}
 			if (src.getTipo() == null) {
 				TipoTrabajoTiendaDto estado = new TipoTrabajoTiendaDto();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
+				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
 				src.setTipo(estado);
 			}
 		}
@@ -138,9 +140,9 @@ public abstract class TrabajoMapper {
 	@BeforeMapping
 	protected void beforeTrabajoEmpleadoDto(TrabajoEmpleadoDto src) {
 		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
-			TrabajoDto programacion = new TrabajoDto();
-			programacion.setId(src.getTrabajo().getId());
-			src.setTrabajo(programacion);
+			TrabajoDto trabajoId = new TrabajoDto();
+			trabajoId.setId(src.getTrabajo().getId());
+			src.setTrabajo(trabajoId);
 			if (src.getEstado() == null) {
 				EstadoTrabajoEmpleadoDto estado = new EstadoTrabajoEmpleadoDto();
 				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
@@ -148,61 +150,58 @@ public abstract class TrabajoMapper {
 			}
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionDto(ProgramacionDto src) {
 		if (src != null && src.getId() != null) {
-			Long id = src.getId();
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getId());
 			if (CollectionUtils.isNotEmpty(src.getTiendas())) {
 				src.getTiendas().stream().forEach(item -> {
-					ProgramacionDto programacion = new ProgramacionDto();
-					programacion.setId(id);
-					item.setProgramacion(programacion);
+					item.setProgramacion(programacionId);
 				});
 			}
 			if (CollectionUtils.isNotEmpty(src.getEmpleados())) {
 				src.getEmpleados().stream().forEach(item -> {
-					ProgramacionDto programacion = new ProgramacionDto();
-					programacion.setId(id);
-					item.setProgramacion(programacion);
+					item.setProgramacion(programacionId);
 				});
 			}
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionTienda(ProgramacionTienda src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
-			Programacion programacion = new Programacion();
-			programacion.setId(src.getProgramacion().getId());
-			src.setProgramacion(programacion);
+			Programacion programacionId = new Programacion();
+			programacionId.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacionId);
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionEmpleado(ProgramacionEmpleado src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
-			Programacion programacion = new Programacion();
-			programacion.setId(src.getProgramacion().getId());
-			src.setProgramacion(programacion);
+			Programacion programacionId = new Programacion();
+			programacionId.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacionId);
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionTiendaDto(ProgramacionTiendaDto src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
-			ProgramacionDto programacion = new ProgramacionDto();
-			programacion.setId(src.getProgramacion().getId());
-			src.setProgramacion(programacion);
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacionId);
 		}
 	}
-	
+
 	@BeforeMapping
 	protected void beforeProgramacionEmpleadoDto(ProgramacionEmpleadoDto src) {
 		if (src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null) {
-			ProgramacionDto programacion = new ProgramacionDto();
-			programacion.setId(src.getProgramacion().getId());
-			src.setProgramacion(programacion);
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getProgramacion().getId());
+			src.setProgramacion(programacionId);
 		}
 	}
 

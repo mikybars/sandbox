@@ -24,33 +24,24 @@ amiga:
       embedded:
         enabled: true
     rest:
-      virtual:
-        base-url: http://virtualhost:8081
       client:
-        defaultConnectTimeout: 600000
-        defaultReadTimeout: 600000
+        defaultConnectTimeout: 300000
+        defaultReadTimeout: 300000
         ptrClientVenta:
           base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-          send-itx-headers: false
-          ref-project-key: test_project_key
           auth-method: BASIC
           username: rcastro
           password: c0ntras3nha
-          virtualized: false
-          response-validated: false
         ptrClientPresencia:
           base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          send-itx-headers: false
-          ref-project-key: test_project_key
           auth-method: BASIC
           username: rcastro
           password: c0ntras3nha
-          virtualized: false
-          response-validated: false
   service:
     jms:
       trabajo-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
+        concurrency: 10-20
     session:
       session-type: EMBEDDED
     aaa:
@@ -92,7 +83,8 @@ amiga:
 #          user: sa
 #    hibernate:
 #      primary:
-#        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
+#        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
 #      secondary:
 #        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.show_sql'':''true'',''hibernate.format_sql'':''true''}'
     jdbc:
@@ -133,6 +125,7 @@ app:
               maxPageSize: 20
               maxQuerySize: 3
               maxPersistenceSize: 3
+              retryAttempts: 2
           getValoresCondiciones:
             page:
               numeroPagina: 1
@@ -141,7 +134,9 @@ app:
               campoOrden: idplantilla
             filter:
               maxPageSize: 20
-              maxPersistenceSize: 20              
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2       
           getTest:
             page:
               numeroPagina: 1
@@ -150,4 +145,6 @@ app:
               campoOrden: test  
             filter:
               maxPageSize: 20
-              maxPersistenceSize: 20              
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2  

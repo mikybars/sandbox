@@ -24,9 +24,9 @@ amiga:
         enabled: false
     async:
       default-executor:
-        core-pool-size: 100
-        # async (6) * amiga.service.jms.trabajo-queue.destination-fqdn.concurrency (100)
-        max-pool-size: 600
+        core-pool-size: 20
+        # async (6) * amiga.service.jms.trabajo-queue.destination-fqdn.concurrency (20)
+        max-pool-size: 150
         keep-alive: 10
   service:
     session:

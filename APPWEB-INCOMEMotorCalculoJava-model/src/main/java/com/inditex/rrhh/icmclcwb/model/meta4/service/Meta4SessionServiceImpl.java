@@ -158,7 +158,7 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 		LOG.info("Inicio :: Meta4Service.periodo()");
 		List<PeriodoDto> result = new ArrayList<>();
 		Random random = new Random();
-		LongStream lsPeriodos = random.longs(1, 3);
+		LongStream lsPeriodos = random.longs(2, 3);
 		long periodos = lsPeriodos.findFirst().getAsLong();
 		lsPeriodos.close();
 		for (int periodo = 1; periodo <= periodos; periodo++) {

@@ -16,13 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
@@ -41,10 +40,10 @@ public class TrabajoServiceImpl implements TrabajoService {
 
 	@Autowired
 	private TrabajoMapper trabajoMapper;
-	
+
 	@Autowired
 	private TrabajoTiendaRepository trabajoTiendaRepository;
-	
+
 	@Autowired
 	private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
 
@@ -57,6 +56,13 @@ public class TrabajoServiceImpl implements TrabajoService {
 	@Override
 	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
+		trabajo.setFechaCreacion(LocalDateTime.now());
+		EstadoTrabajoDto estadoTrabajo = new EstadoTrabajoDto();
+		estadoTrabajo.setId(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getId());
+		trabajo.setEstado(estadoTrabajo);
+		// TODO Obtener el id del usuario que lanza la petición o poner un usuario
+		// generico MQ
+		trabajo.setIdUsuario("MANUAL");
 		TrabajoDto parent = trabajoMapper
 				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
 		parent.setTiendas(trabajo.getTiendas());
@@ -76,7 +82,12 @@ public class TrabajoServiceImpl implements TrabajoService {
 	@Override
 	public TrabajoDto run(@NotNull @Positive final Long id) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.run()", id);
-		TrabajoDto result = runTrabajo(trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id)));
+		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
+		if (result != null) {
+			result = runTrabajo(result);
+		} else {
+			LOG.error("Trabajo[{}] :: TrabajoService.run() :: No existe el trabajo en BBDD", id);
+		}
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.run(): {}", id, result);
 		return result;
 	}
@@ -128,28 +139,40 @@ public class TrabajoServiceImpl implements TrabajoService {
 			trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
 			trabajo = modifyTrabajo(trabajo);
 
-			// Almacenamos las tiendas relacionadas con el trabajo
-			CompletableFuture<Void> cfTiendas = trabajoAsyncService.tiendas(trabajo);
-			// TODO Se valida (si no se ha validado antes) que las tiendas sean
-			// comisionables
+			CompletableFuture<Void> cfTiendasParametro = trabajoAsyncService.tiendasParametro(trabajo);
+			CompletableFuture<Void> cfTiendasHistorico = trabajoAsyncService.tiendasHistorico(trabajo);
 			CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
 
-			cfTiendas.get();
-			// TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + cadena y pais !!
-			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
+			// Si tenemos las tiendas iniciales ya se pueden recuperar los empleados e ir
+			// recuperando datos de las tiendas y si se van a recuperar los empleados por
+			// pais/cadena se podria iniciar tambien el procesao
+			cfTiendasParametro.get();
 
+			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
 			CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoAsyncService.ventaTotalizadaTienda(trabajo);
+			CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoAsyncService
+					.presenciaTotalizadaTienda(trabajo);
 
 			cfEmpleados.get();
+			CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoAsyncService.presenciaDetalleEmpleado(trabajo);
 			CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoAsyncService.ventaDetalleEmpleado(trabajo);
 			CompletableFuture<Void> cfCondicionesEmpleados = trabajoAsyncService.condicionesEmpleados(trabajo);
 
-			CompletableFuture.allOf(cfTiposHoras, cfVentaTotalizadaTienda, cfVentaDetalleEmpleado,
+			// Si termina algun proceso de datos para tienda
+			CompletableFuture.anyOf(cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda);
+			// Hay que esperar que estos tres procesos hayan finalizado y mientras no
+			// finalicen cada X tiempo verificar si hay tiendas nuevas
+			CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfPresenciaDetalleEmpleado);
+
+			// TODO Esperamos por todos los servicios asincronos
+			CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfPresenciaDetalleEmpleado, cfTiposHoras,
+					cfEmpleados, cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda, cfVentaDetalleEmpleado,
 					cfCondicionesEmpleados);
 
 			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId(), trabajo);
 		} else {
-			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoDatos() :: El estado del trabajo no es correcto", trabajo.getId());
+			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoDatos() :: El estado del trabajo no es correcto",
+					trabajo.getId());
 		}
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoDatos(): {}", trabajo.getId(), trabajo);
 		return trabajo;
@@ -167,11 +190,12 @@ public class TrabajoServiceImpl implements TrabajoService {
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})",
 					trabajo.getId(), time);
 			Thread.sleep(time);
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})",
-					trabajo.getId(), time);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})", trabajo.getId(),
+					time);
 			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId(), trabajo);
 		} else {
-			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoCalculado() :: El estado del trabajo no es correcto", trabajo.getId());
+			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoCalculado() :: El estado del trabajo no es correcto",
+					trabajo.getId());
 		}
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado(): {}", trabajo.getId(), trabajo);
 		return trabajo;
@@ -195,7 +219,8 @@ public class TrabajoServiceImpl implements TrabajoService {
 			trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getId()).build());
 			trabajo = modifyTrabajo(trabajo);
 		} else {
-			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoConsolidacion() :: El estado del trabajo no es correcto", trabajo.getId());
+			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoConsolidacion() :: El estado del trabajo no es correcto",
+					trabajo.getId());
 		}
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoConsolidacion(): {}", trabajo.getId(), trabajo);
 		return trabajo;

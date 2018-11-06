@@ -14,17 +14,18 @@ public class Receiver {
 
 	@Autowired
 	private Logger LOG;
-	
+
 	@Autowired
 	private TrabajoService trabajoService;
 
-	@JmsListener(id = "trabajoListener", destination = "${amiga.service.jms.trabajo-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "50-100")
+	@JmsListener(id = "trabajoListener", destination = "${amiga.service.jms.trabajo-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "${amiga.service.jms.trabajo-queue.concurrency}")
 	public void onMessageTrabajoListener(
 			Message<TrabajoDto> message /* TrabajoDto message */ /* TrabajoDto message, @Headers Map headers */)
 			throws Exception {
-		LOG.info("Receiver.onMessageTrabajoListener() :: message.getPayload(): " + message.getPayload().toString());
-		LOG.info("Receiver.onMessageTrabajoListener() :: message.getHeaders(): " + message.getHeaders().toString());
-		LOG.info("Receiver.onMessageTrabajoListener() :: trabajoService.run(message.getPayload().getId())" + trabajoService.run(message.getPayload().getId()).toString());
+		LOG.info("Receiver.onMessageTrabajoListener() :: message.getPayload(): {}", message.getPayload());
+		LOG.info("Receiver.onMessageTrabajoListener() :: message.getHeaders(): {}", message.getHeaders());
+		LOG.info("Receiver.onMessageTrabajoListener() :: trabajoService.run(message.getPayload().getId()): {}",
+				trabajoService.run(message.getPayload().getId()));
 	}
 
 }

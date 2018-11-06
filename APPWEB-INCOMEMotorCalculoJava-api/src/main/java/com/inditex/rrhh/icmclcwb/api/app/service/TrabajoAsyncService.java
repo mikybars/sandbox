@@ -12,12 +12,18 @@ public interface TrabajoAsyncService {
 
 	CompletableFuture<Void> empleadosTienda(@Valid final TrabajoDto trabajo) throws Exception;
 
-	CompletableFuture<Void> tiendas(@Valid final TrabajoDto trabajo) throws Exception;
+	CompletableFuture<Void> tiendasParametro(@Valid final TrabajoDto trabajo) throws Exception;
+	
+	CompletableFuture<Void> tiendasHistorico(@Valid final TrabajoDto trabajo) throws Exception;
 	
 	CompletableFuture<Void> tiposHoras(@Valid final TrabajoDto trabajo) throws Exception;
 
 	CompletableFuture<Void> ventaTotalizadaTienda(@Valid final TrabajoDto trabajo) throws Exception;
 	
 	CompletableFuture<Void> ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception;
+	
+	CompletableFuture<Void> presenciaTotalizadaTienda(@Valid final TrabajoDto trabajo) throws Exception;
+	
+	CompletableFuture<Void> presenciaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception;
 
 }
