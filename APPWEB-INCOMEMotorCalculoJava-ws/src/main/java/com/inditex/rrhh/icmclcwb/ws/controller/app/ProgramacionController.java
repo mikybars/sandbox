@@ -31,7 +31,7 @@ public class ProgramacionController {
 	private ProgramacionService programacionService;
 
 	@PostMapping
-	@ApiOperation("Inserta una nueva programación")
+	@ApiOperation(value = "Inserta una nueva programación", response = ProgramacionDto.class)
 	public @Valid ProgramacionDto insert(@Valid @RequestBody ProgramacionDto programacion) {
 		return programacionService.createProgramacion(programacion);
 	}

@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -27,7 +26,7 @@ public class Programacion {
 
 	@NotNull
 	@Column(name = "HORA_PROGRAMACION", nullable = false)
-	private LocalTime hora;
+	private String hora;
 	
 	@NotNull
 	@Column(name = "HORA_PROGRAMACION_HUSO", nullable = false)

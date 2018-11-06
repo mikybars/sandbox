@@ -5,6 +5,10 @@ import lombok.RequiredArgsConstructor;
 
 public class Constants {
 
+	public static final String LOCAL_TIME_PATTERN = "([01][0-9]|2[0-3]):[0-5][0-9]";
+
+	public static final String LOCAL_TIME_JSON = "HH:mm";
+
 	@Getter
 	@RequiredArgsConstructor
 	public enum EstadoTrabajoEnum {
@@ -26,7 +30,7 @@ public class Constants {
 		private final Long id;
 
 	}
-	
+
 	@Getter
 	@RequiredArgsConstructor
 	public enum EstadoTrabajoTiendaEnum {
@@ -36,7 +40,7 @@ public class Constants {
 		private final Long id;
 
 	}
-	
+
 	@Getter
 	@RequiredArgsConstructor
 	public enum TipoTrabajoTiendaEnum {

@@ -85,6 +85,8 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 		if (StringUtils.isBlank(programacion.getHuso())) {
 			programacion.setHuso(ZoneId.systemDefault().getId());
 		}
+		//TODO Obtener el id del usuario de sesion
+		programacion.setIdUsuario("CAMBIAR");
 		programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
 		ProgramacionDto parent = programacionMapper.programacionToProgramacionDto(
 				programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
