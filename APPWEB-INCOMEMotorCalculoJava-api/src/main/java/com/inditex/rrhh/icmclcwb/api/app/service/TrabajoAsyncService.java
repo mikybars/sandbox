@@ -21,5 +21,9 @@ public interface TrabajoAsyncService {
 	CompletableFuture<Void> ventaTotalizadaTienda(@Valid final TrabajoDto trabajo) throws Exception;
 	
 	CompletableFuture<Void> ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception;
+	
+	CompletableFuture<Void> presenciaTotalizadaTienda(@Valid final TrabajoDto trabajo) throws Exception;
+	
+	CompletableFuture<Void> presenciaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception;
 
 }

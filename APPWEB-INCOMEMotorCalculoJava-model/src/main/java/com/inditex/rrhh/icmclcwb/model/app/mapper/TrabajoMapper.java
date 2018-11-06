@@ -53,17 +53,17 @@ public abstract class TrabajoMapper {
 	public abstract EmpleadosTiendaFilterDto trabajoDtotoEmpleadosTiendaFilterDto(TrabajoDto src);
 
 	@AfterMapping
-	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto trabajoDto) {
+	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto target) {
 		if (src != null) {
 			ProgramacionDto programacionId = new ProgramacionDto();
 			programacionId.setId(src.getId());
-			trabajoDto.setProgramacion(programacionId);
+			target.setProgramacion(programacionId);
 
-			trabajoDto.setFechaCreacion(LocalDateTime.now());
+			target.setFechaCreacion(LocalDateTime.now());
 
 			EstadoTrabajoDto estadoTrabajo = new EstadoTrabajoDto();
 			estadoTrabajo.setId(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getId());
-			trabajoDto.setEstado(estadoTrabajo);
+			target.setEstado(estadoTrabajo);
 		}
 	}
 
@@ -98,7 +98,7 @@ public abstract class TrabajoMapper {
 			}
 			if (src.getTipo() == null) {
 				TipoTrabajoTienda estado = new TipoTrabajoTienda();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
+				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
 				src.setTipo(estado);
 			}
 		}
@@ -131,7 +131,7 @@ public abstract class TrabajoMapper {
 			}
 			if (src.getTipo() == null) {
 				TipoTrabajoTiendaDto estado = new TipoTrabajoTiendaDto();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
+				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
 				src.setTipo(estado);
 			}
 		}

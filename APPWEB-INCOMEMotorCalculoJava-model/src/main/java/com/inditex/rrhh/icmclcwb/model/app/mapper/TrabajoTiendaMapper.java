@@ -38,7 +38,7 @@ public abstract class TrabajoTiendaMapper {
 			}
 			if (src.getTipo() == null) {
 				TipoTrabajoTienda estado = new TipoTrabajoTienda();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
+				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
 				src.setTipo(estado);
 			}
 		}
@@ -57,7 +57,7 @@ public abstract class TrabajoTiendaMapper {
 			}
 			if (src.getTipo() == null) {
 				TipoTrabajoTiendaDto estado = new TipoTrabajoTiendaDto();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
+				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
 				src.setTipo(estado);
 			}
 		}
