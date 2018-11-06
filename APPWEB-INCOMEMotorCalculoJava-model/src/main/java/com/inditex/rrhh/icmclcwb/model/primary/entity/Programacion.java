@@ -28,6 +28,10 @@ public class Programacion {
 	@NotNull
 	@Column(name = "HORA_PROGRAMACION", nullable = false)
 	private LocalTime hora;
+	
+	@NotNull
+	@Column(name = "HORA_PROGRAMACION_HUSO", nullable = false)
+	private String huso;
 
 	@NotNull
 	@Column(name = "ACTIVA", nullable = false)

@@ -23,6 +23,9 @@ public class ProgramacionDto implements Serializable {
 	@NotNull
 	@ApiModelProperty(value = "Hora planificada de ejecución", required = true)
 	private LocalTime hora;
+	
+	@ApiModelProperty(value = "Huso horario de la hora planificada de ejecución", required = false, readOnly = true, hidden = true)
+	private String huso;
 
 	@NotNull
 	@ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true)

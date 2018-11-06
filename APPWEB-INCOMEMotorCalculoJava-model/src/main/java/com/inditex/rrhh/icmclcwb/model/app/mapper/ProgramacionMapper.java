@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
 import org.apache.commons.collections.CollectionUtils;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
+
 import java.util.List;
 
 @Mapper
@@ -24,18 +25,20 @@ public abstract class ProgramacionMapper {
 
 	@BeforeMapping
 	protected void beforeProgramacionDto(ProgramacionDto src) {
-		if (src != null && src.getId() != null) {
-			ProgramacionDto programacionId = new ProgramacionDto();
-			programacionId.setId(src.getId());
-			if (CollectionUtils.isNotEmpty(src.getTiendas())) {
-				src.getTiendas().stream().forEach(item -> {
-					item.setProgramacion(programacionId);
-				});
-			}
-			if (CollectionUtils.isNotEmpty(src.getEmpleados())) {
-				src.getEmpleados().stream().forEach(item -> {
-					item.setProgramacion(programacionId);
-				});
+		if (src != null) {
+			if (src.getId() != null) {
+				ProgramacionDto programacionId = new ProgramacionDto();
+				programacionId.setId(src.getId());
+				if (CollectionUtils.isNotEmpty(src.getTiendas())) {
+					src.getTiendas().stream().forEach(item -> {
+						item.setProgramacion(programacionId);
+					});
+				}
+				if (CollectionUtils.isNotEmpty(src.getEmpleados())) {
+					src.getEmpleados().stream().forEach(item -> {
+						item.setProgramacion(programacionId);
+					});
+				}
 			}
 		}
 	}
