@@ -23,13 +23,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
-import com.inditex.rrhh.icmclcwb.api.app.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;

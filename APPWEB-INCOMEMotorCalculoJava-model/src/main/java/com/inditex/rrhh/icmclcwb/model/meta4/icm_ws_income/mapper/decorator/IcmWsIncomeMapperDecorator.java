@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.mapper.decorator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesFilterDto;

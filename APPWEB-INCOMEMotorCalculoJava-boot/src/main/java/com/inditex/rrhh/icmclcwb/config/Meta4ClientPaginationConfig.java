@@ -4,8 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 
 import lombok.Data;
 

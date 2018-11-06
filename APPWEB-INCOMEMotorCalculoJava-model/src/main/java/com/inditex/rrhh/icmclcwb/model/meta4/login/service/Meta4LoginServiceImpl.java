@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.SesionMeta4Dto;
 import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.SesionMeta4Dto;
 import com.inditex.rrhh.icmclcwb.api.meta4.login.service.Meta4LoginService;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.Login;
