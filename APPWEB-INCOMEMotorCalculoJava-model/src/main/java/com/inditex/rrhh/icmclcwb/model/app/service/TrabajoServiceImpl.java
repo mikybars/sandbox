@@ -82,7 +82,12 @@ public class TrabajoServiceImpl implements TrabajoService {
 	@Override
 	public TrabajoDto run(@NotNull @Positive final Long id) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.run()", id);
-		TrabajoDto result = runTrabajo(trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id)));
+		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
+		if (result != null) {
+			result = runTrabajo(result);
+		} else {
+			LOG.error("Trabajo[{}] :: TrabajoService.run() :: No existe el trabajo en BBDD", id);
+		}
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.run(): {}", id, result);
 		return result;
 	}
