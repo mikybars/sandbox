@@ -84,9 +84,9 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	public CompletableFuture<Void> empleadosTienda(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): {}", trabajo.getId(), trabajo);
 
-		// TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + cadena y pais !!
+		// TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + empresa y pais !!
 		// Cuando tengamos tiendas de tipo parametro se busca directamente, sino podemos
-		// decidir si usar las tiendas o buscar directamente por pais/cadena
+		// decidir si usar las tiendas o buscar directamente por pais/empresa
 
 		// Request para la consulta de tiendas
 		PageRequest pageable = new PageRequest(0, getEmpleadosTiendaDto.getFilter().getMaxPageSize());
@@ -214,11 +214,11 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 //				trabajoTiendas.add(trabajoTienda);
 //			});
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(), result);
-		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdCadena())) {
-			// TODO Pais + Cadena :: Se obtienen las tiendas por pais y cadena
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(Pais Cadena): {} {}",
-					trabajo.getId(), trabajo.getIdPais(), trabajo.getIdCadena());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Pais Cadena): {}", trabajo.getId(),
+		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
+			// TODO Pais + Empresa :: Se obtienen las tiendas por pais y empresa
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(Pais Empresa): {} {}",
+					trabajo.getId(), trabajo.getIdPais(), trabajo.getIdEmpresa());
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Pais Empresa): {}", trabajo.getId(),
 					result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais())) {
 			// TODO Pais :: Se obtienen las tiendas por pais

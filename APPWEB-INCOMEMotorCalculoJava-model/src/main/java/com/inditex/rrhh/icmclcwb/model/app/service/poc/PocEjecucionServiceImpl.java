@@ -70,16 +70,16 @@ public class PocEjecucionServiceImpl implements PocEjecucionService {
 		// Gestion de tiendas
 		List<PocTiendaDto> pocTiendas = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(pocEjecucion.getTiendas())) {
-			pocTiendas = pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository.findByIdPaisAndIdCadenaAndIdIn(
-					pocEjecucion.getIdPais(), pocEjecucion.getIdCadena(), pocEjecucion.getTiendas()));
+			pocTiendas = pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository.findByIdPaisAndIdEmpresaAndIdIn(
+					pocEjecucion.getIdPais(), pocEjecucion.getIdEmpresa(), pocEjecucion.getTiendas()));
 			if (pocEjecucion.getTiendas().size() != pocTiendas.size()) {
 				throw new ApplicationException("Todas las tiendas no son validas");
 			}
 		} else {
 			pocTiendas = pocTiendaMapper.pocTiendaToPocTiendaDto(
-					pocTiendaRepository.findByIdPaisAndIdCadena(pocEjecucion.getIdPais(), pocEjecucion.getIdCadena()));
+					pocTiendaRepository.findByIdPaisAndIdEmpresa(pocEjecucion.getIdPais(), pocEjecucion.getIdEmpresa()));
 			if (CollectionUtils.isEmpty(pocTiendas)) {
-				throw new ApplicationException("No hay tiendas para el pais/cadena");
+				throw new ApplicationException("No hay tiendas para el pais/empresa");
 			}
 		}
 
@@ -87,7 +87,7 @@ public class PocEjecucionServiceImpl implements PocEjecucionService {
 		if (PocConstants.PocSistemaEnum.JAVA.getSistema().equals(pocEjecucion.getSistema())) {
 			TrabajoDto trabajo = new TrabajoDto();
 			trabajo.setIdPais(pocEjecucion.getIdPais());
-			trabajo.setIdCadena(pocEjecucion.getIdCadena());
+			trabajo.setIdEmpresa(pocEjecucion.getIdEmpresa());
 			trabajo.setFechaInicioPeriodo(pocPeriodo.getFechaInicioPeriodo());
 			trabajo.setFechaFinPeriodo(pocPeriodo.getFechaFinPeriodo());
 			List<TrabajoTiendaDto> tiendas = new ArrayList<>();

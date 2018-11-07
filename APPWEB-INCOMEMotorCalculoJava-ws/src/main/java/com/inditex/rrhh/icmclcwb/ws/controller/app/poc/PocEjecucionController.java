@@ -32,62 +32,62 @@ public class PocEjecucionController {
 		return pocEjecucionService.findAll();
 	}
 
-	@GetMapping("/java/{periodo}/{idPais}/{idCadena}")
+	@GetMapping("/java/{periodo}/{idPais}/{idEmpresa}")
 	@ApiOperation("Lanza una ejecución en Java")
-	public PocEjecucionDto javaByPaisAndCadena(@PathVariable(name = "periodo") String periodo,
-			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idCadena") String idCadena) {
+	public PocEjecucionDto javaByPaisAndEmpresa(@PathVariable(name = "periodo") String periodo,
+			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idEmpresa") String idEmpresa) {
 		PocEjecucionDto result = new PocEjecucionDto();
 		result.setSistema(PocConstants.PocSistemaEnum.JAVA.getSistema());
 		result.setPeriodo(periodo);
 		result.setIdPais(idPais);
-		result.setIdCadena(idCadena);
+		result.setIdEmpresa(idEmpresa);
 		result.setTiendas(new ArrayList<>());
 		result.setIdPais(idPais);
 		result = pocEjecucionService.createPocEjecucion(result);
 		return result;
 	}
 
-	@GetMapping("/java/{periodo}/{idPais}/{idCadena}/{tiendas}")
+	@GetMapping("/java/{periodo}/{idPais}/{idEmpresa}/{tiendas}")
 	@ApiOperation("Lanza una ejecución en Java")
-	public PocEjecucionDto javaByPaisAndCadenaAndTiendas(@PathVariable(name = "periodo") String periodo,
-			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idCadena") String idCadena,
+	public PocEjecucionDto javaByPaisAndEmpresaAndTiendas(@PathVariable(name = "periodo") String periodo,
+			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idEmpresa") String idEmpresa,
 			@PathVariable(name = "tiendas") List<String> tiendas) {
 		PocEjecucionDto result = new PocEjecucionDto();
 		result.setSistema(PocConstants.PocSistemaEnum.JAVA.getSistema());
 		result.setPeriodo(periodo);
 		result.setIdPais(idPais);
-		result.setIdCadena(idCadena);
+		result.setIdEmpresa(idEmpresa);
 		result.setTiendas(tiendas);
 		result.setIdPais(idPais);
 		result = pocEjecucionService.createPocEjecucion(result);
 		return result;
 	}
 
-	@GetMapping("/meta4/{periodo}/{idPais}/{idCadena}")
+	@GetMapping("/meta4/{periodo}/{idPais}/{idEmpresa}")
 	@ApiOperation("Lanza una ejecución en Meta4")
-	public PocEjecucionDto meta4ByPaisAndCadena(@PathVariable(name = "periodo") String periodo,
-			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idCadena") String idCadena) {
+	public PocEjecucionDto meta4ByPaisAndEmpresa(@PathVariable(name = "periodo") String periodo,
+			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idEmpresa") String idEmpresa) {
 		PocEjecucionDto result = new PocEjecucionDto();
 		result.setSistema(PocConstants.PocSistemaEnum.META4.getSistema());
 		result.setPeriodo(periodo);
 		result.setIdPais(idPais);
-		result.setIdCadena(idCadena);
+		result.setIdEmpresa(idEmpresa);
 		result.setTiendas(new ArrayList<>());
 		result.setIdPais(idPais);
 		result = pocEjecucionService.createPocEjecucion(result);
 		return result;
 	}
 
-	@GetMapping("/meta4/{periodo}/{idPais}/{idCadena}/{tiendas}")
+	@GetMapping("/meta4/{periodo}/{idPais}/{idEmpresa}/{tiendas}")
 	@ApiOperation("Lanza una ejecución en Meta4")
-	public PocEjecucionDto meta4ByPaisAndCadenaAndTiendas(@PathVariable(name = "periodo") String periodo,
-			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idCadena") String idCadena,
+	public PocEjecucionDto meta4ByPaisAndEmpresaAndTiendas(@PathVariable(name = "periodo") String periodo,
+			@PathVariable(name = "idPais") String idPais, @PathVariable(name = "idEmpresa") String idEmpresa,
 			@PathVariable(name = "tiendas") List<String> tiendas) {
 		PocEjecucionDto result = new PocEjecucionDto();
 		result.setSistema(PocConstants.PocSistemaEnum.META4.getSistema());
 		result.setPeriodo(periodo);
 		result.setIdPais(idPais);
-		result.setIdCadena(idCadena);
+		result.setIdEmpresa(idEmpresa);
 		result.setTiendas(tiendas);
 		result.setIdPais(idPais);
 		result = pocEjecucionService.createPocEjecucion(result);
