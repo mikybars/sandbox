@@ -1,6 +1,10 @@
 spring:
   profiles:
     active: test
+jta:
+  atomikos:
+    properties:
+      log-base-name: ${spring.application.name}-test1-log
 amiga:
   common:
     cache:
