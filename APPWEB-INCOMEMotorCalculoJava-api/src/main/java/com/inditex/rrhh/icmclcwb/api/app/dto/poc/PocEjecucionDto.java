@@ -29,7 +29,7 @@ public class PocEjecucionDto implements Serializable {
 	private String idPais;
 
 	@NotBlank
-	private String idCadena;
+	private String idEmpresa;
 
 	private List<String> tiendas;
 

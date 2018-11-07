@@ -39,8 +39,8 @@ public class Programacion {
 	@Column(name = "ID_PAIS", nullable = true)
 	private String idPais;
 
-	@Column(name = "ID_CADENA", nullable = true)
-	private String idCadena;
+	@Column(name = "ID_EMPRESA", nullable = true)
+	private String idEmpresa;
 
 //	@Column(name = "ID_TIENDA", nullable = true)
 //	private String idTienda;
