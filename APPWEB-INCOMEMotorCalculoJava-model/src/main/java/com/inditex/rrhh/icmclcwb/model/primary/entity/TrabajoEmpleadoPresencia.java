@@ -34,7 +34,7 @@ public class TrabajoEmpleadoPresencia {
 	private Date fecha;
 	
 	@NotNull
-	@Column(name = "ID_TIENDA", nullable = true)
+	@Column(name = "ID_TIENDA", nullable = false)
 	private String idTienda;
 	
 	@NotNull
@@ -47,15 +47,7 @@ public class TrabajoEmpleadoPresencia {
 	private /* BigInteger */ TrabajoTipoHora tipoHora;
 	
 	@NotNull
-	@Column(name = "MINUTOS_1", nullable = false)
-	private /* BigInteger */ Long minutos1;
-	
-	@NotNull
-	@Column(name = "MINUTOS_2", nullable = false)
-	private /* BigInteger */ Long minutos2;
-	
-	@NotNull
-	@Column(name = "MINUTOS_3", nullable = false)
-	private /* BigInteger */ Long minutos3;
+	@Column(name = "MINUTOS", nullable = false)
+	private /* BigInteger */ Long minutos;
 
 }

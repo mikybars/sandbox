@@ -37,24 +37,12 @@ public class Trabajo {
 	@NotBlank
 	@Column(name = "ID_EMPRESA", nullable = true)
 	private String idEmpresa;
-
+	
 	@OneToMany(mappedBy = "trabajo")
 	private List<TrabajoTienda> tiendas;
 
 	@OneToMany(mappedBy = "trabajo")
-	private List<TrabajoTiendaPresencia> tiendasPresencias;
-
-	@OneToMany(mappedBy = "trabajo")
-	private List<TrabajoTiendaVenta> tiendasVentas;
-
-	@OneToMany(mappedBy = "trabajo")
 	private List<TrabajoEmpleado> empleados;
-
-	@OneToMany(mappedBy = "trabajo")
-	private List<TrabajoEmpleadoEstructura> empleadosEstructuras;
-
-	@OneToMany(mappedBy = "trabajo")
-	private List<TrabajoEmpleadoPresencia> empleadosPresencias;
 
 	@NotBlank
 	@Column(name = "ID_USUARIO", nullable = false)
