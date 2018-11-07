@@ -13,14 +13,14 @@ public class ProgramacionEmpleadoDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
-	@ApiModelProperty(value = "Identificador de la tienda", required = false)
+	@ApiModelProperty(value = "Identificador de la tienda", required = false, readOnly = true, hidden = true)
 	private String id;
 
-	@ApiModelProperty(value = "Programación", required = false)
+	@ApiModelProperty(value = "Programación", required = false, readOnly = true, hidden = true)
 	private ProgramacionDto programacion;
 	
 	@NotBlank
-	@ApiModelProperty(value = "Id del empleado", required = true)
+	@ApiModelProperty(value = "Id del empleado", required = true, example = "1000")
 	private String idEmpleado;
 
 }

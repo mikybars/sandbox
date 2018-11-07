@@ -1,5 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.meta4;
-
+package com.inditex.rrhh.icmclcwb.api.meta4.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

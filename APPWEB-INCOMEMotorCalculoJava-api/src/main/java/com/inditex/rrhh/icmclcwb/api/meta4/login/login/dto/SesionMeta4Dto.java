@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.dto;
+package com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto;
 
 import lombok.Data;
 

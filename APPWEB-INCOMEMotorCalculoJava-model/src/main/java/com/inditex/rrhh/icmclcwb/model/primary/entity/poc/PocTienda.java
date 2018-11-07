@@ -21,6 +21,10 @@ public class PocTienda {
 	private String idPais;
 
 	@NotBlank
+	@Column(name = "ID_EMPRESA", nullable = true)
+	private String idEmpresa;
+	
+	@NotBlank
 	@Column(name = "ID_CADENA", nullable = true)
 	private String idCadena;
 

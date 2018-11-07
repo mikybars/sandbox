@@ -16,6 +16,9 @@ public class PocTiendaDto implements Serializable {
 	private String idPais;
 
 	@NotBlank
+	private String idEmpresa;
+	
+	@NotBlank
 	private String idCadena;
 
 }

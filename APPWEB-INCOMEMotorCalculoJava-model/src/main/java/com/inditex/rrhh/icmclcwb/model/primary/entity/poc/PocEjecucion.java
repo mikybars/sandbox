@@ -43,8 +43,8 @@ public class PocEjecucion {
 	private String idPais;
 
 	@NotBlank
-	@Column(name = "ID_CADENA", nullable = false)
-	private String idCadena;
+	@Column(name = "ID_EMPRESA", nullable = false)
+	private String idEmpresa;
 
 	@Column(name = "TIENDAS", nullable = true)
 	private String tiendas;

@@ -1,5 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.meta4;
-
+package com.inditex.rrhh.icmclcwb.api.meta4.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,9 +17,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.dto.PageableList;
 @Builder
 @ToString
 public class PageableListDto<T> implements PageableList<T>, Serializable {
-	
+
 	private static final long serialVersionUID = -1674424926992562719L;
-	
+
 	List<T> data;
 
 	PageDto page;

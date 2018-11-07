@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionRepository
 import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionTiendaRepository;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,7 +65,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 						programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
 				.stream().forEach(programacion -> {
 					programacion.setFechaUltimaEjecucion(LocalDateTime.now());
-					programacion.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), programacion.getHora()).plusDays(1));
+					programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
 					ProgramacionDto programacionModify = modifyProgramacion(programacion);
 					meta4Service.periodo().stream().forEach(periodo -> {
 						TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacionModify);
@@ -79,7 +82,12 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 	public ProgramacionDto createProgramacion(@Valid ProgramacionDto programacion) {
 		LOG.info("Inicio :: ProgramacionService.createProgramacion(): {}", programacion);
 		programacion.setFechaCreacion(LocalDateTime.now());
-		programacion.setFechaSiguienteEjecucion(LocalDateTime.of(LocalDate.now(), programacion.getHora()));
+		if (StringUtils.isBlank(programacion.getHuso())) {
+			programacion.setHuso(ZoneId.systemDefault().getId());
+		}
+		//TODO Obtener el id del usuario de sesion
+		programacion.setIdUsuario("CAMBIAR");
+		programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
 		ProgramacionDto parent = programacionMapper.programacionToProgramacionDto(
 				programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
 		parent.setTiendas(programacion.getTiendas());
@@ -104,6 +112,14 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 		result.setEmpleados(programacion.getEmpleados());
 		LOG.info("Fin :: ProgramacionService.modifyProgramacion(): {}", result);
 		return result;
+	}
+
+	@Override
+	public LocalDateTime fechaSiguienteEjecucion(@Valid ProgramacionDto programacion) {
+		return ZonedDateTime
+				.of(LocalDate.now(ZoneId.of(programacion.getHuso())).plusDays(1), programacion.getHora(),
+						ZoneId.of(programacion.getHuso()))
+				.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
 	}
 
 }

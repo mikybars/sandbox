@@ -145,7 +145,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
 			// Si tenemos las tiendas iniciales ya se pueden recuperar los empleados e ir
 			// recuperando datos de las tiendas y si se van a recuperar los empleados por
-			// pais/cadena se podria iniciar tambien el procesao
+			// pais/empresa se podria iniciar tambien el procesao
 			cfTiendasParametro.get();
 
 			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
