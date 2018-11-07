@@ -28,7 +28,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.poc.PocEjecucionDto;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-@Ignore
 public class PocEjecucionServiceTest {
 
 	@Autowired
