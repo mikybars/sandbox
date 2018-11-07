@@ -113,4 +113,9 @@ public class TrabajoCalculoConsolidado {
 	@Column(name = "IMPORTE_3", nullable = false)
 	private /* BigInteger */ Double importe3;
 
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "ID_TRABAJO_TIPO_HORA", nullable = false)
+	private /* BigInteger */ TrabajoTipoHora tipoHora;
+
 }
