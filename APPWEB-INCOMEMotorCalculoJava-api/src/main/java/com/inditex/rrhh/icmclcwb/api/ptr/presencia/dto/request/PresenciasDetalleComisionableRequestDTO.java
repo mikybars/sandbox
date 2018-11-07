@@ -17,18 +17,18 @@ import lombok.ToString;
 @Builder
 @ToString
 public class PresenciasDetalleComisionableRequestDTO  implements Serializable {
-	@ApiModelProperty(value = "Id tienda", required = false)
+	@ApiModelProperty(value = "Id tienda", required = false,example = "160")
 	private Integer tienda;
-	@ApiModelProperty(value = "Id seccion", required = false)
+	@ApiModelProperty(value = "Id seccion", required = false ,example = "1")
 	private Integer seccion;
-	@ApiModelProperty(value = "Id empleado", required = false)
+	@ApiModelProperty(value = "Id empleado", required = false, allowableValues = "1645")
 	private Integer persona;
-	@ApiModelProperty(value = "Fecha inicio rango de busqueda", required = false)
+	@ApiModelProperty(value = "Fecha inicio rango de busqueda", required = false,example = "2017-01-01")
 	private Date fechaDesde;
-	@ApiModelProperty(value = "Fecha fin rango de busqueda", required = false)
+	@ApiModelProperty(value = "Fecha fin rango de busqueda", required = false,example = "2017-12-31")
 	private Date fechaHasta;
-	@ApiModelProperty(value = "Id tipo", required = false)
+	@ApiModelProperty(value = "Id tipo", required = false,example = "1")
 	private Integer tipo;
-	@ApiModelProperty(value = "Id cadena", required = true)
+	@ApiModelProperty(value = "Id cadena", required = true,example = "1")
 	private Integer cadena;	
 }

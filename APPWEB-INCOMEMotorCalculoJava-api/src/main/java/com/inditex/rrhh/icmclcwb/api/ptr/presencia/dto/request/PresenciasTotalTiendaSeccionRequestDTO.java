@@ -18,20 +18,20 @@ public class PresenciasTotalTiendaSeccionRequestDTO {
 	@ApiModelProperty(value = "Id tiendaSeccion", required = false)
 	private List<TiendaSeccionDTO> tiendaSeccion;
 
-	@ApiModelProperty(value = "Fecha inicio rango", required = false)
+	@ApiModelProperty(value = "Fecha inicio rango", required = false, example = "2017-01-01")
 	private Date fechaDesde;
 
-	@ApiModelProperty(value = "Fecha fin rango", required = false)
+	@ApiModelProperty(value = "Fecha fin rango", required = false, example = "2017-12-31")
 	private Date fechaHasta;
 	
-	@ApiModelProperty(value = "Id tipo hora", required = false)
+	@ApiModelProperty(value = "Id tipo hora",  required = false, example = "1")
 	private Integer tipo;
 	
-	@ApiModelProperty(value = "Id cadena", required = true)
+	@ApiModelProperty(value = "Id cadena", required = true,example = " 1 ")
 	@NotNull
 	private Integer cadena;
 	
-	@ApiModelProperty(value = "Id origen", required = false)
+	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;
 }
 		

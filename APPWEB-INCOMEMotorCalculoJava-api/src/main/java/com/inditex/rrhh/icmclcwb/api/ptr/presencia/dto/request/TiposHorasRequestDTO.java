@@ -15,15 +15,15 @@ import lombok.ToString;
 @ToString
 public class TiposHorasRequestDTO {
 
-	@ApiModelProperty(value = "Id origen", required = false)
+	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;
 	
 	@ApiModelProperty(value = "Id tipo hora", required = false)
 	private Integer tipoHora;
 	
-	@ApiModelProperty(value = "Excluido denonimandor", required = false)
+	@ApiModelProperty(value = "Excluido denonimandor", required = false,example = "true")
 	private Boolean excluidoDenom;
 	
-	@ApiModelProperty(value = "Excluido calculo", required = false)
+	@ApiModelProperty(value = "Excluido calculo", required = false, example = "false")
 	private Boolean excluidoCalculo;
 }

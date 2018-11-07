@@ -34,6 +34,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PTRPresenciasServiceM
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
 
 
@@ -49,8 +50,8 @@ public class PTRPresenciasControllerMock {
 
     @Autowired
     private PTRPresenciasServiceMock presenciasService;
-
-	
+    
+    
 	@ApiOperation(value = "PostPresenciasDetalleComisionable")
 	@PostMapping(path = "/presenciasDetalleComisionable")
 	public PresenciasDetalleResponseListDTO presenciasDetalleComisionable(@Valid @RequestBody final PresenciasDetalleRequestDTO presencias){
