@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoEmpleadoEstadoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
@@ -30,12 +31,6 @@ public abstract class TrabajoEmpleadoEstadoMapper {
 
 	public abstract List<TrabajoEmpleadoEstado> trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(
 			List<TrabajoEmpleadoEstadoDto> src);
-
-	@Mappings({ @Mapping(target = "idEmpleado", source = "src.idEmpleado"),
-			@Mapping(target = "trabajo.id", source = "trabajo.id"), @Mapping(target = "id", ignore = true),
-			@Mapping(target = "estado", ignore = true) })
-	public abstract TrabajoEmpleadoEstadoDto empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(
-			EmpleadosTiendaResultItemDto src, TrabajoDto trabajo);
 
 	@BeforeMapping
 	protected void beforeTrabajoEmpleadoEstado(TrabajoEmpleadoEstado src) {
@@ -64,6 +59,12 @@ public abstract class TrabajoEmpleadoEstadoMapper {
 			}
 		}
 	}
+
+	@Mappings({ @Mapping(target = "idEmpleado", source = "src.idEmpleado"),
+			@Mapping(target = "trabajo.id", source = "trabajo.id"), @Mapping(target = "id", ignore = true),
+			@Mapping(target = "estado", ignore = true) })
+	public abstract TrabajoEmpleadoEstadoDto empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(
+			EmpleadosTiendaResultItemDto src, TrabajoDto trabajo);
 
 	public List<TrabajoEmpleadoEstadoDto> empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(
 			List<EmpleadosTiendaResultItemDto> src, TrabajoDto trabajo) {

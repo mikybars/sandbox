@@ -10,6 +10,7 @@ import org.mapstruct.Mappings;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseItemDTO;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaSeccionVentaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionVenta;
 
 @Mapper

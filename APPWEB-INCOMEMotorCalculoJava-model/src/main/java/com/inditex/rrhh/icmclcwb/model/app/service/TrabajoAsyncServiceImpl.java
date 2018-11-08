@@ -69,7 +69,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 	@Autowired
 	private TrabajoEmpleadoEstadoService trabajoEmpleadoService;
-	
+
 	@Autowired
 	private TrabajoTiendaSeccionVentaService trabajoTiendaSeccionVentaService;
 
@@ -97,7 +97,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	@Autowired
 	@Qualifier("getEmpleadosTiendaDto")
 	private Meta4PropertiesDto getEmpleadosTiendaDto;
-	
+
 	@Autowired
 	@Qualifier("ptrClientVentaDto")
 	private PtrPropertiesDto ptrClientVentaDto;
@@ -223,8 +223,10 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		} else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(),
 					trabajo.getTiendas());
-			trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper.trabajoTiendaEstadoDtoToTrabajoTiendaEstado(
-					pocTiendaMapper.pocTiendaDtoToTrabajoTiendaEstadoDto(meta4Service.getTiendas(trabajo))));
+			trabajoTiendaEstadoRepository
+					.save(trabajoTiendaEstadoMapper.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
+							pocTiendaMapper.pocTiendaDtoToTrabajoTiendaEstadoDto(meta4Service.getTiendas(trabajo)),
+							trabajo));
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(), result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
 			// TODO Pais + Empresa :: Se obtienen las tiendas por pais y empresa
@@ -257,47 +259,50 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		Page<TrabajoTiendaEstado> tiendasPage;
 
 		List<GetVentaTotalizadoResponseItemDTO> result = new ArrayList<>();
-		
+
 		List<CompletableFuture<Void>> cfTrabajoTiendaSeccionVentaList = new ArrayList<>();
 
 		do {
-			CompletableFuture<GetVentaTotalizadoResponseDTO> cfResponse = new CompletableFuture<>(); 
+			CompletableFuture<GetVentaTotalizadoResponseDTO> cfResponse = new CompletableFuture<>();
 			// Se recuperan las tiendas por id de trabajo y estado de forma paginada.
 			tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
 					Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
-			List<String> tiendas =  tiendasPage.getContent().stream().map(TrabajoTiendaEstado::getIdTienda).collect(Collectors.toList());
-			GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper.trabajoDtoToGetVentaTotalizadoRequestDTO(trabajo);
+			List<String> tiendas = tiendasPage.getContent().stream().map(TrabajoTiendaEstado::getIdTienda)
+					.collect(Collectors.toList());
+			GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper
+					.trabajoDtoToGetVentaTotalizadoRequestDTO(trabajo);
 			paramGetVentaTotalizado.setTienda(tiendas);
 			paramGetVentaTotalizado.setPais("11");
 			paramGetVentaTotalizado.setCadena("1");
 			paramGetVentaTotalizado.setAgrupacion("FECHA_TIENDA_SECCION");
-			cfResponse = ptrVentaService
-					.getVentaTotalizado(paramGetVentaTotalizado);
+			cfResponse = ptrVentaService.getVentaTotalizado(paramGetVentaTotalizado);
 			GetVentaTotalizadoResponseDTO response = cfResponse.get();
-			
-			if(cfTrabajoTiendaSeccionVentaList.size() < ptrClientVentaDto.getFilter().getMaxPersistenceSize()){
-				cfTrabajoTiendaSeccionVentaList.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
-			}else{
+
+			if (cfTrabajoTiendaSeccionVentaList.size() < ptrClientVentaDto.getFilter().getMaxPersistenceSize()) {
+				cfTrabajoTiendaSeccionVentaList
+						.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
+			} else {
 				CompletableFuture.anyOf(cfTrabajoTiendaSeccionVentaList
 						.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]));
-				Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionVentaList
-						.stream().collect(Collectors.partitioningBy(CompletableFuture::isDone));
-				List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream()
-						.flatMap(List::stream).collect(Collectors.toList());
+				Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionVentaList.stream()
+						.collect(Collectors.partitioningBy(CompletableFuture::isDone));
+				List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream().flatMap(List::stream)
+						.collect(Collectors.toList());
 				cfTrabajoTiendaSeccionVentaList.removeAll(cfPersistence);
-				cfTrabajoTiendaSeccionVentaList.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
+				cfTrabajoTiendaSeccionVentaList
+						.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
 			}
-			
+
 			result.addAll(response.getVentaTotalizado());
 		} while (tiendasPage.hasNext());
-		
-		CompletableFuture
-		.allOf(cfTrabajoTiendaSeccionVentaList.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()])).join();
+
+		CompletableFuture.allOf(
+				cfTrabajoTiendaSeccionVentaList.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]))
+				.join();
 
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaTotalizadaTienda()", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
-
 
 	@Async
 	@Override

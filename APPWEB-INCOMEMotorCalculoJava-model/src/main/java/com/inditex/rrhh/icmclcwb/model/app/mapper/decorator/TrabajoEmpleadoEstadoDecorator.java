@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.mapper;
+package com.inditex.rrhh.icmclcwb.model.app.mapper.decorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
 
 public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEstadoMapper {
 
