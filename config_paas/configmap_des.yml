@@ -73,6 +73,15 @@ amiga:
           pubSubDomain: false
 app:
   envars:
+    ptr:
+      service: 
+        ptrClientVenta1: 
+          endpoint: '/ventaGeneralService/getVentaTotalizado'
+          filter:
+            maxPageSize: 20
+            maxQuerySize: 3
+            maxPersistenceSize: 3
+            retryAttempts: 2
     meta4:
       user: INCOME
       language: 2

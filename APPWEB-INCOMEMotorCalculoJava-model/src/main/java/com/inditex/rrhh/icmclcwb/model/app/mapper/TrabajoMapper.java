@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.mapstruct.AfterMapping;
@@ -19,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
@@ -28,6 +31,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 
 @Mapper
 public abstract class TrabajoMapper {
+
+	private static final String DATE_FORMAT = "yyyy-MM-dd"; 
 
 	public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
@@ -46,6 +51,22 @@ public abstract class TrabajoMapper {
 			@Mapping(source = "fechaFinPeriodo", target = "fechaFin") })
 	public abstract EmpleadosTiendaFilterDto trabajoDtotoEmpleadosTiendaFilterDto(TrabajoDto src);
 
+	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = DATE_FORMAT),
+		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = DATE_FORMAT),
+		@Mapping(source = "idPais", target = "pais"),
+		@Mapping(source = "idEmpresa", target = "cadena"),
+		@Mapping(source = "tiendas", target = "tienda")
+	})
+	public abstract GetVentaTotalizadoRequestDTO trabajoDtoToGetVentaTotalizadoRequestDTO(TrabajoDto src);
+
+	protected List<String> mapTiendas(List<TrabajoTiendaDto> trabajoTiendasDto){
+		List<String> tiendas = new ArrayList<>();
+		for(TrabajoTiendaDto tienda : trabajoTiendasDto){
+			tiendas.add(tienda.getIdTienda());
+		}
+		return tiendas;
+	}
+	
 	@AfterMapping
 	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto target) {
 		if (src != null) {

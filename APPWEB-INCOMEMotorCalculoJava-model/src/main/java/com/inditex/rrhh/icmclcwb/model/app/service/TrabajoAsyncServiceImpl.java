@@ -23,11 +23,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
@@ -36,6 +38,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseItemDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -66,6 +69,9 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 	@Autowired
 	private TrabajoEmpleadoEstadoService trabajoEmpleadoService;
+	
+	@Autowired
+	private TrabajoTiendaSeccionVentaService trabajoTiendaSeccionVentaService;
 
 	@Autowired
 	private TrabajoMapper trabajoMapper;
@@ -91,6 +97,10 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	@Autowired
 	@Qualifier("getEmpleadosTiendaDto")
 	private Meta4PropertiesDto getEmpleadosTiendaDto;
+	
+	@Autowired
+	@Qualifier("ptrClientVentaDto")
+	private PtrPropertiesDto ptrClientVentaDto;
 
 	@Async
 	@Override
@@ -243,19 +253,51 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	public CompletableFuture<Void> ventaTotalizadaTienda(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaTotalizadaTienda(): {}", trabajo.getId(), trabajo);
 
-		GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = new GetVentaTotalizadoRequestDTO();
-		paramGetVentaTotalizado.setFechaDesde("2017-11-01");
-		paramGetVentaTotalizado.setFechaHasta("2017-11-30");
-		paramGetVentaTotalizado.setPais("11");
-		paramGetVentaTotalizado.setCadena("1");
-		// paramGetVentaTotalizado.setTienda(Arrays.asList("57"));
-		paramGetVentaTotalizado.setTienda(new ArrayList<>());
-		GetVentaTotalizadoResponseDTO getVentaTotalizadoResponse = ptrVentaService
-				.getVentaTotalizado(paramGetVentaTotalizado);
+		PageRequest pageable = new PageRequest(0, ptrClientVentaDto.getFilter().getMaxPageSize());
+		Page<TrabajoTiendaEstado> tiendasPage;
+
+		List<GetVentaTotalizadoResponseItemDTO> result = new ArrayList<>();
+		
+		List<CompletableFuture<Void>> cfTrabajoTiendaSeccionVentaList = new ArrayList<>();
+
+		do {
+			CompletableFuture<GetVentaTotalizadoResponseDTO> cfResponse = new CompletableFuture<>(); 
+			// Se recuperan las tiendas por id de trabajo y estado de forma paginada.
+			tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
+					Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
+			List<String> tiendas =  tiendasPage.getContent().stream().map(TrabajoTiendaEstado::getIdTienda).collect(Collectors.toList());
+			GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper.trabajoDtoToGetVentaTotalizadoRequestDTO(trabajo);
+			paramGetVentaTotalizado.setTienda(tiendas);
+			paramGetVentaTotalizado.setPais("11");
+			paramGetVentaTotalizado.setCadena("1");
+			paramGetVentaTotalizado.setAgrupacion("FECHA_TIENDA_SECCION");
+			cfResponse = ptrVentaService
+					.getVentaTotalizado(paramGetVentaTotalizado);
+			GetVentaTotalizadoResponseDTO response = cfResponse.get();
+			
+			if(cfTrabajoTiendaSeccionVentaList.size() < ptrClientVentaDto.getFilter().getMaxPersistenceSize()){
+				cfTrabajoTiendaSeccionVentaList.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
+			}else{
+				CompletableFuture.anyOf(cfTrabajoTiendaSeccionVentaList
+						.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]));
+				Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionVentaList
+						.stream().collect(Collectors.partitioningBy(CompletableFuture::isDone));
+				List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream()
+						.flatMap(List::stream).collect(Collectors.toList());
+				cfTrabajoTiendaSeccionVentaList.removeAll(cfPersistence);
+				cfTrabajoTiendaSeccionVentaList.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
+			}
+			
+			result.addAll(response.getVentaTotalizado());
+		} while (tiendasPage.hasNext());
+		
+		CompletableFuture
+		.allOf(cfTrabajoTiendaSeccionVentaList.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()])).join();
 
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaTotalizadaTienda()", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
+
 
 	@Async
 	@Override

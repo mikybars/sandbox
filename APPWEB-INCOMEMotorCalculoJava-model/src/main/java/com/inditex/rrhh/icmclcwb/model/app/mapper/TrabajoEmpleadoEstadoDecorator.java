@@ -20,14 +20,12 @@ public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEsta
 	public List<TrabajoEmpleadoEstadoDto> empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(
 			List<EmpleadosTiendaResultItemDto> src, TrabajoDto trabajo) {
 		List<TrabajoEmpleadoEstadoDto> dtoList = new ArrayList<>();
+		EstadoTrabajoEmpleadoDto estado = new EstadoTrabajoEmpleadoDto();
+		estado.setId(Constants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
 		for (EmpleadosTiendaResultItemDto childDto : src) {
 			TrabajoEmpleadoEstadoDto dto = delegate.empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(childDto,
 					trabajo);
-			if (dto.getEstado() == null) {
-				EstadoTrabajoEmpleadoDto estado = new EstadoTrabajoEmpleadoDto();
-				estado.setId(Constants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
-				dto.setEstado(estado);
-			}
+			dto.setEstado(estado);
 			dtoList.add(dto);
 		}
 		return dtoList;
