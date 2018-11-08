@@ -15,13 +15,13 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_TRABAJO_EMPLEADO_PRESENCIA", schema = "DESARROLLO_RRHH")
+@Table(name = "INCOME_TRABAJO_TIENDA_VENTA_SECCION", schema = "DESARROLLO_RRHH")
 @Data
-public class TrabajoEmpleadoPresencia {
+public class TrabajoTiendaVentaSeccion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TRABAJO_EMPLEADO_PRESENCIA")
+	@Column(name = "ID_TRABAJO_TIENDA_VENTA_SECCION")
 	private /* BigInteger */ Long id;
 
 	@NotNull
@@ -34,28 +34,19 @@ public class TrabajoEmpleadoPresencia {
 	private Date fecha;
 	
 	@NotNull
-	@Column(name = "ID_TIENDA", nullable = true)
+	@Column(name = "ID_TIENDA", nullable = false)
 	private String idTienda;
 	
 	@NotNull
-	@Column(name = "ID_EMPLEADO", nullable = false)
-	private String idEmpleado;
+	@Column(name = "IMPORTE_1", nullable = false)
+	private /* BigInteger */ Double importe1;
 	
 	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TRABAJO_TIPO_HORA", nullable = false)
-	private /* BigInteger */ TrabajoTipoHora tipoHora;
+	@Column(name = "IMPORTE_2", nullable = false)
+	private /* BigInteger */ Double importe2;
 	
 	@NotNull
-	@Column(name = "MINUTOS_1", nullable = false)
-	private /* BigInteger */ Long minutos1;
-	
-	@NotNull
-	@Column(name = "MINUTOS_2", nullable = false)
-	private /* BigInteger */ Long minutos2;
-	
-	@NotNull
-	@Column(name = "MINUTOS_3", nullable = false)
-	private /* BigInteger */ Long minutos3;
+	@Column(name = "IMPORTE_3", nullable = false)
+	private /* BigInteger */ Double importe3;
 
 }

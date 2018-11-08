@@ -15,13 +15,13 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_TRABAJO_TIENDA_PRESENCIA", schema = "DESARROLLO_RRHH")
+@Table(name = "INCOME_TRABAJO_TIENDA_SECCION_VENTA", schema = "DESARROLLO_RRHH")
 @Data
-public class TrabajoTiendaPresencia {
+public class TrabajoTiendaSeccionVenta {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TRABAJO_TIENDA_PRESENCIA")
+	@Column(name = "ID_TRABAJO_TIENDA_SECCION_VENTA")
 	private /* BigInteger */ Long id;
 
 	@NotNull
@@ -38,7 +38,11 @@ public class TrabajoTiendaPresencia {
 	private String idTienda;
 	
 	@NotNull
-	@Column(name = "MINUTOS", nullable = false)
-	private /* BigInteger */ Long minutos;
+	@Column(name = "ID_SECCION", nullable = false)
+	private String idSeccion;
+	
+	@NotNull
+	@Column(name = "IMPORTE", nullable = false)
+	private /* BigInteger */ Double importe;
 
 }
