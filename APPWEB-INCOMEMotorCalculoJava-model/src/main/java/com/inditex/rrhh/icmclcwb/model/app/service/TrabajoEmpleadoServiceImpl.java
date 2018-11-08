@@ -12,45 +12,46 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoService;
-import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
 
 @Service
 @Validated
-public class TrabajoEmpleadoServiceImpl implements TrabajoEmpleadoService{
-	
+public class TrabajoEmpleadoServiceImpl implements TrabajoEmpleadoEstadoService {
+
 	@Autowired
-	Logger LOG;
-	
+	private Logger LOG;
+
 	@Autowired
-	TrabajoEmpleadoRepository trabajoEmpleadoRepository;
-	
+	private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository;
+
 	@Autowired
-	TrabajoEmpleadoMapper mapper;
-	
+	private TrabajoEmpleadoEstadoMapper trabajoEmpleadoEstadoMapper;
+
 	@Override
-	public TrabajoEmpleadoDto save(@Valid final TrabajoEmpleadoDto trabajoEmpleadoDto) {
-		LOG.info("TrabajoEmpleado[{}] :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoDto.getId(), trabajoEmpleadoDto);
-		TrabajoEmpleadoDto result = mapper
-				.trabajoEmpleadoToTrabajoEmpleadoDto(trabajoEmpleadoRepository.save(mapper.trabajoEmpleadoDtoToTrabajoEmpleado(trabajoEmpleadoDto)));
+	public TrabajoEmpleadoEstadoDto save(@Valid final TrabajoEmpleadoEstadoDto trabajoEmpleadoDto) {
+		LOG.info("TrabajoEmpleado[{}] :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoDto.getId(),
+				trabajoEmpleadoDto);
+		TrabajoEmpleadoEstadoDto result = trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
+				trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
+						.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoDto)));
 		LOG.info("TrabajoEmpleado[{}] :: Fin :: TrabajoEmpleadoService.save(): {}", result.getId(), result);
 		return result;
 	}
-	
+
 	@Async
 	@Override
 	@Transactional
-	public CompletableFuture<Void> save(@Valid final List<TrabajoEmpleadoDto> trabajoEmpleadoDto) {
-		LOG.info("TrabajoEmpleado :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoDto);
-		List<TrabajoEmpleadoDto> saved = mapper.trabajoEmpleadoToTrabajoEmpleadoDto(
-				trabajoEmpleadoRepository.save(
-						mapper.trabajoEmpleadoDtoToTrabajoEmpleado(trabajoEmpleadoDto)));
-		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoDto);
+	public CompletableFuture<Void> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
+		LOG.info("TrabajoEmpleado :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoEstado);
+		List<TrabajoEmpleadoEstadoDto> saved = trabajoEmpleadoEstadoMapper
+				.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
+						trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
+								.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
+		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoEstado);
 		return CompletableFuture.completedFuture(null);
 	}
-
-
 
 }

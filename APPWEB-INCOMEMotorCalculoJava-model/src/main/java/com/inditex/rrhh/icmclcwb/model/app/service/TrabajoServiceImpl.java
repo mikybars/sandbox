@@ -43,7 +43,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
 	@Autowired
 	private TrabajoTiendaRepository trabajoTiendaRepository;
-
+	
 	@Autowired
 	private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
 

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 
 @Data
-public class TrabajoEmpleadoDto implements Serializable {
+public class TrabajoEmpleadoEstadoDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
@@ -24,5 +24,9 @@ public class TrabajoEmpleadoDto implements Serializable {
 	@NotBlank
 	@ApiModelProperty(value = "Id del empleado", required = true)
 	private String idEmpleado;
+	
+	@NotNull
+	@ApiModelProperty(value = "Estado del empleado en la operación", required = true)
+	private EstadoTrabajoEmpleadoDto estado;
 
 }

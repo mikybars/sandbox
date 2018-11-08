@@ -24,10 +24,10 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
@@ -37,11 +37,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
-import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaRepository;
 
 @Service
@@ -61,19 +63,22 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	private SessionRepository sessionRepository;
 
 	@Autowired
-	private TrabajoEmpleadoService trabajoEmpleadoService;
+	private TrabajoEmpleadoEstadoService trabajoEmpleadoService;
 
 	@Autowired
 	private TrabajoMapper trabajoMapper;
 
 	@Autowired
 	private TrabajoTiendaRepository trabajoTiendaRepository;
+	
+	@Autowired
+	private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 
 	@Autowired
 	private TrabajoTiendaMapper trabajoTiendaMapper;
 
 	@Autowired
-	private TrabajoEmpleadoMapper trabajoEmpleadoMapper;
+	private TrabajoEmpleadoEstadoMapper trabajoEmpleadoEstadoMapper;
 
 	@Autowired
 	@Qualifier("getEmpleadosTiendaDto")
@@ -90,7 +95,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 		// Request para la consulta de tiendas
 		PageRequest pageable = new PageRequest(0, getEmpleadosTiendaDto.getFilter().getMaxPageSize());
-		Page<TrabajoTienda> tiendasPage;
+		Page<TrabajoTiendaEstado> tiendasPage;
 
 		// Request para la consulta en meta4
 		EmpleadosTiendaRequestDto request = new EmpleadosTiendaRequestDto();
@@ -102,7 +107,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 		do {
 			// Se recuperan las tiendas por id de trabajo y estado de forma paginada.
-			tiendasPage = trabajoTiendaRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
+			tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
 					Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
 			LOG.info(
 					"Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): trabajoTiendaRepository.findByTrabajoIdEstadoId(): {}",
@@ -112,7 +117,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 			// Para cada tienda recuperamos y persistimos los datos de los empleados
 			// asociados.
-			for (TrabajoTienda tienda : tiendasPage.getContent()) {
+			for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
 
 				request.getData().setIdLugarTrabajo("T" + tienda.getIdTienda());
 
@@ -138,8 +143,8 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 					result.addAll(persist);
 
-					List<TrabajoEmpleadoDto> trabajoEmpleadoDto = trabajoEmpleadoMapper
-							.empleadosTiendaResultItemDtoToTrabajoEmpleadoDto(persist, trabajo);
+					List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoDto = trabajoEmpleadoEstadoMapper
+							.empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(persist, trabajo);
 
 					CompletableFuture<Void> cfTrabajoEmpleadoSave = new CompletableFuture<>();
 
