@@ -9,7 +9,7 @@ app:
         tls:
           enabled: true
           insecure_termination_policy: Redirect
-        timeout: 600
+        #timeout: 600
 datagrid:
   application_cache:
     enabled: true
