@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-public class PresenciasTotalTiendaSeccionRequestDTO {
+public class PresenciasTotalTiendaSeccionRequestDto {
 
 	@ApiModelProperty(value = "Id tiendaSeccion", required = false)
-	private List<TiendaSeccionDTO> tiendaSeccion;
+	private List<TiendaSeccionDto> tiendaSeccion;
 
 	@ApiModelProperty(value = "Fecha inicio rango", required = false, example = "2017-01-01")
 	private Date fechaDesde;

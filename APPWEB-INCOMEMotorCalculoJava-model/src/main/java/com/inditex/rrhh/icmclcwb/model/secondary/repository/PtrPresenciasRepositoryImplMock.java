@@ -9,11 +9,11 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.esotericsoftware.minlog.Log;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiendaSeccionDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiendaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleComisionableMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaMock;
@@ -25,7 +25,7 @@ import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciaTotalTiendaSecc
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.TiposHorasRowMapper;
 
 @Repository("PTRPresenciasRepositoryJDBCTemplate")
-public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryMock{
+public class PtrPresenciasRepositoryImplMock implements PtrPresenciasRepositoryMock{
 	@Autowired
 	@Qualifier("secondaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
@@ -36,7 +36,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	
 
 	@Override
-	public List<PresenciaDetalleMock> findPresencias(PresenciasDetalleRequestDTO params) {
+	public List<PresenciaDetalleMock> findPresencias(PresenciasDetalleRequestDto params) {
 	
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
 		MapSqlParameterSource param = new MapSqlParameterSource();
@@ -104,7 +104,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	}
 	
 	@Override
-	public List<PresenciaTotalTiendaMock> findPresenciasTotalTienda(PresenciasTotalTiendaRequestDTO dto) {
+	public List<PresenciaTotalTiendaMock> findPresenciasTotalTienda(PresenciasTotalTiendaRequestDto dto) {
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		
@@ -152,7 +152,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 
 
 	@Override
-	public List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(PresenciasTotalTiendaSeccionRequestDTO dto) {
+	public List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(PresenciasTotalTiendaSeccionRequestDto dto) {
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		
@@ -212,7 +212,7 @@ public class PTRPresenciasRepositoryImplMock implements PTRPresenciasRepositoryM
 	
 	
 	@Override
-	public List<TiposHorasMock> findTiposHoras(TiposHorasRequestDTO dto) {
+	public List<TiposHorasMock> findTiposHoras(TiposHorasRequestDto dto) {
 		List<TiposHorasMock> presencias;
 		String consulta;
 		

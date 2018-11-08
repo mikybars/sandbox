@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esotericsoftware.minlog.Log;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleComisionableResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.TiposHorasResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasDetalleResponseListDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaResponseListDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaSeccionResponseListDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasResponseListDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PTRPresenciasServiceMock;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleComisionableResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.TiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasDetalleResponseListDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaResponseListDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaSeccionResponseListDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasResponseListDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasServiceMock;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,23 +49,23 @@ public class PTRPresenciasControllerMock {
 	private Logger LOG;
 
     @Autowired
-    private PTRPresenciasServiceMock presenciasService;
+    private PtrPresenciasServiceMock presenciasService;
     
     
 	@ApiOperation(value = "PostPresenciasDetalleComisionable")
 	@PostMapping(path = "/presenciasDetalleComisionable")
-	public PresenciasDetalleResponseListDTO presenciasDetalleComisionable(@Valid @RequestBody final PresenciasDetalleRequestDTO presencias){
-		List<PresenciasDetalleResponseDTO> list =this.presenciasService.PresenciasDetalle(presencias);
-		PresenciasDetalleResponseListDTO response =new PresenciasDetalleResponseListDTO();
+	public PresenciasDetalleResponseListDto presenciasDetalleComisionable(@Valid @RequestBody final PresenciasDetalleRequestDto presencias){
+		List<PresenciasDetalleResponseDto> list =this.presenciasService.PresenciasDetalle(presencias);
+		PresenciasDetalleResponseListDto response =new PresenciasDetalleResponseListDto();
 		response.setList(list);
 		return response;
 	}
 	
 	@ApiOperation(value = "PostPresenciasDetalle")
 	@PostMapping(path = "/presenciasDetalle")
-	public PresenciasDetalleResponseListDTO presenciasDetalle(@Valid @RequestBody final PresenciasDetalleRequestDTO presencias){
-		List<PresenciasDetalleResponseDTO> list =this.presenciasService.PresenciasDetalle(presencias);
-		PresenciasDetalleResponseListDTO response =new PresenciasDetalleResponseListDTO();
+	public PresenciasDetalleResponseListDto presenciasDetalle(@Valid @RequestBody final PresenciasDetalleRequestDto presencias){
+		List<PresenciasDetalleResponseDto> list =this.presenciasService.PresenciasDetalle(presencias);
+		PresenciasDetalleResponseListDto response =new PresenciasDetalleResponseListDto();
 		response.setList(list);
 		return response;
 	}
@@ -73,16 +73,16 @@ public class PTRPresenciasControllerMock {
 	
 	@ApiOperation(value = "PostPresenciasTotalTienda")
 	@PostMapping(path = "/presenciasTotalTienda")
-	public PresenciasTotalTiendaResponseListDTO presenciasTotalTienda(@Valid @RequestBody final PresenciasTotalTiendaRequestDTO  presencias){
-		PresenciasTotalTiendaResponseListDTO lista = new PresenciasTotalTiendaResponseListDTO();
+	public PresenciasTotalTiendaResponseListDto presenciasTotalTienda(@Valid @RequestBody final PresenciasTotalTiendaRequestDto  presencias){
+		PresenciasTotalTiendaResponseListDto lista = new PresenciasTotalTiendaResponseListDto();
 		lista.setList(this.presenciasService.PresenciasTotalTienda(presencias));
 		return lista;
 	}
 	
 	@ApiOperation(value = "PostPresenciasTotalTiendaSeccion")
 	@PostMapping(path = "/presenciasTotalTiendaSeccion")
-	public PresenciasTotalTiendaSeccionResponseListDTO presenciasTiendaSeccion(@Valid @RequestBody final PresenciasTotalTiendaSeccionRequestDTO  presencias){
-		PresenciasTotalTiendaSeccionResponseListDTO lista = new PresenciasTotalTiendaSeccionResponseListDTO();
+	public PresenciasTotalTiendaSeccionResponseListDto presenciasTiendaSeccion(@Valid @RequestBody final PresenciasTotalTiendaSeccionRequestDto  presencias){
+		PresenciasTotalTiendaSeccionResponseListDto lista = new PresenciasTotalTiendaSeccionResponseListDto();
 		lista.setList(this.presenciasService.PresenciasTotalTiendaSeccion(presencias));
 		return lista;	
 	}
@@ -90,8 +90,8 @@ public class PTRPresenciasControllerMock {
 	
 	@ApiOperation(value = "PostTiposHoras")
 	@PostMapping(path = "/tiposHoras")
-	public TiposHorasResponseListDTO tiposHoras (@Valid @RequestBody final TiposHorasRequestDTO tiposHoras){
-		TiposHorasResponseListDTO lista = new TiposHorasResponseListDTO();
+	public TiposHorasResponseListDto tiposHoras (@Valid @RequestBody final TiposHorasRequestDto tiposHoras){
+		TiposHorasResponseListDto lista = new TiposHorasResponseListDto();
 		lista.setLista(this.presenciasService.TiposHoras(tiposHoras));
 		return lista;
 	}

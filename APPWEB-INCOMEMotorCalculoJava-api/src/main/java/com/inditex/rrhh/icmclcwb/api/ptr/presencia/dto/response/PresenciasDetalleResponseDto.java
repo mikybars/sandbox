@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class PresenciasDetalleResponseDTO implements Serializable{
+public class PresenciasDetalleResponseDto implements Serializable{
 	@NotNull
 	private Integer tienda;
 	private Integer seccion;

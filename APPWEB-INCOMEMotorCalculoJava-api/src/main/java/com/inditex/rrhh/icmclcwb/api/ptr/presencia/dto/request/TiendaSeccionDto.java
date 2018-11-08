@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class TiendaSeccionDTO {
+public class TiendaSeccionDto {
 
 	private Integer tienda;
 	private Integer seccion;

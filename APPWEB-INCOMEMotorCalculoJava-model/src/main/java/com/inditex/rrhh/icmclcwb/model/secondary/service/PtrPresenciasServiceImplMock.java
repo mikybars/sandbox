@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.esotericsoftware.minlog.Log;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleComisionableResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.TiposHorasResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PTRPresenciasServiceMock;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleComisionableResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.TiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasServiceMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaSeccionMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.TiposHorasMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciasMapper;
-import com.inditex.rrhh.icmclcwb.model.secondary.repository.PTRPresenciasRepositoryMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.repository.PtrPresenciasRepositoryMock;
 
 import org.slf4j.Logger;
 /**
@@ -36,7 +36,7 @@ import org.slf4j.Logger;
  */
 @Service
 @Validated
-public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
+public class PtrPresenciasServiceImplMock implements PtrPresenciasServiceMock {
 	
 	@Autowired
     private Logger logger;
@@ -44,7 +44,7 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 	
 	//REPOSITORIO QUE USA JDBCTEMPLATE
     @Autowired
-    private PTRPresenciasRepositoryMock presenciasRepository;
+    private PtrPresenciasRepositoryMock presenciasRepository;
 	
 	
     @Autowired
@@ -54,7 +54,7 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 
     
 	@Override
-	public List<PresenciasDetalleResponseDTO> PresenciasDetalle(PresenciasDetalleRequestDTO presencias) {
+	public List<PresenciasDetalleResponseDto> PresenciasDetalle(PresenciasDetalleRequestDto presencias) {
 		Log.info("PTR FindPresenciasDetalle()");
 		List<PresenciaDetalleMock> p= this.presenciasRepository.findPresencias(presencias);
 		Log.info("Fin consulta PTR FindPresenciasDetalle()");
@@ -63,13 +63,13 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 
 
 	@Override
-	public List<PresenciasDetalleComisionableResponseDTO> PresenciasDetalleComisionable(PresenciasDetalleComisionableRequestDTO presencias) {
+	public List<PresenciasDetalleComisionableResponseDto> PresenciasDetalleComisionable(PresenciasDetalleComisionableRequestDto presencias) {
 		return null;
 	}
 
 	
 	@Override
-	public List<PresenciasTotalTiendaResponseDTO> PresenciasTotalTienda(PresenciasTotalTiendaRequestDTO presencias) {
+	public List<PresenciasTotalTiendaResponseDto> PresenciasTotalTienda(PresenciasTotalTiendaRequestDto presencias) {
 		Log.info("PTR FindPresenciasTotalTienda()");
 		List<PresenciaTotalTiendaMock> p= this.presenciasRepository.findPresenciasTotalTienda(presencias);
 		Log.info("Fin consulta PTR FindPresenciasTotalTienda()");
@@ -81,8 +81,8 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 	
 
 	@Override
-	public List<PresenciasTotalTiendaSeccionResponseDTO> PresenciasTotalTiendaSeccion(
-			PresenciasTotalTiendaSeccionRequestDTO presencias) {
+	public List<PresenciasTotalTiendaSeccionResponseDto> PresenciasTotalTiendaSeccion(
+			PresenciasTotalTiendaSeccionRequestDto presencias) {
 		Log.info("PTR FindPresenciasTotalTiendaSeccion()");
 		List<PresenciaTotalTiendaSeccionMock> p= this.presenciasRepository.findPresenciasTotalTiendaSeccion(presencias);
 		Log.info("Fin consulta PTR FindPresenciasTotalTiendaSeccion()");
@@ -91,7 +91,7 @@ public class PTRPresenciasServiceImplMock implements PTRPresenciasServiceMock {
 
 	
 	@Override
-	public List<TiposHorasResponseDTO> TiposHoras(TiposHorasRequestDTO tiposHoras) {
+	public List<TiposHorasResponseDto> TiposHoras(TiposHorasRequestDto tiposHoras) {
 		Log.info("PTR FindTiposHoras()");
 		List<TiposHorasMock> p= this.presenciasRepository.findTiposHoras(tiposHoras);
 		Log.info("Fin consulta PTR FindTiposHoras()");
