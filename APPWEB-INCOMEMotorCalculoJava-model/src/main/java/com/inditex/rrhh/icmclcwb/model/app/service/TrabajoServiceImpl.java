@@ -141,12 +141,9 @@ public class TrabajoServiceImpl implements TrabajoService {
 
 			CompletableFuture<Void> cfTiendasParametro = trabajoAsyncService.tiendasParametro(trabajo);
 			CompletableFuture<Void> cfTiendasHistorico = trabajoAsyncService.tiendasHistorico(trabajo);
-			CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
-
-			// Si tenemos las tiendas iniciales ya se pueden recuperar los empleados e ir
-			// recuperando datos de las tiendas y si se van a recuperar los empleados por
-			// pais/empresa se podria iniciar tambien el procesao
+			
 			cfTiendasParametro.get();
+			CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
 
 			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
 			CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoAsyncService.ventaTotalizadaTienda(trabajo);

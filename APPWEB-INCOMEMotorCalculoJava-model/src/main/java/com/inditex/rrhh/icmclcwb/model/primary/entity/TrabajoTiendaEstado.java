@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -27,9 +28,29 @@ public class TrabajoTiendaEstado {
 	@JoinColumn(name = "ID_TRABAJO", nullable = false)
 	private /* BigInteger */ Trabajo trabajo;
 	
-	@NotNull
-	@Column(name = "ID_TIENDA", nullable = false)
+	@NotBlank
+	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
 	private String idTienda;
+
+	@NotBlank
+	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
+	private String idTiendaMeta4;
+
+	@NotBlank
+	@Column(name = "STD_ID_COUNTRY", nullable = false)
+	private String idPais;
+
+	@NotBlank
+	@Column(name = "CCL_ID_ORIGEN", nullable = false)
+	private String idPaisOrigen;
+
+	@NotBlank
+	@Column(name = "STD_ID_LEG_ENT", nullable = false)
+	private String idEmpresa;
+
+	@NotBlank
+	@Column(name = "CCL_ID_CADENA", nullable = false)
+	private String idCadena;
 	
 	@NotNull
 	@OneToOne

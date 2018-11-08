@@ -39,7 +39,9 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaMapper;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
@@ -70,9 +72,15 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 	@Autowired
 	private TrabajoTiendaRepository trabajoTiendaRepository;
-	
+
 	@Autowired
 	private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
+
+	@Autowired
+	private TrabajoTiendaEstadoMapper trabajoTiendaEstadoMapper;
+
+	@Autowired
+	private PocTiendaMapper pocTiendaMapper;
 
 	@Autowired
 	private TrabajoTiendaMapper trabajoTiendaMapper;
@@ -119,7 +127,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 			// asociados.
 			for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
 
-				request.getData().setIdLugarTrabajo("T" + tienda.getIdTienda());
+				request.getData().setIdLugarTrabajo(tienda.getIdTiendaMeta4());
 
 				do {
 					// Consultamos en meta4 los empleados por tienda de forma paginada.
@@ -205,19 +213,8 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		} else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(),
 					trabajo.getTiendas());
-			// Las tiendas por parámetro ya se han añadido en la generación del trabajo
-//			TipoTrabajoTiendaDto tipoTrabajoTienda = new TipoTrabajoTiendaDto();
-//			tipoTrabajoTienda.setId(Constants.TipoTrabajoTiendaEnum.PARAMETRO.getId());
-//			TrabajoDto trabajoId = new TrabajoDto();
-//			trabajo.setId(trabajo.getId());
-//			List<TrabajoTiendaDto> trabajoTiendas = new ArrayList<>();
-//			trabajo.getTiendas().stream().forEach(tienda -> {
-//				TrabajoTiendaDto trabajoTienda = new TrabajoTiendaDto();
-//				trabajoTienda.setTrabajo(trabajoId);
-//				trabajoTienda.setTipo(tipoTrabajoTienda);
-//				trabajoTienda.setIdTienda(tienda.getId());
-//				trabajoTiendas.add(trabajoTienda);
-//			});
+			trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper.trabajoTiendaEstadoDtoToTrabajoTiendaEstado(
+					pocTiendaMapper.pocTiendaDtoToTrabajoTiendaEstadoDto(meta4Service.getTiendas(trabajo))));
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(), result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
 			// TODO Pais + Empresa :: Se obtienen las tiendas por pais y empresa
