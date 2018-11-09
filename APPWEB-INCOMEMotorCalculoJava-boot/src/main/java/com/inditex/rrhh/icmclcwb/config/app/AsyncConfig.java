@@ -1,18 +1,15 @@
-package com.inditex.rrhh.icmclcwb.config;
+package com.inditex.rrhh.icmclcwb.config.app;
 
 import java.util.concurrent.Executor;
 
 import org.slf4j.Logger;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import com.inditex.rrhh.icmclcwb.interceptor.MyAsyncUncaughtExceptionHandler;
+import com.inditex.rrhh.icmclcwb.app.interceptor.MyAsyncUncaughtExceptionHandler;
 
 //@Configuration
 //@EnableAsync

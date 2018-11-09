@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config;
+package com.inditex.rrhh.icmclcwb.config.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

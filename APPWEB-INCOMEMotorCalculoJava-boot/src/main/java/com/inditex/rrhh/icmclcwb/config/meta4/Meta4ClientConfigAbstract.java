@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config;
+package com.inditex.rrhh.icmclcwb.config.meta4;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;

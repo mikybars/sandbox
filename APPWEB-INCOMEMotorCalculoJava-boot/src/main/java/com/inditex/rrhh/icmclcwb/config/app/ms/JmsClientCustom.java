@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config;
+package com.inditex.rrhh.icmclcwb.config.app.ms;
 
 import javax.jms.JMSException;
 
@@ -7,6 +7,7 @@ import org.springframework.jms.support.converter.MessageType;
 
 import com.inditex.aqsw.framework.data.jms.JmsClient;
 import com.inditex.aqsw.framework.data.jms.JmsClientCustomizer;
+import com.inditex.rrhh.icmclcwb.config.app.ObjectMapperCustom;
 
 public class JmsClientCustom implements JmsClientCustomizer {
 

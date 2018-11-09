@@ -118,9 +118,9 @@ app:
       password: 123
       language: 2
       login:
-        server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login
+        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-income:
-        server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME
+        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_INCOME
       service:
           getEmpleadosTienda: 
             page:

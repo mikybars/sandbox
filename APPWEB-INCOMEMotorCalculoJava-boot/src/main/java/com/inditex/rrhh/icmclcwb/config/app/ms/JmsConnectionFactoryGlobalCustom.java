@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config;
+package com.inditex.rrhh.icmclcwb.config.app.ms;
 
 import javax.jms.ConnectionFactory;
 
