@@ -154,3 +154,4 @@ app:
               maxPageSize: 20
               maxQuerySize: 3
               maxPersistenceSize: 3
+              retryAttempts: 2
