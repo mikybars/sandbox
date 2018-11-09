@@ -27,7 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
@@ -47,13 +47,12 @@ import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.SessionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaRepository;
 
 @Service
 @Validated
-public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
+public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 
 	@Autowired
 	private Logger LOG;
@@ -63,9 +62,6 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 	@Autowired
 	private PTRVentaService ptrVentaService;
-
-	@Autowired
-	private SessionRepository sessionRepository;
 
 	@Autowired
 	private TrabajoEmpleadoEstadoService trabajoEmpleadoService;
@@ -105,7 +101,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 	@Async
 	@Override
 	public CompletableFuture<Void> empleadosTienda(@Valid final TrabajoDto trabajo) {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.empleadosTienda(): {}", trabajo.getId(), trabajo);
 
 		// TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + empresa y pais !!
 		// Cuando tengamos tiendas de tipo parametro se busca directamente, sino podemos
@@ -128,7 +124,7 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 			tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
 					Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
 			LOG.info(
-					"Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): trabajoTiendaRepository.findByTrabajoIdEstadoId(): {}",
+					"Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.empleadosTienda(): trabajoTiendaRepository.findByTrabajoIdEstadoId(): {}",
 					trabajo.getId(), tiendasPage);
 
 			List<CompletableFuture<Void>> cfTrabajoEmpleadoSaveList = new ArrayList<>();
@@ -203,42 +199,44 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 
 		} while (tiendasPage.hasNext());
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.empleadosTienda(): {}", trabajo.getId(), result);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.empleadosTienda(): {}", trabajo.getId(), result);
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Async
 	@Override
 	public CompletableFuture<Void> tiendasParametro(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasParametro(): {}", trabajo.getId(), trabajo);
 		// Se recuperan las tiendas relacionadas con la ejecucion
 		List<TrabajoTiendaDto> result = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
 			// TODO Empleado :: Obtener las tiendas comisionables en las que ha estado el
 			// empleado
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(Empleado): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasParametro(Empleado): {}", trabajo.getId(),
 					trabajo.getEmpleados());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Empleado): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasParametro(Empleado): {}", trabajo.getId(),
 					result);
 		} else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(),
 					trabajo.getTiendas());
 			trabajoTiendaEstadoRepository
 					.save(trabajoTiendaEstadoMapper.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
 							pocTiendaMapper.pocTiendaDtoToTrabajoTiendaEstadoDto(meta4Service.getTiendas(trabajo)),
 							trabajo));
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(), result);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(),
+					result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
 			// TODO Pais + Empresa :: Se obtienen las tiendas por pais y empresa
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(Pais Empresa): {} {}",
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasParametro(Pais Empresa): {} {}",
 					trabajo.getId(), trabajo.getIdPais(), trabajo.getIdEmpresa());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Pais Empresa): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasParametro(Pais Empresa): {}", trabajo.getId(),
 					result);
 		} else if (StringUtils.isNotBlank(trabajo.getIdPais())) {
 			// TODO Pais :: Se obtienen las tiendas por pais
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasParametro(Pais): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasParametro(Pais): {}", trabajo.getId(),
 					trabajo.getIdPais());
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(Pais): {}", trabajo.getId(), result);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasParametro(Pais): {}", trabajo.getId(),
+					result);
 		}
 
 		if (CollectionUtils.isNotEmpty(result)) {
@@ -246,14 +244,15 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 					trabajoTiendaRepository.save(trabajoTiendaMapper.trabajoTiendaDtoToTrabajoTienda(result)));
 		}
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasParametro(): {}", trabajo.getId(), result);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasParametro(): {}", trabajo.getId(), result);
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Async
 	@Override
 	public CompletableFuture<Void> ventaTotalizadaTienda(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaTotalizadaTienda(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.ventaTotalizadaTienda(): {}", trabajo.getId(),
+				trabajo);
 
 		PageRequest pageable = new PageRequest(0, ptrClientVentaDto.getFilter().getMaxPageSize());
 		Page<TrabajoTiendaEstado> tiendasPage;
@@ -300,74 +299,77 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 				cfTrabajoTiendaSeccionVentaList.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]))
 				.join();
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaTotalizadaTienda()", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.ventaTotalizadaTienda()", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Async
 	@Override
 	public CompletableFuture<Void> condicionesEmpleados(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.condicionesEmpleados(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.condicionesEmpleados(): {}", trabajo.getId(),
+				trabajo);
 
 		// TODO Recuperamos las condiciones de las estructuras
 		Random random = new Random();
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.condicionesEmpleados() :: Thread.sleep({})",
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.condicionesEmpleados() :: Thread.sleep({})",
 				trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.condicionesEmpleados() :: Thread.sleep({})",
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.condicionesEmpleados() :: Thread.sleep({})",
 				trabajo.getId(), time);
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.condicionesEmpleados(): {}", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.condicionesEmpleados(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Async
 	@Override
 	public CompletableFuture<Void> ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaDetalleEmpleado(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.ventaDetalleEmpleado(): {}", trabajo.getId(),
+				trabajo);
 
 		// TODO Recuperamos el detalle de la venta del empleado
 		Random random = new Random();
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})",
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})",
 				trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})",
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.ventaDetalleEmpleado() :: Thread.sleep({})",
 				trabajo.getId(), time);
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.ventaDetalleEmpleado(): {}", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.ventaDetalleEmpleado(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Override
 	public CompletableFuture<Void> tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiposHoras(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiposHoras(): {}", trabajo.getId(), trabajo);
 
 		// TODO Recuperamos los tipos de hora
 		Random random = new Random();
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(),
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(),
 				time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(), time);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiposHoras() :: Thread.sleep({})", trabajo.getId(),
+				time);
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiposHoras(): {}", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiposHoras(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Override
 	public CompletableFuture<Void> tiendasHistorico(@Valid TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasHistorico(): {}", trabajo.getId(), trabajo);
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasHistorico(): {}", trabajo.getId(), trabajo);
 		List<TrabajoTienda> result = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasHistorico(Tienda): {}", trabajo.getId(),
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasHistorico(Tienda): {}", trabajo.getId(),
 					trabajo.getTiendas());
 
 			// TODO En el caso de que la ejecución se realice por tienda, se recuperan las
@@ -376,22 +378,23 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 			LongStream ls = random.longs(1000, 5000);
 			long time = ls.findFirst().getAsLong();
 			ls.close();
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.tiendasHistorico() :: Thread.sleep({})",
+			LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasHistorico() :: Thread.sleep({})",
 					trabajo.getId(), time);
 			Thread.sleep(time);
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasHistorico() :: Thread.sleep({})",
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasHistorico() :: Thread.sleep({})",
 					trabajo.getId(), time);
 
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasHistorico(Tienda): {}", trabajo.getId(), result);
+			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasHistorico(Tienda): {}", trabajo.getId(),
+					result);
 		}
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.tiendasHistorico(): {}", trabajo.getId(), result);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasHistorico(): {}", trabajo.getId(), result);
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Override
 	public CompletableFuture<Void> presenciaTotalizadaTienda(@Valid TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.presenciaTotalizadaTienda(): {}", trabajo.getId(),
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.presenciaTotalizadaTienda(): {}", trabajo.getId(),
 				trabajo);
 
 		// TODO Recuperamos el total de las presencias de la tienda
@@ -399,19 +402,19 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.presenciaTotalizadaTienda() :: Thread.sleep({})",
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.presenciaTotalizadaTienda() :: Thread.sleep({})",
 				trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.presenciaTotalizadaTienda() :: Thread.sleep({})",
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.presenciaTotalizadaTienda() :: Thread.sleep({})",
 				trabajo.getId(), time);
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.presenciaTotalizadaTienda(): {}", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.presenciaTotalizadaTienda(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 
 	@Override
 	public CompletableFuture<Void> presenciaDetalleEmpleado(@Valid TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.presenciaDetalleEmpleado(): {}", trabajo.getId(),
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.presenciaDetalleEmpleado(): {}", trabajo.getId(),
 				trabajo);
 
 		// TODO Recuperamos el detalle de las presencias del empleado
@@ -419,13 +422,13 @@ public class TrabajoAsyncServiceImpl implements TrabajoAsyncService {
 		LongStream ls = random.longs(1000, 5000);
 		long time = ls.findFirst().getAsLong();
 		ls.close();
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.presenciaDetalleEmpleado() :: Thread.sleep({})",
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.presenciaDetalleEmpleado() :: Thread.sleep({})",
 				trabajo.getId(), time);
 		Thread.sleep(time);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.presenciaDetalleEmpleado() :: Thread.sleep({})",
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.presenciaDetalleEmpleado() :: Thread.sleep({})",
 				trabajo.getId(), time);
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoAsyncService.presenciaDetalleEmpleado(): {}", trabajo.getId());
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.presenciaDetalleEmpleado(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
 	}
 

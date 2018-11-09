@@ -1,11 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
-import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.ProgramacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionEmpleadoRepository;
@@ -23,9 +19,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import javax.validation.Valid;
 
 @Service
@@ -46,37 +39,6 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
 	@Autowired
 	private ProgramacionEmpleadoRepository programacionEmpleadoRepository;
-
-	@Autowired
-	private TrabajoService trabajoService;
-
-	@Autowired
-	private TrabajoMapper trabajoMapper;
-
-	@Autowired
-	private Meta4SessionService meta4Service;
-
-	@Override
-	public List<TrabajoDto> run() {
-		List<TrabajoDto> result = new ArrayList<>();
-		LOG.info("Inicio :: ProgramacionService.run()");
-		programacionMapper
-				.programacionToProgramacionDto(
-						programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
-				.stream().forEach(programacion -> {
-					programacion.setFechaUltimaEjecucion(LocalDateTime.now());
-					programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
-					ProgramacionDto programacionModify = modifyProgramacion(programacion);
-					meta4Service.periodo().stream().forEach(periodo -> {
-						TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacionModify);
-						trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
-						trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
-						result.add(trabajoService.createTrabajo(trabajo));
-					});
-				});
-		LOG.info("Fin :: ProgramacionService.run(): {}", result);
-		return result;
-	}
 
 	@Override
 	public ProgramacionDto createProgramacion(@Valid ProgramacionDto programacion) {
