@@ -73,12 +73,8 @@ public abstract class TrabajoMapper {
 			ProgramacionDto programacionId = new ProgramacionDto();
 			programacionId.setId(src.getId());
 			target.setProgramacion(programacionId);
-
 			target.setFechaCreacion(LocalDateTime.now());
-
-			EstadoTrabajoDto estadoTrabajo = new EstadoTrabajoDto();
-			estadoTrabajo.setId(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getId());
-			target.setEstado(estadoTrabajo);
+			target.setEstado(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
 		}
 	}
 

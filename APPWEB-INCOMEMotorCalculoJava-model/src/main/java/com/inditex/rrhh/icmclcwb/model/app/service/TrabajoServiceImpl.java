@@ -48,9 +48,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
 		trabajo.setFechaCreacion(LocalDateTime.now());
-		EstadoTrabajoDto estadoTrabajo = new EstadoTrabajoDto();
-		estadoTrabajo.setId(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getId());
-		trabajo.setEstado(estadoTrabajo);
+		trabajo.setEstado(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
 		// TODO Obtener el id del usuario que lanza la petición o poner un usuario
 		// generico MQ
 		trabajo.setIdUsuario("MANUAL");

@@ -25,20 +25,18 @@ public abstract class ProgramacionMapper {
 
 	@BeforeMapping
 	protected void beforeProgramacionDto(ProgramacionDto src) {
-		if (src != null) {
-			if (src.getId() != null) {
-				ProgramacionDto programacionId = new ProgramacionDto();
-				programacionId.setId(src.getId());
-				if (CollectionUtils.isNotEmpty(src.getTiendas())) {
-					src.getTiendas().stream().forEach(item -> {
-						item.setProgramacion(programacionId);
-					});
-				}
-				if (CollectionUtils.isNotEmpty(src.getEmpleados())) {
-					src.getEmpleados().stream().forEach(item -> {
-						item.setProgramacion(programacionId);
-					});
-				}
+		if (src != null && src.getId() != null) {
+			ProgramacionDto programacionId = new ProgramacionDto();
+			programacionId.setId(src.getId());
+			if (CollectionUtils.isNotEmpty(src.getTiendas())) {
+				src.getTiendas().stream().forEach(item -> {
+					item.setProgramacion(programacionId);
+				});
+			}
+			if (CollectionUtils.isNotEmpty(src.getEmpleados())) {
+				src.getEmpleados().stream().forEach(item -> {
+					item.setProgramacion(programacionId);
+				});
 			}
 		}
 	}
