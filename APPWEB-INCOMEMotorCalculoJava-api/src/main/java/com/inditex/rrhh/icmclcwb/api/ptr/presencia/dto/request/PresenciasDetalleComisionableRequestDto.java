@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PresenciasDetalleComisionableRequestDTO  implements Serializable {
+public class PresenciasDetalleComisionableRequestDto  implements Serializable {
 	@ApiModelProperty(value = "Id tienda", required = false,example = "160")
 	private Integer tienda;
 	@ApiModelProperty(value = "Id seccion", required = false ,example = "1")

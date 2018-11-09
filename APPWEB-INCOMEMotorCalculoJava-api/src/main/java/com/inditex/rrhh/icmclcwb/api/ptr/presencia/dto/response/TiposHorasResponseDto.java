@@ -1,8 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDTO.TiposHorasRequestDTOBuilder;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class TiposHorasResponseDTO {
+public class TiposHorasResponseDto {
 
 	private Integer Origen;
 	private Integer TipoHora;

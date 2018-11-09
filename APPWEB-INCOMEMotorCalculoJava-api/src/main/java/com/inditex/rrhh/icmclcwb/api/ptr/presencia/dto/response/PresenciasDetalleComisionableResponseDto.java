@@ -3,9 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response;
 import java.util.Date;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDTO.PresenciasDetalleComisionableRequestDTOBuilder;
-
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PresenciasDetalleComisionableResponseDTO {
+public class PresenciasDetalleComisionableResponseDto {
 	private Integer tienda;
 	private Integer seccion;
 	private Integer persona;
