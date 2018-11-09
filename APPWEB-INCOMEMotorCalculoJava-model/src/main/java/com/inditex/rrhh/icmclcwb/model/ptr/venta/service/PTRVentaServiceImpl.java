@@ -1,9 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.ptr.venta.service;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
+import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 
@@ -15,6 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
+
 @Service
 @Validated
 public class PTRVentaServiceImpl implements PTRVentaService {
@@ -25,14 +28,18 @@ public class PTRVentaServiceImpl implements PTRVentaService {
 	@Autowired
 	@Qualifier("ptrClientVenta")
 	private RestClient ptrClientVenta;
+	
+	@Autowired
+	@Qualifier("ptrClientVentaDto")
+	private PtrPropertiesDto ptrClientVentaDto;
 
 	@Override
-	public GetVentaTotalizadoResponseDTO getVentaTotalizado(
+	public CompletableFuture<GetVentaTotalizadoResponseDTO> getVentaTotalizado(
 			@Valid final GetVentaTotalizadoRequestDTO getVentaTotalizadoRequest) throws Exception {
 		GetVentaTotalizadoResponseDTO result = null;
-		LOG.info("Consultando: /ventaGeneralService/getVentaTotalizado");
+		LOG.info("Consultando: " + ptrClientVentaDto.getEndpoint());
 		ResponseEntity<GetVentaTotalizadoResponseDTO> response = ptrClientVenta.postForEntity(
-				"/ventaGeneralService/getVentaTotalizado", getVentaTotalizadoRequest,
+				ptrClientVentaDto.getEndpoint(), getVentaTotalizadoRequest,
 				GetVentaTotalizadoResponseDTO.class);
 		if (response.getStatusCode().value() == HttpStatus.SC_OK) {
 			LOG.info("Ha funcionado (PTR): " + response.getBody().getVentaTotalizado().size());
@@ -40,7 +47,8 @@ public class PTRVentaServiceImpl implements PTRVentaService {
 		} else {
 			LOG.info("Ha fallado (PTR): " + response.getStatusCode().value());
 		}
-		return result;
+		return CompletableFuture.completedFuture(result);
 	}
+	
 
 }

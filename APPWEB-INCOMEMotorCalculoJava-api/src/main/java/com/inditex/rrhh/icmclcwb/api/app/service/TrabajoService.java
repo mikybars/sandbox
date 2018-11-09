@@ -10,18 +10,8 @@ public interface TrabajoService {
 
 	TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo);
 
-	TrabajoDto run(@NotNull @Positive final Long id) throws Exception;
-	
-	TrabajoDto runTrabajo(@NotNull @Valid TrabajoDto trabajo) throws Exception;
-	
 	TrabajoDto modifyTrabajo(@Valid final TrabajoDto trabajo);
-	
+
 	TrabajoDto modifyEstadoTrabajo(@NotNull @Positive final Long id, @Valid final TrabajoDto trabajo);
-	
-	TrabajoDto runTrabajoDatos(@Valid TrabajoDto trabajo) throws Exception;
-	
-	TrabajoDto runTrabajoCalculado(@Valid TrabajoDto trabajo) throws Exception;
-	
-	TrabajoDto runTrabajoConsolidacion(@Valid TrabajoDto trabajo) throws Exception;
-	
+
 }

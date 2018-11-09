@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.mapstruct.AfterMapping;
@@ -11,29 +13,26 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoTienda;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoTrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 
 @Mapper
 public abstract class TrabajoMapper {
+
+	private static final String DATE_FORMAT = "yyyy-MM-dd"; 
 
 	public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
@@ -52,6 +51,22 @@ public abstract class TrabajoMapper {
 			@Mapping(source = "fechaFinPeriodo", target = "fechaFin") })
 	public abstract EmpleadosTiendaFilterDto trabajoDtotoEmpleadosTiendaFilterDto(TrabajoDto src);
 
+	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = DATE_FORMAT),
+		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = DATE_FORMAT),
+		@Mapping(source = "idPais", target = "pais"),
+		@Mapping(source = "idEmpresa", target = "cadena"),
+		@Mapping(source = "tiendas", target = "tienda")
+	})
+	public abstract GetVentaTotalizadoRequestDTO trabajoDtoToGetVentaTotalizadoRequestDTO(TrabajoDto src);
+
+	protected List<String> mapTiendas(List<TrabajoTiendaDto> trabajoTiendasDto){
+		List<String> tiendas = new ArrayList<>();
+		for(TrabajoTiendaDto tienda : trabajoTiendasDto){
+			tiendas.add(tienda.getIdTienda());
+		}
+		return tiendas;
+	}
+	
 	@AfterMapping
 	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto target) {
 		if (src != null) {
@@ -91,16 +106,6 @@ public abstract class TrabajoMapper {
 			Trabajo trabajoId = new Trabajo();
 			trabajoId.setId(src.getTrabajo().getId());
 			src.setTrabajo(trabajoId);
-			if (src.getEstado() == null) {
-				EstadoTrabajoTienda estado = new EstadoTrabajoTienda();
-				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
-				src.setEstado(estado);
-			}
-			if (src.getTipo() == null) {
-				TipoTrabajoTienda estado = new TipoTrabajoTienda();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
-				src.setTipo(estado);
-			}
 		}
 	}
 
@@ -110,11 +115,6 @@ public abstract class TrabajoMapper {
 			Trabajo trabajoId = new Trabajo();
 			trabajoId.setId(src.getTrabajo().getId());
 			src.setTrabajo(trabajoId);
-			if (src.getEstado() == null) {
-				EstadoTrabajoEmpleado estado = new EstadoTrabajoEmpleado();
-				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
-				src.setEstado(estado);
-			}
 		}
 	}
 
@@ -124,16 +124,6 @@ public abstract class TrabajoMapper {
 			TrabajoDto trabajoId = new TrabajoDto();
 			trabajoId.setId(src.getTrabajo().getId());
 			src.setTrabajo(trabajoId);
-			if (src.getEstado() == null) {
-				EstadoTrabajoTiendaDto estado = new EstadoTrabajoTiendaDto();
-				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
-				src.setEstado(estado);
-			}
-			if (src.getTipo() == null) {
-				TipoTrabajoTiendaDto estado = new TipoTrabajoTiendaDto();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
-				src.setTipo(estado);
-			}
 		}
 	}
 
@@ -143,11 +133,6 @@ public abstract class TrabajoMapper {
 			TrabajoDto trabajoId = new TrabajoDto();
 			trabajoId.setId(src.getTrabajo().getId());
 			src.setTrabajo(trabajoId);
-			if (src.getEstado() == null) {
-				EstadoTrabajoEmpleadoDto estado = new EstadoTrabajoEmpleadoDto();
-				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
-				src.setEstado(estado);
-			}
 		}
 	}
 
