@@ -18,7 +18,7 @@ import com.inditex.rrhh.icmclcwb.model.secondary.entity.TiposHorasMock;
 
 
 
-public interface PtrPresenciasRepositoryMock{
+public interface PtrPresenciasMockRepository{
 
 	List<PresenciaDetalleMock>findPresencias(PresenciasDetalleRequestDto Dto);
 	List<PresenciaDetalleComisionableMock> findPresenciasComisionable( Object[] Params);

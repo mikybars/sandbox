@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.secondary.service;
+package com.inditex.rrhh.icmclcwb.model.ptr.presenciasmock.service;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -28,7 +28,7 @@ import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaMock
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaSeccionMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.TiposHorasMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciasMapper;
-import com.inditex.rrhh.icmclcwb.model.secondary.repository.PtrPresenciasRepositoryMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.repository.PtrPresenciasMockRepository;
 
 import org.slf4j.Logger;
 /**
@@ -36,7 +36,7 @@ import org.slf4j.Logger;
  */
 @Service
 @Validated
-public class PtrPresenciasServiceImplMock implements PtrPresenciasServiceMock {
+public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
 	
 	@Autowired
     private Logger logger;
@@ -44,13 +44,13 @@ public class PtrPresenciasServiceImplMock implements PtrPresenciasServiceMock {
 	
 	//REPOSITORIO QUE USA JDBCTEMPLATE
     @Autowired
-    private PtrPresenciasRepositoryMock presenciasRepository;
+    private PtrPresenciasMockRepository presenciasRepository;
 	
 	
     @Autowired
     private PresenciasMapper presenciasMapper;
     
-    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/YYYY");
 
     
 	@Override

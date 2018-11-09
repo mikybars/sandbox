@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleMock;
 
 
-public class PresenciaDetalleRowMapper implements RowMapper {
+public class PresenciaDetalleMockRowMapper implements RowMapper {
 
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {

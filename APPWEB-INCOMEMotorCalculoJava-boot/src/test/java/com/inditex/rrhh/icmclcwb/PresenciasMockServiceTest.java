@@ -38,7 +38,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasR
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
 
-public class MockPresenciasServiceTest {
+public class PresenciasMockServiceTest {
 
 	// Ciente ptr
 	@Autowired

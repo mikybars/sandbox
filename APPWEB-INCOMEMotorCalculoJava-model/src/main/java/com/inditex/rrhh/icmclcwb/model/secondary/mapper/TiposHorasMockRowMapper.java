@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.TiposHorasMock;
 
-public class TiposHorasRowMapper implements RowMapper{
+public class TiposHorasMockRowMapper implements RowMapper{
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 		TiposHorasMock pre= new TiposHorasMock();
