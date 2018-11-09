@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.CondicionesTopesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionescomisionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionesdesplazamientoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionesfijasBlock;
@@ -64,9 +64,9 @@ public interface IcmWsIncomeMapper {
 	// "numerototalresultados") })
 	IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(PageDto src);
 
-	@Mappings({ @Mapping(source = "fechafin", target = "fechaFin", dateFormat = Constants.META4_DATE_FULL),
+	@Mappings({ @Mapping(source = "fechafin", target = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL),
 					@Mapping(source = "idestado", target = "idEstado"),
-					@Mapping(source = "fechainicio", target = "fechaInicio", dateFormat = Constants.META4_DATE_FULL),
+					@Mapping(source = "fechainicio", target = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL),
 					@Mapping(source = "idestadomtu", target = "idEstadoMtu"),
 					@Mapping(source = "idlugartrabajo", target = "idLugarTrabajo") })
 	EmpleadosTiendaFilterDto asGetEmpleadosTiendaFilterDTO(IcmParametrostiendaBlock src);
@@ -93,10 +93,10 @@ public interface IcmWsIncomeMapper {
 	
 	List<EmpleadosTiendaResultItemDto> asGetEmpleadosTiendaResultDTOs(List<IcmEmpleadostiendaRecord> src);
 
-	@Mappings({ @Mapping(source = "fechafin", target = "fechaFin", dateFormat = Constants.META4_DATE_FULL),
+	@Mappings({ @Mapping(source = "fechafin", target = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL),
 		@Mapping(source = "idempleado", target = "idEmpleado"),
 		@Mapping(source = "orempleado", target = "orEmpleado"),
-		@Mapping(source = "fechainicio", target = "fechaInicio", dateFormat = Constants.META4_DATE_FULL),
+		@Mapping(source = "fechainicio", target = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL),
 		@Mapping(source = "idlugartrabajo", target = "idLugarTrabajo"),
 		@Mapping(source = "idorigenpresencia", target = "idOrigenPresencia")
 		 })
@@ -110,7 +110,7 @@ public interface IcmWsIncomeMapper {
 		@Mapping(source = "inout", target = "inOut"),
 		@Mapping(source = "idempleado", target = "idEmpleado"),
 		@Mapping(source = "orempleado", target = "orEmpleado"),
-		@Mapping(source = "fechainicio", target = "fechaInicio", dateFormat = Constants.META4_DATE_FULL),
+		@Mapping(source = "fechainicio", target = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL),
 		@Mapping(source = "idestructura", target = "idEstructura"),
 		@Mapping(source = "tipoestructura", target = "tipoEstructura")})
 	EmpleadosEstructuraResultItemDto asEmpleadosEstructuraResultItemDTO(IcmEmpleadosestructuraRecord src);
@@ -273,8 +273,8 @@ public interface IcmWsIncomeMapper {
   	@InheritInverseConfiguration
   	IcmCondicionesdesplazamientoRecord asIcmCondicionesdesplazamientoRecord(CondicionesDesplazamientoResultItemDto src);
   	
-	@Mappings({ @Mapping(source = "idestructura", target = "idEstructura", dateFormat = Constants.META4_DATE_FULL),
-		@Mapping(source = "tipocondicion", target = "tipoCondicion", dateFormat = Constants.META4_DATE_FULL),
+	@Mappings({ @Mapping(source = "idestructura", target = "idEstructura", dateFormat = Meta4Constants.META4_DATE_FULL),
+		@Mapping(source = "tipocondicion", target = "tipoCondicion", dateFormat = Meta4Constants.META4_DATE_FULL),
 		@Mapping(source = "tiposplantillas", target = "tiposPlantillas"),
 		@Mapping(source = "subtipocondicion", target = "subtipoCondicion")
 		 })

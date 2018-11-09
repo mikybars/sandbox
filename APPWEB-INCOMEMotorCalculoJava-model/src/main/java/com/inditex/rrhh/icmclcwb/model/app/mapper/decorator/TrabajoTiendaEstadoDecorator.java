@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoTrabajoTienda;
@@ -25,9 +25,9 @@ public abstract class TrabajoTiendaEstadoDecorator extends TrabajoTiendaEstadoMa
 		List<TrabajoTiendaEstado> result = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(trabajoTiendaEstado)) {
 			EstadoTrabajoTienda estadoPendienteId = new EstadoTrabajoTienda();
-			estadoPendienteId.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
+			estadoPendienteId.setId(AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
 			TipoTrabajoTienda tipoInicialId = new TipoTrabajoTienda();
-			tipoInicialId.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
+			tipoInicialId.setId(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getId());
 			trabajoTiendaEstado.forEach(item -> {
 				TrabajoTiendaEstado src = delegate.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(item, trabajo);
 				src.setEstado(estadoPendienteId);

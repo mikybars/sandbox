@@ -1,9 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.service;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
+import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 public interface TrabajoService {
@@ -12,6 +10,6 @@ public interface TrabajoService {
 
 	TrabajoDto modifyTrabajo(@Valid final TrabajoDto trabajo);
 
-	TrabajoDto modifyEstadoTrabajo(@NotNull @Positive final Long id, @Valid final TrabajoDto trabajo);
+	TrabajoDto modifyEstadoTrabajo(@Valid final EstadoTrabajoDto estado, @Valid final TrabajoDto trabajo);
 
 }

@@ -30,7 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
@@ -122,7 +122,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		do {
 			// Se recuperan las tiendas por id de trabajo y estado de forma paginada.
 			tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
-					Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
+					AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
 			LOG.info(
 					"Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.empleadosTienda(): trabajoTiendaRepository.findByTrabajoIdEstadoId(): {}",
 					trabajo.getId(), tiendasPage);
@@ -265,7 +265,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 			CompletableFuture<GetVentaTotalizadoResponseDTO> cfResponse = new CompletableFuture<>();
 			// Se recuperan las tiendas por id de trabajo y estado de forma paginada.
 			tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
-					Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
+					AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
 			List<String> tiendas = tiendasPage.getContent().stream().map(TrabajoTiendaEstado::getIdTienda)
 					.collect(Collectors.toList());
 			GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper

@@ -12,15 +12,15 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
@@ -31,8 +31,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 
 @Mapper
 public abstract class TrabajoMapper {
-
-	private static final String DATE_FORMAT = "yyyy-MM-dd"; 
 
 	public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
@@ -51,22 +49,20 @@ public abstract class TrabajoMapper {
 			@Mapping(source = "fechaFinPeriodo", target = "fechaFin") })
 	public abstract EmpleadosTiendaFilterDto trabajoDtotoEmpleadosTiendaFilterDto(TrabajoDto src);
 
-	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = DATE_FORMAT),
-		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = DATE_FORMAT),
-		@Mapping(source = "idPais", target = "pais"),
-		@Mapping(source = "idEmpresa", target = "cadena"),
-		@Mapping(source = "tiendas", target = "tienda")
-	})
+	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
+			@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
+			@Mapping(source = "idPais", target = "pais"), @Mapping(source = "idEmpresa", target = "cadena"),
+			@Mapping(source = "tiendas", target = "tienda") })
 	public abstract GetVentaTotalizadoRequestDTO trabajoDtoToGetVentaTotalizadoRequestDTO(TrabajoDto src);
 
-	protected List<String> mapTiendas(List<TrabajoTiendaDto> trabajoTiendasDto){
+	protected List<String> mapTiendas(List<TrabajoTiendaDto> trabajoTiendasDto) {
 		List<String> tiendas = new ArrayList<>();
-		for(TrabajoTiendaDto tienda : trabajoTiendasDto){
+		for (TrabajoTiendaDto tienda : trabajoTiendasDto) {
 			tiendas.add(tienda.getIdTienda());
 		}
 		return tiendas;
 	}
-	
+
 	@AfterMapping
 	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto target) {
 		if (src != null) {
@@ -74,7 +70,7 @@ public abstract class TrabajoMapper {
 			programacionId.setId(src.getId());
 			target.setProgramacion(programacionId);
 			target.setFechaCreacion(LocalDateTime.now());
-			target.setEstado(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
+			target.setEstado(AppConstants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
 		}
 	}
 

@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
@@ -48,7 +48,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
 		trabajo.setFechaCreacion(LocalDateTime.now());
-		trabajo.setEstado(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
+		trabajo.setEstado(AppConstants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
 		// TODO Obtener el id del usuario que lanza la petición o poner un usuario
 		// generico MQ
 		trabajo.setIdUsuario("MANUAL");
@@ -78,10 +78,10 @@ public class TrabajoServiceImpl implements TrabajoService {
 	}
 
 	@Override
-	public TrabajoDto modifyEstadoTrabajo(@NotNull @Positive final Long id, @Valid final TrabajoDto trabajo) {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
+	public TrabajoDto modifyEstadoTrabajo(@Valid final EstadoTrabajoDto estado, @Valid final TrabajoDto trabajo) {
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), estado, trabajo);
 
-		trabajo.setEstado(EstadoTrabajoDto.builder().id(id).build());
+		trabajo.setEstado(estado);
 		TrabajoDto result = modifyTrabajo(trabajo);
 
 //		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), trabajoMapper.estadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto.builder().id(id).build()));
@@ -93,7 +93,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 //		}
 //		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(trabajo.getId()));
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), estado, trabajo);
 		return result;
 	}
 

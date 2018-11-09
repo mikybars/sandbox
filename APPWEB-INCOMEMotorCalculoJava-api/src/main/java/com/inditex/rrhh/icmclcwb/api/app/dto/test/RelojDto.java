@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 
 import lombok.Data;
 
@@ -18,7 +18,7 @@ public class RelojDto {
 
 	private LocalDateTime fechaHora = LocalDateTime.now();
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.LOCAL_TIME_JSON)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppConstants.LOCAL_TIME_JSON)
 	private LocalTime horaFormat = LocalTime.now();
 
 }

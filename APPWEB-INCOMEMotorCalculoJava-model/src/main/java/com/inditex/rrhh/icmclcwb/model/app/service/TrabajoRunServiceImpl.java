@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
 
@@ -100,7 +100,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 					cfEmpleados, cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda, cfVentaDetalleEmpleado,
 					cfCondicionesEmpleados);
 
-			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId(), trabajo);
+			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
 		} else {
 			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoDatos() :: El estado del trabajo no es correcto",
 					trabajo.getId());
@@ -113,7 +113,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 	public TrabajoDto runTrabajoCalculado(@Valid TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoCalculado(): {}", trabajo.getId(), trabajo);
 		if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
-			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getId(), trabajo);
+			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto(), trabajo);
 			Random random = new Random();
 			LongStream ls = random.longs(1000, 5000);
 			long time = ls.findFirst().getAsLong();
@@ -123,7 +123,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 			Thread.sleep(time);
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})", trabajo.getId(),
 					time);
-			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId(), trabajo);
+			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto(), trabajo);
 		} else {
 			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoCalculado() :: El estado del trabajo no es correcto",
 					trabajo.getId());
@@ -136,7 +136,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 	public TrabajoDto runTrabajoConsolidacion(@Valid TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoConsolidacion(): {}", trabajo.getId(), trabajo);
 		if (EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId().equals(trabajo.getEstado().getId())) {
-			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getId(), trabajo);
+			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getDto(), trabajo);
 			Random random = new Random();
 			LongStream ls = random.longs(1000, 5000);
 			long time = ls.findFirst().getAsLong();
@@ -147,7 +147,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoConsolidacion() :: Thread.sleep({})",
 					trabajo.getId(), time);
 			trabajo.setFechaFinTrabajo(LocalDateTime.now());
-			trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getId()).build());
+			trabajo.setEstado(EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getDto());
 			trabajo = trabajoService.modifyTrabajo(trabajo);
 		} else {
 			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoConsolidacion() :: El estado del trabajo no es correcto",
