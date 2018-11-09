@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -44,6 +43,6 @@ public class TrabajoTiendaSeccionVenta {
 	
 	@NotNull
 	@Column(name = "IMPORTE", nullable = false)
-	private /* BigInteger */ BigInteger importe;
+	private /* BigInteger */ Double importe;
 
 }

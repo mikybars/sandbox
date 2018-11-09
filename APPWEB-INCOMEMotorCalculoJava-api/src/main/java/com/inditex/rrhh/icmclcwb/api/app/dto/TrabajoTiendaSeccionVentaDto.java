@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
@@ -35,6 +34,6 @@ public class TrabajoTiendaSeccionVentaDto implements Serializable {
 	
 	@NotNull
 	@ApiModelProperty(value = "Importe sin iva de la venta", required = true)
-	private BigInteger importe1;
+	private Double importe;
 	
 }
