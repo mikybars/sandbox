@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb;
+package com.inditex.rrhh.icmclcwb.ptr.presenciasmock;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,7 +38,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasR
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
 
-public class PresenciasMockServiceTest {
+public class PtrPresenciasMockServiceTest {
 
 	// Ciente ptr
 	@Autowired
