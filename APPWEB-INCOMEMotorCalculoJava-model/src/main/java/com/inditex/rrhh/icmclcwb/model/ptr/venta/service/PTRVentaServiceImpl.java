@@ -14,6 +14,8 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaIndividualDetalleRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaIndividualDetalleResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
@@ -33,6 +35,10 @@ public class PTRVentaServiceImpl implements PTRVentaService {
 	@Qualifier("ptrClientVentaDto")
 	private PtrPropertiesDto ptrClientVentaDto;
 
+	@Autowired
+	@Qualifier("ptrClientVentaIndividualDetalleDto")
+	private PtrPropertiesDto ptrClientVentaIndividualDetalleDto;
+	
 	@Override
 	public CompletableFuture<GetVentaTotalizadoResponseDTO> getVentaTotalizado(
 			@Valid final GetVentaTotalizadoRequestDTO getVentaTotalizadoRequest) throws Exception {
@@ -44,6 +50,27 @@ public class PTRVentaServiceImpl implements PTRVentaService {
 		if (response.getStatusCode().value() == HttpStatus.SC_OK) {
 			LOG.info("Ha funcionado (PTR): " + response.getBody().getVentaTotalizado().size());
 			result = response.getBody();
+		} else {
+			LOG.info("Ha fallado (PTR): " + response.getStatusCode().value());
+		}
+		return CompletableFuture.completedFuture(result);
+	}
+	
+	@Override
+	public CompletableFuture<GetVentaIndividualDetalleResponseDTO> getVentaIndividualDetalle(
+			@Valid final GetVentaIndividualDetalleRequestDTO getVentaIndividualDetalleRequestDto) throws Exception {
+		GetVentaIndividualDetalleResponseDTO result = null;
+		LOG.info("Consultando: " + ptrClientVentaIndividualDetalleDto.getEndpoint());
+		ResponseEntity<GetVentaIndividualDetalleResponseDTO> response = ptrClientVenta.postForEntity(
+				ptrClientVentaIndividualDetalleDto.getEndpoint(), getVentaIndividualDetalleRequestDto,
+				GetVentaIndividualDetalleResponseDTO.class);
+		if (response.getStatusCode().value() == HttpStatus.SC_OK) {
+			if (response.getBody() != null) {
+				LOG.info("Ha funcionado (PTR): " + response.getBody().getVentaIndividualDetalle().size());
+				result = response.getBody();
+			}else{
+				LOG.info("Ha funcionado (PTR): Sin resultados");
+			}
 		} else {
 			LOG.info("Ha fallado (PTR): " + response.getStatusCode().value());
 		}

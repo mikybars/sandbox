@@ -76,7 +76,14 @@ app:
     ptr:
       service: 
         ptrClientVenta1: 
-          endpoint: '/ventaGeneralService/getVentaTotalizado'
+          endpoint: /ventaGeneralService/getVentaTotalizado
+          filter:
+            maxPageSize: 20
+            maxQuerySize: 3
+            maxPersistenceSize: 3
+            retryAttempts: 2
+        ptrClientVentaIndividualDetalle1: 
+          endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
           filter:
             maxPageSize: 20
             maxQuerySize: 3
