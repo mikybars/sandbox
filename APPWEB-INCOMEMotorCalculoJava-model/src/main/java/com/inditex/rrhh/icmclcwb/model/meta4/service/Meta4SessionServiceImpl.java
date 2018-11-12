@@ -55,11 +55,9 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 	@Qualifier("getValoresCondicionesDto")
 	private Meta4PropertiesDto getValoresCondicionesDto;
 	
-	//TODO Cambiar por servicio de Meta4
 	@Autowired
 	private PocTiendaRepository pocTiendaRepository;
 	
-	//TODO Cambiar por servicio de Meta4
 	@Autowired
 	private PocTiendaMapper pocTiendaMapper;
 

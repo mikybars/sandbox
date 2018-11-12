@@ -3,11 +3,14 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.time.LocalDateTime;
 import javax.validation.Valid;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
@@ -46,9 +49,12 @@ public class TrabajoServiceImpl implements TrabajoService {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
 		trabajo.setFechaCreacion(LocalDateTime.now());
 		trabajo.setEstado(AppConstants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
-		// TODO Obtener el id del usuario que lanza la petición o poner un usuario
-		// generico MQ
-		trabajo.setIdUsuario("MANUAL");
+		if (StringUtils.isBlank(trabajo.getIdUsuario())) {
+			UserSSO userSSO = SsoUtils.getUserSSO();
+			if (StringUtils.isNotBlank(userSSO.getUsername())) {
+				trabajo.setIdUsuario(userSSO.getUsername());
+			}
+		}
 		TrabajoDto parent = trabajoMapper
 				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
 		parent.setTiendas(trabajo.getTiendas());

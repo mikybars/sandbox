@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.ProgramacionEmpleadoMapper;
@@ -54,8 +56,12 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 		if (StringUtils.isBlank(programacion.getHuso())) {
 			programacion.setHuso(ZoneId.systemDefault().getId());
 		}
-		// TODO Obtener el id del usuario de sesion
-		programacion.setIdUsuario("CAMBIAR");
+		if (StringUtils.isBlank(programacion.getIdUsuario())) {
+			UserSSO userSSO = SsoUtils.getUserSSO();
+			if (StringUtils.isNotBlank(userSSO.getUsername())) {
+				programacion.setIdUsuario(userSSO.getUsername());
+			}
+		}
 		programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
 		ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
 				programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
