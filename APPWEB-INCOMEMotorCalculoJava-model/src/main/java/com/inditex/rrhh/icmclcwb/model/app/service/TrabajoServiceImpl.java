@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.time.LocalDateTime;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
