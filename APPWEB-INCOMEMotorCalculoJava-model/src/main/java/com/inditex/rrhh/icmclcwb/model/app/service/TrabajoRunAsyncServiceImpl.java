@@ -150,66 +150,67 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 					"Trabajo[{}] :: Inicio :: TrabajoAsyncService.empleadosTienda(): trabajoTiendaRepository.findByTrabajoIdEstadoId(): {}",
 					trabajo.getId(), tiendasPage);
 
-			List<CompletableFuture<Void>> cfTrabajoEmpleadoSaveList = new ArrayList<>();
-
-			// Para cada tienda recuperamos y persistimos los datos de los empleados
-			// asociados.
-			for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
-
-				request.getData().setIdLugarTrabajo(tienda.getIdTiendaMeta4());
-
-				do {
-					// Consultamos en meta4 los empleados por tienda de forma paginada.
-					CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfEmpleadosTienda = null;
-
-					try {
-						cfEmpleadosTienda = meta4Service.getEmpleadosTienda(request);
-					} catch (Exception e) {
-						LOG.error("Error consultando en meta4: ", e.getMessage());
-						throw new ApplicationException("Error consultando en meta4: {}" + e.getMessage());
-					}
-
-					List<EmpleadosTiendaResultItemDto> persist = null;
-
-					try {
-						persist = cfEmpleadosTienda.get();
-					} catch (InterruptedException | ExecutionException e) {
-						LOG.error("Futuro completado de forma excepcional: ", e.getMessage());
-						throw new ApplicationException("Futuro completado de forma excepcional: {}" + e.getMessage());
-					}
-
-					result.addAll(persist);
-
-					List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoDto = trabajoEmpleadoEstadoMapper
-							.empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(persist, trabajo);
-
-					if (cfTrabajoEmpleadoSaveList.size() >= getEmpleadosTiendaDto.getFilter().getMaxPersistenceSize()) {
-						// Comprobamos que tenemos asíncronos libres y persistimos los datos.
-						// En caso de no tener asíncronos libres esperamos a que alguno de los que está
-						// en ejecución
-						// termine, lo sacamos de la lista de futuros y persistimos.
-
-						CompletableFuture.anyOf(cfTrabajoEmpleadoSaveList
-								.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()]));
-						Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoEmpleadoSaveList
-								.stream().collect(Collectors.partitioningBy(CompletableFuture::isDone));
-						List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream()
-								.flatMap(List::stream).collect(Collectors.toList());
-						cfTrabajoEmpleadoSaveList.removeAll(cfPersistence);
-					}
-
-					cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoService.save(trabajoEmpleadoDto));
-
-				} while (request.getPage().hasNext());
-
+			if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
+				List<CompletableFuture<Void>> cfTrabajoEmpleadoSaveList = new ArrayList<>();
+	
+				// Para cada tienda recuperamos y persistimos los datos de los empleados
+				// asociados.
+				for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
+	
+					request.getData().setIdLugarTrabajo(tienda.getIdTiendaMeta4());
+	
+					do {
+						// Consultamos en meta4 los empleados por tienda de forma paginada.
+						CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfEmpleadosTienda = null;
+	
+						try {
+							cfEmpleadosTienda = meta4Service.getEmpleadosTienda(request);
+						} catch (Exception e) {
+							LOG.error("Error consultando en meta4: ", e.getMessage());
+							throw new ApplicationException("Error consultando en meta4: {}" + e.getMessage());
+						}
+	
+						List<EmpleadosTiendaResultItemDto> persist = null;
+	
+						try {
+							persist = cfEmpleadosTienda.get();
+						} catch (InterruptedException | ExecutionException e) {
+							LOG.error("Futuro completado de forma excepcional: ", e.getMessage());
+							throw new ApplicationException("Futuro completado de forma excepcional: {}" + e.getMessage());
+						}
+	
+						result.addAll(persist);
+	
+						List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoDto = trabajoEmpleadoEstadoMapper
+								.empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(persist, trabajo);
+	
+						if (cfTrabajoEmpleadoSaveList.size() >= getEmpleadosTiendaDto.getFilter().getMaxPersistenceSize()) {
+							// Comprobamos que tenemos asíncronos libres y persistimos los datos.
+							// En caso de no tener asíncronos libres esperamos a que alguno de los que está
+							// en ejecución
+							// termine, lo sacamos de la lista de futuros y persistimos.
+	
+							CompletableFuture.anyOf(cfTrabajoEmpleadoSaveList
+									.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()]));
+							Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoEmpleadoSaveList
+									.stream().collect(Collectors.partitioningBy(CompletableFuture::isDone));
+							List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream()
+									.flatMap(List::stream).collect(Collectors.toList());
+							cfTrabajoEmpleadoSaveList.removeAll(cfPersistence);
+						}
+	
+						cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoService.save(trabajoEmpleadoDto));
+	
+					} while (request.getPage().hasNext());
+	
+				}
+	
+				// Comprobamos que todas las persistencias se han realizado y esperamos en caso
+				// negativo.
+				CompletableFuture
+						.allOf(cfTrabajoEmpleadoSaveList.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()]))
+						.join();
 			}
-
-			// Comprobamos que todas las persistencias se han realizado y esperamos en caso
-			// negativo.
-			CompletableFuture
-					.allOf(cfTrabajoEmpleadoSaveList.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()]))
-					.join();
-
 			pageable = tiendasPage.nextPageable();
 		} while (tiendasPage.hasNext());
 
@@ -286,34 +287,34 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 			// Se recuperan las tiendas por id de trabajo y estado de forma paginada.
 			tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
 					AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
-			List<String> tiendas = tiendasPage.getContent().stream().map(TrabajoTiendaEstado::getIdTienda)
-					.collect(Collectors.toList());
-			GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper
-					.trabajoDtoToGetVentaTotalizadoRequestDTO(trabajo);
-			paramGetVentaTotalizado.setTienda(tiendas);
-			paramGetVentaTotalizado.setPais("11");
-			paramGetVentaTotalizado.setCadena("1");
-			paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
-			cfResponse = ptrVentaService.getVentaTotalizado(paramGetVentaTotalizado);
-			GetVentaTotalizadoResponseDTO response = cfResponse.get();
-
-			if (cfTrabajoTiendaSeccionVentaList.size() >= ventaTotalizadoDto.getFilter().getMaxPersistenceSize()) {
-				CompletableFuture.anyOf(cfTrabajoTiendaSeccionVentaList
-						.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]));
-				Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionVentaList.stream()
-						.collect(Collectors.partitioningBy(CompletableFuture::isDone));
-				List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream().flatMap(List::stream)
+			if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
+				List<String> tiendas = tiendasPage.getContent().stream().map(TrabajoTiendaEstado::getIdTienda)
 						.collect(Collectors.toList());
-				cfTrabajoTiendaSeccionVentaList.removeAll(cfPersistence);
+				GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper
+						.trabajoDtoToGetVentaTotalizadoRequestDTO(trabajo);
+				paramGetVentaTotalizado.setTienda(tiendas);
+				paramGetVentaTotalizado.setPais("11");
+				paramGetVentaTotalizado.setCadena("1");
+				paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
+				cfResponse = ptrVentaService.getVentaTotalizado(paramGetVentaTotalizado);
+				GetVentaTotalizadoResponseDTO response = cfResponse.get();
+	
+				if (cfTrabajoTiendaSeccionVentaList.size() >= ventaTotalizadoDto.getFilter().getMaxPersistenceSize()) {
+					CompletableFuture.anyOf(cfTrabajoTiendaSeccionVentaList
+							.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]));
+					Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionVentaList.stream()
+							.collect(Collectors.partitioningBy(CompletableFuture::isDone));
+					List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream().flatMap(List::stream)
+							.collect(Collectors.toList());
+					cfTrabajoTiendaSeccionVentaList.removeAll(cfPersistence);
+				}
+	
+				cfTrabajoTiendaSeccionVentaList
+						.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
+	
+				result.addAll(response.getVentaTotalizado());
 			}
-
-			cfTrabajoTiendaSeccionVentaList
-					.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
-
-			result.addAll(response.getVentaTotalizado());
-
 			pageable = tiendasPage.nextPageable();
-
 		} while (tiendasPage.hasNext());
 
 		CompletableFuture.allOf(
