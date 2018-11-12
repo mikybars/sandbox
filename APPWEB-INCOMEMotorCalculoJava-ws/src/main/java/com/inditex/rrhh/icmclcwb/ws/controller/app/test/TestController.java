@@ -29,15 +29,17 @@ public class TestController {
 
 	@GetMapping(path = "/sso/")
 	public SsoDto sso() {
-		SsoDto sso = testService.sso();
-//		SecurityContext securityContext = SecurityContextHolder.getContext();
-//		if (securityContext != null) {
-//			Authentication authentication = securityContext.getAuthentication();
-//			if (authentication != null) {
-//				sso.setResult(authentication.toString());
-//			}
-//		}
-		return sso;
+		return testService.sso();
+	}
+
+	@GetMapping(path = "/error/sync/")
+	public void errorSync() throws Exception {
+		testService.errorSync();
+	}
+
+	@GetMapping(path = "/error/async/")
+	public void errorAsync() throws Exception {
+		testService.errorAsync();
 	}
 
 }

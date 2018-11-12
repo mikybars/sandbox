@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.LongStream;
@@ -9,6 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
@@ -32,7 +35,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 
 	@Autowired
 	private TrabajoService trabajoService;
-	
+
 	@Autowired
 	private TrabajoRepository trabajoRepository;
 
@@ -75,19 +78,37 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 
 			CompletableFuture<Void> cfTiendasParametro = trabajoAsyncService.tiendasParametro(trabajo);
 			CompletableFuture<Void> cfTiendasHistorico = trabajoAsyncService.tiendasHistorico(trabajo);
-			
+
 			cfTiendasParametro.get();
 			CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
 
 			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
-			CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoAsyncService.ventaTotalizadaTienda(trabajo);
-			CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoAsyncService
-					.presenciaTotalizadaTienda(trabajo);
+
+			CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoAsyncService.ventaTotalizadaTienda(trabajo,
+					Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+							AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+							AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+			CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoAsyncService.presenciaTotalizadaTienda(trabajo,
+					Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+							AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+							AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
 
 			cfEmpleados.get();
 			CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoAsyncService.presenciaDetalleEmpleado(trabajo);
 			CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoAsyncService.ventaDetalleEmpleado(trabajo);
 			CompletableFuture<Void> cfCondicionesEmpleados = trabajoAsyncService.condicionesEmpleados(trabajo);
+
+			CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia;
+			CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia;
+			if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
+					|| CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+				// Si la ejecución es de un tipo que puede agregar tiendas adicionales se llama
+				// al proceso que recupera la informacion
+				cfVentaTotalizadaTiendaPresencia = trabajoAsyncService.ventaTotalizadaTienda(trabajo,
+						Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+				cfPresenciaTotalizadaTiendaPresencia = trabajoAsyncService.presenciaTotalizadaTienda(trabajo,
+						Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+			}
 
 			// Si termina algun proceso de datos para tienda
 			CompletableFuture.anyOf(cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda);
