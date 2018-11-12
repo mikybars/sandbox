@@ -59,24 +59,25 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 	}
 
 	@Override
-	public TrabajoDto runTrabajo(@NotNull @Valid TrabajoDto trabajo) throws Exception {
+	public TrabajoDto runTrabajo(@NotNull @Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
-		trabajo = runTrabajoDatos(trabajo);
-		trabajo = runTrabajoCalculado(trabajo);
-		trabajo = runTrabajoConsolidacion(trabajo);
+		runTrabajoDatos(trabajo);
+		runTrabajoCalculado(trabajo);
+		runTrabajoConsolidacion(trabajo);
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
 		return trabajo;
 	}
 
 	@Override
-	public TrabajoDto runTrabajoDatos(@Valid TrabajoDto trabajo) throws Exception {
+	public TrabajoDto runTrabajoDatos(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoDatos(): {}", trabajo.getId(), trabajo);
 		if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
 			trabajo.setFechaInicioTrabajo(LocalDateTime.now());
 			trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
-			trabajo = trabajoService.modifyTrabajo(trabajo);
+			trabajoService.modifyTrabajo(trabajo);
 
 			CompletableFuture<Void> cfTiendasParametro = trabajoAsyncService.tiendasParametro(trabajo);
+
 			CompletableFuture<Void> cfTiendasHistorico = trabajoAsyncService.tiendasHistorico(trabajo);
 
 			cfTiendasParametro.get();
@@ -119,9 +120,18 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 			// TODO Esperamos por todos los servicios asincronos
 			CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfPresenciaDetalleEmpleado, cfTiposHoras,
 					cfEmpleados, cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda, cfVentaDetalleEmpleado,
-					cfCondicionesEmpleados);
+					cfCondicionesEmpleados).exceptionally(e -> {
+						LOG.error(
+								"Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoDatos() :: CompletableFuture.allOf().exceptionally()",
+								trabajo.getId());
+						trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.ERROR.getDto(), trabajo);
+						LOG.error(
+								"Trabajo[{}] :: Fin :: TrabajoService.runTrabajoDatos() :: CompletableFuture.allOf().exceptionally()",
+								trabajo.getId());
+						return null;
+					});
 
-			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
+			trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
 		} else {
 			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoDatos() :: El estado del trabajo no es correcto",
 					trabajo.getId());
@@ -131,10 +141,10 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 	}
 
 	@Override
-	public TrabajoDto runTrabajoCalculado(@Valid TrabajoDto trabajo) throws Exception {
+	public TrabajoDto runTrabajoCalculado(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoCalculado(): {}", trabajo.getId(), trabajo);
 		if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
-			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto(), trabajo);
+			trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto(), trabajo);
 			Random random = new Random();
 			LongStream ls = random.longs(1000, 5000);
 			long time = ls.findFirst().getAsLong();
@@ -144,7 +154,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 			Thread.sleep(time);
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})", trabajo.getId(),
 					time);
-			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto(), trabajo);
+			trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto(), trabajo);
 		} else {
 			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoCalculado() :: El estado del trabajo no es correcto",
 					trabajo.getId());
@@ -154,10 +164,10 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 	}
 
 	@Override
-	public TrabajoDto runTrabajoConsolidacion(@Valid TrabajoDto trabajo) throws Exception {
+	public TrabajoDto runTrabajoConsolidacion(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoConsolidacion(): {}", trabajo.getId(), trabajo);
 		if (EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId().equals(trabajo.getEstado().getId())) {
-			trabajo = trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getDto(), trabajo);
+			trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getDto(), trabajo);
 			Random random = new Random();
 			LongStream ls = random.longs(1000, 5000);
 			long time = ls.findFirst().getAsLong();
@@ -169,7 +179,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 					trabajo.getId(), time);
 			trabajo.setFechaFinTrabajo(LocalDateTime.now());
 			trabajo.setEstado(EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getDto());
-			trabajo = trabajoService.modifyTrabajo(trabajo);
+			trabajoService.modifyTrabajo(trabajo);
 		} else {
 			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoConsolidacion() :: El estado del trabajo no es correcto",
 					trabajo.getId());
