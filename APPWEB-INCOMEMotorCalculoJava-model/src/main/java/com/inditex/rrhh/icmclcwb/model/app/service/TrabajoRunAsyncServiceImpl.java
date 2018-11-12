@@ -37,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaIndividualDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaIndividualDetalleResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaIndividualDetalleResponseItemDTO;
@@ -104,12 +105,12 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 	private Meta4PropertiesDto getEmpleadosTiendaDto;
 
 	@Autowired
-	@Qualifier("ptrClientVentaDto")
-	private PtrPropertiesDto ptrClientVentaDto;
+	@Qualifier("ventaTotalizadoDto")
+	private PtrPropertiesDto ventaTotalizadoDto;
 	
 	@Autowired
-	@Qualifier("ptrClientVentaIndividualDetalleDto")
-	private PtrPropertiesDto ptrClientVentaIndividualDetalleDto;
+	@Qualifier("ventaIndividualDetalleDto")
+	private PtrPropertiesDto ventaIndividualDetalleDto;
 
 	@Async
 	@Override
@@ -197,7 +198,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 			// Comprobamos que todas las persistencias se han realizado y esperamos en caso
 			// negativo.
 			CompletableFuture
-					.allOf(cfTrabajoEmpleadoSaveList.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()]));
+					.allOf(cfTrabajoEmpleadoSaveList.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()])).join();
 
 			pageable = tiendasPage.nextPageable();
 		} while (tiendasPage.hasNext());
@@ -256,7 +257,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 	public CompletableFuture<Void> ventaTotalizadaTienda(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaTotalizadaTienda(): {}", trabajo.getId(), trabajo);
 
-		Pageable pageable = new PageRequest(0, ptrClientVentaDto.getFilter().getMaxPageSize());
+		Pageable pageable = new PageRequest(0, ventaTotalizadoDto.getFilter().getMaxPageSize());
 		Page<TrabajoTiendaEstado> tiendasPage;
 
 		List<GetVentaTotalizadoResponseItemDTO> result = new ArrayList<>();
@@ -275,11 +276,11 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 			paramGetVentaTotalizado.setTienda(tiendas);
 			paramGetVentaTotalizado.setPais("11");
 			paramGetVentaTotalizado.setCadena("1");
-			paramGetVentaTotalizado.setAgrupacion("FECHA_TIENDA_SECCION");
+			paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 			cfResponse = ptrVentaService.getVentaTotalizado(paramGetVentaTotalizado);
 			GetVentaTotalizadoResponseDTO response = cfResponse.get();
 
-			if (cfTrabajoTiendaSeccionVentaList.size() >= ptrClientVentaDto.getFilter().getMaxPersistenceSize()) {
+			if (cfTrabajoTiendaSeccionVentaList.size() >= ventaTotalizadoDto.getFilter().getMaxPersistenceSize()) {
 				CompletableFuture.anyOf(cfTrabajoTiendaSeccionVentaList
 						.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]));
 				Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionVentaList.stream()
@@ -331,7 +332,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 	public CompletableFuture<Void> ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoAsyncService.ventaDetalleEmpleado(): {}", trabajo.getId(), trabajo);
 
-		Pageable pageable = new PageRequest(0, ptrClientVentaIndividualDetalleDto.getFilter().getMaxPageSize());
+		Pageable pageable = new PageRequest(0, ventaIndividualDetalleDto.getFilter().getMaxPageSize());
 		Page<TrabajoEmpleadoEstado> empleadosPage;
 
 		List<GetVentaIndividualDetalleResponseItemDTO> result = new ArrayList<>();
@@ -347,15 +348,14 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 			List<String> empleados =  empleadosPage.getContent().stream().map(TrabajoEmpleadoEstado::getIdEmpleado).collect(Collectors.toList());
 			GetVentaIndividualDetalleRequestDTO paramGetVentaIndividualDetalle = trabajoMapper.trabajoDtoToGetVentaIndividualDetalleRequestDTO(trabajo);
 			paramGetVentaIndividualDetalle.setVendedores(empleados);
-			paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
 			paramGetVentaIndividualDetalle.setPais("11");
 			paramGetVentaIndividualDetalle.setCadena("1");
-			paramGetVentaIndividualDetalle.setAgrupacion("FECHA_VENDEDOR_TIENDA");
+			paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 			cfResponse = ptrVentaService
 					.getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
 			GetVentaIndividualDetalleResponseDTO response = cfResponse.get();
 			
-			if(cfTrabajoTiendaSeccionEmpleadoVentaList.size() >= ptrClientVentaIndividualDetalleDto.getFilter().getMaxPersistenceSize()){
+			if(cfTrabajoTiendaSeccionEmpleadoVentaList.size() >= ventaIndividualDetalleDto.getFilter().getMaxPersistenceSize()){
 				CompletableFuture.anyOf(cfTrabajoTiendaSeccionEmpleadoVentaList
 						.toArray(new CompletableFuture[cfTrabajoTiendaSeccionEmpleadoVentaList.size()]));
 				Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionEmpleadoVentaList

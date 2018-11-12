@@ -10,20 +10,20 @@ import lombok.Data;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix="app.envars.ptr.service")
+@ConfigurationProperties(prefix="app.envars.ptr.venta.service")
 public class PTRClientConfig {
 
-	PtrPropertiesDto ptrClientVenta1;
-	PtrPropertiesDto ptrClientVentaIndividualDetalle1;
+	PtrPropertiesDto getVentaTotalizado;
+	PtrPropertiesDto getVentaIndividualDetalle;
 	
-	@Bean(name = "ptrClientVentaDto")
-	public PtrPropertiesDto getPtrClientVenta() {
-		return ptrClientVenta1;	
+	@Bean(name = "ventaTotalizadoDto")
+	public PtrPropertiesDto getVentaTotalizado() {
+		return getVentaTotalizado;	
 	}
 	
-	@Bean(name = "ptrClientVentaIndividualDetalleDto")
-	public PtrPropertiesDto getPtrClientVentaIndividualDetalle() {
-		return ptrClientVentaIndividualDetalle1;	
+	@Bean(name = "ventaIndividualDetalleDto")
+	public PtrPropertiesDto getVentaIndividualDetalle() {
+		return getVentaIndividualDetalle;	
 	}
 
 }
