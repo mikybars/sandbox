@@ -2,8 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.ProgramacionEmpleadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.ProgramacionMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.ProgramacionTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionEmpleadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionTiendaRepository;
@@ -38,7 +39,13 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 	private ProgramacionTiendaRepository programacionTiendaRepository;
 
 	@Autowired
+	private ProgramacionTiendaMapper programacionTiendaMapper;
+
+	@Autowired
 	private ProgramacionEmpleadoRepository programacionEmpleadoRepository;
+
+	@Autowired
+	private ProgramacionEmpleadoMapper programacionEmpleadoMapper;
 
 	@Override
 	public ProgramacionDto createProgramacion(@Valid ProgramacionDto programacion) {
@@ -47,20 +54,20 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 		if (StringUtils.isBlank(programacion.getHuso())) {
 			programacion.setHuso(ZoneId.systemDefault().getId());
 		}
-		//TODO Obtener el id del usuario de sesion
+		// TODO Obtener el id del usuario de sesion
 		programacion.setIdUsuario("CAMBIAR");
 		programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
-		ProgramacionDto parent = programacionMapper.programacionToProgramacionDto(
+		ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
 				programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
-		parent.setTiendas(programacion.getTiendas());
-		parent.setEmpleados(programacion.getEmpleados());
-		Programacion child = programacionMapper.programacionDtoToProgramacion(parent);
-		if (CollectionUtils.isNotEmpty(child.getTiendas())) {
-			child.setTiendas(programacionTiendaRepository.save(child.getTiendas()));
-		} else if (CollectionUtils.isNotEmpty(child.getEmpleados())) {
-			child.setEmpleados(programacionEmpleadoRepository.save(child.getEmpleados()));
+		if (CollectionUtils.isNotEmpty(programacion.getTiendas())) {
+			result.setTiendas(programacionTiendaMapper.programacionTiendaToProgramacionTiendaDto(programacionTiendaRepository
+					.save(programacionTiendaMapper.mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
+							programacion.getTiendas(), result))));
+		} else if (CollectionUtils.isNotEmpty(programacion.getEmpleados())) {
+			result.setEmpleados(programacionEmpleadoMapper.programacionEmpleadoToProgramacionEmpleadoDto(programacionEmpleadoRepository
+					.save(programacionEmpleadoMapper.mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(
+							programacion.getEmpleados(), result))));
 		}
-		ProgramacionDto result = programacionMapper.programacionToProgramacionDto(child);
 		LOG.info("Fin :: ProgramacionService.createProgramacion(): {}", result);
 		return result;
 	}
