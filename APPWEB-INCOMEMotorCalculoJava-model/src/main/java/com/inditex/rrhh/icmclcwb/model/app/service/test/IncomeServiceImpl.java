@@ -282,13 +282,13 @@ public class IncomeServiceImpl implements IncomeService {
 
 	@Override
 	public void pruebaJSONSQLServerFicheroPartes(String path) throws IOException, XMLStreamException, ParseException {
-		// TODO Completar
+		// Completar
 		
 	}
 
 	@Override
 	public void pruebaJSONDB2FicheroPartes(String path) throws IOException, XMLStreamException, ParseException {
-		// TODO Completar
+		// Completar
 		
 	}
 }

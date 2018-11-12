@@ -239,18 +239,18 @@ public class SQLServerRepositoryImpl implements SQLServerRepository {
 
 	@Override
 	public void insertarDatosJSONCompleto(String contenidoFichero) {
-		// TODO Completar
+		// Completar
 	}
 
 	@Override
 	public List<VentaDto> getDatosJSONCompleto() {
-		// TODO completar
+		// Completar
 		return null;
 	}
 
 	@Override
 	public List<VentaDto> getDatosJoinJSONCompleto() {
-		// TODO Completar
+		// Completar
 		return null;
 	}
 }

@@ -1,32 +1,26 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.time.LocalDateTime;
-import java.util.Random;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.LongStream;
-
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants.EstadoTrabajoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaRepository;
-import com.inditex.rrhh.icmclcwb.ms.Sender;
+import com.inditex.rrhh.icmclcwb.ms.SenderTrabajo;
 
 @Service
 @Validated
@@ -43,26 +37,24 @@ public class TrabajoServiceImpl implements TrabajoService {
 
 	@Autowired
 	private TrabajoTiendaRepository trabajoTiendaRepository;
-
+	
 	@Autowired
 	private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
 
 	@Autowired
-	private TrabajoAsyncService trabajoAsyncService;
-
-	@Autowired
-	private Sender sender;
+	private SenderTrabajo sender;
 
 	@Override
 	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
 		trabajo.setFechaCreacion(LocalDateTime.now());
-		EstadoTrabajoDto estadoTrabajo = new EstadoTrabajoDto();
-		estadoTrabajo.setId(Constants.EstadoTrabajoEnum.PENDIENTE_DATOS.getId());
-		trabajo.setEstado(estadoTrabajo);
-		// TODO Obtener el id del usuario que lanza la petición o poner un usuario
-		// generico MQ
-		trabajo.setIdUsuario("MANUAL");
+		trabajo.setEstado(AppConstants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
+		if (StringUtils.isBlank(trabajo.getIdUsuario())) {
+			UserSSO userSSO = SsoUtils.getUserSSO();
+			if (StringUtils.isNotBlank(userSSO.getUsername())) {
+				trabajo.setIdUsuario(userSSO.getUsername());
+			}
+		}
 		TrabajoDto parent = trabajoMapper
 				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
 		parent.setTiendas(trabajo.getTiendas());
@@ -80,29 +72,6 @@ public class TrabajoServiceImpl implements TrabajoService {
 	}
 
 	@Override
-	public TrabajoDto run(@NotNull @Positive final Long id) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.run()", id);
-		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
-		if (result != null) {
-			result = runTrabajo(result);
-		} else {
-			LOG.error("Trabajo[{}] :: TrabajoService.run() :: No existe el trabajo en BBDD", id);
-		}
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.run(): {}", id, result);
-		return result;
-	}
-
-	@Override
-	public TrabajoDto runTrabajo(@NotNull @Valid TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
-		trabajo = runTrabajoDatos(trabajo);
-		trabajo = runTrabajoCalculado(trabajo);
-		trabajo = runTrabajoConsolidacion(trabajo);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
-		return trabajo;
-	}
-
-	@Override
 	public TrabajoDto modifyTrabajo(@Valid final TrabajoDto trabajo) {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {}", trabajo.getId(), trabajo);
 		TrabajoDto result = trabajoMapper
@@ -112,10 +81,10 @@ public class TrabajoServiceImpl implements TrabajoService {
 	}
 
 	@Override
-	public TrabajoDto modifyEstadoTrabajo(@NotNull @Positive final Long id, @Valid final TrabajoDto trabajo) {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
+	public TrabajoDto modifyEstadoTrabajo(@Valid final EstadoTrabajoDto estado, @Valid final TrabajoDto trabajo) {
+		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), estado, trabajo);
 
-		trabajo.setEstado(EstadoTrabajoDto.builder().id(id).build());
+		trabajo.setEstado(estado);
 		TrabajoDto result = modifyTrabajo(trabajo);
 
 //		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), trabajoMapper.estadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto.builder().id(id).build()));
@@ -127,103 +96,8 @@ public class TrabajoServiceImpl implements TrabajoService {
 //		}
 //		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(trabajo.getId()));
 
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), id, trabajo);
+		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), estado, trabajo);
 		return result;
-	}
-
-	@Override
-	public TrabajoDto runTrabajoDatos(@Valid TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoDatos(): {}", trabajo.getId(), trabajo);
-		if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
-			trabajo.setFechaInicioTrabajo(LocalDateTime.now());
-			trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
-			trabajo = modifyTrabajo(trabajo);
-
-			CompletableFuture<Void> cfTiendasParametro = trabajoAsyncService.tiendasParametro(trabajo);
-			CompletableFuture<Void> cfTiendasHistorico = trabajoAsyncService.tiendasHistorico(trabajo);
-			CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
-
-			// Si tenemos las tiendas iniciales ya se pueden recuperar los empleados e ir
-			// recuperando datos de las tiendas y si se van a recuperar los empleados por
-			// pais/empresa se podria iniciar tambien el procesao
-			cfTiendasParametro.get();
-
-			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
-			CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoAsyncService.ventaTotalizadaTienda(trabajo);
-			CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoAsyncService
-					.presenciaTotalizadaTienda(trabajo);
-
-			cfEmpleados.get();
-			CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoAsyncService.presenciaDetalleEmpleado(trabajo);
-			CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoAsyncService.ventaDetalleEmpleado(trabajo);
-			CompletableFuture<Void> cfCondicionesEmpleados = trabajoAsyncService.condicionesEmpleados(trabajo);
-
-			// Si termina algun proceso de datos para tienda
-			CompletableFuture.anyOf(cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda);
-			// Hay que esperar que estos tres procesos hayan finalizado y mientras no
-			// finalicen cada X tiempo verificar si hay tiendas nuevas
-			CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfPresenciaDetalleEmpleado);
-
-			// TODO Esperamos por todos los servicios asincronos
-			CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfPresenciaDetalleEmpleado, cfTiposHoras,
-					cfEmpleados, cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda, cfVentaDetalleEmpleado,
-					cfCondicionesEmpleados);
-
-			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId(), trabajo);
-		} else {
-			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoDatos() :: El estado del trabajo no es correcto",
-					trabajo.getId());
-		}
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoDatos(): {}", trabajo.getId(), trabajo);
-		return trabajo;
-	}
-
-	@Override
-	public TrabajoDto runTrabajoCalculado(@Valid TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoCalculado(): {}", trabajo.getId(), trabajo);
-		if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
-			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getId(), trabajo);
-			Random random = new Random();
-			LongStream ls = random.longs(1000, 5000);
-			long time = ls.findFirst().getAsLong();
-			ls.close();
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})",
-					trabajo.getId(), time);
-			Thread.sleep(time);
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado() :: Thread.sleep({})", trabajo.getId(),
-					time);
-			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId(), trabajo);
-		} else {
-			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoCalculado() :: El estado del trabajo no es correcto",
-					trabajo.getId());
-		}
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoCalculado(): {}", trabajo.getId(), trabajo);
-		return trabajo;
-	}
-
-	@Override
-	public TrabajoDto runTrabajoConsolidacion(@Valid TrabajoDto trabajo) throws Exception {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoConsolidacion(): {}", trabajo.getId(), trabajo);
-		if (EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId().equals(trabajo.getEstado().getId())) {
-			trabajo = modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getId(), trabajo);
-			Random random = new Random();
-			LongStream ls = random.longs(1000, 5000);
-			long time = ls.findFirst().getAsLong();
-			ls.close();
-			LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoConsolidacion() :: Thread.sleep({})",
-					trabajo.getId(), time);
-			Thread.sleep(time);
-			LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoConsolidacion() :: Thread.sleep({})",
-					trabajo.getId(), time);
-			trabajo.setFechaFinTrabajo(LocalDateTime.now());
-			trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getId()).build());
-			trabajo = modifyTrabajo(trabajo);
-		} else {
-			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoConsolidacion() :: El estado del trabajo no es correcto",
-					trabajo.getId());
-		}
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.runTrabajoConsolidacion(): {}", trabajo.getId(), trabajo);
-		return trabajo;
 	}
 
 }

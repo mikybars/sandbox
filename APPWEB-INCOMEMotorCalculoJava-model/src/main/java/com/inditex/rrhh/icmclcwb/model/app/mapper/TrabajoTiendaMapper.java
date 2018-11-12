@@ -4,13 +4,8 @@ import java.util.List;
 
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoTienda;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoTrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 
@@ -31,16 +26,6 @@ public abstract class TrabajoTiendaMapper {
 			Trabajo trabajoId = new Trabajo();
 			trabajoId.setId(src.getTrabajo().getId());
 			src.setTrabajo(trabajoId);
-			if (src.getEstado() == null) {
-				EstadoTrabajoTienda estado = new EstadoTrabajoTienda();
-				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
-				src.setEstado(estado);
-			}
-			if (src.getTipo() == null) {
-				TipoTrabajoTienda estado = new TipoTrabajoTienda();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
-				src.setTipo(estado);
-			}
 		}
 	}
 
@@ -50,16 +35,6 @@ public abstract class TrabajoTiendaMapper {
 			TrabajoDto trabajoId = new TrabajoDto();
 			trabajoId.setId(src.getTrabajo().getId());
 			src.setTrabajo(trabajoId);
-			if (src.getEstado() == null) {
-				EstadoTrabajoTiendaDto estado = new EstadoTrabajoTiendaDto();
-				estado.setId(Constants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
-				src.setEstado(estado);
-			}
-			if (src.getTipo() == null) {
-				TipoTrabajoTiendaDto estado = new TipoTrabajoTiendaDto();
-				estado.setId(Constants.TipoTrabajoTiendaEnum.INICIAL.getId());
-				src.setTipo(estado);
-			}
 		}
 	}
 

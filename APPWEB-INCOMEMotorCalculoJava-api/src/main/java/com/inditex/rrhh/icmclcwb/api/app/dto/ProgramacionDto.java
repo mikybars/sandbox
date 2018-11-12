@@ -11,7 +11,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 
 @ApiModel(description = "Modelo ProgramacionDto")
 @Data
@@ -23,7 +23,7 @@ public class ProgramacionDto implements Serializable {
 	private Long id;
 
 	@NotNull
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.LOCAL_TIME_JSON)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppConstants.LOCAL_TIME_JSON)
 	@ApiModelProperty(value = "Hora planificada de ejecución", required = true, dataType = "java.lang.String", example = "10:12")
 	private LocalTime hora;
 

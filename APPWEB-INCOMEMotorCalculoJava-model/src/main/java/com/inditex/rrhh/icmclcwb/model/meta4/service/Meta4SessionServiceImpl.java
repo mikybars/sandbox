@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.poc.PocTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;
@@ -34,6 +35,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.annotation.Meta4Session;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.poc.PocTiendaRepository;
 
 @Service
 public class Meta4SessionServiceImpl implements Meta4SessionService {
@@ -51,6 +54,12 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 	@Autowired
 	@Qualifier("getValoresCondicionesDto")
 	private Meta4PropertiesDto getValoresCondicionesDto;
+	
+	@Autowired
+	private PocTiendaRepository pocTiendaRepository;
+	
+	@Autowired
+	private PocTiendaMapper pocTiendaMapper;
 
 	@Meta4Session
 	@Override
@@ -173,6 +182,17 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 		}
 		LOG.info("Inicio :: Meta4Service.periodo(): {}", result);
 		return result;
+	}
+
+	@Override
+	public List<PocTiendaDto> getTiendas(TrabajoDto trabajo) {
+		List<String> tiendas = new ArrayList<>();
+		if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
+			trabajo.getTiendas().forEach(item -> {
+				tiendas.add(item.getIdTienda());
+			});
+		}
+		return pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository.findByIdPaisAndIdEmpresaAndIdIn(trabajo.getIdPais(), trabajo.getIdEmpresa(), tiendas));
 	}
 
 }

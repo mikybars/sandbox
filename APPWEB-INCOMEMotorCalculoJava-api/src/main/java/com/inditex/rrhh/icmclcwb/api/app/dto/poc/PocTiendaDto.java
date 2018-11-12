@@ -10,14 +10,21 @@ public class PocTiendaDto implements Serializable {
 
 	private static final long serialVersionUID = -625793975651873916L;
 
+	@NotBlank
 	private String id;
+
+	@NotBlank
+	private String idTiendaMeta4;
 
 	@NotBlank
 	private String idPais;
 
 	@NotBlank
+	private String idPaisOrigen;
+
+	@NotBlank
 	private String idEmpresa;
-	
+
 	@NotBlank
 	private String idCadena;
 

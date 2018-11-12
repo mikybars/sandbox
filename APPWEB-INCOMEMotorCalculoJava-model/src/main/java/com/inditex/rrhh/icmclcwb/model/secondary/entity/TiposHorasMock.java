@@ -2,13 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.secondary.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import lombok.Data;
-
 
 @Data
 public class TiposHorasMock {
@@ -20,7 +14,7 @@ public class TiposHorasMock {
 	private Date fecha;
 	private Integer tipoHora;
 	private Integer Origen;
-	private Boolean excluidoDenom;	
+	private Boolean excluidoDenom;
 	private Boolean excluidoCalculo;
-	
+
 }

@@ -25,6 +25,8 @@ public class GetVentaTotalizadoRequestDTO implements Serializable {
 	private String cadena;
 
 	private List<String> tienda;
+	
+	private String agrupacion;
 
 //	private String seccion;
 //

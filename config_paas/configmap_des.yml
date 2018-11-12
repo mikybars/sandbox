@@ -73,13 +73,29 @@ amiga:
           pubSubDomain: false
 app:
   envars:
+    ptr:
+      service: 
+        ptrClientVenta1: 
+          endpoint: /ventaGeneralService/getVentaTotalizado
+          filter:
+            maxPageSize: 20
+            maxQuerySize: 3
+            maxPersistenceSize: 3
+            retryAttempts: 2
+        ptrClientVentaIndividualDetalle1: 
+          endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
+          filter:
+            maxPageSize: 20
+            maxQuerySize: 3
+            maxPersistenceSize: 3
+            retryAttempts: 2
     meta4:
       user: INCOME
       language: 2
       login:
-        server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/Login
+        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-income:
-        server: https://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services/ICM_WS_INCOME
+        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_INCOME
       service:
           getEmpleadosTienda: 
             page:
