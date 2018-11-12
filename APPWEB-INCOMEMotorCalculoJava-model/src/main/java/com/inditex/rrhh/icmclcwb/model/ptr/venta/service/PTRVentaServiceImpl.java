@@ -32,20 +32,20 @@ public class PTRVentaServiceImpl implements PTRVentaService {
 	private RestClient ptrClientVenta;
 	
 	@Autowired
-	@Qualifier("ptrClientVentaDto")
-	private PtrPropertiesDto ptrClientVentaDto;
+	@Qualifier("ventaTotalizadoDto")
+	private PtrPropertiesDto ventaTotalizadoDto;
 
 	@Autowired
-	@Qualifier("ptrClientVentaIndividualDetalleDto")
-	private PtrPropertiesDto ptrClientVentaIndividualDetalleDto;
+	@Qualifier("ventaIndividualDetalleDto")
+	private PtrPropertiesDto ventaIndividualDetalleDto;
 	
 	@Override
 	public CompletableFuture<GetVentaTotalizadoResponseDTO> getVentaTotalizado(
 			@Valid final GetVentaTotalizadoRequestDTO getVentaTotalizadoRequest) throws Exception {
 		GetVentaTotalizadoResponseDTO result = null;
-		LOG.info("Consultando: " + ptrClientVentaDto.getEndpoint());
+		LOG.info("Consultando: " + ventaTotalizadoDto.getEndpoint());
 		ResponseEntity<GetVentaTotalizadoResponseDTO> response = ptrClientVenta.postForEntity(
-				ptrClientVentaDto.getEndpoint(), getVentaTotalizadoRequest,
+				ventaTotalizadoDto.getEndpoint(), getVentaTotalizadoRequest,
 				GetVentaTotalizadoResponseDTO.class);
 		if (response.getStatusCode().value() == HttpStatus.SC_OK) {
 			LOG.info("Ha funcionado (PTR): " + response.getBody().getVentaTotalizado().size());
@@ -60,9 +60,9 @@ public class PTRVentaServiceImpl implements PTRVentaService {
 	public CompletableFuture<GetVentaIndividualDetalleResponseDTO> getVentaIndividualDetalle(
 			@Valid final GetVentaIndividualDetalleRequestDTO getVentaIndividualDetalleRequestDto) throws Exception {
 		GetVentaIndividualDetalleResponseDTO result = null;
-		LOG.info("Consultando: " + ptrClientVentaIndividualDetalleDto.getEndpoint());
+		LOG.info("Consultando: " + ventaIndividualDetalleDto.getEndpoint());
 		ResponseEntity<GetVentaIndividualDetalleResponseDTO> response = ptrClientVenta.postForEntity(
-				ptrClientVentaIndividualDetalleDto.getEndpoint(), getVentaIndividualDetalleRequestDto,
+				ventaIndividualDetalleDto.getEndpoint(), getVentaIndividualDetalleRequestDto,
 				GetVentaIndividualDetalleResponseDTO.class);
 		if (response.getStatusCode().value() == HttpStatus.SC_OK) {
 			if (response.getBody() != null) {
