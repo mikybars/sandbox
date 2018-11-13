@@ -20,9 +20,10 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaIndividualDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
@@ -65,6 +66,10 @@ public abstract class TrabajoMapper {
 	})
 	public abstract GetVentaIndividualDetalleRequestDTO trabajoDtoToGetVentaIndividualDetalleRequestDTO(TrabajoDto src);
 
+	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
+		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE)})
+	public abstract PresenciasTotalTiendaSeccionRequestDto trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(TrabajoDto src);
+	
 	protected List<String> mapEmpleados(List<TrabajoEmpleadoDto> trabajoEmpleadosDto){
 		List<String> empleados = new ArrayList<>();
 		for(TrabajoEmpleadoDto empleado : trabajoEmpleadosDto){
@@ -80,6 +85,7 @@ public abstract class TrabajoMapper {
 		}
 		return tiendas;
 	}
+	
 
 	@AfterMapping
 	protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto target) {

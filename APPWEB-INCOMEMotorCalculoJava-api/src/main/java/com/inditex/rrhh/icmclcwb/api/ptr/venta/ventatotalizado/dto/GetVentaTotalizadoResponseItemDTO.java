@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.ptr.venta.dto;
+package com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Configuration
 @ConfigurationProperties(prefix="app.envars.ptr.venta.service")
-public class PTRClientConfig {
+public class PtrClientVentaPropertiesConfig {
 
 	PtrPropertiesDto getVentaTotalizado;
 	PtrPropertiesDto getVentaIndividualDetalle;

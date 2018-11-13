@@ -3,13 +3,13 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;

@@ -18,13 +18,11 @@ public interface Meta4SessionService {
 	CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(
 			EmpleadosTiendaRequestDto empleadosTiendaRequestDto) throws Exception;
 
-	List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(
+	CompletableFuture<List<EmpleadosEstructuraResultItemDto>> getEmpleadosEstructura(
 			EmpleadosEstructuraRequestDto empleadosEstructuraRequest) throws Exception;
 
 	List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto valoresCondicionesRequest)
 			throws Exception;
-
-	List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(TrabajoDto trabajo) throws Exception;
 
 	List<PeriodoDto> periodo();
 

@@ -7,7 +7,7 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.aqsw.framework.common.rest.client.builder.RestClientBuilder;
 
 @Configuration
-public class PTRClientVentaConfig {
+public class PtrClientVentaConfig {
 
 	@Bean(name = "ptrClientVenta")
 	@ConfigurationProperties(prefix = "amiga.common.rest.client.ptrClientVenta")

@@ -11,6 +11,10 @@ metadata:
   openshiftproject: icmclcwb
   slot: develop
 spring:
+#  jta:
+#    atomikos:
+#      properties:
+#        default-jta-timeout: 60000 (ms)
   h2:
     console:
       enabled: true
@@ -70,7 +74,7 @@ amiga:
           receiveTimeout: 100
           pubSubDomain: false
 #    jdbc:
-#      datasource:
+#      datasource: 
 #        primary:
 #          driverClassName: com.ibm.db2.jcc.DB2Driver
 #          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
@@ -124,6 +128,15 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
+      presencia:
+        service:
+          getPresenciasTotalTiendaSeccion:
+            endpoint: /presenciasService/presenciasTotalTiendaSeccion
+            filter:
+              maxPageSize: 20
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2              
     meta4: 
       user: INCOME
       password: 123
