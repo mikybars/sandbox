@@ -164,7 +164,7 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 				tiendas.add(item.getIdTienda());
 			});
 		}
-		return pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository.findByIdPaisAndIdEmpresaAndIdIn(trabajo.getIdPais(), trabajo.getIdEmpresa(), tiendas));
+		return pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository.findByIdPaisOrigenAndIdEmpresaAndIdIn(trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa(), tiendas));
 	}
 
 }

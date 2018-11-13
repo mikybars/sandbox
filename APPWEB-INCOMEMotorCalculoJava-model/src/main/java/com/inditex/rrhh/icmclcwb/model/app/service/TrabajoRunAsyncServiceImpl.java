@@ -260,16 +260,16 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 							trabajo));
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasParametro(Tienda): {}", trabajo.getId(),
 					result);
-		} else if (StringUtils.isNotBlank(trabajo.getIdPais()) && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
+		} else if (StringUtils.isNotBlank(trabajo.getIdPaisOrigen()) && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
 			// TODO Pais + Empresa :: Se obtienen las tiendas por pais y empresa
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasParametro(Pais Empresa): {} {}",
-					trabajo.getId(), trabajo.getIdPais(), trabajo.getIdEmpresa());
+					trabajo.getId(), trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa());
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasParametro(Pais Empresa): {}", trabajo.getId(),
 					result);
-		} else if (StringUtils.isNotBlank(trabajo.getIdPais())) {
+		} else if (StringUtils.isNotBlank(trabajo.getIdPaisOrigen())) {
 			// TODO Pais :: Se obtienen las tiendas por pais
 			LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasParametro(Pais): {}", trabajo.getId(),
-					trabajo.getIdPais());
+					trabajo.getIdPaisOrigen());
 			LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.tiendasParametro(Pais): {}", trabajo.getId(),
 					result);
 		}

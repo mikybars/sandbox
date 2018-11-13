@@ -31,12 +31,12 @@ public class ProgramacionDto implements Serializable {
 	private String huso;
 
 	@NotNull
-	@ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true, allowableValues = "true, false", example = "true")
+	@ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true, example = "true")
 	private Boolean activa;
 
 	@NotBlank
-	@ApiModelProperty(value = "Id del páis a ejecutar", required = true, example = "11")
-	private String idPais;
+	@ApiModelProperty(value = "Id del páis origen a ejecutar", required = true, example = "11")
+	private String idPaisOrigen;
 
 	@NotBlank
 	@ApiModelProperty(value = "Id de la empresa a ejecutar", required = true, example = "8")

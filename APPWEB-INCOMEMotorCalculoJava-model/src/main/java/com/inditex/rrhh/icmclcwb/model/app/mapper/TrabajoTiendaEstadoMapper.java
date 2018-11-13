@@ -48,7 +48,7 @@ public abstract class TrabajoTiendaEstadoMapper {
 	}
 
 	@Mappings({ @Mapping(target = "trabajo.id", source = "srcTrabajoDto.id"), @Mapping(target = "id", ignore = true),
-			@Mapping(target = "estado", ignore = true), @Mapping(target = "idPais", source = "srcTrabajoTiendaEstadoDto.idPais"), @Mapping(target = "idEmpresa", source = "srcTrabajoTiendaEstadoDto.idEmpresa")})
+			@Mapping(target = "estado", ignore = true), @Mapping(target = "idPaisOrigen", source = "srcTrabajoTiendaEstadoDto.idPais"), @Mapping(target = "idEmpresa", source = "srcTrabajoTiendaEstadoDto.idEmpresa")})
 	public abstract TrabajoTiendaEstado mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
 			TrabajoTiendaEstadoDto srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto);
 

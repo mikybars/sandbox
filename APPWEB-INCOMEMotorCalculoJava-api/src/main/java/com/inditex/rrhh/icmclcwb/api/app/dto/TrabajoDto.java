@@ -25,8 +25,8 @@ public class TrabajoDto implements Serializable {
 	private /* BigInteger */ EstadoTrabajoDto estado;
 
 	@NotBlank
-	@ApiModelProperty(value = "Id del páis a ejecutar", required = true)
-	private String idPais;
+	@ApiModelProperty(value = "Id del páis origen a ejecutar", required = true)
+	private String idPaisOrigen;
 
 	@NotBlank
 	@ApiModelProperty(value = "Id de la empresa a ejecutar", required = true)

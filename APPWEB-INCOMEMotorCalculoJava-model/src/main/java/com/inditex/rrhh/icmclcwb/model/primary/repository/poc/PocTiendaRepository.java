@@ -10,8 +10,8 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface PocTiendaRepository extends BaseRepository<PocTienda, String> {
 	
-	List<PocTienda> findByIdPaisAndIdEmpresa(@NotBlank String idPais, @NotBlank String idEmpresa);
+	List<PocTienda> findByIdPaisOrigenAndIdEmpresa(@NotBlank String idPaisOrigen, @NotBlank String idEmpresa);
 	
-	List<PocTienda> findByIdPaisAndIdEmpresaAndIdIn(@NotBlank String idPais, @NotBlank String idEmpresa, @NotNull List<String> tiendas);
+	List<PocTienda> findByIdPaisOrigenAndIdEmpresaAndIdIn(@NotBlank String idPaisOrigen, @NotBlank String idEmpresa, @NotNull List<String> tiendas);
 
 }

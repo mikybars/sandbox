@@ -6,9 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 
-import lombok.Data;
-
-@Data
 @Configuration
 @ConfigurationProperties(prefix = "app.envars.meta4.service")
 public class Meta4ClientConfig {
