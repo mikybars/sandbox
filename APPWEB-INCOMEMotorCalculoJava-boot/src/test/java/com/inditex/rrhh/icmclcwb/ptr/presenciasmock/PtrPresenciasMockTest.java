@@ -22,7 +22,7 @@ public class PtrPresenciasMockTest {
 	@Autowired
 	@Qualifier("ptrClientPresenciaMock")
 	private TestRestTemplate testRestTemplate;
-	
+
 	@Test
 	public void findAll() {
 		ResponseEntity<PresenciasDetalleResponseListDto> responseEntity = testRestTemplate
