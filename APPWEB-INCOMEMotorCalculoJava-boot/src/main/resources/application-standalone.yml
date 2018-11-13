@@ -16,6 +16,8 @@ spring:
       enabled: true
 amiga:
   common:
+    core:
+      is-production: false
     cache:
       remote:
         enabled: false

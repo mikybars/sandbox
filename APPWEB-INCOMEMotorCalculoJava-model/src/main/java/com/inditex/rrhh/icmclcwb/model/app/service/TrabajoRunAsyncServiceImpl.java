@@ -152,44 +152,46 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 
 			if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
 				List<CompletableFuture<Void>> cfTrabajoEmpleadoSaveList = new ArrayList<>();
-	
+
 				// Para cada tienda recuperamos y persistimos los datos de los empleados
 				// asociados.
 				for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
-	
+
 					request.getData().setIdLugarTrabajo(tienda.getIdTiendaMeta4());
-	
+
 					do {
 						// Consultamos en meta4 los empleados por tienda de forma paginada.
 						CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfEmpleadosTienda = null;
-	
+
 						try {
 							cfEmpleadosTienda = meta4Service.getEmpleadosTienda(request);
 						} catch (Exception e) {
 							LOG.error("Error consultando en meta4: ", e.getMessage());
 							throw new ApplicationException("Error consultando en meta4: {}" + e.getMessage());
 						}
-	
+
 						List<EmpleadosTiendaResultItemDto> persist = null;
-	
+
 						try {
 							persist = cfEmpleadosTienda.get();
 						} catch (InterruptedException | ExecutionException e) {
 							LOG.error("Futuro completado de forma excepcional: ", e.getMessage());
-							throw new ApplicationException("Futuro completado de forma excepcional: {}" + e.getMessage());
+							throw new ApplicationException(
+									"Futuro completado de forma excepcional: {}" + e.getMessage());
 						}
-	
+
 						result.addAll(persist);
-	
+
 						List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoDto = trabajoEmpleadoEstadoMapper
 								.empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(persist, trabajo);
-	
-						if (cfTrabajoEmpleadoSaveList.size() >= getEmpleadosTiendaDto.getFilter().getMaxPersistenceSize()) {
+
+						if (cfTrabajoEmpleadoSaveList.size() >= getEmpleadosTiendaDto.getFilter()
+								.getMaxPersistenceSize()) {
 							// Comprobamos que tenemos asíncronos libres y persistimos los datos.
 							// En caso de no tener asíncronos libres esperamos a que alguno de los que está
 							// en ejecución
 							// termine, lo sacamos de la lista de futuros y persistimos.
-	
+
 							CompletableFuture.anyOf(cfTrabajoEmpleadoSaveList
 									.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()]));
 							Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoEmpleadoSaveList
@@ -198,17 +200,17 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 									.flatMap(List::stream).collect(Collectors.toList());
 							cfTrabajoEmpleadoSaveList.removeAll(cfPersistence);
 						}
-	
+
 						cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoService.save(trabajoEmpleadoDto));
-	
+
 					} while (request.getPage().hasNext());
-	
+
 				}
-	
+
 				// Comprobamos que todas las persistencias se han realizado y esperamos en caso
 				// negativo.
-				CompletableFuture
-						.allOf(cfTrabajoEmpleadoSaveList.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()]))
+				CompletableFuture.allOf(
+						cfTrabajoEmpleadoSaveList.toArray(new CompletableFuture[cfTrabajoEmpleadoSaveList.size()]))
 						.join();
 			}
 			pageable = tiendasPage.nextPageable();
@@ -298,20 +300,20 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 				paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 				cfResponse = ptrVentaService.getVentaTotalizado(paramGetVentaTotalizado);
 				GetVentaTotalizadoResponseDTO response = cfResponse.get();
-	
+
 				if (cfTrabajoTiendaSeccionVentaList.size() >= ventaTotalizadoDto.getFilter().getMaxPersistenceSize()) {
 					CompletableFuture.anyOf(cfTrabajoTiendaSeccionVentaList
 							.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]));
-					Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionVentaList.stream()
-							.collect(Collectors.partitioningBy(CompletableFuture::isDone));
-					List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream().flatMap(List::stream)
-							.collect(Collectors.toList());
+					Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfTrabajoTiendaSeccionVentaList
+							.stream().collect(Collectors.partitioningBy(CompletableFuture::isDone));
+					List<CompletableFuture<Void>> cfPersistence = resultPersistence.values().stream()
+							.flatMap(List::stream).collect(Collectors.toList());
 					cfTrabajoTiendaSeccionVentaList.removeAll(cfPersistence);
 				}
-	
+
 				cfTrabajoTiendaSeccionVentaList
 						.add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
-	
+
 				result.addAll(response.getVentaTotalizado());
 			}
 			pageable = tiendasPage.nextPageable();
@@ -403,6 +405,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@Async
 	@Override
 	public CompletableFuture<Void> tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiposHoras(): {}", trabajo.getId(), trabajo);
@@ -422,6 +425,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@Async
 	@Override
 	public CompletableFuture<Void> tiendasHistorico(@Valid TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.tiendasHistorico(): {}", trabajo.getId(), trabajo);
@@ -450,6 +454,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@Async
 	@Override
 	public CompletableFuture<Void> presenciaTotalizadaTienda(@Valid TrabajoDto trabajo,
 			@NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
@@ -471,6 +476,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@Async
 	@Override
 	public CompletableFuture<Void> presenciaDetalleEmpleado(@Valid TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoRunAsyncService.presenciaDetalleEmpleado(): {}", trabajo.getId(),
@@ -489,6 +495,48 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoRunAsyncService.presenciaDetalleEmpleado(): {}", trabajo.getId());
 		return CompletableFuture.completedFuture(null);
+	}
+
+	@Override
+	public void exceptionally(TrabajoDto trabajo, CompletableFuture<?> cf, List<CompletableFuture<?>> cfList)
+			throws Exception {
+		LOG.info("Trabajo[{}] :: Inicio :: AsyncService.exceptionally()", trabajo.getId());
+		// Agregamos el cf a la lista del ejecutor
+		cfList.add(cf);
+		// Si falla, dejamos traza, y cancelamos todos los pendientes.
+		cf.exceptionally(e -> {
+			LOG.error("Trabajo[{}] :: Inicio :: AsyncService.exceptionally() :: cf.exceptionally()", trabajo.getId());
+			cfList.stream().forEach(item -> {
+				if (item.isDone()) {
+					LOG.info("Trabajo[{}] :: AsyncService.exceptionally() :: cf.exceptionally() :: isDone()",
+							trabajo.getId());
+				} else {
+					LOG.info("Trabajo[{}] :: Inicio :: AsyncService.exceptionally() :: cf.exceptionally() :: cancel()",
+							trabajo.getId());
+					item.cancel(true);
+					LOG.info("Trabajo[{}] :: Fin :: AsyncService.exceptionally() :: cf.exceptionally() :: cancel()",
+							trabajo.getId());
+				}
+			});
+			LOG.error("Trabajo[{}] :: Fin :: AsyncService.exceptionally() :: cf.exceptionally()", trabajo.getId());
+			return null;
+		});
+		LOG.info("Trabajo[{}] :: Fin :: AsyncService.exceptionally()", trabajo.getId());
+	}
+
+	@Override
+	public boolean isOk(TrabajoDto trabajo, List<CompletableFuture<?>> cfList) throws Exception {
+		boolean result = true;
+		LOG.info("Trabajo[{}] :: Inicio :: AsyncService.isOk()", trabajo.getId());
+		for (CompletableFuture<?> item : cfList) {
+			if (item.isCompletedExceptionally()) {
+				result = false;
+				LOG.error("Trabajo[{}] :: AsyncService.isOk(): {}", trabajo.getId(), result);
+				break;
+			}
+		}
+		LOG.info("Trabajo[{}] :: Fin :: AsyncService.isOk(): {}", trabajo.getId(), result);
+		return result;
 	}
 
 }

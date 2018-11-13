@@ -42,7 +42,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 	private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
 
 	@Autowired
-	private SenderTrabajo sender;
+	private SenderTrabajo senderTrabajo;
 
 	@Override
 	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
@@ -66,7 +66,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 			child.setEmpleados(trabajoEmpleadoRepository.save(child.getEmpleados()));
 		}
 		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(child);
-		sender.send(result);
+		senderTrabajo.send(result);
 		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.createTrabajo(): {}", result.getId(), result);
 		return result;
 	}
