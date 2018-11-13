@@ -118,24 +118,28 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 					CompletableFuture<Void> cfCondicionesEmpleados = trabajoAsyncService.condicionesEmpleados(trabajo);
 					trabajoAsyncService.exceptionally(trabajo, cfCondicionesEmpleados, cf);
 
-					CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia;
-					CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia;
-					if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
-							|| CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-						// Si la ejecución es de un tipo que puede agregar tiendas adicionales se llama
-						// al proceso que recupera la informacion
-						cfVentaTotalizadaTiendaPresencia = trabajoAsyncService.ventaTotalizadaTienda(trabajo,
-								Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
-						trabajoAsyncService.exceptionally(trabajo, cfVentaTotalizadaTiendaPresencia, cf);
-
-						cfPresenciaTotalizadaTiendaPresencia = trabajoAsyncService.presenciaTotalizadaTienda(trabajo,
-								Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
-						trabajoAsyncService.exceptionally(trabajo, cfPresenciaTotalizadaTiendaPresencia, cf);
-					}
-
-					CompletableFuture.allOf(cf.toArray(new CompletableFuture[cf.size()]));
+					
+					cfPresenciaDetalleEmpleado.get();
 					if (trabajoAsyncService.isOk(trabajo, cf)) {
-						trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
+						if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
+								|| CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+							// Si la ejecución es de un tipo que puede agregar tiendas adicionales se llama
+							// al proceso que recupera la informacion
+							CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoAsyncService.ventaTotalizadaTienda(trabajo,
+									Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+							trabajoAsyncService.exceptionally(trabajo, cfVentaTotalizadaTiendaPresencia, cf);
+	
+							CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = trabajoAsyncService.presenciaTotalizadaTienda(trabajo,
+									Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+							trabajoAsyncService.exceptionally(trabajo, cfPresenciaTotalizadaTiendaPresencia, cf);
+						}
+	
+						CompletableFuture.allOf(cf.toArray(new CompletableFuture[cf.size()]));
+						if (trabajoAsyncService.isOk(trabajo, cf)) {
+							trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
+						} else {
+							trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.ERROR.getDto(), trabajo);
+						}
 					} else {
 						trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.ERROR.getDto(), trabajo);
 					}
