@@ -9,15 +9,14 @@ import org.mapstruct.Mappings;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionVentaDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseItemDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseItemDTO;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaSeccionVentaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionVenta;
 
 @Mapper
 @DecoratedWith(TrabajoTiendaSeccionVentaDecorator.class)
 public abstract class TrabajoTiendaSeccionVentaMapper {
-
-	private static final String DATE_FORMAT = "yyyy-MM-dd"; 
 
 	public abstract TrabajoTiendaSeccionVenta trabajoTiendaSeccionVentaDtoToTrabajoTiendaSeccionVenta(TrabajoTiendaSeccionVentaDto src);
 
@@ -27,7 +26,7 @@ public abstract class TrabajoTiendaSeccionVentaMapper {
 
 	public abstract List<TrabajoTiendaSeccionVentaDto> trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(List<TrabajoTiendaSeccionVenta> src);
 	
-	@Mappings({ @Mapping(source = "src.fecha", target = "fecha", dateFormat = DATE_FORMAT),
+	@Mappings({ @Mapping(source = "src.fecha", target = "fecha", dateFormat =  PtrConstants.PTR_DATE),
 		@Mapping(source = "src.tienda", target = "idTienda"),
 		@Mapping(source = "src.seccion", target = "idSeccion"),
 		@Mapping(source = "src.importeSinIVA", target = "importe"),

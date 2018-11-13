@@ -14,15 +14,15 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaIndividualDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaIndividualDetalleResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.dto.GetVentaTotalizadoResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PTRVentaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDTO;
 
 @Service
 @Validated
-public class PTRVentaServiceImpl implements PTRVentaService {
+public class PtrVentaServiceImpl implements PtrVentaService {
 
 	@Autowired
 	private Logger LOG;
@@ -48,8 +48,12 @@ public class PTRVentaServiceImpl implements PTRVentaService {
 				ventaTotalizadoDto.getEndpoint(), getVentaTotalizadoRequest,
 				GetVentaTotalizadoResponseDTO.class);
 		if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-			LOG.info("Ha funcionado (PTR): " + response.getBody().getVentaTotalizado().size());
-			result = response.getBody();
+			if (response.getBody() != null) {
+				LOG.info("Ha funcionado (PTR): " + response.getBody().getVentaTotalizado().size());
+				result = response.getBody();
+			}else{
+				LOG.info("Ha funcionado (PTR): Sin resultados");
+			}
 		} else {
 			LOG.info("Ha fallado (PTR): " + response.getStatusCode().value());
 		}
