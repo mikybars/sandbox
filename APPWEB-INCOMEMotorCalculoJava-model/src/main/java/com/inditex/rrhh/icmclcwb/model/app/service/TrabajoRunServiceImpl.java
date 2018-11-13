@@ -1,7 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.LongStream;
@@ -70,6 +72,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 
 	@Override
 	public TrabajoDto runTrabajoDatos(@Valid final TrabajoDto trabajo) throws Exception {
+		List<CompletableFuture<?>> cf = new ArrayList<>();
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoDatos(): {}", trabajo.getId(), trabajo);
 		if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
 			trabajo.setFechaInicioTrabajo(LocalDateTime.now());
@@ -77,61 +80,71 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 			trabajoService.modifyTrabajo(trabajo);
 
 			CompletableFuture<Void> cfTiendasParametro = trabajoAsyncService.tiendasParametro(trabajo);
+			trabajoAsyncService.exceptionally(trabajo, cfTiendasParametro, cf);
 
 			CompletableFuture<Void> cfTiendasHistorico = trabajoAsyncService.tiendasHistorico(trabajo);
+			trabajoAsyncService.exceptionally(trabajo, cfTiendasHistorico, cf);
 
 			cfTiendasParametro.get();
-			CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
+			if (trabajoAsyncService.isOk(trabajo, cf)) {
+				CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
+				trabajoAsyncService.exceptionally(trabajo, cfTiposHoras, cf);
 
-			CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
+				CompletableFuture<Void> cfEmpleados = trabajoAsyncService.empleadosTienda(trabajo);
+				trabajoAsyncService.exceptionally(trabajo, cfEmpleados, cf);
 
-			CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoAsyncService.ventaTotalizadaTienda(trabajo,
-					Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
-							AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-							AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
-			CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoAsyncService.presenciaTotalizadaTienda(trabajo,
-					Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
-							AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-							AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+				CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoAsyncService.ventaTotalizadaTienda(trabajo,
+						Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+								AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+								AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+				trabajoAsyncService.exceptionally(trabajo, cfVentaTotalizadaTienda, cf);
 
-			cfEmpleados.get();
-			CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoAsyncService.presenciaDetalleEmpleado(trabajo);
-			CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoAsyncService.ventaDetalleEmpleado(trabajo);
-			CompletableFuture<Void> cfCondicionesEmpleados = trabajoAsyncService.condicionesEmpleados(trabajo);
+				CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoAsyncService.presenciaTotalizadaTienda(
+						trabajo,
+						Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+								AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+								AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+				trabajoAsyncService.exceptionally(trabajo, cfPresenciaTotalizadaTienda, cf);
 
-			CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia;
-			CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia;
-			if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
-					|| CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-				// Si la ejecución es de un tipo que puede agregar tiendas adicionales se llama
-				// al proceso que recupera la informacion
-				cfVentaTotalizadaTiendaPresencia = trabajoAsyncService.ventaTotalizadaTienda(trabajo,
-						Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
-				cfPresenciaTotalizadaTiendaPresencia = trabajoAsyncService.presenciaTotalizadaTienda(trabajo,
-						Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
-			}
+				cfEmpleados.get();
+				if (trabajoAsyncService.isOk(trabajo, cf)) {
+					CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoAsyncService
+							.presenciaDetalleEmpleado(trabajo);
+					trabajoAsyncService.exceptionally(trabajo, cfPresenciaDetalleEmpleado, cf);
 
-			// Si termina algun proceso de datos para tienda
-			CompletableFuture.anyOf(cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda);
-			// Hay que esperar que estos tres procesos hayan finalizado y mientras no
-			// finalicen cada X tiempo verificar si hay tiendas nuevas
-			CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfPresenciaDetalleEmpleado);
+					CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoAsyncService.ventaDetalleEmpleado(trabajo);
+					trabajoAsyncService.exceptionally(trabajo, cfVentaDetalleEmpleado, cf);
 
-			// TODO Esperamos por todos los servicios asincronos
-			CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfPresenciaDetalleEmpleado, cfTiposHoras,
-					cfEmpleados, cfVentaTotalizadaTienda, cfPresenciaTotalizadaTienda, cfVentaDetalleEmpleado,
-					cfCondicionesEmpleados).exceptionally(e -> {
-						LOG.error(
-								"Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoDatos() :: CompletableFuture.allOf().exceptionally()",
-								trabajo.getId());
+					CompletableFuture<Void> cfCondicionesEmpleados = trabajoAsyncService.condicionesEmpleados(trabajo);
+					trabajoAsyncService.exceptionally(trabajo, cfCondicionesEmpleados, cf);
+
+					CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia;
+					CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia;
+					if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
+							|| CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+						// Si la ejecución es de un tipo que puede agregar tiendas adicionales se llama
+						// al proceso que recupera la informacion
+						cfVentaTotalizadaTiendaPresencia = trabajoAsyncService.ventaTotalizadaTienda(trabajo,
+								Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+						trabajoAsyncService.exceptionally(trabajo, cfVentaTotalizadaTiendaPresencia, cf);
+
+						cfPresenciaTotalizadaTiendaPresencia = trabajoAsyncService.presenciaTotalizadaTienda(trabajo,
+								Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+						trabajoAsyncService.exceptionally(trabajo, cfPresenciaTotalizadaTiendaPresencia, cf);
+					}
+
+					CompletableFuture.allOf(cf.toArray(new CompletableFuture[cf.size()]));
+					if (trabajoAsyncService.isOk(trabajo, cf)) {
+						trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
+					} else {
 						trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.ERROR.getDto(), trabajo);
-						LOG.error(
-								"Trabajo[{}] :: Fin :: TrabajoService.runTrabajoDatos() :: CompletableFuture.allOf().exceptionally()",
-								trabajo.getId());
-						return null;
-					});
-
-			trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
+					}
+				} else {
+					trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.ERROR.getDto(), trabajo);
+				}
+			} else {
+				trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.ERROR.getDto(), trabajo);
+			}
 		} else {
 			LOG.warn("Trabajo[{}] :: TrabajoService.runTrabajoDatos() :: El estado del trabajo no es correcto",
 					trabajo.getId());

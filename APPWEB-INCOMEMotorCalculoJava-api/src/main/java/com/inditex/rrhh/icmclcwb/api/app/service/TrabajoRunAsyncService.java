@@ -31,4 +31,9 @@ public interface TrabajoRunAsyncService {
 	CompletableFuture<Void> presenciaTotalizadaTienda(@Valid final TrabajoDto trabajo,
 			@NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception;
 
+	void exceptionally(final TrabajoDto trabajo, final CompletableFuture<?> cf, final List<CompletableFuture<?>> cfList)
+			throws Exception;
+
+	boolean isOk(final TrabajoDto trabajo, final List<CompletableFuture<?>> cfList) throws Exception;
+
 }
