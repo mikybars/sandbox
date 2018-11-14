@@ -7,12 +7,11 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleMock;
 
-
-public class PresenciaDetalleMockRowMapper implements RowMapper {
+public class PresenciaDetalleMockRowMapper implements RowMapper<PresenciaDetalleMock> {
 
 	@Override
-	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-		PresenciaDetalleMock pre= new PresenciaDetalleMock();
+	public PresenciaDetalleMock mapRow(ResultSet rs, int rowNum) throws SQLException {
+		PresenciaDetalleMock pre = new PresenciaDetalleMock();
 		pre.setTipo(rs.getInt("ID_TIPO"));
 		pre.setTienda(rs.getInt("ID_TIENDA"));
 		pre.setFecha(rs.getDate("FECHA"));

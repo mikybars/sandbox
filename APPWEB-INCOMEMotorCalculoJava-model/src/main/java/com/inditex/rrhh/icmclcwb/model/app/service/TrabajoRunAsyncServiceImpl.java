@@ -508,14 +508,14 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		
 			if(tiendasPage != null && !tiendasPage.getContent().isEmpty()){
 			
-				CompletableFuture<List<PresenciasTotalTiendaSeccionResponseDto>> cfResponse = new CompletableFuture<>(); 
+				//CompletableFuture<List<PresenciasTotalTiendaSeccionResponseDto>> cfResponse = new CompletableFuture<>(); 
 				List<TiendaSeccionDto> tiendas = tiendasPage.getContent().stream().map(t -> new TiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
 						.collect(Collectors.toList());
 				PresenciasTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
 						.trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
 				paramPresenciasTotalTiendaSeccion.setCadena(1);
 				paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-				List<PresenciasTotalTiendaSeccionResponseDto> response = ptrPresenciaService.PresenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
+				List<PresenciasTotalTiendaSeccionResponseDto> response = ptrPresenciaService.presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
 
 				if(cfTrabajoTiendaPresenciaList.size() >= ventaIndividualDetalleDto.getFilter().getMaxPersistenceSize()){
 					CompletableFuture.anyOf(cfTrabajoTiendaPresenciaList

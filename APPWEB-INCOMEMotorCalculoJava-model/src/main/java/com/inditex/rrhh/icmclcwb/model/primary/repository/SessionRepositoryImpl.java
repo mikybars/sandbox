@@ -36,10 +36,12 @@ public class SessionRepositoryImpl implements SessionRepository {
 	private JdbcTemplate jdbcTemplate;
 
 	private final static String CREATE_TABLE_BASE_H2 = "CREATE MEMORY LOCAL TEMPORARY TABLE ${table} (${field})";
+	@SuppressWarnings("unused")
 	private final static String CREATE_TABLE_BASE_SQL = "DECLARE GLOBAL TEMPORARY TABLE ${table} (${field}) ON COMMIT PRESERVE ROWS NOT LOGGED";
 	private final static String CREATE_TABLE_BASE = CREATE_TABLE_BASE_H2;
 	private final static String CREATE_INDEX_TABLE_BASE = "CREATE INDEX ${table}_${id} ON ${table} (${field})";
 	private final static String INSERT_BASE = "INSERT INTO ${table} (${field})";
+	@SuppressWarnings("unused")
 	private final static String INSERT_SELECT_BASE = INSERT_BASE + " ${value}";
 	private final static String INSERT_VALUES_BASE = INSERT_BASE + " VALUES ${value}";
 	private final static String INSERT_VALUES_VALUE_BASE = "(${value})";

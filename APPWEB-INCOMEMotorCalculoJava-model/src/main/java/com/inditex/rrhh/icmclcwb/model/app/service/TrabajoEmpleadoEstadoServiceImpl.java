@@ -46,11 +46,11 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
 	@Transactional
 	public CompletableFuture<Void> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
 		LOG.info("TrabajoEmpleado :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoEstado);
-		List<TrabajoEmpleadoEstadoDto> saved = trabajoEmpleadoEstadoMapper
+		List<TrabajoEmpleadoEstadoDto> result = trabajoEmpleadoEstadoMapper
 				.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
 						trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
 								.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
-		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoEstado);
+		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoService.save(): {}", result);
 		return CompletableFuture.completedFuture(null);
 	}
 

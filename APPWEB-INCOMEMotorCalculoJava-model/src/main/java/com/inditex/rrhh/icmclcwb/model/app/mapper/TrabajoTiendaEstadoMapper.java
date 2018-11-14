@@ -7,8 +7,6 @@ import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-import org.mapstruct.ReportingPolicy;
-
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaEstadoDecorator;
@@ -48,7 +46,9 @@ public abstract class TrabajoTiendaEstadoMapper {
 	}
 
 	@Mappings({ @Mapping(target = "trabajo.id", source = "srcTrabajoDto.id"), @Mapping(target = "id", ignore = true),
-			@Mapping(target = "estado", ignore = true), @Mapping(target = "idPaisOrigen", source = "srcTrabajoTiendaEstadoDto.idPais"), @Mapping(target = "idEmpresa", source = "srcTrabajoTiendaEstadoDto.idEmpresa")})
+			@Mapping(target = "estado", ignore = true),
+			@Mapping(target = "idPaisOrigen", source = "srcTrabajoTiendaEstadoDto.idPais"),
+			@Mapping(target = "idEmpresa", source = "srcTrabajoTiendaEstadoDto.idEmpresa") })
 	public abstract TrabajoTiendaEstado mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
 			TrabajoTiendaEstadoDto srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto);
 

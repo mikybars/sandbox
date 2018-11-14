@@ -32,7 +32,7 @@ public class Trabajo {
 
 	@NotBlank
 	@Column(name = "ID_ORIGEN", nullable = true)
-	private String idOrigen;
+	private String idPaisOrigen;
 
 	@NotBlank
 	@Column(name = "ID_EMPRESA", nullable = true)
