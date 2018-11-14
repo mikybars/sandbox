@@ -11,13 +11,19 @@ import lombok.Data;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "app.envars.ptr.presencia.service")
-public class PTRClientPresenciaPropertiesConfig {
+public class PtrClientPresenciaPropertiesConfig {
 
   PtrPropertiesDto getPresenciasTotalTiendaSeccion;
+  PtrPropertiesDto getPresenciasDetalle;
 
   @Bean(name = "presenciasTotalTiendaSeccionDto")
   public PtrPropertiesDto getPresenciasTotalTiendaSeccion() {
     return getPresenciasTotalTiendaSeccion;
+  }
+  
+  @Bean(name = "presenciasDetalleDto")
+  public PtrPropertiesDto getPresenciasDetalle() {
+    return getPresenciasDetalle;
   }
 
 }

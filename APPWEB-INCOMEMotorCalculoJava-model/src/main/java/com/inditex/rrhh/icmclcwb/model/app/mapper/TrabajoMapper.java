@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
@@ -69,6 +70,9 @@ public abstract class TrabajoMapper {
 	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
 		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE)})
 	public abstract PresenciasTotalTiendaSeccionRequestDto trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(TrabajoDto src);
+	
+	public abstract PresenciasDetalleRequestDto trabajoDtoToPresenciasDetalleRequestDto(TrabajoDto src);
+
 	
 	protected List<String> mapEmpleados(List<TrabajoEmpleadoDto> trabajoEmpleadosDto){
 		List<String> empleados = new ArrayList<>();
