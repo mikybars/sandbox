@@ -578,6 +578,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		// Si falla, dejamos traza, y cancelamos todos los pendientes.
 		cf.exceptionally(e -> {
 			LOG.error("Trabajo[{}] :: Inicio :: AsyncService.exceptionally() :: cf.exceptionally()", trabajo.getId());
+			LOG.error("AsyncService.exceptionally() :: cf.exceptionally()", e);
 			cfList.stream().forEach(item -> {
 				if (item.isDone()) {
 					LOG.info("Trabajo[{}] :: AsyncService.exceptionally() :: cf.exceptionally() :: isDone()",
