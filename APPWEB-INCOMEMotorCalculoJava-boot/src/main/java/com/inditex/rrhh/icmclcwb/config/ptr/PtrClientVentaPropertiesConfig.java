@@ -6,22 +6,25 @@ import org.springframework.context.annotation.Configuration;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 
+import lombok.Data;
+
+@Data
 @Configuration
 @ConfigurationProperties(prefix = "app.envars.ptr.venta.service")
 public class PtrClientVentaPropertiesConfig {
 
-	PtrPropertiesDto getVentaTotalizado;
+  PtrPropertiesDto getVentaTotalizado;
 
-	PtrPropertiesDto getVentaIndividualDetalle;
+  PtrPropertiesDto getVentaIndividualDetalle;
 
-	@Bean(name = "ventaTotalizadoDto")
-	public PtrPropertiesDto getVentaTotalizado() {
-		return getVentaTotalizado;
-	}
+  @Bean(name = "ventaTotalizadoDto")
+  public PtrPropertiesDto getVentaTotalizado() {
+    return getVentaTotalizado;
+  }
 
-	@Bean(name = "ventaIndividualDetalleDto")
-	public PtrPropertiesDto getVentaIndividualDetalle() {
-		return getVentaIndividualDetalle;
-	}
+  @Bean(name = "ventaIndividualDetalleDto")
+  public PtrPropertiesDto getVentaIndividualDetalle() {
+    return getVentaIndividualDetalle;
+  }
 
 }
