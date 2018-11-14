@@ -40,7 +40,7 @@ public class PocEjecucion {
 	
 	@NotBlank
 	@Column(name = "ID_PAIS", nullable = false)
-	private String idPais;
+	private String idPaisOrigen;
 
 	@NotBlank
 	@Column(name = "ID_EMPRESA", nullable = false)
