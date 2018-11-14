@@ -36,8 +36,8 @@ public class Programacion {
 	@Column(name = "ACTIVA", nullable = false)
 	private Boolean activa;
 
-	@Column(name = "ID_PAIS", nullable = true)
-	private String idPais;
+	@Column(name = "ID_ORIGEN", nullable = true)
+	private String idOrigen;
 
 	@Column(name = "ID_EMPRESA", nullable = true)
 	private String idEmpresa;

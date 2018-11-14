@@ -11,7 +11,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 
 @ApiModel(description = "Modelo ProgramacionDto")
 @Data
@@ -23,7 +23,7 @@ public class ProgramacionDto implements Serializable {
 	private Long id;
 
 	@NotNull
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.LOCAL_TIME_JSON)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppConstants.LOCAL_TIME_JSON)
 	@ApiModelProperty(value = "Hora planificada de ejecución", required = true, dataType = "java.lang.String", example = "10:12")
 	private LocalTime hora;
 
@@ -31,12 +31,12 @@ public class ProgramacionDto implements Serializable {
 	private String huso;
 
 	@NotNull
-	@ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true, allowableValues = "true, false", example = "true")
+	@ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true, example = "true")
 	private Boolean activa;
 
 	@NotBlank
-	@ApiModelProperty(value = "Id del páis a ejecutar", required = true, example = "11")
-	private String idPais;
+	@ApiModelProperty(value = "Id del páis origen a ejecutar", required = true, example = "11")
+	private String idPaisOrigen;
 
 	@NotBlank
 	@ApiModelProperty(value = "Id de la empresa a ejecutar", required = true, example = "8")

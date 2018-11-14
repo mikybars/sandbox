@@ -70,14 +70,14 @@ public class PocEjecucionServiceImpl implements PocEjecucionService {
 		// Gestion de tiendas
 		List<PocTiendaDto> pocTiendas = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(pocEjecucion.getTiendas())) {
-			pocTiendas = pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository.findByIdPaisAndIdEmpresaAndIdIn(
-					pocEjecucion.getIdPais(), pocEjecucion.getIdEmpresa(), pocEjecucion.getTiendas()));
+			pocTiendas = pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository.findByIdPaisOrigenAndIdEmpresaAndIdIn(
+					pocEjecucion.getIdPaisOrigen(), pocEjecucion.getIdEmpresa(), pocEjecucion.getTiendas()));
 			if (pocEjecucion.getTiendas().size() != pocTiendas.size()) {
 				throw new ApplicationException("Todas las tiendas no son validas");
 			}
 		} else {
 			pocTiendas = pocTiendaMapper.pocTiendaToPocTiendaDto(
-					pocTiendaRepository.findByIdPaisAndIdEmpresa(pocEjecucion.getIdPais(), pocEjecucion.getIdEmpresa()));
+					pocTiendaRepository.findByIdPaisOrigenAndIdEmpresa(pocEjecucion.getIdPaisOrigen(), pocEjecucion.getIdEmpresa()));
 			if (CollectionUtils.isEmpty(pocTiendas)) {
 				throw new ApplicationException("No hay tiendas para el pais/empresa");
 			}
@@ -86,7 +86,7 @@ public class PocEjecucionServiceImpl implements PocEjecucionService {
 		pocEjecucion.setFechaCreacion(LocalDateTime.now());
 		if (PocConstants.PocSistemaEnum.JAVA.getSistema().equals(pocEjecucion.getSistema())) {
 			TrabajoDto trabajo = new TrabajoDto();
-			trabajo.setIdPais(pocEjecucion.getIdPais());
+			trabajo.setIdPaisOrigen(pocEjecucion.getIdPaisOrigen());
 			trabajo.setIdEmpresa(pocEjecucion.getIdEmpresa());
 			trabajo.setFechaInicioPeriodo(pocPeriodo.getFechaInicioPeriodo());
 			trabajo.setFechaFinPeriodo(pocPeriodo.getFechaFinPeriodo());

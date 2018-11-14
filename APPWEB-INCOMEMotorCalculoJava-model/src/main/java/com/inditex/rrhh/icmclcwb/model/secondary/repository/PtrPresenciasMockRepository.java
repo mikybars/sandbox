@@ -23,4 +23,5 @@ public interface PtrPresenciasMockRepository {
 	List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(PresenciasTotalTiendaSeccionRequestDto dto);
 
 	List<TiposHorasMock> findTiposHoras(TiposHorasRequestDto Params);
+
 }

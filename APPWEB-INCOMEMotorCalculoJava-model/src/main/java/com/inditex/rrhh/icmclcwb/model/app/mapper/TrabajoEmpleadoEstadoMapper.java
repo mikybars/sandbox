@@ -11,7 +11,7 @@ import org.mapstruct.Mappings;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.Constants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoEmpleadoEstadoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
@@ -40,7 +40,7 @@ public abstract class TrabajoEmpleadoEstadoMapper {
 			src.setTrabajo(trabajoId);
 			if (src.getEstado() == null) {
 				EstadoTrabajoEmpleado estado = new EstadoTrabajoEmpleado();
-				estado.setId(Constants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
+				estado.setId(AppConstants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
 				src.setEstado(estado);
 			}
 		}
@@ -54,7 +54,7 @@ public abstract class TrabajoEmpleadoEstadoMapper {
 			src.setTrabajo(trabajoId);
 			if (src.getEstado() == null) {
 				EstadoTrabajoEmpleadoDto estado = new EstadoTrabajoEmpleadoDto();
-				estado.setId(Constants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
+				estado.setId(AppConstants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
 				src.setEstado(estado);
 			}
 		}

@@ -3,13 +3,13 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoR
 
 @Service
 @Validated
-public class TrabajoEmpleadoServiceImpl implements TrabajoEmpleadoEstadoService {
+public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoService {
 
 	@Autowired
 	private Logger LOG;
@@ -32,12 +32,12 @@ public class TrabajoEmpleadoServiceImpl implements TrabajoEmpleadoEstadoService 
 
 	@Override
 	public TrabajoEmpleadoEstadoDto save(@Valid final TrabajoEmpleadoEstadoDto trabajoEmpleadoDto) {
-		LOG.info("TrabajoEmpleado[{}] :: Inicio :: TrabajoEmpleadoEstadoService.save(): {}", trabajoEmpleadoDto.getId(),
+		LOG.info("TrabajoEmpleado[{}] :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoDto.getId(),
 				trabajoEmpleadoDto);
 		TrabajoEmpleadoEstadoDto result = trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
 				trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
 						.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoDto)));
-		LOG.info("TrabajoEmpleado[{}] :: Fin :: TrabajoEmpleadoEstadoService.save(): {}", result.getId(), result);
+		LOG.info("TrabajoEmpleado[{}] :: Fin :: TrabajoEmpleadoService.save(): {}", result.getId(), result);
 		return result;
 	}
 
@@ -45,12 +45,12 @@ public class TrabajoEmpleadoServiceImpl implements TrabajoEmpleadoEstadoService 
 	@Override
 	@Transactional
 	public CompletableFuture<Void> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
-		LOG.info("TrabajoEmpleado :: Inicio :: TrabajoEmpleadoEstadoService.save(): {}", trabajoEmpleadoEstado);
+		LOG.info("TrabajoEmpleado :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoEstado);
 		List<TrabajoEmpleadoEstadoDto> result = trabajoEmpleadoEstadoMapper
 				.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
 						trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
 								.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
-		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoEstadoService.save(): {}", result);
+		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoService.save(): {}", result);
 		return CompletableFuture.completedFuture(null);
 	}
 

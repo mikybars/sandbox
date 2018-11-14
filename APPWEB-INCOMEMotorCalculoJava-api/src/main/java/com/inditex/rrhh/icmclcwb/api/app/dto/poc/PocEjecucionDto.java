@@ -28,8 +28,8 @@ public class PocEjecucionDto implements Serializable {
 	private String periodo;
 	
 	@NotBlank
-	@ApiModelProperty(value = "Identificador del país", required = true, example = "724")
-	private String idPais;
+	@ApiModelProperty(value = "Identificador del pais origen", required = true, example = "11")
+	private String idPaisOrigen;
 
 	@NotBlank
 	@ApiModelProperty(value = "Identificador de la empresa", required = true, example = "8")

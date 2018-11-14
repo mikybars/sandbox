@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,8 @@ public class PocEjecucionServiceTest {
 	public void findAll() {
 		LOG.info("Inicio :: PocEjecucionServiceTest.findAll()");
 		ResponseEntity<List<PocEjecucionDto>> responseEntity = testRestTemplate
-				.withBasicAuth("username300", "username300p").exchange("/poc/ejecucion", HttpMethod.GET, HttpEntity.EMPTY,
-						new ParameterizedTypeReference<List<PocEjecucionDto>>() {
+				.withBasicAuth("username300", "username300p").exchange("/poc/ejecucion", HttpMethod.GET,
+						HttpEntity.EMPTY, new ParameterizedTypeReference<List<PocEjecucionDto>>() {
 						});
 		LOG.info("PocEjecucionServiceTest.findAll() :: responseEntity :: {}", responseEntity);
 		assertEquals(HttpStatus.SC_OK, responseEntity.getStatusCodeValue());

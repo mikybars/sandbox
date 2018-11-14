@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-public class Constants {
+public class AppConstants {
 
 	public static final String LOCAL_TIME_PATTERN = "([01][0-9]|2[0-3]):[0-5][0-9]";
 

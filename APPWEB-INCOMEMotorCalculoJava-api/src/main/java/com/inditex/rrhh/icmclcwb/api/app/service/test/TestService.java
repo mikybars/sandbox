@@ -8,5 +8,9 @@ public interface TestService {
 	RelojDto reloj();
 	
 	SsoDto sso();
+	
+	void errorSync() throws Exception;
+	
+	void errorAsync() throws Exception;
 
 }

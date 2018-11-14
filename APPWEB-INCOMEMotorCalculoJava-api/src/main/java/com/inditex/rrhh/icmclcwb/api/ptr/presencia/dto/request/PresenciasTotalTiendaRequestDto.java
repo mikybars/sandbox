@@ -26,14 +26,14 @@ public class PresenciasTotalTiendaRequestDto implements Serializable {
 	
 	@ApiModelProperty(value = "Fecha fin rango", required = false, example = "2018-10-31")
 	private Date fechaHasta;
-	
+
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipo;
 	
 	@ApiModelProperty(value = "Id cadena", required = true, example = " 4 " )
 	@NotNull
 	private Integer cadena;
-	
+
 	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;
 

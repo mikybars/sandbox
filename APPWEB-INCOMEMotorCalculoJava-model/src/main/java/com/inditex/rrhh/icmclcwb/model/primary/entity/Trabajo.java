@@ -31,8 +31,8 @@ public class Trabajo {
 	private /* BigInteger */ EstadoTrabajo estado;
 
 	@NotBlank
-	@Column(name = "ID_PAIS", nullable = true)
-	private String idPais;
+	@Column(name = "ID_ORIGEN", nullable = true)
+	private String idOrigen;
 
 	@NotBlank
 	@Column(name = "ID_EMPRESA", nullable = true)
