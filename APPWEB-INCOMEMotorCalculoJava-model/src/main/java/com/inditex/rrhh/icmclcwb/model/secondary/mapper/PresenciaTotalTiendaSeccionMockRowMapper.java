@@ -5,15 +5,13 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaSeccionMock;
 
-public class PresenciaTotalTiendaSeccionMockRowMapper implements RowMapper{
+public class PresenciaTotalTiendaSeccionMockRowMapper implements RowMapper<PresenciaTotalTiendaSeccionMock> {
 
 	@Override
-	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public PresenciaTotalTiendaSeccionMock mapRow(ResultSet rs, int rowNum) throws SQLException {
 		PresenciaTotalTiendaSeccionMock pre = new PresenciaTotalTiendaSeccionMock();
-
 		pre.setFecha(rs.getDate("FECHA"));
 		pre.setMinutos(rs.getInt("MINUTOS"));
 		pre.setTienda(rs.getInt("ID_TIENDA"));

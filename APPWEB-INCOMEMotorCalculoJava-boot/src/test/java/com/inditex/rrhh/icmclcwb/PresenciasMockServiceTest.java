@@ -21,13 +21,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiendaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.*;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasDetalleResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaSeccionResponseListDto;
@@ -40,7 +38,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasR
 @Ignore
 public class PresenciasMockServiceTest {
 
-	// Ciente ptr
 	@Autowired
 	@Qualifier("ptrClientPresenciaMock")
 	private RestClient restClient;
@@ -211,10 +208,10 @@ public class PresenciasMockServiceTest {
 		ResponseEntity<TiposHorasResponseListDto> ret2 = this.restClient
 				.postForEntity("/presenciasServiceMock/tiposHoras/", req2, TiposHorasResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
-		assertEquals(72, ret2.getBody().getLista().size());
-		assertEquals(102, ret2.getBody().getLista().get(0).getTipoHora().intValue());
-		assertEquals(Boolean.FALSE, ret2.getBody().getLista().get(0).getExcluidoCalculo());
-		assertEquals(Boolean.TRUE, ret2.getBody().getLista().get(0).getExcluidoDenom());
+		assertEquals(72, ret2.getBody().getList().size());
+		assertEquals(102, ret2.getBody().getList().get(0).getTipoHora().intValue());
+		assertEquals(Boolean.FALSE, ret2.getBody().getList().get(0).getExcluidoCalculo());
+		assertEquals(Boolean.TRUE, ret2.getBody().getList().get(0).getExcluidoDenom());
 	}
 
 }

@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionescomisionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionesdesplazamientoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionesfijasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionesfijasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionespoliticasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionesresaltaRecord;
@@ -34,7 +33,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmEmpleadosti
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrosempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrosplantillaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrosplantillaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrostiendaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmPlantillacondicionesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.mapper.decorator.IcmWsIncomeMapperDecorator;

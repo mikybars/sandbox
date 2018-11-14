@@ -8,11 +8,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import com.esotericsoftware.minlog.Log;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiendaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleComisionableMock;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleMock;
@@ -26,12 +24,17 @@ import com.inditex.rrhh.icmclcwb.model.secondary.mapper.TiposHorasMockRowMapper;
 
 @Repository("PTRPresenciasRepositoryJDBCTemplate")
 public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockRepository {
+
 	@Autowired
 	@Qualifier("secondaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
+
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+
 	private String consultaTiposHorasEspana = "SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,[TIPO] ,[CCL_ID_ORIGEN] FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ";
+
 	private String groupByTiposHoras = " GROUP BY OP.CCL_ID_ORIGEN, TIPO";
+
 	private String whereTiposHorasOrigen = " AND OP.CCL_ID_ORIGEN= ? ";
 
 	@Override
@@ -201,7 +204,8 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 
 		}
 		query.append(" GROUP BY OP.CCL_ID_ORIGEN, PH.ID_ORGANIZATION, PH.TIENDA,PH.SECCION,  PH.FECHA");
-		return namedParameterJdbcTemplate.query(query.toString(), param, new PresenciaTotalTiendaSeccionMockRowMapper());
+		return namedParameterJdbcTemplate.query(query.toString(), param,
+				new PresenciaTotalTiendaSeccionMockRowMapper());
 	}
 
 	@Override
@@ -220,17 +224,15 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 			return presencias;
 		}
 	}
-	
-	//NUEVA CONSULTA DE TIPOS HORAS
-	//select  
-	//  'TRUE' EXCLUIDODENOM,
-	//  'FALSE' EXCLUIDOCALCULO,
-	//  [ID_TIPO_HORA],
-	//  [CCL_ID_ORIGEN]
-	//   from M4CCL_TP_HORA_COMISION_TA
-	//  WHERE CCL_ID_ORIGEN = 11
-	
-	
+
+	// NUEVA CONSULTA DE TIPOS HORAS
+	// select
+	// 'TRUE' EXCLUIDODENOM,
+	// 'FALSE' EXCLUIDOCALCULO,
+	// [ID_TIPO_HORA],
+	// [CCL_ID_ORIGEN]
+	// from M4CCL_TP_HORA_COMISION_TA
+	// WHERE CCL_ID_ORIGEN = 11
 
 	// SELECT PH.ID_ORGANIZATION AS 'ORGANIZACION',OP.CCL_ID_ORIGEN AS
 	// 'ID_PAIS',PH.PERSONA AS 'EMPLEADO',PH.TIENDA AS 'ID_TIENDA',PH.SECCION AS
@@ -245,8 +247,7 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 	// AND FECHA <= SP.CCL_DT_END WHERE OP.CCL_ID_ORIGEN = ? AND FECHA >= ? AND
 	// FECHA < ? AND TIENDA IN ( ? ) AND PH.SECCION IN ( ? ) AND PH.TIPO IN ( ?
 	// ) AND SP.CCL_ID_CADENA IN ( ? ) AND ERROR = 'OK'
-	
-	
+
 	// SELECT PH.ID_ORGANIZATION AS 'ORGANIZACION',OP.CCL_ID_ORIGEN AS
 	// 'ID_PAIS',PH.TIENDA AS 'ID_TIENDA',PH.FECHA AS 'FECHA',SUM((CAST(PH.HORAS
 	// AS INT) * 60) + PARSENAME(PH.HORAS, 1)) AS 'MINUTOS'FROM
@@ -259,8 +260,7 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 	// PH.FECHA >= ? AND PH.FECHA < ? AND PH.TIPO IN (?) AND SP.CCL_ID_CADENA IN
 	// (? ) AND ERROR = 'OK' AND TIENDA IN ( ? , ?) GROUP BY OP.CCL_ID_ORIGEN,
 	// PH.ID_ORGANIZATION, PH.TIENDA, PH.FECHA
-	
-	
+
 	// SELECT PH.ID_ORGANIZATION AS 'ORGANIZACION',OP.CCL_ID_ORIGEN AS
 	// 'ID_PAIS',PH.TIENDA AS 'ID_TIENDA', PH.SECCION AS 'ID_SECCION',PH.FECHA
 	// AS 'FECHA',SUM((CAST(PH.HORAS AS INT) * 60) + PARSENAME(PH.HORAS, 1)) AS

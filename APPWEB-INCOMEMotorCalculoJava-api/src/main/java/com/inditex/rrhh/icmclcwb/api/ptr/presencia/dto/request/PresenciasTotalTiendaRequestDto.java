@@ -16,24 +16,26 @@ import lombok.ToString;
 @AllArgsConstructor
 @Data
 @ToString
-public class PresenciasTotalTiendaRequestDto implements Serializable {	
-	
+public class PresenciasTotalTiendaRequestDto implements Serializable {
+
+	private static final long serialVersionUID = 4121994379059609878L;
+
 	@ApiModelProperty(value = "Id tienda", required = false, allowableValues = "160")
 	private List<Integer> tiendas;
-	
+
 	@ApiModelProperty(value = "Fecha inico Rango", required = false, example = "2017-01-01")
 	private Date fechaDesde;
-	
+
 	@ApiModelProperty(value = "Fecha fin rango", required = false, example = "2017-12-31")
 	private Date fechaHasta;
-	
+
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipo;
-	
-	@ApiModelProperty(value = "Id cadena", required = true, example = " 1 " )
+
+	@ApiModelProperty(value = "Id cadena", required = true, example = " 1 ")
 	@NotNull
 	private Integer cadena;
-	
+
 	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.test.VentaDto;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 @Repository
 public class SQLServerRepositoryImpl implements SQLServerRepository {
 	@Autowired

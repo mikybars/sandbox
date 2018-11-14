@@ -4,9 +4,13 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaResponseDto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class PresenciasTotalTiendaResponseListDto {
+
 	private List<PresenciasTotalTiendaResponseDto> list;
+
 }
