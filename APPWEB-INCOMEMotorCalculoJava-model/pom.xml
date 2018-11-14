@@ -44,6 +44,7 @@
       <groupId>com.inditex.aqsw.framework.common</groupId>
       <artifactId>common-framework-starter-rest-client</artifactId>
     </dependency>
+    
 
     <!-- OTHER DEPENDENCIES -->
     <dependency>
@@ -51,6 +52,16 @@
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
+    
+    
+    <!-- TEST -->
+    <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>    
+	</dependency>
+	
+	
 
   </dependencies>
 
