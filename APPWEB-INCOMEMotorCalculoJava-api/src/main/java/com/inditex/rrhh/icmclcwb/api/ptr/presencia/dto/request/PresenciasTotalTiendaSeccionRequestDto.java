@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class PresenciasTotalTiendaSeccionRequestDto {
 
-	@ApiModelProperty(value = "Id tiendaSeccion", required = false)
+	@ApiModelProperty(value = "Id tiendaSeccion", required = false)//Con esta configuracion, un ejemplo de tienda puede ser la 118
 	private List<TiendaSeccionDto> tiendaSeccion;
 
 	@ApiModelProperty(value = "Fecha inicio rango", required = false, example = "2017-01-01")
