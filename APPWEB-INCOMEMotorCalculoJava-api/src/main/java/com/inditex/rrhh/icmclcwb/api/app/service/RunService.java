@@ -1,11 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.app.service;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
-public interface TrabajoRunService {
+public interface RunService {
 
-    TrabajoDto run(@NotNull @Valid final TrabajoDto trabajo) throws Exception;
+	TrabajoDto runTrabajo(@NotNull @Positive final Long id) throws Exception;
 
 }

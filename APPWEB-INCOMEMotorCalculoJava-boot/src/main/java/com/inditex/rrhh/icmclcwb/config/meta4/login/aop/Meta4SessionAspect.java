@@ -32,15 +32,11 @@ public class Meta4SessionAspect {
 
     @Before(value = "execution(public * com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService.*(..))")
     public void beforeMeta4SessionService() throws Exception {
-        LOG.info("Inicio :: Meta4SessionAspect.beforeMeta4SessionService()");
-        if (meta4LoginService.retrieveM4Session()
-                || meta4LoginService.login(new LoginRequestDto(user, password, language))) {
-            LOG.info("Meta4SessionAspect.beforeMeta4SessionService(): Login = OK");
-        } else {
-            LOG.error("Meta4SessionAspect.beforeMeta4SessionService(): Login = KO");
+        if (!meta4LoginService.retrieveM4Session()
+                && !meta4LoginService.login(new LoginRequestDto(user, password, language))) {
+            LOG.error("No se puede invocar un servicio Meta4 sin tener sessionID valido");
             throw new ApplicationException("No se puede invocar un servicio Meta4 sin tener sessionID valido");
         }
-        LOG.info("Fin :: Meta4SessionAspect.beforeMeta4SessionService()");
     }
 
 }

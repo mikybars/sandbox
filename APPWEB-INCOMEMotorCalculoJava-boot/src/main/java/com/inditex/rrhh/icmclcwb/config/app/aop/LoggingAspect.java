@@ -4,22 +4,17 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 @Aspect
@@ -56,10 +51,10 @@ public class LoggingAspect {
 
     @Around(value = "auditoriaTrabajoPointcut()")
     public Object auditoriaTrabajoAround(ProceedingJoinPoint pjp) throws Throwable {
-        AuditoriaTrabajo auditoriaTrabajo = Optional.of(pjp.getSignature())
-                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
-                .map(method -> method.getAnnotation(AuditoriaTrabajo.class))
-                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajo"));
+//        AuditoriaTrabajo auditoriaTrabajo = Optional.of(pjp.getSignature())
+//                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
+//                .map(method -> method.getAnnotation(AuditoriaTrabajo.class))
+//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajo"));
         TrabajoDto trabajo = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
@@ -94,9 +89,9 @@ public class LoggingAspect {
 
     @Around(value = "auditoriaPointcut()")
     public Object auditoriaAround(ProceedingJoinPoint pjp) throws Throwable {
-        Auditoria auditoria = Optional.of(pjp.getSignature()).map(signature -> (MethodSignature) signature)
-                .map(MethodSignature::getMethod).map(method -> method.getAnnotation(Auditoria.class))
-                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajo"));
+//        Auditoria auditoria = Optional.of(pjp.getSignature()).map(signature -> (MethodSignature) signature)
+//                .map(MethodSignature::getMethod).map(method -> method.getAnnotation(Auditoria.class))
+//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajo"));
         List<Object> args = Arrays.asList(pjp.getArgs());
         Instant start = Instant.now();
         LOG.debug("Inicio :: Auditoria :: {} :: {}", pjp.getSignature().toShortString(), args);
