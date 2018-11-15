@@ -22,12 +22,12 @@ import java.util.List;
 public interface PresenciasMapper {
 
 	// PRESENCIAS DETALLE COMISIONABLE
-	PresenciasDetalleComisionableResponseDto asPresenciaDetalleComisionableDTO(PresenciaDetalleComisionableMock src);
+	PresenciasDetalleComisionableResponseDto asPresenciaDetalleComisionableDTO(PresenciaDetalleMock src);
 
-	PresenciaDetalleComisionableMock asPresenciaDetalleComisionable(PresenciasDetalleComisionableRequestDto src);
+	PresenciaDetalleMock asPresenciaDetalleComisionable(PresenciasDetalleComisionableRequestDto src);
 
 	List<PresenciasDetalleComisionableResponseDto> asPresenciaDetalleComisionableDTOs(
-			List<PresenciaDetalleComisionableMock> src);
+			List<PresenciaDetalleMock> src);
 
 	// PRESENCIAS DETALLE
 	PresenciasDetalleResponseDto asPresenciaDetalleDTO(PresenciaDetalleMock src);
@@ -59,4 +59,8 @@ public interface PresenciasMapper {
 
 	List<TiposHorasResponseDto> asTiposHorasDTOs(List<TiposHorasMock> src);
 
+	//COMISIONABLE A DETALLE REQUEST
+	
+	PresenciasDetalleRequestDto asPresenciaComisionableToDetalle(PresenciasDetalleComisionableRequestDto src);
+	
 }

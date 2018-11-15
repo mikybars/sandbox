@@ -40,7 +40,7 @@ public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
 
 	@Override
 	public List<PresenciasDetalleResponseDto> presenciasDetalle(PresenciasDetalleRequestDto presencias) {
-		LOG.info("PTR FindPresenciasDetalle()");
+		LOG.info("Inicio PTR FindPresenciasDetalle()");
 		List<PresenciaDetalleMock> p = this.presenciasRepository.findPresencias(presencias);
 		LOG.info("Fin consulta PTR FindPresenciasDetalle()");
 		return this.presenciasMapper.asPresenciaDetalleDTOs(p);
@@ -48,13 +48,16 @@ public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
 
 	@Override
 	public List<PresenciasDetalleComisionableResponseDto> presenciasDetalleComisionable(
-			PresenciasDetalleComisionableRequestDto presencias) {
-		return null;
+		PresenciasDetalleComisionableRequestDto presencias) {
+		LOG.info("Inicio PTR FindPresenciasDetalleComisionable()");
+		List<PresenciaDetalleMock> p = this.presenciasRepository.findPresencias(presenciasMapper.asPresenciaComisionableToDetalle(presencias));
+		LOG.info("Fin consulta PTR FindPresenciasDetalleComisionable()");
+		return this.presenciasMapper.asPresenciaDetalleComisionableDTOs(p);
 	}
 
 	@Override
 	public List<PresenciasTotalTiendaResponseDto> presenciasTotalTienda(PresenciasTotalTiendaRequestDto presencias) {
-		LOG.info("PTR FindPresenciasTotalTienda()");
+		LOG.info("Inicio PTR FindPresenciasTotalTienda()");
 		List<PresenciaTotalTiendaMock> p = this.presenciasRepository.findPresenciasTotalTienda(presencias);
 		LOG.info("Fin consulta PTR FindPresenciasTotalTienda()");
 		return this.presenciasMapper.asPresenciasTotalTiendaDTOs(p);
@@ -63,7 +66,7 @@ public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
 	@Override
 	public List<PresenciasTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
 			PresenciasTotalTiendaSeccionRequestDto presencias) {
-		LOG.info("PTR FindPresenciasTotalTiendaSeccion()");
+		LOG.info("Inicio PTR FindPresenciasTotalTiendaSeccion()");
 		List<PresenciaTotalTiendaSeccionMock> p = this.presenciasRepository
 				.findPresenciasTotalTiendaSeccion(presencias);
 		LOG.info("Fin consulta PTR FindPresenciasTotalTiendaSeccion()");
@@ -72,7 +75,7 @@ public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
 
 	@Override
 	public List<TiposHorasResponseDto> tiposHoras(TiposHorasRequestDto tiposHoras) {
-		LOG.info("PTR FindTiposHoras()");
+		LOG.info("Inicio PTR FindTiposHoras()");
 		List<TiposHorasMock> p = this.presenciasRepository.findTiposHoras(tiposHoras);
 		LOG.info("Fin consulta PTR FindTiposHoras()");
 		return this.presenciasMapper.asTiposHorasDTOs(p);

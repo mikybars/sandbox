@@ -20,14 +20,15 @@ public class PresenciasDetalleComisionableResponseDto {
 
 	private Integer persona;
 
-	private Date fechaDesde;
+	private Date fecha;
 
-	private Date fechaHasta;
+	private Integer minutos;
 
 	private Integer tipo;
 
 	private Integer cadena;
 
-	private Boolean modificadoIncome;
+	private Boolean modificado_income;
+
 
 }

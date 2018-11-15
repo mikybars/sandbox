@@ -21,11 +21,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiendaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasDetalleComisionableResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasDetalleResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaSeccionResponseListDto;
@@ -93,7 +95,7 @@ public class PtrPresenciasMockServiceTest {
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		Date fechaHasta = cal.getTime();
 
-		PresenciasDetalleRequestDto req = new PresenciasDetalleRequestDto();
+		PresenciasDetalleComisionableRequestDto req = new PresenciasDetalleComisionableRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(160351);
 		list.add(162891);
@@ -105,8 +107,8 @@ public class PtrPresenciasMockServiceTest {
 		req.setFechaHasta(fechaHasta);
 		req.setOrigen(11);
 		req.setPersonas(list);
-		ResponseEntity<PresenciasDetalleResponseListDto> ret = this.restClient.postForEntity(
-				"/presenciasServiceMock/presenciasDetalleComisionable/", req, PresenciasDetalleResponseListDto.class);
+		ResponseEntity<PresenciasDetalleComisionableResponseListDto> ret = this.restClient.postForEntity(
+				"/presenciasServiceMock/presenciasDetalleComisionable/", req, PresenciasDetalleComisionableResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(2235, ret.getBody().getList().size());
 		assertEquals(390, ret.getBody().getList().get(0).getMinutos().intValue());
