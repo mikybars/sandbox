@@ -22,9 +22,9 @@ public class GetVentaIndividualDetalleRequestDTO implements Serializable {
 	private String pais;
 
 	@NotNull
-	private String cadena;
+	private List<String> cadena;
 
-	private List<String> tienda;
+	private List<Integer> tienda;
 	
 	private String seccion;
 	
@@ -32,7 +32,7 @@ public class GetVentaIndividualDetalleRequestDTO implements Serializable {
 	
 	private String producto;
 	
-	private List<String> vendedores;
+	private List<Integer> vendedores;
 	
 	private String agrupacion;
 

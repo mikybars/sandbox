@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ public class PresenciasMockServiceTest {
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(160351);
 		list.add(162891);
-		req.setCadena(1);
+		req.setCadena(Arrays.asList(1));
 		req.setTipo(1);
 		req.setSeccion(1);
 		req.setTienda(160);
@@ -101,7 +102,7 @@ public class PresenciasMockServiceTest {
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(160351);
 		list.add(162891);
-		req.setCadena(1);
+		req.setCadena(Arrays.asList(1));
 		req.setTipo(1);
 		req.setSeccion(1);
 		req.setTienda(160);
@@ -187,7 +188,7 @@ public class PresenciasMockServiceTest {
 		req.setFechaDesde(fechaDesde);
 		req.setFechaHasta(fechaHasta);
 		req.setTipo(1);
-		req.setCadena(1);
+		req.setCadena(Arrays.asList(1));
 		ResponseEntity<PresenciasTotalTiendaSeccionResponseListDto> ret = this.restClient.postForEntity(
 				"/presenciasServiceMock/presenciasTotalTiendaSeccion/", req,
 				PresenciasTotalTiendaSeccionResponseListDto.class);

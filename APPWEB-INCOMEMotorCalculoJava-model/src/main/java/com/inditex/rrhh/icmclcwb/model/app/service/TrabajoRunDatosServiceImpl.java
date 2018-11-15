@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
 import javax.validation.Valid;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunDatosService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 
 @Service
 @Validated
@@ -30,6 +33,9 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
     @Autowired
     private TrabajoRunAsyncService trabajoAsyncService;
+    
+	@Autowired
+	private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 
     @AuditoriaTrabajo
     @Override
@@ -49,6 +55,9 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
             cfTiendasParametro.get();
             if (trabajoAsyncService.isOk(trabajo, cf)) {
+            	
+				trabajo.setCadenas(trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
+
                 CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
                 trabajoAsyncService.exceptionally(trabajo, cfTiposHoras, cf);
 

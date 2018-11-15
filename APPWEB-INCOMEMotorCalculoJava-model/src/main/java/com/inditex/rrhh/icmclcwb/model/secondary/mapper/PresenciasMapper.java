@@ -32,8 +32,6 @@ public interface PresenciasMapper {
 	// PRESENCIAS DETALLE
 	PresenciasDetalleResponseDto asPresenciaDetalleDTO(PresenciaDetalleMock src);
 
-	PresenciaDetalleMock asPresenciaDetalle(PresenciasDetalleRequestDto src);
-
 	List<PresenciasDetalleResponseDto> asPresenciaDetalleDTOs(List<PresenciaDetalleMock> src);
 
 	// PRESENCIAS TIENDA

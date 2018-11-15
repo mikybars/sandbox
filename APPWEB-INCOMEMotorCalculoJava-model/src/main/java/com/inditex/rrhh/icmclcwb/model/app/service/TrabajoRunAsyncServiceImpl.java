@@ -276,7 +276,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
                         .trabajoDtoToGetVentaTotalizadoRequestDTO(trabajo);
                 paramGetVentaTotalizado.setTienda(tiendas);
                 paramGetVentaTotalizado.setPais("11");
-                paramGetVentaTotalizado.setCadena("1");
+				paramGetVentaTotalizado.setCadena(trabajo.getCadenas());
                 paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
                 CompletableFuture<GetVentaTotalizadoResponseDTO> cfResponse = ptrVentaService.getVentaTotalizado(paramGetVentaTotalizado);
                 GetVentaTotalizadoResponseDTO response = cfResponse.get();
@@ -334,13 +334,13 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
 
             if (CollectionUtils.isNotEmpty(empleadosPage.getContent())) {
-                List<String> empleados = empleadosPage.getContent().stream().map(TrabajoEmpleadoEstado::getIdEmpleado)
+                List<Integer> empleados = empleadosPage.getContent().stream().map(e -> Integer.valueOf(e.getIdEmpleado()))
                         .collect(Collectors.toList());
                 GetVentaIndividualDetalleRequestDTO paramGetVentaIndividualDetalle = trabajoMapper
                         .trabajoDtoToGetVentaIndividualDetalleRequestDTO(trabajo);
                 paramGetVentaIndividualDetalle.setVendedores(empleados);
                 paramGetVentaIndividualDetalle.setPais("11");
-                paramGetVentaIndividualDetalle.setCadena("1");
+                paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenas());
                 paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
                 cfResponse = ptrVentaService.getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
@@ -424,9 +424,11 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
                 List<TiendaSeccionDto> tiendas = tiendasPage.getContent().stream()
                         .map(t -> new TiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
                         .collect(Collectors.toList());
+				List<Integer> cadenasMap = trabajo.getCadenas().stream().map(a -> Integer.valueOf(a)).collect(Collectors.toList());
+
                 PresenciasTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
                         .trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
-                paramPresenciasTotalTiendaSeccion.setCadena(1);
+                paramPresenciasTotalTiendaSeccion.setCadena(cadenasMap);
                 paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
                 List<PresenciasTotalTiendaSeccionResponseDto> response = ptrPresenciaService
                         .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
