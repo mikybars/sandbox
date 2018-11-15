@@ -36,12 +36,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasR
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
 @Ignore
-<<<<<<< HEAD:APPWEB-INCOMEMotorCalculoJava-boot/src/test/java/com/inditex/rrhh/icmclcwb/ptr/presenciasmock/PtrPresenciasMockServiceTest.java
 public class PtrPresenciasMockServiceTest {
-=======
-public class PresenciasMockServiceTest {
->>>>>>> develop:APPWEB-INCOMEMotorCalculoJava-boot/src/test/java/com/inditex/rrhh/icmclcwb/PresenciasMockServiceTest.java
-
 	@Autowired
 	@Qualifier("ptrClientPresenciaMock")
 	private RestClient restClient;
