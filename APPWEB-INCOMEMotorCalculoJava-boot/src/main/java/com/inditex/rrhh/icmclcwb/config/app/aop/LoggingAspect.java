@@ -80,8 +80,10 @@ public class LoggingAspect {
             result = pjp.proceed();
         } catch (Throwable e) {
             Instant end = Instant.now();
-            LOG.error("Trabajo[{}] :: Fin :: Error :: Auditoria[{}] :: {} :: {}", trabajo.getId(),
-                    Duration.between(start, end), pjp.getSignature().toShortString(), trabajo);
+            String msg = new StringBuilder("Trabajo[").append(trabajo.getId()).append("] :: Fin :: Error :: Auditoria[")
+                    .append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString())
+                    .append(" :: ").append(trabajo).toString();
+            LOG.error(msg, e);
             throw e;
         }
         Instant end = Instant.now();
