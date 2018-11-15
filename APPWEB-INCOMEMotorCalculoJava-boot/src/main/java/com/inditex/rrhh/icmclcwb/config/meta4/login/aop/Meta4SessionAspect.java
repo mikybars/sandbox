@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.aop.meta4.login;
+package com.inditex.rrhh.icmclcwb.config.meta4.login.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

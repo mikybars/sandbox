@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import com.inditex.rrhh.icmclcwb.app.interceptor.MyAsyncUncaughtExceptionHandler;
+import com.inditex.rrhh.icmclcwb.config.app.interceptor.MyAsyncUncaughtExceptionHandler;
 
 //@Configuration
 //@EnableAsync

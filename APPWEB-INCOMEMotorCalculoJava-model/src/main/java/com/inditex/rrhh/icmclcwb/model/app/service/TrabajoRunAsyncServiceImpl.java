@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -138,6 +139,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 	@Qualifier("presenciasDetalleDto")
 	private PtrPropertiesDto presenciasDetalleDto;
 	
+	@AuditoriaTrabajo
 	@Async
 	@Override
 	public CompletableFuture<Void> empleadosTienda(@Valid final TrabajoDto trabajo) {
@@ -241,6 +243,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@AuditoriaTrabajo
 	@Async
 	@Override
 	public CompletableFuture<Void> tiendasParametro(@Valid final TrabajoDto trabajo) throws Exception {
@@ -286,6 +289,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@AuditoriaTrabajo
 	@Async
 	@Override
 	public CompletableFuture<Void> ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
@@ -349,6 +353,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@AuditoriaTrabajo
 	@Async
 	@Override
 	public CompletableFuture<Void> condicionesEmpleados(@Valid final TrabajoDto trabajo) throws Exception {
@@ -426,6 +431,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@AuditoriaTrabajo
 	@Async
 	@Override
 	public CompletableFuture<Void> tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
@@ -446,6 +452,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@AuditoriaTrabajo
 	@Async
 	@Override
 	public CompletableFuture<Void> tiendasHistorico(@Valid TrabajoDto trabajo) throws Exception {
@@ -475,6 +482,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@AuditoriaTrabajo
 	@Override
 	public CompletableFuture<Void> presenciaTotalizadaTienda(@Valid TrabajoDto trabajo,
 			@NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
@@ -535,6 +543,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@AuditoriaTrabajo
 	@Async
 	@Override
 	public CompletableFuture<Void> presenciaDetalleEmpleado(@Valid TrabajoDto trabajo) throws Exception {
@@ -585,6 +594,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		return CompletableFuture.completedFuture(null);
 	}
 
+	@AuditoriaTrabajo
 	@Override
 	public void exceptionally(TrabajoDto trabajo, CompletableFuture<?> cf, List<CompletableFuture<?>> cfList)
 			throws Exception {
@@ -613,6 +623,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 		LOG.info("Trabajo[{}] :: Fin :: AsyncService.exceptionally()", trabajo.getId());
 	}
 
+	@AuditoriaTrabajo
 	@Override
 	public boolean isOk(TrabajoDto trabajo, List<CompletableFuture<?>> cfList) throws Exception {
 		boolean result = true;

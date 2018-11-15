@@ -48,16 +48,16 @@ public class TrabajoEmpleadoEstructura {
 	private /* BigInteger */ TipoComision tipoComision;
 	
 	@NotNull
-	@Column(name = "ID_PORCENTAJE_1", nullable = false)
-	private /* BigInteger */ Long porcentaje1;
+	@Column(name = "PORCENTAJE_1", nullable = false)
+	private /* BigInteger */ Double porcentaje1;
 	
 	@NotNull
-	@Column(name = "ID_PORCENTAJE_2", nullable = false)
-	private /* BigInteger */ Long porcentaje2;
+	@Column(name = "PORCENTAJE_2", nullable = false)
+	private /* BigInteger */ Double porcentaje2;
 	
 	@NotNull
-	@Column(name = "ID_PORCENTAJE_3", nullable = false)
-	private /* BigInteger */ Long porcentaje3;
+	@Column(name = "PORCENTAJE_3", nullable = false)
+	private /* BigInteger */ Double porcentaje3;
 	
 	@NotNull
 	@Column(name = "FECHA", nullable = false)

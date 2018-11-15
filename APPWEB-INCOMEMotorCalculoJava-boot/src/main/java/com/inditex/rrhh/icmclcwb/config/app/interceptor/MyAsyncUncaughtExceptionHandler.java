@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.app.interceptor;
+package com.inditex.rrhh.icmclcwb.config.app.interceptor;
 
 import java.lang.reflect.Method;
 
