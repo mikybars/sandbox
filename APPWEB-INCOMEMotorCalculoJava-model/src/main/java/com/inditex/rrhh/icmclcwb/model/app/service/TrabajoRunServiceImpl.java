@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunAsyncService;
@@ -60,6 +61,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 		return result;
 	}
 
+	@AuditoriaTrabajo
 	@Override
 	public TrabajoDto runTrabajo(@NotNull @Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajo(): {}", trabajo.getId(), trabajo);
@@ -70,6 +72,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 		return trabajo;
 	}
 
+	@AuditoriaTrabajo
 	@Override
 	public TrabajoDto runTrabajoDatos(@Valid final TrabajoDto trabajo) throws Exception {
 		List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -157,6 +160,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 		return trabajo;
 	}
 
+	@AuditoriaTrabajo
 	@Override
 	public TrabajoDto runTrabajoCalculado(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoCalculado(): {}", trabajo.getId(), trabajo);
@@ -180,6 +184,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 		return trabajo;
 	}
 
+	@AuditoriaTrabajo
 	@Override
 	public TrabajoDto runTrabajoConsolidacion(@Valid final TrabajoDto trabajo) throws Exception {
 		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.runTrabajoConsolidacion(): {}", trabajo.getId(), trabajo);
