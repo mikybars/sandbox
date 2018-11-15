@@ -29,12 +29,12 @@ public class LoggingAspect {
     @Autowired
     private Logger LOG;
 
-    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.config.app.aop.annotation.Auditoria)")
+    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria)")
     public void auditoriaPointcut() {
         throw new UnsupportedOperationException();
     }
 
-    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.config.app.aop.annotation.AuditoriaTrabajo)")
+    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo)")
     public void auditoriaTrabajoPointcut() {
         throw new UnsupportedOperationException();
     }
