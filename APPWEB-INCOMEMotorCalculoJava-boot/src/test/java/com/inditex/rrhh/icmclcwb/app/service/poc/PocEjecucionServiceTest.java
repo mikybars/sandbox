@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.app.service.poc;
 
-import org.slf4j.Logger;
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -30,21 +28,15 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.poc.PocEjecucionDto;
 public class PocEjecucionServiceTest {
 
 	@Autowired
-	private Logger LOG;
-
-	@Autowired
 	private TestRestTemplate testRestTemplate;
 
 	@Test
 	public void findAll() {
-		LOG.info("Inicio :: PocEjecucionServiceTest.findAll()");
 		ResponseEntity<List<PocEjecucionDto>> responseEntity = testRestTemplate
 				.withBasicAuth("username300", "username300p").exchange("/poc/ejecucion", HttpMethod.GET,
 						HttpEntity.EMPTY, new ParameterizedTypeReference<List<PocEjecucionDto>>() {
 						});
-		LOG.info("PocEjecucionServiceTest.findAll() :: responseEntity :: {}", responseEntity);
 		assertEquals(HttpStatus.SC_OK, responseEntity.getStatusCodeValue());
-		LOG.info("Fin :: PocEjecucionServiceTest.findAll()");
 	}
 
 }
