@@ -103,12 +103,12 @@ public class LoggingAspect {
             result = pjp.proceed();
         } catch (Throwable e) {
             Instant end = Instant.now();
-            LOG.error("Fin :: Error :: Auditoria {} :: {}", Duration.between(start, end),
+            LOG.error("Fin :: Error :: Auditoria[{}] :: {}", Duration.between(start, end),
                     pjp.getSignature().toShortString());
             throw e;
         }
         Instant end = Instant.now();
-        LOG.debug("Fin :: Ok :: Auditoria {} :: {} :: {}", Duration.between(start, end),
+        LOG.debug("Fin :: Ok :: Auditoria[{}] :: {} :: {}", Duration.between(start, end),
                 pjp.getSignature().toShortString(), result);
         return result;
     }
