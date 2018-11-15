@@ -112,8 +112,8 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
 				LOG.info("retrieveM4Session(): tlSesionMeta4Dto inexistente: {}", sesionMeta4Dto);
 			}
 		} catch (SOAPFaultException e) {
-			// No es valida la sesion o algo no controlado ha fallado 
-			LOG.error("Meta4LoginService.retrieveM4Session(): Error no controlado", e);
+			// No es valida la sesion de Meta4
+			LOG.warn("Meta4LoginService.retrieveM4Session(): No es valida la sesion de Meta4", e);
 		} catch (Exception e) {
 			LOG.error("Meta4LoginService.retrieveM4Session(): Error no controlado", e);
 			throw e;

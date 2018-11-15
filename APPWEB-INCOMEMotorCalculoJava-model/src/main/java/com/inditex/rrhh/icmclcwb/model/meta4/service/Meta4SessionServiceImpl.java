@@ -32,7 +32,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
-import com.inditex.rrhh.icmclcwb.api.meta4.util.annotation.Meta4Session;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.poc.PocTiendaRepository;
 
@@ -60,7 +59,6 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 	private PocTiendaMapper pocTiendaMapper;
 
 	@Async
-	@Meta4Session
 	@Override
 	public CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(EmpleadosTiendaRequestDto request) throws Exception {
 		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
@@ -84,7 +82,6 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 	}
 
 	@Async
-	@Meta4Session
 	@Override
 	public CompletableFuture<List<EmpleadosEstructuraResultItemDto>> getEmpleadosEstructura(EmpleadosEstructuraRequestDto request)
 			throws Exception {
@@ -110,7 +107,6 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
 	}
 	
 
-	@Meta4Session
 	@Override
 	public List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request)
 			throws Exception {

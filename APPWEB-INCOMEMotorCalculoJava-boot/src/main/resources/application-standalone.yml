@@ -142,7 +142,15 @@ app:
               maxPageSize: 20
               maxQuerySize: 3
               maxPersistenceSize: 3
-              retryAttempts: 2              
+              retryAttempts: 2
+          getPresenciasDetalle:
+            endpoint: /presenciasService/presenciasDetalle
+            filter:
+              maxPageSize: 20
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2          
+                          
     meta4: 
       user: INCOME
       password: 123

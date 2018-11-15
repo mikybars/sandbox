@@ -32,12 +32,12 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
 
 	@Override
 	public TrabajoEmpleadoEstadoDto save(@Valid final TrabajoEmpleadoEstadoDto trabajoEmpleadoDto) {
-		LOG.info("TrabajoEmpleado[{}] :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoDto.getId(),
+		LOG.info("TrabajoEmpleadoEstado[{}] :: Inicio :: TrabajoEmpleadoEstadoService.save(): {}", trabajoEmpleadoDto.getId(),
 				trabajoEmpleadoDto);
 		TrabajoEmpleadoEstadoDto result = trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
 				trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
 						.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoDto)));
-		LOG.info("TrabajoEmpleado[{}] :: Fin :: TrabajoEmpleadoService.save(): {}", result.getId(), result);
+		LOG.info("TrabajoEmpleadoEstado[{}] :: Fin :: TrabajoEmpleadoEstadoService.save(): {}", result.getId(), result);
 		return result;
 	}
 
@@ -45,13 +45,13 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
 	@Override
 	@Transactional
 	public CompletableFuture<Void> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
-		LOG.info("TrabajoEmpleado :: Inicio :: TrabajoEmpleadoService.save(): {}", trabajoEmpleadoEstado);
+		LOG.info("TrabajoEmpleadoEstado[] :: Inicio :: TrabajoEmpleadoEstadoService.save(): {}", trabajoEmpleadoEstado);
 		List<TrabajoEmpleadoEstadoDto> result = trabajoEmpleadoEstadoMapper
 				.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
 						trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
 								.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
-		LOG.info("TrabajoEmpleado :: Fin :: TrabajoEmpleadoService.save(): {}", result);
+		LOG.info("TrabajoEmpleadoEstado[] :: Fin :: TrabajoEmpleadoEstadoService.save(): {}", result);
 		return CompletableFuture.completedFuture(null);
 	}
-
+	
 }

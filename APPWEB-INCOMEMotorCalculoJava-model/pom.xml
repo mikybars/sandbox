@@ -11,7 +11,6 @@
   <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
 
-
   <description>Este módulo se proporciona para que el ejemplo funcione, pero lo recomendable es que no exista
         dentro dle proyecto, y en su lugar se importe una librería con el api y el acceso a datos.</description>
 
@@ -50,6 +49,13 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
+    </dependency>
+
+    <!-- TEST -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
     </dependency>
 
   </dependencies>
