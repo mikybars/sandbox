@@ -22,7 +22,7 @@ public class GetVentaTotalizadoRequestDTO implements Serializable {
 	private String pais;
 
 	@NotNull
-	private String cadena;
+	private List<String> cadena;
 
 	private List<String> tienda;
 	

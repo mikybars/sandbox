@@ -42,7 +42,7 @@ public class PresenciasDetalleRequestDto implements Serializable {
 
 	@ApiModelProperty(value = "Id cadena", required = true, example = "1")
 	@NotNull
-	private Integer cadena;
+	private List<Integer> cadena;
 
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;

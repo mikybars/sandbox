@@ -25,7 +25,7 @@ public class PresenciasTotalTiendaSeccionRequestDto {
 
 	@ApiModelProperty(value = "Id cadena", required = true, example = " 1 ")
 	@NotNull
-	private Integer cadena;
+	private List<Integer> cadena;
 
 	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;

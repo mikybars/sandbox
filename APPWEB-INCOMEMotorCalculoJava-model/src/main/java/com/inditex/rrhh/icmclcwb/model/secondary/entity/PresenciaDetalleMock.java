@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.secondary.entity;
 
 import java.util.Date;
 
-
 import lombok.Data;
 
 @Data
