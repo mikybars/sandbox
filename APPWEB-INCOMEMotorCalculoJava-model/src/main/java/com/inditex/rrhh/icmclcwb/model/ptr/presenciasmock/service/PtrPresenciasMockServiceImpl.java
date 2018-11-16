@@ -49,11 +49,8 @@ public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
 	@Override
 	public List<PresenciasDetalleComisionableResponseDto> presenciasDetalleComisionable(
 			PresenciasDetalleComisionableRequestDto presencias) {
-		LOG.info("Inicio PTR FindPresenciasDetalleComisionable()");
-		List<PresenciaDetalleMock> p = this.presenciasRepository
-				.findPresencias(presenciasMapper.asPresenciaComisionableToDetalle(presencias));
-		LOG.info("Fin consulta PTR FindPresenciasDetalleComisionable()");
-		return this.presenciasMapper.asPresenciaDetalleComisionableDTOs(p);
+		return this.presenciasMapper.asPresenciaDetalleComisionableDTOs(this.presenciasRepository
+				.findPresencias(presenciasMapper.asPresenciaComisionableToDetalle(presencias)));
 	}
 
 	@Override
