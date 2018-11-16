@@ -30,5 +30,4 @@ public class PresenciasDetalleComisionableResponseDto {
 
 	private Boolean modificado_income;
 
-
 }

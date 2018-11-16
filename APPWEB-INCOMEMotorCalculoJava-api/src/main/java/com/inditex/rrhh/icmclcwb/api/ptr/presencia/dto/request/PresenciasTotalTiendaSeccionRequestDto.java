@@ -5,19 +5,21 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel 
 public class PresenciasTotalTiendaSeccionRequestDto {
 
-	@ApiModelProperty(value = "Id tiendaSeccion", required = false)//Con esta configuracion, un ejemplo de tienda puede ser la 118
+	@ApiModelProperty(value = "Id tiendaSeccion (en esta lista puedes completar con tienda = 52 y seccion = 2; o con la tienda 150)", required = false)
 	private List<TiendaSeccionDto> tiendaSeccion;
 
-	@ApiModelProperty(value = "Fecha inicio rango", required = false, example = "2017-01-01")
+	@ApiModelProperty(value = "Fecha inicio rango", required = false, example = "2016-01-01")
 	private Date fechaDesde;
 
-	@ApiModelProperty(value = "Fecha fin rango", required = false, example = "2017-12-31")
+	@ApiModelProperty(value = "Fecha fin rango", required = false, example = "2016-02-31")
 	private Date fechaHasta;
 
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")

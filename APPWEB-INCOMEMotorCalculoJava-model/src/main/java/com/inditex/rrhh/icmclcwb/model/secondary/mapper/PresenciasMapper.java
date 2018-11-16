@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.secondary.mapper;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleComisionableResponseDto;
@@ -26,8 +27,7 @@ public interface PresenciasMapper {
 
 	PresenciaDetalleMock asPresenciaDetalleComisionable(PresenciasDetalleComisionableRequestDto src);
 
-	List<PresenciasDetalleComisionableResponseDto> asPresenciaDetalleComisionableDTOs(
-			List<PresenciaDetalleMock> src);
+	List<PresenciasDetalleComisionableResponseDto> asPresenciaDetalleComisionableDTOs(List<PresenciaDetalleMock> src);
 
 	// PRESENCIAS DETALLE
 	PresenciasDetalleResponseDto asPresenciaDetalleDTO(PresenciaDetalleMock src);
@@ -39,8 +39,7 @@ public interface PresenciasMapper {
 	// PRESENCIAS TIENDA
 	PresenciasTotalTiendaResponseDto asPresenciasTotalTiendaDTO(PresenciaTotalTiendaMock src);
 
-	// PresenciaTotalTiendaMock
-	// asPresenciasTotalTienda(PresenciasTotalTiendaRequestDTO src);
+	PresenciaTotalTiendaMock asPresenciasTotalTienda(PresenciasTotalTiendaRequestDto src);
 
 	List<PresenciasTotalTiendaResponseDto> asPresenciasTotalTiendaDTOs(List<PresenciaTotalTiendaMock> src);
 
@@ -59,8 +58,8 @@ public interface PresenciasMapper {
 
 	List<TiposHorasResponseDto> asTiposHorasDTOs(List<TiposHorasMock> src);
 
-	//COMISIONABLE A DETALLE REQUEST
-	
+	// COMISIONABLE A DETALLE REQUEST
+
 	PresenciasDetalleRequestDto asPresenciaComisionableToDetalle(PresenciasDetalleComisionableRequestDto src);
-	
+
 }

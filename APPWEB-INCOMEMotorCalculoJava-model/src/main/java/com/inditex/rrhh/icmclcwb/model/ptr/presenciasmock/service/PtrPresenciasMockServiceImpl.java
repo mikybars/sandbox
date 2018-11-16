@@ -31,7 +31,7 @@ public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
 
 	@Autowired
 	private Logger LOG;
-	
+
 	@Autowired
 	private PtrPresenciasMockRepository presenciasRepository;
 
@@ -48,9 +48,10 @@ public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
 
 	@Override
 	public List<PresenciasDetalleComisionableResponseDto> presenciasDetalleComisionable(
-		PresenciasDetalleComisionableRequestDto presencias) {
+			PresenciasDetalleComisionableRequestDto presencias) {
 		LOG.info("Inicio PTR FindPresenciasDetalleComisionable()");
-		List<PresenciaDetalleMock> p = this.presenciasRepository.findPresencias(presenciasMapper.asPresenciaComisionableToDetalle(presencias));
+		List<PresenciaDetalleMock> p = this.presenciasRepository
+				.findPresencias(presenciasMapper.asPresenciaComisionableToDetalle(presencias));
 		LOG.info("Fin consulta PTR FindPresenciasDetalleComisionable()");
 		return this.presenciasMapper.asPresenciaDetalleComisionableDTOs(p);
 	}

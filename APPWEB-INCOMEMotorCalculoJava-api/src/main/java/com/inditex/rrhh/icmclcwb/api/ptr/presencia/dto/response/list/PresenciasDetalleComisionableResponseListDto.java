@@ -12,6 +12,5 @@ import lombok.Data;
 @Builder
 public class PresenciasDetalleComisionableResponseListDto {
 
-	
 	private List<PresenciasDetalleComisionableResponseDto> list;
 }
