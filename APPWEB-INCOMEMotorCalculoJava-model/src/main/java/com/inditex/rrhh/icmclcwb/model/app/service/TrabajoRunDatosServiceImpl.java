@@ -56,7 +56,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
             cfTiendasParametro.get();
             if (trabajoAsyncService.isOk(trabajo, cf)) {
             	
-				trabajo.setCadenas(trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
+				trabajo.setCadenasEmpresa(trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
 
                 CompletableFuture<Void> cfTiposHoras = trabajoAsyncService.tiposHoras(trabajo);
                 trabajoAsyncService.exceptionally(trabajo, cfTiposHoras, cf);

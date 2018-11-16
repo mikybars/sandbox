@@ -1,14 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -145,13 +144,12 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
         request.setPage(getEmpleadosTiendaDto.getPage());
         request.setData(data);
 
-        List<Long> tipoTrabajoTiendaId = new ArrayList<>();
-        Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+        List<Long> tipoTrabajoTiendaId = Stream.of(
+        		AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
                 AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-                AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()).forEach(item -> {
-                    tipoTrabajoTiendaId.add(item.getId());
-                });
-
+                AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()
+                ).map(t -> t.getId()).collect(Collectors.toList());
+        
         List<CompletableFuture<Void>> cfTrabajoEmpleadoSaveList = new ArrayList<>();
 
         do {
@@ -198,7 +196,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
                             // termine, lo sacamos de la lista de futuros y persistimos.
 
 							AsyncUtils.checkAsyncAvaliable(cfTrabajoEmpleadoSaveList);
-                      }
+                        }
 
                         cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoService.save(trabajoEmpleadoDto));
 
@@ -252,12 +250,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
         Pageable pageable = new PageRequest(0, ventaTotalizadoDto.getFilter().getMaxPageSize());
         Page<TrabajoTiendaEstado> tiendasPage;
 
-        List<Long> tipoTrabajoTiendaId = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(tipoTrabajoTienda)) {
-            tipoTrabajoTienda.forEach(item -> {
-                tipoTrabajoTiendaId.add(item.getId());
-            });
-        }
+        List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(t -> t.getId()).collect(Collectors.toList());
 
         List<CompletableFuture<Void>> cfTrabajoTiendaSeccionVentaList = new ArrayList<>();
 
@@ -273,7 +266,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 				GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper
 						.trabajoDtoToGetVentaTotalizadoRequestDTO(trabajo);
 				paramGetVentaTotalizado.setTienda(tiendas);
-				paramGetVentaTotalizado.setCadena(trabajo.getCadenas());
+				paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
 				paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 				cfResponse = ptrVentaService.getVentaTotalizado(paramGetVentaTotalizado);
 				GetVentaTotalizadoResponseDTO response = cfResponse.get();
@@ -329,7 +322,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 				GetVentaIndividualDetalleRequestDTO paramGetVentaIndividualDetalle = trabajoMapper
 						.trabajoDtoToGetVentaIndividualDetalleRequestDTO(trabajo);
 				paramGetVentaIndividualDetalle.setVendedores(empleados);
-				paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenas());
+				paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenasEmpresa());
 				paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
 				paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 				cfResponse = ptrVentaService.getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
@@ -385,13 +378,8 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
         Pageable pageable = new PageRequest(0, presenciasTotalTiendaSeccionDto.getFilter().getMaxPageSize());
         Page<TrabajoTiendaEstado> tiendasPage;
 
-        List<Long> tipoTrabajoTiendaId = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(tipoTrabajoTienda)) {
-            tipoTrabajoTienda.forEach(item -> {
-                tipoTrabajoTiendaId.add(item.getId());
-            });
-        }
-
+        List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(t -> t.getId()).collect(Collectors.toList());
+       
         List<CompletableFuture<Void>> cfTrabajoTiendaPresenciaList = new ArrayList<>();
 
         do {
@@ -406,7 +394,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
                 List<TiendaSeccionDto> tiendas = tiendasPage.getContent().stream()
                         .map(t -> new TiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
                         .collect(Collectors.toList());
-				List<Integer> cadenasMap = trabajo.getCadenas().stream().map(a -> Integer.valueOf(a)).collect(Collectors.toList());
+				List<Integer> cadenasMap = trabajo.getCadenasEmpresa().stream().map(a -> Integer.valueOf(a)).collect(Collectors.toList());
 
                 PresenciasTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
                         .trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
@@ -418,7 +406,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
                 if (cfTrabajoTiendaPresenciaList.size() >= presenciasTotalTiendaSeccionDto.getFilter()
                         .getMaxPersistenceSize()) {
 					AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaPresenciaList);
-               }
+                }
 
                 // TODO: PERSISTIR
                 cfTrabajoTiendaPresenciaList.add(trabajoTiendaSeccionPresenciaService.save(response));
@@ -452,7 +440,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 			if(CollectionUtils.isNotEmpty(empleadosPage.getContent())){
 				List<Integer> empleados = empleadosPage.getContent().stream().map(s -> Integer.valueOf(s.getIdEmpleado()))
 						.collect(Collectors.toList());
-				List<Integer> cadenasMap = trabajo.getCadenas().stream().map(a -> Integer.valueOf(a)).collect(Collectors.toList());
+				List<Integer> cadenasMap = trabajo.getCadenasEmpresa().stream().map(a -> Integer.valueOf(a)).collect(Collectors.toList());
 				PresenciasDetalleRequestDto paramPresenciasDetalle = trabajoMapper
 						.trabajoDtoToPresenciasDetalleRequestDto(trabajo);
 				paramPresenciasDetalle.setPersonas(empleados);
@@ -484,8 +472,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
         cfList.add(cf);
         cf.exceptionally(e -> {
             cfList.stream().forEach(item -> {
-                if (item.isDone()) {
-                } else {
+                if (!item.isDone()) {
                     item.cancel(true);
                 }
             });
