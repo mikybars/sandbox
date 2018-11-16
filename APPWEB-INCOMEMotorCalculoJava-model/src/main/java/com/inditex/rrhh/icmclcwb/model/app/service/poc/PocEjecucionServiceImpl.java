@@ -2,8 +2,12 @@ package com.inditex.rrhh.icmclcwb.model.app.service.poc;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -52,6 +56,8 @@ public class PocEjecucionServiceImpl implements PocEjecucionService {
 	@Autowired
 	private TrabajoService trabajoService;
 
+	private static Map<String, String> mapa = new HashMap<>(); 
+	
 	@Override
 	public List<PocEjecucionDto> findAll() {
 		return pocEjecucionMapper.pocEjecucionToPocEjecucionDto(pocEjecucionRepository.findAll());

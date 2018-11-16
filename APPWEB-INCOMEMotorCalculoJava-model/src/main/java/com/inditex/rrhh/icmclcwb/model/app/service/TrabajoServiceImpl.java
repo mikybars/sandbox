@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import javax.validation.Valid;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -26,78 +25,55 @@ import com.inditex.rrhh.icmclcwb.ms.SenderTrabajo;
 @Validated
 public class TrabajoServiceImpl implements TrabajoService {
 
-	@Autowired
-	private Logger LOG;
+    @Autowired
+    private TrabajoRepository trabajoRepository;
 
-	@Autowired
-	private TrabajoRepository trabajoRepository;
+    @Autowired
+    private TrabajoMapper trabajoMapper;
 
-	@Autowired
-	private TrabajoMapper trabajoMapper;
+    @Autowired
+    private TrabajoTiendaRepository trabajoTiendaRepository;
 
-	@Autowired
-	private TrabajoTiendaRepository trabajoTiendaRepository;
-	
-	@Autowired
-	private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
+    @Autowired
+    private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
 
-	@Autowired
-	private SenderTrabajo senderTrabajo;
+    @Autowired
+    private SenderTrabajo senderTrabajo;
 
-	@Override
-	public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.createTrabajo(): {}", trabajo.getId(), trabajo);
-		trabajo.setFechaCreacion(LocalDateTime.now());
-		trabajo.setEstado(AppConstants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
-		if (StringUtils.isBlank(trabajo.getIdUsuario())) {
-			UserSSO userSSO = SsoUtils.getUserSSO();
-			if (StringUtils.isNotBlank(userSSO.getUsername())) {
-				trabajo.setIdUsuario(userSSO.getUsername());
-			}
-		}
-		TrabajoDto parent = trabajoMapper
-				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
-		parent.setTiendas(trabajo.getTiendas());
-		parent.setEmpleados(trabajo.getEmpleados());
-		Trabajo child = trabajoMapper.trabajoDtoToTrabajo(parent);
-		if (CollectionUtils.isNotEmpty(child.getTiendas())) {
-			child.setTiendas(trabajoTiendaRepository.save(child.getTiendas()));
-		} else if (CollectionUtils.isNotEmpty(child.getEmpleados())) {
-			child.setEmpleados(trabajoEmpleadoRepository.save(child.getEmpleados()));
-		}
-		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(child);
-		senderTrabajo.send(result);
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.createTrabajo(): {}", result.getId(), result);
-		return result;
-	}
+    @Override
+    public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
+        trabajo.setFechaCreacion(LocalDateTime.now());
+        trabajo.setEstado(AppConstants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
+        if (StringUtils.isBlank(trabajo.getIdUsuario())) {
+            UserSSO userSSO = SsoUtils.getUserSSO();
+            if (StringUtils.isNotBlank(userSSO.getUsername())) {
+                trabajo.setIdUsuario(userSSO.getUsername());
+            }
+        }
+        TrabajoDto parent = trabajoMapper
+                .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
+        parent.setTiendas(trabajo.getTiendas());
+        parent.setEmpleados(trabajo.getEmpleados());
+        Trabajo child = trabajoMapper.trabajoDtoToTrabajo(parent);
+        if (CollectionUtils.isNotEmpty(child.getTiendas())) {
+            child.setTiendas(trabajoTiendaRepository.save(child.getTiendas()));
+        } else if (CollectionUtils.isNotEmpty(child.getEmpleados())) {
+            child.setEmpleados(trabajoEmpleadoRepository.save(child.getEmpleados()));
+        }
+        TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(child);
+        senderTrabajo.send(result);
+        return result;
+    }
 
-	@Override
-	public TrabajoDto modifyTrabajo(@Valid final TrabajoDto trabajo) {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {}", trabajo.getId(), trabajo);
-		TrabajoDto result = trabajoMapper
-				.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.modifyTrabajo(): {}", trabajo.getId(), trabajo);
-		return result;
-	}
+    @Override
+    public TrabajoDto modifyTrabajo(@Valid final TrabajoDto trabajo) {
+        return trabajoMapper.trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
+    }
 
-	@Override
-	public TrabajoDto modifyEstadoTrabajo(@Valid final EstadoTrabajoDto estado, @Valid final TrabajoDto trabajo) {
-		LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), estado, trabajo);
-
-		trabajo.setEstado(estado);
-		TrabajoDto result = modifyTrabajo(trabajo);
-
-//		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), trabajoMapper.estadoTrabajoDtoToEstadoTrabajo(EstadoTrabajoDto.builder().id(id).build()));
-//		int i = trabajoRepository.updateEstadoTrabajo(trabajo.getId(), id);
-//		if (i > 0) {
-//			LOG.info("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo() :: trabajoRepository.updateEstadoTrabajo(): {}", trabajo.getId(), i);
-//		} else {
-//			LOG.error("Trabajo[{}] :: Inicio :: TrabajoService.modifyTrabajo() :: trabajoRepository.updateEstadoTrabajo(): {}", trabajo.getId(), i);
-//		}
-//		TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(trabajo.getId()));
-
-		LOG.info("Trabajo[{}] :: Fin :: TrabajoService.modifyTrabajo(): {} {}", trabajo.getId(), estado, trabajo);
-		return result;
-	}
+    @Override
+    public TrabajoDto modifyEstadoTrabajo(@Valid final EstadoTrabajoDto estado, @Valid final TrabajoDto trabajo) {
+        trabajo.setEstado(estado);
+        return modifyTrabajo(trabajo);
+    }
 
 }

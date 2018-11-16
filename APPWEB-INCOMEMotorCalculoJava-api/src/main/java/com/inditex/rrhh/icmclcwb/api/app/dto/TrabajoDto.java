@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "Modelo TrabajoDto")
 @Data
-public class TrabajoDto implements Serializable {
+public class TrabajoDto extends TrabajoRunDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 

@@ -5,7 +5,6 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,32 +17,28 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionEm
 
 @Service
 @Validated
-public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements TrabajoTiendaSeccionEmpleadoPresenciaService{
+public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements TrabajoTiendaSeccionEmpleadoPresenciaService {
 
-	@Autowired
-	private TrabajoTiendaSeccionEmpleadoPresenciaMapper mapper;
-	
-	@Autowired
-	private Logger LOG;
-	
-	@Autowired
-	private TrabajoTiendaSeccionEmpleadoPresenciaRepository trabajoTiendaSeccionEmpleadoPresenciaRepository;
+    @Autowired
+    private TrabajoTiendaSeccionEmpleadoPresenciaMapper mapper;
 
-	@Override
-	public CompletableFuture<Void> save(@Valid final TrabajoTiendaSeccionEmpleadoPresenciaDto dto){
-		LOG.info("TrabajoTiendaSeccionEmpleadoPresencia[{}] :: Inicio :: TrabajoTiendaSeccionEmpleadoPresenciaService.save(): {}", dto.getId(), dto);
-		TrabajoTiendaSeccionEmpleadoPresenciaDto result = mapper.trabajoTiendaSeccionEmpleadoPresenciaToTrabajoTiendaSeccionEmpleadoPresenciaDto(trabajoTiendaSeccionEmpleadoPresenciaRepository.save(mapper.trabajoTiendaSeccionEmpleadoPresenciaDtoToTrabajoTiendaSeccionEmpleadoPresencia(dto)));
-		LOG.info("TrabajoTiendaSeccionEmpleadoPresencia[{}] :: Fin :: TrabajoTiendaSeccionEmpleadoPresenciaService.save(): {}", result.getId(), result);
-		return CompletableFuture.completedFuture(null);
-	}
-	
-	@Override
-	public CompletableFuture<Void> save(List<PresenciasDetalleResponseDto> dtos){
-		LOG.info("TrabajoTiendaSeccionEmpleadoPresencia[] :: Inicio :: TrabajoTiendaSeccionEmpleadoPresenciaService.save(): {}", dtos);
-		List<TrabajoTiendaSeccionEmpleadoPresenciaDto> result = mapper.trabajoTiendaSeccionEmpleadoPresenciasToTrabajoTiendaSeccionEmpleadoPresenciasDto(trabajoTiendaSeccionEmpleadoPresenciaRepository.save(mapper.presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos)));
-		LOG.info("TrabajoTiendaSeccionEmpleadoPresencia[] :: Fin :: TrabajoTiendaSeccionEmpleadoPresenciaService.save(): {}", result);
-		return CompletableFuture.completedFuture(null);
-	}
-	
-	
+    @Autowired
+    private TrabajoTiendaSeccionEmpleadoPresenciaRepository trabajoTiendaSeccionEmpleadoPresenciaRepository;
+
+    @Override
+    public CompletableFuture<Void> save(@Valid final TrabajoTiendaSeccionEmpleadoPresenciaDto dto) {
+        mapper.trabajoTiendaSeccionEmpleadoPresenciaToTrabajoTiendaSeccionEmpleadoPresenciaDto(
+                trabajoTiendaSeccionEmpleadoPresenciaRepository.save(
+                        mapper.trabajoTiendaSeccionEmpleadoPresenciaDtoToTrabajoTiendaSeccionEmpleadoPresencia(dto)));
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Override
+    public CompletableFuture<Void> save(List<PresenciasDetalleResponseDto> dtos) {
+        mapper.trabajoTiendaSeccionEmpleadoPresenciasToTrabajoTiendaSeccionEmpleadoPresenciasDto(
+                trabajoTiendaSeccionEmpleadoPresenciaRepository
+                        .save(mapper.presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos)));
+        return CompletableFuture.completedFuture(null);
+    }
+
 }

@@ -8,7 +8,9 @@ public class GTAlgoritmo implements TipoCalculoAlgoritmo{
 	@Override
 	public boolean executeScript() {
 		
-		System.out.println("ejecuta script global tienda");
+		
+		
+		
 		
 		return true;
 	}

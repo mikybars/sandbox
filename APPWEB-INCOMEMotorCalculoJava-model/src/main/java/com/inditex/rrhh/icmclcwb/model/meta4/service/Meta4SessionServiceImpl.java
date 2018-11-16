@@ -11,7 +11,6 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
@@ -38,129 +37,125 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.poc.PocTiendaRepositor
 @Service
 public class Meta4SessionServiceImpl implements Meta4SessionService {
 
-	@Autowired
-	private Logger LOG;
+    @Autowired
+    private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
 
-	@Autowired
-	private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
-	
-	@Autowired
-	@Qualifier("getEmpleadosTiendaDto")
-	private Meta4PropertiesDto getEmpleadosTiendaDto;
-	
-	@Autowired
-	@Qualifier("getValoresCondicionesDto")
-	private Meta4PropertiesDto getValoresCondicionesDto;
-	
-	@Autowired
-	private PocTiendaRepository pocTiendaRepository;
-	
-	@Autowired
-	private PocTiendaMapper pocTiendaMapper;
+    @Autowired
+    @Qualifier("getEmpleadosTiendaDto")
+    private Meta4PropertiesDto getEmpleadosTiendaDto;
 
-	@Async
-	@Override
-	public CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(EmpleadosTiendaRequestDto request) throws Exception {
-		List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
+    @Autowired
+    @Qualifier("getValoresCondicionesDto")
+    private Meta4PropertiesDto getValoresCondicionesDto;
 
-		boolean hasNext = false;
-		do {
-			hasNext = false;
-			EmpleadosTiendaResponseDto response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
-			if (response != null) {
-				if (CollectionUtils.isNotEmpty(response.getData())) {
-					result.addAll(response.getData());
-				}
-				if (response.getPage() != null && response.getPage().hasNext()) {
-					hasNext = true;
-					request.setPage(response.getPage().next());
-				}
-			}
-		} while (hasNext && result.size() < getEmpleadosTiendaDto.getFilter().getMaxPageSize());
+    @Autowired
+    private PocTiendaRepository pocTiendaRepository;
 
-		return CompletableFuture.completedFuture(result);
-	}
+    @Autowired
+    private PocTiendaMapper pocTiendaMapper;
 
-	@Async
-	@Override
-	public CompletableFuture<List<EmpleadosEstructuraResultItemDto>> getEmpleadosEstructura(EmpleadosEstructuraRequestDto request)
-			throws Exception {
-		List<EmpleadosEstructuraResultItemDto> result = new ArrayList<>();
+    @Async
+    @Override
+    public CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(EmpleadosTiendaRequestDto request)
+            throws Exception {
+        List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
 
-		boolean hasNext = false;
+        boolean hasNext = false;
+        do {
+            hasNext = false;
+            EmpleadosTiendaResponseDto response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
+            if (response != null) {
+                if (CollectionUtils.isNotEmpty(response.getData())) {
+                    result.addAll(response.getData());
+                }
+                if (response.getPage() != null && response.getPage().hasNext()) {
+                    hasNext = true;
+                    request.setPage(response.getPage().next());
+                }
+            }
+        } while (hasNext && result.size() < getEmpleadosTiendaDto.getFilter().getMaxPageSize());
 
-		do {
-			hasNext = false;
-			EmpleadosEstructuraResponseDto response = meta4IcmWsIncomeService.getEmpleadosEstructura(request);
-			if (response != null) {
-				if (CollectionUtils.isNotEmpty(response.getData())) {
-					result.addAll(response.getData());
-				}
-				if (response.getPage() != null && response.getPage().hasNext()) {
-					hasNext = true;
-					request.setPage(response.getPage().next());
-				}
-			} 
-		} while (hasNext);
-		
-		return CompletableFuture.completedFuture(result);
-	}
-	
+        return CompletableFuture.completedFuture(result);
+    }
 
-	@Override
-	public List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request)
-			throws Exception {
-		List<ValoresCondicionesResultItemDto> result = new ArrayList<>();
+    @Async
+    @Override
+    public CompletableFuture<List<EmpleadosEstructuraResultItemDto>> getEmpleadosEstructura(
+            EmpleadosEstructuraRequestDto request) throws Exception {
+        List<EmpleadosEstructuraResultItemDto> result = new ArrayList<>();
 
-		boolean hasNext = false;
-		do {
-			hasNext = false;
-			ValoresCondicionesResponseDto response = meta4IcmWsIncomeService.getValoresCondiciones(request);
-			if (response != null) {
-				if (CollectionUtils.isNotEmpty(response.getData())) {
-					result.addAll(response.getData());
-				}
-				if (response.getPage() != null && response.getPage().hasNext()) {
-					hasNext = true;
-					request.setPage(response.getPage().next());
-				}
-			}
-		} while (hasNext);
+        boolean hasNext = false;
 
-		return result;
-	}
+        do {
+            hasNext = false;
+            EmpleadosEstructuraResponseDto response = meta4IcmWsIncomeService.getEmpleadosEstructura(request);
+            if (response != null) {
+                if (CollectionUtils.isNotEmpty(response.getData())) {
+                    result.addAll(response.getData());
+                }
+                if (response.getPage() != null && response.getPage().hasNext()) {
+                    hasNext = true;
+                    request.setPage(response.getPage().next());
+                }
+            }
+        } while (hasNext);
 
-	@Override
-	public List<PeriodoDto> periodo() {
-		LOG.info("Inicio :: Meta4Service.periodo()");
-		List<PeriodoDto> result = new ArrayList<>();
-		Random random = new Random();
-		LongStream lsPeriodos = random.longs(2, 3);
-		long periodos = lsPeriodos.findFirst().getAsLong();
-		lsPeriodos.close();
-		for (int periodo = 1; periodo <= periodos; periodo++) {
-			PeriodoDto item = new PeriodoDto();
-			IntStream isMes = random.ints(1, 12);
-			int mes = isMes.findFirst().getAsInt();
-			isMes.close();
-			LocalDate localDate = LocalDate.of(2017, mes, 1);
-			item.setFechaInicioPeriodo(localDate.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
-			item.setFechaFinPeriodo(localDate.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX));
-			result.add(item);
-		}
-		LOG.info("Inicio :: Meta4Service.periodo(): {}", result);
-		return result;
-	}
+        return CompletableFuture.completedFuture(result);
+    }
 
-	@Override
-	public List<PocTiendaDto> getTiendas(TrabajoDto trabajo) {
-		List<String> tiendas = new ArrayList<>();
-		if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-			trabajo.getTiendas().forEach(item -> {
-				tiendas.add(item.getIdTienda());
-			});
-		}
-		return pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository.findByIdPaisOrigenAndIdEmpresaAndIdIn(trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa(), tiendas));
-	}
+    @Override
+    public List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request)
+            throws Exception {
+        List<ValoresCondicionesResultItemDto> result = new ArrayList<>();
+
+        boolean hasNext = false;
+        do {
+            hasNext = false;
+            ValoresCondicionesResponseDto response = meta4IcmWsIncomeService.getValoresCondiciones(request);
+            if (response != null) {
+                if (CollectionUtils.isNotEmpty(response.getData())) {
+                    result.addAll(response.getData());
+                }
+                if (response.getPage() != null && response.getPage().hasNext()) {
+                    hasNext = true;
+                    request.setPage(response.getPage().next());
+                }
+            }
+        } while (hasNext);
+
+        return result;
+    }
+
+    @Override
+    public List<PeriodoDto> periodo() {
+        List<PeriodoDto> result = new ArrayList<>();
+        Random random = new Random();
+        LongStream lsPeriodos = random.longs(2, 3);
+        long periodos = lsPeriodos.findFirst().getAsLong();
+        lsPeriodos.close();
+        for (int periodo = 1; periodo <= periodos; periodo++) {
+            PeriodoDto item = new PeriodoDto();
+            IntStream isMes = random.ints(1, 12);
+            int mes = isMes.findFirst().getAsInt();
+            isMes.close();
+            LocalDate localDate = LocalDate.of(2017, mes, 1);
+            item.setFechaInicioPeriodo(localDate.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
+            item.setFechaFinPeriodo(localDate.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX));
+            result.add(item);
+        }
+        return result;
+    }
+
+    @Override
+    public List<PocTiendaDto> getTiendas(TrabajoDto trabajo) {
+        List<String> tiendas = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
+            trabajo.getTiendas().forEach(item -> {
+                tiendas.add(item.getIdTienda());
+            });
+        }
+        return pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository
+                .findByIdPaisOrigenAndIdEmpresaAndIdIn(trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa(), tiendas));
+    }
 
 }

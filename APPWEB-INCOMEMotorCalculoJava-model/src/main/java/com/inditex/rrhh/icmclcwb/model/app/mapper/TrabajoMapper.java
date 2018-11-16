@@ -54,16 +54,14 @@ public abstract class TrabajoMapper {
 
 	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
 			@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
-			@Mapping(source = "idPaisOrigen", target = "pais"), @Mapping(source = "idEmpresa", target = "cadena"),
-			@Mapping(source = "tiendas", target = "tienda") })
+			@Mapping(source = "idPaisOrigen", target = "pais"),
+			@Mapping(target = "tienda", ignore = true) })
 	public abstract GetVentaTotalizadoRequestDTO trabajoDtoToGetVentaTotalizadoRequestDTO(TrabajoDto src);
 
 	@Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
 		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
 		@Mapping(source = "idPaisOrigen", target = "pais"),
-		@Mapping(source = "idEmpresa", target = "cadena"),
-		@Mapping(target = "tienda", ignore = true),
-		@Mapping(source = "empleados", target = "vendedores")
+		@Mapping(target = "tienda", ignore = true)
 	})
 	public abstract GetVentaIndividualDetalleRequestDTO trabajoDtoToGetVentaIndividualDetalleRequestDTO(TrabajoDto src);
 
