@@ -40,7 +40,7 @@ public class PresenciasDetalleRequestDto implements Serializable {
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipo;
 
-	@ApiModelProperty(value = "Id cadena", required = true, example = "1")
+	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
 	@NotNull
 	private List<Integer> cadena;
 

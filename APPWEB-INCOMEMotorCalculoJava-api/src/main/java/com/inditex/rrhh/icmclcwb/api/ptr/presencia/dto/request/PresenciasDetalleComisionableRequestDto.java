@@ -39,8 +39,8 @@ public class PresenciasDetalleComisionableRequestDto implements Serializable {
 	private Integer tipo;
 
 	@NotNull
-	@ApiModelProperty(value = "Id cadena", required = true, example = "1")
-	private Integer cadena;
+	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
+	private List<Integer> cadena;
 
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;

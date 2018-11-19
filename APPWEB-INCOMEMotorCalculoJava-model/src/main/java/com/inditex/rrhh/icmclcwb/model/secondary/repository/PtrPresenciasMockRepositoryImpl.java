@@ -45,7 +45,6 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 
 		StringBuilder query = new StringBuilder();
 
-		param.addValue("cadena", params.getCadena());
 		query.append(
 				"SELECT P.PERSONA AS 'EMPLEADO', P.TIENDA AS 'ID_TIENDA', P.SECCION AS 'ID_SECCION', P.TIPO AS 'ID_TIPO', P.FECHA AS 'FECHA', P.CCL_ID_CADENA AS 'CADENA', (CAST(P.HORAS AS int) * 60) + PARSENAME(P.HORAS, 1) AS 'MINUTOS', 'FALSE' 'MODIFICADO_INCOME' FROM (SELECT PT.ID_ORGANIZATION, PT.PERSONA, PT.TIENDA, PT.SECCION, PT.TIPO, PT.FECHA, SP.CCL_ID_CADENA, PT.HORAS, ROW_NUMBER() OVER (PARTITION BY SP.STD_ID_WORK_LOCAT, PT.PERSONA, PT.FECHA ORDER BY SP.STD_ID_WORK_LOCAT) AS REG_NUM FROM ");
 
@@ -88,6 +87,18 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 		if (params.getTipo() != null) {
 			query.append(" AND P.TIPO IN ( :tipo )");
 			param.addValue("tipo", params.getTipo());
+		}
+		if (params.getCadena()!=null){
+			query.append(" AND P.CCL_ID_CADENA IN ( ");
+			if (params.getCadena().get(0)!=null){
+				query.append(" :cadena0 ");
+				param.addValue("cadena0", params.getCadena().get(0));
+			}	
+			for (Integer e = 1;e<params.getCadena().size();e++){
+				query.append(", :cadena"+e.toString()+" ");
+				param.addValue("cadena"+e.toString(), params.getCadena().get(e));
+			}
+			query.append(")");
 		}
 
 		if (params.getTienda() != null) {
@@ -155,9 +166,17 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 		if (dto.getOrigen() != null) {
 			query.append(" AND OP.CCL_ID_ORIGEN IN ( :origen)");
 		}
-		if (dto.getTipo() != null) {
-			query.append(" AND P.CCL_ID_CADENA IN ( :cadena)");
-			param.addValue("cadena", dto.getCadena());
+		if (dto.getCadena()!=null){
+			query.append(" AND P.CCL_ID_CADENA IN ( ");
+			if (dto.getCadena().get(0)!=null){
+				query.append(" :cadena0 ");
+				param.addValue("cadena0", dto.getCadena().get(0));
+			}	
+			for (Integer e = 1;e<dto.getCadena().size();e++){
+				query.append(", :cadena"+e.toString()+" ");
+				param.addValue("cadena"+e.toString(), dto.getCadena().get(e));
+			}
+			query.append(")");
 		}
 		if (dto.getTipo() != null) {
 			query.append(" AND P.TIPO IN ( :tipo)");
@@ -226,9 +245,17 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 			param.addValue("tipo", dto.getTipo());
 		}
 
-		if (dto.getCadena() != null) {
-			query.append(" AND P.CCL_ID_CADENA IN (:cadena) ");
-			param.addValue("cadena", dto.getCadena());
+		if (dto.getCadena()!=null){
+			query.append(" AND P.CCL_ID_CADENA IN ( ");
+			if (dto.getCadena().get(0)!=null){
+				query.append(" :cadena0 ");
+				param.addValue("cadena0", dto.getCadena().get(0));
+			}	
+			for (Integer e = 1;e<dto.getCadena().size();e++){
+				query.append(", :cadena"+e.toString()+" ");
+				param.addValue("cadena"+e.toString(), dto.getCadena().get(e));
+			}
+			query.append(")");
 		}
 
 		if (dto.getTiendaSeccion() != null) {

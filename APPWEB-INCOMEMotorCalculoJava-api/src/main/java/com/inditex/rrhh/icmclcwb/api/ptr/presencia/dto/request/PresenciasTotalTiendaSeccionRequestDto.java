@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel 
+@ApiModel
 public class PresenciasTotalTiendaSeccionRequestDto {
 
 	@ApiModelProperty(value = "Id tiendaSeccion (en esta lista puedes completar con tienda = 52 y seccion = 2; o con la tienda 150)", required = false)
@@ -25,7 +25,7 @@ public class PresenciasTotalTiendaSeccionRequestDto {
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipo;
 
-	@ApiModelProperty(value = "Id cadena", required = true, example = " 1 ")
+	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = " 1 ")
 	@NotNull
 	private List<Integer> cadena;
 

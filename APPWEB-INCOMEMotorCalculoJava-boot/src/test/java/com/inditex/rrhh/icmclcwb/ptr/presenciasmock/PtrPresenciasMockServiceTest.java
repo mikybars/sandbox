@@ -38,7 +38,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasR
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
 
-
 public class PtrPresenciasMockServiceTest {
 	@Autowired
 	@Qualifier("ptrClientPresenciaMock")
@@ -60,7 +59,10 @@ public class PtrPresenciasMockServiceTest {
 		PresenciasDetalleRequestDto req = new PresenciasDetalleRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(1645);
-		req.setCadena(1);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(list2);
 		req.setTipo(1);
 		req.setSeccion(1);
 		req.setTienda(160);
@@ -97,7 +99,10 @@ public class PtrPresenciasMockServiceTest {
 		PresenciasDetalleComisionableRequestDto req = new PresenciasDetalleComisionableRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(1645);
-		req.setCadena(1);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(list2);
 		req.setTipo(1);
 		req.setSeccion(1);
 		req.setTienda(160);
@@ -140,7 +145,10 @@ public class PtrPresenciasMockServiceTest {
 		req.setFechaDesde(fechaDesde);
 		req.setFechaHasta(fechaHasta);
 		req.setTipo(1);
-		req.setCadena(4);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(4);
+		list2.add(250);
+		req.setCadena(list2);
 		ResponseEntity<PresenciasTotalTiendaResponseListDto> ret = this.restClient.postForEntity(
 				"/presenciasServiceMock/presenciasTotalTienda/", req, PresenciasTotalTiendaResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
@@ -178,7 +186,10 @@ public class PtrPresenciasMockServiceTest {
 		req.setFechaDesde(fechaDesde);
 		req.setFechaHasta(fechaHasta);
 		req.setTipo(1);
-		req.setCadena(1);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(list2);
 		ResponseEntity<PresenciasTotalTiendaSeccionResponseListDto> ret = this.restClient.postForEntity(
 				"/presenciasServiceMock/presenciasTotalTiendaSeccion/", req,
 				PresenciasTotalTiendaSeccionResponseListDto.class);
