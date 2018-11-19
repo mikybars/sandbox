@@ -32,11 +32,6 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 	private JdbcTemplate jdbcTemplate;
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-	private String consultaTiposHorasEspana = "SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,TIPO ,OP.CCL_ID_ORIGEN FROM [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ";
-	private String consultaTiposHorasGHRS = "SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,TIPO ,OP.CCL_ID_ORIGEN FROM [dbo].[M4CCL_PRESENCIAS_TA ] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ";
-	private String consultaTiposHoras2 = " GROUP BY OP.CCL_ID_ORIGEN, TIPO";
-	private String whereTiposHorasOrigen = " AND OP.CCL_ID_ORIGEN= ? ";
-
 	@Override
 	public List<PresenciaDetalleMock> findPresencias(PresenciasDetalleRequestDto params) {
 
@@ -64,7 +59,8 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 		if (params.getFechaDesde() != null) {
 			String fecha1 = formatter.format(params.getFechaDesde());
 			query.append(" AND FECHA >= CONVERT (datetime, :fechadesde, 103) ");
-			param.addValue("fechadesde", fecha1);		}
+			param.addValue("fechadesde", fecha1);
+		}
 
 		if (params.getFechaHasta() != null) {
 			String fecha2 = formatter.format(params.getFechaHasta());
@@ -88,15 +84,15 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 			query.append(" AND P.TIPO IN ( :tipo )");
 			param.addValue("tipo", params.getTipo());
 		}
-		if (params.getCadena()!=null){
+		if (params.getCadena() != null) {
 			query.append(" AND P.CCL_ID_CADENA IN ( ");
-			if (params.getCadena().get(0)!=null){
+			if (params.getCadena().get(0) != null) {
 				query.append(" :cadena0 ");
 				param.addValue("cadena0", params.getCadena().get(0));
-			}	
-			for (Integer e = 1;e<params.getCadena().size();e++){
-				query.append(", :cadena"+e.toString()+" ");
-				param.addValue("cadena"+e.toString(), params.getCadena().get(e));
+			}
+			for (Integer e = 1; e < params.getCadena().size(); e++) {
+				query.append(", :cadena" + e.toString() + " ");
+				param.addValue("cadena" + e.toString(), params.getCadena().get(e));
 			}
 			query.append(")");
 		}
@@ -166,15 +162,15 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 		if (dto.getOrigen() != null) {
 			query.append(" AND OP.CCL_ID_ORIGEN IN ( :origen)");
 		}
-		if (dto.getCadena()!=null){
+		if (dto.getCadena() != null) {
 			query.append(" AND P.CCL_ID_CADENA IN ( ");
-			if (dto.getCadena().get(0)!=null){
+			if (dto.getCadena().get(0) != null) {
 				query.append(" :cadena0 ");
 				param.addValue("cadena0", dto.getCadena().get(0));
-			}	
-			for (Integer e = 1;e<dto.getCadena().size();e++){
-				query.append(", :cadena"+e.toString()+" ");
-				param.addValue("cadena"+e.toString(), dto.getCadena().get(e));
+			}
+			for (Integer e = 1; e < dto.getCadena().size(); e++) {
+				query.append(", :cadena" + e.toString() + " ");
+				param.addValue("cadena" + e.toString(), dto.getCadena().get(e));
 			}
 			query.append(")");
 		}
@@ -245,15 +241,15 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 			param.addValue("tipo", dto.getTipo());
 		}
 
-		if (dto.getCadena()!=null){
+		if (dto.getCadena() != null) {
 			query.append(" AND P.CCL_ID_CADENA IN ( ");
-			if (dto.getCadena().get(0)!=null){
+			if (dto.getCadena().get(0) != null) {
 				query.append(" :cadena0 ");
 				param.addValue("cadena0", dto.getCadena().get(0));
-			}	
-			for (Integer e = 1;e<dto.getCadena().size();e++){
-				query.append(", :cadena"+e.toString()+" ");
-				param.addValue("cadena"+e.toString(), dto.getCadena().get(e));
+			}
+			for (Integer e = 1; e < dto.getCadena().size(); e++) {
+				query.append(", :cadena" + e.toString() + " ");
+				param.addValue("cadena" + e.toString(), dto.getCadena().get(e));
 			}
 			query.append(")");
 		}
@@ -296,21 +292,29 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 	@Override
 	public List<TiposHorasMock> findTiposHoras(TiposHorasRequestDto dto) {
 		List<TiposHorasMock> presencias;
-		String consulta;
 
+		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+
+		StringBuilder query = new StringBuilder();
+
+		query.append("SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,TIPO ,OP.CCL_ID_ORIGEN FROM");
 		if (dto.getOrigen() == 11) {
-			consulta = consultaTiposHorasEspana + whereTiposHorasOrigen + consultaTiposHoras2;
-			Object[] Params = { dto.getOrigen() };
-			presencias = (List<TiposHorasMock>) jdbcTemplate.query(consulta, Params, new TiposHorasMockRowMapper());
-			Log.info(consulta);
-			return presencias;
+			query.append(
+					" [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ");
 		} else {
-			consulta = consultaTiposHorasGHRS + whereTiposHorasOrigen + consultaTiposHoras2;
-			Object[] Params = { dto.getOrigen() };
-			presencias = (List<TiposHorasMock>) jdbcTemplate.query(consulta, Params, new TiposHorasMockRowMapper());
-			Log.info(consulta);
-			return presencias;
+			query.append(
+					" [dbo].[M4CCL_PRESENCIAS_TA ] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ");
 		}
+		query.append(" AND OP.CCL_ID_ORIGEN= :origen ");
+		param.addValue("origen", dto.getOrigen());
+		if (dto.getTipoHora() != null) {
+			query.append(" AND P.TIPO= :tipo");
+			param.addValue("tipo", dto.getTipoHora());
+		}
+		query.append(" GROUP BY OP.CCL_ID_ORIGEN, TIPO ");
+
+		return namedParameterJdbcTemplate.query(query.toString(), param, new TiposHorasMockRowMapper());
 	}
 
 }

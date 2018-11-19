@@ -33,7 +33,8 @@ public class PresenciasTotalTiendaRequestDto implements Serializable {
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = " 4 ")
 	@NotNull
 	private List<Integer> cadena;
-
+	
+	@NotNull
 	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;
 

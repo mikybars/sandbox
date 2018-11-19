@@ -15,7 +15,7 @@ import com.esotericsoftware.minlog.Log;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasDetalleResponseListDto;
 
 
-@Ignore
+@Ignore 
 public class PtrPresenciasMockTest {
 
 	@Autowired
