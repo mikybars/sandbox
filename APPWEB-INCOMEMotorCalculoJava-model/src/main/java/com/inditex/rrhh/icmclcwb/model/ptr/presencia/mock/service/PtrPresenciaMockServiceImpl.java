@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.ptr.presenciasmock.service;
+package com.inditex.rrhh.icmclcwb.model.ptr.presencia.mock.service;
 
 import java.util.List;
 
@@ -16,14 +16,14 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetall
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.TiposHorasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasServiceMock;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciaMockMapperComisionable;
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciasMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.repository.PtrPresenciasMockRepository;
 
 @Service
 @Validated
-public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
+public class PtrPresenciaMockServiceImpl implements PtrPresenciaMockService {
 
     @Autowired
     private PtrPresenciasMockRepository presenciasRepository;
