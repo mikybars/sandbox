@@ -26,8 +26,7 @@ public class AsyncUtils {
         cfList.add(cf);
         cf.exceptionally(e -> {
             cfList.stream().forEach(item -> {
-                if (item.isDone()) {
-                } else {
+                if (!item.isDone()) {
                     item.cancel(true);
                 }
             });
