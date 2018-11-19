@@ -27,11 +27,11 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionEmpleadoPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
@@ -74,10 +74,10 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
     private PtrVentaAsyncService ptrVentaAsyncService;
 
     @Autowired
-    private TrabajoEmpleadoEstadoService trabajoEmpleadoEstadoService;
+    private TrabajoEmpleadoEstadoAsyncService trabajoEmpleadoEstadoAsyncService;
 
     @Autowired
-    private TrabajoTiendaSeccionVentaService trabajoTiendaSeccionVentaService;
+    private TrabajoTiendaSeccionVentaAsyncService trabajoTiendaSeccionVentaAsyncService;
 
     @Autowired
     private TrabajoTiendaSeccionPresenciaService trabajoTiendaSeccionPresenciaService;
@@ -173,7 +173,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                             // termine, lo sacamos de la lista de futuros y persistimos.
                             AsyncUtils.checkAsyncAvaliable(cfTrabajoEmpleadoSaveList);
                         }
-                        cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoService.save(trabajoEmpleadoDto));
+                        cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoAsyncService.save(trabajoEmpleadoDto));
                     } while (request.getPage().hasNext());
                 }
             }
@@ -246,7 +246,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                 }
 
                 cfTrabajoTiendaSeccionVentaList
-                        .add(trabajoTiendaSeccionVentaService.save(response.getVentaTotalizado(), trabajo));
+                        .add(trabajoTiendaSeccionVentaAsyncService.save(response.getVentaTotalizado(), trabajo));
             }
 
             pageable = tiendasPage.nextPageable();

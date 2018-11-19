@@ -35,19 +35,16 @@ public class TrabajoTiendaSeccionVentaServiceImpl implements TrabajoTiendaSeccio
     }
 
     @Override
-    public CompletableFuture<Void> save(GetVentaTotalizadoResponseItemDTO dto, TrabajoDto trabajoDto) {
-        mapper.trabajoTiendaSeccionVentaToTrabajoTiendaSeccionVentaDto(trabajoTiendaSeccionVentaRepository
+    public TrabajoTiendaSeccionVentaDto save(GetVentaTotalizadoResponseItemDTO dto, TrabajoDto trabajoDto) {
+        return mapper.trabajoTiendaSeccionVentaToTrabajoTiendaSeccionVentaDto(trabajoTiendaSeccionVentaRepository
                 .save(mapper.getVentaTotalizadoResponseItemDTOToTrabajoTiendaSeccionVenta(dto, trabajoDto)));
-        return CompletableFuture.completedFuture(null);
     }
 
-    @Async
-    @Override
     @Transactional(timeout = 60) // TODO: Revisar timeouts en transacciones
-    public CompletableFuture<Void> save(List<GetVentaTotalizadoResponseItemDTO> dto, TrabajoDto trabajoDto) {
-        mapper.trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(trabajoTiendaSeccionVentaRepository
+    @Override
+    public List<TrabajoTiendaSeccionVentaDto> save(List<GetVentaTotalizadoResponseItemDTO> dto, TrabajoDto trabajoDto) {
+        return mapper.trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(trabajoTiendaSeccionVentaRepository
                 .save(mapper.getVentaTotalizadoReponseItemsDtoToTrabajoTiendaSeccionVentas(dto, trabajoDto)));
-        return CompletableFuture.completedFuture(null);
     }
 
 }
