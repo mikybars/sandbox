@@ -193,8 +193,8 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         if (CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
             throw new UnsupportedOperationException();
         } else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-            tienda.addAll(
-                    pocTiendaMapper.pocTiendaDtoToTrabajoTiendaEstadoDto(meta4SessionAsyncService.getTiendas(trabajo).get()));
+            tienda.addAll(pocTiendaMapper
+                    .pocTiendaDtoToTrabajoTiendaEstadoDto(meta4SessionAsyncService.getTiendas(trabajo).get()));
             trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
                     .mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(tienda, trabajo));
         } else if (StringUtils.isNotBlank(trabajo.getIdPaisOrigen())
@@ -235,7 +235,8 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                 paramGetVentaTotalizado.setTienda(tiendas);
                 paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
                 paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
-                GetVentaTotalizadoResponseDTO response = ptrVentaAsyncService.getVentaTotalizado(paramGetVentaTotalizado).get();
+                GetVentaTotalizadoResponseDTO response = ptrVentaAsyncService
+                        .getVentaTotalizado(paramGetVentaTotalizado).get();
                 if (cfTrabajoTiendaSeccionVentaList.size() >= ventaTotalizadoDto.getFilter().getMaxPersistenceSize()) {
                     AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaSeccionVentaList);
                 }
@@ -338,7 +339,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
             // Se recuperan las tiendas por id de trabajo y estado de forma paginada.
             tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
-            if (tiendasPage != null &&  CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
+            if (tiendasPage != null && CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
                 // CompletableFuture<List<PresenciasTotalTiendaSeccionResponseDto>> cfResponse =
                 // new CompletableFuture<>();
                 List<TiendaSeccionDto> tiendas = tiendasPage.getContent().stream()
