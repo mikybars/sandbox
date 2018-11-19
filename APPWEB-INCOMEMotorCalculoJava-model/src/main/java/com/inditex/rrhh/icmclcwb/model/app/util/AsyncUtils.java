@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.util;
+package com.inditex.rrhh.icmclcwb.model.app.util;
 
 import java.util.List;
 import java.util.Map;
@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 @Component
@@ -41,8 +42,7 @@ public class AsyncUtils {
         boolean result = true;
         for (CompletableFuture<?> item : cfList) {
             if (item.isCompletedExceptionally()) {
-                result = false;
-                break;
+                throw new ApplicationException("AsyncUtils.isOk() == false");
             }
         }
         return result;
