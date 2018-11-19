@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 @Component
 public class AsyncUtils {
@@ -25,7 +24,7 @@ public class AsyncUtils {
         cfList.removeAll(cfDone);
     }
 
-    public static void exceptionally(final TrabajoDto trabajo, final CompletableFuture<?> cf,
+    public static void exceptionally(final CompletableFuture<?> cf,
             final List<CompletableFuture<?>> cfList) {
         cfList.add(cf);
         cf.exceptionally(e -> {
@@ -38,7 +37,7 @@ public class AsyncUtils {
         });
     }
 
-    public static boolean isOk(final TrabajoDto trabajo, final List<CompletableFuture<?>> cfList) {
+    public static boolean isOk(final List<CompletableFuture<?>> cfList) {
         boolean result = true;
         for (CompletableFuture<?> item : cfList) {
             if (item.isCompletedExceptionally()) {

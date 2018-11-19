@@ -48,51 +48,51 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
             List<CompletableFuture<?>> cf = new ArrayList<>();
 
             CompletableFuture<Void> cfTiendasParametro = trabajoDatosAsyncService.tiendasParametro(trabajo);
-            AsyncUtils.exceptionally(trabajo, cfTiendasParametro, cf);
+            AsyncUtils.exceptionally(cfTiendasParametro, cf);
 
             CompletableFuture<Void> cfTiendasHistorico = trabajoDatosAsyncService.tiendasHistorico(trabajo);
-            AsyncUtils.exceptionally(trabajo, cfTiendasHistorico, cf);
+            AsyncUtils.exceptionally(cfTiendasHistorico, cf);
 
             CompletableFuture<Void> cfTiposHoras = trabajoDatosAsyncService.tiposHoras(trabajo);
-            AsyncUtils.exceptionally(trabajo, cfTiposHoras, cf);
+            AsyncUtils.exceptionally(cfTiposHoras, cf);
 
             CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfTiposHoras);
-            if (AsyncUtils.isOk(trabajo, cf)) {
+            if (AsyncUtils.isOk(cf)) {
 
                 trabajo.setCadenasEmpresa(
                         trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
                                 trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
 
                 CompletableFuture<Void> cfEmpleados = trabajoDatosAsyncService.empleadosTienda(trabajo);
-                AsyncUtils.exceptionally(trabajo, cfEmpleados, cf);
+                AsyncUtils.exceptionally(cfEmpleados, cf);
 
                 CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosAsyncService.ventaTotalizadaTienda(
                         trabajo,
                         Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
                                 AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
                                 AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
-                AsyncUtils.exceptionally(trabajo, cfVentaTotalizadaTienda, cf);
+                AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
 
                 CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoDatosAsyncService
                         .presenciaTotalizadaTienda(trabajo,
                                 Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
                                         AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
                                         AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
-                AsyncUtils.exceptionally(trabajo, cfPresenciaTotalizadaTienda, cf);
+                AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
 
                 CompletableFuture.allOf(cfEmpleados);
-                if (AsyncUtils.isOk(trabajo, cf)) {
+                if (AsyncUtils.isOk(cf)) {
                     CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoDatosAsyncService
                             .presenciaDetalleEmpleado(trabajo);
-                    AsyncUtils.exceptionally(trabajo, cfPresenciaDetalleEmpleado, cf);
+                    AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
 
                     CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoDatosAsyncService
                             .ventaDetalleEmpleado(trabajo);
-                    AsyncUtils.exceptionally(trabajo, cfVentaDetalleEmpleado, cf);
+                    AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
 
                     CompletableFuture<Void> cfCondicionesEmpleados = trabajoDatosAsyncService
                             .condicionesEmpleados(trabajo);
-                    AsyncUtils.exceptionally(trabajo, cfCondicionesEmpleados, cf);
+                    AsyncUtils.exceptionally(cfCondicionesEmpleados, cf);
 
                     if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
                             || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
@@ -102,16 +102,16 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                         CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosAsyncService
                                 .ventaTotalizadaTienda(trabajo,
                                         Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
-                        AsyncUtils.exceptionally(trabajo, cfVentaTotalizadaTiendaPresencia, cf);
+                        AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
 
                         CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = trabajoDatosAsyncService
                                 .presenciaTotalizadaTienda(trabajo,
                                         Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
-                        AsyncUtils.exceptionally(trabajo, cfPresenciaTotalizadaTiendaPresencia, cf);
+                        AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
                     }
 
                     CompletableFuture.allOf(cf.toArray(new CompletableFuture[cf.size()]));
-                    if (AsyncUtils.isOk(trabajo, cf)) {
+                    if (AsyncUtils.isOk(cf)) {
                         trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
                     }
                 }

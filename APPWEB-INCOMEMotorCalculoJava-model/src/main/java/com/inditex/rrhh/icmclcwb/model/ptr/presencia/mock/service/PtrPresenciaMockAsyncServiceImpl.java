@@ -6,7 +6,6 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
@@ -22,7 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMock
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
 
 @Service
-@Validated
 public class PtrPresenciaMockAsyncServiceImpl implements PtrPresenciaMockAsyncService {
 
     @Autowired
