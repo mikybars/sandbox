@@ -45,9 +45,9 @@ public class TrabajoTiendaSeccionEmpleadoPresencia {
 	@Column(name = "ID_EMPLEADO", nullable = false)
 	private String idEmpleado;
 	
-	@NotNull
+//	@NotNull
 	@OneToOne
-	@JoinColumn(name = "ID_TRABAJO_TIPO_HORA", nullable = false)
+	@JoinColumn(name = "ID_TRABAJO_TIPO_HORA", nullable = true)
 	private /* BigInteger */ TrabajoTipoHora tipoHora;
 	
 	@NotNull

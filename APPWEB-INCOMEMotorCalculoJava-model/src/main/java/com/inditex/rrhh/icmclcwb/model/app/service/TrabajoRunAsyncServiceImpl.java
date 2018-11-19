@@ -372,6 +372,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
     }
 
     @AuditoriaTrabajo
+    @Async
     @Override
     public CompletableFuture<Void> presenciaTotalizadaTienda(@Valid TrabajoDto trabajo,
             @NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
@@ -451,7 +452,7 @@ public class TrabajoRunAsyncServiceImpl implements TrabajoRunAsyncService {
 					AsyncUtils.checkAsyncAvaliable(cfTrabajoDetallePresenciaList);
 				}
 				
-				cfTrabajoDetallePresenciaList.add(trabajoTiendaSeccionEmpleadoPresenciaService.save(response));
+				cfTrabajoDetallePresenciaList.add(trabajoTiendaSeccionEmpleadoPresenciaService.save(response, trabajo));
 			}
 			
 			pageable = empleadosPage.nextPageable();
