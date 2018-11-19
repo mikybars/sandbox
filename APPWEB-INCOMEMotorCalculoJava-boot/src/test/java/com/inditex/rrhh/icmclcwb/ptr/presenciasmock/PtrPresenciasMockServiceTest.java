@@ -1,9 +1,8 @@
-package com.inditex.rrhh.icmclcwb;
+package com.inditex.rrhh.icmclcwb.ptr.presenciasmock;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,11 +21,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiendaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasDetalleComisionableResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasDetalleResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaSeccionResponseListDto;
@@ -36,9 +37,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasR
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-@Ignore
-public class PresenciasMockServiceTest {
 
+public class PtrPresenciasMockServiceTest {
 	@Autowired
 	@Qualifier("ptrClientPresenciaMock")
 	private RestClient restClient;
@@ -46,21 +46,23 @@ public class PresenciasMockServiceTest {
 	@Test
 	public void presenciasDetalle() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 1800);
-		cal.set(Calendar.MONTH, Calendar.AUGUST);
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		Date fechaDesde = cal.getTime();
 
-		cal.set(Calendar.YEAR, 2018);
-		cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, Calendar.DECEMBER);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
 		Date fechaHasta = cal.getTime();
 
 		PresenciasDetalleRequestDto req = new PresenciasDetalleRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
-		list.add(160351);
-		list.add(162891);
-		req.setCadena(Arrays.asList(1));
+		list.add(1645);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(list2);
 		req.setTipo(1);
 		req.setSeccion(1);
 		req.setTienda(160);
@@ -71,38 +73,36 @@ public class PresenciasMockServiceTest {
 		ResponseEntity<PresenciasDetalleResponseListDto> ret = this.restClient.postForEntity(
 				"/presenciasServiceMock/presenciasDetalle/", req, PresenciasDetalleResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-		assertEquals(2235, ret.getBody().getList().size());
-		assertEquals(390, ret.getBody().getList().get(0).getMinutos().intValue());
+		assertEquals(7, ret.getBody().getList().size());
+		assertEquals(240, ret.getBody().getList().get(0).getMinutos().intValue());
 		assertEquals(1, ret.getBody().getList().get(0).getCadena().intValue());
-		assertEquals(54, ret.getBody().getList().get(0).getTienda().intValue());
+		assertEquals(160, ret.getBody().getList().get(0).getTienda().intValue());
 		assertEquals(1, ret.getBody().getList().get(0).getSeccion().intValue());
 		assertEquals(1, ret.getBody().getList().get(0).getTipo().intValue());
-		assertEquals("Sat Nov 24 01:00:00 CET 2007", ret.getBody().getList().get(0).getFecha().toString());
 		assertEquals(Boolean.FALSE, ret.getBody().getList().get(0).getModificado_income());
 
 	}
 
-	// MISMO TEST QUE PRESENCIAS DETALLE. POR EL MOMENTO, PRESENCIAS DETALLE
-	// COMISIONABLE APUNTA
-	// AL MISMO SERVICIO QUE PRESENCIAS DETALLE
 	@Test
 	public void presenciasDetalleComisionable() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 1800);
-		cal.set(Calendar.MONTH, Calendar.AUGUST);
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		Date fechaDesde = cal.getTime();
 
-		cal.set(Calendar.YEAR, 2018);
-		cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, Calendar.DECEMBER);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
 		Date fechaHasta = cal.getTime();
 
-		PresenciasDetalleRequestDto req = new PresenciasDetalleRequestDto();
+		PresenciasDetalleComisionableRequestDto req = new PresenciasDetalleComisionableRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
-		list.add(160351);
-		list.add(162891);
-		req.setCadena(Arrays.asList(1));
+		list.add(1645);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(list2);
 		req.setTipo(1);
 		req.setSeccion(1);
 		req.setTienda(160);
@@ -110,16 +110,16 @@ public class PresenciasMockServiceTest {
 		req.setFechaHasta(fechaHasta);
 		req.setOrigen(11);
 		req.setPersonas(list);
-		ResponseEntity<PresenciasDetalleResponseListDto> ret = this.restClient.postForEntity(
-				"/presenciasServiceMock/presenciasDetalleComisionable/", req, PresenciasDetalleResponseListDto.class);
+		ResponseEntity<PresenciasDetalleComisionableResponseListDto> ret = this.restClient.postForEntity(
+				"/presenciasServiceMock/presenciasDetalleComisionable/", req,
+				PresenciasDetalleComisionableResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-		assertEquals(2235, ret.getBody().getList().size());
-		assertEquals(390, ret.getBody().getList().get(0).getMinutos().intValue());
+		assertEquals(7, ret.getBody().getList().size());
+		assertEquals(240, ret.getBody().getList().get(0).getMinutos().intValue());
 		assertEquals(1, ret.getBody().getList().get(0).getCadena().intValue());
-		assertEquals(54, ret.getBody().getList().get(0).getTienda().intValue());
+		assertEquals(160, ret.getBody().getList().get(0).getTienda().intValue());
 		assertEquals(1, ret.getBody().getList().get(0).getSeccion().intValue());
 		assertEquals(1, ret.getBody().getList().get(0).getTipo().intValue());
-		assertEquals("Sat Nov 24 01:00:00 CET 2007", ret.getBody().getList().get(0).getFecha().toString());
 		assertEquals(Boolean.FALSE, ret.getBody().getList().get(0).getModificado_income());
 	}
 
@@ -128,32 +128,34 @@ public class PresenciasMockServiceTest {
 		PresenciasTotalTiendaRequestDto req = new PresenciasTotalTiendaRequestDto();
 
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 2016);
-		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		cal.set(Calendar.YEAR, 2018);
+		cal.set(Calendar.MONTH, Calendar.MAY);
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		Date fechaDesde = cal.getTime();
 
-		cal.set(Calendar.YEAR, 2016);
-		cal.set(Calendar.MONTH, Calendar.MARCH);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.YEAR, 2018);
+		cal.set(Calendar.MONTH, Calendar.OCTOBER);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
 		Date fechaHasta = cal.getTime();
 
 		List<Integer> list = new ArrayList<Integer>();
-		list.add(150);
-		list.add(160);
+		list.add(8102);
 		req.setTiendas(list);
 		req.setOrigen(11);
 		req.setFechaDesde(fechaDesde);
 		req.setFechaHasta(fechaHasta);
 		req.setTipo(1);
-		req.setCadena(1);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(4);
+		list2.add(250);
+		req.setCadena(list2);
 		ResponseEntity<PresenciasTotalTiendaResponseListDto> ret = this.restClient.postForEntity(
 				"/presenciasServiceMock/presenciasTotalTienda/", req, PresenciasTotalTiendaResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-		assertEquals(10620, ret.getBody().getList().get(0).getMinutos().intValue());
-		assertEquals(31, ret.getBody().getList().size());
-		assertEquals("Sat Jan 02 01:00:00 CET 2016", ret.getBody().getList().get(0).getFecha().toString());
-		assertEquals(150, ret.getBody().getList().get(0).getTienda().intValue());
+		assertEquals(720, ret.getBody().getList().get(0).getMinutos().intValue());
+		assertEquals(3, ret.getBody().getList().size());
+		assertEquals("Sat Jun 30 00:00:00 UTC 2018", ret.getBody().getList().get(0).getFecha().toString());
+		assertEquals(8102, ret.getBody().getList().get(0).getTienda().intValue());
 	}
 
 	@Test
@@ -161,10 +163,6 @@ public class PresenciasMockServiceTest {
 		PresenciasTotalTiendaSeccionRequestDto req = new PresenciasTotalTiendaSeccionRequestDto();
 		// Declaro atributos para el campo TiendaSecciones
 		List<TiendaSeccionDto> tiendasecciones = new ArrayList<TiendaSeccionDto>();
-		TiendaSeccionDto ts1 = new TiendaSeccionDto();
-		ts1.setSeccion(1);
-		ts1.setTienda(18);
-		tiendasecciones.add(ts1);
 		TiendaSeccionDto ts2 = new TiendaSeccionDto();
 		ts2.setSeccion(2);
 		ts2.setTienda(52);
@@ -179,8 +177,8 @@ public class PresenciasMockServiceTest {
 		Date fechaDesde = cal.getTime();
 
 		cal.set(Calendar.YEAR, 2016);
-		cal.set(Calendar.MONTH, Calendar.MARCH);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.MONTH, Calendar.FEBRUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
 		Date fechaHasta = cal.getTime();
 
 		req.setTiendaSeccion(tiendasecciones);
@@ -188,16 +186,19 @@ public class PresenciasMockServiceTest {
 		req.setFechaDesde(fechaDesde);
 		req.setFechaHasta(fechaHasta);
 		req.setTipo(1);
-		req.setCadena(Arrays.asList(1));
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(list2);
 		ResponseEntity<PresenciasTotalTiendaSeccionResponseListDto> ret = this.restClient.postForEntity(
 				"/presenciasServiceMock/presenciasTotalTiendaSeccion/", req,
 				PresenciasTotalTiendaSeccionResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-		assertEquals(44, ret.getBody().getList().size());
-		assertEquals(5580, ret.getBody().getList().get(0).getMinutos().intValue());
-		assertEquals(18, ret.getBody().getList().get(0).getTienda().intValue());
-		assertEquals(1, ret.getBody().getList().get(0).getSeccion().intValue());
-		assertEquals("Sat Jan 02 01:00:00 CET 2016", ret.getBody().getList().get(0).getFecha().toString());
+		assertEquals(30, ret.getBody().getList().size());
+		assertEquals(3270, ret.getBody().getList().get(0).getMinutos().intValue());
+		assertEquals(52, ret.getBody().getList().get(0).getTienda().intValue());
+		assertEquals(2, ret.getBody().getList().get(0).getSeccion().intValue());
+		assertEquals("Sat Jan 02 00:00:00 UTC 2016", ret.getBody().getList().get(0).getFecha().toString());
 
 	}
 
@@ -209,8 +210,8 @@ public class PresenciasMockServiceTest {
 		ResponseEntity<TiposHorasResponseListDto> ret2 = this.restClient
 				.postForEntity("/presenciasServiceMock/tiposHoras/", req2, TiposHorasResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
-		assertEquals(72, ret2.getBody().getList().size());
-		assertEquals(102, ret2.getBody().getList().get(0).getTipoHora().intValue());
+		assertEquals(74, ret2.getBody().getList().size());
+		assertEquals(925, ret2.getBody().getList().get(0).getTipoHora().intValue());
 		assertEquals(Boolean.FALSE, ret2.getBody().getList().get(0).getExcluidoCalculo());
 		assertEquals(Boolean.TRUE, ret2.getBody().getList().get(0).getExcluidoDenom());
 	}

@@ -2,6 +2,10 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +20,6 @@ import lombok.ToString;
 @ToString
 public class PresenciasDetalleComisionableRequestDto implements Serializable {
 
-	private static final long serialVersionUID = -3409228035607673803L;
-
 	@ApiModelProperty(value = "Id tienda", required = false, example = "160")
 	private Integer tienda;
 
@@ -25,7 +27,7 @@ public class PresenciasDetalleComisionableRequestDto implements Serializable {
 	private Integer seccion;
 
 	@ApiModelProperty(value = "Id empleado", required = false, allowableValues = "1645")
-	private Integer persona;
+	private List<Integer> personas;
 
 	@ApiModelProperty(value = "Fecha inicio rango de busqueda", required = false, example = "2017-01-01")
 	private Date fechaDesde;
@@ -36,7 +38,11 @@ public class PresenciasDetalleComisionableRequestDto implements Serializable {
 	@ApiModelProperty(value = "Id tipo", required = false, example = "1")
 	private Integer tipo;
 
-	@ApiModelProperty(value = "Id cadena", required = true, example = "1")
-	private Integer cadena;
+	@NotNull
+	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
+	private List<Integer> cadena;
+
+	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
+	private Integer origen;
 
 }

@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.secondary.mapper;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleComisionableResponseDto;
@@ -20,32 +21,23 @@ import java.util.List;
 
 @Mapper
 public interface PresenciasMapper {
-
-	// PRESENCIAS DETALLE COMISIONABLE
-	PresenciasDetalleComisionableResponseDto asPresenciaDetalleComisionableDTO(PresenciaDetalleComisionableMock src);
-
-	PresenciaDetalleComisionableMock asPresenciaDetalleComisionable(PresenciasDetalleComisionableRequestDto src);
-
-	List<PresenciasDetalleComisionableResponseDto> asPresenciaDetalleComisionableDTOs(
-			List<PresenciaDetalleComisionableMock> src);
-
 	// PRESENCIAS DETALLE
 	PresenciasDetalleResponseDto asPresenciaDetalleDTO(PresenciaDetalleMock src);
 
 	List<PresenciasDetalleResponseDto> asPresenciaDetalleDTOs(List<PresenciaDetalleMock> src);
+	
+	// PRESENCIAS DETALLE COMISIONABLE
+	PresenciasDetalleComisionableResponseDto asPresenciaDetalleComisionableDTO(PresenciaDetalleMock src);
+
+	List<PresenciasDetalleComisionableResponseDto> asPresenciaDetalleComisionableDTOs(List<PresenciaDetalleMock> src);
 
 	// PRESENCIAS TIENDA
 	PresenciasTotalTiendaResponseDto asPresenciasTotalTiendaDTO(PresenciaTotalTiendaMock src);
-
-	// PresenciaTotalTiendaMock
-	// asPresenciasTotalTienda(PresenciasTotalTiendaRequestDTO src);
 
 	List<PresenciasTotalTiendaResponseDto> asPresenciasTotalTiendaDTOs(List<PresenciaTotalTiendaMock> src);
 
 	// PRESENCIAS TIENDA SECCION
 	PresenciasTotalTiendaSeccionResponseDto asPresenciasTotalTiendaSeccionDTO(PresenciaTotalTiendaSeccionMock src);
-
-	PresenciaTotalTiendaSeccionMock asPresenciasTotalTiendaSeccion(PresenciasTotalTiendaSeccionRequestDto src);
 
 	List<PresenciasTotalTiendaSeccionResponseDto> asPresenciasTotalTiendaSeccionDTOs(
 			List<PresenciaTotalTiendaSeccionMock> src);
@@ -53,8 +45,7 @@ public interface PresenciasMapper {
 	// TIPOS HORAS
 	TiposHorasResponseDto asTiposHorasDTO(TiposHorasMock src);
 
-	TiposHorasMock asTiposHoras(TiposHorasRequestDto src);
-
 	List<TiposHorasResponseDto> asTiposHorasDTOs(List<TiposHorasMock> src);
 
+	
 }

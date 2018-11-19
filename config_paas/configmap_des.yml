@@ -19,6 +19,11 @@ amiga:
           base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
           auth-method: BASIC
           username: rcastro
+        ptrClientPresenciaMock:
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/swagger-ui.html
+          auth-method: BASIC
+          username: username300
+          password: username300p
   service:
     jms:
       trabajo-queue:

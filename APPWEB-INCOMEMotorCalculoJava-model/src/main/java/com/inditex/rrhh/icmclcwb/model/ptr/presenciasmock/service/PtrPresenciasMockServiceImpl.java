@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalT
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.TiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasServiceMock;
+import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciaMockMapperComisionable;
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciasMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.repository.PtrPresenciasMockRepository;
 
@@ -35,11 +36,12 @@ public class PtrPresenciasMockServiceImpl implements PtrPresenciasServiceMock {
         return this.presenciasMapper.asPresenciaDetalleDTOs(this.presenciasRepository.findPresencias(presencias));
     }
 
-    @Override
-    public List<PresenciasDetalleComisionableResponseDto> presenciasDetalleComisionable(
-            PresenciasDetalleComisionableRequestDto presencias) {
-        return null;
-    }
+	@Override
+	public List<PresenciasDetalleComisionableResponseDto> presenciasDetalleComisionable(
+			PresenciasDetalleComisionableRequestDto presencias) {
+		return this.presenciasMapper.asPresenciaDetalleComisionableDTOs(this.presenciasRepository
+				.findPresencias(PresenciaMockMapperComisionable.asPresenciaComisionableToDetalle(presencias)));
+	}
 
     @Override
     public List<PresenciasTotalTiendaResponseDto> presenciasTotalTienda(PresenciasTotalTiendaRequestDto presencias) {

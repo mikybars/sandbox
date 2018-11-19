@@ -41,6 +41,12 @@ amiga:
           auth-method: BASIC
           username: rcastro
           password: c0ntras3nha
+        ptrClientPresenciaMock:
+          base-url: http://localhost:8008/
+          auth-method: BASIC
+          username: username100
+          password: username100p
+          
   service:
     jms:
       trabajo-queue:
