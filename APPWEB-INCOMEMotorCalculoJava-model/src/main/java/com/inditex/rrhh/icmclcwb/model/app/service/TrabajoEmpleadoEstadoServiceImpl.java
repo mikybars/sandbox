@@ -1,12 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -33,14 +30,12 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
                         .trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoDto)));
     }
 
-    @Async
-    @Override
     @Transactional
-    public CompletableFuture<Void> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
-        trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
+    @Override
+    public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
+        return trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
                 trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
                         .trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
-        return CompletableFuture.completedFuture(null);
     }
 
 }

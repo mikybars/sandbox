@@ -16,5 +16,5 @@ public class TrabajoRunDto implements Serializable {
 	private static final long serialVersionUID = 989087488383271807L;
 	
 	@ApiModelProperty(value = "Ids de las cadenas a ejecutar", required = false)
-	private List<String> cadenas;
+	private List<String> cadenasEmpresa;
 }

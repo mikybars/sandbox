@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasD
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PresenciasTotalTiendaSeccionResponseListDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.TiposHorasResponseListDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasServiceMock;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +32,7 @@ import io.swagger.annotations.Authorization;
 public class PTRPresenciasControllerMock {
 
 	@Autowired
-	private PtrPresenciasServiceMock ptrPresenciasServiceMock;
+	private PtrPresenciaMockService ptrPresenciasServiceMock;
 
 	@ApiOperation(value = "Busca presencias detalladas")
 	@PostMapping(path = "/presenciasDetalle")

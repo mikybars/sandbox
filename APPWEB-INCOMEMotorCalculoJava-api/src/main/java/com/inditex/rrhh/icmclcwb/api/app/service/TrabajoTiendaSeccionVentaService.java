@@ -1,8 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.service;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -13,8 +11,8 @@ public interface TrabajoTiendaSeccionVentaService {
 
 	TrabajoTiendaSeccionVentaDto save(@Valid final TrabajoTiendaSeccionVentaDto dto);
 
-	CompletableFuture<Void> save(List<GetVentaTotalizadoResponseItemDTO> dto, TrabajoDto trabajoDto);
-
-	CompletableFuture<Void> save(GetVentaTotalizadoResponseItemDTO dto, TrabajoDto trabajoDto);
+	TrabajoTiendaSeccionVentaDto save(GetVentaTotalizadoResponseItemDTO dto, TrabajoDto trabajoDto);
+	
+	List<TrabajoTiendaSeccionVentaDto> save(List<GetVentaTotalizadoResponseItemDTO> dto, TrabajoDto trabajoDto);
 
 }

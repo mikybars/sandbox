@@ -6,14 +6,12 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -54,12 +52,10 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
     @Autowired
     private PocTiendaMapper pocTiendaMapper;
 
-    @Async
     @Override
-    public CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(EmpleadosTiendaRequestDto request)
+    public List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(final EmpleadosTiendaRequestDto request)
             throws Exception {
         List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
-
         boolean hasNext = false;
         do {
             hasNext = false;
@@ -74,18 +70,14 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
                 }
             }
         } while (hasNext && result.size() < getEmpleadosTiendaDto.getFilter().getMaxPageSize());
-
-        return CompletableFuture.completedFuture(result);
+        return result;
     }
 
-    @Async
     @Override
-    public CompletableFuture<List<EmpleadosEstructuraResultItemDto>> getEmpleadosEstructura(
-            EmpleadosEstructuraRequestDto request) throws Exception {
+    public List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(
+            final EmpleadosEstructuraRequestDto request) throws Exception {
         List<EmpleadosEstructuraResultItemDto> result = new ArrayList<>();
-
         boolean hasNext = false;
-
         do {
             hasNext = false;
             EmpleadosEstructuraResponseDto response = meta4IcmWsIncomeService.getEmpleadosEstructura(request);
@@ -99,15 +91,13 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
                 }
             }
         } while (hasNext);
-
-        return CompletableFuture.completedFuture(result);
+        return result;
     }
 
     @Override
-    public List<ValoresCondicionesResultItemDto> getValoresCondiciones(ValoresCondicionesRequestDto request)
+    public List<ValoresCondicionesResultItemDto> getValoresCondiciones(final ValoresCondicionesRequestDto request)
             throws Exception {
         List<ValoresCondicionesResultItemDto> result = new ArrayList<>();
-
         boolean hasNext = false;
         do {
             hasNext = false;
@@ -122,7 +112,6 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
                 }
             }
         } while (hasNext);
-
         return result;
     }
 
@@ -147,7 +136,7 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
     }
 
     @Override
-    public List<PocTiendaDto> getTiendas(TrabajoDto trabajo) {
+    public List<PocTiendaDto> getTiendas(final TrabajoDto trabajo) {
         List<String> tiendas = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
             trabajo.getTiendas().forEach(item -> {

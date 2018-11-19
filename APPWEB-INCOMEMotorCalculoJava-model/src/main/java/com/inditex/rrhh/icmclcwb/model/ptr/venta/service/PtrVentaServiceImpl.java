@@ -1,14 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.ptr.venta.service;
 
-import java.util.concurrent.CompletableFuture;
-
 import javax.validation.Valid;
 
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -37,9 +34,8 @@ public class PtrVentaServiceImpl implements PtrVentaService {
     @Qualifier("ventaIndividualDetalleDto")
     private PtrPropertiesDto ventaIndividualDetalleDto;
 
-    @Async
     @Override
-    public CompletableFuture<GetVentaTotalizadoResponseDTO> getVentaTotalizado(
+    public GetVentaTotalizadoResponseDTO getVentaTotalizado(
             @Valid final GetVentaTotalizadoRequestDTO getVentaTotalizadoRequest) throws Exception {
         GetVentaTotalizadoResponseDTO result = null;
         ResponseEntity<GetVentaTotalizadoResponseDTO> response = ptrClientVenta.postForEntity(
@@ -49,14 +45,13 @@ public class PtrVentaServiceImpl implements PtrVentaService {
                 result = response.getBody();
             }
         } else {
-            throw new ApplicationException("La llamada al PTR de Venta a fallado :: getVentaTotalizado()");
+            throw new ApplicationException("La llamada al PTR de Venta ha fallado :: getVentaTotalizado()");
         }
-        return CompletableFuture.completedFuture(result);
+        return result;
     }
 
-    @Async
     @Override
-    public CompletableFuture<GetVentaIndividualDetalleResponseDTO> getVentaIndividualDetalle(
+    public GetVentaIndividualDetalleResponseDTO getVentaIndividualDetalle(
             @Valid final GetVentaIndividualDetalleRequestDTO getVentaIndividualDetalleRequestDto) throws Exception {
         GetVentaIndividualDetalleResponseDTO result = null;
         ResponseEntity<GetVentaIndividualDetalleResponseDTO> response = ptrClientVenta.postForEntity(
@@ -67,9 +62,10 @@ public class PtrVentaServiceImpl implements PtrVentaService {
                 result = response.getBody();
             }
         } else {
-            throw new ApplicationException("La llamada al PTR de Venta a fallado :: getVentaIndividualDetalleRequestDto()");
+            throw new ApplicationException(
+                    "La llamada al PTR de Venta ha fallado :: getVentaIndividualDetalleRequestDto()");
         }
-        return CompletableFuture.completedFuture(result);
+        return result;
     }
 
 }
