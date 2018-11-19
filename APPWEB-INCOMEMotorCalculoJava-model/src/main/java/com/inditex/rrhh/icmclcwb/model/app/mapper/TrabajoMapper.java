@@ -63,12 +63,16 @@ public abstract class TrabajoMapper {
     public abstract GetVentaIndividualDetalleRequestDTO trabajoDtoToGetVentaIndividualDetalleRequestDTO(TrabajoDto src);
 
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
-            @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE) })
+            @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
+    		@Mapping(source = "idPaisOrigen", target = "origen")})
     public abstract PresenciasTotalTiendaSeccionRequestDto trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(
             TrabajoDto src);
 
-    public abstract PresenciasDetalleRequestDto trabajoDtoToPresenciasDetalleRequestDto(TrabajoDto src);
-
+    @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
+		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
+		@Mapping(source = "idPaisOrigen", target = "origen")})
+	public abstract PresenciasDetalleRequestDto trabajoDtoToPresenciasDetalleRequestDto(TrabajoDto src);
+	
     protected List<String> mapEmpleados(List<TrabajoEmpleadoDto> trabajoEmpleadosDto) {
         List<String> empleados = new ArrayList<>();
         for (TrabajoEmpleadoDto empleado : trabajoEmpleadosDto) {

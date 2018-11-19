@@ -64,10 +64,12 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
                 if (CollectionUtils.isNotEmpty(response.getData())) {
                     result.addAll(response.getData());
                 }
-                if (response.getPage() != null && response.getPage().hasNext()) {
+                if (response.getPage() != null && response.getPage().hasNext() && (result.size() < getEmpleadosTiendaDto.getFilter().getMaxPageSize())) {
                     hasNext = true;
                     request.setPage(response.getPage().next());
-                }
+                }else{
+                    request.setPage(response.getPage());
+				}
             }
         } while (hasNext && result.size() < getEmpleadosTiendaDto.getFilter().getMaxPageSize());
         return result;

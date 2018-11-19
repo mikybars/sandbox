@@ -35,6 +35,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaAsyncS
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
@@ -152,6 +153,8 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
             tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
             if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
+            	PageDto page = null;
+
                 // Para cada tienda recuperamos y persistimos los datos de los empleados
                 // asociados.
                 for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
@@ -173,7 +176,13 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                             AsyncUtils.checkAsyncAvaliable(cfTrabajoEmpleadoSaveList);
                         }
                         cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoAsyncService.save(trabajoEmpleadoDto));
-                    } while (request.getPage().hasNext());
+              
+                        page = new PageDto();
+                        page.setNumeroPagina(request.getPage().getNumeroPagina());
+                        page.setNumeroTotalPaginas(request.getPage().getNumeroTotalPaginas());
+                        request.getPage().setNumeroPagina(request.getPage().getNumeroPagina() + 1);
+                    
+                    } while (page.hasNext());
                 }
             }
             pageable = tiendasPage.nextPageable();
