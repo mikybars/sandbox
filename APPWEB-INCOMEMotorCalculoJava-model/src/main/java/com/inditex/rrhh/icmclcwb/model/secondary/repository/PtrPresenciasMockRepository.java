@@ -14,14 +14,15 @@ import com.inditex.rrhh.icmclcwb.model.secondary.entity.TiposHorasMock;
 
 public interface PtrPresenciasMockRepository {
 
-	List<PresenciaDetalleMock> findPresencias(PresenciasDetalleRequestDto Dto);
+    List<PresenciaDetalleMock> findPresencias(PresenciasDetalleRequestDto request);
 
-	List<PresenciaDetalleComisionableMock> findPresenciasComisionable(Object[] Params);
+    List<PresenciaDetalleComisionableMock> findPresenciasComisionable(Object[] request);
 
-	List<PresenciaTotalTiendaMock> findPresenciasTotalTienda(PresenciasTotalTiendaRequestDto dto);
+    List<PresenciaTotalTiendaMock> findPresenciasTotalTienda(PresenciasTotalTiendaRequestDto request);
 
-	List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(PresenciasTotalTiendaSeccionRequestDto dto);
+    List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(
+            PresenciasTotalTiendaSeccionRequestDto request);
 
-	List<TiposHorasMock> findTiposHoras(TiposHorasRequestDto Params);
+    List<TiposHorasMock> findTiposHoras(TiposHorasRequestDto request);
 
 }

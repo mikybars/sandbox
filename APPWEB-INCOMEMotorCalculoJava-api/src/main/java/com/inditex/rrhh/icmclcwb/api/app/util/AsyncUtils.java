@@ -12,6 +12,9 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 @Component
 public class AsyncUtils {
 
+    private AsyncUtils() {
+    }
+
     public static void checkAsyncAvaliable(final List<CompletableFuture<Void>> cfList) {
         CompletableFuture.anyOf(cfList.toArray(new CompletableFuture[cfList.size()]));
         Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfList.stream()
@@ -22,7 +25,7 @@ public class AsyncUtils {
     }
 
     public static void exceptionally(final TrabajoDto trabajo, final CompletableFuture<?> cf,
-            final List<CompletableFuture<?>> cfList) throws Exception {
+            final List<CompletableFuture<?>> cfList) {
         cfList.add(cf);
         cf.exceptionally(e -> {
             cfList.stream().forEach(item -> {
@@ -34,7 +37,7 @@ public class AsyncUtils {
         });
     }
 
-    public static boolean isOk(final TrabajoDto trabajo, final List<CompletableFuture<?>> cfList) throws Exception {
+    public static boolean isOk(final TrabajoDto trabajo, final List<CompletableFuture<?>> cfList) {
         boolean result = true;
         for (CompletableFuture<?> item : cfList) {
             if (item.isCompletedExceptionally()) {

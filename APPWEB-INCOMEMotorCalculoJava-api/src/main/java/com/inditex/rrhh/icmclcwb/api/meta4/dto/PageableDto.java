@@ -15,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.dto.Pageable;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PageableDto<T> implements Pageable<T>, Serializable {
+public class PageableDto<T extends Serializable> implements Pageable<T>, Serializable {
 
 	private static final long serialVersionUID = -1674424926992562719L;
 

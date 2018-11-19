@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.login.service.Meta4LoginService;
 public class Meta4SessionAspect {
 
     @Autowired
-    private Logger LOG;
+    private Logger log;
 
     @Autowired
     private Meta4LoginService meta4LoginService;
@@ -34,7 +34,7 @@ public class Meta4SessionAspect {
     public void beforeMeta4SessionService() throws Exception {
         if (!meta4LoginService.retrieveM4Session()
                 && !meta4LoginService.login(new LoginRequestDto(user, password, language))) {
-            LOG.error("No se puede invocar un servicio Meta4 sin tener sessionID valido");
+            log.error("No se puede invocar un servicio Meta4 sin tener sessionID valido");
             throw new ApplicationException("No se puede invocar un servicio Meta4 sin tener sessionID valido");
         }
     }

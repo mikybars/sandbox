@@ -50,7 +50,7 @@ public class PageDto implements Serializable {
 
 	public PageDto next() {
 		if (hasNext()) {
-			setNumeroPagina(new Integer(numeroPagina.intValue() + 1));
+			setNumeroPagina(Integer.valueOf(numeroPagina.intValue() + 1));
 		} else {
 			throw new NoSuchElementException();
 		}

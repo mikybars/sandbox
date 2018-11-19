@@ -48,7 +48,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMock
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
@@ -225,12 +224,10 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         List<CompletableFuture<Void>> cfTrabajoTiendaSeccionVentaList = new ArrayList<>();
 
         do {
-            CompletableFuture<GetVentaTotalizadoResponseDTO> cfResponse = new CompletableFuture<>();
             // Se recuperan las tiendas por id de trabajo y estado de forma paginada.
             tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
             if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
-
                 List<String> tiendas = tiendasPage.getContent().stream().map(e -> e.getIdTienda())
                         .collect(Collectors.toList());
                 GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper
@@ -238,13 +235,10 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                 paramGetVentaTotalizado.setTienda(tiendas);
                 paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
                 paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
-                cfResponse = ptrVentaAsyncService.getVentaTotalizado(paramGetVentaTotalizado);
-                GetVentaTotalizadoResponseDTO response = cfResponse.get();
-
+                GetVentaTotalizadoResponseDTO response = ptrVentaAsyncService.getVentaTotalizado(paramGetVentaTotalizado).get();
                 if (cfTrabajoTiendaSeccionVentaList.size() >= ventaTotalizadoDto.getFilter().getMaxPersistenceSize()) {
                     AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaSeccionVentaList);
                 }
-
                 cfTrabajoTiendaSeccionVentaList
                         .add(trabajoTiendaSeccionVentaAsyncService.save(response.getVentaTotalizado(), trabajo));
             }
@@ -276,7 +270,6 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
 
         List<CompletableFuture<Void>> cfTrabajoTiendaSeccionEmpleadoVentaList = new ArrayList<>();
         do {
-            CompletableFuture<GetVentaIndividualDetalleResponseDTO> cfResponse = new CompletableFuture<>();
             // Se recuperan los empleados por id de trabajo y estado de forma paginada.
 
             empleadosPage = trabajoEmpleadoEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
@@ -291,8 +284,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                 paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenasEmpresa());
                 paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
-                cfResponse = ptrVentaAsyncService.getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
-                cfResponse.get();
+                ptrVentaAsyncService.getVentaIndividualDetalle(paramGetVentaIndividualDetalle).get();
 
                 if (cfTrabajoTiendaSeccionEmpleadoVentaList.size() >= ventaIndividualDetalleDto.getFilter()
                         .getMaxPersistenceSize()) {
@@ -346,15 +338,13 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
             // Se recuperan las tiendas por id de trabajo y estado de forma paginada.
             tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
-
-            if (tiendasPage != null && !tiendasPage.getContent().isEmpty()) {
-
+            if (tiendasPage != null &&  CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
                 // CompletableFuture<List<PresenciasTotalTiendaSeccionResponseDto>> cfResponse =
                 // new CompletableFuture<>();
                 List<TiendaSeccionDto> tiendas = tiendasPage.getContent().stream()
                         .map(t -> new TiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
                         .collect(Collectors.toList());
-                List<Integer> cadenasMap = trabajo.getCadenasEmpresa().stream().map(a -> Integer.valueOf(a))
+                List<Integer> cadenasMap = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
                         .collect(Collectors.toList());
 
                 PresenciasTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
@@ -368,12 +358,12 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .getMaxPersistenceSize()) {
                     AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaPresenciaList);
                 }
-
                 // TODO: PERSISTIR
                 cfTrabajoTiendaPresenciaList.add(trabajoTiendaSeccionPresenciaService.save(response));
-
+                pageable = tiendasPage.nextPageable();
+            } else {
+                break;
             }
-            pageable = tiendasPage.nextPageable();
 
         } while (tiendasPage.hasNext());
 
@@ -398,7 +388,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
             if (CollectionUtils.isNotEmpty(empleadosPage.getContent())) {
                 List<Integer> empleados = empleadosPage.getContent().stream()
                         .map(s -> Integer.valueOf(s.getIdEmpleado())).collect(Collectors.toList());
-                List<Integer> cadenasMap = trabajo.getCadenasEmpresa().stream().map(a -> Integer.valueOf(a))
+                List<Integer> cadenasMap = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
                         .collect(Collectors.toList());
                 PresenciasDetalleRequestDto paramPresenciasDetalle = trabajoMapper
                         .trabajoDtoToPresenciasDetalleRequestDto(trabajo);
