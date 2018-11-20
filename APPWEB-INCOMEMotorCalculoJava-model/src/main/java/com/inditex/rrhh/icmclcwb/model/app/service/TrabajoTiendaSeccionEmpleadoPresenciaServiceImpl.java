@@ -16,7 +16,6 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionEmpleadoPre
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaSeccionEmpleadoPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionEmpleadoPresencia;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTipoHora;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepository;
 
 @Service
@@ -37,16 +36,13 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements Trabajo
         return CompletableFuture.completedFuture(null);
     }
 
+    // TODO: Revisar timeouts en transacciones
+    @Transactional(timeout = 120)
     @Override
-    @Transactional(timeout = 120) // TODO: Revisar timeouts en transacciones
     public CompletableFuture<Void> save(List<PresenciasDetalleResponseDto> dtos, TrabajoDto trabajoDto) {
-    	List<TrabajoTiendaSeccionEmpleadoPresencia> result = mapper.presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos, trabajoDto);
-    	TrabajoTipoHora tipoHora = new TrabajoTipoHora();
-    	//TODO: Cambiar tipo de hora.
-    	tipoHora.setId(101L);
-    	result.stream().forEach(r -> r.setTipoHora(tipoHora));
-        trabajoTiendaSeccionEmpleadoPresenciaRepository
-                        .save(result);
+        List<TrabajoTiendaSeccionEmpleadoPresencia> result = mapper
+                .presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos, trabajoDto);
+        trabajoTiendaSeccionEmpleadoPresenciaRepository.save(result);
         return CompletableFuture.completedFuture(null);
     }
 

@@ -110,8 +110,7 @@ public class TrabajoCalculo {
 	private /* BigInteger */ Double importe3;
 
 	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TRABAJO_TIPO_HORA", nullable = false)
-	private /* BigInteger */ TrabajoTipoHora tipoHora;
+    @Column(name = "ID_TIPO_HORA", nullable = false)
+    private /* BigInteger */ String idTipoHora;
 
 }
