@@ -39,11 +39,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiendaSeccionDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiendaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaAsyncService;
@@ -351,17 +351,17 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
             if (tiendasPage != null && CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
                 // CompletableFuture<List<PresenciasTotalTiendaSeccionResponseDto>> cfResponse =
                 // new CompletableFuture<>();
-                List<TiendaSeccionDto> tiendas = tiendasPage.getContent().stream()
-                        .map(t -> new TiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
+                List<PtrPresenciasMockTiendaSeccionDto> tiendas = tiendasPage.getContent().stream()
+                        .map(t -> new PtrPresenciasMockTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
                         .collect(Collectors.toList());
                 List<Integer> cadenasMap = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
                         .collect(Collectors.toList());
 
-                PresenciasTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
+                PtrPresenciasMockTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
                         .trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
                 paramPresenciasTotalTiendaSeccion.setCadena(cadenasMap);
                 paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-                List<PresenciasTotalTiendaSeccionResponseDto> response = ptrPresenciasServiceMock
+                List<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrPresenciasServiceMock
                         .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
 
                 if (cfTrabajoTiendaPresenciaList.size() >= presenciasTotalTiendaSeccionDto.getFilter()
@@ -400,11 +400,11 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .map(s -> Integer.valueOf(s.getIdEmpleado())).collect(Collectors.toList());
                 List<Integer> cadenasMap = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
                         .collect(Collectors.toList());
-                PresenciasDetalleRequestDto paramPresenciasDetalle = trabajoMapper
+                PtrPresenciasMockDetalleRequestDto paramPresenciasDetalle = trabajoMapper
                         .trabajoDtoToPresenciasDetalleRequestDto(trabajo);
                 paramPresenciasDetalle.setPersonas(empleados);
                 paramPresenciasDetalle.setCadena(cadenasMap);
-                List<PresenciasDetalleResponseDto> response = ptrPresenciasServiceMock
+                List<PtrPresenciasMockDetalleResponseDto> response = ptrPresenciasServiceMock
                         .presenciasDetalle(paramPresenciasDetalle);
 
                 if (cfTrabajoDetallePresenciaList.size() >= presenciasDetalleDto.getFilter().getMaxPersistenceSize()) {

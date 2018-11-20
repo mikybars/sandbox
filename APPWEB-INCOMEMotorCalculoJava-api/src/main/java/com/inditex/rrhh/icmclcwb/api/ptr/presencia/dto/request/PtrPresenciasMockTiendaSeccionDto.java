@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class TiendaSeccionDto {
+public class PtrPresenciasMockTiendaSeccionDto {
 
 	private Integer tienda;
 	private Integer seccion;

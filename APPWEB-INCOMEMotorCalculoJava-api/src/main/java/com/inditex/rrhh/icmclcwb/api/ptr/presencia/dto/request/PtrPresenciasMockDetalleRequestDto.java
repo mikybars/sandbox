@@ -18,7 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PresenciasDetalleRequestDto implements Serializable {
+public class PtrPresenciasMockDetalleRequestDto implements Serializable {
 
 	private static final long serialVersionUID = 2089515262512038387L;
 

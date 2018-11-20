@@ -2,29 +2,29 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleComisionableResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.TiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleComisionableResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTiposHorasResponseDto;
 
 public interface PtrPresenciaMockService {
 
-	List<PresenciasDetalleResponseDto> presenciasDetalle(final PresenciasDetalleRequestDto request);
+	List<PtrPresenciasMockDetalleResponseDto> presenciasDetalle(final PtrPresenciasMockDetalleRequestDto request);
 
-	List<PresenciasDetalleComisionableResponseDto> presenciasDetalleComisionable(
-			final PresenciasDetalleComisionableRequestDto request);
+	List<PtrPresenciasMockDetalleComisionableResponseDto> presenciasDetalleComisionable(
+			final PtrPresenciasMockDetalleComisionableRequestDto request);
 
-	List<PresenciasTotalTiendaResponseDto> presenciasTotalTienda(final PresenciasTotalTiendaRequestDto request);
+	List<PtrPresenciasMockTotalTiendaResponseDto> presenciasTotalTienda(final PtrPresenciasMockTotalTiendaRequestDto request);
 
-	List<PresenciasTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
-			final PresenciasTotalTiendaSeccionRequestDto request);
+	List<PtrPresenciasMockTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
+			final PtrPresenciasMockTotalTiendaSeccionRequestDto request);
 
-	List<TiposHorasResponseDto> tiposHoras(final TiposHorasRequestDto request);
+	List<PtrPresenciasMockTiposHorasResponseDto> tiposHoras(final PtrPresenciasMockTiposHorasRequestDto request);
 
 }

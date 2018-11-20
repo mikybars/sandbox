@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class PresenciaDetalleMock {
+public class PtrPresenciasMockDetalle {
 
 	private Integer tienda;
 	private Integer seccion;

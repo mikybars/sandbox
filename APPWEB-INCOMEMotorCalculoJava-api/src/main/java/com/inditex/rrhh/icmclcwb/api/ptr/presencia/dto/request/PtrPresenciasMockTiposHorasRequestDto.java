@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class TiposHorasRequestDto {
+public class PtrPresenciasMockTiposHorasRequestDto {
 	@NotNull
 	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;

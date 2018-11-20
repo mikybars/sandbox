@@ -6,12 +6,12 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionPresenciaDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
 
 public interface TrabajoTiendaSeccionPresenciaService {
 
 	CompletableFuture<Void> save(@Valid final TrabajoTiendaSeccionPresenciaDto dto);
 
-	CompletableFuture<Void> save(List<PresenciasTotalTiendaSeccionResponseDto> dto);
+	CompletableFuture<Void> save(List<PtrPresenciasMockTotalTiendaSeccionResponseDto> dto);
 
 }

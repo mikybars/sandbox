@@ -12,15 +12,15 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasMockService;
 
 @Service
 @Validated
-public class PtrPresenciaServiceImpl implements PtrPresenciaService {
+public class PtrPresenciaServiceImpl implements PtrPresenciasMockService {
 
     @Autowired
     @Qualifier("ptrClientPresencia")
@@ -35,13 +35,13 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     private PtrPropertiesDto presenciasDetalleDto;
 
     @Override
-    public PresenciasTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
-            @Valid final PresenciasTotalTiendaSeccionRequestDto getPresenciasTotalTiendaSeccionRequestDto)
+    public PtrPresenciasMockTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
+            @Valid final PtrPresenciasMockTotalTiendaSeccionRequestDto getPresenciasTotalTiendaSeccionRequestDto)
             throws Exception {
-        PresenciasTotalTiendaSeccionResponseDto result = null;
-        ResponseEntity<PresenciasTotalTiendaSeccionResponseDto> response = ptrClientPresencia.postForEntity(
+        PtrPresenciasMockTotalTiendaSeccionResponseDto result = null;
+        ResponseEntity<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrClientPresencia.postForEntity(
                 presenciasTotalTiendaSeccionDto.getEndpoint(), getPresenciasTotalTiendaSeccionRequestDto,
-                PresenciasTotalTiendaSeccionResponseDto.class);
+                PtrPresenciasMockTotalTiendaSeccionResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
             if (response.getBody() != null) {
                 result = response.getBody();
@@ -54,11 +54,11 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     }
 
     @Override
-    public PresenciasDetalleResponseDto getPresenciasDetalleDto(
-            @Valid final PresenciasDetalleRequestDto getPresenciasDetalleRequestDto) throws Exception {
-        PresenciasDetalleResponseDto result = null;
-        ResponseEntity<PresenciasDetalleResponseDto> response = ptrClientPresencia.postForEntity(
-                presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto, PresenciasDetalleResponseDto.class);
+    public PtrPresenciasMockDetalleResponseDto getPresenciasDetalleDto(
+            @Valid final PtrPresenciasMockDetalleRequestDto getPresenciasDetalleRequestDto) throws Exception {
+        PtrPresenciasMockDetalleResponseDto result = null;
+        ResponseEntity<PtrPresenciasMockDetalleResponseDto> response = ptrClientPresencia.postForEntity(
+                presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto, PtrPresenciasMockDetalleResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
             if (response.getBody() != null) {
                 result = response.getBody();
