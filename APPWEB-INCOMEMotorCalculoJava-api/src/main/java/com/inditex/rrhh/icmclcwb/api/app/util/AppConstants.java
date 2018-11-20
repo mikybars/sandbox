@@ -10,13 +10,16 @@ import lombok.RequiredArgsConstructor;
 
 public class AppConstants {
 
+    private AppConstants() {
+    }
+    
 	public static final String LOCAL_TIME_PATTERN = "([01][0-9]|2[0-3]):[0-5][0-9]";
 
 	public static final String LOCAL_TIME_JSON = "HH:mm";
 
 	@Getter
 	@RequiredArgsConstructor
-	public static enum EstadoTrabajoEnum {
+	public enum EstadoTrabajoEnum {
 
 		PENDIENTE_DATOS(1L, new EstadoTrabajoDto(1L)), EN_CURSO_DATOS(2L, new EstadoTrabajoDto(2L)),
 		PENDIENTE_CALCULO(3L, new EstadoTrabajoDto(3L)), EN_CURSO_CALCULO(4L, new EstadoTrabajoDto(4L)),
@@ -32,7 +35,7 @@ public class AppConstants {
 
 	@Getter
 	@RequiredArgsConstructor
-	public static enum EstadoTrabajoEmpleadoEnum {
+	public enum EstadoTrabajoEmpleadoEnum {
 
 		PENDIENTE(1L, new EstadoTrabajoEmpleadoDto(1L)), FINALIZADO(2L, new EstadoTrabajoEmpleadoDto(2L)),
 		ERROR(3L, new EstadoTrabajoEmpleadoDto(3L));
@@ -45,7 +48,7 @@ public class AppConstants {
 
 	@Getter
 	@RequiredArgsConstructor
-	public static enum EstadoTrabajoTiendaEnum {
+	public enum EstadoTrabajoTiendaEnum {
 
 		PENDIENTE(1L, new EstadoTrabajoTiendaDto(1L)), FINALIZADO(2L, new EstadoTrabajoTiendaDto(2L)),
 		ERROR(3L, new EstadoTrabajoTiendaDto(3L));
@@ -58,7 +61,7 @@ public class AppConstants {
 
 	@Getter
 	@RequiredArgsConstructor
-	public static enum TipoTrabajoTiendaEnum {
+	public enum TipoTrabajoTiendaEnum {
 
 		INICIAL(1L, new TipoTrabajoTiendaDto(1L)), PARAMETRO(2L, new TipoTrabajoTiendaDto(2L)),
 		HISTORICO(3L, new TipoTrabajoTiendaDto(3L)), PRESENCIA(4L, new TipoTrabajoTiendaDto(4L));
