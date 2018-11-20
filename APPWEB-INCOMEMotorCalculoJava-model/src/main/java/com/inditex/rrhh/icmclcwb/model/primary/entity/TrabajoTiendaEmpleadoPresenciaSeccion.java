@@ -42,11 +42,6 @@ public class TrabajoTiendaEmpleadoPresenciaSeccion {
 	private String idEmpleado;
 	
 	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TRABAJO_TIPO_HORA", nullable = false)
-	private /* BigInteger */ TrabajoTipoHora tipoHora;
-	
-	@NotNull
 	@Column(name = "MINUTOS_1", nullable = false)
 	private /* BigInteger */ Long minutos1;
 	
@@ -57,5 +52,9 @@ public class TrabajoTiendaEmpleadoPresenciaSeccion {
 	@NotNull
 	@Column(name = "MINUTOS_3", nullable = false)
 	private /* BigInteger */ Long minutos3;
+	
+	@NotNull
+    @Column(name = "ID_TIPO_HORA", nullable = false)
+    private /* BigInteger */ String idTipoHora;
 
 }
