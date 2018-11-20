@@ -56,7 +56,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
             CompletableFuture<Void> cfTiposHoras = trabajoDatosAsyncService.tiposHoras(trabajo);
             AsyncUtils.exceptionally(cfTiposHoras, cf);
 
-            CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico, cfTiposHoras);
+            CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico);
             if (AsyncUtils.isOk(cf)) {
 
                 trabajo.setCadenasEmpresa(
