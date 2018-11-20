@@ -42,11 +42,11 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements Trabajo
     public CompletableFuture<Void> save(List<PresenciasDetalleResponseDto> dtos, TrabajoDto trabajoDto) {
     	List<TrabajoTiendaSeccionEmpleadoPresencia> result = mapper.presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos, trabajoDto);
     	TrabajoTipoHora tipoHora = new TrabajoTipoHora();
+    	//TODO: Cambiar tipo de hora.
     	tipoHora.setId(101L);
     	result.stream().forEach(r -> r.setTipoHora(tipoHora));
-        mapper.trabajoTiendaSeccionEmpleadoPresenciasToTrabajoTiendaSeccionEmpleadoPresenciasDto(
-                trabajoTiendaSeccionEmpleadoPresenciaRepository
-                        .save(result));
+        trabajoTiendaSeccionEmpleadoPresenciaRepository
+                        .save(result);
         return CompletableFuture.completedFuture(null);
     }
 

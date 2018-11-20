@@ -1,12 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +37,8 @@ public class TrabajoTiendaSeccionVentaServiceImpl implements TrabajoTiendaSeccio
                 .save(mapper.getVentaTotalizadoResponseItemDTOToTrabajoTiendaSeccionVenta(dto, trabajoDto)));
     }
 
-    @Transactional(timeout = 60) // TODO: Revisar timeouts en transacciones
+    // TODO: Revisar timeouts en transacciones
+    @Transactional(timeout = 60)
     @Override
     public List<TrabajoTiendaSeccionVentaDto> save(List<GetVentaTotalizadoResponseItemDTO> dto, TrabajoDto trabajoDto) {
         return mapper.trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(trabajoTiendaSeccionVentaRepository

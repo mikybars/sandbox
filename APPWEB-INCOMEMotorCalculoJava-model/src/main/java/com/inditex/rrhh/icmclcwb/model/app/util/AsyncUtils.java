@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.util;
+package com.inditex.rrhh.icmclcwb.model.app.util;
 
 import java.util.List;
 import java.util.Map;
@@ -7,10 +7,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 
 @Component
 public class AsyncUtils {
+
+    private AsyncUtils() {
+    }
 
     public static void checkAsyncAvaliable(final List<CompletableFuture<Void>> cfList) {
         CompletableFuture.anyOf(cfList.toArray(new CompletableFuture[cfList.size()]));
@@ -21,13 +24,12 @@ public class AsyncUtils {
         cfList.removeAll(cfDone);
     }
 
-    public static void exceptionally(final TrabajoDto trabajo, final CompletableFuture<?> cf,
-            final List<CompletableFuture<?>> cfList) throws Exception {
+    public static void exceptionally(final CompletableFuture<?> cf,
+            final List<CompletableFuture<?>> cfList) {
         cfList.add(cf);
         cf.exceptionally(e -> {
             cfList.stream().forEach(item -> {
-                if (item.isDone()) {
-                } else {
+                if (!item.isDone()) {
                     item.cancel(true);
                 }
             });
@@ -35,12 +37,11 @@ public class AsyncUtils {
         });
     }
 
-    public static boolean isOk(final TrabajoDto trabajo, final List<CompletableFuture<?>> cfList) throws Exception {
+    public static boolean isOk(final List<CompletableFuture<?>> cfList) {
         boolean result = true;
         for (CompletableFuture<?> item : cfList) {
             if (item.isCompletedExceptionally()) {
-                result = false;
-                break;
+                throw new ApplicationException("AsyncUtils.isOk() == false");
             }
         }
         return result;

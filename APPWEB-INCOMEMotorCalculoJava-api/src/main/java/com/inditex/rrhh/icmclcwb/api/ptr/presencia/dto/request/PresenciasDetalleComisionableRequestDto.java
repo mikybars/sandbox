@@ -20,23 +20,22 @@ import lombok.ToString;
 @ToString
 public class PresenciasDetalleComisionableRequestDto implements Serializable {
 
-	@ApiModelProperty(value = "Id tienda", required = false, example = "160")
-	private Integer tienda;
+    private static final long serialVersionUID = 484679933963140419L;
 
-	@ApiModelProperty(value = "Id seccion", required = false, example = "1")
-	private Integer seccion;
+    @ApiModelProperty(value = "Id tienda", required = false, example = "160")
+    private Integer tienda;
 
-	@ApiModelProperty(value = "Id empleado", required = false, allowableValues = "1645")
-	private List<Integer> personas;
+    @ApiModelProperty(value = "Id seccion", required = false, example = "1")
+    private Integer seccion;
 
-	@ApiModelProperty(value = "Fecha inicio rango de busqueda", required = false, example = "2017-01-01")
-	private Date fechaDesde;
+    @ApiModelProperty(value = "Id empleado", required = false, allowableValues = "1645")
+    private List<Integer> personas;
 
-	@ApiModelProperty(value = "Fecha fin rango de busqueda", required = false, example = "2017-12-31")
-	private Date fechaHasta;
+    @ApiModelProperty(value = "Fecha inicio rango de busqueda", required = false, example = "2017-01-01")
+    private Date fechaDesde;
 
-	@ApiModelProperty(value = "Id tipo", required = false, example = "1")
-	private Integer tipo;
+    @ApiModelProperty(value = "Fecha fin rango de busqueda", required = false, example = "2017-12-31")
+    private Date fechaHasta;
 
 	@NotNull
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
@@ -45,5 +44,8 @@ public class PresenciasDetalleComisionableRequestDto implements Serializable {
 	@NotNull
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;
+
+    @ApiModelProperty(value = "Id Origen", required = false, example = "11")
+    private Integer origen;
 
 }
