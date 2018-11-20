@@ -1,18 +1,17 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.service;
 
-import java.util.concurrent.CompletableFuture;
+import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
 
-public interface PtrPresenciaAsyncService {
+public interface PtrPresenciasMockService {
 
-    CompletableFuture<PtrPresenciasMockTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
-            PtrPresenciasMockTotalTiendaSeccionRequestDto request) throws Exception;
+    PtrPresenciasMockTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
+            @Valid PtrPresenciasMockTotalTiendaSeccionRequestDto request) throws Exception;
 
-    CompletableFuture<PtrPresenciasMockDetalleResponseDto> getPresenciasDetalleDto(PtrPresenciasMockDetalleRequestDto request)
-            throws Exception;
+    PtrPresenciasMockDetalleResponseDto getPresenciasDetalleDto(@Valid PtrPresenciasMockDetalleRequestDto request) throws Exception;
 
 }

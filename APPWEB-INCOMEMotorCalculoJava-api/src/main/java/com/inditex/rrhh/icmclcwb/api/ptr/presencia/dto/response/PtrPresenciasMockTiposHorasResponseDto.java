@@ -11,10 +11,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class TiposHorasResponseDto {
+public class PtrPresenciasMockTiposHorasResponseDto {
 
-	private Integer Origen;
-	private Integer TipoHora;
+	private Integer origen;
+	private Integer tipoHora;
 	private Boolean excluidoDenom;
 	private Boolean excluidoCalculo;
 

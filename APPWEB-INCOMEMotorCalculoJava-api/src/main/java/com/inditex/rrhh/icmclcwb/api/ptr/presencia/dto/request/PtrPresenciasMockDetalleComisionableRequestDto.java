@@ -18,7 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PresenciasDetalleComisionableRequestDto implements Serializable {
+public class PtrPresenciasMockDetalleComisionableRequestDto implements Serializable {
 
     private static final long serialVersionUID = 484679933963140419L;
 
@@ -37,14 +37,15 @@ public class PresenciasDetalleComisionableRequestDto implements Serializable {
     @ApiModelProperty(value = "Fecha fin rango de busqueda", required = false, example = "2017-12-31")
     private Date fechaHasta;
 
-    @ApiModelProperty(value = "Id tipo", required = false, example = "1")
+	@NotNull
+	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
+	private List<Integer> cadena;
+	
+	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
     private Integer tipo;
-
-    @NotNull
-    @ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
-    private List<Integer> cadena;
-
-    @ApiModelProperty(value = "Id Origen", required = false, example = "11")
-    private Integer origen;
+	
+	@NotNull
+	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
+	private Integer origen;
 
 }
