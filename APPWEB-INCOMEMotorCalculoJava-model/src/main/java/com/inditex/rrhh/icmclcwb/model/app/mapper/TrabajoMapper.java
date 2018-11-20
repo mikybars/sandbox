@@ -20,8 +20,8 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDTO;
@@ -65,13 +65,13 @@ public abstract class TrabajoMapper {
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
             @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
     		@Mapping(source = "idPaisOrigen", target = "origen")})
-    public abstract PresenciasTotalTiendaSeccionRequestDto trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(
+    public abstract PtrPresenciasMockTotalTiendaSeccionRequestDto trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(
             TrabajoDto src);
 
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
 		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
 		@Mapping(source = "idPaisOrigen", target = "origen")})
-	public abstract PresenciasDetalleRequestDto trabajoDtoToPresenciasDetalleRequestDto(TrabajoDto src);
+	public abstract PtrPresenciasMockDetalleRequestDto trabajoDtoToPresenciasDetalleRequestDto(TrabajoDto src);
 	
     protected List<String> mapEmpleados(List<TrabajoEmpleadoDto> trabajoEmpleadosDto) {
         List<String> empleados = new ArrayList<>();

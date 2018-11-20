@@ -4,7 +4,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class PresenciaDetalleComisionableMock {
+public class PtrPresenciasMockDetalleComisionable {
 
 	private Integer estado;
 	private Integer seccion;

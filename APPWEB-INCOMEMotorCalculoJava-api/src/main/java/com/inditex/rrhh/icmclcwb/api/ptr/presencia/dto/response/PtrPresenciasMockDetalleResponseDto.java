@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class PresenciasDetalleResponseDto implements Serializable {
+public class PtrPresenciasMockDetalleResponseDto implements Serializable {
 
 	private static final long serialVersionUID = -2286264737159679411L;
 

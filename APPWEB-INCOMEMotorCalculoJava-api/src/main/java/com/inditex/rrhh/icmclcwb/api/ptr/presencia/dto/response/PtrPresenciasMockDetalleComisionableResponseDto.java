@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PresenciasDetalleComisionableResponseDto {
+public class PtrPresenciasMockDetalleComisionableResponseDto {
 
 	private Integer tienda;
 

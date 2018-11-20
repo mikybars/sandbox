@@ -6,19 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleComisionableRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleComisionableResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PresenciasTotalTiendaSeccionResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.TiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleComisionableResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
-import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciaMockMapperComisionable;
-import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PresenciasMapper;
+import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PtrPresenciasMockMapperComisionable;
+import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PtrPresenciasMockMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.repository.PtrPresenciasMockRepository;
 
 @Service
@@ -29,35 +29,35 @@ public class PtrPresenciaMockServiceImpl implements PtrPresenciaMockService {
     private PtrPresenciasMockRepository presenciasRepository;
 
     @Autowired
-    private PresenciasMapper presenciasMapper;
+    private PtrPresenciasMockMapper presenciasMapper;
 
     @Override
-    public List<PresenciasDetalleResponseDto> presenciasDetalle(PresenciasDetalleRequestDto presencias) {
+    public List<PtrPresenciasMockDetalleResponseDto> presenciasDetalle(PtrPresenciasMockDetalleRequestDto presencias) {
         return this.presenciasMapper.asPresenciaDetalleDTOs(this.presenciasRepository.findPresencias(presencias));
     }
 
 	@Override
-	public List<PresenciasDetalleComisionableResponseDto> presenciasDetalleComisionable(
-			PresenciasDetalleComisionableRequestDto presencias) {
+	public List<PtrPresenciasMockDetalleComisionableResponseDto> presenciasDetalleComisionable(
+			PtrPresenciasMockDetalleComisionableRequestDto presencias) {
 		return this.presenciasMapper.asPresenciaDetalleComisionableDTOs(this.presenciasRepository
-				.findPresencias(PresenciaMockMapperComisionable.asPresenciaComisionableToDetalle(presencias)));
+				.findPresencias(PtrPresenciasMockMapperComisionable.asPresenciaComisionableToDetalle(presencias)));
 	}
 
     @Override
-    public List<PresenciasTotalTiendaResponseDto> presenciasTotalTienda(PresenciasTotalTiendaRequestDto presencias) {
+    public List<PtrPresenciasMockTotalTiendaResponseDto> presenciasTotalTienda(PtrPresenciasMockTotalTiendaRequestDto presencias) {
         return this.presenciasMapper
                 .asPresenciasTotalTiendaDTOs(this.presenciasRepository.findPresenciasTotalTienda(presencias));
     }
 
     @Override
-    public List<PresenciasTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
-            PresenciasTotalTiendaSeccionRequestDto presencias) {
+    public List<PtrPresenciasMockTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
+            PtrPresenciasMockTotalTiendaSeccionRequestDto presencias) {
         return this.presenciasMapper.asPresenciasTotalTiendaSeccionDTOs(
                 this.presenciasRepository.findPresenciasTotalTiendaSeccion(presencias));
     }
 
     @Override
-    public List<TiposHorasResponseDto> tiposHoras(TiposHorasRequestDto tiposHoras) {
+    public List<PtrPresenciasMockTiposHorasResponseDto> tiposHoras(PtrPresenciasMockTiposHorasRequestDto tiposHoras) {
         return this.presenciasMapper.asTiposHorasDTOs(this.presenciasRepository.findTiposHoras(tiposHoras));
     }
 

@@ -2,27 +2,27 @@ package com.inditex.rrhh.icmclcwb.model.secondary.repository;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PresenciasTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.TiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleComisionableMock;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaDetalleMock;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaMock;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.PresenciaTotalTiendaSeccionMock;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.TiposHorasMock;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockDetalleComisionable;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockDetalle;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockTotalTienda;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockTotalTiendaSeccion;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockTiposHoras;
 
 public interface PtrPresenciasMockRepository {
 
-    List<PresenciaDetalleMock> findPresencias(PresenciasDetalleRequestDto request);
+    List<PtrPresenciasMockDetalle> findPresencias(PtrPresenciasMockDetalleRequestDto request);
 
-    List<PresenciaDetalleComisionableMock> findPresenciasComisionable(Object[] request);
+    List<PtrPresenciasMockDetalleComisionable> findPresenciasComisionable(Object[] request);
 
-    List<PresenciaTotalTiendaMock> findPresenciasTotalTienda(PresenciasTotalTiendaRequestDto request);
+    List<PtrPresenciasMockTotalTienda> findPresenciasTotalTienda(PtrPresenciasMockTotalTiendaRequestDto request);
 
-    List<PresenciaTotalTiendaSeccionMock> findPresenciasTotalTiendaSeccion(
-            PresenciasTotalTiendaSeccionRequestDto request);
+    List<PtrPresenciasMockTotalTiendaSeccion> findPresenciasTotalTiendaSeccion(
+            PtrPresenciasMockTotalTiendaSeccionRequestDto request);
 
-    List<TiposHorasMock> findTiposHoras(TiposHorasRequestDto request);
+    List<PtrPresenciasMockTiposHoras> findTiposHoras(PtrPresenciasMockTiposHorasRequestDto request);
 
 }

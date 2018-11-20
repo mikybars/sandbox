@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request;
 
+import javax.validation.constraints.NotNull;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +14,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class TiposHorasRequestDto {
-
+public class PtrPresenciasMockTiposHorasRequestDto {
+	@NotNull
 	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;
 
