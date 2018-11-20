@@ -43,6 +43,7 @@ public class AsyncUtils {
             if (item.isCompletedExceptionally()) {
                 throw new ApplicationException("AsyncUtils.isOk() == false");
             }
+            // TODO Si ha finalizado OK, se elimina de la lista para no verificarlo siempre.
         }
         return result;
     }
