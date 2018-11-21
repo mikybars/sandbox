@@ -10,6 +10,6 @@ import lombok.Data;
 @Builder
 public class PtrPresenciasMockDetalleComisionableResponseListDto {
 
-    private List<PtrPresenciasMockDetalleComisionableResponseDto> list;
+	private List<PtrPresenciasMockDetalleComisionableResponseDto> list;
 
 }

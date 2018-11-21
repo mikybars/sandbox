@@ -205,7 +205,7 @@ public class PtrPresenciasMockServiceTest {
     }
 
     @Test
-    public void tiposHoras() {
+    public void tiposHorasGHRS	() {
         // Especificando origen
         PtrPresenciasMockTiposHorasRequestDto req2 = new PtrPresenciasMockTiposHorasRequestDto();
         req2.setOrigen(720);
@@ -213,6 +213,20 @@ public class PtrPresenciasMockServiceTest {
                 .postForEntity("/tiposHoras", req2, PtrPresenciasMockTiposHorasResponseListDto.class);
         assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
         assertEquals(2, ret2.getBody().getList().size());
+        assertEquals(1, ret2.getBody().getList().get(0).getTipoHora().intValue());
+        assertEquals(Boolean.FALSE, ret2.getBody().getList().get(0).getExcluidoCalculo());
+        assertEquals(Boolean.TRUE, ret2.getBody().getList().get(0).getExcluidoDenom());
+    }
+    @Test
+    public void tiposHorasEspaña() {
+        // Especificando origen
+        PtrPresenciasMockTiposHorasRequestDto req2 = new PtrPresenciasMockTiposHorasRequestDto();
+        req2.setOrigen(11);
+        req2.setTipoHora(1);
+        ResponseEntity<PtrPresenciasMockTiposHorasResponseListDto> ret2 = this.restClient
+                .postForEntity("/tiposHoras", req2, PtrPresenciasMockTiposHorasResponseListDto.class);
+        assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
+        assertEquals(1, ret2.getBody().getList().size());
         assertEquals(1, ret2.getBody().getList().get(0).getTipoHora().intValue());
         assertEquals(Boolean.FALSE, ret2.getBody().getList().get(0).getExcluidoCalculo());
         assertEquals(Boolean.TRUE, ret2.getBody().getList().get(0).getExcluidoDenom());

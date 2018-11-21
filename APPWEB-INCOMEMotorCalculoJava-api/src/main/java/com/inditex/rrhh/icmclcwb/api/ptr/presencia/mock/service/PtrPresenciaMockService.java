@@ -20,7 +20,8 @@ public interface PtrPresenciaMockService {
 	List<PtrPresenciasMockDetalleComisionableResponseDto> presenciasDetalleComisionable(
 			final PtrPresenciasMockDetalleComisionableRequestDto request);
 
-	List<PtrPresenciasMockTotalTiendaResponseDto> presenciasTotalTienda(final PtrPresenciasMockTotalTiendaRequestDto request);
+	List<PtrPresenciasMockTotalTiendaResponseDto> presenciasTotalTienda(
+			final PtrPresenciasMockTotalTiendaRequestDto request);
 
 	List<PtrPresenciasMockTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
 			final PtrPresenciasMockTotalTiendaSeccionRequestDto request);

@@ -113,7 +113,6 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 				query.append(" ))");
 			}
 		}
-		Log.info(query.toString());
 		return namedParameterJdbcTemplate.query(query.toString(), param, new PtrPresenciasMockDetalleRowMapper());
 	}
 
@@ -284,7 +283,6 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 
 		}
 		query.append(" GROUP BY OP.CCL_ID_ORIGEN, P.TIENDA,P.SECCION,  P.FECHA");
-		Log.info(query.toString());
 		return namedParameterJdbcTemplate.query(query.toString(), param,
 				new PtrPresenciasMockTotalTiendaSeccionRowMapper());
 	}

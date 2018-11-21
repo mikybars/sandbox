@@ -28,7 +28,7 @@ public class PtrPresenciasMockDetalleRequestDto implements Serializable {
 	@ApiModelProperty(value = "Id seccion", required = false, example = "1")
 	private Integer seccion;
 
-	@ApiModelProperty(value = "Id empleados", required = false, allowableValues = "1645")
+	@ApiModelProperty(value = "Id empleados", required = false, allowableValues = "1584")
 	private List<Integer> personas;
 
 	@ApiModelProperty(value = "Fecha inicio rango", required = false, example = "2017-01-01")
@@ -43,7 +43,7 @@ public class PtrPresenciasMockDetalleRequestDto implements Serializable {
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
 	@NotNull
 	private List<Integer> cadena;
-	
+
 	@NotNull
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;
