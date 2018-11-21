@@ -44,6 +44,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMock
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiendaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaAsyncService;
@@ -60,6 +61,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
+import com.inditex.rrhh.icmclcwb.model.ptr.presencia.mock.service.PtrPresenciaMockServiceImpl;
 
 @Service
 @Validated
@@ -67,7 +69,10 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
 
     @Autowired
     private Meta4SessionAsyncService meta4SessionAsyncService;
-
+    
+    @Autowired
+    private PtrPresenciaMockServiceImpl PtrPresenciaMockServiceImpl;
+    
     @Autowired
     private PtrPresenciaMockAsyncService ptrPresenciaMockAsyncService;
 
@@ -360,7 +365,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
                 paramPresenciasTotalTiendaSeccion.setCadena(cadenasMap);
                 paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-                List<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrPresenciasServiceMock
+                List<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = PtrPresenciaMockServiceImpl
                         .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
 
                 if (cfTrabajoTiendaPresenciaList.size() >= presenciasTotalTiendaSeccionDto.getFilter()
@@ -401,8 +406,8 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .trabajoDtoToPresenciasDetalleRequestDto(trabajo);
                 paramPresenciasDetalle.setPersonas(empleados);
                 paramPresenciasDetalle.setCadena(cadenasMap);
-                List<PtrPresenciasMockDetalleResponseDto> response = ptrPresenciasServiceMock
-                        .presenciasDetalle(paramPresenciasDetalle);
+                List<PtrPresenciasMockDetalleResponseDto> response = PtrPresenciaMockServiceImpl
+                		.presenciasDetalle(paramPresenciasDetalle);
 
                 if (cfTrabajoDetallePresenciaList.size() >= presenciasDetalleDto.getFilter().getMaxPersistenceSize()) {
                     AsyncUtils.checkAsyncAvaliable(cfTrabajoDetallePresenciaList);
