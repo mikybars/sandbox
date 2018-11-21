@@ -366,6 +366,8 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
                 paramPresenciasTotalTiendaSeccion.setCadena(cadenasMap);
                 paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
+                // TODO (PENDIENTE ANALIZAR) Enviar la lista de horas comisionables y cambiar el objeto a una lista
+                //paramPresenciasTotalTiendaSeccion.setTipo(tipo);
                 List<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrPresenciaMockAsyncService
                         .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion).get();
                 if (CollectionUtils.isNotEmpty(response)) {
