@@ -44,10 +44,12 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMock
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiendaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDTO;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
@@ -59,6 +61,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
+import com.inditex.rrhh.icmclcwb.model.ptr.presencia.mock.service.PtrPresenciaMockServiceImpl;
 
 @Service
 @Validated
@@ -66,9 +69,12 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
 
     @Autowired
     private Meta4SessionAsyncService meta4SessionAsyncService;
-
+    
     @Autowired
-    private PtrPresenciaMockService ptrPresenciasServiceMock;
+    private PtrPresenciaMockServiceImpl PtrPresenciaMockServiceImpl;
+    
+    @Autowired
+    private PtrPresenciaMockAsyncService ptrPresenciaMockAsyncService;
 
     @Autowired
     private PtrVentaAsyncService ptrVentaAsyncService;
@@ -153,7 +159,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
             tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
             if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
-            	PageDto page = null;
+                PageDto page = null;
 
                 // Para cada tienda recuperamos y persistimos los datos de los empleados
                 // asociados.
@@ -161,27 +167,27 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                     request.getData().setIdLugarTrabajo(tienda.getIdTiendaMeta4());
                     do {
                         // Consultamos en meta4 los empleados por tienda de forma paginada.
-                        CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfEmpleadosTienda = meta4SessionAsyncService
-                                .getEmpleadosTienda(request);
-                        List<EmpleadosTiendaResultItemDto> persist = cfEmpleadosTienda.get();
-                        List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoDto = trabajoEmpleadoEstadoMapper
-                                .empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(persist, trabajo);
-
-                        if (cfTrabajoEmpleadoSaveList.size() >= getEmpleadosTiendaDto.getFilter()
-                                .getMaxPersistenceSize()) {
-                            // Comprobamos que tenemos asíncronos libres y persistimos los datos.
-                            // En caso de no tener asíncronos libres esperamos a que alguno de los que está
-                            // en ejecución
-                            // termine, lo sacamos de la lista de futuros y persistimos.
-                            AsyncUtils.checkAsyncAvaliable(cfTrabajoEmpleadoSaveList);
+                        List<EmpleadosTiendaResultItemDto> persist = meta4SessionAsyncService
+                                .getEmpleadosTienda(request).get();
+                        if (CollectionUtils.isNotEmpty(persist)) {
+                            List<TrabajoEmpleadoEstadoDto> response = trabajoEmpleadoEstadoMapper
+                                    .empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(persist, trabajo);
+                            if (CollectionUtils.isNotEmpty(response)) {
+                                if (cfTrabajoEmpleadoSaveList.size() >= getEmpleadosTiendaDto.getFilter()
+                                        .getMaxPersistenceSize()) {
+                                    // Comprobamos que tenemos asíncronos libres y persistimos los datos.
+                                    // En caso de no tener asíncronos libres esperamos a que alguno de los que está
+                                    // en ejecución
+                                    // termine, lo sacamos de la lista de futuros y persistimos.
+                                    AsyncUtils.checkAsyncAvaliable(cfTrabajoEmpleadoSaveList);
+                                }
+                                cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoAsyncService.save(response));
+                            }
                         }
-                        cfTrabajoEmpleadoSaveList.add(trabajoEmpleadoEstadoAsyncService.save(trabajoEmpleadoDto));
-              
                         page = new PageDto();
                         page.setNumeroPagina(request.getPage().getNumeroPagina());
                         page.setNumeroTotalPaginas(request.getPage().getNumeroTotalPaginas());
                         request.getPage().setNumeroPagina(request.getPage().getNumeroPagina() + 1);
-                    
                     } while (page.hasNext());
                 }
             }
@@ -204,8 +210,6 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         } else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
             tienda.addAll(pocTiendaMapper
                     .pocTiendaDtoToTrabajoTiendaEstadoDto(meta4SessionAsyncService.getTiendas(trabajo).get()));
-            trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
-                    .mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(tienda, trabajo));
         } else if (StringUtils.isNotBlank(trabajo.getIdPaisOrigen())
                 && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
             throw new UnsupportedOperationException();
@@ -228,7 +232,8 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         Pageable pageable = new PageRequest(0, ventaTotalizadoDto.getFilter().getMaxPageSize());
         Page<TrabajoTiendaEstado> tiendasPage;
 
-        List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(t -> t.getId()).collect(Collectors.toList());
+        List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(TipoTrabajoTiendaDto::getId)
+                .collect(Collectors.toList());
 
         List<CompletableFuture<Void>> cfTrabajoTiendaSeccionVentaList = new ArrayList<>();
 
@@ -246,11 +251,14 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                 paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
                 GetVentaTotalizadoResponseDTO response = ptrVentaAsyncService
                         .getVentaTotalizado(paramGetVentaTotalizado).get();
-                if (cfTrabajoTiendaSeccionVentaList.size() >= ventaTotalizadoDto.getFilter().getMaxPersistenceSize()) {
-                    AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaSeccionVentaList);
+                if (CollectionUtils.isNotEmpty(response.getVentaTotalizado())) {
+                    if (cfTrabajoTiendaSeccionVentaList.size() >= ventaTotalizadoDto.getFilter()
+                            .getMaxPersistenceSize()) {
+                        AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaSeccionVentaList);
+                    }
+                    cfTrabajoTiendaSeccionVentaList
+                            .add(trabajoTiendaSeccionVentaAsyncService.save(response.getVentaTotalizado(), trabajo));
                 }
-                cfTrabajoTiendaSeccionVentaList
-                        .add(trabajoTiendaSeccionVentaAsyncService.save(response.getVentaTotalizado(), trabajo));
             }
 
             pageable = tiendasPage.nextPageable();
@@ -277,14 +285,11 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
     public void ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
         Pageable pageable = new PageRequest(0, ventaIndividualDetalleDto.getFilter().getMaxPageSize());
         Page<TrabajoEmpleadoEstado> empleadosPage;
-
         List<CompletableFuture<Void>> cfTrabajoTiendaSeccionEmpleadoVentaList = new ArrayList<>();
         do {
             // Se recuperan los empleados por id de trabajo y estado de forma paginada.
-
             empleadosPage = trabajoEmpleadoEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
-
             if (CollectionUtils.isNotEmpty(empleadosPage.getContent())) {
                 List<Integer> empleados = empleadosPage.getContent().stream()
                         .map(e -> Integer.valueOf(e.getIdEmpleado())).collect(Collectors.toList());
@@ -294,19 +299,18 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                 paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenasEmpresa());
                 paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
-                ptrVentaAsyncService.getVentaIndividualDetalle(paramGetVentaIndividualDetalle).get();
-
-                if (cfTrabajoTiendaSeccionEmpleadoVentaList.size() >= ventaIndividualDetalleDto.getFilter()
-                        .getMaxPersistenceSize()) {
-                    AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaSeccionEmpleadoVentaList);
+                GetVentaIndividualDetalleResponseDTO response = ptrVentaAsyncService
+                        .getVentaIndividualDetalle(paramGetVentaIndividualDetalle).get();
+                if (CollectionUtils.isNotEmpty(response.getVentaIndividualDetalle())) {
+                    if (cfTrabajoTiendaSeccionEmpleadoVentaList.size() >= ventaIndividualDetalleDto.getFilter()
+                            .getMaxPersistenceSize()) {
+                        AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaSeccionEmpleadoVentaList);
+                    }
+                    // TODO PERSISTIR
                 }
-                // TODO: PERSISTIR
             }
-
             pageable = empleadosPage.nextPageable();
-
         } while (empleadosPage.hasNext());
-
         CompletableFuture.allOf(cfTrabajoTiendaSeccionEmpleadoVentaList
                 .toArray(new CompletableFuture[cfTrabajoTiendaSeccionEmpleadoVentaList.size()])).join();
     }
@@ -361,15 +365,15 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
                 paramPresenciasTotalTiendaSeccion.setCadena(cadenasMap);
                 paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-                List<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrPresenciasServiceMock
-                        .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
-
-                if (cfTrabajoTiendaPresenciaList.size() >= presenciasTotalTiendaSeccionDto.getFilter()
-                        .getMaxPersistenceSize()) {
-                    AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaPresenciaList);
+                List<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrPresenciaMockAsyncService
+                        .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion).get();
+                if (CollectionUtils.isNotEmpty(response)) {
+                    if (cfTrabajoTiendaPresenciaList.size() >= presenciasTotalTiendaSeccionDto.getFilter()
+                            .getMaxPersistenceSize()) {
+                        AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaPresenciaList);
+                    }
+                    cfTrabajoTiendaPresenciaList.add(trabajoTiendaSeccionPresenciaService.save(response));
                 }
-                // TODO: PERSISTIR
-                cfTrabajoTiendaPresenciaList.add(trabajoTiendaSeccionPresenciaService.save(response));
                 pageable = tiendasPage.nextPageable();
             } else {
                 break;
@@ -404,18 +408,18 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .trabajoDtoToPresenciasDetalleRequestDto(trabajo);
                 paramPresenciasDetalle.setPersonas(empleados);
                 paramPresenciasDetalle.setCadena(cadenasMap);
-                List<PtrPresenciasMockDetalleResponseDto> response = ptrPresenciasServiceMock
-                        .presenciasDetalle(paramPresenciasDetalle);
-
-                if (cfTrabajoDetallePresenciaList.size() >= presenciasDetalleDto.getFilter().getMaxPersistenceSize()) {
-                    AsyncUtils.checkAsyncAvaliable(cfTrabajoDetallePresenciaList);
+                List<PtrPresenciasMockDetalleResponseDto> response = ptrPresenciaMockAsyncService
+                        .presenciasDetalle(paramPresenciasDetalle).get();
+                if (CollectionUtils.isNotEmpty(response)) {
+                    if (cfTrabajoDetallePresenciaList.size() >= presenciasDetalleDto.getFilter()
+                            .getMaxPersistenceSize()) {
+                        AsyncUtils.checkAsyncAvaliable(cfTrabajoDetallePresenciaList);
+                    }
+                    cfTrabajoDetallePresenciaList
+                            .add(trabajoTiendaSeccionEmpleadoPresenciaService.save(response, trabajo));
                 }
-
-                cfTrabajoDetallePresenciaList.add(trabajoTiendaSeccionEmpleadoPresenciaService.save(response, trabajo));
             }
-
             pageable = empleadosPage.nextPageable();
-
         } while (empleadosPage.hasNext());
 
         CompletableFuture.allOf(
