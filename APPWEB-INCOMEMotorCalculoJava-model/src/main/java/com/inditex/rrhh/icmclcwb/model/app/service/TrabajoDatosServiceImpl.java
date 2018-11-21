@@ -365,12 +365,14 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
                 paramPresenciasTotalTiendaSeccion.setCadena(cadenasMap);
                 paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-                List<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = PtrPresenciaMockServiceImpl
-                        .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
-
-                if (cfTrabajoTiendaPresenciaList.size() >= presenciasTotalTiendaSeccionDto.getFilter()
-                        .getMaxPersistenceSize()) {
-                    AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaPresenciaList);
+                List<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrPresenciaMockAsyncService
+                        .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion).get();
+                if (CollectionUtils.isNotEmpty(response)) {
+                    if (cfTrabajoTiendaPresenciaList.size() >= presenciasTotalTiendaSeccionDto.getFilter()
+                            .getMaxPersistenceSize()) {
+                        AsyncUtils.checkAsyncAvaliable(cfTrabajoTiendaPresenciaList);
+                    }
+                    cfTrabajoTiendaPresenciaList.add(trabajoTiendaSeccionPresenciaService.save(response));
                 }
                 pageable = tiendasPage.nextPageable();
             } else {
@@ -406,11 +408,15 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                         .trabajoDtoToPresenciasDetalleRequestDto(trabajo);
                 paramPresenciasDetalle.setPersonas(empleados);
                 paramPresenciasDetalle.setCadena(cadenasMap);
-                List<PtrPresenciasMockDetalleResponseDto> response = PtrPresenciaMockServiceImpl
-                		.presenciasDetalle(paramPresenciasDetalle);
-
-                if (cfTrabajoDetallePresenciaList.size() >= presenciasDetalleDto.getFilter().getMaxPersistenceSize()) {
-                    AsyncUtils.checkAsyncAvaliable(cfTrabajoDetallePresenciaList);
+                List<PtrPresenciasMockDetalleResponseDto> response = ptrPresenciaMockAsyncService
+                        .presenciasDetalle(paramPresenciasDetalle).get();
+                if (CollectionUtils.isNotEmpty(response)) {
+                    if (cfTrabajoDetallePresenciaList.size() >= presenciasDetalleDto.getFilter()
+                            .getMaxPersistenceSize()) {
+                        AsyncUtils.checkAsyncAvaliable(cfTrabajoDetallePresenciaList);
+                    }
+                    cfTrabajoDetallePresenciaList
+                            .add(trabajoTiendaSeccionEmpleadoPresenciaService.save(response, trabajo));
                 }
             }
             pageable = empleadosPage.nextPageable();
