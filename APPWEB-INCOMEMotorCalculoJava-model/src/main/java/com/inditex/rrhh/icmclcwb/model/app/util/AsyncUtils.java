@@ -24,8 +24,7 @@ public class AsyncUtils {
         cfList.removeAll(cfDone);
     }
 
-    public static void exceptionally(final CompletableFuture<?> cf,
-            final List<CompletableFuture<?>> cfList) {
+    public static void exceptionally(final CompletableFuture<?> cf, final List<CompletableFuture<?>> cfList) {
         cfList.add(cf);
         cf.exceptionally(e -> {
             cfList.stream().forEach(item -> {
@@ -37,15 +36,17 @@ public class AsyncUtils {
         });
     }
 
-    public static boolean isOk(final List<CompletableFuture<?>> cfList) {
-        boolean result = true;
+    public static void isOk(final List<CompletableFuture<?>> cfList) {
         for (CompletableFuture<?> item : cfList) {
             if (item.isCompletedExceptionally()) {
                 throw new ApplicationException("AsyncUtils.isOk() == false");
             }
             // TODO Si ha finalizado OK, se elimina de la lista para no verificarlo siempre.
         }
-        return result;
+    }
+
+    public static void waitIsOk(final CompletableFuture<?> cfWait, final List<CompletableFuture<?>> cfList) {
+        AsyncUtils.isOk(cfList);
     }
 
 }

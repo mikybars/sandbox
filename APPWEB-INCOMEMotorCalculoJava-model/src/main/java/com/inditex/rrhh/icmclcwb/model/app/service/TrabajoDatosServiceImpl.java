@@ -45,7 +45,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMock
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
@@ -57,11 +56,11 @@ import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
-import com.inditex.rrhh.icmclcwb.model.ptr.presencia.mock.service.PtrPresenciaMockServiceImpl;
 
 @Service
 @Validated
@@ -69,10 +68,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
 
     @Autowired
     private Meta4SessionAsyncService meta4SessionAsyncService;
-    
-    @Autowired
-    private PtrPresenciaMockServiceImpl PtrPresenciaMockServiceImpl;
-    
+
     @Autowired
     private PtrPresenciaMockAsyncService ptrPresenciaMockAsyncService;
 
@@ -227,7 +223,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
     @AuditoriaTrabajo
     @Override
     public void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
-            @NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
+            @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
 
         Pageable pageable = new PageRequest(0, ventaTotalizadoDto.getFilter().getMaxPageSize());
         Page<TrabajoTiendaEstado> tiendasPage;
@@ -268,6 +264,11 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         CompletableFuture.allOf(
                 cfTrabajoTiendaSeccionVentaList.toArray(new CompletableFuture[cfTrabajoTiendaSeccionVentaList.size()]))
                 .join();
+
+        if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
+            // TODO Pivotado de la informacion
+        }
+
     }
 
     @AuditoriaTrabajo
@@ -340,7 +341,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
     @AuditoriaTrabajo
     @Override
     public void presenciaTotalizadaTienda(@Valid TrabajoDto trabajo,
-            @NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
+            @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
         Pageable pageable = new PageRequest(0, presenciasTotalTiendaSeccionDto.getFilter().getMaxPageSize());
         Page<TrabajoTiendaEstado> tiendasPage;
 
@@ -384,6 +385,10 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         CompletableFuture
                 .allOf(cfTrabajoTiendaPresenciaList.toArray(new CompletableFuture[cfTrabajoTiendaPresenciaList.size()]))
                 .join();
+        
+        if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
+            // TODO Pivotado de la informacion
+        }
     }
 
     @AuditoriaTrabajo
@@ -393,7 +398,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         Page<TrabajoEmpleadoEstado> empleadosPage;
 
         List<CompletableFuture<Void>> cfTrabajoDetallePresenciaList = new ArrayList<>();
-
+        
         do {
             // Se recuperan las tiendas por id de trabajo y estado de forma paginada.
             empleadosPage = trabajoEmpleadoEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
@@ -417,6 +422,9 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
                     }
                     cfTrabajoDetallePresenciaList
                             .add(trabajoTiendaSeccionEmpleadoPresenciaService.save(response, trabajo));
+                    
+                    // TODO Recuperar tiendas de las presencias
+                    
                 }
             }
             pageable = empleadosPage.nextPageable();
@@ -425,6 +433,11 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         CompletableFuture.allOf(
                 cfTrabajoDetallePresenciaList.toArray(new CompletableFuture[cfTrabajoDetallePresenciaList.size()]))
                 .join();
+        
+        // TODO Revisar si las tiendas recuperadas de las presencias estan en las tiendas de BBDB
+        // Si no estan consultar a Meta4 e insertar los datos
+        
+        // TODO Pivotado de la informacion
     }
 
 }

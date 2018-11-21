@@ -23,10 +23,10 @@ public interface TrabajoDatosService {
 
     void presenciaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception;
 
-    void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo, @NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda)
+    void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo, @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda)
             throws Exception;
 
     void presenciaTotalizadaTienda(@Valid final TrabajoDto trabajo,
-            @NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception;
+            @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception;
 
 }
