@@ -63,6 +63,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaPresenciaSeccionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaVentaSeccionRepository;
 
 @Service
@@ -110,6 +111,9 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
     
     @Autowired
     private TrabajoTiendaVentaSeccionRepository trabajoTiendaVentaSeccionRepository;
+    
+    @Autowired
+    private TrabajoTiendaPresenciaSeccionRepository trabajoTiendaPresenciaSeccionRepository;
 
     @Autowired
     @Qualifier("getEmpleadosTiendaDto")
@@ -397,6 +401,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         
         if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
             // TODO Pivotado de la informacion
+        	trabajoTiendaPresenciaSeccionRepository.save(trabajo.getId());
         }
     }
 

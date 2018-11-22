@@ -15,34 +15,34 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 
 @Repository
-public class TrabajoTiendaVentaSeccionRepositoryImpl implements TrabajoTiendaVentaSeccionRepository {
+public class TrabajoTiendaPresenciaSeccionRepositoryImpl implements TrabajoTiendaPresenciaSeccionRepository {
 
 	@Autowired
 	@Qualifier("primaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String SAVE = "MERGE INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_VENTA_SECCION "
+	private static final String SAVE = "MERGE INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_PRESENCIA_SECCION "
 			+ " USING ("
 			+ " SELECT FECHA, "
 			+ " ID_TIENDA, "
-			+ " COALESCE(MAX(Q1),0) AS IMPORTE_1, "
-			+ " COALESCE(MAX(Q2),0) AS IMPORTE_2, "
-			+ " COALESCE(MAX(Q3),0) AS IMPORTE_3, "
+			+ " COALESCE(MAX(Q1),0) AS MINUTOS_1, "
+			+ " COALESCE(MAX(Q2),0) AS MINUTOS_2, "
+			+ " COALESCE(MAX(Q3),0) AS MINUTOS_3, "
 			+ " ID_TRABAJO "
 			+ " FROM( "
 			+ " SELECT A.ID_TRABAJO, A.FECHA, A.ID_TIENDA, A.ID_SECCION,"
-			+ " MAX(CASE WHEN A.ID_SECCION = 1 THEN A.IMPORTE END) AS Q1,"
-			+ " MAX(CASE WHEN A.ID_SECCION = 2 THEN A.IMPORTE END) AS Q2,"
-			+ " MAX(CASE WHEN A.ID_SECCION = 3 THEN A.IMPORTE END) AS Q3 "
-			+ " FROM DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_SECCION_VENTA A "
+			+ " MAX(CASE WHEN A.ID_SECCION = 1 THEN A.MINUTOS END) AS Q1,"
+			+ " MAX(CASE WHEN A.ID_SECCION = 2 THEN A.MINUTOS END) AS Q2,"
+			+ " MAX(CASE WHEN A.ID_SECCION = 3 THEN A.MINUTOS END) AS Q3 "
+			+ " FROM DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_SECCION_PRESENCIA A "
 			+ " WHERE A.ID_TRABAJO = ? "
 			+ " GROUP BY A.ID_TRABAJO, A.FECHA, A.ID_TIENDA, A.ID_SECCION) "
 			+ " GROUP BY ID_TRABAJO, FECHA, ID_TIENDA"
 			+ " ) AS S "
 			+ " ON 1 = 0 "
 			+ " WHEN NOT MATCHED THEN "
-			+ " INSERT (FECHA, ID_TIENDA, IMPORTE_1, IMPORTE_2, IMPORTE_3, ID_TRABAJO ) "
-			+ " VALUES (S.FECHA, S.ID_TIENDA, S.IMPORTE_1, S.IMPORTE_2, S.IMPORTE_3, S.ID_TRABAJO)";
+			+ " INSERT (FECHA, ID_TIENDA, MINUTOS_1, MINUTOS_2, MINUTOS_3, ID_TRABAJO ) "
+			+ " VALUES (S.FECHA, S.ID_TIENDA, S.MINUTOS_1, S.MINUTOS_2, S.MINUTOS_3, S.ID_TRABAJO)";
 	
 	@Override
 	@Auditoria
