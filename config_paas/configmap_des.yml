@@ -20,7 +20,7 @@ amiga:
           auth-method: BASIC
           username: rcastro
         ptrClientPresenciaMock:
-          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/swagger-ui.html
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
           auth-method: BASIC
           username: username300
           password: username300p

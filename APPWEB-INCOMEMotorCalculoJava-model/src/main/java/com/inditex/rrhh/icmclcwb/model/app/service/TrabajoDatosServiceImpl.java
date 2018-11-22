@@ -273,7 +273,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
 
         if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
             // TODO Pivotado de la informacion
-//        	trabajoTiendaVentaSeccionRepository.save(trabajo.getId());
+        	trabajoTiendaVentaSeccionRepository.save(trabajo.getId());
         }
 
     }

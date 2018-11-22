@@ -3,7 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+
+import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,25 +38,24 @@ public class TrabajoTiendaVentaSeccionRepositoryImpl implements TrabajoTiendaVen
 			+ " ) AS S "
 			+ " ON 1 = 0 "
 			+ " WHEN NOT MATCHED THEN"
-			+ " INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_VENTA_SECCION (FECHA, ID_TIENDA, IMPORTE_1, IMPORTE_2, IMPORTE_3, ID_TRABAJO ) "
+			+ " INSERT (FECHA, ID_TIENDA, IMPORTE_1, IMPORTE_2, IMPORTE_3, ID_TRABAJO ) "
 			+ " VALUES (S.FECHA, S.ID_TIENDA, S.IMPORTE_1, S.IMPORTE_2, S.IMPORTE_3, S.ID_TRABAJO)";
 	
 	@Override
-	public void save(Long trabajoId){
+	public void save(@NotNull Long trabajoId){
     	LOG.debug("Inicio :: TrabajoTiendaVentaSeccionRepository.save() :: {}", trabajoId);
 
         int row = jdbcTemplate.update(new PreparedStatementCreator(){
             public PreparedStatement createPreparedStatement(Connection connection)
                 throws SQLException {
-                PreparedStatement ps = connection.prepareStatement(SAVE, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps = connection.prepareStatement(SAVE);
                 ps.setLong(1, trabajoId);
                 return ps;
             }
         });
 
         if(row > 0){
-        	LOG.debug("Fin :: TrabajoTiendaVentaSeccionRepository.save() :: {} ", row);
-        }    
-        
+        	LOG.debug("Fin :: TrabajoTiendaVentaSeccionRepository.save() :: Number of rows inserted: {} :: Trabajo id: {} ", row, trabajoId);
+        }
 	}
 }
