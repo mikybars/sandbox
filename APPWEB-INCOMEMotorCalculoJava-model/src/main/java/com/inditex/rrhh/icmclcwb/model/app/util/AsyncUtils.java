@@ -1,10 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
@@ -15,13 +14,16 @@ public class AsyncUtils {
     private AsyncUtils() {
     }
 
-    public static void checkAsyncAvaliable(final List<CompletableFuture<Void>> cfList) {
-        CompletableFuture.anyOf(cfList.toArray(new CompletableFuture[cfList.size()]));
-        Map<Boolean, List<CompletableFuture<Void>>> resultPersistence = cfList.stream()
-                .collect(Collectors.partitioningBy(CompletableFuture::isDone));
-        List<CompletableFuture<Void>> cfDone = resultPersistence.values().stream().flatMap(List::stream)
-                .collect(Collectors.toList());
-        cfList.removeAll(cfDone);
+    public static void checkAsyncAvaliable(final List<CompletableFuture<?>> cfList, Integer maxSize) {
+        if (cfList.size() >= maxSize.intValue()) {
+            AsyncUtils.waitAnyOfIsOk(cfList, cfList);
+        }
+    }
+
+    public static void exceptionally(final CompletableFuture<?> cf, final List<CompletableFuture<?>> cfList,
+            final List<CompletableFuture<?>> cfListOptional) {
+        cfListOptional.add(cf);
+        AsyncUtils.exceptionally(cf, cfList);
     }
 
     public static void exceptionally(final CompletableFuture<?> cf, final List<CompletableFuture<?>> cfList) {
@@ -37,16 +39,35 @@ public class AsyncUtils {
     }
 
     public static void isOk(final List<CompletableFuture<?>> cfList) {
+        final List<CompletableFuture<?>> cfListRemove = new ArrayList<>();
         for (CompletableFuture<?> item : cfList) {
             if (item.isCompletedExceptionally()) {
                 throw new ApplicationException("AsyncUtils.isOk() == false");
+            } else if (item.isDone()) {
+                cfListRemove.add(item);
             }
-            // TODO Si ha finalizado OK, se elimina de la lista para no verificarlo siempre.
+        }
+        if (CollectionUtils.isNotEmpty(cfListRemove)) {
+            cfList.removeAll(cfListRemove);
         }
     }
 
-    public static void waitIsOk(final CompletableFuture<?> cfWait, final List<CompletableFuture<?>> cfList) {
+    public static void waitAnyOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
+        CompletableFuture.anyOf(cfWait);
         AsyncUtils.isOk(cfList);
+    }
+
+    public static void waitAnyOfIsOk(final List<CompletableFuture<?>> cfList, final List<CompletableFuture<?>> cfWait) {
+        AsyncUtils.waitAnyOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfList.size()]));
+    }
+
+    public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
+        CompletableFuture.allOf(cfWait);
+        AsyncUtils.isOk(cfList);
+    }
+
+    public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final List<CompletableFuture<?>> cfWait) {
+        AsyncUtils.waitAllOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfList.size()]));
     }
 
 }

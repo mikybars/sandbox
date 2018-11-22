@@ -57,7 +57,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
             AsyncUtils.exceptionally(cfTiposHoras, cf);
 
             /*-------------------------------------------------------------*/
-            AsyncUtils.waitIsOk(CompletableFuture.allOf(cfTiendasParametro, cfTiendasHistorico), cf);
+            AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfTiendasHistorico);
             /*-------------------------------------------------------------*/
 
             trabajo.setCadenasEmpresa(
@@ -81,7 +81,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
             AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
 
             /*-------------------------------------------------------------*/
-            AsyncUtils.waitIsOk(CompletableFuture.allOf(cfEmpleados), cf);
+            AsyncUtils.waitAllOfIsOk(cf, cfEmpleados);
             /*-------------------------------------------------------------*/
 
             CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoDatosAsyncService
@@ -97,7 +97,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
             if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
                     || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
                 /*-------------------------------------------------------------*/
-                AsyncUtils.waitIsOk(CompletableFuture.allOf(cfPresenciaDetalleEmpleado), cf);
+                AsyncUtils.waitAllOfIsOk(cf, cfPresenciaDetalleEmpleado);
                 /*-------------------------------------------------------------*/
 
                 CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosAsyncService
@@ -112,7 +112,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
             }
 
             /*-------------------------------------------------------------*/
-            AsyncUtils.waitIsOk(CompletableFuture.allOf(cf.toArray(new CompletableFuture[cf.size()])), cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
             trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
         }
