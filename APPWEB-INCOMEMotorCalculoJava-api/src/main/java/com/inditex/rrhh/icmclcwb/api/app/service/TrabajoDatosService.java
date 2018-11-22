@@ -29,4 +29,7 @@ public interface TrabajoDatosService {
     void presenciaTotalizadaTienda(@Valid final TrabajoDto trabajo,
             @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception;
 
+	void ventaTotalizadaTiendaTest(@Valid TrabajoDto trabajo, List<TipoTrabajoTiendaDto> tipoTrabajoTienda)
+			throws Exception;
+
 }

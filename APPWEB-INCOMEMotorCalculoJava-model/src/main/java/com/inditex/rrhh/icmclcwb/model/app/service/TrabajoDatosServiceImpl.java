@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,8 +42,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiendaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockAsyncService;
@@ -61,6 +63,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaVentaSeccionRepository;
 
 @Service
 @Validated
@@ -104,6 +107,9 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
 
     @Autowired
     private TrabajoEmpleadoEstadoMapper trabajoEmpleadoEstadoMapper;
+    
+    @Autowired
+    private TrabajoTiendaVentaSeccionRepository trabajoTiendaVentaSeccionRepository;
 
     @Autowired
     @Qualifier("getEmpleadosTiendaDto")
@@ -267,6 +273,7 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
 
         if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
             // TODO Pivotado de la informacion
+//        	trabajoTiendaVentaSeccionRepository.save(trabajo.getId());
         }
 
     }
@@ -440,6 +447,128 @@ public class TrabajoDatosServiceImpl implements TrabajoDatosService {
         // Si no estan consultar a Meta4 e insertar los datos
         
         // TODO Pivotado de la informacion
+    }
+    
+    
+    @AuditoriaTrabajo
+    @Override
+    public void ventaTotalizadaTiendaTest(@Valid final TrabajoDto trabajo,
+            List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
+    	Integer maxPersistenceSize = ventaTotalizadoDto.getFilter()
+                .getMaxPersistenceSize();
+    	Integer maxPageSize = ventaTotalizadoDto.getFilter().getMaxPageSize();
+        List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(t -> t.getId()).collect(Collectors.toList());
+
+        GetVentaTotalizadoRequestDTO paramGetVentaTotalizado = trabajoMapper
+                .trabajoDtoToGetVentaTotalizadoRequestDTO(trabajo);
+        paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
+        paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
+        
+        Object[] helperParams = new Object[3];
+        helperParams[0] = trabajo.getId();
+        helperParams[1] = AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId();
+        helperParams[2] = tipoTrabajoTiendaId;
+        
+        ServiceDefinitionHelper elementsHelper = ServiceDefinitionHelper.builder()
+        		.methodName("findByTrabajoIdAndEstadoIdAndTipoIdIn")
+        		.objectParams(helperParams)
+        		.service(trabajoTiendaEstadoRepository)
+        		.build();
+
+        ServiceDefinitionHelper ptr = ServiceDefinitionHelper.builder()
+				.methodName("getVentaTotalizado")
+				.service(ptrVentaAsyncService)
+				.build();
+        
+        Class[] saveType = new Class[2];
+        saveType[0] = List.class;
+        saveType[1] = TrabajoDto.class;
+        
+        ServiceDefinitionHelper save = ServiceDefinitionHelper.builder()
+        		.methodName("save")
+        		.objectType(saveType)
+        		.service(trabajoTiendaSeccionVentaAsyncService)
+        		.build();
+
+    	genericPtrCall(trabajo, paramGetVentaTotalizado, maxPageSize, maxPersistenceSize, ptr, elementsHelper, save, "tienda", "ventaTotalizado");
+    }
+    
+    private <T, U extends Object, Z extends Object> void genericPtrCall(TrabajoDto trabajo, U request, 
+    		Integer maxPageSize, Integer maxPersistenceSize, ServiceDefinitionHelper ptr, 
+    		ServiceDefinitionHelper elementsHelper, ServiceDefinitionHelper save, 
+    		String field, String fieldResult) throws Exception{
+        Pageable pageable = new PageRequest(0, maxPageSize);
+        Page page = null;
+        
+        List<CompletableFuture<Void>> cfList = new ArrayList<>();
+        do {
+        	Object[] params = new Object[elementsHelper.getObjectParams().length + 1];
+        	Class[] paramsType = new Class[elementsHelper.getObjectParams().length + 1];
+        	
+        	for(int i = 0; i < elementsHelper.getObjectParams().length; i++){
+        		params[i] = elementsHelper.getObjectParams()[i];
+        		if (elementsHelper.getObjectParams()[i] instanceof ArrayList) {
+					paramsType[i] = List.class ;
+				}else{
+					paramsType[i] = elementsHelper.getObjectParams()[i].getClass();	
+				}
+        	}
+        	
+        	params[params.length - 1] = pageable;
+        	paramsType[paramsType.length - 1] = Pageable.class;
+
+			Method method = elementsHelper.getService().getClass().getMethod(elementsHelper.getMethodName(), paramsType);
+	        page = (Page) method.invoke(elementsHelper.getService(), params);
+	        if (CollectionUtils.isNotEmpty(page.getContent())) {
+				List<?> elements = (List<Integer>) page.getContent().stream()
+		            .map(e -> {
+		            	if(e instanceof TrabajoEmpleadoEstado){
+		            		 return ((TrabajoEmpleadoEstado) e).getIdEmpleado();	
+		            	}else if(e instanceof TrabajoTiendaEstado){
+		            		return ((TrabajoTiendaEstado) e).getIdTienda();	
+		            	}
+						return null;
+		            }).collect(Collectors.toList());
+				
+					Field setField = request.getClass().getDeclaredField(field);
+					setField.setAccessible(true);
+					if (setField != null) {
+						setField.set(request, elements);
+					}
+
+					Method methodPtr = ptr.getService().getClass().getMethod(ptr.getMethodName(), request.getClass());
+					CompletableFuture<U> result = (CompletableFuture<U>) methodPtr.invoke(ptr.getService(), request);
+					
+					U resultGet = result.get();
+					List<U> resultArray = new ArrayList<>();
+					Field setFieldSave = resultGet.getClass().getDeclaredField(fieldResult);
+					setFieldSave.setAccessible(true);
+
+					if (setFieldSave != null) {
+						resultArray = (List<U>) setFieldSave.get(resultGet);
+					}
+					
+					Method methodSave = save.getService().getClass().getMethod(save.getMethodName(), save.getObjectType());
+					CompletableFuture<Void> saveResult;
+					if (save.getObjectType().length == 2) {
+						saveResult = (CompletableFuture<Void>) methodSave.invoke(save.getService(), resultArray,
+								trabajo);
+					}else{
+						saveResult = (CompletableFuture<Void>) methodSave.invoke(save.getService(), resultArray);
+					}
+					cfList.add(saveResult);
+					
+				if (cfList.size() >= maxPersistenceSize) {
+				    AsyncUtils.checkAsyncAvaliable(cfList);
+				}
+	        }
+	        
+            pageable = page.nextPageable();
+
+        }while(page.hasNext());
+
+        CompletableFuture.allOf(cfList
+                .toArray(new CompletableFuture[cfList.size()])).join();
     }
 
 }

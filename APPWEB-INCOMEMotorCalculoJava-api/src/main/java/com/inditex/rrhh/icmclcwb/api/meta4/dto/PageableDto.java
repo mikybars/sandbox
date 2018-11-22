@@ -22,5 +22,14 @@ public class PageableDto<T extends Serializable> implements Pageable<T>, Seriali
 	T data;
 
 	PageDto page;
+	
+	public boolean nextPage(){
+	    if(this.getPage().hasNext()){
+        	this.getPage().next();
+	    	return true;
+	    }
+		return false;
+	}
+	
 
 }
