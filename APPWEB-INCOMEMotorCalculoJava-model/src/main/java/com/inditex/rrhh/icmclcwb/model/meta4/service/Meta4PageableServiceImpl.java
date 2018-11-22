@@ -1,0 +1,44 @@
+package com.inditex.rrhh.icmclcwb.model.meta4.service;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.stereotype.Service;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4PageableService;
+
+@Service
+public class Meta4PageableServiceImpl implements Meta4PageableService {
+
+    @Override
+	public <T extends PageableDto<?>, U extends PageableListDto, Z extends Object> List<Z> getResultItem(final T request, 
+			Object service, String methodName, Integer maxPageSize) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+       
+        List<Z> result = new ArrayList<>();
+        boolean hasNext = false;
+        do {
+        	
+			Method method = service.getClass().getMethod(methodName, request.getClass());
+	        U response = (U) method.invoke(service, request);
+			
+			if (response != null) {
+			    if (CollectionUtils.isNotEmpty(response.getData())) {
+			        result.addAll(response.getData());
+			    }
+			    if (response.getPage() != null && response.getPage().hasNext() && (result.size() < maxPageSize )) {
+			        hasNext = true;
+			        request.setPage(response.getPage().next());
+			    }else{
+			        request.setPage(response.getPage());
+				}
+			}
+        } while(hasNext);
+		
+        return result;
+	}
+
+}

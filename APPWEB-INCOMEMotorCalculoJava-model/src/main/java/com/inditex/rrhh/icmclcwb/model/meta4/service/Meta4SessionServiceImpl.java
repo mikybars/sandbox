@@ -23,21 +23,18 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.poc.PocTiendaRepository;
 
 @Service
-public class Meta4SessionServiceImpl implements Meta4SessionService {
+public class Meta4SessionServiceImpl extends Meta4PageableServiceImpl implements Meta4SessionService {
 
     @Autowired
     private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
@@ -73,32 +70,6 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
             throws Exception {
     	return getResultItem(request, meta4IcmWsIncomeService, "getValoresCondiciones", getValoresCondicionesDto.getFilter().getMaxPageSize());
     }
-
-	private <T extends PageableDto<?>, U extends PageableListDto, Z extends Object> List<Z> getResultItem(final T request, 
-			Object service, String methodName, Integer maxPageSize) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-       
-        List<Z> result = new ArrayList<>();
-        boolean hasNext = false;
-        do {
-        	
-			Method method = service.getClass().getMethod(methodName, request.getClass());
-	        U response = (U) method.invoke(service, request);
-			
-			if (response != null) {
-			    if (CollectionUtils.isNotEmpty(response.getData())) {
-			        result.addAll(response.getData());
-			    }
-			    if (response.getPage() != null && response.getPage().hasNext() && (result.size() < maxPageSize )) {
-			        hasNext = true;
-			        request.setPage(response.getPage().next());
-			    }else{
-			        request.setPage(response.getPage());
-				}
-			}
-        } while(hasNext);
-		
-        return result;
-	}
 
     @Override
     public List<PeriodoDto> periodo() {
