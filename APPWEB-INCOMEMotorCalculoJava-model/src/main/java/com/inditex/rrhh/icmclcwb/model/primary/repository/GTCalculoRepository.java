@@ -1,9 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
-import com.inditex.rrhh.icmclcwb.model.primary.domain.CalculoCriteria;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 public interface GTCalculoRepository {
 		
-	public boolean calcular(CalculoCriteria criteria);
+	public void calcular(TrabajoDto trabajo);
 
 }

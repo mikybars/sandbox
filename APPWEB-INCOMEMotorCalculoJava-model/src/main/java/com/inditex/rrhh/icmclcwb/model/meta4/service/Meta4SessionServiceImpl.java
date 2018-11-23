@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.service;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
@@ -18,22 +20,21 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.poc.PocTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.poc.PocTiendaRepository;
 
 @Service
-public class Meta4SessionServiceImpl implements Meta4SessionService {
+public class Meta4SessionServiceImpl extends Meta4PageableServiceImpl implements Meta4SessionService {
 
     @Autowired
     private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
@@ -55,66 +56,19 @@ public class Meta4SessionServiceImpl implements Meta4SessionService {
     @Override
     public List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(final EmpleadosTiendaRequestDto request)
             throws Exception {
-        List<EmpleadosTiendaResultItemDto> result = new ArrayList<>();
-        boolean hasNext = false;
-        do {
-            hasNext = false;
-            EmpleadosTiendaResponseDto response = meta4IcmWsIncomeService.getEmpleadosTienda(request);
-            if (response != null) {
-                if (CollectionUtils.isNotEmpty(response.getData())) {
-                    result.addAll(response.getData());
-                }
-                if (response.getPage() != null && response.getPage().hasNext() && (result.size() < getEmpleadosTiendaDto.getFilter().getMaxPageSize())) {
-                    hasNext = true;
-                    request.setPage(response.getPage().next());
-                }else{
-                    request.setPage(response.getPage());
-				}
-            }
-        } while (hasNext && result.size() < getEmpleadosTiendaDto.getFilter().getMaxPageSize());
-        return result;
+    	return getResultItem(request, meta4IcmWsIncomeService, "getEmpleadosTienda", getEmpleadosTiendaDto.getFilter().getMaxPageSize());
     }
 
     @Override
     public List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(final EmpleadosEstructuraRequestDto request)
             throws Exception {
-        List<EmpleadosEstructuraResultItemDto> result = new ArrayList<>();
-        boolean hasNext = false;
-        do {
-            hasNext = false;
-            EmpleadosEstructuraResponseDto response = meta4IcmWsIncomeService.getEmpleadosEstructura(request);
-            if (response != null) {
-                if (CollectionUtils.isNotEmpty(response.getData())) {
-                    result.addAll(response.getData());
-                }
-                if (response.getPage() != null && response.getPage().hasNext()) {
-                    hasNext = true;
-                    request.setPage(response.getPage().next());
-                }
-            }
-        } while (hasNext);
-        return result;
+    	return getResultItem(request, meta4IcmWsIncomeService, "getEmpleadosEstructura", 10);
     }
 
     @Override
     public List<ValoresCondicionesResultItemDto> getValoresCondiciones(final ValoresCondicionesRequestDto request)
             throws Exception {
-        List<ValoresCondicionesResultItemDto> result = new ArrayList<>();
-        boolean hasNext = false;
-        do {
-            hasNext = false;
-            ValoresCondicionesResponseDto response = meta4IcmWsIncomeService.getValoresCondiciones(request);
-            if (response != null) {
-                if (CollectionUtils.isNotEmpty(response.getData())) {
-                    result.addAll(response.getData());
-                }
-                if (response.getPage() != null && response.getPage().hasNext()) {
-                    hasNext = true;
-                    request.setPage(response.getPage().next());
-                }
-            }
-        } while (hasNext);
-        return result;
+    	return getResultItem(request, meta4IcmWsIncomeService, "getValoresCondiciones", getValoresCondicionesDto.getFilter().getMaxPageSize());
     }
 
     @Override

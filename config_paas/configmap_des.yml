@@ -20,7 +20,7 @@ amiga:
           auth-method: BASIC
           username: rcastro
         ptrClientPresenciaMock:
-          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/swagger-ui.html
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
           auth-method: BASIC
           username: username300
           password: username300p
@@ -40,8 +40,8 @@ amiga:
         secondary:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
-          user: People7
-          password: people7
+          user: ncomis
+          password: j50lc9sL
     hibernate:
       primary:
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
@@ -95,6 +95,22 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
+      presencia:
+        service:
+          getPresenciasTotalTiendaSeccion:
+            endpoint: /presenciasService/presenciasTotalTiendaSeccion
+            filter:
+              maxPageSize: 20
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          getPresenciasDetalle:
+            endpoint: /presenciasService/presenciasDetalle
+            filter:
+              maxPageSize: 20
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2          
     meta4:
       user: INCOME
       language: 2

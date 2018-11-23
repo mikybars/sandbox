@@ -37,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.list.PtrPresenci
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
+@Ignore
 public class PtrPresenciasMockServiceTest {
 	
 	
