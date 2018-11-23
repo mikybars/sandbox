@@ -16,7 +16,8 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4AsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunDatosService;
@@ -34,7 +35,10 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
     private TrabajoService trabajoService;
 
     @Autowired
-    private TrabajoDatosMeta4AsyncService trabajoDatosMeta4AsyncService;
+    private TrabajoDatosMeta4IcmWsIncomeAsyncService trabajoDatosMeta4IcmWsIncomeAsyncService;
+    
+    @Autowired
+    private TrabajoDatosMeta4IcmWsCalcIncomeAsyncService trabajoDatosMeta4IcmWsCalcIncomeAsyncService;
 
     @Autowired
     private TrabajoDatosPtrVentaAsyncService trabajoDatosPtrVentaAsyncService;
@@ -55,10 +59,10 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
             List<CompletableFuture<?>> cf = new ArrayList<>();
 
-            CompletableFuture<Void> cfTiendasParametro = trabajoDatosMeta4AsyncService.tiendasParametro(trabajo);
+            CompletableFuture<Void> cfTiendasParametro = trabajoDatosMeta4IcmWsIncomeAsyncService.tiendasParametro(trabajo);
             AsyncUtils.exceptionally(cfTiendasParametro, cf);
 
-            CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4AsyncService.tiendasHistorico(trabajo);
+            CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsIncomeAsyncService.tiendasHistorico(trabajo);
             AsyncUtils.exceptionally(cfTiendasHistorico, cf);
 
             CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
@@ -72,7 +76,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                     trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
                             trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
 
-            CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4AsyncService.empleadosTienda(trabajo);
+            CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4IcmWsIncomeAsyncService.empleadosTienda(trabajo);
             AsyncUtils.exceptionally(cfEmpleados, cf);
 
             CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosPtrVentaAsyncService.ventaTotalizadaTienda(
@@ -101,7 +105,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                     .ventaDetalleEmpleado(trabajo);
             AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
 
-            CompletableFuture<Void> cfCondicionesEmpleados = trabajoDatosMeta4AsyncService
+            CompletableFuture<Void> cfCondicionesEmpleados = trabajoDatosMeta4IcmWsIncomeAsyncService
                     .condicionesEmpleados(trabajo);
             AsyncUtils.exceptionally(cfCondicionesEmpleados, cf);
 
