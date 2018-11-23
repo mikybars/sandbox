@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.test;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class CalculoAlgoritmoFactoryTest {
 	private CalculoAlgoritmoFactory calculoAlgoritmoFactory;
 		
 	@Test	
+	@Ignore
 	public void factoryTest() {				
 		TrabajoDto trabajo = new TrabajoDto();		
 		trabajo.setId(100L);								
