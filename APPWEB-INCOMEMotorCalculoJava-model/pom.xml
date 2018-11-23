@@ -285,7 +285,7 @@
 
     <profile>
       <properties>
-        <urlServidor>http://axdeswas19.central.inditex.grp/RRHHAPPWSC-Income/services</urlServidor>
+        <urlServidor>http://develop-icmclcws.axdesocp1.central.inditex.grp/services</urlServidor>
         <bindingDirectory>${basedir}/src/main/resources/bindings</bindingDirectory>
         <sourceDestDir>src/main/java</sourceDestDir>
         <sourceDestDirWsdl>src/main/resources/wsdls</sourceDestDirWsdl>
@@ -352,7 +352,7 @@
                     <wsdlUrl>${urlServidor}/${loginService}</wsdlUrl>
                   </wsdlUrls>
                   <sourceDestDir>${sourceDestDir}</sourceDestDir>
-                  <packageName>${generatedPackageBase}.${loginServicePackageName}.entity</packageName>
+                  <packageName>${generatedPackageBase}.${loginServicePackageName}.entity.generated</packageName>
                 </configuration>
               </execution>
 
@@ -368,7 +368,7 @@
                     <wsdlUrl>${urlServidor}/${icmwsincomeService}</wsdlUrl>
                   </wsdlUrls>
                   <sourceDestDir>${sourceDestDir}</sourceDestDir>
-                  <packageName>${generatedPackageBase}.${icmwsincomeServicePackageName}.entity</packageName>
+                  <packageName>${generatedPackageBase}.${icmwsincomeServicePackageName}.entity.generated</packageName>
                 </configuration>
               </execution>
               
@@ -384,7 +384,7 @@
                     <wsdlUrl>${urlServidor}/${icmwscalcincomeService}</wsdlUrl>
                   </wsdlUrls>
                   <sourceDestDir>${sourceDestDir}</sourceDestDir>
-                  <packageName>${generatedPackageBase}.${icmwscalcincomeServicePackageName}.entity</packageName>
+                  <packageName>${generatedPackageBase}.${icmwscalcincomeServicePackageName}.entity.generated</packageName>
                 </configuration>
               </execution>
               

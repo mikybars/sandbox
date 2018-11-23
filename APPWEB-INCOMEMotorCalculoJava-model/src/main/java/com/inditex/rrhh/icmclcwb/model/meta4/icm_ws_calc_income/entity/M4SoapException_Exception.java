@@ -1,5 +1,5 @@
 
-package com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity;
+package com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity;
 
 import javax.xml.ws.WebFault;
 
@@ -45,7 +45,7 @@ public class M4SoapException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.generated.M4SoapException
+     *     returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.generated.M4SoapException
      */
     public M4SoapException getFaultInfo() {
         return faultInfo;

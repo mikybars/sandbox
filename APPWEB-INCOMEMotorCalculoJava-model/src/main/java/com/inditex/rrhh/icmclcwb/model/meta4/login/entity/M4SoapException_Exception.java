@@ -15,9 +15,7 @@ public class M4SoapException_Exception
     extends Exception
 {
 
-	private static final long serialVersionUID = 3035825770500654946L;
-	
-	/**
+    /**
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
@@ -47,7 +45,7 @@ public class M4SoapException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException
+     *     returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.M4SoapException
      */
     public M4SoapException getFaultInfo() {
         return faultInfo;
