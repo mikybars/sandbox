@@ -300,6 +300,11 @@
         <icmwsincomeService>ICM_WS_INCOME?wsdl=1</icmwsincomeService>
         <icmwsincomeServiceName>ICM_WS_INCOME</icmwsincomeServiceName>
         <icmwsincomeServicePackageName>icm_ws_income</icmwsincomeServicePackageName>
+        
+        <icmwscalcincomeExecution>icmwscalcincome</icmwscalcincomeExecution>
+        <icmwscalcincomeService>ICM_WS_CALC_INCOME?wsdl=1</icmwscalcincomeService>
+        <icmwscalcincomeServiceName>ICM_WS_CALC_INCOME</icmwscalcincomeServiceName>
+        <icmwscalcincomeServicePackageName>icm_ws_calc_income</icmwscalcincomeServicePackageName>
 
       </properties>
 
@@ -366,6 +371,23 @@
                   <packageName>${generatedPackageBase}.${icmwsincomeServicePackageName}.entity</packageName>
                 </configuration>
               </execution>
+              
+              <execution>
+                <id>generateWSClients_${icmwscalcincomeExecution}</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>wsimport</goal>
+                </goals>
+                <configuration>
+                  <bindingDirectory>${bindingDirectory}</bindingDirectory>
+                  <wsdlUrls>
+                    <wsdlUrl>${urlServidor}/${icmwscalcincomeService}</wsdlUrl>
+                  </wsdlUrls>
+                  <sourceDestDir>${sourceDestDir}</sourceDestDir>
+                  <packageName>${generatedPackageBase}.${icmwscalcincomeServicePackageName}.entity</packageName>
+                </configuration>
+              </execution>
+              
             </executions>
 
           </plugin>
@@ -399,6 +421,19 @@
                   <url>${urlServidor}</url>
                   <fromFile>${icmwsincomeService}</fromFile>
                   <toFile>${sourceDestDirWsdl}/${icmwsincomeServiceName}.wsdl</toFile>
+                </configuration>
+              </execution>
+              
+              <execution>
+                <id>download_${icmwscalcincomeExecution}</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>download-single</goal>
+                </goals>
+                <configuration>
+                  <url>${urlServidor}</url>
+                  <fromFile>${icmwscalcincomeService}</fromFile>
+                  <toFile>${sourceDestDirWsdl}/${icmwscalcincomeServiceName}.wsdl</toFile>
                 </configuration>
               </execution>
 
