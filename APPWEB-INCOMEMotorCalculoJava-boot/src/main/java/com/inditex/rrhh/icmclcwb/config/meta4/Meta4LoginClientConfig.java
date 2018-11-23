@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 
 @Configuration
-public class Meta4ClientLoginConfig extends Meta4ClientConfigAbstract<LoginService> {
+public class Meta4LoginClientConfig extends Meta4ClientConfigAbstract<LoginService> {
 
-    @Bean(name = "meta4ClientLogin")
+    @Bean(name = "meta4LoginClient")
     @Override
     public LoginService init() {
         return super.build(LoginService.class);

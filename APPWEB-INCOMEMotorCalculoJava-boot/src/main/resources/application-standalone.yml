@@ -155,9 +155,7 @@ app:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_INCOME
-      icm-ws-calc-income:
-        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-      service:
+        service:
           getEmpleadosTienda: 
             page:
               numeroPagina: 1
@@ -191,3 +189,5 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
+      icm-ws-calc-income:
+        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME

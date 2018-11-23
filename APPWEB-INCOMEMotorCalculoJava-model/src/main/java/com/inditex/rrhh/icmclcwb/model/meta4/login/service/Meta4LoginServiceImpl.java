@@ -36,12 +36,12 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
     private LoginMapper loginMapper;
 
     @Autowired
-    @Qualifier("meta4ClientLogin")
-    private LoginService meta4ClientLogin;
+    @Qualifier("meta4LoginClient")
+    private LoginService meta4LoginClient;
 
     @Autowired
-    @Qualifier("meta4ClientIncome")
-    private IcmWsIncomeService meta4ClientIncome;
+    @Qualifier("meta4IcmWsIncomeClient")
+    private IcmWsIncomeService meta4IcmWsIncomeClient;
 
     @Override
     public boolean login(LoginRequestDto loginRequest) throws Exception {
@@ -51,7 +51,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
             if (!this.retrieveM4Session()) {
                 sesionMeta4Dto = new SesionMeta4Dto();
                 Login param = loginMapper.loginRequestDtoToLogin(loginRequest);
-                LoginResponseDto LoginResponse = loginMapper.m4LoginOutputToLoginResponseDto(meta4ClientLogin
+                LoginResponseDto LoginResponse = loginMapper.m4LoginOutputToLoginResponseDto(meta4LoginClient
                         .login(/* user */ param.getIn0(), /* pass */ param.getIn1(), /* lang */ param.getIn2()));
                 if (LoginResponse != null && StringUtils.isNotBlank(LoginResponse.getSessionID())) {
                     sesionMeta4Dto.setId(LoginResponse.getSessionID());
@@ -60,7 +60,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
                     sesionMeta4Dto.setLanguage(loginRequest.getLanguage());
                     sesionMeta4Dto.setFechaCreacion(LocalDateTime.now());
                     sesionMeta4Dto.setActiva(Boolean.TRUE);
-                    meta4ClientIncome.retrieveM4Session(sesionMeta4Dto.getId());
+                    meta4IcmWsIncomeClient.retrieveM4Session(sesionMeta4Dto.getId());
                     result = true;
                 }
             } else {
@@ -81,7 +81,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
         try {
             if (sesionMeta4Dto != null) {
                 if (StringUtils.isNotBlank(sesionMeta4Dto.getId()) && Boolean.TRUE.equals(sesionMeta4Dto.getActiva())) {
-                    int retrieveM4SessionResult = meta4ClientLogin.retrieveM4Session(sesionMeta4Dto.getId());
+                    int retrieveM4SessionResult = meta4LoginClient.retrieveM4Session(sesionMeta4Dto.getId());
                     if (retrieveM4SessionResult == 0) {
                         result = true;
                     }
@@ -100,7 +100,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
         try {
             if (sesionMeta4Dto != null) {
                 sesionMeta4Dto.setActiva(Boolean.FALSE);
-                meta4ClientLogin.logout();
+                meta4LoginClient.logout();
             }
         } catch (Exception e) {
         }

@@ -7,13 +7,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4AsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4Service;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsIncomeService;
 
 @Service
 public class TrabajoDatosMeta4AsyncServiceImpl implements TrabajoDatosMeta4AsyncService {
 
     @Autowired
-    private TrabajoDatosMeta4Service trabajoDatosMeta4Service;
+    private TrabajoDatosMeta4IcmWsIncomeService trabajoDatosMeta4Service;
 
     @Async
     @Override

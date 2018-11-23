@@ -1,8 +1,6 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.service;
+package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.poc.PocTiendaDto;
@@ -13,19 +11,17 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 
-public interface Meta4SessionAsyncService {
+public interface Meta4IcmWsIncomeSessionService {
 
-	CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(
-			EmpleadosTiendaRequestDto request) throws Exception;
+    List<EmpleadosTiendaResultItemDto> getEmpleadosTienda(final EmpleadosTiendaRequestDto request) throws Exception;
 
-	CompletableFuture<List<EmpleadosEstructuraResultItemDto>> getEmpleadosEstructura(
-			EmpleadosEstructuraRequestDto request) throws Exception;
+    List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(final EmpleadosEstructuraRequestDto request)
+            throws Exception;
 
-	CompletableFuture<List<ValoresCondicionesResultItemDto>> getValoresCondiciones(ValoresCondicionesRequestDto request)
-			throws Exception;
+    List<ValoresCondicionesResultItemDto> getValoresCondiciones(final ValoresCondicionesRequestDto request) throws Exception;
 
-	CompletableFuture<List<PeriodoDto>> periodo();
+    List<PeriodoDto> periodo();
 
-	CompletableFuture<List<PocTiendaDto>> getTiendas(TrabajoDto trabajo);
+    List<PocTiendaDto> getTiendas(final TrabajoDto trabajo);
 
 }

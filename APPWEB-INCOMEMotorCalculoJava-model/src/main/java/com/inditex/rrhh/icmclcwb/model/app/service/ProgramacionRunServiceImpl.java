@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionRunService;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -38,7 +38,7 @@ public class ProgramacionRunServiceImpl implements ProgramacionRunService {
     private TrabajoMapper trabajoMapper;
 
     @Autowired
-    private Meta4SessionService meta4Service;
+    private Meta4IcmWsIncomeSessionService meta4Service;
 
     @Override
     public List<TrabajoDto> run() {

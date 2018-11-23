@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.config.meta4.login.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +31,17 @@ public class Meta4SessionAspect {
     @Value("${app.envars.meta4.language}")
     private String language;
 
-    @Before(value = "execution(public * com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService.*(..))")
+    @Pointcut(value = "execution(public * com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeSessionService.*(..))")
+    public void icmWsIncomePointcut() {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Pointcut(value = "execution(public * com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionService.*(..))")
+    public void icmWsCalcIncomePointcut() {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Before(value = "icmWsIncomePointcut() || icmWsCalcIncomePointcut()")
     public void beforeMeta4SessionService() throws Exception {
         if (!meta4LoginService.retrieveM4Session()
                 && !meta4LoginService.login(new LoginRequestDto(user, password, language))) {
