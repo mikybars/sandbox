@@ -8,11 +8,12 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.aqsw.framework.common.rest.client.builder.RestClientBuilder;
 
 @Configuration
-public class PTRClientPresenciaMockConfig {
+public class PtrClientPresenciaMockConfig {
 
 	@Bean(name = "ptrClientPresenciaMock")
 	@ConfigurationProperties(prefix = "amiga.common.rest.client.ptrClientPresenciaMock")
 	public RestClient testRestClient(final RestClientBuilder builder) {
 		return builder.build();
 	}
+
 }
