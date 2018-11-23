@@ -26,23 +26,20 @@ public interface LoginService {
     /**
      * 
      * @param in0
-     * @param in2
      * @param in1
      * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4LoginOutput
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.M4LoginOutput
      * @throws M4SoapException_Exception
      */
     @WebMethod
-    @WebResult(name = "loginReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "login", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.Login")
-    @ResponseWrapper(localName = "loginResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginResponse")
-    public M4LoginOutput login(
+    @WebResult(name = "loginWithCertificateReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "loginWithCertificate", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginWithCertificate")
+    @ResponseWrapper(localName = "loginWithCertificateResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginWithCertificateResponse")
+    public M4LoginOutput loginWithCertificate(
         @WebParam(name = "in0", targetNamespace = "http://schemas.meta4.com/")
         String in0,
         @WebParam(name = "in1", targetNamespace = "http://schemas.meta4.com/")
-        String in1,
-        @WebParam(name = "in2", targetNamespace = "http://schemas.meta4.com/")
-        String in2)
+        String in1)
         throws M4SoapException_Exception
     ;
 
@@ -53,13 +50,13 @@ public interface LoginService {
      * @param in1
      * @param in3
      * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4LoginOutput
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.M4LoginOutput
      * @throws M4SoapException_Exception
      */
     @WebMethod
     @WebResult(name = "loginWithRoleReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "loginWithRole", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginWithRole")
-    @ResponseWrapper(localName = "loginWithRoleResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginWithRoleResponse")
+    @RequestWrapper(localName = "loginWithRole", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginWithRole")
+    @ResponseWrapper(localName = "loginWithRoleResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginWithRoleResponse")
     public M4LoginOutput loginWithRole(
         @WebParam(name = "in0", targetNamespace = "http://schemas.meta4.com/")
         String in0,
@@ -74,35 +71,38 @@ public interface LoginService {
 
     /**
      * 
+     * @param in0
+     * @param in2
+     * @param in1
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.M4LoginOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod
+    @WebResult(name = "loginReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "login", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.Login")
+    @ResponseWrapper(localName = "loginResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginResponse")
+    public M4LoginOutput login(
+        @WebParam(name = "in0", targetNamespace = "http://schemas.meta4.com/")
+        String in0,
+        @WebParam(name = "in1", targetNamespace = "http://schemas.meta4.com/")
+        String in1,
+        @WebParam(name = "in2", targetNamespace = "http://schemas.meta4.com/")
+        String in2)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
      * @return
      *     returns int
      * @throws M4SoapException_Exception
      */
     @WebMethod
     @WebResult(name = "logoutReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "logout", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.Logout")
-    @ResponseWrapper(localName = "logoutResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LogoutResponse")
+    @RequestWrapper(localName = "logout", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.Logout")
+    @ResponseWrapper(localName = "logoutResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LogoutResponse")
     public int logout()
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param in0
-     * @param in1
-     * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4LoginOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod
-    @WebResult(name = "loginWithCertificateReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "loginWithCertificate", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginWithCertificate")
-    @ResponseWrapper(localName = "loginWithCertificateResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginWithCertificateResponse")
-    public M4LoginOutput loginWithCertificate(
-        @WebParam(name = "in0", targetNamespace = "http://schemas.meta4.com/")
-        String in0,
-        @WebParam(name = "in1", targetNamespace = "http://schemas.meta4.com/")
-        String in1)
         throws M4SoapException_Exception
     ;
 
@@ -115,8 +115,8 @@ public interface LoginService {
      */
     @WebMethod
     @WebResult(name = "retrieveM4SessionReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "retrieveM4Session", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.RetrieveM4Session")
-    @ResponseWrapper(localName = "retrieveM4SessionResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.RetrieveM4SessionResponse")
+    @RequestWrapper(localName = "retrieveM4Session", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.RetrieveM4Session")
+    @ResponseWrapper(localName = "retrieveM4SessionResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.RetrieveM4SessionResponse")
     public int retrieveM4Session(
         @WebParam(name = "in0", targetNamespace = "http://schemas.meta4.com/")
         String in0)

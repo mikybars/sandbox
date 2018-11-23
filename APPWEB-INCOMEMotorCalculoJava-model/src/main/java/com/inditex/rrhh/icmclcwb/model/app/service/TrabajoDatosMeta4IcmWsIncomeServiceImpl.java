@@ -25,7 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.poc.PocTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4Service;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
@@ -33,7 +33,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
@@ -44,10 +44,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRep
 
 @Service
 @Validated
-public class TrabajoDatosMeta4ServiceImpl implements TrabajoDatosMeta4Service {
+public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta4IcmWsIncomeService {
 
     @Autowired
-    private Meta4SessionAsyncService meta4SessionAsyncService;
+    private Meta4IcmWsIncomeSessionAsyncService meta4SessionAsyncService;
 
     @Autowired
     private TrabajoEmpleadoEstadoAsyncService trabajoEmpleadoEstadoAsyncService;

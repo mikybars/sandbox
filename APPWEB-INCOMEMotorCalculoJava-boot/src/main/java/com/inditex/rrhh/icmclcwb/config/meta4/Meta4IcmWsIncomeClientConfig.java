@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmWsIncomeService;
 
 @Configuration
-public class Meta4ClientIncomeConfig extends Meta4ClientConfigAbstract<IcmWsIncomeService> {
+public class Meta4IcmWsIncomeClientConfig extends Meta4ClientConfigAbstract<IcmWsIncomeService> {
 
 	//@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-	@Bean(name = "meta4ClientIncome")
+	@Bean(name = "meta4IcmWsIncomeClient")
 	@Override
 	public IcmWsIncomeService init() {
 		return super.build(IcmWsIncomeService.class);

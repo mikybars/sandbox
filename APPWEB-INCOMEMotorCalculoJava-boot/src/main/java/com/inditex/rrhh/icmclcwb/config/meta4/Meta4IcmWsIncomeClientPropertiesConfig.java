@@ -10,10 +10,11 @@ import lombok.Data;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "app.envars.meta4.service")
-public class Meta4ClientConfig {
+@ConfigurationProperties(prefix = "app.envars.meta4.icm-ws-income.service")
+public class Meta4IcmWsIncomeClientPropertiesConfig {
 	
 	Meta4PropertiesDto getEmpleadosTienda;
+	
 	Meta4PropertiesDto getValoresCondiciones;
 
 	@Bean(name = "getEmpleadosTiendaDto")

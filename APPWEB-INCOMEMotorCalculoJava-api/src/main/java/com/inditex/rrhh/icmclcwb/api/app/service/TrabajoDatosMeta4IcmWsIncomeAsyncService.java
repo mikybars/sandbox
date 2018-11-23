@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
-public interface TrabajoDatosMeta4AsyncService {
+public interface TrabajoDatosMeta4IcmWsIncomeAsyncService {
 
     CompletableFuture<Void> condicionesEmpleados(final TrabajoDto trabajo) throws Exception;
 

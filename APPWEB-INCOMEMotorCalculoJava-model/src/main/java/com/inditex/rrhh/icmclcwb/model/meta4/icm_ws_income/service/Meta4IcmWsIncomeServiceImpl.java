@@ -32,98 +32,98 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.mapper.IcmWsIncomeMap
 @Service
 public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 
-    @Autowired
-    @Qualifier("meta4ClientIncome")
-    private IcmWsIncomeService meta4ClientIncome;
+	@Autowired
+	@Qualifier("meta4IcmWsIncomeClient")
+	private IcmWsIncomeService meta4IcmWsIncomeClient;
 
-    @Autowired
-    private IcmWsIncomeMapper icmWsIncomeMapper;
+	@Autowired
+	private IcmWsIncomeMapper icmWsIncomeMapper;
 
-    @Override
-    public EmpleadosTiendaResponseDto getEmpleadosTienda(EmpleadosTiendaRequestDto getEmpleadosTiendaRequestDTO)
-            throws Exception {
-        EmpleadosTiendaResponseDto result = new EmpleadosTiendaResponseDto();
-        IcmParametrospaginacionBlock param1 = icmWsIncomeMapper
-                .asIcmParametrospaginacionBlock(getEmpleadosTiendaRequestDTO.getPage());
-        IcmParametrostiendaBlock param2 = icmWsIncomeMapper
-                .asIcmParametrostiendaBlock(getEmpleadosTiendaRequestDTO.getData());
-        GetempleadostiendaOutput getempleadostiendaOutput = meta4ClientIncome.getempleadostienda(param1, param2);
-        if (getempleadostiendaOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, getempleadostiendaOutput.getReturn()) == 0) {
-            if (getempleadostiendaOutput.getIcmParametrospaginacion() != null) {
-                PageDto page = icmWsIncomeMapper.asPageDTO(getempleadostiendaOutput.getIcmParametrospaginacion());
-                result.setPage(page);
-            }
-            if (getempleadostiendaOutput.getIcmEmpleadostienda() != null
-                    && getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet() != null
-                    && CollectionUtils.isNotEmpty(
-                            getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet())) {
-                List<EmpleadosTiendaResultItemDto> items = icmWsIncomeMapper.asGetEmpleadosTiendaResultDTOs(
-                        getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
+	@Override
+	public EmpleadosTiendaResponseDto getEmpleadosTienda(EmpleadosTiendaRequestDto getEmpleadosTiendaRequestDTO)
+			throws Exception {
+		EmpleadosTiendaResponseDto result = new EmpleadosTiendaResponseDto();
+		IcmParametrospaginacionBlock param1 = icmWsIncomeMapper
+				.asIcmParametrospaginacionBlock(getEmpleadosTiendaRequestDTO.getPage());
+		IcmParametrostiendaBlock param2 = icmWsIncomeMapper
+				.asIcmParametrostiendaBlock(getEmpleadosTiendaRequestDTO.getData());
+		GetempleadostiendaOutput getempleadostiendaOutput = meta4IcmWsIncomeClient.getempleadostienda(param1, param2);
+		if (getempleadostiendaOutput != null
+				&& Double.compare(NumberUtils.DOUBLE_ZERO, getempleadostiendaOutput.getReturn()) == 0) {
+			if (getempleadostiendaOutput.getIcmParametrospaginacion() != null) {
+				PageDto page = icmWsIncomeMapper.asPageDTO(getempleadostiendaOutput.getIcmParametrospaginacion());
+				result.setPage(page);
+			}
+			if (getempleadostiendaOutput.getIcmEmpleadostienda() != null
+					&& getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet() != null
+					&& CollectionUtils.isNotEmpty(
+							getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet())) {
+				List<EmpleadosTiendaResultItemDto> items = icmWsIncomeMapper.asGetEmpleadosTiendaResultDTOs(
+						getempleadostiendaOutput.getIcmEmpleadostienda().getIcmEmpleadostiendaRecordSet());
+				result.setData(items);
+			}
+		}
+		return result;
+	}
 
-    @Override
-    public EmpleadosEstructuraResponseDto getEmpleadosEstructura(
-            EmpleadosEstructuraRequestDto empleadosEstructuraRequestDTO) throws Exception {
+	@Override
+	public EmpleadosEstructuraResponseDto getEmpleadosEstructura(
+			EmpleadosEstructuraRequestDto empleadosEstructuraRequestDTO) throws Exception {
 
-        EmpleadosEstructuraResponseDto result = new EmpleadosEstructuraResponseDto();
-        IcmParametrosempleadoBlock param = icmWsIncomeMapper
-                .asIcmParametrosempleadoBlock(empleadosEstructuraRequestDTO.getData());
+		EmpleadosEstructuraResponseDto result = new EmpleadosEstructuraResponseDto();
+		IcmParametrosempleadoBlock param = icmWsIncomeMapper
+				.asIcmParametrosempleadoBlock(empleadosEstructuraRequestDTO.getData());
 
-        GetempleadoestructuraOutput getEmpleadosEstructuraOutput = meta4ClientIncome.getempleadoestructura(param);
+		GetempleadoestructuraOutput getEmpleadosEstructuraOutput = meta4IcmWsIncomeClient.getempleadoestructura(param);
 
-        if (getEmpleadosEstructuraOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, getEmpleadosEstructuraOutput.getReturn()) == 0
-                && getEmpleadosEstructuraOutput.getIcmEmpleadosestructura() != null
-                && getEmpleadosEstructuraOutput.getIcmEmpleadosestructura().getIcmEmpleadosestructuraRecordSet() != null
-                && CollectionUtils.isNotEmpty(getEmpleadosEstructuraOutput.getIcmEmpleadosestructura()
-                        .getIcmEmpleadosestructuraRecordSet())) {
-            List<EmpleadosEstructuraResultItemDto> items = icmWsIncomeMapper.asEmpleadosEstructuraResultItemDTOs(
-                    getEmpleadosEstructuraOutput.getIcmEmpleadosestructura().getIcmEmpleadosestructuraRecordSet());
-            result.setData(items);
-        }
+		if (getEmpleadosEstructuraOutput != null
+				&& Double.compare(NumberUtils.DOUBLE_ZERO, getEmpleadosEstructuraOutput.getReturn()) == 0
+				&& getEmpleadosEstructuraOutput.getIcmEmpleadosestructura() != null
+				&& getEmpleadosEstructuraOutput.getIcmEmpleadosestructura().getIcmEmpleadosestructuraRecordSet() != null
+				&& CollectionUtils.isNotEmpty(getEmpleadosEstructuraOutput.getIcmEmpleadosestructura()
+						.getIcmEmpleadosestructuraRecordSet())) {
+			List<EmpleadosEstructuraResultItemDto> items = icmWsIncomeMapper.asEmpleadosEstructuraResultItemDTOs(
+					getEmpleadosEstructuraOutput.getIcmEmpleadosestructura().getIcmEmpleadosestructuraRecordSet());
+			result.setData(items);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public ValoresCondicionesResponseDto getValoresCondiciones(
-            ValoresCondicionesRequestDto valoresCondicionesRequestDTO) throws Exception {
+	@Override
+	public ValoresCondicionesResponseDto getValoresCondiciones(
+			ValoresCondicionesRequestDto valoresCondicionesRequestDTO) throws Exception {
 
-        ValoresCondicionesResponseDto result = new ValoresCondicionesResponseDto();
+		ValoresCondicionesResponseDto result = new ValoresCondicionesResponseDto();
 
-        IcmParametrosplantillaBlock param = icmWsIncomeMapper
-                .asIcmParametrosplantillaBlock(valoresCondicionesRequestDTO.getData());
-        IcmParametrospaginacionBlock param1 = icmWsIncomeMapper
-                .asIcmParametrospaginacionBlock(valoresCondicionesRequestDTO.getPage());
+		IcmParametrosplantillaBlock param = icmWsIncomeMapper
+				.asIcmParametrosplantillaBlock(valoresCondicionesRequestDTO.getData());
+		IcmParametrospaginacionBlock param1 = icmWsIncomeMapper
+				.asIcmParametrospaginacionBlock(valoresCondicionesRequestDTO.getPage());
 
-        GetvalorescondicionesOutput getValoresCondicionesOutput = meta4ClientIncome.getvalorescondiciones(param,
-                param1);
+		GetvalorescondicionesOutput getValoresCondicionesOutput = meta4IcmWsIncomeClient.getvalorescondiciones(param,
+				param1);
 
-        if (getValoresCondicionesOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, getValoresCondicionesOutput.getReturn()) == 0) {
+		if (getValoresCondicionesOutput != null
+				&& Double.compare(NumberUtils.DOUBLE_ZERO, getValoresCondicionesOutput.getReturn()) == 0) {
 
-            if (getValoresCondicionesOutput.getIcmParametrospaginacion() != null) {
-                PageDto page = icmWsIncomeMapper.asPageDTO(getValoresCondicionesOutput.getIcmParametrospaginacion());
-                result.setPage(page);
-            }
-            if (getValoresCondicionesOutput.getIcmPlantillacondiciones() != null
-                    && getValoresCondicionesOutput.getIcmPlantillacondiciones()
-                            .getIcmPlantillacondicionesRecordSet() != null
-                    && CollectionUtils.isNotEmpty(getValoresCondicionesOutput.getIcmPlantillacondiciones()
-                            .getIcmPlantillacondicionesRecordSet())) {
-                List<ValoresCondicionesResultItemDto> items = icmWsIncomeMapper.asValoresCondicionesResultItemDTOs(
-                        getValoresCondicionesOutput.getIcmPlantillacondiciones().getIcmPlantillacondicionesRecordSet());
-                result.setData(items);
-            }
+			if (getValoresCondicionesOutput.getIcmParametrospaginacion() != null) {
+				PageDto page = icmWsIncomeMapper.asPageDTO(getValoresCondicionesOutput.getIcmParametrospaginacion());
+				result.setPage(page);
+			}
+			if (getValoresCondicionesOutput.getIcmPlantillacondiciones() != null
+					&& getValoresCondicionesOutput.getIcmPlantillacondiciones()
+							.getIcmPlantillacondicionesRecordSet() != null
+					&& CollectionUtils.isNotEmpty(getValoresCondicionesOutput.getIcmPlantillacondiciones()
+							.getIcmPlantillacondicionesRecordSet())) {
+				List<ValoresCondicionesResultItemDto> items = icmWsIncomeMapper.asValoresCondicionesResultItemDTOs(
+						getValoresCondicionesOutput.getIcmPlantillacondiciones().getIcmPlantillacondicionesRecordSet());
+				result.setData(items);
+			}
 
-        }
+		}
 
-        return result;
-    }
+		return result;
+	}
 
 }

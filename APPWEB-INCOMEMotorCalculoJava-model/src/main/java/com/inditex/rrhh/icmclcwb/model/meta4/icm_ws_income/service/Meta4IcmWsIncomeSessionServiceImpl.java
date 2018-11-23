@@ -1,7 +1,5 @@
-package com.inditex.rrhh.icmclcwb.model.meta4.service;
+package com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.service;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
@@ -20,21 +18,20 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.poc.PocTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4SessionService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
+import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.poc.PocTiendaRepository;
 
 @Service
-public class Meta4SessionServiceImpl extends Meta4PageableServiceImpl implements Meta4SessionService {
+public class Meta4IcmWsIncomeSessionServiceImpl extends Meta4PageableServiceImpl implements Meta4IcmWsIncomeSessionService {
 
     @Autowired
     private Meta4IcmWsIncomeService meta4IcmWsIncomeService;
