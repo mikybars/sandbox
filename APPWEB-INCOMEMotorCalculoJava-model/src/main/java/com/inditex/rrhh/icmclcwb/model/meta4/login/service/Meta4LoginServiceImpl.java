@@ -1,11 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.login.service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.SesionMeta4Dto;
 import com.inditex.rrhh.icmclcwb.api.meta4.login.service.Meta4LoginService;
+import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.Login;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
@@ -33,6 +36,9 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
 //	private ApplicationContext ctx;
 
     @Autowired
+    private Logger log;
+    
+    @Autowired
     private LoginMapper loginMapper;
 
     @Autowired
@@ -42,6 +48,10 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
     @Autowired
     @Qualifier("meta4IcmWsIncomeClient")
     private IcmWsIncomeService meta4IcmWsIncomeClient;
+    
+    @Autowired
+    @Qualifier("meta4IcmWsCalcIncomeClient")
+    private IcmWsCalcIncomeService meta4IcmWsCalcIncomeClient;
 
     @Override
     public boolean login(LoginRequestDto loginRequest) throws Exception {
@@ -61,6 +71,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
                     sesionMeta4Dto.setFechaCreacion(LocalDateTime.now());
                     sesionMeta4Dto.setActiva(Boolean.TRUE);
                     meta4IcmWsIncomeClient.retrieveM4Session(sesionMeta4Dto.getId());
+                    meta4IcmWsCalcIncomeClient.retrieveM4Session(sesionMeta4Dto.getId());
                     result = true;
                 }
             } else {
@@ -88,6 +99,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
                 }
             }
         } catch (SOAPFaultException e) {
+            log.warn("Error :: Meta4LoginServiceImpl.retrieveM4Session()", e);
         } catch (Exception e) {
             throw e;
         }
@@ -103,6 +115,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
                 meta4LoginClient.logout();
             }
         } catch (Exception e) {
+            log.error("Error :: Meta4LoginServiceImpl.logout()", e);
         }
         return result;
     }
