@@ -53,7 +53,7 @@ public class AsyncUtils {
     }
 
     public static void waitAnyOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
-        CompletableFuture.anyOf(cfWait);
+        CompletableFuture.anyOf(cfWait).join();
         AsyncUtils.isOk(cfList);
     }
 
@@ -62,7 +62,7 @@ public class AsyncUtils {
     }
 
     public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
-        CompletableFuture.allOf(cfWait);
+        CompletableFuture.allOf(cfWait).join();
         AsyncUtils.isOk(cfList);
     }
 
