@@ -21,6 +21,7 @@ public class GetVentaIndividualDetalleRequestDTO implements Serializable {
 	@NotNull
 	private String pais;
 
+	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@NotNull
 	private List<String> cadena;
 

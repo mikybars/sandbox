@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.secondary.repository;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,18 +12,18 @@ import org.springframework.stereotype.Repository;
 
 import com.esotericsoftware.minlog.Log;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockDetalleComisionable;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockDetalle;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockDetalleComisionable;
+import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockTiposHoras;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockTotalTienda;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockTotalTiendaSeccion;
-import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockTiposHoras;
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PtrPresenciasMockDetalleRowMapper;
+import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PtrPresenciasMockTiposHorasRowMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PtrPresenciasMockTotalTiendaRowMapper;
 import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PtrPresenciasMockTotalTiendaSeccionRowMapper;
-import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PtrPresenciasMockTiposHorasRowMapper;
 
 @Repository("PTRPresenciasRepositoryJDBCTemplate")
 public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockRepository {
@@ -30,6 +31,7 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 	@Autowired
 	@Qualifier("secondaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
+	
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 	@Override
@@ -44,7 +46,6 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 				"SELECT P.PERSONA AS 'EMPLEADO', P.TIENDA AS 'ID_TIENDA', P.SECCION AS 'ID_SECCION', P.TIPO AS 'ID_TIPO', P.FECHA AS 'FECHA', P.CCL_ID_CADENA AS 'CADENA', (CAST(P.HORAS AS int) * 60) + PARSENAME(P.HORAS, 1) AS 'MINUTOS', 'FALSE' 'MODIFICADO_INCOME' FROM (SELECT PT.ID_ORGANIZATION, PT.PERSONA, PT.TIENDA, PT.SECCION, PT.TIPO, PT.FECHA, SP.CCL_ID_CADENA, PT.HORAS, ROW_NUMBER() OVER (PARTITION BY SP.STD_ID_WORK_LOCAT, PT.PERSONA, PT.FECHA ORDER BY SP.STD_ID_WORK_LOCAT) AS REG_NUM FROM ");
 
 		if (params.getOrigen() != null) {
-			String origen = "";
 			if (params.getOrigen() == 11) {
 				query.append(
 						" PRESENCIAS_HORARIOS PT INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) ON SW.CCL_ID_COD_ORIGEN = CAST(PT.TIENDA AS nvarchar) INNER JOIN M4CCL_ATRIB_WLOC SP ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA AND PT.FECHA <= SP.CCL_DT_END WHERE 1 = 1 AND PT.ERROR = 'OK' ");
@@ -291,8 +292,6 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 
 	@Override
 	public List<PtrPresenciasMockTiposHoras> findTiposHoras(PtrPresenciasMockTiposHorasRequestDto dto) {
-		List<PtrPresenciasMockTiposHoras> presencias;
-
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 

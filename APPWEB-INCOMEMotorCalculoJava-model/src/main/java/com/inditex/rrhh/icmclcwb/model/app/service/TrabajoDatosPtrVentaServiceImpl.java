@@ -124,7 +124,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
         AsyncUtils.waitAllOfIsOk(cf, cf);
 
         if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
-            trabajoTiendaVentaSeccionRepository.save(trabajo.getId());
+            trabajoTiendaVentaSeccionRepository.save(trabajo);
         }
 
     }

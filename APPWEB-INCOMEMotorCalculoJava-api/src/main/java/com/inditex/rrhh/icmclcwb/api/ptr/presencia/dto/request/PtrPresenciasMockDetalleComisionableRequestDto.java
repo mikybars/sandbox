@@ -37,6 +37,7 @@ public class PtrPresenciasMockDetalleComisionableRequestDto implements Serializa
     @ApiModelProperty(value = "Fecha fin rango de busqueda", required = false, example = "2017-12-31")
     private Date fechaHasta;
 
+	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@NotNull
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
 	private List<Integer> cadena;

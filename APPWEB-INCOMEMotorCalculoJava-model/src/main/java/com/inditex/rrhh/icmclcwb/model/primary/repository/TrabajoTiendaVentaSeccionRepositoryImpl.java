@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 @Repository
 public class TrabajoTiendaVentaSeccionRepositoryImpl implements TrabajoTiendaVentaSeccionRepository {
@@ -46,14 +47,15 @@ public class TrabajoTiendaVentaSeccionRepositoryImpl implements TrabajoTiendaVen
 	
 	@Override
 	@Auditoria
-	public void save(@NotNull Long trabajoId){
+	public void save(@NotNull TrabajoDto trabajoDto){
         jdbcTemplate.update(new PreparedStatementCreator(){
             public PreparedStatement createPreparedStatement(Connection connection)
                 throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(SAVE);
-                ps.setLong(1, trabajoId);
+                ps.setLong(1, trabajoDto.getId());
                 return ps;
             }
         });
 	}
+	
 }
