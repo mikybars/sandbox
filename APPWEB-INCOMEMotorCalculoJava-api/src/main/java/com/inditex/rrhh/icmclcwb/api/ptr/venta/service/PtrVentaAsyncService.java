@@ -2,17 +2,17 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDto;
 
 public interface PtrVentaAsyncService {
 
-    CompletableFuture<GetVentaTotalizadoResponseDTO> getVentaTotalizado(
-            final GetVentaTotalizadoRequestDTO request) throws Exception;
+    CompletableFuture<GetVentaTotalizadoResponseDto> getVentaTotalizado(
+            final GetVentaTotalizadoRequestDto request) throws Exception;
 
-    CompletableFuture<GetVentaIndividualDetalleResponseDTO> getVentaIndividualDetalle(
-            final GetVentaIndividualDetalleRequestDTO request) throws Exception;
+    CompletableFuture<GetVentaIndividualDetalleResponseDto> getVentaIndividualDetalle(
+            final GetVentaIndividualDetalleRequestDto request) throws Exception;
 
 }

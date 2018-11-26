@@ -23,8 +23,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
@@ -55,12 +55,12 @@ public abstract class TrabajoMapper {
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
             @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
             @Mapping(source = "idPaisOrigen", target = "pais"), @Mapping(target = "tienda", ignore = true) })
-    public abstract GetVentaTotalizadoRequestDTO trabajoDtoToGetVentaTotalizadoRequestDTO(TrabajoDto src);
+    public abstract GetVentaTotalizadoRequestDto trabajoDtoToGetVentaTotalizadoRequestDto(TrabajoDto src);
 
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
             @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
             @Mapping(source = "idPaisOrigen", target = "pais"), @Mapping(target = "tienda", ignore = true) })
-    public abstract GetVentaIndividualDetalleRequestDTO trabajoDtoToGetVentaIndividualDetalleRequestDTO(TrabajoDto src);
+    public abstract GetVentaIndividualDetalleRequestDto trabajoDtoToGetVentaIndividualDetalleRequestDto(TrabajoDto src);
 
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
             @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),

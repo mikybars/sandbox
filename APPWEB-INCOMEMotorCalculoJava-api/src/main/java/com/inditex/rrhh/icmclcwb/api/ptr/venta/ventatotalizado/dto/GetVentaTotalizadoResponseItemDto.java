@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
-public class GetVentaTotalizadoResponseItemDTO implements Serializable {
+public class GetVentaTotalizadoResponseItemDto implements Serializable {
 
 	private static final long serialVersionUID = -2758503405995399894L;
 

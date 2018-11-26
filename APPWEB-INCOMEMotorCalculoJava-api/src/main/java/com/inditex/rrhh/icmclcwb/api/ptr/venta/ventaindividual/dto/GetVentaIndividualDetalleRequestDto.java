@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto;
+package com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,10 +8,10 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class GetVentaTotalizadoRequestDTO implements Serializable {
+public class GetVentaIndividualDetalleRequestDto implements Serializable {
 
-	private static final long serialVersionUID = -529195772706345954L;
-
+	private static final long serialVersionUID = -3408775260498412294L;
+	
 	@NotNull
 	private String fechaDesde;
 	
@@ -25,16 +25,16 @@ public class GetVentaTotalizadoRequestDTO implements Serializable {
 	@NotNull
 	private List<String> cadena;
 
-	private List<String> tienda;
+	private List<Integer> tienda;
+	
+	private String seccion;
+	
+	private String temporada;
+	
+	private String producto;
+	
+	private List<Integer> vendedores;
 	
 	private String agrupacion;
-
-//	private String seccion;
-//
-//	private String temporada;
-//
-//	private String producto;
-//	
-//	private String agrupacion;
 
 }

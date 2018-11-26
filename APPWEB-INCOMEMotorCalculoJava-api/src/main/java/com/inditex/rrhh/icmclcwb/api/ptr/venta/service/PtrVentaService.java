@@ -2,17 +2,17 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.service;
 
 import javax.validation.Valid;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDTO;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDto;
 
 public interface PtrVentaService {
 
-    GetVentaTotalizadoResponseDTO getVentaTotalizado(@Valid final GetVentaTotalizadoRequestDTO request)
+    GetVentaTotalizadoResponseDto getVentaTotalizado(@Valid final GetVentaTotalizadoRequestDto request)
             throws Exception;
 
-    GetVentaIndividualDetalleResponseDTO getVentaIndividualDetalle(
-            @Valid final GetVentaIndividualDetalleRequestDTO request) throws Exception;
+    GetVentaIndividualDetalleResponseDto getVentaIndividualDetalle(
+            @Valid final GetVentaIndividualDetalleRequestDto request) throws Exception;
 
 }

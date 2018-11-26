@@ -35,7 +35,7 @@ public class TrabajoTiendaSeccionPresenciaServiceImpl implements TrabajoTiendaSe
     @Override
     public CompletableFuture<Void> save(List<PtrPresenciasMockTotalTiendaSeccionResponseDto> dto) {
         mapper.trabajoTiendaSeccionPresenciasToTrabajoTiendaSeccionPresenciasDto(trabajoTiendaSeccionPresenciaRepository
-                .save(mapper.presenciasTotalTiendaSeccionResponseDtosDTOToTrabajoTiendaSeccionPresencias(dto)));
+                .save(mapper.presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(dto)));
         return CompletableFuture.completedFuture(null);
     }
 }

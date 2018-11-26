@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseItemDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaSeccionVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionVentaRepository;
 
@@ -32,15 +32,15 @@ public class TrabajoTiendaSeccionVentaServiceImpl implements TrabajoTiendaSeccio
     }
 
     @Override
-    public TrabajoTiendaSeccionVentaDto save(GetVentaTotalizadoResponseItemDTO dto, TrabajoDto trabajoDto) {
+    public TrabajoTiendaSeccionVentaDto save(GetVentaTotalizadoResponseItemDto dto, TrabajoDto trabajoDto) {
         return mapper.trabajoTiendaSeccionVentaToTrabajoTiendaSeccionVentaDto(trabajoTiendaSeccionVentaRepository
-                .save(mapper.getVentaTotalizadoResponseItemDTOToTrabajoTiendaSeccionVenta(dto, trabajoDto)));
+                .save(mapper.getVentaTotalizadoResponseItemDtoToTrabajoTiendaSeccionVenta(dto, trabajoDto)));
     }
 
     // TODO: Revisar timeouts en transacciones
     @Transactional(timeout = 60)
     @Override
-    public List<TrabajoTiendaSeccionVentaDto> save(List<GetVentaTotalizadoResponseItemDTO> dto, TrabajoDto trabajoDto) {
+    public List<TrabajoTiendaSeccionVentaDto> save(List<GetVentaTotalizadoResponseItemDto> dto, TrabajoDto trabajoDto) {
         return mapper.trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(trabajoTiendaSeccionVentaRepository
                 .save(mapper.getVentaTotalizadoReponseItemsDtoToTrabajoTiendaSeccionVentas(dto, trabajoDto)));
     }

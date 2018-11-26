@@ -29,6 +29,6 @@ public abstract class TrabajoTiendaSeccionPresenciaMapper {
 	})
 	public abstract TrabajoTiendaSeccionPresencia presenciasTotalTiendaSeccionResponseDtoToTrabajoTiendaSeccionPresencia(PtrPresenciasMockTotalTiendaSeccionResponseDto src);
 
-	public abstract List<TrabajoTiendaSeccionPresencia> presenciasTotalTiendaSeccionResponseDtosDTOToTrabajoTiendaSeccionPresencias(List<PtrPresenciasMockTotalTiendaSeccionResponseDto> src);
+	public abstract List<TrabajoTiendaSeccionPresencia> presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(List<PtrPresenciasMockTotalTiendaSeccionResponseDto> src);
 
 }
