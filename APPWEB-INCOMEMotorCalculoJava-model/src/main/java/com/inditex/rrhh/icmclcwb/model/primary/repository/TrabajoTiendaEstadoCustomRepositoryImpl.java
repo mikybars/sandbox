@@ -16,22 +16,21 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TrabajoTiendaJdbcRepositoryImpl implements TrabajoTiendaJdbcRepository {
+public class TrabajoTiendaEstadoCustomRepositoryImpl implements TrabajoTiendaEstadoCustomRepository {
 
 	@Autowired
 	@Qualifier("primaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 	
 	private static final String QUERY = " SELECT ID FROM TABLE ( VALUES :ids) AS TIENDA (ID) "
-			+ " WHERE NOT EXISTS ( SELECT 1 FROM DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA A "
-			+ " WHERE A.ID_TIENDA = TIENDA.ID"
+			+ " WHERE NOT EXISTS ( SELECT 1 FROM DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_ESTADO A "
+			+ " WHERE A.CCL_ID_COD_ORIGEN = TIENDA.ID"
 			+ ")"; 
 	
 	@Override
-	public List<Integer> findByIdTiendaNotExists(@NotNull Set<Integer> ids){
+	public List<Integer> customFindByIdTiendaNotExists(@NotNull Set<Integer> ids){
 
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
-
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("ids", ids);
 

@@ -5,8 +5,8 @@ import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
-public interface TrabajoTiendaJdbcRepository {
+public interface TrabajoTiendaEstadoCustomRepository {
 
-	List<Integer> findByIdTiendaNotExists(@NotNull Set<Integer> ids);
-
+	List<Integer> customFindByIdTiendaNotExists(@NotNull Set<Integer> ids);
+	
 }
