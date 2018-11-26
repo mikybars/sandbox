@@ -15,31 +15,33 @@ import java.util.List;
 
 @Mapper
 public interface PtrPresenciasMockMapper {
-	// PRESENCIAS DETALLE
-	PtrPresenciasMockDetalleResponseDto asPresenciaDetalleDTO(PtrPresenciasMockDetalle src);
 
-	List<PtrPresenciasMockDetalleResponseDto> asPresenciaDetalleDTOs(List<PtrPresenciasMockDetalle> src);
-	
-	// PRESENCIAS DETALLE COMISIONABLE
-	PtrPresenciasMockDetalleComisionableResponseDto asPresenciaDetalleComisionableDTO(PtrPresenciasMockDetalle src);
+    // PRESENCIAS DETALLE
+    PtrPresenciasMockDetalleResponseDto asPresenciaDetalleDto(PtrPresenciasMockDetalle src);
 
-	List<PtrPresenciasMockDetalleComisionableResponseDto> asPresenciaDetalleComisionableDTOs(List<PtrPresenciasMockDetalle> src);
+    List<PtrPresenciasMockDetalleResponseDto> asPresenciaDetalleDtos(List<PtrPresenciasMockDetalle> src);
 
-	// PRESENCIAS TIENDA
-	PtrPresenciasMockTotalTiendaResponseDto asPresenciasTotalTiendaDTO(PtrPresenciasMockTotalTienda src);
+    // PRESENCIAS DETALLE COMISIONABLE
+    PtrPresenciasMockDetalleComisionableResponseDto asPresenciaDetalleComisionableDto(PtrPresenciasMockDetalle src);
 
-	List<PtrPresenciasMockTotalTiendaResponseDto> asPresenciasTotalTiendaDTOs(List<PtrPresenciasMockTotalTienda> src);
+    List<PtrPresenciasMockDetalleComisionableResponseDto> asPresenciaDetalleComisionableDtos(
+            List<PtrPresenciasMockDetalle> src);
 
-	// PRESENCIAS TIENDA SECCION
-	PtrPresenciasMockTotalTiendaSeccionResponseDto asPresenciasTotalTiendaSeccionDTO(PtrPresenciasMockTotalTiendaSeccion src);
+    // PRESENCIAS TIENDA
+    PtrPresenciasMockTotalTiendaResponseDto asPresenciasTotalTiendaDto(PtrPresenciasMockTotalTienda src);
 
-	List<PtrPresenciasMockTotalTiendaSeccionResponseDto> asPresenciasTotalTiendaSeccionDTOs(
-			List<PtrPresenciasMockTotalTiendaSeccion> src);
+    List<PtrPresenciasMockTotalTiendaResponseDto> asPresenciasTotalTiendaDtos(List<PtrPresenciasMockTotalTienda> src);
 
-	// TIPOS HORAS
-	PtrPresenciasMockTiposHorasResponseDto asTiposHorasDTO(PtrPresenciasMockTiposHoras src);
+    // PRESENCIAS TIENDA SECCION
+    PtrPresenciasMockTotalTiendaSeccionResponseDto asPresenciasTotalTiendaSeccionDto(
+            PtrPresenciasMockTotalTiendaSeccion src);
 
-	List<PtrPresenciasMockTiposHorasResponseDto> asTiposHorasDTOs(List<PtrPresenciasMockTiposHoras> src);
+    List<PtrPresenciasMockTotalTiendaSeccionResponseDto> asPresenciasTotalTiendaSeccionDtos(
+            List<PtrPresenciasMockTotalTiendaSeccion> src);
 
-	
+    // TIPOS HORAS
+    PtrPresenciasMockTiposHorasResponseDto asTiposHorasDto(PtrPresenciasMockTiposHoras src);
+
+    List<PtrPresenciasMockTiposHorasResponseDto> asTiposHorasDtos(List<PtrPresenciasMockTiposHoras> src);
+
 }

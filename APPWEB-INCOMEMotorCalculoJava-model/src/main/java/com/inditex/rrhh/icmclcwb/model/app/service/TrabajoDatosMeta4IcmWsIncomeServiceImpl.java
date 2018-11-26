@@ -102,12 +102,11 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
             tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
             if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
-                PageDto page = null;
-
                 // Para cada tienda recuperamos y persistimos los datos de los empleados
                 // asociados.
                 for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
                     empleadosTiendaRequest.getData().setIdLugarTrabajo(tienda.getIdTiendaMeta4());
+                    boolean hasNext = false;
                     do {
                         // Consultamos en meta4 los empleados por tienda de forma paginada.
                         CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfData = meta4SessionAsyncService
@@ -126,12 +125,8 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
                                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                             }
                         }
-                        page = new PageDto();
-                        page.setNumeroPagina(empleadosTiendaRequest.getPage().getNumeroPagina());
-                        page.setNumeroTotalPaginas(empleadosTiendaRequest.getPage().getNumeroTotalPaginas());
-                        empleadosTiendaRequest.getPage()
-                                .setNumeroPagina(empleadosTiendaRequest.getPage().getNumeroPagina() + 1);
-                    } while (page.hasNext());
+                        hasNext = empleadosTiendaRequest.nextPage();
+                    } while (hasNext);
                 }
             }
             pageable = tiendasPage.nextPageable();

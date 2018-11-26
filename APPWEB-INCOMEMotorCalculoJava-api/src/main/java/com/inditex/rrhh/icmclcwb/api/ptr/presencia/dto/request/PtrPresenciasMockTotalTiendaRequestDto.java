@@ -32,6 +32,7 @@ public class PtrPresenciasMockTotalTiendaRequestDto implements Serializable {
     @ApiModelProperty(value = "Id tipo", required = false, example = "1")
     private Integer tipo;
 
+	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = " 4 ")
 	@NotNull
 	private List<Integer> cadena;

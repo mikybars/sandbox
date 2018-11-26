@@ -27,8 +27,8 @@ public abstract class TrabajoTiendaSeccionPresenciaMapper {
 		@Mapping(source = "seccion", target = "idSeccion"),
 		@Mapping(source = "minutos", target = "minutos")
 	})
-	public abstract TrabajoTiendaSeccionPresencia PresenciasTotalTiendaSeccionResponseDtoToTrabajoTiendaSeccionPresencia(PtrPresenciasMockTotalTiendaSeccionResponseDto src);
+	public abstract TrabajoTiendaSeccionPresencia presenciasTotalTiendaSeccionResponseDtoToTrabajoTiendaSeccionPresencia(PtrPresenciasMockTotalTiendaSeccionResponseDto src);
 
-	public abstract List<TrabajoTiendaSeccionPresencia> PresenciasTotalTiendaSeccionResponseDtosDTOToTrabajoTiendaSeccionPresencias(List<PtrPresenciasMockTotalTiendaSeccionResponseDto> src);
+	public abstract List<TrabajoTiendaSeccionPresencia> presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(List<PtrPresenciasMockTotalTiendaSeccionResponseDto> src);
 
 }

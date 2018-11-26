@@ -5,14 +5,14 @@ import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionVentaDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseItemDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseItemDto;
 
 public interface TrabajoTiendaSeccionVentaService {
 
 	TrabajoTiendaSeccionVentaDto save(@Valid final TrabajoTiendaSeccionVentaDto dto);
 
-	TrabajoTiendaSeccionVentaDto save(GetVentaTotalizadoResponseItemDTO dto, TrabajoDto trabajoDto);
+	TrabajoTiendaSeccionVentaDto save(GetVentaTotalizadoResponseItemDto dto, TrabajoDto trabajoDto);
 	
-	List<TrabajoTiendaSeccionVentaDto> save(List<GetVentaTotalizadoResponseItemDTO> dto, TrabajoDto trabajoDto);
+	List<TrabajoTiendaSeccionVentaDto> save(List<GetVentaTotalizadoResponseItemDto> dto, TrabajoDto trabajoDto);
 
 }

@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseItemDTO;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaSeccionVentaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionVenta;
 
@@ -33,9 +33,9 @@ public abstract class TrabajoTiendaSeccionVentaMapper {
 		@Mapping(source = "trabajo.id", target = "trabajo.id"),
 		@Mapping(target = "id", ignore = true)
 	})
-	public abstract TrabajoTiendaSeccionVenta getVentaTotalizadoResponseItemDTOToTrabajoTiendaSeccionVenta(GetVentaTotalizadoResponseItemDTO src, TrabajoDto trabajo);
+	public abstract TrabajoTiendaSeccionVenta getVentaTotalizadoResponseItemDtoToTrabajoTiendaSeccionVenta(GetVentaTotalizadoResponseItemDto src, TrabajoDto trabajo);
 	
-	public List<TrabajoTiendaSeccionVenta> getVentaTotalizadoReponseItemsDtoToTrabajoTiendaSeccionVentas(List<GetVentaTotalizadoResponseItemDTO> src, TrabajoDto trabajoDto){
+	public List<TrabajoTiendaSeccionVenta> getVentaTotalizadoReponseItemsDtoToTrabajoTiendaSeccionVentas(List<GetVentaTotalizadoResponseItemDto> src, TrabajoDto trabajoDto){
         throw new UnsupportedOperationException("Not implemented");
 	}
 }

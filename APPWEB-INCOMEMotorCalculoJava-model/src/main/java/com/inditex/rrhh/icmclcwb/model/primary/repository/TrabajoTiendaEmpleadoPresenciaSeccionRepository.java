@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
-public interface TrabajoTiendaVentaSeccionRepository {
+public interface TrabajoTiendaEmpleadoPresenciaSeccionRepository {
 
 	void save(@NotNull TrabajoDto trabajoDto);
 

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class GetVentaTotalizadoRequestDTO implements Serializable {
+public class GetVentaTotalizadoRequestDto implements Serializable {
 
 	private static final long serialVersionUID = -529195772706345954L;
 
@@ -21,6 +21,7 @@ public class GetVentaTotalizadoRequestDTO implements Serializable {
 	@NotNull
 	private String pais;
 
+	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@NotNull
 	private List<String> cadena;
 

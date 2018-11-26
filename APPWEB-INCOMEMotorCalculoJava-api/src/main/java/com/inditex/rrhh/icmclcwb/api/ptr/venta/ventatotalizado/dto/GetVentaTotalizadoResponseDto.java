@@ -6,10 +6,10 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class GetVentaTotalizadoResponseDTO implements Serializable {
+public class GetVentaTotalizadoResponseDto implements Serializable {
 
 	private static final long serialVersionUID = -2758503405995399894L;
 	
-	private List<GetVentaTotalizadoResponseItemDTO> ventaTotalizado;
+	private List<GetVentaTotalizadoResponseItemDto> ventaTotalizado;
 
 }

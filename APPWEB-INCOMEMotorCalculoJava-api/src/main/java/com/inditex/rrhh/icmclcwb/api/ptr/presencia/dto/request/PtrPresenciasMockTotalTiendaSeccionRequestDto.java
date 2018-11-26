@@ -26,6 +26,7 @@ public class PtrPresenciasMockTotalTiendaSeccionRequestDto {
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipo;
 
+	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = " 1 ")
 	@NotNull
 	private List<Integer> cadena;

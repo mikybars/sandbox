@@ -1,11 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -38,6 +42,8 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEmpleadoPresenciaSeccionRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoCustomRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaPresenciaSeccionRepository;
 
@@ -59,12 +65,18 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
 
     @Autowired
     private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
+    
+    @Autowired
+    private TrabajoTiendaEstadoCustomRepository trabajoTiendaEstadoCustomRepository;
 
     @Autowired
     private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository;
 
     @Autowired
     private TrabajoTiendaPresenciaSeccionRepository trabajoTiendaPresenciaSeccionRepository;
+    
+    @Autowired
+    private TrabajoTiendaEmpleadoPresenciaSeccionRepository trabajoTiendaEmpleadoPresenciaSeccionRepository;
 
     @Autowired
     @Qualifier("presenciasTotalTiendaSeccionDto")
@@ -135,7 +147,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
         AsyncUtils.waitAllOfIsOk(cf, cf);
 
         if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
-            trabajoTiendaPresenciaSeccionRepository.save(trabajo.getId());
+            trabajoTiendaPresenciaSeccionRepository.save(trabajo);
         }
     }
 
@@ -147,6 +159,8 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
 
         Page<TrabajoEmpleadoEstado> page;
         Pageable pageable = new PageRequest(0, presenciasDetalleDto.getFilter().getMaxPageSize());
+        Set<Integer> idsTiendas = new HashSet<>();
+        
         do {
             page = trabajoEmpleadoEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
                     AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
@@ -176,8 +190,10 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
 
                     if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
                             || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+                    	
                         // TODO Recuperar los ids de tienda sin repetidos de las presencias, para
                         // procesarlas posteriormente
+                    	idsTiendas.addAll(data.stream().map(e -> e.getTienda()).collect(Collectors.toSet()));
                     }
 
                 }
@@ -190,9 +206,20 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
         // TODO Revisar si las tiendas recuperadas de las presencias estan en las
         // tiendas de BBDD
         // Si no estan consultar a Meta4 e insertar los datos
+        
+        
+        if (CollectionUtils.isNotEmpty(idsTiendas)) {
+			List<Integer> idsTiendasMeta4 = trabajoTiendaEstadoCustomRepository
+					.customFindByIdTiendaNotExists(idsTiendas);
+			
+			
+		}
+		
 
         // TODO Pivotado de la informacion
 
+        trabajoTiendaEmpleadoPresenciaSeccionRepository.save(trabajo);
+        
     }
 
 }

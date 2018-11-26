@@ -9,13 +9,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 
 public interface Meta4IcmWsIncomeAsyncService {
     
-	EmpleadosTiendaResponseDto getEmpleadosTienda(EmpleadosTiendaRequestDto getEmpleadosTiendaRequestDTO)
+	EmpleadosTiendaResponseDto getEmpleadosTienda(EmpleadosTiendaRequestDto request)
 			throws Exception;
 	
-	EmpleadosEstructuraResponseDto getEmpleadosEstructura(EmpleadosEstructuraRequestDto empleadosEstructuraRequestDTO)
+	EmpleadosEstructuraResponseDto getEmpleadosEstructura(EmpleadosEstructuraRequestDto request)
 			throws Exception;
 
-	ValoresCondicionesResponseDto getValoresCondiciones(ValoresCondicionesRequestDto valoresCondicionesRequestDTO)
+	ValoresCondicionesResponseDto getValoresCondiciones(ValoresCondicionesRequestDto request)
 			throws Exception;	
 	
 }

@@ -33,32 +33,32 @@ public class PtrPresenciaMockServiceImpl implements PtrPresenciaMockService {
 
     @Override
     public List<PtrPresenciasMockDetalleResponseDto> presenciasDetalle(PtrPresenciasMockDetalleRequestDto presencias) {
-        return this.presenciasMapper.asPresenciaDetalleDTOs(this.presenciasRepository.findPresencias(presencias));
+        return this.presenciasMapper.asPresenciaDetalleDtos(this.presenciasRepository.findPresencias(presencias));
     }
 
 	@Override
 	public List<PtrPresenciasMockDetalleComisionableResponseDto> presenciasDetalleComisionable(
 			PtrPresenciasMockDetalleComisionableRequestDto presencias) {
-		return this.presenciasMapper.asPresenciaDetalleComisionableDTOs(this.presenciasRepository
+		return this.presenciasMapper.asPresenciaDetalleComisionableDtos(this.presenciasRepository
 				.findPresencias(PtrPresenciasMockMapperComisionable.asPresenciaComisionableToDetalle(presencias)));
 	}
 
     @Override
     public List<PtrPresenciasMockTotalTiendaResponseDto> presenciasTotalTienda(PtrPresenciasMockTotalTiendaRequestDto presencias) {
         return this.presenciasMapper
-                .asPresenciasTotalTiendaDTOs(this.presenciasRepository.findPresenciasTotalTienda(presencias));
+                .asPresenciasTotalTiendaDtos(this.presenciasRepository.findPresenciasTotalTienda(presencias));
     }
 
     @Override
     public List<PtrPresenciasMockTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
             PtrPresenciasMockTotalTiendaSeccionRequestDto presencias) {
-        return this.presenciasMapper.asPresenciasTotalTiendaSeccionDTOs(
+        return this.presenciasMapper.asPresenciasTotalTiendaSeccionDtos(
                 this.presenciasRepository.findPresenciasTotalTiendaSeccion(presencias));
     }
 
     @Override
     public List<PtrPresenciasMockTiposHorasResponseDto> tiposHoras(PtrPresenciasMockTiposHorasRequestDto tiposHoras) {
-        return this.presenciasMapper.asTiposHorasDTOs(this.presenciasRepository.findTiposHoras(tiposHoras));
+        return this.presenciasMapper.asTiposHorasDtos(this.presenciasRepository.findTiposHoras(tiposHoras));
     }
 
 }
