@@ -15,30 +15,29 @@ import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4PageableService;
 public class Meta4PageableServiceImpl implements Meta4PageableService {
 
     @Override
-	public <T extends PageableDto<?>, U extends PageableListDto, Z extends Object> List<Z> getResultItem(final T request, 
-			Object service, String methodName, Integer maxPageSize) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-       
+    public <T extends PageableDto<?>, U extends PageableListDto, Z extends Object> List<Z> getResultItem(
+            final T request, Object service, String methodName, Integer maxPageSize) throws IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException {
         List<Z> result = new ArrayList<>();
-        boolean hasNext = false;
+        boolean hasNext;
         do {
-        	
-			Method method = service.getClass().getMethod(methodName, request.getClass());
-	        U response = (U) method.invoke(service, request);
-			
-			if (response != null) {
-			    if (CollectionUtils.isNotEmpty(response.getData())) {
-			        result.addAll(response.getData());
-			    }
-			    if (response.getPage() != null && response.getPage().hasNext() && (result.size() < maxPageSize )) {
-			        hasNext = true;
-			        request.setPage(response.getPage().next());
-			    }else{
-			        request.setPage(response.getPage());
-				}
-			}
-        } while(hasNext);
-		
+            hasNext = false;
+            Method method = service.getClass().getMethod(methodName, request.getClass());
+            U response = (U) method.invoke(service, request);
+            if (response != null) {
+                if (CollectionUtils.isNotEmpty(response.getData())) {
+                    result.addAll(response.getData());
+                }
+                if (response.getPage() != null && response.getPage().hasNext() && (result.size() < maxPageSize)) {
+                    hasNext = true;
+                    request.setPage(response.getPage().next());
+                } else {
+                    request.setPage(response.getPage());
+                }
+            }
+        } while (hasNext);
+
         return result;
-	}
+    }
 
 }

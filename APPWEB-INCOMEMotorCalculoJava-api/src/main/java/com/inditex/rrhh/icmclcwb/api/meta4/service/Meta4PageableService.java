@@ -8,6 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 public interface Meta4PageableService {
 
     <T extends PageableDto<?>, U extends PageableListDto, Z extends Object> List<Z> getResultItem(final T request, 
-            Object service, String methodName, Integer maxPageSize) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException;
+            Object service, String methodName, Integer maxPageSize) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 
 }
