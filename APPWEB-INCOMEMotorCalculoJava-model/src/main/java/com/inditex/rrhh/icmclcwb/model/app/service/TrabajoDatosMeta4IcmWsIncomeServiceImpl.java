@@ -29,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsIncomeSer
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
@@ -74,65 +73,69 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
     @AuditoriaTrabajo
     @Override
     public void empleadosTienda(@Valid final TrabajoDto trabajo) throws Exception {
-        // TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + empresa y pais !!
-        // Cuando tengamos tiendas de tipo parametro se busca directamente, sino podemos
-        // decidir si usar las tiendas o buscar directamente por pais/empresa
-
-        // Request para la consulta de tiendas
-        Pageable pageable = new PageRequest(0, getEmpleadosTiendaDto.getFilter().getMaxPageSize());
-        Page<TrabajoTiendaEstado> tiendasPage;
-
-        // Request para la consulta en meta4
-        EmpleadosTiendaFilterDto empleadosTiendaFilter = trabajoMapper.trabajoDtotoEmpleadosTiendaFilterDto(trabajo);
-        EmpleadosTiendaRequestDto empleadosTiendaRequest = new EmpleadosTiendaRequestDto();
-        empleadosTiendaRequest.setPage(getEmpleadosTiendaDto.getPage());
-        empleadosTiendaRequest.setData(empleadosTiendaFilter);
-
-        List<Long> tipoTrabajoTiendaId = Stream
-                .of(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
-                        AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto())
-                .map(TipoTrabajoTiendaDto::getId).collect(Collectors.toList());
-
         List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
-        do {
-            // Se recuperan las tiendas por id de trabajo y estado de forma paginada.
-            tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
-                    AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
-            if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
-                // Para cada tienda recuperamos y persistimos los datos de los empleados
-                // asociados.
-                for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
-                    empleadosTiendaRequest.getData().setIdLugarTrabajo(tienda.getIdTiendaMeta4());
-                    boolean hasNext = false;
-                    do {
-                        // Consultamos en meta4 los empleados por tienda de forma paginada.
-                        CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfData = meta4SessionAsyncService
-                                .getEmpleadosTienda(empleadosTiendaRequest);
-                        AsyncUtils.exceptionally(cfData, cf);
-                        
-                        List<EmpleadosTiendaResultItemDto> data = cfData.get();
-                        if (CollectionUtils.isNotEmpty(data)) {
-                            List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
-                                    .empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
-                            if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
-                                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                        getEmpleadosTiendaDto.getFilter().getMaxPersistenceSize());
-                                CompletableFuture<Void> cfSave = trabajoEmpleadoEstadoAsyncService
-                                        .save(trabajoEmpleadoEstado);
-                                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+        try {
+            // TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + empresa y pais !!
+            // Cuando tengamos tiendas de tipo parametro se busca directamente, sino podemos
+            // decidir si usar las tiendas o buscar directamente por pais/empresa
+            
+            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+    
+            // Request para la consulta de tiendas
+            Pageable pageable = new PageRequest(0, getEmpleadosTiendaDto.getFilter().getMaxPageSize());
+            Page<TrabajoTiendaEstado> tiendasPage;
+    
+            // Request para la consulta en meta4
+            EmpleadosTiendaFilterDto empleadosTiendaFilter = trabajoMapper.trabajoDtotoEmpleadosTiendaFilterDto(trabajo);
+            EmpleadosTiendaRequestDto empleadosTiendaRequest = new EmpleadosTiendaRequestDto();
+            empleadosTiendaRequest.setPage(getEmpleadosTiendaDto.getPage());
+            empleadosTiendaRequest.setData(empleadosTiendaFilter);
+    
+            List<Long> tipoTrabajoTiendaId = Stream
+                    .of(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+                            AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+                            AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto())
+                    .map(TipoTrabajoTiendaDto::getId).collect(Collectors.toList());
+            do {
+                // Se recuperan las tiendas por id de trabajo y estado de forma paginada.
+                tiendasPage = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
+                        AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
+                if (CollectionUtils.isNotEmpty(tiendasPage.getContent())) {
+                    // Para cada tienda recuperamos y persistimos los datos de los empleados
+                    // asociados.
+                    for (TrabajoTiendaEstado tienda : tiendasPage.getContent()) {
+                        empleadosTiendaRequest.getData().setIdLugarTrabajo(tienda.getIdTiendaMeta4());
+                        boolean hasNext = false;
+                        do {
+                            // Consultamos en meta4 los empleados por tienda de forma paginada.
+                            CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfData = meta4SessionAsyncService
+                                    .getEmpleadosTienda(empleadosTiendaRequest);
+                            AsyncUtils.exceptionally(cfData, cf);
+                            
+                            List<EmpleadosTiendaResultItemDto> data = cfData.get();
+                            if (CollectionUtils.isNotEmpty(data)) {
+                                List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
+                                        .empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
+                                if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
+                                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                            getEmpleadosTiendaDto.getFilter().getMaxPersistenceSize());
+                                    CompletableFuture<Void> cfSave = trabajoEmpleadoEstadoAsyncService
+                                            .save(trabajoEmpleadoEstado);
+                                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                                }
                             }
-                        }
-                        hasNext = empleadosTiendaRequest.nextPage();
-                    } while (hasNext);
+                            hasNext = empleadosTiendaRequest.nextPage();
+                        } while (hasNext);
+                    }
                 }
-            }
-            pageable = tiendasPage.nextPageable();
-        } while (tiendasPage.hasNext());
-
-        AsyncUtils.waitAllOfIsOk(cf);
+                pageable = tiendasPage.nextPageable();
+            } while (tiendasPage.hasNext());
+    
+            AsyncUtils.waitAllOfIsOk(cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
     }
 
     @AuditoriaTrabajo
