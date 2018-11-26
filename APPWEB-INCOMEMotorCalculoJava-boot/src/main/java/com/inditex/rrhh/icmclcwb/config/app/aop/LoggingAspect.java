@@ -51,7 +51,6 @@ public class LoggingAspect {
 
     @Around(value = "auditoriaTrabajoPointcut()")
     public Object auditoriaTrabajoAround(ProceedingJoinPoint pjp) throws Throwable {
-        // TODO Pendiente verificar que el log este activo antes de realizar nada
 //        AuditoriaTrabajo auditoriaTrabajo = Optional.of(pjp.getSignature())
 //                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
 //                .map(method -> method.getAnnotation(AuditoriaTrabajo.class))
@@ -69,64 +68,79 @@ public class LoggingAspect {
                     "La anotacion AuditoriaTrabajo necesita que el metodo tenga un parametro TrabajoDto");
         }
         Instant start = Instant.now();
-        log.info("Trabajo[{}] :: Inicio :: Auditoria :: {} :: {} :: {}", trabajo.getId(),
-                pjp.getSignature().toShortString(), args, trabajo);
+        if (log.isInfoEnabled()) {
+            log.info("Trabajo[{}] :: Inicio :: Auditoria :: {} :: {} :: {}", trabajo.getId(),
+                    pjp.getSignature().toShortString(), args, trabajo);
+        }
         Object result;
         try {
             result = pjp.proceed();
         } catch (Throwable e) {
-            Instant end = Instant.now();
-            String msg = new StringBuilder("Trabajo[").append(trabajo.getId()).append("] :: Fin :: Error :: Auditoria[")
-                    .append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString())
-                    .append(" :: ").append(trabajo).toString();
-            log.error(msg, e);
+            if (log.isErrorEnabled()) {
+                Instant end = Instant.now();
+                String msg = new StringBuilder("Trabajo[").append(trabajo.getId()).append("] :: Fin :: Error :: Auditoria[")
+                        .append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString())
+                        .append(" :: ").append(trabajo).toString();
+                log.error(msg, e);
+            }
             throw e;
         }
-        Instant end = Instant.now();
-        log.info("Trabajo[{}] :: Fin :: Ok :: Auditoria[{}] :: {} :: {} :: {}", trabajo.getId(),
-                Duration.between(start, end), pjp.getSignature().toShortString(), result, trabajo);
+        if (log.isInfoEnabled()) {
+            Instant end = Instant.now();
+            log.info("Trabajo[{}] :: Fin :: Ok :: Auditoria[{}] :: {} :: {} :: {}", trabajo.getId(),
+                    Duration.between(start, end), pjp.getSignature().toShortString(), result, trabajo);
+        }
         return result;
     }
 
     @Around(value = "auditoriaPointcut()")
     public Object auditoriaAround(ProceedingJoinPoint pjp) throws Throwable {
-        // TODO Pendiente verificar que el log este activo antes de realizar nada
 //        Auditoria auditoria = Optional.of(pjp.getSignature()).map(signature -> (MethodSignature) signature)
 //                .map(MethodSignature::getMethod).map(method -> method.getAnnotation(Auditoria.class))
 //                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajo"));
-        List<Object> args = Arrays.asList(pjp.getArgs());
         Instant start = Instant.now();
-        log.debug("Inicio :: Auditoria :: {} :: {}", pjp.getSignature().toShortString(), args);
+        if (log.isDebugEnabled()) {
+            List<Object> args = Arrays.asList(pjp.getArgs());
+            log.debug("Inicio :: Auditoria :: {} :: {}", pjp.getSignature().toShortString(), args);
+        }
         Object result;
         try {
             result = pjp.proceed();
         } catch (Throwable e) {
-            Instant end = Instant.now();
-            log.error("Fin :: Error :: Auditoria[{}] :: {}", Duration.between(start, end),
-                    pjp.getSignature().toShortString());
+            if (log.isErrorEnabled()) {
+                Instant end = Instant.now();
+                String msg = new StringBuilder("Fin :: Error :: Auditoria[").append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString()).toString();
+                log.error(msg, e);
+            }
             throw e;
         }
-        Instant end = Instant.now();
-        log.debug("Fin :: Ok :: Auditoria[{}] :: {} :: {}", Duration.between(start, end),
-                pjp.getSignature().toShortString(), result);
+        if (log.isDebugEnabled()) {
+            Instant end = Instant.now();
+            log.debug("Fin :: Ok :: Auditoria[{}] :: {} :: {}", Duration.between(start, end),
+                    pjp.getSignature().toShortString(), result);
+        }
         return result;
     }
 
     @Around(value = "controllerPointcut() || servicePointcut() || repositoryPointcut()")
     public Object genericAround(ProceedingJoinPoint pjp) throws Throwable {
-        // TODO Pendiente verificar que el log este activo antes de realizar nada
-        log.debug("Inicio :: {} :: {}", pjp.getSignature().toShortString(), Arrays.asList(pjp.getArgs()));
+        if (log.isDebugEnabled()) {
+            log.debug("Inicio :: {} :: {}", pjp.getSignature().toShortString(), Arrays.asList(pjp.getArgs()));
+        }
         Object result = pjp.proceed();
-        log.debug("Fin :: {} :: {}", pjp.getSignature().toShortString(), result);
+        if (log.isDebugEnabled()) {
+            log.debug("Fin :: {} :: {}", pjp.getSignature().toShortString(), result);
+        }
         return result;
     }
 
     @AfterThrowing(pointcut = "auditoriaPointcut() || auditoriaTrabajoPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()", throwing = "e")
     public void genericAfterThrowing(JoinPoint jp, Exception e) {
-        // TODO Pendiente verificar que el log este activo antes de realizar nada
-        String msg = new StringBuilder("Error :: ").append(jp.getSignature().toShortString()).append(" :: ")
-                .append(Arrays.asList(jp.getArgs())).toString();
-        log.error(msg);
+        if (log.isErrorEnabled()) {
+            String msg = new StringBuilder("Error :: ").append(jp.getSignature().toShortString()).append(" :: ")
+                    .append(Arrays.asList(jp.getArgs())).toString();
+            log.error(msg, e);
+        }
     }
 
 }
