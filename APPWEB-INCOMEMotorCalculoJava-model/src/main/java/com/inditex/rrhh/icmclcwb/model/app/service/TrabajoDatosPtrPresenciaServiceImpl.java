@@ -132,9 +132,8 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                 CompletableFuture<List<PtrPresenciasMockTotalTiendaSeccionResponseDto>> cfData = ptrPresenciaMockAsyncService
                         .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
+                
                 List<PtrPresenciasMockTotalTiendaSeccionResponseDto> data = cfData.get();
-
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                             presenciasTotalTiendaSeccionDto.getFilter().getMaxPersistenceSize());
@@ -183,7 +182,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
                 List<PtrPresenciasMockDetalleResponseDto> data = cfData.get();
-                if (CollectionUtils.isNotEmpty(data)) {
+                if (data != null && CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasDetalleDto.getFilter().getMaxPersistenceSize());
                     AsyncUtils.exceptionally(trabajoTiendaSeccionEmpleadoPresenciaService.save(data, trabajo), cf,
                             cfPersist);

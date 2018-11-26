@@ -109,7 +109,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                 
                 GetVentaTotalizadoResponseDto data = cfData.get();
                 
-                if (CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
+                if (data != null && CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, ventaTotalizadoDto.getFilter().getMaxPersistenceSize());
                     AsyncUtils.exceptionally(
                             trabajoTiendaSeccionVentaAsyncService.save(data.getVentaTotalizado(), trabajo), cf,
@@ -160,7 +160,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 
                 GetVentaIndividualDetalleResponseDto data = cfData.get();
 
-                if (CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
+                if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                             ventaIndividualDetalleDto.getFilter().getMaxPersistenceSize());
                     // TODO PERSISTIR
