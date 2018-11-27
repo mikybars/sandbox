@@ -45,7 +45,9 @@ public class PtrVentaServiceImpl implements PtrVentaService {
                 result = response.getBody();
             }
         } else {
-            throw new ApplicationException("La llamada al PTR de Venta ha fallado :: getVentaTotalizado()");
+            throw new ApplicationException(
+                    new StringBuilder("La llamada al PTR de Venta ha fallado :: getVentaTotalizado() :: ")
+                            .append(response.getStatusCode().value()).toString());
         }
         return result;
     }
@@ -62,8 +64,9 @@ public class PtrVentaServiceImpl implements PtrVentaService {
                 result = response.getBody();
             }
         } else {
-            throw new ApplicationException(
-                    "La llamada al PTR de Venta ha fallado :: getVentaIndividualDetalleRequestDto()");
+            throw new ApplicationException(new StringBuilder(
+                    "La llamada al PTR de Venta ha fallado :: getVentaIndividualDetalleRequestDto() :: ")
+                            .append(response.getStatusCode().value()).toString());
         }
         return result;
     }

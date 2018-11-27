@@ -67,7 +67,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciasService {
             }
         } else {
             throw new ApplicationException(
-                    new StringBuilder("La llamada al PTR de Presencia ha fallado :: getPresenciasDetalleDto()")
+                    new StringBuilder("La llamada al PTR de Presencia ha fallado :: getPresenciasDetalleDto() :: ")
                             .append(response.getStatusCode().value()).toString());
         }
         return result;
