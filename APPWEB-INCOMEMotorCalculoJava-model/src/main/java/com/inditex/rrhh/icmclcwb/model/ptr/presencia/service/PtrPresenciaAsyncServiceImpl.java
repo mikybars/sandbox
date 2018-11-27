@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionResponseDto;
 
 @Service
 public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
@@ -21,15 +23,15 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
 
     @Async
     @Override
-    public CompletableFuture<PtrPresenciasMockTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
-            final PtrPresenciasMockTotalTiendaSeccionRequestDto request) throws Exception {
+    public CompletableFuture<PtrPresenciasTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
+            final PtrPresenciasTotalTiendaSeccionRequestDto request) throws Exception {
         return CompletableFuture.completedFuture(ptrPresenciaService.getPresenciasTotalTiendaSeccionDto(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrPresenciasMockDetalleResponseDto> getPresenciasDetalleDto(
-            final PtrPresenciasMockDetalleRequestDto request) throws Exception {
+    public CompletableFuture<PtrPresenciasDetalleResponseDto> getPresenciasDetalleDto(
+            final PtrPresenciasDetalleRequestDto request) throws Exception {
         return CompletableFuture.completedFuture(ptrPresenciaService.getPresenciasDetalleDto(request));
     }
 

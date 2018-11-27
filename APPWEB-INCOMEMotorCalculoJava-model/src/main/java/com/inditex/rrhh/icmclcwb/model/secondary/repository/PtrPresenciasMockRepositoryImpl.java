@@ -11,10 +11,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciasTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockDetalle;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockDetalleComisionable;
 import com.inditex.rrhh.icmclcwb.model.secondary.entity.PtrPresenciasMockTiposHoras;
@@ -38,7 +38,7 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
-    public List<PtrPresenciasMockDetalle> findPresencias(PtrPresenciasMockDetalleRequestDto params) {
+    public List<PtrPresenciasMockDetalle> findPresencias(PtrPresenciasDetalleRequestDto params) {
 
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource param = new MapSqlParameterSource();
@@ -127,7 +127,7 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
     }
 
     @Override
-    public List<PtrPresenciasMockTotalTienda> findPresenciasTotalTienda(PtrPresenciasMockTotalTiendaRequestDto dto) {
+    public List<PtrPresenciasMockTotalTienda> findPresenciasTotalTienda(PtrPresenciasTotalTiendaRequestDto dto) {
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource param = new MapSqlParameterSource();
 
@@ -203,7 +203,7 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
 
     @Override
     public List<PtrPresenciasMockTotalTiendaSeccion> findPresenciasTotalTiendaSeccion(
-            PtrPresenciasMockTotalTiendaSeccionRequestDto dto) {
+            PtrPresenciasTotalTiendaSeccionRequestDto dto) {
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource param = new MapSqlParameterSource();
 
@@ -294,7 +294,7 @@ public class PtrPresenciasMockRepositoryImpl implements PtrPresenciasMockReposit
     }
 
     @Override
-    public List<PtrPresenciasMockTiposHoras> findTiposHoras(PtrPresenciasMockTiposHorasRequestDto dto) {
+    public List<PtrPresenciasMockTiposHoras> findTiposHoras(PtrPresenciasTiposHorasRequestDto dto) {
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource param = new MapSqlParameterSource();
 

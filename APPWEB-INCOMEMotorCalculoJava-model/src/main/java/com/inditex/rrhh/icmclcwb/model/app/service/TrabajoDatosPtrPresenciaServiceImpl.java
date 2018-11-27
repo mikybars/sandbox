@@ -29,12 +29,13 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaService
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionEmpleadoPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiendaSeccionDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockAsyncService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTiendaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTotalTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
@@ -51,7 +52,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaPresencia
 public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPresenciaService {
 
     @Autowired
-    private PtrPresenciaMockAsyncService ptrPresenciaMockAsyncService;
+    private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
     @Autowired
     private TrabajoTiendaSeccionPresenciaService trabajoTiendaSeccionPresenciaService;
@@ -112,30 +113,30 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
 
                 if (CollectionUtils.isNotEmpty(page.getContent())) {
 
-                    List<PtrPresenciasMockTiendaSeccionDto> tiendas = page.getContent().stream()
-                            .map(t -> new PtrPresenciasMockTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
+                    List<PtrPresenciasTiendaSeccionDto> tiendas = page.getContent().stream()
+                            .map(t -> new PtrPresenciasTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
                             .collect(Collectors.toList());
 
                     List<Integer> cadenas = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
                             .collect(Collectors.toList());
 
-                    PtrPresenciasMockTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
-                            .trabajoDtoToPresenciasTotalTiendaSeccionRequestDto(trabajo);
+                    PtrPresenciasTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
+                            .trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(trabajo);
                     paramPresenciasTotalTiendaSeccion.setCadena(cadenas);
                     paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
                     // TODO (PENDIENTE ANALIZAR) Enviar la lista de horas comisionables y cambiar el
                     // objeto a una lista
                     // paramPresenciasTotalTiendaSeccion.setTipo(tipo);
 
-                    CompletableFuture<List<PtrPresenciasMockTotalTiendaSeccionResponseDto>> cfData = ptrPresenciaMockAsyncService
-                            .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
+                    CompletableFuture<PtrPresenciasTotalTiendaSeccionResponseDto> cfData = ptrPresenciaAsyncService
+                            .getPresenciasTotalTiendaSeccionDto(paramPresenciasTotalTiendaSeccion);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                    List<PtrPresenciasMockTotalTiendaSeccionResponseDto> data = cfData.get();
-                    if (CollectionUtils.isNotEmpty(data)) {
+                    PtrPresenciasTotalTiendaSeccionResponseDto data = cfData.get();
+                    if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                                 presenciasTotalTiendaSeccionDto.getFilter().getMaxPersistenceSize());
-                        AsyncUtils.exceptionally(trabajoTiendaSeccionPresenciaService.save(data), cf, cfPersist);
+                        AsyncUtils.exceptionally(trabajoTiendaSeccionPresenciaService.save(data.getList()), cf, cfPersist);
                     }
                     pageable = page.nextPageable();
                 }
@@ -173,20 +174,20 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                     List<Integer> cadenas = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
                             .collect(Collectors.toList());
 
-                    PtrPresenciasMockDetalleRequestDto paramPresenciasDetalle = trabajoMapper
-                            .trabajoDtoToPresenciasDetalleRequestDto(trabajo);
+                    PtrPresenciasDetalleRequestDto paramPresenciasDetalle = trabajoMapper
+                            .trabajoDtoToPtrPresenciasDetalleRequestDto(trabajo);
                     paramPresenciasDetalle.setPersonas(empleados);
                     paramPresenciasDetalle.setCadena(cadenas);
 
-                    CompletableFuture<List<PtrPresenciasMockDetalleResponseDto>> cfData = ptrPresenciaMockAsyncService
-                            .presenciasDetalle(paramPresenciasDetalle);
+                    CompletableFuture<PtrPresenciasDetalleResponseDto> cfData = ptrPresenciaAsyncService
+                            .getPresenciasDetalleDto(paramPresenciasDetalle);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                    List<PtrPresenciasMockDetalleResponseDto> data = cfData.get();
-                    if (data != null && CollectionUtils.isNotEmpty(data)) {
+                    PtrPresenciasDetalleResponseDto data = cfData.get();
+                    if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                                 presenciasDetalleDto.getFilter().getMaxPersistenceSize());
-                        AsyncUtils.exceptionally(trabajoTiendaSeccionEmpleadoPresenciaService.save(data, trabajo), cf,
+                        AsyncUtils.exceptionally(trabajoTiendaSeccionEmpleadoPresenciaService.save(data.getList(), trabajo), cf,
                                 cfPersist);
 
                         if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
@@ -194,7 +195,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
 
                             // TODO Recuperar los ids de tienda sin repetidos de las presencias, para
                             // procesarlas posteriormente
-                            idsTiendas.addAll(data.stream().map(e -> e.getTienda()).collect(Collectors.toSet()));
+                            trabajo.getTiendasPresencia().addAll(data.getList().stream().map(e -> e.getTienda()).collect(Collectors.toSet()));
                         }
 
                     }

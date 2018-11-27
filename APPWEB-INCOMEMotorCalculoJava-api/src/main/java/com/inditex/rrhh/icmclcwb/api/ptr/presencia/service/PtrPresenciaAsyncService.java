@@ -2,17 +2,17 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionResponseDto;
 
 public interface PtrPresenciaAsyncService {
 
-    CompletableFuture<PtrPresenciasMockTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
-            PtrPresenciasMockTotalTiendaSeccionRequestDto request) throws Exception;
+    CompletableFuture<PtrPresenciasTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
+            PtrPresenciasTotalTiendaSeccionRequestDto request) throws Exception;
 
-    CompletableFuture<PtrPresenciasMockDetalleResponseDto> getPresenciasDetalleDto(PtrPresenciasMockDetalleRequestDto request)
+    CompletableFuture<PtrPresenciasDetalleResponseDto> getPresenciasDetalleDto(PtrPresenciasDetalleRequestDto request)
             throws Exception;
 
 }

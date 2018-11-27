@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaEstadoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
@@ -26,7 +27,7 @@ public abstract class TrabajoTiendaEstadoMapper {
 
 	public abstract List<TrabajoTiendaEstado> trabajoTiendaEstadoDtoToTrabajoTiendaEstado(
 			List<TrabajoTiendaEstadoDto> src);
-
+	
 	@BeforeMapping
 	protected void beforeTrabajoTienda(TrabajoTiendaEstado src) {
 		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
@@ -56,5 +57,11 @@ public abstract class TrabajoTiendaEstadoMapper {
 			List<TrabajoTiendaEstadoDto> srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
+	
+	@Mappings({ @Mapping(target = "idPaisOrigen", source = "idOrigen")})
+	public abstract TrabajoTiendaEstadoDto tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto (TiendasEmpleadoResultItemDto src);
+	
+	public abstract List<TrabajoTiendaEstadoDto> tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto (List<TiendasEmpleadoResultItemDto> src);
+	
 
 }

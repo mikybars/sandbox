@@ -7,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleComisionableRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleComisionableResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciasDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciasDetalleComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciasTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciasTiposHorasResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTotalTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionResultItemDto;
 
 @Service
 public class PtrPresenciaMockAsyncServiceImpl implements PtrPresenciaMockAsyncService {
@@ -28,35 +28,35 @@ public class PtrPresenciaMockAsyncServiceImpl implements PtrPresenciaMockAsyncSe
 
     @Async
     @Override
-    public CompletableFuture<List<PtrPresenciasMockDetalleResponseDto>> presenciasDetalle(
-            PtrPresenciasMockDetalleRequestDto request) {
+    public CompletableFuture<List<PtrPresenciasDetalleResultItemDto>> presenciasDetalle(
+            PtrPresenciasDetalleRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaMockService.presenciasDetalle(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<List<PtrPresenciasMockDetalleComisionableResponseDto>> presenciasDetalleComisionable(
-            PtrPresenciasMockDetalleComisionableRequestDto request) {
+    public CompletableFuture<List<PtrPresenciasDetalleComisionableResultItemDto>> presenciasDetalleComisionable(
+            PtrPresenciasDetalleComisionableRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaMockService.presenciasDetalleComisionable(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<List<PtrPresenciasMockTotalTiendaResponseDto>> presenciasTotalTienda(
-            PtrPresenciasMockTotalTiendaRequestDto request) {
+    public CompletableFuture<List<PtrPresenciasTotalTiendaResultItemDto>> presenciasTotalTienda(
+            PtrPresenciasTotalTiendaRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaMockService.presenciasTotalTienda(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<List<PtrPresenciasMockTotalTiendaSeccionResponseDto>> presenciasTotalTiendaSeccion(
-            PtrPresenciasMockTotalTiendaSeccionRequestDto request) {
+    public CompletableFuture<List<PtrPresenciasTotalTiendaSeccionResultItemDto>> presenciasTotalTiendaSeccion(
+            PtrPresenciasTotalTiendaSeccionRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaMockService.presenciasTotalTiendaSeccion(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<List<PtrPresenciasMockTiposHorasResponseDto>> tiposHoras(PtrPresenciasMockTiposHorasRequestDto request) {
+    public CompletableFuture<List<PtrPresenciasTiposHorasResultItemDto>> tiposHoras(PtrPresenciasTiposHorasRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaMockService.tiposHoras(request));
     }
 

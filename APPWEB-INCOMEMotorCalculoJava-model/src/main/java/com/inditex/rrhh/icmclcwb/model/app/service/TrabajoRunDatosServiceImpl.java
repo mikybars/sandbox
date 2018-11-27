@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoCustomRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 
 @Service
@@ -36,10 +37,10 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
     @Autowired
     private TrabajoDatosMeta4IcmWsIncomeAsyncService trabajoDatosMeta4IcmWsIncomeAsyncService;
-    
+  
     @Autowired
     private TrabajoDatosMeta4IcmWsCalcIncomeAsyncService trabajoDatosMeta4IcmWsCalcIncomeAsyncService;
-
+  
     @Autowired
     private TrabajoDatosPtrVentaAsyncService trabajoDatosPtrVentaAsyncService;
 
@@ -48,6 +49,9 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
     @Autowired
     private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
+    
+    @Autowired
+    private TrabajoTiendaEstadoCustomRepository trabajoTiendaEstadoCustomRepository;
 
     @AuditoriaTrabajo
     @Override
@@ -115,6 +119,14 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                     AsyncUtils.waitAllOfIsOk(cf, cfPresenciaDetalleEmpleado);
                     /*-------------------------------------------------------------*/
     
+                    if (CollectionUtils.isNotEmpty(trabajo.getTiendasPresencia())){
+                    	trabajo.setTiendasPresenciaNuevas(trabajoTiendaEstadoCustomRepository
+                        .customFindByIdTiendaNotExists(trabajo.getTiendasPresencia()));
+             
+                        CompletableFuture<Void> cfTiendasEmpleado = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.tiendasEmpleado(trabajo);
+                        AsyncUtils.exceptionally(cfTiendasEmpleado, cf);
+                    }
+
                     CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosPtrVentaAsyncService
                             .ventaTotalizadaTienda(trabajo,
                                     Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));

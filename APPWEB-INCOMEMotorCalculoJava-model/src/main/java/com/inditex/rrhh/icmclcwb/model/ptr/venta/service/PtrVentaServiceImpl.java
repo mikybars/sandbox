@@ -13,10 +13,10 @@ import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResponseDto;
 
 @Service
 @Validated
@@ -35,11 +35,11 @@ public class PtrVentaServiceImpl implements PtrVentaService {
     private PtrPropertiesDto ventaIndividualDetalleDto;
 
     @Override
-    public GetVentaTotalizadoResponseDto getVentaTotalizado(
-            @Valid final GetVentaTotalizadoRequestDto getVentaTotalizadoRequest) throws Exception {
-        GetVentaTotalizadoResponseDto result = null;
-        ResponseEntity<GetVentaTotalizadoResponseDto> response = ptrVentaClient.postForEntity(
-                ventaTotalizadoDto.getEndpoint(), getVentaTotalizadoRequest, GetVentaTotalizadoResponseDto.class);
+    public PtrVentaTotalizadoResponseDto getVentaTotalizado(
+            @Valid final PtrVentaTotalizadoRequestDto getVentaTotalizadoRequest) throws Exception {
+        PtrVentaTotalizadoResponseDto result = null;
+        ResponseEntity<PtrVentaTotalizadoResponseDto> response = ptrVentaClient.postForEntity(
+                ventaTotalizadoDto.getEndpoint(), getVentaTotalizadoRequest, PtrVentaTotalizadoResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
             if (response.getBody() != null) {
                 result = response.getBody();
@@ -53,12 +53,12 @@ public class PtrVentaServiceImpl implements PtrVentaService {
     }
 
     @Override
-    public GetVentaIndividualDetalleResponseDto getVentaIndividualDetalle(
-            @Valid final GetVentaIndividualDetalleRequestDto getVentaIndividualDetalleRequestDto) throws Exception {
-        GetVentaIndividualDetalleResponseDto result = null;
-        ResponseEntity<GetVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
+    public PtrVentaIndividualDetalleResponseDto getVentaIndividualDetalle(
+            @Valid final PtrVentaIndividualDetalleRequestDto getVentaIndividualDetalleRequestDto) throws Exception {
+        PtrVentaIndividualDetalleResponseDto result = null;
+        ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
                 ventaIndividualDetalleDto.getEndpoint(), getVentaIndividualDetalleRequestDto,
-                GetVentaIndividualDetalleResponseDto.class);
+                PtrVentaIndividualDetalleResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
             if (response.getBody() != null) {
                 result = response.getBody();

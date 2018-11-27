@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionEmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionEmpleadoPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaSeccionEmpleadoPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionEmpleadoPresencia;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepository;
@@ -39,7 +39,7 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements Trabajo
     // TODO: Revisar timeouts en transacciones
     @Transactional(timeout = 120)
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciasMockDetalleResponseDto> dtos, TrabajoDto trabajoDto) {
+    public CompletableFuture<Void> save(List<PtrPresenciasDetalleResultItemDto> dtos, TrabajoDto trabajoDto) {
         List<TrabajoTiendaSeccionEmpleadoPresencia> result = mapper
                 .presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos, trabajoDto);
         trabajoTiendaSeccionEmpleadoPresenciaRepository.save(result);

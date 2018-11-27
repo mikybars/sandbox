@@ -130,16 +130,5 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2       
-          getTest:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 10
-              tipoOrden: DESC
-              campoOrden: test  
-            filter:
-              maxPageSize: 20
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              retryAttempts: 2
       icm-ws-calc-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME

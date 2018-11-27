@@ -10,7 +10,7 @@ metadata:
   domain: core
   openshiftproject: icmclcwb
   slot: develop
-spring:
+spring: 
 #  jta:
 #    atomikos:
 #      properties:
@@ -35,8 +35,8 @@ amiga:
           base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
         ptrPresenciaClient:
-          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          #base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+#          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
+          base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
         ptrPresenciaMockClient:
           base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
           auth-method: BASIC
@@ -198,16 +198,5 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2       
-          getTest:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 10
-              tipoOrden: DESC
-              campoOrden: test  
-            filter:
-              maxPageSize: 20
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              retryAttempts: 2
       icm-ws-calc-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
