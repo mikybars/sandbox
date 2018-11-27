@@ -27,7 +27,7 @@ import io.swagger.annotations.Authorization;
 
 @Validated
 @RestController
-@RequestMapping(path = "/presenciasServiceMock")
+@RequestMapping(path = "/presenciasMockService/presenciasService")
 @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
 public class PtrPresenciaMockController {
 

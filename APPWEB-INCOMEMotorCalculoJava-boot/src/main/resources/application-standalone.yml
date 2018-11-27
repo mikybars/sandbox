@@ -37,12 +37,12 @@ amiga:
         ptrPresenciaClient:
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
           username: username300
           password: username300p
         ptrPresenciaMockClient:
-          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
           username: username300
           password: username300p
@@ -143,14 +143,14 @@ app:
           getVentaTotalizado: 
             endpoint: /ventaGeneralService/getVentaTotalizado
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
           getVentaIndividualDetalle: 
             endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
@@ -159,14 +159,14 @@ app:
           getPresenciasTotalTiendaSeccion:
             endpoint: /presenciasService/presenciasTotalTiendaSeccion
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2          
@@ -187,7 +187,7 @@ app:
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
@@ -198,7 +198,7 @@ app:
               tipoOrden: DESC
               campoOrden: idplantilla
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2       
