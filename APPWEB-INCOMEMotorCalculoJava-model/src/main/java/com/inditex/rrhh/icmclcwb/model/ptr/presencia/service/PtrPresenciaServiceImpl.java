@@ -47,8 +47,9 @@ public class PtrPresenciaServiceImpl implements PtrPresenciasMockService {
                 result = response.getBody();
             }
         } else {
-            throw new ApplicationException(
-                    "La llamada al PTR de Presencia ha fallado :: getPresenciasTotalTiendaSeccionDto()");
+            throw new ApplicationException(new StringBuilder(
+                    "La llamada al PTR de Presencia ha fallado :: getPresenciasTotalTiendaSeccionDto() :: ")
+                            .append(response.getStatusCode().value()).toString());
         }
         return result;
     }
@@ -58,13 +59,16 @@ public class PtrPresenciaServiceImpl implements PtrPresenciasMockService {
             @Valid final PtrPresenciasMockDetalleRequestDto getPresenciasDetalleRequestDto) throws Exception {
         PtrPresenciasMockDetalleResponseDto result = null;
         ResponseEntity<PtrPresenciasMockDetalleResponseDto> response = ptrClientPresencia.postForEntity(
-                presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto, PtrPresenciasMockDetalleResponseDto.class);
+                presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto,
+                PtrPresenciasMockDetalleResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
             if (response.getBody() != null) {
                 result = response.getBody();
             }
         } else {
-            throw new ApplicationException("La llamada al PTR de Presencia ha fallado :: getPresenciasDetalleDto()");
+            throw new ApplicationException(
+                    new StringBuilder("La llamada al PTR de Presencia ha fallado :: getPresenciasDetalleDto()")
+                            .append(response.getStatusCode().value()).toString());
         }
         return result;
     }

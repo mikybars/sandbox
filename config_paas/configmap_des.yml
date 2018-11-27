@@ -12,9 +12,11 @@ amiga:
         defaultConnectTimeout: 300000
         defaultReadTimeout: 300000
         ptrClientVenta:
-          base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
+          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
+          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
         ptrClientPresencia:
           base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          #base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
         ptrClientPresenciaMock:
           base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
           auth-method: BASIC
