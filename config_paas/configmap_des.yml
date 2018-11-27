@@ -26,6 +26,15 @@ amiga:
         concurrency: 10-20
   data:
     jdbc:
+      configuration:
+        prop:
+          # 0: TRANSACTION_NONE
+          # 1: TRANSACTION_READ_UNCOMMITTED
+          # 2: TRANSACTION_READ_COMMITTED
+          # 4: TRANSACTION_REPEATABLE_READ
+          # 8: TRANSACTION_SERIALIZABLE
+          default-isolation-level: 1
+          max-pool-size: 20
       datasource:
         primary:
           driverClassName: com.ibm.db2.jcc.DB2Driver
@@ -38,25 +47,9 @@ amiga:
           #user: ncomis
     hibernate:
       primary:
-        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
       secondary:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
-#    jdbc:
-#      datasource:
-#        primary:
-#          driverClassName: org.h2.Driver
-#          url: jdbc:h2:mem:INDITEX;MODE=DB2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS DESARROLLO_RRHH
-#          user: sa
-#        secondary:
-#          driverClassName: org.h2.Driver
-#          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-#          user: sa
-#    hibernate:
-#      primary:
-#        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
-#      secondary:
-#        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.hbm2ddl.import_files'':''import-secondary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
     jms:
       connectionFactory:
         brokerEscritura:

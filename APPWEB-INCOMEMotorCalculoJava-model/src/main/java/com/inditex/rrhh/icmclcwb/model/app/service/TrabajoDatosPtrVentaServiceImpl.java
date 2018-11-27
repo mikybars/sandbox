@@ -80,96 +80,100 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
     public void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
             @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
         List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+            List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(TipoTrabajoTiendaDto::getId)
+                    .collect(Collectors.toList());
+            Page<TrabajoTiendaEstado> page;
+            Pageable pageable = new PageRequest(0, ventaTotalizadoDto.getFilter().getMaxPageSize());
+            do {
+                page = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
+                        AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
+                if (CollectionUtils.isNotEmpty(page.getContent())) {
+                    List<String> tiendas = page.getContent().stream().map(TrabajoTiendaEstado::getIdTienda)
+                            .collect(Collectors.toList());
 
-        List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(TipoTrabajoTiendaDto::getId)
-                .collect(Collectors.toList());
+                    GetVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
+                            .trabajoDtoToGetVentaTotalizadoRequestDto(trabajo);
+                    paramGetVentaTotalizado.setTienda(tiendas);
+                    paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
+                    paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
-        Page<TrabajoTiendaEstado> page;
-        Pageable pageable = new PageRequest(0, ventaTotalizadoDto.getFilter().getMaxPageSize());
-        do {
+                    CompletableFuture<GetVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
+                            .getVentaTotalizado(paramGetVentaTotalizado);
+                    AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-            page = trabajoTiendaEstadoRepository.findByTrabajoIdAndEstadoIdAndTipoIdIn(trabajo.getId(),
-                    AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
+                    GetVentaTotalizadoResponseDto data = cfData.get();
 
-            if (CollectionUtils.isNotEmpty(page.getContent())) {
-                
-                List<String> tiendas = page.getContent().stream().map(TrabajoTiendaEstado::getIdTienda)
-                        .collect(Collectors.toList());
-                
-                GetVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
-                        .trabajoDtoToGetVentaTotalizadoRequestDto(trabajo);
-                paramGetVentaTotalizado.setTienda(tiendas);
-                paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
-                paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
-                
-                CompletableFuture<GetVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
-                        .getVentaTotalizado(paramGetVentaTotalizado);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-                
-                GetVentaTotalizadoResponseDto data = cfData.get();
-                
-                if (CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, ventaTotalizadoDto.getFilter().getMaxPersistenceSize());
-                    AsyncUtils.exceptionally(
-                            trabajoTiendaSeccionVentaAsyncService.save(data.getVentaTotalizado(), trabajo), cf,
-                            cfPersist);
+                    if (data != null && CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                ventaTotalizadoDto.getFilter().getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                trabajoTiendaSeccionVentaAsyncService.save(data.getVentaTotalizado(), trabajo), cf,
+                                cfPersist);
+                    }
                 }
+
+                pageable = page.nextPageable();
+
+            } while (page.hasNext());
+
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+
+            if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
+                trabajoTiendaVentaSeccionRepository.save(trabajo);
             }
-
-            pageable = page.nextPageable();
-
-        } while (page.hasNext());
-
-        AsyncUtils.waitAllOfIsOk(cf, cf);
-
-        if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
-            trabajoTiendaVentaSeccionRepository.save(trabajo);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
         }
-
     }
 
     @AuditoriaTrabajo
     @Override
     public void ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
         List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+            Page<TrabajoEmpleadoEstado> page;
+            Pageable pageable = new PageRequest(0, ventaIndividualDetalleDto.getFilter().getMaxPageSize());
+            do {
 
-        Page<TrabajoEmpleadoEstado> page;
-        Pageable pageable = new PageRequest(0, ventaIndividualDetalleDto.getFilter().getMaxPageSize());
-        do {
+                page = trabajoEmpleadoEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
+                        AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
 
-            page = trabajoEmpleadoEstadoRepository.findByTrabajoIdAndEstadoId(trabajo.getId(),
-                    AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
+                if (CollectionUtils.isNotEmpty(page.getContent())) {
 
-            if (CollectionUtils.isNotEmpty(page.getContent())) {
+                    List<Integer> empleados = page.getContent().stream().map(e -> Integer.valueOf(e.getIdEmpleado()))
+                            .collect(Collectors.toList());
 
-                List<Integer> empleados = page.getContent().stream().map(e -> Integer.valueOf(e.getIdEmpleado()))
-                        .collect(Collectors.toList());
+                    GetVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
+                            .trabajoDtoToGetVentaIndividualDetalleRequestDto(trabajo);
+                    paramGetVentaIndividualDetalle.setVendedores(empleados);
+                    paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenasEmpresa());
+                    paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
+                    paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 
-                GetVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
-                        .trabajoDtoToGetVentaIndividualDetalleRequestDto(trabajo);
-                paramGetVentaIndividualDetalle.setVendedores(empleados);
-                paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenasEmpresa());
-                paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
-                paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
+                    CompletableFuture<GetVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService
+                            .getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
+                    AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                CompletableFuture<GetVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService
-                        .getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                    GetVentaIndividualDetalleResponseDto data = cfData.get();
 
-                GetVentaIndividualDetalleResponseDto data = cfData.get();
-
-                if (CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist,
-                            ventaIndividualDetalleDto.getFilter().getMaxPersistenceSize());
-                    // TODO PERSISTIR
+                    if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                ventaIndividualDetalleDto.getFilter().getMaxPersistenceSize());
+                        // TODO PERSISTIR
+                    }
                 }
-            }
-            pageable = page.nextPageable();
-        } while (page.hasNext());
+                pageable = page.nextPageable();
+            } while (page.hasNext());
 
-        AsyncUtils.waitAllOfIsOk(cf, cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
     }
 
     @AuditoriaTrabajo

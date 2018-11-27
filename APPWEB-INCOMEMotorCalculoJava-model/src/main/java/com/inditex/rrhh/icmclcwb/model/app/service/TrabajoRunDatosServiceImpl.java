@@ -52,84 +52,88 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
     @AuditoriaTrabajo
     @Override
     public TrabajoDto run(@Valid final TrabajoDto trabajo) throws Exception {
-        if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
-            trabajo.setFechaInicioTrabajo(LocalDateTime.now());
-            trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
-            trabajoService.modifyTrabajo(trabajo);
-
-            List<CompletableFuture<?>> cf = new ArrayList<>();
-
-            CompletableFuture<Void> cfTiendasParametro = trabajoDatosMeta4IcmWsIncomeAsyncService.tiendasParametro(trabajo);
-            AsyncUtils.exceptionally(cfTiendasParametro, cf);
-
-            CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsIncomeAsyncService.tiendasHistorico(trabajo);
-            AsyncUtils.exceptionally(cfTiendasHistorico, cf);
-
-            CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
-            AsyncUtils.exceptionally(cfTiposHoras, cf);
-
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfTiendasHistorico);
-            /*-------------------------------------------------------------*/
-
-            trabajo.setCadenasEmpresa(
-                    trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
-                            trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
-
-            CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4IcmWsIncomeAsyncService.empleadosTienda(trabajo);
-            AsyncUtils.exceptionally(cfEmpleados, cf);
-
-            CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosPtrVentaAsyncService.ventaTotalizadaTienda(
-                    trabajo,
-                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
-                            AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-                            AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
-            AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
-
-            CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoDatosPtrPresenciaAsyncService
-                    .presenciaTotalizadaTienda(trabajo,
-                            Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
-                                    AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-                                    AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
-            AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
-
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfEmpleados);
-            /*-------------------------------------------------------------*/
-
-            CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoDatosPtrPresenciaAsyncService
-                    .presenciaDetalleEmpleado(trabajo);
-            AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
-
-            CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoDatosPtrVentaAsyncService
-                    .ventaDetalleEmpleado(trabajo);
-            AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
-
-            CompletableFuture<Void> cfCondicionesEmpleados = trabajoDatosMeta4IcmWsIncomeAsyncService
-                    .condicionesEmpleados(trabajo);
-            AsyncUtils.exceptionally(cfCondicionesEmpleados, cf);
-
-            if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
-                    || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
+                trabajo.setFechaInicioTrabajo(LocalDateTime.now());
+                trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
+                trabajoService.modifyTrabajo(trabajo);
+    
+                CompletableFuture<Void> cfTiendasParametro = trabajoDatosMeta4IcmWsIncomeAsyncService.tiendasParametro(trabajo);
+                AsyncUtils.exceptionally(cfTiendasParametro, cf);
+    
+                CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsIncomeAsyncService.tiendasHistorico(trabajo);
+                AsyncUtils.exceptionally(cfTiendasHistorico, cf);
+    
+                CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
+                AsyncUtils.exceptionally(cfTiposHoras, cf);
+    
                 /*-------------------------------------------------------------*/
-                AsyncUtils.waitAllOfIsOk(cf, cfPresenciaDetalleEmpleado);
+                AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfTiendasHistorico);
                 /*-------------------------------------------------------------*/
-
-                CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosPtrVentaAsyncService
-                        .ventaTotalizadaTienda(trabajo,
-                                Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
-                AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
-
-                CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = trabajoDatosPtrPresenciaAsyncService
+    
+                trabajo.setCadenasEmpresa(
+                        trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
+                                trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
+    
+                CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4IcmWsIncomeAsyncService.empleadosTienda(trabajo);
+                AsyncUtils.exceptionally(cfEmpleados, cf);
+    
+                CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosPtrVentaAsyncService.ventaTotalizadaTienda(
+                        trabajo,
+                        Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+                                AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+                                AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+                AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
+    
+                CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoDatosPtrPresenciaAsyncService
                         .presenciaTotalizadaTienda(trabajo,
-                                Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
-                AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
+                                Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+                                        AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+                                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+                AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
+    
+                /*-------------------------------------------------------------*/
+                AsyncUtils.waitAllOfIsOk(cf, cfEmpleados);
+                /*-------------------------------------------------------------*/
+    
+                CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoDatosPtrPresenciaAsyncService
+                        .presenciaDetalleEmpleado(trabajo);
+                AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
+    
+                CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoDatosPtrVentaAsyncService
+                        .ventaDetalleEmpleado(trabajo);
+                AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
+    
+                CompletableFuture<Void> cfCondicionesEmpleados = trabajoDatosMeta4IcmWsIncomeAsyncService
+                        .condicionesEmpleados(trabajo);
+                AsyncUtils.exceptionally(cfCondicionesEmpleados, cf);
+    
+                if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
+                        || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+                    /*-------------------------------------------------------------*/
+                    AsyncUtils.waitAllOfIsOk(cf, cfPresenciaDetalleEmpleado);
+                    /*-------------------------------------------------------------*/
+    
+                    CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosPtrVentaAsyncService
+                            .ventaTotalizadaTienda(trabajo,
+                                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+                    AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
+    
+                    CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = trabajoDatosPtrPresenciaAsyncService
+                            .presenciaTotalizadaTienda(trabajo,
+                                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+                    AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
+                }
+    
+                /*-------------------------------------------------------------*/
+                AsyncUtils.waitAllOfIsOk(cf, cf);
+                /*-------------------------------------------------------------*/
+                trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
             }
-
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/
-            trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
         }
         return trabajo;
     }
