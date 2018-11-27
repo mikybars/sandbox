@@ -72,7 +72,7 @@ public class PtrPresenciasMockServiceTest {
 		req.setOrigen(11);
 		req.setPersonas(list);
 		ResponseEntity<PtrPresenciaDetalleResponseDto> ret = this.ptrPresenciaMockClient
-				.postForEntity("/presenciasDetalle", req, PtrPresenciaDetalleResponseDto.class);
+				.postForEntity("/presenciasService/presenciasDetalle", req, PtrPresenciaDetalleResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(7, ret.getBody().getList().size());
 		assertEquals(240, ret.getBody().getList().get(0).getMinutos().intValue());
@@ -112,7 +112,7 @@ public class PtrPresenciasMockServiceTest {
 		req.setOrigen(11);
 		req.setPersonas(list);
 		ResponseEntity<PtrPresenciaDetalleComisionableResponseDto> ret = this.ptrPresenciaMockClient.postForEntity(
-				"/presenciasDetalleComisionable/", req, PtrPresenciaDetalleComisionableResponseDto.class);
+				"/presenciasService/presenciasDetalleComisionable/", req, PtrPresenciaDetalleComisionableResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(7, ret.getBody().getList().size());
 		assertEquals(240, ret.getBody().getList().get(0).getMinutos().intValue());
@@ -151,7 +151,7 @@ public class PtrPresenciasMockServiceTest {
 		list2.add(250);
 		req.setCadena(list2);
 		ResponseEntity<PtrPresenciaTotalTiendaResponseDto> ret = this.ptrPresenciaMockClient
-				.postForEntity("/presenciasTotalTienda", req, PtrPresenciaTotalTiendaResponseDto.class);
+				.postForEntity("/presenciasService/presenciasTotalTienda", req, PtrPresenciaTotalTiendaResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(720, ret.getBody().getList().get(0).getMinutos().intValue());
 		assertEquals(3, ret.getBody().getList().size());
@@ -191,7 +191,7 @@ public class PtrPresenciasMockServiceTest {
 		list2.add(2);
 		req.setCadena(list2);
 		ResponseEntity<PtrPresenciaTotalTiendaSeccionResponseDto> ret = this.ptrPresenciaMockClient.postForEntity(
-				"/presenciasTotalTiendaSeccion", req, PtrPresenciaTotalTiendaSeccionResponseDto.class);
+				"/presenciasService/presenciasTotalTiendaSeccion", req, PtrPresenciaTotalTiendaSeccionResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(30, ret.getBody().getList().size());
 		assertEquals(3270, ret.getBody().getList().get(0).getMinutos().intValue());
