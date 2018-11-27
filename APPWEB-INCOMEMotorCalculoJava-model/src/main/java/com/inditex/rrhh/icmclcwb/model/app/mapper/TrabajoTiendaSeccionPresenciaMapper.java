@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionPresenciaDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionPresencia;
 
@@ -27,8 +27,8 @@ public abstract class TrabajoTiendaSeccionPresenciaMapper {
 		@Mapping(source = "seccion", target = "idSeccion"),
 		@Mapping(source = "minutos", target = "minutos")
 	})
-	public abstract TrabajoTiendaSeccionPresencia presenciasTotalTiendaSeccionResponseDtoToTrabajoTiendaSeccionPresencia(PtrPresenciasTotalTiendaSeccionResultItemDto src);
+	public abstract TrabajoTiendaSeccionPresencia presenciasTotalTiendaSeccionResponseDtoToTrabajoTiendaSeccionPresencia(PtrPresenciaTotalTiendaSeccionResultItemDto src);
 
-	public abstract List<TrabajoTiendaSeccionPresencia> presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(List<PtrPresenciasTotalTiendaSeccionResultItemDto> src);
+	public abstract List<TrabajoTiendaSeccionPresencia> presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(List<PtrPresenciaTotalTiendaSeccionResultItemDto> src);
 
 }

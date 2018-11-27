@@ -29,13 +29,13 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaService
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionEmpleadoPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTiendaSeccionDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTotalTiendaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
@@ -113,14 +113,14 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
 
                 if (CollectionUtils.isNotEmpty(page.getContent())) {
 
-                    List<PtrPresenciasTiendaSeccionDto> tiendas = page.getContent().stream()
-                            .map(t -> new PtrPresenciasTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
+                    List<PtrPresenciaTiendaSeccionDto> tiendas = page.getContent().stream()
+                            .map(t -> new PtrPresenciaTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
                             .collect(Collectors.toList());
 
                     List<Integer> cadenas = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
                             .collect(Collectors.toList());
 
-                    PtrPresenciasTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
+                    PtrPresenciaTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
                             .trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(trabajo);
                     paramPresenciasTotalTiendaSeccion.setCadena(cadenas);
                     paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
@@ -128,11 +128,11 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                     // objeto a una lista
                     // paramPresenciasTotalTiendaSeccion.setTipo(tipo);
 
-                    CompletableFuture<PtrPresenciasTotalTiendaSeccionResponseDto> cfData = ptrPresenciaAsyncService
+                    CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> cfData = ptrPresenciaAsyncService
                             .getPresenciasTotalTiendaSeccionDto(paramPresenciasTotalTiendaSeccion);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                    PtrPresenciasTotalTiendaSeccionResponseDto data = cfData.get();
+                    PtrPresenciaTotalTiendaSeccionResponseDto data = cfData.get();
                     if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                                 presenciasTotalTiendaSeccionDto.getFilter().getMaxPersistenceSize());
@@ -174,16 +174,16 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                     List<Integer> cadenas = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
                             .collect(Collectors.toList());
 
-                    PtrPresenciasDetalleRequestDto paramPresenciasDetalle = trabajoMapper
+                    PtrPresenciaDetalleRequestDto paramPresenciasDetalle = trabajoMapper
                             .trabajoDtoToPtrPresenciasDetalleRequestDto(trabajo);
                     paramPresenciasDetalle.setPersonas(empleados);
                     paramPresenciasDetalle.setCadena(cadenas);
 
-                    CompletableFuture<PtrPresenciasDetalleResponseDto> cfData = ptrPresenciaAsyncService
+                    CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = ptrPresenciaAsyncService
                             .getPresenciasDetalleDto(paramPresenciasDetalle);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                    PtrPresenciasDetalleResponseDto data = cfData.get();
+                    PtrPresenciaDetalleResponseDto data = cfData.get();
                     if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                                 presenciasDetalleDto.getFilter().getMaxPersistenceSize());

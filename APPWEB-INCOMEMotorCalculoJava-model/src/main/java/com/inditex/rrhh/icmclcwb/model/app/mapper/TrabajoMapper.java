@@ -22,8 +22,8 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoRequestDto;
@@ -73,13 +73,13 @@ public abstract class TrabajoMapper {
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
             @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
     		@Mapping(source = "idPaisOrigen", target = "origen")})
-    public abstract PtrPresenciasTotalTiendaSeccionRequestDto trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
+    public abstract PtrPresenciaTotalTiendaSeccionRequestDto trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
             TrabajoDto src);
 
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
 		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
 		@Mapping(source = "idPaisOrigen", target = "origen")})
-	public abstract PtrPresenciasDetalleRequestDto trabajoDtoToPtrPresenciasDetalleRequestDto(TrabajoDto src);
+	public abstract PtrPresenciaDetalleRequestDto trabajoDtoToPtrPresenciasDetalleRequestDto(TrabajoDto src);
 	
     
     protected List<TiendasEmpleadoFilterParametersDto> mapTiendasPresenciasNuevas(List<Integer> tiendasPresenciasNuevas){

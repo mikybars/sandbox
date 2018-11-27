@@ -21,17 +21,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciasDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciasDetalleComisionableRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciasDetalleComisionableResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciasTiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciasTiposHorasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTiendaSeccionDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTotalTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciasTotalTiendaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciasTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
@@ -57,7 +57,7 @@ public class PtrPresenciasMockServiceTest {
 		cal.set(Calendar.DAY_OF_MONTH, 31);
 		Date fechaHasta = cal.getTime();
 
-		PtrPresenciasDetalleRequestDto req = new PtrPresenciasDetalleRequestDto();
+		PtrPresenciaDetalleRequestDto req = new PtrPresenciaDetalleRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(1645);
 		List<Integer> list2 = new ArrayList<Integer>();
@@ -71,8 +71,8 @@ public class PtrPresenciasMockServiceTest {
 		req.setFechaHasta(fechaHasta);
 		req.setOrigen(11);
 		req.setPersonas(list);
-		ResponseEntity<PtrPresenciasDetalleResponseDto> ret = this.ptrPresenciaMockClient
-				.postForEntity("/presenciasDetalle", req, PtrPresenciasDetalleResponseDto.class);
+		ResponseEntity<PtrPresenciaDetalleResponseDto> ret = this.ptrPresenciaMockClient
+				.postForEntity("/presenciasDetalle", req, PtrPresenciaDetalleResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(7, ret.getBody().getList().size());
 		assertEquals(240, ret.getBody().getList().get(0).getMinutos().intValue());
@@ -97,7 +97,7 @@ public class PtrPresenciasMockServiceTest {
 		cal.set(Calendar.DAY_OF_MONTH, 31);
 		Date fechaHasta = cal.getTime();
 
-		PtrPresenciasDetalleComisionableRequestDto req = new PtrPresenciasDetalleComisionableRequestDto();
+		PtrPresenciaDetalleComisionableRequestDto req = new PtrPresenciaDetalleComisionableRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(1645);
 		List<Integer> list2 = new ArrayList<Integer>();
@@ -111,8 +111,8 @@ public class PtrPresenciasMockServiceTest {
 		req.setFechaHasta(fechaHasta);
 		req.setOrigen(11);
 		req.setPersonas(list);
-		ResponseEntity<PtrPresenciasDetalleComisionableResponseDto> ret = this.ptrPresenciaMockClient.postForEntity(
-				"/presenciasDetalleComisionable/", req, PtrPresenciasDetalleComisionableResponseDto.class);
+		ResponseEntity<PtrPresenciaDetalleComisionableResponseDto> ret = this.ptrPresenciaMockClient.postForEntity(
+				"/presenciasDetalleComisionable/", req, PtrPresenciaDetalleComisionableResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(7, ret.getBody().getList().size());
 		assertEquals(240, ret.getBody().getList().get(0).getMinutos().intValue());
@@ -125,7 +125,7 @@ public class PtrPresenciasMockServiceTest {
 
 	@Test
 	public void presenciasTotalTienda() {
-		PtrPresenciasTotalTiendaRequestDto req = new PtrPresenciasTotalTiendaRequestDto();
+		PtrPresenciaTotalTiendaRequestDto req = new PtrPresenciaTotalTiendaRequestDto();
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, 2018);
@@ -150,8 +150,8 @@ public class PtrPresenciasMockServiceTest {
 		list2.add(4);
 		list2.add(250);
 		req.setCadena(list2);
-		ResponseEntity<PtrPresenciasTotalTiendaResponseDto> ret = this.ptrPresenciaMockClient
-				.postForEntity("/presenciasTotalTienda", req, PtrPresenciasTotalTiendaResponseDto.class);
+		ResponseEntity<PtrPresenciaTotalTiendaResponseDto> ret = this.ptrPresenciaMockClient
+				.postForEntity("/presenciasTotalTienda", req, PtrPresenciaTotalTiendaResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(720, ret.getBody().getList().get(0).getMinutos().intValue());
 		assertEquals(3, ret.getBody().getList().size());
@@ -161,13 +161,13 @@ public class PtrPresenciasMockServiceTest {
 
 	@Test
 	public void presenciasTotalTiendaSeccion() {
-		PtrPresenciasTotalTiendaSeccionRequestDto req = new PtrPresenciasTotalTiendaSeccionRequestDto();
-		List<PtrPresenciasTiendaSeccionDto> tiendasecciones = new ArrayList<PtrPresenciasTiendaSeccionDto>();
-		PtrPresenciasTiendaSeccionDto ts2 = new PtrPresenciasTiendaSeccionDto();
+		PtrPresenciaTotalTiendaSeccionRequestDto req = new PtrPresenciaTotalTiendaSeccionRequestDto();
+		List<PtrPresenciaTiendaSeccionDto> tiendasecciones = new ArrayList<PtrPresenciaTiendaSeccionDto>();
+		PtrPresenciaTiendaSeccionDto ts2 = new PtrPresenciaTiendaSeccionDto();
 		ts2.setSeccion(2);
 		ts2.setTienda(52);
 		tiendasecciones.add(ts2);
-		PtrPresenciasTiendaSeccionDto ts3 = new PtrPresenciasTiendaSeccionDto();
+		PtrPresenciaTiendaSeccionDto ts3 = new PtrPresenciaTiendaSeccionDto();
 		ts3.setTienda(150);
 		tiendasecciones.add(ts3);
 		Calendar cal = Calendar.getInstance();
@@ -190,8 +190,8 @@ public class PtrPresenciasMockServiceTest {
 		list2.add(1);
 		list2.add(2);
 		req.setCadena(list2);
-		ResponseEntity<PtrPresenciasTotalTiendaSeccionResponseDto> ret = this.ptrPresenciaMockClient.postForEntity(
-				"/presenciasTotalTiendaSeccion", req, PtrPresenciasTotalTiendaSeccionResponseDto.class);
+		ResponseEntity<PtrPresenciaTotalTiendaSeccionResponseDto> ret = this.ptrPresenciaMockClient.postForEntity(
+				"/presenciasTotalTiendaSeccion", req, PtrPresenciaTotalTiendaSeccionResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 		assertEquals(30, ret.getBody().getList().size());
 		assertEquals(3270, ret.getBody().getList().get(0).getMinutos().intValue());
@@ -203,10 +203,10 @@ public class PtrPresenciasMockServiceTest {
 
 	@Test
 	public void tiposHoras() {
-		PtrPresenciasTiposHorasRequestDto req2 = new PtrPresenciasTiposHorasRequestDto();
+		PtrPresenciaTiposHorasRequestDto req2 = new PtrPresenciaTiposHorasRequestDto();
 		req2.setOrigen(11);
-		ResponseEntity<PtrPresenciasTiposHorasResponseDto> ret2 = this.ptrPresenciaMockClient.postForEntity("/tiposHoras",
-				req2, PtrPresenciasTiposHorasResponseDto.class);
+		ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = this.ptrPresenciaMockClient.postForEntity("/tiposHoras",
+				req2, PtrPresenciaTiposHorasResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
 		assertEquals(2, ret2.getBody().getList().size());
 		assertEquals(1, ret2.getBody().getList().get(0).getTipoHora().intValue());
