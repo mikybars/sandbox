@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMock
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
 
-public interface PtrPresenciasMockService {
+public interface PtrPresenciasService {
 
     PtrPresenciasMockTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
             @Valid PtrPresenciasMockTotalTiendaSeccionRequestDto request) throws Exception;

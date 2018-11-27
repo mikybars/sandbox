@@ -16,15 +16,15 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMock
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasMockService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasService;
 
 @Service
 @Validated
-public class PtrPresenciaServiceImpl implements PtrPresenciasMockService {
+public class PtrPresenciaServiceImpl implements PtrPresenciasService {
 
     @Autowired
-    @Qualifier("ptrClientPresencia")
-    private RestClient ptrClientPresencia;
+    @Qualifier("ptrPresenciaClient")
+    private RestClient ptrPresenciaClient;
 
     @Autowired
     @Qualifier("presenciasTotalTiendaSeccionDto")
@@ -39,7 +39,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciasMockService {
             @Valid final PtrPresenciasMockTotalTiendaSeccionRequestDto getPresenciasTotalTiendaSeccionRequestDto)
             throws Exception {
         PtrPresenciasMockTotalTiendaSeccionResponseDto result = null;
-        ResponseEntity<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrClientPresencia.postForEntity(
+        ResponseEntity<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrPresenciaClient.postForEntity(
                 presenciasTotalTiendaSeccionDto.getEndpoint(), getPresenciasTotalTiendaSeccionRequestDto,
                 PtrPresenciasMockTotalTiendaSeccionResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
@@ -58,7 +58,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciasMockService {
     public PtrPresenciasMockDetalleResponseDto getPresenciasDetalleDto(
             @Valid final PtrPresenciasMockDetalleRequestDto getPresenciasDetalleRequestDto) throws Exception {
         PtrPresenciasMockDetalleResponseDto result = null;
-        ResponseEntity<PtrPresenciasMockDetalleResponseDto> response = ptrClientPresencia.postForEntity(
+        ResponseEntity<PtrPresenciasMockDetalleResponseDto> response = ptrPresenciaClient.postForEntity(
                 presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto,
                 PtrPresenciasMockDetalleResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {

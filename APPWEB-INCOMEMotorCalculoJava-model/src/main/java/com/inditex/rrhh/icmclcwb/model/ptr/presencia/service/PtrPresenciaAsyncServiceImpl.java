@@ -11,13 +11,13 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMock
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasMockService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasService;
 
 @Service
 public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
 
     @Autowired
-    private PtrPresenciasMockService ptrPresenciaService;
+    private PtrPresenciasService ptrPresenciaService;
 
     @Async
     @Override
