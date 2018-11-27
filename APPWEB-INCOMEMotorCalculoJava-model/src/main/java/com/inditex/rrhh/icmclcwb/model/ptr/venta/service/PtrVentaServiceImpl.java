@@ -23,8 +23,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotal
 public class PtrVentaServiceImpl implements PtrVentaService {
 
     @Autowired
-    @Qualifier("ptrClientVenta")
-    private RestClient ptrClientVenta;
+    @Qualifier("ptrVentaClient")
+    private RestClient ptrVentaClient;
 
     @Autowired
     @Qualifier("ventaTotalizadoDto")
@@ -38,7 +38,7 @@ public class PtrVentaServiceImpl implements PtrVentaService {
     public GetVentaTotalizadoResponseDto getVentaTotalizado(
             @Valid final GetVentaTotalizadoRequestDto getVentaTotalizadoRequest) throws Exception {
         GetVentaTotalizadoResponseDto result = null;
-        ResponseEntity<GetVentaTotalizadoResponseDto> response = ptrClientVenta.postForEntity(
+        ResponseEntity<GetVentaTotalizadoResponseDto> response = ptrVentaClient.postForEntity(
                 ventaTotalizadoDto.getEndpoint(), getVentaTotalizadoRequest, GetVentaTotalizadoResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
             if (response.getBody() != null) {
@@ -54,7 +54,7 @@ public class PtrVentaServiceImpl implements PtrVentaService {
     public GetVentaIndividualDetalleResponseDto getVentaIndividualDetalle(
             @Valid final GetVentaIndividualDetalleRequestDto getVentaIndividualDetalleRequestDto) throws Exception {
         GetVentaIndividualDetalleResponseDto result = null;
-        ResponseEntity<GetVentaIndividualDetalleResponseDto> response = ptrClientVenta.postForEntity(
+        ResponseEntity<GetVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
                 ventaIndividualDetalleDto.getEndpoint(), getVentaIndividualDetalleRequestDto,
                 GetVentaIndividualDetalleResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
