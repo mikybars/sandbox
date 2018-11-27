@@ -34,6 +34,7 @@ amiga:
           # 4: TRANSACTION_REPEATABLE_READ
           # 8: TRANSACTION_SERIALIZABLE
           default-isolation-level: 1
+          max-pool-size: 20
       datasource:
         primary:
           driverClassName: com.ibm.db2.jcc.DB2Driver
