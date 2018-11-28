@@ -72,6 +72,10 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
                 List<TiendasEmpleadoResultItemDto> data = cfData.get();
                 if (CollectionUtils.isNotEmpty(data)) {
+                    /*-------------------------------------------------------------*/
+                    trabajo.getTrabajoRunDatosAuditoria().setTiendasPresencia(
+                            trabajo.getTrabajoRunDatosAuditoria().getTiendasPresencia() + data.size());
+                    /*-------------------------------------------------------------*/
                     List<TrabajoTiendaEstadoDto> trabajoEmpleadoEstado = trabajotiendaEstadoMapper
                             .tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(data);
                     if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {

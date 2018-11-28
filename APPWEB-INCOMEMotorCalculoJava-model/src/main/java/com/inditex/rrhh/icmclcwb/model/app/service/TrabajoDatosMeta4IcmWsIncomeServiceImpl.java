@@ -78,19 +78,20 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
             // TODO ¡¡ Deberíamos poder buscar por tienda/s, pais + empresa y pais !!
             // Cuando tengamos tiendas de tipo parametro se busca directamente, sino podemos
             // decidir si usar las tiendas o buscar directamente por pais/empresa
-            
+
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-    
+
             // Request para la consulta de tiendas
             Pageable pageable = new PageRequest(0, getEmpleadosTiendaDto.getFilter().getMaxPageSize());
             Page<TrabajoTiendaEstado> tiendasPage;
-    
+
             // Request para la consulta en meta4
-            EmpleadosTiendaFilterDto empleadosTiendaFilter = trabajoMapper.trabajoDtotoEmpleadosTiendaFilterDto(trabajo);
+            EmpleadosTiendaFilterDto empleadosTiendaFilter = trabajoMapper
+                    .trabajoDtotoEmpleadosTiendaFilterDto(trabajo);
             EmpleadosTiendaRequestDto empleadosTiendaRequest = new EmpleadosTiendaRequestDto();
             empleadosTiendaRequest.setPage(getEmpleadosTiendaDto.getPage());
             empleadosTiendaRequest.setData(empleadosTiendaFilter);
-    
+
             List<Long> tipoTrabajoTiendaId = Stream
                     .of(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
                             AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
@@ -111,9 +112,13 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
                             CompletableFuture<List<EmpleadosTiendaResultItemDto>> cfData = meta4SessionAsyncService
                                     .getEmpleadosTienda(empleadosTiendaRequest);
                             AsyncUtils.exceptionally(cfData, cf);
-                            
+
                             List<EmpleadosTiendaResultItemDto> data = cfData.get();
                             if (CollectionUtils.isNotEmpty(data)) {
+                                /*-------------------------------------------------------------*/
+                                trabajo.getTrabajoRunDatosAuditoria().setEmpleados(
+                                        trabajo.getTrabajoRunDatosAuditoria().getEmpleados() + data.size());
+                                /*-------------------------------------------------------------*/
                                 List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
                                         .empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
                                 if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
@@ -130,7 +135,7 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
                 }
                 pageable = tiendasPage.nextPageable();
             } while (tiendasPage.hasNext());
-    
+
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
@@ -154,6 +159,10 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
             throw new UnsupportedOperationException();
         }
         if (CollectionUtils.isNotEmpty(tienda)) {
+            /*-------------------------------------------------------------*/
+            trabajo.getTrabajoRunDatosAuditoria()
+                    .setTiendasParametro(trabajo.getTrabajoRunDatosAuditoria().getTiendasParametro() + tienda.size());
+            /*-------------------------------------------------------------*/
             trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
                     .mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(tienda, trabajo));
         } else {

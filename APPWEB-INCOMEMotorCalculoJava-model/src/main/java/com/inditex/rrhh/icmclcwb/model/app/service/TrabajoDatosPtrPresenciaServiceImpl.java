@@ -34,7 +34,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -113,7 +112,10 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                         AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), tipoTrabajoTiendaId, pageable);
 
                 if (CollectionUtils.isNotEmpty(page.getContent())) {
-
+                    /*-------------------------------------------------------------*/
+                    trabajo.getTrabajoRunDatosAuditoria().setTiendasPresenciaTotalizada(
+                            trabajo.getTrabajoRunDatosAuditoria().getTiendasPresenciaTotalizada() + page.getContent().size());
+                    /*-------------------------------------------------------------*/
                     List<PtrPresenciaTiendaSeccionDto> tiendas = page.getContent().stream()
                             .map(t -> new PtrPresenciaTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
                             .collect(Collectors.toList());
@@ -169,7 +171,10 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                         AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId(), pageable);
 
                 if (CollectionUtils.isNotEmpty(page.getContent())) {
-
+                    /*-------------------------------------------------------------*/
+                    trabajo.getTrabajoRunDatosAuditoria().setEmpleadosPresenciaDetalle(
+                            trabajo.getTrabajoRunDatosAuditoria().getEmpleadosPresenciaDetalle() + page.getContent().size());
+                    /*-------------------------------------------------------------*/
                     List<Integer> empleados = page.getContent().stream().map(s -> Integer.valueOf(s.getIdEmpleado()))
                             .collect(Collectors.toList());
 
