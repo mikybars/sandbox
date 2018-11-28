@@ -20,6 +20,7 @@ public class PtrPresenciaMockDetalleRowMapper implements RowMapper<PtrPresenciaM
 		pre.setMinutos(rs.getInt("MINUTOS"));
 		pre.setModificado_income(rs.getBoolean("MODIFICADO_INCOME"));
 		pre.setCadena(rs.getInt("CADENA"));
+		pre.setOrigen(rs.getInt("ORIGEN"));
 		return pre;
 	}
 

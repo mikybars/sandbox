@@ -37,7 +37,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-@Ignore
 public class PtrPresenciasMockServiceTest {
 
 	@Autowired
@@ -81,6 +80,7 @@ public class PtrPresenciasMockServiceTest {
 		assertEquals(1, ret.getBody().getList().get(0).getSeccion().intValue());
 		assertEquals(1, ret.getBody().getList().get(0).getTipo().intValue());
 		assertEquals(Boolean.FALSE, ret.getBody().getList().get(0).getModificado_income());
+		//assertEquals(11,ret.getBody().getList().get(0).getOrigen().intValue());
 
 	}
 
@@ -204,8 +204,8 @@ public class PtrPresenciasMockServiceTest {
 	@Test
 	public void tiposHoras() {
 		PtrPresenciaTiposHorasRequestDto req2 = new PtrPresenciaTiposHorasRequestDto();
-		req2.setOrigen(11);
-		ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = this.ptrPresenciaMockClient.postForEntity("/tiposHoras",
+		req2.setOrigen(720);
+		ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = this.ptrPresenciaMockClient.postForEntity("/presenciasService/tiposHoras",
 				req2, PtrPresenciaTiposHorasResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
 		assertEquals(2, ret2.getBody().getList().size());

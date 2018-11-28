@@ -57,7 +57,7 @@ public abstract class TrabajoMapper {
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"),
         @Mapping(source = "fechaFinPeriodo", target = "fechaFin"),
         @Mapping(source = "idPaisOrigen", target = "idOrigen"),
-		@Mapping(source = "tiendasPresenciaNuevas", target = "items")})
+		@Mapping(source = "tiendas", target = "items")})
     public abstract TiendasEmpleadoFilterDto trabajoDtoToTiendasEmpleadoFilterDto(TrabajoDto src);
     
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
