@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.secondary.repository;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,9 +26,6 @@ import com.inditex.rrhh.icmclcwb.model.secondary.mapper.PtrPresenciaMockTotalTie
 
 @Repository("PTRPresenciasRepositoryJDBCTemplate")
 public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepository {
-
-    @Autowired
-    private Logger log;
 
     @Autowired
     @Qualifier("secondaryJdbcTemplate")
@@ -117,7 +113,6 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
                 query.append(" ))");
             }
         }
-        log.info(query.toString());
         return namedParameterJdbcTemplate.query(query.toString(), param, new PtrPresenciaMockDetalleRowMapper());
     }
 
@@ -288,7 +283,6 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
 
         }
         query.append(" GROUP BY OP.CCL_ID_ORIGEN, P.TIENDA,P.SECCION,  P.FECHA");
-        log.info(query.toString());
         return namedParameterJdbcTemplate.query(query.toString(), param,
                 new PtrPresenciaMockTotalTiendaSeccionRowMapper());
     }
