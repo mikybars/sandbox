@@ -20,7 +20,7 @@ import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class Meta4ClientTimeoutInterceptor extends AbstractPhaseInterceptor<Message> {
 
 	public Meta4ClientTimeoutInterceptor() {
@@ -40,8 +40,8 @@ public class Meta4ClientTimeoutInterceptor extends AbstractPhaseInterceptor<Mess
 	
 	private final String SEPARADOR = ".";
 
-	@Resource
-	@Qualifier("timeOutsMap")
+	//@Resource
+	//@Qualifier("timeOutsMap")
 	private HashMap<String, String> timeOutsMap;
 
 	@Override

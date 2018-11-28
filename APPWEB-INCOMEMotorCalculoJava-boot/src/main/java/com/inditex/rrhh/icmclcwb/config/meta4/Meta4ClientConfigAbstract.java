@@ -13,10 +13,7 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
-import com.inditex.rrhh.icmclcwb.config.meta4.interceptor.Meta4ClientTimeoutInterceptor;
 
 public abstract class Meta4ClientConfigAbstract<T> {
 
@@ -28,8 +25,8 @@ public abstract class Meta4ClientConfigAbstract<T> {
     @Value("${app.envars.meta4.default-receive-timeout}")
     private long receiveTimeout;
 
-    @Autowired
-    private Meta4ClientTimeoutInterceptor meta4ClientTimeoutInterceptor;
+//    @Autowired
+//    private Meta4ClientTimeoutInterceptor meta4ClientTimeoutInterceptor;
 
     protected abstract void setServer(String server);
 
