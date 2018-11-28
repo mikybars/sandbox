@@ -50,9 +50,6 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
     @Autowired
     private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 
-    @Autowired
-    private TrabajoTiendaEstadoCustomRepository trabajoTiendaEstadoCustomRepository;
-
     @AuditoriaTrabajo
     @Override
     public TrabajoDto run(@Valid final TrabajoDto trabajo) throws Exception {
@@ -129,9 +126,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                     /*-------------------------------------------------------------*/
 
                     if (CollectionUtils.isNotEmpty(trabajo.getTiendasPresencia())) {
-                        trabajo.setTiendasPresenciaNuevas(trabajoTiendaEstadoCustomRepository
-                                .customFindByIdTiendaNotExists(trabajo.getTiendasPresencia()));
-                        // TODO ICM_WS_CALC_INCOME :: SEARCHTIENDAS -> GETTIENDASINCOME
+                       // TODO ICM_WS_CALC_INCOME :: SEARCHTIENDAS -> GETTIENDASINCOME
                         CompletableFuture<Void> cfTiendasEmpleado = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
                                 .tiendasEmpleado(trabajo);
                         AsyncUtils.exceptionally(cfTiendasEmpleado, cf);

@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.Tie
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoCustomRepository;
 
 @Service
 @Validated
@@ -41,6 +42,9 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
     
     @Autowired
     private TrabajoTiendaEstadoMapper trabajotiendaEstadoMapper;
+    
+    @Autowired
+    private TrabajoTiendaEstadoCustomRepository trabajoTiendaEstadoCustomRepository;
 	
     @Autowired
     @Qualifier("getEmpleadosTiendaDto")
@@ -52,6 +56,8 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
+        	  trabajo.setTiendasPresenciaNuevas(trabajoTiendaEstadoCustomRepository
+                      .customFindByIdTiendaNotExists(trabajo.getTiendasPresencia()));
 			List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 			TiendasEmpleadoFilterDto filter = trabajoMapper.trabajoDtoToTiendasEmpleadoFilterDto(trabajo);
 			TiendasEmpleadoRequestDto tiendasEmpleadoRequest = new TiendasEmpleadoRequestDto();

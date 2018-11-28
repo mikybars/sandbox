@@ -1,0 +1,23 @@
+package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto;
+
+import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class SearchTiendasFilterParametersDto implements Serializable {
+
+	private static final long serialVersionUID = -1801905980562096849L;
+
+	private String idEmpleado;
+	
+	private String orEmpleado;
+	
+	private String idLugarTrabajo;
+}
