@@ -16,11 +16,15 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.GetempleadoestructuraOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.GetempleadostiendaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.GettiendacomisionableOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.GetvalorescondicionesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrosempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrospaginacionBlock;
@@ -117,6 +121,39 @@ public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
         }
 
         return result;
+    }
+    
+    @Override
+    public TiendaComisionableResponseDto getTiendaComisionable(TiendaComisionableRequestDto request) throws Exception{
+		TiendaComisionableResponseDto result = new TiendaComisionableResponseDto();
+    	
+        IcmParametrospaginacionBlock param1 = icmWsIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        IcmParametrostiendaBlock param2 = icmWsIncomeMapper.asIcmParametrostiendaBlock(request.getData());
+
+        GettiendacomisionableOutput getTiendaComisionableOutput = meta4IcmWsIncomeClient.gettiendacomisionable(param1,
+                param2);
+        
+        if (getTiendaComisionableOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getTiendaComisionableOutput.getReturn()) == 0) {
+
+            if (getTiendaComisionableOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsIncomeMapper.asPageDto(getTiendaComisionableOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if (getTiendaComisionableOutput.getIcmTiendacomisionable() != null
+                    && getTiendaComisionableOutput.getIcmTiendacomisionable()
+                            .getIcmTiendacomisionableRecordSet() != null
+                    && CollectionUtils.isNotEmpty(getTiendaComisionableOutput.getIcmTiendacomisionable()
+                            .getIcmTiendacomisionableRecordSet())) {
+                List<TiendaComisionableResultItemDto> items = icmWsIncomeMapper.asTiendaComisionableResultItemDtos(
+                        getTiendaComisionableOutput.getIcmTiendacomisionable().getIcmTiendacomisionableRecordSet());
+                result.setData(items);
+            }
+
+        }
+		
+    	return result;
+    	
     }
 
 }

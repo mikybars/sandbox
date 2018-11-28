@@ -7,10 +7,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResponseDto;
 
 @Service
 public class PtrVentaAsyncServiceImpl implements PtrVentaAsyncService {
@@ -20,15 +20,15 @@ public class PtrVentaAsyncServiceImpl implements PtrVentaAsyncService {
 
     @Async
     @Override
-    public CompletableFuture<GetVentaTotalizadoResponseDto> getVentaTotalizado(
-            final GetVentaTotalizadoRequestDto request) throws Exception {
+    public CompletableFuture<PtrVentaTotalizadoResponseDto> getVentaTotalizado(
+            final PtrVentaTotalizadoRequestDto request) throws Exception {
         return CompletableFuture.completedFuture(ptrVentaService.getVentaTotalizado(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<GetVentaIndividualDetalleResponseDto> getVentaIndividualDetalle(
-            final GetVentaIndividualDetalleRequestDto request) throws Exception {
+    public CompletableFuture<PtrVentaIndividualDetalleResponseDto> getVentaIndividualDetalle(
+            final PtrVentaIndividualDetalleRequestDto request) throws Exception {
         return CompletableFuture.completedFuture(ptrVentaService.getVentaIndividualDetalle(request));
     }
 

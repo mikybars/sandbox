@@ -10,8 +10,8 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTipoHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTipoHoraService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTiposHorasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTipoHoraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionPresenciaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTipoHoraRepository;
@@ -27,8 +27,8 @@ public class TrabajoTipoHoraServiceImpl implements TrabajoTipoHoraService{
     private TrabajoTipoHoraRepository trabajoTipoHoraRepository;
 	
 	@Override
-	public CompletableFuture<Void> save(List<PtrPresenciasMockTiposHorasResponseDto> dto, TrabajoDto trabajoDto) {
-		List<TrabajoTipoHoraDto> result = mapper.trabajoTrabajoTipoHoraListTotrabajoTipoHoraDtoList(trabajoTipoHoraRepository.save(mapper.ptrPresenciasMockListTipoHoraResponsesDtoToTrabajoTipoHoraDto(dto, trabajoDto)));
+	public CompletableFuture<Void> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TrabajoDto trabajoDto) {
+		List<TrabajoTipoHoraDto> result = mapper.trabajoTrabajoTipoHoraListTotrabajoTipoHoraDtoList(trabajoTipoHoraRepository.save(mapper.ptrPresenciaTipoHoraResponsesDtoToTrabajoTipoHoraDto(dto, trabajoDto)));
 		return CompletableFuture.completedFuture(null);
 	}
 

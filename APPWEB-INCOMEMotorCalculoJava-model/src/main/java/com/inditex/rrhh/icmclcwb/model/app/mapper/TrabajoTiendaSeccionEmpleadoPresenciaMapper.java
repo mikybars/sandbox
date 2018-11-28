@@ -9,7 +9,7 @@ import org.mapstruct.Mappings;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionEmpleadoPresenciaDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaSeccionEmpleadoPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionEmpleadoPresencia;
@@ -38,10 +38,10 @@ public abstract class TrabajoTiendaSeccionEmpleadoPresenciaMapper {
             @Mapping(source = "src.minutos", target = "minutos"),
             @Mapping(source = "trabajoDto.id", target = "trabajo.id"), @Mapping(target = "id", ignore = true) })
     public abstract TrabajoTiendaSeccionEmpleadoPresencia presenciasDetalleResponseDtoToTrabajoTiendaSeccionVenta(
-            PtrPresenciasMockDetalleResponseDto src, TrabajoDto trabajoDto);
+            PtrPresenciaDetalleResultItemDto src, TrabajoDto trabajoDto);
 
     public List<TrabajoTiendaSeccionEmpleadoPresencia> presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(
-            List<PtrPresenciasMockDetalleResponseDto> src, TrabajoDto trabajoDto) {
+            List<PtrPresenciaDetalleResultItemDto> src, TrabajoDto trabajoDto) {
         throw new UnsupportedOperationException("Not implemented");
     }
 

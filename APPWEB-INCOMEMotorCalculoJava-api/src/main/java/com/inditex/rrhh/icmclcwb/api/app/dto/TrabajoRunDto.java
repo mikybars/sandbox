@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,4 +16,9 @@ public class TrabajoRunDto implements Serializable {
 	
 	@ApiModelProperty(value = "Ids de las cadenas a ejecutar", required = false)
 	private List<String> cadenasEmpresa;
+	
+	private Set<Integer> tiendasPresencia;
+	
+	private List<Integer> tiendasPresenciaNuevas;
+
 }

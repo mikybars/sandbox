@@ -22,7 +22,7 @@ public class TrabajoTiendaVentaSeccionRepositoryImpl implements TrabajoTiendaVen
 	@Qualifier("primaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String SAVE = "MERGE INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_VENTA_SECCION "
+	private static final String SAVE = "MERGE INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_VENTA_SECCION"
 			+ " USING ("
 			+ " SELECT FECHA, "
 			+ " ID_TIENDA, "
@@ -38,13 +38,16 @@ public class TrabajoTiendaVentaSeccionRepositoryImpl implements TrabajoTiendaVen
 			+ " FROM DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_SECCION_VENTA A "
 			+ " WHERE A.ID_TRABAJO = ? "
 			+ " GROUP BY A.ID_TRABAJO, A.FECHA, A.ID_TIENDA, A.ID_SECCION) "
-			+ " GROUP BY ID_TRABAJO, FECHA, ID_TIENDA"
-			+ " ) AS S "
-			+ " ON 1 = 0 "
+			+ " GROUP BY ID_TRABAJO, FECHA, ID_TIENDA) AS S "
+			+ " ON (1 = 0) "
 			+ " WHEN NOT MATCHED THEN "
 			+ " INSERT (FECHA, ID_TIENDA, IMPORTE_1, IMPORTE_2, IMPORTE_3, ID_TRABAJO ) "
 			+ " VALUES (S.FECHA, S.ID_TIENDA, S.IMPORTE_1, S.IMPORTE_2, S.IMPORTE_3, S.ID_TRABAJO)";
 	
+    private static String quoteName(String name) {
+        return "\"" + name + "\"";
+    }
+    
 	@Override
 	@Auditoria
 	public void save(@NotNull TrabajoDto trabajoDto){

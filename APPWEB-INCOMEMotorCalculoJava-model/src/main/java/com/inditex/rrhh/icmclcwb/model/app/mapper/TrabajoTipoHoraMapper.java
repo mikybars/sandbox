@@ -8,7 +8,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTipoHoraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTipoHora;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTipoHoraDto;
@@ -31,10 +32,10 @@ public abstract class TrabajoTipoHoraMapper {
 			@Mapping(expression = "java(!src.getExcluidoCalculo())", target = "comisionable"),
 			@Mapping(source = "trabajoDto.id", target = "trabajo.id"), @Mapping(target = "id", ignore = true) })
 	public abstract TrabajoTipoHora ptrPresenciasMockTiposHorasResponseDtoToTrabajoTipoHoraDto(
-			PtrPresenciasMockTiposHorasResponseDto src, TrabajoDto trabajoDto);
+			PtrPresenciaTiposHorasResultItemDto src, TrabajoDto trabajoDto);
 
-	public List<TrabajoTipoHora> ptrPresenciasMockListTipoHoraResponsesDtoToTrabajoTipoHoraDto(
-			List<PtrPresenciasMockTiposHorasResponseDto> src, TrabajoDto trabajoDto){
+	public List<TrabajoTipoHora> ptrPresenciaTipoHoraResponsesDtoToTrabajoTipoHoraDto(
+			List<PtrPresenciaTiposHorasResultItemDto> src, TrabajoDto trabajoDto){
         throw new UnsupportedOperationException("Not implemented");
     }
 }

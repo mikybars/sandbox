@@ -9,8 +9,12 @@ metadata:
   tenant: global
   domain: core
   openshiftproject: icmclcwb
-  slot: cfernandezcar
-spring:
+  slot: develop
+spring: 
+#  jta:
+#    atomikos:
+#      properties:
+#        default-jta-timeout: 60000 (ms)
   h2:
     console:
       enabled: true
@@ -27,16 +31,22 @@ amiga:
       client:
         defaultConnectTimeout: 300000
         defaultReadTimeout: 300000
-        ptrClientVenta:
+        ptrVentaClient:
+          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
           base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-        ptrClientPresencia:
-          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-        ptrClientPresenciaMock:
-          #base-url: https://localhost:8080/presenciasServiceMock
-          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
+        ptrPresenciaClient:
+          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          #base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
           username: username300
           password: username300p
+        ptrPresenciaMockClient:
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
+          auth-method: BASIC
+          username: username300
+          password: username300p
+          
   service:
     jms:
       trabajo-queue:
@@ -122,7 +132,7 @@ amiga:
           password: people7
     hibernate:
       primary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
       secondary:
         properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-secondary-ddl.sql,import-secondary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
 app:
@@ -133,14 +143,14 @@ app:
           getVentaTotalizado:
             endpoint: /ventaGeneralService/getVentaTotalizado
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
           getVentaIndividualDetalle:
             endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
@@ -149,17 +159,24 @@ app:
           getPresenciasTotalTiendaSeccion:
             endpoint: /presenciasService/presenciasTotalTiendaSeccion
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
+          getTiposHoras:
+            endpoint: /presenciasService/tiposHoras
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2  
     meta4:
       user: INCOME
       password: 123
@@ -176,7 +193,7 @@ app:
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
@@ -187,20 +204,9 @@ app:
               tipoOrden: DESC
               campoOrden: idplantilla
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2       
-          getTest:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 10
-              tipoOrden: DESC
-              campoOrden: test  
-            filter:
-              maxPageSize: 20
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              retryAttempts: 2
       icm-ws-calc-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME

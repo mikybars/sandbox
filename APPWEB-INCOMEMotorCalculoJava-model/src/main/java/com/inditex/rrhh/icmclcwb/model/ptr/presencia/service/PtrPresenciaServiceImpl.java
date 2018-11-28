@@ -12,19 +12,21 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciasMockService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 
 @Service
 @Validated
-public class PtrPresenciaServiceImpl implements PtrPresenciasMockService {
+public class PtrPresenciaServiceImpl implements PtrPresenciaService {
 
     @Autowired
-    @Qualifier("ptrClientPresencia")
-    private RestClient ptrClientPresencia;
+    @Qualifier("ptrPresenciaClient")
+    private RestClient ptrPresenciaClient;
 
     @Autowired
     @Qualifier("presenciasTotalTiendaSeccionDto")
@@ -33,40 +35,67 @@ public class PtrPresenciaServiceImpl implements PtrPresenciasMockService {
     @Autowired
     @Qualifier("presenciasDetalleDto")
     private PtrPropertiesDto presenciasDetalleDto;
+    
+    @Autowired
+    @Qualifier("tiposHorasDto")
+    private PtrPropertiesDto presenciasTiposHorasDto;
 
     @Override
-    public PtrPresenciasMockTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
-            @Valid final PtrPresenciasMockTotalTiendaSeccionRequestDto getPresenciasTotalTiendaSeccionRequestDto)
+    public PtrPresenciaTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
+            @Valid final PtrPresenciaTotalTiendaSeccionRequestDto getPresenciasTotalTiendaSeccionRequestDto)
             throws Exception {
-        PtrPresenciasMockTotalTiendaSeccionResponseDto result = null;
-        ResponseEntity<PtrPresenciasMockTotalTiendaSeccionResponseDto> response = ptrClientPresencia.postForEntity(
+    	PtrPresenciaTotalTiendaSeccionResponseDto result = null;
+        ResponseEntity<PtrPresenciaTotalTiendaSeccionResponseDto> response = ptrPresenciaClient.postForEntity(
                 presenciasTotalTiendaSeccionDto.getEndpoint(), getPresenciasTotalTiendaSeccionRequestDto,
-                PtrPresenciasMockTotalTiendaSeccionResponseDto.class);
+                PtrPresenciaTotalTiendaSeccionResponseDto.class);
+        if (response.getStatusCode().value() == HttpStatus.SC_OK) {
+            if (response.getBody() != null) {
+                result = response.getBody();
+            }
+        } else {
+            throw new ApplicationException(new StringBuilder(
+                    "La llamada al PTR de Presencia ha fallado :: getPresenciasTotalTiendaSeccionDto() :: ")
+                            .append(response.getStatusCode().value()).toString());
+        }
+        return result;
+    }
+
+    @Override
+    public PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(
+            @Valid final PtrPresenciaDetalleRequestDto getPresenciasDetalleRequestDto) throws Exception {
+    	PtrPresenciaDetalleResponseDto result = null;
+        ResponseEntity<PtrPresenciaDetalleResponseDto> response = ptrPresenciaClient.postForEntity(
+                presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto,
+                PtrPresenciaDetalleResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
             if (response.getBody() != null) {
                 result = response.getBody();
             }
         } else {
             throw new ApplicationException(
-                    "La llamada al PTR de Presencia ha fallado :: getPresenciasTotalTiendaSeccionDto()");
+                    new StringBuilder("La llamada al PTR de Presencia ha fallado :: getPresenciasDetalleDto() :: ")
+                            .append(response.getStatusCode().value()).toString());
         }
         return result;
     }
 
-    @Override
-    public PtrPresenciasMockDetalleResponseDto getPresenciasDetalleDto(
-            @Valid final PtrPresenciasMockDetalleRequestDto getPresenciasDetalleRequestDto) throws Exception {
-        PtrPresenciasMockDetalleResponseDto result = null;
-        ResponseEntity<PtrPresenciasMockDetalleResponseDto> response = ptrClientPresencia.postForEntity(
-                presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto, PtrPresenciasMockDetalleResponseDto.class);
+	@Override
+	public PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid PtrPresenciaTiposHorasRequestDto request)
+			throws Exception {
+		PtrPresenciaTiposHorasResponseDto result = null;
+        ResponseEntity<PtrPresenciaTiposHorasResponseDto> response = ptrPresenciaClient.postForEntity(
+        		presenciasTiposHorasDto.getEndpoint(), request,
+                PtrPresenciaTiposHorasResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
             if (response.getBody() != null) {
                 result = response.getBody();
             }
         } else {
-            throw new ApplicationException("La llamada al PTR de Presencia ha fallado :: getPresenciasDetalleDto()");
+            throw new ApplicationException(
+                    new StringBuilder("La llamada al PTR de Presencia ha fallado :: getTiposHorasDto() :: ")
+                            .append(response.getStatusCode().value()).toString());
         }
         return result;
-    }
+	}
 
 }

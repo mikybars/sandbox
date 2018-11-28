@@ -8,6 +8,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 
@@ -20,8 +22,11 @@ public interface Meta4IcmWsIncomeSessionService {
 
     List<ValoresCondicionesResultItemDto> getValoresCondiciones(final ValoresCondicionesRequestDto request) throws Exception;
 
+	List<TiendaComisionableResultItemDto> getTiendaComisionable(final TiendaComisionableRequestDto request) throws Exception;
+
     List<PeriodoDto> periodo();
 
     List<PocTiendaDto> getTiendas(final TrabajoDto trabajo);
+
 
 }

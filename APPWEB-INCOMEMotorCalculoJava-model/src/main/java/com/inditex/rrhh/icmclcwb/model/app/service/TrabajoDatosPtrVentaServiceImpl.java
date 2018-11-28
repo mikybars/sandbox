@@ -28,10 +28,10 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.GetVentaIndividualDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
@@ -93,17 +93,17 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                     List<String> tiendas = page.getContent().stream().map(TrabajoTiendaEstado::getIdTienda)
                             .collect(Collectors.toList());
 
-                    GetVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
-                            .trabajoDtoToGetVentaTotalizadoRequestDto(trabajo);
+                    PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
+                            .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
                     paramGetVentaTotalizado.setTienda(tiendas);
                     paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
                     paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
-                    CompletableFuture<GetVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
+                    CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
                             .getVentaTotalizado(paramGetVentaTotalizado);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                    GetVentaTotalizadoResponseDto data = cfData.get();
+                    PtrVentaTotalizadoResponseDto data = cfData.get();
 
                     if (data != null && CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
@@ -147,18 +147,18 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                     List<Integer> empleados = page.getContent().stream().map(e -> Integer.valueOf(e.getIdEmpleado()))
                             .collect(Collectors.toList());
 
-                    GetVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
-                            .trabajoDtoToGetVentaIndividualDetalleRequestDto(trabajo);
+                    PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
+                            .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
                     paramGetVentaIndividualDetalle.setVendedores(empleados);
                     paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenasEmpresa());
                     paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
                     paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 
-                    CompletableFuture<GetVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService
+                    CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService
                             .getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                    GetVentaIndividualDetalleResponseDto data = cfData.get();
+                    PtrVentaIndividualDetalleResponseDto data = cfData.get();
 
                     if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
@@ -185,8 +185,8 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
         List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(TipoTrabajoTiendaDto::getId)
                 .collect(Collectors.toList());
 
-        GetVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
-                .trabajoDtoToGetVentaTotalizadoRequestDto(trabajo);
+        PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
+                .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
         paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
         paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
