@@ -51,6 +51,10 @@ public abstract class Meta4ClientConfigAbstract<T> {
             httpClientPolicy.setConnectionTimeout(connectTimeout);
             httpClientPolicy.setReceiveTimeout(receiveTimeout);
             httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
+            // Apache CXF uses HTTPUrlConnection internally and relies on java system
+            // properties to configure client connection settings
+            // http.keepAlive (default: true)
+            // http.maxConnections (default: 5)
 
             httpConduit.setClient(httpClientPolicy);
 
