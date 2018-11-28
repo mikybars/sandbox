@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto;
+package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto;
 
 import java.io.Serializable;
 
@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TiendasEmpleadoFilterParametersDto implements Serializable {
-	
-	private static final long serialVersionUID = -1376019181239309304L;
-	
+public class GenericFilterParametersDto implements Serializable {
+
+	private static final long serialVersionUID = -1801905980562096849L;
+
 	private String idEmpleado;
 	
 	private String orEmpleado;
 	
 	private String idLugarTrabajo;
-
 }

@@ -16,7 +16,11 @@ public class Meta4IcmWsIncomeClientPropertiesConfig {
 	Meta4PropertiesDto getEmpleadosTienda;
 	
 	Meta4PropertiesDto getValoresCondiciones;
-
+	
+	Meta4PropertiesDto getEmpleadosEstructura;
+	
+	Meta4PropertiesDto getTiendaComisionable;
+	
 	@Bean(name = "getEmpleadosTiendaDto")
 	public Meta4PropertiesDto getEmpleadosTiendaPageDto() {
 		return getEmpleadosTienda;	
@@ -25,6 +29,16 @@ public class Meta4IcmWsIncomeClientPropertiesConfig {
 	@Bean(name = "getValoresCondicionesDto")
 	public Meta4PropertiesDto getValoresCondicionesPageDto() {
 		return getValoresCondiciones;	
+	}
+	
+	@Bean(name = "getEmpleadosEstructuraDto")
+	public Meta4PropertiesDto getEmpleadosEstructuraPageDto() {
+		return getEmpleadosEstructura;	
+	}
+	
+	@Bean(name = "getTiendaComisionableDto")
+	public Meta4PropertiesDto getTiendaComisionablePageDto() {
+		return getTiendaComisionable;	
 	}
 	
 }

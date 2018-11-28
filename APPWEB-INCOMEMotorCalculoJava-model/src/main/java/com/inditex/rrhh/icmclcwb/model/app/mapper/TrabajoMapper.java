@@ -20,8 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
@@ -56,9 +55,8 @@ public abstract class TrabajoMapper {
 
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"),
         @Mapping(source = "fechaFinPeriodo", target = "fechaFin"),
-        @Mapping(source = "idPaisOrigen", target = "idOrigen"),
-		@Mapping(source = "trabajoRunDatos.tiendasPresenciaNuevas", target = "items")})
-    public abstract TiendasEmpleadoFilterDto trabajoDtoToTiendasEmpleadoFilterDto(TrabajoDto src);
+        @Mapping(source = "idPaisOrigen", target = "idOrigen")})
+    public abstract GenericFilterDto trabajoDtoToGenericFilterDto(TrabajoDto src);
     
     @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
             @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
@@ -81,14 +79,6 @@ public abstract class TrabajoMapper {
 		@Mapping(source = "idPaisOrigen", target = "origen")})
 	public abstract PtrPresenciaDetalleRequestDto trabajoDtoToPtrPresenciasDetalleRequestDto(TrabajoDto src);
 	
-    
-    protected List<TiendasEmpleadoFilterParametersDto> mapTiendasPresenciasNuevas(List<Integer> tiendasPresenciasNuevas){
-    	List<TiendasEmpleadoFilterParametersDto> tiendas = new ArrayList<>();
-    	for(Integer tienda : tiendasPresenciasNuevas){
-    		tiendas.add(TiendasEmpleadoFilterParametersDto.builder().idLugarTrabajo(String.valueOf(tienda)).build());
-    	}
-    	return tiendas;
-    }
     
     protected List<String> mapEmpleados(List<TrabajoEmpleadoDto> trabajoEmpleadosDto) {
         List<String> empleados = new ArrayList<>();

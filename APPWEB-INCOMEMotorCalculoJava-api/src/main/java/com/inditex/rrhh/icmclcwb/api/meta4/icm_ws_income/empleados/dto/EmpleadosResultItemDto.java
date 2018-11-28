@@ -1,11 +1,11 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchempleados.dto;
+package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto;
 
 import java.io.Serializable;
 
 import lombok.Data;
 
 @Data
-public class SearchEmpleadosResultItemDto implements Serializable {
+public class EmpleadosResultItemDto implements Serializable {
 	
 	private static final long serialVersionUID = -631613481122106352L;
 

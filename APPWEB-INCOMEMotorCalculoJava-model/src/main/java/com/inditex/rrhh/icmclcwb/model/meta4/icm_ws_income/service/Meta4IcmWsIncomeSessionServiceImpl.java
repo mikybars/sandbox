@@ -45,7 +45,15 @@ public class Meta4IcmWsIncomeSessionServiceImpl extends Meta4PageableServiceImpl
     @Autowired
     @Qualifier("getValoresCondicionesDto")
     private Meta4PropertiesDto getValoresCondicionesDto;
-
+    
+    @Autowired
+    @Qualifier("getEmpleadosEstructuraDto")
+    private Meta4PropertiesDto getEmpleadosEstructuraDto;
+    
+    @Autowired
+    @Qualifier("getTiendaComisionableDto")
+    private Meta4PropertiesDto getTiendaComisionableDto;
+    
     @Autowired
     private PocTiendaRepository pocTiendaRepository;
 
@@ -61,7 +69,7 @@ public class Meta4IcmWsIncomeSessionServiceImpl extends Meta4PageableServiceImpl
     @Override
     public List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(final EmpleadosEstructuraRequestDto request)
             throws Exception {
-    	return getResultItem(request, meta4IcmWsIncomeService, "getEmpleadosEstructura", 10);
+    	return getResultItem(request, meta4IcmWsIncomeService, "getEmpleadosEstructura", getEmpleadosEstructuraDto.getFilter().getMaxPageSize());
     }
 
     @Override
@@ -73,7 +81,7 @@ public class Meta4IcmWsIncomeSessionServiceImpl extends Meta4PageableServiceImpl
     @Override
     public List<TiendaComisionableResultItemDto> getTiendaComisionable(final TiendaComisionableRequestDto request)
             throws Exception {
-    	return getResultItem(request, meta4IcmWsIncomeService, "getTiendaComisionable", 10);
+    	return getResultItem(request, meta4IcmWsIncomeService, "getTiendaComisionable", getTiendaComisionableDto.getFilter().getMaxPageSize());
     }
 
     @Override
