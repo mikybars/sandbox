@@ -108,10 +108,10 @@ app:
       icm-ws-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_INCOME
         service:
-          getEmpleadosTienda: 
+          getEmpleadosTienda:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 10
+              numeroRegistrosPagina: 200
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
@@ -122,13 +122,13 @@ app:
           getValoresCondiciones:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 10
+              numeroRegistrosPagina: 200
               tipoOrden: DESC
               campoOrden: idplantilla
             filter:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              retryAttempts: 2       
+              retryAttempts: 2
       icm-ws-calc-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
