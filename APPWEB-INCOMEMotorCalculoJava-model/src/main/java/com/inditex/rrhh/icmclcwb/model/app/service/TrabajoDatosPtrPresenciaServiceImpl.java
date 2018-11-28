@@ -33,10 +33,8 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTipoHoraService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -133,7 +131,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                             .map(t -> new PtrPresenciaTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
                             .collect(Collectors.toList());
 
-                    List<Integer> cadenas = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
+                    List<Integer> cadenas = trabajo.getTrabajoRunDatos().getCadenasEmpresa().stream().map(Integer::valueOf)
                             .collect(Collectors.toList());
 
                     PtrPresenciaTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
@@ -152,7 +150,8 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                     if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                                 presenciasTotalTiendaSeccionDto.getFilter().getMaxPersistenceSize());
-                        AsyncUtils.exceptionally(trabajoTiendaSeccionPresenciaService.save(data.getList()), cf, cfPersist);
+                        AsyncUtils.exceptionally(trabajoTiendaSeccionPresenciaService.save(data.getList()), cf,
+                                cfPersist);
                     }
                     pageable = page.nextPageable();
                 }
@@ -187,7 +186,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                     List<Integer> empleados = page.getContent().stream().map(s -> Integer.valueOf(s.getIdEmpleado()))
                             .collect(Collectors.toList());
 
-                    List<Integer> cadenas = trabajo.getCadenasEmpresa().stream().map(Integer::valueOf)
+                    List<Integer> cadenas = trabajo.getTrabajoRunDatos().getCadenasEmpresa().stream().map(Integer::valueOf)
                             .collect(Collectors.toList());
 
                     PtrPresenciaDetalleRequestDto paramPresenciasDetalle = trabajoMapper
@@ -203,15 +202,16 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                     if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                                 presenciasDetalleDto.getFilter().getMaxPersistenceSize());
-                        AsyncUtils.exceptionally(trabajoTiendaSeccionEmpleadoPresenciaService.save(data.getList(), trabajo), cf,
+                        AsyncUtils.exceptionally(
+                                trabajoTiendaSeccionEmpleadoPresenciaService.save(data.getList(), trabajo), cf,
                                 cfPersist);
 
                         if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
                                 || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-
                             // TODO Recuperar los ids de tienda sin repetidos de las presencias, para
                             // procesarlas posteriormente
-                            trabajo.getTiendasPresencia().addAll(data.getList().stream().map(e -> e.getTienda()).collect(Collectors.toSet()));
+                            trabajo.getTrabajoRunDatos().getTiendasPresencia().addAll(data.getList().stream()
+                                    .map(PtrPresenciaDetalleResultItemDto::getTienda).collect(Collectors.toSet()));
                         }
 
                     }

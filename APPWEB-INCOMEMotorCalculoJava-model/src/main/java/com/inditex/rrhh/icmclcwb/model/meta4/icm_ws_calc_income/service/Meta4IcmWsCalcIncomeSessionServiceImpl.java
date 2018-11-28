@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendas.dto.TiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendas.dto.TiendasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
@@ -21,6 +25,16 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     public List<TiendasEmpleadoResultItemDto> getTiendasEmpleado(final TiendasEmpleadoRequestDto request)
             throws Exception {
     	return getResultItem(request, meta4IcmWsCalcIncomeService, "getTiendasEmpleado", 10);
+    }
+    
+    @Override
+    public List<SearchTiendasResultItemDto> searchTiendas(final SearchTiendasRequestDto request) throws Exception {
+    	return getResultItem(request, meta4IcmWsCalcIncomeService, "searchTiendas", 10);
+    }
+    
+    @Override
+    public List<TiendasResultItemDto> getTiendas(final TiendasRequestDto request) throws Exception {
+    	return getResultItem(request, meta4IcmWsCalcIncomeService, "getTiendas", 10);
     }
 
 }
