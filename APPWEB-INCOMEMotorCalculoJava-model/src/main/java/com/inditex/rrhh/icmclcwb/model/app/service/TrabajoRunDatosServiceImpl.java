@@ -25,7 +25,6 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoCustomRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 
 @Service
@@ -80,7 +79,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                 AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfTiendasHistorico);
                 /*-------------------------------------------------------------*/
 
-                trabajo.setCadenasEmpresa(
+                trabajo.getTrabajoRunDatos().setCadenasEmpresa(
                         trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
                                 trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
 
@@ -125,7 +124,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                     AsyncUtils.waitAllOfIsOk(cf, cfPresenciaDetalleEmpleado);
                     /*-------------------------------------------------------------*/
 
-                    if (CollectionUtils.isNotEmpty(trabajo.getTiendasPresencia())) {
+                    if (CollectionUtils.isNotEmpty(trabajo.getTrabajoRunDatos().getTiendasPresencia())) {
                        // TODO ICM_WS_CALC_INCOME :: SEARCHTIENDAS -> GETTIENDASINCOME
                         CompletableFuture<Void> cfTiendasEmpleado = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
                                 .tiendasEmpleado(trabajo);

@@ -96,7 +96,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                     PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
                             .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
                     paramGetVentaTotalizado.setTienda(tiendas);
-                    paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
+                    paramGetVentaTotalizado.setCadena(trabajo.getTrabajoRunDatos().getCadenasEmpresa());
                     paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
                     CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
@@ -150,7 +150,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                     PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
                             .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
                     paramGetVentaIndividualDetalle.setVendedores(empleados);
-                    paramGetVentaIndividualDetalle.setCadena(trabajo.getCadenasEmpresa());
+                    paramGetVentaIndividualDetalle.setCadena(trabajo.getTrabajoRunDatos().getCadenasEmpresa());
                     paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
                     paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 
@@ -187,7 +187,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 
         PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
                 .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
-        paramGetVentaTotalizado.setCadena(trabajo.getCadenasEmpresa());
+        paramGetVentaTotalizado.setCadena(trabajo.getTrabajoRunDatos().getCadenasEmpresa());
         paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
         Object[] helperParams = new Object[3];

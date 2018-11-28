@@ -31,64 +31,64 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoCus
 @Validated
 public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatosMeta4IcmWsCalcIncomeService {
 
-	@Autowired
-	private Meta4IcmWsCalcIncomeSessionAsyncService meta4IcmWsCalcIncomeSessionAsyncService;
+    @Autowired
+    private Meta4IcmWsCalcIncomeSessionAsyncService meta4IcmWsCalcIncomeSessionAsyncService;
 
     @Autowired
     private TrabajoTiendaEstadoAsyncService trabajoTiendaEstadoAsyncService;
-    
+
     @Autowired
     private TrabajoMapper trabajoMapper;
-    
+
     @Autowired
     private TrabajoTiendaEstadoMapper trabajotiendaEstadoMapper;
-    
+
     @Autowired
     private TrabajoTiendaEstadoCustomRepository trabajoTiendaEstadoCustomRepository;
-	
+
     @Autowired
     @Qualifier("getEmpleadosTiendaDto")
     private Meta4PropertiesDto getEmpleadosTiendaDto;
-    
+
     @AuditoriaTrabajo
     @Override
     public void tiendasEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
 
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-        	  trabajo.setTiendasPresenciaNuevas(trabajoTiendaEstadoCustomRepository
-                      .customFindByIdTiendaNotExists(trabajo.getTiendasPresencia()));
-			List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-			TiendasEmpleadoFilterDto filter = trabajoMapper.trabajoDtoToTiendasEmpleadoFilterDto(trabajo);
-			TiendasEmpleadoRequestDto tiendasEmpleadoRequest = new TiendasEmpleadoRequestDto();
-			tiendasEmpleadoRequest.setPage(getEmpleadosTiendaDto.getPage());
-			tiendasEmpleadoRequest.setData(filter);
-			boolean hasNext = false;
-			do {
-				// Consultamos en meta4 los empleados por tienda de forma paginada.
-				CompletableFuture<List<TiendasEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-						.getTiendasEmpleado(tiendasEmpleadoRequest);
-				AsyncUtils.exceptionally(cfData, cf);
+            trabajo.getTrabajoRunDatos().setTiendasPresenciaNuevas(trabajoTiendaEstadoCustomRepository
+                    .customFindByIdTiendaNotExists(trabajo.getTrabajoRunDatos().getTiendasPresencia()));
+            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+            TiendasEmpleadoFilterDto filter = trabajoMapper.trabajoDtoToTiendasEmpleadoFilterDto(trabajo);
+            TiendasEmpleadoRequestDto tiendasEmpleadoRequest = new TiendasEmpleadoRequestDto();
+            tiendasEmpleadoRequest.setPage(getEmpleadosTiendaDto.getPage());
+            tiendasEmpleadoRequest.setData(filter);
+            boolean hasNext = false;
+            do {
+                // Consultamos en meta4 los empleados por tienda de forma paginada.
+                CompletableFuture<List<TiendasEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                        .getTiendasEmpleado(tiendasEmpleadoRequest);
+                AsyncUtils.exceptionally(cfData, cf);
 
-				List<TiendasEmpleadoResultItemDto> data = cfData.get();
-				if (CollectionUtils.isNotEmpty(data)) {
-					List<TrabajoTiendaEstadoDto> trabajoEmpleadoEstado = trabajotiendaEstadoMapper
-							.tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(data);
-					if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
-						AsyncUtils.checkAsyncAvaliable(cfPersist,
-								getEmpleadosTiendaDto.getFilter().getMaxPersistenceSize());
-						CompletableFuture<Void> cfSave = trabajoTiendaEstadoAsyncService.save(trabajoEmpleadoEstado,
-								trabajo);
-						AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-					}
-				}
-				hasNext = tiendasEmpleadoRequest.nextPage();
-			} while (hasNext);
-			
-			AsyncUtils.waitAllOfIsOk(cf);
-		} catch (Exception e) {
+                List<TiendasEmpleadoResultItemDto> data = cfData.get();
+                if (CollectionUtils.isNotEmpty(data)) {
+                    List<TrabajoTiendaEstadoDto> trabajoEmpleadoEstado = trabajotiendaEstadoMapper
+                            .tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(data);
+                    if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                getEmpleadosTiendaDto.getFilter().getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSave = trabajoTiendaEstadoAsyncService.save(trabajoEmpleadoEstado,
+                                trabajo);
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    }
+                }
+                hasNext = tiendasEmpleadoRequest.nextPage();
+            } while (hasNext);
+
+            AsyncUtils.waitAllOfIsOk(cf);
+        } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;	
+            throw e;
         }
 
     }
