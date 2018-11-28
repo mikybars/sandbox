@@ -9,12 +9,8 @@ metadata:
   tenant: global
   domain: core
   openshiftproject: icmclcwb
-  slot: develop
+  slot: cfernandezcar
 spring:
-#  jta:
-#    atomikos:
-#      properties:
-#        default-jta-timeout: 60000 (ms)
   h2:
     console:
       enabled: true
@@ -36,11 +32,11 @@ amiga:
         ptrClientPresencia:
           base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
         ptrClientPresenciaMock:
+          #base-url: https://localhost:8080/presenciasServiceMock
           base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
           auth-method: BASIC
           username: username300
           password: username300p
-          
   service:
     jms:
       trabajo-queue:
@@ -115,15 +111,15 @@ amiga:
           max-pool-size: 20
       datasource:
         primary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:INDITEX;MODE=DB2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS DESARROLLO_RRHH
-          user: sa
-          password: sa
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          user: oincome
+          password: aMJLp8ahF09w
         secondary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-          user: sa
-          password: sa
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
+          user: People7
+          password: people7
     hibernate:
       primary:
         properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
@@ -133,15 +129,15 @@ app:
   envars:
     ptr:
       venta:
-        service: 
-          getVentaTotalizado: 
+        service:
+          getVentaTotalizado:
             endpoint: /ventaGeneralService/getVentaTotalizado
             filter:
               maxPageSize: 20
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
-          getVentaIndividualDetalle: 
+          getVentaIndividualDetalle:
             endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
             filter:
               maxPageSize: 20
@@ -163,9 +159,8 @@ app:
               maxPageSize: 20
               maxQuerySize: 3
               maxPersistenceSize: 3
-              retryAttempts: 2          
-                          
-    meta4: 
+              retryAttempts: 2
+    meta4:
       user: INCOME
       password: 123
       language: 2

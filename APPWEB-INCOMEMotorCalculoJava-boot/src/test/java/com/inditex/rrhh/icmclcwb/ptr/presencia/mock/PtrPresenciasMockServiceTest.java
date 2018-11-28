@@ -81,6 +81,7 @@ public class PtrPresenciasMockServiceTest {
 		assertEquals(1, ret.getBody().getList().get(0).getSeccion().intValue());
 		assertEquals(1, ret.getBody().getList().get(0).getTipo().intValue());
 		assertEquals(Boolean.FALSE, ret.getBody().getList().get(0).getModificado_income());
+		//assertEquals(11,ret.getBody().getList().get(0).getOrigen().intValue());
 
 	}
 
@@ -204,7 +205,7 @@ public class PtrPresenciasMockServiceTest {
 	@Test
 	public void tiposHoras() {
 		PtrPresenciasMockTiposHorasRequestDto req2 = new PtrPresenciasMockTiposHorasRequestDto();
-		req2.setOrigen(11);
+		req2.setOrigen(720);
 		ResponseEntity<PtrPresenciasMockTiposHorasResponseListDto> ret2 = this.restClient.postForEntity("/tiposHoras",
 				req2, PtrPresenciasMockTiposHorasResponseListDto.class);
 		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());

@@ -25,14 +25,18 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTipoHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionEmpleadoPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTipoHoraService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiendaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.request.PtrPresenciasMockTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.dto.response.PtrPresenciasMockTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.mock.service.PtrPresenciaMockAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -55,6 +59,9 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
 
     @Autowired
     private TrabajoTiendaSeccionPresenciaService trabajoTiendaSeccionPresenciaService;
+    
+    @Autowired
+    private TrabajoTipoHoraService trabajoTipoHoraSevice;
 
     @Autowired
     private TrabajoTiendaSeccionEmpleadoPresenciaService trabajoTiendaSeccionEmpleadoPresenciaService;
@@ -88,11 +95,18 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
     @AuditoriaTrabajo
     @Override
     public void tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
-        Random random = new Random();
-        LongStream ls = random.longs(1000, 5000);
-        long time = ls.findFirst().getAsLong();
-        ls.close();
-        Thread.sleep(time);
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>(); 
+        String origen = trabajo.getIdPaisOrigen();
+        //non sei si crear con new dto, ou facendo o trabajoMapper. Como non teñen ningun atributo en comun, fagoo con new.
+        PtrPresenciasMockTiposHorasRequestDto tHora = new PtrPresenciasMockTiposHorasRequestDto(Integer.parseInt(origen),null,null,null);
+        //duda de que asincronia teño que usar neste metodo
+        CompletableFuture<List<PtrPresenciasMockTiposHorasResponseDto>> cfData = ptrPresenciaMockAsyncService.tiposHoras(tHora);
+        List<PtrPresenciasMockTiposHorasResponseDto> data = cfData.get();
+        List<TrabajoTipoHoraDto> listTipoHoraDto;
+        if (CollectionUtils.isNotEmpty(data)) {
+        	AsyncUtils.exceptionally(trabajoTipoHoraSevice.save(data,trabajo), cf, cfPersist);
+        }
     }
 
     @AuditoriaTrabajo

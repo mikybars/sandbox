@@ -30,4 +30,5 @@ public class PtrPresenciasMockDetalleResponseDto implements Serializable {
 
 	private Boolean modificado_income;
 
+	private Integer origen;
 }
