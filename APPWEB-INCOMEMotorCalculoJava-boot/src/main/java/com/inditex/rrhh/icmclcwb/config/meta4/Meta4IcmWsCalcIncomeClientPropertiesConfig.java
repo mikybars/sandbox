@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "app.envars.meta4.icm-ws-income.service")
+@ConfigurationProperties(prefix = "app.envars.meta4.icm-ws-calc-income.service")
 public class Meta4IcmWsCalcIncomeClientPropertiesConfig {
 	
 	Meta4PropertiesDto getTiendasEmpleado;

@@ -8,4 +8,8 @@ public interface TrabajoDatosMeta4IcmWsCalcIncomeService {
 
 	void tiendasEmpleado(@Valid TrabajoDto trabajo) throws Exception;
 
+	void condicionesEmpleados(@Valid TrabajoDto trabajo) throws Exception;
+
+	void searchTiendas(@Valid TrabajoDto trabajo) throws Exception;
+
 }
