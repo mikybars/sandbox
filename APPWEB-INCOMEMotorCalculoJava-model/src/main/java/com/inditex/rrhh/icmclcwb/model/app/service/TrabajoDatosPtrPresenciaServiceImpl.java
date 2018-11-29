@@ -46,7 +46,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEmpleadoPresenciaSeccionRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoCustomRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaPresenciaSeccionRepository;
 
@@ -73,7 +73,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
     private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 
     @Autowired
-    private TrabajoTiendaEstadoCustomRepository trabajoTiendaEstadoCustomRepository;
+    private TrabajoTiendaEstadoRepositoryCustom trabajoTiendaEstadoRepositoryCustom;
 
     @Autowired
     private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository;
@@ -232,7 +232,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
             // Si no estan consultar a Meta4 e insertar los datos
 
             if (CollectionUtils.isNotEmpty(idsTiendas)) {
-                List<Integer> idsTiendasMeta4 = trabajoTiendaEstadoCustomRepository
+                List<Integer> idsTiendasMeta4 = trabajoTiendaEstadoRepositoryCustom
                         .customFindByIdTiendaNotExists(idsTiendas);
                 // TODO Obtener tiendas de Meta4 y persistir en BBDD el detalle
             }
