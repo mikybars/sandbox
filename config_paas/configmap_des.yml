@@ -1,9 +1,6 @@
 logging:
   level:
     root: WARN
-    org.hibernate.tool.hbm2ddl: WARN
-    org.hibernate.SQL: WARN
-    org.hibernate.type.descriptor.sql: WARN
     com.inditex.rrhh.icmclcwb: INFO
 amiga:
   monitoring:
