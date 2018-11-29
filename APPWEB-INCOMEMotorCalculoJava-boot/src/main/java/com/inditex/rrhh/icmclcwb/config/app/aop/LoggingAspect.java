@@ -137,7 +137,7 @@ public class LoggingAspect {
         Instant end = Instant.now();
         Duration duration = Duration.between(start, end);
         if (duration.compareTo(Duration.ofSeconds(15)) > 0) {
-            log.error("Lento[{}] :: {} :: {}", duration, pjp.getSignature().toShortString(), result);
+            log.warn("Lento[{}] :: {} :: {}", duration, pjp.getSignature().toShortString(), result);
         }
         
         return result;
