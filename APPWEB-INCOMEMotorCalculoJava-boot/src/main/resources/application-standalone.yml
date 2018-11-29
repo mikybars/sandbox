@@ -22,7 +22,7 @@ spring:
 amiga:
   monitoring:
     metrics:
-      send: true
+      send: false
   common:
     core:
       is-production: false
