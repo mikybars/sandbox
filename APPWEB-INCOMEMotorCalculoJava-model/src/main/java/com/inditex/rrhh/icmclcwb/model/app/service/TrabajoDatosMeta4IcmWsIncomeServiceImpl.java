@@ -2,10 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import javax.validation.Valid;
@@ -38,6 +36,7 @@ import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 
@@ -173,22 +172,14 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
     @AuditoriaTrabajo
     @Override
     public void condicionesEmpleados(@Valid final TrabajoDto trabajo) throws Exception {
-        Random random = new Random();
-        LongStream ls = random.longs(1000, 5000);
-        long time = ls.findFirst().getAsLong();
-        Thread.sleep(time);
-        ls.close();
+        TestUtils.threadSleep();
     }
 
     @AuditoriaTrabajo
     @Override
     public void tiendasHistorico(@Valid TrabajoDto trabajo) throws Exception {
         if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-            Random random = new Random();
-            LongStream ls = random.longs(1000, 5000);
-            long time = ls.findFirst().getAsLong();
-            ls.close();
-            Thread.sleep(time);
+            TestUtils.threadSleep();
         }
     }
 

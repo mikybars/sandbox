@@ -11,51 +11,81 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.springframework.beans.factory.annotation.Value;
 
 public abstract class Meta4ClientConfigAbstract<T> {
 
-	protected String server;
+    protected String server;
 
-	protected abstract void setServer(String server);
+    @Value("${app.envars.meta4.default-connect-timeout}")
+    private long connectTimeout;
 
-	protected abstract T init();
+    @Value("${app.envars.meta4.default-receive-timeout}")
+    private long receiveTimeout;
 
-	protected T build(Class<T> classType) {
-		JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
-		pfb.setServiceClass(classType);
-		pfb.setAddress(server);
-		@SuppressWarnings("unchecked")
-		T result = (T) pfb.create();
+//    @Autowired
+//    private Meta4ClientTimeoutInterceptor meta4ClientTimeoutInterceptor;
 
-		((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
-		// END_POINT_SERVICIO_CUESTIONARIO=http://develop-persarew.axdesocp1.central.inditex.grp/services/GLB_WS_CUESTIONARIO_DINAMICO
-		((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
+    protected abstract void setServer(String server);
 
-		Client client = ClientProxy.getClient(result);
-		if (client != null) {
-			HTTPConduit conduit = (HTTPConduit) client.getConduit();
+    protected abstract T init();
 
-			HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
-			httpClientPolicy.setContentType("text/xml;charset=UTF-8");
-			httpClientPolicy.setAllowChunking(false);
-			// httpClientPolicy.setConnectionTimeout(30000L);
-			// httpClientPolicy.setReceiveTimeout(60000L);
-			// httpClientPolicy.setConnection(ConnectionType.CLOSE);
-			conduit.setClient(httpClientPolicy);
+    protected T build(Class<T> classType) {
+        JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
+        pfb.setServiceClass(classType);
+        pfb.setAddress(server);
+        T result = (T) pfb.create();
 
-			TLSClientParameters tlsClientParameters = new TLSClientParameters();
-			SSLSocketFactory sslSF = HttpsURLConnection.getDefaultSSLSocketFactory();
-			tlsClientParameters.setSSLSocketFactory(sslSF);
-			conduit.setTlsClientParameters(tlsClientParameters);
+        ((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
+        ((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
 
-			// client.getEndpoint().put(StaxOutInterceptor.FORCE_START_DOCUMENT,
-			// Boolean.TRUE);
-			
-			client.getInInterceptors().add(new LoggingInInterceptor());
-			client.getOutInterceptors().add(new LoggingOutInterceptor());
-		}
-		return result;
-	}
+        Client client = ClientProxy.getClient(result);
+        if (client != null) {
+            HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
+
+            HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
+            httpClientPolicy.setContentType("text/xml;charset=UTF-8");
+            httpClientPolicy.setAllowChunking(false);
+            httpClientPolicy.setConnectionTimeout(connectTimeout);
+            httpClientPolicy.setReceiveTimeout(receiveTimeout);
+            httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
+            // Apache CXF uses HTTPUrlConnection internally and relies on java system
+            // properties to configure client connection settings
+            // http.keepAlive (default: true)
+            // http.maxConnections (default: 5)
+
+            httpConduit.setClient(httpClientPolicy);
+
+            SSLSocketFactory sslSF = HttpsURLConnection.getDefaultSSLSocketFactory();
+
+            TLSClientParameters tlsClientParameters = new TLSClientParameters();
+            tlsClientParameters.setSSLSocketFactory(sslSF);
+
+            httpConduit.setTlsClientParameters(tlsClientParameters);
+
+            // TODO Pendiente revisar propiedad
+            // client.getEndpoint().put(StaxOutInterceptor.FORCE_START_DOCUMENT,
+            // Boolean.TRUE);
+
+            // TODO Pendiente ajustar trazas
+            LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
+            loggingInInterceptor.setPrettyLogging(Boolean.TRUE);
+            loggingInInterceptor.setLimit(-1);
+            client.getInInterceptors().add(loggingInInterceptor);
+
+            // TODO Pendiente ajustar trazas
+            LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
+            loggingOutInterceptor.setPrettyLogging(Boolean.TRUE);
+            loggingOutInterceptor.setLimit(-1);
+            client.getOutInterceptors().add(loggingOutInterceptor);
+
+            // TODO Revisar
+            // client.getOutInterceptors().add(meta4ClientTimeoutInterceptor);
+
+        }
+        return result;
+    }
 
 }

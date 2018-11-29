@@ -3,12 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import java.util.stream.LongStream;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -44,6 +41,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;

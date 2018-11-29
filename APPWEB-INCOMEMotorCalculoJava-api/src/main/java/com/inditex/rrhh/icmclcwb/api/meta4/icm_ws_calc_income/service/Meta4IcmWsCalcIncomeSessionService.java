@@ -2,6 +2,12 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.comisionempleado.dto.ComisionEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.comisionempleado.dto.ComisionEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto.EmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto.EmpleadosResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchempleados.dto.SearchEmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchempleados.dto.SearchEmpleadosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendas.dto.TiendasRequestDto;
@@ -16,5 +22,11 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 	List<SearchTiendasResultItemDto> searchTiendas(SearchTiendasRequestDto request) throws Exception;
 
 	List<TiendasResultItemDto> getTiendas(TiendasRequestDto request) throws Exception;
+
+	List<SearchEmpleadosResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request) throws Exception;
+
+	List<ComisionEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request) throws Exception;
+
+	List<EmpleadosResultItemDto> getEmpleados(EmpleadosRequestDto request) throws Exception;
 
 }

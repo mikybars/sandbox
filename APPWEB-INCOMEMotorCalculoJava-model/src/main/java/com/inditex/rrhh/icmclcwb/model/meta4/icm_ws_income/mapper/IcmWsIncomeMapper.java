@@ -15,7 +15,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.CondicionesComisionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.CondicionesDesplazamientoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.CondicionesFijasResultItemDto;
@@ -25,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
-import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionescomisionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionesdesplazamientoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmCondicionesfijasRecord;

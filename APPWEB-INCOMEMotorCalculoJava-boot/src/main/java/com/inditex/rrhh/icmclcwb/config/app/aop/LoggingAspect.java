@@ -78,9 +78,9 @@ public class LoggingAspect {
         } catch (Throwable e) {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
-                String msg = new StringBuilder("Trabajo[").append(trabajo.getId()).append("] :: Fin :: Error :: Auditoria[")
-                        .append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString())
-                        .append(" :: ").append(trabajo).toString();
+                String msg = new StringBuilder("Trabajo[").append(trabajo.getId())
+                        .append("] :: Fin :: Error :: Auditoria[").append(Duration.between(start, end)).append("] :: ")
+                        .append(pjp.getSignature().toShortString()).append(" :: ").append(trabajo).toString();
                 log.error(msg, e);
             }
             throw e;
@@ -109,7 +109,8 @@ public class LoggingAspect {
         } catch (Throwable e) {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
-                String msg = new StringBuilder("Fin :: Error :: Auditoria[").append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString()).toString();
+                String msg = new StringBuilder("Fin :: Error :: Auditoria[").append(Duration.between(start, end))
+                        .append("] :: ").append(pjp.getSignature().toShortString()).toString();
                 log.error(msg, e);
             }
             throw e;
@@ -124,6 +125,7 @@ public class LoggingAspect {
 
     @Around(value = "controllerPointcut() || servicePointcut() || repositoryPointcut()")
     public Object genericAround(ProceedingJoinPoint pjp) throws Throwable {
+        Instant start = Instant.now();
         if (log.isDebugEnabled()) {
             log.debug("Inicio :: {} :: {}", pjp.getSignature().toShortString(), Arrays.asList(pjp.getArgs()));
         }
@@ -131,6 +133,13 @@ public class LoggingAspect {
         if (log.isDebugEnabled()) {
             log.debug("Fin :: {} :: {}", pjp.getSignature().toShortString(), result);
         }
+        
+        Instant end = Instant.now();
+        Duration duration = Duration.between(start, end);
+        if (duration.compareTo(Duration.ofSeconds(15)) > 0) {
+            log.error("Lento[{}] :: {} :: {}", duration, pjp.getSignature().toShortString(), result);
+        }
+        
         return result;
     }
 

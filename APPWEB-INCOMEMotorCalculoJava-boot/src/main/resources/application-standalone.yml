@@ -181,6 +181,8 @@ app:
       user: INCOME
       password: 123
       language: 2
+      default-connect-timeout: 300000
+      default-receive-timeout: 300000
       login:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-income:
@@ -197,6 +199,28 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
+          getEmpleadosEstructura:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2   
+          getTiendaComisionable: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2   
           getValoresCondiciones:
             page:
               numeroPagina: 1
@@ -210,3 +234,70 @@ app:
               retryAttempts: 2
       icm-ws-calc-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        service:
+          getTiendasEmpleado:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          searchTiendas:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          getTiendas: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          searchEmpleados: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          getComisionEmpleado:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          getEmpleados:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2              
