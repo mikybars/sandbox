@@ -3,9 +3,11 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
+import lombok.ToString;
 
 @ApiModel(description = "Modelo TrabajoRunDatosAuditoriaDto")
 @Data
+@ToString(callSuper = false)
 public class TrabajoRunDatosAuditoriaDto implements Serializable {
 
     private static final long serialVersionUID = -8465432514188281598L;

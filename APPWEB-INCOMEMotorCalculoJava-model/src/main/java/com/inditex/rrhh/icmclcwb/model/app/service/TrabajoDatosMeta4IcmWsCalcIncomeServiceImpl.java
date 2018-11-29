@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncom
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -59,7 +59,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
             trabajo.getTrabajoRunDatos().setTiendasPresenciaNuevas(trabajoTiendaEstadoCustomRepository
                     .customFindByIdTiendaNotExists(trabajo.getTrabajoRunDatos().getTiendasPresencia()));
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            TiendasEmpleadoFilterDto filter = trabajoMapper.trabajoDtoToTiendasEmpleadoFilterDto(trabajo);
+            GenericFilterDto filter = trabajoMapper.trabajoDtoToGenericFilterDto(trabajo);
             TiendasEmpleadoRequestDto tiendasEmpleadoRequest = new TiendasEmpleadoRequestDto();
             tiendasEmpleadoRequest.setPage(getEmpleadosTiendaDto.getPage());
             tiendasEmpleadoRequest.setData(filter);
@@ -72,6 +72,10 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
                 List<TiendasEmpleadoResultItemDto> data = cfData.get();
                 if (CollectionUtils.isNotEmpty(data)) {
+                    /*-------------------------------------------------------------*/
+                    trabajo.getTrabajoRunDatosAuditoria().setTiendasPresencia(
+                            trabajo.getTrabajoRunDatosAuditoria().getTiendasPresencia() + data.size());
+                    /*-------------------------------------------------------------*/
                     List<TrabajoTiendaEstadoDto> trabajoEmpleadoEstado = trabajotiendaEstadoMapper
                             .tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(data);
                     if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
