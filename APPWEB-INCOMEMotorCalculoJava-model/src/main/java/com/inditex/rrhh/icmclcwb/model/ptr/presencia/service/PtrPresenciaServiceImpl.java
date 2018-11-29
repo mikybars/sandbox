@@ -49,9 +49,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 presenciasTotalTiendaSeccionDto.getEndpoint(), getPresenciasTotalTiendaSeccionRequestDto,
                 PtrPresenciaTotalTiendaSeccionResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-            if (response.getBody() != null) {
-                result = response.getBody();
-            }
+            result = response.getBody();
         } else {
             throw new ApplicationException(new StringBuilder(
                     "La llamada al PTR de Presencia ha fallado :: getPresenciasTotalTiendaSeccionDto() :: ")
@@ -68,9 +66,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto,
                 PtrPresenciaDetalleResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-            if (response.getBody() != null) {
-                result = response.getBody();
-            }
+            result = response.getBody();
         } else {
             throw new ApplicationException(
                     new StringBuilder("La llamada al PTR de Presencia ha fallado :: getPresenciasDetalleDto() :: ")
@@ -87,9 +83,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
         		presenciasTiposHorasDto.getEndpoint(), request,
                 PtrPresenciaTiposHorasResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-            if (response.getBody() != null) {
-                result = response.getBody();
-            }
+            result = response.getBody();
         } else {
             throw new ApplicationException(
                     new StringBuilder("La llamada al PTR de Presencia ha fallado :: getTiposHorasDto() :: ")

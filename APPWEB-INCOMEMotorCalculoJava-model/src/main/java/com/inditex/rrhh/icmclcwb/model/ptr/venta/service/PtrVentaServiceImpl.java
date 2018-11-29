@@ -41,9 +41,7 @@ public class PtrVentaServiceImpl implements PtrVentaService {
         ResponseEntity<PtrVentaTotalizadoResponseDto> response = ptrVentaClient.postForEntity(
                 ventaTotalizadoDto.getEndpoint(), getVentaTotalizadoRequest, PtrVentaTotalizadoResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-            if (response.getBody() != null) {
-                result = response.getBody();
-            }
+            result = response.getBody();
         } else {
             throw new ApplicationException(
                     new StringBuilder("La llamada al PTR de Venta ha fallado :: getVentaTotalizado() :: ")
@@ -60,9 +58,7 @@ public class PtrVentaServiceImpl implements PtrVentaService {
                 ventaIndividualDetalleDto.getEndpoint(), getVentaIndividualDetalleRequestDto,
                 PtrVentaIndividualDetalleResponseDto.class);
         if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-            if (response.getBody() != null) {
-                result = response.getBody();
-            }
+            result = response.getBody();
         } else {
             throw new ApplicationException(new StringBuilder(
                     "La llamada al PTR de Venta ha fallado :: getVentaIndividualDetalleRequestDto() :: ")
