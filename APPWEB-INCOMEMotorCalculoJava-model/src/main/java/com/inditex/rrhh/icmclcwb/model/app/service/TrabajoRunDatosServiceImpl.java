@@ -72,15 +72,18 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
                 // TODO ICM_WS_CALC_INCOME :: (GETTIENDASEMPLEADO - {Tiendas entrada}) ->
                 // GETTIENDASINCOME
-                CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsIncomeAsyncService
-                        .tiendasHistorico(trabajo);
-                AsyncUtils.exceptionally(cfTiendasHistorico, cf);
+//                CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsIncomeAsyncService
+//                        .tiendasHistorico(trabajo);
+//                AsyncUtils.exceptionally(cfTiendasHistorico, cf);
 
+                CompletableFuture<Void> cfSearchTiendas = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.searchTiendas(trabajo);
+                AsyncUtils.exceptionally(cfSearchTiendas, cf);
+                
                 CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
                 AsyncUtils.exceptionally(cfTiposHoras, cf);
 
                 /*-------------------------------------------------------------*/
-                AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfTiendasHistorico);
+                AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfSearchTiendas);
                 /*-------------------------------------------------------------*/
 
                 trabajo.getTrabajoRunDatos().setCadenasEmpresa(

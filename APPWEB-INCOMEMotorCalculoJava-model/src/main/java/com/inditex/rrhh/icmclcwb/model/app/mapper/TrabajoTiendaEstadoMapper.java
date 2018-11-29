@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaEstadoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
@@ -64,4 +65,9 @@ public abstract class TrabajoTiendaEstadoMapper {
 	public abstract List<TrabajoTiendaEstadoDto> tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto (List<TiendasEmpleadoResultItemDto> src);
 	
 
+	@Mappings({ @Mapping(target = "idPaisOrigen", source = "idOrigen")})
+	public abstract TrabajoTiendaEstadoDto searchTiendasResultItemDtoToTrabajoTiendaEstadoDto (SearchTiendasResultItemDto src);
+	
+	public abstract List<TrabajoTiendaEstadoDto> searchTiendasResultItemDtoToTrabajoTiendaEstadoDto (List<SearchTiendasResultItemDto> src);
+	
 }

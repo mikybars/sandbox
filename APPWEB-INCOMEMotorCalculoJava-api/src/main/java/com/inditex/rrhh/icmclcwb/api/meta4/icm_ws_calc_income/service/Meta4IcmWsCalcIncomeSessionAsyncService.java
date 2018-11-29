@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.comisionempleado.dto.ComisionEmpleadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto.EmpleadosResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchempleados.dto.SearchEmpleadosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasRequestDto;
@@ -28,7 +28,7 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 	CompletableFuture<List<SearchEmpleadosResultItemDto>> searchEmpleados(SearchEmpleadosRequestDto request)
 			throws Exception;
 
-	CompletableFuture<List<ComisionEmpleadoResultItemDto>> getComisionEmpleado(ComisionEmpleadoRequestDto request)
+	CompletableFuture<List<GenericEmpleadoResultItemDto>> getComisionEmpleado(ComisionEmpleadoRequestDto request)
 			throws Exception;
 
 	CompletableFuture<List<EmpleadosResultItemDto>> getEmpleados(EmpleadosRequestDto request) throws Exception;

@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoEmpleadoEstadoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
@@ -61,13 +62,26 @@ public abstract class TrabajoEmpleadoEstadoMapper {
 	}
 
 	@Mappings({ @Mapping(target = "idEmpleado", source = "src.idEmpleado"),
-			@Mapping(target = "trabajo.id", source = "trabajo.id"), @Mapping(target = "id", ignore = true),
+			@Mapping(target = "trabajo.id", source = "trabajo.id"),
+			@Mapping(target = "id", ignore = true),
 			@Mapping(target = "estado", ignore = true) })
 	public abstract TrabajoEmpleadoEstadoDto empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(
 			EmpleadosTiendaResultItemDto src, TrabajoDto trabajo);
 
 	public List<TrabajoEmpleadoEstadoDto> empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(
 			List<EmpleadosTiendaResultItemDto> src, TrabajoDto trabajo) {
+		throw new UnsupportedOperationException("Not implemented");
+	}
+	
+	@Mappings({ @Mapping(target = "idEmpleado", source = "src.idEmpleado"),
+		@Mapping(target = "trabajo.id", source = "trabajo.id"),
+		@Mapping(target = "id", ignore = true),
+		@Mapping(target = "estado", ignore = true) })
+	public abstract TrabajoEmpleadoEstadoDto genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(
+			GenericEmpleadoResultItemDto src, TrabajoDto trabajo);
+	
+	public List<TrabajoEmpleadoEstadoDto> genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(
+			List<GenericEmpleadoResultItemDto> src, TrabajoDto trabajo) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 

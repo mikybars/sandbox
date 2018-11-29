@@ -22,4 +22,11 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     	trabajoDatosMeta4IcmWsCalcIncomeService.tiendasEmpleado(trabajo);
         return CompletableFuture.completedFuture(null);
     }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> searchTiendas(final TrabajoDto trabajo) throws Exception {
+    	trabajoDatosMeta4IcmWsCalcIncomeService.searchTiendas(trabajo);
+        return CompletableFuture.completedFuture(null);
+    }
 }
