@@ -102,7 +102,14 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              retryAttempts: 2          
+              retryAttempts: 2
+          getTiposHoras:
+            endpoint: /presenciasService/tiposHoras
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2                   
     meta4:
       user: INCOME
       language: 2

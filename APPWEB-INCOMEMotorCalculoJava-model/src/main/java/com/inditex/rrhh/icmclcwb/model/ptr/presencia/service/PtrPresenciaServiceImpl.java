@@ -15,6 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 
@@ -33,6 +35,10 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     @Autowired
     @Qualifier("presenciasDetalleDto")
     private PtrPropertiesDto presenciasDetalleDto;
+    
+    @Autowired
+    @Qualifier("tiposHorasDto")
+    private PtrPropertiesDto presenciasTiposHorasDto;
 
     @Override
     public PtrPresenciaTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
@@ -72,5 +78,24 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
         }
         return result;
     }
+
+	@Override
+	public PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid PtrPresenciaTiposHorasRequestDto request)
+			throws Exception {
+		PtrPresenciaTiposHorasResponseDto result = null;
+        ResponseEntity<PtrPresenciaTiposHorasResponseDto> response = ptrPresenciaClient.postForEntity(
+        		presenciasTiposHorasDto.getEndpoint(), request,
+                PtrPresenciaTiposHorasResponseDto.class);
+        if (response.getStatusCode().value() == HttpStatus.SC_OK) {
+            if (response.getBody() != null) {
+                result = response.getBody();
+            }
+        } else {
+            throw new ApplicationException(
+                    new StringBuilder("La llamada al PTR de Presencia ha fallado :: getTiposHorasDto() :: ")
+                            .append(response.getStatusCode().value()).toString());
+        }
+        return result;
+	}
 
 }
