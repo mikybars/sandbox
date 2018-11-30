@@ -305,7 +305,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
 
         StringBuilder query = new StringBuilder();
 
-        query.append("SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,TIPO ,OP.CCL_ID_ORIGEN FROM");
+        query.append("SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,TIPO ,OP.CCL_ID_ORIGEN AS 'ORIGEN' FROM");
         if (dto.getOrigen().equals(11)) {
             query.append(
                     " PRESENCIAS_HORARIOS P WITH (NOLOCK) INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ");
@@ -326,8 +326,14 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
 
     @Override
     public List<PtrPresenciaMockTiposHoras> findTiposHoras(PtrPresenciaTiposHorasRequestDto dto) {
-        // TODO Pendiente implementar método contra la tabla proporcionada por ITX
-        return new ArrayList<>();
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        StringBuilder query = new StringBuilder();
+        
+        query.append("select  'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO, ID_TIPO_HORA AS 'TIPO', CCL_ID_ORIGEN AS 'ORIGEN' from M4CCL_TP_HORA_COMISION_TA WHERE CCL_ID_ORIGEN = :origen ");
+        param.addValue("origen", dto.getOrigen());
+        
+        return namedParameterJdbcTemplate.query(query.toString(), param, new PtrPresenciaMockTiposHorasRowMapper());
     }
 
 }

@@ -58,7 +58,6 @@ public class PtrPresenciaMockServiceImpl implements PtrPresenciaMockService {
 
     @Override
     public List<PtrPresenciaTiposHorasResultItemDto> tiposHoras(PtrPresenciaTiposHorasRequestDto tiposHoras) {
-        // TODO Se puede llamar a findTiposHoras() o a findTiposHorasGroupBy()
         return this.presenciasMapper.asTiposHorasDtos(this.presenciasRepository.findTiposHoras(tiposHoras));
     }
 
