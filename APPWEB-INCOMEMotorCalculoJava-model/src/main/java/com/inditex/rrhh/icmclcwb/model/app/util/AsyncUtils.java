@@ -29,12 +29,16 @@ public class AsyncUtils {
     public static void exceptionally(final CompletableFuture<?> cf, final List<CompletableFuture<?>> cfList) {
         cfList.add(cf);
         cf.exceptionally(e -> {
-            cfList.stream().forEach(item -> {
-                if (!item.isDone()) {
-                    item.cancel(true);
-                }
-            });
+            AsyncUtils.cancel(cfList);
             return null;
+        });
+    }
+    
+    public static void cancel(final List<CompletableFuture<?>> cfList) {
+        cfList.stream().forEach(item -> {
+            if (!item.isDone()) {
+                item.cancel(true);
+            }
         });
     }
 
@@ -53,7 +57,7 @@ public class AsyncUtils {
     }
 
     public static void waitAnyOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
-        CompletableFuture.anyOf(cfWait);
+        CompletableFuture.anyOf(cfWait).join();
         AsyncUtils.isOk(cfList);
     }
 
@@ -62,7 +66,7 @@ public class AsyncUtils {
     }
 
     public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
-        CompletableFuture.allOf(cfWait);
+        CompletableFuture.allOf(cfWait).join();
         AsyncUtils.isOk(cfList);
     }
 

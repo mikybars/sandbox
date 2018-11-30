@@ -1,16 +1,19 @@
 logging:
   level:
     root: WARN
-    org.hibernate.tool.hbm2ddl: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql: TRACE
-    com.inditex.rrhh.icmclcwb: DEBUG
+#    org.hibernate.tool.hbm2ddl: DEBUG
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.stat: DEBUG
+#    org.hibernate.type.descriptor.sql: TRACE
+#    com.inditex.aqsw: DEBUG
+#    com.inditex.aqsw.libmonitoringcenter.metrics.aop.aspect: DEBUG
+    com.inditex.rrhh.icmclcwb: INFO
 metadata:
   tenant: global
   domain: core
   openshiftproject: icmclcwb
   slot: develop
-spring:
+spring: 
 #  jta:
 #    atomikos:
 #      properties:
@@ -19,6 +22,10 @@ spring:
     console:
       enabled: true
 amiga:
+  monitoring:
+    metrics:
+      enabled: true
+      send: false
   common:
     core:
       is-production: false
@@ -31,12 +38,18 @@ amiga:
       client:
         defaultConnectTimeout: 300000
         defaultReadTimeout: 300000
-        ptrClientVenta:
+        ptrVentaClient:
+          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
           base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-        ptrClientPresencia:
-          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-        ptrClientPresenciaMock:
-          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasServiceMock
+        ptrPresenciaClient:
+          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          #base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
+          auth-method: BASIC
+          username: username300
+          password: username300p
+        ptrPresenciaMockClient:
+          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
           username: username300
           password: username300p
@@ -73,60 +86,78 @@ amiga:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
           receiveTimeout: 100
           pubSubDomain: false
-#    jdbc:
-#      datasource: 
-#        primary:
-#          driverClassName: com.ibm.db2.jcc.DB2Driver
-#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
-#          user: oincome
-#          password: aMJLp8ahF09w
-#        secondary:
-#          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
-#          user: People7
-#          password: people7
-#          #user: ncomis
-#          #password: j50lc9sL
-#    hibernate:
-#      primary:
-#        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
-#        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
-#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
-#      secondary:
-#        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
     jdbc:
-      datasource:
+      configuration:
+        prop:
+          # 0: TRANSACTION_NONE
+          # 1: TRANSACTION_READ_UNCOMMITTED
+          # 2: TRANSACTION_READ_COMMITTED
+          # 4: TRANSACTION_REPEATABLE_READ
+          # 8: TRANSACTION_SERIALIZABLE
+          default-isolation-level: 1
+          max-pool-size: 20
+      datasource: 
         primary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:INDITEX;MODE=DB2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS DESARROLLO_RRHH
-          user: sa
-          password: sa
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          user: oincome
+          password: aMJLp8ahF09w
         secondary:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-          user: sa
-          password: sa
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
+          user: People7
+          password: people7
+          #user: ncomis
+          #password: j50lc9sL
     hibernate:
       primary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+        #properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''200'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
+        #properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''validate'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''200'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
+        properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''200'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
       secondary:
-        properties: '{''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-secondary.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true''}'
+        properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect''}'
+#    jdbc:
+#      configuration:
+#        prop:
+#          # 0: TRANSACTION_NONE
+#          # 1: TRANSACTION_READ_UNCOMMITTED
+#          # 2: TRANSACTION_READ_COMMITTED
+#          # 4: TRANSACTION_REPEATABLE_READ
+#          # 8: TRANSACTION_SERIALIZABLE
+#          default-isolation-level: 1
+#          max-pool-size: 20
+#      datasource:
+#        primary:
+#          driverClassName: org.h2.Driver
+#          url: jdbc:h2:mem:INDITEX;MODE=DB2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS DESARROLLO_RRHH
+#          user: sa
+#          password: sa
+#        secondary:
+#          driverClassName: org.h2.Driver
+#          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#          user: sa
+#          password: sa
+#    hibernate:
+#      primary:
+#        properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true'',''hibernate.jdbc.batch_size'':''200'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
+#      secondary:
+#        properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-secondary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true'',''hibernate.jdbc.batch_size'':''200'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true''}'
 app:
   envars:
     ptr:
       venta:
-        service: 
-          getVentaTotalizado: 
+        service:
+          getVentaTotalizado:
             endpoint: /ventaGeneralService/getVentaTotalizado
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
-          getVentaIndividualDetalle: 
+          getVentaIndividualDetalle:
             endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
@@ -135,59 +166,145 @@ app:
           getPresenciasTotalTiendaSeccion:
             endpoint: /presenciasService/presenciasTotalTiendaSeccion
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              retryAttempts: 2          
-                          
-    meta4: 
+              retryAttempts: 2
+          getTiposHoras:
+            endpoint: /presenciasService/tiposHoras
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2  
+    meta4:
       user: INCOME
       password: 123
       language: 2
+      default-connect-timeout: 300000
+      default-receive-timeout: 300000
       login:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_INCOME
         service:
-          getEmpleadosTienda: 
+          getEmpleadosTienda:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 10
+              numeroRegistrosPagina: 200
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
+          getEmpleadosEstructura:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2   
+          getTiendaComisionable: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2   
           getValoresCondiciones:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 10
+              numeroRegistrosPagina: 200
               tipoOrden: DESC
               campoOrden: idplantilla
             filter:
-              maxPageSize: 20
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              retryAttempts: 2       
-          getTest:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 10
-              tipoOrden: DESC
-              campoOrden: test  
-            filter:
-              maxPageSize: 20
+              maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               retryAttempts: 2
       icm-ws-calc-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        service:
+          getTiendasEmpleado:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          searchTiendas:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          getTiendas: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          searchEmpleados: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          getComisionEmpleado:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2
+          getEmpleados:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxQuerySize: 3
+              maxPersistenceSize: 3
+              retryAttempts: 2              

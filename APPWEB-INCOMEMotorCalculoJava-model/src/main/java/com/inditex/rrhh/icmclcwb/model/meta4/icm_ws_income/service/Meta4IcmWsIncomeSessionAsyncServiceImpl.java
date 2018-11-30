@@ -15,6 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 
@@ -43,6 +45,13 @@ public class Meta4IcmWsIncomeSessionAsyncServiceImpl implements Meta4IcmWsIncome
     public CompletableFuture<List<ValoresCondicionesResultItemDto>> getValoresCondiciones(ValoresCondicionesRequestDto request)
             throws Exception {
         return CompletableFuture.completedFuture(meta4IcmWsIncomeSessionService.getValoresCondiciones(request));
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<List<TiendaComisionableResultItemDto>> getTiendaComisionable(TiendaComisionableRequestDto request)
+            throws Exception {
+        return CompletableFuture.completedFuture(meta4IcmWsIncomeSessionService.getTiendaComisionable(request));
     }
 
     @Async

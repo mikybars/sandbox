@@ -4,6 +4,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadosestructura.dto.EmpleadosEstructuraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResponseDto;
 
@@ -16,6 +18,8 @@ public interface Meta4IcmWsIncomeService {
 			throws Exception;
 
 	ValoresCondicionesResponseDto getValoresCondiciones(ValoresCondicionesRequestDto request)
-			throws Exception;	
+			throws Exception;
+
+	TiendaComisionableResponseDto getTiendaComisionable(TiendaComisionableRequestDto request) throws Exception;	
 	
 }

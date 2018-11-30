@@ -24,6 +24,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.Emp
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.TiendaComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
@@ -43,7 +45,15 @@ public class Meta4IcmWsIncomeSessionServiceImpl extends Meta4PageableServiceImpl
     @Autowired
     @Qualifier("getValoresCondicionesDto")
     private Meta4PropertiesDto getValoresCondicionesDto;
-
+    
+    @Autowired
+    @Qualifier("getEmpleadosEstructuraDto")
+    private Meta4PropertiesDto getEmpleadosEstructuraDto;
+    
+    @Autowired
+    @Qualifier("getTiendaComisionableDto")
+    private Meta4PropertiesDto getTiendaComisionableDto;
+    
     @Autowired
     private PocTiendaRepository pocTiendaRepository;
 
@@ -59,13 +69,19 @@ public class Meta4IcmWsIncomeSessionServiceImpl extends Meta4PageableServiceImpl
     @Override
     public List<EmpleadosEstructuraResultItemDto> getEmpleadosEstructura(final EmpleadosEstructuraRequestDto request)
             throws Exception {
-    	return getResultItem(request, meta4IcmWsIncomeService, "getEmpleadosEstructura", 10);
+    	return getResultItem(request, meta4IcmWsIncomeService, "getEmpleadosEstructura", getEmpleadosEstructuraDto.getFilter().getMaxPageSize());
     }
 
     @Override
     public List<ValoresCondicionesResultItemDto> getValoresCondiciones(final ValoresCondicionesRequestDto request)
             throws Exception {
     	return getResultItem(request, meta4IcmWsIncomeService, "getValoresCondiciones", getValoresCondicionesDto.getFilter().getMaxPageSize());
+    }
+    
+    @Override
+    public List<TiendaComisionableResultItemDto> getTiendaComisionable(final TiendaComisionableRequestDto request)
+            throws Exception {
+    	return getResultItem(request, meta4IcmWsIncomeService, "getTiendaComisionable", getTiendaComisionableDto.getFilter().getMaxPageSize());
     }
 
     @Override

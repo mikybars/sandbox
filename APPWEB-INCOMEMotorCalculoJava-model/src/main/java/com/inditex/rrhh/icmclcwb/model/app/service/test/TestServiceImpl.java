@@ -50,6 +50,7 @@ public class TestServiceImpl implements TestService {
 
         CompletableFuture<Void> cfErrorAsyncAllOf = CompletableFuture.allOf(cfErrorAsync1, cfErrorAsync2);
         AsyncUtils.exceptionally(cfErrorAsyncAllOf, new ArrayList<>());
+        cfErrorAsyncAllOf.join();
     }
 
 }

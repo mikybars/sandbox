@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.GetVentaTotalizadoResponseItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResultItemDto;
 
 @Service
 public class TrabajoTiendaSeccionVentaAsyncServiceImpl implements TrabajoTiendaSeccionVentaAsyncService {
@@ -19,14 +19,14 @@ public class TrabajoTiendaSeccionVentaAsyncServiceImpl implements TrabajoTiendaS
 
     @Async
     @Override
-    public CompletableFuture<Void> save(GetVentaTotalizadoResponseItemDto dto, TrabajoDto trabajoDto) {
+    public CompletableFuture<Void> save(PtrVentaTotalizadoResultItemDto dto, TrabajoDto trabajoDto) {
         trabajoTiendaSeccionVentaService.save(dto, trabajoDto);
         return CompletableFuture.completedFuture(null);
     }
 
     @Async
     @Override
-    public CompletableFuture<Void> save(List<GetVentaTotalizadoResponseItemDto> dto, TrabajoDto trabajoDto) {
+    public CompletableFuture<Void> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto) {
         trabajoTiendaSeccionVentaService.save(dto, trabajoDto);
         return CompletableFuture.completedFuture(null);
     }
