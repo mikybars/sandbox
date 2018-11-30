@@ -25,7 +25,6 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoCustomRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 
 @Service
@@ -49,9 +48,6 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
     @Autowired
     private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
-    
-    @Autowired
-    private TrabajoTiendaEstadoCustomRepository trabajoTiendaEstadoCustomRepository;
 
     @AuditoriaTrabajo
     @Override

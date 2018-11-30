@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.secondary.repository;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -298,7 +299,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
     }
 
     @Override
-    public List<PtrPresenciaMockTiposHoras> findTiposHoras(PtrPresenciaTiposHorasRequestDto dto) {
+    public List<PtrPresenciaMockTiposHoras> findTiposHorasGroupBy(PtrPresenciaTiposHorasRequestDto dto) {
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource param = new MapSqlParameterSource();
 
@@ -321,6 +322,12 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
         query.append(" GROUP BY OP.CCL_ID_ORIGEN, TIPO ");
 
         return namedParameterJdbcTemplate.query(query.toString(), param, new PtrPresenciaMockTiposHorasRowMapper());
+    }
+
+    @Override
+    public List<PtrPresenciaMockTiposHoras> findTiposHoras(PtrPresenciaTiposHorasRequestDto dto) {
+        // TODO Pendiente implementar método contra la tabla proporcionada por ITX
+        return new ArrayList<>();
     }
 
 }

@@ -22,7 +22,9 @@ public interface PtrPresenciaMockRepository {
 
     List<PtrPresenciaMockTotalTiendaSeccion> findPresenciasTotalTiendaSeccion(
             PtrPresenciaTotalTiendaSeccionRequestDto request);
-
+    
     List<PtrPresenciaMockTiposHoras> findTiposHoras(PtrPresenciaTiposHorasRequestDto request);
+    
+    List<PtrPresenciaMockTiposHoras> findTiposHorasGroupBy(PtrPresenciaTiposHorasRequestDto request);
 
 }

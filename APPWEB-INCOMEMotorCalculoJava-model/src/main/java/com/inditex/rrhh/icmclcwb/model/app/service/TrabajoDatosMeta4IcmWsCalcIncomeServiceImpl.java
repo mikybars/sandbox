@@ -41,7 +41,7 @@ import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoCustomRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepositoryCustom;
 
 @Service
 @Validated
@@ -66,7 +66,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
     private TrabajoEmpleadoEstadoMapper trabajoEmpleadoEstadoMapper;
 
     @Autowired
-    private TrabajoTiendaEstadoCustomRepository trabajoTiendaEstadoCustomRepository;
+    private TrabajoTiendaEstadoRepositoryCustom trabajoTiendaEstadoRepositoryCustom;
     
     @Autowired
     private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository; 
@@ -86,7 +86,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            trabajo.getTrabajoRunDatos().setTiendasPresenciaNuevas(trabajoTiendaEstadoCustomRepository
+            trabajo.getTrabajoRunDatos().setTiendasPresenciaNuevas(trabajoTiendaEstadoRepositoryCustom
                     .customFindByIdTiendaNotExists(trabajo.getTrabajoRunDatos().getTiendasPresencia()));
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             GenericFilterDto filter = trabajoMapper.trabajoDtoToGenericFilterDto(trabajo);
@@ -200,7 +200,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            trabajo.getTrabajoRunDatos().setTiendasPresenciaNuevas(trabajoTiendaEstadoCustomRepository
+            trabajo.getTrabajoRunDatos().setTiendasPresenciaNuevas(trabajoTiendaEstadoRepositoryCustom
                     .customFindByIdTiendaNotExists(trabajo.getTrabajoRunDatos().getTiendasPresencia()));
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             GenericFilterDto filter = trabajoMapper.trabajoDtoToGenericFilterDto(trabajo);
