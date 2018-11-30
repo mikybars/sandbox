@@ -29,5 +29,7 @@ public class PtrPresenciaDetalleResultItemDto implements Serializable {
 	private Integer cadena;
 
 	private Boolean modificado_income;
+	
+	private Integer origen;
 
 }

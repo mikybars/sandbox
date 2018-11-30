@@ -10,6 +10,7 @@ public class PtrPresenciaMockTotalTiendaSeccion {
 	private Date fecha;
 	private Integer seccion;
 	private Integer minutos;
+	private Integer origen;
 	
 
 }

@@ -98,9 +98,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>(); 
         String origen = trabajo.getIdPaisOrigen();
-        //non sei si crear con new dto, ou facendo o trabajoMapper. Como non tenen ningun atributo en comun, fagoo con new.
         PtrPresenciaTiposHorasRequestDto tHora = new PtrPresenciaTiposHorasRequestDto(Integer.parseInt(origen),null,null,null);
-        //duda de que asincronia teno que usar neste metodo
         CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.getTiposHoras(tHora);
         List<PtrPresenciaTiposHorasResultItemDto> data = cfData.get().getList();
         
