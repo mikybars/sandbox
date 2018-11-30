@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
+import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -49,6 +51,8 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
     @Autowired
     private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 
+    @CounterMetric
+    @TimerMetric
     @AuditoriaTrabajo
     @Override
     public TrabajoDto run(@Valid final TrabajoDto trabajo) throws Exception {
