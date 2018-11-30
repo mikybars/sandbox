@@ -13,7 +13,7 @@ public class PtrPresenciaMockTiposHorasRowMapper implements RowMapper<PtrPresenc
 	public PtrPresenciaMockTiposHoras mapRow(ResultSet rs, int rowNum) throws SQLException {
 		PtrPresenciaMockTiposHoras pre = new PtrPresenciaMockTiposHoras();
 		pre.setTipoHora(rs.getInt("TIPO"));
-		pre.setOrigen(rs.getInt("CCL_ID_ORIGEN"));
+		pre.setOrigen(rs.getInt("ORIGEN"));
 		pre.setExcluidoCalculo(rs.getBoolean("EXCLUIDOCALCULO"));
 		pre.setExcluidoDenom(rs.getBoolean("EXCLUIDODENOM"));
 		return pre;

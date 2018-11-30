@@ -43,16 +43,26 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
         StringBuilder query = new StringBuilder();
 
         query.append(
-                "SELECT OP.CCL_ID_ORIGEN AS 'ORIGEN', P.PERSONA AS 'EMPLEADO', P.TIENDA AS 'ID_TIENDA', P.SECCION AS 'ID_SECCION', P.TIPO AS 'ID_TIPO', P.FECHA AS 'FECHA', P.CCL_ID_CADENA AS 'CADENA', (CAST(P.HORAS AS int) * 60) + PARSENAME(P.HORAS, 1) AS 'MINUTOS', 'FALSE' 'MODIFICADO_INCOME' FROM (SELECT PT.ID_ORGANIZATION, PT.PERSONA, PT.TIENDA, PT.SECCION, PT.TIPO, PT.FECHA, SP.CCL_ID_CADENA, PT.HORAS, ROW_NUMBER() OVER (PARTITION BY SP.STD_ID_WORK_LOCAT, PT.PERSONA, PT.FECHA ORDER BY SP.STD_ID_WORK_LOCAT) AS REG_NUM FROM ");
+                "SELECT OP.CCL_ID_ORIGEN AS 'ORIGEN', P.PERSONA AS 'EMPLEADO', P.TIENDA AS 'ID_TIENDA', P.SECCION AS 'ID_SECCION', P.TIPO AS 'ID_TIPO',"
+                + " P.FECHA AS 'FECHA', P.CCL_ID_CADENA AS 'CADENA', (CAST(P.HORAS AS int) * 60) + PARSENAME(P.HORAS, 1) AS 'MINUTOS',"
+                + " 'FALSE' 'MODIFICADO_INCOME' FROM (SELECT PT.ID_ORGANIZATION, PT.PERSONA, PT.TIENDA, PT.SECCION, PT.TIPO, PT.FECHA, "
+                + "SP.CCL_ID_CADENA, PT.HORAS, ROW_NUMBER() OVER (PARTITION BY SP.STD_ID_WORK_LOCAT, PT.PERSONA, PT.FECHA ORDER BY SP.STD_ID_WORK_LOCAT) "
+                + "AS REG_NUM FROM ");
 
-        if (params.getOrigen() != null) {
-            if (params.getOrigen() == 11) {
+        if (params.getOrigen()!=null) {
+            if (params.getOrigen().equals(11)) {
                 query.append(
-                        " PRESENCIAS_HORARIOS PT INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) ON SW.CCL_ID_COD_ORIGEN = CAST(PT.TIENDA AS nvarchar) INNER JOIN M4CCL_ATRIB_WLOC SP ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA AND PT.FECHA <= SP.CCL_DT_END WHERE 1 = 1 AND PT.ERROR = 'OK' ");
+                        " PRESENCIAS_HORARIOS PT WITH (NOLOCK) INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) "
+                        + "ON SW.CCL_ID_COD_ORIGEN = CAST(PT.TIENDA AS nvarchar) INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) "
+                        + "ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA AND PT.FECHA <= SP.CCL_DT_END "
+                        + "WHERE 1 = 1 AND PT.ERROR = 'OK' ");
                 param.addValue("origen", params.getOrigen());
             } else {
                 query.append(
-                        " M4CCL_PRESENCIAS_TA PT INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) ON SW.CCL_ID_COD_ORIGEN = CAST(PT.TIENDA AS nvarchar) INNER JOIN M4CCL_ATRIB_WLOC SP ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA AND PT.FECHA <= SP.CCL_DT_END WHERE 1 = 1 AND PT.ERROR = 'OK' ");
+                        " M4CCL_PRESENCIAS_TA PT WITH (NOLOCK) INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) "
+                        + "ON SW.CCL_ID_COD_ORIGEN = CAST(PT.TIENDA AS nvarchar) INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) "
+                        + "ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA AND PT.FECHA <= SP.CCL_DT_END "
+                        + "WHERE 1 = 1 AND PT.ERROR = 'OK' ");
                 param.addValue("origen", params.getOrigen());
             }
         }
@@ -72,22 +82,22 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
         query.append(
                 " ) P INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) ON P.ID_ORGANIZATION = OP.ID_ORGANIZATION AND P.REG_NUM = 1 WHERE 1 = 1 ");
 
-        if (params.getSeccion() != null) {
+        if (params.getSeccion()!=null) {
             query.append(" AND P.SECCION IN ( :seccion ) ");
             param.addValue("seccion", params.getSeccion());
         }
 
-        if (params.getOrigen() != null) {
+        if (params.getOrigen()!=null) {
             query.append(" AND OP.CCL_ID_ORIGEN IN ( :origen ) ");
             param.addValue("origen", params.getOrigen());
         }
-        if (params.getTipo() != null) {
+        if (params.getTipo()!=null) {
             query.append(" AND P.TIPO IN ( :tipo )");
             param.addValue("tipo", params.getTipo());
         }
-        if (params.getCadena() != null) {
+        if (params.getCadena()!=null) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
-            if (params.getCadena().get(0) != null) {
+            if (!params.getCadena().get(0).equals(null)) {
                 query.append(" :cadena0 ");
                 param.addValue("cadena0", params.getCadena().get(0));
             }
@@ -98,11 +108,11 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             query.append(")");
         }
 
-        if (params.getTienda() != null) {
+        if (params.getTienda()!=null) {
             query.append(" AND P.TIENDA IN (:tienda)");
             param.addValue("tienda", params.getTienda());
         }
-        if (params.getPersonas() != null) {
+        if (params.getPersonas()!=null) {
             int size = params.getPersonas().size();
             if (size > 0) {
                 query.append(" AND (P.PERSONA IN ( :persona0");
@@ -131,40 +141,40 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
         String origen = "";
         query.append(
                 "SELECT P.TIENDA AS 'ID_TIENDA', P.FECHA AS 'FECHA',  SUM((CAST(P.HORAS AS int) * 60) + PARSENAME(P.HORAS, 1)) AS 'MINUTOS' FROM (SELECT PT.TIENDA, PT.FECHA, PT.HORAS, PT.TIPO, PT.ID_ORGANIZATION, SP.STD_ID_WORK_LOCAT, SP.CCL_ID_CADENA, SP.STD_ID_LEG_ENT,ROW_NUMBER() OVER (PARTITION BY SP.STD_ID_WORK_LOCAT, PT.PERSONA, PT.FECHA ORDER BY SP.STD_ID_WORK_LOCAT) AS REG_NUM");
-        if (dto.getOrigen() != null) {
-            if (dto.getOrigen() == 11) {
-                query.append(" FROM PRESENCIAS_HORARIOS PT");
+        if (dto.getOrigen()!=null) {
+            if (dto.getOrigen().equals(11)) {
+                query.append(" FROM PRESENCIAS_HORARIOS PT WITH (NOLOCK) ");
             } else {
-                query.append(" FROM M4CCL_PRESENCIAS_TA PT");
+                query.append(" FROM M4CCL_PRESENCIAS_TA PT WITH (NOLOCK) ");
             }
             origen = " AND OP.CCL_ID_ORIGEN = :origen ";
             param.addValue("origen", dto.getOrigen());
         }
 
         query.append(
-                " INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) ON SW.CCL_ID_COD_ORIGEN = CAST(PT.TIENDA AS nvarchar) INNER JOIN M4CCL_ATRIB_WLOC SP ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA AND PT.FECHA <= SP.CCL_DT_END WHERE 1 = 1 AND PT.ERROR = 'OK' ");
+                " INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) ON SW.CCL_ID_COD_ORIGEN = CAST(PT.TIENDA AS nvarchar) INNER JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK)  ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA AND PT.FECHA <= SP.CCL_DT_END WHERE 1 = 1 AND PT.ERROR = 'OK' ");
 
-        if (dto.getFechaDesde() != null) {
+        if (dto.getFechaDesde()!=null) {
             String fecha1 = formatter.format(dto.getFechaDesde());
             query.append(" AND PT.FECHA >=  CONVERT(datetime, :fechadesde , 103) ");
             param.addValue("fechadesde", fecha1);
         }
-        if (dto.getFechaHasta() != null) {
+        if (dto.getFechaHasta()!=null) {
             String fecha2 = formatter.format(dto.getFechaHasta());
             query.append(" AND PT.FECHA <= CONVERT(datetime, :fechahasta, 103) ");
             param.addValue("fechahasta", fecha2);
         }
 
         query.append(
-                ") P INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) ON P.ID_ORGANIZATION = OP.ID_ORGANIZATION AND P.REG_NUM = 1 WHERE 1 = 1 "
+                ") P  INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) ON P.ID_ORGANIZATION = OP.ID_ORGANIZATION AND P.REG_NUM = 1 WHERE 1 = 1 "
                         + origen);
 
-        if (dto.getOrigen() != null) {
+        if (dto.getOrigen()!=null) {
             query.append(" AND OP.CCL_ID_ORIGEN IN ( :origen)");
         }
-        if (dto.getCadena() != null) {
+        if (dto.getCadena()!=null) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
-            if (dto.getCadena().get(0) != null) {
+            if (dto.getCadena().get(0)!=null) {
                 query.append(" :cadena0 ");
                 param.addValue("cadena0", dto.getCadena().get(0));
             }
@@ -174,12 +184,12 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             }
             query.append(")");
         }
-        if (dto.getTipo() != null) {
+        if (dto.getTipo()!=null) {
             query.append(" AND P.TIPO IN ( :tipo)");
             param.addValue("tipo", dto.getTipo());
         }
 
-        if (dto.getTiendas() != null) {
+        if (dto.getTiendas()!=null) {
             int size = dto.getTiendas().size();
             if (size > 0) {
                 query.append(" AND (P.TIENDA IN ( :tienda0");
@@ -210,40 +220,40 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
                         + " PT.SECCION,SP.STD_ID_WORK_LOCAT, SP.CCL_ID_CADENA, SP.STD_ID_LEG_ENT, ROW_NUMBER() OVER"
                         + " (PARTITION BY SP.STD_ID_WORK_LOCAT, PT.PERSONA, PT.FECHA ORDER BY SP.STD_ID_WORK_LOCAT) AS REG_NUM FROM ");
         String origen = "";
-        if (dto.getOrigen() != null) {
-            if (dto.getOrigen() == 11) {
-                query.append(" PRESENCIAS_HORARIOS PT");
+        if (dto.getOrigen()!=null) {
+            if (dto.getOrigen().equals(11)) {
+                query.append(" PRESENCIAS_HORARIOS PT WITH (NOLOCK) ");
             } else {
-                query.append(" M4CCL_PRESENCIAS_TA PT");
+                query.append(" M4CCL_PRESENCIAS_TA PT WITH (NOLOCK) ");
             }
             origen = " AND OP.CCL_ID_ORIGEN = :origen ";
             param.addValue("origen", dto.getOrigen());
         }
         query.append(
                 " INNER JOIN STD_WORK_LOCATION SW WITH (NOLOCK) ON SW.CCL_ID_COD_ORIGEN = CAST(PT.TIENDA AS nvarchar) INNER "
-                        + " JOIN M4CCL_ATRIB_WLOC SP ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA "
+                        + " JOIN M4CCL_ATRIB_WLOC SP WITH (NOLOCK) ON SP.STD_ID_WORK_LOCAT = SW.STD_ID_WORK_LOCAT AND SP.CCL_DT_START <= PT.FECHA "
                         + " AND PT.FECHA <= SP.CCL_DT_END WHERE 1 = 1");
 
-        if (dto.getFechaDesde() != null) {
+        if (dto.getFechaDesde()!=null) {
             String fecha1 = formatter.format(dto.getFechaDesde());
             query.append(" AND PT.FECHA >=   CONVERT(datetime, :fechadesde , 103) ");
             param.addValue("fechadesde", fecha1);
         }
-        if (dto.getFechaHasta() != null) {
+        if (dto.getFechaHasta()!=null) {
             String fecha2 = formatter.format(dto.getFechaHasta());
             query.append(" AND PT.FECHA <=  CONVERT(datetime, :fechahasta , 103) ");
             param.addValue("fechahasta", fecha2);
         }
         query.append(" AND PT.ERROR = 'OK') P INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH "
                 + "(NOLOCK) ON P.ID_ORGANIZATION = OP.ID_ORGANIZATION AND P.REG_NUM = 1 WHERE 1 = 1 " + origen);
-        if (dto.getTipo() != null) {
+        if (dto.getTipo()!=null) {
             query.append(" AND P.TIPO = :tipo  ");
             param.addValue("tipo", dto.getTipo());
         }
 
-        if (dto.getCadena() != null) {
+        if (dto.getCadena()!=null) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
-            if (dto.getCadena().get(0) != null) {
+            if (!dto.getCadena().get(0).equals(null)) {
                 query.append(" :cadena0 ");
                 param.addValue("cadena0", dto.getCadena().get(0));
             }
@@ -254,10 +264,10 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             query.append(")");
         }
 
-        if (dto.getTiendaSeccion() != null) {
+        if (dto.getTiendaSeccion()!=null) {
             int size = dto.getTiendaSeccion().size();
             if (size > 0) {
-                if (dto.getTiendaSeccion().get(0).getSeccion() == null) {
+                if (dto.getTiendaSeccion().get(0).getSeccion()==null) {
                     query.append(" AND  ((P.TIENDA = :tienda0 ) ");
                     param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());
                 } else {
@@ -268,7 +278,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
 
                 for (Integer i = 1; i < size; i++) {
 
-                    if (dto.getTiendaSeccion().get(i).getSeccion() == null) {
+                    if (dto.getTiendaSeccion().get(i).getSeccion()==null) {
                         query.append(" OR  (P.TIENDA = :tienda" + i.toString() + " ) ");
                         param.addValue("tienda" + i.toString(), dto.getTiendaSeccion().get(i).getTienda());
                     } else {
@@ -295,17 +305,17 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
 
         StringBuilder query = new StringBuilder();
 
-        query.append("SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,TIPO ,OP.CCL_ID_ORIGEN FROM");
-        if (dto.getOrigen() == 11) {
+        query.append("SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,TIPO ,OP.CCL_ID_ORIGEN AS 'ORIGEN' FROM");
+        if (dto.getOrigen().equals(11)) {
             query.append(
-                    " [dbo].[PRESENCIAS_HORARIOS] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ");
+                    " PRESENCIAS_HORARIOS P WITH (NOLOCK) INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ");
         } else {
             query.append(
-                    " [dbo].[M4CCL_PRESENCIAS_TA ] P INNER JOIN M4CCL_ORGANIZACION_PAIS OP ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ");
+                    " M4CCL_PRESENCIAS_TA P WITH (NOLOCK) INNER JOIN M4CCL_ORGANIZACION_PAIS OP WITH (NOLOCK) ON  P.ID_ORGANIZATION=OP.ID_ORGANIZATION WHERE  ERROR = 'OK'  ");
         }
         query.append(" AND OP.CCL_ID_ORIGEN= :origen ");
         param.addValue("origen", dto.getOrigen());
-        if (dto.getTipoHora() != null) {
+        if (dto.getTipoHora()!=null) {
             query.append(" AND P.TIPO= :tipo");
             param.addValue("tipo", dto.getTipoHora());
         }
@@ -316,8 +326,14 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
 
     @Override
     public List<PtrPresenciaMockTiposHoras> findTiposHoras(PtrPresenciaTiposHorasRequestDto dto) {
-        // TODO Pendiente implementar método contra la tabla proporcionada por ITX
-        return new ArrayList<>();
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        StringBuilder query = new StringBuilder();
+        
+        query.append("select  'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO, ID_TIPO_HORA AS 'TIPO', CCL_ID_ORIGEN AS 'ORIGEN' from M4CCL_TP_HORA_COMISION_TA WHERE CCL_ID_ORIGEN = :origen ");
+        param.addValue("origen", dto.getOrigen());
+        
+        return namedParameterJdbcTemplate.query(query.toString(), param, new PtrPresenciaMockTiposHorasRowMapper());
     }
 
 }
