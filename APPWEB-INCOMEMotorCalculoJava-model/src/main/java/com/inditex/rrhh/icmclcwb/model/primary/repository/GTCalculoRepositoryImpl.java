@@ -1,14 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 
 @Repository
 public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
@@ -16,17 +23,12 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	@Autowired
 	@Qualifier("primaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
-
-	@Override
-	@AuditoriaTrabajo		
-	public void calcular(TrabajoDto trabajo) 		
-	{			
-				
-		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
-		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("idTrabajo", trabajo.getId());									
+	
+	
+	private StringBuilder queryCalculoGT(){
+		
 		StringBuilder query = new StringBuilder();
-			
+		
 		query.append("INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_CALCULO (").
 		append(" COMISION_PORCENTAJE_1 ").
 		append(",COMISION_PORCENTAJE_2 ").
@@ -92,12 +94,69 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		append("		AND EMPLEADO.ID_TRABAJO = :idTrabajo ").
 		append("		AND TIENDA.ID_TRABAJO = :idTrabajo ").
 		append("		AND TIENDA_VENTA.ID_TRABAJO = :idTrabajo ");
-					
-		namedJdbc.update(query.toString(), param);
+
+		return query;
+	}
+
+
+	
+	@Override
+	public void calcular(TrabajoDto trabajo) 		
+	{			
 				
+		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("idTrabajo", trabajo.getId());																					
+		namedJdbc.update(queryCalculoGT().toString(), param);				
+	}
+
+
+
+	@Override
+	public void calcularByEmpleadoBatch(List<TrabajoEmpleadoDto> trabajoEmpleados) {
+		
+		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);																				
+		List<Map<String, Object>> batchValues = new ArrayList<>(trabajoEmpleados.size());
+		trabajoEmpleados.forEach(trabajoempleado -> {
+		    batchValues.add(
+		            new MapSqlParameterSource("idTrabajo", trabajoempleado.getTrabajo().getId())
+		                    .addValue("idTienda", trabajoempleado.getIdEmpleado())		                    
+		                    .getValues());
+		});
+
+		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch( batchValues.toArray() );				
+																	
+		StringBuilder whereTienda = new StringBuilder();		
+		whereTienda.append(" AND TIENDA.ID_TIENDA = :idTienda ");								
+		namedJdbc.batchUpdate(queryCalculoGT().append(whereTienda.toString()).toString(),batch);										
+	}
+
+
+
+
+	@Override
+	public void calcularByTiendaBatch( List<TrabajoTiendaDto> trabajoTiendas) {
+
+		
+		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);																				
+		List<Map<String, Object>> batchValues = new ArrayList<>(trabajoTiendas.size());
+		trabajoTiendas.forEach(trabajoTienda -> {
+		    batchValues.add(
+		            new MapSqlParameterSource("idTrabajo", trabajoTienda.getTrabajo().getId())
+		                    .addValue("idTienda", trabajoTienda.getIdTienda())		                    
+		                    .getValues());
+		});
+
+		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch( batchValues.toArray() );				
+		
+															
+		StringBuilder whereEmpleado = new StringBuilder();		
+		whereEmpleado.append(" AND EMPLEADO.ID_EMPLEADO = :idEmpleado ");								
+		namedJdbc.batchUpdate(queryCalculoGT().append(whereEmpleado.toString()).toString(),batch);
+		
 	}
 	
-		
+	
 	
 }
 
