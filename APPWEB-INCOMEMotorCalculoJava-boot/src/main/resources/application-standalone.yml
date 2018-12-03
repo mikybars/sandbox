@@ -8,7 +8,7 @@ logging:
 #    com.inditex.aqsw: DEBUG
 #    com.inditex.aqsw.libmonitoringcenter.metrics: DEBUG
 #    com.inditex.aqsw.libmonitoringcenter.metrics.aop.aspect: DEBUG
-    com.inditex.aqsw.libmonitoringcenter.metrics.influx.kafka.registry.InfluxMeterRegistry: DEBUG
+#    com.inditex.aqsw.libmonitoringcenter.metrics.influx.kafka.registry.InfluxMeterRegistry: DEBUG
     com.inditex.rrhh.icmclcwb: INFO
 metadata:
   tenant: global
