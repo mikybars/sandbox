@@ -28,12 +28,6 @@ public class RunServiceImpl implements RunService {
 
     @Override
     public TrabajoDto runTrabajo(@NotNull @Positive final Long id) throws Exception {
-//        TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
-//        if (result != null) {
-//            result = trabajoRunService.run(result);
-//        } else {
-//            throw new ApplicationException(new StringBuilder("No existe el trabajo: ").append(id).toString());
-//        }
         return trabajoRunService.run(trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id)));
     }
 

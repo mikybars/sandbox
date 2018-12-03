@@ -14,8 +14,9 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaRepository;
@@ -35,7 +36,13 @@ public class TrabajoServiceImpl implements TrabajoService {
     private TrabajoTiendaRepository trabajoTiendaRepository;
 
     @Autowired
+    private TrabajoTiendaMapper trabajoTiendaMapper;
+
+    @Autowired
     private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
+
+    @Autowired
+    private TrabajoEmpleadoMapper trabajoEmpleadoMapper;
 
     @Autowired
     private SenderTrabajo senderTrabajo;
@@ -50,17 +57,17 @@ public class TrabajoServiceImpl implements TrabajoService {
                 trabajo.setIdUsuario(userSSO.getUsername());
             }
         }
-        TrabajoDto parent = trabajoMapper
+        TrabajoDto result = trabajoMapper
                 .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
-        parent.setTiendas(trabajo.getTiendas());
-        parent.setEmpleados(trabajo.getEmpleados());
-        Trabajo child = trabajoMapper.trabajoDtoToTrabajo(parent);
-        if (CollectionUtils.isNotEmpty(child.getTiendas())) {
-            child.setTiendas(trabajoTiendaRepository.save(child.getTiendas()));
-        } else if (CollectionUtils.isNotEmpty(child.getEmpleados())) {
-            child.setEmpleados(trabajoEmpleadoRepository.save(child.getEmpleados()));
+        if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
+            result.setTiendas(
+                    trabajoTiendaMapper.trabajoTiendaToTrabajoTiendaDto(trabajoTiendaRepository.save(trabajoTiendaMapper
+                            .mergeTrabajoTiendaDtoAndTrabajoDtoToTrabajoTienda(trabajo.getTiendas(), result))));
+        } else if (CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+            result.setEmpleados(trabajoEmpleadoMapper
+                    .trabajoEmpleadoToTrabajoEmpleadoDto(trabajoEmpleadoRepository.save(trabajoEmpleadoMapper
+                            .mergeTrabajoEmpleadoDtoAndTrabajoDtoToTrabajoEmpleado(trabajo.getEmpleados(), result))));
         }
-        TrabajoDto result = trabajoMapper.trabajoToTrabajoDto(child);
         senderTrabajo.send(result);
         return result;
     }

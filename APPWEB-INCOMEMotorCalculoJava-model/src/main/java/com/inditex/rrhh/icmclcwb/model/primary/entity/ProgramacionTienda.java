@@ -22,10 +22,8 @@ public class ProgramacionTienda {
 	@Column(name = "ID_PROGRAMACION_TIENDA")
 	private /* BigInteger */ Long id;
 
-	//@ToString.Exclude
-	//@Exclude
-	//@NotNull
-	@ManyToOne(optional = false)
+	@NotNull
+	@ManyToOne
 	@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION" , nullable = false )
 	private /* BigInteger */ Programacion programacion;
 

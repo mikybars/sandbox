@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunConsolidarService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunDatosService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunInicioService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
@@ -23,6 +24,9 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
 
     @Autowired
     private TrabajoService trabajoService;
+    
+    @Autowired
+    private TrabajoRunInicioService trabajoRunInicioService;
     
     @Autowired
     private TrabajoRunDatosService trabajoRunDatosService;
@@ -40,6 +44,7 @@ public class TrabajoRunServiceImpl implements TrabajoRunService {
     @Override
     public TrabajoDto run(@NotNull @Valid final TrabajoDto trabajo) throws Exception {
         try {
+            trabajoRunInicioService.run(trabajo);
             trabajoRunDatosService.run(trabajo);
             trabajoRunCalcularService.run(trabajo);
             trabajoRunConsolidarService.run(trabajo);
