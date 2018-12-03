@@ -9,12 +9,13 @@ logging:
 #    com.inditex.aqsw.libmonitoringcenter.metrics: DEBUG
 #    com.inditex.aqsw.libmonitoringcenter.metrics.aop.aspect: DEBUG
 #    com.inditex.aqsw.libmonitoringcenter.metrics.influx.kafka.registry.InfluxMeterRegistry: DEBUG
+#    net.ttddyy: DEBUG
     com.inditex.rrhh.icmclcwb: INFO
 metadata:
   tenant: global
   domain: core
   openshiftproject: icmclcwb
-  slot: dtenreiro
+  slot: develop
 spring: 
 #  jta:
 #    atomikos:
