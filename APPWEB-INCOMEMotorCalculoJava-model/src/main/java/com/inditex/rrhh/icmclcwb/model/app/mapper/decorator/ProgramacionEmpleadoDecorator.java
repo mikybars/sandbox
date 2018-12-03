@@ -13,20 +13,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
 
 public abstract class ProgramacionEmpleadoDecorator extends ProgramacionEmpleadoMapper {
 
-	@Autowired
-	private ProgramacionEmpleadoMapper delegate;
+    @Autowired
+    private ProgramacionEmpleadoMapper delegate;
 
-	@Override
-	public List<ProgramacionEmpleado> mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(
-			List<ProgramacionEmpleadoDto> srcProgramacionEmpleadoDto, ProgramacionDto srcProgramacionDto) {
-		List<ProgramacionEmpleado> result = new ArrayList<>();
-		if (CollectionUtils.isNotEmpty(srcProgramacionEmpleadoDto)) {
-			srcProgramacionEmpleadoDto.forEach(item -> {
-				result.add(delegate.mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(item,
-						srcProgramacionDto));
-			});
-		}
-		return result;
-	}
+    @Override
+    public List<ProgramacionEmpleado> mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(
+            List<ProgramacionEmpleadoDto> srcProgramacionEmpleadoDto, ProgramacionDto srcProgramacionDto) {
+        List<ProgramacionEmpleado> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(srcProgramacionEmpleadoDto)) {
+            srcProgramacionEmpleadoDto.forEach(item -> result.add(delegate
+                    .mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(item, srcProgramacionDto)));
+        }
+        return result;
+    }
 
 }

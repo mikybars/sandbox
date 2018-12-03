@@ -11,13 +11,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServiceDefinitionHelper implements Serializable{
-	
-	private static final long serialVersionUID = 6425914414078832869L;
-	
-	private Object service;
-	private Class[] objectType;
-	private Object[] objectParams;
-	private String methodName;
+public class ServiceDefinitionHelper implements Serializable {
+
+    private static final long serialVersionUID = 6425914414078832869L;
+
+    private Object service;
+
+    private Class<?>[] objectType;
+
+    private Object[] objectParams;
+
+    private String methodName;
 
 }

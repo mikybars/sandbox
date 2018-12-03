@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 public class PocConstants {
 
-	public final static String SEPARADOR_TIENDA = ",";
+	public static final String SEPARADOR_TIENDA = ",";
 	
 	@Getter
 	@RequiredArgsConstructor

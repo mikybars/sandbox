@@ -16,10 +16,10 @@ import lombok.ToString;
 @ToString
 public class PtrPresenciaTiposHorasRequestDto {
 	@NotNull
-	@ApiModelProperty(value = "Id origen", required = false, example = "720")
+	@ApiModelProperty(value = "Id origen", required = false, example = "11")
 	private Integer origen;
 
-	@ApiModelProperty(value = "Id tipo hora", required = false, example = "null")
+	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipoHora;
 
 	@ApiModelProperty(value = "Excluido denonimandor", required = false, example = "true")

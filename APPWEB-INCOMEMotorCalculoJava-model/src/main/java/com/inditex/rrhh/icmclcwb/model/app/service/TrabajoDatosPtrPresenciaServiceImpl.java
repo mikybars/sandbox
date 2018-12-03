@@ -22,7 +22,6 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTipoHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionEmpleadoPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionPresenciaService;
@@ -41,7 +40,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
-import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
@@ -101,10 +99,8 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
         PtrPresenciaTiposHorasRequestDto tHora = new PtrPresenciaTiposHorasRequestDto(Integer.parseInt(origen),null,null,null);
         CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.getTiposHoras(tHora);
         List<PtrPresenciaTiposHorasResultItemDto> data = cfData.get().getList();
-        
-        List<TrabajoTipoHoraDto> listTipoHoraDto;
         if (CollectionUtils.isNotEmpty(data)) {
-        	AsyncUtils.exceptionally(trabajoTipoHoraSevice.save(data,trabajo), cf, cfPersist);
+            AsyncUtils.exceptionally(trabajoTipoHoraSevice.save(data, trabajo), cf, cfPersist);
         }
     }
 

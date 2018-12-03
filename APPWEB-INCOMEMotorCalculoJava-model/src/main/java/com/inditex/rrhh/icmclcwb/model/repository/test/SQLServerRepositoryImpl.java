@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.repository.test;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -240,18 +241,18 @@ public class SQLServerRepositoryImpl implements SQLServerRepository {
 
 	@Override
 	public void insertarDatosJSONCompleto(String contenidoFichero) {
-		// Completar
+		// TODO Completar
 	}
 
 	@Override
 	public List<VentaDto> getDatosJSONCompleto() {
-		// Completar
-		return null;
+		// TODO Completar
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<VentaDto> getDatosJoinJSONCompleto() {
-		// Completar
-		return null;
+		// TODO Completar
+		return new ArrayList<>();
 	}
 }

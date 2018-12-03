@@ -16,30 +16,25 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.GTCalculoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoCalculoRepository;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles({ "standalone", "test" })
 @Transactional
 public class GTCalculoRepositoryTest {
-	
-	@Autowired
-	private GTCalculoRepository gTCalculoRepository;
-				
-	@Autowired
-	private TrabajoCalculoRepository trabajoCalculoRepository;
 
-	@Test
-	@Ignore
-	public void calculoJdbcUpdateTest() {
-						
-		TrabajoDto trabajo = new TrabajoDto();		
-		trabajo.setId(100L);		
-		gTCalculoRepository.calcular(trabajo);							
-		assertNotNull(trabajoCalculoRepository.findAllTrabajoCalculadoByIdTrabajo(trabajo.getId()));
-		
-										
-	}
-	
-	
+    @Autowired
+    private GTCalculoRepository gTCalculoRepository;
+
+    @Autowired
+    private TrabajoCalculoRepository trabajoCalculoRepository;
+
+    @Test
+    @Ignore
+    public void calculoJdbcUpdateTest() {
+        TrabajoDto trabajo = new TrabajoDto();
+        trabajo.setId(100L);
+        gTCalculoRepository.calcular(trabajo);
+        assertNotNull(trabajoCalculoRepository.findAllTrabajoCalculadoByIdTrabajo(trabajo.getId()));
+    }
+
 }

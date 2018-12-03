@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTipoHoraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTipoHora;

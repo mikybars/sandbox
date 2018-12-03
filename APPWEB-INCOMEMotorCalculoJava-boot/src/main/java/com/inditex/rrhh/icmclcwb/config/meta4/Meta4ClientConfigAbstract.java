@@ -25,9 +25,6 @@ public abstract class Meta4ClientConfigAbstract<T> {
     @Value("${app.envars.meta4.default-receive-timeout}")
     private long receiveTimeout;
 
-//    @Autowired
-//    private Meta4ClientTimeoutInterceptor meta4ClientTimeoutInterceptor;
-
     protected abstract void setServer(String server);
 
     protected abstract T init();
@@ -80,9 +77,6 @@ public abstract class Meta4ClientConfigAbstract<T> {
             loggingOutInterceptor.setPrettyLogging(Boolean.TRUE);
             loggingOutInterceptor.setLimit(-1);
             client.getOutInterceptors().add(loggingOutInterceptor);
-
-            // TODO Revisar
-            // client.getOutInterceptors().add(meta4ClientTimeoutInterceptor);
 
         }
         return result;

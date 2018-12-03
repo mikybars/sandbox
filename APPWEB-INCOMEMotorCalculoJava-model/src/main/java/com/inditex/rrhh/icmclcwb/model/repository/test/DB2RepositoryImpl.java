@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.repository.test;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -144,6 +145,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 		try {
 			jdbcTemplate.execute("DROP TABLE session." + nombre);
 		} catch (Exception e) {
+		    logger.error("Error no controlado", e);
 		}
 	}
 
@@ -220,18 +222,18 @@ public class DB2RepositoryImpl implements DB2Repository {
 
 	@Override
 	public void insertarDatosJSONCompleto(String contenidoFichero) {
-		// Completar
+		// TODO Completar
 	}
 
 	@Override
 	public List<VentaDto> getDatosJSONCompleto() {
-		// Completar
-		return null;
+		// TODO Completar
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<VentaDto> getDatosJoinJSONCompleto() {
-		// Completar
-		return null;
+		// TODO Completar
+		return new ArrayList<>();
 	}
 }

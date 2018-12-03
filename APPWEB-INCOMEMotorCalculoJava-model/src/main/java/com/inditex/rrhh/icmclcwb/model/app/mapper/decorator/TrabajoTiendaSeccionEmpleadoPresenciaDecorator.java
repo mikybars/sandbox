@@ -14,7 +14,7 @@ public abstract class TrabajoTiendaSeccionEmpleadoPresenciaDecorator
 		extends TrabajoTiendaSeccionEmpleadoPresenciaMapper {
 
 	@Autowired
-	TrabajoTiendaSeccionEmpleadoPresenciaMapper delegate; 
+	private TrabajoTiendaSeccionEmpleadoPresenciaMapper delegate; 
 	
 	@Override
 	public List<TrabajoTiendaSeccionEmpleadoPresencia> presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(List<PtrPresenciaDetalleResultItemDto> src, TrabajoDto trabajoDto){

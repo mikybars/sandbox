@@ -6,20 +6,20 @@ import lombok.Data;
 @Data
 public class PtrPresenciaMockTotalTienda {
 
-	private Integer Tienda;
+	private Integer tienda;
 
-	private Date Fecha;
+	private Date fecha;
 
-	private Integer Seccion;
+	private Integer seccion;
 
-	private Integer Persona;
+	private Integer persona;
 
-	private Integer Horas;
+	private Integer horas;
 
-	private Integer Tipo;
+	private Integer tipo;
 
-	private Integer Origen;
+	private Integer origen;
 
-	private Integer Minutos;
+	private Integer minutos;
 
 }

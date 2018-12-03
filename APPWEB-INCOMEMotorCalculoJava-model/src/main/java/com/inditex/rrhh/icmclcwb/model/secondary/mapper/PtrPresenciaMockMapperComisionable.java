@@ -8,13 +8,13 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPr
 
 public class PtrPresenciaMockMapperComisionable {
 
-	
-	public static PtrPresenciaDetalleRequestDto asPresenciaComisionableToDetalle(PtrPresenciaDetalleComisionableRequestDto src){
-		List<Integer> list  = new ArrayList<Integer>();
-		for (int i=0;i<src.getCadena().size();i++){
-		list.add(src.getCadena().get(i));
-		}
-		return new PtrPresenciaDetalleRequestDto(src.getTienda(),src.getSeccion(), src.getPersonas(),src.getFechaDesde(),src.getFechaHasta(), src.getTipo(), list, src.getOrigen());
-		
-	}
+    public static PtrPresenciaDetalleRequestDto asPresenciaComisionableToDetalle(
+            PtrPresenciaDetalleComisionableRequestDto src) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < src.getCadena().size(); i++) {
+            list.add(src.getCadena().get(i));
+        }
+        return new PtrPresenciaDetalleRequestDto(src.getTienda(), src.getSeccion(), src.getPersonas(),
+                src.getFechaDesde(), src.getFechaHasta(), src.getTipo(), list, src.getOrigen());
+    }
 }
