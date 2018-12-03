@@ -45,7 +45,7 @@ amiga:
           base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
         ptrPresenciaClient:
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          #base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/RHPRSCAESB
           base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
           username: username300
@@ -77,10 +77,12 @@ amiga:
       connectionFactory:
         brokerEscritura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+          #brokerURL: tcp://127.0.0.1:61616?jms.redeliveryPolicy.maximumRedeliveries=10
           userName: root
           password: V3ct0r1nd1t3x
         brokerLectura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+          #brokerURL: tcp://127.0.0.1:61616?jms.redeliveryPolicy.maximumRedeliveries=10
           userName: root
           password: V3ct0r1nd1t3x
       client:

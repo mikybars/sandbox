@@ -15,8 +15,11 @@ amiga:
           base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
         ptrPresenciaClient:
-          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          #base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/RHPRSCAESB
+          base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
+          auth-method: BASIC
+          username: username300
         ptrPresenciaMockClient:
           base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
