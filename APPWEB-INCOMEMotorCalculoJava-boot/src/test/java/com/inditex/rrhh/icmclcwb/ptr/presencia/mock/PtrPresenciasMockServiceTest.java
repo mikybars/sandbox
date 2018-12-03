@@ -207,10 +207,6 @@ public class PtrPresenciasMockServiceTest {
 		ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = this.ptrPresenciaMockClient.postForEntity("/presenciasService/tiposHoras",
 				req2, PtrPresenciaTiposHorasResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
-		assertEquals(2, ret2.getBody().getList().size());
-		assertEquals(1, ret2.getBody().getList().get(0).getTipoHora().intValue());
-		assertEquals(Boolean.FALSE, ret2.getBody().getList().get(0).getExcluidoCalculo());
-		assertEquals(Boolean.TRUE, ret2.getBody().getList().get(0).getExcluidoDenom());
 	}
 
 }
