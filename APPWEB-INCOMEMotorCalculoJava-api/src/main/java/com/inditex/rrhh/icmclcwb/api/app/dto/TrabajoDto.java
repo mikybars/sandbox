@@ -2,8 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,8 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Modelo TrabajoDto")
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ToString(callSuper = true)
-public class TrabajoDto extends TrabajoRunDto implements Serializable {
+public class TrabajoDto implements Serializable {
 
     private static final long serialVersionUID = -5607507260079003307L;
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.RunService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -27,8 +27,10 @@ public class RunServiceImpl implements RunService {
     private TrabajoRepository trabajoRepository;
 
     @Override
-    public TrabajoDto runTrabajo(@NotNull @Positive final Long id) throws Exception {
-        return trabajoRunService.run(trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id)));
+    public TrabajoRunDto runTrabajo(@NotNull @Positive final Long id) throws Exception {
+        TrabajoRunDto trabajoRunDto = new TrabajoRunDto();
+        trabajoRunDto.setTrabajoDto(trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id)));
+        return trabajoRunService.run(trabajoRunDto);
     }
 
 }

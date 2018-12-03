@@ -9,7 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajoRun;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunInicioService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaMapper;
@@ -34,14 +36,15 @@ public class TrabajoRunInicioServiceImpl implements TrabajoRunInicioService {
 
     @CounterMetric
     @TimerMetric
-    @AuditoriaTrabajo
+    @AuditoriaTrabajoRun
     @Override
-    public TrabajoDto run(@Valid final TrabajoDto trabajo) throws Exception {
+    public TrabajoRunDto run(@Valid final TrabajoRunDto trabajoRun) throws Exception {
+        final TrabajoDto trabajo = trabajoRun.getTrabajoDto();
         trabajo.setTiendas(trabajoTiendaMapper
                 .trabajoTiendaToTrabajoTiendaDto(trabajoTiendaRepository.findByTrabajoId(trabajo.getId())));
         trabajo.setEmpleados(trabajoEmpleadoMapper
                 .trabajoEmpleadoToTrabajoEmpleadoDto(trabajoEmpleadoRepository.findByTrabajoId(trabajo.getId())));
-        return trabajo;
+        return trabajoRun;
     }
 
 }

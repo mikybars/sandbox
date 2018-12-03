@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeService;
 
@@ -18,15 +19,15 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
 	
     @Async
     @Override
-    public CompletableFuture<Void> tiendasEmpleado(final TrabajoDto trabajo) throws Exception {
-    	trabajoDatosMeta4IcmWsCalcIncomeService.tiendasEmpleado(trabajo);
+    public CompletableFuture<Void> tiendasEmpleado(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+    	trabajoDatosMeta4IcmWsCalcIncomeService.tiendasEmpleado(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
     
     @Async
     @Override
-    public CompletableFuture<Void> searchTiendas(final TrabajoDto trabajo) throws Exception {
-    	trabajoDatosMeta4IcmWsCalcIncomeService.searchTiendas(trabajo);
+    public CompletableFuture<Void> searchTiendas(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+    	trabajoDatosMeta4IcmWsCalcIncomeService.searchTiendas(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 }

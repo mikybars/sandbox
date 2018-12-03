@@ -22,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -78,7 +79,8 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
     @AuditoriaTrabajo
     @Override
     public void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
-            @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
+            @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
+            @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -96,7 +98,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                     PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
                             .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
                     paramGetVentaTotalizado.setTienda(tiendas);
-                    paramGetVentaTotalizado.setCadena(trabajo.getTrabajoRunDatos().getCadenasEmpresa());
+                    paramGetVentaTotalizado.setCadena(trabajoRunDatos.getCadenasEmpresa());
                     paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
                     CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
@@ -131,7 +133,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 
     @AuditoriaTrabajo
     @Override
-    public void ventaDetalleEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
+    public void ventaDetalleEmpleado(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -150,7 +152,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                     PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
                             .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
                     paramGetVentaIndividualDetalle.setVendedores(empleados);
-                    paramGetVentaIndividualDetalle.setCadena(trabajo.getTrabajoRunDatos().getCadenasEmpresa());
+                    paramGetVentaIndividualDetalle.setCadena(trabajoRunDatos.getCadenasEmpresa());
                     paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
                     paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 
@@ -178,8 +180,8 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 
     @AuditoriaTrabajo
     @Override
-    public void ventaTotalizadaTiendaTest(@Valid final TrabajoDto trabajo, List<TipoTrabajoTiendaDto> tipoTrabajoTienda)
-            throws Exception {
+    public void ventaTotalizadaTiendaTest(@Valid final TrabajoDto trabajo, List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
+            @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
         Integer maxPersistenceSize = ventaTotalizadoDto.getFilter().getMaxPersistenceSize();
         Integer maxPageSize = ventaTotalizadoDto.getFilter().getMaxPageSize();
         List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(TipoTrabajoTiendaDto::getId)
@@ -187,7 +189,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 
         PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
                 .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
-        paramGetVentaTotalizado.setCadena(trabajo.getTrabajoRunDatos().getCadenasEmpresa());
+        paramGetVentaTotalizado.setCadena(trabajoRunDatos.getCadenasEmpresa());
         paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
         Object[] helperParams = new Object[3];
