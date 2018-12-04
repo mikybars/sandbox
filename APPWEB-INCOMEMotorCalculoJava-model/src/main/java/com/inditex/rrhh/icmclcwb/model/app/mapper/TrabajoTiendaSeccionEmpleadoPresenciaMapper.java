@@ -5,8 +5,6 @@ import java.util.List;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionEmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
@@ -30,13 +28,14 @@ public abstract class TrabajoTiendaSeccionEmpleadoPresenciaMapper {
     public abstract List<TrabajoTiendaSeccionEmpleadoPresenciaDto> trabajoTiendaSeccionEmpleadoPresenciasToTrabajoTiendaSeccionEmpleadoPresenciasDto(
             List<TrabajoTiendaSeccionEmpleadoPresencia> src);
 
-    @Mappings({ @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE),
-            @Mapping(source = "src.tienda", target = "idTienda"),
-            @Mapping(source = "src.seccion", target = "idSeccion"),
-            @Mapping(source = "src.tipo", target = "idTipoHora"),
-            @Mapping(source = "src.persona", target = "idEmpleado"),
-            @Mapping(source = "src.minutos", target = "minutos"),
-            @Mapping(source = "trabajoDto.id", target = "trabajo.id"), @Mapping(target = "id", ignore = true) })
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.tienda", target = "idTienda")
+    @Mapping(source = "src.seccion", target = "idSeccion")
+    @Mapping(source = "src.tipo", target = "idTipoHora")
+    @Mapping(source = "src.persona", target = "idEmpleado")
+    @Mapping(source = "src.minutos", target = "minutos")
+    @Mapping(source = "trabajoDto.id", target = "trabajo.id")
+    @Mapping(target = "id", ignore = true)
     public abstract TrabajoTiendaSeccionEmpleadoPresencia presenciasDetalleResponseDtoToTrabajoTiendaSeccionVenta(
             PtrPresenciaDetalleResultItemDto src, TrabajoDto trabajoDto);
 

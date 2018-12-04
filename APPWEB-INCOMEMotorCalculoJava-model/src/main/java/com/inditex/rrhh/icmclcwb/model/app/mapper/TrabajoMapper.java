@@ -1,17 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
-
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionTiendaDto;
@@ -40,61 +35,47 @@ public abstract class TrabajoMapper {
 
     public abstract Trabajo trabajoDtoToTrabajo(TrabajoDto src);
 
-    @Mappings({ @Mapping(target = "id", ignore = true), @Mapping(target = "fechaCreacion", ignore = true) })
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "fechaCreacion", ignore = true)
     public abstract TrabajoDto programacionDtoToTrabajoDto(ProgramacionDto src);
 
-    @Mappings({ @Mapping(target = "id", ignore = true) })
+    @Mapping(target = "id", ignore = true)
     public abstract TrabajoTiendaDto programacionTiendaDtoToTrabajoTiendaDto(ProgramacionTiendaDto src);
 
-    @Mappings({ @Mapping(target = "id", ignore = true) })
+    @Mapping(target = "id", ignore = true)
     public abstract TrabajoEmpleadoDto programacionEmpleadoDtoToTrabajoEmpleadoDto(ProgramacionEmpleadoDto src);
 
-    @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"),
-            @Mapping(source = "fechaFinPeriodo", target = "fechaFin") })
+    @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio")
+    @Mapping(source = "fechaFinPeriodo", target = "fechaFin")
     public abstract EmpleadosTiendaFilterDto trabajoDtotoEmpleadosTiendaFilterDto(TrabajoDto src);
 
-    @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio"),
-        @Mapping(source = "fechaFinPeriodo", target = "fechaFin"),
-        @Mapping(source = "idPaisOrigen", target = "idOrigen")})
+    @Mapping(source = "fechaInicioPeriodo", target = "fechaInicio")
+    @Mapping(source = "fechaFinPeriodo", target = "fechaFin")
+    @Mapping(source = "idPaisOrigen", target = "idOrigen")
     public abstract GenericFilterDto trabajoDtoToGenericFilterDto(TrabajoDto src);
-    
-    @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
-            @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
-            @Mapping(source = "idPaisOrigen", target = "pais"), @Mapping(target = "tienda", ignore = true) })
+
+    @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "idPaisOrigen", target = "pais")
+    @Mapping(target = "tienda", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto trabajoDtoToPtrVentaTotalizadoRequestDto(TrabajoDto src);
 
-    @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
-            @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
-            @Mapping(source = "idPaisOrigen", target = "pais"), @Mapping(target = "tienda", ignore = true) })
+    @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "idPaisOrigen", target = "pais")
+    @Mapping(target = "tienda", ignore = true)
     public abstract PtrVentaIndividualDetalleRequestDto trabajoDtoToPtrVentaIndividualDetalleRequestDto(TrabajoDto src);
 
-    @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
-            @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
-    		@Mapping(source = "idPaisOrigen", target = "origen")})
+    @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "idPaisOrigen", target = "origen")
     public abstract PtrPresenciaTotalTiendaSeccionRequestDto trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
             TrabajoDto src);
 
-    @Mappings({ @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE),
-		@Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE),
-		@Mapping(source = "idPaisOrigen", target = "origen")})
-	public abstract PtrPresenciaDetalleRequestDto trabajoDtoToPtrPresenciasDetalleRequestDto(TrabajoDto src);
-	
-    
-    protected List<String> mapEmpleados(List<TrabajoEmpleadoDto> trabajoEmpleadosDto) {
-        List<String> empleados = new ArrayList<>();
-        for (TrabajoEmpleadoDto empleado : trabajoEmpleadosDto) {
-            empleados.add(empleado.getIdEmpleado());
-        }
-        return empleados;
-    }
-
-    protected List<String> mapTiendas(List<TrabajoTiendaDto> trabajoTiendasDto) {
-        List<String> tiendas = new ArrayList<>();
-        for (TrabajoTiendaDto tienda : trabajoTiendasDto) {
-            tiendas.add(tienda.getIdTienda());
-        }
-        return tiendas;
-    }
+    @Mapping(source = "fechaInicioPeriodo", target = "fechaDesde", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "fechaFinPeriodo", target = "fechaHasta", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "idPaisOrigen", target = "origen")
+    public abstract PtrPresenciaDetalleRequestDto trabajoDtoToPtrPresenciasDetalleRequestDto(TrabajoDto src);
 
     @AfterMapping
     protected void afterProgramacionDtoToTrabajoDto(ProgramacionDto src, @MappingTarget TrabajoDto target) {
