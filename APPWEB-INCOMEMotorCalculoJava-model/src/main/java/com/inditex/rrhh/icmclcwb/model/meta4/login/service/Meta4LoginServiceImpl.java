@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.login.service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 
 import javax.xml.ws.soap.SOAPFaultException;
@@ -37,7 +36,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
 
     @Autowired
     private Logger log;
-    
+
     @Autowired
     private LoginMapper loginMapper;
 
@@ -48,7 +47,7 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
     @Autowired
     @Qualifier("meta4IcmWsIncomeClient")
     private IcmWsIncomeService meta4IcmWsIncomeClient;
-    
+
     @Autowired
     @Qualifier("meta4IcmWsCalcIncomeClient")
     private IcmWsCalcIncomeService meta4IcmWsCalcIncomeClient;
@@ -61,10 +60,10 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
             if (!this.retrieveM4Session()) {
                 sesionMeta4Dto = new SesionMeta4Dto();
                 Login param = loginMapper.loginRequestDtoToLogin(loginRequest);
-                LoginResponseDto LoginResponse = loginMapper.m4LoginOutputToLoginResponseDto(meta4LoginClient
+                LoginResponseDto loginResponse = loginMapper.m4LoginOutputToLoginResponseDto(meta4LoginClient
                         .login(/* user */ param.getIn0(), /* pass */ param.getIn1(), /* lang */ param.getIn2()));
-                if (LoginResponse != null && StringUtils.isNotBlank(LoginResponse.getSessionID())) {
-                    sesionMeta4Dto.setId(LoginResponse.getSessionID());
+                if (loginResponse != null && StringUtils.isNotBlank(loginResponse.getSessionID())) {
+                    sesionMeta4Dto.setId(loginResponse.getSessionID());
                     sesionMeta4Dto.setUser(loginRequest.getUsername());
                     sesionMeta4Dto.setPassword(loginRequest.getPassword());
                     sesionMeta4Dto.setLanguage(loginRequest.getLanguage());
@@ -90,12 +89,11 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
     public boolean retrieveM4Session() throws Exception {
         boolean result = false;
         try {
-            if (sesionMeta4Dto != null) {
-                if (StringUtils.isNotBlank(sesionMeta4Dto.getId()) && Boolean.TRUE.equals(sesionMeta4Dto.getActiva())) {
-                    int retrieveM4SessionResult = meta4LoginClient.retrieveM4Session(sesionMeta4Dto.getId());
-                    if (retrieveM4SessionResult == 0) {
-                        result = true;
-                    }
+            if (sesionMeta4Dto != null && StringUtils.isNotBlank(sesionMeta4Dto.getId())
+                    && Boolean.TRUE.equals(sesionMeta4Dto.getActiva())) {
+                int retrieveM4SessionResult = meta4LoginClient.retrieveM4Session(sesionMeta4Dto.getId());
+                if (retrieveM4SessionResult == 0) {
+                    result = true;
                 }
             }
         } catch (SOAPFaultException e) {

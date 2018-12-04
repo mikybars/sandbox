@@ -13,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionVenta;
 public abstract class TrabajoTiendaSeccionVentaDecorator extends TrabajoTiendaSeccionVentaMapper {
 
 	@Autowired
-	TrabajoTiendaSeccionVentaMapper delegate;
+	private TrabajoTiendaSeccionVentaMapper delegate;
 	
 	@Override
 	public List<TrabajoTiendaSeccionVenta> getVentaTotalizadoReponseItemsDtoToTrabajoTiendaSeccionVentas(List<PtrVentaTotalizadoResultItemDto> src, TrabajoDto trabajo){

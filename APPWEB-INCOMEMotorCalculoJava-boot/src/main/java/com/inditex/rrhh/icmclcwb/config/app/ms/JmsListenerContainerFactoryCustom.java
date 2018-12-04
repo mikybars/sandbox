@@ -10,7 +10,6 @@ import com.inditex.rrhh.icmclcwb.config.app.ObjectMapperCustom;
 
 public class JmsListenerContainerFactoryCustom implements JmsListenerContainerFactoryCustomizer {
 	
-	@SuppressWarnings("rawtypes")
 	@Override
 	public void customize(JmsListenerContainerFactory factory) {
 		if (DefaultJmsListenerContainerFactory.class.isInstance(factory)) {

@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -37,12 +35,6 @@ public class Trabajo {
 	@NotBlank
 	@Column(name = "ID_EMPRESA", nullable = true)
 	private String idEmpresa;
-	
-	@OneToMany(mappedBy = "trabajo")
-	private List<TrabajoTienda> tiendas;
-
-	@OneToMany(mappedBy = "trabajo")
-	private List<TrabajoEmpleado> empleados;
 
 	@NotBlank
 	@Column(name = "ID_USUARIO", nullable = false)

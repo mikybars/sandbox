@@ -14,9 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.GTCalculoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoCalculoRepository;
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -34,8 +34,7 @@ public class GTCalculoRepositoryTest {
 
 	@Test
 	@Ignore
-	public void calculoJdbcUpdateTest() {
-										
+	public void calculoJdbcUpdateTest() {										
 		Long idTrabajo =  100L; 		
 		gTCalculoRepository.calcular(idTrabajo);							
 		assertNotNull(trabajoCalculoRepository.findAllTrabajoCalculadoByIdTrabajo(idTrabajo));											
@@ -72,7 +71,5 @@ public class GTCalculoRepositoryTest {
 										
 	}
 	
-	
-	
-	
+
 }

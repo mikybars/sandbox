@@ -5,12 +5,13 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 
 public interface TrabajoDatosPtrVentaAsyncService {
 
-    CompletableFuture<Void> ventaDetalleEmpleado(final TrabajoDto trabajo) throws Exception;
+    CompletableFuture<Void> ventaDetalleEmpleado(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
     CompletableFuture<Void> ventaTotalizadaTienda(final TrabajoDto trabajo,
-            List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception;
+            final List<TipoTrabajoTiendaDto> tipoTrabajoTienda, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
 }

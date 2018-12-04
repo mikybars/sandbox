@@ -15,10 +15,13 @@ amiga:
           base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
         ptrPresenciaClient:
-          base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          #base-url: http://axpreptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
+          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/RHPRSCAESB
+          base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
+          auth-method: BASIC
+          username: username300
         ptrPresenciaMockClient:
-          base-url: https://develop-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
+          base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
           username: username300
   service:
@@ -49,9 +52,9 @@ amiga:
           #user: ncomis
     hibernate:
       primary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''200'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
+        properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''200'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
       secondary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect''}'
+        properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect''}'
     jms:
       connectionFactory:
         brokerEscritura:

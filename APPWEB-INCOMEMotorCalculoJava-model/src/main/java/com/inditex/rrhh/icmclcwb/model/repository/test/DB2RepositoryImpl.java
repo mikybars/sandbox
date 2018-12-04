@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.repository.test;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.test.VentaDto;
 
-@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 @Repository
 public class DB2RepositoryImpl implements DB2Repository {
 
@@ -35,7 +35,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 		borrarTemporal("TEST1");
 		jdbcTemplate.execute(
 				"DECLARE GLOBAL TEMPORARY TABLE TEST1 (ID BIGINT, LOG XML) ON COMMIT PRESERVE ROWS NOT LOGGED");
-		logger.info("Se crea temporal TEST1: OK : " + getLogTiempo(time1));
+		logger.info("Se crea temporal TEST1: OK : {}", getLogTiempo(time1));
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class DB2RepositoryImpl implements DB2Repository {
 		borrarTemporal("TEST2");
 		jdbcTemplate.execute(
 				"DECLARE GLOBAL TEMPORARY TABLE TEST2 (id bigint, fecha timestamp, IDPAIS bigint, IDCADENA bigint, IDTIENDA bigint, importeSinIVA float, importeConIVA float) ON COMMIT PRESERVE ROWS NOT LOGGED");
-		logger.info("Se crea temporal TEST2: OK : " + getLogTiempo(time1));
+		logger.info("Se crea temporal TEST2: OK : {}", getLogTiempo(time1));
 
 		time1 = new java.util.Date();
 		logger.info("Se crea indice TEST2");
 		jdbcTemplate.execute("CREATE INDEX session.INDICE_TEST2 ON session.TEST2 (FECHA, IDPAIS, IDCADENA, IDTIENDA)");
-		logger.info("Se crea indice TEST2: OK : " + getLogTiempo(time1));
+		logger.info("Se crea indice TEST2: OK : {}", getLogTiempo(time1));
 
 	}
 
@@ -65,12 +65,12 @@ public class DB2RepositoryImpl implements DB2Repository {
 		borrarTemporal("TEST3");
 		jdbcTemplate.execute(
 				"DECLARE GLOBAL TEMPORARY TABLE TEST3 (id bigint, fecha timestamp, idPais bigint, idCadena bigint, idTienda bigint, importeSinIVA float, importeConIVA float) ON COMMIT PRESERVE ROWS NOT LOGGED");
-		logger.info("Se crea temporal TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se crea temporal TEST3: OK : {}", getLogTiempo(time1));
 
 		time1 = new java.util.Date();
 		logger.info("Se crea indice TEST3");
 		jdbcTemplate.execute("CREATE INDEX session.INDICE_TEST3 ON session.TEST3 (FECHA, IDPAIS, IDCADENA, IDTIENDA)");
-		logger.info("Se crea indice TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se crea indice TEST3: OK : {}", getLogTiempo(time1));
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 		final String sql = new StringBuffer().append("INSERT INTO session.TEST1 (log) VALUES ('")
 				.append(contenidoFichero).append("')").toString();
 		jdbcTemplate.update(sql);
-		logger.info("Se insertan datos TEST1: OK : " + getLogTiempo(time1));
+		logger.info("Se insertan datos TEST1: OK : {}", getLogTiempo(time1));
 
 	}
 
@@ -96,7 +96,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("IMPORTE_SIN_IVA FLOAT PATH 'importeSinIVA'").append(") AS X").append("where tienda=224")
 				.toString();
 		final List<VentaDto> resultado = jdbcTemplate.query(sql, new BeanPropertyRowMapper(VentaDto.class));
-		logger.info("Se obtienen datos TEST1: OK : " + getLogTiempo(time1));
+		logger.info("Se obtienen datos TEST1: OK : {}", getLogTiempo(time1));
 		return resultado;
 	}
 
@@ -117,7 +117,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("IMPORTE_CON_IVA FLOAT PATH 'importeConIVA',")
 				.append("IMPORTE_SIN_IVA FLOAT PATH 'importeSinIVA'").append(") AS X").toString();
 		jdbcTemplate.execute(sql);
-		logger.info("Se inserta datos en temporal TEST2: OK : " + getLogTiempo(time1));
+		logger.info("Se inserta datos en temporal TEST2: OK : {}", getLogTiempo(time1));
 
 		time1 = new java.util.Date();
 		logger.info("Se inserta datos en temporal TEST3");
@@ -126,7 +126,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("SELECT fecha, idPais, idCadena, idTienda, importeSinIVA, importeConIVA")
 				.append(" FROM session.TEST2").toString();
 		jdbcTemplate.execute(sql);
-		logger.info("Se inserta datos en temporal TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se inserta datos en temporal TEST3: OK : {}", getLogTiempo(time1));
 
 		time1 = new java.util.Date();
 		logger.info("Se obtienen datos TEST3");
@@ -136,14 +136,15 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append(" AND t1.idPais=t2.idPais").append(" AND t1.idCadena=t2.idCadena")
 				.append(" AND t1.idTienda=t2.idTienda").append(" AND t1.idTienda=224").toString();
 		final List<VentaDto> resultado = jdbcTemplate.query(sql, new BeanPropertyRowMapper(VentaDto.class));
-		logger.info("Se obtienen datos TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se obtienen datos TEST3: OK : {}", getLogTiempo(time1));
 		return resultado;
 	}
 
 	private void borrarTemporal(final String nombre) {
 		try {
-			jdbcTemplate.execute("DROP TABLE session." + nombre);
+			jdbcTemplate.execute(new StringBuilder("DROP TABLE session.").append(nombre).toString());
 		} catch (Exception e) {
+		    logger.error("Error no controlado", e);
 		}
 	}
 
@@ -160,7 +161,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("(fecha, idPais, idCadena, idTienda, importeSinIVA, importeConIVA) ")
 				.append("VALUES (?, ?, ?, ?, ?, ?) ").toString();
 
-		final int[] result = jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -178,7 +179,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				return ventas.size();
 			}
 		});
-		logger.info("Se inserta datos en temporal TEST2: OK : " + getLogTiempo(time1));
+		logger.info("Se inserta datos en temporal TEST2: OK : {}", getLogTiempo(time1));
 	}
 
 	@Override
@@ -189,7 +190,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append(" fecha, idPais, idCadena, idTienda, importeSinIVA, importeConIVA")
 				.append(" FROM session.TEST2").append(" WHERE idTienda=224").toString();
 		final List<VentaDto> resultado = jdbcTemplate.query(sql, new BeanPropertyRowMapper(VentaDto.class));
-		logger.info("Se obtienen datos TEST2: OK : " + getLogTiempo(time1));
+		logger.info("Se obtienen datos TEST2: OK : {}", getLogTiempo(time1));
 		return resultado;
 	}
 
@@ -204,7 +205,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("SELECT fecha, idPais, idCadena, idTienda, importeSinIVA, importeConIVA")
 				.append(" FROM session.TEST2").toString();
 		jdbcTemplate.execute(sql);
-		logger.info("Se inserta datos en temporal TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se inserta datos en temporal TEST3: OK : {}", getLogTiempo(time1));
 
 		time1 = new java.util.Date();
 		logger.info("Se obtienen datos TEST3");
@@ -214,24 +215,24 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append(" AND t1.idPais=t2.idPais").append(" AND t1.idCadena=t2.idCadena")
 				.append(" AND t1.idTienda=t2.idTienda").append(" AND t1.idTienda=224").toString();
 		final List<VentaDto> resultado = jdbcTemplate.query(sql, new BeanPropertyRowMapper(VentaDto.class));
-		logger.info("Se obtienen datos TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se obtienen datos TEST3: OK : {}", getLogTiempo(time1));
 		return resultado;
 	}
 
 	@Override
 	public void insertarDatosJSONCompleto(String contenidoFichero) {
-		// Completar
+		// TODO Completar
 	}
 
 	@Override
 	public List<VentaDto> getDatosJSONCompleto() {
-		// Completar
-		return null;
+		// TODO Completar
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<VentaDto> getDatosJoinJSONCompleto() {
-		// Completar
-		return null;
+		// TODO Completar
+		return new ArrayList<>();
 	}
 }

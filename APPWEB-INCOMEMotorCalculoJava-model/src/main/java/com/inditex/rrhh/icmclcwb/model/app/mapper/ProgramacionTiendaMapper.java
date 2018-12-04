@@ -8,32 +8,30 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-
 import java.util.List;
 
 @Mapper
 @DecoratedWith(ProgramacionTiendaDecorator.class)
 public abstract class ProgramacionTiendaMapper {
 
-	@Mappings({ @Mapping(source = "programacion.id", target = "programacion.id") })
-	public abstract ProgramacionTiendaDto programacionTiendaToProgramacionTiendaDto(ProgramacionTienda src);
+    @Mapping(source = "programacion.id", target = "programacion.id")
+    public abstract ProgramacionTiendaDto programacionTiendaToProgramacionTiendaDto(ProgramacionTienda src);
 
-	@Mappings({ @Mapping(source = "programacion.id", target = "programacion.id") })
-	public abstract ProgramacionTienda programacionTiendaDtoToProgramacionTienda(ProgramacionTiendaDto src);
+    @Mapping(source = "programacion.id", target = "programacion.id")
+    public abstract ProgramacionTienda programacionTiendaDtoToProgramacionTienda(ProgramacionTiendaDto src);
 
-	public abstract List<ProgramacionTiendaDto> programacionTiendaToProgramacionTiendaDto(List<ProgramacionTienda> src);
+    public abstract List<ProgramacionTiendaDto> programacionTiendaToProgramacionTiendaDto(List<ProgramacionTienda> src);
 
-	public abstract List<ProgramacionTienda> programacionTiendaDtoToProgramacionTienda(List<ProgramacionTiendaDto> src);
+    public abstract List<ProgramacionTienda> programacionTiendaDtoToProgramacionTienda(List<ProgramacionTiendaDto> src);
 
-	@Mappings({ @Mapping(target = "id", ignore = true),
-			@Mapping(target = "programacion.id", source = "srcProgramacionDto.id") })
-	public abstract ProgramacionTienda mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
-			ProgramacionTiendaDto srcProgramacionTiendaDto, ProgramacionDto srcProgramacionDto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "programacion.id", source = "srcProgramacionDto.id")
+    public abstract ProgramacionTienda mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
+            ProgramacionTiendaDto srcProgramacionTiendaDto, ProgramacionDto srcProgramacionDto);
 
-	public List<ProgramacionTienda> mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
-			List<ProgramacionTiendaDto> srcProgramacionTiendaDto, ProgramacionDto srcProgramacionDto) {
-		throw new UnsupportedOperationException("Not implemented");
-	}
+    public List<ProgramacionTienda> mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
+            List<ProgramacionTiendaDto> srcProgramacionTiendaDto, ProgramacionDto srcProgramacionDto) {
+        throw new UnsupportedOperationException("Not implemented");
+    }
 
 }

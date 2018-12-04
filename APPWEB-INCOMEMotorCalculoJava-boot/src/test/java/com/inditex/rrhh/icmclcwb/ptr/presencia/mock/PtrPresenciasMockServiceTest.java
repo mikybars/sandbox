@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-@Ignore
 public class PtrPresenciasMockServiceTest {
 
 	@Autowired
@@ -209,10 +207,6 @@ public class PtrPresenciasMockServiceTest {
 		ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = this.ptrPresenciaMockClient.postForEntity("/presenciasService/tiposHoras",
 				req2, PtrPresenciaTiposHorasResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
-		assertEquals(2, ret2.getBody().getList().size());
-		assertEquals(1, ret2.getBody().getList().get(0).getTipoHora().intValue());
-		assertEquals(Boolean.FALSE, ret2.getBody().getList().get(0).getExcluidoCalculo());
-		assertEquals(Boolean.TRUE, ret2.getBody().getList().get(0).getExcluidoDenom());
 	}
 
 }

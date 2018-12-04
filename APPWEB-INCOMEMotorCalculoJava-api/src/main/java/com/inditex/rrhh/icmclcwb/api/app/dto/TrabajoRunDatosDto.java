@@ -7,11 +7,9 @@ import java.util.Set;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
 
 @ApiModel(description = "Modelo TrabajoRunDatosDto")
 @Data
-@ToString(callSuper = false)
 public class TrabajoRunDatosDto implements Serializable {
 
     private static final long serialVersionUID = -7845168234640449805L;

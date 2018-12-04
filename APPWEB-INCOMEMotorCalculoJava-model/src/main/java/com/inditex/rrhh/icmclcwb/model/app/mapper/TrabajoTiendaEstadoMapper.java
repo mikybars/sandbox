@@ -6,7 +6,6 @@ import org.mapstruct.BeforeMapping;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasResultItemDto;
@@ -19,55 +18,59 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 @DecoratedWith(TrabajoTiendaEstadoDecorator.class)
 public abstract class TrabajoTiendaEstadoMapper {
 
-	public abstract TrabajoTiendaEstadoDto trabajoTiendaEstadoToTrabajoTiendaEstadoDto(TrabajoTiendaEstado src);
+    public abstract TrabajoTiendaEstadoDto trabajoTiendaEstadoToTrabajoTiendaEstadoDto(TrabajoTiendaEstado src);
 
-	public abstract TrabajoTiendaEstado trabajoTiendaEstadoDtoToTrabajoTiendaEstado(TrabajoTiendaEstadoDto src);
+    public abstract TrabajoTiendaEstado trabajoTiendaEstadoDtoToTrabajoTiendaEstado(TrabajoTiendaEstadoDto src);
 
-	public abstract List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoToTrabajoTiendaEstadoDto(
-			List<TrabajoTiendaEstado> src);
+    public abstract List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoToTrabajoTiendaEstadoDto(
+            List<TrabajoTiendaEstado> src);
 
-	public abstract List<TrabajoTiendaEstado> trabajoTiendaEstadoDtoToTrabajoTiendaEstado(
-			List<TrabajoTiendaEstadoDto> src);
-	
-	@BeforeMapping
-	protected void beforeTrabajoTienda(TrabajoTiendaEstado src) {
-		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
-			Trabajo trabajoId = new Trabajo();
-			trabajoId.setId(src.getTrabajo().getId());
-			src.setTrabajo(trabajoId);
-		}
-	}
+    public abstract List<TrabajoTiendaEstado> trabajoTiendaEstadoDtoToTrabajoTiendaEstado(
+            List<TrabajoTiendaEstadoDto> src);
 
-	@BeforeMapping
-	protected void beforeTrabajoTiendaEstadoDto(TrabajoTiendaEstadoDto src) {
-		if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
-			TrabajoDto trabajoId = new TrabajoDto();
-			trabajoId.setId(src.getTrabajo().getId());
-			src.setTrabajo(trabajoId);
-		}
-	}
+    @BeforeMapping
+    protected void beforeTrabajoTienda(TrabajoTiendaEstado src) {
+        if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
+            Trabajo trabajoId = new Trabajo();
+            trabajoId.setId(src.getTrabajo().getId());
+            src.setTrabajo(trabajoId);
+        }
+    }
 
-	@Mappings({ @Mapping(target = "trabajo.id", source = "srcTrabajoDto.id"), @Mapping(target = "id", ignore = true),
-			@Mapping(target = "estado", ignore = true),
-			@Mapping(target = "idPaisOrigen", source = "srcTrabajoTiendaEstadoDto.idPais"),
-			@Mapping(target = "idEmpresa", source = "srcTrabajoTiendaEstadoDto.idEmpresa") })
-	public abstract TrabajoTiendaEstado mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
-			TrabajoTiendaEstadoDto srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto);
+    @BeforeMapping
+    protected void beforeTrabajoTiendaEstadoDto(TrabajoTiendaEstadoDto src) {
+        if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
+            TrabajoDto trabajoId = new TrabajoDto();
+            trabajoId.setId(src.getTrabajo().getId());
+            src.setTrabajo(trabajoId);
+        }
+    }
 
-	public List<TrabajoTiendaEstado> mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
-			List<TrabajoTiendaEstadoDto> srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto) {
-		throw new UnsupportedOperationException("Not implemented");
-	}
-	
-	@Mappings({ @Mapping(target = "idPaisOrigen", source = "idOrigen")})
-	public abstract TrabajoTiendaEstadoDto tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto (TiendasEmpleadoResultItemDto src);
-	
-	public abstract List<TrabajoTiendaEstadoDto> tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto (List<TiendasEmpleadoResultItemDto> src);
-	
+    @Mapping(target = "trabajo.id", source = "srcTrabajoDto.id")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "estado", ignore = true)
+    @Mapping(target = "idPaisOrigen", source = "srcTrabajoTiendaEstadoDto.idPais")
+    @Mapping(target = "idEmpresa", source = "srcTrabajoTiendaEstadoDto.idEmpresa")
+    public abstract TrabajoTiendaEstado mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
+            TrabajoTiendaEstadoDto srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto);
 
-	@Mappings({ @Mapping(target = "idPaisOrigen", source = "idOrigen")})
-	public abstract TrabajoTiendaEstadoDto searchTiendasResultItemDtoToTrabajoTiendaEstadoDto (SearchTiendasResultItemDto src);
-	
-	public abstract List<TrabajoTiendaEstadoDto> searchTiendasResultItemDtoToTrabajoTiendaEstadoDto (List<SearchTiendasResultItemDto> src);
-	
+    public List<TrabajoTiendaEstado> mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
+            List<TrabajoTiendaEstadoDto> srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto) {
+        throw new UnsupportedOperationException("Not implemented");
+    }
+
+    @Mapping(target = "idPaisOrigen", source = "idOrigen")
+    public abstract TrabajoTiendaEstadoDto tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(
+            TiendasEmpleadoResultItemDto src);
+
+    public abstract List<TrabajoTiendaEstadoDto> tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(
+            List<TiendasEmpleadoResultItemDto> src);
+
+    @Mapping(target = "idPaisOrigen", source = "idOrigen")
+    public abstract TrabajoTiendaEstadoDto searchTiendasResultItemDtoToTrabajoTiendaEstadoDto(
+            SearchTiendasResultItemDto src);
+
+    public abstract List<TrabajoTiendaEstadoDto> searchTiendasResultItemDtoToTrabajoTiendaEstadoDto(
+            List<SearchTiendasResultItemDto> src);
+
 }

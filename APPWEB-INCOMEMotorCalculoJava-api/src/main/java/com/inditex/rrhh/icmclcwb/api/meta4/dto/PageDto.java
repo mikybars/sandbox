@@ -18,43 +18,41 @@ import org.apache.commons.lang3.math.NumberUtils;
 @ToString
 public class PageDto implements Serializable {
 
-	private static final long serialVersionUID = 1951305116634110315L;
+    private static final long serialVersionUID = 1951305116634110315L;
 
-	private String tipoOrden;
+    private String tipoOrden;
 
-	private String campoOrden;
+    private String campoOrden;
 
-	private String idBusqueda;
+    private String idBusqueda;
 
-	private Integer numeroPagina;
+    private Integer numeroPagina;
 
-	private Integer numeroTotalPaginas;
+    private Integer numeroTotalPaginas;
 
-	private Integer numeroRegistrosPagina;
+    private Integer numeroRegistrosPagina;
 
-	private Integer numeroTotalResultados;
+    private Integer numeroTotalResultados;
 
-	public boolean hasNext() {
-		boolean result = false;
-		if (numeroPagina != null) {
-			// Primera carga, en las iteraciones cuando no hay registros, llega
-			// {numeroPagina: 0, numeroTotalPaginas: 0}
-			if (Integer.compare(numeroPagina, NumberUtils.INTEGER_ZERO) == 0 && numeroTotalPaginas == null) {
-				result = true;
-			} else if (numeroTotalPaginas != null && Integer.compare(numeroPagina, numeroTotalPaginas) < 0) {
-				result = true;
-			}
-		}
-		return result;
-	}
+    public boolean hasNext() {
+        boolean result = false;
+        // Primera carga, en las iteraciones cuando no hay registros, llega
+        // {numeroPagina: 0, numeroTotalPaginas: 0}
+        if (numeroPagina != null
+                && ((numeroTotalPaginas == null && Integer.compare(numeroPagina, NumberUtils.INTEGER_ZERO) == 0)
+                        || (numeroTotalPaginas != null && Integer.compare(numeroPagina, numeroTotalPaginas) < 0))) {
+            result = true;
+        }
+        return result;
+    }
 
-	public PageDto next() {
-		if (hasNext()) {
-			setNumeroPagina(Integer.valueOf(numeroPagina.intValue() + 1));
-		} else {
-			throw new NoSuchElementException();
-		}
-		return this;
-	}
+    public PageDto next() {
+        if (hasNext()) {
+            setNumeroPagina(Integer.valueOf(numeroPagina.intValue() + 1));
+        } else {
+            throw new NoSuchElementException();
+        }
+        return this;
+    }
 
 }

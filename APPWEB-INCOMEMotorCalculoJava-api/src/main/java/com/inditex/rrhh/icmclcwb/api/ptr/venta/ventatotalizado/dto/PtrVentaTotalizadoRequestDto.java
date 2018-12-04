@@ -10,31 +10,23 @@ import lombok.Data;
 @Data
 public class PtrVentaTotalizadoRequestDto implements Serializable {
 
-	private static final long serialVersionUID = -529195772706345954L;
+    private static final long serialVersionUID = -529195772706345954L;
 
-	@NotNull
-	private String fechaDesde;
-	
-	@NotNull
-	private String fechaHasta;
+    @NotNull
+    private String fechaDesde;
 
-	@NotNull
-	private String pais;
+    @NotNull
+    private String fechaHasta;
 
-	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
-	@NotNull
-	private List<String> cadena;
+    @NotNull
+    private String pais;
 
-	private List<String> tienda;
-	
-	private String agrupacion;
+    // TODO: XSD simple Postman permite multiple
+    @NotNull
+    private List<String> cadena;
 
-//	private String seccion;
-//
-//	private String temporada;
-//
-//	private String producto;
-//	
-//	private String agrupacion;
+    private List<String> tienda;
+
+    private String agrupacion;
 
 }

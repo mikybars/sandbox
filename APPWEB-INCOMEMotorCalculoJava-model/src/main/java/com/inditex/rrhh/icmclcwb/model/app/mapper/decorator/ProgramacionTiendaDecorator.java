@@ -13,20 +13,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionTienda;
 
 public abstract class ProgramacionTiendaDecorator extends ProgramacionTiendaMapper {
 
-	@Autowired
-	private ProgramacionTiendaMapper delegate;
+    @Autowired
+    private ProgramacionTiendaMapper delegate;
 
-	@Override
-	public List<ProgramacionTienda> mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
-			List<ProgramacionTiendaDto> srcProgramacionTiendaDto, ProgramacionDto srcProgramacionDto) {
-		List<ProgramacionTienda> result = new ArrayList<>();
-		if (CollectionUtils.isNotEmpty(srcProgramacionTiendaDto)) {
-			srcProgramacionTiendaDto.forEach(item -> {
-				result.add(delegate.mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(item,
-						srcProgramacionDto));
-			});
-		}
-		return result;
-	}
+    @Override
+    public List<ProgramacionTienda> mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
+            List<ProgramacionTiendaDto> srcProgramacionTiendaDto, ProgramacionDto srcProgramacionDto) {
+        List<ProgramacionTienda> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(srcProgramacionTiendaDto)) {
+            srcProgramacionTiendaDto.forEach(item -> result.add(delegate
+                    .mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(item, srcProgramacionDto)));
+        }
+        return result;
+    }
 
 }

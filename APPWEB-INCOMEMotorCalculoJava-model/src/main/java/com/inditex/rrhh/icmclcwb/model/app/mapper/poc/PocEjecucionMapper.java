@@ -9,8 +9,6 @@ import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
-
 import com.inditex.rrhh.icmclcwb.api.app.dto.poc.PocEjecucionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.poc.PocConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.poc.PocEjecucion;
@@ -18,10 +16,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.poc.PocEjecucion;
 @Mapper
 public abstract class PocEjecucionMapper {
 
-	@Mappings({ @Mapping(target = "tiendas", ignore = true) })
+	@Mapping(target = "tiendas", ignore = true)
 	public abstract PocEjecucionDto pocEjecucionToPocEjecucionDto(PocEjecucion src);
 
-	@Mappings({ @Mapping(target = "tiendas", ignore = true) })
+	@Mapping(target = "tiendas", ignore = true)
 	public abstract PocEjecucion pocEjecucionDtoToPocEjecucion(PocEjecucionDto src);
 
 	public abstract List<PocEjecucionDto> pocEjecucionToPocEjecucionDto(List<PocEjecucion> src);

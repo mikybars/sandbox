@@ -31,22 +31,20 @@ public class SessionRepositoryImpl implements SessionRepository {
     @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
-    private final static String CREATE_TABLE_BASE_H2 = "CREATE MEMORY LOCAL TEMPORARY TABLE ${table} (${field})";
-    @SuppressWarnings("unused")
-    private final static String CREATE_TABLE_BASE_SQL = "DECLARE GLOBAL TEMPORARY TABLE ${table} (${field}) ON COMMIT PRESERVE ROWS NOT LOGGED";
-    private final static String CREATE_TABLE_BASE = CREATE_TABLE_BASE_H2;
-    private final static String CREATE_INDEX_TABLE_BASE = "CREATE INDEX ${table}_${id} ON ${table} (${field})";
-    private final static String INSERT_BASE = "INSERT INTO ${table} (${field})";
-    @SuppressWarnings("unused")
-    private final static String INSERT_SELECT_BASE = INSERT_BASE + " ${value}";
-    private final static String INSERT_VALUES_BASE = INSERT_BASE + " VALUES ${value}";
-    private final static String INSERT_VALUES_VALUE_BASE = "(${value})";
-    private final static String INSERT_VALUES_VALUE_PARAMETER_BASE = "?";
+    private static final String CREATE_TABLE_BASE_H2 = "CREATE MEMORY LOCAL TEMPORARY TABLE ${table} (${field})";
+    private static final String CREATE_TABLE_BASE_SQL = "DECLARE GLOBAL TEMPORARY TABLE ${table} (${field}) ON COMMIT PRESERVE ROWS NOT LOGGED";
+    private static final String CREATE_TABLE_BASE = CREATE_TABLE_BASE_H2;
+    private static final String CREATE_INDEX_TABLE_BASE = "CREATE INDEX ${table}_${id} ON ${table} (${field})";
+    private static final String INSERT_BASE = "INSERT INTO ${table} (${field})";
+    private static final String INSERT_SELECT_BASE = INSERT_BASE + " ${value}";
+    private static final String INSERT_VALUES_BASE = INSERT_BASE + " VALUES ${value}";
+    private static final String INSERT_VALUES_VALUE_BASE = "(${value})";
+    private static final String INSERT_VALUES_VALUE_PARAMETER_BASE = "?";
 
-    private final static String TABLE_EMPLEADO_NAME = "SESSION.EMPLEADO";
-    private final static String CREATE_TABLE_EMPLEADO_FIELD = "ID BIGINT, ID_DATA BIGINT";
-    private final static List<String> CREATE_INDEX_TABLE_EMPLEADO_NAME = Arrays.asList("ID, ID_DATA", "ID_DATA");
-    private final static String INSERT_EMPLEADO_FIELD = "ID, ID_DATA";
+    private static final String TABLE_EMPLEADO_NAME = "SESSION.EMPLEADO";
+    private static final String CREATE_TABLE_EMPLEADO_FIELD = "ID BIGINT, ID_DATA BIGINT";
+    private static final List<String> CREATE_INDEX_TABLE_EMPLEADO_NAME = Arrays.asList("ID, ID_DATA", "ID_DATA");
+    private static final String INSERT_EMPLEADO_FIELD = "ID, ID_DATA";
 
     @Override
     public void jdbcTemplate() {
@@ -79,6 +77,7 @@ public class SessionRepositoryImpl implements SessionRepository {
 
     @Override
     public void entityManager() {
+        // TODO Pendiente
     }
 
     private String crearTablaTemporal(String table, String field) {
@@ -86,8 +85,7 @@ public class SessionRepositoryImpl implements SessionRepository {
         valuesMap.put("table", table);
         valuesMap.put("field", field);
         StrSubstitutor sub = new StrSubstitutor(valuesMap);
-        String result = sub.replace(CREATE_TABLE_BASE);
-        return result;
+        return sub.replace(CREATE_TABLE_BASE);
     }
 
     private String crearIndiceTablaTemporal(String table, int id, String field) {
@@ -96,8 +94,7 @@ public class SessionRepositoryImpl implements SessionRepository {
         valuesMap.put("id", String.valueOf(id));
         valuesMap.put("field", field);
         StrSubstitutor sub = new StrSubstitutor(valuesMap);
-        String result = sub.replace(CREATE_INDEX_TABLE_BASE);
-        return result;
+        return sub.replace(CREATE_INDEX_TABLE_BASE);
     }
 
     private String createInsertValues(String table, String field, List<String> values) {
@@ -107,9 +104,7 @@ public class SessionRepositoryImpl implements SessionRepository {
             // }
             final int fieldLength = StringUtils.split(field, ",").length;
             List<String> valueParam = new ArrayList<>();
-            IntStream.range(0, fieldLength).forEach(idx -> {
-                valueParam.add(INSERT_VALUES_VALUE_PARAMETER_BASE);
-            });
+            IntStream.range(0, fieldLength).forEach(idx -> valueParam.add(INSERT_VALUES_VALUE_PARAMETER_BASE));
             values.add(StringUtils.join(valueParam, ","));
         }
 
@@ -126,8 +121,7 @@ public class SessionRepositoryImpl implements SessionRepository {
         valuesMap.put("field", field);
         valuesMap.put("value", StringUtils.join(values, ","));
         StrSubstitutor sub = new StrSubstitutor(valuesMap);
-        String result = sub.replace(INSERT_VALUES_BASE);
-        return result;
+        return sub.replace(INSERT_VALUES_BASE);
     }
 
 }

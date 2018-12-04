@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 
 @Aspect
 @Component
@@ -31,6 +32,11 @@ public class LoggingAspect {
 
     @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo)")
     public void auditoriaTrabajoPointcut() {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajoRun)")
+    public void auditoriaTrabajoRunPointcut() {
         throw new UnsupportedOperationException();
     }
 
@@ -66,6 +72,55 @@ public class LoggingAspect {
         if (trabajo == null) {
             throw new ApplicationException(
                     "La anotacion AuditoriaTrabajo necesita que el metodo tenga un parametro TrabajoDto");
+        }
+        Instant start = Instant.now();
+        if (log.isInfoEnabled()) {
+            log.info("Trabajo[{}] :: Inicio :: Auditoria :: {} :: {} :: {}", trabajo.getId(),
+                    pjp.getSignature().toShortString(), args, trabajo);
+        }
+        Object result;
+        try {
+            result = pjp.proceed();
+        } catch (Throwable e) {
+            if (log.isErrorEnabled()) {
+                Instant end = Instant.now();
+                String msg = new StringBuilder("Trabajo[").append(trabajo.getId())
+                        .append("] :: Fin :: Error :: Auditoria[").append(Duration.between(start, end)).append("] :: ")
+                        .append(pjp.getSignature().toShortString()).append(" :: ").append(trabajo).toString();
+                log.error(msg, e);
+            }
+            throw e;
+        }
+        if (log.isInfoEnabled()) {
+            Instant end = Instant.now();
+            log.info("Trabajo[{}] :: Fin :: Ok :: Auditoria[{}] :: {} :: {} :: {}", trabajo.getId(),
+                    Duration.between(start, end), pjp.getSignature().toShortString(), result, trabajo);
+        }
+        return result;
+    }
+    
+    @Around(value = "auditoriaTrabajoRunPointcut()")
+    public Object auditoriaTrabajoRunAround(ProceedingJoinPoint pjp) throws Throwable {
+//        AuditoriaTrabajoRun auditoriaTrabajoRun = Optional.of(pjp.getSignature())
+//                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
+//                .map(method -> method.getAnnotation(AuditoriaTrabajo.class))
+//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajoRun"));
+        TrabajoRunDto trabajoRun = null;
+        List<Object> args = Arrays.asList(pjp.getArgs());
+        for (Object obj : args) {
+            if (TrabajoRunDto.class.isAssignableFrom(obj.getClass())) {
+                trabajoRun = (TrabajoRunDto) obj;
+                break;
+            }
+        }
+        if (trabajoRun == null) {
+            throw new ApplicationException(
+                    "La anotacion AuditoriaTrabajoRun necesita que el metodo tenga un parametro TrabajoRunDto");
+        }
+        TrabajoDto trabajo = trabajoRun.getTrabajoDto();
+        if (trabajo == null) {
+            throw new ApplicationException(
+                    "La anotacion AuditoriaTrabajoRun necesita que el metodo tenga un parametro TrabajoDto");
         }
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {

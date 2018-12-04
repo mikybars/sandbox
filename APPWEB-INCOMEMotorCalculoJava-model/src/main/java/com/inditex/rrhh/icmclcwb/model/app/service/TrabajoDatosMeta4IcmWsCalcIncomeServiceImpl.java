@@ -20,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
@@ -82,15 +83,15 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
     @AuditoriaTrabajo
     @Override
-    public void tiendasEmpleado(@Valid final TrabajoDto trabajo) throws Exception {
+    public void tiendasEmpleado(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
 
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            trabajo.getTrabajoRunDatos().setTiendasPresenciaNuevas(trabajoTiendaEstadoRepositoryCustom
-                    .customFindByIdTiendaNotExists(trabajo.getTrabajoRunDatos().getTiendasPresencia()));
+            trabajoRunDatos.setTiendasPresenciaNuevas(trabajoTiendaEstadoRepositoryCustom
+                    .customFindByIdTiendaNotExists(trabajoRunDatos.getTiendasPresencia()));
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             GenericFilterDto filter = trabajoMapper.trabajoDtoToGenericFilterDto(trabajo);
-            List<Integer> tiendas = trabajo.getTrabajoRunDatos().getTiendasPresenciaNuevas();
+            List<Integer> tiendas = trabajoRunDatos.getTiendasPresenciaNuevas();
             filter.setItems(tiendas.stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(String.valueOf(e)).build())
             		.collect(Collectors.toList()));
             TiendasEmpleadoRequestDto tiendasEmpleadoRequest = new TiendasEmpleadoRequestDto();
@@ -105,10 +106,6 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
                 List<TiendasEmpleadoResultItemDto> data = cfData.get();
                 if (CollectionUtils.isNotEmpty(data)) {
-                    /*-------------------------------------------------------------*/
-                    trabajo.getTrabajoRunDatosAuditoria().setTiendasPresencia(
-                            trabajo.getTrabajoRunDatosAuditoria().getTiendasPresencia() + data.size());
-                    /*-------------------------------------------------------------*/
                     List<TrabajoTiendaEstadoDto> trabajoEmpleadoEstado = trabajotiendaEstadoMapper
                             .tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(data);
                     if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
@@ -166,10 +163,6 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
                          List<GenericEmpleadoResultItemDto> data = cfData.get();
                          if (CollectionUtils.isNotEmpty(data)) {
-                             /*-------------------------------------------------------------*/
-                             trabajo.getTrabajoRunDatosAuditoria().setEmpleados(
-                                     trabajo.getTrabajoRunDatosAuditoria().getEmpleados() + data.size());
-                             /*-------------------------------------------------------------*/
                              List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
                                      .genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
                              if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
@@ -196,12 +189,12 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
     
     @AuditoriaTrabajo
     @Override
-    public void searchTiendas(@Valid final TrabajoDto trabajo) throws Exception {
+    public void searchTiendas(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
 
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            trabajo.getTrabajoRunDatos().setTiendasPresenciaNuevas(trabajoTiendaEstadoRepositoryCustom
-                    .customFindByIdTiendaNotExists(trabajo.getTrabajoRunDatos().getTiendasPresencia()));
+            trabajoRunDatos.setTiendasPresenciaNuevas(trabajoTiendaEstadoRepositoryCustom
+                    .customFindByIdTiendaNotExists(trabajoRunDatos.getTiendasPresencia()));
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             GenericFilterDto filter = trabajoMapper.trabajoDtoToGenericFilterDto(trabajo);
 
@@ -230,10 +223,6 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
                 List<SearchTiendasResultItemDto> data = cfData.get();
                 if (CollectionUtils.isNotEmpty(data)) {
-                    /*-------------------------------------------------------------*/
-                    trabajo.getTrabajoRunDatosAuditoria().setTiendasPresencia(
-                            trabajo.getTrabajoRunDatosAuditoria().getTiendasPresencia() + data.size());
-                    /*-------------------------------------------------------------*/
                     List<TrabajoTiendaEstadoDto> trabajoEmpleadoEstado = trabajotiendaEstadoMapper
                             .searchTiendasResultItemDtoToTrabajoTiendaEstadoDto(data);
                     if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {

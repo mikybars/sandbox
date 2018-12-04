@@ -15,6 +15,7 @@ public class PtrPresenciaMockTotalTiendaRowMapper implements RowMapper<PtrPresen
 		pre.setFecha(rs.getDate("FECHA"));
 		pre.setMinutos(rs.getInt("MINUTOS"));
 		pre.setTienda(rs.getInt("ID_TIENDA"));
+		pre.setOrigen(rs.getInt("ORIGEN"));
 		return pre;
 	}
 

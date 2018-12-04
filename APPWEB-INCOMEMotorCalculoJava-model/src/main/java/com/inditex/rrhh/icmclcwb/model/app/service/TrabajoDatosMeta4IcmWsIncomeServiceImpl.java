@@ -114,10 +114,6 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
 
                             List<EmpleadosTiendaResultItemDto> data = cfData.get();
                             if (CollectionUtils.isNotEmpty(data)) {
-                                /*-------------------------------------------------------------*/
-                                trabajo.getTrabajoRunDatosAuditoria().setEmpleados(
-                                        trabajo.getTrabajoRunDatosAuditoria().getEmpleados() + data.size());
-                                /*-------------------------------------------------------------*/
                                 List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
                                         .empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
                                 if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
@@ -158,10 +154,6 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
             throw new UnsupportedOperationException();
         }
         if (CollectionUtils.isNotEmpty(tienda)) {
-            /*-------------------------------------------------------------*/
-            trabajo.getTrabajoRunDatosAuditoria()
-                    .setTiendasParametro(trabajo.getTrabajoRunDatosAuditoria().getTiendasParametro() + tienda.size());
-            /*-------------------------------------------------------------*/
             trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
                     .mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(tienda, trabajo));
         } else {

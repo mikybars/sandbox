@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrVentaService;
 
@@ -20,15 +21,15 @@ public class TrabajoDatosPtrVentaAsyncServiceImpl implements TrabajoDatosPtrVent
     @Async
     @Override
     public CompletableFuture<Void> ventaTotalizadaTienda(final TrabajoDto trabajo,
-            List<TipoTrabajoTiendaDto> tipoTrabajoTienda) throws Exception {
-        trabajoDatosPtrVentaService.ventaTotalizadaTienda(trabajo, tipoTrabajoTienda);
+            final List<TipoTrabajoTiendaDto> tipoTrabajoTienda, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+        trabajoDatosPtrVentaService.ventaTotalizadaTienda(trabajo, tipoTrabajoTienda, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 
     @Async
     @Override
-    public CompletableFuture<Void> ventaDetalleEmpleado(final TrabajoDto trabajo) throws Exception {
-        trabajoDatosPtrVentaService.ventaDetalleEmpleado(trabajo);
+    public CompletableFuture<Void> ventaDetalleEmpleado(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+        trabajoDatosPtrVentaService.ventaDetalleEmpleado(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 

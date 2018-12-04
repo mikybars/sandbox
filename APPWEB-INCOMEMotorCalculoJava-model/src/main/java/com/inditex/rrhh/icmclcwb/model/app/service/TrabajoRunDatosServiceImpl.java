@@ -13,9 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
+import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
+import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajoRun;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaAsyncService;
@@ -39,7 +43,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
     @Autowired
     private TrabajoDatosMeta4IcmWsCalcIncomeAsyncService trabajoDatosMeta4IcmWsCalcIncomeAsyncService;
-  
+
     @Autowired
     private TrabajoDatosPtrVentaAsyncService trabajoDatosPtrVentaAsyncService;
 
@@ -49,11 +53,15 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
     @Autowired
     private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 
-    @AuditoriaTrabajo
+    @CounterMetric
+    @TimerMetric
+    @AuditoriaTrabajoRun
     @Override
-    public TrabajoDto run(@Valid final TrabajoDto trabajo) throws Exception {
+    public TrabajoRunDto run(@Valid final TrabajoRunDto trabajoRun) throws Exception {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
+            final TrabajoDto trabajo = trabajoRun.getTrabajoDto();
+            final TrabajoRunDatosDto trabajoRunDatos = trabajoRun.getTrabajoRunDatos();
             if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
                 trabajo.setFechaInicioTrabajo(LocalDateTime.now());
                 trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
@@ -72,9 +80,10 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 //                        .tiendasHistorico(trabajo);
 //                AsyncUtils.exceptionally(cfTiendasHistorico, cf);
 
-                CompletableFuture<Void> cfSearchTiendas = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.searchTiendas(trabajo);
+                CompletableFuture<Void> cfSearchTiendas = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+                        .searchTiendas(trabajo, trabajoRunDatos);
                 AsyncUtils.exceptionally(cfSearchTiendas, cf);
-                
+
                 CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
                 AsyncUtils.exceptionally(cfTiposHoras, cf);
 
@@ -82,7 +91,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                 AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfSearchTiendas);
                 /*-------------------------------------------------------------*/
 
-                trabajo.getTrabajoRunDatos().setCadenasEmpresa(
+                trabajoRunDatos.setCadenasEmpresa(
                         trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
                                 trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
 
@@ -94,14 +103,15 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                         .ventaTotalizadaTienda(trabajo,
                                 Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
                                         AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-                                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+                                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()), trabajoRunDatos);
                 AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
 
                 CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoDatosPtrPresenciaAsyncService
                         .presenciaTotalizadaTienda(trabajo,
                                 Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
                                         AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-                                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+                                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()),
+                                trabajoRunDatos);
                 AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
 
                 /*-------------------------------------------------------------*/
@@ -109,11 +119,11 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                 /*-------------------------------------------------------------*/
 
                 CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoDatosPtrPresenciaAsyncService
-                        .presenciaDetalleEmpleado(trabajo);
+                        .presenciaDetalleEmpleado(trabajo, trabajoRunDatos);
                 AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
 
                 CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoDatosPtrVentaAsyncService
-                        .ventaDetalleEmpleado(trabajo);
+                        .ventaDetalleEmpleado(trabajo, trabajoRunDatos);
                 AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
 
                 // TODO ICM_WS_CALC_INCOME :: GETCOMISIONEMPLEADO
@@ -127,21 +137,21 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                     AsyncUtils.waitAllOfIsOk(cf, cfPresenciaDetalleEmpleado);
                     /*-------------------------------------------------------------*/
 
-                    if (CollectionUtils.isNotEmpty(trabajo.getTrabajoRunDatos().getTiendasPresencia())) {
-                       // TODO ICM_WS_CALC_INCOME :: SEARCHTIENDAS -> GETTIENDASINCOME
+                    if (CollectionUtils.isNotEmpty(trabajoRunDatos.getTiendasPresencia())) {
+                        // TODO ICM_WS_CALC_INCOME :: SEARCHTIENDAS -> GETTIENDASINCOME
                         CompletableFuture<Void> cfTiendasEmpleado = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                                .tiendasEmpleado(trabajo);
+                                .tiendasEmpleado(trabajo, trabajoRunDatos);
                         AsyncUtils.exceptionally(cfTiendasEmpleado, cf);
                     }
 
                     CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosPtrVentaAsyncService
                             .ventaTotalizadaTienda(trabajo,
-                                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+                                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()), trabajoRunDatos);
                     AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
 
                     CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = trabajoDatosPtrPresenciaAsyncService
                             .presenciaTotalizadaTienda(trabajo,
-                                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+                                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()), trabajoRunDatos);
                     AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
                 }
 
@@ -154,7 +164,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return trabajo;
+        return trabajoRun;
     }
 
 }
