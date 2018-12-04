@@ -108,16 +108,20 @@ public class LoggingAspect {
         TrabajoRunDto trabajoRun = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
-            if (TrabajoDto.class.isAssignableFrom(obj.getClass())) {
+            if (TrabajoRunDto.class.isAssignableFrom(obj.getClass())) {
                 trabajoRun = (TrabajoRunDto) obj;
                 break;
             }
         }
         if (trabajoRun == null) {
             throw new ApplicationException(
-                    "La anotacion AuditoriaTrabajo necesita que el metodo tenga un parametro TrabajoDto");
+                    "La anotacion AuditoriaTrabajoRun necesita que el metodo tenga un parametro TrabajoRunDto");
         }
         TrabajoDto trabajo = trabajoRun.getTrabajoDto();
+        if (trabajo == null) {
+            throw new ApplicationException(
+                    "La anotacion AuditoriaTrabajoRun necesita que el metodo tenga un parametro TrabajoDto");
+        }
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
             log.info("Trabajo[{}] :: Inicio :: Auditoria :: {} :: {} :: {}", trabajo.getId(),
