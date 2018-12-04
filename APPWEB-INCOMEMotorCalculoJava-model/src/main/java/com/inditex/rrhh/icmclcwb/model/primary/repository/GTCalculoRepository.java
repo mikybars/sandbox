@@ -2,15 +2,13 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
-
 public interface GTCalculoRepository {
 		
-	public void calcular(TrabajoDto trabajo);
+	public void calcular(Long IdTrabajo);
 	
-	public void calcularByEmpleadoBatch(List<TrabajoEmpleadoDto> trabajoEmpleados);
+	public void calcularByEmpleadoBatch(Long idTrabajo, List<Long> idsEmpleados);
 	
-	public void calcularByTiendaBatch(List<TrabajoTiendaDto> trabajoTiendas);
+	public void calcularByTiendaBatch(Long idTrabajo, List<Long> idsTiendas);
+	
+	public void calcularByEmpleadoBatchSimpleInsert(Long idTrabajo, List<Long> idsEmpleados);
 }

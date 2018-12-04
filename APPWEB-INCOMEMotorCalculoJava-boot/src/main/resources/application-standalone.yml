@@ -8,6 +8,8 @@ logging:
 #    com.inditex.aqsw: DEBUG
 #    com.inditex.aqsw.libmonitoringcenter.metrics.aop.aspect: DEBUG
     com.inditex.rrhh.icmclcwb: INFO
+    net.ttddyy: DEBUG   
+    
 metadata:
   tenant: global
   domain: core

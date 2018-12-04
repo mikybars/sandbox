@@ -24,5 +24,9 @@ public class TrabajoRunDatosDto implements Serializable {
 	
 	@ApiModelProperty(value = "Ids de las tiendas nuevas localizadas en presencias", required = false)
 	private List<Integer> tiendasPresenciaNuevas;
+		
+    @ApiModelProperty(value = "Agrupacion de identificadores de los tipos de cálculo a ejecutar", required = false)
+	private List<Integer> tiposCalculo;
+	
 
 }
