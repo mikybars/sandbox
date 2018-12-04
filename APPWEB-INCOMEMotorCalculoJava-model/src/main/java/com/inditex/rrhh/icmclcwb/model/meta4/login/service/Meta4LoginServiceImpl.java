@@ -60,10 +60,10 @@ public class Meta4LoginServiceImpl implements Meta4LoginService {
             if (!this.retrieveM4Session()) {
                 sesionMeta4Dto = new SesionMeta4Dto();
                 Login param = loginMapper.loginRequestDtoToLogin(loginRequest);
-                LoginResponseDto LoginResponse = loginMapper.m4LoginOutputToLoginResponseDto(meta4LoginClient
+                LoginResponseDto loginResponse = loginMapper.m4LoginOutputToLoginResponseDto(meta4LoginClient
                         .login(/* user */ param.getIn0(), /* pass */ param.getIn1(), /* lang */ param.getIn2()));
-                if (LoginResponse != null && StringUtils.isNotBlank(LoginResponse.getSessionID())) {
-                    sesionMeta4Dto.setId(LoginResponse.getSessionID());
+                if (loginResponse != null && StringUtils.isNotBlank(loginResponse.getSessionID())) {
+                    sesionMeta4Dto.setId(loginResponse.getSessionID());
                     sesionMeta4Dto.setUser(loginRequest.getUsername());
                     sesionMeta4Dto.setPassword(loginRequest.getPassword());
                     sesionMeta4Dto.setLanguage(loginRequest.getLanguage());

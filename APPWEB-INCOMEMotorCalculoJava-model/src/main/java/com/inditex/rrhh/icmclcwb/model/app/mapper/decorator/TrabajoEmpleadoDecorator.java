@@ -21,9 +21,8 @@ public abstract class TrabajoEmpleadoDecorator extends TrabajoEmpleadoMapper {
             TrabajoDto trabajo) {
         List<TrabajoEmpleado> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> {
-                result.add(delegate.mergeTrabajoEmpleadoDtoAndTrabajoDtoToTrabajoEmpleado(item, trabajo));
-            });
+            src.forEach(
+                    item -> result.add(delegate.mergeTrabajoEmpleadoDtoAndTrabajoDtoToTrabajoEmpleado(item, trabajo)));
         }
         return result;
     }

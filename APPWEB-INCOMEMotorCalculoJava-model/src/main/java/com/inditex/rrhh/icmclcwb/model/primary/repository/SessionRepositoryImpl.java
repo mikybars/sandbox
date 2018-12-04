@@ -32,12 +32,10 @@ public class SessionRepositoryImpl implements SessionRepository {
     private JdbcTemplate jdbcTemplate;
 
     private static final String CREATE_TABLE_BASE_H2 = "CREATE MEMORY LOCAL TEMPORARY TABLE ${table} (${field})";
-    @SuppressWarnings("unused")
     private static final String CREATE_TABLE_BASE_SQL = "DECLARE GLOBAL TEMPORARY TABLE ${table} (${field}) ON COMMIT PRESERVE ROWS NOT LOGGED";
     private static final String CREATE_TABLE_BASE = CREATE_TABLE_BASE_H2;
     private static final String CREATE_INDEX_TABLE_BASE = "CREATE INDEX ${table}_${id} ON ${table} (${field})";
     private static final String INSERT_BASE = "INSERT INTO ${table} (${field})";
-    @SuppressWarnings("unused")
     private static final String INSERT_SELECT_BASE = INSERT_BASE + " ${value}";
     private static final String INSERT_VALUES_BASE = INSERT_BASE + " VALUES ${value}";
     private static final String INSERT_VALUES_VALUE_BASE = "(${value})";
@@ -79,6 +77,7 @@ public class SessionRepositoryImpl implements SessionRepository {
 
     @Override
     public void entityManager() {
+        // TODO Pendiente
     }
 
     private String crearTablaTemporal(String table, String field) {

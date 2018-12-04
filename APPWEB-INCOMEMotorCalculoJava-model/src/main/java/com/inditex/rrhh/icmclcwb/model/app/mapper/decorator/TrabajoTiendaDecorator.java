@@ -13,18 +13,16 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTienda;
 
 public abstract class TrabajoTiendaDecorator extends TrabajoTiendaMapper {
 
-	@Autowired
-	private TrabajoTiendaMapper delegate;
+    @Autowired
+    private TrabajoTiendaMapper delegate;
 
-	@Override
-	public List<TrabajoTienda> mergeTrabajoTiendaDtoAndTrabajoDtoToTrabajoTienda(
-            List<TrabajoTiendaDto> src, TrabajoDto trabajo) {
-		List<TrabajoTienda> result = new ArrayList<>();
-		if (CollectionUtils.isNotEmpty(src)) {
-			src.forEach(item -> {
-				result.add(delegate.mergeTrabajoTiendaDtoAndTrabajoDtoToTrabajoTienda(item, trabajo));
-			});
-		}
-		return result;
-	}
+    @Override
+    public List<TrabajoTienda> mergeTrabajoTiendaDtoAndTrabajoDtoToTrabajoTienda(List<TrabajoTiendaDto> src,
+            TrabajoDto trabajo) {
+        List<TrabajoTienda> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(src)) {
+            src.forEach(item -> result.add(delegate.mergeTrabajoTiendaDtoAndTrabajoDtoToTrabajoTienda(item, trabajo)));
+        }
+        return result;
+    }
 }
