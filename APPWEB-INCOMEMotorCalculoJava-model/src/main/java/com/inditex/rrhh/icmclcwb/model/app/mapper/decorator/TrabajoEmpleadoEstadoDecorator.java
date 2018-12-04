@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
 
 public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEstadoMapper {
@@ -31,5 +32,22 @@ public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEsta
 		}
 		return dtoList;
 	}
+	
+   @Override
+    public List<TrabajoEmpleadoEstadoDto> genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(
+            List<GenericEmpleadoResultItemDto> src, TrabajoDto trabajo) {
+        List<TrabajoEmpleadoEstadoDto> dtoList = new ArrayList<>();
+        EstadoTrabajoEmpleadoDto estado = new EstadoTrabajoEmpleadoDto();
+        estado.setId(AppConstants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
+        for (GenericEmpleadoResultItemDto childDto : src) {
+            TrabajoEmpleadoEstadoDto dto = delegate.genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(childDto,
+                    trabajo);
+            dto.setEstado(estado);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+	
+	
 
 }

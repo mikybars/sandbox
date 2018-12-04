@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -16,9 +16,9 @@ public class GenericTiendaResultItemDto implements Serializable {
 	
 	private String idPais;
 	
-	private LocalDate fechaInicio;
+	private LocalDateTime fechaInicio;
 	
-	private LocalDate fechaFin;
+	private LocalDateTime fechaFin;
 	
 	private String idCadena;
 	

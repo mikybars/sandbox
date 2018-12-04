@@ -11,4 +11,13 @@ public interface TrabajoDatosMeta4IcmWsCalcIncomeAsyncService {
 
 	CompletableFuture<Void> searchTiendas(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
+    CompletableFuture<Void> tiendas(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+
+    CompletableFuture<Void> tiendasHistorico(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+
+    CompletableFuture<Void> tiendasParametro(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+
+    CompletableFuture<Void> condicionesEmpleados(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+
+    CompletableFuture<Void> empleadosTienda(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 }

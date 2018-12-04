@@ -1,14 +1,13 @@
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
-import lombok.Data;
-import lombok.ToString;
-
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
 
 @Data
 public class TrabajoTiendaEstadoDto implements Serializable {
@@ -31,16 +30,16 @@ public class TrabajoTiendaEstadoDto implements Serializable {
 	@NotBlank
 	private String idTiendaMeta4;
 
-	@NotBlank
+//	@NotBlank
 	private String idPais;
 
-	@NotBlank
+//	@NotBlank
 	private String idPaisOrigen;
 
-	@NotBlank
+//	@NotBlank
 	private String idEmpresa;
 
-	@NotBlank
+//	@NotBlank
 	private String idCadena;
 
 	@NotNull
