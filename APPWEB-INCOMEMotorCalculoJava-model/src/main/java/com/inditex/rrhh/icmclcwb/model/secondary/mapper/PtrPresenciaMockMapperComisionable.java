@@ -8,6 +8,9 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPr
 
 public class PtrPresenciaMockMapperComisionable {
 
+    private PtrPresenciaMockMapperComisionable() {
+    }
+
     public static PtrPresenciaDetalleRequestDto asPresenciaComisionableToDetalle(
             PtrPresenciaDetalleComisionableRequestDto src) {
         List<Integer> list = new ArrayList<>();

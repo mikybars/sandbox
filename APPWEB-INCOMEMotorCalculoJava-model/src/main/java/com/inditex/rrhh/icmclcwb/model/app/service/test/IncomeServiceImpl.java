@@ -15,7 +15,6 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,14 +122,14 @@ public class IncomeServiceImpl implements IncomeService {
 			ventas.clear();
 		}
 
-		logger.info("Parse e inserccion de datos en el modelo de datos realizado en: " + getLogTiempo(time1));
+		logger.info("Parse e inserccion de datos en el modelo de datos realizado en: {}", getLogTiempo(time1));
 		time1 = new java.util.Date();
 
 		final List<VentaDto> ventas1 = sQLServerRepository.getDatosXMLTrozos();
 		final List<VentaDto> ventas2 = sQLServerRepository.getDatosJoinXMLTrozos();
-		logger.info("Numero resultados ventas1: " + String.valueOf(ventas1.size()));
-		logger.info("Numero resultados ventas2: " + String.valueOf(ventas2.size()));
-		logger.info("Resto del proceso realizado en: " + getLogTiempo(time1));
+		logger.info("Numero resultados ventas1: {}", Integer.valueOf(ventas1.size()));
+		logger.info("Numero resultados ventas2: {}", Integer.valueOf(ventas2.size()));
+		logger.info("Resto del proceso realizado en: {}", getLogTiempo(time1));
 	}
 
 	@Override
@@ -140,21 +139,21 @@ public class IncomeServiceImpl implements IncomeService {
 		final File ficheroXML = new File(path);
 		final String contenidoFichero = FileUtils.readFileToString(ficheroXML, "UTF-8");
 
-		logger.info("Parseo del fichero realizado en: " + getLogTiempo(time1));
+		logger.info("Parseo del fichero realizado en: {}", getLogTiempo(time1));
 		time1 = new java.util.Date();
 
 		dB2Repository.crearTemporalTest1();
 		dB2Repository.insertarDatosXMLCompleto(contenidoFichero);
 
-		logger.info("Inserccion de datos en el modelo de datos realizado en: " + getLogTiempo(time1));
+		logger.info("Inserccion de datos en el modelo de datos realizado en: {}", getLogTiempo(time1));
 		time1 = new java.util.Date();
 
 		final List<VentaDto> ventas1 = dB2Repository.getDatosXMLCompleto();
 		final List<VentaDto> ventas2 = dB2Repository.getDatosJoinXMLCompleto();
-		logger.info("Numero resultados ventas1: " + String.valueOf(ventas1.size()));
-		logger.info("Numero resultados ventas2: " + String.valueOf(ventas2.size()));
+		logger.info("Numero resultados ventas1: {}", Integer.valueOf(ventas1.size()));
+		logger.info("Numero resultados ventas2: {}", Integer.valueOf(ventas2.size()));
 
-		logger.info("Resto del proceso realizado en: " + getLogTiempo(time1));
+		logger.info("Resto del proceso realizado en: {}", getLogTiempo(time1));
 	}
 
 	private String getLogTiempo(final java.util.Date fechaInicio) {
@@ -222,7 +221,7 @@ public class IncomeServiceImpl implements IncomeService {
 			ventas.clear();
 		}
 
-		logger.info("Parse e inserccion de datos en el modelo de datos realizado en: " + getLogTiempo(time1));
+		logger.info("Parse e inserccion de datos en el modelo de datos realizado en: {}", getLogTiempo(time1));
 		time1 = new java.util.Date();
 
 		final List<VentaDto> ventas1 = dB2Repository.getDatosXMLTrozos();
@@ -263,21 +262,21 @@ public class IncomeServiceImpl implements IncomeService {
 		final File ficheroXML = new File(path);
 		final String contenidoFichero = FileUtils.readFileToString(ficheroXML, "UTF-8");
 
-		logger.info("Parseo del fichero realizado en: " + getLogTiempo(time1));
+		logger.info("Parseo del fichero realizado en: {}", getLogTiempo(time1));
 		time1 = new java.util.Date();
 
 		dB2Repository.crearTemporalTest1();
 		dB2Repository.insertarDatosJSONCompleto(contenidoFichero);
 
-		logger.info("Inserccion de datos en el modelo de datos realizado en: " + getLogTiempo(time1));
+		logger.info("Inserccion de datos en el modelo de datos realizado en: {}", getLogTiempo(time1));
 		time1 = new java.util.Date();
 
 		final List<VentaDto> ventas1 = dB2Repository.getDatosJSONCompleto();
 		final List<VentaDto> ventas2 = dB2Repository.getDatosJoinJSONCompleto();
-		logger.info("Numero resultados ventas1: " + String.valueOf(ventas1.size()));
-		logger.info("Numero resultados ventas2: " + String.valueOf(ventas2.size()));
+		logger.info("Numero resultados ventas1: {}", Integer.valueOf(ventas1.size()));
+		logger.info("Numero resultados ventas2: {}", Integer.valueOf(ventas2.size()));
 
-		logger.info("Resto del proceso realizado en: " + getLogTiempo(time1));
+		logger.info("Resto del proceso realizado en: {}", getLogTiempo(time1));
 	}
 
 	@Override

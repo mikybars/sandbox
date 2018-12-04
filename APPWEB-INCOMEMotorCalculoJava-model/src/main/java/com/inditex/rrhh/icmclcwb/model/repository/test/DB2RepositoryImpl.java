@@ -96,7 +96,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("IMPORTE_SIN_IVA FLOAT PATH 'importeSinIVA'").append(") AS X").append("where tienda=224")
 				.toString();
 		final List<VentaDto> resultado = jdbcTemplate.query(sql, new BeanPropertyRowMapper(VentaDto.class));
-		logger.info("Se obtienen datos TEST1: OK : " + getLogTiempo(time1));
+		logger.info("Se obtienen datos TEST1: OK : {}", getLogTiempo(time1));
 		return resultado;
 	}
 
@@ -117,7 +117,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("IMPORTE_CON_IVA FLOAT PATH 'importeConIVA',")
 				.append("IMPORTE_SIN_IVA FLOAT PATH 'importeSinIVA'").append(") AS X").toString();
 		jdbcTemplate.execute(sql);
-		logger.info("Se inserta datos en temporal TEST2: OK : " + getLogTiempo(time1));
+		logger.info("Se inserta datos en temporal TEST2: OK : {}", getLogTiempo(time1));
 
 		time1 = new java.util.Date();
 		logger.info("Se inserta datos en temporal TEST3");
@@ -126,7 +126,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("SELECT fecha, idPais, idCadena, idTienda, importeSinIVA, importeConIVA")
 				.append(" FROM session.TEST2").toString();
 		jdbcTemplate.execute(sql);
-		logger.info("Se inserta datos en temporal TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se inserta datos en temporal TEST3: OK : {}", getLogTiempo(time1));
 
 		time1 = new java.util.Date();
 		logger.info("Se obtienen datos TEST3");
@@ -136,7 +136,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append(" AND t1.idPais=t2.idPais").append(" AND t1.idCadena=t2.idCadena")
 				.append(" AND t1.idTienda=t2.idTienda").append(" AND t1.idTienda=224").toString();
 		final List<VentaDto> resultado = jdbcTemplate.query(sql, new BeanPropertyRowMapper(VentaDto.class));
-		logger.info("Se obtienen datos TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se obtienen datos TEST3: OK : {}", getLogTiempo(time1));
 		return resultado;
 	}
 
@@ -190,7 +190,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append(" fecha, idPais, idCadena, idTienda, importeSinIVA, importeConIVA")
 				.append(" FROM session.TEST2").append(" WHERE idTienda=224").toString();
 		final List<VentaDto> resultado = jdbcTemplate.query(sql, new BeanPropertyRowMapper(VentaDto.class));
-		logger.info("Se obtienen datos TEST2: OK : " + getLogTiempo(time1));
+		logger.info("Se obtienen datos TEST2: OK : {}", getLogTiempo(time1));
 		return resultado;
 	}
 
@@ -205,7 +205,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append("SELECT fecha, idPais, idCadena, idTienda, importeSinIVA, importeConIVA")
 				.append(" FROM session.TEST2").toString();
 		jdbcTemplate.execute(sql);
-		logger.info("Se inserta datos en temporal TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se inserta datos en temporal TEST3: OK : {}", getLogTiempo(time1));
 
 		time1 = new java.util.Date();
 		logger.info("Se obtienen datos TEST3");
@@ -215,7 +215,7 @@ public class DB2RepositoryImpl implements DB2Repository {
 				.append(" AND t1.idPais=t2.idPais").append(" AND t1.idCadena=t2.idCadena")
 				.append(" AND t1.idTienda=t2.idTienda").append(" AND t1.idTienda=224").toString();
 		final List<VentaDto> resultado = jdbcTemplate.query(sql, new BeanPropertyRowMapper(VentaDto.class));
-		logger.info("Se obtienen datos TEST3: OK : " + getLogTiempo(time1));
+		logger.info("Se obtienen datos TEST3: OK : {}", getLogTiempo(time1));
 		return resultado;
 	}
 
