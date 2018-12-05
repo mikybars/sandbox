@@ -178,7 +178,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                             }
                         }
 
-                        filter.setItem(data.stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo("T" + e.getIdLugarTrabajo()).build())
+                        filter.setItem(data.stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdLugarTrabajo()).build())
                                 .collect(Collectors.toList()));
                   
                         TiendasRequestDto tiendasRequest = new TiendasRequestDto();
@@ -278,14 +278,11 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             
-            trabajoRunDatos.setTiendasPresenciaNuevas(trabajoTiendaEstadoRepositoryCustom
-                    .customFindByIdTiendaNotExists(trabajoRunDatos.getTiendasPresencia()));
-           
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             GenericFilterDto filter = trabajoMapper.trabajoDtoToGenericFilterDto(trabajo);
 
             if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-                filter.setItem(trabajo.getTiendas().stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo("T" + e.getIdTienda()).build())
+                filter.setItem(trabajo.getTiendas().stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdTienda()).build())
                         .collect(Collectors.toList()));
             } else if (StringUtils.isNotBlank(trabajo.getIdPaisOrigen())
                     && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
@@ -356,7 +353,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                 filter.setItem(trabajo.getEmpleados().stream().map(e -> GenericFilterParametersDto.builder().idEmpleado(e.getIdEmpleado()).build())
                         .collect(Collectors.toList()));
             } else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-                filter.setItem(trabajo.getTiendas().stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo("T" + e.getIdTienda()).build())
+                filter.setItem(trabajo.getTiendas().stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdTienda()).build())
                         .collect(Collectors.toList()));
             } else if (StringUtils.isNotBlank(trabajo.getIdPaisOrigen())
                     && StringUtils.isNotBlank(trabajo.getIdEmpresa())) {
@@ -447,7 +444,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
                 List<GenericTiendaResultItemDto> dataT = cfDataTiendas.get();
                 
-                filter.setItem(dataT.stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo("T" + e.getIdLugarTrabajo()).build())
+                filter.setItem(dataT.stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdLugarTrabajo()).build())
                         .collect(Collectors.toList()));
                 
                 CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService

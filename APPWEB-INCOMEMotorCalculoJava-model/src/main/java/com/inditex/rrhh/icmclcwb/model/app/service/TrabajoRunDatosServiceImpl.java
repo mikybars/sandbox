@@ -21,7 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunDatosService;
@@ -37,9 +36,6 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
     @Autowired
     private TrabajoService trabajoService;
-
-    @Autowired
-    private TrabajoDatosMeta4IcmWsIncomeAsyncService trabajoDatosMeta4IcmWsIncomeAsyncService;
 
     @Autowired
     private TrabajoDatosMeta4IcmWsCalcIncomeAsyncService trabajoDatosMeta4IcmWsCalcIncomeAsyncService;
@@ -70,26 +66,15 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                 // TODO ICM_WS_CALC_INCOME
                 // [Pais|Pais+Empresa|Tienda/s] SEARCHTIENDAS -> GETTIENDASINCOME
                 // [Empleado/s] SEARCHEMPLEADOS -> SEARCHTIENDAS -> GETTIENDASINCOME
-//                CompletableFuture<Void> cfTiendasParametro = trabajoDatosMeta4IcmWsIncomeAsyncService
-//                        .tiendasParametro(trabajo);
-//                AsyncUtils.exceptionally(cfTiendasParametro, cf);
+
                 CompletableFuture<Void> cfTiendasParametro = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
                         .tiendasParametro(trabajo, trabajoRunDatos);
                 AsyncUtils.exceptionally(cfTiendasParametro, cf);
 
-                // TODO ICM_WS_CALC_INCOME :: (GETTIENDASEMPLEADO - {Tiendas entrada}) ->
-                // GETTIENDASINCOME
-//                CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsIncomeAsyncService
-//                        .tiendasHistorico(trabajo);
-//                AsyncUtils.exceptionally(cfTiendasHistorico, cf);
                 
                 CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
                         .tiendasHistorico(trabajo, trabajoRunDatos);
                 AsyncUtils.exceptionally(cfTiendasHistorico, cf);
-
-//                CompletableFuture<Void> cfSearchTiendas = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-//                        .searchTiendas(trabajo, trabajoRunDatos);
-//                AsyncUtils.exceptionally(cfSearchTiendas, cf);
 
                 CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
                 AsyncUtils.exceptionally(cfTiposHoras, cf);
@@ -103,7 +88,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                                 trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
 
                 // TODO ICM_WS_CALC_INCOME :: GETEMPLEADOS
-                CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4IcmWsIncomeAsyncService.empleadosTienda(trabajo);
+                CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.empleadosTienda(trabajo, trabajoRunDatos);
                 AsyncUtils.exceptionally(cfEmpleados, cf);
 
                 CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosPtrVentaAsyncService
