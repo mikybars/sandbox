@@ -111,7 +111,7 @@ public class Meta4IcmWsIncomeSessionServiceImpl extends Meta4PageableServiceImpl
             trabajo.getTiendas().forEach(item -> tiendas.add(item.getIdTienda()));
         }
         return pocTiendaMapper.pocTiendaToPocTiendaDto(pocTiendaRepository
-                .findByIdPaisOrigenAndIdEmpresaAndIdIn(trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa(), tiendas));
+                .findByIdPaisOrigenAndIdEmpresaAndIdTiendaMeta4In(trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa(), tiendas));
     }
 
 }
