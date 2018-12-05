@@ -27,6 +27,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
 		return result;
 	}
 	
+	//TODO: Llegaban fechas con vacío y se controló manualmente
 	@Override
     public GenericTiendaResultItemDto asGenericTiendaResultItemDto(IcmListatiendasRecord src) {
         GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(src);
@@ -40,6 +41,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         return mappedEntity;
     }
 	
+    //TODO: Llegaban fechas con vacío y se controló manualmente
 	@Override
     public List<GenericTiendaResultItemDto> asGenericTiendaResultItemDtos(List<IcmListatiendasRecord> src) {
 	    List<GenericTiendaResultItemDto> list = new ArrayList<>();

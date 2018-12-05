@@ -252,11 +252,11 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                          List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
                                  .genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
                          if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
-//                             AsyncUtils.checkAsyncAvaliable(cfPersist,
-//                            		 getComisionEmpleadoDto.getFilter().getMaxPersistenceSize());
-//                             CompletableFuture<Void> cfSave = trabajoEmpleadoEstadoAsyncService
-//                                     .save(trabajoEmpleadoEstado);
-//                             AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                             AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            		 getComisionEmpleadoDto.getFilter().getMaxPersistenceSize());
+                             CompletableFuture<Void> cfSave = trabajoEmpleadoEstadoAsyncService
+                                     .save(trabajoEmpleadoEstado);
+                             AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                          }
                      }
                  }
@@ -314,16 +314,11 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
                 if (CollectionUtils.isNotEmpty(dataTiendasComisionables) && CollectionUtils.isNotEmpty(dataTiendas)) {
                     
-                    dataTiendas.stream()
-                            .filter(p1 -> dataTiendas.stream()
-                            .anyMatch(p2 -> p1.getIdTiendaMtu().equals(p2.getIdTiendaMtu()) && !p2.isEsComisionable()))
-                            .forEach(dataTiendas::remove);
-                    
                     List<TrabajoTiendaEstadoDto> trabajoTiendaEstado = trabajotiendaEstadoMapper
                             .genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(dataTiendas);
                     if (CollectionUtils.isNotEmpty(trabajoTiendaEstado)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                getTiendasEmpleadoDto.getFilter().getMaxPersistenceSize());
+                                searchTiendasDto.getFilter().getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = trabajoTiendaEstadoAsyncService.save(trabajoTiendaEstado,
                                 trabajo);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -363,7 +358,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
             }
             
             TiendasRequestDto tiendasRequest = new TiendasRequestDto();
-            tiendasRequest.setPage(getTiendasEmpleadoDto.getPage());
+            tiendasRequest.setPage(getTiendasDto.getPage());
             tiendasRequest.setData(filter);
             boolean hasNext = false;
             do {
@@ -378,7 +373,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                             .genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(data);
                     if (CollectionUtils.isNotEmpty(trabajoTiendaEstado)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                getTiendasEmpleadoDto.getFilter().getMaxPersistenceSize());
+                                getTiendasDto.getFilter().getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = trabajoTiendaEstadoAsyncService.save(trabajoTiendaEstado,
                                 trabajo);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -412,18 +407,15 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
             }
             
             SearchEmpleadosRequestDto searchEmpleadosRequest = new SearchEmpleadosRequestDto();
-            //TODO: Cambiar esto
-            searchEmpleadosRequest.setPage(getTiendasEmpleadoDto.getPage());
+            searchEmpleadosRequest.setPage(searchEmpleadosDto.getPage());
             searchEmpleadosRequest.setData(filter);
             
             SearchTiendasRequestDto searchTiendasRequest = new SearchTiendasRequestDto();
-            //TODO: Cambiar esto
-            searchTiendasRequest.setPage(getTiendasEmpleadoDto.getPage());
+            searchTiendasRequest.setPage(searchTiendasDto.getPage());
             searchTiendasRequest.setData(filter);
             
             TiendasRequestDto tiendasRequest = new TiendasRequestDto();
-            //TODO: Cambiar esto
-            tiendasRequest.setPage(getTiendasEmpleadoDto.getPage());
+            tiendasRequest.setPage(getTiendasDto.getPage());
             tiendasRequest.setData(filter);
 
             boolean hasNext = false;
@@ -459,7 +451,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                             .genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(dataTC);
                     if (CollectionUtils.isNotEmpty(trabajoTiendaEstado)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                getTiendasEmpleadoDto.getFilter().getMaxPersistenceSize());
+                                searchEmpleadosDto.getFilter().getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = trabajoTiendaEstadoAsyncService.save(trabajoTiendaEstado,
                                 trabajo);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -488,9 +480,13 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
             GenericFilterDto filter = trabajoMapper.trabajoDtoToGenericFilterDto(trabajo);
     
             EmpleadosRequestDto empleadosRequest = new EmpleadosRequestDto();
-            //TODO: Cambiar esto
-            empleadosRequest.setPage(getTiendasEmpleadoDto.getPage());
+            empleadosRequest.setPage(getEmpleadosDto.getPage());
             empleadosRequest.setData(filter);
+
+//            if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
+//                filter.setItem(trabajo.getTiendas().stream().map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdTienda()).build())
+//                        .collect(Collectors.toList()));
+//            }
             
             boolean hasNext = false;
             do {
@@ -501,14 +497,14 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
     
                 List<GenericEmpleadoResultItemDto> data = cfDataEmpleados.get();
                 if (CollectionUtils.isNotEmpty(data)) {
-//                    List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
-//                            .genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
-//                    if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
-//                        AsyncUtils.checkAsyncAvaliable(cfPersist,
-//                                getTiendasEmpleadoDto.getFilter().getMaxPersistenceSize());
-//                        CompletableFuture<Void> cfSave = trabajoEmpleadoEstadoAsyncService.save(trabajoEmpleadoEstado);
-//                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-//                    }
+                    List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
+                            .genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
+                    if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                getEmpleadosDto.getFilter().getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSave = trabajoEmpleadoEstadoAsyncService.save(trabajoEmpleadoEstado);
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    }
                 }
                 hasNext = empleadosRequest.nextPage();
             } while(hasNext);

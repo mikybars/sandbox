@@ -49,6 +49,10 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     @Qualifier("getEmpleadosDto")
     private Meta4PropertiesDto getEmpleadosDto;
     
+    @Autowired
+    @Qualifier("getEmpleadosTiendaDto")
+    private Meta4PropertiesDto getEmpleadosTiendaDto;
+    
     
     @Override
     public List<GenericTiendaResultItemDto> getTiendasEmpleado(final TiendasEmpleadoRequestDto request)
