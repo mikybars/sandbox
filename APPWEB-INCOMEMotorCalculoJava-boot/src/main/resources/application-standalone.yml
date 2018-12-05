@@ -20,7 +20,8 @@ spring:
 #  jta:
 #    atomikos:
 #      properties:
-#        default-jta-timeout: 60000 (ms)
+#        # Por defecto 10000 (ms)
+#        default-jta-timeout: 60000
   h2:
     console:
       enabled: true
