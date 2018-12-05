@@ -184,7 +184,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                         TiendasRequestDto tiendasRequest = new TiendasRequestDto();
                         tiendasRequest.setPage(getTiendasEmpleadoDto.getPage());
                         tiendasRequest.setData(filter);
-                        
+                        // TODO Pendiente revision Soap vs Java
                         CompletableFuture<List<GenericTiendaResultItemDto>> cfDataTiendas = meta4IcmWsCalcIncomeSessionAsyncService
                                 .getTiendas(tiendasRequest);
                         AsyncUtils.exceptionally(cfData, cf);
@@ -497,7 +497,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
             
             boolean hasNext = false;
             do {
-                // Consultamos en meta4 los empleados por tienda de forma paginada.
+                // TODO Pendiente revision Soap vs Java
                 CompletableFuture<List<GenericEmpleadoResultItemDto>> cfDataEmpleados = meta4IcmWsCalcIncomeSessionAsyncService
                         .getEmpleados(empleadosRequest);
                 AsyncUtils.exceptionally(cfDataEmpleados, cf);
