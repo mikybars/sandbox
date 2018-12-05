@@ -75,7 +75,7 @@ public class LoggingAspect {
         }
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
-            log.info("Trabajo[{}] :: Inicio :: Auditoria :: {} :: {} :: {}", trabajo.getId(),
+            log.info("Trabajo[{}] :: Inicio :: AuditoriaTrabajo :: {} :: {} :: {}", trabajo.getId(),
                     pjp.getSignature().toShortString(), args, trabajo);
         }
         Object result;
@@ -85,7 +85,7 @@ public class LoggingAspect {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
                 String msg = new StringBuilder("Trabajo[").append(trabajo.getId())
-                        .append("] :: Fin :: Error :: Auditoria[").append(Duration.between(start, end)).append("] :: ")
+                        .append("] :: Fin :: Error :: AuditoriaTrabajo[").append(Duration.between(start, end)).append("] :: ")
                         .append(pjp.getSignature().toShortString()).append(" :: ").append(trabajo).toString();
                 log.error(msg, e);
             }
@@ -93,7 +93,7 @@ public class LoggingAspect {
         }
         if (log.isInfoEnabled()) {
             Instant end = Instant.now();
-            log.info("Trabajo[{}] :: Fin :: Ok :: Auditoria[{}] :: {} :: {} :: {}", trabajo.getId(),
+            log.info("Trabajo[{}] :: Fin :: Ok :: AuditoriaTrabajo[{}] :: {} :: {} :: {}", trabajo.getId(),
                     Duration.between(start, end), pjp.getSignature().toShortString(), result, trabajo);
         }
         return result;
@@ -124,7 +124,7 @@ public class LoggingAspect {
         }
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
-            log.info("Trabajo[{}] :: Inicio :: Auditoria :: {} :: {} :: {}", trabajo.getId(),
+            log.info("Trabajo[{}] :: Inicio :: AuditoriaTrabajoRun :: {} :: {} :: {}", trabajo.getId(),
                     pjp.getSignature().toShortString(), args, trabajo);
         }
         Object result;
@@ -134,7 +134,7 @@ public class LoggingAspect {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
                 String msg = new StringBuilder("Trabajo[").append(trabajo.getId())
-                        .append("] :: Fin :: Error :: Auditoria[").append(Duration.between(start, end)).append("] :: ")
+                        .append("] :: Fin :: Error :: AuditoriaTrabajoRun[").append(Duration.between(start, end)).append("] :: ")
                         .append(pjp.getSignature().toShortString()).append(" :: ").append(trabajo).toString();
                 log.error(msg, e);
             }
@@ -142,7 +142,7 @@ public class LoggingAspect {
         }
         if (log.isInfoEnabled()) {
             Instant end = Instant.now();
-            log.info("Trabajo[{}] :: Fin :: Ok :: Auditoria[{}] :: {} :: {} :: {}", trabajo.getId(),
+            log.info("Trabajo[{}] :: Fin :: Ok :: AuditoriaTrabajoRun[{}] :: {} :: {} :: {}", trabajo.getId(),
                     Duration.between(start, end), pjp.getSignature().toShortString(), result, trabajo);
         }
         return result;
@@ -184,7 +184,18 @@ public class LoggingAspect {
         if (log.isDebugEnabled()) {
             log.debug("Inicio :: {} :: {}", pjp.getSignature().toShortString(), Arrays.asList(pjp.getArgs()));
         }
-        Object result = pjp.proceed();
+        Object result;
+        try {
+            result = pjp.proceed();
+        } catch (Throwable e) {
+            if (log.isErrorEnabled()) {
+                Instant end = Instant.now();
+                String msg = new StringBuilder("Fin :: Error :: Generic[").append(Duration.between(start, end))
+                        .append("] :: ").append(pjp.getSignature().toShortString()).toString();
+                log.error(msg, e);
+            }
+            throw e;
+        }
         if (log.isDebugEnabled()) {
             log.debug("Fin :: {} :: {}", pjp.getSignature().toShortString(), result);
         }
