@@ -12,6 +12,6 @@ public interface PocTiendaRepository extends BaseRepository<PocTienda, String> {
 	
 	List<PocTienda> findByIdPaisOrigenAndIdEmpresa(@NotBlank String idPaisOrigen, @NotBlank String idEmpresa);
 	
-	List<PocTienda> findByIdPaisOrigenAndIdEmpresaAndIdIn(@NotBlank String idPaisOrigen, @NotBlank String idEmpresa, @NotNull List<String> tiendas);
+	List<PocTienda> findByIdPaisOrigenAndIdEmpresaAndIdTiendaMeta4In(@NotBlank String idPaisOrigen, @NotBlank String idEmpresa, @NotNull List<String> tiendas);
 
 }
