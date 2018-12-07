@@ -12,6 +12,10 @@ app:
   id: ${spring.application.name}
   version: '@project.version@'
 amiga:
+  monitoring:
+    metrics:
+      enabled: true
+      send: true
   common:
     cache:
       remote:
