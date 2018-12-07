@@ -1,11 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaServic
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaSeccionVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionVentaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionVentaRepositoryCustom;
 
 @Service
 @Validated
@@ -24,6 +25,9 @@ public class TrabajoTiendaSeccionVentaServiceImpl implements TrabajoTiendaSeccio
 
     @Autowired
     private TrabajoTiendaSeccionVentaRepository trabajoTiendaSeccionVentaRepository;
+    
+    @Autowired
+    private TrabajoTiendaSeccionVentaRepositoryCustom trabajoTiendaSeccionVentaRepositoryCustom;
 
     @Override
     public TrabajoTiendaSeccionVentaDto save(@Valid final TrabajoTiendaSeccionVentaDto dto) {
@@ -38,11 +42,11 @@ public class TrabajoTiendaSeccionVentaServiceImpl implements TrabajoTiendaSeccio
     }
 
     // TODO: Revisar timeouts en transacciones
-    @Transactional(timeout = 60)
+//    @Transactional(timeout = 60)
     @Override
     public List<TrabajoTiendaSeccionVentaDto> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto) {
-        return mapper.trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(trabajoTiendaSeccionVentaRepository
-                .save(mapper.getVentaTotalizadoReponseItemsDtoToTrabajoTiendaSeccionVentas(dto, trabajoDto)));
+        return mapper.trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(trabajoTiendaSeccionVentaRepositoryCustom
+                .saveBatch(mapper.getVentaTotalizadoReponseItemsDtoToTrabajoTiendaSeccionVentas(dto, trabajoDto)));
     }
 
 }

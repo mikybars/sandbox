@@ -71,18 +71,27 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                         .tiendasParametro(trabajo, trabajoRunDatos);
                 AsyncUtils.exceptionally(cfTiendasParametro, cf);
 
+                CompletableFuture<Void> cfTiendasHistorico = null;
                 
-                CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                        .tiendasHistorico(trabajo, trabajoRunDatos);
-                AsyncUtils.exceptionally(cfTiendasHistorico, cf);
-
+                if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
+                    cfTiendasHistorico = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.tiendasHistorico(trabajo,
+                            trabajoRunDatos);
+                    AsyncUtils.exceptionally(cfTiendasHistorico, cf);
+                }
+                
                 CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
                 AsyncUtils.exceptionally(cfTiposHoras, cf);
 
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfTiendasHistorico);
                 /*-------------------------------------------------------------*/
-
+                
+                //TODO Revisar si son comisionables
+                CompletableFuture<Void> cfTiendasComisionable = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+                        .tiendasComisionable(trabajo, trabajoRunDatos);
+                AsyncUtils.exceptionally(cfTiendasComisionable, cf);
+                
+                
                 trabajoRunDatos.setCadenasEmpresa(
                         trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
                                 trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
@@ -131,11 +140,18 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
                     if (CollectionUtils.isNotEmpty(trabajoRunDatos.getTiendasPresencia())) {
                         // TODO ICM_WS_CALC_INCOME :: SEARCHTIENDAS -> GETTIENDASINCOME
-                        CompletableFuture<Void> cfTiendasEmpleado = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                                .tiendasEmpleado(trabajo, trabajoRunDatos);
-                        AsyncUtils.exceptionally(cfTiendasEmpleado, cf);
+                        CompletableFuture<Void> cfTiendasPresencia = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+                                .tiendasPresencia(trabajo, trabajoRunDatos);
+                        AsyncUtils.exceptionally(cfTiendasPresencia, cf);
+                        
+                        AsyncUtils.waitAllOfIsOk(cf, cfTiendasPresencia);
                     }
 
+                    //TODO Revisar si son comisionables
+                    CompletableFuture<Void> cfTiendasComisionablePresencia = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+                            .tiendasComisionable(trabajo, trabajoRunDatos);
+                    AsyncUtils.exceptionally(cfTiendasComisionablePresencia, cf);
+                    
                     CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosPtrVentaAsyncService
                             .ventaTotalizadaTienda(trabajo,
                                     Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()), trabajoRunDatos);

@@ -170,7 +170,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     	EmpleadosResponseDto result = new EmpleadosResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        param1.getIcmParametrosentradaRecordSet().add(new IcmParametrosentradaRecord());
 
         GetempleadosOutput getEmpleadosOutput = meta4IcmWsCalcIncomeClient.getempleados(param1, param2);
         if (getEmpleadosOutput != null
