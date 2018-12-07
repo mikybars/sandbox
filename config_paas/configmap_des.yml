@@ -3,6 +3,10 @@ logging:
     root: WARN
     com.inditex.rrhh.icmclcwb: INFO
 amiga:
+  monitoring:
+    metrics:
+      enabled: true
+      send: true
   common:
     rest:
       client:
