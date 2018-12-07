@@ -32,14 +32,14 @@ public class TrabajoTiendaEstadoServiceImpl implements TrabajoTiendaEstadoServic
     }
     
     @Override
-    public List<TrabajoTiendaEstadoDto> save(@Valid final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto) {
+    public List<TrabajoTiendaEstadoDto> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto) {
         return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(
         		trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
                         .trabajoTiendaEstadoDtoToTrabajoTiendaEstado(trabajoTiendaEstadoDto)));
     }
     
     @Override
-    public List<TrabajoTiendaEstadoDto> save (@Valid final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto, @Valid TrabajoDto trabajo){
+    public List<TrabajoTiendaEstadoDto> save (final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto, @Valid TrabajoDto trabajo){
     	return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(
     			trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
               .mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(trabajoTiendaEstadoDto, trabajo)));

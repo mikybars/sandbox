@@ -6,10 +6,10 @@ import org.mapstruct.BeforeMapping;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaEstadoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
@@ -58,19 +58,16 @@ public abstract class TrabajoTiendaEstadoMapper {
             List<TrabajoTiendaEstadoDto> srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto) {
         throw new UnsupportedOperationException("Not implemented");
     }
-
+    
     @Mapping(target = "idPaisOrigen", source = "idOrigen")
-    public abstract TrabajoTiendaEstadoDto tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(
-            TiendasEmpleadoResultItemDto src);
+    @Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
+    @Mapping(target = "idPais", source = "idPais")
+    @Mapping(target = "idEmpresa", source = "idEmpresa")
+    @Mapping(target = "idCadena", source = "idCadena")
+    @Mapping(target = "idTienda", source = "idTiendaMtu")
+    public abstract TrabajoTiendaEstadoDto genericTiendaResultItemDtoToTrabajoTiendaEstadoDto (GenericTiendaResultItemDto src);
+    
+    public abstract List<TrabajoTiendaEstadoDto> genericTiendaResultItemDtoToTrabajoTiendaEstadoDto (List<GenericTiendaResultItemDto> src);
 
-    public abstract List<TrabajoTiendaEstadoDto> tiendasEmpleadoResultItemDtoToTrabajoTiendaEstadoDto(
-            List<TiendasEmpleadoResultItemDto> src);
-
-    @Mapping(target = "idPaisOrigen", source = "idOrigen")
-    public abstract TrabajoTiendaEstadoDto searchTiendasResultItemDtoToTrabajoTiendaEstadoDto(
-            SearchTiendasResultItemDto src);
-
-    public abstract List<TrabajoTiendaEstadoDto> searchTiendasResultItemDtoToTrabajoTiendaEstadoDto(
-            List<SearchTiendasResultItemDto> src);
 
 }

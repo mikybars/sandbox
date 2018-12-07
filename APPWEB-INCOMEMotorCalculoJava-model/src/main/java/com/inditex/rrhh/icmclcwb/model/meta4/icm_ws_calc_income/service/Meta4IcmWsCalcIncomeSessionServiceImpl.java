@@ -11,16 +11,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWs
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto.EmpleadosRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto.EmpleadosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchempleados.dto.SearchEmpleadosRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchempleados.dto.SearchEmpleadosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendas.dto.TiendasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendas.dto.TiendasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 
 @Service
@@ -53,25 +49,29 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     @Qualifier("getEmpleadosDto")
     private Meta4PropertiesDto getEmpleadosDto;
     
+    @Autowired
+    @Qualifier("getEmpleadosTiendaDto")
+    private Meta4PropertiesDto getEmpleadosTiendaDto;
+    
     
     @Override
-    public List<TiendasEmpleadoResultItemDto> getTiendasEmpleado(final TiendasEmpleadoRequestDto request)
+    public List<GenericTiendaResultItemDto> getTiendasEmpleado(final TiendasEmpleadoRequestDto request)
             throws Exception {
     	return getResultItem(request, meta4IcmWsCalcIncomeService, "getTiendasEmpleado", getTiendasEmpleadoDto.getFilter().getMaxPageSize());
     }
     
     @Override
-    public List<SearchTiendasResultItemDto> searchTiendas(final SearchTiendasRequestDto request) throws Exception {
+    public List<GenericTiendaResultItemDto> searchTiendas(final SearchTiendasRequestDto request) throws Exception {
     	return getResultItem(request, meta4IcmWsCalcIncomeService, "searchTiendas", searchTiendasDto.getFilter().getMaxPageSize());
     }
     
     @Override
-    public List<TiendasResultItemDto> getTiendas(final TiendasRequestDto request) throws Exception {
+    public List<GenericTiendaResultItemDto> getTiendas(final TiendasRequestDto request) throws Exception {
     	return getResultItem(request, meta4IcmWsCalcIncomeService, "getTiendas", getTiendasDto.getFilter().getMaxPageSize());
     }
     
     @Override
-    public List<SearchEmpleadosResultItemDto> searchEmpleados(final SearchEmpleadosRequestDto request) throws Exception {
+    public List<GenericEmpleadoResultItemDto> searchEmpleados(final SearchEmpleadosRequestDto request) throws Exception {
     	return getResultItem(request, meta4IcmWsCalcIncomeService, "searchEmpleados", searchEmpleadosDto.getFilter().getMaxPageSize());
     }
 
@@ -81,7 +81,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     }
     
     @Override
-    public List<EmpleadosResultItemDto> getEmpleados(final EmpleadosRequestDto request) throws Exception {
+    public List<GenericEmpleadoResultItemDto> getEmpleados(final EmpleadosRequestDto request) throws Exception {
     	return getResultItem(request, meta4IcmWsCalcIncomeService, "getEmpleados", getEmpleadosDto.getFilter().getMaxPageSize());
     }
     

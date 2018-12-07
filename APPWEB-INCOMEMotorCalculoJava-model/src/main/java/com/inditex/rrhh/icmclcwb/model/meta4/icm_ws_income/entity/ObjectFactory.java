@@ -74,22 +74,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SAVEVENTAREALXLS }
-     * 
-     */
-    public SAVEVENTAREALXLS createSAVEVENTAREALXLS() {
-        return new SAVEVENTAREALXLS();
-    }
-
-    /**
-     * Create an instance of {@link IcmParametrosexcelBlock }
-     * 
-     */
-    public IcmParametrosexcelBlock createIcmParametrosexcelBlock() {
-        return new IcmParametrosexcelBlock();
-    }
-
-    /**
      * Create an instance of {@link GETEMPLEADOSDESPSALResponse }
      * 
      */
@@ -103,6 +87,22 @@ public class ObjectFactory {
      */
     public GetempleadosdespsalOutput createGetempleadosdespsalOutput() {
         return new GetempleadosdespsalOutput();
+    }
+
+    /**
+     * Create an instance of {@link SAVEVENTAREALXLS }
+     * 
+     */
+    public SAVEVENTAREALXLS createSAVEVENTAREALXLS() {
+        return new SAVEVENTAREALXLS();
+    }
+
+    /**
+     * Create an instance of {@link IcmParametrosexcelBlock }
+     * 
+     */
+    public IcmParametrosexcelBlock createIcmParametrosexcelBlock() {
+        return new IcmParametrosexcelBlock();
     }
 
     /**
@@ -146,22 +146,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SAVECONDICIONESVENTA }
-     * 
-     */
-    public SAVECONDICIONESVENTA createSAVECONDICIONESVENTA() {
-        return new SAVECONDICIONESVENTA();
-    }
-
-    /**
-     * Create an instance of {@link IcmCondicionesventaBlock }
-     * 
-     */
-    public IcmCondicionesventaBlock createIcmCondicionesventaBlock() {
-        return new IcmCondicionesventaBlock();
-    }
-
-    /**
      * Create an instance of {@link SAVEPRESENCIASEMPLEADO }
      * 
      */
@@ -175,6 +159,22 @@ public class ObjectFactory {
      */
     public IcmPresenciamanualBlock createIcmPresenciamanualBlock() {
         return new IcmPresenciamanualBlock();
+    }
+
+    /**
+     * Create an instance of {@link SAVECONDICIONESVENTA }
+     * 
+     */
+    public SAVECONDICIONESVENTA createSAVECONDICIONESVENTA() {
+        return new SAVECONDICIONESVENTA();
+    }
+
+    /**
+     * Create an instance of {@link IcmCondicionesventaBlock }
+     * 
+     */
+    public IcmCondicionesventaBlock createIcmCondicionesventaBlock() {
+        return new IcmCondicionesventaBlock();
     }
 
     /**
@@ -250,6 +250,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETDATOSGENTIENDA }
+     * 
+     */
+    public GETDATOSGENTIENDA createGETDATOSGENTIENDA() {
+        return new GETDATOSGENTIENDA();
+    }
+
+    /**
      * Create an instance of {@link GETGLOBALEMPLEADOResponse }
      * 
      */
@@ -263,14 +271,6 @@ public class ObjectFactory {
      */
     public GetglobalempleadoOutput createGetglobalempleadoOutput() {
         return new GetglobalempleadoOutput();
-    }
-
-    /**
-     * Create an instance of {@link GETDATOSGENTIENDA }
-     * 
-     */
-    public GETDATOSGENTIENDA createGETDATOSGENTIENDA() {
-        return new GETDATOSGENTIENDA();
     }
 
     /**
@@ -890,6 +890,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SAVEPRESENCIASTIENDA }
+     * 
+     */
+    public SAVEPRESENCIASTIENDA createSAVEPRESENCIASTIENDA() {
+        return new SAVEPRESENCIASTIENDA();
+    }
+
+    /**
      * Create an instance of {@link SAVEVENTAMANUALResponse }
      * 
      */
@@ -903,14 +911,6 @@ public class ObjectFactory {
      */
     public SaveventamanualOutput createSaveventamanualOutput() {
         return new SaveventamanualOutput();
-    }
-
-    /**
-     * Create an instance of {@link SAVEPRESENCIASTIENDA }
-     * 
-     */
-    public SAVEPRESENCIASTIENDA createSAVEPRESENCIASTIENDA() {
-        return new SAVEPRESENCIASTIENDA();
     }
 
     /**
@@ -1170,22 +1170,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETCONDICIONESVENTAResponse }
-     * 
-     */
-    public GETCONDICIONESVENTAResponse createGETCONDICIONESVENTAResponse() {
-        return new GETCONDICIONESVENTAResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetcondicionesventaOutput }
-     * 
-     */
-    public GetcondicionesventaOutput createGetcondicionesventaOutput() {
-        return new GetcondicionesventaOutput();
-    }
-
-    /**
      * Create an instance of {@link GETPLANTILLACONDICIONESResponse }
      * 
      */
@@ -1199,6 +1183,22 @@ public class ObjectFactory {
      */
     public GetplantillacondicionesOutput createGetplantillacondicionesOutput() {
         return new GetplantillacondicionesOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETCONDICIONESVENTAResponse }
+     * 
+     */
+    public GETCONDICIONESVENTAResponse createGETCONDICIONESVENTAResponse() {
+        return new GETCONDICIONESVENTAResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetcondicionesventaOutput }
+     * 
+     */
+    public GetcondicionesventaOutput createGetcondicionesventaOutput() {
+        return new GetcondicionesventaOutput();
     }
 
     /**
@@ -1330,19 +1330,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmErroresguardadoBlock }
-     * 
-     */
-    public IcmErroresguardadoBlock createIcmErroresguardadoBlock() {
-        return new IcmErroresguardadoBlock();
-    }
-
-    /**
      * Create an instance of {@link IcmParametrostiendaRecord }
      * 
      */
     public IcmParametrostiendaRecord createIcmParametrostiendaRecord() {
         return new IcmParametrostiendaRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmErroresguardadoBlock }
+     * 
+     */
+    public IcmErroresguardadoBlock createIcmErroresguardadoBlock() {
+        return new IcmErroresguardadoBlock();
     }
 
     /**
@@ -1458,19 +1458,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmCabeceraempleadoRecord }
-     * 
-     */
-    public IcmCabeceraempleadoRecord createIcmCabeceraempleadoRecord() {
-        return new IcmCabeceraempleadoRecord();
-    }
-
-    /**
      * Create an instance of {@link IcmCondicionesdesplazamientoRecord }
      * 
      */
     public IcmCondicionesdesplazamientoRecord createIcmCondicionesdesplazamientoRecord() {
         return new IcmCondicionesdesplazamientoRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmCabeceraempleadoRecord }
+     * 
+     */
+    public IcmCabeceraempleadoRecord createIcmCabeceraempleadoRecord() {
+        return new IcmCabeceraempleadoRecord();
     }
 
     /**

@@ -25,8 +25,11 @@ public class Meta4IcmWsCalcIncomeClientPropertiesConfig {
 	
 	Meta4PropertiesDto getEmpleados;
 	
+	Meta4PropertiesDto getEmpleadosTienda;
+
+	
 	@Bean(name = "getTiendasEmpleadoDto")
-	public Meta4PropertiesDto getEmpleadosTiendaPageDto() {
+	public Meta4PropertiesDto getTiendasEmpleadoPageDto() {
 		return getTiendasEmpleado;	
 	}
 
@@ -54,4 +57,9 @@ public class Meta4IcmWsCalcIncomeClientPropertiesConfig {
 	public Meta4PropertiesDto getEmpleadosPageDto() {
 		return getEmpleados;	
 	}	
+	
+    @Bean(name = "getEmpleadosTiendaDto")
+    public Meta4PropertiesDto getEmpleadosTiendaPageDto() {
+        return getEmpleadosTienda;    
+    }   
 }

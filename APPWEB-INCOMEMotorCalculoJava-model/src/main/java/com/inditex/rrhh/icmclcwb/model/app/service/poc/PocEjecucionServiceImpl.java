@@ -70,7 +70,7 @@ public class PocEjecucionServiceImpl implements PocEjecucionService {
         List<PocTiendaDto> pocTiendas;
         if (CollectionUtils.isNotEmpty(pocEjecucion.getTiendas())) {
             pocTiendas = pocTiendaMapper.pocTiendaToPocTiendaDto(
-                    pocTiendaRepository.findByIdPaisOrigenAndIdEmpresaAndIdIn(pocEjecucion.getIdPaisOrigen(),
+                    pocTiendaRepository.findByIdPaisOrigenAndIdEmpresaAndIdTiendaMeta4In(pocEjecucion.getIdPaisOrigen(),
                             pocEjecucion.getIdEmpresa(), pocEjecucion.getTiendas()));
             if (pocEjecucion.getTiendas().size() != pocTiendas.size()) {
                 throw new ApplicationException("Todas las tiendas no son validas");
@@ -93,7 +93,7 @@ public class PocEjecucionServiceImpl implements PocEjecucionService {
             List<TrabajoTiendaDto> tiendas = new ArrayList<>();
             pocTiendas.forEach(item -> {
                 TrabajoTiendaDto tienda = new TrabajoTiendaDto();
-                tienda.setIdTienda(item.getId());
+                tienda.setIdTienda(item.getIdTiendaMeta4());
                 tiendas.add(tienda);
             });
             trabajo.setTiendas(tiendas);

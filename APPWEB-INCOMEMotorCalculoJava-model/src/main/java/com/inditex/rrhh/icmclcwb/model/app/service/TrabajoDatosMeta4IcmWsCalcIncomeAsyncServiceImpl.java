@@ -30,4 +30,38 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     	trabajoDatosMeta4IcmWsCalcIncomeService.searchTiendas(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
+
+    @Override
+    public CompletableFuture<Void> tiendas(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+        trabajoDatosMeta4IcmWsCalcIncomeService.tiendas(trabajo, trabajoRunDatos);
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Override
+    public CompletableFuture<Void> tiendasHistorico(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
+            throws Exception {
+        trabajoDatosMeta4IcmWsCalcIncomeService.tiendasHistorico(trabajo, trabajoRunDatos);
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Override
+    public CompletableFuture<Void> tiendasParametro(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
+            throws Exception {
+        trabajoDatosMeta4IcmWsCalcIncomeService.tiendasParametro(trabajo, trabajoRunDatos);
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Override
+    public CompletableFuture<Void> condicionesEmpleados(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
+            throws Exception {
+        trabajoDatosMeta4IcmWsCalcIncomeService.condicionesEmpleados(trabajo, trabajoRunDatos);
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Override
+    public CompletableFuture<Void> empleadosTienda(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
+            throws Exception {
+        trabajoDatosMeta4IcmWsCalcIncomeService.empleadosTienda(trabajo, trabajoRunDatos);
+        return CompletableFuture.completedFuture(null);
+    }
 }

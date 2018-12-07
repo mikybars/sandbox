@@ -11,9 +11,9 @@ public interface TrabajoTiendaEstadoService {
 
 	TrabajoTiendaEstadoDto save(@Valid TrabajoTiendaEstadoDto trabajoTiendaEstadoDto);
 
-	List<TrabajoTiendaEstadoDto> save(@Valid List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto);
+	List<TrabajoTiendaEstadoDto> save(List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto);
 
-	List<TrabajoTiendaEstadoDto> save(@Valid List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto,
+	List<TrabajoTiendaEstadoDto> save(List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto,
 			@Valid TrabajoDto trabajo);
 
 }
