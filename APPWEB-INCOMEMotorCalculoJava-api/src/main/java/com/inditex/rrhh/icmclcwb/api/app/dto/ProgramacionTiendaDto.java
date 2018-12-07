@@ -20,7 +20,7 @@ public class ProgramacionTiendaDto implements Serializable {
 
 	@ToString.Exclude
 	@ApiModelProperty(value = "Programación", required = false, readOnly = true, hidden = true)
-	private ProgramacionDto programacion;
+	private Long idProgramacion;
 	
 	@NotBlank
 	@ApiModelProperty(value = "Id de la tienda", required = true, example = "56")

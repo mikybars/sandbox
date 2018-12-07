@@ -2,8 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
 import java.util.List;
 
-import org.mapstruct.BeforeMapping;
 import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,15 +11,16 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaEstadoDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 
 @Mapper
 @DecoratedWith(TrabajoTiendaEstadoDecorator.class)
 public abstract class TrabajoTiendaEstadoMapper {
 
+	@Mapping(target = "idTrabajo", source = "trabajo.id")
     public abstract TrabajoTiendaEstadoDto trabajoTiendaEstadoToTrabajoTiendaEstadoDto(TrabajoTiendaEstado src);
 
+    @InheritInverseConfiguration
     public abstract TrabajoTiendaEstado trabajoTiendaEstadoDtoToTrabajoTiendaEstado(TrabajoTiendaEstadoDto src);
 
     public abstract List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoToTrabajoTiendaEstadoDto(
@@ -27,24 +28,6 @@ public abstract class TrabajoTiendaEstadoMapper {
 
     public abstract List<TrabajoTiendaEstado> trabajoTiendaEstadoDtoToTrabajoTiendaEstado(
             List<TrabajoTiendaEstadoDto> src);
-
-    @BeforeMapping
-    protected void beforeTrabajoTienda(TrabajoTiendaEstado src) {
-        if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
-            Trabajo trabajoId = new Trabajo();
-            trabajoId.setId(src.getTrabajo().getId());
-            src.setTrabajo(trabajoId);
-        }
-    }
-
-    @BeforeMapping
-    protected void beforeTrabajoTiendaEstadoDto(TrabajoTiendaEstadoDto src) {
-        if (src != null && src.getTrabajo() != null && src.getTrabajo().getId() != null) {
-            TrabajoDto trabajoId = new TrabajoDto();
-            trabajoId.setId(src.getTrabajo().getId());
-            src.setTrabajo(trabajoId);
-        }
-    }
 
     @Mapping(target = "trabajo.id", source = "srcTrabajoDto.id")
     @Mapping(target = "id", ignore = true)

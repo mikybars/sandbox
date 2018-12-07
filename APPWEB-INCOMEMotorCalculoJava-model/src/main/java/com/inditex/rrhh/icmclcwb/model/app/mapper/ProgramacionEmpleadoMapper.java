@@ -6,6 +6,7 @@ import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.ProgramacionEmpleado
 import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
 
 import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import java.util.List;
@@ -14,10 +15,10 @@ import java.util.List;
 @DecoratedWith(ProgramacionEmpleadoDecorator.class)
 public abstract class ProgramacionEmpleadoMapper {
 
-    @Mapping(source = "programacion.id", target = "programacion.id")
+    @Mapping(target = "idProgramacion", source = "programacion.id")
     public abstract ProgramacionEmpleadoDto programacionEmpleadoToProgramacionEmpleadoDto(ProgramacionEmpleado src);
 
-    @Mapping(source = "programacion.id", target = "programacion.id")
+    @InheritInverseConfiguration
     public abstract ProgramacionEmpleado programacionEmpleadoDtoToProgramacionEmpleado(ProgramacionEmpleadoDto src);
 
     public abstract List<ProgramacionEmpleadoDto> programacionEmpleadoToProgramacionEmpleadoDto(
@@ -27,9 +28,9 @@ public abstract class ProgramacionEmpleadoMapper {
             List<ProgramacionEmpleadoDto> src);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "programacion.id", source = "srcProgramacionDto.id")
+    @Mapping(target = "programacion.id", source = "srcProgramacion.id")
     public abstract ProgramacionEmpleado mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(
-            ProgramacionEmpleadoDto srcProgramacionEmpleadoDto, ProgramacionDto srcProgramacionDto);
+            ProgramacionEmpleadoDto srcProgramacionEmpleado, ProgramacionDto srcProgramacion);
 
     public List<ProgramacionEmpleado> mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(
             List<ProgramacionEmpleadoDto> srcProgramacionEmpleadoDto, ProgramacionDto srcProgramacionDto) {
