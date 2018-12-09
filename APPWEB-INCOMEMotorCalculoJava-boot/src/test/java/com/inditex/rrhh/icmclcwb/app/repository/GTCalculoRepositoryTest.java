@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.Application;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.GTCalculoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoCalculoRepository;
 

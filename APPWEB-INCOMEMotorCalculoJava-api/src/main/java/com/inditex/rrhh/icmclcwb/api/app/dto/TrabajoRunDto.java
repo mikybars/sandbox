@@ -2,15 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;
 
-<<<<<<< HEAD
-import io.swagger.annotations.ApiModel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-	
-@ApiModel(description = "Modelo TrabajoRunDto")
-@Data
-@EqualsAndHashCode(callSuper=false)
-=======
 import javax.validation.constraints.NotNull;
 
 import groovy.transform.builder.Builder;

@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunCalcularService;
 
 @RunWith(SpringRunner.class)
@@ -29,16 +30,17 @@ public class CalcularServicesTest {
 	
 	@Test	
 	@Ignore
-	public void factoryTest() throws Exception {				
-		TrabajoDto trabajo = new TrabajoDto();
-		TrabajoRunDatosDto trabajoRunDatosDto = new TrabajoRunDatosDto();
-		trabajo.setId(100L);				
+	public void factoryTest() throws Exception {
+		TrabajoDto trabajoDto = new TrabajoDto();		
+		TrabajoRunDto trabajoRunDto = new TrabajoRunDto();
+		
+		trabajoDto.setId(100L);
+		trabajoRunDto.setTrabajoDto(trabajoDto);
 		ArrayList<Integer> tiposCalculo = new ArrayList<Integer>();		
 		tiposCalculo.add(GLOBAL_TIENDA);		
-		trabajoRunDatosDto.setTiposCalculo(tiposCalculo);
-					
-				
-		trabajoRunCalcularService.run(trabajo);
+		trabajoRunDto.getTrabajoRunDatos().setTiposCalculo(tiposCalculo);
+														
+		trabajoRunCalcularService.run(trabajoRunDto);
 							
 		
 	}

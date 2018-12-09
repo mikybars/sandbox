@@ -98,22 +98,6 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		return query;
 	}
 
-	
-	
-	private StringBuilder preparedStatement(){		
-			return new StringBuilder("		WHERE ESTRUCTURA.ID_TRABAJO = ? ").
-			append("		AND EMPLEADO.ID_TRABAJO = ? ").
-			append("		AND TIENDA.ID_TRABAJO = ? ").
-			append("		AND TIENDA_VENTA.ID_TRABAJO = ? ");							
-	}
-	
-	
-	private StringBuilder namedParameter(){						
-		return new StringBuilder("		WHERE ESTRUCTURA.ID_TRABAJO = :idTrabajo ").
-		append("		AND EMPLEADO.ID_TRABAJO = :idTrabajo ").
-		append("		AND TIENDA.ID_TRABAJO = :idTrabajo ").
-		append("		AND TIENDA_VENTA.ID_TRABAJO = :idTrabajo ");		
-	}
 
 	
 	@Override
