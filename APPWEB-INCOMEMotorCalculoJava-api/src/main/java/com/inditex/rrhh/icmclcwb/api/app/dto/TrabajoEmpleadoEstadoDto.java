@@ -22,7 +22,7 @@ public class TrabajoEmpleadoEstadoDto implements Serializable {
 	@ToString.Exclude
 	@NotNull
 	@ApiModelProperty(value = "Trabajo", required = true)
-	private TrabajoDto trabajo;
+	private Long idTrabajo;
 	
 	@NotBlank
 	@ApiModelProperty(value = "Id del empleado", required = true)

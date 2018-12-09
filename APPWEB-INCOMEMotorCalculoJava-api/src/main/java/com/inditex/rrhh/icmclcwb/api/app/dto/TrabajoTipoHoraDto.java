@@ -24,6 +24,6 @@ public class TrabajoTipoHoraDto implements Serializable {
 
 	@NotNull
 	@ApiModelProperty(value = "Trabajo", required = true)
-	private TrabajoDto trabajo;
+	private Long idTrabajo;
 
 }

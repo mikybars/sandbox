@@ -60,6 +60,6 @@ public class TrabajoDto implements Serializable {
     private LocalDateTime fechaFinPeriodo;
 
     @ApiModelProperty(value = "Programación asociada", required = false, readOnly = true)
-    private ProgramacionDto programacion;
+    private Long idProgramacion;
 
 }

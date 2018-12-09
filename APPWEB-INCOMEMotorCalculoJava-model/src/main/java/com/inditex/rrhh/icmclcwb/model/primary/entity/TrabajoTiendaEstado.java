@@ -36,24 +36,20 @@ public class TrabajoTiendaEstado {
 	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
 	private String idTiendaMeta4;
 
-//	@NotBlank
-//	@Column(name = "STD_ID_COUNTRY", nullable = false)
-	@Column(name = "STD_ID_COUNTRY")
+	@NotBlank
+	@Column(name = "STD_ID_COUNTRY", nullable = false)
 	private String idPais;
 
-//	@NotBlank
-//	@Column(name = "CCL_ID_ORIGEN", nullable = false)
-    @Column(name = "CCL_ID_ORIGEN")
+	@NotBlank
+	@Column(name = "CCL_ID_ORIGEN", nullable = false)
 	private String idPaisOrigen;
 
-//	@NotBlank
-//	@Column(name = "STD_ID_LEG_ENT", nullable = false)
-    @Column(name = "STD_ID_LEG_ENT")
+	@NotBlank
+	@Column(name = "STD_ID_LEG_ENT", nullable = false)
 	private String idEmpresa;
 
-//	@NotBlank
-//	@Column(name = "CCL_ID_CADENA", nullable = false)
-    @Column(name = "CCL_ID_CADENA")
+	@NotBlank
+	@Column(name = "CCL_ID_CADENA", nullable = false)
 	private String idCadena;
 	
 	@NotNull

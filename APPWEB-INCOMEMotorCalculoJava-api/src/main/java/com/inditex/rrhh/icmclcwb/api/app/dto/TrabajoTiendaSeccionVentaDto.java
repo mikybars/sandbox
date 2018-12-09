@@ -19,7 +19,7 @@ public class TrabajoTiendaSeccionVentaDto implements Serializable {
 	
 	@NotNull
 	@ApiModelProperty(value = "Trabajo", required = true)
-	private TrabajoDto trabajo;
+	private Long idTrabajo;
 	
 	@ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true, readOnly = true)
 	private LocalDate fecha;

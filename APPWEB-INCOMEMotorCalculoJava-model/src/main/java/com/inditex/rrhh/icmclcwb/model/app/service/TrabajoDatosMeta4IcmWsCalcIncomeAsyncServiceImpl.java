@@ -19,21 +19,14 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
 	
     @Async
     @Override
-    public CompletableFuture<Void> tiendasEmpleado(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
-    	trabajoDatosMeta4IcmWsCalcIncomeService.tiendasEmpleado(trabajo, trabajoRunDatos);
+    public CompletableFuture<Void> tiendasPresencia(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+    	trabajoDatosMeta4IcmWsCalcIncomeService.tiendasPresencia(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
     
-    @Async
     @Override
-    public CompletableFuture<Void> searchTiendas(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
-    	trabajoDatosMeta4IcmWsCalcIncomeService.searchTiendas(trabajo, trabajoRunDatos);
-        return CompletableFuture.completedFuture(null);
-    }
-
-    @Override
-    public CompletableFuture<Void> tiendas(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos) throws Exception {
-        trabajoDatosMeta4IcmWsCalcIncomeService.tiendas(trabajo, trabajoRunDatos);
+    public CompletableFuture<Void> tiendasComisionable(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+        trabajoDatosMeta4IcmWsCalcIncomeService.tiendasComisionable(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 
