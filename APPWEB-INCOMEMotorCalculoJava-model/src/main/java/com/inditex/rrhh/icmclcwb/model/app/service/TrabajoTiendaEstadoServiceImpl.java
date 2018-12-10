@@ -26,9 +26,9 @@ public class TrabajoTiendaEstadoServiceImpl implements TrabajoTiendaEstadoServic
 
 	@Override
 	public List<TrabajoTiendaEstadoDto> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto,
-			@Valid TrabajoDto trabajo) {
+			@Valid TrabajoDto trabajo, Long idTipoTrabajoTienda) {
 		return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(trabajoTiendaEstadoRepository
 				.save(trabajoTiendaEstadoMapper.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
-						trabajoTiendaEstadoDto, trabajo)));
+						trabajoTiendaEstadoDto, trabajo, idTipoTrabajoTienda)));
 	}
 }

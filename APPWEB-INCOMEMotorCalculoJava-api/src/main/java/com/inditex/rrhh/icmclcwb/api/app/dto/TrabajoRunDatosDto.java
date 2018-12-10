@@ -17,7 +17,7 @@ public class TrabajoRunDatosDto implements Serializable {
     private static final long serialVersionUID = -7845168234640449805L;
 
     @ApiModelProperty(value = "Ids de las cadenas a ejecutar", required = false)
-	private List<String> cadenasEmpresa = new ArrayList<>();
+	private Set<String> cadenasEmpresa = new HashSet<>();
 	
 	@ApiModelProperty(value = "Ids de las tiendas localizadas en presencias", required = false)
 	private Set<Integer> tiendasPresencia = new HashSet<>();

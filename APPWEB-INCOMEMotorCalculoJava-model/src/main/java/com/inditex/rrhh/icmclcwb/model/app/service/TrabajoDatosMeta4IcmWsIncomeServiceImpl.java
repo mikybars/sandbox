@@ -157,7 +157,7 @@ public class TrabajoDatosMeta4IcmWsIncomeServiceImpl implements TrabajoDatosMeta
 		}
 		if (CollectionUtils.isNotEmpty(tienda)) {
 			trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
-					.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(tienda, trabajo));
+					.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(tienda, trabajo, AppConstants.TipoTrabajoTiendaEnum.INICIAL.getId()));
 		} else {
 			throw new UnsupportedOperationException();
 		}

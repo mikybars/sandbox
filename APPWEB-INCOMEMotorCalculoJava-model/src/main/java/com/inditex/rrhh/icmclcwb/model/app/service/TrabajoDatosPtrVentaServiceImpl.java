@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -95,7 +96,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 					PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
 							.trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
 					paramGetVentaTotalizado.setTienda(tiendas);
-					paramGetVentaTotalizado.setCadena(trabajoRunDatos.getCadenasEmpresa());
+					paramGetVentaTotalizado.getCadena().addAll(trabajoRunDatos.getCadenasEmpresa());
 					paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
 					CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
@@ -149,7 +150,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 					PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
 							.trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
 					paramGetVentaIndividualDetalle.setVendedores(empleados);
-					paramGetVentaIndividualDetalle.setCadena(trabajoRunDatos.getCadenasEmpresa());
+					paramGetVentaIndividualDetalle.getCadena().addAll(trabajoRunDatos.getCadenasEmpresa());
 					paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
 					paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 

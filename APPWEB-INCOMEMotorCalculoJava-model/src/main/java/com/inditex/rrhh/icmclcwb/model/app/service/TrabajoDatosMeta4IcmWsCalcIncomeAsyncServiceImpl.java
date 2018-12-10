@@ -1,11 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeAsyncService;
@@ -25,8 +29,8 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     }
     
     @Override
-    public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
-        trabajoDatosMeta4IcmWsCalcIncomeService.tiendasComisionable(trabajo, trabajoRunDatos);
+    public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+        trabajoDatosMeta4IcmWsCalcIncomeService.tiendasComisionable(trabajo, tipoTrabajoTienda, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 

@@ -1,7 +1,11 @@
 package com.inditex.rrhh.icmclcwb.api.app.service;
 
-import javax.validation.Valid;
+import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 
@@ -15,8 +19,9 @@ public interface TrabajoDatosMeta4IcmWsCalcIncomeService {
 
     void empleadosTienda(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
-    void tiendasComisionable(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
-
     void tiendasPresencia(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+
+    void tiendasComisionable(@Valid TrabajoDto trabajo, @NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
+            @Valid TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
 }

@@ -30,15 +30,15 @@ public class TrabajoEmpleadoHistorico {
 	@JoinColumn(name = "ID_TRABAJO", nullable = false)
 	private /* BigInteger */ Trabajo trabajo;
 	
-	@NotNull
+	@NotBlank
     @Column(name = "ID_EMPLEADO", nullable = false)
     private String idEmpleado;
 
-    @NotNull
+	@NotBlank
     @Column(name = "OR_EMPLEADO", nullable = false)
     private String orEmpleado;
     
-    @NotNull
+	@NotBlank
     @Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
     private String idEmpleadoLocal;
     

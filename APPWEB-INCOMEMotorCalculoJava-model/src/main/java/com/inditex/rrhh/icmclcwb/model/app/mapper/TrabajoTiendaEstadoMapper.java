@@ -34,12 +34,12 @@ public abstract class TrabajoTiendaEstadoMapper {
 	@Mapping(target = "idPaisOrigen", source = "srcTrabajoTiendaEstadoDto.idPais")
 	@Mapping(target = "idEmpresa", source = "srcTrabajoTiendaEstadoDto.idEmpresa")
 	public abstract TrabajoTiendaEstado mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
-			TrabajoTiendaEstadoDto srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto);
-
+			TrabajoTiendaEstadoDto srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto, Long idTipoTrabajoTienda);
+   
 	public List<TrabajoTiendaEstado> mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
-			List<TrabajoTiendaEstadoDto> srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto) {
-		throw new UnsupportedOperationException("Not implemented");
-	}
+            List<TrabajoTiendaEstadoDto> trabajoTiendaEstado, TrabajoDto trabajo, Long idTipoTrabajoTienda) {
+        return null;
+    }
 
 	@Mapping(target = "idPaisOrigen", source = "idOrigen")
 	@Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
@@ -52,5 +52,7 @@ public abstract class TrabajoTiendaEstadoMapper {
 
 	public abstract List<TrabajoTiendaEstadoDto> genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(
 			List<GenericTiendaResultItemDto> src);
+
+
 
 }
