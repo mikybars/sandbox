@@ -13,8 +13,17 @@ public class GTAlgoritmo implements TipoCalculoAlgoritmo{
 	GTCalculoRepository gTCalculoRepository;
 	
 	@Override
-	public void execute(TrabajoDto trabajo) {				
-		gTCalculoRepository.calcular(trabajo.getId());						
+	public void execute(TrabajoDto trabajo) {
+		
+		
+		
+		//TODO lógica del cálculo
+		
+		
+		gTCalculoRepository.calcular(trabajo.getId());
+		
+		
+		
 	}
 
 

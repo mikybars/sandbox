@@ -40,7 +40,8 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
         TrabajoDto trabajo = trabajoRun.getTrabajoDto();
         if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
             trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto(), trabajo);                        
-                       
+                  
+            //obtenemos los datos de bbdd sino estan cargados en memoria
                                   
             CountDownLatch latch = new CountDownLatch(1);            
             Flux.fromIterable(trabajoRun.getTrabajoRunDatos().getTiposCalculo())
