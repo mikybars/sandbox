@@ -190,8 +190,11 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 	@Override
 	public void tiendasPresencia(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos)
 			throws Exception {
-		trabajoRunDatos.getTiendasPresenciaNuevas().addAll(trabajoTiendaEstadoRepositoryCustom
+	    
+        if (CollectionUtils.isNotEmpty(trabajoRunDatos.getTiendasPresencia())) {
+            trabajoRunDatos.getTiendasPresenciaNuevas().addAll(trabajoTiendaEstadoRepositoryCustom
 				.customFindByIdTiendaNotExists(trabajoRunDatos.getTiendasPresencia()));
+        }
 
 		List<CompletableFuture<?>> cf = new ArrayList<>();
 		try {
@@ -383,7 +386,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
 				boolean hasNext = false;
 				do {
-					if (filter.getItem().size() > 0) {
+					if (CollectionUtils.isNotEmpty(filter.getItem())) {
 						CompletableFuture<List<GenericTiendaResultItemDto>> cfDataTC = meta4IcmWsCalcIncomeSessionAsyncService
 								.getTiendas(tiendasRequest);
 						AsyncUtils.exceptionally(cfDataTC, cf);
@@ -501,9 +504,11 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 			throws Exception {
 		List<CompletableFuture<?>> cf = new ArrayList<>();
 		try {
-			trabajoRunDatos.getTiendasPresenciaNuevas().addAll(trabajoTiendaEstadoRepositoryCustom
-					.customFindByIdTiendaNotExists(trabajoRunDatos.getTiendasPresencia()));
-			List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+			if (CollectionUtils.isNotEmpty(trabajoRunDatos.getTiendasPresencia())) {
+                trabajoRunDatos.getTiendasPresenciaNuevas().addAll(trabajoTiendaEstadoRepositoryCustom
+                        .customFindByIdTiendaNotExists(trabajoRunDatos.getTiendasPresencia()));
+            }
+            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
 			EmpleadosRequestDto empleadosRequest = new EmpleadosRequestDto();
 			empleadosRequest.setPage(getEmpleadosDto.getPage());
