@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -134,7 +135,6 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                                 .collect(Collectors.toList()));
                 boolean hasNext;
                 do {
-                    hasNext = false;
                     CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                             .searchEmpleados(searchEmpleadosRequest);
                     AsyncUtils.exceptionally(cfData, cf);
@@ -143,6 +143,9 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                             .collect(Collectors.toSet()));
                     hasNext = searchEmpleadosRequest.nextPage();
                 } while (hasNext);
+                if (CollectionUtils.isEmpty(tiendasParam)) {
+                    throw new ApplicationException("Los empleados no tienen tiendas asociadas");
+                }
             } else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
                 tiendasParam.addAll(
                         trabajo.getTiendas().stream().map(TrabajoTiendaDto::getIdTienda).collect(Collectors.toSet()));
@@ -161,7 +164,6 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             boolean hasNext;
             do {
-                hasNext = false;
                 CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                         .searchTiendas(searchTiendasRequest);
                 AsyncUtils.exceptionally(cfData, cf);
