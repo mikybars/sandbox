@@ -19,48 +19,62 @@ import lombok.Data;
 @Data
 public class TrabajoEmpleadoEstructura {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TRABAJO_EMPLEADO_ESTRUCTURA")
-	private /* BigInteger */ Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TRABAJO_EMPLEADO_ESTRUCTURA")
+    private /* BigInteger */ Long id;
 
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TRABAJO", nullable = false)
-	private /* BigInteger */ Trabajo trabajo;
-	
-	@NotNull
-	@Column(name = "ID_EMPLEADO", nullable = false)
-	private String idEmpleado;
-	
-	@NotNull
-	@Column(name = "ID_ESTRUCTURA", nullable = false)
-	private /* BigInteger */ Long idEstructura;
-	
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TIPO_CALCULO", nullable = false)
-	private /* BigInteger */ TipoCalculo tipoCalculo;
-	
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TIPO_COMISION", nullable = false)
-	private /* BigInteger */ TipoComision tipoComision;
-	
-	@NotNull
-	@Column(name = "PORCENTAJE_1", nullable = false)
-	private /* BigInteger */ Double porcentaje1;
-	
-	@NotNull
-	@Column(name = "PORCENTAJE_2", nullable = false)
-	private /* BigInteger */ Double porcentaje2;
-	
-	@NotNull
-	@Column(name = "PORCENTAJE_3", nullable = false)
-	private /* BigInteger */ Double porcentaje3;
-	
-	@NotNull
-	@Column(name = "FECHA", nullable = false)
-	private Date fecha;
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TRABAJO", nullable = false)
+    private /* BigInteger */ Trabajo trabajo;
+
+    @NotNull
+    @Column(name = "ID_EMPLEADO", nullable = false)
+    private String idEmpleado;
+
+    @NotNull
+    @Column(name = "OR_EMPLEADO", nullable = false)
+    private String orEmpleado;
+    
+    @NotNull
+    @Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
+    private String idEmpleadoLocal;
+
+    @NotNull
+    @Column(name = "ID_ESTRUCTURA", nullable = false)
+    private /* BigInteger */ Long idEstructura;
+
+    @NotNull
+    @Column(name = "ID_TIPO_CALCULO", nullable = false)
+    private /* BigInteger */ Long idTipoCalculo;
+    
+    @NotNull
+    @Column(name = "ID_TIPO_COMISION", nullable = false)
+    private /* BigInteger */ Long idTipoComision;
+
+    @NotNull
+    @Column(name = "PORCENTAJE", nullable = false)
+    private /* BigInteger */ Double porcentaje;
+
+    @NotNull
+    @Column(name = "PORCENTAJE_1", nullable = false)
+    private /* BigInteger */ Double porcentaje1;
+
+    @NotNull
+    @Column(name = "PORCENTAJE_2", nullable = false)
+    private /* BigInteger */ Double porcentaje2;
+
+    @NotNull
+    @Column(name = "PORCENTAJE_3", nullable = false)
+    private /* BigInteger */ Double porcentaje3;
+
+    @NotNull
+    @Column(name = "FECHA_INICIO", nullable = false)
+    private Date fechaInicio;
+
+    @NotNull
+    @Column(name = "FECHA_FIN", nullable = false)
+    private Date fechaFin;
 
 }

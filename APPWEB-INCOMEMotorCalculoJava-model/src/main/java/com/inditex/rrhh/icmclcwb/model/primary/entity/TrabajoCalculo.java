@@ -28,27 +28,37 @@ public class TrabajoCalculo {
 	private /* BigInteger */ Trabajo trabajo;
 
 	@NotNull
-	@Column(name = "ID_EMPLEADO", nullable = false)
-	private String idEmpleado;
-
-	@NotNull
 	@Column(name = "ID_TIENDA", nullable = false)
 	private String idTienda;
+	
+	@NotNull
+    @Column(name = "ID_EMPLEADO", nullable = false)
+    private String idEmpleado;
 
 	@NotNull
-	@Column(name = "ID_ESTRUCTURA", nullable = false)
-	private /* BigInteger */ Long idEstructura;
+    @Column(name = "OR_EMPLEADO", nullable = false)
+    private String orEmpleado;
+    
+    @NotNull
+    @Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
+    private String idEmpleadoLocal;
 
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TIPO_CALCULO", nullable = false)
-	private /* BigInteger */ TipoCalculo tipoCalculo;
+    @NotNull
+    @Column(name = "ID_ESTRUCTURA", nullable = false)
+    private /* BigInteger */ Long idEstructura;
 
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TIPO_COMISION", nullable = false)
-	private /* BigInteger */ TipoComision tipoComision;
+    @NotNull
+    @Column(name = "ID_TIPO_CALCULO", nullable = false)
+    private /* BigInteger */ Long idTipoCalculo;
+    
+    @NotNull
+    @Column(name = "ID_TIPO_COMISION", nullable = false)
+    private /* BigInteger */ Long idTipoComision;
 
+    @NotNull
+    @Column(name = "COMISION_PORCENTAJE", nullable = false)
+    private /* BigInteger */ Long comisionPorcentaje;
+    
 	@NotNull
 	@Column(name = "COMISION_PORCENTAJE_1", nullable = false)
 	private /* BigInteger */ Long comisionPorcentaje1;
@@ -84,7 +94,7 @@ public class TrabajoCalculo {
 	@NotNull
 	@Column(name = "TIENDA_PRESENCIA_MINUTOS_3", nullable = false)
 	private /* BigInteger */ Long tiendaPresenciaMinutos3;
-
+	
 	@NotNull
 	@Column(name = "TIENDA_VENTA_IMPORTE_1", nullable = false)
 	private /* BigInteger */ Double tiendaVentaImporte1;
@@ -96,7 +106,7 @@ public class TrabajoCalculo {
 	@NotNull
 	@Column(name = "TIENDA_VENTA_IMPORTE_3", nullable = false)
 	private /* BigInteger */ Double tiendaVentaImporte3;
-
+	
 	@NotNull
 	@Column(name = "IMPORTE_1", nullable = false)
 	private /* BigInteger */ Double importe1;
