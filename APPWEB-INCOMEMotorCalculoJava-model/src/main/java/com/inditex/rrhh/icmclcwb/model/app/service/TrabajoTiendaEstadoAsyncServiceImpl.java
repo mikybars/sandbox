@@ -17,13 +17,6 @@ public class TrabajoTiendaEstadoAsyncServiceImpl implements TrabajoTiendaEstadoA
 
 	@Autowired
 	private TrabajoTiendaEstadoService trabajoTiendaEstadoService;
-	
-    @Async
-    @Override
-    public CompletableFuture<Void> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstado) {
-    	trabajoTiendaEstadoService.save(trabajoTiendaEstado);
-        return CompletableFuture.completedFuture(null);
-    }
     
     @Async
     @Override

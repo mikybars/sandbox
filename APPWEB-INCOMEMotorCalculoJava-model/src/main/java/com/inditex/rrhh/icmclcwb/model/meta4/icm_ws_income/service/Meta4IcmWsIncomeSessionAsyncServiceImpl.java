@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 
+@Deprecated
 @Service
 public class Meta4IcmWsIncomeSessionAsyncServiceImpl implements Meta4IcmWsIncomeSessionAsyncService {
 

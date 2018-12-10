@@ -25,34 +25,34 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     }
     
     @Override
-    public CompletableFuture<Void> tiendasComisionable(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+    public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.tiendasComisionable(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 
     @Override
-    public CompletableFuture<Void> tiendasHistorico(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
+    public CompletableFuture<Void> tiendasHistorico(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
             throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.tiendasHistorico(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 
     @Override
-    public CompletableFuture<Void> tiendasParametro(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
+    public CompletableFuture<Void> tiendasEmpleadoHistorico(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
             throws Exception {
-        trabajoDatosMeta4IcmWsCalcIncomeService.tiendasParametro(trabajo, trabajoRunDatos);
+        trabajoDatosMeta4IcmWsCalcIncomeService.tiendasEmpleadoHistorico(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 
     @Override
-    public CompletableFuture<Void> condicionesEmpleados(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
+    public CompletableFuture<Void> condicionesEmpleados(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
             throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.condicionesEmpleados(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 
     @Override
-    public CompletableFuture<Void> empleadosTienda(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
+    public CompletableFuture<Void> empleadosTienda(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
             throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.empleadosTienda(trabajo, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);

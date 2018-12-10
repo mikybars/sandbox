@@ -14,11 +14,11 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TrabajoTiendaEstadoRepository extends BaseRepository<TrabajoTiendaEstado, Long> {
 
-    Page<TrabajoTiendaEstado> findByTrabajoIdAndEstadoIdAndTipoIdIn(Long trabajoId, Long estadoTrabajoTiendaId,
-            List<Long> tipoTrabajoTiendaId, Pageable pageable);
+	Page<TrabajoTiendaEstado> findByTrabajoIdAndTipoIdIn(Long trabajoId, List<Long> tipoTrabajoTiendaId,
+			Pageable pageable);
 
-    @Query(" select tte.idCadena from TrabajoTiendaEstado tte join tte.trabajo t where t.idPaisOrigen = :idPaisOrigen and tte.idEmpresa = :idEmpresa group by tte.idCadena ")
-    List<String> findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
-            @NotBlank @Param("idPaisOrigen") String idPaisOrigen, @NotBlank @Param("idEmpresa") String idEmpresa);
+	@Query(" select tte.idCadena from TrabajoTiendaEstado tte join tte.trabajo t where t.idPaisOrigen = :idPaisOrigen and tte.idEmpresa = :idEmpresa group by tte.idCadena ")
+	List<String> findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
+			@NotBlank @Param("idPaisOrigen") String idPaisOrigen, @NotBlank @Param("idEmpresa") String idEmpresa);
 
 }

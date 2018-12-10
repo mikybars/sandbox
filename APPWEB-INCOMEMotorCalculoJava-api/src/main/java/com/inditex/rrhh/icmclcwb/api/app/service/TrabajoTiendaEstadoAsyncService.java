@@ -8,8 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 
 public interface TrabajoTiendaEstadoAsyncService {
 
-	CompletableFuture<Void> save(List<TrabajoTiendaEstadoDto> trabajoTiendaEstado);
-
 	CompletableFuture<Void> save(List<TrabajoTiendaEstadoDto> trabajoTiendaEstado, TrabajoDto trabajo);
 
 }

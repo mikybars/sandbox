@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.app.util;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 
 import lombok.Getter;
@@ -10,9 +9,9 @@ import lombok.RequiredArgsConstructor;
 
 public class AppConstants {
 
-    private AppConstants() {
-    }
-    
+	private AppConstants() {
+	}
+
 	public static final String LOCAL_TIME_PATTERN = "([01][0-9]|2[0-3]):[0-5][0-9]";
 
 	public static final String LOCAL_TIME_JSON = "HH:mm";
@@ -48,26 +47,13 @@ public class AppConstants {
 
 	@Getter
 	@RequiredArgsConstructor
-	public enum EstadoTrabajoTiendaEnum {
-
-		PENDIENTE(1L, new EstadoTrabajoTiendaDto(1L)), FINALIZADO(2L, new EstadoTrabajoTiendaDto(2L)),
-		ERROR(3L, new EstadoTrabajoTiendaDto(3L));
-
-		private final Long id;
-
-		private final EstadoTrabajoTiendaDto dto;
-
-	}
-
-	@Getter
-	@RequiredArgsConstructor
 	public enum TipoTrabajoTiendaEnum {
 
 		INICIAL(1L, new TipoTrabajoTiendaDto(1L)), PARAMETRO(2L, new TipoTrabajoTiendaDto(2L)),
 		HISTORICO(3L, new TipoTrabajoTiendaDto(3L)), PRESENCIA(4L, new TipoTrabajoTiendaDto(4L));
 
 		private final Long id;
-		
+
 		private final TipoTrabajoTiendaDto dto;
 
 	}

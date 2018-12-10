@@ -32,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.model.app.mapper.poc.PocTiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.poc.PocTiendaRepository;
 
+@Deprecated
 @Service
 public class Meta4IcmWsIncomeSessionServiceImpl extends Meta4PageableServiceImpl implements Meta4IcmWsIncomeSessionService {
 

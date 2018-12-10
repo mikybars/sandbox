@@ -7,16 +7,22 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 
 public interface TrabajoDatosMeta4IcmWsCalcIncomeAsyncService {
 
-    CompletableFuture<Void> tiendasHistorico(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+	CompletableFuture<Void> tiendasHistorico(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
+			throws Exception;
 
-    CompletableFuture<Void> tiendasParametro(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+	CompletableFuture<Void> tiendasEmpleadoHistorico(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
+			throws Exception;
 
-    CompletableFuture<Void> condicionesEmpleados(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+	CompletableFuture<Void> condicionesEmpleados(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
+			throws Exception;
 
-    CompletableFuture<Void> empleadosTienda(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+	CompletableFuture<Void> empleadosTienda(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
+			throws Exception;
 
-    CompletableFuture<Void> tiendasComisionable(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos)
-            throws Exception;
+	CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
+			throws Exception;
 
-    CompletableFuture<Void> tiendasPresencia(TrabajoDto trabajo, TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+	CompletableFuture<Void> tiendasPresencia(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
+			throws Exception;
+
 }

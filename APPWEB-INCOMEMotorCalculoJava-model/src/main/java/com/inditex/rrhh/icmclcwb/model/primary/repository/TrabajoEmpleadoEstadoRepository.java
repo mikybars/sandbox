@@ -8,7 +8,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TrabajoEmpleadoEstadoRepository extends BaseRepository<TrabajoEmpleadoEstado, Long> {
 
-	Page<TrabajoEmpleadoEstado> findByTrabajoIdAndEstadoId(Long trabajoId, Long estadoTrabajoEmpleadoId, Pageable pageable);
-
+	Page<TrabajoEmpleadoEstado> findByTrabajoId(Long trabajoId, Pageable pageable);
 
 }

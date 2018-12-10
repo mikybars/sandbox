@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericEmpleadoResultItemDto;
@@ -24,5 +25,7 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 	List<GenericEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request) throws Exception;
 
 	List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request) throws Exception;
+
+	List<PeriodoDto> periodo();
 
 }

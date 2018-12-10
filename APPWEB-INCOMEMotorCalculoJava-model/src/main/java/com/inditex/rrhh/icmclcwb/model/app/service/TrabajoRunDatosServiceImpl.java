@@ -34,145 +34,143 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRep
 @Validated
 public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
-    @Autowired
-    private TrabajoService trabajoService;
+	@Autowired
+	private TrabajoService trabajoService;
 
-    @Autowired
-    private TrabajoDatosMeta4IcmWsCalcIncomeAsyncService trabajoDatosMeta4IcmWsCalcIncomeAsyncService;
+	@Autowired
+	private TrabajoDatosMeta4IcmWsCalcIncomeAsyncService trabajoDatosMeta4IcmWsCalcIncomeAsyncService;
 
-    @Autowired
-    private TrabajoDatosPtrVentaAsyncService trabajoDatosPtrVentaAsyncService;
+	@Autowired
+	private TrabajoDatosPtrVentaAsyncService trabajoDatosPtrVentaAsyncService;
 
-    @Autowired
-    private TrabajoDatosPtrPresenciaAsyncService trabajoDatosPtrPresenciaAsyncService;
+	@Autowired
+	private TrabajoDatosPtrPresenciaAsyncService trabajoDatosPtrPresenciaAsyncService;
 
-    @Autowired
-    private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
+	@Autowired
+	private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 
-    @CounterMetric
-    @TimerMetric
-    @AuditoriaTrabajoRun
-    @Override
-    public TrabajoRunDto run(@Valid final TrabajoRunDto trabajoRun) throws Exception {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = trabajoRun.getTrabajoDto();
-            final TrabajoRunDatosDto trabajoRunDatos = trabajoRun.getTrabajoRunDatos();
-            if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
-                trabajo.setFechaInicioTrabajo(LocalDateTime.now());
-                trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
-                trabajoService.modifyTrabajo(trabajo);
+	@CounterMetric
+	@TimerMetric
+	@AuditoriaTrabajoRun
+	@Override
+	public TrabajoRunDto run(@Valid final TrabajoRunDto trabajoRun) throws Exception {
+		List<CompletableFuture<?>> cf = new ArrayList<>();
+		try {
+			final TrabajoDto trabajo = trabajoRun.getTrabajoDto();
+			final TrabajoRunDatosDto trabajoRunDatos = trabajoRun.getTrabajoRunDatos();
+			if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
+				trabajo.setFechaInicioTrabajo(LocalDateTime.now());
+				trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
+				trabajoService.modifyTrabajo(trabajo);
 
-                // TODO ICM_WS_CALC_INCOME
-                // [Pais|Pais+Empresa|Tienda/s] SEARCHTIENDAS -> GETTIENDASINCOME
-                // [Empleado/s] SEARCHEMPLEADOS -> SEARCHTIENDAS -> GETTIENDASINCOME
+				CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+						.tiendasHistorico(trabajo, trabajoRunDatos);
+				AsyncUtils.exceptionally(cfTiendasHistorico, cf);
 
-                CompletableFuture<Void> cfTiendasParametro = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                        .tiendasParametro(trabajo, trabajoRunDatos);
-                AsyncUtils.exceptionally(cfTiendasParametro, cf);
+				CompletableFuture<Void> cfTiendasEmpleadoHistorico = null;
+				if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
+					cfTiendasEmpleadoHistorico = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.tiendasEmpleadoHistorico(trabajo,
+							trabajoRunDatos);
+					AsyncUtils.exceptionally(cfTiendasEmpleadoHistorico, cf);
+				}
 
-                CompletableFuture<Void> cfTiendasHistorico = null;
-                
-                if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-                    cfTiendasHistorico = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.tiendasHistorico(trabajo,
-                            trabajoRunDatos);
-                    AsyncUtils.exceptionally(cfTiendasHistorico, cf);
-                }
-                
-                CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
-                AsyncUtils.exceptionally(cfTiposHoras, cf);
+				CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
+				AsyncUtils.exceptionally(cfTiposHoras, cf);
 
-                /*-------------------------------------------------------------*/
-                AsyncUtils.waitAllOfIsOk(cf, cfTiendasParametro, cfTiendasHistorico);
-                /*-------------------------------------------------------------*/
-                
-                //TODO Revisar si son comisionables
-                CompletableFuture<Void> cfTiendasComisionable = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                        .tiendasComisionable(trabajo, trabajoRunDatos);
-                AsyncUtils.exceptionally(cfTiendasComisionable, cf);
-                
-                
-                trabajoRunDatos.setCadenasEmpresa(
-                        trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
-                                trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
+				/*-------------------------------------------------------------*/
+				AsyncUtils.waitAllOfIsOk(cf, cfTiendasHistorico, cfTiendasEmpleadoHistorico);
+				/*-------------------------------------------------------------*/
+				
+				// TODO Revisar si son comisionables
+				CompletableFuture<Void> cfTiendasComisionable = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+						.tiendasComisionable(trabajo, trabajoRunDatos);
+				AsyncUtils.exceptionally(cfTiendasComisionable, cf);
 
-                // TODO ICM_WS_CALC_INCOME :: GETEMPLEADOS
-                CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.empleadosTienda(trabajo, trabajoRunDatos);
-                AsyncUtils.exceptionally(cfEmpleados, cf);
+				trabajoRunDatos.getCadenasEmpresa().addAll(
+						trabajoTiendaEstadoRepository.findIdCadenaByIdPaisOrigenAndIdEmpresaGroupByIdCadena(
+								trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
 
-                CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosPtrVentaAsyncService
-                        .ventaTotalizadaTienda(trabajo,
-                                Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
-                                        AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-                                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()), trabajoRunDatos);
-                AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
+				// TODO ICM_WS_CALC_INCOME :: GETEMPLEADOS
+				CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+						.empleadosTienda(trabajo, trabajoRunDatos);
+				AsyncUtils.exceptionally(cfEmpleados, cf);
 
-                CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoDatosPtrPresenciaAsyncService
-                        .presenciaTotalizadaTienda(trabajo,
-                                Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
-                                        AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
-                                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()),
-                                trabajoRunDatos);
-                AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
+				CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosPtrVentaAsyncService
+						.ventaTotalizadaTienda(trabajo,
+								Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+										AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+										AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()),
+								trabajoRunDatos);
+				AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
 
-                /*-------------------------------------------------------------*/
-                AsyncUtils.waitAllOfIsOk(cf, cfEmpleados);
-                /*-------------------------------------------------------------*/
+				CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoDatosPtrPresenciaAsyncService
+						.presenciaTotalizadaTienda(trabajo,
+								Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto(),
+										AppConstants.TipoTrabajoTiendaEnum.PARAMETRO.getDto(),
+										AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()),
+								trabajoRunDatos);
+				AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
 
-                CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoDatosPtrPresenciaAsyncService
-                        .presenciaDetalleEmpleado(trabajo, trabajoRunDatos);
-                AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
+				/*-------------------------------------------------------------*/
+				AsyncUtils.waitAllOfIsOk(cf, cfEmpleados);
+				/*-------------------------------------------------------------*/
 
-                CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoDatosPtrVentaAsyncService
-                        .ventaDetalleEmpleado(trabajo, trabajoRunDatos);
-                AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
+				CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoDatosPtrPresenciaAsyncService
+						.presenciaDetalleEmpleado(trabajo, trabajoRunDatos);
+				AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
 
-                // TODO ICM_WS_CALC_INCOME :: GETCOMISIONEMPLEADO
-                CompletableFuture<Void> cfCondicionesEmpleados = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                        .condicionesEmpleados(trabajo, trabajoRunDatos);
-                AsyncUtils.exceptionally(cfCondicionesEmpleados, cf);
+				CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoDatosPtrVentaAsyncService
+						.ventaDetalleEmpleado(trabajo, trabajoRunDatos);
+				AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
 
-                if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
-                        || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-                    /*-------------------------------------------------------------*/
-                    AsyncUtils.waitAllOfIsOk(cf, cfPresenciaDetalleEmpleado);
-                    /*-------------------------------------------------------------*/
+				// TODO ICM_WS_CALC_INCOME :: GETCOMISIONEMPLEADO
+				CompletableFuture<Void> cfCondicionesEmpleados = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+						.condicionesEmpleados(trabajo, trabajoRunDatos);
+				AsyncUtils.exceptionally(cfCondicionesEmpleados, cf);
 
-                    if (CollectionUtils.isNotEmpty(trabajoRunDatos.getTiendasPresencia())) {
-                        // TODO ICM_WS_CALC_INCOME :: SEARCHTIENDAS -> GETTIENDASINCOME
-                        CompletableFuture<Void> cfTiendasPresencia = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                                .tiendasPresencia(trabajo, trabajoRunDatos);
-                        AsyncUtils.exceptionally(cfTiendasPresencia, cf);
-                        
-                        AsyncUtils.waitAllOfIsOk(cf, cfTiendasPresencia);
-                    }
+				if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
+						|| CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+					/*-------------------------------------------------------------*/
+					AsyncUtils.waitAllOfIsOk(cf, cfPresenciaDetalleEmpleado);
+					/*-------------------------------------------------------------*/
 
-                    //TODO Revisar si son comisionables
-                    CompletableFuture<Void> cfTiendasComisionablePresencia = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                            .tiendasComisionable(trabajo, trabajoRunDatos);
-                    AsyncUtils.exceptionally(cfTiendasComisionablePresencia, cf);
-                    
-                    CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosPtrVentaAsyncService
-                            .ventaTotalizadaTienda(trabajo,
-                                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()), trabajoRunDatos);
-                    AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
+					if (CollectionUtils.isNotEmpty(trabajoRunDatos.getTiendasPresencia())) {
+						// TODO ICM_WS_CALC_INCOME :: SEARCHTIENDAS -> GETTIENDASINCOME
+						CompletableFuture<Void> cfTiendasPresencia = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+								.tiendasPresencia(trabajo, trabajoRunDatos);
+						AsyncUtils.exceptionally(cfTiendasPresencia, cf);
 
-                    CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = trabajoDatosPtrPresenciaAsyncService
-                            .presenciaTotalizadaTienda(trabajo,
-                                    Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()), trabajoRunDatos);
-                    AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
-                }
+						AsyncUtils.waitAllOfIsOk(cf, cfTiendasPresencia);
+					}
 
-                /*-------------------------------------------------------------*/
-                AsyncUtils.waitAllOfIsOk(cf, cf);
-                /*-------------------------------------------------------------*/
-                trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
-            }
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-        return trabajoRun;
-    }
+					// TODO Revisar si son comisionables
+					CompletableFuture<Void> cfTiendasComisionablePresencia = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
+							.tiendasComisionable(trabajo, trabajoRunDatos);
+					AsyncUtils.exceptionally(cfTiendasComisionablePresencia, cf);
+
+					CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosPtrVentaAsyncService
+							.ventaTotalizadaTienda(trabajo,
+									Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()),
+									trabajoRunDatos);
+					AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
+
+					CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = trabajoDatosPtrPresenciaAsyncService
+							.presenciaTotalizadaTienda(trabajo,
+									Arrays.asList(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()),
+									trabajoRunDatos);
+					AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
+				}
+
+				/*-------------------------------------------------------------*/
+				AsyncUtils.waitAllOfIsOk(cf, cf);
+				/*-------------------------------------------------------------*/
+				trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
+			}
+		} catch (Exception e) {
+			AsyncUtils.cancel(cf);
+			throw e;
+		}
+		return trabajoRun;
+	}
 
 }

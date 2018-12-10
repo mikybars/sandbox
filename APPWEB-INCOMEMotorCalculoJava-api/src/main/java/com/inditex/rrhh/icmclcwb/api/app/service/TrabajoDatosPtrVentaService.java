@@ -17,7 +17,4 @@ public interface TrabajoDatosPtrVentaService {
             @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
             @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
-    void ventaTotalizadaTiendaTest(@Valid TrabajoDto trabajo, List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
-            @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
-
 }

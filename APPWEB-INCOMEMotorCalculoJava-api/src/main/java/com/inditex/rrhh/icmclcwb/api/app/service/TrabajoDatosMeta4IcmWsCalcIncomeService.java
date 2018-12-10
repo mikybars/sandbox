@@ -7,9 +7,9 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 
 public interface TrabajoDatosMeta4IcmWsCalcIncomeService {
 
-    void tiendasParametro(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
-
     void tiendasHistorico(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+
+    void tiendasEmpleadoHistorico(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
     void condicionesEmpleados(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 

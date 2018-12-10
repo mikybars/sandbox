@@ -36,7 +36,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             mappedEntity.setFechaInicio( java.time.LocalDateTime.parse( src.getFechainicio(), DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" ) ) );
         }
         if ( StringUtils.isNotEmpty(src.getFechafin())) {
-            mappedEntity.setFechaInicio( java.time.LocalDateTime.parse( src.getFechainicio(), DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" ) ) );
+            mappedEntity.setFechaFin( java.time.LocalDateTime.parse( src.getFechafin(), DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" ) ) );
         }
         return mappedEntity;
     }
@@ -52,7 +52,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
 	            mappedEntity.setFechaInicio( java.time.LocalDateTime.parse( record.getFechainicio(), DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" ) ) );
 	        }
 	        if ( StringUtils.isNotEmpty(record.getFechafin())) {
-	            mappedEntity.setFechaInicio( java.time.LocalDateTime.parse( record.getFechainicio(), DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" ) ) );
+	            mappedEntity.setFechaFin( java.time.LocalDateTime.parse( record.getFechafin(), DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" ) ) );
 	        }
 	        list.add(mappedEntity);
 	    }

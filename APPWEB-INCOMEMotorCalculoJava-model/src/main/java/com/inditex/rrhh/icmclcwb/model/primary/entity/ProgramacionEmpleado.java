@@ -26,9 +26,13 @@ public class ProgramacionEmpleado {
 	@ManyToOne
 	@JoinColumn(name = "ID_PROGRAMACION", nullable = false)
 	private /* BigInteger */ Programacion programacion;
-	
+
 	@NotNull
 	@Column(name = "ID_EMPLEADO", nullable = false)
 	private String idEmpleado;
+
+	@NotNull
+	@Column(name = "OR_EMPLEADO", nullable = false)
+	private String orEmpleado;
 
 }

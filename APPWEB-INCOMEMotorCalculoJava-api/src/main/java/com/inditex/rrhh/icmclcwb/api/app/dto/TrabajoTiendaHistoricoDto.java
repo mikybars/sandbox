@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,7 +11,7 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-public class TrabajoTiendaEstadoDto implements Serializable {
+public class TrabajoTiendaHistoricoDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
@@ -41,9 +42,14 @@ public class TrabajoTiendaEstadoDto implements Serializable {
 
 	@NotBlank
 	private String idCadena;
+	
+	@NotNull
+    private LocalDateTime fechaInicio;
 
 	@NotNull
-	@ApiModelProperty(value = "Tipo de la tienda en la operación", required = true)
-	private TipoTrabajoTiendaDto tipo;
+    private LocalDateTime fechaFin;
+	
+	@NotNull
+	private Boolean comisionable;
 
 }
