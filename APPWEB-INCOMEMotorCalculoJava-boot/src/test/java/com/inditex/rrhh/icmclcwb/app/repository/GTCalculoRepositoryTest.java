@@ -42,6 +42,7 @@ public class GTCalculoRepositoryTest {
 	
 
 	@Test	
+	@Ignore
 	public void calcularJdbcByEmpleadoBatchTest() {
 						
 		Long idTrabajo =  100L; 		
