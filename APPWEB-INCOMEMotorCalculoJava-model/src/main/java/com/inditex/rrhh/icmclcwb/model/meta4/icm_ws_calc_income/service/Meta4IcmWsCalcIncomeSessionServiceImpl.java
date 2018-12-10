@@ -1,11 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionService;
@@ -83,6 +91,27 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     @Override
     public List<GenericEmpleadoResultItemDto> getEmpleados(final EmpleadosRequestDto request) throws Exception {
     	return getResultItem(request, meta4IcmWsCalcIncomeService, "getEmpleados", getEmpleadosDto.getFilter().getMaxPageSize());
+    }
+    
+    // TODO PoC
+    @Override
+    public List<PeriodoDto> periodo() {
+        List<PeriodoDto> result = new ArrayList<>();
+        Random random = new Random();
+        LongStream lsPeriodos = random.longs(2, 3);
+        long periodos = lsPeriodos.findFirst().getAsLong();
+        lsPeriodos.close();
+        for (int periodo = 1; periodo <= periodos; periodo++) {
+            PeriodoDto item = new PeriodoDto();
+            IntStream isMes = random.ints(1, 12);
+            int mes = isMes.findFirst().getAsInt();
+            isMes.close();
+            LocalDate localDate = LocalDate.of(2017, mes, 1);
+            item.setFechaInicioPeriodo(localDate.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
+            item.setFechaFinPeriodo(localDate.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX));
+            result.add(item);
+        }
+        return result;
     }
     
     

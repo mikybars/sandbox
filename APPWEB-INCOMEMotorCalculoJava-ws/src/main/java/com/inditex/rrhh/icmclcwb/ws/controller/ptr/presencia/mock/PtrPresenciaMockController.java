@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.ws.controller.ptr.presencia.mock.controller;
+package com.inditex.rrhh.icmclcwb.ws.controller.ptr.presencia.mock;
 
 import javax.validation.Valid;
 

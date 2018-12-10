@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendacomisionable.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.valorescondiciones.dto.ValoresCondicionesResultItemDto;
 
+@Deprecated
 public interface Meta4IcmWsIncomeSessionAsyncService {
 
 	CompletableFuture<List<EmpleadosTiendaResultItemDto>> getEmpleadosTienda(

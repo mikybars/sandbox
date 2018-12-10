@@ -25,5 +25,9 @@ public class ProgramacionEmpleadoDto implements Serializable {
 	@NotBlank
 	@ApiModelProperty(value = "Id del empleado", required = true, example = "1000")
 	private String idEmpleado;
+	
+	@NotBlank
+	@ApiModelProperty(value = "Ordinal del empleado", required = true, example = "1")
+	private String orEmpleado;
 
 }

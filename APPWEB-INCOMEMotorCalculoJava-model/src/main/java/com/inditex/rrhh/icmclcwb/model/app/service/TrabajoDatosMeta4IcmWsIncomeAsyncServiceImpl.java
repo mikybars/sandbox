@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsIncomeService;
 
+@Deprecated
 @Service
 public class TrabajoDatosMeta4IcmWsIncomeAsyncServiceImpl implements TrabajoDatosMeta4IcmWsIncomeAsyncService {
 

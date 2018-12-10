@@ -20,28 +20,15 @@ public class TrabajoTiendaEstadoServiceImpl implements TrabajoTiendaEstadoServic
 
 	@Autowired
 	private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
-	
+
 	@Autowired
 	private TrabajoTiendaEstadoMapper trabajoTiendaEstadoMapper;
-	
-    @Override
-    public TrabajoTiendaEstadoDto save(@Valid final TrabajoTiendaEstadoDto trabajoTiendaEstadoDto) {
-        return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(
-        		trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
-                        .trabajoTiendaEstadoDtoToTrabajoTiendaEstado(trabajoTiendaEstadoDto)));
-    }
-    
-    @Override
-    public List<TrabajoTiendaEstadoDto> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto) {
-        return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(
-        		trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
-                        .trabajoTiendaEstadoDtoToTrabajoTiendaEstado(trabajoTiendaEstadoDto)));
-    }
-    
-    @Override
-    public List<TrabajoTiendaEstadoDto> save (final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto, @Valid TrabajoDto trabajo){
-    	return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(
-    			trabajoTiendaEstadoRepository.save(trabajoTiendaEstadoMapper
-              .mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(trabajoTiendaEstadoDto, trabajo)));
-    }
+
+	@Override
+	public List<TrabajoTiendaEstadoDto> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto,
+			@Valid TrabajoDto trabajo) {
+		return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(trabajoTiendaEstadoRepository
+				.save(trabajoTiendaEstadoMapper.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
+						trabajoTiendaEstadoDto, trabajo)));
+	}
 }

@@ -1,6 +1,10 @@
 spring:
   profiles:
     active: test
+logging:
+  level:
+    root: WARN
+    com.inditex.rrhh.icmclcwb: INFO
 amiga:
   common:
     cache:
@@ -14,9 +18,4 @@ amiga:
       local:
         enable-local-test: true
     session:
-      session-type: EMBEDDED
-logging:
-  level:
-    root: WARN
-    com.inditex.rrhh.icmclcwb: INFO
-      
+      session-type: EMBEDDED    

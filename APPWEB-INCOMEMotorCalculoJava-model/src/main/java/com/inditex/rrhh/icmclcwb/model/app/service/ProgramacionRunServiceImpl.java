@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.service.Meta4IcmWsIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionRunService;
 import com.inditex.rrhh.icmclcwb.api.app.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
@@ -38,7 +38,7 @@ public class ProgramacionRunServiceImpl implements ProgramacionRunService {
     private TrabajoMapper trabajoMapper;
 
     @Autowired
-    private Meta4IcmWsIncomeSessionService meta4Service;
+    private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Override
     public List<TrabajoDto> run() {
@@ -50,8 +50,8 @@ public class ProgramacionRunServiceImpl implements ProgramacionRunService {
                     programacion.setFechaUltimaEjecucion(LocalDateTime.now());
                     programacion.setFechaSiguienteEjecucion(programacionService.fechaSiguienteEjecucion(programacion));
                     ProgramacionDto programacionModify = programacionService.modifyProgramacion(programacion);
-                    meta4Service.periodo().stream().forEach(periodo -> {
-                        TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacionModify);
+                    meta4IcmWsCalcIncomeSessionService.periodo().stream().forEach(periodo -> {
+						TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacionModify);
                         trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
                         trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
                         result.add(trabajoService.createTrabajo(trabajo));

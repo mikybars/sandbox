@@ -33,6 +33,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmParametrost
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.mapper.IcmWsIncomeMapper;
 
+@Deprecated
 @Service
 public class Meta4IcmWsIncomeServiceImpl implements Meta4IcmWsIncomeService {
 

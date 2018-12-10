@@ -30,5 +30,9 @@ public class TrabajoEmpleado {
 	@NotNull
 	@Column(name = "ID_EMPLEADO", nullable = false)
 	private String idEmpleado;
+	
+	@NotNull
+	@Column(name = "OR_EMPLEADO", nullable = false)
+	private String orEmpleado;
 
 }

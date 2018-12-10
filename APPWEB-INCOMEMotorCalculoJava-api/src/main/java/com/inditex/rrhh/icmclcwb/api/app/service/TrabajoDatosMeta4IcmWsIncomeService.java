@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.service;
 import javax.validation.Valid;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
+@Deprecated
 public interface TrabajoDatosMeta4IcmWsIncomeService {
 
     void condicionesEmpleados(@Valid final TrabajoDto trabajo) throws Exception;

@@ -10,7 +10,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoTrabajoTienda;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
 
@@ -24,13 +23,10 @@ public abstract class TrabajoTiendaEstadoDecorator extends TrabajoTiendaEstadoMa
 			List<TrabajoTiendaEstadoDto> trabajoTiendaEstado, TrabajoDto trabajo) {
 		List<TrabajoTiendaEstado> result = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(trabajoTiendaEstado)) {
-			EstadoTrabajoTienda estadoPendienteId = new EstadoTrabajoTienda();
-			estadoPendienteId.setId(AppConstants.EstadoTrabajoTiendaEnum.PENDIENTE.getId());
 			TipoTrabajoTienda tipoInicialId = new TipoTrabajoTienda();
 			tipoInicialId.setId(AppConstants.TipoTrabajoTiendaEnum.INICIAL.getId());
 			trabajoTiendaEstado.forEach(item -> {
 				TrabajoTiendaEstado src = delegate.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(item, trabajo);
-				src.setEstado(estadoPendienteId);
 				src.setTipo(tipoInicialId);
 				result.add(src);
 			});

@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,13 +16,13 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_TRABAJO_TIENDA_ESTADO", schema = "DESARROLLO_RRHH")
+@Table(name = "INCOME_TRABAJO_TIENDA_HISTORICO", schema = "DESARROLLO_RRHH")
 @Data
-public class TrabajoTiendaEstado {
+public class TrabajoTiendaHistorico {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TRABAJO_TIENDA_ESTADO")
+	@Column(name = "ID_TRABAJO_TIENDA_HISTORICO")
 	private /* BigInteger */ Long id;
 
 	@NotNull
@@ -51,10 +53,17 @@ public class TrabajoTiendaEstado {
 	@NotBlank
 	@Column(name = "CCL_ID_CADENA", nullable = false)
 	private String idCadena;
+	
+	@NotNull
+	@Column(name = "FECHA_INICIO", nullable = false)
+	private Date fechaInicio;
 
 	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TIPO_TRABAJO_TIENDA", nullable = false)
-	private /* BigInteger */ TipoTrabajoTienda tipo;
+	@Column(name = "FECHA_FIN", nullable = false)
+	private Date fechaFin;
+	
+	@NotNull
+	@Column(name = "COMISIONABLE", nullable = false)
+	private Boolean comisionable;
 
 }
