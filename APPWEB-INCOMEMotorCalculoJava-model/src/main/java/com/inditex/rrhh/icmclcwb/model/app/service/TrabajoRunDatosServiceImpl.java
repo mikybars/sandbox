@@ -80,9 +80,6 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 				/*-------------------------------------------------------------*/
 				AsyncUtils.waitAllOfIsOk(cf, cfTiendasHistorico, cfTiendasEmpleadoHistorico);
 				/*-------------------------------------------------------------*/
-
-				// TODO PENDIENTE Servicio que unifique los datos del historico de tiendas desde BBDD o con Meta4
-				
 				
 				// TODO Revisar si son comisionables
 				CompletableFuture<Void> cfTiendasComisionable = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
