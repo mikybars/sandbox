@@ -52,186 +52,190 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaPresencia
 @Validated
 public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPresenciaService {
 
-	@Autowired
-	private PtrPresenciaAsyncService ptrPresenciaAsyncService;
+    @Autowired
+    private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
-	@Autowired
-	private TrabajoTiendaSeccionPresenciaService trabajoTiendaSeccionPresenciaService;
+    @Autowired
+    private TrabajoTiendaSeccionPresenciaService trabajoTiendaSeccionPresenciaService;
 
-	@Autowired
-	private TrabajoTipoHoraService trabajoTipoHoraSevice;
+    @Autowired
+    private TrabajoTipoHoraService trabajoTipoHoraSevice;
 
-	@Autowired
-	private TrabajoTiendaSeccionEmpleadoPresenciaService trabajoTiendaSeccionEmpleadoPresenciaService;
+    @Autowired
+    private TrabajoTiendaSeccionEmpleadoPresenciaService trabajoTiendaSeccionEmpleadoPresenciaService;
 
-	@Autowired
-	private TrabajoMapper trabajoMapper;
+    @Autowired
+    private TrabajoMapper trabajoMapper;
 
-	@Autowired
-	private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
+    @Autowired
+    private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 
-	@Autowired
-	private TrabajoTiendaEstadoRepositoryCustom trabajoTiendaEstadoRepositoryCustom;
+    @Autowired
+    private TrabajoTiendaEstadoRepositoryCustom trabajoTiendaEstadoRepositoryCustom;
 
-	@Autowired
-	private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository;
+    @Autowired
+    private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository;
 
-	@Autowired
-	private TrabajoTiendaPresenciaSeccionRepository trabajoTiendaPresenciaSeccionRepository;
+    @Autowired
+    private TrabajoTiendaPresenciaSeccionRepository trabajoTiendaPresenciaSeccionRepository;
 
-	@Autowired
-	private TrabajoTiendaEmpleadoPresenciaSeccionRepository trabajoTiendaEmpleadoPresenciaSeccionRepository;
+    @Autowired
+    private TrabajoTiendaEmpleadoPresenciaSeccionRepository trabajoTiendaEmpleadoPresenciaSeccionRepository;
 
-	@Autowired
-	@Qualifier("presenciasTotalTiendaSeccionDto")
-	private PtrPropertiesDto presenciasTotalTiendaSeccionDto;
+    @Autowired
+    @Qualifier("presenciasTotalTiendaSeccionDto")
+    private PtrPropertiesDto presenciasTotalTiendaSeccionDto;
 
-	@Autowired
-	@Qualifier("presenciasDetalleDto")
-	private PtrPropertiesDto presenciasDetalleDto;
+    @Autowired
+    @Qualifier("presenciasDetalleDto")
+    private PtrPropertiesDto presenciasDetalleDto;
 
-	@AuditoriaTrabajo
-	@Override
-	public void tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
-		List<CompletableFuture<?>> cf = new ArrayList<>();
-		List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-		String origen = trabajo.getIdPaisOrigen();
-		PtrPresenciaTiposHorasRequestDto tHora = new PtrPresenciaTiposHorasRequestDto(Integer.parseInt(origen), null,
-				null, null);
-		CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.getTiposHoras(tHora);
-		List<PtrPresenciaTiposHorasResultItemDto> data = cfData.get().getList();
-		if (CollectionUtils.isNotEmpty(data)) {
-			AsyncUtils.exceptionally(trabajoTipoHoraSevice.save(data, trabajo), cf, cfPersist);
-		}
-	}
+    @AuditoriaTrabajo
+    @Override
+    public void tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
+                    .getTiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
+                            .origen(Integer.parseInt(trabajo.getIdPaisOrigen())).build());
+            AsyncUtils.exceptionally(cfData, cf);
+            PtrPresenciaTiposHorasResponseDto data = cfData.get();
+            if (CollectionUtils.isNotEmpty(data.getList())) {
+                AsyncUtils.exceptionally(trabajoTipoHoraSevice.save(data.getList(), trabajo), cf);
+            }
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
 
-	@AuditoriaTrabajo
-	@Override
-	public void presenciaTotalizadaTienda(@Valid TrabajoDto trabajo,
-			@NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
-			@Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
-		List<CompletableFuture<?>> cf = new ArrayList<>();
-		try {
-			List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-			List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(TipoTrabajoTiendaDto::getId)
-					.collect(Collectors.toList());
-			Page<TrabajoTiendaEstado> page;
-			Pageable pageable = new PageRequest(0, presenciasTotalTiendaSeccionDto.getFilter().getMaxPageSize());
-			do {
-				page = trabajoTiendaEstadoRepository.findByTrabajoIdAndTipoIdIn(trabajo.getId(), tipoTrabajoTiendaId,
-						pageable);
+    @AuditoriaTrabajo
+    @Override
+    public void presenciaTotalizadaTienda(@Valid TrabajoDto trabajo,
+            @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
+            @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+            List<Long> tipoTrabajoTiendaId = tipoTrabajoTienda.stream().map(TipoTrabajoTiendaDto::getId)
+                    .collect(Collectors.toList());
+            Page<TrabajoTiendaEstado> page;
+            Pageable pageable = new PageRequest(0, presenciasTotalTiendaSeccionDto.getFilter().getMaxPageSize());
+            do {
+                page = trabajoTiendaEstadoRepository.findByTrabajoIdAndTipoIdIn(trabajo.getId(), tipoTrabajoTiendaId,
+                        pageable);
 
-				if (CollectionUtils.isNotEmpty(page.getContent())) {
-					List<PtrPresenciaTiendaSeccionDto> tiendas = page.getContent().stream()
-							.map(t -> new PtrPresenciaTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
-							.collect(Collectors.toList());
+                if (CollectionUtils.isNotEmpty(page.getContent())) {
+                    List<PtrPresenciaTiendaSeccionDto> tiendas = page.getContent().stream()
+                            .map(t -> new PtrPresenciaTiendaSeccionDto(Integer.valueOf(t.getIdTienda()), null))
+                            .collect(Collectors.toList());
 
-					List<Integer> cadenas = trabajoRunDatos.getCadenasEmpresa().stream().map(Integer::valueOf)
-							.collect(Collectors.toList());
+                    List<Integer> cadenas = trabajoRunDatos.getCadenasEmpresa().stream().map(Integer::valueOf)
+                            .collect(Collectors.toList());
 
-					PtrPresenciaTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
-							.trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(trabajo);
-					paramPresenciasTotalTiendaSeccion.setCadena(cadenas);
-					paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-					// TODO (PENDIENTE ANALIZAR) Enviar la lista de horas comisionables y cambiar el
-					// objeto a una lista
-					// paramPresenciasTotalTiendaSeccion.setTipo(tipo);
+                    PtrPresenciaTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
+                            .trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(trabajo);
+                    paramPresenciasTotalTiendaSeccion.setCadena(cadenas);
+                    paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
+                    // TODO (PENDIENTE ANALIZAR) Enviar la lista de horas comisionables y cambiar el
+                    // objeto a una lista
+                    // paramPresenciasTotalTiendaSeccion.setTipo(tipo);
 
-					CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> cfData = ptrPresenciaAsyncService
-							.getPresenciasTotalTiendaSeccionDto(paramPresenciasTotalTiendaSeccion);
-					AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                    CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> cfData = ptrPresenciaAsyncService
+                            .getPresenciasTotalTiendaSeccionDto(paramPresenciasTotalTiendaSeccion);
+                    AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-					PtrPresenciaTotalTiendaSeccionResponseDto data = cfData.get();
-					if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
-						AsyncUtils.checkAsyncAvaliable(cfPersist,
-								presenciasTotalTiendaSeccionDto.getFilter().getMaxPersistenceSize());
-						AsyncUtils.exceptionally(trabajoTiendaSeccionPresenciaService.save(data.getList()), cf,
-								cfPersist);
-					}
-					pageable = page.nextPageable();
-				}
-			} while (page.hasNext());
+                    PtrPresenciaTotalTiendaSeccionResponseDto data = cfData.get();
+                    if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                presenciasTotalTiendaSeccionDto.getFilter().getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(trabajoTiendaSeccionPresenciaService.save(data.getList()), cf,
+                                cfPersist);
+                    }
+                    pageable = page.nextPageable();
+                }
+            } while (page.hasNext());
 
-			AsyncUtils.waitAllOfIsOk(cf, cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
 
-			if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
-				trabajoTiendaPresenciaSeccionRepository.save(trabajo);
-			}
-		} catch (Exception e) {
-			AsyncUtils.cancel(cf);
-			throw e;
-		}
-	}
+            if (RunUtils.isPivot(trabajo, tipoTrabajoTienda)) {
+                trabajoTiendaPresenciaSeccionRepository.save(trabajo);
+            }
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
 
-	@AuditoriaTrabajo
-	@Override
-	public void presenciaDetalleEmpleado(@Valid TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos)
-			throws Exception {
-		List<CompletableFuture<?>> cf = new ArrayList<>();
-		try {
-			List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-			Page<TrabajoEmpleadoEstado> page;
-			Pageable pageable = new PageRequest(0, presenciasDetalleDto.getFilter().getMaxPageSize());
-			Set<Integer> idsTiendas = new HashSet<>();
-			do {
-				page = trabajoEmpleadoEstadoRepository.findByTrabajoId(trabajo.getId(), pageable);
+    @AuditoriaTrabajo
+    @Override
+    public void presenciaDetalleEmpleado(@Valid TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos)
+            throws Exception {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+            Page<TrabajoEmpleadoEstado> page;
+            Pageable pageable = new PageRequest(0, presenciasDetalleDto.getFilter().getMaxPageSize());
+            Set<Integer> idsTiendas = new HashSet<>();
+            do {
+                page = trabajoEmpleadoEstadoRepository.findByTrabajoId(trabajo.getId(), pageable);
 
-				if (CollectionUtils.isNotEmpty(page.getContent())) {
-					List<Integer> empleados = page.getContent().stream().map(s -> Integer.valueOf(s.getIdEmpleado()))
-							.collect(Collectors.toList());
+                if (CollectionUtils.isNotEmpty(page.getContent())) {
+                    List<Integer> empleados = page.getContent().stream().map(s -> Integer.valueOf(s.getIdEmpleado()))
+                            .collect(Collectors.toList());
 
-					List<Integer> cadenas = trabajoRunDatos.getCadenasEmpresa().stream().map(Integer::valueOf)
-							.collect(Collectors.toList());
+                    List<Integer> cadenas = trabajoRunDatos.getCadenasEmpresa().stream().map(Integer::valueOf)
+                            .collect(Collectors.toList());
 
-					PtrPresenciaDetalleRequestDto paramPresenciasDetalle = trabajoMapper
-							.trabajoDtoToPtrPresenciasDetalleRequestDto(trabajo);
-					paramPresenciasDetalle.setPersonas(empleados);
-					paramPresenciasDetalle.setCadena(cadenas);
+                    PtrPresenciaDetalleRequestDto paramPresenciasDetalle = trabajoMapper
+                            .trabajoDtoToPtrPresenciasDetalleRequestDto(trabajo);
+                    paramPresenciasDetalle.setPersonas(empleados);
+                    paramPresenciasDetalle.setCadena(cadenas);
 
-					CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = ptrPresenciaAsyncService
-							.getPresenciasDetalleDto(paramPresenciasDetalle);
-					AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                    CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = ptrPresenciaAsyncService
+                            .getPresenciasDetalleDto(paramPresenciasDetalle);
+                    AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-					PtrPresenciaDetalleResponseDto data = cfData.get();
-					if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
-						AsyncUtils.checkAsyncAvaliable(cfPersist,
-								presenciasDetalleDto.getFilter().getMaxPersistenceSize());
-						AsyncUtils.exceptionally(
-								trabajoTiendaSeccionEmpleadoPresenciaService.save(data.getList(), trabajo), cf,
-								cfPersist);
+                    PtrPresenciaDetalleResponseDto data = cfData.get();
+                    if (data != null && CollectionUtils.isNotEmpty(data.getList())) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                presenciasDetalleDto.getFilter().getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                trabajoTiendaSeccionEmpleadoPresenciaService.save(data.getList(), trabajo), cf,
+                                cfPersist);
 
-						if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
-								|| CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-							// TODO Recuperar los ids de tienda sin repetidos de las presencias, para
-							// procesarlas posteriormente
-							trabajoRunDatos.getTiendasPresencia().addAll(data.getList().stream()
-									.map(PtrPresenciaDetalleResultItemDto::getTienda).collect(Collectors.toSet()));
-						}
+                        if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
+                                || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
+                            // TODO Recuperar los ids de tienda sin repetidos de las presencias, para
+                            // procesarlas posteriormente
+                            trabajoRunDatos.getTiendasPresencia().addAll(data.getList().stream()
+                                    .map(PtrPresenciaDetalleResultItemDto::getTienda).collect(Collectors.toSet()));
+                        }
 
-					}
-				}
-				pageable = page.nextPageable();
-			} while (page.hasNext());
+                    }
+                }
+                pageable = page.nextPageable();
+            } while (page.hasNext());
 
-			AsyncUtils.waitAllOfIsOk(cf, cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
 
-			// TODO Revisar si las tiendas recuperadas de las presencias estan en las
-			// tiendas de BBDD
-			// Si no estan consultar a Meta4 e insertar los datos
+            // TODO Revisar si las tiendas recuperadas de las presencias estan en las
+            // tiendas de BBDD
+            // Si no estan consultar a Meta4 e insertar los datos
 
-			if (CollectionUtils.isNotEmpty(idsTiendas)) {
-				List<Integer> idsTiendasMeta4 = trabajoTiendaEstadoRepositoryCustom
-						.customFindByIdTiendaNotExists(idsTiendas);
-				// TODO Obtener tiendas de Meta4 y persistir en BBDD el detalle
-			}
+            if (CollectionUtils.isNotEmpty(idsTiendas)) {
+                List<Integer> idsTiendasMeta4 = trabajoTiendaEstadoRepositoryCustom
+                        .customFindByIdTiendaNotExists(idsTiendas);
+                // TODO Obtener tiendas de Meta4 y persistir en BBDD el detalle
+            }
 
-			// TODO Pivotado de la informacion
+            // TODO Pivotado de la informacion
 
-			trabajoTiendaEmpleadoPresenciaSeccionRepository.save(trabajo);
-		} catch (Exception e) {
-			AsyncUtils.cancel(cf);
-			throw e;
-		}
-	}
+            trabajoTiendaEmpleadoPresenciaSeccionRepository.save(trabajo);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
 
 }
