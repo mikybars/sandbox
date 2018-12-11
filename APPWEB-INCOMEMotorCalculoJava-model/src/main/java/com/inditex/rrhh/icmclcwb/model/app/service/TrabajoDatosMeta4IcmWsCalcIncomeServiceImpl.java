@@ -30,7 +30,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeService;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoAsyncService;
@@ -73,9 +72,6 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
     @Autowired
     private TrabajoTiendaHistoricoAsyncService trabajoTiendaHistoricoAsyncService;
-
-    @Autowired
-    private TrabajoEmpleadoEstadoAsyncService trabajoEmpleadoEstadoAsyncService;
 
     @Autowired
     private TrabajoMapper trabajoMapper;
@@ -160,16 +156,18 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                             .searchEmpleados(searchEmpleadosRequest);
                     AsyncUtils.exceptionally(cfDataEmpleados, cf);
                     List<GenericEmpleadoResultItemDto> dataTiendas = cfDataEmpleados.get();
-
+                    
                     if (CollectionUtils.isNotEmpty(dataTiendas)) {
                         List<TrabajoEmpleadoHistoricoDto> trabajoEmpleadoHistorico = trabajoEmpleadoHistoricoMapper
                                 .genericEmpleadoResultItemDtoToTrabajoEmpleadoHistoricoDto(dataTiendas);
-                        AsyncUtils.checkAsyncAvaliable(cfPersist, searchTiendasDto.getFilter().getMaxPersistenceSize());
-                        CompletableFuture<Void> cfSave = trabajoEmpleadoHistoricoAsyncService.save(trabajoEmpleadoHistorico,
-                                trabajo);
-                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        if (CollectionUtils.isNotEmpty(trabajoEmpleadoHistorico)) {
+                            AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                    searchEmpleadosDto.getFilter().getMaxPersistenceSize());
+                            CompletableFuture<Void> cfSave = trabajoEmpleadoHistoricoAsyncService.save(trabajoEmpleadoHistorico, trabajo);
+                            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        }
                     }
-                    
+
                     tiendasParam.addAll(dataTiendas.stream().map(GenericEmpleadoResultItemDto::getIdTiendaMtu)
                             .collect(Collectors.toSet()));
                     hasNext = searchEmpleadosRequest.nextPage();
@@ -281,6 +279,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
             TiendasEmpleadoRequestDto tiendasEmpleadoRequest = new TiendasEmpleadoRequestDto();
             tiendasEmpleadoRequest.setPage(getTiendasEmpleadoDto.getPage());
             tiendasEmpleadoRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
+
             // TODO PENDIENTE Paginación de lista
             tiendasEmpleadoRequest.getData().getItem()
                     .addAll(trabajo.getTiendas().stream()
@@ -294,51 +293,52 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                         .getTiendasEmpleado(tiendasEmpleadoRequest);
                 AsyncUtils.exceptionally(cfData, cf);
                 List<GenericTiendaResultItemDto> data = cfData.get();
-
+                
                 if (CollectionUtils.isNotEmpty(data)) {
                     idTiendas.addAll(data.stream().map(e -> e.getIdLugarTrabajo()).collect(Collectors.toSet()));
                 }
                 
-                // TODO PENDIENTE Hay que persistir los datos de las tiendas en historico con sus fechas de inicio y fin consultando el servicio
+                if (CollectionUtils.isNotEmpty(idTiendas)) {
+                    SearchTiendasRequestDto searchTiendasRequest = new SearchTiendasRequestDto();
+                    searchTiendasRequest.setPage(searchTiendasDto.getPage());
+                    searchTiendasRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
+                        searchTiendasRequest.getData().getItem()
+                                .addAll(idTiendas.stream()
+                                        .map(item -> GenericFilterParametersDto.builder().idLugarTrabajo(item).build())
+                                        .collect(Collectors.toList()));
+                    List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+                    boolean hasNextTienda;
+                    do {
+                        hasNextTienda = false;
+                        CompletableFuture<List<GenericTiendaResultItemDto>> cfDataTiendas = meta4IcmWsCalcIncomeSessionAsyncService
+                                .searchTiendas(searchTiendasRequest);
+                        AsyncUtils.exceptionally(cfDataTiendas, cf);
+                        List<GenericTiendaResultItemDto> dataTiendas = cfDataTiendas.get();
+                        if (CollectionUtils.isNotEmpty(dataTiendas)) {
+                            List<TrabajoTiendaHistoricoDto> trabajoTiendaHistorico = trabajoTiendaHistoricoMapper
+                                    .genericTiendaResultItemDtoToTrabajoTiendaHistoricoDto(dataTiendas);
+                            if (CollectionUtils.isNotEmpty(trabajoTiendaHistorico)) {
+                                AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                        searchTiendasDto.getFilter().getMaxPersistenceSize());
+                                CompletableFuture<Void> cfSave = trabajoTiendaHistoricoAsyncService
+                                        .save(trabajoTiendaHistorico, trabajo);
+                                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                            }
+                        }
+                        hasNextTienda = searchTiendasRequest.nextPage();
+                    } while (hasNextTienda);
+                }
+                
                 hasNext = tiendasEmpleadoRequest.nextPage();
             } while (hasNext);
             
-            if (CollectionUtils.isNotEmpty(idTiendas)) {
-                SearchTiendasRequestDto searchTiendasRequest = new SearchTiendasRequestDto();
-                searchTiendasRequest.setPage(searchTiendasDto.getPage());
-                searchTiendasRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
-                    searchTiendasRequest.getData().getItem()
-                            .addAll(idTiendas.stream()
-                                    .map(item -> GenericFilterParametersDto.builder().idLugarTrabajo(item).build())
-                                    .collect(Collectors.toList()));
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-                boolean hasNextTienda;
-                do {
-                    hasNextTienda = false;
-                    CompletableFuture<List<GenericTiendaResultItemDto>> cfDataTiendas = meta4IcmWsCalcIncomeSessionAsyncService
-                            .searchTiendas(searchTiendasRequest);
-                    AsyncUtils.exceptionally(cfDataTiendas, cf);
-                    List<GenericTiendaResultItemDto> dataTiendas = cfDataTiendas.get();
-                    if (CollectionUtils.isNotEmpty(dataTiendas)) {
-                        List<TrabajoTiendaHistoricoDto> trabajoTiendaHistorico = trabajoTiendaHistoricoMapper
-                                .genericTiendaResultItemDtoToTrabajoTiendaHistoricoDto(dataTiendas);
-                        if (CollectionUtils.isNotEmpty(trabajoTiendaHistorico)) {
-                            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                    searchTiendasDto.getFilter().getMaxPersistenceSize());
-                            CompletableFuture<Void> cfSave = trabajoTiendaHistoricoAsyncService
-                                    .save(trabajoTiendaHistorico, trabajo);
-                            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                        }
-                    }
-                    hasNextTienda = searchTiendasRequest.nextPage();
-                } while (hasNextTienda);
-            }
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
     }
+    
 
     @AuditoriaTrabajo
     @Override
@@ -552,13 +552,12 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
             EmpleadosRequestDto empleadosRequest = new EmpleadosRequestDto();
             empleadosRequest.setPage(getEmpleadosDto.getPage());
             empleadosRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
+            
+            SearchEmpleadosRequestDto searchEmpleadosRequest = new SearchEmpleadosRequestDto();
+            searchEmpleadosRequest.setPage(searchEmpleadosDto.getPage());
+            searchEmpleadosRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
 
-            if (CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-                empleadosRequest.getData().getItem()
-                        .addAll(trabajo.getEmpleados().stream()
-                                .map(e -> GenericFilterParametersDto.builder().idEmpleado(e.getIdEmpleado()).build())
-                                .collect(Collectors.toList()));
-            } else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
+            if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
                 empleadosRequest.getData().getItem()
                         .addAll(trabajo.getTiendas().stream()
                                 .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdTienda()).build())
@@ -573,7 +572,29 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                 AsyncUtils.exceptionally(cfDataEmpleados, cf);
 
                 List<GenericEmpleadoResultItemDto> data = cfDataEmpleados.get();
+                
                 if (CollectionUtils.isNotEmpty(data)) {
+                    
+                    searchEmpleadosRequest.getData().getItem()
+                    .addAll(data.stream()
+                            .map(e -> GenericFilterParametersDto.builder().idEmpleado(e.getIdEmpleado()).build())
+                            .collect(Collectors.toList()));
+                    
+                    CompletableFuture<List<GenericEmpleadoResultItemDto>> cfHistoricoEmpleados = meta4IcmWsCalcIncomeSessionAsyncService
+                            .searchEmpleados(searchEmpleadosRequest);
+                    AsyncUtils.exceptionally(cfHistoricoEmpleados, cf);
+                    
+                    List<GenericEmpleadoResultItemDto> dataHistorico = cfHistoricoEmpleados.get();
+                    
+                    if (CollectionUtils.isNotEmpty(dataHistorico)) {
+                        List<TrabajoEmpleadoHistoricoDto> trabajoEmpleadoHistorico = trabajoEmpleadoHistoricoMapper
+                                .genericEmpleadoResultItemDtoToTrabajoEmpleadoHistoricoDto(dataHistorico);
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, searchTiendasDto.getFilter().getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSave = trabajoEmpleadoHistoricoAsyncService.save(trabajoEmpleadoHistorico,
+                                trabajo);
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    }
+                    
                     List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado = trabajoEmpleadoEstadoMapper
                             .genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
                     if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {

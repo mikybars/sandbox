@@ -28,12 +28,14 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
         return CompletableFuture.completedFuture(null);
     }
     
+    @Async
     @Override
     public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.tiendasComisionable(trabajo, tipoTrabajoTienda, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }
 
+    @Async
     @Override
     public CompletableFuture<Void> tiendasHistorico(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
             throws Exception {
@@ -41,6 +43,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
         return CompletableFuture.completedFuture(null);
     }
 
+    @Async
     @Override
     public CompletableFuture<Void> tiendasEmpleadoHistorico(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
             throws Exception {
@@ -48,6 +51,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
         return CompletableFuture.completedFuture(null);
     }
 
+    @Async
     @Override
     public CompletableFuture<Void> condicionesEmpleados(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
             throws Exception {
@@ -55,6 +59,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
         return CompletableFuture.completedFuture(null);
     }
 
+    @Async
     @Override
     public CompletableFuture<Void> empleadosTienda(final TrabajoDto trabajo, final TrabajoRunDatosDto trabajoRunDatos)
             throws Exception {

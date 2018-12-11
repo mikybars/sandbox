@@ -60,36 +60,12 @@ public class AppConstants {
 
 		private final TipoTrabajoTiendaDto dto;
 		
+        public static final List<TipoTrabajoTiendaDto> TIPO_PRESENCIA = Arrays.asList(PRESENCIA.getDto());
+
+        public static final List<TipoTrabajoTiendaDto> TIPO_INICIAL_PARAM_HISTORICO = Arrays.asList(INICIAL.getDto(),
+                PARAMETRO.getDto(), HISTORICO.getDto());
 	}
 	
-    @Getter
-    @RequiredArgsConstructor
-    public enum TipoTrabajoTiendaPresenciaEnum {
 
-        PRESENCIA(4L, new TipoTrabajoTiendaDto(4L));
-
-        private final Long id;
-
-        private final TipoTrabajoTiendaDto dto;
-        
-        public static final List<TipoTrabajoTiendaDto> ALL = Arrays.asList(PRESENCIA.getDto());
-
-    }
-    
-    @Getter
-    @RequiredArgsConstructor
-    public enum TipoTrabajoTiendaInicialHistoricoParamEnum {
-
-        INICIAL(1L, new TipoTrabajoTiendaDto(1L)), PARAMETRO(2L, new TipoTrabajoTiendaDto(2L)),
-        HISTORICO(3L, new TipoTrabajoTiendaDto(3L));
-
-        private final Long id;
-
-        private final TipoTrabajoTiendaDto dto;
-        
-        public static final List<TipoTrabajoTiendaDto> ALL = Arrays.asList(INICIAL.getDto(),
-                PARAMETRO.getDto(), HISTORICO.getDto());
-
-    }
 
 }
