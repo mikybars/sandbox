@@ -51,7 +51,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         TiendasEmpleadoResponseDto result = new TiendasEmpleadoResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        param1.getIcmParametrosentradaRecordSet().add(new IcmParametrosentradaRecord());
         GettiendasempleadoOutput gettiendasempleadoOutput = meta4IcmWsCalcIncomeClient.gettiendasempleado(param1, param2);
         if (gettiendasempleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, gettiendasempleadoOutput.getReturn()) == 0) {
@@ -148,7 +147,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     public ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request) throws Exception {
     	ComisionEmpleadoResponseDto result = new ComisionEmpleadoResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
-        param1.getIcmParametrosentradaRecordSet().add(new IcmParametrosentradaRecord());
         GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4IcmWsCalcIncomeClient.getcomisionempleado(param1);
         if (getComisionEmpleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 
@@ -170,7 +168,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     	EmpleadosResponseDto result = new EmpleadosResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-
         GetempleadosOutput getEmpleadosOutput = meta4IcmWsCalcIncomeClient.getempleados(param1, param2);
         if (getEmpleadosOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getEmpleadosOutput.getReturn()) == 0) {
