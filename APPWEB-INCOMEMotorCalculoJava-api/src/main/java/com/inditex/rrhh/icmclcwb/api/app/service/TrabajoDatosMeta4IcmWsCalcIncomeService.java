@@ -21,7 +21,7 @@ public interface TrabajoDatosMeta4IcmWsCalcIncomeService {
 
     void tiendasPresencia(@Valid final TrabajoDto trabajo, @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
-    void tiendasComisionable(@Valid TrabajoDto trabajo, @NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
-            @Valid TrabajoRunDatosDto trabajoRunDatos) throws Exception;
+    void tiendasComisionable(@Valid final TrabajoDto trabajo, @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
+            @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
 }

@@ -38,7 +38,7 @@ public abstract class TrabajoTiendaEstadoMapper {
    
 	public List<TrabajoTiendaEstado> mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
             List<TrabajoTiendaEstadoDto> trabajoTiendaEstado, TrabajoDto trabajo, Long idTipoTrabajoTienda) {
-        return null;
+	    throw new UnsupportedOperationException("Not implemented");
     }
 
 	@Mapping(target = "idPaisOrigen", source = "idOrigen")

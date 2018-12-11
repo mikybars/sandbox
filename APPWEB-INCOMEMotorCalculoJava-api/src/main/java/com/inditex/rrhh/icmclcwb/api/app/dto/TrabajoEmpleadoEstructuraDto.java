@@ -8,22 +8,19 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 public class TrabajoEmpleadoEstructuraDto implements Serializable {
 
     private static final long serialVersionUID = -7035758911645090409L;
 
-    @ToString.Exclude
     @ApiModelProperty(value = "Identificador del empleado estructura", required = false)
     private String id;
-    
-    @ToString.Exclude
+
     @NotNull
     @ApiModelProperty(value = "Identificador del trabajo", required = true)
     private Long idTrabajo;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id del empleado", required = true)
     private String idEmpleado;
@@ -31,11 +28,11 @@ public class TrabajoEmpleadoEstructuraDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Ordinal del periodo", required = true)
     private String orEmpleado;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id local del empleado", required = true)
     private String idEmpleadoLocal;
-    
+
     @NotNull
     @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
     private Long idEstructura;
@@ -43,11 +40,11 @@ public class TrabajoEmpleadoEstructuraDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Id formula calculo a aplicar", required = true)
     private Long idTipoCalculo;
-    
+
     @NotNull
     @ApiModelProperty(value = "Id tipo comisión asociado a la estructura ", required = true)
     private Long idTipoComision;
-    
+
     @NotNull
     @ApiModelProperty(value = "Id tipo comisión asociado a todas las secciones ", required = true)
     private Double porcentaje;
@@ -60,13 +57,11 @@ public class TrabajoEmpleadoEstructuraDto implements Serializable {
 
     @NotNull
     private Double porcentaje3;
-    
+
     @NotNull
     private Date fechaInicio;
 
     @NotNull
     private Date fechaFin;
-    
-    
-}
 
+}

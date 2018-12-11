@@ -13,19 +13,17 @@ import io.swagger.annotations.ApiModelProperty;
 @Data
 public class TrabajoTiendaDto implements Serializable {
 
-	private static final long serialVersionUID = -5607507260079003307L;
+    private static final long serialVersionUID = -5607507260079003307L;
 
-	@ToString.Exclude
-	@ApiModelProperty(value = "Identificador de la tienda", required = false)
-	private String id;
+    @ApiModelProperty(value = "Identificador de la tienda", required = false)
+    private String id;
 
-	@ToString.Exclude
-	@NotNull
-	@ApiModelProperty(value = "Trabajo", required = true)
-	private Long idTrabajo;
-	
-	@NotBlank
-	@ApiModelProperty(value = "Id de la tienda", required = true)
-	private String idTienda;
+    @NotNull
+    @ApiModelProperty(value = "Trabajo", required = true)
+    private Long idTrabajo;
+
+    @NotBlank
+    @ApiModelProperty(value = "Id de la tienda", required = true)
+    private String idTienda;
 
 }
