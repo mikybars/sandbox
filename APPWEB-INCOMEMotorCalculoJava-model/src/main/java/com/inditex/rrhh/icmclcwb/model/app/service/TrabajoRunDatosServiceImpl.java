@@ -54,6 +54,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 	@Override
 	public TrabajoRunDto run(@Valid final TrabajoRunDto trabajoRun) throws Exception {
 		List<CompletableFuture<?>> cf = new ArrayList<>();
+		List<CompletableFuture<?>> cfWait = new ArrayList<>();
 		try {
 			final TrabajoDto trabajo = trabajoRun.getTrabajoDto();
 			final TrabajoRunDatosDto trabajoRunDatos = trabajoRun.getTrabajoRunDatos();
@@ -61,30 +62,27 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 				trabajo.setFechaInicioTrabajo(LocalDateTime.now());
 				trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
 				trabajoService.modifyTrabajo(trabajo);
-
 				
 				CompletableFuture<Void> cfTiendasHistorico = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
 						.tiendasHistorico(trabajo, trabajoRunDatos);
-				AsyncUtils.exceptionally(cfTiendasHistorico, cf);
-
-				CompletableFuture<Void> cfTiendasEmpleadoHistorico = null;
+				AsyncUtils.exceptionally(cfTiendasHistorico, cf, cfWait);
+			
 				if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-					cfTiendasEmpleadoHistorico = trabajoDatosMeta4IcmWsCalcIncomeAsyncService.tiendasEmpleadoHistorico(trabajo,
-							trabajoRunDatos);
-					AsyncUtils.exceptionally(cfTiendasEmpleadoHistorico, cf);
+					AsyncUtils.exceptionally(trabajoDatosMeta4IcmWsCalcIncomeAsyncService.tiendasEmpleadoHistorico(trabajo,
+                            trabajoRunDatos), cf, cfWait);
 				}
 
 				CompletableFuture<Void> cfTiposHoras = trabajoDatosPtrPresenciaAsyncService.tiposHoras(trabajo);
 				AsyncUtils.exceptionally(cfTiposHoras, cf);
 
 				/*-------------------------------------------------------------*/
-				AsyncUtils.waitAllOfIsOk(cf, cfTiendasHistorico, cfTiendasEmpleadoHistorico);
+				AsyncUtils.waitAllOfIsOk(cf, cfWait);
 				/*-------------------------------------------------------------*/
 				
 				// TODO Revisar si son comisionables
 				CompletableFuture<Void> cfTiendasComisionable = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
 						.tiendasComisionable(trabajo, 
-                                AppConstants.TipoTrabajoTiendaInicialHistoricoParamEnum.ALL,
+                                AppConstants.TipoTrabajoTiendaEnum.TIPO_INICIAL_PARAM_HISTORICO,
                                 trabajoRunDatos);
 				AsyncUtils.exceptionally(cfTiendasComisionable, cf);
 
@@ -99,13 +97,13 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
 				CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosPtrVentaAsyncService
 						.ventaTotalizadaTienda(trabajo,
-                                AppConstants.TipoTrabajoTiendaInicialHistoricoParamEnum.ALL,
+						        AppConstants.TipoTrabajoTiendaEnum.TIPO_INICIAL_PARAM_HISTORICO,
 								trabajoRunDatos);
 				AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
 
 				CompletableFuture<Void> cfPresenciaTotalizadaTienda = trabajoDatosPtrPresenciaAsyncService
 						.presenciaTotalizadaTienda(trabajo, 
-						        AppConstants.TipoTrabajoTiendaInicialHistoricoParamEnum.ALL,
+						        AppConstants.TipoTrabajoTiendaEnum.TIPO_INICIAL_PARAM_HISTORICO,
 								trabajoRunDatos);
 				AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
 
@@ -143,7 +141,7 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 		                  if (CollectionUtils.isNotEmpty(trabajoRunDatos.getTiendasPresenciaNuevas())) {
                             // TODO Revisar si son comisionables
                             CompletableFuture<Void> cfTiendasComisionablePresencia = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
-                                    .tiendasComisionable(trabajo, AppConstants.TipoTrabajoTiendaPresenciaEnum.ALL,
+                                    .tiendasComisionable(trabajo, AppConstants.TipoTrabajoTiendaEnum.TIPO_PRESENCIA,
                                             trabajoRunDatos);
                             AsyncUtils.exceptionally(cfTiendasComisionablePresencia, cf);
                             
@@ -153,18 +151,16 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                                             trabajo.getIdPaisOrigen(), trabajo.getIdEmpresa()));
                            
                             CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = trabajoDatosPtrVentaAsyncService
-                                    .ventaTotalizadaTienda(trabajo, AppConstants.TipoTrabajoTiendaPresenciaEnum.ALL,
+                                    .ventaTotalizadaTienda(trabajo, AppConstants.TipoTrabajoTiendaEnum.TIPO_PRESENCIA,
                                             trabajoRunDatos);
                             AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
                         
                             CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = trabajoDatosPtrPresenciaAsyncService
-                                    .presenciaTotalizadaTienda(trabajo, AppConstants.TipoTrabajoTiendaPresenciaEnum.ALL,
+                                    .presenciaTotalizadaTienda(trabajo, AppConstants.TipoTrabajoTiendaEnum.TIPO_PRESENCIA,
                                             trabajoRunDatos);
                             AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
                         }
 					}
-
-
 				}
 
 				/*-------------------------------------------------------------*/

@@ -204,6 +204,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                                 trabajo);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     }
+                    //TODO: TrabajoTiendaEstado
                 }
                 hasNext = searchTiendasRequest.nextPage();
             } while (hasNext);
@@ -324,6 +325,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
                                         .save(trabajoTiendaHistorico, trabajo);
                                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                             }
+                            //TODO: TrabajoTiendaEstado
                         }
                         hasNextTienda = searchTiendasRequest.nextPage();
                     } while (hasNextTienda);
