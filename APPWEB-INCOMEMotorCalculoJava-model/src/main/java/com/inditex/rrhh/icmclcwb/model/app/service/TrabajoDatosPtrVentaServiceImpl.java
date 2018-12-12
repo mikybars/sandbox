@@ -150,6 +150,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 					PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
 							.trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
 					paramGetVentaIndividualDetalle.setVendedores(empleados);
+					paramGetVentaIndividualDetalle.setCadena(new ArrayList<>());
 					paramGetVentaIndividualDetalle.getCadena().addAll(trabajoRunDatos.getCadenasEmpresa());
 					paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
 					paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
