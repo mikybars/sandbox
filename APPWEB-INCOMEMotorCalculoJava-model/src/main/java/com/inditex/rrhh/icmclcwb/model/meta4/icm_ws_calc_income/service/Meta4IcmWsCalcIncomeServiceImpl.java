@@ -29,19 +29,18 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.Getemplea
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GettiendasempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmParametrosentradaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmParametrospaginacionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.SearchtiendasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.mapper.IcmWsCalcIncomeMapper;
+import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 @Service
 public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeService {
-
+	
 	@Autowired
-	@Qualifier("meta4IcmWsCalcIncomeClient")
-	private IcmWsCalcIncomeService meta4IcmWsCalcIncomeClient;
+	@Qualifier("meta4ClientPool")
+	private Meta4ClientPool meta4ClientPool;
 	
     @Autowired
     private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
@@ -51,7 +50,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         TiendasEmpleadoResponseDto result = new TiendasEmpleadoResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        GettiendasempleadoOutput gettiendasempleadoOutput = meta4IcmWsCalcIncomeClient.gettiendasempleado(param1, param2);
+        GettiendasempleadoOutput gettiendasempleadoOutput = meta4ClientPool.gettiendasempleado(param1, param2);
         if (gettiendasempleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, gettiendasempleadoOutput.getReturn()) == 0) {
             if (gettiendasempleadoOutput.getIcmParametrospaginacion() != null) {
@@ -75,7 +74,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     	SearchTiendasResponseDto result = new SearchTiendasResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        SearchtiendasOutput searchTiendasOutput = meta4IcmWsCalcIncomeClient.searchtiendas(param1, param2);
+        SearchtiendasOutput searchTiendasOutput = meta4ClientPool.searchtiendas(param1, param2);
         if (searchTiendasOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, searchTiendasOutput.getReturn()) == 0) {
             if (searchTiendasOutput.getIcmParametrospaginacion() != null) {
@@ -99,7 +98,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     	TiendasResponseDto result = new TiendasResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        GettiendasincomeOutput tiendasOutput = meta4IcmWsCalcIncomeClient.gettiendasincome(param2, param1);
+        GettiendasincomeOutput tiendasOutput = meta4ClientPool.gettiendasincome(param2, param1);
         if (tiendasOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, tiendasOutput.getReturn()) == 0) {
             if (tiendasOutput.getIcmParametrospaginacion() != null) {
@@ -123,7 +122,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     	SearchEmpleadosResponseDto result = new SearchEmpleadosResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        SearchempleadosOutput searchEmpleadosOutput = meta4IcmWsCalcIncomeClient.searchempleados(param2, param1);
+        SearchempleadosOutput searchEmpleadosOutput = meta4ClientPool.searchempleados(param2, param1);
         if (searchEmpleadosOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, searchEmpleadosOutput.getReturn()) == 0) {
             if (searchEmpleadosOutput.getIcmParametrospaginacion() != null) {
@@ -147,7 +146,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     public ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request) throws Exception {
     	ComisionEmpleadoResponseDto result = new ComisionEmpleadoResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
-        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4IcmWsCalcIncomeClient.getcomisionempleado(param1);
+        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1);
         if (getComisionEmpleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 
                     && getComisionEmpleadoOutput.getIcmListaempleados() != null
@@ -168,7 +167,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     	EmpleadosResponseDto result = new EmpleadosResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        GetempleadosOutput getEmpleadosOutput = meta4IcmWsCalcIncomeClient.getempleados(param1, param2);
+        GetempleadosOutput getEmpleadosOutput = meta4ClientPool.getempleados(param1, param2);
         if (getEmpleadosOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getEmpleadosOutput.getReturn()) == 0) {
             if (getEmpleadosOutput.getIcmParametrospaginacion() != null) {

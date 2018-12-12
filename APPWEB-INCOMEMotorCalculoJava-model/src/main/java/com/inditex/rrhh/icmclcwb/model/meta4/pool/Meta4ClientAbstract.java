@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config.meta4;
+package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
@@ -15,21 +15,23 @@ import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.springframework.beans.factory.annotation.Value;
 
-public abstract class Meta4ClientConfigAbstract<T> {
+public abstract class Meta4ClientAbstract<T> {
 
-    protected String server;
+    public String server;
 
     @Value("${app.envars.meta4.default-connect-timeout}")
-    private long connectTimeout;
+    public long connectTimeout;
 
     @Value("${app.envars.meta4.default-receive-timeout}")
-    private long receiveTimeout;
+    public long receiveTimeout;
 
     protected abstract void setServer(String server);
 
-    protected abstract T init();
+    protected abstract T client();
+    
+    protected abstract Meta4ClientAbstract<T> factory();
 
-    protected T build(Class<T> classType) {
+    public T build(Class<T> classType) {
         JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
         pfb.setServiceClass(classType);
         pfb.setAddress(server);

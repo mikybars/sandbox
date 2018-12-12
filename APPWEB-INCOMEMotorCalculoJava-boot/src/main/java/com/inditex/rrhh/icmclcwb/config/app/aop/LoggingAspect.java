@@ -154,9 +154,9 @@ public class LoggingAspect {
 //                .map(MethodSignature::getMethod).map(method -> method.getAnnotation(Auditoria.class))
 //                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajo"));
         Instant start = Instant.now();
-        if (log.isDebugEnabled()) {
+        if (log.isInfoEnabled()) {
             List<Object> args = Arrays.asList(pjp.getArgs());
-            log.debug("Inicio :: Auditoria :: {} :: {}", pjp.getSignature().toShortString(), args);
+            log.info("Inicio :: Auditoria :: {} :: {}", pjp.getSignature().toShortString(), args);
         }
         Object result;
         try {
@@ -170,9 +170,9 @@ public class LoggingAspect {
             }
             throw e;
         }
-        if (log.isDebugEnabled()) {
+        if (log.isInfoEnabled()) {
             Instant end = Instant.now();
-            log.debug("Fin :: Ok :: Auditoria[{}] :: {} :: {}", Duration.between(start, end),
+            log.info("Fin :: Ok :: Auditoria[{}] :: {} :: {}", Duration.between(start, end),
                     pjp.getSignature().toShortString(), result);
         }
         return result;
