@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.dto.poc;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -35,6 +36,6 @@ public class PocEjecucionDto implements Serializable {
 	@ApiModelProperty(value = "Identificador de la empresa", required = true, example = "8")
 	private String idEmpresa;
 
-	private List<String> tiendas;
+	private List<String> tiendas = new ArrayList<>();
 
 }

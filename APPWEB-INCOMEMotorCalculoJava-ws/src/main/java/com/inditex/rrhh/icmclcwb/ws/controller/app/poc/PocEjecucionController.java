@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.ws.controller.app.poc;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +40,6 @@ public class PocEjecucionController {
 		result.setPeriodo(periodo);
 		result.setIdPaisOrigen(idPaisOrigen);
 		result.setIdEmpresa(idEmpresa);
-		result.setTiendas(new ArrayList<>());
 		result = pocEjecucionService.createPocEjecucion(result);
 		return result;
 	}
@@ -56,7 +54,7 @@ public class PocEjecucionController {
 		result.setPeriodo(periodo);
 		result.setIdPaisOrigen(idPaisOrigen);
 		result.setIdEmpresa(idEmpresa);
-		result.setTiendas(tiendas);
+		result.getTiendas().addAll(tiendas);
 		result = pocEjecucionService.createPocEjecucion(result);
 		return result;
 	}
@@ -70,7 +68,6 @@ public class PocEjecucionController {
 		result.setPeriodo(periodo);
 		result.setIdPaisOrigen(idPaisOrigen);
 		result.setIdEmpresa(idEmpresa);
-		result.setTiendas(new ArrayList<>());
 		result = pocEjecucionService.createPocEjecucion(result);
 		return result;
 	}
@@ -85,7 +82,7 @@ public class PocEjecucionController {
 		result.setPeriodo(periodo);
 		result.setIdPaisOrigen(idPaisOrigen);
 		result.setIdEmpresa(idEmpresa);
-		result.setTiendas(tiendas);
+		result.getTiendas().addAll(tiendas);
 		result = pocEjecucionService.createPocEjecucion(result);
 		return result;
 	}
