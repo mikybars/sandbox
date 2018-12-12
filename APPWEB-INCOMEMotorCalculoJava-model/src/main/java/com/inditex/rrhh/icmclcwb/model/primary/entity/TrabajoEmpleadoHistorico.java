@@ -29,33 +29,39 @@ public class TrabajoEmpleadoHistorico {
 	@OneToOne
 	@JoinColumn(name = "ID_TRABAJO", nullable = false)
 	private /* BigInteger */ Trabajo trabajo;
-	
-	@NotBlank
-    @Column(name = "ID_EMPLEADO", nullable = false)
-    private String idEmpleado;
 
 	@NotBlank
-    @Column(name = "OR_EMPLEADO", nullable = false)
-    private String orEmpleado;
-    
+	@Column(name = "ID_EMPLEADO", nullable = false)
+	private String idEmpleado;
+
 	@NotBlank
-    @Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
-    private String idEmpleadoLocal;
-    
-    @NotBlank
-    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
-    private String idTienda;
+	@Column(name = "OR_EMPLEADO", nullable = false)
+	private String orEmpleado;
 
-    @NotBlank
-    @Column(name = "STD_ID_WORK_LOCAT", nullable = false)
-    private String idTiendaMeta4;
-	
-	@NotNull
-    @Column(name = "FECHA_INICIO", nullable = false)
-    private Date fechaInicio;
+	@NotBlank
+	@Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
+	private String idEmpleadoLocal;
 
-    @NotNull
-    @Column(name = "FECHA_FIN", nullable = false)
-    private Date fechaFin;
+	@NotBlank
+	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
+	private String idTienda;
+
+	@NotBlank
+	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
+	private String idTiendaMeta4;
+
+	// TODO CONSTRAINTS El metodo
+	// com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeServiceImpl.searchEmpleados(SearchEmpleadosRequestDto)
+	// devuelve datos nulos
+	// @NotNull
+	@Column(name = "FECHA_INICIO", nullable = false)
+	private Date fechaInicio;
+
+	// TODO CONSTRAINTS El metodo
+	// com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeServiceImpl.searchEmpleados(SearchEmpleadosRequestDto)
+	// devuelve datos nulos
+	// @NotNull
+	@Column(name = "FECHA_FIN", nullable = false)
+	private Date fechaFin;
 
 }
