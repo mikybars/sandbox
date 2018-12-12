@@ -93,7 +93,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             query.append(" AND P.TIPO IN ( :tipo )");
             param.addValue("tipo", params.getTipo());
         }
-        if (params.getCadena() != null) {
+        if ((params.getCadena() != null) && (!params.getCadena().isEmpty())) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
             if (params.getCadena().get(0) != null) {
                 query.append(" :cadena0 ");
@@ -110,7 +110,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             query.append(" AND P.TIENDA IN (:tienda)");
             param.addValue("tienda", params.getTienda());
         }
-        if (params.getPersonas() != null) {
+        if ((params.getPersonas() != null)&&(!params.getPersonas().isEmpty())) {
             int size = params.getPersonas().size();
             if (size > 0) {
                 query.append(" AND (P.PERSONA IN ( :persona0");
@@ -170,7 +170,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
         if (dto.getOrigen() != null) {
             query.append(" AND OP.CCL_ID_ORIGEN IN ( :origen)");
         }
-        if (dto.getCadena() != null) {
+        if ((dto.getCadena() != null)&& (!dto.getCadena().isEmpty())) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
             if (dto.getCadena().get(0) != null) {
                 query.append(" :cadena0 ");
@@ -187,7 +187,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             param.addValue("tipo", dto.getTipo());
         }
 
-        if (dto.getTiendas() != null) {
+        if ((dto.getTiendas() != null)&&(!dto.getTiendas().isEmpty())) {
             int size = dto.getTiendas().size();
             if (size > 0) {
                 query.append(" AND (P.TIENDA IN ( :tienda0");
@@ -249,7 +249,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             param.addValue("tipo", dto.getTipo());
         }
 
-        if (dto.getCadena() != null) {
+        if ((dto.getCadena() != null)&& (!dto.getCadena().isEmpty())) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
             if (dto.getCadena().get(0) != null) {
                 query.append(" :cadena0 ");
@@ -262,7 +262,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             query.append(")");
         }
 
-        if (dto.getTiendaSeccion() != null) {
+        if ((dto.getTiendaSeccion() != null)&&(!dto.getTiendaSeccion().isEmpty())) {
             int size = dto.getTiendaSeccion().size();
             if (size > 0) {
                 if (dto.getTiendaSeccion().get(0).getSeccion() == null) {
