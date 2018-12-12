@@ -16,7 +16,7 @@ import io.swagger.annotations.Authorization;
 
 
 
-@Profile({"standalone,des"})
+@Profile ({"standalone","des"})
 @RestController
 @RequestMapping(path = "/populate")
 @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
