@@ -17,7 +17,9 @@ public class TrabajoRunDto implements Serializable {
 
     @NotNull
     private TrabajoDto trabajoDto;
-    
+
     private final TrabajoRunDatosDto trabajoRunDatos = new TrabajoRunDatosDto();
+
+    private final TrabajoRunCalcularDto trabajoRunCalcular = new TrabajoRunCalcularDto();
 
 }
