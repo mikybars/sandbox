@@ -43,7 +43,7 @@ public class PopulateMockCalculoServiceImpl implements PopulateMockCalculoServic
 	
 	@Override
 	public void deleteMock(){		
-		logger.info("Servicio de carga de scritp de borrrado");
+		logger.info("Servicio de carga de scritp de borrado");
 		ArrayList<Resource> scripts = new ArrayList<>();		
 		scripts.add( new ClassPathResource("mocks/BORRADO_MODELO_INTERMEDIO.sql"));
 		populateMockCalculoRepository.loadScripts(scripts);
