@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -24,7 +25,9 @@ public class TrabajoEmpleadoHistoricoServiceImpl implements TrabajoEmpleadoHisto
     @Autowired
     private TrabajoEmpleadoHistoricoMapper trabajoEmpleadoHistoricoMapper;
 
+    //TODO: Eliminar este timeout
     @Override
+    @Transactional(timeout = 60)
     public List<TrabajoEmpleadoHistoricoDto> save(final List<TrabajoEmpleadoHistoricoDto> trabajoEmpleadoHistorico , @Valid TrabajoDto trabajo) {
         return trabajoEmpleadoHistoricoMapper.trabajoEmpleadoHistoricoToTrabajoEmpleadoHistoricoDto(
                 trabajoEmpleadoHistoricoRepository.save(trabajoEmpleadoHistoricoMapper

@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
@@ -31,6 +32,7 @@ public class PtrPresenciaTotalTiendaSeccionRequestDto {
 	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = " 1 ")
 	@NotNull
+	@NotEmpty
 	private List<Integer> cadena;
 
 	@NotNull

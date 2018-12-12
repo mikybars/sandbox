@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -42,6 +43,7 @@ public class PtrPresenciaDetalleRequestDto implements Serializable {
 
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
 	@NotNull
+	@NotEmpty
 	private List<Integer> cadena;
 	
 	@NotNull
