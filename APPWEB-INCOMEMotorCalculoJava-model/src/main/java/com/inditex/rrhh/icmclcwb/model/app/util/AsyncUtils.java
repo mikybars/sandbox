@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
@@ -62,7 +63,8 @@ public class AsyncUtils {
     }
 
     public static void waitAnyOfIsOk(final List<CompletableFuture<?>> cfList, final List<CompletableFuture<?>> cfWait) {
-        AsyncUtils.waitAnyOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfList.size()]));
+        AsyncUtils.waitAnyOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfWait.size()]));
+        AsyncUtils.isOk(cfWait);
     }
 
     public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
@@ -71,7 +73,8 @@ public class AsyncUtils {
     }
 
     public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final List<CompletableFuture<?>> cfWait) {
-        AsyncUtils.waitAllOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfList.size()]));
+        AsyncUtils.waitAllOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfWait.size()]));
+        AsyncUtils.isOk(cfWait);
     }
 
 }
