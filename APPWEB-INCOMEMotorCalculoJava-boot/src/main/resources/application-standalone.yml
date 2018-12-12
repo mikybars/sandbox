@@ -108,6 +108,7 @@ amiga:
           url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
           user: oincome
           password: aMJLp8ahF09w
+          #rewriteBatchedStatements: true
         secondary:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
