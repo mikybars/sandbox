@@ -6,6 +6,7 @@ import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
@@ -42,6 +43,7 @@ public abstract class TrabajoEmpleadoEstadoMapper {
     }
 
     @Mapping(target = "idEmpleado", source = "src.idEmpleado")
+    @Mapping(target = "orEmpleado", source = "src.orEmpleado")
     @Mapping(target = "idTrabajo", source = "trabajo.id")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "estado", ignore = true)

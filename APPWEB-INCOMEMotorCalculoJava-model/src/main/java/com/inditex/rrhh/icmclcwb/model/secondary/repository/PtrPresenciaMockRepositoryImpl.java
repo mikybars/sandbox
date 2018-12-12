@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -93,7 +95,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             query.append(" AND P.TIPO IN ( :tipo )");
             param.addValue("tipo", params.getTipo());
         }
-        if (params.getCadena() != null) {
+        if (CollectionUtils.isNotEmpty(params.getCadena())) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
             if (params.getCadena().get(0) != null) {
                 query.append(" :cadena0 ");
@@ -110,7 +112,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             query.append(" AND P.TIENDA IN (:tienda)");
             param.addValue("tienda", params.getTienda());
         }
-        if (params.getPersonas() != null) {
+        if (CollectionUtils.isNotEmpty(params.getPersonas())) {
             int size = params.getPersonas().size();
             if (size > 0) {
                 query.append(" AND (P.PERSONA IN ( :persona0");
@@ -136,7 +138,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
         MapSqlParameterSource param = new MapSqlParameterSource();
 
         StringBuilder query = new StringBuilder();
-        String origen = "";
+        String origen = StringUtils.EMPTY;
         query.append(
                 "SELECT OP.CCL_ID_ORIGEN AS 'ORIGEN', P.TIENDA AS 'ID_TIENDA', P.FECHA AS 'FECHA',  SUM((CAST(P.HORAS AS int) * 60) + PARSENAME(P.HORAS, 1)) AS 'MINUTOS' FROM (SELECT PT.TIENDA, PT.FECHA, PT.HORAS, PT.TIPO, PT.ID_ORGANIZATION, SP.STD_ID_WORK_LOCAT, SP.CCL_ID_CADENA, SP.STD_ID_LEG_ENT,ROW_NUMBER() OVER (PARTITION BY SP.STD_ID_WORK_LOCAT, PT.PERSONA, PT.FECHA ORDER BY SP.STD_ID_WORK_LOCAT) AS REG_NUM");
         if (dto.getOrigen() != null) {
@@ -170,7 +172,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
         if (dto.getOrigen() != null) {
             query.append(" AND OP.CCL_ID_ORIGEN IN ( :origen)");
         }
-        if (dto.getCadena() != null) {
+        if (CollectionUtils.isNotEmpty(dto.getCadena())) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
             if (dto.getCadena().get(0) != null) {
                 query.append(" :cadena0 ");
@@ -187,7 +189,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             param.addValue("tipo", dto.getTipo());
         }
 
-        if (dto.getTiendas() != null) {
+        if (CollectionUtils.isNotEmpty(dto.getTiendas())) {
             int size = dto.getTiendas().size();
             if (size > 0) {
                 query.append(" AND (P.TIENDA IN ( :tienda0");
@@ -217,7 +219,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
                         + " PARSENAME(P.HORAS, 1)) AS 'MINUTOS' FROM (SELECT PT.TIENDA,PT.FECHA,PT.HORAS,PT.TIPO,PT.ID_ORGANIZATION, "
                         + " PT.SECCION,SP.STD_ID_WORK_LOCAT, SP.CCL_ID_CADENA, SP.STD_ID_LEG_ENT, ROW_NUMBER() OVER"
                         + " (PARTITION BY SP.STD_ID_WORK_LOCAT, PT.PERSONA, PT.FECHA ORDER BY SP.STD_ID_WORK_LOCAT) AS REG_NUM FROM ");
-        String origen = "";
+        String origen = StringUtils.EMPTY;
         if (dto.getOrigen() != null) {
             if (dto.getOrigen().equals(11)) {
                 query.append(" PRESENCIAS_HORARIOS PT WITH (NOLOCK) ");
@@ -249,7 +251,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             param.addValue("tipo", dto.getTipo());
         }
 
-        if (dto.getCadena() != null) {
+        if (CollectionUtils.isNotEmpty(dto.getCadena())) {
             query.append(" AND P.CCL_ID_CADENA IN ( ");
             if (dto.getCadena().get(0) != null) {
                 query.append(" :cadena0 ");
@@ -262,34 +264,30 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             query.append(")");
         }
 
-        if (dto.getTiendaSeccion() != null) {
-            int size = dto.getTiendaSeccion().size();
-            if (size > 0) {
-                if (dto.getTiendaSeccion().get(0).getSeccion() == null) {
-                    query.append(" AND  ((P.TIENDA = :tienda0 ) ");
-                    param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());
-                } else {
-                    query.append(" AND  ((P.TIENDA = :tienda0 AND P.SECCION = :seccion0 ) ");
-                    param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());
-                    param.addValue("seccion0", dto.getTiendaSeccion().get(0).getSeccion());
-                }
-
-                for (Integer i = 1; i < size; i++) {
-
-                    if (dto.getTiendaSeccion().get(i).getSeccion() == null) {
-                        query.append(" OR  (P.TIENDA = :tienda" + i.toString() + " ) ");
-                        param.addValue("tienda" + i.toString(), dto.getTiendaSeccion().get(i).getTienda());
-                    } else {
-                        query.append(" OR  (P.TIENDA = :tienda" + i.toString() + " AND P.SECCION = :seccion "
-                                + i.toString() + " )");
-                        param.addValue("tienda" + i.toString(), dto.getTiendaSeccion().get(i).getTienda());
-                        param.addValue("seccion" + i.toString(), dto.getTiendaSeccion().get(i).getSeccion());
-                    }
-
-                }
-                query.append(")");
+        if (CollectionUtils.isNotEmpty(dto.getTiendaSeccion())) {
+            if (dto.getTiendaSeccion().get(0).getSeccion() == null) {
+                query.append(" AND  ((P.TIENDA = :tienda0 ) ");
+                param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());
+            } else {
+                query.append(" AND  ((P.TIENDA = :tienda0 AND P.SECCION = :seccion0 ) ");
+                param.addValue("tienda0", dto.getTiendaSeccion().get(0).getTienda());
+                param.addValue("seccion0", dto.getTiendaSeccion().get(0).getSeccion());
             }
 
+            for (Integer i = 1; i < dto.getTiendaSeccion().size(); i++) {
+
+                if (dto.getTiendaSeccion().get(i).getSeccion() == null) {
+                    query.append(" OR  (P.TIENDA = :tienda" + i.toString() + " ) ");
+                    param.addValue("tienda" + i.toString(), dto.getTiendaSeccion().get(i).getTienda());
+                } else {
+                    query.append(" OR  (P.TIENDA = :tienda" + i.toString() + " AND P.SECCION = :seccion " + i.toString()
+                            + " )");
+                    param.addValue("tienda" + i.toString(), dto.getTiendaSeccion().get(i).getTienda());
+                    param.addValue("seccion" + i.toString(), dto.getTiendaSeccion().get(i).getSeccion());
+                }
+
+            }
+            query.append(")");
         }
         query.append(" GROUP BY OP.CCL_ID_ORIGEN, P.TIENDA,P.SECCION,  P.FECHA");
         return namedParameterJdbcTemplate.query(query.toString(), param,
@@ -300,9 +298,7 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
     public List<PtrPresenciaMockTiposHoras> findTiposHorasGroupBy(PtrPresenciaTiposHorasRequestDto dto) {
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource param = new MapSqlParameterSource();
-
         StringBuilder query = new StringBuilder();
-
         query.append("SELECT 'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO ,TIPO ,OP.CCL_ID_ORIGEN AS 'ORIGEN' FROM");
         if (dto.getOrigen().equals(11)) {
             query.append(
@@ -318,7 +314,6 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
             param.addValue("tipo", dto.getTipoHora());
         }
         query.append(" GROUP BY OP.CCL_ID_ORIGEN, TIPO ");
-
         return namedParameterJdbcTemplate.query(query.toString(), param, new PtrPresenciaMockTiposHorasRowMapper());
     }
 
@@ -327,11 +322,9 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource param = new MapSqlParameterSource();
         StringBuilder query = new StringBuilder();
-
         query.append(
                 "select  'TRUE' EXCLUIDODENOM, 'FALSE' EXCLUIDOCALCULO, ID_TIPO_HORA AS 'TIPO', CCL_ID_ORIGEN AS 'ORIGEN' from M4CCL_TP_HORA_COMISION_TA WHERE CCL_ID_ORIGEN = :origen ");
         param.addValue("origen", dto.getOrigen());
-
         return namedParameterJdbcTemplate.query(query.toString(), param, new PtrPresenciaMockTiposHorasRowMapper());
     }
 

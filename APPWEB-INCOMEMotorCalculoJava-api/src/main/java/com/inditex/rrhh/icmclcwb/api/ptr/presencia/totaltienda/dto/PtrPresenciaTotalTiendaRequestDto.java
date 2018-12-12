@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -35,6 +36,7 @@ public class PtrPresenciaTotalTiendaRequestDto implements Serializable {
 	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = " 4 ")
 	@NotNull
+	@NotEmpty
 	private List<Integer> cadena;
 	
 	@NotNull

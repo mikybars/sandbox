@@ -30,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoAsyncService;
@@ -72,6 +73,9 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
 	@Autowired
 	private TrabajoTiendaHistoricoAsyncService trabajoTiendaHistoricoAsyncService;
+	
+	@Autowired
+    private TrabajoEmpleadoEstadoAsyncService trabajoEmpleadoEstadoAsyncService;
 
 	@Autowired
 	private TrabajoMapper trabajoMapper;
@@ -368,6 +372,15 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 				// Se recuperan los empleados.
 				empleadosPage = trabajoEmpleadoEstadoRepository.findByTrabajoId(trabajo.getId(), pageable);
 				if (CollectionUtils.isNotEmpty(empleadosPage.getContent())) {
+                   
+				    comisionEmpleadoRequest.getData().getItem().clear();
+				    
+				    comisionEmpleadoRequest.getData().getItem()
+                    .addAll(empleadosPage.getContent().stream()
+                            .map(e -> GenericFilterParametersDto.builder().idEmpleado(e.getIdEmpleado()).build())
+                            .collect(Collectors.toList()));
+		            
+		            
 					// Consultamos en meta4 los empleados comisionables
 					CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
 							.getComisionEmpleado(comisionEmpleadoRequest);
@@ -579,6 +592,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 
 				if (CollectionUtils.isNotEmpty(data)) {
 
+                    searchEmpleadosRequest.getData().getItem().clear();
 					searchEmpleadosRequest.getData().getItem()
 							.addAll(data
 									.stream().map(e -> GenericFilterParametersDto.builder()
@@ -604,8 +618,8 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 							.genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo);
 					if (CollectionUtils.isNotEmpty(trabajoEmpleadoEstado)) {
 						AsyncUtils.checkAsyncAvaliable(cfPersist, getEmpleadosDto.getFilter().getMaxPersistenceSize());
-//                        CompletableFuture<Void> cfSave = trabajoEmpleadoEstadoAsyncService.save(trabajoEmpleadoEstado);
-//                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        CompletableFuture<Void> cfSave = trabajoEmpleadoEstadoAsyncService.save(trabajoEmpleadoEstado);
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
 					}
 				}
 				hasNext = empleadosRequest.nextPage();

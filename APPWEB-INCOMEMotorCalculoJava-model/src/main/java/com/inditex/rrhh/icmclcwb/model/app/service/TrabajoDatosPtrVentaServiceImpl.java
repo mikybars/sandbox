@@ -151,7 +151,6 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 							.trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
 					paramGetVentaIndividualDetalle.setVendedores(empleados);
 					paramGetVentaIndividualDetalle.getCadena().addAll(trabajoRunDatos.getCadenasEmpresa());
-					paramGetVentaIndividualDetalle.setTienda(new ArrayList<>());
 					paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 
 					CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService
