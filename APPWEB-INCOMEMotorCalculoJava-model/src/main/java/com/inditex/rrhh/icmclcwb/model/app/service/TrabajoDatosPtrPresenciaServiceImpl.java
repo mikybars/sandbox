@@ -95,7 +95,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
             final AtomicInteger counter = new AtomicInteger(0);
-            for (List<String> iter : trabajoRunDatosBloque.getTiendaMeta4().stream().collect(Collectors.groupingBy(
+            for (List<String> iter : trabajoRunDatosBloque.getTiendaMtu().stream().collect(Collectors.groupingBy(
                     item -> counter.getAndIncrement() / presenciasTotalTiendaSeccionDto.getFilter().getMaxPageSize()))
                     .values()) {
                 List<PtrPresenciaTiendaSeccionDto> tiendas = iter.stream()
