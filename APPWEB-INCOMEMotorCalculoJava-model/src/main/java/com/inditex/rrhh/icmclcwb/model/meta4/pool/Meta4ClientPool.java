@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GettiendasempleadoOutput;
@@ -17,93 +16,85 @@ import stormpot.QueuePool;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
 
-	private final Pool<Meta4ClientPoolable> pool;
+    private final Pool<Meta4ClientPoolable> pool;
 
-	public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory) {
-		Meta4ClientAllocator allocator = new Meta4ClientAllocator(meta4ClientFactory);
-		Config<Meta4ClientPoolable> config = new Config<Meta4ClientPoolable>().setAllocator(allocator);
-		pool = new QueuePool<>(config);
-	}
+    public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory) {
+        Meta4ClientAllocator allocator = new Meta4ClientAllocator(meta4ClientFactory);
+        Config<Meta4ClientPoolable> config = new Config<Meta4ClientPoolable>().setAllocator(allocator);
+        pool = new QueuePool<>(config);
+    }
 
-	public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory, boolean verifyConnections) {
-		Meta4ClientAllocator allocator = new Meta4ClientAllocator(meta4ClientFactory);
-		Config<Meta4ClientPoolable> config = new Config<Meta4ClientPoolable>().setAllocator(allocator);
+    public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory, boolean verifyConnections) {
+        Meta4ClientAllocator allocator = new Meta4ClientAllocator(meta4ClientFactory);
+        Config<Meta4ClientPoolable> config = new Config<Meta4ClientPoolable>().setAllocator(allocator);
+        if (verifyConnections) {
+            // config.setExpiration(new TestQueryExpiration());
+        }
+        pool = new QueuePool<>(config);
+    }
 
-		if (verifyConnections) {
-			// config.setExpiration(new TestQueryExpiration());
-		}
+    public void close() throws InterruptedException {
+        // pool. shutdown().await(new Timeout(1, TimeUnit.MINUTES));
+    }
 
-		pool = new QueuePool<>(config);
-	}
+    public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
+            throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
+        } finally {
+            client.release();
+        }
+    }
 
-	public void close() throws InterruptedException {
-		// pool. shutdown().await(new Timeout(1, TimeUnit.MINUTES));
-	}
+    public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1)
+            throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getcomisionempleado(param1);
+        } finally {
+            client.release();
+        }
+    }
 
-	@Auditoria
-	public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
-			throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
-		} finally {
-			client.release();
-		}
-	}
+    public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
+            IcmParametrospaginacionBlock param2) throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
+        } finally {
+            client.release();
+        }
+    }
 
-	@Auditoria
-	public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1)
-			throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().getcomisionempleado(param1);
-		} finally {
-			client.release();
-		}
-	}
+    public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
+            throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
+        } finally {
+            client.release();
+        }
+    }
 
-	@Auditoria
-	public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
-			IcmParametrospaginacionBlock param2) throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
-		} finally {
-			client.release();
-		}
-	}
+    public GettiendasincomeOutput gettiendasincome(IcmParametrospaginacionBlock param1,
+            IcmParametrosentradaBlock param2) throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
+        } finally {
+            client.release();
+        }
+    }
 
-	@Auditoria
-	public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
-			throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
-		} finally {
-			client.release();
-		}
-	}
-
-	@Auditoria
-	public GettiendasincomeOutput gettiendasincome(IcmParametrospaginacionBlock param1,
-			IcmParametrosentradaBlock param2) throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
-		} finally {
-			client.release();
-		}
-	}
-
-	@Auditoria
-	public SearchempleadosOutput searchempleados(IcmParametrospaginacionBlock param1, IcmParametrosentradaBlock param2)
-			throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().searchempleados(param1, param2);
-		} finally {
-			client.release();
-		}
-	}
+    public SearchempleadosOutput searchempleados(IcmParametrospaginacionBlock param1, IcmParametrosentradaBlock param2)
+            throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().searchempleados(param1, param2);
+        } finally {
+            client.release();
+        }
+    }
 
 }
