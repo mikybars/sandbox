@@ -17,8 +17,12 @@ public class Meta4ClientPoolBase {
     protected Meta4ClientPoolable claim(final Pool<Meta4ClientPoolable> pool)
             throws InterruptedException {
         Meta4ClientPoolable client = pool.claim(new Timeout(1, TimeUnit.SECONDS));
-        uso(client);
-        logSession(client.getSession());
+        if (client != null) {
+            uso(client);
+            logSession(client.getSession());
+        }else if (log.isWarnEnabled()) {
+            log.warn("Meta4ClientPoolBase :: pool.claim() :: null");
+        }
         return client;
     }
 
