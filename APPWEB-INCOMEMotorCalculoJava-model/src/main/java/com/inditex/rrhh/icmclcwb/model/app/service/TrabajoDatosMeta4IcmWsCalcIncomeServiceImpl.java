@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -413,7 +414,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 	@AuditoriaTrabajo
 	@Override
 	public void tiendasComisionable(@Valid final TrabajoDto trabajo,
-			@NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
+			@NotNull @NotEmpty final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
 			@Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
 
 		List<CompletableFuture<?>> cf = new ArrayList<>();

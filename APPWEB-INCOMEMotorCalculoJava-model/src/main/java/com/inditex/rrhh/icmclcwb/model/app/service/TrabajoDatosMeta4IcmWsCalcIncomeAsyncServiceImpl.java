@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     
     @Async
     @Override
-    public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
+    public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, @NotNull @NotEmpty final List<TipoTrabajoTiendaDto> tipoTrabajoTienda, final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.tiendasComisionable(trabajo, tipoTrabajoTienda, trabajoRunDatos);
         return CompletableFuture.completedFuture(null);
     }

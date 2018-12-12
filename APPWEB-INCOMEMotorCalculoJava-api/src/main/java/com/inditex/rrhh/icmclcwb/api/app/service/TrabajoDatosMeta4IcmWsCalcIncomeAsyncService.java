@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
@@ -27,7 +28,7 @@ public interface TrabajoDatosMeta4IcmWsCalcIncomeAsyncService {
 			throws Exception;
 
     CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo,
-            final @NotNull List<TipoTrabajoTiendaDto> tipoTrabajoTienda, 
+            final @NotNull @NotEmpty List<TipoTrabajoTiendaDto> tipoTrabajoTienda, 
             final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
 }

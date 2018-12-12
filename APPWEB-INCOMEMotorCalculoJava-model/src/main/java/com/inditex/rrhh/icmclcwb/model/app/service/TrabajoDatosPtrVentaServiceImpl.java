@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -77,7 +78,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 	@AuditoriaTrabajo
 	@Override
 	public void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
-			@NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
+			@NotNull @NotEmpty final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
 			@Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception {
 		List<CompletableFuture<?>> cf = new ArrayList<>();
 		try {

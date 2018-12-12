@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.service;
 
 import java.util.List;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
@@ -14,7 +15,7 @@ public interface TrabajoDatosPtrVentaService {
             throws Exception;
 
     void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
-            @NotNull final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
+            @NotNull @NotEmpty final List<TipoTrabajoTiendaDto> tipoTrabajoTienda,
             @Valid final TrabajoRunDatosDto trabajoRunDatos) throws Exception;
 
 }
