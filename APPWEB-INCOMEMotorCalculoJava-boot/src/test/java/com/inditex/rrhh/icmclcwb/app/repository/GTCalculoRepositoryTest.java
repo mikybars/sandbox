@@ -30,7 +30,6 @@ public class GTCalculoRepositoryTest {
 	private TrabajoCalculoRepository trabajoCalculoRepository;
 			
 	
-
 	@Test
 	@Ignore
 	public void calculoJdbcUpdateTest() {										
@@ -38,8 +37,7 @@ public class GTCalculoRepositoryTest {
 		gTCalculoRepository.calcular(idTrabajo);							
 		assertNotNull(trabajoCalculoRepository.findAllTrabajoCalculadoByIdTrabajo(idTrabajo));											
 	}
-	
-	
+		
 
 	@Test	
 	@Ignore
@@ -51,9 +49,7 @@ public class GTCalculoRepositoryTest {
 		idsEmpleados.add(1002L);
 							
 		gTCalculoRepository.calcularByEmpleadoBatch(idTrabajo,idsEmpleados);						
-		assertNotNull(trabajoCalculoRepository.findAllTrabajoCalculadoByIdTrabajo(idTrabajo));
-		
-										
+		assertNotNull(trabajoCalculoRepository.findAllTrabajoCalculadoByIdTrabajo(idTrabajo));											
 	}
 
 	

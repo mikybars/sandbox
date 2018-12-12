@@ -14,8 +14,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
-
 @Repository
 public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	
@@ -102,8 +100,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	
 	@Override
 	public void calcular(Long idTrabajo) 		
-	{			
-				
+	{						
 		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("idTrabajo", idTrabajo);																					
@@ -124,8 +121,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		                    .addValue("idEmpleado", idEmpleado)		                    
 		                    .getValues());
 		});
-
-																					
+																				
 		StringBuilder whereEmpleado = new StringBuilder();									
 		whereEmpleado.append(" AND EMPLEADO.ID_EMPLEADO = :idEmpleado ");									
 		namedJdbc.batchUpdate(queryCalculoGT().append(whereEmpleado).toString(),batchValues.toArray(new Map[idsEmpleados.size()]));										
@@ -146,8 +142,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		});
 																					
 		StringBuilder whereEmpleado = new StringBuilder();									
-		whereEmpleado.append(" AND EMPLEADO.ID_EMPLEADO = :idEmpleado ");
-		
+		whereEmpleado.append(" AND EMPLEADO.ID_EMPLEADO = :idEmpleado ");		
 		simpleJdbcInsert.executeBatch(batchValues.toArray(new Map[idsEmpleados.size()]));											
 	}
 
