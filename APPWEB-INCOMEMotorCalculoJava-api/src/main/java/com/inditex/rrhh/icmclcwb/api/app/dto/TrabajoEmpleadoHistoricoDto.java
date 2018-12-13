@@ -24,20 +24,20 @@ public class TrabajoEmpleadoHistoricoDto implements Serializable {
 	// TODO CONSTRAINTS El metodo
 	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
 	// devuelve datos nulos
-	@NotBlank
+	//@NotBlank
 	@ApiModelProperty(value = "Id del empleado", required = true)
 	private String idEmpleado;
 
 	// TODO CONSTRAINTS El metodo
 	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
 	// devuelve datos nulos
-	@NotBlank
+	//@NotBlank
 	private String orEmpleado;
 
 	// TODO CONSTRAINTS El metodo
 	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
 	// devuelve datos nulos
-	@NotBlank
+	//@NotBlank
 	private String idEmpleadoLocal;
 
 	@NotBlank
