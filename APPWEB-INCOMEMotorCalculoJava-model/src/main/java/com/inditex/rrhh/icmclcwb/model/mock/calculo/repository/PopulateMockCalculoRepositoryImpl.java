@@ -26,7 +26,7 @@ public class PopulateMockCalculoRepositoryImpl implements PopulateMockCalculoRep
 		  	ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
 		  			  			  		  	
 		  	scripts.forEach(script ->{		  		
-		  		databasePopulator.addScript(script);		  				  		
+		  		databasePopulator.addScripts(script);		  				  		
 		  		logger.info("Carga del script: "+ script.getFilename());			    
 		  	});
 		  	databasePopulator.execute(jdbcTemplate.getDataSource());
