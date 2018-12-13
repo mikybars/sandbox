@@ -11,6 +11,7 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
 		boolean expired = true;
 		String session = StringUtils.EMPTY;
 		try {
+			// TODO Podriamos verificar solo cada cierto tiempo
 			Meta4ClientPoolable meta4ClientPoolable = info.getPoolable();
 			session = meta4ClientPoolable.getSession().getId();
 			int result = meta4ClientPoolable.getLoginService().retrieveM4Session(session);
