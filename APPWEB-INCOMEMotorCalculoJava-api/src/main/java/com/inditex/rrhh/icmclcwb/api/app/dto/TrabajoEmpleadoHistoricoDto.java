@@ -12,34 +12,43 @@ import lombok.Data;
 @Data
 public class TrabajoEmpleadoHistoricoDto implements Serializable {
 
-    private static final long serialVersionUID = 1168987218682802281L;
+	private static final long serialVersionUID = 1168987218682802281L;
 
-    @ApiModelProperty(value = "Identificador del empleado", required = false)
-    private String id;
+	@ApiModelProperty(value = "Identificador del empleado", required = false)
+	private String id;
 
-    @NotNull
-    @ApiModelProperty(value = "Identificador del trabajo", required = true)
-    private Long idTrabajo;
+	@NotNull
+	@ApiModelProperty(value = "Identificador del trabajo", required = true)
+	private Long idTrabajo;
 
-    @NotBlank
-    @ApiModelProperty(value = "Id del empleado", required = true)
-    private String idEmpleado;
+	// TODO CONSTRAINTS El metodo
+	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
+	// devuelve datos nulos
+	@NotBlank
+	@ApiModelProperty(value = "Id del empleado", required = true)
+	private String idEmpleado;
 
-    @NotBlank
-    private String orEmpleado;
+	// TODO CONSTRAINTS El metodo
+	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
+	// devuelve datos nulos
+	@NotBlank
+	private String orEmpleado;
 
-    @NotBlank
-    private String idEmpleadoLocal;
+	// TODO CONSTRAINTS El metodo
+	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
+	// devuelve datos nulos
+	@NotBlank
+	private String idEmpleadoLocal;
 
-    @NotBlank
-    private String idTienda;
+	@NotBlank
+	private String idTienda;
 
-    @NotBlank
-    private String idTiendaMeta4;
+	@NotBlank
+	private String idTiendaMeta4;
 
-    @NotNull
-    private Date fechaInicio;
+	@NotNull
+	private Date fechaInicio;
 
-    @NotNull
-    private Date fechaFin;
+	@NotNull
+	private Date fechaFin;
 }

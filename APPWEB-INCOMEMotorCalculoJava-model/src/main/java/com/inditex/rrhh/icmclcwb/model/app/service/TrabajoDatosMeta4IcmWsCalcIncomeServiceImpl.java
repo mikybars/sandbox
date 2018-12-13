@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,9 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 @Validated
 public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatosMeta4IcmWsCalcIncomeService {
 
+	@Autowired
+    private Logger log;
+	
 	@Autowired
 	private Meta4IcmWsCalcIncomeSessionAsyncService meta4IcmWsCalcIncomeSessionAsyncService;
 
@@ -185,9 +190,21 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 					}
 
 					data.stream().forEach(item -> {
-						trabajoRunDatosBloque.getTiendaMeta4().add(item.getIdLugarTrabajo());
-						trabajoRunDatosBloque.getTiendaMtu().add(item.getIdTiendaMtu());
-						trabajoRunDatosBloque.getCadenaEmpresa().add(item.getIdCadena());
+						if (StringUtils.isNotBlank(item.getIdLugarTrabajo())) {
+							trabajoRunDatosBloque.getTiendaMeta4().add(item.getIdLugarTrabajo());
+						} else {
+							log.error("TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdLugarTrabajo() :: null :: {}", item);
+						}
+						if (StringUtils.isNotBlank(item.getIdTiendaMtu())) {
+							trabajoRunDatosBloque.getTiendaMtu().add(item.getIdTiendaMtu());
+						} else {
+							log.error("TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdTiendaMtu() :: null :: {}", item);
+						}
+						if (StringUtils.isNotBlank(item.getIdCadena())) {
+							trabajoRunDatosBloque.getCadenaEmpresa().add(item.getIdCadena());
+						} else {
+							log.error("TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdCadena() :: null :: {}", item);
+						}
 					});
 
 					trabajoRunDatosBloque.getTienda()
@@ -465,7 +482,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 								trabajoRunDatosBloque.getEmpleadoUniversal().add(new StringBuilder(item.getIdEmpleado())
 										.append(AppConstants.SEPARATOR_DATA).append(item.getOrEmpleado()).toString());
 							});
-							
+
 							trabajoRunDatosBloque.getEmpleado().addAll(trabajoEmpleadoEstadoMapper
 									.genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo));
 						}
