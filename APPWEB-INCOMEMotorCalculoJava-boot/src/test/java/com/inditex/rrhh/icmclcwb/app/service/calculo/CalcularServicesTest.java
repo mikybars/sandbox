@@ -45,7 +45,7 @@ public class CalcularServicesTest {
 			trabajoRunDto.setTrabajoDto(trabajoDto);
 			ArrayList<Integer> tiposCalculo = new ArrayList<Integer>();		
 			tiposCalculo.add(GLOBAL_TIENDA);		
-			trabajoRunDto.getTrabajoRunDatos().setTiposCalculo(tiposCalculo);			
+			trabajoRunDto.getTrabajoRunCalcular().setTiposCalculo(tiposCalculo);			
 		
 }
 	

@@ -43,7 +43,7 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
                   
             //obtenemos los datos de bbdd sino estan cargados en memoria                                  
             CountDownLatch latch = new CountDownLatch(1);            
-            Flux.fromIterable(trabajoRun.getTrabajoRunDatos().getTiposCalculo())
+            Flux.fromIterable(trabajoRun.getTrabajoRunCalcular().getTiposCalculo())
             		.log()
     				.parallel()
     				.runOn(Schedulers.parallel())

@@ -19,6 +19,9 @@ public class AppConstants {
 
 	public static final String LOCAL_TIME_JSON = "HH:mm";
 
+	public static final String SEPARATOR_DATA = "|";
+	
+	public static final String PREFIJO_TIENDA_META4 = "T";
 	
 	@Getter
 	@RequiredArgsConstructor
