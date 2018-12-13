@@ -26,6 +26,10 @@ public class TrabajoRunDatosBloqueDto implements Serializable {
 	private Set<String> empleadoUniversal = new HashSet<>();
 	
 	private Set<String> tiendaPresencia = new HashSet<>();
+	
+	private Set<TrabajoTiendaEstadoDto> tienda = new HashSet<>();
+	
+	private Set<TrabajoEmpleadoEstadoDto> empleado = new HashSet<>();
 
 }
 

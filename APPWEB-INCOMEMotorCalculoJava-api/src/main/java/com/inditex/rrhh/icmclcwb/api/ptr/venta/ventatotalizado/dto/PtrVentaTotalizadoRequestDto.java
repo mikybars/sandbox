@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -23,9 +24,9 @@ public class PtrVentaTotalizadoRequestDto implements Serializable {
 
     // TODO: XSD simple Postman permite multiple
     @NotNull
-    private List<String> cadena;
+    private List<String> cadena = new ArrayList<>();
 
-    private List<String> tienda;
+    private List<String> tienda = new ArrayList<>();
 
     private String agrupacion;
 

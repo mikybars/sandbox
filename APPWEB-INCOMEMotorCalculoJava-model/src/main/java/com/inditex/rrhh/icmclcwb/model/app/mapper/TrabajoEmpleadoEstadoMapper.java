@@ -29,6 +29,19 @@ public abstract class TrabajoEmpleadoEstadoMapper {
 
     public abstract List<TrabajoEmpleadoEstado> trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(
             List<TrabajoEmpleadoEstadoDto> src);
+    
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "estado", ignore = true)
+    @Mapping(target = "trabajo.id", source = "srcTrabajoDto.id")
+	@Mapping(target = "idEmpleado", source = "srcTrabajoEmpleadoEstadoDto.idEmpleado")
+	@Mapping(target = "orEmpleado", source = "srcTrabajoEmpleadoEstadoDto.orEmpleado")
+	public abstract TrabajoEmpleadoEstado mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(
+			TrabajoEmpleadoEstadoDto srcTrabajoEmpleadoEstadoDto, TrabajoDto srcTrabajoDto);
+   
+	public List<TrabajoEmpleadoEstado> mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(
+            List<TrabajoEmpleadoEstadoDto> srcTrabajoEmpleadoEstadoDto, TrabajoDto srcTrabajoDto) {
+	    throw new UnsupportedOperationException("Not implemented");
+    }
 
     @Mapping(target = "idEmpleado", source = "src.idEmpleado")
     @Mapping(target = "idTrabajo", source = "trabajo.id")

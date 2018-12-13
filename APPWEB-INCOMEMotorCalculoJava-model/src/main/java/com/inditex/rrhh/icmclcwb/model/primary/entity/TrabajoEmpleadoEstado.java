@@ -36,6 +36,10 @@ public class TrabajoEmpleadoEstado {
 	private String orEmpleado;
 	
 	@NotNull
+	@Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
+	private String idEmpleadoLocal;
+	
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "ID_ESTADO_TRABAJO_EMPLEADO", nullable = false)
 	private /* BigInteger */ EstadoTrabajoEmpleado estado;

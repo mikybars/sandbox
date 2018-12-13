@@ -30,15 +30,24 @@ public class TrabajoEmpleadoHistorico {
 	@JoinColumn(name = "ID_TRABAJO", nullable = false)
 	private /* BigInteger */ Trabajo trabajo;
 
-	@NotBlank
+	// TODO CONSTRAINTS El metodo
+	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
+	// devuelve datos nulos
+//	@NotBlank
 	@Column(name = "ID_EMPLEADO", nullable = false)
 	private String idEmpleado;
 
-	@NotBlank
+	// TODO CONSTRAINTS El metodo
+	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
+	// devuelve datos nulos
+//	@NotBlank
 	@Column(name = "OR_EMPLEADO", nullable = false)
 	private String orEmpleado;
 
-	@NotBlank
+	// TODO CONSTRAINTS El metodo
+	// com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(SearchEmpleadosRequestDto)
+	// devuelve datos nulos
+//	@NotBlank
 	@Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
 	private String idEmpleadoLocal;
 
