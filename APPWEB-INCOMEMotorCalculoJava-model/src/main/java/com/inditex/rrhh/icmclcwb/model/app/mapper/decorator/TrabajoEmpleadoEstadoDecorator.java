@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
@@ -17,6 +19,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 
 public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEstadoMapper {
+
+	@Autowired
+	private Logger log;
 
 	@Autowired
 	private TrabajoEmpleadoEstadoMapper delegate;
@@ -45,8 +50,16 @@ public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEsta
 		for (GenericEmpleadoResultItemDto childDto : src) {
 			TrabajoEmpleadoEstadoDto dto = delegate.genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(childDto,
 					trabajo);
-			dto.setEstado(estado);
-			dtoList.add(dto);
+			// TODO CONSTRAINTS
+			if (StringUtils.isNotBlank(dto.getIdEmpleado()) && StringUtils.isNotBlank(dto.getIdEmpleadoLocal())
+					&& StringUtils.isNotBlank(dto.getOrEmpleado())) {
+				dto.setEstado(estado);
+				dtoList.add(dto);
+			} else {
+				log.error(
+						"TrabajoEmpleadoEstadoDecorator.genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto() :: GenericEmpleadoResultItemDto :: get() :: null :: {}",
+						dto);
+			}
 		}
 		return dtoList;
 	}
