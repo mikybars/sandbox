@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.ws.controller.app.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.test.TestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.Authorization;
 
+@Profile ({"standalone","des"})
 @Validated
 @RestController
 @RequestMapping(path = "/test")
