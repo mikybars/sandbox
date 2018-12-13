@@ -6,4 +6,8 @@ public class Meta4Exception extends ApplicationException {
 
     private static final long serialVersionUID = 2713608924411606103L;
 
+	public Meta4Exception(String message) {
+		super(message);
+	}
+    
 }

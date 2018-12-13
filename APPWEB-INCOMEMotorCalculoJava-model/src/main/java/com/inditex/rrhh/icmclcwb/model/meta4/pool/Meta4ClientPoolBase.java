@@ -6,35 +6,45 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
+
 import stormpot.Pool;
 import stormpot.Timeout;
 
 public class Meta4ClientPoolBase {
 
-    @Autowired
-    private Logger log;
+	@Autowired
+	private Logger log;
 
-    protected Meta4ClientPoolable claim(final Pool<Meta4ClientPoolable> pool)
-            throws InterruptedException {
-        Meta4ClientPoolable client = pool.claim(new Timeout(1, TimeUnit.SECONDS));
-        if (client != null) {
-            uso(client);
-            logSession(client.getSession());
-        }else if (log.isWarnEnabled()) {
-            log.warn("Meta4ClientPoolBase :: pool.claim() :: null");
-        }
-        return client;
-    }
+	protected Meta4ClientPoolable claim(final Pool<Meta4ClientPoolable> pool) throws InterruptedException {
+		Meta4ClientPoolable client = pool.claim(new Timeout(1, TimeUnit.SECONDS));
+		if (client != null) {
+			uso(client);
+			logSession(client.getSession());
+		} else {
+			if (log.isWarnEnabled()) {
+				log.warn("Meta4ClientPoolBase :: pool.claim() :: null");
+			}
+			throw new Meta4Exception("Session caducada (Pool)");
+		}
+		return client;
+	}
 
-    private void uso(Meta4ClientPoolable client) {
-        client.getSession().setUso(client.getSession().getUso() + 1);
-        client.getSession().setFechaUso(LocalDateTime.now());
-    }
+	protected void release(final Meta4ClientPoolable poolable) {
+		if (poolable != null) {
+			poolable.release();
+		}
+	}
 
-    private void logSession(Meta4ClientSession session) {
-        if (log.isInfoEnabled()) {
-            log.info("Meta4ClientPoolBase :: {}", session);
-        }
-    }
+	private void uso(Meta4ClientPoolable client) {
+		client.getSession().setUso(client.getSession().getUso() + 1);
+		client.getSession().setFechaUso(LocalDateTime.now());
+	}
+
+	private void logSession(Meta4ClientSession session) {
+		if (log.isInfoEnabled()) {
+			log.info("Meta4ClientPoolBase :: {}", session);
+		}
+	}
 
 }
