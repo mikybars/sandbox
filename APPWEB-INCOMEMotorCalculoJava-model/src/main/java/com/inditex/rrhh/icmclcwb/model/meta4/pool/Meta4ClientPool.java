@@ -13,11 +13,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.Searchtie
 
 import stormpot.BlazePool;
 import stormpot.Config;
-import stormpot.Pool;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
 
-	private final Pool<Meta4ClientPoolable> pool;
+	private final BlazePool<Meta4ClientPoolable> pool;
 
 	public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory) {
 		Meta4ClientReallocator allocator = new Meta4ClientReallocator(meta4ClientFactory);
@@ -32,7 +31,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
 	public void close() throws InterruptedException {
 		System.out.println("close()");
-		// pool.shutdown().await(new Timeout(1, TimeUnit.MINUTES));
+		//pool.shutdown().await(new Timeout(1, TimeUnit.MINUTES));
 	}
 
 	public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
