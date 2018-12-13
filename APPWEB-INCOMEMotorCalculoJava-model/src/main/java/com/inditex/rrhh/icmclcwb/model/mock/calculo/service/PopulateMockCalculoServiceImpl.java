@@ -25,7 +25,7 @@ public class PopulateMockCalculoServiceImpl implements PopulateMockCalculoServic
 	@Override
 	public void loadMock(){
 				
-		logger.info("Servicio asyncrono de carga de scritp");
+		logger.info("Servicio async de carga de scritp de datos mock");
 		ArrayList<Resource> scripts = new ArrayList<>();		
 		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_VENTA_SECCION.sql"));
 		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_PRESENCIA_SECCION.sql"));		
