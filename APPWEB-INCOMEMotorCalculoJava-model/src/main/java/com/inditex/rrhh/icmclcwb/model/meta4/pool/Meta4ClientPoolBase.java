@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +19,11 @@ public class Meta4ClientPoolBase {
 	private Logger log;
 
 	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) throws InterruptedException {
-		Meta4ClientPoolable client = pool.claim(new Timeout(1, TimeUnit.SECONDS));
+		log.info("Inicio :: Meta4ClientPoolBase :: :: pool.claim()");
+		Instant start = Instant.now();
+		Meta4ClientPoolable client = pool.claim(new Timeout(30, TimeUnit.SECONDS));
+		Instant end = Instant.now();
+		log.info("Fin :: Meta4ClientPoolBase :: :: pool.claim(): {}", Duration.between(start, end));
 		if (client != null) {
 			uso(client);
 			logSession(client.getSession());

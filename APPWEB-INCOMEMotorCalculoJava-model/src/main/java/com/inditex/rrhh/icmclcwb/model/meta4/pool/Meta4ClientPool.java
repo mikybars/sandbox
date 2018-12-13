@@ -31,7 +31,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
 	public void close() throws InterruptedException {
 		System.out.println("close()");
-		//pool.shutdown().await(new Timeout(1, TimeUnit.MINUTES));
+		// pool.shutdown().await(new Timeout(1, TimeUnit.MINUTES));
 	}
 
 	public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)

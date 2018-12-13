@@ -61,9 +61,9 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 	public Meta4ClientPoolable reallocate(Slot slot, Meta4ClientPoolable poolable) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("reallocate()");
+//		slot.expire(poolable);
 //		slot.release(poolable);
-//		return allocate(slot);
-		return null;
+		return allocate(slot);
 	}
 
 }
