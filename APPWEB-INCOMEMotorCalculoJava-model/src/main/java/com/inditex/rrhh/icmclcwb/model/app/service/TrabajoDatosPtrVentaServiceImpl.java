@@ -108,7 +108,7 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             final AtomicInteger counter = new AtomicInteger(0);
-            for (List<String> iter : trabajoRunDatosBloque.getTiendaMeta4().stream()
+            for (List<String> iter : trabajoRunDatosBloque.getEmpleadoLocal().stream()
                     .collect(Collectors.groupingBy(
                             item -> counter.getAndIncrement() / ventaIndividualDetalleDto.getFilter().getMaxPageSize()))
                     .values()) {

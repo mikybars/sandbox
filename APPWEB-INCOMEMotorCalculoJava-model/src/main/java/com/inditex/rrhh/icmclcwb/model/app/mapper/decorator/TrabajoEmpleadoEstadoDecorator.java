@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.mapper.decorator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
@@ -12,6 +13,8 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 
 public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEstadoMapper {
 
@@ -46,6 +49,22 @@ public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEsta
 			dtoList.add(dto);
 		}
 		return dtoList;
+	}
+
+	@Override
+	public List<TrabajoEmpleadoEstado> mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(
+			List<TrabajoEmpleadoEstadoDto> srcTrabajoEmpleadoEstadoDto, TrabajoDto srcTrabajoDto) {
+		List<TrabajoEmpleadoEstado> result = new ArrayList<>();
+		if (CollectionUtils.isNotEmpty(srcTrabajoEmpleadoEstadoDto)) {
+			EstadoTrabajoEmpleado estado = new EstadoTrabajoEmpleado();
+			estado.setId(AppConstants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
+			srcTrabajoEmpleadoEstadoDto.stream().forEach(item -> {
+				TrabajoEmpleadoEstado trabajoEmpleadoEstado = delegate
+						.mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(item, srcTrabajoDto);
+				trabajoEmpleadoEstado.setEstado(estado);
+			});
+		}
+		return result;
 	}
 
 }

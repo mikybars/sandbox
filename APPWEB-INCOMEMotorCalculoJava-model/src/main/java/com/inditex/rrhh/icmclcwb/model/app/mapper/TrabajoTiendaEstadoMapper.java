@@ -7,6 +7,7 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericTiendaResultItemDto;
@@ -34,25 +35,27 @@ public abstract class TrabajoTiendaEstadoMapper {
 	@Mapping(target = "idPaisOrigen", source = "srcTrabajoTiendaEstadoDto.idPais")
 	@Mapping(target = "idEmpresa", source = "srcTrabajoTiendaEstadoDto.idEmpresa")
 	public abstract TrabajoTiendaEstado mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
-			TrabajoTiendaEstadoDto srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto, Long idTipoTrabajoTienda);
-   
+			TrabajoTiendaEstadoDto srcTrabajoTiendaEstadoDto, TrabajoDto srcTrabajoDto);
+
 	public List<TrabajoTiendaEstado> mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
-            List<TrabajoTiendaEstadoDto> trabajoTiendaEstado, TrabajoDto trabajo, Long idTipoTrabajoTienda) {
-	    throw new UnsupportedOperationException("Not implemented");
-    }
+			List<TrabajoTiendaEstadoDto> trabajoTiendaEstado, TrabajoDto trabajo) {
+		throw new UnsupportedOperationException("Not implemented");
+	}
 
-	@Mapping(target = "idPaisOrigen", source = "idOrigen")
-	@Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
-	@Mapping(target = "idPais", source = "idPais")
-	@Mapping(target = "idEmpresa", source = "idEmpresa")
-	@Mapping(target = "idCadena", source = "idCadena")
-	@Mapping(target = "idTienda", source = "idTiendaMtu")
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "idPaisOrigen", source = "srcGenericTiendaResultItem.idOrigen")
+	@Mapping(target = "idTiendaMeta4", source = "srcGenericTiendaResultItem.idLugarTrabajo")
+	@Mapping(target = "idPais", source = "srcGenericTiendaResultItem.idPais")
+	@Mapping(target = "idEmpresa", source = "srcGenericTiendaResultItem.idEmpresa")
+	@Mapping(target = "idCadena", source = "srcGenericTiendaResultItem.idCadena")
+	@Mapping(target = "idTienda", source = "srcGenericTiendaResultItem.idTiendaMtu")
+	@Mapping(target = "tipo.id", source = "srcTipoTrabajoTienda.id")
 	public abstract TrabajoTiendaEstadoDto genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(
-			GenericTiendaResultItemDto src);
+			GenericTiendaResultItemDto srcGenericTiendaResultItem, TipoTrabajoTiendaDto srcTipoTrabajoTienda);
 
-	public abstract List<TrabajoTiendaEstadoDto> genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(
-			List<GenericTiendaResultItemDto> src);
-
-
+	public List<TrabajoTiendaEstadoDto> genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(
+			List<GenericTiendaResultItemDto> srcGenericTiendaResultItem, TipoTrabajoTiendaDto srcTipoTrabajoTienda) {
+		throw new UnsupportedOperationException("Not implemented");
+	}
 
 }

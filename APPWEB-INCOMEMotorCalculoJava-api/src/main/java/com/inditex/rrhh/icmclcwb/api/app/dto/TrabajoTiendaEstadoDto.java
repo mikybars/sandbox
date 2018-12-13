@@ -7,15 +7,18 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 public class TrabajoTiendaEstadoDto implements Serializable {
 
 	private static final long serialVersionUID = -5607507260079003307L;
 
+	@EqualsAndHashCode.Exclude
 	@ApiModelProperty(value = "Identificador de la tienda", required = false)
 	private String id;
 
+	@EqualsAndHashCode.Exclude
 	@NotNull
 	@ApiModelProperty(value = "Identificador del trabajo", required = true)
 	private Long idTrabajo;
@@ -39,6 +42,7 @@ public class TrabajoTiendaEstadoDto implements Serializable {
 	@NotBlank
 	private String idCadena;
 
+	@EqualsAndHashCode.Exclude
 	@NotNull
 	@ApiModelProperty(value = "Tipo de la tienda en la operación", required = true)
 	private TipoTrabajoTiendaDto tipo;
