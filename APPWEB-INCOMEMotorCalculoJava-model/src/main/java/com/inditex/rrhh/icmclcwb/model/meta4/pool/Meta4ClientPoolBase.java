@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
 
-import stormpot.Pool;
+import stormpot.BlazePool;
 import stormpot.Timeout;
 
 public class Meta4ClientPoolBase {
@@ -16,7 +16,7 @@ public class Meta4ClientPoolBase {
 	@Autowired
 	private Logger log;
 
-	protected Meta4ClientPoolable claim(final Pool<Meta4ClientPoolable> pool) throws InterruptedException {
+	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) throws InterruptedException {
 		Meta4ClientPoolable client = pool.claim(new Timeout(1, TimeUnit.SECONDS));
 		if (client != null) {
 			uso(client);
