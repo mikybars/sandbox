@@ -19,6 +19,7 @@ public class Meta4ClientAllocator implements Allocator<Meta4ClientPoolable> {
 
 	@Override
 	public Meta4ClientPoolable allocate(Slot slot) throws Exception {
+		System.out.println("allocate()");
 		LoginService loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
 		IcmWsIncomeService icmWsIncomeService = meta4ClientFactory.getIcmWsIncomeServiceFactory()
 				.build(IcmWsIncomeService.class);
@@ -53,6 +54,7 @@ public class Meta4ClientAllocator implements Allocator<Meta4ClientPoolable> {
 	public void deallocate(Meta4ClientPoolable poolable) throws Exception {
 		// Nothing to do here
 		// But it's a perfect place to close sockets, files, etc.
+		System.out.println("deallocate()");
 	}
 
 }

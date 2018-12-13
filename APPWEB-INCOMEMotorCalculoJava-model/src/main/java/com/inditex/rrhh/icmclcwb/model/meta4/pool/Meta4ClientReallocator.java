@@ -19,6 +19,7 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 
 	@Override
 	public Meta4ClientPoolable allocate(Slot slot) throws Exception {
+		System.out.println("allocate()");
 		LoginService loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
 		IcmWsIncomeService icmWsIncomeService = meta4ClientFactory.getIcmWsIncomeServiceFactory()
 				.build(IcmWsIncomeService.class);
@@ -60,6 +61,8 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 	public Meta4ClientPoolable reallocate(Slot slot, Meta4ClientPoolable poolable) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("reallocate()");
+//		slot.release(poolable);
+//		return allocate(slot);
 		return null;
 	}
 

@@ -10,31 +10,27 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.M4SoapExc
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.SearchtiendasOutput;
 
+import stormpot.BlazePool;
 import stormpot.Config;
 import stormpot.Pool;
-import stormpot.QueuePool;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     private final Pool<Meta4ClientPoolable> pool;
 
     public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory) {
-        Meta4ClientAllocator allocator = new Meta4ClientAllocator(meta4ClientFactory);
-        Config<Meta4ClientPoolable> config = new Config<Meta4ClientPoolable>().setAllocator(allocator);
-        pool = new QueuePool<>(config);
-    }
-
-    public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory, boolean verifyConnections) {
-        Meta4ClientAllocator allocator = new Meta4ClientAllocator(meta4ClientFactory);
-        Config<Meta4ClientPoolable> config = new Config<Meta4ClientPoolable>().setAllocator(allocator);
-        if (verifyConnections) {
-            // config.setExpiration(new TestQueryExpiration());
-        }
-        pool = new QueuePool<>(config);
+        Meta4ClientReallocator allocator = new Meta4ClientReallocator(meta4ClientFactory);
+        Config<Meta4ClientPoolable> config = new Config<>();
+        config.setAllocator(allocator);
+        config.setSize(10);
+        //config.setExpiration(new TimeSpreadExpiration<>(30000, 60000, TimeUnit.MILLISECONDS));
+        config.setExpiration(new Meta4ClientExpiration());
+        pool = new BlazePool<>(config);
     }
 
     public void close() throws InterruptedException {
-        // pool. shutdown().await(new Timeout(1, TimeUnit.MINUTES));
+    	System.out.println("close()");
+        //pool.shutdown().await(new Timeout(1, TimeUnit.MINUTES));
     }
 
     public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
