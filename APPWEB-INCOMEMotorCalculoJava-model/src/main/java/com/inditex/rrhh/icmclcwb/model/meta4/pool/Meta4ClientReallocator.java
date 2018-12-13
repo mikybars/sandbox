@@ -6,14 +6,14 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 
-import stormpot.Allocator;
+import stormpot.Reallocator;
 import stormpot.Slot;
 
-public class Meta4ClientAllocator implements Allocator<Meta4ClientPoolable> {
+public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> {
 
 	private final Meta4ClientFactory meta4ClientFactory;
 
-	public Meta4ClientAllocator(Meta4ClientFactory meta4ClientFactory) {
+	public Meta4ClientReallocator(Meta4ClientFactory meta4ClientFactory) {
 		this.meta4ClientFactory = meta4ClientFactory;
 	}
 
@@ -53,6 +53,14 @@ public class Meta4ClientAllocator implements Allocator<Meta4ClientPoolable> {
 	public void deallocate(Meta4ClientPoolable poolable) throws Exception {
 		// Nothing to do here
 		// But it's a perfect place to close sockets, files, etc.
+		System.out.println("deallocate()");
+	}
+
+	@Override
+	public Meta4ClientPoolable reallocate(Slot slot, Meta4ClientPoolable poolable) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("reallocate()");
+		return null;
 	}
 
 }
