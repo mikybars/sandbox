@@ -193,11 +193,17 @@ app:
               maxPersistenceSize: 3
               retryAttempts: 2  
     meta4:
-      user: INCOME
-      password: 123
-      language: 2
-      default-connect-timeout: 300000
-      default-receive-timeout: 300000
+      config:
+        credentials:
+          user: INCOME
+          password: 123
+          language: 2
+        pool:
+          size: 20
+          claim: 30
+        client:
+          default-connect-timeout: 300000
+          default-receive-timeout: 300000
       login:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-income:

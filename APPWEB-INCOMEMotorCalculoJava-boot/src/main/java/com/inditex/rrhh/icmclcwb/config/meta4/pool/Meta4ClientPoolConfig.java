@@ -17,9 +17,9 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 public class Meta4ClientPoolConfig {
 
 	@Bean(name = "meta4ClientPool")
-	public Meta4ClientPool meta4ClientPool(@Value("${app.envars.meta4.user}") final String user,
-			@Value("${app.envars.meta4.password}") final String password,
-			@Value("${app.envars.meta4.language}") final String language,
+	public Meta4ClientPool meta4ClientPool(@Value("${app.envars.meta4.config.credentials.user}") final String user,
+			@Value("${app.envars.meta4.config.credentials.password}") final String password,
+			@Value("${app.envars.meta4.config.credentials.language}") final String language,
 			@Qualifier("meta4LoginClientFactory") final Meta4ClientAbstract<LoginService> meta4LoginClientFactory,
 			@Qualifier("meta4IcmWsIncomeClientFactory") final Meta4ClientAbstract<IcmWsIncomeService> meta4IcmWsIncomeClientFactory,
 			@Qualifier("meta4IcmWsCalcIncomeClientFactory") final Meta4ClientAbstract<IcmWsCalcIncomeService> meta4IcmWsCalcIncomeClientFactory) {
