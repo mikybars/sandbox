@@ -18,7 +18,9 @@ public class Meta4ClientPoolable implements Poolable {
 		this.session = session;
 	}
 
+	@Override
 	public void release() {
+		System.out.println("release()");
 		slot.release(this);
 	}
 

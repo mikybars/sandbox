@@ -54,8 +54,8 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatosMeta4IcmWsCalcIncomeService {
 
 	@Autowired
-    private Logger log;
-	
+	private Logger log;
+
 	@Autowired
 	private Meta4IcmWsCalcIncomeSessionAsyncService meta4IcmWsCalcIncomeSessionAsyncService;
 
@@ -193,17 +193,23 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 						if (StringUtils.isNotBlank(item.getIdLugarTrabajo())) {
 							trabajoRunDatosBloque.getTiendaMeta4().add(item.getIdLugarTrabajo());
 						} else {
-							log.error("TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdLugarTrabajo() :: null :: {}", item);
+							log.error(
+									"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdLugarTrabajo() :: null :: {}",
+									item);
 						}
 						if (StringUtils.isNotBlank(item.getIdTiendaMtu())) {
 							trabajoRunDatosBloque.getTiendaMtu().add(item.getIdTiendaMtu());
 						} else {
-							log.error("TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdTiendaMtu() :: null :: {}", item);
+							log.error(
+									"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdTiendaMtu() :: null :: {}",
+									item);
 						}
 						if (StringUtils.isNotBlank(item.getIdCadena())) {
 							trabajoRunDatosBloque.getCadenaEmpresa().add(item.getIdCadena());
 						} else {
-							log.error("TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdCadena() :: null :: {}", item);
+							log.error(
+									"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasHistorico() :: GenericTiendaResultItemDto :: getIdCadena() :: null :: {}",
+									item);
 						}
 					});
 
@@ -478,9 +484,24 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 							AsyncUtils.exceptionally(cfSave, cf, cfPersist);
 
 							dataHistorico.stream().forEach(item -> {
-								trabajoRunDatosBloque.getEmpleadoLocal().add(item.getIdEmpleadoLocal());
-								trabajoRunDatosBloque.getEmpleadoUniversal().add(new StringBuilder(item.getIdEmpleado())
-										.append(AppConstants.SEPARATOR_DATA).append(item.getOrEmpleado()).toString());
+								if (StringUtils.isNotBlank(item.getIdEmpleadoLocal())) {
+									trabajoRunDatosBloque.getEmpleadoLocal().add(item.getIdEmpleadoLocal());
+								} else {
+									log.error(
+											"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.empleadosTienda() :: GenericTiendaResultItemDto :: getIdEmpleadoLocal() :: null :: {}",
+											item);
+								}
+								if (StringUtils.isNotBlank(item.getIdEmpleado())
+										&& StringUtils.isNotBlank(item.getOrEmpleado())) {
+									trabajoRunDatosBloque.getEmpleadoUniversal()
+											.add(new StringBuilder(item.getIdEmpleado())
+													.append(AppConstants.SEPARATOR_DATA).append(item.getOrEmpleado())
+													.toString());
+								} else {
+									log.error(
+											"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.empleadosTienda() :: GenericTiendaResultItemDto :: getIdEmpleado() getOrEmpleado()  :: null :: {}",
+											item);
+								}
 							});
 
 							trabajoRunDatosBloque.getEmpleado().addAll(trabajoEmpleadoEstadoMapper
