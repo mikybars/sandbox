@@ -145,12 +145,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		whereEmpleado.append(" AND EMPLEADO.ID_EMPLEADO = :idEmpleado ");		
 		simpleJdbcInsert.executeBatch(batchValues.toArray(new Map[idsEmpleados.size()]));											
 	}
-
 	
-	
-	
-
-
 
 	@Override
 	public void calcularByTiendaBatch (Long idTrabajo, List<Long> idsTiendas){

@@ -4,6 +4,7 @@ import java.util.concurrent.CountDownLatch;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +32,9 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
         
 	@Autowired
 	private CalculoAlgoritmoFactory calculoAlgoritmoFactory;
+	
+	 @Autowired
+	 private Logger log;
 
     @CounterMetric
     @TimerMetric
@@ -50,7 +54,7 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
     				.doOnNext(tipo -> {
     					calculoAlgoritmoFactory.crearAlgoritmo(TipoCalculoEnum.of(tipo)).execute(trabajo);    					
     				})
-      			  .doOnError(error -> error.printStackTrace())
+      			  .doOnError(error -> log.error(error.getMessage()))
     			  .doAfterTerminate(latch::countDown)
     		     .subscribe();    				
     		latch.await();
