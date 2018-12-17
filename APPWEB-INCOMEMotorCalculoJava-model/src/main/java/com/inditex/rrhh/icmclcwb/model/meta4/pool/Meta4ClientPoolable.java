@@ -22,6 +22,11 @@ public class Meta4ClientPoolable implements Poolable {
 		System.out.println("release()");
 		slot.release(this);
 	}
+	
+	//TODO eliminar metodo
+	public void close() {
+	    System.out.println("close123()");
+	}
 
 	public Meta4ClientSession getSession() {
 		return session.getSession();

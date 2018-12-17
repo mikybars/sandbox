@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
+import java.util.concurrent.TimeUnit;
+
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GettiendasempleadoOutput;
@@ -12,23 +14,28 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.Searchtie
 
 import stormpot.BlazePool;
 import stormpot.Config;
+import stormpot.Timeout;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
-    
+
+    private final Meta4ClientFactory meta4ClientFactory;
+
     private final BlazePool<Meta4ClientPoolable> pool;
 
     public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory) {
+        this.meta4ClientFactory = meta4ClientFactory;
         Meta4ClientReallocator allocator = new Meta4ClientReallocator(meta4ClientFactory);
         Config<Meta4ClientPoolable> config = new Config<>();
         config.setAllocator(allocator);
         config.setSize(meta4ClientFactory.getMeta4ClientProperties().getSize());
         config.setExpiration(new Meta4ClientExpiration());
-        pool = new BlazePool<>(config);
+        this.pool = new BlazePool<>(config);
     }
 
-    public void close() {
-        System.out.println("close()");
-        // pool.shutdown().await(new Timeout(1, TimeUnit.MINUTES));
+    public void close() throws InterruptedException {
+        System.out.println("shutdown()");
+        pool.shutdown().await(
+                new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(), TimeUnit.MILLISECONDS));
     }
 
     public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)

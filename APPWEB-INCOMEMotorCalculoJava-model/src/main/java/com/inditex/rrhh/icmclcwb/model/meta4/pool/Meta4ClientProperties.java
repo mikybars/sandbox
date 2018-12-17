@@ -12,5 +12,7 @@ public class Meta4ClientProperties implements Serializable {
 	private int size;
 
 	private long claimTimeout;
+	
+	private long shutdownTimeout;
 
 }

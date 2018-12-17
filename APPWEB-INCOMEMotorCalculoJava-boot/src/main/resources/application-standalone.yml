@@ -201,6 +201,7 @@ app:
         pool:
           size: 20
           claimTimeout: 30000
+          shutdownTimeout: 60000
         timeout:
           connectTimeout: 300000
           receiveTimeout: 300000

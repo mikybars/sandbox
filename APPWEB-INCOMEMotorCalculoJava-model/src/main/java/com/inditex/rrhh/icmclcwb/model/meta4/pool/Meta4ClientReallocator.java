@@ -46,17 +46,18 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 
 	@Override
 	public void deallocate(Meta4ClientPoolable poolable) throws Exception {
-		// Nothing to do here
-		// But it's a perfect place to close sockets, files, etc.
-		System.out.println("deallocate()");
+		System.out.println("inicio::deallocate()");
+		try {
+		    poolable.getLoginService().logout();
+		} catch (Exception e) {
+		    System.out.println("Error no controlado al cerrar sesión: " + e.getMessage());
+		}
+		System.out.println("fin::deallocate()");
 	}
 
 	@Override
 	public Meta4ClientPoolable reallocate(Slot slot, Meta4ClientPoolable poolable) throws Exception {
-		// TODO Auto-generated method stub
 		System.out.println("reallocate()");
-//		slot.expire(poolable);
-//		slot.release(poolable);
 		return allocate(slot);
 	}
 
