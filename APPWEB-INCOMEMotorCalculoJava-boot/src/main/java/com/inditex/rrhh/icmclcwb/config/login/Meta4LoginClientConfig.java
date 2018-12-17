@@ -14,17 +14,11 @@ public class Meta4LoginClientConfig extends Meta4ClientAbstract<LoginService> {
     protected void setServer(String server) {
         super.server = server;
     }
-	
-    @Bean(name = "meta4LoginClient")
-    @Override
-    public LoginService client() {
-        return super.build(LoginService.class);
-    }
 
     @Bean(name = "meta4LoginClientFactory")
-	@Override
-	protected Meta4ClientAbstract<LoginService> factory() {
-		return this;
-	}
+    @Override
+    protected Meta4ClientAbstract<LoginService> factory() {
+        return this;
+    }
 
 }

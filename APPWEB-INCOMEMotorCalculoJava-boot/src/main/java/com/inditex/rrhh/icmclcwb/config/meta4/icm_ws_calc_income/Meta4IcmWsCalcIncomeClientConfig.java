@@ -9,22 +9,16 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientAbstract;
 @Configuration
 public class Meta4IcmWsCalcIncomeClientConfig extends Meta4ClientAbstract<IcmWsCalcIncomeService> {
 
-	@Value("${app.envars.meta4.icm-ws-calc-income.server}")
-	@Override
-	protected void setServer(String server) {
-		super.server = server;
-	}
-	
-	@Bean(name = "meta4IcmWsCalcIncomeClient")
-	@Override
-	public IcmWsCalcIncomeService client() {
-		return super.build(IcmWsCalcIncomeService.class);
-	}
+    @Value("${app.envars.meta4.icm-ws-calc-income.server}")
+    @Override
+    protected void setServer(String server) {
+        super.server = server;
+    }
 
-	@Bean(name = "meta4IcmWsCalcIncomeClientFactory")
-	@Override
-	protected Meta4ClientAbstract<IcmWsCalcIncomeService> factory() {
-		return this;
-	}
+    @Bean(name = "meta4IcmWsCalcIncomeClientFactory")
+    @Override
+    protected Meta4ClientAbstract<IcmWsCalcIncomeService> factory() {
+        return this;
+    }
 
 }

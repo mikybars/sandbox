@@ -26,8 +26,6 @@ public abstract class Meta4ClientAbstract<T> {
     public long receiveTimeout;
 
     protected abstract void setServer(String server);
-
-    protected abstract T client();
     
     protected abstract Meta4ClientAbstract<T> factory();
 
