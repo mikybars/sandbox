@@ -43,6 +43,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
+//        } catch () {
+            // M4Operations.endTrans(): RET_ERROR_COMM
         } finally {
             release(client);
         }
