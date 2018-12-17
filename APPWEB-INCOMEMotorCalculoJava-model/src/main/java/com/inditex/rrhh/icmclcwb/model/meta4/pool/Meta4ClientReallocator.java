@@ -3,14 +3,12 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 import java.time.LocalDateTime;
 
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
-import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_income.entity.IcmWsIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
-
 import stormpot.Reallocator;
 import stormpot.Slot;
 
 public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> {
-
+    
 	private final Meta4ClientFactory meta4ClientFactory;
 
 	public Meta4ClientReallocator(Meta4ClientFactory meta4ClientFactory) {
@@ -21,15 +19,12 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 	public Meta4ClientPoolable allocate(Slot slot) throws Exception {
 		System.out.println("allocate()");
 		LoginService loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
-		IcmWsIncomeService icmWsIncomeService = meta4ClientFactory.getIcmWsIncomeServiceFactory()
-				.build(IcmWsIncomeService.class);
 		IcmWsCalcIncomeService icmWsCalcIncomeService = meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
-				.build(IcmWsCalcIncomeService.class);
-
+                .build(IcmWsCalcIncomeService.class);
+		
 		String id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
 				meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
 				meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
-		icmWsIncomeService.retrieveM4Session(id);
 		icmWsCalcIncomeService.retrieveM4Session(id);
 
 		Meta4Client client = new Meta4Client();
@@ -43,7 +38,6 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 		
 		Meta4ClientService service = new Meta4ClientService();
 		service.setLoginService(loginService);
-		service.setIcmWsIncomeService(icmWsIncomeService);
 		service.setIcmWsCalcIncomeService(icmWsCalcIncomeService);
 		client.setService(service);
 

@@ -9,8 +9,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleadostienda.dto.EmpleadosTiendaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoEmpleadoEstadoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
 
@@ -41,18 +40,6 @@ public abstract class TrabajoEmpleadoEstadoMapper {
 	public List<TrabajoEmpleadoEstado> mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(
             List<TrabajoEmpleadoEstadoDto> srcTrabajoEmpleadoEstadoDto, TrabajoDto srcTrabajoDto) {
 	    throw new UnsupportedOperationException("Not implemented");
-    }
-
-    @Mapping(target = "idEmpleado", source = "src.idEmpleado")
-    @Mapping(target = "idTrabajo", source = "trabajo.id")
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "estado", ignore = true)
-    public abstract TrabajoEmpleadoEstadoDto empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(
-            EmpleadosTiendaResultItemDto src, TrabajoDto trabajo);
-
-    public List<TrabajoEmpleadoEstadoDto> empleadosTiendaResultItemDtoToTrabajoEmpleadoEstadoDto(
-            List<EmpleadosTiendaResultItemDto> src, TrabajoDto trabajo) {
-        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Mapping(target = "idEmpleado", source = "src.idEmpleado")
