@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config.meta4;
+package com.inditex.rrhh.icmclcwb.config.meta4.icm_ws_calc_income;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

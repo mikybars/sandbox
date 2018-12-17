@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config.ptr;
+package com.inditex.rrhh.icmclcwb.config.ptr.venta;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

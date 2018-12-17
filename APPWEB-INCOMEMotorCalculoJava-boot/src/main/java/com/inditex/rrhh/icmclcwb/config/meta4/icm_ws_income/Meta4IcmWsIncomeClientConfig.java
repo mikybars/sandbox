@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config.meta4;
+package com.inditex.rrhh.icmclcwb.config.meta4.icm_ws_income;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
