@@ -2,12 +2,17 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import java.time.LocalDateTime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 import stormpot.Reallocator;
 import stormpot.Slot;
 
 public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> {
+    
+    private static final Logger log = LoggerFactory.getLogger(Meta4ClientReallocator.class);
     
 	private final Meta4ClientFactory meta4ClientFactory;
 
@@ -17,6 +22,7 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 
 	@Override
 	public Meta4ClientPoolable allocate(Slot slot) throws Exception {
+	    log.info("allocate()");
 		System.out.println("allocate()");
 		LoginService loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
 		IcmWsCalcIncomeService icmWsCalcIncomeService = meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
