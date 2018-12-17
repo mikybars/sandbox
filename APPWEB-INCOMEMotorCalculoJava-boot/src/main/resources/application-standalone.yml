@@ -16,7 +16,7 @@ metadata:
   domain: core
   openshiftproject: icmclcwb
   slot: develop
-spring: 
+spring:
 #  jta:
 #    atomikos:
 #      properties:
@@ -52,12 +52,6 @@ amiga:
           auth-method: BASIC
           username: username300
           password: username300p
-        ptrPresenciaMockClient:
-          base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
-          auth-method: BASIC
-          username: username300
-          password: username300p
-          
   service:
     jms:
       trabajo-queue:

@@ -21,10 +21,6 @@ amiga:
           base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
           username: username300
-        ptrPresenciaMockClient:
-          base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
-          auth-method: BASIC
-          username: username300
   service:
     jms:
       trabajo-queue:
