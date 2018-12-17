@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
 
@@ -15,13 +16,16 @@ import stormpot.Timeout;
 
 public class Meta4ClientPoolBase {
 
+    @Value("${app.envars.meta4.config.pool.claimTimeout}")
+    public long claimTimeout;
+    
 	@Autowired
 	private Logger log;
 
 	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) throws InterruptedException {
 		log.info("Inicio :: Meta4ClientPoolBase :: :: pool.claim()");
 		Instant start = Instant.now();
-		Meta4ClientPoolable client = pool.claim(new Timeout(30, TimeUnit.SECONDS));
+		Meta4ClientPoolable client = pool.claim(new Timeout(claimTimeout, TimeUnit.MILLISECONDS));
 		Instant end = Instant.now();
 		log.info("Fin :: Meta4ClientPoolBase :: :: pool.claim(): {}", Duration.between(start, end));
 		if (client != null) {

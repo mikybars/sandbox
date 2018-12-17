@@ -118,10 +118,10 @@ app:
           language: 2
         pool:
           size: 20
-          claim: 30
-        client:
-          default-connect-timeout: 300000
-          default-receive-timeout: 300000
+          claimTimeout: 30000
+        timeout:
+          connectTimeout: 300000
+          receiveTimeout: 300000
       login:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-calc-income:

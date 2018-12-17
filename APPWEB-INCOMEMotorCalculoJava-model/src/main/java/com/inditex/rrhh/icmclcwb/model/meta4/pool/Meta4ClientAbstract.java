@@ -19,10 +19,10 @@ public abstract class Meta4ClientAbstract<T> {
 
     public String server;
 
-    @Value("${app.envars.meta4.config.client.default-connect-timeout}")
+    @Value("${app.envars.meta4.config.timeout.connectTimeout}")
     public long connectTimeout;
 
-    @Value("${app.envars.meta4.config.client.default-receive-timeout}")
+    @Value("${app.envars.meta4.config.timeout.receiveTimeout}")
     public long receiveTimeout;
 
     protected abstract void setServer(String server);

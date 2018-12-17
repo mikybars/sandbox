@@ -14,21 +14,19 @@ import stormpot.BlazePool;
 import stormpot.Config;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
-
+    
     private final BlazePool<Meta4ClientPoolable> pool;
 
     public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory) {
         Meta4ClientReallocator allocator = new Meta4ClientReallocator(meta4ClientFactory);
         Config<Meta4ClientPoolable> config = new Config<>();
         config.setAllocator(allocator);
-        config.setSize(10);
-        // config.setExpiration(new TimeSpreadExpiration<>(30000, 60000,
-        // TimeUnit.MILLISECONDS));
+        config.setSize(meta4ClientFactory.getMeta4ClientProperties().getSize());
         config.setExpiration(new Meta4ClientExpiration());
         pool = new BlazePool<>(config);
     }
 
-    public void close() throws InterruptedException {
+    public void close() {
         System.out.println("close()");
         // pool.shutdown().await(new Timeout(1, TimeUnit.MINUTES));
     }
