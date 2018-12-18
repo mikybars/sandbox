@@ -37,6 +37,8 @@ public abstract class Meta4ClientAbstract<T> {
 
         ((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
         ((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
+        // http://cxf.apache.org/faq.html#FAQ-AreJAX-WSclientproxiesthreadsafe?
+        //((BindingProvider) result).getRequestContext().put("thread.local.request.context", Boolean.TRUE);
 
         Client client = ClientProxy.getClient(result);
         if (client != null) {
@@ -47,7 +49,8 @@ public abstract class Meta4ClientAbstract<T> {
             httpClientPolicy.setAllowChunking(false);
             httpClientPolicy.setConnectionTimeout(connectTimeout);
             httpClientPolicy.setReceiveTimeout(receiveTimeout);
-            httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
+            //httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
+            httpClientPolicy.setConnection(ConnectionType.CLOSE);
             // Apache CXF uses HTTPUrlConnection internally and relies on java system
             // properties to configure client connection settings
             // http.keepAlive (default: true)

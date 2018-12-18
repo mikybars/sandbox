@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 
@@ -37,10 +38,14 @@ public class Meta4ClientPoolable implements Poolable {
 	}
 
 	public LoginService getLoginService() {
+		CxfUtils.putRequestHeaders(session.getService().getLoginService(),
+				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
 		return session.getService().getLoginService();
 	}
 
 	public IcmWsCalcIncomeService getIcmWsCalcIncomeService() {
+		CxfUtils.putRequestHeaders(session.getService().getIcmWsCalcIncomeService(),
+				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
 		return session.getService().getIcmWsCalcIncomeService();
 	}
 
