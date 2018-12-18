@@ -22,8 +22,7 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 
 	@Override
 	public Meta4ClientPoolable allocate(Slot slot) throws Exception {
-	    log.info("allocate()");
-		System.out.println("allocate()");
+	    log.info("Inicio :: Meta4ClientReallocator :: allocate()");
 		LoginService loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
 		IcmWsCalcIncomeService icmWsCalcIncomeService = meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
                 .build(IcmWsCalcIncomeService.class);
@@ -46,25 +45,27 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 		service.setLoginService(loginService);
 		service.setIcmWsCalcIncomeService(icmWsCalcIncomeService);
 		client.setService(service);
-
+		log.info("Fin :: Meta4ClientReallocator :: allocate()");
 		return new Meta4ClientPoolable(slot, client);
 	}
 
 	@Override
 	public void deallocate(Meta4ClientPoolable poolable) throws Exception {
-		System.out.println("inicio::deallocate()");
+	    log.info("Inicio :: Meta4ClientReallocator :: deallocate()");
 		try {
 		    poolable.getLoginService().logout();
 		} catch (Exception e) {
-		    System.out.println("Error no controlado al cerrar sesión: " + e.getMessage());
+		    log.error("Error :: Meta4ClientReallocator :: deallocate()", e);
 		}
-		System.out.println("fin::deallocate()");
+		log.info("Fin :: Meta4ClientReallocator :: deallocate()");
 	}
 
 	@Override
 	public Meta4ClientPoolable reallocate(Slot slot, Meta4ClientPoolable poolable) throws Exception {
-		System.out.println("reallocate()");
-		return allocate(slot);
+	    log.info("Inicio :: Meta4ClientReallocator :: reallocate()");
+	    Meta4ClientPoolable result = allocate(slot);
+	    log.info("Fin :: Meta4ClientReallocator :: reallocate()");
+	    return result;
 	}
 
 }

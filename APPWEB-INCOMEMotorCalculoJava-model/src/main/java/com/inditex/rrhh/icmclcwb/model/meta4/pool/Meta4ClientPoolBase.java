@@ -19,50 +19,54 @@ public class Meta4ClientPoolBase {
 
     @Value("${app.envars.meta4.config.pool.claimTimeout}")
     public long claimTimeout;
-    
-	@Autowired
-	private Logger log;
 
-	@Retryable
-	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) throws InterruptedException {
-		log.info("Inicio :: Meta4ClientPoolBase :: pool.claim()");
-		Instant start = Instant.now();
-		Meta4ClientPoolable client = pool.claim(new Timeout(claimTimeout, TimeUnit.MILLISECONDS));
-		Instant end = Instant.now();
-		log.info("Fin :: Meta4ClientPoolBase :: pool.claim(): {}", Duration.between(start, end));
-		if (client != null) {
-			uso(client);
-			logSession(client.getSession());
-		} else {
-			if (log.isWarnEnabled()) {
-				log.warn("Meta4ClientPoolBase :: pool.claim() :: null");
-			}
-			throw new Meta4Exception("Session caducada (Pool)");
-		}
-		return client;
-	}
+    @Autowired
+    private Logger log;
 
-	protected void expire(final Meta4ClientPoolable poolable) {
-        if (poolable != null) {
-            poolable.expire();
+    @Retryable
+    protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) throws InterruptedException {
+        log.info("Inicio :: Meta4ClientPoolBase :: pool.claim()");
+        Instant start = Instant.now();
+        Meta4ClientPoolable client = pool.claim(new Timeout(claimTimeout, TimeUnit.MILLISECONDS));
+        Instant end = Instant.now();
+        log.info("Fin :: Meta4ClientPoolBase :: pool.claim(): {}", Duration.between(start, end));
+        if (client != null) {
+            uso(client);
+            logSession(client.getSession());
+        } else {
+            log.error("Error :: Meta4ClientPoolBase :: pool.claim() :: null");
+            throw new Meta4Exception("Session caducada (Pool)");
         }
+        return client;
     }
-	
-	protected void release(final Meta4ClientPoolable poolable) {
-		if (poolable != null) {
-			poolable.release();
-		}
-	}
 
-	private void uso(Meta4ClientPoolable client) {
-		client.getSession().setUso(client.getSession().getUso() + 1);
-		client.getSession().setFechaUso(LocalDateTime.now());
-	}
+    protected void expire(final Meta4ClientPoolable poolable) {
+        log.warn("Inicio :: Meta4ClientPoolBase :: expire()");
+        if (poolable != null) {
+            log.warn("Inicio :: Meta4ClientPoolBase :: poolable.expire() :: {}", poolable.getSession());
+            poolable.expire();
+            log.warn("Fin :: Meta4ClientPoolBase :: poolable.expire() :: {}", poolable.getSession());
+        }
+        log.warn("Fin :: Meta4ClientPoolBase :: expire()");
+    }
 
-	private void logSession(Meta4ClientSession session) {
-		if (log.isInfoEnabled()) {
-			log.info("Meta4ClientPoolBase :: {}", session);
-		}
-	}
+    protected void release(final Meta4ClientPoolable poolable) {
+        log.info("Inicio :: Meta4ClientPoolBase :: release()");
+        if (poolable != null) {
+            log.info("Inicio :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
+            poolable.release();
+            log.info("Fin :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
+        }
+        log.info("Fin :: Meta4ClientPoolBase :: release()");
+    }
+
+    private void uso(Meta4ClientPoolable client) {
+        client.getSession().setUso(client.getSession().getUso() + 1);
+        client.getSession().setFechaUso(LocalDateTime.now());
+    }
+
+    private void logSession(Meta4ClientSession session) {
+        log.info("Meta4ClientPoolBase :: logSession() :: {}", session);
+    }
 
 }

@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 
@@ -8,6 +11,8 @@ import stormpot.Slot;
 
 public class Meta4ClientPoolable implements Poolable {
 
+    private static final Logger log = LoggerFactory.getLogger(Meta4ClientPoolable.class);
+    
 	private final Slot slot;
 
 	private final Meta4Client session;
@@ -23,13 +28,8 @@ public class Meta4ClientPoolable implements Poolable {
 	
 	@Override
 	public void release() {
-		System.out.println("release()");
+	    log.info("Meta4ClientPoolable :: release()");
 		slot.release(this);
-	}
-	
-	//TODO eliminar metodo
-	public void close() {
-	    System.out.println("close123()");
 	}
 
 	public Meta4ClientSession getSession() {
