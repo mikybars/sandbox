@@ -88,6 +88,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
+    @Retryable
     public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
             throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
