@@ -2,6 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.retry.annotation.Retryable;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GettiendasempleadoOutput;
@@ -38,33 +41,43 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
                 new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(), TimeUnit.MILLISECONDS));
     }
 
+    @Retryable
     public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
             throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
-//        } catch () {
-            // M4Operations.endTrans(): RET_ERROR_COMM
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)");
         } finally {
             release(client);
         }
     }
 
+    @Retryable
     public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1)
             throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getcomisionempleado(param1);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)");
         } finally {
             release(client);
         }
     }
 
+    @Retryable
     public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
             IcmParametrospaginacionBlock param2) throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)");
         } finally {
             release(client);
         }
@@ -75,26 +88,37 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)");
         } finally {
             release(client);
         }
     }
 
+    @Retryable
     public GettiendasincomeOutput gettiendasincome(IcmParametrospaginacionBlock param1,
             IcmParametrosentradaBlock param2) throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)");
         } finally {
             release(client);
         }
     }
 
+    @Retryable
     public SearchempleadosOutput searchempleados(IcmParametrospaginacionBlock param1, IcmParametrosentradaBlock param2)
             throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().searchempleados(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)");
         } finally {
             release(client);
         }

@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.retry.annotation.Retryable;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
 
@@ -22,12 +23,13 @@ public class Meta4ClientPoolBase {
 	@Autowired
 	private Logger log;
 
+	@Retryable
 	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) throws InterruptedException {
-		log.info("Inicio :: Meta4ClientPoolBase :: :: pool.claim()");
+		log.info("Inicio :: Meta4ClientPoolBase :: pool.claim()");
 		Instant start = Instant.now();
 		Meta4ClientPoolable client = pool.claim(new Timeout(claimTimeout, TimeUnit.MILLISECONDS));
 		Instant end = Instant.now();
-		log.info("Fin :: Meta4ClientPoolBase :: :: pool.claim(): {}", Duration.between(start, end));
+		log.info("Fin :: Meta4ClientPoolBase :: pool.claim(): {}", Duration.between(start, end));
 		if (client != null) {
 			uso(client);
 			logSession(client.getSession());
@@ -40,6 +42,12 @@ public class Meta4ClientPoolBase {
 		return client;
 	}
 
+	protected void expire(final Meta4ClientPoolable poolable) {
+        if (poolable != null) {
+            poolable.expire();
+        }
+    }
+	
 	protected void release(final Meta4ClientPoolable poolable) {
 		if (poolable != null) {
 			poolable.release();
