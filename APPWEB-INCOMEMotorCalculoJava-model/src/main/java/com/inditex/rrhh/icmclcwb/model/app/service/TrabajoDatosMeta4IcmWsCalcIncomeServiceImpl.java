@@ -339,6 +339,30 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 									AsyncUtils.exceptionally(cfSave, cf, cfPersist);
 								}
 
+								data.stream().forEach(item -> {
+			                        if (StringUtils.isNotBlank(item.getIdLugarTrabajo())) {
+			                            trabajoRunDatosBloque.getTiendaMeta4().add(item.getIdLugarTrabajo());
+			                        } else {
+			                            log.error(
+			                                    "TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasEmpleadoHistorico() :: GenericTiendaResultItemDto :: getIdLugarTrabajo() :: null :: {}",
+			                                    item);
+			                        }
+			                        if (StringUtils.isNotBlank(item.getIdTiendaMtu())) {
+			                            trabajoRunDatosBloque.getTiendaMtu().add(item.getIdTiendaMtu());
+			                        } else {
+			                            log.error(
+			                                    "TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasEmpleadoHistorico() :: GenericTiendaResultItemDto :: getIdTiendaMtu() :: null :: {}",
+			                                    item);
+			                        }
+			                        if (StringUtils.isNotBlank(item.getIdCadena())) {
+			                            trabajoRunDatosBloque.getCadenaEmpresa().add(item.getIdCadena());
+			                        } else {
+			                            log.error(
+			                                    "TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasEmpleadoHistorico() :: GenericTiendaResultItemDto :: getIdCadena() :: null :: {}",
+			                                    item);
+			                        }
+			                    });
+								
 								trabajoRunDatosBloque.getTienda()
 										.addAll(trabajoTiendaEstadoMapper
 												.genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(data,
