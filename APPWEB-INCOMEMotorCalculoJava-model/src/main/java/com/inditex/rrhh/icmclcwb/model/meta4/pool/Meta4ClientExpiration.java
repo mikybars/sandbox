@@ -24,12 +24,12 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
 				expired = false;
 			}
 		} catch (Exception e) {
-		    log.error("Error no controlado :: hasExpired(): ", e);
+		    log.error("Meta4ClientExpiration :: Error no controlado :: hasExpired(): ", e);
 		}
 		if (expired) {
-		    log.warn("La session {} ha caducado", session);
+		    log.warn("Meta4ClientExpiration :: La session {} ha caducado", session);
 		} else {
-		    log.info("La session {} sigue activa", session);
+		    log.info("Meta4ClientExpiration ::La session {} sigue activa", session);
 		}
 		return expired;
 	}
