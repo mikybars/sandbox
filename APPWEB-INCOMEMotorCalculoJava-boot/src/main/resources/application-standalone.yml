@@ -10,6 +10,7 @@ logging:
 #    com.inditex.aqsw.libmonitoringcenter.metrics.aop.aspect: DEBUG
 #    com.inditex.aqsw.libmonitoringcenter.metrics.influx.kafka.registry.InfluxMeterRegistry: DEBUG
 #    net.ttddyy: DEBUG
+#    org.apache.cxf.services: INFO
     com.inditex.rrhh.icmclcwb: INFO
 metadata:
   tenant: global
@@ -106,6 +107,7 @@ amiga:
         secondary:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
+          #url: jdbc:sqlserver://axdessql1.central.inditex.grp:1433;databaseName=PeopleNet
           user: People7
           password: people7
           #user: ncomis

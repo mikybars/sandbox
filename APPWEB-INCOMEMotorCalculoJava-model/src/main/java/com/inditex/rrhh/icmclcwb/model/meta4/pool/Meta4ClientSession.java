@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class Meta4ClientSession implements Serializable {
@@ -13,6 +14,8 @@ public class Meta4ClientSession implements Serializable {
 	private String id;
 	
 	private String jSessionID;
+	
+	private List<String> setCookie;
 
 	private LocalDateTime fechaCreacion;
 

@@ -6,14 +6,15 @@ import org.slf4j.LoggerFactory;
 import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
+import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception;
 
 import stormpot.Poolable;
 import stormpot.Slot;
 
 public class Meta4ClientPoolable implements Poolable {
 
-    private static final Logger log = LoggerFactory.getLogger(Meta4ClientPoolable.class);
-    
+	private static final Logger log = LoggerFactory.getLogger(Meta4ClientPoolable.class);
+
 	private final Slot slot;
 
 	private final Meta4Client session;
@@ -24,12 +25,18 @@ public class Meta4ClientPoolable implements Poolable {
 	}
 
 	public void expire() {
-	    slot.expire(this);
+		slot.expire(this);
 	}
-	
+
 	@Override
 	public void release() {
-	    log.info("Meta4ClientPoolable :: release()");
+		log.info("Meta4ClientPoolable :: release()");
+		// TODO Pendiente reutilización de la sesion
+		try {
+			session.getService().getLoginService().logout();
+			slot.expire(this);
+		} catch (M4SoapException_Exception e) {
+		}
 		slot.release(this);
 	}
 
@@ -40,12 +47,20 @@ public class Meta4ClientPoolable implements Poolable {
 	public LoginService getLoginService() {
 		CxfUtils.putRequestHeaders(session.getService().getLoginService(),
 				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
+//		CxfUtils.putRequestHeaders(session.getService().getLoginService(),
+//				CxfUtils.mapCookie(session.getSession().getSetCookie()));
+//		CxfUtils.putCookies(session.getService().getLoginService(),
+//				CxfUtils.cookieJSessionID(session.getSession().getJSessionID()));
 		return session.getService().getLoginService();
 	}
 
 	public IcmWsCalcIncomeService getIcmWsCalcIncomeService() {
 		CxfUtils.putRequestHeaders(session.getService().getIcmWsCalcIncomeService(),
 				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
+//		CxfUtils.putRequestHeaders(session.getService().getIcmWsCalcIncomeService(),
+//				CxfUtils.mapCookie(session.getSession().getSetCookie()));
+//		CxfUtils.putCookies(session.getService().getIcmWsCalcIncomeService(),
+//				CxfUtils.cookieJSessionID(session.getSession().getJSessionID()));
 		return session.getService().getIcmWsCalcIncomeService();
 	}
 

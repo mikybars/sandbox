@@ -66,9 +66,12 @@ public class CxfUtils {
 	}
 
 	public static Map<String, List<String>> mapJSessionID(final String jSessionID) {
-		return Stream
-				.of(new AbstractMap.SimpleEntry<>("Cookie",
-						Collections.singletonList(new StringBuilder("JSESSIONID=").append(jSessionID).toString())))
+		return CxfUtils
+				.mapCookie(Collections.singletonList(new StringBuilder("JSESSIONID=").append(jSessionID).toString()));
+	}
+
+	public static Map<String, List<String>> mapCookie(final List<String> list) {
+		return Stream.of(new AbstractMap.SimpleEntry<>("Cookie", list))
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 

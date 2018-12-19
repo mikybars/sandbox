@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
 import javax.xml.ws.BindingProvider;
 
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
@@ -17,72 +16,74 @@ import org.springframework.beans.factory.annotation.Value;
 
 public abstract class Meta4ClientAbstract<T> {
 
-    public String server;
+	public String server;
 
-    @Value("${app.envars.meta4.config.timeout.connectTimeout}")
-    public long connectTimeout;
+	@Value("${app.envars.meta4.config.timeout.connectTimeout}")
+	public long connectTimeout;
 
-    @Value("${app.envars.meta4.config.timeout.receiveTimeout}")
-    public long receiveTimeout;
+	@Value("${app.envars.meta4.config.timeout.receiveTimeout}")
+	public long receiveTimeout;
 
-    protected abstract void setServer(String server);
-    
-    protected abstract Meta4ClientAbstract<T> factory();
+	protected abstract void setServer(String server);
 
-    public T build(Class<T> classType) {
-        JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
-        pfb.setServiceClass(classType);
-        pfb.setAddress(server);
-        T result = (T) pfb.create();
+	protected abstract Meta4ClientAbstract<T> factory();
 
-        ((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
-        ((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
-        // http://cxf.apache.org/faq.html#FAQ-AreJAX-WSclientproxiesthreadsafe?
-        //((BindingProvider) result).getRequestContext().put("thread.local.request.context", Boolean.TRUE);
+	public T build(Class<T> classType) {
+		JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
+		pfb.setServiceClass(classType);
+		pfb.setAddress(server);
+		T result = (T) pfb.create();
 
-        Client client = ClientProxy.getClient(result);
-        if (client != null) {
-            HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
+		((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
+		((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
+		// http://cxf.apache.org/faq.html#FAQ-AreJAX-WSclientproxiesthreadsafe?
+		// ((BindingProvider)
+		// result).getRequestContext().put(JaxWsClientProxy.THREAD_LOCAL_REQUEST_CONTEXT,
+		// Boolean.TRUE);
 
-            HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
-            httpClientPolicy.setContentType("text/xml;charset=UTF-8");
-            httpClientPolicy.setAllowChunking(false);
-            httpClientPolicy.setConnectionTimeout(connectTimeout);
-            httpClientPolicy.setReceiveTimeout(receiveTimeout);
-            //httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
-            httpClientPolicy.setConnection(ConnectionType.CLOSE);
-            // Apache CXF uses HTTPUrlConnection internally and relies on java system
-            // properties to configure client connection settings
-            // http.keepAlive (default: true)
-            // http.maxConnections (default: 5)
+		Client client = ClientProxy.getClient(result);
 
-            httpConduit.setClient(httpClientPolicy);
+//		client.getResponseContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
+//		client.getResponseContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
+//		client.setThreadLocalRequestContext(true);
 
-            SSLSocketFactory sslSF = HttpsURLConnection.getDefaultSSLSocketFactory();
+		HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
 
-            TLSClientParameters tlsClientParameters = new TLSClientParameters();
-            tlsClientParameters.setSSLSocketFactory(sslSF);
+		HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
+		httpClientPolicy.setContentType("text/xml;charset=UTF-8");
+		httpClientPolicy.setAllowChunking(false);
+		httpClientPolicy.setConnectionTimeout(connectTimeout);
+		httpClientPolicy.setReceiveTimeout(receiveTimeout);
+		httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
+		// httpClientPolicy.setConnection(ConnectionType.CLOSE);
+		// Apache CXF uses HTTPUrlConnection internally and relies on java system
+		// properties to configure client connection settings
+		// http.keepAlive (default: true)
+		// http.maxConnections (default: 5)
 
-            httpConduit.setTlsClientParameters(tlsClientParameters);
+		httpConduit.setClient(httpClientPolicy);
 
-            // TODO Pendiente revisar propiedad
-            // client.getEndpoint().put(StaxOutInterceptor.FORCE_START_DOCUMENT,
-            // Boolean.TRUE);
+		TLSClientParameters tlsClientParameters = new TLSClientParameters();
+		tlsClientParameters.setSSLSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
+		httpConduit.setTlsClientParameters(tlsClientParameters);
 
-            // TODO Pendiente ajustar trazas
-            LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
-            loggingInInterceptor.setPrettyLogging(Boolean.TRUE);
-            loggingInInterceptor.setLimit(-1);
-            client.getInInterceptors().add(loggingInInterceptor);
+		// Agregar cabecera <?xml version="1.0" encoding="UTF-8"?>
+		// client.getEndpoint().put(StaxOutInterceptor.FORCE_START_DOCUMENT,
+		// Boolean.TRUE);
 
-            // TODO Pendiente ajustar trazas
-            LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
-            loggingOutInterceptor.setPrettyLogging(Boolean.TRUE);
-            loggingOutInterceptor.setLimit(-1);
-            client.getOutInterceptors().add(loggingOutInterceptor);
+		// TODO Pendiente ajustar trazas
+		LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
+		loggingInInterceptor.setPrettyLogging(Boolean.TRUE);
+		loggingInInterceptor.setLimit(-1);
+		client.getInInterceptors().add(loggingInInterceptor);
 
-        }
-        return result;
-    }
+		// TODO Pendiente ajustar trazas
+		LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
+		loggingOutInterceptor.setPrettyLogging(Boolean.TRUE);
+		loggingOutInterceptor.setLimit(-1);
+		client.getOutInterceptors().add(loggingOutInterceptor);
+
+		return result;
+	}
 
 }

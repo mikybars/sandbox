@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +32,12 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 		String id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
 				meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
 				meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
-		String jSessionID = CxfUtils.getJSessionID(CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService)));
+		List<String> setCookie = CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
+		String jSessionID = CxfUtils.getJSessionID(setCookie);
 
 		CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapJSessionID(jSessionID));
+//		CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapCookie(setCookie));
+//		CxfUtils.putCookies(icmWsCalcIncomeService, CxfUtils.cookieJSessionID(jSessionID));
 		icmWsCalcIncomeService.retrieveM4Session(id);
 
 		Meta4Client client = new Meta4Client();
@@ -40,6 +45,7 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 		Meta4ClientSession session = new Meta4ClientSession();
 		session.setId(id);
 		session.setJSessionID(jSessionID);
+		session.setSetCookie(setCookie);
 		session.setFechaCreacion(LocalDateTime.now());
 		client.setSession(session);
 
