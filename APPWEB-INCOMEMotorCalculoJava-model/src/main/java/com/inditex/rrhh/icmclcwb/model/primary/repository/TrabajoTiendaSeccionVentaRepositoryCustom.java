@@ -6,9 +6,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionVenta;
 
 public interface TrabajoTiendaSeccionVentaRepositoryCustom {
 
-    List<TrabajoTiendaSeccionVenta> saveJdbcTemplate(List<TrabajoTiendaSeccionVenta> src);
+//    List<TrabajoTiendaSeccionVenta> saveJdbcTemplate(List<TrabajoTiendaSeccionVenta> src) throws Exception;
 
-    List<TrabajoTiendaSeccionVenta> saveBatch(List<TrabajoTiendaSeccionVenta> src);
+    List<TrabajoTiendaSeccionVenta> save(List<TrabajoTiendaSeccionVenta> src) throws Exception;
 
-    List<TrabajoTiendaSeccionVenta> saveBatchJpa(List<TrabajoTiendaSeccionVenta> src);
+//    List<TrabajoTiendaSeccionVenta> saveJpaBatch(List<TrabajoTiendaSeccionVenta> src) throws Exception;
+
 }
