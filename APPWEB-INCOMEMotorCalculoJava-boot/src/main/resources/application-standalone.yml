@@ -157,6 +157,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getVentaIndividualDetalle:
             endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
@@ -164,6 +165,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2
       presencia:
         service:
@@ -173,6 +175,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
@@ -180,6 +183,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2
           getTiposHoras:
             endpoint: /presenciasService/tiposHoras
@@ -187,6 +191,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2  
     meta4:
       config:
@@ -195,7 +200,7 @@ app:
           password: 123
           language: 2
         pool:
-          size: 20
+          size: 1
           claimTimeout: 30000
           shutdownTimeout: 60000
         timeout:
@@ -203,10 +208,10 @@ app:
           receiveTimeout: 300000
       login:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-        #server: http://pool-icmclcws.axdesocp1.central.inditex.grp/services/Login
+#        server: http://pool-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-calc-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        #server: http://pool-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+#        server: http://pool-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getTiendasEmpleado:
             page:
@@ -218,6 +223,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           searchTiendas:
             page:
@@ -229,6 +235,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2
           getTiendas: 
             page:
@@ -240,6 +247,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2
           searchEmpleados: 
             page:
@@ -251,6 +259,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2
           getComisionEmpleado:
             page:
@@ -262,6 +271,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2
           getEmpleados:
             page:
@@ -273,4 +283,5 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100              
               retryAttempts: 2              

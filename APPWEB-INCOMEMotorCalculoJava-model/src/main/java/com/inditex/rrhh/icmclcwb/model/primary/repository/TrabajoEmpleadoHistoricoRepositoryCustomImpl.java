@@ -4,15 +4,21 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoHistorico;
 
 @Repository
 public class TrabajoEmpleadoHistoricoRepositoryCustomImpl 
     extends JdbcBatchRepository<TrabajoEmpleadoHistorico> implements TrabajoEmpleadoHistoricoRepositoryCustom {
 
-    private static final int BATCH_SIZE = 100;
+    @Autowired
+    @Qualifier("searchEmpleadosDto")
+    private Meta4PropertiesDto searchEmpleadosDto;
+    
     private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_EMPLEADO_HISTORICO ( "
             + "FECHA_FIN, FECHA_INICIO, ID_EMPLEADO, "
             + "ID_EMPLEADO_LOCAL, CCL_ID_COD_ORIGEN, "  
@@ -21,7 +27,7 @@ public class TrabajoEmpleadoHistoricoRepositoryCustomImpl
     
     @Override
     public List<TrabajoEmpleadoHistorico> save(final List<TrabajoEmpleadoHistorico> src) throws Exception{
-        return saveJdbcBatchList(src, INSERT, BATCH_SIZE);
+        return saveJdbcBatchList(src, INSERT, searchEmpleadosDto.getFilter().getMaxBatchSize());
     }
 
     @Override

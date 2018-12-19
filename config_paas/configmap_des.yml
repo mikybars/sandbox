@@ -76,6 +76,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getVentaIndividualDetalle: 
             endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
@@ -83,6 +84,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
       presencia:
         service:
@@ -99,6 +101,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getTiposHoras:
             endpoint: /presenciasService/tiposHoras
@@ -106,6 +109,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2                   
     meta4:
       config:
@@ -134,6 +138,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           searchTiendas:
             page:
@@ -145,6 +150,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getTiendas: 
             page:
@@ -156,6 +162,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           searchEmpleados: 
             page:
@@ -167,6 +174,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getComisionEmpleado:
             page:
@@ -178,6 +186,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getEmpleados:
             page:
@@ -189,4 +198,5 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2                      

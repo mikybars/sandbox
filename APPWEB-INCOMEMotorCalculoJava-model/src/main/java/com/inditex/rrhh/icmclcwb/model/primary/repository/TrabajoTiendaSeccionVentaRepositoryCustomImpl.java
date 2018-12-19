@@ -4,8 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionVenta;
 
 @Repository
@@ -23,14 +26,16 @@ public class TrabajoTiendaSeccionVentaRepositoryCustomImpl extends JdbcBatchRepo
 //    @PersistenceContext
 //    private EntityManager entityManager;
     
+    @Autowired
+    @Qualifier("ventaTotalizadoDto")
+    private PtrPropertiesDto ventaTotalizadoDto;
     
-    private static final int BATCH_SIZE = 100;
     private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_SECCION_VENTA (FECHA, ID_SECCION, ID_TIENDA, IMPORTE, ID_TRABAJO )" + 
             "VALUES(?, ?, ?, ? , ?)";
 
     @Override
     public List<TrabajoTiendaSeccionVenta> save(List<TrabajoTiendaSeccionVenta> src) throws Exception{
-        return saveJdbcBatchList(src, INSERT, BATCH_SIZE);
+        return saveJdbcBatchList(src, INSERT, ventaTotalizadoDto.getFilter().getMaxBatchSize());
     }
 
     @Override
