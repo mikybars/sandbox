@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,28 +24,31 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosBloqueDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaComisionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaComisionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.comisionempleado.dto.ComisionEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.empleados.dto.EmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.generic.dto.GenericFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.searchempleados.dto.SearchEmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.comisionempleado.dto.ComisionEmpleadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.empleados.dto.EmpleadosRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericEmpleadoResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.generic.dto.GenericTiendaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchempleados.dto.SearchEmpleadosRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.searchtiendas.dto.SearchTiendasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendas.dto.TiendasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.tiendasempleado.dto.TiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.tiendas.dto.TiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstructuraMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaComisionHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
@@ -81,10 +85,16 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 	private TrabajoEmpleadoEstructuraMapper trabajoEmpleadoEstructuraMapper;
 
 	@Autowired
+	private TrabajoTiendaComisionHistoricoMapper trabajoTiendaComisionHistoricoMapper;
+
+	@Autowired
 	private TrabajoEmpleadoHistoricoAsyncService trabajoEmpleadoHistoricoAsyncService;
 
 	@Autowired
 	private TrabajoEmpleadoEstructuraAsyncService trabajoEmpleadoEstructuraAsyncService;
+
+	@Autowired
+	private TrabajoTiendaComisionHistoricoAsyncService trabajoTiendaComisionHistoricoAsyncService;
 
 	@Autowired
 	@Qualifier("getTiendasEmpleadoDto")
@@ -339,6 +349,30 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 									AsyncUtils.exceptionally(cfSave, cf, cfPersist);
 								}
 
+								data.stream().forEach(item -> {
+									if (StringUtils.isNotBlank(item.getIdLugarTrabajo())) {
+										trabajoRunDatosBloque.getTiendaMeta4().add(item.getIdLugarTrabajo());
+									} else {
+										log.error(
+												"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasEmpleadoHistorico() :: GenericTiendaResultItemDto :: getIdLugarTrabajo() :: null :: {}",
+												item);
+									}
+									if (StringUtils.isNotBlank(item.getIdTiendaMtu())) {
+										trabajoRunDatosBloque.getTiendaMtu().add(item.getIdTiendaMtu());
+									} else {
+										log.error(
+												"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasEmpleadoHistorico() :: GenericTiendaResultItemDto :: getIdTiendaMtu() :: null :: {}",
+												item);
+									}
+									if (StringUtils.isNotBlank(item.getIdCadena())) {
+										trabajoRunDatosBloque.getCadenaEmpresa().add(item.getIdCadena());
+									} else {
+										log.error(
+												"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.tiendasEmpleadoHistorico() :: GenericTiendaResultItemDto :: getIdCadena() :: null :: {}",
+												item);
+									}
+								});
+
 								trabajoRunDatosBloque.getTienda()
 										.addAll(trabajoTiendaEstadoMapper
 												.genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(data,
@@ -406,6 +440,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 			@Valid final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
 		List<CompletableFuture<?>> cf = new ArrayList<>();
 		try {
+			List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 			final AtomicInteger counter = new AtomicInteger(0);
 			for (List<String> iter : trabajoRunDatosBloque.getTiendaMeta4().stream()
 					.collect(Collectors
@@ -424,7 +459,16 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 					AsyncUtils.exceptionally(cfData, cf);
 					List<GenericTiendaResultItemDto> data = cfData.get();
 					if (CollectionUtils.isNotEmpty(data)) {
-						// TODO PERSISTIR TIENDAS COMISION HISTORICO
+
+						List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComision = trabajoTiendaComisionHistoricoMapper
+								.genericTiendaResultItemDtoToTrabajoTiendaComisionHistoricoDto(data, trabajo);
+						if (CollectionUtils.isNotEmpty(trabajoTiendaComision)) {
+							AsyncUtils.checkAsyncAvaliable(cfPersist,
+									getComisionEmpleadoDto.getFilter().getMaxPersistenceSize());
+							CompletableFuture<Void> cfSave = trabajoTiendaComisionHistoricoAsyncService
+									.save(trabajoTiendaComision);
+							AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+						}
 					}
 					hasNext = tiendasRequest.nextPage();
 				} while (hasNext);
@@ -447,10 +491,22 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 				empleadosRequest.setPage(getEmpleadosDto.getPage());
 				empleadosRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
 				if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-					empleadosRequest.getData().getItem()
-							.addAll(trabajo.getTiendas().stream().map(
-									e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdTienda()).build())
-									.collect(Collectors.toList()));
+					List<GenericFilterParametersDto> empleadosRequestItem = new ArrayList<>();
+					trabajo.getTiendas().stream().forEach(item -> {
+						if (StringUtils.isNotBlank(item.getIdTienda())) {
+							empleadosRequestItem.add(
+									GenericFilterParametersDto.builder().idLugarTrabajo(item.getIdTienda()).build());
+						} else {
+							log.warn(
+									"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl :: meta4IcmWsCalcIncomeSessionAsyncService.getEmpleados() :: isBlank() :: {}",
+									item);
+						}
+					});
+					if(CollectionUtils.isNotEmpty(empleadosRequestItem)) {
+						empleadosRequest.getData().getItem().addAll(empleadosRequestItem);
+					} else {
+						throw new ApplicationException("Hay tienes pero no ids");
+					}
 				}
 
 				List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -461,51 +517,61 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 					AsyncUtils.exceptionally(cfData, cf);
 					List<GenericEmpleadoResultItemDto> data = cfData.get();
 					if (CollectionUtils.isNotEmpty(data)) {
-						SearchEmpleadosRequestDto searchEmpleadosRequest = new SearchEmpleadosRequestDto();
-						searchEmpleadosRequest.setPage(searchEmpleadosDto.getPage());
-						searchEmpleadosRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
-						searchEmpleadosRequest.getData().getItem()
-								.addAll(data
-										.stream().map(e -> GenericFilterParametersDto.builder()
-												.idEmpleado(e.getIdEmpleado()).orEmpleado(e.getOrEmpleado()).build())
-										.collect(Collectors.toList()));
+						List<GenericFilterParametersDto> searchEmpleadosRequestItem = new ArrayList<>();
+						data.stream().forEach(item -> {
+							if (StringUtils.isNotBlank(item.getIdEmpleado())
+									&& StringUtils.isNotBlank(item.getOrEmpleado())) {
+								searchEmpleadosRequestItem.add(GenericFilterParametersDto.builder()
+										.idEmpleado(item.getIdEmpleado()).orEmpleado(item.getOrEmpleado()).build());
+							} else {
+								log.warn(
+										"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl :: meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados() :: isBlank() :: {}",
+										item);
+							}
+						});
+						if (CollectionUtils.isNotEmpty(searchEmpleadosRequestItem)) {
+							SearchEmpleadosRequestDto searchEmpleadosRequest = new SearchEmpleadosRequestDto();
+							searchEmpleadosRequest.setPage(searchEmpleadosDto.getPage());
+							searchEmpleadosRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
+							searchEmpleadosRequest.getData().getItem().addAll(searchEmpleadosRequestItem);
 
-						CompletableFuture<List<GenericEmpleadoResultItemDto>> cfHistoricoEmpleados = meta4IcmWsCalcIncomeSessionAsyncService
-								.searchEmpleados(searchEmpleadosRequest);
-						AsyncUtils.exceptionally(cfHistoricoEmpleados, cf);
-						List<GenericEmpleadoResultItemDto> dataHistorico = cfHistoricoEmpleados.get();
-						if (CollectionUtils.isNotEmpty(dataHistorico)) {
-							List<TrabajoEmpleadoHistoricoDto> trabajoEmpleadoHistorico = trabajoEmpleadoHistoricoMapper
-									.genericEmpleadoResultItemDtoToTrabajoEmpleadoHistoricoDto(dataHistorico);
-							AsyncUtils.checkAsyncAvaliable(cfPersist,
-									searchTiendasDto.getFilter().getMaxPersistenceSize());
-							CompletableFuture<Void> cfSave = trabajoEmpleadoHistoricoAsyncService
-									.save(trabajoEmpleadoHistorico, trabajo);
-							AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+							CompletableFuture<List<GenericEmpleadoResultItemDto>> cfHistoricoEmpleados = meta4IcmWsCalcIncomeSessionAsyncService
+									.searchEmpleados(searchEmpleadosRequest);
+							AsyncUtils.exceptionally(cfHistoricoEmpleados, cf);
+							List<GenericEmpleadoResultItemDto> dataHistorico = cfHistoricoEmpleados.get();
+							if (CollectionUtils.isNotEmpty(dataHistorico)) {
+								List<TrabajoEmpleadoHistoricoDto> trabajoEmpleadoHistorico = trabajoEmpleadoHistoricoMapper
+										.genericEmpleadoResultItemDtoToTrabajoEmpleadoHistoricoDto(dataHistorico);
+								AsyncUtils.checkAsyncAvaliable(cfPersist,
+										searchTiendasDto.getFilter().getMaxPersistenceSize());
+								CompletableFuture<Void> cfSave = trabajoEmpleadoHistoricoAsyncService
+										.save(trabajoEmpleadoHistorico, trabajo);
+								AsyncUtils.exceptionally(cfSave, cf, cfPersist);
 
-							dataHistorico.stream().forEach(item -> {
-								if (StringUtils.isNotBlank(item.getIdEmpleadoLocal())) {
-									trabajoRunDatosBloque.getEmpleadoLocal().add(item.getIdEmpleadoLocal());
-								} else {
-									log.error(
-											"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.empleadosTienda() :: GenericTiendaResultItemDto :: getIdEmpleadoLocal() :: null :: {}",
-											item);
-								}
-								if (StringUtils.isNotBlank(item.getIdEmpleado())
-										&& StringUtils.isNotBlank(item.getOrEmpleado())) {
-									trabajoRunDatosBloque.getEmpleadoUniversal()
-											.add(new StringBuilder(item.getIdEmpleado())
-													.append(AppConstants.SEPARATOR_DATA).append(item.getOrEmpleado())
-													.toString());
-								} else {
-									log.error(
-											"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.empleadosTienda() :: GenericTiendaResultItemDto :: getIdEmpleado() getOrEmpleado()  :: null :: {}",
-											item);
-								}
-							});
+								dataHistorico.stream().forEach(item -> {
+									if (StringUtils.isNotBlank(item.getIdEmpleadoLocal())) {
+										trabajoRunDatosBloque.getEmpleadoLocal().add(item.getIdEmpleadoLocal());
+									} else {
+										log.error(
+												"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.empleadosTienda() :: GenericTiendaResultItemDto :: getIdEmpleadoLocal() :: null :: {}",
+												item);
+									}
+									if (StringUtils.isNotBlank(item.getIdEmpleado())
+											&& StringUtils.isNotBlank(item.getOrEmpleado())) {
+										trabajoRunDatosBloque.getEmpleadoUniversal()
+												.add(new StringBuilder(item.getIdEmpleado())
+														.append(AppConstants.SEPARATOR_DATA)
+														.append(item.getOrEmpleado()).toString());
+									} else {
+										log.error(
+												"TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl.empleadosTienda() :: GenericTiendaResultItemDto :: getIdEmpleado() getOrEmpleado()  :: null :: {}",
+												item);
+									}
+								});
 
-							trabajoRunDatosBloque.getEmpleado().addAll(trabajoEmpleadoEstadoMapper
-									.genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo));
+								trabajoRunDatosBloque.getEmpleado().addAll(trabajoEmpleadoEstadoMapper
+										.genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(data, trabajo));
+							}
 						}
 					}
 					hasNext = empleadosRequest.nextPage();

@@ -21,10 +21,6 @@ amiga:
           base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
           auth-method: BASIC
           username: username300
-        ptrPresenciaMockClient:
-          base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
-          auth-method: BASIC
-          username: username300
   service:
     jms:
       trabajo-queue:
@@ -118,59 +114,13 @@ app:
           language: 2
         pool:
           size: 20
-          claim: 30
-        client:
-          default-connect-timeout: 300000
-          default-receive-timeout: 300000
+          claimTimeout: 30000
+          shutdownTimeout: 60000
+        timeout:
+          connectTimeout: 300000
+          receiveTimeout: 300000
       login:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-      icm-ws-income:
-        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_INCOME
-        service:
-          getEmpleadosTienda:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              retryAttempts: 2
-          getEmpleadosEstructura:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              retryAttempts: 2   
-          getTiendaComisionable: 
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              retryAttempts: 2                 
-          getValoresCondiciones:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idplantilla
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              retryAttempts: 2
       icm-ws-calc-income:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:

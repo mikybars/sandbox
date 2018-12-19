@@ -9,5 +9,9 @@ public class Meta4Exception extends ApplicationException {
 	public Meta4Exception(String message) {
 		super(message);
 	}
+	
+	public Meta4Exception(String message, Throwable cause) {
+        super(message, cause);
+    }
     
 }

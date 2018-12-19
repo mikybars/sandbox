@@ -9,8 +9,6 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_income.dto.PageableList;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,5 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.retry.annotation.Retryable;
+
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.GetempleadosOutput;
@@ -13,93 +19,115 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.Searchtie
 
 import stormpot.BlazePool;
 import stormpot.Config;
+import stormpot.Timeout;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
 
-	private final BlazePool<Meta4ClientPoolable> pool;
+    private static final Logger log = LoggerFactory.getLogger(Meta4ClientPool.class);
+    
+    private final Meta4ClientFactory meta4ClientFactory;
 
-	public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory) {
-		Meta4ClientReallocator allocator = new Meta4ClientReallocator(meta4ClientFactory);
-		Config<Meta4ClientPoolable> config = new Config<>();
-		config.setAllocator(allocator);
-		config.setSize(10);
-		// config.setExpiration(new TimeSpreadExpiration<>(30000, 60000,
-		// TimeUnit.MILLISECONDS));
-		config.setExpiration(new Meta4ClientExpiration());
-		pool = new BlazePool<>(config);
-	}
+    private final BlazePool<Meta4ClientPoolable> pool;
 
-	public void close() throws InterruptedException {
-		System.out.println("close()");
-		// pool.shutdown().await(new Timeout(1, TimeUnit.MINUTES));
-	}
+    public Meta4ClientPool(Meta4ClientFactory meta4ClientFactory) {
+        this.meta4ClientFactory = meta4ClientFactory;
+        Meta4ClientReallocator allocator = new Meta4ClientReallocator(meta4ClientFactory);
+        Config<Meta4ClientPoolable> config = new Config<>();
+        config.setAllocator(allocator);
+        config.setSize(meta4ClientFactory.getMeta4ClientProperties().getSize());
+        config.setExpiration(new Meta4ClientExpiration());
+        this.pool = new BlazePool<>(config);
+    }
 
-	public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
-			throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			if (client != null) {
-				return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
-			} else {
-				throw new Meta4Exception("Session caducada (Pool)");
-			}
-		} finally {
-			release(client);
-		}
-	}
+    public void close() throws InterruptedException {
+        log.info("Inicio :: Meta4ClientPool :: close()");
+        pool.shutdown().await(
+                new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(), TimeUnit.MILLISECONDS));
+        log.info("Fin :: Meta4ClientPool :: close()");
+    }
 
-	public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1)
-			throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			if (client != null) {
-				return client.getIcmWsCalcIncomeService().getcomisionempleado(param1);
-			} else {
-				throw new Meta4Exception("Session caducada (Pool)");
-			}
-		} finally {
-			release(client);
-		}
-	}
+    @Retryable
+    public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
+            throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)", e);
+        } finally {
+            release(client);
+        }
+    }
 
-	public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
-			IcmParametrospaginacionBlock param2) throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
-		} finally {
-			release(client);
-		}
-	}
+    @Retryable
+    public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1)
+            throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getcomisionempleado(param1);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)", e);
+        } finally {
+            release(client);
+        }
+    }
 
-	public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
-			throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
-		} finally {
-			release(client);
-		}
-	}
+    @Retryable
+    public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
+            IcmParametrospaginacionBlock param2) throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)", e);
+        } finally {
+            release(client);
+        }
+    }
 
-	public GettiendasincomeOutput gettiendasincome(IcmParametrospaginacionBlock param1,
-			IcmParametrosentradaBlock param2) throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
-		} finally {
-			release(client);
-		}
-	}
+    @Retryable
+    public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
+            throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)", e);
+        } finally {
+            release(client);
+        }
+    }
 
-	public SearchempleadosOutput searchempleados(IcmParametrospaginacionBlock param1, IcmParametrosentradaBlock param2)
-			throws InterruptedException, M4SoapException_Exception {
-		Meta4ClientPoolable client = claim(pool);
-		try {
-			return client.getIcmWsCalcIncomeService().searchempleados(param1, param2);
-		} finally {
-			release(client);
-		}
-	}
+    @Retryable
+    public GettiendasincomeOutput gettiendasincome(IcmParametrospaginacionBlock param1,
+            IcmParametrosentradaBlock param2) throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)", e);
+        } finally {
+            release(client);
+        }
+    }
+
+    @Retryable
+    public SearchempleadosOutput searchempleados(IcmParametrospaginacionBlock param1, IcmParametrosentradaBlock param2)
+            throws InterruptedException, M4SoapException_Exception {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().searchempleados(param1, param2);
+        } catch (Exception e) {
+            expire(client);
+            throw new Meta4Exception("Session caducada (Pool) (Exception)", e);
+        } finally {
+            release(client);
+        }
+    }
 
 }
