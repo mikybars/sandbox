@@ -45,8 +45,8 @@ public class Meta4ClientPoolable implements Poolable {
 	}
 
 	public LoginService getLoginService() {
-		CxfUtils.putRequestHeaders(session.getService().getLoginService(),
-				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
+//		CxfUtils.putRequestHeaders(session.getService().getLoginService(),
+//				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
 //		CxfUtils.putRequestHeaders(session.getService().getLoginService(),
 //				CxfUtils.mapCookie(session.getSession().getSetCookie()));
 //		CxfUtils.putCookies(session.getService().getLoginService(),
@@ -55,12 +55,13 @@ public class Meta4ClientPoolable implements Poolable {
 	}
 
 	public IcmWsCalcIncomeService getIcmWsCalcIncomeService() {
-		CxfUtils.putRequestHeaders(session.getService().getIcmWsCalcIncomeService(),
-				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
+//		CxfUtils.putRequestHeaders(session.getService().getIcmWsCalcIncomeService(),
+//				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
 //		CxfUtils.putRequestHeaders(session.getService().getIcmWsCalcIncomeService(),
 //				CxfUtils.mapCookie(session.getSession().getSetCookie()));
 //		CxfUtils.putCookies(session.getService().getIcmWsCalcIncomeService(),
 //				CxfUtils.cookieJSessionID(session.getSession().getJSessionID()));
+	    CxfUtils.setCookies(session.getService().getIcmWsCalcIncomeService(), session.getSession().getCookies());
 		return session.getService().getIcmWsCalcIncomeService();
 	}
 
