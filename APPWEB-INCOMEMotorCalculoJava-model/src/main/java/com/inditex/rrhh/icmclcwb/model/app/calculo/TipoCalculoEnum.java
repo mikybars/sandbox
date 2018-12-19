@@ -6,24 +6,24 @@ import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 
 public enum TipoCalculoEnum {
 
-    GLOBAL_TIENDA(1) {
+    GLOBAL_TIENDA(1L) {
         @Override
         public TipoCalculoAlgoritmo crear() {
             return new GTAlgoritmo();
         }
     };
 
-    private Integer tipoCalculo;
+    private Long tipoCalculo;
 
-    private TipoCalculoEnum(Integer tipoCalculo) {
+    private TipoCalculoEnum(Long tipoCalculo) {
         this.tipoCalculo = tipoCalculo;
     }
 
-    private Integer tipoCalculo() {
+    private Long tipoCalculo() {
         return tipoCalculo;
     }
 
-    public static TipoCalculoEnum of(Integer tipoCalculo) {
+    public static TipoCalculoEnum of(Long tipoCalculo) {
         return Arrays.stream(values()).filter(value -> value.tipoCalculo().equals(tipoCalculo)).findAny().orElseThrow(
                 () -> new ApplicationException(String.format("No existe el tipo de calculo  %s", tipoCalculo)));
     }

@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.service;
 
 import java.util.List;
+
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -11,5 +12,7 @@ public interface TrabajoEmpleadoEstadoService {
 	List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado);
 	
 	List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado, @Valid final TrabajoDto trabajo);
-
+	
+	List<Long> findIdsEmpleadoByIdTrabajo (Long trabajoId, Long idEstado);
+	
 }

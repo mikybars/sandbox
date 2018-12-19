@@ -95,8 +95,8 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
 
                 CompletableFuture<Void> cfEmpleados = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
                         .empleadosTienda(trabajo, trabajoRunDatos.getUno());
-                AsyncUtils.exceptionally(cfEmpleados, cf);
-
+                AsyncUtils.exceptionally(cfEmpleados, cf);               
+                
                 CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoDatosPtrVentaAsyncService
                         .ventaTotalizadaTienda(trabajo, trabajoRunDatos.getUno());
                 AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
@@ -189,7 +189,8 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
-                trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);
+                trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);                                                        
+               
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

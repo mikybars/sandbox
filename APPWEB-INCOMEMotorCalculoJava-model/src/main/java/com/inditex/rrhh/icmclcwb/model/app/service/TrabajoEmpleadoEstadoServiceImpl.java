@@ -45,4 +45,11 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
 								trabajoEmpleadoEstado, trabajo)));
 	}
 
+	@Override
+	public List<Long> findIdsEmpleadoByIdTrabajo(Long trabajoId, Long idEstado) {
+		return trabajoEmpleadoEstadoRepository.findIdsEmpleadoByIdTrabajo(trabajoId, idEstado);		 
+	}
+	
+	
+	
 }

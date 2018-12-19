@@ -32,4 +32,14 @@ public class TrabajoEmpleadoEstructuraServiceImpl implements TrabajoEmpleadoEstr
                                 trabajo)));
     }
     
+	@Override
+	public List<TrabajoEmpleadoEstructuraDto> findIdsEstructuraByIdTrabajo(@Valid Long idTrabajo) {
+		return trabajoEmpleadoEstructuraMapper.trabajoEmpleadoEstructuraToTrabajoEmpleadoEstructuraDto(trabajoEmpleadoEstructuraRepository.findIdsEstructuraByIdTrabajo(idTrabajo));
+	}
+    
+    
+    
+    
+    
+    
 }

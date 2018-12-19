@@ -1,9 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.calculo;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
+
+import reactor.core.publisher.Flux;
 
 public interface TipoCalculoAlgoritmo {
 	
-	void execute(TrabajoDto trabajo);
+	Flux<Void> execute(TrabajoRunDto trabajoRunDto);
 	
 }

@@ -1,7 +1,9 @@
 package com.inditex.rrhh.icmclcwb.app.service.calculo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -24,8 +26,10 @@ public class CalcularServicesTest {
 
 	@Autowired
 	private TrabajoRunCalcularService trabajoRunCalcularService;
+	
+  
 
-	public static final Integer GLOBAL_TIENDA = new Integer(1);
+	public static final Long GLOBAL_TIENDA = new Long(1L);
 
 	private TrabajoRunDto trabajoRunDto;
 
@@ -46,16 +50,15 @@ public class CalcularServicesTest {
 		TrabajoDto trabajoDto = new TrabajoDto();
 		trabajoDto.setId(100L);
 		trabajoRunDto.setTrabajoDto(trabajoDto);
-		ArrayList<Integer> tiposCalculo = new ArrayList<Integer>();
+		List<Long> tiposCalculo = new ArrayList<>(); 
 		tiposCalculo.add(GLOBAL_TIENDA);
 		trabajoRunDto.getTrabajoRunCalcular().setTiposCalculo(tiposCalculo);
 
 	}
 
-	@Test
-	@Ignore
+	@Test	
 	public void factoryTest() throws Exception {
 		trabajoRunCalcularService.run(trabajoRunDto);
 	}
-
+		
 }

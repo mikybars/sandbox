@@ -13,8 +13,8 @@ public class TrabajoRunCalcularDto implements Serializable {
 
     private static final long serialVersionUID = -7845168234640449805L;
 
-    private List<Integer> tiposCalculo = new ArrayList<>();
+    private List<Long> tiposCalculo = new ArrayList<>();
 
-    private List<Integer> idsEmpleados = new ArrayList<>();
+    private List<Long> idsEmpleados = new ArrayList<>();
 
 }

@@ -9,8 +9,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
+import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.core.publisher.ParallelFlux;
 import reactor.core.scheduler.Schedulers;
 
@@ -27,7 +29,7 @@ public class ReactorTest {
 	}
 	
 	
-	@Test
+	@Test	
 	@Ignore
 	public void ReactorSimpleTest1 () throws InterruptedException{
 		
@@ -42,7 +44,13 @@ public class ReactorTest {
 
 		CountDownLatch latch = new CountDownLatch(1);
 		
-		parallelFlux.log().subscribe(o -> System.out.println("Subscribe recibido: " + o + " ,en thread: " + Thread.currentThread().getName()),error -> {error.printStackTrace();latch.countDown();}, () -> latch.countDown());
+		parallelFlux.log().subscribe(
+				o -> System.out
+						.println("Subscribe recibido: " + o + " ,en thread: " + Thread.currentThread().getName()),
+				error -> {
+					error.printStackTrace();
+					latch.countDown();
+				}, () -> latch.countDown());
 		
 		latch.await();
 
@@ -54,9 +62,8 @@ public class ReactorTest {
 	
 	
 	
-	@Test
-	@Ignore
-	public void ReactorSimpleTest2 () throws InterruptedException{
+	@Test	
+	public void ReactorSimpleTest2 ()  {
 		
 		
 		final long startTime = System.currentTimeMillis();
@@ -66,13 +73,23 @@ public class ReactorTest {
 				.parallel()
 				.runOn(Schedulers.parallel())
 				.doOnNext(n -> {
-					tiempo(n);
+					Flux<Void> x = tiempo(n);					
+					
+					x.onErrorResume(error -> { 
+				        System.out.println("Error tiempo: " + error);
+				        return Flux.empty();
+					}).subscribe();
+					
 				})
 			  .doAfterTerminate(latch::countDown)
-			  .doOnError(error -> error.printStackTrace())
-		     .subscribe( m -> System.out.println("Subscribe recibido - " + m + " en thread: " + Thread.currentThread().getName()));
+			  .doOnError(error -> System.out.println("Error:"+ error ))
+		     .subscribe( m -> System.out.println("Subscribe recibido - " + m + " en thread: " + Thread.currentThread().getName()), error-> System.out.println("error subscribe:" +error),null  );
 				
-		latch.await();
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			System.out.println("latch"+ e.getMessage()); 
+		}
 					
 		final long endTime = System.currentTimeMillis();
 		System.out.println("FIN:" + (endTime - startTime));
@@ -82,16 +99,22 @@ public class ReactorTest {
 	
 	
 	
-	private static String tiempo(String n) {
-		System.out.println("Dentro: "+ n);
-		try {
+	private static Flux<Void> tiempo(String n) {
+		System.out.println("Dentro: "+ n);						
+		try {						
+			if (n.equals("empleado-4")){
+				System.out.println("Se cumple condicion");												 				
+				 return Flux.error(new ApplicationException(
+			                "Error genérico "));								
+			}
+			
 			TimeUnit.SECONDS.sleep(1);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println("Termino");
-		return "Procesado: " + n;
+		System.out.println("Termino");		
+		return Flux.empty();
 	}
 
 }

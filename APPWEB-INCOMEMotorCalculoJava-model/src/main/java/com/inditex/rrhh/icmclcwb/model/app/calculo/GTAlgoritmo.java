@@ -1,38 +1,69 @@
 package com.inditex.rrhh.icmclcwb.model.app.calculo;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.dto.CalculoPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.GTCalculoRepository;
 
+import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
+
 @Component
-public class GTAlgoritmo implements TipoCalculoAlgoritmo{
-									
-	
+public class GTAlgoritmo implements TipoCalculoAlgoritmo {
+
 	@Autowired
 	GTCalculoRepository gTCalculoRepository;
-	
+
 	@Autowired
 	CalculoPropertiesDto gTAlgoritmoProperties;
 	
-	@Override
-	public void execute(TrabajoDto trabajo) {
-		
-			//TODO comprobamos el numero de empleados a calcular, si es superior a mil lo dividmos en bloques de mil
-			//usaremos reactor para paralelizar las llamadas
-					 
-			//Map<Integer, List<Integer>> groups = intList.stream().collect(Collectors.groupingBy(s -> (s - 1) / 1000));
-			//List<List<Integer>> subSets = new ArrayList<List<Integer>>(groups.values());
-			 		    
-			 //System.out.println("subSets: "+subSets);
-			    
-		
-		 gTCalculoRepository.calcular(trabajo.getId());
-		
-				
-	}
+	@Autowired
+	private Logger log;
 
+	@Override
+	public Flux<Void> execute(TrabajoRunDto trabajoRunDto)  {
+
+		if (trabajoRunDto.getTrabajoRunCalcular().getIdsEmpleados().size() >= gTAlgoritmoProperties.getNumBlock()) {
+			
+			 Map<Long, List<Long>> grupos = trabajoRunDto.getTrabajoRunCalcular().getIdsEmpleados().stream()
+					.collect(Collectors.groupingBy(s -> (s - 1) / gTAlgoritmoProperties.getNumBlock()));			 
+			 List<List<Long>> subGrupos = new ArrayList<List<Long>>(grupos.values());			 			 			 			
+			 
+			  CountDownLatch latch = new CountDownLatch(1);            
+	            Flux.fromIterable(subGrupos)
+	            		.log()
+	    				.parallel()
+	    				.runOn(Schedulers.parallel())
+	    				.doOnNext(idsEmpleados -> {	    						    						    						    					    						    				 	    					    				    						    				
+	    					gTCalculoRepository.calcularByEmpleadoBatch(trabajoRunDto.getTrabajoDto().getId(), idsEmpleados);
+	    				})	    			
+	      			  .doOnError(error -> log.error(error.getMessage()))
+	    			  .doAfterTerminate(latch::countDown)
+	    		     .subscribe();    
+	            
+	    		try {
+					latch.await();
+				} catch (Exception e) {
+					 return Flux.error(new ApplicationException(
+				                "Error la persistir bloque"));						
+				}        			 			 			 
+
+		} else {
+			gTCalculoRepository.calcular(trabajoRunDto.getTrabajoDto().getId());			
+			
+		}
+
+		return Flux.empty();
+	}
 
 }
