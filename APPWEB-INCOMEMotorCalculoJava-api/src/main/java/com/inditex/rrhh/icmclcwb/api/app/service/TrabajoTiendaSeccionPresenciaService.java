@@ -12,6 +12,6 @@ public interface TrabajoTiendaSeccionPresenciaService {
 
 	CompletableFuture<Void> save(@Valid final TrabajoTiendaSeccionPresenciaDto dto);
 
-	CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto);
+	CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto) throws Exception;
 
 }

@@ -3,9 +3,12 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionVentaService;
@@ -26,7 +29,7 @@ public class TrabajoTiendaSeccionVentaAsyncServiceImpl implements TrabajoTiendaS
 
     @Async
     @Override
-    public CompletableFuture<Void> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto) {
+    public CompletableFuture<Void> save(List<PtrVentaTotalizadoResultItemDto> dto, @Valid TrabajoDto trabajoDto) throws Exception  {
         trabajoTiendaSeccionVentaService.save(dto, trabajoDto);
         return CompletableFuture.completedFuture(null);
     }

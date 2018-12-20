@@ -11,6 +11,9 @@ public abstract class GenericFilterPropertiesDto {
 
 	private Integer maxQuerySize;
 
+	private Integer maxBatchSize;
+
 	private Integer retryAttempts;
+
 
 }
