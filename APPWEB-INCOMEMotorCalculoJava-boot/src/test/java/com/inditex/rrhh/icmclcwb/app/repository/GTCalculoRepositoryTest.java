@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.app.repository;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.GTCalculoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoCalculoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstructuraRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -28,7 +30,9 @@ public class GTCalculoRepositoryTest {
 				
 	@Autowired
 	private TrabajoCalculoRepository trabajoCalculoRepository;
-			
+	
+	@Autowired
+	private TrabajoEmpleadoEstructuraRepository trabajoEmpleadoEstructuraRepository;
 	
 	@Test
 	@Ignore
@@ -65,6 +69,16 @@ public class GTCalculoRepositoryTest {
 		gTCalculoRepository.calcularByTiendaBatch(idTrabajo,idsTiendas);						
 		assertNotNull(trabajoCalculoRepository.findAllTrabajoCalculadoByIdTrabajo(idTrabajo));
 										
+	}
+	
+	
+	@Test	
+	@Ignore
+	public void tiposCalculo() {
+					
+		 Long idTrabajo =  100L; 										 		
+		 Set<Long> idsestrutura = trabajoEmpleadoEstructuraRepository.findIdsEstructuraByIdTrabajo(idTrabajo);		 
+		 idsestrutura.forEach(x->System.out.println(x));
 	}
 	
 

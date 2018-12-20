@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -33,8 +34,8 @@ public class TrabajoEmpleadoEstructuraServiceImpl implements TrabajoEmpleadoEstr
     }
     
 	@Override
-	public List<TrabajoEmpleadoEstructuraDto> findIdsEstructuraByIdTrabajo(@Valid Long idTrabajo) {
-		return trabajoEmpleadoEstructuraMapper.trabajoEmpleadoEstructuraToTrabajoEmpleadoEstructuraDto(trabajoEmpleadoEstructuraRepository.findIdsEstructuraByIdTrabajo(idTrabajo));
+	public Set<Long> findIdsEstructuraByIdTrabajo(@Valid Long idTrabajo) {
+		return trabajoEmpleadoEstructuraRepository.findIdsEstructuraByIdTrabajo(idTrabajo);
 	}
     
     

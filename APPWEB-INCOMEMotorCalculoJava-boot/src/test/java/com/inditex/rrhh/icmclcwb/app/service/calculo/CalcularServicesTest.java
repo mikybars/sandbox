@@ -1,9 +1,7 @@
 package com.inditex.rrhh.icmclcwb.app.service.calculo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -15,9 +13,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunCalcularService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -27,13 +27,11 @@ public class CalcularServicesTest {
 	@Autowired
 	private TrabajoRunCalcularService trabajoRunCalcularService;
 	
-  
-
 	public static final Long GLOBAL_TIENDA = new Long(1L);
 
-	private TrabajoRunDto trabajoRunDto;
+	private TrabajoRunDto trabajoRunDto = new TrabajoRunDto();
 
-	private List<Integer> empleados;
+	private List<Integer> empleados  = new ArrayList<>();
 
 	@Before
 	public void setUp() {
@@ -51,12 +49,16 @@ public class CalcularServicesTest {
 		trabajoDto.setId(100L);
 		trabajoRunDto.setTrabajoDto(trabajoDto);
 		List<Long> tiposCalculo = new ArrayList<>(); 
-		tiposCalculo.add(GLOBAL_TIENDA);
+		tiposCalculo.add(GLOBAL_TIENDA);		
+		EstadoTrabajoDto  estado = new EstadoTrabajoDto(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId()); 				
+		trabajoDto.setEstado(estado);
+		
 		trabajoRunDto.getTrabajoRunCalcular().setTiposCalculo(tiposCalculo);
 
 	}
 
 	@Test	
+	@Ignore
 	public void factoryTest() throws Exception {
 		trabajoRunCalcularService.run(trabajoRunDto);
 	}

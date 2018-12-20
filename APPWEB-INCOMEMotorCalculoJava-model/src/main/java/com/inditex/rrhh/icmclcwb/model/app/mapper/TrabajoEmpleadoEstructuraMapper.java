@@ -46,5 +46,5 @@ public abstract class TrabajoEmpleadoEstructuraMapper {
     public List<TrabajoEmpleadoEstructuraDto> genericEmpleadoResultItemDtoToTrabajoEmpleadoEstructuraDto(
             List<GenericEmpleadoResultItemDto> src, TrabajoDto trabajo) {
         throw new UnsupportedOperationException("Not implemented");
-    }
+    }       
 }

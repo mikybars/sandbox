@@ -54,13 +54,12 @@ public class GTAlgoritmo implements TipoCalculoAlgoritmo {
 	    		try {
 					latch.await();
 				} catch (Exception e) {
-					 return Flux.error(new ApplicationException(
-				                "Error la persistir bloque"));						
+					 return Flux.error(new ApplicationException( //TODO Estado
+				                "Error al persistir bloque de empleados del trabajo" + trabajoRunDto.getTrabajoDto().getId()));						
 				}        			 			 			 
 
 		} else {
-			gTCalculoRepository.calcular(trabajoRunDto.getTrabajoDto().getId());			
-			
+			gTCalculoRepository.calcular(trabajoRunDto.getTrabajoDto().getId());						
 		}
 
 		return Flux.empty();

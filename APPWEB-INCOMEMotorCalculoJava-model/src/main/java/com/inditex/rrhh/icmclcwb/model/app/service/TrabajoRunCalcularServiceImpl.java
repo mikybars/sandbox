@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,7 +13,6 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetri
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajoRun;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstructuraService;
@@ -41,11 +39,7 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
     private TrabajoEmpleadoEstadoService trabajoEmpleadoEstadoService;
         
 	@Autowired
-	private CalculoAlgoritmoFactory calculoAlgoritmoFactory;
-	
-	//TODO No debería de ser una constante
-	private final static Long ID_EMPLEADO_ESTADO_PENDIENTE = 1L;
-	
+	private CalculoAlgoritmoFactory calculoAlgoritmoFactory;			
 	
 	@Autowired
 	private Logger log;
@@ -58,15 +52,13 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
         TrabajoDto trabajo = trabajoRun.getTrabajoDto();
         if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
             trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto(), trabajo);                        
-               
-            
-            //TODO Pendiente revisar los identificadores a utilizar, si hace el tipo de comisiOn, etc...                                                         
+                           
+            //TODO Pendiente revisar los identificadores a utilizar, si hace el tipo de comision, etc...                                                         
 			trabajoRun.getTrabajoRunCalcular().getTiposCalculo().addAll(
-					trabajoEmpleadoEstructuraService.findIdsEstructuraByIdTrabajo(trabajo.getId())
-						.stream().map(TrabajoEmpleadoEstructuraDto::getIdTipoCalculo).collect(Collectors.toList()) );
+					trabajoEmpleadoEstructuraService.findIdsEstructuraByIdTrabajo(trabajo.getId()));
             						
-			trabajoRun.getTrabajoRunCalcular().getIdsEmpleados().addAll(
-					trabajoEmpleadoEstadoService.findIdsEmpleadoByIdTrabajo(trabajo.getId(), ID_EMPLEADO_ESTADO_PENDIENTE));
+			trabajoRun.getTrabajoRunCalcular().getIdsEmpleados().addAll(trabajoEmpleadoEstadoService
+					.findIdsEmpleadoByIdTrabajo(trabajo.getId(), EstadoTrabajoEnum.PENDIENTE_CALCULO.getId()));
              
 			//TODO Tratamiento de errores
             CountDownLatch latch = new CountDownLatch(1);            

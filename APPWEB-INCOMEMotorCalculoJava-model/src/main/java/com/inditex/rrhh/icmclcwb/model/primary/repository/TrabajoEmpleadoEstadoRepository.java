@@ -14,7 +14,7 @@ public interface TrabajoEmpleadoEstadoRepository extends BaseRepository<TrabajoE
 
 	Page<TrabajoEmpleadoEstado> findByTrabajoId(Long trabajoId, Pageable pageable);
 	
-	@Query(" select tc.idEmpleado from TrabajoEmpleadoEstado tee where tc.trabajo.id= :idTrabajo and tc.estado.id = :idEstado")
+	@Query(" select tee.idEmpleado from TrabajoEmpleadoEstado tee where tee.trabajo.id= :idTrabajo and tee.estado.id = :idEstado")
 	List<Long> findIdsEmpleadoByIdTrabajo (@Param("idTrabajo")  Long trabajoId, @Param("idEstado")  Long idEstado);
 
 }

@@ -13,7 +13,7 @@ public interface TrabajoEmpleadoEstructuraService {
     List<TrabajoEmpleadoEstructuraDto> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoHistorico,
             @Valid TrabajoDto trabajo);    
     
-    List<TrabajoEmpleadoEstructuraDto> findIdsEstructuraByIdTrabajo (@Valid Long idTrabajo);
+    Set<Long> findIdsEstructuraByIdTrabajo(@Valid Long idTrabajo);
     
 
 }
