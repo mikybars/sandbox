@@ -1,9 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.transport.http.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,27 +32,30 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 		IcmWsCalcIncomeService icmWsCalcIncomeService = meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
 				.build(IcmWsCalcIncomeService.class);
 
-		String id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
-				meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
-				meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
-		
-//		List<String> setCookie = CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
-//		String jSessionID = CxfUtils.getJSessionID(setCookie);
-//		CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapJSessionID(jSessionID));
-//		CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapCookie(setCookie));
-//		CxfUtils.putCookies(icmWsCalcIncomeService, CxfUtils.cookieJSessionID(jSessionID));
-//		CxfUtils.putCookie(icmWsCalcIncomeService, jSessionID);
-//		CxfUtils.cloneHeaders(loginService, icmWsCalcIncomeService);
-		Map<String, Cookie> cookies = CxfUtils.getCookies(loginService);
-		CxfUtils.setCookies(icmWsCalcIncomeService, cookies);
-		icmWsCalcIncomeService.retrieveM4Session(id);
+		String id = StringUtils.EMPTY;
+		Map<String, Cookie> cookies = new HashMap<>();
+		try {
+    		id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
+    				meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
+    				meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
+//          List<String> setCookie = CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
+//          String jSessionID = CxfUtils.getJSessionID(setCookie);
+//          CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapJSessionID(jSessionID));
+//          CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapCookie(setCookie));
+//          CxfUtils.putCookies(icmWsCalcIncomeService, CxfUtils.cookieJSessionID(jSessionID));
+//          CxfUtils.putCookie(icmWsCalcIncomeService, jSessionID);
+//          CxfUtils.cloneHeaders(loginService, icmWsCalcIncomeService);
+            cookies = CxfUtils.getCookies(loginService);
+            CxfUtils.setCookies(icmWsCalcIncomeService, cookies);
+            icmWsCalcIncomeService.retrieveM4Session(id);
+		} catch (Exception e) {
+		    log.error("Error :: Meta4ClientReallocator :: allocate()", e);
+		}
 
 		Meta4Client client = new Meta4Client();
 
 		Meta4ClientSession session = new Meta4ClientSession();
 		session.setId(id);
-//		session.setJSessionID(jSessionID);
-//		session.setSetCookie(setCookie);
 		session.setCookies(cookies);
 		session.setFechaCreacion(LocalDateTime.now());
 		client.setSession(session);
