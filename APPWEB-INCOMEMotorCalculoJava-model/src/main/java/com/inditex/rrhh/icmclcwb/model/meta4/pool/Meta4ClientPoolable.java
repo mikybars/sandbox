@@ -31,7 +31,7 @@ public class Meta4ClientPoolable implements Poolable {
 	@Override
 	public void release() {
 		log.info("Meta4ClientPoolable :: release()");
-		// TODO Pendiente reutilización de la sesion
+		// TODO (sesion) Pendiente reutilización de la sesion
 		try {
 			session.getService().getLoginService().logout();
 			slot.expire(this);
