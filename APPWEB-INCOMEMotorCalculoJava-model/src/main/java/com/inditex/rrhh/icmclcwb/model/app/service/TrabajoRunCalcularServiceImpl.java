@@ -51,7 +51,7 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
     public TrabajoRunDto run(@Valid final TrabajoRunDto trabajoRun) throws Exception {
         TrabajoDto trabajo = trabajoRun.getTrabajoDto();
         if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
-            trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto(), trabajo);                        
+          //  trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto(), trabajo);                        
                            
             //TODO Pendiente revisar los identificadores a utilizar, si hace el tipo de comision, etc...                                                         
 			trabajoRun.getTrabajoRunCalcular().getTiposCalculo().addAll(
@@ -64,22 +64,22 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
             CountDownLatch latch = new CountDownLatch(1);            
             Flux.fromIterable(trabajoRun.getTrabajoRunCalcular().getTiposCalculo())
             		.log()
-    				.parallel()
-    				.runOn(Schedulers.parallel())
+    				//.parallel()
+    				//.runOn(Schedulers.parallel())
     				.doOnNext(tipo -> {    					
 							calculoAlgoritmoFactory.crearAlgoritmo(TipoCalculoEnum.of(tipo)).execute(trabajoRun)
 							.onErrorResume(error -> { 
-								log.error(error.getMessage());
+								log.debug(error.getMessage());
 						        return Flux.empty();
 							}).subscribe();
 						        						        						    
     				})    				
-      			  .doOnError(error -> log.error(error.getMessage()))
+      			  .doOnError(error -> log.debug(error.getMessage()))
     			  .doAfterTerminate(latch::countDown)    			 
     		     .subscribe();    				
     		latch.await();                                   
                                      
-            trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto(), trabajo);
+           // trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto(), trabajo);
         }
         return trabajoRun;
     }
