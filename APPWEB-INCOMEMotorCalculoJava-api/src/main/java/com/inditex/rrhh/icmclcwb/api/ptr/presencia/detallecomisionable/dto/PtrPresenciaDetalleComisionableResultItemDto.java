@@ -20,13 +20,15 @@ public class PtrPresenciaDetalleComisionableResultItemDto {
 
 	private Integer persona;
 
-	private Date fecha;
+	private String fecha;
 
 	private Integer minutos;
 
 	private Integer tipo;
 
 	private Integer cadena;
+	
+	private Integer origen;
 
 	private Boolean modificado_income;
 

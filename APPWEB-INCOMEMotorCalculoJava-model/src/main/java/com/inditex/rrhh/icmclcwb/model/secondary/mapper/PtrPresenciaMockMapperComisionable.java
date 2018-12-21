@@ -13,11 +13,7 @@ public class PtrPresenciaMockMapperComisionable {
 
     public static PtrPresenciaDetalleRequestDto asPresenciaComisionableToDetalle(
             PtrPresenciaDetalleComisionableRequestDto src) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < src.getCadena().size(); i++) {
-            list.add(src.getCadena().get(i));
-        }
-        return new PtrPresenciaDetalleRequestDto(src.getTienda(), src.getSeccion(), src.getPersonas(),
-                src.getFechaDesde(), src.getFechaHasta(), src.getTipo(), list, src.getOrigen());
+        return new PtrPresenciaDetalleRequestDto(src.getTienda(), src.getSeccion(), src.getPersona(),
+                src.getFechaDesde(), src.getFechaHasta(), src.getTipo(), src.getCadena(), src.getOrigen());
     }
 }
