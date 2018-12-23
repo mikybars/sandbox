@@ -30,21 +30,19 @@ public class PtrPresenciaDetalleRequestDto implements Serializable {
 	private Integer seccion;
 
 	@ApiModelProperty(value = "Id empleados", required = false, allowableValues = "1645")
-	private List<Integer> personas;
+	private List<Integer> persona;
 
 	@ApiModelProperty(value = "Fecha inicio rango", required = false, example = "2017-01-01")
-	private Date fechaDesde;
+	private String fechaDesde;
 
 	@ApiModelProperty(value = "Fecha final rango", required = false, example = "2017-12-31")
-	private Date fechaHasta;
+	private String fechaHasta;
 
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipo;
 
-	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
-	@NotNull
-	@NotEmpty
-	private List<Integer> cadena;
+	@ApiModelProperty(value = "Id cadena", required = true, example = "1")
+	private Integer cadena;
 	
 	@NotNull
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")

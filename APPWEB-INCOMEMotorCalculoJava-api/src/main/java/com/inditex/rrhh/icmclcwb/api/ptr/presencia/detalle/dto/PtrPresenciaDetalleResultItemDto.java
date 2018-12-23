@@ -20,7 +20,7 @@ public class PtrPresenciaDetalleResultItemDto implements Serializable {
 	private Integer persona;
 
 	@NotNull
-	private Date fecha;
+	private String fecha;
 
 	private Integer minutos;
 

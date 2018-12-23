@@ -17,7 +17,7 @@ public class PtrPresenciaTotalTiendaResultItemDto {
 	@NotNull
 	private Integer tienda;
 
-	private Date fecha;
+	private String fecha;
 
 	@NotNull
 	private Integer minutos;

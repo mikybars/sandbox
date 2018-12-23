@@ -21,32 +21,29 @@ import lombok.ToString;
 @ToString
 public class PtrPresenciaDetalleComisionableRequestDto implements Serializable {
 
-    private static final long serialVersionUID = 484679933963140419L;
+	private static final long serialVersionUID = 484679933963140419L;
 
-    @ApiModelProperty(value = "Id tienda", required = false, example = "160")
-    private Integer tienda;
+	@ApiModelProperty(value = "Id tienda", required = false, example = "160")
+	private Integer tienda;
 
-    @ApiModelProperty(value = "Id seccion", required = false, example = "1")
-    private Integer seccion;
+	@ApiModelProperty(value = "Id seccion", required = false, example = "1")
+	private Integer seccion;
 
-    @ApiModelProperty(value = "Id empleado", required = false, allowableValues = "1645")
-    private List<Integer> personas;
+	@ApiModelProperty(value = "Id empleado", required = false, allowableValues = "1645")
+	private List<Integer> persona;
 
-    @ApiModelProperty(value = "Fecha inicio rango de busqueda", required = false, example = "2017-01-01")
-    private Date fechaDesde;
+	@ApiModelProperty(value = "Fecha inicio rango de busqueda", required = false, example = "2017-01-01")
+	private String fechaDesde;
 
-    @ApiModelProperty(value = "Fecha fin rango de busqueda", required = false, example = "2017-12-31")
-    private Date fechaHasta;
+	@ApiModelProperty(value = "Fecha fin rango de busqueda", required = false, example = "2017-12-31")
+	private String fechaHasta;
 
-	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
-    @ApiModelProperty(value = "Id cadena", required = true, allowableValues = "1")
-    @NotNull
-	@NotEmpty
-	private List<Integer> cadena;
-	
+	@ApiModelProperty(value = "Id cadena", required = true, example = "1")
+	private Integer cadena;
+
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
-    private Integer tipo;
-	
+	private Integer tipo;
+
 	@NotNull
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;

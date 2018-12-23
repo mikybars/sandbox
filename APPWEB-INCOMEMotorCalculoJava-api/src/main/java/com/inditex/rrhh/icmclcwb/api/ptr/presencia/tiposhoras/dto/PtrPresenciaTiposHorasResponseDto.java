@@ -9,6 +9,6 @@ import lombok.Data;
 @Builder
 public class PtrPresenciaTiposHorasResponseDto {
 
-	private List<PtrPresenciaTiposHorasResultItemDto> list;
+	private List<PtrPresenciaTiposHorasResultItemDto> tiposHoras;
 
 }

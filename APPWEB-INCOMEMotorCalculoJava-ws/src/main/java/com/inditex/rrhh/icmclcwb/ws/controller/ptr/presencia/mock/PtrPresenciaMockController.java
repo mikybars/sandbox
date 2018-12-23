@@ -38,7 +38,7 @@ public class PtrPresenciaMockController {
 	@PostMapping(path = "/presenciasDetalle")
 	public PtrPresenciaDetalleResponseDto presenciasDetalle(
 			@Valid @RequestBody final PtrPresenciaDetalleRequestDto presencias) {
-		return PtrPresenciaDetalleResponseDto.builder().list(ptrPresenciasServiceMock.presenciasDetalle(presencias))
+		return PtrPresenciaDetalleResponseDto.builder().presenciasDetalle(ptrPresenciasServiceMock.presenciasDetalle(presencias))
 				.build();
 	}
 
@@ -47,7 +47,7 @@ public class PtrPresenciaMockController {
 	public PtrPresenciaDetalleComisionableResponseDto presenciasDetalleComisionable(
 			@Valid @RequestBody final PtrPresenciaDetalleComisionableRequestDto presencias) {
 		return PtrPresenciaDetalleComisionableResponseDto.builder()
-				.list(ptrPresenciasServiceMock.presenciasDetalleComisionable(presencias)).build();
+				.presenciasDetalleComisionable(ptrPresenciasServiceMock.presenciasDetalleComisionable(presencias)).build();
 	}
 
 	@ApiOperation(value = "Busca presencias por tienda")
@@ -55,7 +55,7 @@ public class PtrPresenciaMockController {
 	public PtrPresenciaTotalTiendaResponseDto presenciasTotalTienda(
 			@Valid @RequestBody final PtrPresenciaTotalTiendaRequestDto presencias) {
 		return PtrPresenciaTotalTiendaResponseDto.builder()
-				.list(ptrPresenciasServiceMock.presenciasTotalTienda(presencias)).build();
+				.presenciasTotalTienda(ptrPresenciasServiceMock.presenciasTotalTienda(presencias)).build();
 	}
 
 	@ApiOperation(value = "Busca presencias por tienda o seccion")
@@ -63,13 +63,13 @@ public class PtrPresenciaMockController {
 	public PtrPresenciaTotalTiendaSeccionResponseDto presenciasTiendaSeccion(
 			@Valid @RequestBody final PtrPresenciaTotalTiendaSeccionRequestDto presencias) {
 		return PtrPresenciaTotalTiendaSeccionResponseDto.builder()
-				.list(ptrPresenciasServiceMock.presenciasTotalTiendaSeccion(presencias)).build();
+				.presenciasTotalTiendaSeccion(ptrPresenciasServiceMock.presenciasTotalTiendaSeccion(presencias)).build();
 	}
 
 	@ApiOperation(value = "Busca tipos horas ")
 	@PostMapping(path = "/tiposHoras")
 	public PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid @RequestBody final PtrPresenciaTiposHorasRequestDto tiposHoras) {
-		return PtrPresenciaTiposHorasResponseDto.builder().list(ptrPresenciasServiceMock.tiposHoras(tiposHoras)).build();
+		return PtrPresenciaTiposHorasResponseDto.builder().tiposHoras(ptrPresenciasServiceMock.tiposHoras(tiposHoras)).build();
 	}
 
 }

@@ -21,19 +21,17 @@ public class PtrPresenciaTotalTiendaSeccionRequestDto {
 	private List<PtrPresenciaTiendaSeccionDto> tiendaSeccion;
 
 	@ApiModelProperty(value = "Fecha inicio rango", required = false, example = "2018-01-01")
-	private Date fechaDesde;
+	private String fechaDesde;
 
 	@ApiModelProperty(value = "Fecha fin rango", required = false, example = "2018-10-31")
-	private Date fechaHasta;
+	private String fechaHasta;
 
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipo;
 
 	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
-	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = " 1 ")
-	@NotNull
-	@NotEmpty
-	private List<Integer> cadena;
+	@ApiModelProperty(value = "Id cadena", required = true, example = " 1 ")
+	private Integer cadena;
 
 	@NotNull
 	@ApiModelProperty(value = "Id origen", required = false, example = "11")

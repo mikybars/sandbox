@@ -40,152 +40,157 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 @EnableAutoConfiguration
 public class PtrPresenciaServiceTest {
 
-    @Autowired
-    @Qualifier("ptrPresenciaClient")
-    private RestClient ptrPresenciaClient;
+	@Autowired
+	@Qualifier("ptrPresenciaClient")
+	private RestClient ptrPresenciaClient;
 
-    @Test
-    public void presenciasDetalle() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.JANUARY);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date fechaDesde = cal.getTime();
+	@Test
+	public void presenciasDetalle() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		Date fechaDesde = cal.getTime();
 
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.DECEMBER);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
-        Date fechaHasta = cal.getTime();
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, Calendar.DECEMBER);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
+		Date fechaHasta = cal.getTime();
 
-        PtrPresenciaDetalleRequestDto req = new PtrPresenciaDetalleRequestDto();
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(1645);
-        List<Integer> list2 = new ArrayList<Integer>();
-        list2.add(1);
-        list2.add(2);
-        req.setCadena(list2);
-        req.setTipo(1);
-        req.setSeccion(1);
-        req.setTienda(160);
-        req.setFechaDesde(fechaDesde);
-        req.setFechaHasta(fechaHasta);
-        req.setOrigen(11);
-        req.setPersonas(list);
-        ResponseEntity<PtrPresenciaDetalleResponseDto> ret = this.ptrPresenciaClient
-                .postForEntity("/presenciasService/presenciasDetalle", req, PtrPresenciaDetalleResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
+		PtrPresenciaDetalleRequestDto req = new PtrPresenciaDetalleRequestDto();
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1645);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(2);
+		req.setTipo(1);
+		req.setSeccion(1);
+		req.setTienda(160);
+		req.setFechaDesde("2017-01-01");
+		req.setFechaHasta("2017-12-31");
+		req.setOrigen(11);
+		req.setPersona(list);
+		ResponseEntity<PtrPresenciaDetalleResponseDto> ret = this.ptrPresenciaClient
+				.postForEntity("/presenciasService/presenciasDetalle", req, PtrPresenciaDetalleResponseDto.class);
+		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+	}
 
-    @Test
-    public void presenciasDetalleComisionable() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.JANUARY);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date fechaDesde = cal.getTime();
+	
+	@Test
+	public void presenciasDetalleComisionable() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		Date fechaDesde = cal.getTime();
 
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.DECEMBER);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
-        Date fechaHasta = cal.getTime();
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, Calendar.DECEMBER);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
+		Date fechaHasta = cal.getTime();
 
-        PtrPresenciaDetalleComisionableRequestDto req = new PtrPresenciaDetalleComisionableRequestDto();
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(1645);
-        List<Integer> list2 = new ArrayList<Integer>();
-        list2.add(1);
-        list2.add(2);
-        req.setCadena(list2);
-        req.setTipo(1);
-        req.setSeccion(1);
-        req.setTienda(160);
-        req.setFechaDesde(fechaDesde);
-        req.setFechaHasta(fechaHasta);
-        req.setOrigen(11);
-        req.setPersonas(list);
-        ResponseEntity<PtrPresenciaDetalleComisionableResponseDto> ret = this.ptrPresenciaClient.postForEntity(
-                "/presenciasService/presenciasDetalleComisionable/", req,
-                PtrPresenciaDetalleComisionableResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
+		PtrPresenciaDetalleComisionableRequestDto req = new PtrPresenciaDetalleComisionableRequestDto();
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1645);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(2);
+		req.setTipo(1);
+		req.setSeccion(1);
+		req.setTienda(160);
+		req.setFechaDesde("2017-01-01");
+		req.setFechaHasta("2017-12-31");
+		req.setOrigen(11);
+		req.setPersona(list);
+		ResponseEntity<PtrPresenciaDetalleComisionableResponseDto> ret = this.ptrPresenciaClient.postForEntity(
+				"/presenciasService/presenciasDetalleComisionable/", req,
+				PtrPresenciaDetalleComisionableResponseDto.class);
+		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+	}
 
-    @Test
-    public void presenciasTotalTienda() {
-        PtrPresenciaTotalTiendaRequestDto req = new PtrPresenciaTotalTiendaRequestDto();
+	
+	@Ignore
+	@Test
+	public void presenciasTotalTienda() {
+		PtrPresenciaTotalTiendaRequestDto req = new PtrPresenciaTotalTiendaRequestDto();
 
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2018);
-        cal.set(Calendar.MONTH, Calendar.MAY);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date fechaDesde = cal.getTime();
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2018);
+		cal.set(Calendar.MONTH, Calendar.MAY);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		Date fechaDesde = cal.getTime();
 
-        cal.set(Calendar.YEAR, 2018);
-        cal.set(Calendar.MONTH, Calendar.OCTOBER);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
-        Date fechaHasta = cal.getTime();
+		cal.set(Calendar.YEAR, 2018);
+		cal.set(Calendar.MONTH, Calendar.OCTOBER);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
+		Date fechaHasta = cal.getTime();
 
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(8102);
-        req.setTiendas(list);
-        req.setOrigen(11);
-        req.setFechaDesde(fechaDesde);
-        req.setFechaHasta(fechaHasta);
-        req.setTipo(1);
-        ;
-        List<Integer> list2 = new ArrayList<Integer>();
-        list2.add(4);
-        list2.add(250);
-        req.setCadena(list2);
-        ResponseEntity<PtrPresenciaTotalTiendaResponseDto> ret = this.ptrPresenciaClient.postForEntity(
-                "/presenciasService/presenciasTotalTienda", req, PtrPresenciaTotalTiendaResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(8102);
+		req.setTiendas(list);
+		req.setOrigen(11);
+		req.setFechaDesde("2017-01-01");
+		req.setFechaHasta("2017-12-31");
+		req.setTipo(1);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(4);
+		list2.add(250);
+		req.setCadena(2);
+		ResponseEntity<PtrPresenciaTotalTiendaResponseDto> ret = this.ptrPresenciaClient.postForEntity(
+				"/presenciasService/presenciasTotalTienda", req, PtrPresenciaTotalTiendaResponseDto.class);
+		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+	}
 
-    @Test
-    public void presenciasTotalTiendaSeccion() {
-        PtrPresenciaTotalTiendaSeccionRequestDto req = new PtrPresenciaTotalTiendaSeccionRequestDto();
-        List<PtrPresenciaTiendaSeccionDto> tiendasecciones = new ArrayList<PtrPresenciaTiendaSeccionDto>();
-        PtrPresenciaTiendaSeccionDto ts2 = new PtrPresenciaTiendaSeccionDto();
-        ts2.setSeccion(2);
-        ts2.setTienda(52);
-        tiendasecciones.add(ts2);
-        PtrPresenciaTiendaSeccionDto ts3 = new PtrPresenciaTiendaSeccionDto();
-        ts3.setTienda(150);
-        tiendasecciones.add(ts3);
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2016);
-        cal.set(Calendar.MONTH, Calendar.JANUARY);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date fechaDesde = cal.getTime();
+	
+	//@Ignore
+	@Test
+	public void presenciasTotalTiendaSeccion() {
+		PtrPresenciaTotalTiendaSeccionRequestDto req = new PtrPresenciaTotalTiendaSeccionRequestDto();
+		List<PtrPresenciaTiendaSeccionDto> tiendasecciones = new ArrayList<PtrPresenciaTiendaSeccionDto>();
+		PtrPresenciaTiendaSeccionDto ts2 = new PtrPresenciaTiendaSeccionDto();
+		ts2.setSeccion(2);
+		ts2.setTienda(52);
+		tiendasecciones.add(ts2);
+		PtrPresenciaTiendaSeccionDto ts3 = new PtrPresenciaTiendaSeccionDto();
+		ts3.setTienda(150);
+		tiendasecciones.add(ts3);
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2016);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		Date fechaDesde = cal.getTime();
 
-        cal.set(Calendar.YEAR, 2016);
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
-        Date fechaHasta = cal.getTime();
+		cal.set(Calendar.YEAR, 2016);
+		cal.set(Calendar.MONTH, Calendar.FEBRUARY);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
+		Date fechaHasta = cal.getTime();
 
-        req.setTiendaSeccion(tiendasecciones);
-        req.setOrigen(11);
-        req.setFechaDesde(fechaDesde);
-        req.setFechaHasta(fechaHasta);
-        req.setTipo(1);
-        List<Integer> list2 = new ArrayList<Integer>();
-        list2.add(1);
-        list2.add(2);
-        req.setCadena(list2);
-        ResponseEntity<PtrPresenciaTotalTiendaSeccionResponseDto> ret = this.ptrPresenciaClient.postForEntity(
-                "/presenciasService/presenciasTotalTiendaSeccion", req,
-                PtrPresenciaTotalTiendaSeccionResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+		req.setTiendaSeccion(tiendasecciones);
+		req.setOrigen(11);
+		req.setFechaDesde("2017-01-01");
+		req.setFechaHasta("2017-12-31");
+		req.setTipo(1);
+		List<Integer> list2 = new ArrayList<Integer>();
+		list2.add(1);
+		list2.add(2);
+		req.setCadena(2);
+		ResponseEntity<PtrPresenciaTotalTiendaSeccionResponseDto> ret = this.ptrPresenciaClient.postForEntity(
+				"/presenciasService/presenciasTotalTiendaSeccion", req,
+				PtrPresenciaTotalTiendaSeccionResponseDto.class);
+		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 
-    }
+	}
 
-    @Test
-    public void tiposHoras() {
-        PtrPresenciaTiposHorasRequestDto req2 = new PtrPresenciaTiposHorasRequestDto();
-        req2.setOrigen(720);
-        ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = this.ptrPresenciaClient
-                .postForEntity("/presenciasService/tiposHoras", req2, PtrPresenciaTiposHorasResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
-    }
+	@Test
+	public void tiposHoras() {
+		PtrPresenciaTiposHorasRequestDto req2 = new PtrPresenciaTiposHorasRequestDto();
+		req2.setOrigen(720);
+		ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = this.ptrPresenciaClient
+				.postForEntity("/presenciasService/tiposHoras", req2, PtrPresenciaTiposHorasResponseDto.class);
+		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
+	}
 
+	
 }

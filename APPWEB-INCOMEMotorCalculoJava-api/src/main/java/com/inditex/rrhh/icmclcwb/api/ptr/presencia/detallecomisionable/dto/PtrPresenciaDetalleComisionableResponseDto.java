@@ -9,6 +9,6 @@ import lombok.Data;
 @Builder
 public class PtrPresenciaDetalleComisionableResponseDto {
 
-    private List<PtrPresenciaDetalleComisionableResultItemDto> list;
+    private List<PtrPresenciaDetalleComisionableResultItemDto> presenciasDetalleComisionable;
 
 }

@@ -25,19 +25,17 @@ public class PtrPresenciaTotalTiendaRequestDto implements Serializable {
     private List<Integer> tiendas;
 
     @ApiModelProperty(value = "Fecha inico Rango", required = false, example = "2018-05-01")
-    private Date fechaDesde;
+    private String fechaDesde;
 
     @ApiModelProperty(value = "Fecha fin rango", required = false, example = "2018-10-31")
-    private Date fechaHasta;
+    private String fechaHasta;
     
     @ApiModelProperty(value = "Id tipo", required = false, example = "1")
     private Integer tipo;
 
 	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@ApiModelProperty(value = "Id cadena", required = true, allowableValues = " 4 ")
-	@NotNull
-	@NotEmpty
-	private List<Integer> cadena;
+	private Integer cadena;
 	
 	@NotNull
 	@ApiModelProperty(value = "Id origen", required = false, example = "11")

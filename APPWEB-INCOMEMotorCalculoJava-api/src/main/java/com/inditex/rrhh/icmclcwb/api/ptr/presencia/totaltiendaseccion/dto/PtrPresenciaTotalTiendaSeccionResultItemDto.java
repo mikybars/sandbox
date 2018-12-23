@@ -11,7 +11,7 @@ public class PtrPresenciaTotalTiendaSeccionResultItemDto {
 	@NotNull
 	private Integer tienda;
 
-	private Date fecha;
+	private String fecha;
 
 	@NotNull
 	private Integer seccion;
