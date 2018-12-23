@@ -35,9 +35,9 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
         String id = StringUtils.EMPTY;
         Map<String, Cookie> cookies = new HashMap<>();
         try {
-            id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
-                    meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
-                    meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
+//            id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
+//                    meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
+//                    meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
 //          List<String> setCookie = CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
 //          String jSessionID = CxfUtils.getJSessionID(setCookie);
 //          CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapJSessionID(jSessionID));

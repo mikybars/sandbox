@@ -22,10 +22,9 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	
 	
 	
-	private StringBuilder queryCalculoGT(){
+	private StringBuilder queryCalculoGT() {
 		
-		StringBuilder query = new StringBuilder();
-		
+		StringBuilder query = new StringBuilder();		
 		query.append("INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_CALCULO (").
 		append(" COMISION_PORCENTAJE_1 ").
 		append(",COMISION_PORCENTAJE_2 ").
@@ -94,8 +93,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		append(" ON TIENDA_VENTA.ID_TIENDA = TIENDA_PRESENCIA.ID_TIENDA AND TIENDA_VENTA.FECHA = TIENDA_PRESENCIA.FECHA  ").
 			
 		append(" INNER JOIN DESARROLLO_RRHH.INCOME_TRABAJO_EMPLEADO_ESTRUCTURA AS ESTRUCTURA  ").
-		append(" ON EMPLEADO_PRESENCIA.ID_EMPLEADO = ESTRUCTURA.ID_EMPLEADO AND EMPLEADO_PRESENCIA.FECHA between ESTRUCTURA.FECHA_INICIO AND ESTRUCTURA.FECHA_FIN ").
-		
+		append(" ON EMPLEADO_PRESENCIA.ID_EMPLEADO = ESTRUCTURA.ID_EMPLEADO AND EMPLEADO_PRESENCIA.FECHA between ESTRUCTURA.FECHA_INICIO AND ESTRUCTURA.FECHA_FIN ").		
 		
 		append(" WHERE EMPLEADO_HISTORICO.ID_TRABAJO = :idTrabajo ").
 		append(" AND TIENDA_COMISION_HISTORICO.ID_TRABAJO = :idTrabajo ").
@@ -103,9 +101,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		append(" AND TIENDA_PRESENCIA.ID_TRABAJO = :idTrabajo ").
 		append(" AND TIENDA_VENTA.ID_TRABAJO = :idTrabajo ");
 
-		return query;
-		
-		
+		return query;			
 	}
 
 
@@ -118,8 +114,6 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		param.addValue("idTrabajo", idTrabajo);																					
 		namedJdbc.update(queryCalculoGT().toString(), param);				
 	}
-
-
 
 	@Override
 	public void calcularByEmpleadoBatch(Long idTrabajo, List<Long> idsEmpleados) {		
@@ -153,8 +147,6 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		whereTienda.append(" AND TIENDA.ID_TIENDA = :idTienda ");								
 		namedJdbc.batchUpdate(queryCalculoGT().append(whereTienda.toString()).toString(),batch);		
 	}
-	
-	
-	
+			
 }
 

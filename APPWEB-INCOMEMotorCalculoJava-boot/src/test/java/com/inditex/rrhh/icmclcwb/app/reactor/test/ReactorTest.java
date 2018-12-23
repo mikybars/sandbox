@@ -63,6 +63,7 @@ public class ReactorTest {
 	
 	
 	@Test	
+	@Ignore
 	public void ReactorSimpleTest2 ()  {
 		
 		
@@ -82,7 +83,7 @@ public class ReactorTest {
 					
 				})
 			  .doAfterTerminate(latch::countDown)
-			  .doOnError(error -> System.out.println("Error:"+ error ))
+			  .doOnError(error -> System.out.println("Error: "+ error ))
 		     .subscribe( m -> System.out.println("Subscribe recibido - " + m + " en thread: " + Thread.currentThread().getName()), error-> System.out.println("error subscribe:" +error),null  );
 				
 		try {

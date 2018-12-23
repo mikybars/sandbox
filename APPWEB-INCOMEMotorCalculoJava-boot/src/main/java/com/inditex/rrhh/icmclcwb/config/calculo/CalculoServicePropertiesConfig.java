@@ -13,10 +13,10 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "app.envars.calculo.service")
 public class CalculoServicePropertiesConfig {
       
-    CalculoPropertiesDto gTAlgortimo;            
+    CalculoPropertiesDto getGTAlgoritmoProperties;            
 
-    @Bean
-    public CalculoPropertiesDto gTAlgoritmoProperties() {
-    	return gTAlgortimo;
+    @Bean(name = "calculoGTPropertiesDto")
+    public CalculoPropertiesDto getGTAlgoritmoProperties() {
+    	return getGTAlgoritmoProperties;
     }
 }

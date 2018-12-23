@@ -8,10 +8,12 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.dto.CalculoPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.GTCalculoRepository;
 
@@ -23,20 +25,22 @@ public class GTAlgoritmo implements TipoCalculoAlgoritmo {
 
 	@Autowired
 	GTCalculoRepository gTCalculoRepository;
+		
+	@Autowired
+	@Qualifier("calculoGTPropertiesDto")
+	private CalculoPropertiesDto calculoGTPropertiesDto;
 
 	@Autowired
-	CalculoPropertiesDto gTAlgoritmoProperties;
-	
-	@Autowired
 	private Logger log;
+	
 
 	@Override
 	public Flux<Void> execute(TrabajoRunDto trabajoRunDto)  {
 
-		if (trabajoRunDto.getTrabajoRunCalcular().getIdsEmpleados().size() >= gTAlgoritmoProperties.getNumBlock()) {
+		if (trabajoRunDto.getTrabajoRunCalcular().getIdsEmpleados().size() >= calculoGTPropertiesDto.getNumBlock()) {
 			
 			 Map<Long, List<Long>> grupos = trabajoRunDto.getTrabajoRunCalcular().getIdsEmpleados().stream()
-					.collect(Collectors.groupingBy(s -> (s - 1) / gTAlgoritmoProperties.getNumBlock()));			 
+					.collect(Collectors.groupingBy(s -> (s - 1) / calculoGTPropertiesDto.getNumBlock()));			 
 			 List<List<Long>> subGrupos = new ArrayList<List<Long>>(grupos.values());			 			 			 			
 			 
 			  CountDownLatch latch = new CountDownLatch(1);            
@@ -54,7 +58,7 @@ public class GTAlgoritmo implements TipoCalculoAlgoritmo {
 	    		try {
 					latch.await();
 				} catch (Exception e) {
-					 return Flux.error(new ApplicationException( //TODO Estado
+					 return Flux.error(new ApplicationException( //TODO cambiar el estado
 				                "Error al persistir bloque de empleados del trabajo" + trabajoRunDto.getTrabajoDto().getId()));						
 				}        			 			 			 
 

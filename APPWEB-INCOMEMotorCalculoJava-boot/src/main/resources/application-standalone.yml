@@ -18,9 +18,10 @@ metadata:
   openshiftproject: icmclcwb
   slot: develop
 spring:
-#  jta:
-#    atomikos:
-#      properties:
+  jta:
+    atomikos:
+      properties:
+        enable-logging: false
 #        # Por defecto 10000 (ms)
 #        default-jta-timeout: 60000
   h2:
@@ -45,14 +46,18 @@ amiga:
         defaultReadTimeout: 300000
         ptrVentaClient:
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
-          base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
+          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
+          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD
         ptrPresenciaClient:
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/RHPRSCAESB
-          base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
-          auth-method: BASIC
-          username: username300
-          password: username300p
+          #base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService          
+          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD
+
+          
+#          auth-method: 
+#          username: username300
+#          password: username300p
   service:
     jms:
       trabajo-queue:
@@ -106,7 +111,8 @@ amiga:
           #rewriteBatchedStatements: true
         secondary:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
+          url: jdbc:sqlserver://axdessql2.central.inditex.grp:11433;databaseName=PeopleNet
+          #1 url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet                    
           #url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNetHis
           #url: jdbc:sqlserver://axdessql1.central.inditex.grp:1433;databaseName=PeopleNet
           user: People7
@@ -151,7 +157,7 @@ app:
   envars:
     calculo:
        service:
-          gTAlgoritmo:
+          getGTAlgoritmoProperties:
             numBlock: 1000       
     ptr:
       venta:

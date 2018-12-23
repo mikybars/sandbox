@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,7 @@ public class CalcularServicesTest {
 	}
 
 	@Test	
+	@Ignore
 	public void factoryTest() throws Exception {
 		trabajoRunCalcularService.run(trabajoRunDto);
 	}
