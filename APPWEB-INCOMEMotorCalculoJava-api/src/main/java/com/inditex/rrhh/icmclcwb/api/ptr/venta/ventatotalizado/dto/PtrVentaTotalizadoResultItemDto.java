@@ -11,17 +11,17 @@ public class PtrVentaTotalizadoResultItemDto implements Serializable {
 
 	private String fecha;
 
-	private String pais;
+	private Integer pais;
 
-	private String cadena;
+	private Integer cadena;
 
-	private String tienda;
+	private Integer tienda;
 
-	private String seccion;
+	private Integer seccion;
 
-	private String temporada;
+	private Integer temporada;
 
-	private String producto;
+	private Integer producto;
 
 	private BigDecimal importeSinIVA;
 

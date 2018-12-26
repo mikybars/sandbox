@@ -74,7 +74,9 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                 PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
                         .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
                 paramGetVentaTotalizado.setTienda(iter);
-                paramGetVentaTotalizado.getCadena().addAll(trabajoRunDatosBloque.getCadenaEmpresa());
+                //EL parametro cadena deja de ser una lista en la nueva fachada.
+                paramGetVentaTotalizado.setCadena(11);
+                //paramGetVentaTotalizado.getCadena().addAll(trabajoRunDatosBloque.getCadenaEmpresa());
                 paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
@@ -117,7 +119,9 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
                         .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
                 paramGetVentaIndividualDetalle.setVendedores(empleados);
-                paramGetVentaIndividualDetalle.getCadena().addAll(trabajoRunDatosBloque.getCadenaEmpresa());
+              //EL parametro cadena deja de ser una lista en la nueva fachada.
+                paramGetVentaIndividualDetalle.setCadena(11);
+                //paramGetVentaIndividualDetalle.getCadena().addAll(trabajoRunDatosBloque.getCadenaEmpresa());
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService

@@ -6,32 +6,30 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaHistoricoService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaHistoricoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaHistoricoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaHistoricoRepositoryCustom;
 
 @Service
 @Validated
 public class TrabajoTiendaHistoricoServiceImpl implements TrabajoTiendaHistoricoService {
 
 	@Autowired
-	private TrabajoTiendaHistoricoRepository trabajoTiendaHistoricoRepository;
+	private TrabajoTiendaHistoricoRepositoryCustom trabajoTiendaHistoricoRepositoryCustom;
 
 	@Autowired
 	private TrabajoTiendaHistoricoMapper trabajoTiendaHistoricoMapper;
 
-	// TODO: Revisar timeouts
-    @Transactional(timeout = 30)
+
 	@Override
 	public List<TrabajoTiendaHistoricoDto> save(final List<TrabajoTiendaHistoricoDto> trabajoTiendaHistorico,
-			@Valid TrabajoDto trabajo) {
+			@Valid TrabajoDto trabajo) throws Exception {
 		return trabajoTiendaHistoricoMapper.trabajoTiendaHistoricoToTrabajoTiendaHistoricoDto(
-				trabajoTiendaHistoricoRepository.save(trabajoTiendaHistoricoMapper
+		        trabajoTiendaHistoricoRepositoryCustom.save(trabajoTiendaHistoricoMapper
 						.mergeTrabajoTiendaHistoricoDtoAndTrabajoDtoToTrabajoTiendaHistorico(trabajoTiendaHistorico,
 								trabajo)));
 	}

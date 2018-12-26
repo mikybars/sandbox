@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4PageableService;
 
 @Service
-public class Meta4PageableServiceImpl implements Meta4PageableService {
+public class Meta4PageableServiceImpl<U extends PageableListDto> implements Meta4PageableService {
 
 	@Override
-	public <T extends PageableDto<?>, U extends PageableListDto, Z extends Object> List<Z> getResultItem(
+	public <T extends PageableDto<?>, Z extends Object> List<Z> getResultItem(
 			final T request, Object service, String methodName, Integer maxPageSize)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		List<Z> result = new ArrayList<>();

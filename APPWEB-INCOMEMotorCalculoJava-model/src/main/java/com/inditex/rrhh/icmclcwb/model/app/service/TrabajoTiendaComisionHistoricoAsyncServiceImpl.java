@@ -19,7 +19,7 @@ public class TrabajoTiendaComisionHistoricoAsyncServiceImpl implements TrabajoTi
 
     @Async
     @Override
-    public CompletableFuture<Void> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) {
+    public CompletableFuture<Void> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) throws Exception {
         trabajoTiendaComisionHistoricoService.save(trabajoTiendaComisionHistoricoDto);
         return CompletableFuture.completedFuture(null);
     }

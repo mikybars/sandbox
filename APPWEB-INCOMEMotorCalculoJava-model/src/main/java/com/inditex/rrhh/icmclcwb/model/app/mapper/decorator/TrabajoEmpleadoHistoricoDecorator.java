@@ -21,10 +21,10 @@ public abstract class TrabajoEmpleadoHistoricoDecorator extends TrabajoEmpleadoH
 			List<TrabajoEmpleadoHistoricoDto> srcTrabajoEmpleadoHistorico, TrabajoDto srcTrabajo) {
 		List<TrabajoEmpleadoHistorico> result = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(srcTrabajoEmpleadoHistorico)) {
-		    srcTrabajoEmpleadoHistorico.forEach(item -> {
+		    srcTrabajoEmpleadoHistorico.forEach(item -> 
 				result.add(
-						delegate.mergeTrabajoEmpleadoHistoricoDtoAndTrabajoDtoToTrabajoEmpleadoHistorico(item, srcTrabajo));
-			});
+						delegate.mergeTrabajoEmpleadoHistoricoDtoAndTrabajoDtoToTrabajoEmpleadoHistorico(item, srcTrabajo))
+			);
 		}
 		return result;
 	}

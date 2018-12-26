@@ -8,6 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaHistoricoDto;
 
 public interface TrabajoTiendaHistoricoAsyncService {
 
-	CompletableFuture<Void> save(final List<TrabajoTiendaHistoricoDto> trabajoTiendaHistorico, final TrabajoDto trabajo);
+	CompletableFuture<Void> save(final List<TrabajoTiendaHistoricoDto> trabajoTiendaHistorico, final TrabajoDto trabajo) throws Exception;
 
 }

@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto;
 
-import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;

@@ -20,7 +20,7 @@ public class TrabajoTiendaEstadoAsyncServiceImpl implements TrabajoTiendaEstadoA
     
     @Async
     @Override
-    public CompletableFuture<Void> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstado, final TrabajoDto trabajo) {
+    public CompletableFuture<Void> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstado, final TrabajoDto trabajo) throws Exception {
     	trabajoTiendaEstadoService.save(trabajoTiendaEstado, trabajo);
         return CompletableFuture.completedFuture(null);
     }

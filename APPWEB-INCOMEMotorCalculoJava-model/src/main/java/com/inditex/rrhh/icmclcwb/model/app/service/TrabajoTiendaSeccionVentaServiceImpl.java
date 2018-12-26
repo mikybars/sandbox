@@ -41,8 +41,6 @@ public class TrabajoTiendaSeccionVentaServiceImpl implements TrabajoTiendaSeccio
                 .save(mapper.getVentaTotalizadoResponseItemDtoToTrabajoTiendaSeccionVenta(dto, trabajoDto)));
     }
 
-    // TODO: Revisar timeouts en transacciones
-//    @Transactional(timeout = 60)
     @Override
     public List<TrabajoTiendaSeccionVentaDto> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto) throws Exception {
         return mapper.trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(trabajoTiendaSeccionVentaRepositoryCustom

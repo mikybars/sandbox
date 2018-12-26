@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaComisionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaComisionHistoricoService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaComisionHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaComisionHistoricoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaComisionHistoricoRepositoryCustom;
 
 @Service
 @Validated
@@ -21,9 +22,12 @@ public class TrabajoTiendaComisionHistoricoServiceImpl implements TrabajoTiendaC
     @Autowired
     private TrabajoTiendaComisionHistoricoRepository trabajoTiendaComisionHistoricoRepository; 
     
+    @Autowired
+    private TrabajoTiendaComisionHistoricoRepositoryCustom trabajoTiendaComisionHistoricoRepositoryCustom; 
+ 
     @Override
-    public List<TrabajoTiendaComisionHistoricoDto> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) {
-        return mapper.trabajoTiendaComisionHistoricoToTrabajoTiendaComisionHistoricoDto(trabajoTiendaComisionHistoricoRepository
+    public List<TrabajoTiendaComisionHistoricoDto> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) throws Exception {
+        return mapper.trabajoTiendaComisionHistoricoToTrabajoTiendaComisionHistoricoDto(trabajoTiendaComisionHistoricoRepositoryCustom
                 .save(mapper.trabajoTiendaComisionHistoricoDtoToTrabajoTiendaComisionHistorico(trabajoTiendaComisionHistoricoDto)));
     }
     
