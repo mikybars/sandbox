@@ -21,22 +21,27 @@ public class PtrVentaIndividualDetalleRequestDto implements Serializable {
 	private String fechaHasta;
 
 	@NotNull
-	private String pais;
+	private Integer pais;
 
 	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@NotNull
-	@NotEmpty
-	private List<String> cadena = new ArrayList<>();
+	private Integer cadena;
 
 	private List<Integer> tienda = new ArrayList<>();
 	
-	private String seccion;
+	private Integer seccion;
 	
-	private String temporada;
+	private Integer temporada;
 	
-	private String producto;
+	private Integer producto;
 	
 	private List<Integer> vendedores = new ArrayList<>();
+	
+	private String fechaVentaInicial;
+	
+	private Integer cajero;
+	
+	private String operacion;
 	
 	private String agrupacion;
 

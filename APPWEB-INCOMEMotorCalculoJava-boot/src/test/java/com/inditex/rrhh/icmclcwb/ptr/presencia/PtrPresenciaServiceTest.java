@@ -33,7 +33,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaT
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 
-@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
@@ -76,7 +75,6 @@ public class PtrPresenciaServiceTest {
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 	}
 
-	
 	@Test
 	public void presenciasDetalleComisionable() {
 		Calendar cal = Calendar.getInstance();
@@ -110,8 +108,6 @@ public class PtrPresenciaServiceTest {
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 	}
 
-	
-	@Ignore
 	@Test
 	public void presenciasTotalTienda() {
 		PtrPresenciaTotalTiendaRequestDto req = new PtrPresenciaTotalTiendaRequestDto();
@@ -129,7 +125,7 @@ public class PtrPresenciaServiceTest {
 
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(8102);
-		req.setTiendas(list);
+		req.setTienda(list);
 		req.setOrigen(11);
 		req.setFechaDesde("2017-01-01");
 		req.setFechaHasta("2017-12-31");
@@ -143,8 +139,6 @@ public class PtrPresenciaServiceTest {
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
 	}
 
-	
-	//@Ignore
 	@Test
 	public void presenciasTotalTiendaSeccion() {
 		PtrPresenciaTotalTiendaSeccionRequestDto req = new PtrPresenciaTotalTiendaSeccionRequestDto();
@@ -192,5 +186,4 @@ public class PtrPresenciaServiceTest {
 		assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
 	}
 
-	
 }

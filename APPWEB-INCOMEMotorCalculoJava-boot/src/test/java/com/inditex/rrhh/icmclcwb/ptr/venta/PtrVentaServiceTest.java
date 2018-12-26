@@ -31,7 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotal
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-@Ignore
+//@Ignore
 public class PtrVentaServiceTest {
 
 	@Autowired
@@ -42,24 +42,11 @@ public class PtrVentaServiceTest {
 	public void getVentaTotalizado() {
 		PtrVentaTotalizadoRequestDto venta = new PtrVentaTotalizadoRequestDto();
 
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, Calendar.JANUARY);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		Date fechaDesde = cal.getTime();
-		venta.setFechaDesde(fechaDesde.toString());
-
-		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, Calendar.DECEMBER);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		Date fechaHasta = cal.getTime();
-		venta.setFechaHasta(fechaHasta.toString());
-
-		venta.setPais("123");
-		List<String> lista = new ArrayList<String>();
-		lista.add("1");
-		// venta.setCadena(lista);
-		// venta.setAgrupacion("FECHA_TIENDA");
+		venta.setFechaDesde("2017-12-13");
+		venta.setFechaHasta( "2017-12-13");
+		venta.setPais(11);
+		venta.setCadena(11);
+		
 
 		ResponseEntity<PtrVentaTotalizadoResponseDto> ret = this.ptrVentaClient
 				.postForEntity("/ventaGeneral/getVentaTotalizado", venta, PtrVentaTotalizadoResponseDto.class);
@@ -71,28 +58,10 @@ public class PtrVentaServiceTest {
 	public void getVentaIndividualDetalle() {
 		PtrVentaIndividualDetalleRequestDto venta = new PtrVentaIndividualDetalleRequestDto();
 
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, Calendar.JANUARY);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		Date fechaDesde = cal.getTime();
-		venta.setFechaDesde(fechaDesde.toString());
-
-		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, Calendar.DECEMBER);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		Date fechaHasta = cal.getTime();
-		venta.setFechaHasta(fechaHasta.toString());
-
-		venta.setPais("123");
-		List<String> lista = new ArrayList<String>();
-		lista.add("1");
-		// venta.setCadena(lista);
-		// venta.setAgrupacion("FECHA_TIENDA");
-		// venta.setTemporada("1");
-		List<Integer> lista2 = new ArrayList<Integer>();
-		lista2.add(new Integer(1));
-		// venta.setVendedores(lista2);
+		venta.setFechaDesde("2016-11-25");
+		venta.setFechaHasta("2016-11-25");
+		venta.setPais(1);
+		venta.setCadena(1);
 
 		ResponseEntity<PtrVentaIndividualDetalleResponseDto> ret = this.ptrVentaClient.postForEntity(
 				"/ventaEmpleado/getVentaIndividualDetalle", venta, PtrVentaIndividualDetalleResponseDto.class);

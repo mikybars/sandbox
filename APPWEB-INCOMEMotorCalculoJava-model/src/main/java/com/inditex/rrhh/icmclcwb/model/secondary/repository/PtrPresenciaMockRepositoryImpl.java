@@ -184,15 +184,15 @@ public class PtrPresenciaMockRepositoryImpl implements PtrPresenciaMockRepositor
 			param.addValue("tipo", dto.getTipo());
 		}
 
-		if (CollectionUtils.isNotEmpty(dto.getTiendas())) {
-			int size = dto.getTiendas().size();
+		if (CollectionUtils.isNotEmpty(dto.getTienda())) {
+			int size = dto.getTienda().size();
 			if (size > 0) {
 				query.append(" AND (P.TIENDA IN ( :tienda0");
-				param.addValue("tienda0", dto.getTiendas().get(0));
+				param.addValue("tienda0", dto.getTienda().get(0));
 
 				for (Integer i = 1; i < size; i++) {
 					query.append(" ,:tienda" + i.toString() + " ");
-					param.addValue("tienda" + i.toString(), dto.getTiendas().get(i));
+					param.addValue("tienda" + i.toString(), dto.getTienda().get(i));
 				}
 				query.append("))");
 			}

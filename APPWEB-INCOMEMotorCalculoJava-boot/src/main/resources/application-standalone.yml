@@ -47,12 +47,13 @@ amiga:
         ptrVentaClient:
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD
+          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
+
         ptrPresenciaClient:
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/RHPRSCAESB
           #base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService          
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD
+          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
 
           
 #          auth-method: 
@@ -112,7 +113,7 @@ amiga:
         secondary:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://axdessql2.central.inditex.grp:11433;databaseName=PeopleNet
-          #1 url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet                    
+          #url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet                    
           #url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNetHis
           #url: jdbc:sqlserver://axdessql1.central.inditex.grp:1433;databaseName=PeopleNet
           user: People7

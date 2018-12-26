@@ -17,18 +17,18 @@ public class PtrVentaIndividualDetalleResultItemDto implements Serializable {
 	@NotBlank
 	private String fecha;
 
-	private String pais;
+	private Integer pais;
 
-	private String cadena;
+	private Integer cadena;
 
 	@NotBlank
-	private String tienda;
+	private Integer tienda;
 
-	private String seccion;
+	private Integer seccion;
 
-	private String temporada;
+	private Integer temporada;
 
-	private String producto;
+	private Integer producto;
 
 	@NotNull
 	private BigDecimal importeSinIVA;
@@ -36,11 +36,11 @@ public class PtrVentaIndividualDetalleResultItemDto implements Serializable {
 	@NotNull
 	private BigDecimal importeConIVA;
 	
-	private String vendedor;
+	private Integer vendedor;
 	
 	private String fechaVentaInicial;
 	
-	private String cajero;
+	private Integer cajero;
 	
 	private String operacion;
 	
