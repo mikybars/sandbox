@@ -21,10 +21,10 @@ public abstract class TrabajoEmpleadoEstructuraDecorator extends TrabajoEmpleado
 			List<TrabajoEmpleadoEstructuraDto> srcTrabajoEmpleadoEstructura, TrabajoDto srcTrabajo) {
 		List<TrabajoEmpleadoEstructura> result = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(srcTrabajoEmpleadoEstructura)) {
-		    srcTrabajoEmpleadoEstructura.forEach(item -> {
+		    srcTrabajoEmpleadoEstructura.forEach(item -> 
 				result.add(
-						delegate.mergeTrabajoEmpleadoEstructuraDtoAndTrabajoDtoToTrabajoEmpleadoEstructura(item, srcTrabajo));
-			});
+						delegate.mergeTrabajoEmpleadoEstructuraDtoAndTrabajoDtoToTrabajoEmpleadoEstructura(item, srcTrabajo))
+			);
 		}
 		return result;
 	}

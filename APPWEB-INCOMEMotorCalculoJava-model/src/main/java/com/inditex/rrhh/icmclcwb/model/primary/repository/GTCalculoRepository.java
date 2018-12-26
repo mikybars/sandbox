@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface GTCalculoRepository {
 		
-	public void calcular(Long IdTrabajo);
+	public void calcular(Long idTrabajo);
 	
 	public void calcularByEmpleadoBatch(Long idTrabajo, List<Long> subGroups);
 	

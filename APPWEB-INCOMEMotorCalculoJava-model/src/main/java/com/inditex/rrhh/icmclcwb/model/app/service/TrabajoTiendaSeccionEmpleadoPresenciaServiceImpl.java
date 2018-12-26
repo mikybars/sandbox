@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -17,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaSeccionEmpleadoPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionEmpleadoPresencia;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom;
 
 @Service
 @Validated
@@ -28,6 +28,9 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements Trabajo
     @Autowired
     private TrabajoTiendaSeccionEmpleadoPresenciaRepository trabajoTiendaSeccionEmpleadoPresenciaRepository;
 
+    @Autowired
+    private TrabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom trabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom;
+    
     @Override
     public CompletableFuture<Void> save(@Valid final TrabajoTiendaSeccionEmpleadoPresenciaDto dto) {
         mapper.trabajoTiendaSeccionEmpleadoPresenciaToTrabajoTiendaSeccionEmpleadoPresenciaDto(
@@ -36,13 +39,11 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements Trabajo
         return CompletableFuture.completedFuture(null);
     }
 
-    // TODO: Revisar timeouts en transacciones
-    @Transactional(timeout = 120)
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciaDetalleResultItemDto> dtos, TrabajoDto trabajoDto) {
+    public CompletableFuture<Void> save(List<PtrPresenciaDetalleResultItemDto> dtos, TrabajoDto trabajoDto) throws Exception {
         List<TrabajoTiendaSeccionEmpleadoPresencia> result = mapper
                 .presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos, trabajoDto);
-        trabajoTiendaSeccionEmpleadoPresenciaRepository.save(result);
+        trabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom.save(result);
         return CompletableFuture.completedFuture(null);
     }
 

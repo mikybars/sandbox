@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTipoHoraService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTipoHoraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTipoHoraRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTipoHoraRepositoryCustom;
 
 @Service
 @Validated
@@ -22,10 +23,13 @@ public class TrabajoTipoHoraServiceImpl implements TrabajoTipoHoraService {
 
     @Autowired
     private TrabajoTipoHoraRepository trabajoTipoHoraRepository;
+    
+    @Autowired
+    private TrabajoTipoHoraRepositoryCustom trabajoTipoHoraRepositoryCustom;
 
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TrabajoDto trabajoDto) {
-        mapper.trabajoTrabajoTipoHoraListTotrabajoTipoHoraDtoList(trabajoTipoHoraRepository
+    public CompletableFuture<Void> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TrabajoDto trabajoDto) throws Exception {
+        mapper.trabajoTrabajoTipoHoraListTotrabajoTipoHoraDtoList(trabajoTipoHoraRepositoryCustom
                 .save(mapper.ptrPresenciaTipoHoraResponsesDtoToTrabajoTipoHoraDto(dto, trabajoDto)));
         return CompletableFuture.completedFuture(null);
     }

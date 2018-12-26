@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepositoryCustom;
 
 @Service
 @Validated
@@ -20,14 +21,17 @@ public class TrabajoTiendaEstadoServiceImpl implements TrabajoTiendaEstadoServic
 
 	@Autowired
 	private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
+	
+	@Autowired
+	private TrabajoTiendaEstadoRepositoryCustom trabajoTiendaEstadoRepositoryCustom;
 
 	@Autowired
 	private TrabajoTiendaEstadoMapper trabajoTiendaEstadoMapper;
 
 	@Override
 	public List<TrabajoTiendaEstadoDto> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto,
-			@Valid TrabajoDto trabajo) {
-		return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(trabajoTiendaEstadoRepository
+			@Valid TrabajoDto trabajo) throws Exception {
+		return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(trabajoTiendaEstadoRepositoryCustom
 				.save(trabajoTiendaEstadoMapper.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
 						trabajoTiendaEstadoDto, trabajo)));
 	}

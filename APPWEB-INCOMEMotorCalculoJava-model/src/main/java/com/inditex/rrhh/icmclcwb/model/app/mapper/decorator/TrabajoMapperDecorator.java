@@ -24,7 +24,7 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
     
     public TrabajoDto trabajoDtoToTrabajo(Trabajo src) {
         TrabajoDto dto = delegate.trabajoToTrabajoDto(src);
-        if (src.getProgramacion() != null && src.getProgramacion() != null) {
+        if (src.getProgramacion() != null) {
             dto.setIdProgramacion(src.getProgramacion().getId());
         }
         return dto;

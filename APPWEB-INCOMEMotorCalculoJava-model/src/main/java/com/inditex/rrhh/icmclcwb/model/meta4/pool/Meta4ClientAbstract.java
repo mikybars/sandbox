@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public abstract class Meta4ClientAbstract<T> {
 
-	public String server;
+	protected String server;
 
 	@Value("${app.envars.meta4.config.timeout.connectTimeout}")
 	public long connectTimeout;

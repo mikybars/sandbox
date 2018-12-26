@@ -247,7 +247,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 			final AtomicInteger counter = new AtomicInteger(0);
 			for (List<String> iter : trabajoRunDatosBloque.getTiendaPresencia().stream()
 					.collect(Collectors
-							.groupingBy(item -> counter.getAndIncrement() / getTiendasDto.getFilter().getMaxPageSize()))
+							.groupingBy(item -> counter.getAndIncrement() / searchTiendasDto.getFilter().getMaxPageSize()))
 					.values()) {
 				SearchTiendasRequestDto searchTiendasRequest = new SearchTiendasRequestDto();
 				searchTiendasRequest.setPage(searchTiendasDto.getPage());
@@ -403,7 +403,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 							item -> counter.getAndIncrement() / getComisionEmpleadoDto.getFilter().getMaxPageSize()))
 					.values()) {
 				ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
-				comisionEmpleadoRequest.setPage(getTiendasEmpleadoDto.getPage());
+				comisionEmpleadoRequest.setPage(getComisionEmpleadoDto.getPage());
 				comisionEmpleadoRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
 				comisionEmpleadoRequest.getData().getItem()
 						.addAll(iter.stream().map(item -> GenericFilterParametersDto.builder().idEmpleado(item).build())
@@ -464,7 +464,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 								.genericTiendaResultItemDtoToTrabajoTiendaComisionHistoricoDto(data, trabajo);
 						if (CollectionUtils.isNotEmpty(trabajoTiendaComision)) {
 							AsyncUtils.checkAsyncAvaliable(cfPersist,
-									getComisionEmpleadoDto.getFilter().getMaxPersistenceSize());
+							        getTiendasDto.getFilter().getMaxPersistenceSize());
 							CompletableFuture<Void> cfSave = trabajoTiendaComisionHistoricoAsyncService
 									.save(trabajoTiendaComision);
 							AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -505,7 +505,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 					if(CollectionUtils.isNotEmpty(empleadosRequestItem)) {
 						empleadosRequest.getData().getItem().addAll(empleadosRequestItem);
 					} else {
-						throw new ApplicationException("Hay tienes pero no ids");
+						throw new ApplicationException("Hay tiendas pero no ids");
 					}
 				}
 
@@ -543,7 +543,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeServiceImpl implements TrabajoDatos
 								List<TrabajoEmpleadoHistoricoDto> trabajoEmpleadoHistorico = trabajoEmpleadoHistoricoMapper
 										.genericEmpleadoResultItemDtoToTrabajoEmpleadoHistoricoDto(dataHistorico);
 								AsyncUtils.checkAsyncAvaliable(cfPersist,
-										searchTiendasDto.getFilter().getMaxPersistenceSize());
+								        searchEmpleadosDto.getFilter().getMaxPersistenceSize());
 								CompletableFuture<Void> cfSave = trabajoEmpleadoHistoricoAsyncService
 										.save(trabajoEmpleadoHistorico, trabajo);
 								AsyncUtils.exceptionally(cfSave, cf, cfPersist);

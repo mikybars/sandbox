@@ -27,7 +27,7 @@ public class PopulateMockCalculoRepositoryImpl implements PopulateMockCalculoRep
 		  			  			  		  	
 		  	scripts.forEach(script ->{		  		
 		  		databasePopulator.addScripts(script);		  				  		
-		  		logger.info("Carga del script: "+ script.getFilename());			    
+		  		logger.info(String.format("Carga del script: %s", script.getFilename()));			    
 		  	});
 		  	databasePopulator.execute(jdbcTemplate.getDataSource());
 		    logger.info("Fin de la carga de todos scripts");

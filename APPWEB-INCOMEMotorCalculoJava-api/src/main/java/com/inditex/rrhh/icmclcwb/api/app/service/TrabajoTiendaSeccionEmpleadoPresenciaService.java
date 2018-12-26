@@ -13,6 +13,6 @@ public interface TrabajoTiendaSeccionEmpleadoPresenciaService {
 
 	CompletableFuture<Void> save(@Valid final TrabajoTiendaSeccionEmpleadoPresenciaDto dto);
 
-	CompletableFuture<Void> save(List<PtrPresenciaDetalleResultItemDto> dtos, TrabajoDto trabajoDto);
+	CompletableFuture<Void> save(List<PtrPresenciaDetalleResultItemDto> dtos, TrabajoDto trabajoDto) throws Exception;
 
 }

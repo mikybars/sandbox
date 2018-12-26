@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
@@ -18,7 +19,7 @@ public class TrabajoEmpleadoEstadoAsyncServiceImpl implements TrabajoEmpleadoEst
 
     @Async
     @Override
-    public CompletableFuture<Void> save(final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
+    public CompletableFuture<Void> save(final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) throws Exception {
         trabajoEmpleadoEstadoService.save(trabajoEmpleadoEstado);
         return CompletableFuture.completedFuture(null);
     }

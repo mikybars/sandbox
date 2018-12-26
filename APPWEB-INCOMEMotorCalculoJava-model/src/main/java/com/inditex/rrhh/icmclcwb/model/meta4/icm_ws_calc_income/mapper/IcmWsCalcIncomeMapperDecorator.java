@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmParametrosentradaRecord;
@@ -49,11 +50,11 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         mappedEntity.setEsComisionable(src.getEscomisionable().trim().equals("S"));
         if (StringUtils.isNotEmpty(src.getFechainicio())) {
             mappedEntity.setFechaInicio(java.time.LocalDateTime.parse(src.getFechainicio(),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechafin())) {
             mappedEntity.setFechaFin(java.time.LocalDateTime.parse(src.getFechafin(),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         return mappedEntity;
     }
@@ -67,11 +68,11 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             mappedEntity.setEsComisionable(record.getEscomisionable().trim().equals("S"));
             if (StringUtils.isNotEmpty(record.getFechainicio())) {
                 mappedEntity.setFechaInicio(java.time.LocalDateTime.parse(record.getFechainicio(),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(record.getFechafin())) {
                 mappedEntity.setFechaFin(java.time.LocalDateTime.parse(record.getFechafin(),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             list.add(mappedEntity);
         }

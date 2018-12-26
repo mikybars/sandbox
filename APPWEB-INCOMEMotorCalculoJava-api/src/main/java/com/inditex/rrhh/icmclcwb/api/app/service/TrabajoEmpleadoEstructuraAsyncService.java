@@ -11,6 +11,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstructuraDto;
 public interface TrabajoEmpleadoEstructuraAsyncService {
 
     CompletableFuture<Void> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoEstructura,
-            @Valid TrabajoDto trabajo);
+            @Valid TrabajoDto trabajo) throws Exception;
 
 }

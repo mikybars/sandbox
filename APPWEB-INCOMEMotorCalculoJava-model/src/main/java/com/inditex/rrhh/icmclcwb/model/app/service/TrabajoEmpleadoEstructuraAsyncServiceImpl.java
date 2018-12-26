@@ -22,7 +22,7 @@ public class TrabajoEmpleadoEstructuraAsyncServiceImpl implements TrabajoEmplead
     
     @Async
     @Override
-    public CompletableFuture<Void> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoEstructura , @Valid TrabajoDto trabajo) {
+    public CompletableFuture<Void> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoEstructura , @Valid TrabajoDto trabajo) throws Exception {
         trabajoEmpleadoEstructuraService.save(trabajoEmpleadoEstructura, trabajo);
         return CompletableFuture.completedFuture(null);
     }

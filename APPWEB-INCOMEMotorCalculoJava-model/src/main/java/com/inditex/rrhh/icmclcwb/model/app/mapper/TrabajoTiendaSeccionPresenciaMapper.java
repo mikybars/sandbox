@@ -2,14 +2,19 @@ package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
 import java.util.List;
 
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.decorator.TrabajoTiendaSeccionPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionPresencia;
 
 @Mapper
+@DecoratedWith(value= TrabajoTiendaSeccionPresenciaDecorator.class)
 public abstract class TrabajoTiendaSeccionPresenciaMapper {
 
     public abstract TrabajoTiendaSeccionPresencia trabajoTiendaSeccionPresenciaDtoToTrabajoTiendaSeccionPresencia(
@@ -24,14 +29,17 @@ public abstract class TrabajoTiendaSeccionPresenciaMapper {
     public abstract List<TrabajoTiendaSeccionPresenciaDto> trabajoTiendaSeccionPresenciasToTrabajoTiendaSeccionPresenciasDto(
             List<TrabajoTiendaSeccionPresencia> src);
 
-    @Mapping(source = "fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
-    @Mapping(source = "tienda", target = "idTienda")
-    @Mapping(source = "seccion", target = "idSeccion")
-    @Mapping(source = "minutos", target = "minutos")
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.tienda", target = "idTienda")
+    @Mapping(source = "src.seccion", target = "idSeccion")
+    @Mapping(source = "src.minutos", target = "minutos")
+    @Mapping(source = "trabajoDto.id", target = "trabajo.id")
     public abstract TrabajoTiendaSeccionPresencia presenciasTotalTiendaSeccionResponseDtoToTrabajoTiendaSeccionPresencia(
-            PtrPresenciaTotalTiendaSeccionResultItemDto src);
+            PtrPresenciaTotalTiendaSeccionResultItemDto src, TrabajoDto trabajoDto);
 
-    public abstract List<TrabajoTiendaSeccionPresencia> presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(
-            List<PtrPresenciaTotalTiendaSeccionResultItemDto> src);
+    public List<TrabajoTiendaSeccionPresencia> presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(
+            List<PtrPresenciaTotalTiendaSeccionResultItemDto> src, TrabajoDto trabajoDto){
+        throw new UnsupportedOperationException("Not implemented");
+    }
 
 }

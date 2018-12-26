@@ -5,8 +5,12 @@ import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaEstado;
+
 public interface TrabajoTiendaEstadoRepositoryCustom {
 
 	List<Integer> customFindByIdTiendaNotExists(@NotEmpty Set<Integer> ids);
-	
+
+    List<TrabajoTiendaEstado> save(List<TrabajoTiendaEstado> src) throws Exception;
+
 }

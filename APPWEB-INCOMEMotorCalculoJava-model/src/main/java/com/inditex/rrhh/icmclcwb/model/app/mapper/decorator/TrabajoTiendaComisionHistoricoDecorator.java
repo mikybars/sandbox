@@ -16,6 +16,7 @@ public abstract class TrabajoTiendaComisionHistoricoDecorator extends TrabajoTie
     @Autowired
     TrabajoTiendaComisionHistoricoMapper delegate;
 
+    @Override
     public List<TrabajoTiendaComisionHistoricoDto> genericTiendaResultItemDtoToTrabajoTiendaComisionHistoricoDto(
             List<GenericTiendaResultItemDto> src, TrabajoDto trabajo) {
         List<TrabajoTiendaComisionHistoricoDto> result = new ArrayList<>();

@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
@@ -14,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoRepositoryCustom;
 
 @Service
 @Validated
@@ -21,26 +21,27 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
 
 	@Autowired
 	private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository;
+	 
+	@Autowired
+	private TrabajoEmpleadoEstadoRepositoryCustom trabajoEmpleadoEstadoRepositoryCustom;
 
 	@Autowired
 	private TrabajoEmpleadoEstadoMapper trabajoEmpleadoEstadoMapper;
 
-	// TODO: Revisar timeouts
-	@Transactional(timeout = 60)
+
 	@Override
-	public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
+	public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) throws Exception {
 		return trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
-				trabajoEmpleadoEstadoRepository.save(trabajoEmpleadoEstadoMapper
+		        trabajoEmpleadoEstadoRepositoryCustom.save(trabajoEmpleadoEstadoMapper
 						.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
 	}
 
-	// TODO: Revisar timeouts
-	@Transactional(timeout = 60)
+
 	@Override
 	public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado,
-			@Valid final TrabajoDto trabajo) {
+			@Valid final TrabajoDto trabajo) throws Exception {
 		return trabajoEmpleadoEstadoMapper
-				.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(trabajoEmpleadoEstadoRepository.save(
+				.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(trabajoEmpleadoEstadoRepositoryCustom.save(
 						trabajoEmpleadoEstadoMapper.mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(
 								trabajoEmpleadoEstado, trabajo)));
 	}
@@ -49,7 +50,6 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
 	public List<Long> findIdsEmpleadoByIdTrabajo(Long trabajoId, Long idEstado) {
 		return trabajoEmpleadoEstadoRepository.findIdsEmpleadoByIdTrabajo(trabajoId, idEstado);		 
 	}
-	
 	
 	
 }

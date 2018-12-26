@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstructuraService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoEmpleadoEstructuraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstructuraRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstructuraRepositoryCustom;
 
 @Service
 @Validated
@@ -21,14 +22,17 @@ public class TrabajoEmpleadoEstructuraServiceImpl implements TrabajoEmpleadoEstr
 
     @Autowired
     private TrabajoEmpleadoEstructuraRepository trabajoEmpleadoEstructuraRepository;
+    
+    @Autowired
+    private TrabajoEmpleadoEstructuraRepositoryCustom trabajoEmpleadoEstructuraRepositoryCustom;
 
     @Autowired
     private TrabajoEmpleadoEstructuraMapper trabajoEmpleadoEstructuraMapper;
     
     @Override
-    public List<TrabajoEmpleadoEstructuraDto> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoEstructura, @Valid TrabajoDto trabajo) {
+    public List<TrabajoEmpleadoEstructuraDto> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoEstructura, @Valid TrabajoDto trabajo) throws Exception {
         return trabajoEmpleadoEstructuraMapper.trabajoEmpleadoEstructuraToTrabajoEmpleadoEstructuraDto(
-                trabajoEmpleadoEstructuraRepository.save(trabajoEmpleadoEstructuraMapper
+                trabajoEmpleadoEstructuraRepositoryCustom.save(trabajoEmpleadoEstructuraMapper
                         .mergeTrabajoEmpleadoEstructuraDtoAndTrabajoDtoToTrabajoEmpleadoEstructura(trabajoEmpleadoEstructura,
                                 trabajo)));
     }

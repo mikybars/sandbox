@@ -10,6 +10,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaHistoricoDto;
 public interface TrabajoTiendaHistoricoService {
 
 	List<TrabajoTiendaHistoricoDto> save(List<TrabajoTiendaHistoricoDto> trabajoTiendaHistorico,
-			@Valid TrabajoDto trabajo);
+			@Valid TrabajoDto trabajo) throws Exception;
 
 }
