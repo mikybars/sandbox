@@ -48,14 +48,11 @@ amiga:
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
           base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
-
-        ptrPresenciaClient:
+        ptrPresenciaClient: 
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/RHPRSCAESB
           #base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService          
           base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
-
-          
 #          auth-method: 
 #          username: username300
 #          password: username300p
@@ -164,7 +161,7 @@ app:
       venta:
         service:
           getVentaTotalizado:
-            endpoint: /ventaGeneralService/getVentaTotalizado
+            endpoint: /ventaGeneral/getVentaTotalizado
             filter:
               maxPageSize: 200
               maxQuerySize: 3
@@ -172,7 +169,7 @@ app:
               maxBatchSize: 100
               retryAttempts: 2
           getVentaIndividualDetalle:
-            endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
+            endpoint: /ventaEmpleado/getVentaIndividualDetalle
             filter:
               maxPageSize: 200
               maxQuerySize: 3
