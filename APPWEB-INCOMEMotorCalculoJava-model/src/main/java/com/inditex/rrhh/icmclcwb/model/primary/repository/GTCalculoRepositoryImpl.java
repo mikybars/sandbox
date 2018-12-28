@@ -16,7 +16,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	
-	@Autowired
+	private static final String ID_TIENDA = "idTienda";
+    private static final String ID_EMPLEADO = "idEmpleado";
+    private static final String ID_TRABAJO = "idTrabajo";
+    
+    @Autowired
 	@Qualifier("primaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 	
@@ -111,7 +115,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	{						
 		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("idTrabajo", idTrabajo);																					
+		param.addValue(ID_TRABAJO, idTrabajo);																					
 		namedJdbc.update(queryCalculoGT().toString(), param);				
 	}
 
@@ -119,12 +123,12 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	public void calcularByEmpleadoBatch(Long idTrabajo, List<Long> idsEmpleados) {		
 		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);			
 		List<Map<String, Object>> batchValues = new ArrayList<>(idsEmpleados.size());
-		idsEmpleados.forEach(idEmpleado -> {
+		idsEmpleados.forEach(idEmpleado -> 
 		    batchValues.add(
-		            new MapSqlParameterSource("idTrabajo", idTrabajo)
-		                    .addValue("idEmpleado", idEmpleado)		                    
-		                    .getValues());
-		});
+		            new MapSqlParameterSource(ID_TRABAJO, idTrabajo)
+		                    .addValue(ID_EMPLEADO, idEmpleado)		                    
+		                    .getValues())
+		);
 																														
 		StringBuilder whereEmpleado = new StringBuilder().append(" AND EMPLEADO.ID_EMPLEADO = :idEmpleado ");									
 		namedJdbc.batchUpdate(queryCalculoGT().append(whereEmpleado).toString(),batchValues.toArray(new Map[idsEmpleados.size()]));										
@@ -135,12 +139,12 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	public void calcularByTiendaBatch (Long idTrabajo, List<Long> idsTiendas){	
 		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);																				
 		List<Map<String, Object>> batchValues = new ArrayList<>(idsTiendas.size());
-		idsTiendas.forEach(idTienda -> {
+		idsTiendas.forEach(idTienda -> 
 		    batchValues.add(
-		            new MapSqlParameterSource("idTrabajo", idTrabajo)
-		                    .addValue("idTienda", idTienda)		                    
-		                    .getValues());
-		});
+		            new MapSqlParameterSource(ID_TRABAJO, idTrabajo)
+		                    .addValue(ID_TIENDA, idTienda)		                    
+		                    .getValues())
+		);
 
 		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch( batchValues.toArray() );																			
 		StringBuilder whereTienda = new StringBuilder();					

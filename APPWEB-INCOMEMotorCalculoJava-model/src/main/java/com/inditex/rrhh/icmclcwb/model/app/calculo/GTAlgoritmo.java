@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.dto.CalculoPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.GTCalculoRepository;
 
@@ -41,16 +40,16 @@ public class GTAlgoritmo implements TipoCalculoAlgoritmo {
 			
 			 Map<Long, List<Long>> grupos = trabajoRunDto.getTrabajoRunCalcular().getIdsEmpleados().stream()
 					.collect(Collectors.groupingBy(s -> (s - 1) / calculoGTPropertiesDto.getNumBlock()));			 
-			 List<List<Long>> subGrupos = new ArrayList<List<Long>>(grupos.values());			 			 			 			
+			 List<List<Long>> subGrupos = new ArrayList<>(grupos.values());			 			 			 			
 			 
 			  CountDownLatch latch = new CountDownLatch(1);            
 	            Flux.fromIterable(subGrupos)
 	            		.log()
 	    				.parallel()
 	    				.runOn(Schedulers.parallel())
-	    				.doOnNext(idsEmpleados -> {	    						    						    						    					    						    				 	    					    				    						    				
-	    					gTCalculoRepository.calcularByEmpleadoBatch(trabajoRunDto.getTrabajoDto().getId(), idsEmpleados);
-	    				})	    			
+	    				.doOnNext(idsEmpleados -> 	    						    						    						    					    						    				 	    					    				    						    				
+	    					gTCalculoRepository.calcularByEmpleadoBatch(trabajoRunDto.getTrabajoDto().getId(), idsEmpleados)
+	    				)	    			
 	      			  .doOnError(error -> log.error(error.getMessage()))
 	    			  .doAfterTerminate(latch::countDown)
 	    		     .subscribe();    

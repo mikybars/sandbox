@@ -38,31 +38,19 @@ public class TrabajoTiendaHistorico {
 	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
 	private String idTiendaMeta4;
 
-	// TODO CONSTRAINTS El metodo
-	// com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionServiceImpl.searchTiendas(SearchTiendasRequestDto)
-	// devuelve datos nulos
-	// @NotBlank
+	 @NotBlank
 	@Column(name = "STD_ID_COUNTRY", nullable = false)
 	private String idPais;
 
-	// TODO CONSTRAINTS El metodo
-	// com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionServiceImpl.searchTiendas(SearchTiendasRequestDto)
-	// devuelve datos nulos
-	// @NotBlank
+	 @NotBlank
 	@Column(name = "CCL_ID_ORIGEN", nullable = false)
 	private String idPaisOrigen;
 
-	// TODO CONSTRAINTS El metodo
-	// com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionServiceImpl.searchTiendas(SearchTiendasRequestDto)
-	// devuelve datos nulos
-	// @NotBlank
+	 @NotBlank
 	@Column(name = "STD_ID_LEG_ENT", nullable = false)
 	private String idEmpresa;
 
-	// TODO CONSTRAINTS El metodo
-	// com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.service.Meta4IcmWsCalcIncomeSessionServiceImpl.searchTiendas(SearchTiendasRequestDto)
-	// devuelve datos nulos
-	// @NotBlank
+    @NotBlank
 	@Column(name = "CCL_ID_CADENA", nullable = false)
 	private String idCadena;
 

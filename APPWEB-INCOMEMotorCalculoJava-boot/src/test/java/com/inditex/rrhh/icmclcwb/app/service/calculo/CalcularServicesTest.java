@@ -24,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles({ "standalone", "test" })
+@Ignore
 public class CalcularServicesTest {
 
 	@Autowired

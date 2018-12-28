@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -66,30 +67,32 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
-            final AtomicInteger counter = new AtomicInteger(0);
-            for (List<String> iter : trabajoRunDatosBloque.getTiendaMtu().stream()
-                    .collect(Collectors.groupingBy(
-                            item -> counter.getAndIncrement() / ventaTotalizadoDto.getFilter().getMaxPageSize()))
-                    .values()) {
-                PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
-                        .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
-                paramGetVentaTotalizado.setTienda(iter);
-                //EL parametro cadena deja de ser una lista en la nueva fachada.
-                paramGetVentaTotalizado.setCadena(11);
-                //paramGetVentaTotalizado.getCadena().addAll(trabajoRunDatosBloque.getCadenaEmpresa());
-                paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
+            for(String cadena : trabajoRunDatosBloque.getCadenaEmpresa()) {
 
-                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
-                        .getVentaTotalizado(paramGetVentaTotalizado);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                PtrVentaTotalizadoResponseDto data = cfData.get();
-
-                if (data != null && CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, ventaTotalizadoDto.getFilter().getMaxPersistenceSize());
-                    AsyncUtils.exceptionally(
-                            trabajoTiendaSeccionVentaAsyncService.save(data.getVentaTotalizado(), trabajo), cf,
-                            cfPersist);
+                final AtomicInteger counter = new AtomicInteger(0);
+                for (List<String> iter : trabajoRunDatosBloque.getTiendaMtu().stream()
+                        .collect(Collectors.groupingBy(
+                                item -> counter.getAndIncrement() / ventaTotalizadoDto.getFilter().getMaxPageSize()))
+                        .values()) {
+                    PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
+                            .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
+                    paramGetVentaTotalizado.setTienda(iter);
+                    //EL parametro cadena deja de ser una lista en la nueva fachada.
+                    paramGetVentaTotalizado.setCadena(Integer.valueOf(cadena));
+                    paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
+    
+                    CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
+                            .getVentaTotalizado(paramGetVentaTotalizado);
+                    AsyncUtils.exceptionally(cfData, cf, cfPersist);
+    
+                    PtrVentaTotalizadoResponseDto data = cfData.get();
+    
+                    if (data != null && CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, ventaTotalizadoDto.getFilter().getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                trabajoTiendaSeccionVentaAsyncService.save(data.getVentaTotalizado(), trabajo), cf,
+                                cfPersist);
+                    }
                 }
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -109,31 +112,33 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            final AtomicInteger counter = new AtomicInteger(0);
-            for (List<String> iter : trabajoRunDatosBloque.getEmpleadoLocal().stream()
-                    .collect(Collectors.groupingBy(
-                            item -> counter.getAndIncrement() / ventaIndividualDetalleDto.getFilter().getMaxPageSize()))
-                    .values()) {
-                List<Integer> empleados = iter.stream().map(Integer::valueOf).collect(Collectors.toList());
+            
+            for(String cadena : trabajoRunDatosBloque.getCadenaEmpresa()) {
 
-                PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
-                        .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
-                paramGetVentaIndividualDetalle.setVendedores(empleados);
-              //EL parametro cadena deja de ser una lista en la nueva fachada.
-                paramGetVentaIndividualDetalle.setCadena(11);
-                //paramGetVentaIndividualDetalle.getCadena().addAll(trabajoRunDatosBloque.getCadenaEmpresa());
-                paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
-
-                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService
-                        .getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                PtrVentaIndividualDetalleResponseDto data = cfData.get();
-
-                if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist,
-                            ventaIndividualDetalleDto.getFilter().getMaxPersistenceSize());
-                    // TODO PERSISTIR
+                final AtomicInteger counter = new AtomicInteger(0);
+                for (List<String> iter : trabajoRunDatosBloque.getEmpleadoLocal().stream()
+                        .collect(Collectors.groupingBy(
+                                item -> counter.getAndIncrement() / ventaIndividualDetalleDto.getFilter().getMaxPageSize()))
+                        .values()) {
+                    List<Integer> empleados = iter.stream().map(Integer::valueOf).collect(Collectors.toList());
+    
+                    PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
+                            .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
+                    paramGetVentaIndividualDetalle.setVendedores(empleados);
+                    paramGetVentaIndividualDetalle.setCadena(Integer.valueOf(cadena));
+                    paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
+    
+                    CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService
+                            .getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
+                    AsyncUtils.exceptionally(cfData, cf, cfPersist);
+    
+                    PtrVentaIndividualDetalleResponseDto data = cfData.get();
+    
+                    if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                ventaIndividualDetalleDto.getFilter().getMaxPersistenceSize());
+                        // TODO PERSISTIR
+                    }
                 }
             }
 
