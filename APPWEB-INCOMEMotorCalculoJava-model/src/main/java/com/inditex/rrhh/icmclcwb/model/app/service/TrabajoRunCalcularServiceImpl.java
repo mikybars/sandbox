@@ -66,14 +66,13 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
             		.log()
     				.parallel(2)
     				.runOn(Schedulers.parallel())
-    				.doOnNext(tipo -> {    					
+    				.doOnNext(tipo ->     					
 							calculoAlgoritmoFactory.crearAlgoritmo(TipoCalculoEnum.of(tipo)).execute(trabajoRun)
 							.onErrorResume(error -> { 
 								log.error(error.getMessage());
 						        return Flux.empty();
-							}).subscribe();
-						        						        						    
-    				})    				
+							}).subscribe()
+    				)    				
       			  .doOnError(error -> log.error(error.getMessage()))
     			  .doAfterTerminate(latch::countDown)    			 
     		     .subscribe();    				

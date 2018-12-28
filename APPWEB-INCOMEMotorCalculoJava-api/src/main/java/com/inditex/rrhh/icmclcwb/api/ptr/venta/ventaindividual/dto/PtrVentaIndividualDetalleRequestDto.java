@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -23,7 +22,6 @@ public class PtrVentaIndividualDetalleRequestDto implements Serializable {
 	@NotNull
 	private Integer pais;
 
-	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@NotNull
 	private Integer cadena;
 

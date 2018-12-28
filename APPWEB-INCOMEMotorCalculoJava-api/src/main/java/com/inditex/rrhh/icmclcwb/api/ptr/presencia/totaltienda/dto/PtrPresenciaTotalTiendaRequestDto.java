@@ -1,10 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -33,7 +31,6 @@ public class PtrPresenciaTotalTiendaRequestDto implements Serializable {
     @ApiModelProperty(value = "Id tipo", required = false, example = "1")
     private Integer tipo;
 
-	//TODO: XSD En el XSD viene como simple pero en el Postman funciona con múltiple
 	@ApiModelProperty(value = "Id cadena", required = true, example = " 4 ")
 	private Integer cadena;
 	
