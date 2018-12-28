@@ -20,9 +20,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoCalculoReposito
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstructuraRepository;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 @ActiveProfiles({ "standalone", "test" })
 @Transactional
+@Ignore
 public class GTCalculoRepositoryTest {
 	
 	@Autowired
@@ -35,7 +36,7 @@ public class GTCalculoRepositoryTest {
 	private TrabajoEmpleadoEstructuraRepository trabajoEmpleadoEstructuraRepository;
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void calculoJdbcUpdateTest() {										
 		Long idTrabajo =  100L; 		
 		gTCalculoRepository.calcular(idTrabajo);							
@@ -44,7 +45,7 @@ public class GTCalculoRepositoryTest {
 		
 
 	@Test	
-	@Ignore
+	//@Ignore
 	public void calcularJdbcByEmpleadoBatchTest() {
 						
 		Long idTrabajo =  100L; 		
