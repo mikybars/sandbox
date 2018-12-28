@@ -46,9 +46,8 @@ amiga:
           user: oincome
         secondary:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
-          url: jdbc:sqlserver://axdessql2.central.inditex.grp:11433;databaseName=PeopleNet
-#          user: People7
+          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
+          #user: People7
           user: ncomis
     hibernate:
       primary:
