@@ -36,7 +36,6 @@ public class GTCalculoRepositoryTest {
 	private TrabajoEmpleadoEstructuraRepository trabajoEmpleadoEstructuraRepository;
 	
 	@Test
-	//@Ignore
 	public void calculoJdbcUpdateTest() {										
 		Long idTrabajo =  100L; 		
 		gTCalculoRepository.calcular(idTrabajo);							
@@ -45,7 +44,6 @@ public class GTCalculoRepositoryTest {
 		
 
 	@Test	
-	//@Ignore
 	public void calcularJdbcByEmpleadoBatchTest() {
 						
 		Long idTrabajo =  100L; 		
@@ -59,7 +57,6 @@ public class GTCalculoRepositoryTest {
 
 	
 	@Test
-	@Ignore
 	public void calcularJdbcByTiendaBatchTest() {
 						
 		Long idTrabajo =  100L; 		
@@ -74,7 +71,6 @@ public class GTCalculoRepositoryTest {
 	
 	
 	@Test	
-	@Ignore
 	public void tiposCalculo() {
 					
 		 Long idTrabajo =  100L; 										 		

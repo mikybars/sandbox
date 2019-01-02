@@ -152,9 +152,9 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		                    .getValues())
 		);
 
-		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch( batchValues.toArray() );																			
+		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch( batchValues.toArray(new Map[idsTiendas.size()]) );																			
 		StringBuilder whereTienda = new StringBuilder();					
-		whereTienda.append(" AND TIENDA.ID_TIENDA = :idTienda ");								
+		whereTienda.append(" AND TIENDA_VENTA.ID_TIENDA = :idTienda ");								
 		namedJdbc.batchUpdate(queryCalculoGT().append(whereTienda.toString()).toString(),batch);		
 	}
 			
