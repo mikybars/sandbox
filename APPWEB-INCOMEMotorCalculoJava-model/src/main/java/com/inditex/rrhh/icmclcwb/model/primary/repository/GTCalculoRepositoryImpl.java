@@ -136,7 +136,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		                    .getValues())
 		);
 																														
-		StringBuilder whereEmpleado = new StringBuilder().append(" AND EMPLEADO.ID_EMPLEADO = :idEmpleado ");									
+		StringBuilder whereEmpleado = new StringBuilder().append(" AND EMPLEADO_PRESENCIA.ID_EMPLEADO = :idEmpleado ");									
 		namedJdbc.batchUpdate(queryCalculoGT().append(whereEmpleado).toString(),batchValues.toArray(new Map[idsEmpleados.size()]));										
 	}
 	
