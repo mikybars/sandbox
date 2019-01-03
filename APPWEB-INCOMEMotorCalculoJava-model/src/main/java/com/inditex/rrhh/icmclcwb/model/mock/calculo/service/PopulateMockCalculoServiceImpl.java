@@ -27,12 +27,7 @@ public class PopulateMockCalculoServiceImpl implements PopulateMockCalculoServic
 				
 		logger.info("Servicio async de carga de scritp de datos mock");
 		ArrayList<Resource> scripts = new ArrayList<>();		
-		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_VENTA_SECCION.sql"));
-		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_PRESENCIA_SECCION.sql"));		
-		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_EMPLEADO_PRESENCIA_SECCION_T1.sql"));
-		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_EMPLEADO_PRESENCIA_SECCION_T2.sql"));
-		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_EMPLEADO_PRESENCIA_SECCION_T3.sql"));
-		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_EMPLEADO_PRESENCIA_SECCION_T4.sql"));
+		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_TIENDA_VENTA_SECCION.sql"));			
 		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_EMPLEADO_ESTRUCTURA_1.sql"));
 		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_EMPLEADO_ESTRUCTURA_2.sql"));
 		scripts.add( new ClassPathResource("mocks/INCOME_TRABAJO_EMPLEADO_ESTRUCTURA_3.sql"));								   				
