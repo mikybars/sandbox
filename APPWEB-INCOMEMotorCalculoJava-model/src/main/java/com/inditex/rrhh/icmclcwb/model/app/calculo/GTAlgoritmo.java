@@ -36,6 +36,8 @@ public class GTAlgoritmo implements TipoCalculoAlgoritmo {
 	@Override
 	public Flux<Void> execute(TrabajoRunDto trabajoRunDto)  {
 
+		
+		//TODO ¿Puede ser necesario buscar los empleados a BBDD?
 		if (trabajoRunDto.getTrabajoRunCalcular().getIdsEmpleados().size() >= calculoGTPropertiesDto.getNumBlock()) {
 			
 			 Map<Long, List<Long>> grupos = trabajoRunDto.getTrabajoRunCalcular().getIdsEmpleados().stream()
