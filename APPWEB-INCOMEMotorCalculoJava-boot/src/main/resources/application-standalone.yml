@@ -1,6 +1,6 @@
 logging:
   level:
-    root: WAR
+    root: WARN
 #    org.hibernate.tool.hbm2ddl: DEBUG
 #    org.hibernate.SQL: DEBUG
 #    org.hibernate.stat: DEBUG
@@ -11,7 +11,6 @@ logging:
 #    com.inditex.aqsw.libmonitoringcenter.metrics.influx.kafka.registry.InfluxMeterRegistry: DEBUG
 #    net.ttddyy: DEBUG
 #    org.apache.cxf.services: INFO
-    
     com.inditex.rrhh.icmclcwb: INFO
 metadata:
   tenant: global
@@ -116,8 +115,8 @@ amiga:
           #url: jdbc:sqlserver://axdessql1.central.inditex.grp:1433;databaseName=PeopleNet
           user: People7
           password: people7
-#          user: ncomis
-#          password: j50lc9sL
+          #user: ncomis
+          #password: j50lc9sL
     hibernate:
       primary:
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
@@ -206,7 +205,7 @@ app:
     meta4:
       config:
         credentials:
-          user: INCOME
+          user: INCOME_CALC
           password: 123
           language: 2
         pool:
@@ -218,10 +217,10 @@ app:
           receiveTimeout: 300000
       login:
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-        #server: http://pool-icmclcws.axdesocp1.central.inditex.grp/services/Login
-      icm-ws-calc-income:
+#        server: http://pool-icmclcws.axdesocp1.central.inditex.grp/services/Login
+      icm-ws-calc-income: 
         server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        #server: http://pool-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+#        server: http://pool-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getTiendasEmpleado:
             page:
