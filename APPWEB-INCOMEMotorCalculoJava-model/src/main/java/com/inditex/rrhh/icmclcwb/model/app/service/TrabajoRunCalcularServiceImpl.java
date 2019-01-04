@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajoRun;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
@@ -43,10 +40,7 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
 	
 	@Autowired
 	private Logger log;
-
-    @CounterMetric
-    @TimerMetric
-    @AuditoriaTrabajoRun
+    
     @Override
     public TrabajoRunDto run(@Valid final TrabajoRunDto trabajoRun) throws Exception {
         TrabajoDto trabajo = trabajoRun.getTrabajoDto();
@@ -62,9 +56,9 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
              
 			//TODO Tratamiento de errores
             CountDownLatch latch = new CountDownLatch(1);            
-            Flux.fromIterable(trabajoRun.getTrabajoRunCalcular().getTiposCalculo())
+            Flux.fromIterable(trabajoRun.getTrabajoRunCalcular().getTiposCalculo())  
             		.log()
-    				.parallel(2)
+    				.parallel()
     				.runOn(Schedulers.parallel())
     				.doOnNext(tipo ->     					
 							calculoAlgoritmoFactory.crearAlgoritmo(TipoCalculoEnum.of(tipo)).execute(trabajoRun)
@@ -75,7 +69,7 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
     				)    				
       			  .doOnError(error -> log.error(error.getMessage()))
     			  .doAfterTerminate(latch::countDown)    			 
-    		     .subscribe();    				
+    		     .subscribe(System.out::println);    				
     		latch.await();                                   
                                      
            // trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto(), trabajo);

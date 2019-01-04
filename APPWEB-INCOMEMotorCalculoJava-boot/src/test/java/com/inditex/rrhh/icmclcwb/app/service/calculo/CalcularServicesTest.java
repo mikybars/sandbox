@@ -20,18 +20,16 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
+import com.inditex.rrhh.icmclcwb.model.app.calculo.TipoCalculoEnum;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles({ "standalone", "test" })
-@Ignore
 public class CalcularServicesTest {
 
 	@Autowired
 	private TrabajoRunCalcularService trabajoRunCalcularService;
-	
-	public static final Long GLOBAL_TIENDA = new Long(1L);
-
+		
 	private TrabajoRunDto trabajoRunDto = new TrabajoRunDto();
 
 	private List<Integer> empleados  = new ArrayList<>();
@@ -49,10 +47,10 @@ public class CalcularServicesTest {
 			empleados.add(i);
 
 		TrabajoDto trabajoDto = new TrabajoDto();
-		trabajoDto.setId(100L);
+		trabajoDto.setId(700L);
 		trabajoRunDto.setTrabajoDto(trabajoDto);
-		Set<Long> tiposCalculo = new HashSet<>(); 
-		tiposCalculo.add(GLOBAL_TIENDA);		
+		Set<Long> tiposCalculo = new HashSet<>();  
+		tiposCalculo.add(TipoCalculoEnum.GLOBAL_TIENDA.getTipoCalculo());		
 		EstadoTrabajoDto  estado = new EstadoTrabajoDto(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId()); 				
 		trabajoDto.setEstado(estado);
 		

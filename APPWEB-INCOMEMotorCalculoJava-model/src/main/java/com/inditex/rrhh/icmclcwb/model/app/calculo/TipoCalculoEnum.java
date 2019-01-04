@@ -3,7 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.app.calculo;
 import java.util.Arrays;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
+import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 
+import lombok.Getter;
+
+@Getter
 public enum TipoCalculoEnum {
 
     GLOBAL_TIENDA(1L) {
@@ -19,12 +23,12 @@ public enum TipoCalculoEnum {
         this.tipoCalculo = tipoCalculo;
     }
 
-    private Long tipoCalculo() {
+    private Long idTipoCalculo() {
         return tipoCalculo;
     }
 
     public static TipoCalculoEnum of(Long tipoCalculo) {
-        return Arrays.stream(values()).filter(value -> value.tipoCalculo().equals(tipoCalculo)).findAny().orElseThrow(
+        return Arrays.stream(values()).filter(value -> value.idTipoCalculo().equals(tipoCalculo)).findAny().orElseThrow(
                 () -> new ApplicationException(String.format("No existe el tipo de calculo  %s", tipoCalculo)));
     }
 
