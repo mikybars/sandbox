@@ -25,7 +25,7 @@ public interface IcmWsCalcIncomeMapper {
 
     @Mapping(target = "tipoOrden", source = "tipoorden")
     @Mapping(target = "campoOrden", source = "campoorden")
-    @Mapping(target = "idBusqueda", source = "idbusqueda")
+    @Mapping(target = "idBusqueda", source = "idbusqueda", defaultValue = "")
     @Mapping(target = "numeroPagina", source = "numeropagina")
     @Mapping(target = "numeroTotalPaginas", source = "numerototalpaginas")
     @Mapping(target = "numeroRegistrosPagina", source = "numeroregistrospagina")
@@ -33,6 +33,7 @@ public interface IcmWsCalcIncomeMapper {
     PageDto asPageDto(IcmParametrospaginacionBlock src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "idbusqueda", source = "idBusqueda", defaultValue = "")
     IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(PageDto src);
 
     @InheritInverseConfiguration
