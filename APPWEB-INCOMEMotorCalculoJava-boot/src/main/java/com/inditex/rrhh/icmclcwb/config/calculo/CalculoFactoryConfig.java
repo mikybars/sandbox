@@ -23,6 +23,7 @@ public class CalculoFactoryConfig {
 		return factoryBean;
 	}
 
+	//https://www.baeldung.com/spring-bean-scopes
 	@Bean(name = "gTAlgoritmo")
 	@Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
 	public GTAlgoritmo gTAlgoritmo() {
