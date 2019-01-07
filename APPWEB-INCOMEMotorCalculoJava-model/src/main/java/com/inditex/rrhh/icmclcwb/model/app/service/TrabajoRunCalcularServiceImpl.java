@@ -36,7 +36,9 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
     private TrabajoEmpleadoEstadoService trabajoEmpleadoEstadoService;
         
 	@Autowired
-	private CalculoAlgoritmoFactory calculoAlgoritmoFactory;			
+	private CalculoAlgoritmoFactory calculoAlgoritmoFactory;	
+	
+
 	
 	@Autowired
 	private Logger log;
@@ -60,8 +62,8 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
             		.log()
     				.parallel()
     				.runOn(Schedulers.parallel())
-    				.doOnNext(tipo ->     					
-							calculoAlgoritmoFactory.crearAlgoritmo(TipoCalculoEnum.of(tipo)).execute(trabajoRun)
+    				.doOnNext(tipo ->     				    				    				
+    						calculoAlgoritmoFactory.getAlgoritmo(TipoCalculoEnum.of(tipo).getType()).execute(trabajoRun)    											
 							.onErrorResume(error -> { 
 								log.error(error.getMessage());
 						        return Flux.empty();

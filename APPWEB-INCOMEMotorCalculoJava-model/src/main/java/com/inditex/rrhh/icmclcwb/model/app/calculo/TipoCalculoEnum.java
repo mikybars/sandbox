@@ -3,35 +3,33 @@ package com.inditex.rrhh.icmclcwb.model.app.calculo;
 import java.util.Arrays;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 
-import lombok.Getter;
-
-@Getter
 public enum TipoCalculoEnum {
 
-    GLOBAL_TIENDA(1L) {
-        @Override
-        public TipoCalculoAlgoritmo crear() {
-            return new GTAlgoritmo();
-        }
-    };
+	GLOBAL_TIENDA(1L, "gTAlgoritmo");	
 
-    private Long tipoCalculo;
+	private final Long id;
+	private final String type;
 
-    private TipoCalculoEnum(Long tipoCalculo) {
-        this.tipoCalculo = tipoCalculo;
-    }
+	
+	private TipoCalculoEnum(Long id, String type) {
+		this.id = id;
+		this.type = type;
+	}
+	
 
-    private Long idTipoCalculo() {
-        return tipoCalculo;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public static TipoCalculoEnum of(Long tipoCalculo) {
-        return Arrays.stream(values()).filter(value -> value.idTipoCalculo().equals(tipoCalculo)).findAny().orElseThrow(
-                () -> new ApplicationException(String.format("No existe el tipo de calculo  %s", tipoCalculo)));
-    }
+	public String getType() {
+		return type;
+	}
+	
 
-    public abstract TipoCalculoAlgoritmo crear();
+	public static TipoCalculoEnum of(Long idTipoCalculo) {
+		return Arrays.stream(values()).filter(value -> value.getId().equals(idTipoCalculo)).findAny().orElseThrow(
+				() -> new ApplicationException(String.format("No existe el tipo de calculo  %s", idTipoCalculo)));
+	}
 
 }

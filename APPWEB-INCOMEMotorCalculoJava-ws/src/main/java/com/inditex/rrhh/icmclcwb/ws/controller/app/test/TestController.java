@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.calculo.TipoCalculoEnum;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
@@ -96,22 +95,22 @@ public class TestController {
 	//*************
 	
 	
-	
+	//*************
+			
 	@GetMapping(path = "/calculo/trabajo")
 	@ApiOperation("Test calculo trabajo, GET")	
-	public void testPathPTRVentas(Long trabajo) throws Exception {
-				
+	public void testPathPTRVentas(Long trabajo) throws Exception {				
 		TrabajoDto trabajoDto = new TrabajoDto();
 		trabajoDto.setId(trabajo);
 		trabajoRunDto.setTrabajoDto(trabajoDto);
 		Set<Long> tiposCalculo = new HashSet<>();  
-		tiposCalculo.add(TipoCalculoEnum.GLOBAL_TIENDA.getTipoCalculo());		
+		tiposCalculo.add(TipoCalculoEnum.GLOBAL_TIENDA.getId());		
 		EstadoTrabajoDto  estado = new EstadoTrabajoDto(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId()); 				
 		trabajoDto.setEstado(estado);		
 		trabajoRunDto.getTrabajoRunCalcular().setTiposCalculo(tiposCalculo);				
 		trabajoRunCalcularService.run(trabajoRunDto);
-
 	}	
-
+	
+	//*************
 	
 }

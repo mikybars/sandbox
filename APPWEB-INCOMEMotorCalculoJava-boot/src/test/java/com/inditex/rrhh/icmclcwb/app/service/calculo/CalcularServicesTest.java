@@ -50,7 +50,7 @@ public class CalcularServicesTest {
 		trabajoDto.setId(700L);
 		trabajoRunDto.setTrabajoDto(trabajoDto);
 		Set<Long> tiposCalculo = new HashSet<>();  
-		tiposCalculo.add(TipoCalculoEnum.GLOBAL_TIENDA.getTipoCalculo());		
+		tiposCalculo.add(TipoCalculoEnum.GLOBAL_TIENDA.getId());		
 		EstadoTrabajoDto  estado = new EstadoTrabajoDto(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId()); 				
 		trabajoDto.setEstado(estado);
 		
