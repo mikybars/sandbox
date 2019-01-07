@@ -1,10 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;

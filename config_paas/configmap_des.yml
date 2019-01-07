@@ -116,7 +116,7 @@ app:
     meta4:
       config:
         credentials:
-          user: INCOME
+          user: INCOME_CALC
           language: 2
         pool:
           size: 20

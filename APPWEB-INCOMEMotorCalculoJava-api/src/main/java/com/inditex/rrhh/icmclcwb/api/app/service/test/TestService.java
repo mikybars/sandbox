@@ -12,5 +12,7 @@ public interface TestService {
 	void errorSync() throws Exception;
 	
 	void errorAsync() throws Exception;
+	
+	void sesion() throws Exception;
 
 }

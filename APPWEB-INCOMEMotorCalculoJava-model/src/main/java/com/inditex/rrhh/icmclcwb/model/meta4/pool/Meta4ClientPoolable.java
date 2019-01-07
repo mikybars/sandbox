@@ -3,10 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
-import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception;
 
 import stormpot.Poolable;
 import stormpot.Slot;
@@ -31,12 +29,6 @@ public class Meta4ClientPoolable implements Poolable {
 	@Override
 	public void release() {
 		log.info("Meta4ClientPoolable :: release()");
-		// TODO (sesion) Pendiente reutilización de la sesion
-		try {
-			session.getService().getLoginService().logout();
-			slot.expire(this);
-		} catch (M4SoapException_Exception e) {
-		}
 		slot.release(this);
 	}
 
@@ -61,7 +53,7 @@ public class Meta4ClientPoolable implements Poolable {
 //				CxfUtils.mapCookie(session.getSession().getSetCookie()));
 //		CxfUtils.putCookies(session.getService().getIcmWsCalcIncomeService(),
 //				CxfUtils.cookieJSessionID(session.getSession().getJSessionID()));
-	    CxfUtils.setCookies(session.getService().getIcmWsCalcIncomeService(), session.getSession().getCookies());
+//	    CxfUtils.setCookies(session.getService().getIcmWsCalcIncomeService(), session.getSession().getCookies());
 		return session.getService().getIcmWsCalcIncomeService();
 	}
 
