@@ -35,9 +35,9 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
         String id = StringUtils.EMPTY;
         Map<String, Cookie> cookies = new HashMap<>();
         try {
-//            id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
-//                    meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
-//                    meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
+            id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
+                    meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
+                    meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
 //          List<String> setCookie = CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
 //          String jSessionID = CxfUtils.getJSessionID(setCookie);
 //          CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapJSessionID(jSessionID));
@@ -66,13 +66,13 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
         service.setLoginService(loginService);
         service.setIcmWsCalcIncomeService(icmWsCalcIncomeService);
         client.setService(service);
-        log.info("Fin :: Meta4ClientReallocator :: allocate()");
+        log.info("Fin :: Meta4ClientReallocator :: allocate() :: {}", id);
         return new Meta4ClientPoolable(slot, client);
     }
 
     @Override
     public void deallocate(Meta4ClientPoolable poolable) throws Exception {
-        log.info("Inicio :: Meta4ClientReallocator :: deallocate()");
+        log.info("Inicio :: Meta4ClientReallocator :: deallocate() :: {}", poolable.getSession().getId());
         try {
             if (StringUtils.isNotBlank(poolable.getSession().getId())) {
                 poolable.getLoginService().logout();
@@ -80,14 +80,14 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
         } catch (Exception e) {
             log.error("Error :: Meta4ClientReallocator :: deallocate()", e);
         }
-        log.info("Fin :: Meta4ClientReallocator :: deallocate()");
+        log.info("Fin :: Meta4ClientReallocator :: deallocate() :: {}", poolable.getSession().getId());
     }
 
     @Override
     public Meta4ClientPoolable reallocate(Slot slot, Meta4ClientPoolable poolable) throws Exception {
-        log.info("Inicio :: Meta4ClientReallocator :: reallocate()");
+        log.info("Inicio :: Meta4ClientReallocator :: reallocate() :: {}", poolable.getSession().getId());
         Meta4ClientPoolable result = allocate(slot);
-        log.info("Fin :: Meta4ClientReallocator :: reallocate()");
+        log.info("Fin :: Meta4ClientReallocator :: reallocate() :: {}", poolable.getSession().getId());
         return result;
     }
 
