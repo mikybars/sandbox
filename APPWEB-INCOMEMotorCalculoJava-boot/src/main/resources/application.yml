@@ -21,7 +21,7 @@ amiga:
       file:
         enabled: false
       graylog:
-        enabled: true
+        enabled: false
     async:
       default-executor:
         core-pool-size: 20

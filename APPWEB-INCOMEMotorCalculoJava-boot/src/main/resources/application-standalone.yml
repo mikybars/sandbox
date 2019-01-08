@@ -33,9 +33,6 @@ amiga:
       enabled: true
       send: false
   common:
-    logging:
-      graylog:
-        enabled: false
     core:
       is-production: false
     cache:
