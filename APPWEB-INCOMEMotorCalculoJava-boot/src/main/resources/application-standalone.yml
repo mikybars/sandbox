@@ -209,7 +209,7 @@ app:
           password: 123
           language: 2
         pool:
-          size: 1
+          size: 20
           claimTimeout: 30000
           shutdownTimeout: 60000
         timeout:
