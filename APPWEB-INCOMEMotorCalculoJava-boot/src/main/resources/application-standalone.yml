@@ -33,6 +33,9 @@ amiga:
       enabled: true
       send: false
   common:
+    logging:
+      graylog:
+        enabled: false
     core:
       is-production: false
     cache:
@@ -209,7 +212,7 @@ app:
           password: 123
           language: 2
         pool:
-          size: 20
+          size: 1
           claimTimeout: 30000
           shutdownTimeout: 60000
         timeout:
