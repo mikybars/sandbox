@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.ptr.presencia;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -46,17 +44,6 @@ public class PtrPresenciaServiceTest {
 
 	@Test
 	public void presenciasDetalle() {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, Calendar.JANUARY);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		Date fechaDesde = cal.getTime();
-
-		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, Calendar.DECEMBER);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		Date fechaHasta = cal.getTime();
-
 		PtrPresenciaDetalleRequestDto req = new PtrPresenciaDetalleRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(1645);
@@ -78,17 +65,6 @@ public class PtrPresenciaServiceTest {
 
 	@Test
 	public void presenciasDetalleComisionable() {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, Calendar.JANUARY);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		Date fechaDesde = cal.getTime();
-
-		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, Calendar.DECEMBER);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		Date fechaHasta = cal.getTime();
-
 		PtrPresenciaDetalleComisionableRequestDto req = new PtrPresenciaDetalleComisionableRequestDto();
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(1645);
@@ -112,18 +88,6 @@ public class PtrPresenciaServiceTest {
 	@Test
 	public void presenciasTotalTienda() {
 		PtrPresenciaTotalTiendaRequestDto req = new PtrPresenciaTotalTiendaRequestDto();
-
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 2018);
-		cal.set(Calendar.MONTH, Calendar.MAY);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		Date fechaDesde = cal.getTime();
-
-		cal.set(Calendar.YEAR, 2018);
-		cal.set(Calendar.MONTH, Calendar.OCTOBER);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		Date fechaHasta = cal.getTime();
-
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(8102);
 		req.setTienda(list);
@@ -151,17 +115,6 @@ public class PtrPresenciaServiceTest {
 		PtrPresenciaTiendaSeccionDto ts3 = new PtrPresenciaTiendaSeccionDto();
 		ts3.setTienda(150);
 		tiendasecciones.add(ts3);
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 2016);
-		cal.set(Calendar.MONTH, Calendar.JANUARY);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		Date fechaDesde = cal.getTime();
-
-		cal.set(Calendar.YEAR, 2016);
-		cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		Date fechaHasta = cal.getTime();
-
 		req.setTiendaSeccion(tiendasecciones);
 		req.setOrigen(11);
 		req.setFechaDesde("2017-01-01");
@@ -175,7 +128,6 @@ public class PtrPresenciaServiceTest {
 				"/presenciasService/presenciasTotalTiendaSeccion", req,
 				PtrPresenciaTotalTiendaSeccionResponseDto.class);
 		assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-
 	}
 
 	@Test

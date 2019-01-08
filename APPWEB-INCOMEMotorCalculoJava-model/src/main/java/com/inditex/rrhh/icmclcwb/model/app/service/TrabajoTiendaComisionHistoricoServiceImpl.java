@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaComisionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaComisionHistoricoService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaComisionHistoricoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaComisionHistoricoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaComisionHistoricoRepositoryCustom;
 
 @Service
@@ -18,9 +17,6 @@ public class TrabajoTiendaComisionHistoricoServiceImpl implements TrabajoTiendaC
 
     @Autowired
     private TrabajoTiendaComisionHistoricoMapper mapper;
-    
-    @Autowired
-    private TrabajoTiendaComisionHistoricoRepository trabajoTiendaComisionHistoricoRepository; 
     
     @Autowired
     private TrabajoTiendaComisionHistoricoRepositoryCustom trabajoTiendaComisionHistoricoRepositoryCustom; 

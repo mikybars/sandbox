@@ -28,19 +28,20 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icm_ws_calc_income.tiendasempleado.dt
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 
 @Service
-public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableServiceImpl implements Meta4IcmWsCalcIncomeSessionService {
+public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableServiceImpl
+        implements Meta4IcmWsCalcIncomeSessionService {
 
-	@Autowired
+    @Autowired
     private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
-	
+
     @Autowired
     @Qualifier("getTiendasEmpleadoDto")
     private Meta4PropertiesDto getTiendasEmpleadoDto;
-    
+
     @Autowired
     @Qualifier("searchTiendasDto")
     private Meta4PropertiesDto searchTiendasDto;
-	   
+
     @Autowired
     @Qualifier("getTiendasDto")
     private Meta4PropertiesDto getTiendasDto;
@@ -48,51 +49,58 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     @Autowired
     @Qualifier("searchEmpleadosDto")
     private Meta4PropertiesDto searchEmpleadosDto;
-    
+
     @Autowired
     @Qualifier("getComisionEmpleadoDto")
     private Meta4PropertiesDto getComisionEmpleadoDto;
-    
+
     @Autowired
     @Qualifier("getEmpleadosDto")
     private Meta4PropertiesDto getEmpleadosDto;
-    
+
     @Autowired
     @Qualifier("getEmpleadosTiendaDto")
     private Meta4PropertiesDto getEmpleadosTiendaDto;
-    
-    
+
     @Override
     public List<GenericTiendaResultItemDto> getTiendasEmpleado(final TiendasEmpleadoRequestDto request)
             throws Exception {
-    	return getResultItem(request, meta4IcmWsCalcIncomeService, "getTiendasEmpleado", getTiendasEmpleadoDto.getFilter().getMaxPageSize());
-    }
-    
-    @Override
-    public List<GenericTiendaResultItemDto> searchTiendas(final SearchTiendasRequestDto request) throws Exception {
-    	return getResultItem(request, meta4IcmWsCalcIncomeService, "searchTiendas", searchTiendasDto.getFilter().getMaxPageSize());
-    }
-    
-    @Override
-    public List<GenericTiendaResultItemDto> getTiendas(final TiendasRequestDto request) throws Exception {
-    	return getResultItem(request, meta4IcmWsCalcIncomeService, "getTiendas", getTiendasDto.getFilter().getMaxPageSize());
-    }
-    
-    @Override
-    public List<GenericEmpleadoResultItemDto> searchEmpleados(final SearchEmpleadosRequestDto request) throws Exception {
-    	return getResultItem(request, meta4IcmWsCalcIncomeService, "searchEmpleados", searchEmpleadosDto.getFilter().getMaxPageSize());
+        return getResultItem(request, meta4IcmWsCalcIncomeService, "getTiendasEmpleado",
+                getTiendasEmpleadoDto.getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<GenericEmpleadoResultItemDto> getComisionEmpleado(final ComisionEmpleadoRequestDto request) throws Exception {
-    	return getResultItem(request, meta4IcmWsCalcIncomeService, "getComisionEmpleado", getComisionEmpleadoDto.getFilter().getMaxPageSize());
+    public List<GenericTiendaResultItemDto> searchTiendas(final SearchTiendasRequestDto request) throws Exception {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, "searchTiendas",
+                searchTiendasDto.getFilter().getMaxPageSize());
     }
-    
+
+    @Override
+    public List<GenericTiendaResultItemDto> getTiendas(final TiendasRequestDto request) throws Exception {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, "getTiendas",
+                getTiendasDto.getFilter().getMaxPageSize());
+    }
+
+    @Override
+    public List<GenericEmpleadoResultItemDto> searchEmpleados(final SearchEmpleadosRequestDto request)
+            throws Exception {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, "searchEmpleados",
+                searchEmpleadosDto.getFilter().getMaxPageSize());
+    }
+
+    @Override
+    public List<GenericEmpleadoResultItemDto> getComisionEmpleado(final ComisionEmpleadoRequestDto request)
+            throws Exception {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, "getComisionEmpleado",
+                getComisionEmpleadoDto.getFilter().getMaxPageSize());
+    }
+
     @Override
     public List<GenericEmpleadoResultItemDto> getEmpleados(final EmpleadosRequestDto request) throws Exception {
-    	return getResultItem(request, meta4IcmWsCalcIncomeService, "getEmpleados", getEmpleadosDto.getFilter().getMaxPageSize());
+        return getResultItem(request, meta4IcmWsCalcIncomeService, "getEmpleados",
+                getEmpleadosDto.getFilter().getMaxPageSize());
     }
-    
+
     // TODO PoC
     @Override
     public List<PeriodoDto> periodo() {
@@ -113,6 +121,5 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         }
         return result;
     }
-    
-    
+
 }

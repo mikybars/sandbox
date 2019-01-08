@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunCalcularService;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.calculo.CalculoAlgoritmoFactory;
 import com.inditex.rrhh.icmclcwb.model.app.calculo.TipoCalculoEnum;
@@ -25,9 +24,9 @@ import reactor.core.scheduler.Schedulers;
 @Service
 @Validated
 public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService {
-
+    
     @Autowired
-    private TrabajoService trabajoService;
+    private Logger log;
     
     @Autowired
     private TrabajoEmpleadoEstructuraService trabajoEmpleadoEstructuraService;
@@ -37,11 +36,6 @@ public class TrabajoRunCalcularServiceImpl implements TrabajoRunCalcularService 
         
 	@Autowired
 	private CalculoAlgoritmoFactory calculoAlgoritmoFactory;	
-	
-
-	
-	@Autowired
-	private Logger log;
     
     @Override
     public TrabajoRunDto run(@Valid final TrabajoRunDto trabajoRun) throws Exception {

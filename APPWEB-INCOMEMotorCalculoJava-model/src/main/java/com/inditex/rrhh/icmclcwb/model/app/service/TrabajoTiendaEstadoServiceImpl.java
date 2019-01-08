@@ -12,15 +12,11 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoService;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaEstadoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepositoryCustom;
 
 @Service
 @Validated
 public class TrabajoTiendaEstadoServiceImpl implements TrabajoTiendaEstadoService {
-
-	@Autowired
-	private TrabajoTiendaEstadoRepository trabajoTiendaEstadoRepository;
 	
 	@Autowired
 	private TrabajoTiendaEstadoRepositoryCustom trabajoTiendaEstadoRepositoryCustom;

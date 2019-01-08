@@ -92,8 +92,11 @@ public class TestServiceImpl implements TestService {
         
         GetempleadosOutput outputGetempleados;
         outputGetempleados = meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
+        log.info("outputGetempleados: {}", outputGetempleados.getReturn());
         outputGetempleados = meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
+        log.info("outputGetempleados: {}", outputGetempleados.getReturn());
         outputGetempleados = meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
+        log.info("outputGetempleados: {}", outputGetempleados.getReturn());
         
         final IcmParametrosentradaBlock filterSearchtiendas = new IcmParametrosentradaBlock();
         filterSearchtiendas.setFechainicio("2017-07-01T00:00:00.000Z");
@@ -114,8 +117,11 @@ public class TestServiceImpl implements TestService {
         
         SearchtiendasOutput outputSearchtiendas;
         outputSearchtiendas = meta4ClientPool.searchtiendas(filterSearchtiendas, pageSearchtiendas);
+        log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
         outputSearchtiendas = meta4ClientPool.searchtiendas(filterSearchtiendas, pageSearchtiendas);
+        log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
         outputSearchtiendas = meta4ClientPool.searchtiendas(filterSearchtiendas, pageSearchtiendas);
+        log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
         
         log.error("Test sesion()");
     }

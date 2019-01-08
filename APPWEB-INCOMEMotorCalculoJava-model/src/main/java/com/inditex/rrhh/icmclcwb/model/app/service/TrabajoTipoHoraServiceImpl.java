@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTipoHoraService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTipoHoraMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTipoHoraRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTipoHoraRepositoryCustom;
 
 @Service
@@ -20,9 +19,6 @@ public class TrabajoTipoHoraServiceImpl implements TrabajoTipoHoraService {
 
     @Autowired
     private TrabajoTipoHoraMapper mapper;
-
-    @Autowired
-    private TrabajoTipoHoraRepository trabajoTipoHoraRepository;
     
     @Autowired
     private TrabajoTipoHoraRepositoryCustom trabajoTipoHoraRepositoryCustom;
