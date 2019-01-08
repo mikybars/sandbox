@@ -24,9 +24,9 @@ spring:
         enable-logging: false
 #        # Por defecto 10000 (ms)
 #        default-jta-timeout: 60000
-  h2:
-    console:
-      enabled: true
+#  h2:
+#    console:
+#      enabled: true
 amiga:
   monitoring:
     metrics:
@@ -64,9 +64,9 @@ amiga:
     session:
       session-type: EMBEDDED
     aaa:
-      security:
-        headers:
-          frame-options: DISABLE
+#      security:
+#        headers:
+#          frame-options: DISABLE
       local:
         enable-local-test: true
     rest:

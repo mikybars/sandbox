@@ -75,6 +75,11 @@ public class TestController {
 		testService.errorAsync();
 	}
 	
+	@GetMapping(path = "/sesion/")
+    public void sesion() throws Exception {
+        testService.sesion();
+    }
+	
 	//*************
 	
 	@GetMapping(path = "/ptrPresencias/path")

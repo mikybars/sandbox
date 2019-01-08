@@ -1,9 +1,9 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
   application:
     name: ICMCLCWB
   profiles:
@@ -35,9 +35,9 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
-      security:
-        headers:
-          frame-options: DISABLE
+#      security:
+#        headers:
+#          frame-options: DISABLE
       local:
         enable-local-test: true
       classic:
