@@ -23,8 +23,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmParame
 @DecoratedWith(IcmWsCalcIncomeMapperDecorator.class)
 public interface IcmWsCalcIncomeMapper {
 
-    @Mapping(target = "tipoOrden", source = "tipoorden")
-    @Mapping(target = "campoOrden", source = "campoorden")
+    @Mapping(target = "tipoOrden", source = "tipoorden", defaultValue = "")
+    @Mapping(target = "campoOrden", source = "campoorden", defaultValue = "")
     @Mapping(target = "idBusqueda", source = "idbusqueda", defaultValue = "")
     @Mapping(target = "numeroPagina", source = "numeropagina")
     @Mapping(target = "numeroTotalPaginas", source = "numerototalpaginas")
@@ -33,6 +33,8 @@ public interface IcmWsCalcIncomeMapper {
     PageDto asPageDto(IcmParametrospaginacionBlock src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "tipoorden", source = "tipoOrden", defaultValue = "")
+    @Mapping(target = "campoorden", source = "campoOrden", defaultValue = "")
     @Mapping(target = "idbusqueda", source = "idBusqueda", defaultValue = "")
     IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(PageDto src);
 

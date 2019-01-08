@@ -59,6 +59,7 @@ public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEsta
 				TrabajoEmpleadoEstado trabajoEmpleadoEstado = delegate
 						.mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(item, srcTrabajoDto);
 				trabajoEmpleadoEstado.setEstado(estado);
+				result.add(trabajoEmpleadoEstado);
 			});
 		}
 		return result;

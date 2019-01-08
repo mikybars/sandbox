@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.mapper;
 
+import org.mapstruct.AfterMapping;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ProgramacionEmpleadoDto;
@@ -21,13 +23,22 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
 @Mapper
 public abstract class TrabajoMapper {
 
+    @Mapping(target = "idProgramacion", source = "programacion.id")
     public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
 	@InheritInverseConfiguration
     public abstract Trabajo trabajoDtoToTrabajo(TrabajoDto src);
-
+	
+    @AfterMapping
+    protected void controlProgramacion(TrabajoDto dto, @MappingTarget Trabajo result) {
+        if(dto.getIdProgramacion() == null) {
+            result.setProgramacion(null);
+        }
+    }
+	
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "fechaCreacion", ignore = true)
+    @Mapping(target = "idProgramacion", source = "id")
     public abstract TrabajoDto programacionDtoToTrabajoDto(ProgramacionDto src);
 
     @Mapping(target = "id", ignore = true)

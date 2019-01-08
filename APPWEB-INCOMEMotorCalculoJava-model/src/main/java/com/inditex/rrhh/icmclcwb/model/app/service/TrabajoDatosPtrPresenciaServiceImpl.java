@@ -109,7 +109,6 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                     PtrPresenciaTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
                             .trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(trabajo);
                     paramPresenciasTotalTiendaSeccion.setCadena(Integer.valueOf(cadena));
-                    
                     paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
                     // TODO PENDIENTE TIPO HORA
     
@@ -173,7 +172,7 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
                         if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
                                 || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
                             trabajoRunDatosBloque.getTiendaPresencia().addAll(data.getPresenciasDetalle().stream().map(
-                                    item -> new StringBuilder(AppConstants.PREFIJO_TIENDA_META4).append(item).toString())
+                                    item -> new StringBuilder(AppConstants.PREFIJO_TIENDA_META4).append(item.getTienda()).toString())
                                     .collect(Collectors.toSet()));
                         }
                     }
