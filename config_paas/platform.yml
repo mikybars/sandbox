@@ -13,7 +13,6 @@ app:
 datagrid:
   application_cache:
     enabled: true
-  # TODO (sesion) Eliminar para probar conexión Meta4
   session:
     enabled: true
 amq:

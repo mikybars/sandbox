@@ -8,10 +8,10 @@ amiga:
         enabled: true
   service:
     aaa:
-      security:
-        headers:
-          frame-options: DISABLE
+#      security:
+#        headers:
+#          frame-options: DISABLE
       local:
         enable-local-test: true
     session:
-      session-type: EMBEDDED    
+      session-type: EMBEDDED
