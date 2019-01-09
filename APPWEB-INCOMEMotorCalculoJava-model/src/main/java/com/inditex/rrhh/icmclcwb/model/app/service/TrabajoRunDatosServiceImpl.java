@@ -113,9 +113,10 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                         .presenciaDetalleEmpleado(trabajo, trabajoRunDatos.getUno());
                 AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
 
-                CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoDatosPtrVentaAsyncService
-                        .ventaDetalleEmpleado(trabajo, trabajoRunDatos.getUno());
-                AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
+                // TODO  
+//                CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoDatosPtrVentaAsyncService
+//                        .ventaDetalleEmpleado(trabajo, trabajoRunDatos.getUno());
+//                AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
 
                 CompletableFuture<Void> cfCondicionesEmpleados = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
                         .condicionesEmpleados(trabajo, trabajoRunDatos.getUno());
