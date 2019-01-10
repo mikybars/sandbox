@@ -5,3 +5,14 @@
 dockerfile_template: com.inditex.otec.dockerfile:dockerfile-springboot:1.0.0
 # Indica las coordenadas GAV del artefacto Maven que contiene la plantilla para crear los objetos Openshift necesarios para la aplicacion.
 openshift_template: com.inditex.otec.openshift:openshift-springboot:1.14.2
+environments:
+  pre:
+    pre:
+      - intranetarteixo
+    prelt:
+      - intranetarteixo
+    prepru:
+      - intranetarteixo
+  pro:
+    pro:
+      - intranetarteixo
