@@ -22,7 +22,7 @@ import stormpot.Config;
 import stormpot.Timeout;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
-
+    
     private static final Logger log = LoggerFactory.getLogger(Meta4ClientPool.class);
     
     private static final String ERROR_MESSAGE = "Session caducada (Pool) (Exception)";
@@ -48,7 +48,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         log.info("Fin :: Meta4ClientPool :: close()");
     }
 
-    @Retryable
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
     public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
             throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
@@ -62,7 +62,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
     public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1)
             throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
@@ -76,7 +76,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
     public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
             IcmParametrospaginacionBlock param2) throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
@@ -90,7 +90,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
     public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
             throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
@@ -104,7 +104,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
     public GettiendasincomeOutput gettiendasincome(IcmParametrospaginacionBlock param1,
             IcmParametrosentradaBlock param2) throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
@@ -118,7 +118,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
     public SearchempleadosOutput searchempleados(IcmParametrospaginacionBlock param1, IcmParametrosentradaBlock param2)
             throws InterruptedException, M4SoapException_Exception {
         Meta4ClientPoolable client = claim(pool);
