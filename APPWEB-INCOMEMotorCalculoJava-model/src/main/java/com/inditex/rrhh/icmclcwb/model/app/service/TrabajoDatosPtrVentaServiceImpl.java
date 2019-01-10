@@ -29,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotal
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaVentaSeccionRepository;
 
 @Service
 @Validated
@@ -43,9 +42,6 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
 
     @Autowired
     private TrabajoTiendaSeccionVentaAsyncService trabajoTiendaSeccionVentaAsyncService;
-
-    @Autowired
-    private TrabajoTiendaVentaSeccionRepository trabajoTiendaVentaSeccionRepository;
 
     @Autowired
     @Qualifier("getEmpleadosTiendaDto")
@@ -96,9 +92,6 @@ public class TrabajoDatosPtrVentaServiceImpl implements TrabajoDatosPtrVentaServ
                 }
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            if (trabajoRunDatosBloque.isPivot()) {
-                trabajoTiendaVentaSeccionRepository.save(trabajo);
-            }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

@@ -127,10 +127,6 @@ public class TrabajoDatosPtrPresenciaServiceImpl implements TrabajoDatosPtrPrese
             }
 
             AsyncUtils.waitAllOfIsOk(cf, cf);
-
-//            if (trabajoRunDatosBloque.isPivot()) {
-                trabajoTiendaPresenciaSeccionRepository.save(trabajo);
-//            }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

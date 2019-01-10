@@ -13,39 +13,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public abstract class JdbcBatchRepository <Z extends Object> {
     
-//    @Autowired
-//    @Qualifier("primaryDataSource")
-//    private DataSource dataSource;
-    
     @Autowired
     @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
-
-//    public List<Z> saveJdbcBatchList(final List<Z> src, String sql, int batchSize) throws Exception{
-//        
-//        try(Connection connection = dataSource.getConnection();
-//            PreparedStatement pstmt = connection.prepareStatement(sql)){
-//            connection.setAutoCommit(false);
-//            int cont = 0;
-//            Iterator<Z> iterator = src.iterator();
-//            while (iterator.hasNext()) {
-//                Z entity = iterator.next();
-//                setParameters(pstmt, entity);
-//                pstmt.addBatch();
-//                cont++;
-//                if (cont % batchSize == 0) {
-//                    pstmt.executeBatch();
-//                    connection.commit();
-//                }
-//            }
-//            connection.commit();
-//
-//        } catch (SQLException e1) {
-//            throw e1;
-//        }
-//       
-//        return src;
-//    }
     
     public List<Z> saveJdbcBatchList(final List<Z> src, String sql, int batchSize) throws Exception{
       
@@ -72,7 +42,6 @@ public abstract class JdbcBatchRepository <Z extends Object> {
       
       return src;
     }
-
     
     public abstract void setParameters(PreparedStatement pstmt, Z entity) throws SQLException;
 }
