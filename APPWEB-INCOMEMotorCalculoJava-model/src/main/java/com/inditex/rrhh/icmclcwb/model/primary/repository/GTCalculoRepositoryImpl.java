@@ -24,39 +24,42 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	@Qualifier("primaryJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
 	
-	
-	
+    
 	private StringBuilder queryCalculoGT() {
 		
 		StringBuilder query = new StringBuilder();		
 		query.append("INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_CALCULO (").
-		append(" COMISION_PORCENTAJE_1 ").
+	    append(" COMISION_PORCENTAJE ").
+		append(",COMISION_PORCENTAJE_1 ").
 		append(",COMISION_PORCENTAJE_2 ").
 		append(",COMISION_PORCENTAJE_3 ").
 		append(",EMPLEADO_PRESENCIA_MINUTOS_1 ").
 		append(",EMPLEADO_PRESENCIA_MINUTOS_2 ").
 		append(",EMPLEADO_PRESENCIA_MINUTOS_3 ").
-		append(",ID_EMPLEADO ").
-		append(",ID_ESTRUCTURA "). 
-		append(",ID_TIENDA ").
-		append(",IMPORTE_1 ").
-		append(",IMPORTE_2 ").
-		append(",IMPORTE_3 ").
 		append(",TIENDA_PRESENCIA_MINUTOS_1 ").
-		append(",TIENDA_PRESENCIA_MINUTOS_2 ").
-		append(",TIENDA_PRESENCIA_MINUTOS_3 ").
-		append(",TIENDA_VENTA_IMPORTE_1 ").
-		append(",TIENDA_VENTA_IMPORTE_2 ").
-		append(",TIENDA_VENTA_IMPORTE_3 ").
+        append(",TIENDA_PRESENCIA_MINUTOS_2 ").
+        append(",TIENDA_PRESENCIA_MINUTOS_3 ").
+        append(",TIENDA_VENTA_IMPORTE_1 ").
+        append(",TIENDA_VENTA_IMPORTE_2 ").
+        append(",TIENDA_VENTA_IMPORTE_3 ").
+        append(",IMPORTE_1 ").
+        append(",IMPORTE_2 ").
+        append(",IMPORTE_3 ").
+		append(",ID_EMPLEADO ").
+		append(",ID_EMPLEADO_LOCAL ").
+		append(",OR_EMPLEADO ").
+        append(",ID_TIENDA ").
+		append(",ID_ESTRUCTURA "). 
 		append(",ID_TIPO_CALCULO ").
 		append(",ID_TIPO_COMISION ").
 		append(",ID_TIPO_HORA ").
 		append(",ID_TRABAJO) ").
 		
 		append(" SELECT ").
-		append(" ESTRUCTURA.PORCENTAJE_1 AS COMISION_PORCENTAJE_1 "). 
-		append(" ,ESTRUCTURA.PORCENTAJE_2 AS COMISION_PORCENTAJE_2 "). 
-		append(" ,ESTRUCTURA.PORCENTAJE_3 AS COMISION_PORCENTAJE_3 ").
+        append(" COALESCE(ESTRUCTURA.PORCENTAJE, 0) AS COMISION_PORCENTAJE "). 
+		append(" ,COALESCE(ESTRUCTURA.PORCENTAJE_1, 0) AS COMISION_PORCENTAJE_1 "). 
+		append(" ,COALESCE(ESTRUCTURA.PORCENTAJE_2,0) AS COMISION_PORCENTAJE_2 "). 
+		append(" ,COALESCE(ESTRUCTURA.PORCENTAJE_3,0) AS COMISION_PORCENTAJE_3 ").
 		
 		append(" ,EMPLEADO_PRESENCIA.MINUTOS_1 AS EMPLEADO_PRESENCIA_MINUTOS_1 ").
 		append(" ,EMPLEADO_PRESENCIA.MINUTOS_2 AS EMPLEADO_PRESENCIA_MINUTOS_2 ").
@@ -70,12 +73,14 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 		append(" ,TIENDA_VENTA.IMPORTE_2 AS TIENDA_VENTA_IMPORTE_2 ").
 		append(" ,TIENDA_VENTA.IMPORTE_3 AS TIENDA_VENTA_IMPORTE_3 ").  
 		
-
 		append(" ,(TIENDA_VENTA.IMPORTE_1) * CAST ( CASE WHEN  ESTRUCTURA.PORCENTAJE IS NULL THEN ESTRUCTURA.PORCENTAJE_1 ELSE ESTRUCTURA.PORCENTAJE END AS FLOAT ) * (CASE WHEN EMPLEADO_PRESENCIA.MINUTOS_1 = 0 THEN 0 ELSE (CAST (EMPLEADO_PRESENCIA.MINUTOS_1 AS FLOAT) / TIENDA_PRESENCIA.MINUTOS_1) END)  AS IMPORTE_1 ").   
 		append(" ,(TIENDA_VENTA.IMPORTE_2) * CAST ( CASE WHEN  ESTRUCTURA.PORCENTAJE IS NULL THEN ESTRUCTURA.PORCENTAJE_2 ELSE ESTRUCTURA.PORCENTAJE END AS FLOAT ) * (CASE WHEN EMPLEADO_PRESENCIA.MINUTOS_2 = 0 THEN 0 ELSE ( CAST (EMPLEADO_PRESENCIA.MINUTOS_2 AS FLOAT) / TIENDA_PRESENCIA.MINUTOS_2) END) AS IMPORTE_2  ").  
 		append(" ,(TIENDA_VENTA.IMPORTE_3) * CAST ( CASE WHEN  ESTRUCTURA.PORCENTAJE IS NULL THEN ESTRUCTURA.PORCENTAJE_3 ELSE ESTRUCTURA.PORCENTAJE END AS FLOAT ) * (CASE WHEN EMPLEADO_PRESENCIA.MINUTOS_3 = 0 THEN 0 ELSE ( CAST (EMPLEADO_PRESENCIA.MINUTOS_3 AS FLOAT) / TIENDA_PRESENCIA.MINUTOS_3) END) AS IMPORTE_3  ").
 		
-		append(" ,EMPLEADO_PRESENCIA.ID_EMPLEADO AS ID_EMPLEADO "). 
+		append(" ,EMPLEADO_PRESENCIA.ID_EMPLEADO AS ID_EMPLEADO ").
+		append(" ,EMPLEADO_HISTORICO.ID_EMPLEADO_LOCAL AS ID_EMPLEADO_LOCAL ").
+        append(" ,EMPLEADO_HISTORICO.OR_EMPLEADO AS OR_EMPLEADO ").
+
 		append(" ,TIENDA_PRESENCIA.ID_TIENDA AS ID_TIENDA ").
 		append(" ,ESTRUCTURA.ID_ESTRUCTURA AS ID_ESTRUCTURA ").
 		append(" ,ESTRUCTURA.ID_TIPO_CALCULO AS ID_TIPO_CALCULO ").
@@ -120,7 +125,7 @@ public class GTCalculoRepositoryImpl  implements GTCalculoRepository{
 	{						
 		NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue(ID_TRABAJO, idTrabajo);																					
+		param.addValue(ID_TRABAJO, idTrabajo);					
 		namedJdbc.update(queryCalculoGT().toString(), param);				
 	}
 
