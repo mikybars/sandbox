@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -19,17 +17,16 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajoRun;
 import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoPivotAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunDatosService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -50,10 +47,13 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
     private TrabajoDatosPtrPresenciaAsyncService trabajoDatosPtrPresenciaAsyncService;
     
     @Autowired
-    private TrabajoTiendaEstadoService trabajoTiendaEstadoService;
+    private TrabajoPivotAsyncService trabajoPivotAsyncService;
     
     @Autowired
-    private TrabajoEmpleadoEstadoService trabajoEmpleadoEstadoService;
+    private TrabajoTiendaEstadoAsyncService trabajoTiendaEstadoAsyncService;
+    
+    @Autowired
+    private TrabajoEmpleadoEstadoAsyncService trabajoEmpleadoEstadoAsyncService;
 
     @CounterMetric
     @TimerMetric
@@ -133,7 +133,6 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                                 trabajoRunDatos.getDos().getTiendaPresencia().add(item);
                             }
                         });
-                        trabajoRunDatos.getDos().setPivot(true);
                         
                         CompletableFuture<Void> cfTiendasPresencia = trabajoDatosMeta4IcmWsCalcIncomeAsyncService
                                 .tiendasPresencia(trabajo, trabajoRunDatos.getDos());
@@ -157,35 +156,18 @@ public class TrabajoRunDatosServiceImpl implements TrabajoRunDatosService {
                     }
                 }
                 
-                final AtomicInteger counter1 = new AtomicInteger(0);
-                for (List<TrabajoTiendaEstadoDto> iter : trabajoRunDatos.getUno().getTienda().stream()
-                        .collect(Collectors.groupingBy(
-                                item -> counter1.getAndIncrement() / 200))
-                        .values()) {
-                	trabajoTiendaEstadoService.save(iter, trabajo);
-                }
-                final AtomicInteger counter2 = new AtomicInteger(0);
-                for (List<TrabajoTiendaEstadoDto> iter : trabajoRunDatos.getDos().getTienda().stream()
-                        .collect(Collectors.groupingBy(
-                                item -> counter2.getAndIncrement() / 200))
-                        .values()) {
-                	trabajoTiendaEstadoService.save(iter, trabajo);
-                }
+                /*-------------------------------------------------------------*/
+                AsyncUtils.waitAllOfIsOk(cf, cf);
+                /*-------------------------------------------------------------*/
                 
-                final AtomicInteger counter3 = new AtomicInteger(0);
-                for (List<TrabajoEmpleadoEstadoDto> iter : trabajoRunDatos.getUno().getEmpleado().stream()
-                        .collect(Collectors.groupingBy(
-                                item -> counter3.getAndIncrement() / 200))
-                        .values()) {
-                	trabajoEmpleadoEstadoService.save(iter, trabajo);
-                }
-                final AtomicInteger counter4 = new AtomicInteger(0);
-                for (List<TrabajoEmpleadoEstadoDto> iter : trabajoRunDatos.getDos().getEmpleado().stream()
-                        .collect(Collectors.groupingBy(
-                                item -> counter4.getAndIncrement() / 200))
-                        .values()) {
-                	trabajoEmpleadoEstadoService.save(iter, trabajo);
-                }
+                CompletableFuture<Void> cfPivot = trabajoPivotAsyncService.pivot(trabajo);
+                AsyncUtils.exceptionally(cfPivot, cf);
+
+                CompletableFuture<Void> cftrabajoTiendaEstado = trabajoTiendaEstadoAsyncService.save(trabajoRunDatos, trabajo);
+                AsyncUtils.exceptionally(cftrabajoTiendaEstado, cf);
+
+                CompletableFuture<Void> cftrabajoEmpleadoEstado = trabajoEmpleadoEstadoAsyncService.save(trabajoRunDatos, trabajo);
+                AsyncUtils.exceptionally(cftrabajoEmpleadoEstado, cf);
 
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);

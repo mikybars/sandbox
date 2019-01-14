@@ -10,8 +10,8 @@ amiga:
   common:
     rest:
       client:
-        defaultConnectTimeout: 300000
-        defaultReadTimeout: 300000
+        defaultConnectTimeout: 1000
+        defaultReadTimeout: 1000
         ptrVentaClient:
           #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
           #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
@@ -121,16 +121,16 @@ app:
           user: INCOME_CALC
           language: 2
         pool:
-          size: 20
-          claimTimeout: 30000
-          shutdownTimeout: 60000
+          size: 1
+          claimTimeout: 1000
+          shutdownTimeout: 1000
         timeout:
-          connectTimeout: 300000
-          receiveTimeout: 300000
+          connectTimeout: 1000
+          receiveTimeout: 1000
       login:
-        server: http://pre-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icm-ws-calc-income:
-        server: http://pre-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getTiendasEmpleado:
             page:

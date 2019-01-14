@@ -1,0 +1,34 @@
+package com.inditex.rrhh.icmclcwb.model.app.service;
+
+import java.util.concurrent.CompletableFuture;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoPivotAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaPresenciaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaVentaSeccionAsyncService;
+
+@Service
+@Validated
+public class TrabajoPivotAsyncServiceImpl implements TrabajoPivotAsyncService {
+
+    @Autowired
+    private TrabajoTiendaPresenciaSeccionAsyncService trabajoTiendaPresenciaSeccionAsyncService;
+    
+    @Autowired
+    private TrabajoTiendaVentaSeccionAsyncService trabajoTiendaVentaSeccionAsyncService;
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> pivot(@Valid final TrabajoDto trabajoDto) throws Exception {
+        trabajoTiendaPresenciaSeccionAsyncService.pivot(trabajoDto);
+        trabajoTiendaVentaSeccionAsyncService.pivot(trabajoDto);
+        return CompletableFuture.completedFuture(null);
+    }
+}
