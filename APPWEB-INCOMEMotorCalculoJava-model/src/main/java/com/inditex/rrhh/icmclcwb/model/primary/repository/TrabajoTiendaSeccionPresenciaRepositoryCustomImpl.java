@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,12 +21,13 @@ public class TrabajoTiendaSeccionPresenciaRepositoryCustomImpl extends JdbcBatch
     @Qualifier("presenciasTotalTiendaSeccionDto")
     private PtrPropertiesDto presenciasTotalTiendaSeccionDto;
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_SECCION_PRESENCIA (FECHA, ID_SECCION, ID_TIENDA, MINUTOS, ID_TRABAJO )" + 
-            "VALUES(?, ?, ?, ? , ?)";
+    @Autowired
+    @Qualifier("primaryXmlQueries")
+    private Properties queries;
     
     @Override
     public List<TrabajoTiendaSeccionPresencia> save(final List<TrabajoTiendaSeccionPresencia> src) throws Exception{
-        return saveJdbcBatchList(src, INSERT, presenciasTotalTiendaSeccionDto.getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, queries.getProperty("insertTrabajoTiendaSeccionPresencia"), presenciasTotalTiendaSeccionDto.getFilter().getMaxBatchSize());
     }
 
     @Override
