@@ -1,5 +1,4 @@
 app:
-  #context_path: /
   context_path_builder:
     enabled: true
   health_probe:
