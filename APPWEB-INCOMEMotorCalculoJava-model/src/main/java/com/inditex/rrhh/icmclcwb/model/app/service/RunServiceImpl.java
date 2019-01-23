@@ -30,7 +30,7 @@ public class RunServiceImpl implements RunService {
 
     @Autowired
     private TrabajoRepository trabajoRepository;
-    
+
     @Autowired
     private TrabajoTiendaRepository trabajoTiendaRepository;
 
@@ -46,10 +46,12 @@ public class RunServiceImpl implements RunService {
     @Override
     public TrabajoRunDto runTrabajo(@NotNull @Positive final Long id) throws Exception {
         TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
-        trabajo.setTiendas(trabajoTiendaMapper
-                .trabajoTiendaToTrabajoTiendaDto(trabajoTiendaRepository.findByTrabajoId(trabajo.getId())));
-        trabajo.setEmpleados(trabajoEmpleadoMapper
-                .trabajoEmpleadoToTrabajoEmpleadoDto(trabajoEmpleadoRepository.findByTrabajoId(trabajo.getId())));
+        if (trabajo != null && trabajo.getId() != null) {
+            trabajo.setTiendas(trabajoTiendaMapper
+                    .trabajoTiendaToTrabajoTiendaDto(trabajoTiendaRepository.findByTrabajoId(trabajo.getId())));
+            trabajo.setEmpleados(trabajoEmpleadoMapper
+                    .trabajoEmpleadoToTrabajoEmpleadoDto(trabajoEmpleadoRepository.findByTrabajoId(trabajo.getId())));
+        }
         TrabajoRunDto trabajoRunDto = new TrabajoRunDto();
         trabajoRunDto.setTrabajoDto(trabajo);
         return trabajoRunService.run(trabajoRunDto);
