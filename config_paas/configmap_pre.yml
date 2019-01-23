@@ -13,20 +13,9 @@ amiga:
         defaultConnectTimeout: 1000
         defaultReadTimeout: 1000
         ptrVentaClient:
-          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
-          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-          #base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
-          #base-url: http://axpreptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
           base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDAVTIMPADWSD/service
         ptrPresenciaClient:
           base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDARHPRSCAWSD/service
-          #base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
-          #base-url: http://axpreptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
-          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/RHPRSCAESB
-          #base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
-          #auth-method: BASIC
-          #username: username300
   service:
     jms:
       trabajo-queue:
@@ -36,28 +25,24 @@ amiga:
     jdbc:
       configuration:
         prop:
-          # 0: TRANSACTION_NONE
-          # 1: TRANSACTION_READ_UNCOMMITTED
-          # 2: TRANSACTION_READ_COMMITTED
-          # 4: TRANSACTION_REPEATABLE_READ
-          # 8: TRANSACTION_SERIALIZABLE
           default-isolation-level: 1
           max-pool-size: 20
       datasource:
         primary:
-          driverClassName: com.ibm.db2.jcc.DB2Driver
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
-          user: oincome
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:INDITEX;MODE=DB2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS DESARROLLO_RRHH
+          user: sa
+          password: sa
         secondary:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://axinsqldes.central.inditex.grp:1433;databaseName=PeopleNet
-          #user: People7
-          user: ncomis
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:PeopleNet;MODE=MSSQLServer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+          user: sa
+          password: sa
     hibernate:
       primary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
+        properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
       secondary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect''}'
+        properties: '{''hibernate.enable_lazy_load_no_trans'':''true'',''hibernate.dialect'':''org.hibernate.dialect.H2Dialect'',''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-secondary-dml.sql'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''true'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true''}'
     jms:
       connectionFactory:
         brokerEscritura:
@@ -75,8 +60,8 @@ app:
   envars:
     ptr:
       venta:
-        service: 
-          getVentaTotalizado: 
+        service:
+          getVentaTotalizado:
             endpoint: /ventaGeneralService/getVentaTotalizado
             filter:
               maxPageSize: 200
@@ -84,7 +69,7 @@ app:
               maxPersistenceSize: 3
               maxBatchSize: 100
               retryAttempts: 2
-          getVentaIndividualDetalle: 
+          getVentaIndividualDetalle:
             endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
             filter:
               maxPageSize: 200
@@ -116,7 +101,7 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2                   
+              retryAttempts: 2
     meta4:
       config:
         credentials:
@@ -158,7 +143,7 @@ app:
               maxPersistenceSize: 3
               maxBatchSize: 100
               retryAttempts: 2
-          getTiendas: 
+          getTiendas:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 200
@@ -170,7 +155,7 @@ app:
               maxPersistenceSize: 3
               maxBatchSize: 100
               retryAttempts: 2
-          searchEmpleados: 
+          searchEmpleados:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 200
@@ -205,4 +190,4 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2                      
+              retryAttempts: 2
