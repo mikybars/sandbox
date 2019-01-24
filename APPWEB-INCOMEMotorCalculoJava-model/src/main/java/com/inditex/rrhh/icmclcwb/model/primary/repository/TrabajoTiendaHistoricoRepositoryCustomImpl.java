@@ -19,7 +19,7 @@ public class TrabajoTiendaHistoricoRepositoryCustomImpl extends JdbcBatchReposit
     @Qualifier("searchTiendasDto")
     private Meta4PropertiesDto searchTiendasDto;
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_HISTORICO ( "
+    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_TIENDA_HISTORICO ( "
             + "FECHA_FIN, FECHA_INICIO, COMISIONABLE, CCL_ID_CADENA, "
             + "STD_ID_LEG_ENT, STD_ID_COUNTRY, "  
             + "CCL_ID_ORIGEN, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, ID_TRABAJO)" 

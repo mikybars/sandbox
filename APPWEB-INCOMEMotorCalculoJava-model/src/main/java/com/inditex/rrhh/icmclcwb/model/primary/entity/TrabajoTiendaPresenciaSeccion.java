@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_TRABAJO_TIENDA_PRESENCIA_SECCION", schema = "DESARROLLO_RRHH")
+@Table(name = "TRABAJO_TIENDA_PRESENCIA_SECCION", schema = "DESARROLLO_RRHH")
 @Data
 public class TrabajoTiendaPresenciaSeccion {
 
@@ -38,15 +38,15 @@ public class TrabajoTiendaPresenciaSeccion {
 	private String idTienda;
 	
 	@NotNull
-	@Column(name = "MINUTOS_1", nullable = false)
+	@Column(name = "MINUTOS_SECCION_1", nullable = false)
 	private /* BigInteger */ Long minutos1;
 	
 	@NotNull
-	@Column(name = "MINUTOS_2", nullable = false)
+	@Column(name = "MINUTOS_SECCION_2", nullable = false)
 	private /* BigInteger */ Long minutos2;
 	
 	@NotNull
-	@Column(name = "MINUTOS_3", nullable = false)
+	@Column(name = "MINUTOS_SECCION_3", nullable = false)
 	private /* BigInteger */ Long minutos3;
 
 }

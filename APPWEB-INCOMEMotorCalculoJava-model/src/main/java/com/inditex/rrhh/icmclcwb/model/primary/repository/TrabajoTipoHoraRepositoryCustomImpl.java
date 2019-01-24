@@ -14,16 +14,15 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTipoHora;
 @Repository
 public class TrabajoTipoHoraRepositoryCustomImpl extends JdbcBatchRepository<TrabajoTipoHora>
         implements TrabajoTipoHoraRepositoryCustom {
-    
+
     @Autowired
     @Qualifier("tiposHorasDto")
     private PtrPropertiesDto tiposHorasDto;
-    
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIPO_HORA (COMISIONABLE, ID_TIPO_HORA, ID_TRABAJO )" + 
-            "VALUES(?, ?, ?)";
+
+    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_TIPO_HORA (COMISIONABLE, ID_TIPO_HORA, ID_TRABAJO) VALUES(?, ?, ?)";
 
     @Override
-    public List<TrabajoTipoHora> save(List<TrabajoTipoHora> src) throws Exception{
+    public List<TrabajoTipoHora> save(List<TrabajoTipoHora> src) throws Exception {
         return saveJdbcBatchList(src, INSERT, tiposHorasDto.getFilter().getMaxBatchSize());
     }
 

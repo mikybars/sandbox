@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_TRABAJO_CALCULO", schema = "DESARROLLO_RRHH")
+@Table(name = "TRABAJO_CALCULO", schema = "DESARROLLO_RRHH")
 @Data
 public class TrabajoCalculo {
 
@@ -60,63 +60,63 @@ public class TrabajoCalculo {
     private /* BigInteger */ Long comisionPorcentaje;
     
 	@NotNull
-	@Column(name = "COMISION_PORCENTAJE_1", nullable = false)
+	@Column(name = "COMISION_PORCENTAJE_SECCION_1", nullable = false)
 	private /* BigInteger */ Long comisionPorcentaje1;
 
 	@NotNull
-	@Column(name = "COMISION_PORCENTAJE_2", nullable = false)
+	@Column(name = "COMISION_PORCENTAJE_SECCION_2", nullable = false)
 	private /* BigInteger */ Long comisionPorcentaje2;
 
 	@NotNull
-	@Column(name = "COMISION_PORCENTAJE_3", nullable = false)
+	@Column(name = "COMISION_PORCENTAJE_SECCION_3", nullable = false)
 	private /* BigInteger */ Long comisionPorcentaje3;
 
 	@NotNull
-	@Column(name = "EMPLEADO_PRESENCIA_MINUTOS_1", nullable = false)
+	@Column(name = "EMPLEADO_PRESENCIA_MINUTOS_SECCION_1", nullable = false)
 	private /* BigInteger */ Long empleadoPresenciaMinutos1;
 
 	@NotNull
-	@Column(name = "EMPLEADO_PRESENCIA_MINUTOS_2", nullable = false)
+	@Column(name = "EMPLEADO_PRESENCIA_MINUTOS_SECCION_2", nullable = false)
 	private /* BigInteger */ Long empleadoPresenciaMinutos2;
 
 	@NotNull
-	@Column(name = "EMPLEADO_PRESENCIA_MINUTOS_3", nullable = false)
+	@Column(name = "EMPLEADO_PRESENCIA_MINUTOS_SECCION_3", nullable = false)
 	private /* BigInteger */ Long empleadoPresenciaMinutos3;
 
 	@NotNull
-	@Column(name = "TIENDA_PRESENCIA_MINUTOS_1", nullable = false)
+	@Column(name = "TIENDA_PRESENCIA_MINUTOS_SECCION_1", nullable = false)
 	private /* BigInteger */ Long tiendaPresenciaMinutos1;
 
 	@NotNull
-	@Column(name = "TIENDA_PRESENCIA_MINUTOS_2", nullable = false)
+	@Column(name = "TIENDA_PRESENCIA_MINUTOS_SECCION_2", nullable = false)
 	private /* BigInteger */ Long tiendaPresenciaMinutos2;
 
 	@NotNull
-	@Column(name = "TIENDA_PRESENCIA_MINUTOS_3", nullable = false)
+	@Column(name = "TIENDA_PRESENCIA_MINUTOS_SECCION_3", nullable = false)
 	private /* BigInteger */ Long tiendaPresenciaMinutos3;
 	
 	@NotNull
-	@Column(name = "TIENDA_VENTA_IMPORTE_1", nullable = false)
+	@Column(name = "TIENDA_VENTA_IMPORTE_SECCION_1", nullable = false)
 	private /* BigInteger */ Double tiendaVentaImporte1;
 
 	@NotNull
-	@Column(name = "TIENDA_VENTA_IMPORTE_2", nullable = false)
+	@Column(name = "TIENDA_VENTA_IMPORTE_SECCION_2", nullable = false)
 	private /* BigInteger */ Double tiendaVentaImporte2;
 
 	@NotNull
-	@Column(name = "TIENDA_VENTA_IMPORTE_3", nullable = false)
+	@Column(name = "TIENDA_VENTA_IMPORTE_SECCION_3", nullable = false)
 	private /* BigInteger */ Double tiendaVentaImporte3;
 	
 	@NotNull
-	@Column(name = "IMPORTE_1", nullable = false)
+	@Column(name = "IMPORTE_SECCION_1", nullable = false)
 	private /* BigInteger */ Double importe1;
 
 	@NotNull
-	@Column(name = "IMPORTE_2", nullable = false)
+	@Column(name = "IMPORTE_SECCION_2", nullable = false)
 	private /* BigInteger */ Double importe2;
 
 	@NotNull
-	@Column(name = "IMPORTE_3", nullable = false)
+	@Column(name = "IMPORTE_SECCION_3", nullable = false)
 	private /* BigInteger */ Double importe3;
 
 	@NotNull

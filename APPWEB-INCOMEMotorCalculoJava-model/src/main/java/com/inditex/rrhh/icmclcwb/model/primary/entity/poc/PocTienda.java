@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_POC_TIENDA", schema = "DESARROLLO_RRHH")
+@Table(name = "POC_TIENDA", schema = "DESARROLLO_RRHH")
 @Data
 public class PocTienda {
 

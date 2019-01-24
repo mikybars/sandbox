@@ -18,7 +18,7 @@ public class TrabajoTiendaSeccionVentaRepositoryCustomImpl extends JdbcBatchRepo
     @Qualifier("ventaTotalizadoDto")
     private PtrPropertiesDto ventaTotalizadoDto;
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_SECCION_VENTA (FECHA, ID_SECCION, ID_TIENDA, IMPORTE, ID_TRABAJO )" + 
+    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_TIENDA_SECCION_VENTA (FECHA, ID_SECCION, ID_TIENDA, IMPORTE, ID_TRABAJO )" + 
             "VALUES(?, ?, ?, ? , ?)";
 
     @Override

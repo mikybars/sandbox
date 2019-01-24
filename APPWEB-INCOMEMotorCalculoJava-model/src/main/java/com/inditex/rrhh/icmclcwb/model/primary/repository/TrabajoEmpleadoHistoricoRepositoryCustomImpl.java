@@ -19,7 +19,7 @@ public class TrabajoEmpleadoHistoricoRepositoryCustomImpl
     @Qualifier("searchEmpleadosDto")
     private Meta4PropertiesDto searchEmpleadosDto;
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_EMPLEADO_HISTORICO ( "
+    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_EMPLEADO_HISTORICO ( "
             + "FECHA_FIN, FECHA_INICIO, ID_EMPLEADO, "
             + "ID_EMPLEADO_LOCAL, CCL_ID_COD_ORIGEN, "  
             + "STD_ID_WORK_LOCAT, OR_EMPLEADO, ID_TRABAJO)" 

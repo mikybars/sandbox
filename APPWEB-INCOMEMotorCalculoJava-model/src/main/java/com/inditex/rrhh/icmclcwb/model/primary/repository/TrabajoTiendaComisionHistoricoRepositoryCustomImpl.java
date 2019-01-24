@@ -19,7 +19,7 @@ public class TrabajoTiendaComisionHistoricoRepositoryCustomImpl extends
     @Qualifier("getTiendasDto")
     private Meta4PropertiesDto getTiendasDto;
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_COMISION_HISTORICO ( "
+    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_TIENDA_COMISION_HISTORICO ( "
             + "FECHA_FIN, FECHA_INICIO, COMISIONABLE, "
             + "CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, ID_TRABAJO)" 
             + "VALUES(?, ?, ?, ?, ?, ?)";

@@ -19,11 +19,11 @@ public class TrabajoEmpleadoEstructuraRepositoryCustomImpl extends JdbcBatchRepo
     @Qualifier("getComisionEmpleadoDto")
     private Meta4PropertiesDto getComisionEmpleadoDto;
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_EMPLEADO_ESTRUCTURA ( "
+    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_EMPLEADO_ESTRUCTURA ( "
             + "FECHA_FIN, FECHA_INICIO, ID_EMPLEADO, "
             + "ID_EMPLEADO_LOCAL, ID_ESTRUCTURA, "  
             + "ID_TIPO_CALCULO, ID_TIPO_COMISION, OR_EMPLEADO,"
-            + "PORCENTAJE, PORCENTAJE_1, PORCENTAJE_2, PORCENTAJE_3, ID_TRABAJO)" 
+            + "PORCENTAJE, PORCENTAJE_SECCION_1, PORCENTAJE_SECCION_2, PORCENTAJE_SECCION_3, ID_TRABAJO)" 
             + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     @Override

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
-@Table(name = "INCOME_TRABAJO", schema = "DESARROLLO_RRHH")
+@Table(name = "TRABAJO", schema = "DESARROLLO_RRHH")
 @Data
 public class Trabajo {
 
@@ -56,7 +56,7 @@ public class Trabajo {
 	private Date fechaFinPeriodo;
 
 	@ManyToOne
-	@JoinTable(name = "INCOME_PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
+	@JoinTable(name = "PROGRAMACION_TRABAJO", schema = "DESARROLLO_RRHH", joinColumns = {
 			@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") })
 	private Programacion programacion;

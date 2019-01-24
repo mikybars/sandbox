@@ -20,7 +20,7 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaRepositoryCustomImpl
     @Qualifier("presenciasDetalleDto")
     private PtrPropertiesDto presenciasDetalleDto;
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_SECCION_EMPLEADO_PRESENCIA ( "
+    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_TIENDA_SECCION_EMPLEADO_PRESENCIA ( "
             + "FECHA, ID_EMPLEADO, ID_SECCION, ID_TIENDA, "
             + "ID_TIPO_HORA, MINUTOS, ID_TRABAJO)" 
             + "VALUES(?, ?, ?, ?, ?, ?, ?)";

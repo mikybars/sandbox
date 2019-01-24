@@ -30,9 +30,9 @@ public class TrabajoTiendaEstadoRepositoryCustomImpl extends JdbcBatchRepository
     @Qualifier("searchTiendasDto")
     private Meta4PropertiesDto searchTiendasDto;
 
-    private static final String QUERY = " SELECT ID FROM TABLE ( VALUES :ids) AS TIENDA (ID) WHERE NOT EXISTS ( SELECT 1 FROM DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_ESTADO A WHERE A.CCL_ID_COD_ORIGEN = TIENDA.ID)";
+    private static final String QUERY = " SELECT ID FROM TABLE ( VALUES :ids) AS TIENDA (ID) WHERE NOT EXISTS ( SELECT 1 FROM DESARROLLO_RRHH.TRABAJO_TIENDA_ESTADO A WHERE A.CCL_ID_COD_ORIGEN = TIENDA.ID)";
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.INCOME_TRABAJO_TIENDA_ESTADO ( "
+    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_TIENDA_ESTADO ( "
             + "CCL_ID_CADENA, STD_ID_LEG_ENT, STD_ID_COUNTRY, "  
             + "CCL_ID_ORIGEN, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, "
             + "ID_TIPO_TRABAJO_TIENDA, ID_TRABAJO)" 
