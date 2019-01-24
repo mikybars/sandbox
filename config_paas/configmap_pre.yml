@@ -115,9 +115,9 @@ app:
           connectTimeout: 1000
           receiveTimeout: 1000
       login:
-        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icm-ws-calc-income:
-        server: http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getTiendasEmpleado:
             page:
