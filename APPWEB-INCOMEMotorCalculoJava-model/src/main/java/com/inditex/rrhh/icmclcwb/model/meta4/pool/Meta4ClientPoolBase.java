@@ -65,7 +65,7 @@ public class Meta4ClientPoolBase {
 	}
 
 	private void logSession(final Meta4ClientSession session) {
-		log.info("Meta4ClientPoolBase :: logSession() :: {}", session);
+		log.debug("Meta4ClientPoolBase :: logSession() :: {}", session);
 	}
 
 }
