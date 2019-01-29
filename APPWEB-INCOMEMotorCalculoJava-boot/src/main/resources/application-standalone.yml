@@ -184,7 +184,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
+              maxBatchSize: 100
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
@@ -192,7 +192,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
+              maxBatchSize: 100
               retryAttempts: 2
           getTiposHoras:
             endpoint: /presenciasService/tiposHoras
@@ -200,8 +200,8 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
-              retryAttempts: 2  
+              maxBatchSize: 100
+              retryAttempts: 2
     meta4:
       config:
         credentials:
