@@ -1,0 +1,13 @@
+package com.inditex.rrhh.icmclcwb.api.meta4.login.service;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.login.login.dto.LoginRequestDto;
+
+public interface Meta4LoginService {
+	
+	boolean login(LoginRequestDto login) throws Exception;
+	
+	boolean retrieveM4Session() throws Exception;
+	
+	boolean logout();
+    
+}

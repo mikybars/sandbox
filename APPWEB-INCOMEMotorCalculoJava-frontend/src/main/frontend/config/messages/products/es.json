@@ -1,9 +1,0 @@
-{
-  "amiga.components.layout.title": "Aplicación Arquetipo",
-  "products.page.title": "LISTADO DE PRODUCTOS",
-  "products.menu.label": "PRODUCTOS",
-  "products.table.header.id": "ID",
-  "products.table.header.name": "NOMBRE",
-  "products.table.noRegisters": "NO SE ENCONTRARON PRODUCTOS",
-  "products.table.loadingRegisters": "CARGANDO PRODUCTOS"
-}

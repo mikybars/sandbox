@@ -1,17 +1,17 @@
 spring:
-  application:
-    name: ICMCLCWB
   profiles:
     active: test
-app:
-  version: @project.version@
-server:
-  port: 8095
-logging:
-  level:
-    root: INFO
 amiga:
+  common:
+    cache:
+      embedded:
+        enabled: true
   service:
     aaa:
+#      security:
+#        headers:
+#          frame-options: DISABLE
       local:
         enable-local-test: true
+    session:
+      session-type: EMBEDDED

@@ -1,11 +1,20 @@
 app:
-  context_path: /ICMCLCWB
+  context_path_builder:
+    enabled: true
   health_probe:
-   initial_delay_seconds: 80
+    initial_delay_seconds: 80
   has_spnego: true
-  services: 
-    http: 
-      route: 
-        tls: 
+  services:
+    http:
+      route:
+        tls:
           enabled: true
           insecure_termination_policy: Redirect
+        #timeout: 600
+datagrid:
+  application_cache:
+    enabled: true
+  session:
+    enabled: true
+amq:
+  enabled: true

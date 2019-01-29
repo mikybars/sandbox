@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.inditex.aqsw.framework.amiga</groupId>
-		<artifactId>amiga-framework</artifactId>
-		<version>1.16.2</version>
-	</parent>
+  <parent>
+    <groupId>com.inditex.aqsw.framework.amiga</groupId>
+    <artifactId>amiga-framework</artifactId>
+    <version>1.18.2</version>
+  </parent>
 
-	<groupId>com.inditex.rrhh.icmclcwb</groupId>
-	<artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
+  <groupId>com.inditex.rrhh.icmclcwb</groupId>
+  <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
 
-	<name>${project.groupId}:${project.artifactId}</name>
+  <name>${project.groupId}:${project.artifactId}</name>
 
-	<properties>
-		<!-- Este cambio de contextRoot va vinculado al cambio de la propiedad 
-			de spring boot 'amiga.service.web.client.context-root' -->
-		<web.client.contextRoot>/web</web.client.contextRoot>
-	</properties>
+  <properties>
+    <app.cxf.version>3.1.12</app.cxf.version>
+    <app.jaxws.maven.plugin.version>1.12</app.jaxws.maven.plugin.version>
+    <app.github.chrisvest.version>2.4.1</app.github.chrisvest.version>
+  </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
-				<version>1.0-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
-				<version>1.0-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
-				<version>1.0-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
-				<version>1.0-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>APPWEB-INCOMEMotorCalculoJava-frontend</artifactId>
-				<version>1.0-SNAPSHOT</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- PROJECT DEPENDENCIES -->
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      
+    </dependencies>
+  </dependencyManagement>
 
   <modules>
     <module>APPWEB-INCOMEMotorCalculoJava-api</module>
     <module>APPWEB-INCOMEMotorCalculoJava-model</module>
     <module>APPWEB-INCOMEMotorCalculoJava-ws</module>
     <module>APPWEB-INCOMEMotorCalculoJava-ms</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-frontend</module>
     <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
   </modules>
 </project>

@@ -1,5 +1,0 @@
-amiga:
-  service:
-    aaa:
-      paths:
-        app-public-path: /web/**,/

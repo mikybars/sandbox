@@ -1,28 +1,49 @@
 spring:
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
   application:
     name: ICMCLCWB
   profiles:
     active: standalone
 app:
-  version: @project.version@
-logging:
-  level:
-    root: ERROR
+  id: ${spring.application.name}
+  version: '@project.version@'
 amiga:
+  common:
+    cache:
+      remote:
+        enabled: true
+    logging:
+      includeFullMDC: true
+      file:
+        enabled: false
+      graylog:
+        enabled: false
+    async:
+      default-executor:
+        core-pool-size: 20
+        # async (6) * amiga.service.jms.trabajo-queue.destination-fqdn.concurrency (20)
+        max-pool-size: 150
+        keep-alive: 10
   service:
-    web:
-      cache-control:
+    session:
+      session-type: REMOTE
+    core:
+      mdc-filter:
         enabled: true
     aaa:
-      paths:
-        app-public-path: /web/**,/
+#      security:
+#        headers:
+#          frame-options: DISABLE
+      local:
+        enable-local-test: true
       classic:
         sso:
-          applicationSSO: customSSOName
+          applicationSSO: AppJoinFashionIntegracion
     rest-swagger:
       ui:
         title: '@project.name@'
         description: '@project.description@'
-        #contact: SomeContactName
-        #web: http://www.inditex.com
-        #email: your_team_email@inditex.com
