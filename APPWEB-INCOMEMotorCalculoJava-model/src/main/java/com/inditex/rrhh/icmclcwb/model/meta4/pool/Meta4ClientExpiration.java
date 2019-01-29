@@ -32,7 +32,7 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
         if (expired) {
             log.warn("Meta4ClientExpiration :: La session '{}' ha caducado", session);
         } else {
-            log.info("Meta4ClientExpiration :: La session '{}' sigue activa", session);
+            log.debug("Meta4ClientExpiration :: La session '{}' sigue activa", session);
         }
         return expired;
     }

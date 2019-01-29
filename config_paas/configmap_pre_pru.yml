@@ -62,7 +62,7 @@ app:
       venta:
         service:
           getVentaTotalizado:
-            endpoint: /ventaGeneralService/getVentaTotalizado
+            endpoint: /ventaGeneral/getVentaTotalizado
             filter:
               maxPageSize: 200
               maxQuerySize: 3
@@ -70,12 +70,12 @@ app:
               maxBatchSize: 100
               retryAttempts: 2
           getVentaIndividualDetalle:
-            endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
+            endpoint: /ventaEmpleado/getVentaIndividualDetalle
             filter:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
       presencia:
         service:
@@ -85,6 +85,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
@@ -141,9 +142,9 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
-          getTiendas:
+          getTiendas: 
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 200
@@ -153,9 +154,9 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
-          searchEmpleados:
+          searchEmpleados: 
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 200
@@ -165,7 +166,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
           getComisionEmpleado:
             page:
@@ -177,7 +178,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
           getEmpleados:
             page:
@@ -189,5 +190,5 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2

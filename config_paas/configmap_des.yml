@@ -71,22 +71,22 @@ app:
   envars:
     ptr:
       venta:
-        service: 
-          getVentaTotalizado: 
-            endpoint: /ventaGeneralService/getVentaTotalizado
+        service:
+          getVentaTotalizado:
+            endpoint: /ventaGeneral/getVentaTotalizado
             filter:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
               retryAttempts: 2
-          getVentaIndividualDetalle: 
-            endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
+          getVentaIndividualDetalle:
+            endpoint: /ventaEmpleado/getVentaIndividualDetalle
             filter:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
       presencia:
         service:
@@ -96,6 +96,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
@@ -152,7 +153,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
           getTiendas: 
             page:
@@ -164,7 +165,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
           searchEmpleados: 
             page:
@@ -176,7 +177,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
           getComisionEmpleado:
             page:
@@ -188,7 +189,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
+              maxBatchSize: 100              
               retryAttempts: 2
           getEmpleados:
             page:
@@ -200,5 +201,5 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2                      
+              maxBatchSize: 100              
+              retryAttempts: 2
