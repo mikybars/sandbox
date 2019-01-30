@@ -7,7 +7,12 @@ import org.hibernate.dialect.DB2Dialect;
 public class DB2NativeDialect extends DB2Dialect {
 
     public DB2NativeDialect() {
-        registerColumnType(Types.DOUBLE, "decimal(23,8)");
+        this.registerColumnType(Types.DOUBLE, "decimal(23,8)");
+    }
+
+    @Override
+    public final void registerColumnType(int code, String name) {
+        super.registerColumnType(code, name);
     }
 
 }
