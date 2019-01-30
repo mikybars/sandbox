@@ -1,8 +1,8 @@
 app:
-  replicas: 3
+  replicas: 1
   instrumented:
     replicas: 1
 datagrid:
-  replicas: 2
+  replicas: 1
 amq:
   force: true
