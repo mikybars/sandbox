@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaSeccionPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaSeccionPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTiendaSeccionPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionPresenciaRepository;
@@ -34,13 +35,13 @@ public class TrabajoTiendaSeccionPresenciaServiceImpl implements TrabajoTiendaSe
     public CompletableFuture<Void> save(@Valid final TrabajoTiendaSeccionPresenciaDto dto) {
         mapper.trabajoTiendaSeccionPresenciaToTrabajoTiendaSeccionPresenciaDto(trabajoTiendaSeccionPresenciaRepository
                 .save(mapper.trabajoTiendaSeccionPresenciaDtoToTrabajoTiendaSeccionPresencia(dto)));
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
     public CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TrabajoDto trabajo) throws Exception {
         mapper.trabajoTiendaSeccionPresenciasToTrabajoTiendaSeccionPresenciasDto(trabajoTiendaSeccionPresenciaRepositoryCustom
                 .save(mapper.presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(dto, trabajo)));
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

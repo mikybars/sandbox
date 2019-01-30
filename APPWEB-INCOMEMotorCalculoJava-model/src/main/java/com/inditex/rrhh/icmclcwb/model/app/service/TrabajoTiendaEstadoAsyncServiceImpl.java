@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaEstadoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 public class TrabajoTiendaEstadoAsyncServiceImpl implements TrabajoTiendaEstadoAsyncService {
@@ -36,7 +37,7 @@ public class TrabajoTiendaEstadoAsyncServiceImpl implements TrabajoTiendaEstadoA
                 .values()) {
             trabajoTiendaEstadoService.save(iter, trabajo);
         }
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
     private <T> List<T> getTiendas(Set<T>... args) {

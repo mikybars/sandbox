@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosMeta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements TrabajoDatosMeta4IcmWsCalcIncomeAsyncService {
@@ -22,14 +23,14 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     public CompletableFuture<Void> tiendasPresencia(final TrabajoDto trabajo,
             final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.tiendasPresencia(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
     @Override
     public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.tiendasComisionable(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
@@ -37,7 +38,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     public CompletableFuture<Void> tiendasHistorico(final TrabajoDto trabajo,
             final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.tiendasHistorico(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
@@ -45,7 +46,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     public CompletableFuture<Void> tiendasEmpleadoHistorico(final TrabajoDto trabajo,
             final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.tiendasEmpleadoHistorico(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
@@ -53,7 +54,7 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     public CompletableFuture<Void> condicionesEmpleados(final TrabajoDto trabajo,
             final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.condicionesEmpleados(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
@@ -61,6 +62,6 @@ public class TrabajoDatosMeta4IcmWsCalcIncomeAsyncServiceImpl implements Trabajo
     public CompletableFuture<Void> empleadosTienda(final TrabajoDto trabajo,
             final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosMeta4IcmWsCalcIncomeService.empleadosTienda(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

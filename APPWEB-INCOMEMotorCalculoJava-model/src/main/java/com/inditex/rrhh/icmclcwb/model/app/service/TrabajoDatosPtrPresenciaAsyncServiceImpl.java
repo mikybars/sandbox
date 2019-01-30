@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 public class TrabajoDatosPtrPresenciaAsyncServiceImpl implements TrabajoDatosPtrPresenciaAsyncService {
@@ -20,7 +21,7 @@ public class TrabajoDatosPtrPresenciaAsyncServiceImpl implements TrabajoDatosPtr
     @Override
     public CompletableFuture<Void> tiposHoras(final TrabajoDto trabajo) throws Exception {
         trabajoDatosPtrPresenciaService.tiposHoras(trabajo);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
@@ -28,7 +29,7 @@ public class TrabajoDatosPtrPresenciaAsyncServiceImpl implements TrabajoDatosPtr
     public CompletableFuture<Void> presenciaTotalizadaTienda(final TrabajoDto trabajo,
             final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosPtrPresenciaService.presenciaTotalizadaTienda(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
@@ -36,7 +37,7 @@ public class TrabajoDatosPtrPresenciaAsyncServiceImpl implements TrabajoDatosPtr
     public CompletableFuture<Void> presenciaDetalleEmpleado(final TrabajoDto trabajo,
             final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosPtrPresenciaService.presenciaDetalleEmpleado(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
 }
