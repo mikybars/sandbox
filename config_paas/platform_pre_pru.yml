@@ -1,5 +1,7 @@
 app:
   replicas: 1
+  instrumented:
+    replicas: 0
 datagrid:
   replicas: 1
 amq:

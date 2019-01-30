@@ -1,7 +1,5 @@
 ## [APPWEB-INCOMEMotorCalculoJava](https://axinic.central.inditex.grp/jira/browse/ICMCLCWB)
 
-[TOC]
-
 ## Introducción
 
 Permite calcular y enviar a pagos, la comisión por ciclo de pago de todo el personal de tienda de todas las cadenas y países en base a un modelo de reglas por agrupaciones y niveles jerárquicos (país, cadena, puestos, tienda…), de modo que se facilite la visión y el mantenimiento del comisionado.

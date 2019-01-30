@@ -1,9 +1,4 @@
 spring:
-#  h2:
-#    console:
-#      enabled: true
-#      settings:
-#        web-allow-others: true
   application:
     name: ICMCLCWB
   profiles:
@@ -25,7 +20,6 @@ amiga:
     async:
       default-executor:
         core-pool-size: 20
-        # async (6) * amiga.service.jms.trabajo-queue.destination-fqdn.concurrency (20)
         max-pool-size: 150
         keep-alive: 10
   service:
@@ -35,9 +29,6 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
-#      security:
-#        headers:
-#          frame-options: DISABLE
       local:
         enable-local-test: true
       classic:

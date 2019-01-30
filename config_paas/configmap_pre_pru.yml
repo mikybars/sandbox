@@ -75,7 +75,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
+              maxBatchSize: 100
               retryAttempts: 2
       presencia:
         service:
@@ -142,9 +142,9 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
+              maxBatchSize: 100
               retryAttempts: 2
-          getTiendas: 
+          getTiendas:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 200
@@ -154,9 +154,9 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
+              maxBatchSize: 100
               retryAttempts: 2
-          searchEmpleados: 
+          searchEmpleados:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 200
@@ -166,7 +166,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
+              maxBatchSize: 100
               retryAttempts: 2
           getComisionEmpleado:
             page:
@@ -178,7 +178,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
+              maxBatchSize: 100
               retryAttempts: 2
           getEmpleados:
             page:
@@ -190,5 +190,5 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100              
+              maxBatchSize: 100
               retryAttempts: 2
