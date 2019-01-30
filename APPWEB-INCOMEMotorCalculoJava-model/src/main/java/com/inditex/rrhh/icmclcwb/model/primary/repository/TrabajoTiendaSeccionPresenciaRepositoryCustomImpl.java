@@ -22,12 +22,12 @@ public class TrabajoTiendaSeccionPresenciaRepositoryCustomImpl extends JdbcBatch
     private PtrPropertiesDto presenciasTotalTiendaSeccionDto;
     
     @Autowired
-    @Qualifier("primaryXmlQueries")
-    private Properties queries;
+    @Qualifier("primaryQuery")
+    private Properties query;
     
     @Override
     public List<TrabajoTiendaSeccionPresencia> save(final List<TrabajoTiendaSeccionPresencia> src) throws Exception{
-        return saveJdbcBatchList(src, queries.getProperty("insertTrabajoTiendaSeccionPresencia"), presenciasTotalTiendaSeccionDto.getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, query.getProperty("TrabajoTiendaSeccionPresenciaRepositoryCustom.save"), presenciasTotalTiendaSeccionDto.getFilter().getMaxBatchSize());
     }
 
     @Override

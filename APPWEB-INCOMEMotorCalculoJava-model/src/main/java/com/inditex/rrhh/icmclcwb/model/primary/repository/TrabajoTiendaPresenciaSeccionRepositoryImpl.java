@@ -1,60 +1,33 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 @Repository
 public class TrabajoTiendaPresenciaSeccionRepositoryImpl implements TrabajoTiendaPresenciaSeccionRepository {
 
-	@Autowired
-	@Qualifier("primaryJdbcTemplate")
-	private JdbcTemplate jdbcTemplate;
-	
-	private static final String SAVE = "MERGE INTO DESARROLLO_RRHH.TRABAJO_TIENDA_PRESENCIA_SECCION "
-			+ " USING ("
-			+ " SELECT FECHA, "
-			+ " ID_TIENDA, "
-			+ " COALESCE(MAX(Q1),0) AS MINUTOS_SECCION_1, "
-			+ " COALESCE(MAX(Q2),0) AS MINUTOS_SECCION_2, "
-			+ " COALESCE(MAX(Q3),0) AS MINUTOS_SECCION_3, "
-			+ " ID_TRABAJO "
-			+ " FROM( "
-			+ " SELECT A.ID_TRABAJO, A.FECHA, A.ID_TIENDA, A.ID_SECCION,"
-			+ " MAX(CASE WHEN A.ID_SECCION = 1 THEN A.MINUTOS END) AS Q1,"
-			+ " MAX(CASE WHEN A.ID_SECCION = 2 THEN A.MINUTOS END) AS Q2,"
-			+ " MAX(CASE WHEN A.ID_SECCION = 3 THEN A.MINUTOS END) AS Q3 "
-			+ " FROM DESARROLLO_RRHH.TRABAJO_TIENDA_SECCION_PRESENCIA A "
-			+ " WHERE A.ID_TRABAJO = ? "
-			+ " GROUP BY A.ID_TRABAJO, A.FECHA, A.ID_TIENDA, A.ID_SECCION) "
-			+ " GROUP BY ID_TRABAJO, FECHA, ID_TIENDA) AS S "
-			+ " ON (1 = 0) "
-			+ " WHEN NOT MATCHED THEN "
-			+ " INSERT (FECHA, ID_TIENDA, MINUTOS_SECCION_1, MINUTOS_SECCION_2, MINUTOS_SECCION_3, ID_TRABAJO ) "
-			+ " VALUES (S.FECHA, S.ID_TIENDA, S.MINUTOS_SECCION_1, S.MINUTOS_SECCION_2, S.MINUTOS_SECCION_3, S.ID_TRABAJO)";
-	
-	@Override
-	@Auditoria
-	public void save(@NotNull TrabajoDto trabajoDto){
-        jdbcTemplate.update(new PreparedStatementCreator(){
-            public PreparedStatement createPreparedStatement(Connection connection)
-                throws SQLException {
-                PreparedStatement ps = connection.prepareStatement(SAVE);
-                ps.setLong(1, trabajoDto.getId());
-                return ps;
-            }
-        });
-	}
-	
+    @Autowired
+    @Qualifier("primaryJdbcTemplate")
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    @Qualifier("pscfTrabajoTiendaPresenciaSeccionRepositorySave")
+    private PreparedStatementCreatorFactory pscfSave;
+
+    @AuditoriaTrabajo
+    @Override
+    public void save(@NotNull final TrabajoDto trabajoDto) {
+        jdbcTemplate.update(pscfSave.newPreparedStatementCreator(Arrays.asList(trabajoDto.getId())));
+    }
+
 }
