@@ -2,6 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
 import java.time.LocalDateTime;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +15,12 @@ import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoEmpleadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
-import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaRepository;
 import com.inditex.rrhh.icmclcwb.ms.SenderTrabajo;
 
 @Service
@@ -33,16 +34,10 @@ public class TrabajoServiceImpl implements TrabajoService {
     private TrabajoMapper trabajoMapper;
 
     @Autowired
-    private TrabajoTiendaRepository trabajoTiendaRepository;
+    private TrabajoTiendaService trabajoTiendaService;
 
     @Autowired
-    private TrabajoTiendaMapper trabajoTiendaMapper;
-
-    @Autowired
-    private TrabajoEmpleadoRepository trabajoEmpleadoRepository;
-
-    @Autowired
-    private TrabajoEmpleadoMapper trabajoEmpleadoMapper;
+    private TrabajoEmpleadoService trabajoEmpleadoService;
 
     @Autowired
     private SenderTrabajo senderTrabajo;
@@ -60,13 +55,9 @@ public class TrabajoServiceImpl implements TrabajoService {
         TrabajoDto result = trabajoMapper
                 .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
         if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-            result.setTiendas(
-                    trabajoTiendaMapper.trabajoTiendaToTrabajoTiendaDto(trabajoTiendaRepository.save(trabajoTiendaMapper
-                            .mergeTrabajoTiendaDtoAndTrabajoDtoToTrabajoTienda(trabajo.getTiendas(), result))));
+            result.setTiendas(trabajoTiendaService.createTrabajoTienda(result, trabajo.getTiendas()));
         } else if (CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-            result.setEmpleados(trabajoEmpleadoMapper
-                    .trabajoEmpleadoToTrabajoEmpleadoDto(trabajoEmpleadoRepository.save(trabajoEmpleadoMapper
-                            .mergeTrabajoEmpleadoDtoAndTrabajoDtoToTrabajoEmpleado(trabajo.getEmpleados(), result))));
+            result.setEmpleados(trabajoEmpleadoService.createTrabajoEmpleado(result, trabajo.getEmpleados()));
         }
         senderTrabajo.send(result);
         return result;
@@ -78,9 +69,17 @@ public class TrabajoServiceImpl implements TrabajoService {
     }
 
     @Override
-    public TrabajoDto modifyEstadoTrabajo(@Valid final EstadoTrabajoDto estado, @Valid final TrabajoDto trabajo) {
+    public TrabajoDto modifyEstadoTrabajo(@Valid final TrabajoDto trabajo, @Valid final EstadoTrabajoDto estado) {
         trabajo.setEstado(estado);
         return modifyTrabajo(trabajo);
+    }
+
+    @Override
+    public TrabajoDto findById(@NotNull @Positive final Long id) {
+        TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
+        trabajo.setTiendas(trabajoTiendaService.findByTrabajo(trabajo));
+        trabajo.setEmpleados(trabajoEmpleadoService.findByTrabajo(trabajo));
+        return trabajo;
     }
 
 }

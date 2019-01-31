@@ -51,7 +51,7 @@ public class RunTrabajoCalcularServiceImpl implements RunTrabajoCalcularService 
     public RunTrabajoDto run(@Valid final RunTrabajoDto runTrabajo) throws Exception {
         TrabajoDto trabajo = runTrabajo.getTrabajoDto();
         if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
-            trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto(), trabajo);
+            trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto());
 
             // TODO Pendiente revisar los identificadores a utilizar, si hace el tipo de
             // comision, etc...
@@ -73,7 +73,7 @@ public class RunTrabajoCalcularServiceImpl implements RunTrabajoCalcularService 
                     .doOnError(error -> log.error(error.getMessage())).doAfterTerminate(latch::countDown).subscribe();
             latch.await();
 
-            trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto(), trabajo);
+            trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto());
         }
         return runTrabajo;
     }

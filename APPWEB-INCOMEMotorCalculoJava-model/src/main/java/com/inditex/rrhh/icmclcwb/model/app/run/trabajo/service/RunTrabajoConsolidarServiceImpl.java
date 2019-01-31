@@ -30,7 +30,7 @@ public class RunTrabajoConsolidarServiceImpl implements RunTrabajoConsolidarServ
     public RunTrabajoDto run(@Valid final RunTrabajoDto trabajoRun) throws Exception {
         final TrabajoDto trabajo = trabajoRun.getTrabajoDto();
         if (EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId().equals(trabajo.getEstado().getId())) {
-            trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getDto(), trabajo);
+            trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getDto());
             TestUtils.threadSleep();
             trabajo.setFechaFinTrabajo(LocalDateTime.now());
             trabajo.setEstado(EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getDto());

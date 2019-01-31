@@ -32,15 +32,9 @@ amiga:
           driverClassName: com.ibm.db2.jcc.DB2Driver
           url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
           user: oincome
-        secondary:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://axdessql2.central.inditex.grp:11433;databaseName=PeopleNet
-          user: ncomis
     hibernate:
       primary:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
-      secondary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect''}'
     jms:
       connectionFactory:
         brokerEscritura:

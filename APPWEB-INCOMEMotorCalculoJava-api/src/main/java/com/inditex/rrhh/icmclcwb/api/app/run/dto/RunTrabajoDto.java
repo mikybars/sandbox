@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
-import groovy.transform.builder.Builder;
+import lombok.Builder;
 import lombok.Data;
 
 @Data

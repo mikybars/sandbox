@@ -172,7 +172,7 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
-                trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto(), trabajo);                                                        
+                trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto());                                                        
                
             }
         } catch (Exception e) {

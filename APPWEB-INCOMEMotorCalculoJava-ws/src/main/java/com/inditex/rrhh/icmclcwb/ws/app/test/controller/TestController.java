@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.ws.app.test.controller;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.annotation.Validated;
@@ -13,16 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
-import com.inditex.rrhh.icmclcwb.model.app.trabajo.TipoCalculoEnum;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -35,9 +25,6 @@ public class TestController {
 
     @Autowired
     private TestService testService;
-
-    @Autowired
-    private RunTrabajoCalcularService runTrabajoCalcularService;
 
     @Autowired
     @Qualifier("ptrVentaClient")
@@ -85,21 +72,6 @@ public class TestController {
         String pathD = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
         return ptrVentaClient.getForObject(pathD, String.class);
 
-    }
-
-    @GetMapping(path = "/calculo/trabajo")
-    @ApiOperation("Test calculo trabajo, GET")
-    public void testPathPTRVentas(Long trabajo) throws Exception {
-        TrabajoDto trabajoDto = new TrabajoDto();
-        trabajoDto.setId(trabajo);
-        RunTrabajoDto trabajoRunDto = new RunTrabajoDto();
-        trabajoRunDto.setTrabajoDto(trabajoDto);
-        Set<Long> tiposCalculo = new HashSet<>();
-        tiposCalculo.add(TipoCalculoEnum.GLOBAL_TIENDA.getId());
-        EstadoTrabajoDto estado = new EstadoTrabajoDto(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId());
-        trabajoDto.setEstado(estado);
-        trabajoRunDto.getRunTrabajoCalcular().setTiposCalculo(tiposCalculo);
-        runTrabajoCalcularService.run(trabajoRunDto);
     }
 
 }

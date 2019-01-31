@@ -43,7 +43,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
             runTrabajoCalcularService.run(runTrabajo);
             runTrabajoConsolidarService.run(runTrabajo);
         } catch (Exception e) {
-            trabajoService.modifyEstadoTrabajo(EstadoTrabajoEnum.ERROR.getDto(), runTrabajo.getTrabajoDto());
+            trabajoService.modifyEstadoTrabajo(runTrabajo.getTrabajoDto(), EstadoTrabajoEnum.ERROR.getDto());
             throw e;
         }
         return runTrabajo;
