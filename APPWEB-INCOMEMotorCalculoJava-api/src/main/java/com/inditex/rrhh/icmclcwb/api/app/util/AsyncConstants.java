@@ -1,10 +1,17 @@
 package com.inditex.rrhh.icmclcwb.api.app.util;
 
+/**
+ * The Class AsyncConstants.
+ */
 public class AsyncConstants {
 
-	private AsyncConstants() {
-	}
+    /**
+     * Instantiates a new async constants.
+     */
+    private AsyncConstants() {
+    }
 
-	public static final Void NIL = null;
+    /** The Constant NIL. */
+    public static final Void NIL = null;
 
 }
