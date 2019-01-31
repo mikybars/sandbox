@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 
 public interface TrabajoTiendaVentaSeccionRepository {
 
-	void save(@NotNull TrabajoDto trabajoDto);
+	void save(@NotNull final TrabajoDto trabajoDto);
 
 }

@@ -24,11 +24,11 @@ public class Meta4ClientPoolBase {
 
 	@Retryable
 	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) throws InterruptedException {
-		log.info("Inicio :: Meta4ClientPoolBase :: pool.claim()");
+		log.debug("Inicio :: Meta4ClientPoolBase :: pool.claim()");
 		Instant start = Instant.now();
 		Meta4ClientPoolable poolable = pool.claim(new Timeout(claimTimeout, TimeUnit.MILLISECONDS));
 		Instant end = Instant.now();
-		log.info("Fin :: Meta4ClientPoolBase :: pool.claim(): {}", Duration.between(start, end));
+		log.debug("Fin :: Meta4ClientPoolBase :: pool.claim(): {}", Duration.between(start, end));
 		if (poolable != null) {
 			uso(poolable);
 			logSession(poolable.getSession());
@@ -50,13 +50,13 @@ public class Meta4ClientPoolBase {
 	}
 
 	protected void release(final Meta4ClientPoolable poolable) {
-		log.info("Inicio :: Meta4ClientPoolBase :: release()");
+		log.debug("Inicio :: Meta4ClientPoolBase :: release()");
 		if (poolable != null) {
-			log.info("Inicio :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
+			log.debug("Inicio :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
 			poolable.release();
-			log.info("Fin :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
+			log.debug("Fin :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
 		}
-		log.info("Fin :: Meta4ClientPoolBase :: release()");
+		log.debug("Fin :: Meta4ClientPoolBase :: release()");
 	}
 
 	private void uso(final Meta4ClientPoolable poolable) {
@@ -65,7 +65,7 @@ public class Meta4ClientPoolBase {
 	}
 
 	private void logSession(final Meta4ClientSession session) {
-		log.info("Meta4ClientPoolBase :: logSession() :: {}", session);
+		log.debug("Meta4ClientPoolBase :: logSession() :: {}", session);
 	}
 
 }

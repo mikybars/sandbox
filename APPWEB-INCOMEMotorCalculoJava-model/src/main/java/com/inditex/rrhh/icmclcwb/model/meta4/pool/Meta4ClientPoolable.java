@@ -28,7 +28,7 @@ public class Meta4ClientPoolable implements Poolable {
 
 	@Override
 	public void release() {
-		log.info("Meta4ClientPoolable :: release()");
+		log.debug("Meta4ClientPoolable :: release()");
 		slot.release(this);
 	}
 

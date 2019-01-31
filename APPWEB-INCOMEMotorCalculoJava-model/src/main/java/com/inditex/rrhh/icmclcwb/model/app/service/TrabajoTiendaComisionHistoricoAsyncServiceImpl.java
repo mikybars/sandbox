@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoTiendaComisionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaComisionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaComisionHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 public class TrabajoTiendaComisionHistoricoAsyncServiceImpl implements TrabajoTiendaComisionHistoricoAsyncService {
@@ -21,7 +22,7 @@ public class TrabajoTiendaComisionHistoricoAsyncServiceImpl implements TrabajoTi
     @Override
     public CompletableFuture<Void> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) throws Exception {
         trabajoTiendaComisionHistoricoService.save(trabajoTiendaComisionHistoricoDto);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
 

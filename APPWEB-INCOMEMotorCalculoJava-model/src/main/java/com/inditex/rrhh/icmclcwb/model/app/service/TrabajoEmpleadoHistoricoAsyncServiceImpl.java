@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 public class TrabajoEmpleadoHistoricoAsyncServiceImpl implements TrabajoEmpleadoHistoricoAsyncService {
@@ -24,7 +25,7 @@ public class TrabajoEmpleadoHistoricoAsyncServiceImpl implements TrabajoEmpleado
     @Override
     public CompletableFuture<Void> save(final List<TrabajoEmpleadoHistoricoDto>  trabajoEmpleadoHistorico, @Valid TrabajoDto trabajo) throws Exception {
         trabajoEmpleadoHistoricoService.save(trabajoEmpleadoHistorico, trabajo);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
 }

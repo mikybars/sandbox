@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTipoHoraService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.TrabajoTipoHoraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTipoHoraRepositoryCustom;
@@ -27,7 +28,7 @@ public class TrabajoTipoHoraServiceImpl implements TrabajoTipoHoraService {
     public CompletableFuture<Void> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TrabajoDto trabajoDto) throws Exception {
         mapper.trabajoTrabajoTipoHoraListTotrabajoTipoHoraDtoList(trabajoTipoHoraRepositoryCustom
                 .save(mapper.ptrPresenciaTipoHoraResponsesDtoToTrabajoTipoHoraDto(dto, trabajoDto)));
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
 }

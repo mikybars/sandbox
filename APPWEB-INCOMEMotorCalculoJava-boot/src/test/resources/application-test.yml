@@ -8,9 +8,6 @@ amiga:
         enabled: true
   service:
     aaa:
-#      security:
-#        headers:
-#          frame-options: DISABLE
       local:
         enable-local-test: true
     session:

@@ -4,14 +4,27 @@ import java.sql.Types;
 
 import org.hibernate.dialect.DB2Dialect;
 
+/**
+ * The Class DB2NativeDialect.
+ */
 public class DB2NativeDialect extends DB2Dialect {
 
+    /**
+     * Instantiates a new DB 2 native dialect.
+     */
     public DB2NativeDialect() {
-        super();
-        registerColumnType(Types.DOUBLE, "decimal(23,8)");
-//        registerColumnType(Types.INTEGER, "decimal($p)");
-//        registerColumnType(Types.NUMERIC, "decimal($p,$s)");
-//        registerColumnType(Types.DECIMAL, "decimal($p,$s)");
+        this.registerColumnType(Types.DOUBLE, "decimal(23,8)");
+    }
+
+    /**
+     * Register column type.
+     *
+     * @param code the code
+     * @param name the name
+     */
+    @Override
+    public final void registerColumnType(int code, String name) {
+        super.registerColumnType(code, name);
     }
 
 }

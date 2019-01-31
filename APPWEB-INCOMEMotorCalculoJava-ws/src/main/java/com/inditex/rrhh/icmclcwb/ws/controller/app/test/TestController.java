@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.ws.controller.app.test;
 
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,93 +27,131 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
+/**
+ * The Class TestController.
+ */
 @Validated
 @RestController
 @RequestMapping(path = "/test")
 @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
 public class TestController {
 
-	@Autowired
-	private TestService testService;
-	
-	
-	@Autowired
-	private TrabajoRunCalcularService trabajoRunCalcularService;
-	
-	
-	public static final Long GLOBAL_TIENDA = new Long(1L);
+    /** The test service. */
+    @Autowired
+    private TestService testService;
 
-	private TrabajoRunDto trabajoRunDto = new TrabajoRunDto();
-	
-	@Autowired
-	@Qualifier("ptrVentaClient")
-	private RestClient ptrVentaClient;	
-	
-	@Autowired
-	@Qualifier("ptrPresenciaClient")	
-	private RestClient ptrPresenciaClient;
-	
+    /** The trabajo run calcular service. */
+    @Autowired
+    private TrabajoRunCalcularService trabajoRunCalcularService;
 
-	@GetMapping(path = "/reloj/")
-	public RelojDto reloj() {
-		return testService.reloj();
-	}
+    /** The ptr venta client. */
+    @Autowired
+    @Qualifier("ptrVentaClient")
+    private RestClient ptrVentaClient;
 
-	@GetMapping(path = "/sso/")
-	public SsoDto sso() {
-		return testService.sso();
-	}
+    /** The ptr presencia client. */
+    @Autowired
+    @Qualifier("ptrPresenciaClient")
+    private RestClient ptrPresenciaClient;
 
-	@GetMapping(path = "/error/sync/")
-	public void errorSync() throws Exception {
-		testService.errorSync();
-	}
+    /**
+     * Reloj.
+     *
+     * @return the reloj dto
+     */
+    @GetMapping(path = "/reloj/")
+    public RelojDto reloj() {
+        return testService.reloj();
+    }
 
-	@GetMapping(path = "/error/async/")
-	public void errorAsync() throws Exception {
-		testService.errorAsync();
-	}
-	
-	@GetMapping(path = "/sesion/")
+    /**
+     * Sso.
+     *
+     * @return the sso dto
+     */
+    @GetMapping(path = "/sso/")
+    public SsoDto sso() {
+        return testService.sso();
+    }
+
+    /**
+     * Error sync.
+     *
+     * @throws Exception the exception
+     */
+    @GetMapping(path = "/error/sync/")
+    public void errorSync() throws Exception {
+        testService.errorSync();
+    }
+
+    /**
+     * Error async.
+     *
+     * @throws Exception the exception
+     */
+    @GetMapping(path = "/error/async/")
+    public void errorAsync() throws Exception {
+        testService.errorAsync();
+    }
+
+    /**
+     * Sesion.
+     *
+     * @throws Exception the exception
+     */
+    @GetMapping(path = "/sesion/")
     public void sesion() throws Exception {
         testService.sesion();
     }
-	
-	//*************
-	
-	@GetMapping(path = "/ptrPresencias/path")
-	@ApiOperation("Test PTR Presencias path, GET")	
-	public String testPathPTRPresecnias(String path) throws Exception {		
-		String pathD = URLDecoder.decode(path, "UTF-8");
-		return ptrPresenciaClient.getForObject(pathD, String.class);
-	}
-	
-	@GetMapping(path = "/ptrVentas/path")
-	@ApiOperation("Test PTR Ventas path, GET")	
-	public String testPathPTRVentas(String path) throws Exception {		
-		String pathD = URLDecoder.decode(path, "UTF-8");
-		return ptrVentaClient.getForObject(pathD, String.class);
 
-	}	
+    /**
+     * Test path PTR presecnias.
+     *
+     * @param path the path
+     * @return the string
+     * @throws Exception the exception
+     */
+    @GetMapping(path = "/ptrPresencias/path")
+    @ApiOperation("Test PTR Presencias path, GET")
+    public String testPathPTRPresecnias(String path) throws Exception {
+        String pathD = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
+        return ptrPresenciaClient.getForObject(pathD, String.class);
+    }
 
-	//*************
-	
-	
-	//*************
-			
-	@GetMapping(path = "/calculo/trabajo")
-	@ApiOperation("Test calculo trabajo, GET")	
-	public void testPathPTRVentas(Long trabajo) throws Exception {				
-		TrabajoDto trabajoDto = new TrabajoDto();
-		trabajoDto.setId(trabajo);
-		trabajoRunDto.setTrabajoDto(trabajoDto);
-		Set<Long> tiposCalculo = new HashSet<>();  
-		tiposCalculo.add(TipoCalculoEnum.GLOBAL_TIENDA.getId());		
-		EstadoTrabajoDto  estado = new EstadoTrabajoDto(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId()); 				
-		trabajoDto.setEstado(estado);		
-		trabajoRunDto.getTrabajoRunCalcular().setTiposCalculo(tiposCalculo);				
-		trabajoRunCalcularService.run(trabajoRunDto);
-	}	
-	
-	//*************
+    /**
+     * Test path PTR ventas.
+     *
+     * @param path the path
+     * @return the string
+     * @throws Exception the exception
+     */
+    @GetMapping(path = "/ptrVentas/path")
+    @ApiOperation("Test PTR Ventas path, GET")
+    public String testPathPTRVentas(String path) throws Exception {
+        String pathD = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
+        return ptrVentaClient.getForObject(pathD, String.class);
+
+    }
+
+    /**
+     * Test path PTR ventas.
+     *
+     * @param trabajo the trabajo
+     * @throws Exception the exception
+     */
+    @GetMapping(path = "/calculo/trabajo")
+    @ApiOperation("Test calculo trabajo, GET")
+    public void testPathPTRVentas(Long trabajo) throws Exception {
+        TrabajoDto trabajoDto = new TrabajoDto();
+        trabajoDto.setId(trabajo);
+        TrabajoRunDto trabajoRunDto = new TrabajoRunDto();
+        trabajoRunDto.setTrabajoDto(trabajoDto);
+        Set<Long> tiposCalculo = new HashSet<>();
+        tiposCalculo.add(TipoCalculoEnum.GLOBAL_TIENDA.getId());
+        EstadoTrabajoDto estado = new EstadoTrabajoDto(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId());
+        trabajoDto.setEstado(estado);
+        trabajoRunDto.getTrabajoRunCalcular().setTiposCalculo(tiposCalculo);
+        trabajoRunCalcularService.run(trabajoRunDto);
+    }
+
 }

@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoPivotAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaPresenciaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaVentaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 @Validated
@@ -29,6 +30,6 @@ public class TrabajoPivotAsyncServiceImpl implements TrabajoPivotAsyncService {
     public CompletableFuture<Void> pivot(@Valid final TrabajoDto trabajoDto) throws Exception {
         trabajoTiendaPresenciaSeccionAsyncService.pivot(trabajoDto);
         trabajoTiendaVentaSeccionAsyncService.pivot(trabajoDto);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaPresenciaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoTiendaPresenciaSeccionService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 @Validated
@@ -24,6 +25,6 @@ public class TrabajoTiendaPresenciaSeccionAsyncServiceImpl implements TrabajoTie
     @Override
     public CompletableFuture<Void> pivot(@Valid final TrabajoDto trabajoDto) throws Exception  {
         trabajoTiendaPresenciaSeccionService.pivot(trabajoDto);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

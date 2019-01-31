@@ -62,7 +62,7 @@ app:
       venta:
         service:
           getVentaTotalizado:
-            endpoint: /ventaGeneralService/getVentaTotalizado
+            endpoint: /ventaGeneral/getVentaTotalizado
             filter:
               maxPageSize: 200
               maxQuerySize: 3
@@ -70,7 +70,7 @@ app:
               maxBatchSize: 100
               retryAttempts: 2
           getVentaIndividualDetalle:
-            endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
+            endpoint: /ventaEmpleado/getVentaIndividualDetalle
             filter:
               maxPageSize: 200
               maxQuerySize: 3
@@ -85,6 +85,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle

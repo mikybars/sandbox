@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoEmpleadoEstadoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 public class TrabajoEmpleadoEstadoAsyncServiceImpl implements TrabajoEmpleadoEstadoAsyncService {
@@ -28,7 +29,7 @@ public class TrabajoEmpleadoEstadoAsyncServiceImpl implements TrabajoEmpleadoEst
     @Override
     public CompletableFuture<Void> save(final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) throws Exception {
         trabajoEmpleadoEstadoService.save(trabajoEmpleadoEstado);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
     @Async
@@ -48,7 +49,7 @@ public class TrabajoEmpleadoEstadoAsyncServiceImpl implements TrabajoEmpleadoEst
                 .values()) {
             trabajoEmpleadoEstadoService.save(iter, trabajo);
         }
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
 

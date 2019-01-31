@@ -13,16 +13,9 @@ amiga:
         defaultConnectTimeout: 300000
         defaultReadTimeout: 300000
         ptrVentaClient:
-          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/VTIMPACESB
-          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/VTIMPACESB
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service          
+          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
         ptrPresenciaClient:
           base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
-          #base-url: http://axdesptrosb01-vip.central.inditex.grp:33313/RHPRSCAESB
-          #base-url: http://axpreptrosb01-vip.central.inditex.grp:10313/RHPRSCAESB
-          #base-url: https://ptrpresenciamock-icmclcwb.axdesocp1.central.inditex.grp/presenciasMockService
-          #auth-method: BASIC
-          #username: username300
   service:
     jms:
       trabajo-queue:
@@ -32,11 +25,6 @@ amiga:
     jdbc:
       configuration:
         prop:
-          # 0: TRANSACTION_NONE
-          # 1: TRANSACTION_READ_UNCOMMITTED
-          # 2: TRANSACTION_READ_COMMITTED
-          # 4: TRANSACTION_REPEATABLE_READ
-          # 8: TRANSACTION_SERIALIZABLE
           default-isolation-level: 1
           max-pool-size: 20
       datasource:
@@ -47,7 +35,6 @@ amiga:
         secondary:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://axdessql2.central.inditex.grp:11433;databaseName=PeopleNet
-          #user: People7
           user: ncomis
     hibernate:
       primary:
@@ -71,17 +58,17 @@ app:
   envars:
     ptr:
       venta:
-        service: 
-          getVentaTotalizado: 
-            endpoint: /ventaGeneralService/getVentaTotalizado
+        service:
+          getVentaTotalizado:
+            endpoint: /ventaGeneral/getVentaTotalizado
             filter:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
               retryAttempts: 2
-          getVentaIndividualDetalle: 
-            endpoint: /ventaEmpleadoService/getVentaIndividualDetalle
+          getVentaIndividualDetalle:
+            endpoint: /ventaEmpleado/getVentaIndividualDetalle
             filter:
               maxPageSize: 200
               maxQuerySize: 3
@@ -96,6 +83,7 @@ app:
               maxPageSize: 200
               maxQuerySize: 3
               maxPersistenceSize: 3
+              maxBatchSize: 100
               retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
@@ -112,7 +100,7 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2                   
+              retryAttempts: 2
     meta4:
       config:
         credentials:
@@ -154,7 +142,7 @@ app:
               maxPersistenceSize: 3
               maxBatchSize: 100
               retryAttempts: 2
-          getTiendas: 
+          getTiendas:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 200
@@ -166,7 +154,7 @@ app:
               maxPersistenceSize: 3
               maxBatchSize: 100
               retryAttempts: 2
-          searchEmpleados: 
+          searchEmpleados:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 200
@@ -201,4 +189,4 @@ app:
               maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2                      
+              retryAttempts: 2

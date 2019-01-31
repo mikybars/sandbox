@@ -2,8 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.app.service.test;
 
 import com.inditex.rrhh.icmclcwb.api.app.service.test.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.test.TestExceptionService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ public class TestExceptionAsyncServiceImpl implements TestExceptionAsyncService 
 	@Override
 	public CompletableFuture<Void> applicationException() throws Exception {
         testExceptionService.applicationException();
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
 	}
 
 }

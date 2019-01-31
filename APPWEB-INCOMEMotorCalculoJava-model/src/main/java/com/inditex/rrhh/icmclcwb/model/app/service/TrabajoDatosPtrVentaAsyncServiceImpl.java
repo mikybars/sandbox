@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDatosBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoDatosPtrVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 public class TrabajoDatosPtrVentaAsyncServiceImpl implements TrabajoDatosPtrVentaAsyncService {
@@ -20,14 +21,14 @@ public class TrabajoDatosPtrVentaAsyncServiceImpl implements TrabajoDatosPtrVent
     @Override
     public CompletableFuture<Void> ventaTotalizadaTienda(final TrabajoDto trabajo, final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosPtrVentaService.ventaTotalizadaTienda(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
     @Override
     public CompletableFuture<Void> ventaDetalleEmpleado(final TrabajoDto trabajo, final TrabajoRunDatosBloqueDto trabajoRunDatosBloque) throws Exception {
         trabajoDatosPtrVentaService.ventaDetalleEmpleado(trabajo, trabajoRunDatosBloque);
-        return CompletableFuture.completedFuture(null);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
 }

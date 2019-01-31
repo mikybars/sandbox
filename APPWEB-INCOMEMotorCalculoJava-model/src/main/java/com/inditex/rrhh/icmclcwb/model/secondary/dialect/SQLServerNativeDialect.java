@@ -4,22 +4,29 @@ import java.sql.Types;
 
 import org.hibernate.dialect.SQLServerDialect;
 
+/**
+ * The Class SQLServerNativeDialect.
+ */
 public class SQLServerNativeDialect extends SQLServerDialect {
 
-	public SQLServerNativeDialect() {
-		super();
-//		registerColumnType(Types.CHAR, "nchar(1)");
-	    registerColumnType(Types.VARCHAR, "nvarchar($l)");
-//	    registerColumnType(Types.LONGVARCHAR, "nvarchar($l)");
-	    registerColumnType(Types.CLOB, "ntext");
-	}
+    /**
+     * Instantiates a new SQL server native dialect.
+     */
+    public SQLServerNativeDialect() {
+        super();
+        this.registerColumnType(Types.VARCHAR, "nvarchar($l)");
+        this.registerColumnType(Types.CLOB, "ntext");
+    }
 
-//	public String getTypeName(int code, int length, int precision, int scale) throws HibernateException {
-//		if (code != 2005) {
-//			return super.getTypeName(code, length, precision, scale);
-//		} else {
-//			return "ntext";
-//		}
-//	}
+    /**
+     * Register column type.
+     *
+     * @param code the code
+     * @param name the name
+     */
+    @Override
+    public final void registerColumnType(int code, String name) {
+        super.registerColumnType(code, name);
+    }
 
 }
