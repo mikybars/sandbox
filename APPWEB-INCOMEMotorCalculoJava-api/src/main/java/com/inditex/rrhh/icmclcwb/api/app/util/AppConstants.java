@@ -3,9 +3,9 @@ package com.inditex.rrhh.icmclcwb.api.app.util;
 import java.util.Arrays;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TipoTrabajoTiendaDto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

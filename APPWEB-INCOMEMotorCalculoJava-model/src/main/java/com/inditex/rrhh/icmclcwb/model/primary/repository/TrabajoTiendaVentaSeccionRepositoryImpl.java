@@ -9,8 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TrabajoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 @Repository
 public class TrabajoTiendaVentaSeccionRepositoryImpl implements TrabajoTiendaVentaSeccionRepository {
@@ -23,7 +23,7 @@ public class TrabajoTiendaVentaSeccionRepositoryImpl implements TrabajoTiendaVen
     @Qualifier("pscfTrabajoTiendaVentaSeccionRepositorySave")
     private PreparedStatementCreatorFactory pscfSave;
 
-    @AuditoriaTrabajo
+    @TrabajoAuditoria
     @Override
     public void save(@NotNull final TrabajoDto trabajoDto) {
         jdbcTemplate.update(pscfSave.newPreparedStatementCreator(Arrays.asList(trabajoDto.getId())));

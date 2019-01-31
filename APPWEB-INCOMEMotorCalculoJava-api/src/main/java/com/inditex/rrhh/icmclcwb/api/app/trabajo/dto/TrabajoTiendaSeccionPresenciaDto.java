@@ -1,0 +1,38 @@
+package com.inditex.rrhh.icmclcwb.api.app.trabajo.dto;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+@Data
+public class TrabajoTiendaSeccionPresenciaDto implements Serializable {
+
+	private static final long serialVersionUID = -265327328731996046L;
+
+	@ApiModelProperty(value = "Identificador de la entidad", required = false, readOnly = true)
+	private Long id;
+	
+	@NotNull
+	@ApiModelProperty(value = "Trabajo", required = true)
+	private Long idTrabajo;
+	
+	@ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true, readOnly = true)
+	private LocalDate fecha;
+	
+	@NotBlank
+	@ApiModelProperty(value = "Id de la tienda", required = true)
+	private String idTienda;
+	
+	@NotBlank
+	@ApiModelProperty(value = "Id de la seccion", required = true)
+	private String idSeccion;
+
+	@NotNull
+	@ApiModelProperty(value = "Tiempo", required = false, readOnly = true)
+	private Long minutos;
+}

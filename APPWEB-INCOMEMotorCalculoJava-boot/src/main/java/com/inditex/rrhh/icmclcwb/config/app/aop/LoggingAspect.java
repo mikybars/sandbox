@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 @Aspect
 @Component
@@ -30,13 +30,13 @@ public class LoggingAspect {
         throw new UnsupportedOperationException();
     }
 
-    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajo)")
+    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TrabajoAuditoria)")
     public void auditoriaTrabajoPointcut() {
         throw new UnsupportedOperationException();
     }
     
-    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.AuditoriaTrabajoRun)")
-    public void auditoriaTrabajoRunPointcut() {
+    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTrabajoAuditoria)")
+    public void auditoriaRunTrabajoPointcut() {
         throw new UnsupportedOperationException();
     }
 
@@ -57,10 +57,10 @@ public class LoggingAspect {
 
     @Around(value = "auditoriaTrabajoPointcut()")
     public Object auditoriaTrabajoAround(ProceedingJoinPoint pjp) throws Throwable {
-//        AuditoriaTrabajo auditoriaTrabajo = Optional.of(pjp.getSignature())
+//        TrabajoAuditoria auditoriaTrabajo = Optional.of(pjp.getSignature())
 //                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
-//                .map(method -> method.getAnnotation(AuditoriaTrabajo.class))
-//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajo"));
+//                .map(method -> method.getAnnotation(TrabajoAuditoria.class))
+//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación TrabajoAuditoria"));
         TrabajoDto trabajo = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
@@ -71,11 +71,11 @@ public class LoggingAspect {
         }
         if (trabajo == null) {
             throw new ApplicationException(
-                    "La anotacion AuditoriaTrabajo necesita que el metodo tenga un parametro TrabajoDto");
+                    "La anotacion TrabajoAuditoria necesita que el metodo tenga un parametro TrabajoDto");
         }
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
-            log.info("Trabajo[{}] :: Inicio :: AuditoriaTrabajo :: {} :: {} :: {}", trabajo.getId(),
+            log.info("Trabajo[{}] :: Inicio :: TrabajoAuditoria :: {} :: {} :: {}", trabajo.getId(),
                     pjp.getSignature().toShortString(), args, trabajo);
         }
         Object result;
@@ -85,7 +85,7 @@ public class LoggingAspect {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
                 String msg = new StringBuilder("Trabajo[").append(trabajo.getId())
-                        .append("] :: Fin :: Error :: AuditoriaTrabajo[").append(Duration.between(start, end)).append("] :: ")
+                        .append("] :: Fin :: Error :: TrabajoAuditoria[").append(Duration.between(start, end)).append("] :: ")
                         .append(pjp.getSignature().toShortString()).append(" :: ").append(trabajo).toString();
                 log.error(msg, e);
             }
@@ -93,38 +93,38 @@ public class LoggingAspect {
         }
         if (log.isInfoEnabled()) {
             Instant end = Instant.now();
-            log.info("Trabajo[{}] :: Fin :: Ok :: AuditoriaTrabajo[{}] :: {} :: {} :: {}", trabajo.getId(),
+            log.info("Trabajo[{}] :: Fin :: Ok :: TrabajoAuditoria[{}] :: {} :: {} :: {}", trabajo.getId(),
                     Duration.between(start, end), pjp.getSignature().toShortString(), result, trabajo);
         }
         return result;
     }
     
-    @Around(value = "auditoriaTrabajoRunPointcut()")
-    public Object auditoriaTrabajoRunAround(ProceedingJoinPoint pjp) throws Throwable {
-//        AuditoriaTrabajoRun auditoriaTrabajoRun = Optional.of(pjp.getSignature())
+    @Around(value = "auditoriaRunTrabajoPointcut()")
+    public Object auditoriaRunTrabajoAround(ProceedingJoinPoint pjp) throws Throwable {
+//        RunTrabajoAuditoria auditoriaRunTrabajo = Optional.of(pjp.getSignature())
 //                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
-//                .map(method -> method.getAnnotation(AuditoriaTrabajo.class))
-//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajoRun"));
-        TrabajoRunDto trabajoRun = null;
+//                .map(method -> method.getAnnotation(TrabajoAuditoria.class))
+//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación RunTrabajoAuditoria"));
+        RunTrabajoDto trabajoRun = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
-            if (TrabajoRunDto.class.isAssignableFrom(obj.getClass())) {
-                trabajoRun = (TrabajoRunDto) obj;
+            if (RunTrabajoDto.class.isAssignableFrom(obj.getClass())) {
+                trabajoRun = (RunTrabajoDto) obj;
                 break;
             }
         }
         if (trabajoRun == null) {
             throw new ApplicationException(
-                    "La anotacion AuditoriaTrabajoRun necesita que el metodo tenga un parametro TrabajoRunDto");
+                    "La anotacion RunTrabajoAuditoria necesita que el metodo tenga un parametro RunTrabajoDto");
         }
         TrabajoDto trabajo = trabajoRun.getTrabajoDto();
         if (trabajo == null) {
             throw new ApplicationException(
-                    "La anotacion AuditoriaTrabajoRun necesita que el metodo tenga un parametro TrabajoDto");
+                    "La anotacion RunTrabajoAuditoria necesita que el metodo tenga un parametro TrabajoDto");
         }
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
-            log.info("Trabajo[{}] :: Inicio :: AuditoriaTrabajoRun :: {} :: {} :: {}", trabajo.getId(),
+            log.info("Trabajo[{}] :: Inicio :: RunTrabajoAuditoria :: {} :: {} :: {}", trabajo.getId(),
                     pjp.getSignature().toShortString(), args, trabajo);
         }
         Object result;
@@ -134,7 +134,7 @@ public class LoggingAspect {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
                 String msg = new StringBuilder("Trabajo[").append(trabajo.getId())
-                        .append("] :: Fin :: Error :: AuditoriaTrabajoRun[").append(Duration.between(start, end)).append("] :: ")
+                        .append("] :: Fin :: Error :: RunTrabajoAuditoria[").append(Duration.between(start, end)).append("] :: ")
                         .append(pjp.getSignature().toShortString()).append(" :: ").append(trabajo).toString();
                 log.error(msg, e);
             }
@@ -142,7 +142,7 @@ public class LoggingAspect {
         }
         if (log.isInfoEnabled()) {
             Instant end = Instant.now();
-            log.info("Trabajo[{}] :: Fin :: Ok :: AuditoriaTrabajoRun[{}] :: {} :: {} :: {}", trabajo.getId(),
+            log.info("Trabajo[{}] :: Fin :: Ok :: RunTrabajoAuditoria[{}] :: {} :: {} :: {}", trabajo.getId(),
                     Duration.between(start, end), pjp.getSignature().toShortString(), result, trabajo);
         }
         return result;
@@ -152,7 +152,7 @@ public class LoggingAspect {
     public Object auditoriaAround(ProceedingJoinPoint pjp) throws Throwable {
 //        Auditoria auditoria = Optional.of(pjp.getSignature()).map(signature -> (MethodSignature) signature)
 //                .map(MethodSignature::getMethod).map(method -> method.getAnnotation(Auditoria.class))
-//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación AuditoriaTrabajo"));
+//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación TrabajoAuditoria"));
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
             List<Object> args = Arrays.asList(pjp.getArgs());

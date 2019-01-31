@@ -5,7 +5,8 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaAsyncService;
+
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;

@@ -15,12 +15,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.inditex.rrhh.icmclcwb.Application;
-import com.inditex.rrhh.icmclcwb.api.app.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoRunDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.TrabajoRunCalcularService;
+import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoCalcularService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
-import com.inditex.rrhh.icmclcwb.model.app.calculo.TipoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.model.app.trabajo.TipoCalculoEnum;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -28,9 +28,9 @@ import com.inditex.rrhh.icmclcwb.model.app.calculo.TipoCalculoEnum;
 public class CalcularServicesTest {
 
 	@Autowired
-	private TrabajoRunCalcularService trabajoRunCalcularService;
+	private RunTrabajoCalcularService runTrabajoCalcularService;
 		
-	private TrabajoRunDto trabajoRunDto = new TrabajoRunDto();
+	private RunTrabajoDto trabajoRunDto = new RunTrabajoDto();
 
 	private List<Integer> empleados  = new ArrayList<>();
 
@@ -54,14 +54,14 @@ public class CalcularServicesTest {
 		EstadoTrabajoDto  estado = new EstadoTrabajoDto(EstadoTrabajoEnum.PENDIENTE_CALCULO.getId()); 				
 		trabajoDto.setEstado(estado);
 		
-		trabajoRunDto.getTrabajoRunCalcular().setTiposCalculo(tiposCalculo);
+		trabajoRunDto.getRunTrabajoCalcular().setTiposCalculo(tiposCalculo);
 
 	}
 
 	@Test	
 	@Ignore
 	public void factoryTest() throws Exception {
-		trabajoRunCalcularService.run(trabajoRunDto);
+		runTrabajoCalcularService.run(trabajoRunDto);
 	}
 		
 }
