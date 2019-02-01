@@ -19,7 +19,7 @@ public class TrabajoEmpleadoEstadoRepositoryCustomImpl extends JdbcBatchReposito
     @Qualifier("searchEmpleadosDto")
     private Meta4PropertiesDto searchEmpleadosDto;
     
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_EMPLEADO_ESTADO ( "
+    private static final String INSERT = "INSERT INTO TRABAJO_EMPLEADO_ESTADO ( "
             + "ID_EMPLEADO, ID_EMPLEADO_LOCAL, OR_EMPLEADO, "  
             + "ID_ESTADO_TRABAJO_EMPLEADO, ID_TRABAJO)" 
             + "VALUES(?, ?, ?, ?, ?)";

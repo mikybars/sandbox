@@ -19,7 +19,7 @@ public class TrabajoTipoHoraRepositoryCustomImpl extends JdbcBatchRepository<Tra
     @Qualifier("tiposHorasDto")
     private PtrPropertiesDto tiposHorasDto;
 
-    private static final String INSERT = "INSERT INTO DESARROLLO_RRHH.TRABAJO_TIPO_HORA (COMISIONABLE, ID_TIPO_HORA, ID_TRABAJO) VALUES(?, ?, ?)";
+    private static final String INSERT = "INSERT INTO TRABAJO_TIPO_HORA (COMISIONABLE, ID_TIPO_HORA, ID_TRABAJO) VALUES(?, ?, ?)";
 
     @Override
     public List<TrabajoTipoHora> save(List<TrabajoTipoHora> src) throws Exception {
