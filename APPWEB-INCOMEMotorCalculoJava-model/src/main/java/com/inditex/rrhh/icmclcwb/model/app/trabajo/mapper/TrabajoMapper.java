@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
+import java.util.List;
+
 import org.mapstruct.AfterMapping;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -26,16 +28,20 @@ public abstract class TrabajoMapper {
     @Mapping(target = "idProgramacion", source = "programacion.id")
     public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
-	@InheritInverseConfiguration
+    @InheritInverseConfiguration
     public abstract Trabajo trabajoDtoToTrabajo(TrabajoDto src);
-	
+
+    public abstract List<TrabajoDto> trabajoToTrabajoDto(List<Trabajo> src);
+
+    public abstract List<Trabajo> trabajoDtoToTrabajo(List<TrabajoDto> src);
+
     @AfterMapping
     protected void controlProgramacion(TrabajoDto dto, @MappingTarget Trabajo result) {
-        if(dto.getIdProgramacion() == null) {
+        if (dto.getIdProgramacion() == null) {
             result.setProgramacion(null);
         }
     }
-	
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "fechaCreacion", ignore = true)
     @Mapping(target = "idProgramacion", source = "id")

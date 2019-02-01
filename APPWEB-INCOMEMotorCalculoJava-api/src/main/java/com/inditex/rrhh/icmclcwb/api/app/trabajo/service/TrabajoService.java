@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.trabajo.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -9,7 +11,9 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 public interface TrabajoService {
 
-    TrabajoDto findById(@NotNull @Positive final Long id);
+    TrabajoDto findTrabajo(@NotNull @Positive final Long id);
+    
+    List<TrabajoDto> findAllTrabajo();
     
 	TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo);
 

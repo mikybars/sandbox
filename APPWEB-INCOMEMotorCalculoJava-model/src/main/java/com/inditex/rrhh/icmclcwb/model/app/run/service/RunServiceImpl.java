@@ -24,7 +24,7 @@ public class RunServiceImpl implements RunService {
 
     @Override
     public RunTrabajoDto runTrabajo(@NotNull @Positive final Long id) throws Exception {
-        return trabajoRunService.run(RunTrabajoDto.builder().trabajoDto(trabajoService.findById(id)).build());
+        return trabajoRunService.run(RunTrabajoDto.builder().trabajoDto(trabajoService.findTrabajo(id)).build());
     }
 
 }

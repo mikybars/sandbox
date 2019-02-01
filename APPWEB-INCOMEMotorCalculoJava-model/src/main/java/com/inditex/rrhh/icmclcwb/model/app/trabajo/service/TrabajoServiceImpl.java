@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -75,11 +77,16 @@ public class TrabajoServiceImpl implements TrabajoService {
     }
 
     @Override
-    public TrabajoDto findById(@NotNull @Positive final Long id) {
+    public TrabajoDto findTrabajo(@NotNull @Positive final Long id) {
         TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
         trabajo.setTiendas(trabajoTiendaService.findByTrabajo(trabajo));
         trabajo.setEmpleados(trabajoEmpleadoService.findByTrabajo(trabajo));
         return trabajo;
+    }
+
+    @Override
+    public List<TrabajoDto> findAllTrabajo() {
+        return trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findAll());
     }
 
 }
