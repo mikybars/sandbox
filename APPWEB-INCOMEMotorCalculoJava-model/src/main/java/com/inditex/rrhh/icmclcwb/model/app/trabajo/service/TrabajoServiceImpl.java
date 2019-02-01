@@ -75,6 +75,18 @@ public class TrabajoServiceImpl implements TrabajoService {
         trabajo.setEstado(estado);
         return modifyTrabajo(trabajo);
     }
+    
+    @Override
+    public TrabajoDto modifyEstadoTrabajoInicial(@Valid TrabajoDto trabajo, @Valid EstadoTrabajoDto estado) {
+        trabajo.setFechaInicioTrabajo(LocalDateTime.now());
+        return modifyEstadoTrabajo(trabajo, estado);
+    }
+
+    @Override
+    public TrabajoDto modifyEstadoTrabajoFinal(@Valid TrabajoDto trabajo, @Valid EstadoTrabajoDto estado) {
+        trabajo.setFechaFinTrabajo(LocalDateTime.now());
+        return modifyEstadoTrabajo(trabajo, estado);
+    }
 
     @Override
     public TrabajoDto findTrabajo(@NotNull @Positive final Long id) {

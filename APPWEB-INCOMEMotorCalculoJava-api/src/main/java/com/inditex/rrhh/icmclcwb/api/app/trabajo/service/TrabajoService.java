@@ -20,5 +20,9 @@ public interface TrabajoService {
 	TrabajoDto modifyTrabajo(@Valid final TrabajoDto trabajo);
 
 	TrabajoDto modifyEstadoTrabajo(@Valid final TrabajoDto trabajo, @Valid final EstadoTrabajoDto estado);
+	
+	TrabajoDto modifyEstadoTrabajoInicial(@Valid final TrabajoDto trabajo, @Valid final EstadoTrabajoDto estado);
+	
+	TrabajoDto modifyEstadoTrabajoFinal(@Valid final TrabajoDto trabajo, @Valid final EstadoTrabajoDto estado);
 
 }

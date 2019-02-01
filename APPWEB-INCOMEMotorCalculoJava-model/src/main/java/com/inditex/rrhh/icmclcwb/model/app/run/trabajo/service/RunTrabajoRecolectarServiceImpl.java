@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.trabajo.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -15,6 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTrabajoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TrabajoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoRecolectarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoRecolectarService;
@@ -24,7 +25,6 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoRecolectar
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoPivotAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoTiendaEstadoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
@@ -45,37 +45,59 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
 
     @Autowired
     private TrabajoRecolectarPtrPresenciaAsyncService trabajoRecolectarPtrPresenciaAsyncService;
-    
+
     @Autowired
     private TrabajoPivotAsyncService trabajoPivotAsyncService;
-    
+
     @Autowired
     private TrabajoTiendaEstadoAsyncService trabajoTiendaEstadoAsyncService;
-    
+
     @Autowired
     private TrabajoEmpleadoEstadoAsyncService trabajoEmpleadoEstadoAsyncService;
 
     @CounterMetric
     @TimerMetric
-    @RunTrabajoAuditoria
+    @TrabajoAuditoria
     @Override
-    public RunTrabajoDto run(@Valid final RunTrabajoDto runTrabajo) throws Exception {
+    public RunTrabajoDto runNew(@Valid final RunTrabajoDto runTrabajo) throws IcmclcwbException {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
             final TrabajoDto trabajo = runTrabajo.getTrabajoDto();
             final RunTrabajoRecolectarDto runTrabajoRecolectar = runTrabajo.getRunTrabajoRecolectar();
             if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
-                trabajo.setFechaInicioTrabajo(LocalDateTime.now());
-                trabajo.setEstado(EstadoTrabajoDto.builder().id(EstadoTrabajoEnum.EN_CURSO_DATOS.getId()).build());
-                trabajoService.modifyTrabajo(trabajo);
+                trabajoService.modifyEstadoTrabajoInicial(trabajo, EstadoTrabajoEnum.EN_CURSO_DATOS.getDto());
+                
+                // TODO
+                
+                trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto());
+            }
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+        return runTrabajo;
+    }
+
+    @CounterMetric
+    @TimerMetric
+    @RunTrabajoAuditoria
+    @Override
+    public RunTrabajoDto run(@Valid final RunTrabajoDto runTrabajo) throws IcmclcwbException {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfWait = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTrabajo.getTrabajoDto();
+            final RunTrabajoRecolectarDto runTrabajoRecolectar = runTrabajo.getRunTrabajoRecolectar();
+            if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
+                trabajoService.modifyEstadoTrabajoInicial(trabajo, EstadoTrabajoEnum.EN_CURSO_DATOS.getDto());
 
                 CompletableFuture<Void> cfTiendasHistorico = trabajoRecolectarMeta4IcmWsCalcIncomeAsyncService
                         .tiendasHistorico(trabajo, runTrabajoRecolectar.getUno());
                 AsyncUtils.exceptionally(cfTiendasHistorico, cf, cfWait);
 
                 if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
-                	/*-------------------------------------------------------------*/
+                    /*-------------------------------------------------------------*/
                     AsyncUtils.waitAllOfIsOk(cf, cfWait);
                     /*-------------------------------------------------------------*/
                     AsyncUtils.exceptionally(trabajoRecolectarMeta4IcmWsCalcIncomeAsyncService
@@ -95,8 +117,8 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
 
                 CompletableFuture<Void> cfEmpleados = trabajoRecolectarMeta4IcmWsCalcIncomeAsyncService
                         .empleadosTienda(trabajo, runTrabajoRecolectar.getUno());
-                AsyncUtils.exceptionally(cfEmpleados, cf);               
-                
+                AsyncUtils.exceptionally(cfEmpleados, cf);
+
                 CompletableFuture<Void> cfVentaTotalizadaTienda = trabajoRecolectarPtrVentaAsyncService
                         .ventaTotalizadaTienda(trabajo, runTrabajoRecolectar.getUno());
                 AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
@@ -113,7 +135,7 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
                         .presenciaDetalleEmpleado(trabajo, runTrabajoRecolectar.getUno());
                 AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
 
-                // TODO  
+                // TODO
 //                CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoRecolectarPtrVentaAsyncService
 //                        .ventaDetalleEmpleado(trabajo, runTrabajoRecolectar.getUno());
 //                AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
@@ -129,11 +151,11 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
                     /*-------------------------------------------------------------*/
                     if (CollectionUtils.isNotEmpty(runTrabajoRecolectar.getUno().getTiendaPresencia())) {
                         runTrabajoRecolectar.getUno().getTiendaPresencia().stream().forEach(item -> {
-                            if(!runTrabajoRecolectar.getUno().getTiendaMeta4().contains(item)) {
+                            if (!runTrabajoRecolectar.getUno().getTiendaMeta4().contains(item)) {
                                 runTrabajoRecolectar.getDos().getTiendaPresencia().add(item);
                             }
                         });
-                        
+
                         CompletableFuture<Void> cfTiendasPresencia = trabajoRecolectarMeta4IcmWsCalcIncomeAsyncService
                                 .tiendasPresencia(trabajo, runTrabajoRecolectar.getDos());
                         AsyncUtils.exceptionally(cfTiendasPresencia, cf);
@@ -155,29 +177,30 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
                         }
                     }
                 }
-                
+
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
-                
+
                 CompletableFuture<Void> cfPivot = trabajoPivotAsyncService.pivot(trabajo);
                 AsyncUtils.exceptionally(cfPivot, cf);
 
-                CompletableFuture<Void> cftrabajoTiendaEstado = trabajoTiendaEstadoAsyncService.save(runTrabajoRecolectar, trabajo);
+                CompletableFuture<Void> cftrabajoTiendaEstado = trabajoTiendaEstadoAsyncService
+                        .save(runTrabajoRecolectar, trabajo);
                 AsyncUtils.exceptionally(cftrabajoTiendaEstado, cf);
 
-                CompletableFuture<Void> cftrabajoEmpleadoEstado = trabajoEmpleadoEstadoAsyncService.save(runTrabajoRecolectar, trabajo);
+                CompletableFuture<Void> cftrabajoEmpleadoEstado = trabajoEmpleadoEstadoAsyncService
+                        .save(runTrabajoRecolectar, trabajo);
                 AsyncUtils.exceptionally(cftrabajoEmpleadoEstado, cf);
 
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
-                trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto());                                                        
-               
+                trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto());
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
         return runTrabajo;
     }

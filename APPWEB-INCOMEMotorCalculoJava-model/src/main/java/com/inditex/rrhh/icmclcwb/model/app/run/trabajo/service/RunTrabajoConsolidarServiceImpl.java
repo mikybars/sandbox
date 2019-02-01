@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.trabajo.service;
 
-import java.time.LocalDateTime;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +31,7 @@ public class RunTrabajoConsolidarServiceImpl implements RunTrabajoConsolidarServ
         if (EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId().equals(trabajo.getEstado().getId())) {
             trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getDto());
             TestUtils.threadSleep();
-            trabajo.setFechaFinTrabajo(LocalDateTime.now());
-            trabajo.setEstado(EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getDto());
-            trabajoService.modifyTrabajo(trabajo);
+            trabajoService.modifyEstadoTrabajoFinal(trabajo, EstadoTrabajoEnum.FINALIZADO_SIN_ERRORES.getDto());
         }
         return trabajoRun;
     }

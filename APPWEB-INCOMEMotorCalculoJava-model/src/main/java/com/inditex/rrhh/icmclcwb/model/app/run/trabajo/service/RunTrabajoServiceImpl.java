@@ -39,11 +39,12 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
     @Override
     public RunTrabajoDto run(@NotNull @Valid final RunTrabajoDto runTrabajo) throws Exception {
         try {
+            //runTrabajoRecolectarService.runNew(runTrabajo);
             runTrabajoRecolectarService.run(runTrabajo);
             runTrabajoCalcularService.run(runTrabajo);
             runTrabajoConsolidarService.run(runTrabajo);
         } catch (Exception e) {
-            trabajoService.modifyEstadoTrabajo(runTrabajo.getTrabajoDto(), EstadoTrabajoEnum.ERROR.getDto());
+            trabajoService.modifyEstadoTrabajoFinal(runTrabajo.getTrabajoDto(), EstadoTrabajoEnum.ERROR.getDto());
             throw e;
         }
         return runTrabajo;
