@@ -13,6 +13,6 @@ public interface TrabajoEmpleadoEstadoService {
 	
     List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado, @Valid final TrabajoDto trabajo) throws Exception;
 	
-	List<Long> findIdsEmpleadoByIdTrabajo (Long trabajoId, Long idEstado);
+	List<String> findIdsEmpleadoByIdTrabajoAndIdEstado(final Long idTrabajo, final Long idEstado);
 	
 }

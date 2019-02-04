@@ -14,13 +14,14 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTrabajoAuditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoCalcularService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.AlgoritmoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.CalculoAlgoritmoFactory;
-import com.inditex.rrhh.icmclcwb.model.app.trabajo.TipoCalculoEnum;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -52,25 +53,30 @@ public class RunTrabajoCalcularServiceImpl implements RunTrabajoCalcularService 
         TrabajoDto trabajo = runTrabajo.getTrabajoDto();
         if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
             trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto());
+            runTrabajo.getRunTrabajoCalcular().getEmpleado()
+                    .addAll(trabajoEmpleadoEstadoService.findIdsEmpleadoByIdTrabajoAndIdEstado(trabajo.getId(),
+                            EstadoTrabajoEmpleadoEnum.PENDIENTE.getId()));
+            runTrabajo.getRunTrabajoCalcular().getTipoCalculo()
+                    .addAll(trabajoEmpleadoEstructuraService.findIdTipoCalculoByIdTrabajo(trabajo.getId()));
+            runTrabajo.getRunTrabajoCalcular().getTipoCalculo().forEach(item -> {
+                AlgoritmoCalculoEnum algoritmo = AlgoritmoCalculoEnum.of(item);
+                if (algoritmo != null) {
+                    runTrabajo.getRunTrabajoCalcular().getAlgoritmoCalculo().add(algoritmo);
+                } else {
+                    log.warn(
+                            "Trabajo[{}] :: RunTrabajoCalcularService.run() :: No existe algoritmo para el tipo de calculo: {}",
+                            trabajo.getId(), item);
+                }
+            });
 
-            // TODO Pendiente revisar los identificadores a utilizar, si hace el tipo de
-            // comision, etc...
-            runTrabajo.getRunTrabajoCalcular().getTiposCalculo()
-                    .addAll(trabajoEmpleadoEstructuraService.findIdsEstructuraByIdTrabajo(trabajo.getId()));
-
-            runTrabajo.getRunTrabajoCalcular().getIdsEmpleados().addAll(trabajoEmpleadoEstadoService
-                    .findIdsEmpleadoByIdTrabajo(trabajo.getId(), EstadoTrabajoEnum.PENDIENTE_CALCULO.getId()));
-
-            // TODO Tratamiento de errores
             CountDownLatch latch = new CountDownLatch(1);
-            Flux.fromIterable(runTrabajo.getRunTrabajoCalcular().getTiposCalculo()).log().parallel()
-                    .runOn(Schedulers.parallel())
-                    .doOnNext(tipo -> calculoAlgoritmoFactory.getAlgoritmo(TipoCalculoEnum.of(tipo).getType())
-                            .execute(runTrabajo).onErrorResume(error -> {
-                                log.error(error.getMessage());
+            Flux.fromIterable(runTrabajo.getRunTrabajoCalcular().getAlgoritmoCalculo()).log().parallel()
+                    .runOn(Schedulers.parallel()).doOnNext(algoritmo -> calculoAlgoritmoFactory
+                            .getAlgoritmo(algoritmo.getType()).execute(runTrabajo).onErrorResume(ex -> {
+                                log.error(ex.getMessage(), ex);
                                 return Flux.empty();
                             }).subscribe())
-                    .doOnError(error -> log.error(error.getMessage())).doAfterTerminate(latch::countDown).subscribe();
+                    .doOnError(ex -> log.error(ex.getMessage(), ex)).doAfterTerminate(latch::countDown).subscribe();
             latch.await();
 
             trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto());

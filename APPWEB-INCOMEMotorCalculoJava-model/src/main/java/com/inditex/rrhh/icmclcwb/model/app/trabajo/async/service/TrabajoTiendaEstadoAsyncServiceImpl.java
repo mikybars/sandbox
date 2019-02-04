@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.async.service;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 @Service
 public class TrabajoTiendaEstadoAsyncServiceImpl implements TrabajoTiendaEstadoAsyncService {
@@ -31,9 +31,7 @@ public class TrabajoTiendaEstadoAsyncServiceImpl implements TrabajoTiendaEstadoA
         List<TrabajoTiendaEstadoDto> list = Stream
                 .of(runTrabajoRecolectar.getUno().getTienda(), runTrabajoRecolectar.getDos().getTienda()).flatMap(Set::stream)
                 .collect(Collectors.toList());
-        final AtomicInteger counter1 = new AtomicInteger(0);
-        for (List<TrabajoTiendaEstadoDto> iter : list.stream()
-                .collect(Collectors.groupingBy(item -> counter1.getAndIncrement() / 200)).values()) {
+        for (List<TrabajoTiendaEstadoDto> iter : StreamUtils.partition(list, /*TODO Parametrizar*/200)) {
             trabajoTiendaEstadoService.save(iter, trabajo);
         }
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

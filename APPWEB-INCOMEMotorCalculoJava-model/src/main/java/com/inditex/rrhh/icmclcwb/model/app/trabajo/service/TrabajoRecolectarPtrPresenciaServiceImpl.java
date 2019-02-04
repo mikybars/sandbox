@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -33,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEmpleadoPresenciaSeccionRepository;
 
 @Service
@@ -91,35 +91,32 @@ public class TrabajoRecolectarPtrPresenciaServiceImpl implements TrabajoRecolect
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
-            for(String cadena : runTrabajoRecolectarBloque.getCadenaEmpresa()) {
-
-                final AtomicInteger counter = new AtomicInteger(0);
-                for (List<String> iter : runTrabajoRecolectarBloque.getTiendaMtu().stream().collect(Collectors.groupingBy(
-                        item -> counter.getAndIncrement() / presenciasTotalTiendaSeccionDto.getFilter().getMaxPageSize()))
-                        .values()) {
+            for (String cadena : runTrabajoRecolectarBloque.getCadenaEmpresa()) {
+                for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getTiendaMtu(),
+                        presenciasTotalTiendaSeccionDto.getFilter().getMaxPageSize())) {
                     List<PtrPresenciaTiendaSeccionDto> tiendas = iter.stream()
                             .map(item -> PtrPresenciaTiendaSeccionDto.builder().tienda(Integer.valueOf(item)).build())
                             .collect(Collectors.toList());
-    
+
                     PtrPresenciaTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = trabajoMapper
                             .trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(trabajo);
                     paramPresenciasTotalTiendaSeccion.setCadena(Integer.valueOf(cadena));
                     paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-                    // TODO PENDIENTE TIPO HORA
-    
+                    // TODO Obtener las presencias comisionables por tipo de hora y excluido denominador
+
                     CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> cfData = ptrPresenciaAsyncService
                             .getPresenciasTotalTiendaSeccionDto(paramPresenciasTotalTiendaSeccion);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
-    
+
                     PtrPresenciaTotalTiendaSeccionResponseDto data = cfData.get();
                     if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalTiendaSeccion())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                                 presenciasTotalTiendaSeccionDto.getFilter().getMaxPersistenceSize());
-                        AsyncUtils.exceptionally(trabajoTiendaSeccionPresenciaService.save(data.getPresenciasTotalTiendaSeccion(), trabajo), cf, cfPersist);
+                        AsyncUtils.exceptionally(trabajoTiendaSeccionPresenciaService
+                                .save(data.getPresenciasTotalTiendaSeccion(), trabajo), cf, cfPersist);
                     }
                 }
-                
+
             }
 
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -136,36 +133,35 @@ public class TrabajoRecolectarPtrPresenciaServiceImpl implements TrabajoRecolect
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
-            for(String cadena : runTrabajoRecolectarBloque.getCadenaEmpresa()) {
-
-                final AtomicInteger counter = new AtomicInteger(0);
-                for (List<String> iter : runTrabajoRecolectarBloque.getEmpleadoLocal().stream()
-                        .collect(Collectors.groupingBy(
-                                item -> counter.getAndIncrement() / presenciasDetalleDto.getFilter().getMaxPageSize()))
-                        .values()) {
+            for (String cadena : runTrabajoRecolectarBloque.getCadenaEmpresa()) {
+                for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getEmpleadoLocal(),
+                        presenciasDetalleDto.getFilter().getMaxPageSize())) {
                     List<Integer> empleados = iter.stream().map(Integer::valueOf).collect(Collectors.toList());
-    
                     PtrPresenciaDetalleRequestDto paramPresenciasDetalle = trabajoMapper
                             .trabajoDtoToPtrPresenciasDetalleRequestDto(trabajo);
                     paramPresenciasDetalle.setPersona(empleados);
                     paramPresenciasDetalle.setCadena(Integer.valueOf(cadena));
-    
+
                     CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = ptrPresenciaAsyncService
                             .getPresenciasDetalleDto(paramPresenciasDetalle);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
-    
+
                     PtrPresenciaDetalleResponseDto data = cfData.get();
                     if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasDetalle())) {
-                        AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasDetalleDto.getFilter().getMaxPersistenceSize());
-                        AsyncUtils.exceptionally(trabajoTiendaSeccionEmpleadoPresenciaService.save(data.getPresenciasDetalle(), trabajo),
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                presenciasDetalleDto.getFilter().getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                trabajoTiendaSeccionEmpleadoPresenciaService.save(data.getPresenciasDetalle(), trabajo),
                                 cf, cfPersist);
-    
+
                         if (CollectionUtils.isNotEmpty(trabajo.getTiendas())
                                 || CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-                            runTrabajoRecolectarBloque.getTiendaPresencia().addAll(data.getPresenciasDetalle().stream().map(
-                                    item -> new StringBuilder(AppConstants.PREFIJO_TIENDA_META4).append(item.getTienda()).toString())
-                                    .collect(Collectors.toSet()));
+                            runTrabajoRecolectarBloque
+                                    .getTiendaPresencia().addAll(
+                                            data.getPresenciasDetalle().stream()
+                                                    .map(item -> new StringBuilder(AppConstants.PREFIJO_TIENDA_META4)
+                                                            .append(item.getTienda()).toString())
+                                                    .collect(Collectors.toSet()));
                         }
                     }
                 }

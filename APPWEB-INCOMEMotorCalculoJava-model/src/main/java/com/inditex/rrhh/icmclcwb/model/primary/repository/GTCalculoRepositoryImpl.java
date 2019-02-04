@@ -2,70 +2,46 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Repository;
+
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
 public class GTCalculoRepositoryImpl implements GTCalculoRepository {
 
-    private static final String ID_TIENDA = "idTienda";
-
-    private static final String ID_EMPLEADO = "idEmpleado";
-
-    private static final String ID_TRABAJO = "idTrabajo";
-
     @Autowired
-    @Qualifier("primaryJdbcTemplate")
-    private JdbcTemplate jdbcTemplate;
+    @Qualifier("primaryNamedParameterJdbcTemplate")
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['GTCalculoRepository.calcular']}")
-    private String sqlCalcular;
+    @Value("#{primaryQuery['GTCalculoRepository.calcular.WhereIdTrabajo']}")
+    private String sqlCalcularWhereIdTrabajo;
 
-    private StringBuilder queryCalculoGT() {
-        return new StringBuilder(sqlCalcular);
+    @Value("#{primaryQuery['GTCalculoRepository.calcular.WhereIdTrabajo']} #{primaryQuery['GTCalculoRepository.calcular.AndIdTrabajoAndIdEmpleado']}")
+    private String sqlCalcularWhereIdTrabajoAndIdEmpleado;
+
+    @Override
+    public void calcularByIdTrabajo(final Long idTrabajo) {
+        MapSqlParameterSource arg = new MapSqlParameterSource();
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TRABAJO, idTrabajo);
+        namedParameterJdbcTemplate.update(sqlCalcularWhereIdTrabajo, arg);
     }
 
     @Override
-    public void calcular(Long idTrabajo) {
-        NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
-        MapSqlParameterSource param = new MapSqlParameterSource();
-        param.addValue(ID_TRABAJO, idTrabajo);
-        namedJdbc.update(queryCalculoGT().toString(), param);
-    }
-
-    @Override
-    public void calcularByEmpleadoBatch(Long idTrabajo, List<Long> idsEmpleados) {
-        NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
-        List<Map<String, Object>> batchValues = new ArrayList<>(idsEmpleados.size());
-        idsEmpleados.forEach(idEmpleado -> batchValues
-                .add(new MapSqlParameterSource(ID_TRABAJO, idTrabajo).addValue(ID_EMPLEADO, idEmpleado).getValues()));
-
-        StringBuilder whereEmpleado = new StringBuilder().append(" AND EMPLEADO_PRESENCIA.ID_EMPLEADO = :idEmpleado ");
-        namedJdbc.batchUpdate(queryCalculoGT().append(whereEmpleado).toString(),
-                batchValues.toArray(new Map[idsEmpleados.size()]));
-    }
-
-    @Override
-    public void calcularByTiendaBatch(Long idTrabajo, List<Long> idsTiendas) {
-        NamedParameterJdbcTemplate namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
-        List<Map<String, Object>> batchValues = new ArrayList<>(idsTiendas.size());
-        idsTiendas.forEach(idTienda -> batchValues
-                .add(new MapSqlParameterSource(ID_TRABAJO, idTrabajo).addValue(ID_TIENDA, idTienda).getValues()));
-
-        SqlParameterSource[] batch = SqlParameterSourceUtils
-                .createBatch(batchValues.toArray(new Map[idsTiendas.size()]));
-        StringBuilder whereTienda = new StringBuilder();
-        whereTienda.append(" AND TIENDA_VENTA.ID_TIENDA = :idTienda ");
-        namedJdbc.batchUpdate(queryCalculoGT().append(whereTienda.toString()).toString(), batch);
+    public void calcularByIdTrabajoAndIdsEmpleado(final Long idTrabajo, final List<String> idsEmpleados) {
+        List<MapSqlParameterSource> batchArgs = new ArrayList<>();
+        idsEmpleados.forEach(idEmpleado -> {
+            MapSqlParameterSource arg = new MapSqlParameterSource();
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TRABAJO, idTrabajo);
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_EMPLEADO, idEmpleado);
+            batchArgs.add(arg);
+        });
+        namedParameterJdbcTemplate.batchUpdate(sqlCalcularWhereIdTrabajoAndIdEmpleado,
+                batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
     }
 
 }

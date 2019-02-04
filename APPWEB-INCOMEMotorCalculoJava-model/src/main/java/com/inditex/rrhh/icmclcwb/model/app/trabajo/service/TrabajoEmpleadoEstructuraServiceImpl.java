@@ -38,8 +38,8 @@ public class TrabajoEmpleadoEstructuraServiceImpl implements TrabajoEmpleadoEstr
     }
     
 	@Override
-	public Set<Long> findIdsEstructuraByIdTrabajo(@Valid Long idTrabajo) {
-		return trabajoEmpleadoEstructuraRepository.findIdsEstructuraByIdTrabajo(idTrabajo);
+	public Set<Long> findIdTipoCalculoByIdTrabajo(@Valid Long idTrabajo) {
+		return trabajoEmpleadoEstructuraRepository.findIdTipoCalculoByIdTrabajo(idTrabajo);
 	}
     
     

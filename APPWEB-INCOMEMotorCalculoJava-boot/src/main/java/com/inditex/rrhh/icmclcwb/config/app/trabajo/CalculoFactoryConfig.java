@@ -15,19 +15,17 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.GTAlgoritmo;
 @ComponentScan(basePackages = { "com.inditex.rrhh.icmclcwb.model.app.calculo.fac" })
 public class CalculoFactoryConfig {
 
-	@SuppressWarnings("rawtypes")
-	@Bean
-	public FactoryBean serviceLocatorFactoryBean() {
-		ServiceLocatorFactoryBean factoryBean = new ServiceLocatorFactoryBean();
-		factoryBean.setServiceLocatorInterface(CalculoAlgoritmoFactory.class);
-		return factoryBean;
-	}
+    @Bean
+    public FactoryBean<?> serviceLocatorFactoryBean() {
+        ServiceLocatorFactoryBean factoryBean = new ServiceLocatorFactoryBean();
+        factoryBean.setServiceLocatorInterface(CalculoAlgoritmoFactory.class);
+        return factoryBean;
+    }
 
-	//https://www.baeldung.com/spring-bean-scopes
-	@Bean(name = "gTAlgoritmo")
-	@Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
-	public GTAlgoritmo gTAlgoritmo() {
-		return new GTAlgoritmo();
-	}
+    @Bean(name = "gTAlgoritmo")
+    @Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public GTAlgoritmo gTAlgoritmo() {
+        return new GTAlgoritmo();
+    }
 
 }

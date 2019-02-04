@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.async.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -18,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 @Service
 public class TrabajoEmpleadoEstadoAsyncServiceImpl implements TrabajoEmpleadoEstadoAsyncService {
@@ -31,26 +31,18 @@ public class TrabajoEmpleadoEstadoAsyncServiceImpl implements TrabajoEmpleadoEst
         trabajoEmpleadoEstadoService.save(trabajoEmpleadoEstado);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Async
     @Override
-    public CompletableFuture<Void> save(final RunTrabajoRecolectarDto runTrabajoRecolectar, 
+    public CompletableFuture<Void> save(final RunTrabajoRecolectarDto runTrabajoRecolectar,
             @Valid final TrabajoDto trabajo) throws Exception {
-        
         List<TrabajoEmpleadoEstadoDto> list = new ArrayList<>();
-        
         list.addAll(runTrabajoRecolectar.getUno().getEmpleado().stream().collect(Collectors.toList()));
         list.addAll(runTrabajoRecolectar.getDos().getEmpleado().stream().collect(Collectors.toList()));
-        
-        final AtomicInteger counter1 = new AtomicInteger(0);
-        for (List<TrabajoEmpleadoEstadoDto> iter : list.stream()
-                .collect(Collectors.groupingBy(
-                        item -> counter1.getAndIncrement() / 200))
-                .values()) {
+        for (List<TrabajoEmpleadoEstadoDto> iter : StreamUtils.partition(list, /*TODO Parametrizar*/200)) {
             trabajoEmpleadoEstadoService.save(iter, trabajo);
         }
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-
 
 }

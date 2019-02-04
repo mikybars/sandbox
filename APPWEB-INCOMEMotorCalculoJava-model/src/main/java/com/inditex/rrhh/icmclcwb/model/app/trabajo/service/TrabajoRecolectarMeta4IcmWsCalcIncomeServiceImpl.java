@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 
@@ -56,6 +55,7 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaComisionH
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 @Service
 @Validated
@@ -132,13 +132,8 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
         try {
             Set<String> tiendas = new HashSet<>();
             if (CollectionUtils.isNotEmpty(trabajo.getEmpleados())) {
-
-                final AtomicInteger counter = new AtomicInteger(0);
-                for (List<TrabajoEmpleadoDto> iter : trabajo.getEmpleados().stream()
-                        .collect(Collectors.groupingBy(
-                                item -> counter.getAndIncrement() / searchEmpleadosDto.getFilter().getMaxPageSize()))
-                        .values()) {
-
+                for (List<TrabajoEmpleadoDto> iter : StreamUtils.partition(trabajo.getEmpleados(),
+                        searchEmpleadosDto.getFilter().getMaxPageSize())) {
                     SearchEmpleadosRequestDto searchEmpleadosRequest = new SearchEmpleadosRequestDto();
                     searchEmpleadosRequest.setPage(searchEmpleadosDto.getPage());
                     searchEmpleadosRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
@@ -278,11 +273,8 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            final AtomicInteger counter = new AtomicInteger(0);
-            for (List<String> iter : runTrabajoRecolectarBloque.getTiendaPresencia().stream()
-                    .collect(Collectors.groupingBy(
-                            item -> counter.getAndIncrement() / searchTiendasDto.getFilter().getMaxPageSize()))
-                    .values()) {
+            for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getTiendaPresencia(),
+                    searchTiendasDto.getFilter().getMaxPageSize())) {
                 SearchTiendasRequestDto searchTiendasRequest = new SearchTiendasRequestDto();
                 searchTiendasRequest.setPage(searchTiendasDto.getPage());
                 searchTiendasRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
@@ -354,17 +346,17 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
         try {
             if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
                 Set<String> tiendas = new HashSet<>();
-                final AtomicInteger counter = new AtomicInteger(0);
-                for (List<GenericFilterParametersDto> iter : trabajo.getTiendas().stream()
-                        .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdTienda()).build())
-                        .collect(Collectors.groupingBy(
-                                item -> counter.getAndIncrement() / getTiendasEmpleadoDto.getFilter().getMaxPageSize()))
-                        .values()) {
+                for (List<GenericFilterParametersDto> iter : StreamUtils
+                        .partition(
+                                trabajo.getTiendas().stream()
+                                        .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getIdTienda())
+                                                .build())
+                                        .collect(Collectors.toList()),
+                                getTiendasEmpleadoDto.getFilter().getMaxPageSize())) {
                     TiendasEmpleadoRequestDto tiendasEmpleadoRequest = new TiendasEmpleadoRequestDto();
                     tiendasEmpleadoRequest.setPage(getTiendasEmpleadoDto.getPage());
                     tiendasEmpleadoRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
                     tiendasEmpleadoRequest.getData().getItem().addAll(iter);
-
                     boolean hasNext = false;
                     do {
                         CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -381,14 +373,13 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
                 }
 
                 if (CollectionUtils.isNotEmpty(tiendas)) {
-
-                    final AtomicInteger counterSearchTiendas = new AtomicInteger(0);
-                    for (List<GenericFilterParametersDto> iterSearchTiendas : tiendas.stream()
-                            .map(item -> GenericFilterParametersDto.builder().idLugarTrabajo(item).build())
-                            .collect(Collectors.groupingBy(item -> counterSearchTiendas.getAndIncrement()
-                                    / searchTiendasDto.getFilter().getMaxPageSize()))
-                            .values()) {
-
+                    for (List<GenericFilterParametersDto> iterSearchTiendas : StreamUtils
+                            .partition(
+                                    tiendas.stream()
+                                            .map(item -> GenericFilterParametersDto.builder().idLugarTrabajo(item)
+                                                    .build())
+                                            .collect(Collectors.toList()),
+                                    searchTiendasDto.getFilter().getMaxPageSize())) {
                         SearchTiendasRequestDto searchTiendasRequest = new SearchTiendasRequestDto();
                         searchTiendasRequest.setPage(searchTiendasDto.getPage());
                         searchTiendasRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
@@ -462,11 +453,8 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            final AtomicInteger counter = new AtomicInteger(0);
-            for (List<String> iter : runTrabajoRecolectarBloque.getEmpleadoLocal().stream()
-                    .collect(Collectors.groupingBy(
-                            item -> counter.getAndIncrement() / getComisionEmpleadoDto.getFilter().getMaxPageSize()))
-                    .values()) {
+            for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getEmpleadoLocal(),
+                    getComisionEmpleadoDto.getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
                 comisionEmpleadoRequest.setPage(getComisionEmpleadoDto.getPage());
                 comisionEmpleadoRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
@@ -544,11 +532,8 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            final AtomicInteger counter = new AtomicInteger(0);
-            for (List<String> iter : runTrabajoRecolectarBloque.getTiendaMeta4().stream()
-                    .collect(Collectors
-                            .groupingBy(item -> counter.getAndIncrement() / getTiendasDto.getFilter().getMaxPageSize()))
-                    .values()) {
+            for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getTiendaMeta4(),
+                    getTiendasDto.getFilter().getMaxPageSize())) {
                 TiendasRequestDto tiendasRequest = new TiendasRequestDto();
                 tiendasRequest.setPage(getTiendasDto.getPage());
                 tiendasRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));
@@ -637,12 +622,8 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
 
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 if (CollectionUtils.isNotEmpty(searchEmpleadosRequestItem)) {
-                    final AtomicInteger counter = new AtomicInteger(0);
-                    for (List<GenericFilterParametersDto> iter : searchEmpleadosRequestItem.stream()
-                            .collect(Collectors.groupingBy(item -> counter.getAndIncrement()
-                                    / searchEmpleadosDto.getFilter().getMaxPageSize()))
-                            .values()) {
-
+                    for (List<GenericFilterParametersDto> iter : StreamUtils.partition(searchEmpleadosRequestItem,
+                            searchEmpleadosDto.getFilter().getMaxPageSize())) {
                         SearchEmpleadosRequestDto searchEmpleadosRequest = new SearchEmpleadosRequestDto();
                         searchEmpleadosRequest.setPage(searchEmpleadosDto.getPage());
                         searchEmpleadosRequest.setData(trabajoMapper.trabajoDtoToGenericFilterDto(trabajo));

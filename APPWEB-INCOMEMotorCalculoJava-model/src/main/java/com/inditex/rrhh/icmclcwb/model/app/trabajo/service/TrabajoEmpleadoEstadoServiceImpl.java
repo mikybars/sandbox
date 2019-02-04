@@ -19,37 +19,35 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstadoR
 @Validated
 public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoService {
 
-	@Autowired
-	private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository;
-	 
-	@Autowired
-	private TrabajoEmpleadoEstadoRepositoryCustom trabajoEmpleadoEstadoRepositoryCustom;
+    @Autowired
+    private TrabajoEmpleadoEstadoRepository trabajoEmpleadoEstadoRepository;
 
-	@Autowired
-	private TrabajoEmpleadoEstadoMapper trabajoEmpleadoEstadoMapper;
+    @Autowired
+    private TrabajoEmpleadoEstadoRepositoryCustom trabajoEmpleadoEstadoRepositoryCustom;
 
+    @Autowired
+    private TrabajoEmpleadoEstadoMapper trabajoEmpleadoEstadoMapper;
 
-	@Override
-	public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) throws Exception {
-		return trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
-		        trabajoEmpleadoEstadoRepositoryCustom.save(trabajoEmpleadoEstadoMapper
-						.trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
-	}
+    @Override
+    public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado)
+            throws Exception {
+        return trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
+                trabajoEmpleadoEstadoRepositoryCustom.save(trabajoEmpleadoEstadoMapper
+                        .trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
+    }
 
+    @Override
+    public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado,
+            @Valid final TrabajoDto trabajo) throws Exception {
+        return trabajoEmpleadoEstadoMapper
+                .trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(trabajoEmpleadoEstadoRepositoryCustom.save(
+                        trabajoEmpleadoEstadoMapper.mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(
+                                trabajoEmpleadoEstado, trabajo)));
+    }
 
-	@Override
-	public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado,
-			@Valid final TrabajoDto trabajo) throws Exception {
-		return trabajoEmpleadoEstadoMapper
-				.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(trabajoEmpleadoEstadoRepositoryCustom.save(
-						trabajoEmpleadoEstadoMapper.mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(
-								trabajoEmpleadoEstado, trabajo)));
-	}
+    @Override
+    public List<String> findIdsEmpleadoByIdTrabajoAndIdEstado(final Long idTrabajo, final Long idEstado) {
+        return trabajoEmpleadoEstadoRepository.findIdsEmpleadoByIdTrabajoAndIdEstado(idTrabajo, idEstado);
+    }
 
-	@Override
-	public List<Long> findIdsEmpleadoByIdTrabajo(Long trabajoId, Long idEstado) {
-		return trabajoEmpleadoEstadoRepository.findIdsEmpleadoByIdTrabajo(trabajoId, idEstado);		 
-	}
-	
-	
 }
