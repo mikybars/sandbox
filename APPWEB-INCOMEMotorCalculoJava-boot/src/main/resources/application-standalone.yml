@@ -1,15 +1,12 @@
 logging:
   level:
     root: WARN
-    org.hibernate.SQL: DEBUG
-    org.hibernate.stat: DEBUG
-    org.hibernate.type.descriptor.sql: TRACE
     com.inditex.rrhh.icmclcwb: INFO
 metadata:
   tenant: global
   domain: core
   openshiftproject: icmclcwb
-  slot: dtenreiro
+  slot: develop
 spring:
   jta:
     atomikos:
@@ -84,7 +81,7 @@ app:
     calculo:
       service:
         getGTAlgoritmoProperties:
-          numBlock: 2
+          numBlock: 1000
     ptr:
       venta:
         service:
@@ -137,7 +134,7 @@ app:
           password: 123
           language: 2
         pool:
-          size: 5
+          size: 20
           claimTimeout: 30000
           shutdownTimeout: 60000
         timeout:

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
@@ -19,13 +20,12 @@ public class TrabajoEmpleadoEstadoRepositoryCustomImpl extends JdbcBatchReposito
     @Qualifier("searchEmpleadosDto")
     private Meta4PropertiesDto searchEmpleadosDto;
 
-    private static final String INSERT = "INSERT INTO TRABAJO_EMPLEADO_ESTADO ( "
-            + "ID_EMPLEADO, ID_EMPLEADO_LOCAL, OR_EMPLEADO, " + "ID_ESTADO_TRABAJO_EMPLEADO, ID_TRABAJO)"
-            + "VALUES(?, ?, ?, ?, ?)";
+    @Value("#{primaryQuery['TrabajoEmpleadoEstadoRepositoryCustom.save']}")
+    private String sqlSave;
 
     @Override
     public List<TrabajoEmpleadoEstado> save(final List<TrabajoEmpleadoEstado> src) throws Exception {
-        return saveJdbcBatchList(src, INSERT, searchEmpleadosDto.getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, sqlSave, searchEmpleadosDto.getFilter().getMaxBatchSize());
     }
 
     @Override

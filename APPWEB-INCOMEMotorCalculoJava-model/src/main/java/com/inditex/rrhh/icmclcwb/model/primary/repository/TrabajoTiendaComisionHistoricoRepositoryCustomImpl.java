@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
@@ -18,17 +19,15 @@ public class TrabajoTiendaComisionHistoricoRepositoryCustomImpl extends
     @Autowired
     @Qualifier("getTiendasDto")
     private Meta4PropertiesDto getTiendasDto;
-    
-    private static final String INSERT = "INSERT INTO TRABAJO_TIENDA_COMISION_HISTORICO ( "
-            + "FECHA_FIN, FECHA_INICIO, COMISIONABLE, "
-            + "CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, ID_TRABAJO)" 
-            + "VALUES(?, ?, ?, ?, ?, ?)";
-    
+
+    @Value("#{primaryQuery['TrabajoTiendaComisionHistoricoRepositoryCustom.save']}")
+    private String sqlSave;
+
     @Override
-    public List<TrabajoTiendaComisionHistorico> save(final List<TrabajoTiendaComisionHistorico> src) throws Exception{
-        return saveJdbcBatchList(src, INSERT, getTiendasDto.getFilter().getMaxBatchSize());
+    public List<TrabajoTiendaComisionHistorico> save(final List<TrabajoTiendaComisionHistorico> src) throws Exception {
+        return saveJdbcBatchList(src, sqlSave, getTiendasDto.getFilter().getMaxBatchSize());
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TrabajoTiendaComisionHistorico entity) throws SQLException {
         pstmt.setObject(1, entity.getFechaFin());

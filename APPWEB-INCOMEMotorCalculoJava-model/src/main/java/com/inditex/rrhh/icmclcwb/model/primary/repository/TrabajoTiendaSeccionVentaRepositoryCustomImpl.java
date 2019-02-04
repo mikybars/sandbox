@@ -6,24 +6,26 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionVenta;
 
 @Repository
-public class TrabajoTiendaSeccionVentaRepositoryCustomImpl extends JdbcBatchRepository<TrabajoTiendaSeccionVenta> implements TrabajoTiendaSeccionVentaRepositoryCustom {
+public class TrabajoTiendaSeccionVentaRepositoryCustomImpl extends JdbcBatchRepository<TrabajoTiendaSeccionVenta>
+        implements TrabajoTiendaSeccionVentaRepositoryCustom {
 
     @Autowired
     @Qualifier("ventaTotalizadoDto")
     private PtrPropertiesDto ventaTotalizadoDto;
-    
-    private static final String INSERT = "INSERT INTO TRABAJO_TIENDA_SECCION_VENTA (FECHA, ID_SECCION, ID_TIENDA, IMPORTE, ID_TRABAJO )" + 
-            "VALUES(?, ?, ?, ? , ?)";
+
+    @Value("#{primaryQuery['TrabajoTiendaSeccionVentaRepositoryCustom.save']}")
+    private String sqlSave;
 
     @Override
-    public List<TrabajoTiendaSeccionVenta> save(List<TrabajoTiendaSeccionVenta> src) throws Exception{
-        return saveJdbcBatchList(src, INSERT, ventaTotalizadoDto.getFilter().getMaxBatchSize());
+    public List<TrabajoTiendaSeccionVenta> save(List<TrabajoTiendaSeccionVenta> src) throws Exception {
+        return saveJdbcBatchList(src, sqlSave, ventaTotalizadoDto.getFilter().getMaxBatchSize());
     }
 
     @Override
@@ -34,5 +36,5 @@ public class TrabajoTiendaSeccionVentaRepositoryCustomImpl extends JdbcBatchRepo
         pstmt.setDouble(4, entity.getImporte());
         pstmt.setLong(5, entity.getTrabajo().getId());
     }
-    
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
@@ -19,17 +20,16 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaRepositoryCustomImpl
     @Autowired
     @Qualifier("presenciasDetalleDto")
     private PtrPropertiesDto presenciasDetalleDto;
-    
-    private static final String INSERT = "INSERT INTO TRABAJO_TIENDA_SECCION_EMPLEADO_PRESENCIA ( "
-            + "FECHA, ID_EMPLEADO, ID_SECCION, ID_TIENDA, "
-            + "ID_TIPO_HORA, MINUTOS, ID_TRABAJO)" 
-            + "VALUES(?, ?, ?, ?, ?, ?, ?)";
-    
+
+    @Value("#{primaryQuery['TrabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom.save']}")
+    private String sqlSave;
+
     @Override
-    public List<TrabajoTiendaSeccionEmpleadoPresencia> save(final List<TrabajoTiendaSeccionEmpleadoPresencia> src) throws Exception{
-        return saveJdbcBatchList(src, INSERT, presenciasDetalleDto.getFilter().getMaxBatchSize());
+    public List<TrabajoTiendaSeccionEmpleadoPresencia> save(final List<TrabajoTiendaSeccionEmpleadoPresencia> src)
+            throws Exception {
+        return saveJdbcBatchList(src, sqlSave, presenciasDetalleDto.getFilter().getMaxBatchSize());
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TrabajoTiendaSeccionEmpleadoPresencia entity)
             throws SQLException {

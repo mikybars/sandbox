@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
@@ -18,19 +19,15 @@ public class TrabajoEmpleadoEstructuraRepositoryCustomImpl extends JdbcBatchRepo
     @Autowired
     @Qualifier("getComisionEmpleadoDto")
     private Meta4PropertiesDto getComisionEmpleadoDto;
-    
-    private static final String INSERT = "INSERT INTO TRABAJO_EMPLEADO_ESTRUCTURA ( "
-            + "FECHA_FIN, FECHA_INICIO, ID_EMPLEADO, "
-            + "ID_EMPLEADO_LOCAL, ID_ESTRUCTURA, "  
-            + "ID_TIPO_CALCULO, ID_TIPO_COMISION, OR_EMPLEADO,"
-            + "PORCENTAJE, PORCENTAJE_SECCION_1, PORCENTAJE_SECCION_2, PORCENTAJE_SECCION_3, ID_TRABAJO)" 
-            + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
+
+    @Value("#{primaryQuery['TrabajoEmpleadoEstructuraRepositoryCustom.save']}")
+    private String sqlSave;
+
     @Override
-    public List<TrabajoEmpleadoEstructura> save(final List<TrabajoEmpleadoEstructura> src) throws Exception{
-        return saveJdbcBatchList(src, INSERT, getComisionEmpleadoDto.getFilter().getMaxBatchSize());
+    public List<TrabajoEmpleadoEstructura> save(final List<TrabajoEmpleadoEstructura> src) throws Exception {
+        return saveJdbcBatchList(src, sqlSave, getComisionEmpleadoDto.getFilter().getMaxBatchSize());
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TrabajoEmpleadoEstructura entity) throws SQLException {
         pstmt.setObject(1, entity.getFechaFin());
@@ -45,7 +42,7 @@ public class TrabajoEmpleadoEstructuraRepositoryCustomImpl extends JdbcBatchRepo
         pstmt.setDouble(10, entity.getPorcentaje1());
         pstmt.setDouble(11, entity.getPorcentaje2());
         pstmt.setDouble(12, entity.getPorcentaje3());
-        pstmt.setLong(13, entity.getTrabajo().getId());        
+        pstmt.setLong(13, entity.getTrabajo().getId());
     }
 
 }

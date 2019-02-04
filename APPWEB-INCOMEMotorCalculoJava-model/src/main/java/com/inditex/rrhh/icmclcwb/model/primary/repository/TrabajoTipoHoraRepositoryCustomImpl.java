@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
@@ -19,11 +20,12 @@ public class TrabajoTipoHoraRepositoryCustomImpl extends JdbcBatchRepository<Tra
     @Qualifier("tiposHorasDto")
     private PtrPropertiesDto tiposHorasDto;
 
-    private static final String INSERT = "INSERT INTO TRABAJO_TIPO_HORA (COMISIONABLE, ID_TIPO_HORA, ID_TRABAJO) VALUES(?, ?, ?)";
+    @Value("#{primaryQuery['TrabajoTipoHoraRepositoryCustom.save']}")
+    private String sqlSave;
 
     @Override
     public List<TrabajoTipoHora> save(List<TrabajoTipoHora> src) throws Exception {
-        return saveJdbcBatchList(src, INSERT, tiposHorasDto.getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, sqlSave, tiposHorasDto.getFilter().getMaxBatchSize());
     }
 
     @Override
