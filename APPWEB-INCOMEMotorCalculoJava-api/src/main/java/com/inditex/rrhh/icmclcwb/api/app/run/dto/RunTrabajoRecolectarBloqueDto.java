@@ -19,7 +19,9 @@ public class RunTrabajoRecolectarBloqueDto implements Serializable {
 
     private Set<String> tiendaMtu = new HashSet<>();
 
-    private Set<Integer> tipoHora = new HashSet<>();
+    private Set<Integer> tipoHoraComisionable = new HashSet<>();
+    
+    private Set<Integer> tipoHoraComisionableDenominador = new HashSet<>();
 
     private boolean pivot = false;
 

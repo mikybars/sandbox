@@ -74,13 +74,19 @@ public class TrabajoRecolectarPtrPresenciaServiceImpl implements TrabajoRecolect
         try {
             CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.getTiposHoras(
                     PtrPresenciaTiposHorasRequestDto.builder().origen(Integer.parseInt(trabajo.getIdPaisOrigen()))
-                            .excluidoCalculo(Boolean.FALSE).excluidoDenom(Boolean.FALSE).build());
+                            .excluidoCalculo(Boolean.FALSE).build());
             AsyncUtils.exceptionally(cfData, cf);
             PtrPresenciaTiposHorasResponseDto data = cfData.get();
             if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
                 AsyncUtils.exceptionally(trabajoTipoHoraSevice.save(data.getTiposHoras(), trabajo), cf);
-                runTrabajoRecolectarBloque.getTipoHora().addAll(
-                        data.getTiposHoras().stream().map(item -> item.getTipoHora()).collect(Collectors.toSet()));
+                data.getTiposHoras().stream().forEach(item -> {
+                    if (Boolean.FALSE.equals(item.getExcluidoCalculo())) {
+                        runTrabajoRecolectarBloque.getTipoHoraComisionable().add(item.getTipoHora());
+                        if (Boolean.FALSE.equals(item.getExcluidoDenom())) {
+                            runTrabajoRecolectarBloque.getTipoHoraComisionableDenominador().add(item.getTipoHora());
+                        }
+                    }
+                });
             } else {
                 throw new PtrException(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
                         .append(trabajo.getIdPaisOrigen()).toString());

@@ -156,6 +156,10 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
                                 runTrabajoRecolectar.getDos().getTiendaPresencia().add(item);
                             }
                         });
+                        runTrabajoRecolectar.getDos().getTipoHoraComisionable()
+                                .addAll(runTrabajoRecolectar.getUno().getTipoHoraComisionable());
+                        runTrabajoRecolectar.getDos().getTipoHoraComisionableDenominador()
+                                .addAll(runTrabajoRecolectar.getUno().getTipoHoraComisionableDenominador());
 
                         CompletableFuture<Void> cfTiendasPresencia = trabajoRecolectarMeta4IcmWsCalcIncomeAsyncService
                                 .tiendasPresencia(trabajo, runTrabajoRecolectar.getDos());
