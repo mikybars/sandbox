@@ -67,9 +67,9 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
             final RunTrabajoRecolectarDto runTrabajoRecolectar = runTrabajo.getRunTrabajoRecolectar();
             if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
                 trabajoService.modifyEstadoTrabajoInicial(trabajo, EstadoTrabajoEnum.EN_CURSO_DATOS.getDto());
-                
+
                 // TODO
-                
+
                 trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto());
             }
         } catch (Exception e) {
@@ -104,7 +104,8 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
                             .tiendasEmpleadoHistorico(trabajo, runTrabajoRecolectar.getUno()), cf, cfWait);
                 }
 
-                CompletableFuture<Void> cfTiposHoras = trabajoRecolectarPtrPresenciaAsyncService.tiposHoras(trabajo);
+                CompletableFuture<Void> cfTiposHoras = trabajoRecolectarPtrPresenciaAsyncService.tiposHoras(trabajo,
+                        runTrabajoRecolectar.getUno());
                 AsyncUtils.exceptionally(cfTiposHoras, cf);
 
                 /*-------------------------------------------------------------*/

@@ -22,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaSeccionPre
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTipoHoraService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.exception.PtrException;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
@@ -67,16 +68,22 @@ public class TrabajoRecolectarPtrPresenciaServiceImpl implements TrabajoRecolect
 
     @TrabajoAuditoria
     @Override
-    public void tiposHoras(@Valid final TrabajoDto trabajo) throws Exception {
+    public void tiposHoras(@Valid final TrabajoDto trabajo,
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
-                    .getTiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
-                            .origen(Integer.parseInt(trabajo.getIdPaisOrigen())).build());
+            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.getTiposHoras(
+                    PtrPresenciaTiposHorasRequestDto.builder().origen(Integer.parseInt(trabajo.getIdPaisOrigen()))
+                            .excluidoCalculo(Boolean.FALSE).excluidoDenom(Boolean.FALSE).build());
             AsyncUtils.exceptionally(cfData, cf);
             PtrPresenciaTiposHorasResponseDto data = cfData.get();
             if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
                 AsyncUtils.exceptionally(trabajoTipoHoraSevice.save(data.getTiposHoras(), trabajo), cf);
+                runTrabajoRecolectarBloque.getTipoHora().addAll(
+                        data.getTiposHoras().stream().map(item -> item.getTipoHora()).collect(Collectors.toSet()));
+            } else {
+                throw new PtrException(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
+                        .append(trabajo.getIdPaisOrigen()).toString());
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
@@ -102,7 +109,8 @@ public class TrabajoRecolectarPtrPresenciaServiceImpl implements TrabajoRecolect
                             .trabajoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(trabajo);
                     paramPresenciasTotalTiendaSeccion.setCadena(Integer.valueOf(cadena));
                     paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-                    // TODO Obtener las presencias comisionables por tipo de hora y excluido denominador
+                    // TODO Obtener las presencias comisionables por tipo de hora y excluido
+                    // denominador
 
                     CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> cfData = ptrPresenciaAsyncService
                             .getPresenciasTotalTiendaSeccionDto(paramPresenciasTotalTiendaSeccion);

@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaEstadoDto;
 import lombok.Data;
 
@@ -19,6 +18,8 @@ public class RunTrabajoRecolectarBloqueDto implements Serializable {
     private Set<String> tiendaMeta4 = new HashSet<>();
 
     private Set<String> tiendaMtu = new HashSet<>();
+
+    private Set<Integer> tipoHora = new HashSet<>();
 
     private boolean pivot = false;
 
