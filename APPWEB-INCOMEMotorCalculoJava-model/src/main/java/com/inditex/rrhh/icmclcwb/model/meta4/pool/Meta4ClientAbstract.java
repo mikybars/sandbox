@@ -71,13 +71,13 @@ public abstract class Meta4ClientAbstract<T> {
 		// client.getEndpoint().put(StaxOutInterceptor.FORCE_START_DOCUMENT,
 		// Boolean.TRUE);
 
-		// TODO Pendiente ajustar trazas
+		// TODO Ajustar trazas
 		LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
 		loggingInInterceptor.setPrettyLogging(Boolean.TRUE);
 		loggingInInterceptor.setLimit(-1);
 		client.getInInterceptors().add(loggingInInterceptor);
 
-		// TODO Pendiente ajustar trazas
+		// TODO Ajustar trazas
 		LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
 		loggingOutInterceptor.setPrettyLogging(Boolean.TRUE);
 		loggingOutInterceptor.setLimit(-1);

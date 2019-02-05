@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTrabajoAuditoria;
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TrabajoAuditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoRecolectarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
@@ -57,33 +56,9 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
 
     @CounterMetric
     @TimerMetric
-    @TrabajoAuditoria
-    @Override
-    public RunTrabajoDto runNew(@Valid final RunTrabajoDto runTrabajo) throws IcmclcwbException {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfWait = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTrabajo.getTrabajoDto();
-            final RunTrabajoRecolectarDto runTrabajoRecolectar = runTrabajo.getRunTrabajoRecolectar();
-            if (EstadoTrabajoEnum.PENDIENTE_DATOS.getId().equals(trabajo.getEstado().getId())) {
-                trabajoService.modifyEstadoTrabajoInicial(trabajo, EstadoTrabajoEnum.EN_CURSO_DATOS.getDto());
-
-                // TODO
-
-                trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto());
-            }
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
-        }
-        return runTrabajo;
-    }
-
-    @CounterMetric
-    @TimerMetric
     @RunTrabajoAuditoria
     @Override
-    public RunTrabajoDto run(@Valid final RunTrabajoDto runTrabajo) throws IcmclcwbException {
+    public RunTrabajoDto run(@Valid final RunTrabajoDto runTrabajo) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
@@ -135,11 +110,6 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
                 CompletableFuture<Void> cfPresenciaDetalleEmpleado = trabajoRecolectarPtrPresenciaAsyncService
                         .presenciaDetalleEmpleado(trabajo, runTrabajoRecolectar.getUno());
                 AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
-
-                // TODO
-//                CompletableFuture<Void> cfVentaDetalleEmpleado = trabajoRecolectarPtrVentaAsyncService
-//                        .ventaDetalleEmpleado(trabajo, runTrabajoRecolectar.getUno());
-//                AsyncUtils.exceptionally(cfVentaDetalleEmpleado, cf);
 
                 CompletableFuture<Void> cfCondicionesEmpleados = trabajoRecolectarMeta4IcmWsCalcIncomeAsyncService
                         .condicionesEmpleados(trabajo, runTrabajoRecolectar.getUno());

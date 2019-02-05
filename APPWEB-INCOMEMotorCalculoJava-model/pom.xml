@@ -99,7 +99,7 @@
                 <icmwscalcincomeExecution>icmwscalcincome</icmwscalcincomeExecution>
                 <icmwscalcincomeService>ICM_WS_CALC_INCOME?wsdl=1</icmwscalcincomeService>
                 <icmwscalcincomeServiceName>ICM_WS_CALC_INCOME</icmwscalcincomeServiceName>
-                <icmwscalcincomeServicePackageName>icm_ws_calc_income</icmwscalcincomeServicePackageName>
+                <icmwscalcincomeServicePackageName>icmwscalcincome</icmwscalcincomeServicePackageName>
 
             </properties>
 
