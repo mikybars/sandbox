@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaComisionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaComisionHistoricoService;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaComisionHistoricoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaComisionHistoricoRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTiendaComisionHistoricoRepositoryCustom;
 
 @Service
 @Validated

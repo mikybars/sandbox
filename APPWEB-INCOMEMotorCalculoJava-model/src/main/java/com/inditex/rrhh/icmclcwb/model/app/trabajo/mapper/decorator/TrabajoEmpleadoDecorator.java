@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoEmpleadoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoEmpleado;
 
 public abstract class TrabajoEmpleadoDecorator extends TrabajoEmpleadoMapper {
 

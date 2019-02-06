@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaSeccionVentaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaSeccionVenta;
 
 public abstract class TrabajoTiendaSeccionVentaDecorator extends TrabajoTiendaSeccionVentaMapper {
 

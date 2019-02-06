@@ -15,9 +15,9 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaSeccionEmp
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaSeccionEmpleadoPresenciaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionEmpleadoPresencia;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaSeccionEmpleadoPresencia;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom;
 
 @Service
 @Validated

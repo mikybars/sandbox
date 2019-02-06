@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoService;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoEmpleadoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoEmpleadoRepository;
 
 @Service
 @Validated

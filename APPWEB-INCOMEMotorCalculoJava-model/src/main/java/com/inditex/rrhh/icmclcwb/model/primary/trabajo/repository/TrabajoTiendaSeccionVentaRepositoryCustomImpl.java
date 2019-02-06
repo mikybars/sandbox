@@ -1,0 +1,41 @@
+package com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaSeccionVenta;
+
+@Repository
+public class TrabajoTiendaSeccionVentaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TrabajoTiendaSeccionVenta>
+        implements TrabajoTiendaSeccionVentaRepositoryCustom {
+
+    @Autowired
+    @Qualifier("ventaTotalizadoDto")
+    private PtrPropertiesDto ventaTotalizadoDto;
+
+    @Value("#{primaryQuery['TrabajoTiendaSeccionVentaRepositoryCustom.save']}")
+    private String sqlSave;
+
+    @Override
+    public List<TrabajoTiendaSeccionVenta> save(List<TrabajoTiendaSeccionVenta> src) throws Exception {
+        return saveJdbcBatchList(src, sqlSave, ventaTotalizadoDto.getFilter().getMaxBatchSize());
+    }
+
+    @Override
+    public void setParameters(PreparedStatement pstmt, TrabajoTiendaSeccionVenta entity) throws SQLException {
+        pstmt.setObject(1, entity.getFecha());
+        pstmt.setString(2, entity.getIdSeccion());
+        pstmt.setString(3, entity.getIdTienda());
+        pstmt.setDouble(4, entity.getImporte());
+        pstmt.setLong(5, entity.getTrabajo().getId());
+    }
+
+}

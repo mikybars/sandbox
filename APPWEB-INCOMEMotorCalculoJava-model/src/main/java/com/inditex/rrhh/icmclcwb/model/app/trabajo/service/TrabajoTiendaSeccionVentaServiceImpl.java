@@ -13,8 +13,8 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaSeccionVentaDt
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaSeccionVentaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaSeccionVentaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionVentaRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaSeccionVentaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTiendaSeccionVentaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTiendaSeccionVentaRepositoryCustom;
 
 @Service
 @Validated

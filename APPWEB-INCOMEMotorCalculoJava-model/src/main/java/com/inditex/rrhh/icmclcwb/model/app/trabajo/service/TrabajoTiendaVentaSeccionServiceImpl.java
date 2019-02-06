@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaVentaSeccionService;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaVentaSeccionRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTiendaVentaSeccionRepository;
 
 @Service
 @Validated

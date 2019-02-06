@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoHistoricoService;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoEmpleadoHistoricoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoHistoricoRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoEmpleadoHistoricoRepositoryCustom;
 
 @Service
 @Validated

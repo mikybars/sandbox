@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Programacion;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.Trabajo;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 
 public abstract class TrabajoMapperDecorator extends TrabajoMapper {
 

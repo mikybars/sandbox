@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.mapper;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.decorator.ProgramacionEmpleadoDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.ProgramacionEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionEmpleado;
 
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;

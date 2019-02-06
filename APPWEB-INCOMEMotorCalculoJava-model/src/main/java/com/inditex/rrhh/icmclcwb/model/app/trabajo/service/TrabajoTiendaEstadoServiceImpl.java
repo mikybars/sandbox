@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaEstadoService;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaEstadoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTiendaEstadoRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTiendaEstadoRepositoryCustom;
 
 @Service
 @Validated

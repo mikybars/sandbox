@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
 
 @Service
 @Validated

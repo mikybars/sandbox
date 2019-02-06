@@ -36,17 +36,19 @@ public class DataSourcePrimaryConfig {
 
     @Bean(name = "primaryEntityManagerFactory")
     @Primary
-    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(EntityManagerFactoryBuilder emBuilder,
-            DataSourceBuilder dsBuilder) {
-        return emBuilder.dataSource(primaryDataSource(dsBuilder)).persistenceUnit("primaryPersistenceUnit")
-                .packages("com.inditex.rrhh.icmclcwb.model.primary.entity").properties(hibernateProperties).jta(true)
-                .build();
+    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
+            final EntityManagerFactoryBuilder entityManagerFactoryBuilder,
+            @Qualifier("primaryDataSource") final DataSource dataSource) {
+        return entityManagerFactoryBuilder.dataSource(dataSource).persistenceUnit("primaryPersistenceUnit")
+                .packages("com.inditex.rrhh.icmclcwb.model.primary.programacion.entity",
+                        "com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity")
+                .properties(hibernateProperties).jta(true).build();
     }
 
     @Bean(name = "primaryJdbcTemplate")
     @Primary
-    public JdbcTemplate primaryJdbcTemplate(@Qualifier("primaryDataSource") final DataSource primaryDataSource) {
-        return new JdbcTemplate(primaryDataSource);
+    public JdbcTemplate primaryJdbcTemplate(@Qualifier("primaryDataSource") final DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
     }
 
     @Bean(name = "primaryNamedParameterJdbcTemplate")

@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaSeccionPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoTiendaSeccionPresenciaDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaSeccionPresencia;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaSeccionPresencia;
 
 @Mapper
 @DecoratedWith(value= TrabajoTiendaSeccionPresenciaDecorator.class)

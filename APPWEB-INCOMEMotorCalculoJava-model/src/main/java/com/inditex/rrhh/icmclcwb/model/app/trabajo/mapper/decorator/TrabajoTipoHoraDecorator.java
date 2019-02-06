@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTipoHoraMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTipoHora;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTipoHora;
 
 public abstract class TrabajoTipoHoraDecorator extends TrabajoTipoHoraMapper {
 

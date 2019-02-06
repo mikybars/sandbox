@@ -22,7 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.ms.SenderTrabajo;
 
 @Service

@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoEmpleadoEstadoDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoEmpleadoEstado;
 
 @Mapper
 @DecoratedWith(TrabajoEmpleadoEstadoDecorator.class)

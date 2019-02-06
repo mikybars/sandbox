@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTipoHoraDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoTipoHoraDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTipoHora;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTipoHora;
 
 @Mapper
 @DecoratedWith(TrabajoTipoHoraDecorator.class)

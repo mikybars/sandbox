@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.CalculoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.GTCalculoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.GTCalculoRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;

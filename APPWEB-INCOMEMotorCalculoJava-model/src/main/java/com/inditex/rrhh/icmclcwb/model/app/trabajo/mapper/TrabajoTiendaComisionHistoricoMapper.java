@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaComisionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoTiendaComisionHistoricoDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoTiendaComisionHistorico;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaComisionHistorico;
 
 @Mapper
 @DecoratedWith(value = TrabajoTiendaComisionHistoricoDecorator.class)

@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoEmpleadoDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoEmpleado;
 
 @Mapper
 @DecoratedWith(TrabajoEmpleadoDecorator.class)

@@ -7,9 +7,9 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionServic
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionEmpleadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionTiendaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionEmpleadoRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.ProgramacionTiendaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionEmpleadoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionTiendaRepository;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

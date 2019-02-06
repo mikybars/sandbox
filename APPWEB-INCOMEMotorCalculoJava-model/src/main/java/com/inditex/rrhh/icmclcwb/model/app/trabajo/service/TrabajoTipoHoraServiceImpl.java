@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTipoHoraService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTipoHoraMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoTipoHoraRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTipoHoraRepositoryCustom;
 
 @Service
 @Validated

@@ -13,8 +13,8 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoEstructuraService;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoEmpleadoEstructuraMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstructuraRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.TrabajoEmpleadoEstructuraRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoEmpleadoEstructuraRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoEmpleadoEstructuraRepositoryCustom;
 
 @Service
 @Validated

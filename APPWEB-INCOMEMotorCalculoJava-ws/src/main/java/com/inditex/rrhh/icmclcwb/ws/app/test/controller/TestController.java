@@ -38,44 +38,44 @@ public class TestController {
     @Qualifier("ptrPresenciaClient")
     private RestClient ptrPresenciaClient;
 
+    @GetMapping("/reloj/")
     @ApiOperation("Transformaciones de fechas")
-    @GetMapping(path = "/reloj/")
     public RelojDto reloj() {
         return testService.reloj();
     }
 
+    @GetMapping("/sso/")
     @ApiOperation("Datos del usuario conectado en el SSO")
-    @GetMapping(path = "/sso/")
     public SsoDto sso() {
         return testService.sso();
     }
 
+    @GetMapping("/error/sync/")
     @ApiOperation("Error en sincronía")
-    @GetMapping(path = "/error/sync/")
     public void errorSync() throws Exception {
         testService.errorSync();
     }
 
+    @GetMapping("/error/async/")
     @ApiOperation("Error en asincronía")
-    @GetMapping(path = "/error/async/")
     public void errorAsync() throws Exception {
         testService.errorAsync();
     }
 
+    @GetMapping("/sesion/")
     @ApiOperation("Validación de la sesión de Meta4")
-    @GetMapping(path = "/sesion/")
     public void sesion() throws Exception {
         testService.sesion();
     }
 
-    @GetMapping(path = "/ptr/presencia/path")
+    @GetMapping("/ptr/presencia/path")
     @ApiOperation("Conectividad con ptr de presencia")
     public String testPathPTRPresecnias(@Valid @NotBlank String path) throws Exception {
         String pathD = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
         return ptrPresenciaClient.getForObject(pathD, String.class);
     }
 
-    @GetMapping(path = "/ptr/venta/path")
+    @GetMapping("/ptr/venta/path")
     @ApiOperation("Conectividad con ptr de venta")
     public String testPathPTRVentas(@Valid @NotBlank String path) throws Exception {
         String pathD = URLDecoder.decode(path, StandardCharsets.UTF_8.name());

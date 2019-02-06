@@ -14,8 +14,8 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoEmpleadoEstadoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.EstadoTrabajoEmpleado;
-import com.inditex.rrhh.icmclcwb.model.primary.entity.TrabajoEmpleadoEstado;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.EstadoTrabajoEmpleado;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoEmpleadoEstado;
 
 public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEstadoMapper {
 
