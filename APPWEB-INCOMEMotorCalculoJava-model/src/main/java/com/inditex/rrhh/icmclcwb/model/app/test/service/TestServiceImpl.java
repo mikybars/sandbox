@@ -55,15 +55,15 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void errorSync() throws Exception {
-        testExceptionService.applicationException();
+        testExceptionService.icmclcwbException();
     }
 
     @Override
     public void errorAsync() throws Exception {
-        CompletableFuture<Void> cfErrorAsync1 = testExceptionAsyncService.applicationException();
+        CompletableFuture<Void> cfErrorAsync1 = testExceptionAsyncService.icmclcwbException();
         AsyncUtils.exceptionally(cfErrorAsync1, new ArrayList<>());
 
-        CompletableFuture<Void> cfErrorAsync2 = testExceptionAsyncService.applicationException();
+        CompletableFuture<Void> cfErrorAsync2 = testExceptionAsyncService.icmclcwbException();
         AsyncUtils.exceptionally(cfErrorAsync2, new ArrayList<>());
 
         CompletableFuture<Void> cfErrorAsyncAllOf = CompletableFuture.allOf(cfErrorAsync1, cfErrorAsync2);

@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.AsyncIcmclcwbException;
 
 @Component
 public class AsyncUtils {
@@ -47,7 +47,7 @@ public class AsyncUtils {
         final List<CompletableFuture<?>> cfListRemove = new ArrayList<>();
         for (CompletableFuture<?> item : cfList) {
             if (item.isCompletedExceptionally()) {
-                throw new ApplicationException("AsyncUtils.isOk() == false");
+                throw new AsyncIcmclcwbException("AsyncUtils.isOk() == false");
             } else if (item.isDone()) {
                 cfListRemove.add(item);
             }

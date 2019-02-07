@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
-import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
 import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
 
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 public class TestExceptionServiceImpl implements TestExceptionService {
 
 	@Override
-	public void applicationException() throws Exception {
+	public void icmclcwbException() throws Exception {
 	    TestUtils.threadSleep();
-		throw new ApplicationException("Asynchronous error");
+		throw new IcmclcwbException("Asynchronous error");
 	}
 
 }

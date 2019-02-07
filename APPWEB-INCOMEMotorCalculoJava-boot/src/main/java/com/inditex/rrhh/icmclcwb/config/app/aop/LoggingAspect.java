@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
@@ -60,7 +60,7 @@ public class LoggingAspect {
 //        TrabajoAuditoria auditoriaTrabajo = Optional.of(pjp.getSignature())
 //                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
 //                .map(method -> method.getAnnotation(TrabajoAuditoria.class))
-//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación TrabajoAuditoria"));
+//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación TrabajoAuditoria"));
         TrabajoDto trabajo = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
@@ -70,7 +70,7 @@ public class LoggingAspect {
             }
         }
         if (trabajo == null) {
-            throw new ApplicationException(
+            throw new IcmclcwbException(
                     "La anotacion TrabajoAuditoria necesita que el metodo tenga un parametro TrabajoDto");
         }
         Instant start = Instant.now();
@@ -104,7 +104,7 @@ public class LoggingAspect {
 //        RunTrabajoAuditoria auditoriaRunTrabajo = Optional.of(pjp.getSignature())
 //                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
 //                .map(method -> method.getAnnotation(TrabajoAuditoria.class))
-//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación RunTrabajoAuditoria"));
+//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación RunTrabajoAuditoria"));
         RunTrabajoDto trabajoRun = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
@@ -114,12 +114,12 @@ public class LoggingAspect {
             }
         }
         if (trabajoRun == null) {
-            throw new ApplicationException(
+            throw new IcmclcwbException(
                     "La anotacion RunTrabajoAuditoria necesita que el metodo tenga un parametro RunTrabajoDto");
         }
         TrabajoDto trabajo = trabajoRun.getTrabajoDto();
         if (trabajo == null) {
-            throw new ApplicationException(
+            throw new IcmclcwbException(
                     "La anotacion RunTrabajoAuditoria necesita que el metodo tenga un parametro TrabajoDto");
         }
         Instant start = Instant.now();
@@ -152,7 +152,7 @@ public class LoggingAspect {
     public Object auditoriaAround(ProceedingJoinPoint pjp) throws Throwable {
 //        Auditoria auditoria = Optional.of(pjp.getSignature()).map(signature -> (MethodSignature) signature)
 //                .map(MethodSignature::getMethod).map(method -> method.getAnnotation(Auditoria.class))
-//                .orElseThrow(() -> new ApplicationException("No se ha configurado la anotación TrabajoAuditoria"));
+//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación TrabajoAuditoria"));
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
             List<Object> args = Arrays.asList(pjp.getArgs());

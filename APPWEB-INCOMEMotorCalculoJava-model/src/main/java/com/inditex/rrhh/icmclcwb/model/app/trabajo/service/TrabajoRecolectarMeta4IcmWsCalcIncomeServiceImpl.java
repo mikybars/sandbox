@@ -20,8 +20,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TrabajoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoEmpleadoEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoEmpleadoHistoricoAsyncService;
@@ -193,7 +193,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
                         hasNext = searchEmpleadosRequest.nextPage();
                     } while (hasNext);
                     if (CollectionUtils.isEmpty(tiendas)) {
-                        throw new ApplicationException("Los empleados no tienen tiendas asociadas");
+                        throw new IcmclcwbException("Los empleados no tienen tiendas asociadas");
                     }
                 }
             } else if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
@@ -593,7 +593,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
                     if (CollectionUtils.isNotEmpty(empleadosRequestItem)) {
                         empleadosRequest.getData().getItem().addAll(empleadosRequestItem);
                     } else {
-                        throw new ApplicationException("Hay tiendas pero no ids");
+                        throw new IcmclcwbException("Hay tiendas pero no ids");
                     }
                 }
 

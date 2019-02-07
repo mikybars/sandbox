@@ -9,7 +9,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
-import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.ParallelFlux;
@@ -89,7 +89,7 @@ public class ReactorTest {
         try {
             if (n.equals("empleado-4")) {
                 System.out.println("Se cumple condicion");
-                return Flux.error(new ApplicationException("Error genérico "));
+                return Flux.error(new ReactorIcmclcwbException("Error genérico "));
             }
 
             TimeUnit.SECONDS.sleep(1);
