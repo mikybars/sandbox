@@ -4,6 +4,8 @@ import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -19,5 +21,8 @@ public interface PtrPresenciaService {
 
     PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid final PtrPresenciaTiposHorasRequestDto request)
             throws Exception;
+
+    PtrPresenciaDetalleComisionableResponseDto getPresenciasDetalleComisionableDto(
+            @Valid PtrPresenciaDetalleComisionableRequestDto request) throws Exception;
 
 }
