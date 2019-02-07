@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.generated package. 
+ * generated in the com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -27,7 +27,7 @@ public class ObjectFactory {
     private final static QName _Fault_QNAME = new QName("http://schemas.meta4.com/", "fault");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.generated
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated
      * 
      */
     public ObjectFactory() {
@@ -50,22 +50,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETEMPLEADOSResponse }
-     * 
-     */
-    public GETEMPLEADOSResponse createGETEMPLEADOSResponse() {
-        return new GETEMPLEADOSResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetempleadosOutput }
-     * 
-     */
-    public GetempleadosOutput createGetempleadosOutput() {
-        return new GetempleadosOutput();
-    }
-
-    /**
      * Create an instance of {@link GETTIENDASEMPLEADOResponse }
      * 
      */
@@ -79,6 +63,22 @@ public class ObjectFactory {
      */
     public GettiendasempleadoOutput createGettiendasempleadoOutput() {
         return new GettiendasempleadoOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETEMPLEADOSResponse }
+     * 
+     */
+    public GETEMPLEADOSResponse createGETEMPLEADOSResponse() {
+        return new GETEMPLEADOSResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetempleadosOutput }
+     * 
+     */
+    public GetempleadosOutput createGetempleadosOutput() {
+        return new GetempleadosOutput();
     }
 
     /**
@@ -154,6 +154,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETTIENDASINCOME }
+     * 
+     */
+    public GETTIENDASINCOME createGETTIENDASINCOME() {
+        return new GETTIENDASINCOME();
+    }
+
+    /**
+     * Create an instance of {@link GETTIENDASEMPLEADO }
+     * 
+     */
+    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
+        return new GETTIENDASEMPLEADO();
+    }
+
+    /**
      * Create an instance of {@link M4LoadObject }
      * 
      */
@@ -191,22 +207,6 @@ public class ObjectFactory {
      */
     public IcmWsCalcOperacionesBlock createIcmWsCalcOperacionesBlock() {
         return new IcmWsCalcOperacionesBlock();
-    }
-
-    /**
-     * Create an instance of {@link GETTIENDASINCOME }
-     * 
-     */
-    public GETTIENDASINCOME createGETTIENDASINCOME() {
-        return new GETTIENDASINCOME();
-    }
-
-    /**
-     * Create an instance of {@link GETTIENDASEMPLEADO }
-     * 
-     */
-    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
-        return new GETTIENDASEMPLEADO();
     }
 
     /**

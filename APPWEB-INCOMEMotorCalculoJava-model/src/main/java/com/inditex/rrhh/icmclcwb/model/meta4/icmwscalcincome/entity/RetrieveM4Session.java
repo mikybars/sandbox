@@ -32,7 +32,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="in0" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ai_sessionId" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,37 +43,37 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "in0"
+    "aiSessionId"
 })
 @XmlRootElement(name = "retrieveM4Session")
 public class RetrieveM4Session implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(required = true)
-    protected String in0;
+    @XmlElement(name = "ai_sessionId", required = true)
+    protected String aiSessionId;
 
     /**
-     * Obtiene el valor de la propiedad in0.
+     * Obtiene el valor de la propiedad aiSessionId.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getIn0() {
-        return in0;
+    public String getAiSessionId() {
+        return aiSessionId;
     }
 
     /**
-     * Define el valor de la propiedad in0.
+     * Define el valor de la propiedad aiSessionId.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setIn0(String value) {
-        this.in0 = value;
+    public void setAiSessionId(String value) {
+        this.aiSessionId = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -85,11 +85,11 @@ public class RetrieveM4Session implements Cloneable, CopyTo2, Equals2, HashCode2
         }
         final RetrieveM4Session that = ((RetrieveM4Session) object);
         {
-            String lhsIn0;
-            lhsIn0 = this.getIn0();
-            String rhsIn0;
-            rhsIn0 = that.getIn0();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "in0", lhsIn0), LocatorUtils.property(thatLocator, "in0", rhsIn0), lhsIn0, rhsIn0, (this.in0 != null), (that.in0 != null))) {
+            String lhsAiSessionId;
+            lhsAiSessionId = this.getAiSessionId();
+            String rhsAiSessionId;
+            rhsAiSessionId = that.getAiSessionId();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSessionId", lhsAiSessionId), LocatorUtils.property(thatLocator, "aiSessionId", rhsAiSessionId), lhsAiSessionId, rhsAiSessionId, (this.aiSessionId!= null), (that.aiSessionId!= null))) {
                 return false;
             }
         }
@@ -117,9 +117,9 @@ public class RetrieveM4Session implements Cloneable, CopyTo2, Equals2, HashCode2
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            String theIn0;
-            theIn0 = this.getIn0();
-            strategy.appendField(locator, this, "in0", buffer, theIn0, (this.in0 != null));
+            String theAiSessionId;
+            theAiSessionId = this.getAiSessionId();
+            strategy.appendField(locator, this, "aiSessionId", buffer, theAiSessionId, (this.aiSessionId!= null));
         }
         return buffer;
     }
@@ -127,9 +127,9 @@ public class RetrieveM4Session implements Cloneable, CopyTo2, Equals2, HashCode2
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            String theIn0;
-            theIn0 = this.getIn0();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "in0", theIn0), currentHashCode, theIn0, (this.in0 != null));
+            String theAiSessionId;
+            theAiSessionId = this.getAiSessionId();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSessionId", theAiSessionId), currentHashCode, theAiSessionId, (this.aiSessionId!= null));
         }
         return currentHashCode;
     }
@@ -153,15 +153,15 @@ public class RetrieveM4Session implements Cloneable, CopyTo2, Equals2, HashCode2
         if (draftCopy instanceof RetrieveM4Session) {
             final RetrieveM4Session copy = ((RetrieveM4Session) draftCopy);
             {
-                Boolean in0ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.in0 != null));
-                if (in0ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIn0;
-                    sourceIn0 = this.getIn0();
-                    String copyIn0 = ((String) strategy.copy(LocatorUtils.property(locator, "in0", sourceIn0), sourceIn0, (this.in0 != null)));
-                    copy.setIn0(copyIn0);
+                Boolean aiSessionIdShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSessionId!= null));
+                if (aiSessionIdShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceAiSessionId;
+                    sourceAiSessionId = this.getAiSessionId();
+                    String copyAiSessionId = ((String) strategy.copy(LocatorUtils.property(locator, "aiSessionId", sourceAiSessionId), sourceAiSessionId, (this.aiSessionId!= null)));
+                    copy.setAiSessionId(copyAiSessionId);
                 } else {
-                    if (in0ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.in0 = null;
+                    if (aiSessionIdShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.aiSessionId = null;
                     }
                 }
             }
