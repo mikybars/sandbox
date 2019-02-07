@@ -10,56 +10,49 @@ import lombok.Data;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "app.envars.meta4.icm-ws-calc-income.service")
+@ConfigurationProperties(prefix = "app.envars.meta4.icmwscalcincome.service")
 public class Meta4IcmWsCalcIncomeClientPropertiesConfig {
-	
-	Meta4PropertiesDto getTiendasEmpleado;
-	
-	Meta4PropertiesDto searchTiendas;
-	
-	Meta4PropertiesDto getTiendas;
-	
-	Meta4PropertiesDto searchEmpleados;
-	
-	Meta4PropertiesDto getComisionEmpleado;
-	
-	Meta4PropertiesDto getEmpleados;
-	
-	Meta4PropertiesDto getEmpleadosTienda;
 
-	
-	@Bean(name = "getTiendasEmpleadoDto")
-	public Meta4PropertiesDto getTiendasEmpleadoPageDto() {
-		return getTiendasEmpleado;	
-	}
+    private Meta4PropertiesDto getTiendasEmpleado;
 
-	@Bean(name = "searchTiendasDto")
-	public Meta4PropertiesDto searchTiendasPageDto() {
-		return searchTiendas;	
-	}
-	
-	@Bean(name = "getTiendasDto")
-	public Meta4PropertiesDto getTiendasPageDto() {
-		return getTiendas;	
-	}
-	
-	@Bean(name = "searchEmpleadosDto")
-	public Meta4PropertiesDto searchEmpleadosPageDto() {
-		return searchEmpleados;	
-	}
-	
-	@Bean(name = "getComisionEmpleadoDto")
-	public Meta4PropertiesDto getComisionEmpleadoPageDto() {
-		return getComisionEmpleado;	
-	}	
-	
-	@Bean(name = "getEmpleadosDto")
-	public Meta4PropertiesDto getEmpleadosPageDto() {
-		return getEmpleados;	
-	}	
-	
-    @Bean(name = "getEmpleadosTiendaDto")
-    public Meta4PropertiesDto getEmpleadosTiendaPageDto() {
-        return getEmpleadosTienda;    
-    }   
+    private Meta4PropertiesDto searchTiendas;
+
+    private Meta4PropertiesDto getTiendas;
+
+    private Meta4PropertiesDto searchEmpleados;
+
+    private Meta4PropertiesDto getComisionEmpleado;
+
+    private Meta4PropertiesDto getEmpleados;
+
+    @Bean(name = "getTiendasEmpleadoDto")
+    public Meta4PropertiesDto getTiendasEmpleadoPageDto() {
+        return getTiendasEmpleado;
+    }
+
+    @Bean(name = "searchTiendasDto")
+    public Meta4PropertiesDto searchTiendasPageDto() {
+        return searchTiendas;
+    }
+
+    @Bean(name = "getTiendasDto")
+    public Meta4PropertiesDto getTiendasPageDto() {
+        return getTiendas;
+    }
+
+    @Bean(name = "searchEmpleadosDto")
+    public Meta4PropertiesDto searchEmpleadosPageDto() {
+        return searchEmpleados;
+    }
+
+    @Bean(name = "getComisionEmpleadoDto")
+    public Meta4PropertiesDto getComisionEmpleadoPageDto() {
+        return getComisionEmpleado;
+    }
+
+    @Bean(name = "getEmpleadosDto")
+    public Meta4PropertiesDto getEmpleadosPageDto() {
+        return getEmpleados;
+    }
+
 }

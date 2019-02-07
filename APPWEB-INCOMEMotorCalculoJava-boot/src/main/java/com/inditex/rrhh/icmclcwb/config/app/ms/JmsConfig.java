@@ -23,13 +23,13 @@ public class JmsConfig {
 
     @Primary
     @Bean
-    @ConfigurationProperties(prefix = "amiga.data.jms.connectionFactory.brokerLectura")
+    @ConfigurationProperties(prefix = "amiga.data.jms.connection-factory.broker-lectura")
     public ConnectionFactory connectionFactoryLectura(JmsConnectionFactoryBuilder builder) throws JMSException {
         return builder.build();
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "amiga.data.jms.connectionFactory.brokerEscritura")
+    @ConfigurationProperties(prefix = "amiga.data.jms.connection-factory.broker-escritura")
     public ConnectionFactory connectionFactoryEscritura(JmsConnectionFactoryBuilder builder) throws JMSException {
         return builder.build();
     }
@@ -43,7 +43,7 @@ public class JmsConfig {
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "amiga.data.jms.client.trabajoJmsClient")
+    @ConfigurationProperties(prefix = "amiga.data.jms.client.trabajo")
     public JmsClient trabajoJmsClient(final JmsClientBuilder builder,
             @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
         return builder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();

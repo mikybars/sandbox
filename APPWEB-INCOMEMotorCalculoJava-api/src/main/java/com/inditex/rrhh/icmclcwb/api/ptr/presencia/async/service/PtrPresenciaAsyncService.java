@@ -12,12 +12,12 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 public interface PtrPresenciaAsyncService {
 
     CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
-            PtrPresenciaTotalTiendaSeccionRequestDto request) throws Exception;
+            final PtrPresenciaTotalTiendaSeccionRequestDto request) throws Exception;
 
-    CompletableFuture<PtrPresenciaDetalleResponseDto> getPresenciasDetalleDto(PtrPresenciaDetalleRequestDto request)
+    CompletableFuture<PtrPresenciaDetalleResponseDto> getPresenciasDetalleDto(
+            final PtrPresenciaDetalleRequestDto request) throws Exception;
+
+    CompletableFuture<PtrPresenciaTiposHorasResponseDto> getTiposHoras(final PtrPresenciaTiposHorasRequestDto request)
             throws Exception;
-    
-    CompletableFuture<PtrPresenciaTiposHorasResponseDto> getTiposHoras(final PtrPresenciaTiposHorasRequestDto request) throws Exception;
-
 
 }

@@ -90,7 +90,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Override
     public TrabajoDto findTrabajo(@NotNull @Positive final Long id) {
-        TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findOne(id));
+        TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findById(id).get());
         trabajo.setTiendas(trabajoTiendaService.findByTrabajo(trabajo));
         trabajo.setEmpleados(trabajoEmpleadoService.findByTrabajo(trabajo));
         return trabajo;

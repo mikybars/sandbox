@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientAbstract;
 @Configuration
 public class Meta4IcmWsCalcIncomeClientConfig extends Meta4ClientAbstract<IcmWsCalcIncomeService> {
 
-    @Value("${app.envars.meta4.icm-ws-calc-income.server}")
+    @Value("${app.envars.meta4.icmwscalcincome.server}")
     @Override
     protected void setServer(String server) {
         super.server = server;

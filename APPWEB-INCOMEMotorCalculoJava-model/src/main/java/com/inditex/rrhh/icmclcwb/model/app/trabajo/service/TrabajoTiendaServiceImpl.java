@@ -35,7 +35,7 @@ public class TrabajoTiendaServiceImpl implements TrabajoTiendaService {
     public List<TrabajoTiendaDto> createTrabajoTienda(@Valid @NotNull TrabajoDto trabajo,
             @NotNull List<TrabajoTiendaDto> trabajoTienda) {
         return trabajoTiendaMapper.trabajoTiendaToTrabajoTiendaDto(trabajoTiendaRepository
-                .save(trabajoTiendaMapper.mergeTrabajoTiendaDtoAndTrabajoDtoToTrabajoTienda(trabajoTienda, trabajo)));
+                .saveAll(trabajoTiendaMapper.mergeTrabajoTiendaDtoAndTrabajoDtoToTrabajoTienda(trabajoTienda, trabajo)));
     }
 
 }

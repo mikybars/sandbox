@@ -18,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoTiendaSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoRecolectarPtrVentaService;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaAsyncService;
@@ -42,10 +41,6 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
 
     @Autowired
     private TrabajoTiendaSeccionVentaAsyncService trabajoTiendaSeccionVentaAsyncService;
-
-    @Autowired
-    @Qualifier("getEmpleadosTiendaDto")
-    private Meta4PropertiesDto getEmpleadosTiendaDto;
 
     @Autowired
     @Qualifier("ventaTotalizadoDto")

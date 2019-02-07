@@ -20,8 +20,8 @@ amiga:
     async:
       default-executor:
         core-pool-size: 20
-        max-pool-size: 150
-        keep-alive: 10
+        maximum-pool-size: 150
+        keep-alive-time: 10
   service:
     session:
       session-type: REMOTE

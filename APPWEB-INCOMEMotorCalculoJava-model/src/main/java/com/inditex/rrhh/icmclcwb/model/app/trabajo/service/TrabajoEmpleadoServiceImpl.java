@@ -32,7 +32,7 @@ public class TrabajoEmpleadoServiceImpl implements TrabajoEmpleadoService {
     @Override
     public List<TrabajoEmpleadoDto> createTrabajoEmpleado(@Valid TrabajoDto trabajo,
             List<TrabajoEmpleadoDto> trabajoEmpleado) {
-        return trabajoEmpleadoMapper.trabajoEmpleadoToTrabajoEmpleadoDto(trabajoEmpleadoRepository.save(
+        return trabajoEmpleadoMapper.trabajoEmpleadoToTrabajoEmpleadoDto(trabajoEmpleadoRepository.saveAll(
                 trabajoEmpleadoMapper.mergeTrabajoEmpleadoDtoAndTrabajoDtoToTrabajoEmpleado(trabajoEmpleado, trabajo)));
     }
 

@@ -33,7 +33,7 @@
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.data</groupId>
-            <artifactId>data-framework-starter-hibernate</artifactId>
+            <artifactId>data-framework-starter-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.common</groupId>

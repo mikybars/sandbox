@@ -62,12 +62,12 @@ public class ProgramacionServiceImpl implements ProgramacionService {
                 programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
         if (CollectionUtils.isNotEmpty(programacion.getTiendas())) {
             result.setTiendas(programacionTiendaMapper
-                    .programacionTiendaToProgramacionTiendaDto(programacionTiendaRepository.save(
+                    .programacionTiendaToProgramacionTiendaDto(programacionTiendaRepository.saveAll(
                             programacionTiendaMapper.mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
                                     programacion.getTiendas(), result))));
         } else if (CollectionUtils.isNotEmpty(programacion.getEmpleados())) {
             result.setEmpleados(programacionEmpleadoMapper.programacionEmpleadoToProgramacionEmpleadoDto(
-                    programacionEmpleadoRepository.save(programacionEmpleadoMapper
+                    programacionEmpleadoRepository.saveAll(programacionEmpleadoMapper
                             .mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(
                                     programacion.getEmpleados(), result))));
         }

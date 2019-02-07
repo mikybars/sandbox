@@ -5,15 +5,10 @@ import lombok.Data;
 @Data
 public abstract class GenericFilterPropertiesDto {
 
-	private Integer maxPageSize;
+    private Integer maxPageSize;
 
-	private Integer maxPersistenceSize;
+    private Integer maxPersistenceSize;
 
-	private Integer maxQuerySize;
-
-	private Integer maxBatchSize;
-
-	private Integer retryAttempts;
-
+    private Integer maxBatchSize;
 
 }

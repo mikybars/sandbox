@@ -29,9 +29,9 @@ amiga:
       client:
         defaultConnectTimeout: 300000
         defaultReadTimeout: 300000
-        ptrVentaClient:
+        ptr-venta:
           base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
-        ptrPresenciaClient:
+        ptr-presencia:
           base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
   service:
     jms:
@@ -48,17 +48,17 @@ amiga:
         is-production: false
   data:
     jms:
-      connectionFactory:
-        brokerEscritura:
+      connection-factory:
+        broker-escritura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
           userName: root
           password: V3ct0r1nd1t3x
-        brokerLectura:
+        broker-lectura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
           userName: root
           password: V3ct0r1nd1t3x
       client:
-        trabajoJmsClient:
+        trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
           receiveTimeout: 100
           pubSubDomain: false
@@ -83,52 +83,45 @@ app:
         getGTAlgoritmoProperties:
           numBlock: 1000
     ptr:
+      config:
+        maxAttempts: 2
       venta:
         service:
           getVentaTotalizado:
             endpoint: /ventaGeneral/getVentaTotalizado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
           getVentaIndividualDetalle:
             endpoint: /ventaEmpleado/getVentaIndividualDetalle
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
       presencia:
         service:
           getPresenciasTotalTiendaSeccion:
             endpoint: /presenciasService/presenciasTotalTiendaSeccion
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
           getPresenciasDetalle:
             endpoint: /presenciasService/presenciasDetalle
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
           getTiposHoras:
             endpoint: /presenciasService/tiposHoras
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
     meta4:
       config:
+        maxAttempts: 20
         credentials:
           user: INCOME_CALC
           password: 123
@@ -142,7 +135,7 @@ app:
           receiveTimeout: 300000
       login:
         server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-      icm-ws-calc-income:
+      icmwscalcincome:
         server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getTiendasEmpleado:
@@ -153,10 +146,8 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
           searchTiendas:
             page:
               numeroPagina: 1
@@ -165,10 +156,8 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
           getTiendas:
             page:
               numeroPagina: 1
@@ -177,10 +166,8 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
           searchEmpleados:
             page:
               numeroPagina: 1
@@ -189,10 +176,8 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
           getComisionEmpleado:
             page:
               numeroPagina: 1
@@ -201,10 +186,8 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
           getEmpleados:
             page:
               numeroPagina: 1
@@ -213,7 +196,5 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
               maxBatchSize: 100
-              retryAttempts: 2
