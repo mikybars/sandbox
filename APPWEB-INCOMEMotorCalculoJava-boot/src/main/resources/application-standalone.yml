@@ -113,6 +113,12 @@ app:
               maxPageSize: 200
               maxPersistenceSize: 3
               maxBatchSize: 100
+          getPresenciasDetalleComisionable:
+            endpoint: /presenciasService/presenciasDetalleComisionable
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+              maxBatchSize: 100  
           getTiposHoras:
             endpoint: /presenciasService/tiposHoras
             filter:

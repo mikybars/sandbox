@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
@@ -33,6 +35,13 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
     public CompletableFuture<PtrPresenciaDetalleResponseDto> getPresenciasDetalleDto(
             final PtrPresenciaDetalleRequestDto request) throws Exception {
         return CompletableFuture.completedFuture(ptrPresenciaService.getPresenciasDetalleDto(request));
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> getPresenciasDetalleComisionableDto(
+            final PtrPresenciaDetalleComisionableRequestDto request) throws Exception {
+        return CompletableFuture.completedFuture(ptrPresenciaService.getPresenciasDetalleComisionableDto(request));
     }
     
     @Async

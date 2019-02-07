@@ -11,6 +11,8 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
@@ -33,6 +35,10 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     @Autowired
     @Qualifier("presenciasDetalleDto")
     private PtrPropertiesDto presenciasDetalleDto;
+    
+    @Autowired
+    @Qualifier("presenciasDetalleComisionableDto")
+    private PtrPropertiesDto presenciasDetalleComisionableDto;
 
     @Autowired
     @Qualifier("tiposHorasDto")
@@ -54,6 +60,15 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient.postForEntity(presenciasDetalleDto.getEndpoint(), request,
                         PtrPresenciaDetalleResponseDto.class),
                 ptrPresenciaClient, presenciasDetalleDto.getEndpoint(), request);
+    }
+    
+    @Override
+    public PtrPresenciaDetalleComisionableResponseDto getPresenciasDetalleComisionableDto(@Valid final PtrPresenciaDetalleComisionableRequestDto request)
+            throws Exception {
+        return RestUtils.checkResponse(
+                ptrPresenciaClient.postForEntity(presenciasDetalleComisionableDto.getEndpoint(), request,
+                        PtrPresenciaDetalleComisionableResponseDto.class),
+                ptrPresenciaClient, presenciasDetalleComisionableDto.getEndpoint(), request);
     }
 
     @Override

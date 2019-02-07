@@ -16,6 +16,8 @@ public class PtrPresenciaClientPropertiesConfig {
     private PtrPropertiesDto getPresenciasTotalTiendaSeccion;
 
     private PtrPropertiesDto getPresenciasDetalle;
+    
+    private PtrPropertiesDto getPresenciasDetalleComisionable;
 
     private PtrPropertiesDto getTiposHoras;
 
@@ -27,6 +29,11 @@ public class PtrPresenciaClientPropertiesConfig {
     @Bean(name = "presenciasDetalleDto")
     public PtrPropertiesDto getPresenciasDetalle() {
         return getPresenciasDetalle;
+    }
+    
+    @Bean(name = "presenciasDetalleComisionableDto")
+    public PtrPropertiesDto getPresenciasDetalleComisionable() {
+        return getPresenciasDetalleComisionable;
     }
 
     @Bean(name = "tiposHorasDto")

@@ -53,7 +53,11 @@ public class PtrPresenciaServiceTest {
     @Autowired
     @Qualifier("presenciasTotalTiendaSeccionDto")
     private PtrPropertiesDto presenciasTotalTiendaSeccionDto;
-
+    
+    @Autowired
+    @Qualifier("presenciasDetalleComisionableDto")
+    private PtrPropertiesDto presenciasDetalleComisionableDto;
+    
     @Test
     public void presenciasDetalle() {
         PtrPresenciaDetalleRequestDto req = new PtrPresenciaDetalleRequestDto();
