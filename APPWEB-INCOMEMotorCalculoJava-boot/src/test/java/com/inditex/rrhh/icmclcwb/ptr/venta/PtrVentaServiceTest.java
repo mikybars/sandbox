@@ -36,7 +36,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadobymcc.dto.PtrVenta
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadoxml.dto.PtrVentaTotalizadoXmlRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadoxml.dto.PtrVentaTotalizadoXmlResponseDto;
 
-//@Ignore
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
@@ -138,6 +138,7 @@ public class PtrVentaServiceTest  {
     
     @Test
     public void getVentaTotalizadoXML(){
+        //TODO: Revisar
         PtrVentaTotalizadoXmlRequestDto request = new PtrVentaTotalizadoXmlRequestDto(); 
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
