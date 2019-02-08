@@ -8,8 +8,7 @@ public class PtrConstants {
 	public static final String PTR_DATE = "yyyy-MM-dd";
 	
 
-	/* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR */
-    public static final String VENTA_INDIVIDUAL_DETALLE = "getVentaIndividualDetalle";
+	/* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - VENTAGENERAL*/
     public static final String VENTA_MENSUAL = "getVentaMensual";
     public static final String VENTA_DIARIA = "getVentaDiaria";
     public static final String VENTA_TOTALIZADO = "getVentaTotalizado";
@@ -18,6 +17,14 @@ public class PtrConstants {
     public static final String VENTA_PRESUPUESTADA_MENSUAL = "getVentaPresupuestadaMensual";
     public static final String VENTA_GENERAL_TEST = "test";
     public static final String VENTA_GENERAL_VERSION = "getVersion";
+
+    /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - VENTAEMPLEADO*/
+    public static final String VENTA_INDIVIDUAL_DETALLE = "getVentaIndividualDetalle";
+    public static final String VENTA_INDIVIDUAL_DETALLE_BY_MCC = "getVentaIndividualDetalleByMCC";
+    public static final String VENTA_INDIVIDUAL = "getVentaIndividual";
+    public static final String VENTA_INDIVIDUAL_BY_MCC = "getVentaIndividualByMCC";
+    public static final String VENTA_INDIVIDUAL_TEST = "test";
+    public static final String VENTA_INDIVIDUAL_VERSION = "getVersion";
     
 
 }

@@ -67,6 +67,28 @@ app:
                 maxPageSize: 200
                 maxPersistenceSize: 3
                 maxBatchSize: 100
+            getVentaIndividualDetalleByMCC:
+              endpoint: /ventaEmpleado/getVentaIndividualDetalleByMCC
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100
+            getVentaIndividual:
+              endpoint: /ventaEmpleado/getVentaIndividual
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100           
+            getVentaIndividualByMCC:
+              endpoint: /ventaEmpleado/getVentaIndividualByMCC
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100 
+            test:
+              endpoint: /ventaEmpleado/test
+            getVersion:
+              endpoint: /ventaEmpleado/getVersion 
           ventaGeneral:
             getVentaTotalizado:
               endpoint: /ventaGeneral/getVentaTotalizado

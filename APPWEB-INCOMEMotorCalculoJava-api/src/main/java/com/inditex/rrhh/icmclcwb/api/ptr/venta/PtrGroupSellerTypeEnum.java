@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.ptr.util;
+package com.inditex.rrhh.icmclcwb.api.ptr.venta;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupTypeEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 
 import lombok.Data;
 

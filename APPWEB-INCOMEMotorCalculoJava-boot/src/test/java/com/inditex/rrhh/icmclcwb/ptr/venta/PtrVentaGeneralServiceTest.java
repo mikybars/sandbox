@@ -20,12 +20,10 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventadiaria.dto.PtrVentaDiariaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventadiaria.dto.PtrVentaDiariaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventamensual.dto.PtrVentaMensualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventamensual.dto.PtrVentaMensualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventapresupuestadamensual.dto.PtrVentaPresupuestadaMensualRequestDto;
@@ -42,7 +40,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadoxml.dto.PtrVentaTo
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-public class PtrVentaServiceTest  {
+public class PtrVentaGeneralServiceTest  {
 
     @Autowired
     @Qualifier("ptrVentaClient")
@@ -51,15 +49,7 @@ public class PtrVentaServiceTest  {
     @Autowired
     @Qualifier("ventaGeneralProperties")
     protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
-    
-    @Autowired
-    @Qualifier("ventaEmpleadoProperties")
-    protected Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
-    
-    @Autowired
-    @Qualifier("ventaEcommerceProperties")
-    protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
-    
+       
     @Autowired
     @Qualifier("ventaVersion")
     private String version;
@@ -76,19 +66,7 @@ public class PtrVentaServiceTest  {
                 .postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request, PtrVentaTotalizadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
-
-    @Test
-    public void getVentaIndividualDetalle() {
-        PtrVentaIndividualDetalleRequestDto request = new PtrVentaIndividualDetalleRequestDto();
-        request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
-        request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        request.setPais(PtrTestConstants.PAIS);
-        request.setCadena(PtrTestConstants.CADENA);
-        ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
-                ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaIndividualDetalleResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
-    }
-    
+   
     @Test
     public void getVentaDiaria() {
         PtrVentaDiariaRequestDto request = new PtrVentaDiariaRequestDto(); 
