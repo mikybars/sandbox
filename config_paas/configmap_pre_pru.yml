@@ -71,6 +71,36 @@ app:
               maxPageSize: 200
               maxPersistenceSize: 3
               maxBatchSize: 100
+          getVentaMensual:
+            endpoint: /ventaGeneral/getVentaMensual
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+              maxBatchSize: 100
+          getVentaDiaria: 
+            endpoint: /ventaGeneral/getVentaDiaria
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+              maxBatchSize: 100        
+          getVentaTotalizadoXML: 
+            endpoint: /ventaGeneral/getVentaTotalizadoXML
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+              maxBatchSize: 100 
+          getVentaTotalizadoByMCC: 
+            endpoint: /ventaGeneral/getVentaTotalizadoByMCC
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+              maxBatchSize: 100   
+          getVentaPresupuestadaMensual:
+            endpoint: /ventaGeneral/getVentaPresupuestadaMensual
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+              maxBatchSize: 100           
       presencia:
         service:
           getPresenciasTotalTiendaSeccion:

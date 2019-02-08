@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,8 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoRecolectarPtrVentaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEmpleadoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoRequestDto;
@@ -34,7 +36,10 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPtrVentaService {
 
     @Autowired
-    private PtrVentaAsyncService ptrVentaAsyncService;
+    private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
+    
+    @Autowired
+    private PtrVentaEmpleadoAsyncService ptrVentaEmpleadoAsyncService;
 
     @Autowired
     private TrabajoMapper trabajoMapper;
@@ -43,13 +48,9 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
     private TrabajoTiendaSeccionVentaAsyncService trabajoTiendaSeccionVentaAsyncService;
 
     @Autowired
-    @Qualifier("ventaTotalizadoDto")
-    private PtrPropertiesDto ventaTotalizadoDto;
-
-    @Autowired
-    @Qualifier("ventaIndividualDetalleDto")
-    private PtrPropertiesDto ventaIndividualDetalleDto;
-
+    @Qualifier("ptrProps")
+    protected Map<String, PtrPropertiesDto> ptrProps;
+    
     @TrabajoAuditoria
     @Override
     public void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
@@ -59,7 +60,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             for (String cadena : runTrabajoRecolectarBloque.getCadenaEmpresa()) {
                 for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getTiendaMtu(),
-                        ventaTotalizadoDto.getFilter().getMaxPageSize())) {
+                        ptrProps.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                     PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
                             .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
                     paramGetVentaTotalizado.setTienda(iter);
@@ -67,7 +68,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
                     paramGetVentaTotalizado.setCadena(Integer.valueOf(cadena));
                     paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
 
-                    CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaAsyncService
+                    CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                             .getVentaTotalizado(paramGetVentaTotalizado);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
@@ -75,7 +76,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
 
                     if (data != null && CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                ventaTotalizadoDto.getFilter().getMaxPersistenceSize());
+                                ptrProps.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                         AsyncUtils.exceptionally(
                                 trabajoTiendaSeccionVentaAsyncService.save(data.getVentaTotalizado(), trabajo), cf,
                                 cfPersist);
@@ -98,7 +99,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             for (String cadena : runTrabajoRecolectarBloque.getCadenaEmpresa()) {
                 for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getEmpleadoLocal(),
-                        ventaIndividualDetalleDto.getFilter().getMaxPageSize())) {
+                        ptrProps.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                     List<Integer> empleados = iter.stream().map(Integer::valueOf).collect(Collectors.toList());
                     PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
                             .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
@@ -106,7 +107,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
                     paramGetVentaIndividualDetalle.setCadena(Integer.valueOf(cadena));
                     paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
 
-                    CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaAsyncService
+                    CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                             .getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
@@ -114,7 +115,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
 
                     if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                ventaIndividualDetalleDto.getFilter().getMaxPersistenceSize());
+                                ptrProps.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
                         // TODO PERSISTIR
                     }
                 }
