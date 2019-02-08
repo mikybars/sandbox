@@ -59,12 +59,10 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <!-- <version>${app.cxf.version}</version> -->
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
-            <!-- <version>${app.cxf.version}</version> -->
         </dependency>
         <dependency>
             <groupId>com.github.chrisvest</groupId>
@@ -84,6 +82,7 @@
     <profiles>
 
         <profile>
+            <id>generateWSClients</id>
             <properties>
                 <urlServidor>http://develop-icmclcws.axdesocp1.central.inditex.grp/services</urlServidor>
                 <bindingDirectory>${basedir}/src/main/resources/bindings</bindingDirectory>
@@ -100,10 +99,7 @@
                 <icmwscalcincomeService>ICM_WS_CALC_INCOME?wsdl=1</icmwscalcincomeService>
                 <icmwscalcincomeServiceName>ICM_WS_CALC_INCOME</icmwscalcincomeServiceName>
                 <icmwscalcincomeServicePackageName>icmwscalcincome</icmwscalcincomeServicePackageName>
-
             </properties>
-
-            <id>generateWSClients</id>
             <build>
                 <plugins>
                     <plugin>
