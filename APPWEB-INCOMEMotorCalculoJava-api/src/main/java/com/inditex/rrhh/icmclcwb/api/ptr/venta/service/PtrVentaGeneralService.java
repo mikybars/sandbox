@@ -37,4 +37,8 @@ public interface PtrVentaGeneralService {
     PtrVentaPresupuestadaMensualResponseDto getVentaPresupuestadaMensual(
             @Valid PtrVentaPresupuestadaMensualRequestDto request) throws Exception;
 
+    String getVersion() throws Exception;
+
+    String test() throws Exception;
+
 }

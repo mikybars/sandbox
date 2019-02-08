@@ -23,18 +23,18 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService{
 
     @Autowired
     @Qualifier("ptrVentaClient")
-    protected RestClient ptrVentaClient;
+    private RestClient ptrVentaClient;
     
     @Autowired
-    @Qualifier("ptrProps")
-    protected Map<String, PtrPropertiesDto> ptrProps;
+    @Qualifier("ventaEmpleadoProperties")
+    private Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
     
     @Override
     public PtrVentaIndividualDetalleResponseDto getVentaIndividualDetalle(
             @Valid final PtrVentaIndividualDetalleRequestDto request) throws Exception {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ptrProps.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
+                ptrVentaClient.postForEntity(ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
                         PtrVentaIndividualDetalleResponseDto.class),
-                ptrVentaClient, ptrProps.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request);
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request);
     }
 }

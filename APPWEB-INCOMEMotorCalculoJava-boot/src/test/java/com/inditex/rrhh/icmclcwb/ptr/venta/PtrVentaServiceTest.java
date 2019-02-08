@@ -20,7 +20,6 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupSellerTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventadiaria.dto.PtrVentaDiariaRequestDto;
@@ -50,8 +49,20 @@ public class PtrVentaServiceTest  {
     private RestClient ptrVentaClient;
 
     @Autowired
-    @Qualifier("ptrProps")
-    protected Map<String, PtrPropertiesDto> ptrProps;
+    @Qualifier("ventaGeneralProperties")
+    protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
+    
+    @Autowired
+    @Qualifier("ventaEmpleadoProperties")
+    protected Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
+    
+    @Autowired
+    @Qualifier("ventaEcommerceProperties")
+    protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
+    
+    @Autowired
+    @Qualifier("ventaVersion")
+    private String version;
     
     @Test
     public void getVentaTotalizado() {
@@ -62,7 +73,7 @@ public class PtrVentaServiceTest  {
         request.setCadena(PtrTestConstants.CADENA);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         ResponseEntity<PtrVentaTotalizadoResponseDto> response = ptrVentaClient
-                .postForEntity(ptrProps.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request, PtrVentaTotalizadoResponseDto.class);
+                .postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request, PtrVentaTotalizadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -74,7 +85,7 @@ public class PtrVentaServiceTest  {
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
         ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
-                ptrProps.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaIndividualDetalleResponseDto.class);
+                ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaIndividualDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -87,7 +98,7 @@ public class PtrVentaServiceTest  {
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
         
         ResponseEntity<PtrVentaDiariaResponseDto> response = ptrVentaClient.postForEntity(
-                ptrProps.get(PtrConstants.VENTA_DIARIA).getEndpoint(), request, PtrVentaDiariaResponseDto.class);
+                ventaGeneralProperties.get(PtrConstants.VENTA_DIARIA).getEndpoint(), request, PtrVentaDiariaResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -99,7 +110,7 @@ public class PtrVentaServiceTest  {
         request.setIdEjercicio(PtrTestConstants.ID_EJERCICIO);
         
         ResponseEntity<PtrVentaMensualResponseDto> response = ptrVentaClient.postForEntity(
-                ptrProps.get(PtrConstants.VENTA_MENSUAL).getEndpoint(), request, PtrVentaMensualResponseDto.class);
+                ventaGeneralProperties.get(PtrConstants.VENTA_MENSUAL).getEndpoint(), request, PtrVentaMensualResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -123,7 +134,7 @@ public class PtrVentaServiceTest  {
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
         request.setIdEjercicio(PtrTestConstants.ID_EJERCICIO);
         ResponseEntity<PtrVentaPresupuestadaMensualResponseDto> response = ptrVentaClient.postForEntity(
-                ptrProps.get(PtrConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(), request, PtrVentaPresupuestadaMensualResponseDto.class);
+                ventaGeneralProperties.get(PtrConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(), request, PtrVentaPresupuestadaMensualResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -135,7 +146,7 @@ public class PtrVentaServiceTest  {
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
         ResponseEntity<PtrVentaTotalizadoByMccResponseDto> response = ptrVentaClient.postForEntity(
-                ptrProps.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(), request, PtrVentaTotalizadoByMccResponseDto.class);
+                ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(), request, PtrVentaTotalizadoByMccResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -148,8 +159,25 @@ public class PtrVentaServiceTest  {
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
         ResponseEntity<PtrVentaTotalizadoXmlResponseDto> response = ptrVentaClient.postForEntity(
-                ptrProps.get(PtrConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request, PtrVentaTotalizadoXmlResponseDto.class);
+                ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request, PtrVentaTotalizadoXmlResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    }
+    
+    @Test
+    public void test() {
+        ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
+                ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_TEST).getEndpoint(), Boolean.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+        assertEquals(Boolean.TRUE, response.getBody());
+    }
+    
+    @Test
+    public void getVersion() {
+        ResponseEntity<String> response = ptrVentaClient.getForEntity(
+                ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_VERSION).getEndpoint(), String.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+        assertEquals(version, response.getBody());
+        
     }
     
 }

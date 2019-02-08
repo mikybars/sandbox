@@ -68,4 +68,16 @@ public class PtrVentaGeneralAsyncServiceImpl implements PtrVentaGeneralAsyncServ
             final PtrVentaTotalizadoXmlRequestDto request) throws Exception {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.getVentaTotalizadoXML(request));
     }
+    
+    @Async
+    @Override
+    public CompletableFuture<String> test() throws Exception {
+        return CompletableFuture.completedFuture(ptrVentaGeneralService.test());
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<String> getVersion() throws Exception {
+        return CompletableFuture.completedFuture(ptrVentaGeneralService.getVersion());
+    }
 }

@@ -16,5 +16,8 @@ public class PtrConstants {
     public static final String VENTA_TOTALIZADO_XML = "getVentaTotalizadoXML";
     public static final String VENTA_TOTALIZADO_BY_MCC = "getVentaTotalizadoByMCC";
     public static final String VENTA_PRESUPUESTADA_MENSUAL = "getVentaPresupuestadaMensual";
+    public static final String VENTA_GENERAL_TEST = "test";
+    public static final String VENTA_GENERAL_VERSION = "getVersion";
+    
 
 }

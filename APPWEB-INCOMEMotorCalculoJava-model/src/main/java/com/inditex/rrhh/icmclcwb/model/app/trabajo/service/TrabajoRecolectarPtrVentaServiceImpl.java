@@ -50,8 +50,17 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
     private TrabajoTiendaSeccionVentaAsyncService trabajoTiendaSeccionVentaAsyncService;
 
     @Autowired
-    @Qualifier("ptrProps")
-    protected Map<String, PtrPropertiesDto> ptrProps;
+    @Qualifier("ventaGeneralProperties")
+    protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
+    
+    @Autowired
+    @Qualifier("ventaEmpleadoProperties")
+    protected Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
+    
+    @Autowired
+    @Qualifier("ventaEcommerceProperties")
+    protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
+    
     
     @TrabajoAuditoria
     @Override
@@ -62,7 +71,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             for (String cadena : runTrabajoRecolectarBloque.getCadenaEmpresa()) {
                 for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getTiendaMtu(),
-                        ptrProps.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
+                        ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                     PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = trabajoMapper
                             .trabajoDtoToPtrVentaTotalizadoRequestDto(trabajo);
                     paramGetVentaTotalizado.setTienda(iter);
@@ -78,7 +87,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
 
                     if (data != null && CollectionUtils.isNotEmpty(data.getVentaTotalizado())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                ptrProps.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+                                ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                         AsyncUtils.exceptionally(
                                 trabajoTiendaSeccionVentaAsyncService.save(data.getVentaTotalizado(), trabajo), cf,
                                 cfPersist);
@@ -101,7 +110,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             for (String cadena : runTrabajoRecolectarBloque.getCadenaEmpresa()) {
                 for (List<String> iter : StreamUtils.partition(runTrabajoRecolectarBloque.getEmpleadoLocal(),
-                        ptrProps.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                     List<Integer> empleados = iter.stream().map(Integer::valueOf).collect(Collectors.toList());
                     PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = trabajoMapper
                             .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
@@ -117,7 +126,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
 
                     if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                ptrProps.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                                ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
                         // TODO PERSISTIR
                     }
                 }

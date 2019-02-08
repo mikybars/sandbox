@@ -20,15 +20,15 @@ public class TrabajoTiendaSeccionVentaRepositoryCustomImpl extends JdbcBatchPrim
         implements TrabajoTiendaSeccionVentaRepositoryCustom {
 
     @Autowired
-    @Qualifier("ptrProps")
-    protected Map<String, PtrPropertiesDto> ptrProps;
-
+    @Qualifier("ventaGeneralProperties")
+    protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
+    
     @Value("#{primaryQuery['TrabajoTiendaSeccionVentaRepositoryCustom.save']}")
     private String sqlSave;
 
     @Override
     public List<TrabajoTiendaSeccionVenta> save(List<TrabajoTiendaSeccionVenta> src) throws Exception {
-        return saveJdbcBatchList(src, sqlSave, ptrProps.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, sqlSave, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxBatchSize());
     }
 
     @Override

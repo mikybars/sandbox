@@ -33,6 +33,9 @@ public interface PtrVentaGeneralAsyncService {
     CompletableFuture<PtrVentaTotalizadoXmlResponseDto> getVentaTotalizadoXML(PtrVentaTotalizadoXmlRequestDto request)
             throws Exception;
 
+    CompletableFuture<String> test() throws Exception;
+
+    CompletableFuture<String> getVersion() throws Exception;
 
  
 }
