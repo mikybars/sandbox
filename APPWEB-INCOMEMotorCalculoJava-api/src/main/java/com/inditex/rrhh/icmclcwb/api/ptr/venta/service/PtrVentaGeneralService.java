@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadoxml.dto.PtrVentaTo
 
 @Service
 @Validated
-public interface PtrVentaGeneralService extends PtrVentaService{
+public interface PtrVentaGeneralService {
 
     PtrVentaTotalizadoResponseDto getVentaTotalizado(@Valid PtrVentaTotalizadoRequestDto request) throws Exception;
 

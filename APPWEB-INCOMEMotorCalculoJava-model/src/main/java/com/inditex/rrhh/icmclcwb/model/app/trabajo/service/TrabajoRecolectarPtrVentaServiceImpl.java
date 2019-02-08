@@ -21,6 +21,8 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoRecolectarPtrVentaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupSellerTypeEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
@@ -66,7 +68,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
                     paramGetVentaTotalizado.setTienda(iter);
                     // EL parametro cadena deja de ser una lista en la nueva fachada.
                     paramGetVentaTotalizado.setCadena(Integer.valueOf(cadena));
-                    paramGetVentaTotalizado.setAgrupacion(PtrConstants.AGRUPACION_TOTALIZADA);
+                    paramGetVentaTotalizado.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
 
                     CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                             .getVentaTotalizado(paramGetVentaTotalizado);
@@ -105,7 +107,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
                             .trabajoDtoToPtrVentaIndividualDetalleRequestDto(trabajo);
                     paramGetVentaIndividualDetalle.setVendedores(empleados);
                     paramGetVentaIndividualDetalle.setCadena(Integer.valueOf(cadena));
-                    paramGetVentaIndividualDetalle.setAgrupacion(PtrConstants.AGRUPACION_INDIVIDUAL);
+                    paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
 
                     CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                             .getVentaIndividualDetalle(paramGetVentaIndividualDetalle);

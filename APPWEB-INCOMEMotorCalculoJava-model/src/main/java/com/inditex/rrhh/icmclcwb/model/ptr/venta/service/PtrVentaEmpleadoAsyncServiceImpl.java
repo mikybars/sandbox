@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEmpleadoService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
 
@@ -18,8 +17,6 @@ public class PtrVentaEmpleadoAsyncServiceImpl implements PtrVentaEmpleadoAsyncSe
     @Autowired
     private PtrVentaEmpleadoService ptrVentaEmpleadoService;
     
-    private PtrVentaService ptrVentaService; 
-
     @Async
     @Override
     public CompletableFuture<PtrVentaIndividualDetalleResponseDto> getVentaIndividualDetalle(

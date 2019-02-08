@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupTypeEnum;
+
 import lombok.Data;
 
 @Data
@@ -33,7 +35,7 @@ public class PtrVentaTotalizadoXmlRequestDto implements Serializable {
     
     private Integer producto;
 
-    private String agrupacion;
+    private PtrGroupTypeEnum agrupacion;
     
     
 

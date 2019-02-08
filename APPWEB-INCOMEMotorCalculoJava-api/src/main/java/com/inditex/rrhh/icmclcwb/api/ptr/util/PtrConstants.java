@@ -7,11 +7,7 @@ public class PtrConstants {
     
 	public static final String PTR_DATE = "yyyy-MM-dd";
 	
-	public static final String AGRUPACION_INDIVIDUAL = "FECHA_VENDEDOR_TIENDA";
-	
-	public static final String AGRUPACION_TOTALIZADA = "FECHA_TIENDA_SECCION";
-	
-	
+
 	/* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR */
     public static final String VENTA_INDIVIDUAL_DETALLE = "getVentaIndividualDetalle";
     public static final String VENTA_MENSUAL = "getVentaMensual";

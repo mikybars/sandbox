@@ -1,10 +1,16 @@
 package com.inditex.rrhh.icmclcwb.model.ptr.venta.service;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaGeneralService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventadiaria.dto.PtrVentaDiariaRequestDto;
@@ -23,8 +29,16 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
 @Service
 @Validated
-public class PtrVentaGeneralServiceImpl extends PtrVentaServiceImpl implements PtrVentaGeneralService {
+public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
 
+    @Autowired
+    @Qualifier("ptrVentaClient")
+    protected RestClient ptrVentaClient;
+    
+    @Autowired
+    @Qualifier("ptrProps")
+    protected Map<String, PtrPropertiesDto> ptrProps;
+    
     @Override
     public PtrVentaTotalizadoResponseDto getVentaTotalizado(@Valid final PtrVentaTotalizadoRequestDto request)
             throws Exception {

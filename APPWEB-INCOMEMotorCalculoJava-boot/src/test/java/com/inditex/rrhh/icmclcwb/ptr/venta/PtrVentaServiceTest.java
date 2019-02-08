@@ -20,6 +20,8 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupSellerTypeEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventadiaria.dto.PtrVentaDiariaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventadiaria.dto.PtrVentaDiariaResponseDto;
@@ -58,6 +60,7 @@ public class PtrVentaServiceTest  {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
+        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         ResponseEntity<PtrVentaTotalizadoResponseDto> response = ptrVentaClient
                 .postForEntity(ptrProps.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request, PtrVentaTotalizadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
