@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 
 @AmigaBootServiceApplication
+//TODO (JPA Arquetipo) @AmigaEnableJpaRepositories
 public class Application {
 
 	@PostConstruct

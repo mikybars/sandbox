@@ -24,6 +24,8 @@ import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceType;
         "com.inditex.rrhh.icmclcwb.model.primary" })
 public class DataSourcePrimaryConfig {
 
+    // TODO (JPA Arquetipo) Cambiar por JpaProperties
+    // (https://axdesitxws2.central.inditex.grp/software/AMIGA/DATAFRAM/2.0.0/jdbc/jpa.html#toc6)
     @Value("#{${amiga.data.hibernate.primary.properties}}")
     private Map<String, String> hibernateProperties;
 
