@@ -16,10 +16,13 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "app.envars.ptr.venta.service")
 public class PtrVentaClientPropertiesConfig {
 
-    Map<String, PtrPropertiesDto> ventaGeneral = new HashMap<>();
-    Map<String, PtrPropertiesDto> ventaEmpleado = new HashMap<>();
-    Map<String, PtrPropertiesDto> ventaEcommerce = new HashMap<>();
-    String version;
+    private Map<String, PtrPropertiesDto> ventaGeneral = new HashMap<>();
+    
+    private Map<String, PtrPropertiesDto> ventaEmpleado = new HashMap<>();
+    
+    private Map<String, PtrPropertiesDto> ventaEcommerce = new HashMap<>();
+    
+    private String version;
 
     
     @Bean(name = "ventaGeneralProperties")

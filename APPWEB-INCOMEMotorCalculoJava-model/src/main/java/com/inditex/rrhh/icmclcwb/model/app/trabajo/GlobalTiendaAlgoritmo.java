@@ -8,48 +8,48 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.CalculoPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.AlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.GTCalculoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoCalculoAlgoritmoGlobalTiendaRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
-@Component
-public class GTAlgoritmo implements TipoCalculoAlgoritmo {
+@Component("globalTiendaAlgoritmo")
+public class GlobalTiendaAlgoritmo implements Algoritmo {
 
     @Autowired
     private Logger log;
 
     @Autowired
-    private GTCalculoRepository gTCalculoRepository;
+    private TrabajoCalculoAlgoritmoGlobalTiendaRepository trabajoCalculoAlgoritmoGlobalTiendaRepository;
 
     @Autowired
-    @Qualifier("calculoGTPropertiesDto")
-    private CalculoPropertiesDto gTcalculoProperties;
+    @Qualifier("algoritmoProperties")
+    private AlgoritmoPropertiesDto algoritmoProperties;
 
     @Override
     public Flux<Void> execute(RunTrabajoDto trabajoRunDto) {
-        if (trabajoRunDto.getRunTrabajoCalcular().getEmpleado().size() >= gTcalculoProperties.getNumBlock()) {
+        if (trabajoRunDto.getRunTrabajoCalcular().getEmpleado().size() >= algoritmoProperties.getMaxBatchSize()) {
             CountDownLatch latch = new CountDownLatch(1);
             Flux.fromIterable(StreamUtils.partition(/* TODO Hay que lanzarlo por empleado y ordinal */trabajoRunDto
-                    .getRunTrabajoCalcular().getEmpleado(), gTcalculoProperties.getNumBlock())).parallel()
+                    .getRunTrabajoCalcular().getEmpleado(), algoritmoProperties.getMaxBatchSize())).parallel()
                     .runOn(Schedulers.parallel())
-                    .doOnNext(idsEmpleados -> gTCalculoRepository
+                    .doOnNext(idsEmpleados -> trabajoCalculoAlgoritmoGlobalTiendaRepository
                             .calcularByIdTrabajoAndIdsEmpleado(trabajoRunDto.getTrabajoDto().getId(), idsEmpleados))
                     .doOnError(ex -> log.error(ex.getMessage(), ex)).doAfterTerminate(latch::countDown).subscribe();
             try {
                 latch.await();
             } catch (Exception e) {
                 // TODO Modificar el estado de los empleados no procesados
-                String msg = new StringBuilder("Trabajo[{").append(trabajoRunDto.getTrabajoDto().getId())
-                        .append("}] :: GTAlgoritmo.execute() :: Ha fallado el algoritmo para un bloque de empleados")
+                String msg = new StringBuilder("Trabajo[{").append(trabajoRunDto.getTrabajoDto().getId()).append(
+                        "}] :: GlobalTiendaAlgoritmo.execute() :: Ha fallado el algoritmo para un bloque de empleados")
                         .toString();
                 log.error(msg, e);
                 return Flux.error(new IcmclcwbException(msg, e));
             }
         } else {
-            gTCalculoRepository.calcularByIdTrabajo(trabajoRunDto.getTrabajoDto().getId());
+            trabajoCalculoAlgoritmoGlobalTiendaRepository.calcularByIdTrabajo(trabajoRunDto.getTrabajoDto().getId());
         }
         return Flux.empty();
     }

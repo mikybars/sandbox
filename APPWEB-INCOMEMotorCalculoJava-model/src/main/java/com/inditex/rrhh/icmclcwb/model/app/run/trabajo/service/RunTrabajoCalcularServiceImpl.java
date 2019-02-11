@@ -14,14 +14,14 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTrabajoAuditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoCalcularService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.AlgoritmoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.AlgoritmoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
-import com.inditex.rrhh.icmclcwb.model.app.trabajo.CalculoAlgoritmoFactory;
+import com.inditex.rrhh.icmclcwb.model.app.trabajo.AlgoritmoFactory;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -43,7 +43,7 @@ public class RunTrabajoCalcularServiceImpl implements RunTrabajoCalcularService 
     private TrabajoEmpleadoEstadoService trabajoEmpleadoEstadoService;
 
     @Autowired
-    private CalculoAlgoritmoFactory calculoAlgoritmoFactory;
+    private AlgoritmoFactory calculoAlgoritmoFactory;
 
     @CounterMetric
     @TimerMetric
@@ -59,7 +59,7 @@ public class RunTrabajoCalcularServiceImpl implements RunTrabajoCalcularService 
             runTrabajo.getRunTrabajoCalcular().getTipoCalculo()
                     .addAll(trabajoEmpleadoEstructuraService.findIdTipoCalculoByIdTrabajo(trabajo.getId()));
             runTrabajo.getRunTrabajoCalcular().getTipoCalculo().forEach(item -> {
-                AlgoritmoCalculoEnum algoritmo = AlgoritmoCalculoEnum.of(item);
+                AlgoritmoEnum algoritmo = AlgoritmoEnum.of(item);
                 if (algoritmo != null) {
                     runTrabajo.getRunTrabajoCalcular().getAlgoritmoCalculo().add(algoritmo);
                 } else {

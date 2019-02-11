@@ -27,7 +27,7 @@
     ]]>
 </entry>
 
-<entry key="GTCalculoRepository.calcular.WhereIdTrabajo">
+<entry key="TrabajoCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdTrabajo">
     <![CDATA[
 INSERT INTO TRABAJO_CALCULO (
   ID_TRABAJO
@@ -151,7 +151,7 @@ WHERE TRABAJO.ID_TRABAJO = :idTrabajo
     ]]>
 </entry>
 
-<entry key="GTCalculoRepository.calcular.AndIdTrabajoAndIdEmpleado">
+<entry key="TrabajoCalculoAlgoritmoGlobalTiendaRepository.calcular.AndIdTrabajoAndIdEmpleado">
     <![CDATA[
 AND EMPLEADO_HISTORICO.ID_EMPLEADO = :idEmpleado
 /*AND EMPLEADO_HISTORICO.OR_EMPLEADO = :orEmpleado*/

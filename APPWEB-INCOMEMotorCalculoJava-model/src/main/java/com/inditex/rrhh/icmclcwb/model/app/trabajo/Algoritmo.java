@@ -4,7 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 
 import reactor.core.publisher.Flux;
 
-public interface TipoCalculoAlgoritmo {
+public interface Algoritmo {
 	
 	Flux<Void> execute(RunTrabajoDto trabajoRunDto);
 	

@@ -8,9 +8,9 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum AlgoritmoCalculoEnum {
+public enum AlgoritmoEnum {
 
-    GLOBAL_TIENDA(1L, "gTAlgoritmo", Boolean.TRUE, Arrays.asList(1L));
+    GLOBAL_TIENDA(1L, "globalTiendaAlgoritmo", Boolean.TRUE, Arrays.asList(1L));
 
     private final Long id;
 
@@ -20,7 +20,7 @@ public enum AlgoritmoCalculoEnum {
 
     private final List<Long> tipoCalculo;
 
-    public static AlgoritmoCalculoEnum of(Long idTipoCalculo) {
+    public static AlgoritmoEnum of(Long idTipoCalculo) {
         return Arrays.stream(values())
                 .filter(item -> item.status.equals(Boolean.TRUE) && item.getTipoCalculo().contains(idTipoCalculo))
                 .findAny().orElseGet(() -> null);

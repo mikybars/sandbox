@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.AlgoritmoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.AlgoritmoEnum;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -19,6 +19,6 @@ public class RunTrabajoCalcularDto implements Serializable {
 
     private Set<String> empleado = new HashSet<>();
 
-    private Set<AlgoritmoCalculoEnum> algoritmoCalculo = new HashSet<>();
+    private Set<AlgoritmoEnum> algoritmoCalculo = new HashSet<>();
 
 }

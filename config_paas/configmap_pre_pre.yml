@@ -50,10 +50,11 @@ amiga:
           pubSubDomain: false
 app:
   envars:
-    calculo:
-      service:
-        getGTAlgoritmoProperties:
-          numBlock: 1000
+    trabajo:
+      calcular:
+        algoritmo:
+          config:
+            maxBatchSize: 1000
     ptr:
       config:
         maxAttempts: 2

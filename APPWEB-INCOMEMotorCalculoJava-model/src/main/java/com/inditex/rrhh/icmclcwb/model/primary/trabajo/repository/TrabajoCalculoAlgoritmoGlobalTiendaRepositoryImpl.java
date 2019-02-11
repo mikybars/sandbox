@@ -12,16 +12,16 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
-public class GTCalculoRepositoryImpl implements GTCalculoRepository {
+public class TrabajoCalculoAlgoritmoGlobalTiendaRepositoryImpl implements TrabajoCalculoAlgoritmoGlobalTiendaRepository {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['GTCalculoRepository.calcular.WhereIdTrabajo']}")
+    @Value("#{primaryQuery['TrabajoCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdTrabajo']}")
     private String sqlCalcularWhereIdTrabajo;
 
-    @Value("#{primaryQuery['GTCalculoRepository.calcular.WhereIdTrabajo']} #{primaryQuery['GTCalculoRepository.calcular.AndIdTrabajoAndIdEmpleado']}")
+    @Value("#{primaryQuery['TrabajoCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdTrabajo']} #{primaryQuery['TrabajoCalculoAlgoritmoGlobalTiendaRepository.calcular.AndIdTrabajoAndIdEmpleado']}")
     private String sqlCalcularWhereIdTrabajoAndIdEmpleado;
 
     @Override

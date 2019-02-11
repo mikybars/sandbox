@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository;
 
 import java.util.List;
 
-public interface GTCalculoRepository {
+public interface TrabajoCalculoAlgoritmoGlobalTiendaRepository {
 
     public void calcularByIdTrabajo(final Long idTrabajo);
 
