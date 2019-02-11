@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum AlgoritmoEnum {
 
-    GLOBAL_TIENDA(1L, "globalTiendaAlgoritmo", Boolean.TRUE, Arrays.asList(1L));
+    GLOBAL_TIENDA_VERSION_1(1L, "globalTiendaVersion1Algoritmo", Boolean.TRUE, Arrays.asList(1L));
 
     private final Long id;
 

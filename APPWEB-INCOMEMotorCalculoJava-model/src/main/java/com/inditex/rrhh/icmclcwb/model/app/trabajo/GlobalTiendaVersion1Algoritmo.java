@@ -15,8 +15,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoCalculo
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
-@Component("globalTiendaAlgoritmo")
-public class GlobalTiendaAlgoritmo implements Algoritmo {
+@Component("globalTiendaVersion1Algoritmo")
+public class GlobalTiendaVersion1Algoritmo implements Algoritmo {
 
     @Autowired
     private Logger log;
