@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 
 @ApiModel(description = "Modelo TrabajoDto")
 @Data
@@ -19,10 +20,10 @@ public class TrabajoDto implements Serializable {
 
     private static final long serialVersionUID = -5607507260079003307L;
 
-    @ApiModelProperty(value = "Identificador del trabajo", required = false, readOnly = true)
+    @ApiModelProperty(value = "Identificador del trabajo", required = false, accessMode = AccessMode.READ_ONLY)
     private Long id;
 
-    @ApiModelProperty(value = "Estado actual del trabajo", required = false, readOnly = true)
+    @ApiModelProperty(value = "Estado actual del trabajo", required = false, accessMode = AccessMode.READ_ONLY)
     private /* BigInteger */ EstadoTrabajoDto estado;
 
     @NotBlank
@@ -39,16 +40,16 @@ public class TrabajoDto implements Serializable {
     @ApiModelProperty(value = "Ids de los empleados a ejecutar", required = false)
     private List<TrabajoEmpleadoDto> empleados;
 
-    @ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = true, readOnly = true)
+    @ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = true, accessMode = AccessMode.READ_ONLY)
     private String idUsuario;
 
-    @ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false, readOnly = true)
+    @ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false, accessMode = AccessMode.READ_ONLY)
     private LocalDateTime fechaCreacion;
 
-    @ApiModelProperty(value = "Fecha en la que se empieza a procesar", required = false, readOnly = true)
+    @ApiModelProperty(value = "Fecha en la que se empieza a procesar", required = false, accessMode = AccessMode.READ_ONLY)
     private LocalDateTime fechaInicioTrabajo;
 
-    @ApiModelProperty(value = "Fecha en la que se termina de procesar", required = false, readOnly = true)
+    @ApiModelProperty(value = "Fecha en la que se termina de procesar", required = false, accessMode = AccessMode.READ_ONLY)
     private LocalDateTime fechaFinTrabajo;
 
     @NotNull
@@ -59,7 +60,7 @@ public class TrabajoDto implements Serializable {
     @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
     private LocalDateTime fechaFinPeriodo;
 
-    @ApiModelProperty(value = "Programación asociada", required = false, readOnly = true)
+    @ApiModelProperty(value = "Programación asociada", required = false, accessMode = AccessMode.READ_ONLY)
     private Long idProgramacion;
 
 }

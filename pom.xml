@@ -17,7 +17,7 @@
     <name>${project.groupId}:${project.artifactId}</name>
 
     <properties>
-        <app.cxf.version>3.1.12</app.cxf.version>
+        <app.cxf.version>3.2.7</app.cxf.version>
         <app.jaxws.maven.plugin.version>1.12</app.jaxws.maven.plugin.version>
         <app.github.chrisvest.version>2.4.1</app.github.chrisvest.version>
     </properties>

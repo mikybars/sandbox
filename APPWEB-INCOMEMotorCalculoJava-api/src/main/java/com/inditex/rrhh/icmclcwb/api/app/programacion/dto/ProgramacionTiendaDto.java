@@ -6,16 +6,17 @@ import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 
 @Data
 public class ProgramacionTiendaDto implements Serializable {
 
     private static final long serialVersionUID = -5607507260079003307L;
 
-    @ApiModelProperty(value = "Identificador", required = false, readOnly = true, hidden = true)
+    @ApiModelProperty(value = "Identificador", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private String id;
 
-    @ApiModelProperty(value = "Programación", required = false, readOnly = true, hidden = true)
+    @ApiModelProperty(value = "Programación", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idProgramacion;
 
     @NotBlank

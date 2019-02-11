@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.programacion.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class ProgramacionDto implements Serializable {
 
 	private static final long serialVersionUID = 3665361916795418905L;
 
-	@ApiModelProperty(value = "Identificador de la programación", required = false, readOnly = true, hidden = true)
+	@ApiModelProperty(value = "Identificador de la programación", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
 	private Long id;
 
 	@NotNull
@@ -27,7 +28,7 @@ public class ProgramacionDto implements Serializable {
 	@ApiModelProperty(value = "Hora planificada de ejecución", required = true, dataType = "java.lang.String", example = "10:12")
 	private LocalTime hora;
 
-	@ApiModelProperty(value = "Huso horario de la hora planificada de ejecución", required = false, readOnly = true, hidden = true)
+	@ApiModelProperty(value = "Huso horario de la hora planificada de ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
 	private String huso;
 
 	@NotNull
@@ -48,16 +49,16 @@ public class ProgramacionDto implements Serializable {
 	@ApiModelProperty(value = "Ids de los empleados a ejecutar", required = false)
 	private List<ProgramacionEmpleadoDto> empleados;
 
-	@ApiModelProperty(value = "Id del usuario que planificó la ejecución", required = false, readOnly = true, hidden = true)
+	@ApiModelProperty(value = "Id del usuario que planificó la ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
 	private String idUsuario;
 
-	@ApiModelProperty(value = "Fecha en la que se creo la planificación", required = false, readOnly = true, hidden = true)
+	@ApiModelProperty(value = "Fecha en la que se creo la planificación", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
 	private LocalDateTime fechaCreacion;
 
-	@ApiModelProperty(value = "Fecha de la ultima ejecución", required = false, readOnly = true, hidden = true)
+	@ApiModelProperty(value = "Fecha de la ultima ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
 	private LocalDateTime fechaUltimaEjecucion;
 
-	@ApiModelProperty(value = "Fecha de la siguiente ejecución", required = false, readOnly = true, hidden = true)
+	@ApiModelProperty(value = "Fecha de la siguiente ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
 	private LocalDateTime fechaSiguienteEjecucion;
 
 }

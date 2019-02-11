@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 
 @Data
@@ -14,14 +15,14 @@ public class TrabajoTiendaSeccionPresenciaDto implements Serializable {
 
 	private static final long serialVersionUID = -265327328731996046L;
 
-	@ApiModelProperty(value = "Identificador de la entidad", required = false, readOnly = true)
+	@ApiModelProperty(value = "Identificador de la entidad", required = false, accessMode = AccessMode.READ_ONLY)
 	private Long id;
 	
 	@NotNull
 	@ApiModelProperty(value = "Trabajo", required = true)
 	private Long idTrabajo;
 	
-	@ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true, readOnly = true)
+	@ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true, accessMode = AccessMode.READ_ONLY)
 	private LocalDate fecha;
 	
 	@NotBlank
@@ -33,6 +34,6 @@ public class TrabajoTiendaSeccionPresenciaDto implements Serializable {
 	private String idSeccion;
 
 	@NotNull
-	@ApiModelProperty(value = "Tiempo", required = false, readOnly = true)
+	@ApiModelProperty(value = "Tiempo", required = false, accessMode = AccessMode.READ_ONLY)
 	private Long minutos;
 }

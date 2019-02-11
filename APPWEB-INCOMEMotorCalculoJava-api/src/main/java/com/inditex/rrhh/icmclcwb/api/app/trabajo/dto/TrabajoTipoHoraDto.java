@@ -6,12 +6,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 
 public class TrabajoTipoHoraDto implements Serializable {
 
 	private static final long serialVersionUID = 1164433898866141136L;
 
-	@ApiModelProperty(value = "Identificador de la entidad", required = false, readOnly = true)
+	@ApiModelProperty(value = "Identificador de la entidad", required = false, accessMode = AccessMode.READ_ONLY)
 	private Long id;
 	
 	@NotBlank

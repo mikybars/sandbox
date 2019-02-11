@@ -3,14 +3,10 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.ventapresupuestadamensual.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Data
 public class PtrVentaPresupuestadaMensualResultItemDto implements Serializable {
-	
 	
 	private static final long serialVersionUID = -801740758955645983L;
 

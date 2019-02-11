@@ -3,30 +3,25 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.ventamensual.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Data
 public class PtrVentaMensualResultItemDto implements Serializable {
-	
-	
-	private static final long serialVersionUID = -801740758955645983L;
 
-	private Integer idEjercicio;
+    private static final long serialVersionUID = -801740758955645983L;
 
-	private Integer mes;
+    private Integer idEjercicio;
 
-	private Integer idTipoSeccion;
-	
+    private Integer mes;
+
+    private Integer idTipoSeccion;
+
     private String tipoSeccion;
 
-	private Integer unidades;
+    private Integer unidades;
 
-	private BigDecimal importe;
+    private BigDecimal importe;
 
-	private BigDecimal importeSinImpuestos;
-	
+    private BigDecimal importeSinImpuestos;
 
 }

@@ -5,14 +5,15 @@ import javax.xml.ws.BindingProvider;
 
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.interceptor.LoggingInInterceptor;
-import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.springframework.beans.factory.annotation.Value;
+
+import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
 
 public abstract class Meta4ClientAbstract<T> {
 
@@ -32,56 +33,31 @@ public abstract class Meta4ClientAbstract<T> {
 		JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
 		pfb.setServiceClass(classType);
 		pfb.setAddress(server);
+		LoggingFeature loggingFeature = new LoggingFeature();
+        loggingFeature.setLimit(-1);
+        loggingFeature.setPrettyLogging(true);
+        pfb.getFeatures().add(loggingFeature);
+		
 		T result = (T) pfb.create();
 
 		((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
 		((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
-		// http://cxf.apache.org/faq.html#FAQ-AreJAX-WSclientproxiesthreadsafe?
-		// ((BindingProvider)
-		// result).getRequestContext().put(JaxWsClientProxy.THREAD_LOCAL_REQUEST_CONTEXT,
-		// Boolean.TRUE);
 
 		Client client = ClientProxy.getClient(result);
-
-//		client.getResponseContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
-//		client.getResponseContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
-//		client.setThreadLocalRequestContext(true);
 
 		HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
 
 		HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
-		httpClientPolicy.setContentType("text/xml;charset=UTF-8");
+		httpClientPolicy.setContentType(CxfConstants.CONTENT_TYPE);
 		httpClientPolicy.setAllowChunking(false);
 		httpClientPolicy.setConnectionTimeout(connectTimeout);
 		httpClientPolicy.setReceiveTimeout(receiveTimeout);
 		httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
-		// httpClientPolicy.setConnection(ConnectionType.CLOSE);
-		// Apache CXF uses HTTPUrlConnection internally and relies on java system
-		// properties to configure client connection settings
-		// http.keepAlive (default: true)
-		// http.maxConnections (default: 5)
-
 		httpConduit.setClient(httpClientPolicy);
 
 		TLSClientParameters tlsClientParameters = new TLSClientParameters();
 		tlsClientParameters.setSSLSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
 		httpConduit.setTlsClientParameters(tlsClientParameters);
-
-		// Agregar cabecera <?xml version="1.0" encoding="UTF-8"?>
-		// client.getEndpoint().put(StaxOutInterceptor.FORCE_START_DOCUMENT,
-		// Boolean.TRUE);
-
-		// TODO Ajustar trazas
-		LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
-		loggingInInterceptor.setPrettyLogging(Boolean.TRUE);
-		loggingInInterceptor.setLimit(-1);
-		client.getInInterceptors().add(loggingInInterceptor);
-
-		// TODO Ajustar trazas
-		LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
-		loggingOutInterceptor.setPrettyLogging(Boolean.TRUE);
-		loggingOutInterceptor.setLimit(-1);
-		client.getOutInterceptors().add(loggingOutInterceptor);
 
 		return result;
 	}
