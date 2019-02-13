@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoEmpleadoEst
 
 public interface TrabajoEmpleadoEstadoRepositoryCustom {
 
-    List<TrabajoEmpleadoEstado> save(List<TrabajoEmpleadoEstado> src) throws Exception;
+    List<TrabajoEmpleadoEstado> save(List<TrabajoEmpleadoEstado> src);
 
 }

@@ -19,22 +19,24 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
 @Service
 @Validated
-public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService{
+public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
 
     @Autowired
     @Qualifier("ptrVentaClient")
     private RestClient ptrVentaClient;
-    
+
     @Autowired
     @Qualifier("ventaEmpleadoProperties")
     private Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
-    
+
     @Override
     public PtrVentaIndividualDetalleResponseDto getVentaIndividualDetalle(
-            @Valid final PtrVentaIndividualDetalleRequestDto request) throws Exception {
+            @Valid final PtrVentaIndividualDetalleRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
+                ptrVentaClient.postForEntity(
+                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
                         PtrVentaIndividualDetalleResponseDto.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request);
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(),
+                request);
     }
 }

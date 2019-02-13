@@ -54,12 +54,12 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void errorSync() throws Exception {
+    public void errorSync() {
         testExceptionService.icmclcwbException();
     }
 
     @Override
-    public void errorAsync() throws Exception {
+    public void errorAsync() {
         CompletableFuture<Void> cfErrorAsync1 = testExceptionAsyncService.icmclcwbException();
         AsyncUtils.exceptionally(cfErrorAsync1, new ArrayList<>());
 
@@ -72,7 +72,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void sesion() throws Exception {
+    public void sesion() {
         final IcmParametrosentradaBlock filterGetempleados = new IcmParametrosentradaBlock();
         filterGetempleados.setFechainicio("2017-07-01T00:00:00.000Z");
         filterGetempleados.setFechafin("2017-12-31T00:00:00.000Z");

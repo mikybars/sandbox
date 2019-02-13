@@ -25,7 +25,7 @@ public class TrabajoTipoHoraServiceImpl implements TrabajoTipoHoraService {
     private TrabajoTipoHoraRepositoryCustom trabajoTipoHoraRepositoryCustom;
 
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TrabajoDto trabajoDto) throws Exception {
+    public CompletableFuture<Void> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TrabajoDto trabajoDto) {
         mapper.trabajoTrabajoTipoHoraListTotrabajoTipoHoraDtoList(trabajoTipoHoraRepositoryCustom
                 .save(mapper.ptrPresenciaTipoHoraResponsesDtoToTrabajoTipoHoraDto(dto, trabajoDto)));
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

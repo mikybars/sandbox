@@ -27,7 +27,7 @@ public class TrabajoTiendaSeccionVentaRepositoryCustomImpl extends JdbcBatchPrim
     private String sqlSave;
 
     @Override
-    public List<TrabajoTiendaSeccionVenta> save(List<TrabajoTiendaSeccionVenta> src) throws Exception {
+    public List<TrabajoTiendaSeccionVenta> save(List<TrabajoTiendaSeccionVenta> src) {
         return saveJdbcBatchList(src, sqlSave, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxBatchSize());
     }
 

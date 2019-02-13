@@ -27,7 +27,7 @@ public class TrabajoTiendaSeccionPresenciaRepositoryCustomImpl extends JdbcBatch
     private Properties query;
     
     @Override
-    public List<TrabajoTiendaSeccionPresencia> save(final List<TrabajoTiendaSeccionPresencia> src) throws Exception{
+    public List<TrabajoTiendaSeccionPresencia> save(final List<TrabajoTiendaSeccionPresencia> src) {
         return saveJdbcBatchList(src, query.getProperty("TrabajoTiendaSeccionPresenciaRepositoryCustom.save"), presenciasTotalTiendaSeccionDto.getFilter().getMaxBatchSize());
     }
 

@@ -27,7 +27,7 @@ public class PrimaryController {
     @GetMapping("/load/dml")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Carga el script DML")
-    public @Valid Boolean loadDML() throws Exception {
+    public @Valid Boolean loadDML() {
         return primaryService.loadDML();
     }
 

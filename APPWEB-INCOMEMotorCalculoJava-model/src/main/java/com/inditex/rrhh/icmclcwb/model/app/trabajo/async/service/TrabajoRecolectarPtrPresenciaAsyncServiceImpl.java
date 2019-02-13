@@ -21,7 +21,7 @@ public class TrabajoRecolectarPtrPresenciaAsyncServiceImpl implements TrabajoRec
     @Async
     @Override
     public CompletableFuture<Void> tiposHoras(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarPtrPresenciaService.tiposHoras(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -29,7 +29,7 @@ public class TrabajoRecolectarPtrPresenciaAsyncServiceImpl implements TrabajoRec
     @Async
     @Override
     public CompletableFuture<Void> presenciaTotalizadaTienda(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarPtrPresenciaService.presenciaTotalizadaTienda(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -37,7 +37,7 @@ public class TrabajoRecolectarPtrPresenciaAsyncServiceImpl implements TrabajoRec
     @Async
     @Override
     public CompletableFuture<Void> presenciaDetalleEmpleado(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarPtrPresenciaService.presenciaDetalleEmpleado(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

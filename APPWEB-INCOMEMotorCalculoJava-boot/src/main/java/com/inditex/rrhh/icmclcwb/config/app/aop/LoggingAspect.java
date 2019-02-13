@@ -27,32 +27,32 @@ public class LoggingAspect {
 
     @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria)")
     public void auditoriaPointcut() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TrabajoAuditoria)")
     public void auditoriaTrabajoPointcut() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Not implemented");
     }
     
     @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTrabajoAuditoria)")
     public void auditoriaRunTrabajoPointcut() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..service..*)")
     public void servicePointcut() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..controller..*)")
     public void controllerPointcut() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..repository..*)")
     public void repositoryPointcut() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Around(value = "auditoriaTrabajoPointcut()")

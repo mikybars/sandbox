@@ -27,7 +27,7 @@ public class TrabajoEmpleadoEstadoAsyncServiceImpl implements TrabajoEmpleadoEst
 
     @Async
     @Override
-    public CompletableFuture<Void> save(final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) throws Exception {
+    public CompletableFuture<Void> save(final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
         trabajoEmpleadoEstadoService.save(trabajoEmpleadoEstado);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -35,7 +35,7 @@ public class TrabajoEmpleadoEstadoAsyncServiceImpl implements TrabajoEmpleadoEst
     @Async
     @Override
     public CompletableFuture<Void> save(final RunTrabajoRecolectarDto runTrabajoRecolectar,
-            @Valid final TrabajoDto trabajo) throws Exception {
+            @Valid final TrabajoDto trabajo) {
         List<TrabajoEmpleadoEstadoDto> list = new ArrayList<>();
         list.addAll(runTrabajoRecolectar.getUno().getEmpleado().stream().collect(Collectors.toList()));
         list.addAll(runTrabajoRecolectar.getDos().getEmpleado().stream().collect(Collectors.toList()));

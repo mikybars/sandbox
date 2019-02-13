@@ -22,23 +22,21 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadoxml.dto.PtrVentaTo
 @Validated
 public interface PtrVentaGeneralService {
 
-    PtrVentaTotalizadoResponseDto getVentaTotalizado(@Valid PtrVentaTotalizadoRequestDto request) throws Exception;
+    PtrVentaTotalizadoResponseDto getVentaTotalizado(@Valid PtrVentaTotalizadoRequestDto request);
 
-    PtrVentaMensualResponseDto getVentaMensual(@Valid PtrVentaMensualRequestDto request) throws Exception;
+    PtrVentaMensualResponseDto getVentaMensual(@Valid PtrVentaMensualRequestDto request);
 
-    PtrVentaDiariaResponseDto getVentaDiaria(@Valid PtrVentaDiariaRequestDto request) throws Exception;
+    PtrVentaDiariaResponseDto getVentaDiaria(@Valid PtrVentaDiariaRequestDto request);
 
-    PtrVentaTotalizadoXmlResponseDto getVentaTotalizadoXML(@Valid PtrVentaTotalizadoXmlRequestDto request)
-            throws Exception;
+    PtrVentaTotalizadoXmlResponseDto getVentaTotalizadoXML(@Valid PtrVentaTotalizadoXmlRequestDto request);
 
-    PtrVentaTotalizadoByMccResponseDto getVentaTotalizadoByMcc(@Valid PtrVentaTotalizadoByMccRequestDto request)
-            throws Exception;
+    PtrVentaTotalizadoByMccResponseDto getVentaTotalizadoByMcc(@Valid PtrVentaTotalizadoByMccRequestDto request);
 
     PtrVentaPresupuestadaMensualResponseDto getVentaPresupuestadaMensual(
-            @Valid PtrVentaPresupuestadaMensualRequestDto request) throws Exception;
+            @Valid PtrVentaPresupuestadaMensualRequestDto request);
 
-    String getVersion() throws Exception;
+    String getVersion();
 
-    String test() throws Exception;
+    String test();
 
 }

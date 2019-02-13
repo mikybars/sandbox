@@ -1,8 +1,6 @@
 package com.inditex.rrhh.icmclcwb.ws.app.test.controller;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-
+import java.io.UnsupportedEncodingException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -17,6 +15,8 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
+import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -52,34 +52,32 @@ public class TestController {
 
     @GetMapping("/error/sync/")
     @ApiOperation("Error en sincronía")
-    public void errorSync() throws Exception {
+    public void errorSync() {
         testService.errorSync();
     }
 
     @GetMapping("/error/async/")
     @ApiOperation("Error en asincronía")
-    public void errorAsync() throws Exception {
+    public void errorAsync() {
         testService.errorAsync();
     }
 
     @GetMapping("/sesion/")
     @ApiOperation("Validación de la sesión de Meta4")
-    public void sesion() throws Exception {
+    public void sesion() {
         testService.sesion();
     }
 
     @GetMapping("/ptr/presencia/path")
     @ApiOperation("Conectividad con ptr de presencia")
-    public String testPathPTRPresecnias(@Valid @NotBlank String path) throws Exception {
-        String pathD = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
-        return ptrPresenciaClient.getForObject(pathD, String.class);
+    public String testPathPTRPresecnias(@Valid @NotBlank String path) {
+        return ptrPresenciaClient.getForObject(TestUtils.decode(path), String.class);
     }
 
     @GetMapping("/ptr/venta/path")
     @ApiOperation("Conectividad con ptr de venta")
-    public String testPathPTRVentas(@Valid @NotBlank String path) throws Exception {
-        String pathD = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
-        return ptrVentaClient.getForObject(pathD, String.class);
+    public String testPathPTRVentas(@Valid @NotBlank String path) {
+        return ptrVentaClient.getForObject(TestUtils.decode(path), String.class);
     }
 
 }

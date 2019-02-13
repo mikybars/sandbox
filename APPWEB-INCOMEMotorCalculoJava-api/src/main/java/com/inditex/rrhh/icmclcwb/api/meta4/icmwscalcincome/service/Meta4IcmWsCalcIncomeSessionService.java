@@ -14,17 +14,17 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.T
 
 public interface Meta4IcmWsCalcIncomeSessionService {
 
-	List<GenericTiendaResultItemDto> getTiendasEmpleado(TiendasEmpleadoRequestDto request) throws Exception;
+	List<GenericTiendaResultItemDto> getTiendasEmpleado(TiendasEmpleadoRequestDto request);
 
-	List<GenericTiendaResultItemDto> searchTiendas(SearchTiendasRequestDto request) throws Exception;
+	List<GenericTiendaResultItemDto> searchTiendas(SearchTiendasRequestDto request);
 
-	List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request) throws Exception;
+	List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request);
 
-	List<GenericEmpleadoResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request) throws Exception;
+	List<GenericEmpleadoResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request);
 
-	List<GenericEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request) throws Exception;
+	List<GenericEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request);
 
-	List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request) throws Exception;
+	List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request);
 
 	List<PeriodoDto> periodo();
 

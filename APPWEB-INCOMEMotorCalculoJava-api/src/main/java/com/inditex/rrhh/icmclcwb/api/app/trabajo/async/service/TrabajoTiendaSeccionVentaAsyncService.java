@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotal
 
 public interface TrabajoTiendaSeccionVentaAsyncService {
 
-	CompletableFuture<Void> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto) throws Exception;
+	CompletableFuture<Void> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto);
 
 	CompletableFuture<Void> save(PtrVentaTotalizadoResultItemDto dto, TrabajoDto trabajoDto);
 

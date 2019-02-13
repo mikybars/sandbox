@@ -34,82 +34,82 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     @Autowired
     @Qualifier("ptrVentaClient")
     private RestClient ptrVentaClient;
-    
+
     @Autowired
     @Qualifier("ventaGeneralProperties")
     private Map<String, PtrPropertiesDto> ventaGeneralProperties;
-    
+
     @Override
-    public PtrVentaTotalizadoResponseDto getVentaTotalizado(@Valid final PtrVentaTotalizadoRequestDto request)
-            throws Exception {
+    public PtrVentaTotalizadoResponseDto getVentaTotalizado(@Valid final PtrVentaTotalizadoRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request,
-                        PtrVentaTotalizadoResponseDto.class),
+                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(),
+                        request, PtrVentaTotalizadoResponseDto.class),
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request);
     }
-    
+
     @Override
-    public PtrVentaMensualResponseDto getVentaMensual(@Valid final PtrVentaMensualRequestDto request)
-            throws Exception {
+    public PtrVentaMensualResponseDto getVentaMensual(@Valid final PtrVentaMensualRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_MENSUAL).getEndpoint(), request,
-                        PtrVentaMensualResponseDto.class),
+                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_MENSUAL).getEndpoint(),
+                        request, PtrVentaMensualResponseDto.class),
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_MENSUAL).getEndpoint(), request);
     }
-    
+
     @Override
-    public PtrVentaDiariaResponseDto getVentaDiaria(@Valid final PtrVentaDiariaRequestDto request)
-            throws Exception {
+    public PtrVentaDiariaResponseDto getVentaDiaria(@Valid final PtrVentaDiariaRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_DIARIA).getEndpoint(), request,
-                        PtrVentaDiariaResponseDto.class),
+                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_DIARIA).getEndpoint(),
+                        request, PtrVentaDiariaResponseDto.class),
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_DIARIA).getEndpoint(), request);
     }
-    
-   //TODO: VER COMO SE GESTIONA LA RESPONSE EN XML
+
+    // TODO Validar como gestiona la respuesta en xml
     @Override
-    public PtrVentaTotalizadoXmlResponseDto getVentaTotalizadoXML(@Valid final PtrVentaTotalizadoXmlRequestDto request)
-            throws Exception {
+    public PtrVentaTotalizadoXmlResponseDto getVentaTotalizadoXML(
+            @Valid final PtrVentaTotalizadoXmlRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request,
+                ptrVentaClient.postForEntity(
+                        ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request,
                         PtrVentaTotalizadoXmlResponseDto.class),
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request);
     }
-    
+
     @Override
-    public PtrVentaTotalizadoByMccResponseDto getVentaTotalizadoByMcc(@Valid final PtrVentaTotalizadoByMccRequestDto request)
-            throws Exception {
+    public PtrVentaTotalizadoByMccResponseDto getVentaTotalizadoByMcc(
+            @Valid final PtrVentaTotalizadoByMccRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(), request,
+                ptrVentaClient.postForEntity(
+                        ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(), request,
                         PtrVentaTotalizadoByMccResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(), request);
+                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(),
+                request);
     }
-    
+
     @Override
-    public PtrVentaPresupuestadaMensualResponseDto getVentaPresupuestadaMensual(@Valid final PtrVentaPresupuestadaMensualRequestDto request)
-            throws Exception {
+    public PtrVentaPresupuestadaMensualResponseDto getVentaPresupuestadaMensual(
+            @Valid final PtrVentaPresupuestadaMensualRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(), request,
+                ptrVentaClient.postForEntity(
+                        ventaGeneralProperties.get(PtrConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(), request,
                         PtrVentaPresupuestadaMensualResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(), request);
+                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(),
+                request);
     }
-    
+
     @Override
-    public String test()
-            throws Exception {
+    public String test() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_TEST).getEndpoint(),
                         String.class),
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_TEST).getEndpoint(), null);
     }
-    
+
     @Override
-    public String getVersion()
-            throws Exception {
+    public String getVersion() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_VERSION).getEndpoint(),
-                        String.class),
+                ptrVentaClient.getForEntity(
+                        ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_VERSION).getEndpoint(), String.class),
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_VERSION).getEndpoint(), null);
     }
-    
+
 }

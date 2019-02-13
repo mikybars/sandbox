@@ -25,7 +25,7 @@ public class TrabajoTipoHoraRepositoryCustomImpl extends JdbcBatchPrimaryReposit
     private String sqlSave;
 
     @Override
-    public List<TrabajoTipoHora> save(List<TrabajoTipoHora> src) throws Exception {
+    public List<TrabajoTipoHora> save(List<TrabajoTipoHora> src) {
         return saveJdbcBatchList(src, sqlSave, tiposHorasDto.getFilter().getMaxBatchSize());
     }
 

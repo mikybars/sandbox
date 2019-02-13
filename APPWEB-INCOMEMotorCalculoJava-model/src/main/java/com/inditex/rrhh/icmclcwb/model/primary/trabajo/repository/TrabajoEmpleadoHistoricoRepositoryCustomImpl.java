@@ -25,7 +25,7 @@ public class TrabajoEmpleadoHistoricoRepositoryCustomImpl
     private String sqlSave;
     
     @Override
-    public List<TrabajoEmpleadoHistorico> save(final List<TrabajoEmpleadoHistorico> src) throws Exception{
+    public List<TrabajoEmpleadoHistorico> save(final List<TrabajoEmpleadoHistorico> src) {
         return saveJdbcBatchList(src, sqlSave, searchEmpleadosDto.getFilter().getMaxBatchSize());
     }
 

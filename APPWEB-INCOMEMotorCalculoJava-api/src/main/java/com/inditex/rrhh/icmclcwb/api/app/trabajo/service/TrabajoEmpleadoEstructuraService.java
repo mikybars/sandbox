@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoEstructuraDt
 public interface TrabajoEmpleadoEstructuraService {
 
     List<TrabajoEmpleadoEstructuraDto> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoHistorico,
-            @Valid TrabajoDto trabajo) throws Exception; 
+            @Valid TrabajoDto trabajo); 
     
     Set<Long> findIdTipoCalculoByIdTrabajo(@Valid Long idTrabajo);
     

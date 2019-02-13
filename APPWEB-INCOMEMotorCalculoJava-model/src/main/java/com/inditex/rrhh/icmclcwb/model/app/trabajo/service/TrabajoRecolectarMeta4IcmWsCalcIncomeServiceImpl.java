@@ -127,7 +127,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
     @TrabajoAuditoria
     @Override
     public void tiendasHistorico(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             Set<String> tiendas = new HashSet<>();
@@ -262,14 +262,14 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 
     @TrabajoAuditoria
     @Override
     public void tiendasPresencia(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -334,14 +334,14 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 
     @TrabajoAuditoria
     @Override
     public void tiendasEmpleadoHistorico(@Valid TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             if (CollectionUtils.isNotEmpty(trabajo.getTiendas())) {
@@ -442,14 +442,14 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
 
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 
     @TrabajoAuditoria
     @Override
     public void condicionesEmpleados(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -521,14 +521,14 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
             // TODO Fin :: Mock condiciones
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 
     @TrabajoAuditoria
     @Override
     public void tiendasComisionable(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -564,14 +564,14 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 
     @TrabajoAuditoria
     @Override
     public void empleadosTienda(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             if (CollectionUtils.isEmpty(trabajo.getEmpleados())) {
@@ -676,7 +676,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 

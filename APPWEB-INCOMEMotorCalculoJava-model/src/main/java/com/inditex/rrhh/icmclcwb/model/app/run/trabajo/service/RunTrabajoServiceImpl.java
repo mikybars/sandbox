@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTrabajoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoConsolidarService;
@@ -37,7 +38,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
     @TimerMetric
     @RunTrabajoAuditoria
     @Override
-    public RunTrabajoDto run(@NotNull @Valid final RunTrabajoDto runTrabajo) throws Exception {
+    public RunTrabajoDto run(@NotNull @Valid final RunTrabajoDto runTrabajo) {
         try {
             //runTrabajoRecolectarService.runNew(runTrabajo);
             runTrabajoRecolectarService.run(runTrabajo);
@@ -45,7 +46,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
             runTrabajoConsolidarService.run(runTrabajo);
         } catch (Exception e) {
             trabajoService.modifyEstadoTrabajoFinal(runTrabajo.getTrabajoDto(), EstadoTrabajoEnum.ERROR.getDto());
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
         return runTrabajo;
     }

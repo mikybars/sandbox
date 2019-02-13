@@ -18,7 +18,7 @@ public class TestExceptionAsyncServiceImpl implements TestExceptionAsyncService 
     
     @Async
 	@Override
-	public CompletableFuture<Void> icmclcwbException() throws Exception {
+	public CompletableFuture<Void> icmclcwbException() {
         testExceptionService.icmclcwbException();
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
 	}

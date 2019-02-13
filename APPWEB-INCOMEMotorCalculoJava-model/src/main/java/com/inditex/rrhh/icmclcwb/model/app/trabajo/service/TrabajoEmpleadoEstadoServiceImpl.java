@@ -29,8 +29,7 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
     private TrabajoEmpleadoEstadoMapper trabajoEmpleadoEstadoMapper;
 
     @Override
-    public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado)
-            throws Exception {
+    public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado) {
         return trabajoEmpleadoEstadoMapper.trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(
                 trabajoEmpleadoEstadoRepositoryCustom.save(trabajoEmpleadoEstadoMapper
                         .trabajoEmpleadoEstadoDtoToTrabajoEmpleadoEstado(trabajoEmpleadoEstado)));
@@ -38,7 +37,7 @@ public class TrabajoEmpleadoEstadoServiceImpl implements TrabajoEmpleadoEstadoSe
 
     @Override
     public List<TrabajoEmpleadoEstadoDto> save(@Valid final List<TrabajoEmpleadoEstadoDto> trabajoEmpleadoEstado,
-            @Valid final TrabajoDto trabajo) throws Exception {
+            @Valid final TrabajoDto trabajo) {
         return trabajoEmpleadoEstadoMapper
                 .trabajoEmpleadoEstadoToTrabajoEmpleadoEstadoDto(trabajoEmpleadoEstadoRepositoryCustom.save(
                         trabajoEmpleadoEstadoMapper.mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(

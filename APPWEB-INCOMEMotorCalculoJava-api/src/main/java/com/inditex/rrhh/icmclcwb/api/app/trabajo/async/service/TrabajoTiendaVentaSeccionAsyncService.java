@@ -8,6 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 public interface TrabajoTiendaVentaSeccionAsyncService {
 
-    CompletableFuture<Void> pivot(@Valid TrabajoDto trabajoDto) throws Exception;
+    CompletableFuture<Void> pivot(@Valid TrabajoDto trabajoDto);
 
 }

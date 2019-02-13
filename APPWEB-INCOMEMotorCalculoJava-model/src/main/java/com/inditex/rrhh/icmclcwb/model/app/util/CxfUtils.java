@@ -88,14 +88,14 @@ public class CxfUtils {
     }
 
     public static void putCookies(final Object service, final Map<String, Cookie> cookies) {
-        Client cl = ClientProxy.getClient(service);
-        HTTPConduit http = (HTTPConduit) cl.getConduit();
+        Client client = ClientProxy.getClient(service);
+        HTTPConduit http = (HTTPConduit) client.getConduit();
         http.getCookies().putAll(cookies);
     }
 
     public static void putCookie(final Object service, final String jSessionID) {
-        Client cl = ClientProxy.getClient(service);
-        HTTPConduit http = (HTTPConduit) cl.getConduit();
+        Client client = ClientProxy.getClient(service);
+        HTTPConduit http = (HTTPConduit) client.getConduit();
         http.getClient().setCookie(
                 new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.EQUALS).append(jSessionID).toString());
     }

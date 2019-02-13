@@ -8,9 +8,9 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 public interface TrabajoRecolectarPtrVentaService {
 
     void ventaDetalleEmpleado(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
     void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
 }

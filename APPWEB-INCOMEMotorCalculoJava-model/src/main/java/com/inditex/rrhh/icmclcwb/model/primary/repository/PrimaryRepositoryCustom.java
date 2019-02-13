@@ -6,6 +6,6 @@ import org.springframework.core.io.Resource;
 
 public interface PrimaryRepositoryCustom {
 
-    Boolean load(List<Resource> resource) throws Exception;
+    Boolean load(List<Resource> resource);
 
 }

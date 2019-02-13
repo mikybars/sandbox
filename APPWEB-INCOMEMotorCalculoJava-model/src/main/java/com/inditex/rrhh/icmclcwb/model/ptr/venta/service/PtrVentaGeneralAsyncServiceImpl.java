@@ -29,55 +29,53 @@ public class PtrVentaGeneralAsyncServiceImpl implements PtrVentaGeneralAsyncServ
 
     @Async
     @Override
-    public CompletableFuture<PtrVentaDiariaResponseDto> getVentaDiaria(
-            final PtrVentaDiariaRequestDto request) throws Exception {
+    public CompletableFuture<PtrVentaDiariaResponseDto> getVentaDiaria(final PtrVentaDiariaRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.getVentaDiaria(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrVentaMensualResponseDto> getVentaMensual(
-            final PtrVentaMensualRequestDto request) throws Exception {
+    public CompletableFuture<PtrVentaMensualResponseDto> getVentaMensual(final PtrVentaMensualRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.getVentaMensual(request));
-    } 
-    
+    }
+
     @Async
     @Override
     public CompletableFuture<PtrVentaPresupuestadaMensualResponseDto> getVentaPresupuestadaMensual(
-            final PtrVentaPresupuestadaMensualRequestDto request) throws Exception {
+            final PtrVentaPresupuestadaMensualRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.getVentaPresupuestadaMensual(request));
     }
-    
+
     @Async
     @Override
     public CompletableFuture<PtrVentaTotalizadoResponseDto> getVentaTotalizado(
-            final PtrVentaTotalizadoRequestDto request) throws Exception {
+            final PtrVentaTotalizadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.getVentaTotalizado(request));
     }
-    
+
     @Async
     @Override
     public CompletableFuture<PtrVentaTotalizadoByMccResponseDto> getVentaTotalizadoByMcc(
-            final PtrVentaTotalizadoByMccRequestDto request) throws Exception {
+            final PtrVentaTotalizadoByMccRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.getVentaTotalizadoByMcc(request));
     }
-    
+
     @Async
     @Override
     public CompletableFuture<PtrVentaTotalizadoXmlResponseDto> getVentaTotalizadoXML(
-            final PtrVentaTotalizadoXmlRequestDto request) throws Exception {
+            final PtrVentaTotalizadoXmlRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.getVentaTotalizadoXML(request));
     }
-    
+
     @Async
     @Override
-    public CompletableFuture<String> test() throws Exception {
+    public CompletableFuture<String> test() {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.test());
     }
-    
+
     @Async
     @Override
-    public CompletableFuture<String> getVersion() throws Exception {
+    public CompletableFuture<String> getVersion() {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.getVersion());
     }
 }

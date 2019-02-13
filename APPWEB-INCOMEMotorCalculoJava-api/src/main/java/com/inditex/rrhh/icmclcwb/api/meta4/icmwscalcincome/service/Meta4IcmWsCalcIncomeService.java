@@ -15,16 +15,16 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.T
 
 public interface Meta4IcmWsCalcIncomeService {
 
-	TiendasEmpleadoResponseDto getTiendasEmpleado(TiendasEmpleadoRequestDto request) throws Exception;
+	TiendasEmpleadoResponseDto getTiendasEmpleado(TiendasEmpleadoRequestDto request);
 
-	SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request) throws Exception;
+	SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request);
 
-	TiendasResponseDto getTiendas(TiendasRequestDto request) throws Exception;
+	TiendasResponseDto getTiendas(TiendasRequestDto request);
 
-	SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request) throws Exception;
+	SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request);
 
-	ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request) throws Exception;
+	ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request);
 
-	EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request) throws Exception;
+	EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request);
 	
 }

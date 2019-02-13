@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TrabajoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoTiendaSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -65,7 +66,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
     @TrabajoAuditoria
     @Override
     public void ventaTotalizadaTienda(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -97,14 +98,14 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 
     @TrabajoAuditoria
     @Override
     public void ventaDetalleEmpleado(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -135,7 +136,7 @@ public class TrabajoRecolectarPtrVentaServiceImpl implements TrabajoRecolectarPt
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw e;
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 

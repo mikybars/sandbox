@@ -26,8 +26,7 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaRepositoryCustomImpl
     private String sqlSave;
 
     @Override
-    public List<TrabajoTiendaSeccionEmpleadoPresencia> save(final List<TrabajoTiendaSeccionEmpleadoPresencia> src)
-            throws Exception {
+    public List<TrabajoTiendaSeccionEmpleadoPresencia> save(final List<TrabajoTiendaSeccionEmpleadoPresencia> src) {
         return saveJdbcBatchList(src, sqlSave, presenciasDetalleDto.getFilter().getMaxBatchSize());
     }
 

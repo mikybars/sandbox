@@ -21,14 +21,14 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl implements Tr
     @Async
     @Override
     public CompletableFuture<Void> tiendasPresencia(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarMeta4IcmWsCalcIncomeService.tiendasPresencia(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
     @Override
-    public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+    public CompletableFuture<Void> tiendasComisionable(final TrabajoDto trabajo, final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarMeta4IcmWsCalcIncomeService.tiendasComisionable(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -36,7 +36,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl implements Tr
     @Async
     @Override
     public CompletableFuture<Void> tiendasHistorico(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarMeta4IcmWsCalcIncomeService.tiendasHistorico(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -44,7 +44,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl implements Tr
     @Async
     @Override
     public CompletableFuture<Void> tiendasEmpleadoHistorico(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarMeta4IcmWsCalcIncomeService.tiendasEmpleadoHistorico(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -52,7 +52,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl implements Tr
     @Async
     @Override
     public CompletableFuture<Void> condicionesEmpleados(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarMeta4IcmWsCalcIncomeService.condicionesEmpleados(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -60,7 +60,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl implements Tr
     @Async
     @Override
     public CompletableFuture<Void> empleadosTienda(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarMeta4IcmWsCalcIncomeService.empleadosTienda(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

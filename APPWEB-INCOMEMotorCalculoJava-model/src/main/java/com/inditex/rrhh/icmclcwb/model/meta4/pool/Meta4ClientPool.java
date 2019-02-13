@@ -13,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Gettiendasem
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException_Exception;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
 
@@ -22,11 +21,11 @@ import stormpot.Config;
 import stormpot.Timeout;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
-    
+
     private static final Logger log = LoggerFactory.getLogger(Meta4ClientPool.class);
-    
+
     private static final String ERROR_MESSAGE = "Session caducada (Pool) (Exception)";
-    
+
     private final Meta4ClientFactory meta4ClientFactory;
 
     private final BlazePool<Meta4ClientPoolable> pool;
@@ -41,16 +40,19 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         this.pool = new BlazePool<>(config);
     }
 
-    public void close() throws InterruptedException {
+    public void close() {
         log.info("Inicio :: Meta4ClientPool :: close()");
-        pool.shutdown().await(
-                new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(), TimeUnit.MILLISECONDS));
+        try {
+            pool.shutdown().await(
+                    new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(), TimeUnit.MILLISECONDS));
+        } catch (InterruptedException e) {
+            throw new Meta4Exception(e.getMessage(), e);
+        }
         log.info("Fin :: Meta4ClientPool :: close()");
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
-    public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
-            throws InterruptedException, M4SoapException_Exception {
+    public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
@@ -63,8 +65,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
-    public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1)
-            throws InterruptedException, M4SoapException_Exception {
+    public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getcomisionempleado(param1);
@@ -78,7 +79,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
     public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
-            IcmParametrospaginacionBlock param2) throws InterruptedException, M4SoapException_Exception {
+            IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
@@ -91,8 +92,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
-    public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2)
-            throws InterruptedException, M4SoapException_Exception {
+    public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
@@ -106,7 +106,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
     public GettiendasincomeOutput gettiendasincome(IcmParametrospaginacionBlock param1,
-            IcmParametrosentradaBlock param2) throws InterruptedException, M4SoapException_Exception {
+            IcmParametrosentradaBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
@@ -119,8 +119,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.pool.size}}")
-    public SearchempleadosOutput searchempleados(IcmParametrospaginacionBlock param1, IcmParametrosentradaBlock param2)
-            throws InterruptedException, M4SoapException_Exception {
+    public SearchempleadosOutput searchempleados(IcmParametrospaginacionBlock param1,
+            IcmParametrosentradaBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().searchempleados(param1, param2);

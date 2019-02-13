@@ -7,6 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 
 public interface RunService {
 
-	RunTrabajoDto runTrabajo(@NotNull @Positive final Long id) throws Exception;
+	RunTrabajoDto runTrabajo(@NotNull @Positive final Long id);
 
 }

@@ -14,19 +14,16 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.T
 
 public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 
-	CompletableFuture<List<GenericTiendaResultItemDto>> getTiendasEmpleado(TiendasEmpleadoRequestDto request)
-			throws Exception;
+    CompletableFuture<List<GenericTiendaResultItemDto>> getTiendasEmpleado(TiendasEmpleadoRequestDto request);
 
-	CompletableFuture<List<GenericTiendaResultItemDto>> searchTiendas(SearchTiendasRequestDto request) throws Exception;
+    CompletableFuture<List<GenericTiendaResultItemDto>> searchTiendas(SearchTiendasRequestDto request);
 
-	CompletableFuture<List<GenericTiendaResultItemDto>> getTiendas(TiendasRequestDto request) throws Exception;
+    CompletableFuture<List<GenericTiendaResultItemDto>> getTiendas(TiendasRequestDto request);
 
-	CompletableFuture<List<GenericEmpleadoResultItemDto>> searchEmpleados(SearchEmpleadosRequestDto request)
-			throws Exception;
+    CompletableFuture<List<GenericEmpleadoResultItemDto>> searchEmpleados(SearchEmpleadosRequestDto request);
 
-	CompletableFuture<List<GenericEmpleadoResultItemDto>> getComisionEmpleado(ComisionEmpleadoRequestDto request)
-			throws Exception;
+    CompletableFuture<List<GenericEmpleadoResultItemDto>> getComisionEmpleado(ComisionEmpleadoRequestDto request);
 
-	CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleados(EmpleadosRequestDto request) throws Exception;
+    CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleados(EmpleadosRequestDto request);
 
 }

@@ -9,6 +9,6 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaEstadoDto;
 
 public interface TrabajoTiendaEstadoService {
 
-	List<TrabajoTiendaEstadoDto> save(List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto, @Valid TrabajoDto trabajo) throws Exception;
+	List<TrabajoTiendaEstadoDto> save(List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto, @Valid TrabajoDto trabajo);
 
 }

@@ -7,7 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndiv
 
 public interface PtrVentaEmpleadoService {
 
-    PtrVentaIndividualDetalleResponseDto getVentaIndividualDetalle(@Valid PtrVentaIndividualDetalleRequestDto request)
-            throws Exception;
+    PtrVentaIndividualDetalleResponseDto getVentaIndividualDetalle(@Valid PtrVentaIndividualDetalleRequestDto request);
 
 }

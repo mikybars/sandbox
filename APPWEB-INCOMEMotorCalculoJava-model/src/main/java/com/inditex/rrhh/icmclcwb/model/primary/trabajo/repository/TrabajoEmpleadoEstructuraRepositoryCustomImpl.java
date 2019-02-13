@@ -25,7 +25,7 @@ public class TrabajoEmpleadoEstructuraRepositoryCustomImpl extends JdbcBatchPrim
     private String sqlSave;
 
     @Override
-    public List<TrabajoEmpleadoEstructura> save(final List<TrabajoEmpleadoEstructura> src) throws Exception {
+    public List<TrabajoEmpleadoEstructura> save(final List<TrabajoEmpleadoEstructura> src) {
         return saveJdbcBatchList(src, sqlSave, getComisionEmpleadoDto.getFilter().getMaxBatchSize());
     }
 

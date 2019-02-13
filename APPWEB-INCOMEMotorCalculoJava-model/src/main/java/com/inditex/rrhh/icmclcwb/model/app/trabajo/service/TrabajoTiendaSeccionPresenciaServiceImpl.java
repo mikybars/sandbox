@@ -39,7 +39,7 @@ public class TrabajoTiendaSeccionPresenciaServiceImpl implements TrabajoTiendaSe
     }
 
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TrabajoDto trabajo) throws Exception {
+    public CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TrabajoDto trabajo) {
         mapper.trabajoTiendaSeccionPresenciasToTrabajoTiendaSeccionPresenciasDto(trabajoTiendaSeccionPresenciaRepositoryCustom
                 .save(mapper.presenciasTotalTiendaSeccionResponseDtosDtoToTrabajoTiendaSeccionPresencias(dto, trabajo)));
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

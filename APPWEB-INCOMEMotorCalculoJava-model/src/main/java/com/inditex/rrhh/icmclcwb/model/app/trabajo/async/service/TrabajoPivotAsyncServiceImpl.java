@@ -27,7 +27,7 @@ public class TrabajoPivotAsyncServiceImpl implements TrabajoPivotAsyncService {
     
     @Async
     @Override
-    public CompletableFuture<Void> pivot(@Valid final TrabajoDto trabajoDto) throws Exception {
+    public CompletableFuture<Void> pivot(@Valid final TrabajoDto trabajoDto) {
         trabajoTiendaPresenciaSeccionAsyncService.pivot(trabajoDto);
         trabajoTiendaVentaSeccionAsyncService.pivot(trabajoDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 public interface TrabajoTiendaVentaSeccionService {
 
-    void pivot(@Valid TrabajoDto trabajoDto) throws Exception;
+    void pivot(@Valid TrabajoDto trabajoDto);
 
 }

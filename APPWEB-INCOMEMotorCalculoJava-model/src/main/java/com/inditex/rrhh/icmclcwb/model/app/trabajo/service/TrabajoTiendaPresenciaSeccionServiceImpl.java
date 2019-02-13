@@ -18,7 +18,7 @@ public class TrabajoTiendaPresenciaSeccionServiceImpl implements TrabajoTiendaPr
     private TrabajoTiendaPresenciaSeccionRepository trabajoTiendaPresenciaSeccionRepository;
     
     @Override
-    public void pivot(@Valid final TrabajoDto trabajoDto) throws Exception {
+    public void pivot(@Valid final TrabajoDto trabajoDto) {
         trabajoTiendaPresenciaSeccionRepository.save(trabajoDto);
     }
 

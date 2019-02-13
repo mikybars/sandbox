@@ -8,21 +8,21 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 public interface TrabajoRecolectarMeta4IcmWsCalcIncomeService {
 
     void tiendasHistorico(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque)
-            throws Exception;
+           ;
 
     void tiendasEmpleadoHistorico(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
     void condicionesEmpleados(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
     void empleadosTienda(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque)
-            throws Exception;
+           ;
 
     void tiendasPresencia(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque)
-            throws Exception;
+           ;
 
     void tiendasComisionable(@Valid final TrabajoDto trabajo,
-            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+            @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
 }

@@ -7,10 +7,10 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 public interface TrabajoRecolectarPtrPresenciaService {
 
-    void tiposHoras(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+    void tiposHoras(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
-    void presenciaDetalleEmpleado(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+    void presenciaDetalleEmpleado(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
-    void presenciaTotalizadaTienda(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+    void presenciaTotalizadaTienda(@Valid final TrabajoDto trabajo, @Valid final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
 }

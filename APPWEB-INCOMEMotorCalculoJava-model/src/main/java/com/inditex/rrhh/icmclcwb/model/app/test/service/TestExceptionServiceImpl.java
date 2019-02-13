@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class TestExceptionServiceImpl implements TestExceptionService {
 
 	@Override
-	public void icmclcwbException() throws Exception {
+	public void icmclcwbException() {
 	    TestUtils.threadSleep();
 		throw new IcmclcwbException("Asynchronous error");
 	}

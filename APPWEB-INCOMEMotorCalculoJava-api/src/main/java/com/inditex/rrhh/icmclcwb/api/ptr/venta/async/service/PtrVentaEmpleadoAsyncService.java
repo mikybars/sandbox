@@ -8,6 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndiv
 public interface PtrVentaEmpleadoAsyncService {
 
     CompletableFuture<PtrVentaIndividualDetalleResponseDto> getVentaIndividualDetalle(
-            final PtrVentaIndividualDetalleRequestDto request) throws Exception;
+            final PtrVentaIndividualDetalleRequestDto request);
 
 }

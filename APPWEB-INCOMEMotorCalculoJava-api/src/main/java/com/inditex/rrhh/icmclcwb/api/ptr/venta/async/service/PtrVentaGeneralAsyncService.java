@@ -17,25 +17,22 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadoxml.dto.PtrVentaTo
 
 public interface PtrVentaGeneralAsyncService {
 
-    CompletableFuture<PtrVentaDiariaResponseDto> getVentaDiaria(PtrVentaDiariaRequestDto request) throws Exception;
+    CompletableFuture<PtrVentaDiariaResponseDto> getVentaDiaria(PtrVentaDiariaRequestDto request);
 
-    CompletableFuture<PtrVentaMensualResponseDto> getVentaMensual(PtrVentaMensualRequestDto request) throws Exception;
+    CompletableFuture<PtrVentaMensualResponseDto> getVentaMensual(PtrVentaMensualRequestDto request);
 
     CompletableFuture<PtrVentaPresupuestadaMensualResponseDto> getVentaPresupuestadaMensual(
-            PtrVentaPresupuestadaMensualRequestDto request) throws Exception;
-    
-    CompletableFuture<PtrVentaTotalizadoResponseDto> getVentaTotalizado(PtrVentaTotalizadoRequestDto request)
-            throws Exception;
+            PtrVentaPresupuestadaMensualRequestDto request);
+
+    CompletableFuture<PtrVentaTotalizadoResponseDto> getVentaTotalizado(PtrVentaTotalizadoRequestDto request);
 
     CompletableFuture<PtrVentaTotalizadoByMccResponseDto> getVentaTotalizadoByMcc(
-            PtrVentaTotalizadoByMccRequestDto request) throws Exception;
+            PtrVentaTotalizadoByMccRequestDto request);
 
-    CompletableFuture<PtrVentaTotalizadoXmlResponseDto> getVentaTotalizadoXML(PtrVentaTotalizadoXmlRequestDto request)
-            throws Exception;
+    CompletableFuture<PtrVentaTotalizadoXmlResponseDto> getVentaTotalizadoXML(PtrVentaTotalizadoXmlRequestDto request);
 
-    CompletableFuture<String> test() throws Exception;
+    CompletableFuture<String> test();
 
-    CompletableFuture<String> getVersion() throws Exception;
+    CompletableFuture<String> getVersion();
 
- 
 }

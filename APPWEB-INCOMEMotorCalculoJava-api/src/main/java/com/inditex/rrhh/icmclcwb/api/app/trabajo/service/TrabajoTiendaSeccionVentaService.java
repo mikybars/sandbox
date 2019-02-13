@@ -14,6 +14,6 @@ public interface TrabajoTiendaSeccionVentaService {
 
 	TrabajoTiendaSeccionVentaDto save(PtrVentaTotalizadoResultItemDto dto, TrabajoDto trabajoDto);
 	
-	List<TrabajoTiendaSeccionVentaDto> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto) throws Exception;
+	List<TrabajoTiendaSeccionVentaDto> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto);
 
 }

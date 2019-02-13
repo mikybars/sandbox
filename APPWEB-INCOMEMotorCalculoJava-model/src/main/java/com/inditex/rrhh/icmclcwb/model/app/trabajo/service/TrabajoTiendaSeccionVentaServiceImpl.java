@@ -42,7 +42,7 @@ public class TrabajoTiendaSeccionVentaServiceImpl implements TrabajoTiendaSeccio
     }
 
     @Override
-    public List<TrabajoTiendaSeccionVentaDto> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto) throws Exception {
+    public List<TrabajoTiendaSeccionVentaDto> save(List<PtrVentaTotalizadoResultItemDto> dto, TrabajoDto trabajoDto) {
         return mapper.trabajoTiendaSeccionVentasToTrabajoTiendaSeccionVentasDto(trabajoTiendaSeccionVentaRepositoryCustom
                 .save(mapper.getVentaTotalizadoReponseItemsDtoToTrabajoTiendaSeccionVentas(dto, trabajoDto)));
     }

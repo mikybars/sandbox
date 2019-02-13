@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTrabajoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.AlgoritmoEnum;
@@ -49,7 +50,7 @@ public class RunTrabajoCalcularServiceImpl implements RunTrabajoCalcularService 
     @TimerMetric
     @RunTrabajoAuditoria
     @Override
-    public RunTrabajoDto run(@Valid final RunTrabajoDto runTrabajo) throws Exception {
+    public RunTrabajoDto run(@Valid final RunTrabajoDto runTrabajo) {
         TrabajoDto trabajo = runTrabajo.getTrabajoDto();
         if (EstadoTrabajoEnum.PENDIENTE_CALCULO.getId().equals(trabajo.getEstado().getId())) {
             trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.EN_CURSO_CALCULO.getDto());
@@ -77,7 +78,11 @@ public class RunTrabajoCalcularServiceImpl implements RunTrabajoCalcularService 
                                 return Flux.empty();
                             }).subscribe())
                     .doOnError(ex -> log.error(ex.getMessage(), ex)).doAfterTerminate(latch::countDown).subscribe();
-            latch.await();
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                throw new ReactorIcmclcwbException(e.getMessage(), e);
+            }
 
             trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getDto());
         }

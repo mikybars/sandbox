@@ -25,7 +25,7 @@ public class TrabajoEmpleadoEstadoRepositoryCustomImpl extends JdbcBatchPrimaryR
     private String sqlSave;
 
     @Override
-    public List<TrabajoEmpleadoEstado> save(final List<TrabajoEmpleadoEstado> src) throws Exception {
+    public List<TrabajoEmpleadoEstado> save(final List<TrabajoEmpleadoEstado> src) {
         return saveJdbcBatchList(src, sqlSave, searchEmpleadosDto.getFilter().getMaxBatchSize());
     }
 

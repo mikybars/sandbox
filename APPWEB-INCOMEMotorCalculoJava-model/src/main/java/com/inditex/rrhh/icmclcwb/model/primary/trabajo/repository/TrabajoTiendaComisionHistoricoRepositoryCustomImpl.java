@@ -25,7 +25,7 @@ public class TrabajoTiendaComisionHistoricoRepositoryCustomImpl extends
     private String sqlSave;
 
     @Override
-    public List<TrabajoTiendaComisionHistorico> save(final List<TrabajoTiendaComisionHistorico> src) throws Exception {
+    public List<TrabajoTiendaComisionHistorico> save(final List<TrabajoTiendaComisionHistorico> src) {
         return saveJdbcBatchList(src, sqlSave, getTiendasDto.getFilter().getMaxBatchSize());
     }
 

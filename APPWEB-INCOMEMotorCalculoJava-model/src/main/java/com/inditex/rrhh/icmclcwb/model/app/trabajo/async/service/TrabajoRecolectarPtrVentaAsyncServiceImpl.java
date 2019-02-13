@@ -20,14 +20,14 @@ public class TrabajoRecolectarPtrVentaAsyncServiceImpl implements TrabajoRecolec
 
     @Async
     @Override
-    public CompletableFuture<Void> ventaTotalizadaTienda(final TrabajoDto trabajo, final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+    public CompletableFuture<Void> ventaTotalizadaTienda(final TrabajoDto trabajo, final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarPtrVentaService.ventaTotalizadaTienda(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Async
     @Override
-    public CompletableFuture<Void> ventaDetalleEmpleado(final TrabajoDto trabajo, final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception {
+    public CompletableFuture<Void> ventaDetalleEmpleado(final TrabajoDto trabajo, final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) {
         trabajoRecolectarPtrVentaService.ventaDetalleEmpleado(trabajo, runTrabajoRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

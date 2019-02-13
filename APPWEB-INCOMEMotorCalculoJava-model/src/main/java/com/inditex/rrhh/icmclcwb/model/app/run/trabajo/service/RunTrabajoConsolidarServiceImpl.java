@@ -26,7 +26,7 @@ public class RunTrabajoConsolidarServiceImpl implements RunTrabajoConsolidarServ
     @TimerMetric
     @RunTrabajoAuditoria
     @Override
-    public RunTrabajoDto run(@Valid final RunTrabajoDto trabajoRun) throws Exception {
+    public RunTrabajoDto run(@Valid final RunTrabajoDto trabajoRun) {
         final TrabajoDto trabajo = trabajoRun.getTrabajoDto();
         if (EstadoTrabajoEnum.PENDIENTE_CONSOLIDACION.getId().equals(trabajo.getEstado().getId())) {
             trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.EN_CURSO_CONSOLIDACION.getDto());

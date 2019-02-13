@@ -25,7 +25,7 @@ public class TrabajoEmpleadoHistoricoServiceImpl implements TrabajoEmpleadoHisto
     private TrabajoEmpleadoHistoricoMapper trabajoEmpleadoHistoricoMapper;
 
     @Override
-    public List<TrabajoEmpleadoHistoricoDto> save(final List<TrabajoEmpleadoHistoricoDto> trabajoEmpleadoHistorico , @Valid TrabajoDto trabajo) throws Exception {
+    public List<TrabajoEmpleadoHistoricoDto> save(final List<TrabajoEmpleadoHistoricoDto> trabajoEmpleadoHistorico , @Valid TrabajoDto trabajo) {
         return trabajoEmpleadoHistoricoMapper.trabajoEmpleadoHistoricoToTrabajoEmpleadoHistoricoDto(
                 trabajoEmpleadoHistoricoRepositoryCustom.save(trabajoEmpleadoHistoricoMapper
                         .mergeTrabajoEmpleadoHistoricoDtoAndTrabajoDtoToTrabajoEmpleadoHistorico(trabajoEmpleadoHistorico,

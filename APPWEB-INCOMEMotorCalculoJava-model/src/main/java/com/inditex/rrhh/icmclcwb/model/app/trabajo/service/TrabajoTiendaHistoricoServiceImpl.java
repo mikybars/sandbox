@@ -27,7 +27,7 @@ public class TrabajoTiendaHistoricoServiceImpl implements TrabajoTiendaHistorico
 
 	@Override
 	public List<TrabajoTiendaHistoricoDto> save(final List<TrabajoTiendaHistoricoDto> trabajoTiendaHistorico,
-			@Valid TrabajoDto trabajo) throws Exception {
+			@Valid TrabajoDto trabajo) {
 		return trabajoTiendaHistoricoMapper.trabajoTiendaHistoricoToTrabajoTiendaHistoricoDto(
 		        trabajoTiendaHistoricoRepositoryCustom.save(trabajoTiendaHistoricoMapper
 						.mergeTrabajoTiendaHistoricoDtoAndTrabajoDtoToTrabajoTiendaHistorico(trabajoTiendaHistorico,

@@ -14,15 +14,13 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 public interface PtrPresenciaService {
 
     PtrPresenciaTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
-            @Valid final PtrPresenciaTotalTiendaSeccionRequestDto request) throws Exception;
+            @Valid final PtrPresenciaTotalTiendaSeccionRequestDto request);
 
-    PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(@Valid final PtrPresenciaDetalleRequestDto request)
-            throws Exception;
+    PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(@Valid final PtrPresenciaDetalleRequestDto request);
 
-    PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid final PtrPresenciaTiposHorasRequestDto request)
-            throws Exception;
+    PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid final PtrPresenciaTiposHorasRequestDto request);
 
     PtrPresenciaDetalleComisionableResponseDto getPresenciasDetalleComisionableDto(
-            @Valid PtrPresenciaDetalleComisionableRequestDto request) throws Exception;
+            @Valid PtrPresenciaDetalleComisionableRequestDto request);
 
 }

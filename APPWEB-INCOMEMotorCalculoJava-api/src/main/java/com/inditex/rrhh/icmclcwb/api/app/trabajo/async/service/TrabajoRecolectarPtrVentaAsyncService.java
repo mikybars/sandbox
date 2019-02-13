@@ -8,9 +8,9 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 public interface TrabajoRecolectarPtrVentaAsyncService {
 
     CompletableFuture<Void> ventaDetalleEmpleado(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
     CompletableFuture<Void> ventaTotalizadaTienda(final TrabajoDto trabajo,
-            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque) throws Exception;
+            final RunTrabajoRecolectarBloqueDto runTrabajoRecolectarBloque);
 
 }

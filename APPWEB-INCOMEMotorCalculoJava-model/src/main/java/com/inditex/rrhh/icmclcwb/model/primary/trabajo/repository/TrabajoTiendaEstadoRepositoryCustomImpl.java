@@ -40,7 +40,7 @@ public class TrabajoTiendaEstadoRepositoryCustomImpl extends JdbcBatchPrimaryRep
     private String sqlSave;
 
     @Override
-    public List<TrabajoTiendaEstado> save(final List<TrabajoTiendaEstado> src) throws Exception {
+    public List<TrabajoTiendaEstado> save(final List<TrabajoTiendaEstado> src) {
         return saveJdbcBatchList(src, sqlSave, searchTiendasDto.getFilter().getMaxBatchSize());
     }
 

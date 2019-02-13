@@ -12,7 +12,7 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
     private static final Logger log = LoggerFactory.getLogger(Meta4ClientExpiration.class);
 
     @Override
-    public boolean hasExpired(SlotInfo<? extends Meta4ClientPoolable> info) throws Exception {
+    public boolean hasExpired(SlotInfo<? extends Meta4ClientPoolable> info) {
         boolean expired = true;
         String session = StringUtils.EMPTY;
         try {

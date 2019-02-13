@@ -23,7 +23,7 @@ public class TrabajoEmpleadoHistoricoAsyncServiceImpl implements TrabajoEmpleado
 
     @Async
     @Override
-    public CompletableFuture<Void> save(final List<TrabajoEmpleadoHistoricoDto>  trabajoEmpleadoHistorico, @Valid TrabajoDto trabajo) throws Exception {
+    public CompletableFuture<Void> save(final List<TrabajoEmpleadoHistoricoDto>  trabajoEmpleadoHistorico, @Valid TrabajoDto trabajo) {
         trabajoEmpleadoHistoricoService.save(trabajoEmpleadoHistorico, trabajo);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

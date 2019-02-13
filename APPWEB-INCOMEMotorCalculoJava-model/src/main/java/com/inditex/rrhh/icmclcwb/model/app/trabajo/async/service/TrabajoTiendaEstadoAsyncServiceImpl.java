@@ -26,12 +26,11 @@ public class TrabajoTiendaEstadoAsyncServiceImpl implements TrabajoTiendaEstadoA
 
     @Async
     @Override
-    public CompletableFuture<Void> save(final RunTrabajoRecolectarDto runTrabajoRecolectar, final TrabajoDto trabajo)
-            throws Exception {
+    public CompletableFuture<Void> save(final RunTrabajoRecolectarDto runTrabajoRecolectar, final TrabajoDto trabajo) {
         List<TrabajoTiendaEstadoDto> list = Stream
-                .of(runTrabajoRecolectar.getUno().getTienda(), runTrabajoRecolectar.getDos().getTienda()).flatMap(Set::stream)
-                .collect(Collectors.toList());
-        for (List<TrabajoTiendaEstadoDto> iter : StreamUtils.partition(list, /*TODO Parametrizar*/200)) {
+                .of(runTrabajoRecolectar.getUno().getTienda(), runTrabajoRecolectar.getDos().getTienda())
+                .flatMap(Set::stream).collect(Collectors.toList());
+        for (List<TrabajoTiendaEstadoDto> iter : StreamUtils.partition(list, /* TODO Parametrizar */200)) {
             trabajoTiendaEstadoService.save(iter, trabajo);
         }
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

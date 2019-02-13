@@ -35,7 +35,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     @Autowired
     @Qualifier("presenciasDetalleDto")
     private PtrPropertiesDto presenciasDetalleDto;
-    
+
     @Autowired
     @Qualifier("presenciasDetalleComisionableDto")
     private PtrPropertiesDto presenciasDetalleComisionableDto;
@@ -46,7 +46,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
 
     @Override
     public PtrPresenciaTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
-            @Valid final PtrPresenciaTotalTiendaSeccionRequestDto request) throws Exception {
+            @Valid final PtrPresenciaTotalTiendaSeccionRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasTotalTiendaSeccionDto.getEndpoint(), request,
                         PtrPresenciaTotalTiendaSeccionResponseDto.class),
@@ -54,17 +54,16 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     }
 
     @Override
-    public PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(@Valid final PtrPresenciaDetalleRequestDto request)
-            throws Exception {
+    public PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(@Valid final PtrPresenciaDetalleRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasDetalleDto.getEndpoint(), request,
                         PtrPresenciaDetalleResponseDto.class),
                 ptrPresenciaClient, presenciasDetalleDto.getEndpoint(), request);
     }
-    
+
     @Override
-    public PtrPresenciaDetalleComisionableResponseDto getPresenciasDetalleComisionableDto(@Valid final PtrPresenciaDetalleComisionableRequestDto request)
-            throws Exception {
+    public PtrPresenciaDetalleComisionableResponseDto getPresenciasDetalleComisionableDto(
+            @Valid final PtrPresenciaDetalleComisionableRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasDetalleComisionableDto.getEndpoint(), request,
                         PtrPresenciaDetalleComisionableResponseDto.class),
@@ -72,8 +71,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     }
 
     @Override
-    public PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid PtrPresenciaTiposHorasRequestDto request)
-            throws Exception {
+    public PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid PtrPresenciaTiposHorasRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasTiposHorasDto.getEndpoint(), request,
                         PtrPresenciaTiposHorasResponseDto.class),

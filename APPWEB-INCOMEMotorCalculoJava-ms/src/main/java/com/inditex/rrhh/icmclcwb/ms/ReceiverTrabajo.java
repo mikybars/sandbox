@@ -16,8 +16,7 @@ public class ReceiverTrabajo {
 
     @JmsListener(id = "trabajoListener", destination = "${amiga.service.jms.trabajo-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "${amiga.service.jms.trabajo-queue.concurrency}")
     public void onMessageTrabajoListener(
-            Message<TrabajoDto> message /* TrabajoDto message */ /* TrabajoDto message, @Headers Map headers */)
-            throws Exception {
+            Message<TrabajoDto> message /* TrabajoDto message */ /* TrabajoDto message, @Headers Map headers */) {
         runService.runTrabajo(message.getPayload().getId());
     }
 

@@ -7,6 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaComisionHistor
 
 public interface TrabajoTiendaComisionHistoricoAsyncService {
 
-    CompletableFuture<Void> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) throws Exception;
+    CompletableFuture<Void> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto);
 
 }

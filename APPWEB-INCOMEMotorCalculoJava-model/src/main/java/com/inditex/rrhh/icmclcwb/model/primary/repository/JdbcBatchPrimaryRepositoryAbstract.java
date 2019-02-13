@@ -16,7 +16,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
     @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
-    public List<Z> saveJdbcBatchList(final List<Z> src, String sql, int batchSize) throws Exception {
+    public List<Z> saveJdbcBatchList(final List<Z> src, String sql, int batchSize) {
         for (List<Z> iter : StreamUtils.partition(src, batchSize)) {
             jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
                 @Override

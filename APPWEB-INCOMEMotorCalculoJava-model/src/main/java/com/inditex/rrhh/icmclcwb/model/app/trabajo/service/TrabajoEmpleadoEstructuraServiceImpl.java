@@ -30,7 +30,7 @@ public class TrabajoEmpleadoEstructuraServiceImpl implements TrabajoEmpleadoEstr
     private TrabajoEmpleadoEstructuraMapper trabajoEmpleadoEstructuraMapper;
     
     @Override
-    public List<TrabajoEmpleadoEstructuraDto> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoEstructura, @Valid TrabajoDto trabajo) throws Exception {
+    public List<TrabajoEmpleadoEstructuraDto> save(final List<TrabajoEmpleadoEstructuraDto> trabajoEmpleadoEstructura, @Valid TrabajoDto trabajo) {
         return trabajoEmpleadoEstructuraMapper.trabajoEmpleadoEstructuraToTrabajoEmpleadoEstructuraDto(
                 trabajoEmpleadoEstructuraRepositoryCustom.save(trabajoEmpleadoEstructuraMapper
                         .mergeTrabajoEmpleadoEstructuraDtoAndTrabajoDtoToTrabajoEmpleadoEstructura(trabajoEmpleadoEstructura,

@@ -12,6 +12,7 @@ import org.springframework.retry.annotation.Retryable;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
 import stormpot.BlazePool;
+import stormpot.PoolException;
 import stormpot.Timeout;
 
 public class Meta4ClientPoolBase {
@@ -23,19 +24,27 @@ public class Meta4ClientPoolBase {
 	private Logger log;
 
 	@Retryable
-	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) throws InterruptedException {
+	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) {
 		log.debug("Inicio :: Meta4ClientPoolBase :: pool.claim()");
-		Instant start = Instant.now();
-		Meta4ClientPoolable poolable = pool.claim(new Timeout(claimTimeout, TimeUnit.MILLISECONDS));
-		Instant end = Instant.now();
-		log.debug("Fin :: Meta4ClientPoolBase :: pool.claim(): {}", Duration.between(start, end));
-		if (poolable != null) {
-			uso(poolable);
-			logSession(poolable.getSession());
-		} else {
-			log.error("Error :: Meta4ClientPoolBase :: pool.claim() :: null");
-			throw new Meta4Exception("Session caducada (Pool)");
-		}
+		Meta4ClientPoolable poolable;
+        try {
+            Instant start = Instant.now();
+            poolable = pool.claim(new Timeout(claimTimeout, TimeUnit.MILLISECONDS));
+            Instant end = Instant.now();
+            log.debug("Meta4ClientPoolBase :: pool.claim(): {}", Duration.between(start, end));
+            if (poolable != null) {
+                uso(poolable);
+                logSession(poolable.getSession());
+            } else {
+                log.error("Error :: Meta4ClientPoolBase :: pool.claim() :: null");
+                throw new Meta4Exception("Session caducada (Pool)");
+            }
+        } catch (PoolException | InterruptedException e) {
+            String msg = "Error :: Meta4ClientPoolBase :: pool.claim()";
+            log.error(msg);
+            throw new Meta4Exception(msg, e);
+        }
+        log.debug("Fin :: Meta4ClientPoolBase :: pool.claim()");
 		return poolable;
 	}
 

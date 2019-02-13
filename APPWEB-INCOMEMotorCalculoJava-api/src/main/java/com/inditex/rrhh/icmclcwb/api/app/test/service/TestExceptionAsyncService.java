@@ -4,6 +4,6 @@ import java.util.concurrent.CompletableFuture;
 
 public interface TestExceptionAsyncService {
 
-	CompletableFuture<Void> icmclcwbException() throws Exception;
+	CompletableFuture<Void> icmclcwbException();
 
 }

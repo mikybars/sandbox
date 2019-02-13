@@ -11,6 +11,6 @@ public interface TrabajoTiendaEstadoRepositoryCustom {
 
 	List<Integer> customFindByIdTiendaNotExists(@NotEmpty Set<Integer> ids);
 
-    List<TrabajoTiendaEstado> save(List<TrabajoTiendaEstado> src) throws Exception;
+    List<TrabajoTiendaEstado> save(List<TrabajoTiendaEstado> src);
 
 }

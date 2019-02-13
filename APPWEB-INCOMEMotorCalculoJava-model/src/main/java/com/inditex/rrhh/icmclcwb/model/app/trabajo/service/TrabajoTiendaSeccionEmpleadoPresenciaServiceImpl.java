@@ -41,7 +41,7 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements Trabajo
     }
 
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciaDetalleResultItemDto> dtos, TrabajoDto trabajoDto) throws Exception {
+    public CompletableFuture<Void> save(List<PtrPresenciaDetalleResultItemDto> dtos, TrabajoDto trabajoDto) {
         List<TrabajoTiendaSeccionEmpleadoPresencia> result = mapper
                 .presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos, trabajoDto);
         trabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom.save(result);

@@ -22,7 +22,7 @@ public class TrabajoTiendaComisionHistoricoServiceImpl implements TrabajoTiendaC
     private TrabajoTiendaComisionHistoricoRepositoryCustom trabajoTiendaComisionHistoricoRepositoryCustom; 
  
     @Override
-    public List<TrabajoTiendaComisionHistoricoDto> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) throws Exception {
+    public List<TrabajoTiendaComisionHistoricoDto> save(final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) {
         return mapper.trabajoTiendaComisionHistoricoToTrabajoTiendaComisionHistoricoDto(trabajoTiendaComisionHistoricoRepositoryCustom
                 .save(mapper.trabajoTiendaComisionHistoricoDtoToTrabajoTiendaComisionHistorico(trabajoTiendaComisionHistoricoDto)));
     }

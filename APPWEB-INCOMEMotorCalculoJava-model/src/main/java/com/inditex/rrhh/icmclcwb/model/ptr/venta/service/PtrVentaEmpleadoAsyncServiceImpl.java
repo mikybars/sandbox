@@ -20,7 +20,7 @@ public class PtrVentaEmpleadoAsyncServiceImpl implements PtrVentaEmpleadoAsyncSe
     @Async
     @Override
     public CompletableFuture<PtrVentaIndividualDetalleResponseDto> getVentaIndividualDetalle(
-            final PtrVentaIndividualDetalleRequestDto request) throws Exception {
+            final PtrVentaIndividualDetalleRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaEmpleadoService.getVentaIndividualDetalle(request));
     }
 

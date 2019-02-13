@@ -173,9 +173,9 @@ public class RunTrabajoRecolectarServiceImpl implements RunTrabajoRecolectarServ
                 /*-------------------------------------------------------------*/
                 trabajoService.modifyEstadoTrabajo(trabajo, EstadoTrabajoEnum.PENDIENTE_CALCULO.getDto());
             }
-        } catch (Exception e) {
+        } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
         return runTrabajo;
     }

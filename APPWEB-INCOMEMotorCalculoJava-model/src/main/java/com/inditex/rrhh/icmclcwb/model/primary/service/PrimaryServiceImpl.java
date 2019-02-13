@@ -19,7 +19,7 @@ public class PrimaryServiceImpl implements PrimaryService {
     private PrimaryRepositoryCustom primaryRepositoryCustom;
 
     @Override
-    public Boolean loadDML() throws Exception {
+    public Boolean loadDML() {
         ArrayList<Resource> resource = new ArrayList<>();
         resource.add(new ClassPathResource("import-primary-dml.sql"));
         return primaryRepositoryCustom.load(resource);

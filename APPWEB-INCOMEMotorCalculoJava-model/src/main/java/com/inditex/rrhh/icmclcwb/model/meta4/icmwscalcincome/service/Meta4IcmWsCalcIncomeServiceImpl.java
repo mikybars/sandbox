@@ -46,7 +46,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
 	
     @Override
-    public TiendasEmpleadoResponseDto getTiendasEmpleado(TiendasEmpleadoRequestDto request) throws Exception {
+    public TiendasEmpleadoResponseDto getTiendasEmpleado(TiendasEmpleadoRequestDto request) {
         TiendasEmpleadoResponseDto result = new TiendasEmpleadoResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
@@ -70,7 +70,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     }
     
     @Override
-    public SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request) throws Exception{
+    public SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request){
     	SearchTiendasResponseDto result = new SearchTiendasResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
@@ -94,7 +94,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     }
     
     @Override
-    public TiendasResponseDto getTiendas(TiendasRequestDto request) throws Exception{
+    public TiendasResponseDto getTiendas(TiendasRequestDto request){
     	TiendasResponseDto result = new TiendasResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
@@ -118,7 +118,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     }
     
     @Override
-    public SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request) throws Exception{
+    public SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request){
     	SearchEmpleadosResponseDto result = new SearchEmpleadosResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
@@ -143,7 +143,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     }
 
     @Override
-    public ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request) throws Exception {
+    public ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request) {
     	ComisionEmpleadoResponseDto result = new ComisionEmpleadoResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1);
@@ -163,7 +163,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     
     
     @Override
-    public EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request) throws Exception{
+    public EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request){
     	EmpleadosResponseDto result = new EmpleadosResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());

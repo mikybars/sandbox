@@ -35,7 +35,7 @@ public class JmsConfig {
     }
 
     @Bean
-    public JmsListenerContainerFactory<?> containerFactoryListener(
+    public JmsListenerContainerFactory containerFactoryListener(
             @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())

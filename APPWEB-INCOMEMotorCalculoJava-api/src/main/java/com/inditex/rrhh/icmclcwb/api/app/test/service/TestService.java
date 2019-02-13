@@ -9,10 +9,10 @@ public interface TestService {
 	
 	SsoDto sso();
 	
-	void errorSync() throws Exception;
+	void errorSync();
 	
-	void errorAsync() throws Exception;
+	void errorAsync();
 	
-	void sesion() throws Exception;
+	void sesion();
 
 }

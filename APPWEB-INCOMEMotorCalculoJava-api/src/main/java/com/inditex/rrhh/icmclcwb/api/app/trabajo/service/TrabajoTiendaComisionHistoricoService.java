@@ -7,6 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaComisionHistor
 public interface TrabajoTiendaComisionHistoricoService {
 
     List<TrabajoTiendaComisionHistoricoDto> save( 
-            final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto) throws Exception;
+            final List<TrabajoTiendaComisionHistoricoDto> trabajoTiendaComisionHistoricoDto);
 
 }

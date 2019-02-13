@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaHisto
 
 public interface TrabajoTiendaHistoricoRepositoryCustom {
 
-    List<TrabajoTiendaHistorico> save(List<TrabajoTiendaHistorico> src) throws Exception;
+    List<TrabajoTiendaHistorico> save(List<TrabajoTiendaHistorico> src);
 
 }

@@ -26,7 +26,7 @@ public class TrabajoTiendaEstadoServiceImpl implements TrabajoTiendaEstadoServic
 
 	@Override
 	public List<TrabajoTiendaEstadoDto> save(final List<TrabajoTiendaEstadoDto> trabajoTiendaEstadoDto,
-			@Valid TrabajoDto trabajo) throws Exception {
+			@Valid TrabajoDto trabajo) {
 		return trabajoTiendaEstadoMapper.trabajoTiendaEstadoToTrabajoTiendaEstadoDto(trabajoTiendaEstadoRepositoryCustom
 				.save(trabajoTiendaEstadoMapper.mergeTrabajoTiendaEstadoDtoAndTrabajoDtoToTrabajoTiendaEstado(
 						trabajoTiendaEstadoDto, trabajo)));

@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,35 +44,33 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         return result;
     }
 
-    // Llegaban fechas con vacío y se controló manualmente
     @Override
     public GenericTiendaResultItemDto asGenericTiendaResultItemDto(IcmListatiendasRecord src) {
         GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(src);
-        mappedEntity.setEsComisionable(src.getEscomisionable().trim().equals("S"));
+        mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(src.getEscomisionable().trim()));
         if (StringUtils.isNotEmpty(src.getFechainicio())) {
-            mappedEntity.setFechaInicio(java.time.LocalDateTime.parse(src.getFechainicio(),
+            mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechafin())) {
-            mappedEntity.setFechaFin(java.time.LocalDateTime.parse(src.getFechafin(),
+            mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         return mappedEntity;
     }
 
-    // Llegaban fechas con vacío y se controló manualmente
     @Override
     public List<GenericTiendaResultItemDto> asGenericTiendaResultItemDtos(List<IcmListatiendasRecord> src) {
         List<GenericTiendaResultItemDto> list = new ArrayList<>();
-        for (IcmListatiendasRecord record : src) {
-            GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(record);
-            mappedEntity.setEsComisionable(record.getEscomisionable().trim().equals("S"));
-            if (StringUtils.isNotEmpty(record.getFechainicio())) {
-                mappedEntity.setFechaInicio(java.time.LocalDateTime.parse(record.getFechainicio(),
+        for (IcmListatiendasRecord item : src) {
+            GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(item);
+            mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(item.getEscomisionable().trim()));
+            if (StringUtils.isNotEmpty(item.getFechainicio())) {
+                mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
                         DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
-            if (StringUtils.isNotEmpty(record.getFechafin())) {
-                mappedEntity.setFechaFin(java.time.LocalDateTime.parse(record.getFechafin(),
+            if (StringUtils.isNotEmpty(item.getFechafin())) {
+                mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
                         DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             list.add(mappedEntity);
