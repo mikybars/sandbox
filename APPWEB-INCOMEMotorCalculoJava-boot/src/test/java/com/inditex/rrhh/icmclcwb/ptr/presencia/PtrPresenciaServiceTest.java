@@ -33,7 +33,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaT
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 
-//@Ignore
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
@@ -60,16 +60,16 @@ public class PtrPresenciaServiceTest {
     
     @Test
     public void presenciasDetalle() {
-        PtrPresenciaDetalleRequestDto req = new PtrPresenciaDetalleRequestDto();
-        req.setFechaDesde(FECHA);
-        req.setFechaHasta(FECHA);
-        req.setCadena(CADENA);
-        req.setTienda(TIENDA);
-        req.setOrigen(PAIS);
-        req.setPersona(PERSONA);
-        ResponseEntity<PtrPresenciaDetalleResponseDto> ret = ptrPresenciaClient
-                .postForEntity("/presenciasService/presenciasDetalle", req, PtrPresenciaDetalleResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+        PtrPresenciaDetalleRequestDto request = new PtrPresenciaDetalleRequestDto();
+        request.setFechaDesde(FECHA);
+        request.setFechaHasta(FECHA);
+        request.setCadena(CADENA);
+        request.setTienda(TIENDA);
+        request.setOrigen(PAIS);
+        request.setPersona(PERSONA);
+        ResponseEntity<PtrPresenciaDetalleResponseDto> response = ptrPresenciaClient
+                .postForEntity("/presenciasService/presenciasDetalle", request, PtrPresenciaDetalleResponseDto.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
     @Test
