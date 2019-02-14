@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
 
-@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })

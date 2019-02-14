@@ -35,7 +35,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadobymcc.dto.PtrVenta
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadoxml.dto.PtrVentaTotalizadoXmlRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizadoxml.dto.PtrVentaTotalizadoXmlResponseDto;
 
-@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
@@ -92,6 +91,7 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
+    @Ignore
     @Test
     public void getVentaPresupuestadaMensual(){
         //TODO: Revisar
@@ -128,6 +128,7 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
+    @Ignore
     @Test
     public void getVentaTotalizadoXML(){
         //TODO: Revisar

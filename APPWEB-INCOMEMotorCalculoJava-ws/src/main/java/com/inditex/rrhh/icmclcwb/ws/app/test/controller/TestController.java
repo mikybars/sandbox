@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.ws.app.test.controller;
 
-import java.io.UnsupportedEncodingException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
