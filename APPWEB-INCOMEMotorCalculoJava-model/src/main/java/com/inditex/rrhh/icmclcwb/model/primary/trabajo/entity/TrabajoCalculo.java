@@ -55,20 +55,16 @@ public class TrabajoCalculo {
     @Column(name = "ID_TIPO_COMISION", nullable = false)
     private /* BigInteger */ Long idTipoComision;
 
-    @NotNull
-    @Column(name = "COMISION_PORCENTAJE", nullable = false)
+    @Column(name = "COMISION_PORCENTAJE")
     private /* BigInteger */ Long comisionPorcentaje;
     
-	@NotNull
-	@Column(name = "COMISION_PORCENTAJE_SECCION_1", nullable = false)
+	@Column(name = "COMISION_PORCENTAJE_SECCION_1")
 	private /* BigInteger */ Long comisionPorcentaje1;
 
-	@NotNull
-	@Column(name = "COMISION_PORCENTAJE_SECCION_2", nullable = false)
+	@Column(name = "COMISION_PORCENTAJE_SECCION_2")
 	private /* BigInteger */ Long comisionPorcentaje2;
 
-	@NotNull
-	@Column(name = "COMISION_PORCENTAJE_SECCION_3", nullable = false)
+	@Column(name = "COMISION_PORCENTAJE_SECCION_3")
 	private /* BigInteger */ Long comisionPorcentaje3;
 
 	@NotNull
