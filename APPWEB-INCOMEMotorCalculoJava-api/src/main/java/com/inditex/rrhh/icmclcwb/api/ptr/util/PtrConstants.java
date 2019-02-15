@@ -26,5 +26,17 @@ public class PtrConstants {
     public static final String VENTA_INDIVIDUAL_TEST = "test";
     public static final String VENTA_INDIVIDUAL_VERSION = "getVersion";
     
+    
+    /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - PRESENCIAS*/
+    public static final String PRESENCIA_TOTAL_TIENDA_SECCION = "getPresenciasTotalTiendaSeccion";
+    public static final String PRESENCIA_TOTAL_TIENDA = "getPresenciasTotalTienda";
+    public static final String PRESENCIA_DETALLE= "getPresenciasDetalle";
+    public static final String PRESENCIA_DETALLE_COMISIONABLE= "getPresenciasDetalleComisionable";
+    public static final String PRESENCIA_TIPOS_HORAS = "getTiposHoras";
+    public static final String PRESENCIA_TEST = "test";
+    public static final String PRESENCIA_VERSION = "getVersion";
+
+
+    
 
 }

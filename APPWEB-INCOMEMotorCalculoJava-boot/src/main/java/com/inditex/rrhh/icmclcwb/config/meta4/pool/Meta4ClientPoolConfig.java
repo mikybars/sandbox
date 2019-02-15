@@ -1,42 +1,31 @@
 package com.inditex.rrhh.icmclcwb.config.meta4.pool;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientAbstract;
-import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientCredentials;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientFactory;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
-import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientProperties;
 
 @Configuration
 public class Meta4ClientPoolConfig {
 
+    @Autowired
+    @Qualifier("meta4ClientConfigProperties")
+    private Meta4ClientConfigProperties config;
+    
 	@Bean(name = "meta4ClientPool")
-	public Meta4ClientPool meta4ClientPool(@Value("${app.envars.meta4.config.credentials.user}") final String user,
-			@Value("${app.envars.meta4.config.credentials.password}") final String password,
-			@Value("${app.envars.meta4.config.credentials.language}") final String language,
-		    @Value("${app.envars.meta4.config.pool.size}") int size,
-		    @Value("${app.envars.meta4.config.pool.claimTimeout}") long claimTimeout,
+	public Meta4ClientPool meta4ClientPool(
 			@Qualifier("meta4LoginClientFactory") final Meta4ClientAbstract<LoginService> meta4LoginClientFactory,
 			@Qualifier("meta4IcmWsCalcIncomeClientFactory") final Meta4ClientAbstract<IcmWsCalcIncomeService> meta4IcmWsCalcIncomeClientFactory) {
 
-		Meta4ClientCredentials meta4ClientCredentials = new Meta4ClientCredentials();
-		meta4ClientCredentials.setUser(user);
-		meta4ClientCredentials.setPassword(password);
-		meta4ClientCredentials.setLanguage(language);
-		
-		Meta4ClientProperties meta4ClientProperties = new Meta4ClientProperties();
-		meta4ClientProperties.setSize(size);
-		meta4ClientProperties.setClaimTimeout(claimTimeout);
-
 		Meta4ClientFactory meta4ClientFactory = new Meta4ClientFactory();
-		meta4ClientFactory.setMeta4ClientCredentials(meta4ClientCredentials);
-		meta4ClientFactory.setMeta4ClientProperties(meta4ClientProperties);
+		meta4ClientFactory.setMeta4ClientCredentials(config.getCredentials());
+		meta4ClientFactory.setMeta4ClientProperties(config.getPool());
 		meta4ClientFactory.setLoginServiceFactory(meta4LoginClientFactory);
 		meta4ClientFactory.setIcmWsCalcIncomeServiceFactory(meta4IcmWsCalcIncomeClientFactory);
 

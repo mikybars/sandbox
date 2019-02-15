@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,6 +30,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
     @Qualifier("ventaEmpleadoProperties")
     private Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public PtrVentaIndividualDetalleResponseDto getVentaIndividualDetalle(
             @Valid final PtrVentaIndividualDetalleRequestDto request) {

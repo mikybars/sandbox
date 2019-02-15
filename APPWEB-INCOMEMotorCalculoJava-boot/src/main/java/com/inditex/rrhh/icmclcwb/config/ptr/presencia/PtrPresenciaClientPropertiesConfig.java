@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.config.ptr.presencia;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,32 +16,20 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "app.envars.ptr.presencia.service")
 public class PtrPresenciaClientPropertiesConfig {
 
-    private PtrPropertiesDto getPresenciasTotalTiendaSeccion;
 
-    private PtrPropertiesDto getPresenciasDetalle;
-    
-    private PtrPropertiesDto getPresenciasDetalleComisionable;
+    private Map<String, PtrPropertiesDto> presenciasService = new HashMap<>();
+    private Map<String, PtrPropertiesDto> horasService = new HashMap<>();
+    private String version;
 
-    private PtrPropertiesDto getTiposHoras;
 
-    @Bean(name = "presenciasTotalTiendaSeccionDto")
-    public PtrPropertiesDto getPresenciasTotalTiendaSeccion() {
-        return getPresenciasTotalTiendaSeccion;
+    @Bean(name = "presenciasProperties")
+    public Map<String, PtrPropertiesDto> ptrPresenciasProperties() {
+        return presenciasService;
     }
 
-    @Bean(name = "presenciasDetalleDto")
-    public PtrPropertiesDto getPresenciasDetalle() {
-        return getPresenciasDetalle;
-    }
-    
-    @Bean(name = "presenciasDetalleComisionableDto")
-    public PtrPropertiesDto getPresenciasDetalleComisionable() {
-        return getPresenciasDetalleComisionable;
-    }
-
-    @Bean(name = "tiposHorasDto")
-    public PtrPropertiesDto getTiposHoras() {
-        return getTiposHoras;
+    @Bean(name = "presenciasVersion")
+    public String ptrPresenciasVersion() {
+        return version;
     }
 
 }

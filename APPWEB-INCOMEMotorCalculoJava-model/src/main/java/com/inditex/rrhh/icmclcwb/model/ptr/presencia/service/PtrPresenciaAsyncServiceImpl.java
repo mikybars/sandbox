@@ -50,5 +50,17 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
             final PtrPresenciaTiposHorasRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.getTiposHorasDto(request));
     }
+    
+    @Async
+    @Override
+    public CompletableFuture<String> getVersion() {
+        return CompletableFuture.completedFuture(ptrPresenciaService.getVersion());
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<String> test() {
+        return CompletableFuture.completedFuture(ptrPresenciaService.test());
+    }
 
 }

@@ -24,4 +24,8 @@ public interface PtrPresenciaAsyncService {
     CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> getPresenciasDetalleComisionableDto(
             PtrPresenciaDetalleComisionableRequestDto request);
 
+    CompletableFuture<String> getVersion();
+
+    CompletableFuture<String> test();
+
 }

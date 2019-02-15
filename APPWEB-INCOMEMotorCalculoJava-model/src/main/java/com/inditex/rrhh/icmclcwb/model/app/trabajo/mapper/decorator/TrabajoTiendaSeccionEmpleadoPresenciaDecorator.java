@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaSeccionEmpleadoPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaSeccionEmpleadoPresencia;
 
@@ -27,5 +28,16 @@ public abstract class TrabajoTiendaSeccionEmpleadoPresenciaDecorator
 		return dtoList;
 	}
 	
+	@Override
+    public List<TrabajoTiendaSeccionEmpleadoPresencia> presenciasDetalleComisionableResponsesDtoToTrabajoTiendaSeccionVentas(
+            List<PtrPresenciaDetalleComisionableResultItemDto> src, TrabajoDto trabajoDto) {
+        List<TrabajoTiendaSeccionEmpleadoPresencia> dtoList = new ArrayList<>();
+        for (PtrPresenciaDetalleComisionableResultItemDto childDto : src) {
+            TrabajoTiendaSeccionEmpleadoPresencia dto = delegate.presenciasDetalleComisionableResponseDtoToTrabajoTiendaSeccionVenta(childDto, trabajoDto);
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+	}
 	
 }

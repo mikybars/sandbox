@@ -17,11 +17,8 @@ import lombok.Data;
 public class PtrVentaClientPropertiesConfig {
 
     private Map<String, PtrPropertiesDto> ventaGeneral = new HashMap<>();
-    
     private Map<String, PtrPropertiesDto> ventaEmpleado = new HashMap<>();
-    
     private Map<String, PtrPropertiesDto> ventaEcommerce = new HashMap<>();
-    
     private String version;
 
     

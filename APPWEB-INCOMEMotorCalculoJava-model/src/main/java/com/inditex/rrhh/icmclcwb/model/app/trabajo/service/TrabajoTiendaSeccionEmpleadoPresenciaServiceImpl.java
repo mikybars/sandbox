@@ -13,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoTiendaSeccionEmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaSeccionEmpleadoPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoTiendaSeccionEmpleadoPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaSeccionEmpleadoPresencia;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoTiendaSeccionEmpleadoPresenciaRepository;
@@ -41,11 +41,13 @@ public class TrabajoTiendaSeccionEmpleadoPresenciaServiceImpl implements Trabajo
     }
 
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciaDetalleResultItemDto> dtos, TrabajoDto trabajoDto) {
+    public CompletableFuture<Void> save(List<PtrPresenciaDetalleComisionableResultItemDto> dtos, TrabajoDto trabajoDto) {
         List<TrabajoTiendaSeccionEmpleadoPresencia> result = mapper
-                .presenciasDetalleResponsesDtoToTrabajoTiendaSeccionVentas(dtos, trabajoDto);
+                .presenciasDetalleComisionableResponsesDtoToTrabajoTiendaSeccionVentas(dtos, trabajoDto);
         trabajoTiendaSeccionEmpleadoPresenciaRepositoryCustom.save(result);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    
 
 }

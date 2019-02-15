@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -39,6 +40,7 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     @Qualifier("ventaGeneralProperties")
     private Map<String, PtrPropertiesDto> ventaGeneralProperties;
 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public PtrVentaTotalizadoResponseDto getVentaTotalizado(@Valid final PtrVentaTotalizadoRequestDto request) {
         return RestUtils.checkResponse(
@@ -47,6 +49,7 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request);
     }
 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public PtrVentaMensualResponseDto getVentaMensual(@Valid final PtrVentaMensualRequestDto request) {
         return RestUtils.checkResponse(
@@ -55,6 +58,7 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_MENSUAL).getEndpoint(), request);
     }
 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public PtrVentaDiariaResponseDto getVentaDiaria(@Valid final PtrVentaDiariaRequestDto request) {
         return RestUtils.checkResponse(
@@ -64,6 +68,7 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     }
 
     // TODO Validar como gestiona la respuesta en xml
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public PtrVentaTotalizadoXmlResponseDto getVentaTotalizadoXML(
             @Valid final PtrVentaTotalizadoXmlRequestDto request) {
@@ -74,6 +79,7 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request);
     }
 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public PtrVentaTotalizadoByMccResponseDto getVentaTotalizadoByMcc(
             @Valid final PtrVentaTotalizadoByMccRequestDto request) {
@@ -84,7 +90,8 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(),
                 request);
     }
-
+ 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public PtrVentaPresupuestadaMensualResponseDto getVentaPresupuestadaMensual(
             @Valid final PtrVentaPresupuestadaMensualRequestDto request) {
@@ -96,6 +103,7 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
                 request);
     }
 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public String test() {
         return RestUtils.checkResponse(
@@ -104,6 +112,7 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
                 ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_TEST).getEndpoint(), null);
     }
 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
     public String getVersion() {
         return RestUtils.checkResponse(

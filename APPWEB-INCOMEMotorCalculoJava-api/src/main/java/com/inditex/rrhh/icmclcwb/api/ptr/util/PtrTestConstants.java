@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.ptr.util;
 import java.util.Arrays;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
+
 public class PtrTestConstants {
 
     private PtrTestConstants() {
@@ -17,9 +19,25 @@ public class PtrTestConstants {
     public static final Integer CADENA = 1;
 
     public static final Integer ID_TIENDA = 57;
+    
+    public static final List<Integer> ID_TIENDA_LIST = Arrays.asList(57);
 
     public static final List<Integer> ID_TIPO_SECCION = Arrays.asList(1);
 
     public static final Integer ID_EJERCICIO = 1;
+    
+    public static final List<Integer> PERSONA = Arrays.asList(1645, 1000);
+    
+    public static final Integer TIPO = 1;
+    
+    public static final Integer SECCION = 1;
+    
+    public static final PtrPresenciaTiendaSeccionDto TIENDA_SECCION_1 = new PtrPresenciaTiendaSeccionDto(2, null);
+    
+    public static final PtrPresenciaTiendaSeccionDto TIENDA_SECCION_2 = new PtrPresenciaTiendaSeccionDto(150, null);
+
+    
+    
+
 
 }

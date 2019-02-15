@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoTiendaSeccionPresencia;
 
@@ -19,8 +21,8 @@ public class TrabajoTiendaSeccionPresenciaRepositoryCustomImpl extends JdbcBatch
         implements TrabajoTiendaSeccionPresenciaRepositoryCustom {
     
     @Autowired
-    @Qualifier("presenciasTotalTiendaSeccionDto")
-    private PtrPropertiesDto presenciasTotalTiendaSeccionDto;
+    @Qualifier("presenciasProperties")
+    private Map<String, PtrPropertiesDto> presenciasProperties;
     
     @Autowired
     @Qualifier("primaryQuery")
@@ -28,7 +30,7 @@ public class TrabajoTiendaSeccionPresenciaRepositoryCustomImpl extends JdbcBatch
     
     @Override
     public List<TrabajoTiendaSeccionPresencia> save(final List<TrabajoTiendaSeccionPresencia> src) {
-        return saveJdbcBatchList(src, query.getProperty("TrabajoTiendaSeccionPresenciaRepositoryCustom.save"), presenciasTotalTiendaSeccionDto.getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, query.getProperty("TrabajoTiendaSeccionPresenciaRepositoryCustom.save"), presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getFilter().getMaxBatchSize());
     }
 
     @Override
