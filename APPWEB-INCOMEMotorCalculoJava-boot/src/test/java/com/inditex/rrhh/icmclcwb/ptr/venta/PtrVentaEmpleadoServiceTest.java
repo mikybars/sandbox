@@ -48,7 +48,7 @@ public class PtrVentaEmpleadoServiceTest  {
     private String version;
 
     @Test
-    public void getVentaIndividualDetalle() {
+    public void ventaIndividualDetalle() {
         PtrVentaIndividualDetalleRequestDto request = new PtrVentaIndividualDetalleRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
@@ -60,7 +60,7 @@ public class PtrVentaEmpleadoServiceTest  {
     }
     
     @Test
-    public void getVentaIndividualDetalleByMcc() {
+    public void ventaIndividualDetalleByMcc() {
         PtrVentaIndividualDetalleByMccRequestDto request = new PtrVentaIndividualDetalleByMccRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
@@ -72,7 +72,7 @@ public class PtrVentaEmpleadoServiceTest  {
     }
     
     @Test
-    public void getVentaIndividual() {
+    public void ventaIndividual() {
         PtrVentaIndividualRequestDto request = new PtrVentaIndividualRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
@@ -84,7 +84,7 @@ public class PtrVentaEmpleadoServiceTest  {
     }
     
     @Test
-    public void getVentaIndividualByMcc() {
+    public void ventaIndividualByMcc() {
         PtrVentaIndividualByMccRequestDto request = new PtrVentaIndividualByMccRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);

@@ -54,7 +54,7 @@ public class PtrVentaGeneralServiceTest  {
     private String version;
     
     @Test
-    public void getVentaTotalizado() {
+    public void ventaTotalizado() {
         PtrVentaTotalizadoRequestDto request = new PtrVentaTotalizadoRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
@@ -67,7 +67,7 @@ public class PtrVentaGeneralServiceTest  {
     }
    
     @Test
-    public void getVentaDiaria() {
+    public void ventaDiaria() {
         PtrVentaDiariaRequestDto request = new PtrVentaDiariaRequestDto(); 
         request.setFechaFin(PtrTestConstants.FECHA_HASTA);
         request.setFechaInicio(PtrTestConstants.FECHA_DESDE);
@@ -80,7 +80,7 @@ public class PtrVentaGeneralServiceTest  {
     }
     
     @Test
-    public void getVentaMensual() {
+    public void ventaMensual() {
         PtrVentaMensualRequestDto request = new PtrVentaMensualRequestDto(); 
         request.setIdTienda(PtrTestConstants.ID_TIENDA);
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
@@ -93,7 +93,7 @@ public class PtrVentaGeneralServiceTest  {
 
     @Ignore
     @Test
-    public void getVentaPresupuestadaMensual(){
+    public void ventaPresupuestadaMensual(){
         //TODO: Revisar
         /*
          * 
@@ -117,7 +117,7 @@ public class PtrVentaGeneralServiceTest  {
     }
     
     @Test
-    public void getVentaTotalizadoByMcc(){
+    public void ventaTotalizadoByMcc(){
         PtrVentaTotalizadoByMccRequestDto request = new PtrVentaTotalizadoByMccRequestDto(); 
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
@@ -130,7 +130,7 @@ public class PtrVentaGeneralServiceTest  {
     
     @Ignore
     @Test
-    public void getVentaTotalizadoXML(){
+    public void ventaTotalizadoXML(){
         //TODO: Revisar
         PtrVentaTotalizadoXmlRequestDto request = new PtrVentaTotalizadoXmlRequestDto(); 
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
@@ -143,7 +143,7 @@ public class PtrVentaGeneralServiceTest  {
     }
     
     @Test
-    public void test() {
+    public void test() { 
         ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
                 ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_TEST).getEndpoint(), Boolean.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
@@ -151,7 +151,7 @@ public class PtrVentaGeneralServiceTest  {
     }
     
     @Test
-    public void getVersion() {
+    public void version() {
         ResponseEntity<String> response = ptrVentaClient.getForEntity(
                 ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_VERSION).getEndpoint(), String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());

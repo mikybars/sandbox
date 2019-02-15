@@ -128,7 +128,7 @@ public class PtrPresenciaServiceTest {
     }
     
     @Test
-    public void getVersion() {
+    public void version() {
         ResponseEntity<String> response = ptrPresenciaClient.getForEntity(
                 presenciasProperties.get(PtrConstants.PRESENCIA_VERSION).getEndpoint(), String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
