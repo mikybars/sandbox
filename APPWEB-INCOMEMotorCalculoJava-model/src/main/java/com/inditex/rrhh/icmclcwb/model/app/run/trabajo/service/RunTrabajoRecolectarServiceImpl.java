@@ -21,12 +21,12 @@ import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoRecolecta
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoRecolectarPtrVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoEmpleadoEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoPivotAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoTiendaEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service

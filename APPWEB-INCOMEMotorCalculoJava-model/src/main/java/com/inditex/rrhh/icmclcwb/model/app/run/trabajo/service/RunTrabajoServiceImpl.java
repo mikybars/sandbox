@@ -15,8 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoCalcularS
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoConsolidarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 
 @Service
 @Validated
@@ -40,7 +40,6 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
     @Override
     public RunTrabajoDto run(@NotNull @Valid final RunTrabajoDto runTrabajo) {
         try {
-            //runTrabajoRecolectarService.runNew(runTrabajo);
             runTrabajoRecolectarService.run(runTrabajo);
             runTrabajoCalcularService.run(runTrabajo);
             runTrabajoConsolidarService.run(runTrabajo);

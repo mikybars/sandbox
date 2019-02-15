@@ -23,6 +23,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TrabajoAuditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoRecolectarBloqueDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.TipoTrabajoTiendaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoEmpleadoEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoEmpleadoHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoTiendaComisionHistoricoAsyncService;
@@ -254,7 +255,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
 
                     runTrabajoRecolectarBloque.getTienda()
                             .addAll(trabajoTiendaEstadoMapper.genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(
-                                    dataSearchTiendas, AppConstants.TipoTrabajoTiendaEnum.INICIAL.getDto()));
+                                    dataSearchTiendas, TipoTrabajoTiendaEnum.INICIAL.getDto()));
                 }
                 hasNext = searchTiendasRequest.nextPage();
             } while (hasNext);
@@ -325,7 +326,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
 
                             runTrabajoRecolectarBloque.getTienda().addAll(
                                     trabajoTiendaEstadoMapper.genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(data,
-                                            AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
+                                            TipoTrabajoTiendaEnum.PRESENCIA.getDto()));
                         }
                     }
                     hasNextTienda = searchTiendasRequest.nextPage();
@@ -430,7 +431,7 @@ public class TrabajoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Trabajo
                                 runTrabajoRecolectarBloque.getTienda()
                                         .addAll(trabajoTiendaEstadoMapper
                                                 .genericTiendaResultItemDtoToTrabajoTiendaEstadoDto(data,
-                                                        AppConstants.TipoTrabajoTiendaEnum.HISTORICO.getDto()));
+                                                        TipoTrabajoTiendaEnum.HISTORICO.getDto()));
                             }
                             hasNextTienda = searchTiendasRequest.nextPage();
                         } while (hasNextTienda);

@@ -15,12 +15,12 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.ms.SenderTrabajo;
@@ -47,7 +47,7 @@ public class TrabajoServiceImpl implements TrabajoService {
     @Override
     public TrabajoDto createTrabajo(@Valid final TrabajoDto trabajo) {
         trabajo.setFechaCreacion(LocalDateTime.now());
-        trabajo.setEstado(AppConstants.EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
+        trabajo.setEstado(EstadoTrabajoEnum.PENDIENTE_DATOS.getDto());
         if (StringUtils.isBlank(trabajo.getIdUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUsername())) {

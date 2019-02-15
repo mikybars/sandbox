@@ -20,9 +20,9 @@ public enum AlgoritmoEnum {
 
     private final List<Long> tipoCalculo;
 
-    public static AlgoritmoEnum of(Long idTipoCalculo) {
+    public static AlgoritmoEnum of(Long id) {
         return Arrays.stream(values())
-                .filter(item -> item.status.equals(Boolean.TRUE) && item.getTipoCalculo().contains(idTipoCalculo))
+                .filter(item -> Boolean.TRUE.equals(item.status) && item.getTipoCalculo().contains(id))
                 .findAny().orElseGet(() -> null);
     }
 

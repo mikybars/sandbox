@@ -16,12 +16,12 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.AlgoritmoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEmpleadoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoEmpleadoEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEmpleadoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.AlgoritmoFactory;
 
 import reactor.core.publisher.Flux;

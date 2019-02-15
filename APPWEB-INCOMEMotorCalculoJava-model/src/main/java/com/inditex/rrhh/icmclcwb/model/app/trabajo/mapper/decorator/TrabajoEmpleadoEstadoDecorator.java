@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoEmpleadoEstadoDto;
@@ -30,7 +31,7 @@ public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEsta
 			List<GenericEmpleadoResultItemDto> src, TrabajoDto trabajo) {
 		List<TrabajoEmpleadoEstadoDto> dtoList = new ArrayList<>();
 		EstadoTrabajoEmpleadoDto estado = new EstadoTrabajoEmpleadoDto();
-		estado.setId(AppConstants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
+		estado.setId(EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
 		for (GenericEmpleadoResultItemDto childDto : src) {
 			TrabajoEmpleadoEstadoDto dto = delegate.genericEmpleadoResultItemDtoToTrabajoEmpleadoEstadoDto(childDto,
 					trabajo);
@@ -54,7 +55,7 @@ public abstract class TrabajoEmpleadoEstadoDecorator extends TrabajoEmpleadoEsta
 		List<TrabajoEmpleadoEstado> result = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(srcTrabajoEmpleadoEstadoDto)) {
 			EstadoTrabajoEmpleado estado = new EstadoTrabajoEmpleado();
-			estado.setId(AppConstants.EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
+			estado.setId(EstadoTrabajoEmpleadoEnum.PENDIENTE.getId());
 			srcTrabajoEmpleadoEstadoDto.stream().forEach(item -> {
 				TrabajoEmpleadoEstado trabajoEmpleadoEstado = delegate
 						.mergeTrabajoEmpleadoEstadoDtoAndTrabajoDtoToTrabajoEmpleadoEstado(item, srcTrabajoDto);
