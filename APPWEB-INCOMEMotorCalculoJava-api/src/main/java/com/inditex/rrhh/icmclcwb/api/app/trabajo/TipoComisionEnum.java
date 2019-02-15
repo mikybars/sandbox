@@ -1,0 +1,15 @@
+package com.inditex.rrhh.icmclcwb.api.app.trabajo;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum TipoComisionEnum {
+
+    COMISION("001"), RESALTA_FUNCION("002"), RESALTA_PERSONAL("003"), RESALTA_TIENDA("004"), INCENTIVO("005"),
+    COMISION_POR_TOPES("006"), MANUAL("007"), COMISION_DIARIA("008"), PRIMA("009");
+
+    private final String id;
+
+}
