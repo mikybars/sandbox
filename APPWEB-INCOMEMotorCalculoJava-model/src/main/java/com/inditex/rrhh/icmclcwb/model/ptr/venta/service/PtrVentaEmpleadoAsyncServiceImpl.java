@@ -7,9 +7,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEmpleadoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEmpleadoService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
 
 @Service
 public class PtrVentaEmpleadoAsyncServiceImpl implements PtrVentaEmpleadoAsyncService {
@@ -21,7 +21,7 @@ public class PtrVentaEmpleadoAsyncServiceImpl implements PtrVentaEmpleadoAsyncSe
     @Override
     public CompletableFuture<PtrVentaIndividualDetalleResponseDto> getVentaIndividualDetalle(
             final PtrVentaIndividualDetalleRequestDto request) {
-        return CompletableFuture.completedFuture(ptrVentaEmpleadoService.getVentaIndividualDetalle(request));
+        return CompletableFuture.completedFuture(ptrVentaEmpleadoService.ventaIndividualDetalle(request));
     }
 
 

@@ -13,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.async.service.TrabajoTiendaSecc
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoTiendaSeccionVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventatotalizado.dto.PtrVentaTotalizadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 
 @Service
 public class TrabajoTiendaSeccionVentaAsyncServiceImpl implements TrabajoTiendaSeccionVentaAsyncService {

@@ -27,34 +27,34 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
     @Override
     public CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
             final PtrPresenciaTotalTiendaSeccionRequestDto request) {
-        return CompletableFuture.completedFuture(ptrPresenciaService.getPresenciasTotalTiendaSeccionDto(request));
+        return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTotalTiendaSeccion(request));
     }
 
     @Async
     @Override
     public CompletableFuture<PtrPresenciaDetalleResponseDto> getPresenciasDetalleDto(
             final PtrPresenciaDetalleRequestDto request) {
-        return CompletableFuture.completedFuture(ptrPresenciaService.getPresenciasDetalleDto(request));
+        return CompletableFuture.completedFuture(ptrPresenciaService.presenciasDetalle(request));
     }
 
     @Async
     @Override
     public CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> getPresenciasDetalleComisionableDto(
             final PtrPresenciaDetalleComisionableRequestDto request) {
-        return CompletableFuture.completedFuture(ptrPresenciaService.getPresenciasDetalleComisionableDto(request));
+        return CompletableFuture.completedFuture(ptrPresenciaService.presenciasDetalleComisionable(request));
     }
 
     @Async
     @Override
     public CompletableFuture<PtrPresenciaTiposHorasResponseDto> getTiposHoras(
             final PtrPresenciaTiposHorasRequestDto request) {
-        return CompletableFuture.completedFuture(ptrPresenciaService.getTiposHorasDto(request));
+        return CompletableFuture.completedFuture(ptrPresenciaService.tiposHoras(request));
     }
     
     @Async
     @Override
     public CompletableFuture<String> getVersion() {
-        return CompletableFuture.completedFuture(ptrPresenciaService.getVersion());
+        return CompletableFuture.completedFuture(ptrPresenciaService.version());
     }
     
     @Async

@@ -40,7 +40,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
-    public PtrPresenciaTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
+    public PtrPresenciaTotalTiendaSeccionResponseDto presenciasTotalTiendaSeccion(
             @Valid final PtrPresenciaTotalTiendaSeccionRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getEndpoint(), request,
@@ -50,7 +50,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
-    public PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(@Valid final PtrPresenciaDetalleRequestDto request) {
+    public PtrPresenciaDetalleResponseDto presenciasDetalle(@Valid final PtrPresenciaDetalleRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE).getEndpoint(), request,
                         PtrPresenciaDetalleResponseDto.class),
@@ -59,7 +59,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
-    public PtrPresenciaDetalleComisionableResponseDto getPresenciasDetalleComisionableDto(
+    public PtrPresenciaDetalleComisionableResponseDto presenciasDetalleComisionable(
             @Valid final PtrPresenciaDetalleComisionableRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(), request,
@@ -69,7 +69,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
-    public PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid final PtrPresenciaTiposHorasRequestDto request) {
+    public PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid final PtrPresenciaTiposHorasRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request, 
                         PtrPresenciaTiposHorasResponseDto.class),
@@ -78,7 +78,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
-    public PtrPresenciaTotalTiendaResponseDto getPresenciasTotalTiendaDto(
+    public PtrPresenciaTotalTiendaResponseDto presenciasTotalTienda(
             @Valid final PtrPresenciaTotalTiendaRequestDto request) {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), request,
@@ -97,7 +97,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
-    public String getVersion() {
+    public String version() {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.getForEntity(
                         presenciasProperties.get(PtrConstants.PRESENCIA_VERSION).getEndpoint(), String.class),

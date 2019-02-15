@@ -15,20 +15,20 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 
 public interface PtrPresenciaService {
 
-    PtrPresenciaTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
+    PtrPresenciaTotalTiendaSeccionResponseDto presenciasTotalTiendaSeccion(
             @Valid final PtrPresenciaTotalTiendaSeccionRequestDto request);
 
-    PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(@Valid final PtrPresenciaDetalleRequestDto request);
+    PtrPresenciaDetalleResponseDto presenciasDetalle(@Valid final PtrPresenciaDetalleRequestDto request);
 
-    PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid final PtrPresenciaTiposHorasRequestDto request);
+    PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid final PtrPresenciaTiposHorasRequestDto request);
 
-    PtrPresenciaDetalleComisionableResponseDto getPresenciasDetalleComisionableDto(
+    PtrPresenciaDetalleComisionableResponseDto presenciasDetalleComisionable(
             @Valid PtrPresenciaDetalleComisionableRequestDto request);
 
-    PtrPresenciaTotalTiendaResponseDto getPresenciasTotalTiendaDto(@Valid PtrPresenciaTotalTiendaRequestDto request);
+    PtrPresenciaTotalTiendaResponseDto presenciasTotalTienda(@Valid PtrPresenciaTotalTiendaRequestDto request);
 
     String test();
 
-    String getVersion();
+    String version();
 
 }

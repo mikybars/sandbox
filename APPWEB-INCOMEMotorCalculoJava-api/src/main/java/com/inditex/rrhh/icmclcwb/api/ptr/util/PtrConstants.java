@@ -23,8 +23,8 @@ public class PtrConstants {
     public static final String VENTA_INDIVIDUAL_DETALLE_BY_MCC = "getVentaIndividualDetalleByMCC";
     public static final String VENTA_INDIVIDUAL = "getVentaIndividual";
     public static final String VENTA_INDIVIDUAL_BY_MCC = "getVentaIndividualByMCC";
-    public static final String VENTA_INDIVIDUAL_TEST = "test";
-    public static final String VENTA_INDIVIDUAL_VERSION = "getVersion";
+    public static final String VENTA_EMPLEADO_TEST = "test";
+    public static final String VENTA_EMPLEADO_VERSION = "getVersion";
     
     
     /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - PRESENCIAS*/

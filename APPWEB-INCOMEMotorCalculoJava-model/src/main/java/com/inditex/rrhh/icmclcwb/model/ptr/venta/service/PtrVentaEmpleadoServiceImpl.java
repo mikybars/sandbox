@@ -13,9 +13,15 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individual.dto.PtrVentaIndividualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individual.dto.PtrVentaIndividualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetallemcc.dto.PtrVentaIndividualDetalleByMccRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetallemcc.dto.PtrVentaIndividualDetalleByMccResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualmcc.dto.PtrVentaIndividualByMccRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualmcc.dto.PtrVentaIndividualByMccResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEmpleadoService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ventaindividual.dto.PtrVentaIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
 @Service
@@ -32,7 +38,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
     @Override
-    public PtrVentaIndividualDetalleResponseDto getVentaIndividualDetalle(
+    public PtrVentaIndividualDetalleResponseDto ventaIndividualDetalle(
             @Valid final PtrVentaIndividualDetalleRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
@@ -40,5 +46,59 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
                         PtrVentaIndividualDetalleResponseDto.class),
                 ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(),
                 request);
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Override
+    public PtrVentaIndividualDetalleByMccResponseDto ventaIndividualDetalleByMcc(
+            @Valid final PtrVentaIndividualDetalleByMccRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrVentaClient.postForEntity(
+                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(), request,
+                        PtrVentaIndividualDetalleByMccResponseDto.class),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(),
+                request);
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Override
+    public PtrVentaIndividualResponseDto ventaIndividual(
+            @Valid final PtrVentaIndividualRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrVentaClient.postForEntity(
+                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL).getEndpoint(), request,
+                        PtrVentaIndividualResponseDto.class),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL).getEndpoint(),
+                request);
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Override
+    public PtrVentaIndividualByMccResponseDto ventaIndividualByMCC(
+            @Valid final PtrVentaIndividualByMccRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrVentaClient.postForEntity(
+                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(), request,
+                        PtrVentaIndividualByMccResponseDto.class),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(),
+                request);
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Override
+    public String test() {
+        return RestUtils.checkResponse(
+                ptrVentaClient.getForEntity(ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_TEST).getEndpoint(),
+                        String.class),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_TEST).getEndpoint(), null);
+    }
+
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Override
+    public String version() {
+        return RestUtils.checkResponse(
+                ptrVentaClient.getForEntity(
+                        ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_VERSION).getEndpoint(), String.class),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_VERSION).getEndpoint(), null);
     }
 }
