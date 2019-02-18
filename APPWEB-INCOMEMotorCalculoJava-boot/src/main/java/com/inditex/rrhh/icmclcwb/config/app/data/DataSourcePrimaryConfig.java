@@ -43,7 +43,7 @@ public class DataSourcePrimaryConfig {
             @Qualifier("primaryDataSource") final DataSource dataSource) {
         return entityManagerFactoryBuilder.dataSource(dataSource).persistenceUnit("primaryPersistenceUnit")
                 .packages("com.inditex.rrhh.icmclcwb.model.primary.programacion.entity",
-                        "com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity")
+                        "com.inditex.rrhh.icmclcwb.model.primary.tarea.entity")
                 .properties(hibernateProperties).jta(true).build();
     }
 

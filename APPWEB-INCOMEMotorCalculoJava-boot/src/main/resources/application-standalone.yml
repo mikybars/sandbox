@@ -35,8 +35,8 @@ amiga:
           base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
   service:
     jms:
-      trabajo-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
+      tarea-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
         concurrency: 10-20
     session:
       session-type: EMBEDDED
@@ -58,8 +58,8 @@ amiga:
           userName: root
           password: V3ct0r1nd1t3x
       client:
-        trabajo:
-          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
+        tarea:
+          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
           receiveTimeout: 100
           pubSubDomain: false
     jdbc:
@@ -75,10 +75,11 @@ amiga:
           password: aMJLp8ahF09w
     hibernate:
       primary:
+        #properties: '{''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
 app:
   envars:
-    trabajo:
+    tarea:
       calcular:
         algoritmo:
           getConfig:
@@ -161,7 +162,7 @@ app:
               endpoint: /ventaGeneral/getVersion
       presencia: 
         service:
-          version: 1.0.3
+          version: 1.0.4
           presenciasService:
             getPresenciasTotalTiendaSeccion:
               endpoint: /presenciasService/presenciasTotalTiendaSeccion

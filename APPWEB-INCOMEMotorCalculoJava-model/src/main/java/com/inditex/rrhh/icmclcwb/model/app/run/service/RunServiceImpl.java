@@ -7,24 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
-import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 
 @Service
 @Validated
 public class RunServiceImpl implements RunService {
 
     @Autowired
-    private RunTrabajoService trabajoRunService;
+    private RunTareaService tareaRunService;
 
     @Autowired
-    private TrabajoService trabajoService;
+    private TareaService tareaService;
 
     @Override
-    public RunTrabajoDto runTrabajo(@NotNull @Positive final Long id) {
-        return trabajoRunService.run(RunTrabajoDto.builder().trabajoDto(trabajoService.findTrabajo(id)).build());
+    public RunTareaDto runTarea(@NotNull @Positive final Long id) {
+        return tareaRunService.run(RunTareaDto.builder().tarea(tareaService.findTarea(id)).build());
     }
 
 }

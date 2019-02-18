@@ -1,0 +1,17 @@
+package com.inditex.rrhh.icmclcwb.api.app.tarea;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum TipoCalculoEnum {
+
+    NINGUNO("000"), GLOBAL_TIENDA("001"), GLOBAL_SECCION("002"), DIRECTO_SOBRE_VENTA("003"),
+    DIRECTO_SOBRE_VENTA_CON_PRESENCIA("004"), DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA("005"),
+    DIRECTO_SOBRE_VENTA_CON_PRESENCIA_Y_REDUCCION_DE_JORNADA("006"), POR_VENTA("007"), POR_VENTA_SIMPLIFICADA("008"),
+    POR_VENTA_INDIVIDUAL("009");
+
+    private final String id;
+
+}

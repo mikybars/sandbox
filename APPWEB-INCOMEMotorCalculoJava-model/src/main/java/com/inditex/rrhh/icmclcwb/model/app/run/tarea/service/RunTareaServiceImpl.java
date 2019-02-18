@@ -1,0 +1,53 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
+import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTareaAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
+
+@Service
+@Validated
+public class RunTareaServiceImpl implements RunTareaService {
+
+    @Autowired
+    private TareaService tareaService;
+    
+    @Autowired
+    private RunTareaRecolectarService runTareaRecolectarService;
+
+    @Autowired
+    private RunTareaCalcularService runTareaCalcularService;
+    
+    @Autowired
+    private RunTareaConsolidarService runTareaConsolidarService;
+
+    @CounterMetric
+    @TimerMetric
+    @RunTareaAuditoria
+    @Override
+    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+        try {
+            runTareaRecolectarService.run(runTarea);
+            runTareaCalcularService.run(runTarea);
+            runTareaConsolidarService.run(runTarea);
+        } catch (Exception e) {
+            tareaService.modifyEstadoTareaFinal(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+        return runTarea;
+    }
+
+}

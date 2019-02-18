@@ -12,11 +12,11 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
-import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
 
 @Service
@@ -33,17 +33,17 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     private ProgramacionMapper programacionMapper;
 
     @Autowired
-    private TrabajoService trabajoService;
+    private TareaService tareaService;
 
     @Autowired
-    private TrabajoMapper trabajoMapper;
+    private TareaMapper tareaMapper;
 
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Override
-    public List<TrabajoDto> run() {
-        List<TrabajoDto> result = new ArrayList<>();
+    public List<TareaDto> run() {
+        List<TareaDto> result = new ArrayList<>();
         programacionMapper
                 .programacionToProgramacionDto(
                         programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
@@ -52,10 +52,10 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                     programacion.setFechaSiguienteEjecucion(programacionService.fechaSiguienteEjecucion(programacion));
                     ProgramacionDto programacionModify = programacionService.modifyProgramacion(programacion);
                     meta4IcmWsCalcIncomeSessionService.periodo().stream().forEach(periodo -> {
-						TrabajoDto trabajo = trabajoMapper.programacionDtoToTrabajoDto(programacionModify);
-                        trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
-                        trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
-                        result.add(trabajoService.createTrabajo(trabajo));
+						TareaDto tarea = tareaMapper.programacionDtoToTareaDto(programacionModify);
+                        tarea.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
+                        tarea.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
+                        result.add(tareaService.createTarea(tarea));
                     });
                 });
         return result;

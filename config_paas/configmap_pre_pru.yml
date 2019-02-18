@@ -18,8 +18,8 @@ amiga:
           base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDARHPRSCAWSD/service
   service:
     jms:
-      trabajo-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
+      tarea-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
         concurrency: 10-20
   data:
     jdbc:
@@ -44,13 +44,13 @@ amiga:
           brokerURL: tcp://middleware-amq-tcp:61616
           userName: usr-read
       client:
-        trabajo:
-          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
+        tarea:
+          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
           receiveTimeout: 100
           pubSubDomain: false
 app:
   envars:
-    trabajo:
+    tarea:
       calcular:
         algoritmo:
           getConfig:
@@ -141,7 +141,7 @@ app:
                 maxBatchSize: 100                                   
       presencia:
         service:
-          version: 1.0.3        
+          version: 1.0.4        
           presenciasService:
             getPresenciasTotalTiendaSeccion:
               endpoint: /presenciasService/presenciasTotalTiendaSeccion
