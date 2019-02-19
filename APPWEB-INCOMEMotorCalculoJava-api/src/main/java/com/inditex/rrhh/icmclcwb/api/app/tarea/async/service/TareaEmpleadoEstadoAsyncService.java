@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTareaRecolectarDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstadoDto;
 

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Aspect
@@ -105,19 +105,19 @@ public class LoggingAspect {
 //                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
 //                .map(method -> method.getAnnotation(TareaAuditoria.class))
 //                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación RunTareaAuditoria"));
-        RunTareaDto tareaRun = null;
+        RunTareaDto runTarea = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
             if (RunTareaDto.class.isAssignableFrom(obj.getClass())) {
-                tareaRun = (RunTareaDto) obj;
+                runTarea = (RunTareaDto) obj;
                 break;
             }
         }
-        if (tareaRun == null) {
+        if (runTarea == null) {
             throw new IcmclcwbException(
                     "La anotacion RunTareaAuditoria necesita que el metodo tenga un parametro RunTareaDto");
         }
-        TareaDto tarea = tareaRun.getTarea();
+        TareaDto tarea = runTarea.getTarea();
         if (tarea == null) {
             throw new IcmclcwbException(
                     "La anotacion RunTareaAuditoria necesita que el metodo tenga un parametro TareaDto");

@@ -3,10 +3,10 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaService {
 
-    RunTareaDto run(@NotNull @Valid final RunTareaDto tareaRun);
+    RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea);
 
 }

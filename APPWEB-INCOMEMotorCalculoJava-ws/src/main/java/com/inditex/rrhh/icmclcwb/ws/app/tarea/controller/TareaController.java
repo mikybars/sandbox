@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.ws.app.trabajo.tarea.controller;
+package com.inditex.rrhh.icmclcwb.ws.app.tarea.controller;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTareaAuditoria;
-import com.inditex.rrhh.icmclcwb.api.app.run.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -26,14 +26,14 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
     @TimerMetric
     @RunTareaAuditoria
     @Override
-    public RunTareaDto run(@Valid final RunTareaDto tareaRun) {
-        final TareaDto tarea = tareaRun.getTarea();
+    public RunTareaDto run(@Valid final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
         if (EstadoTareaEnum.PENDIENTE_CONSOLIDACION.getId().equals(tarea.getEstado().getId())) {
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_CONSOLIDACION.getDto());
             TestUtils.threadSleep();
             tareaService.modifyEstadoTareaFinal(tarea, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getDto());
         }
-        return tareaRun;
+        return runTarea;
     }
 
 }
