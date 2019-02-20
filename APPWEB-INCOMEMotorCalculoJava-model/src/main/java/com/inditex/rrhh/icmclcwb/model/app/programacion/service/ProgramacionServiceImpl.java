@@ -3,15 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
-import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionEmpleadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
-import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionTiendaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionEmpleadoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionTiendaRepository;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,19 +30,10 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     private ProgramacionMapper programacionMapper;
 
     @Autowired
-    private ProgramacionTiendaRepository programacionTiendaRepository;
-
-    @Autowired
-    private ProgramacionTiendaMapper programacionTiendaMapper;
-
-    @Autowired
-    private ProgramacionEmpleadoRepository programacionEmpleadoRepository;
-
-    @Autowired
-    private ProgramacionEmpleadoMapper programacionEmpleadoMapper;
+    private ProgramacionAmbitoService programacionAmbitoService;
 
     @Override
-    public ProgramacionDto createProgramacion(@Valid ProgramacionDto programacion) {
+    public ProgramacionDto create(@Valid final ProgramacionDto programacion) {
         programacion.setFechaCreacion(LocalDateTime.now());
         if (StringUtils.isBlank(programacion.getHuso())) {
             programacion.setHuso(ZoneId.systemDefault().getId());
@@ -60,35 +47,32 @@ public class ProgramacionServiceImpl implements ProgramacionService {
         programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
         ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
                 programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
-        if (CollectionUtils.isNotEmpty(programacion.getTiendas())) {
-            result.setTiendas(programacionTiendaMapper
-                    .programacionTiendaToProgramacionTiendaDto(programacionTiendaRepository.saveAll(
-                            programacionTiendaMapper.mergeProgramacionTiendaDtoAndProgramacionDtoToProgramacionTienda(
-                                    programacion.getTiendas(), result))));
-        } else if (CollectionUtils.isNotEmpty(programacion.getEmpleados())) {
-            result.setEmpleados(programacionEmpleadoMapper.programacionEmpleadoToProgramacionEmpleadoDto(
-                    programacionEmpleadoRepository.saveAll(programacionEmpleadoMapper
-                            .mergeProgramacionEmpleadoDtoAndProgramacionDtoToProgramacionEmpleado(
-                                    programacion.getEmpleados(), result))));
-        }
+        result.setAmbito(programacionAmbitoService.create(programacion.getAmbito(), result));
         return result;
     }
 
     @Override
-    public ProgramacionDto modifyProgramacion(@Valid final ProgramacionDto programacion) {
+    public ProgramacionDto modify(@Valid final ProgramacionDto programacion) {
         ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
                 programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
-        result.setTiendas(programacion.getTiendas());
-        result.setEmpleados(programacion.getEmpleados());
+        result.setAmbito(programacion.getAmbito());
         return result;
     }
 
     @Override
-    public LocalDateTime fechaSiguienteEjecucion(@Valid ProgramacionDto programacion) {
+    public LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion) {
         return ZonedDateTime
-                .of(LocalDate.now(ZoneId.of(programacion.getHuso())).plusDays(1), programacion.getHora(),
+                .of(LocalDate.now(ZoneId.of(programacion.getHuso())), programacion.getHora(),
                         ZoneId.of(programacion.getHuso()))
-                .withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+                .isAfter(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of(programacion.getHuso())))
+                        ? ZonedDateTime
+                                .of(LocalDate.now(ZoneId.of(programacion.getHuso())), programacion.getHora(),
+                                        ZoneId.of(programacion.getHuso()))
+                                .withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
+                        : ZonedDateTime
+                                .of(LocalDate.now(ZoneId.of(programacion.getHuso())).plusDays(1),
+                                        programacion.getHora(), ZoneId.of(programacion.getHuso()))
+                                .withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
     }
 
 }

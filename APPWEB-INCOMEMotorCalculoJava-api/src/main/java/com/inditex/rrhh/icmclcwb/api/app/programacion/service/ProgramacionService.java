@@ -7,10 +7,10 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 
 public interface ProgramacionService {
 
-	ProgramacionDto createProgramacion(@Valid ProgramacionDto programacion);
+	ProgramacionDto create(@Valid final ProgramacionDto programacion);
 
-	ProgramacionDto modifyProgramacion(@Valid final ProgramacionDto programacion);
+	ProgramacionDto modify(@Valid final ProgramacionDto programacion);
 
-	LocalDateTime fechaSiguienteEjecucion(@Valid ProgramacionDto programacion);
+	LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion);
 
 }

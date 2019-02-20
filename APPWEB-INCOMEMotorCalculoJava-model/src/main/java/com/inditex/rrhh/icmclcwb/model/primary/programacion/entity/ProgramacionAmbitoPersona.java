@@ -1,0 +1,47 @@
+package com.inditex.rrhh.icmclcwb.model.primary.programacion.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+
+@Entity
+@Table(name = "PROGRAMACION_AMBITO_PERSONA")
+@Data
+public class ProgramacionAmbitoPersona {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_PROGRAMACION_AMBITO_ORIGEN")
+    private /* BigInteger */ Long id;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_PROGRAMACION_AMBITO", nullable = false)
+    private /* BigInteger */ ProgramacionAmbito programacionAmbito;
+
+    @NotBlank
+    @Column(name = "ID_ORIGEN", nullable = false)
+    private String idOrigen;
+
+    @NotBlank
+    @Column(name = "ID_EMPRESA", nullable = false)
+    private String idEmpresa;
+    
+    @NotBlank
+    @Column(name = "ID_PERSONA", nullable = false)
+    private String idPersona;
+    
+    @NotBlank
+    @Column(name = "OR_PERSONA", nullable = false)
+    private String orPersona;
+
+}

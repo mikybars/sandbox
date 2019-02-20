@@ -34,12 +34,6 @@ public class Programacion {
     @Column(name = "ACTIVA", nullable = false)
     private Boolean activa;
 
-    @Column(name = "ID_ORIGEN", nullable = true)
-    private String idPaisOrigen;
-
-    @Column(name = "ID_EMPRESA", nullable = true)
-    private String idEmpresa;
-
     @NotBlank
     @Column(name = "ID_USUARIO", nullable = false)
     private String idUsuario;

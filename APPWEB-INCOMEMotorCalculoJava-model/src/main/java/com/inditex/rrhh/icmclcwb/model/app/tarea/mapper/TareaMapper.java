@@ -8,12 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
@@ -43,16 +38,16 @@ public abstract class TareaMapper {
         }
     }
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "fechaCreacion", ignore = true)
-    @Mapping(target = "idProgramacion", source = "id")
-    public abstract TareaDto programacionDtoToTareaDto(ProgramacionDto src);
-
-    @Mapping(target = "id", ignore = true)
-    public abstract TareaTiendaDto programacionTiendaDtoToTareaTiendaDto(ProgramacionTiendaDto src);
-
-    @Mapping(target = "id", ignore = true)
-    public abstract TareaEmpleadoDto programacionEmpleadoDtoToTareaEmpleadoDto(ProgramacionEmpleadoDto src);
+//    @Mapping(target = "id", ignore = true)
+//    @Mapping(target = "fechaCreacion", ignore = true)
+//    @Mapping(target = "idProgramacion", source = "id")
+//    public abstract TareaDto programacionDtoToTareaDto(ProgramacionDto src);
+//
+//    @Mapping(target = "id", ignore = true)
+//    public abstract TareaTiendaDto programacionTiendaDtoToTareaTiendaDto(ProgramacionTiendaDto src);
+//
+//    @Mapping(target = "id", ignore = true)
+//    public abstract TareaEmpleadoDto programacionEmpleadoDtoToTareaEmpleadoDto(ProgramacionEmpleadoDto src);
 
     @Mapping(target = "fechaInicio", source = "fechaInicioPeriodo")
     @Mapping(target = "fechaFin", source = "fechaFinPeriodo")
@@ -82,10 +77,11 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "origen", source = "idPaisOrigen")
     public abstract PtrPresenciaDetalleRequestDto tareaDtoToPtrPresenciasDetalleRequestDto(TareaDto src);
-    
+
     @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "origen", source = "idPaisOrigen")
-    public abstract PtrPresenciaDetalleComisionableRequestDto tareaDtoToPtrPresenciasDetalleComisionableRequestDto(TareaDto src);
+    public abstract PtrPresenciaDetalleComisionableRequestDto tareaDtoToPtrPresenciasDetalleComisionableRequestDto(
+            TareaDto src);
 
 }

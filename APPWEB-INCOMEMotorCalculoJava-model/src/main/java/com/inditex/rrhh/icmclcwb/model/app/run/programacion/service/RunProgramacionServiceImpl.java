@@ -44,20 +44,20 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     @Override
     public List<TareaDto> run() {
         List<TareaDto> result = new ArrayList<>();
-        programacionMapper
-                .programacionToProgramacionDto(
-                        programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
-                .stream().forEach(programacion -> {
-                    programacion.setFechaUltimaEjecucion(LocalDateTime.now());
-                    programacion.setFechaSiguienteEjecucion(programacionService.fechaSiguienteEjecucion(programacion));
-                    ProgramacionDto programacionModify = programacionService.modifyProgramacion(programacion);
-                    meta4IcmWsCalcIncomeSessionService.periodo().stream().forEach(periodo -> {
-						TareaDto tarea = tareaMapper.programacionDtoToTareaDto(programacionModify);
-                        tarea.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
-                        tarea.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
-                        result.add(tareaService.createTarea(tarea));
-                    });
-                });
+//        programacionMapper
+//                .programacionToProgramacionDto(
+//                        programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()))
+//                .stream().forEach(programacion -> {
+//                    programacion.setFechaUltimaEjecucion(LocalDateTime.now());
+//                    programacion.setFechaSiguienteEjecucion(programacionService.fechaSiguienteEjecucion(programacion));
+//                    ProgramacionDto programacionModify = programacionService.modify(programacion);
+//                    meta4IcmWsCalcIncomeSessionService.periodo().stream().forEach(periodo -> {
+//						TareaDto tarea = tareaMapper.programacionDtoToTareaDto(programacionModify);
+//                        tarea.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
+//                        tarea.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
+//                        result.add(tareaService.createTarea(tarea));
+//                    });
+//                });
         return result;
     }
 
