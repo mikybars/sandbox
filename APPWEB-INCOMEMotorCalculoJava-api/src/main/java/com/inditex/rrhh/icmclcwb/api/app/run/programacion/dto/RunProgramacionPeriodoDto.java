@@ -1,0 +1,28 @@
+package com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto;
+
+import java.io.Serializable;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class RunProgramacionPeriodoDto implements Serializable {
+
+    private static final long serialVersionUID = 8443425889094187729L;
+
+    @NotNull
+    @NotEmpty
+    private PeriodoDto periodo;
+
+    // TODO Dtos generados
+
+}
