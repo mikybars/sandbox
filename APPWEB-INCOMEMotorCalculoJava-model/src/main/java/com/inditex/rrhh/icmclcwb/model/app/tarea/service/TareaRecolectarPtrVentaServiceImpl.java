@@ -81,7 +81,7 @@ public class TareaRecolectarPtrVentaServiceImpl implements TareaRecolectarPtrVen
                     paramGetVentaTotalizado.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
 
                     CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
-                            .getVentaTotalizado(paramGetVentaTotalizado);
+                            .ventaTotalizado(paramGetVentaTotalizado);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
                     PtrVentaTotalizadoResponseDto data = cfData.get();
@@ -120,7 +120,7 @@ public class TareaRecolectarPtrVentaServiceImpl implements TareaRecolectarPtrVen
                     paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
 
                     CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
-                            .getVentaIndividualDetalle(paramGetVentaIndividualDetalle);
+                            .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
                     PtrVentaIndividualDetalleResponseDto data = cfData.get();

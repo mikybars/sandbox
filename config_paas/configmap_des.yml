@@ -61,6 +61,72 @@ app:
       venta:
         service:
           version: 1.0.21
+          acumuladoVentaImporte:
+            getVentaAcumDia:
+              endpoint: /acumuladoVentaImporte/getVentaAcumDia
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100
+            getVentaAcumUTC:
+              endpoint: /acumuladoVentaImporte/getVentaAcumUTC
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100
+            test:
+              endpoint: /acumuladoVentaImporte/test
+            getVersion:
+              endpoint: /acumuladoVentaImporte/getVersion       
+          ventaEcommerce:
+            getVentaOnlineEntregaTienda:
+              endpoint: /ventaEcommerce/getVentaOnlineEntregaTienda
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100
+            getVentaOnlineEntregaDomicilio:
+              endpoint: /ventaEcommerce/getVentaOnlineEntregaDomicilio
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100
+            getVentaOnlineiPod:
+              endpoint: /ventaEcommerce/getVentaOnlineiPod
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100  
+            getOrdersByCountryMinute:
+              endpoint: /ventaEcommerce/getOrdersByCountryMinute
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100   
+            getOrdersByCountrySectionProductHour:
+              endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100     
+            getOrdersByCountrySectionProductMinute:
+              endpoint: /ventaEcommerce/getOrdersByCountrySectionProductMinute
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100  
+            getVentaOnlinePicking:
+              endpoint: /ventaEcommerce/getVentaOnlinePicking
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100                                    
+            getOrdersByCountryHour:
+              endpoint: /ventaEcommerce/getOrdersByCountryHour
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100         
           ventaEmpleado: 
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle

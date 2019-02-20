@@ -29,40 +29,40 @@ public class PtrVentaGeneralAsyncServiceImpl implements PtrVentaGeneralAsyncServ
 
     @Async
     @Override
-    public CompletableFuture<PtrVentaDiariaResponseDto> getVentaDiaria(final PtrVentaDiariaRequestDto request) {
+    public CompletableFuture<PtrVentaDiariaResponseDto> ventaDiaria(final PtrVentaDiariaRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaDiaria(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrVentaMensualResponseDto> getVentaMensual(final PtrVentaMensualRequestDto request) {
+    public CompletableFuture<PtrVentaMensualResponseDto> ventaMensual(final PtrVentaMensualRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaMensual(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrVentaPresupuestadaMensualResponseDto> getVentaPresupuestadaMensual(
+    public CompletableFuture<PtrVentaPresupuestadaMensualResponseDto> ventaPresupuestadaMensual(
             final PtrVentaPresupuestadaMensualRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaPresupuestadaMensual(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrVentaTotalizadoResponseDto> getVentaTotalizado(
+    public CompletableFuture<PtrVentaTotalizadoResponseDto> ventaTotalizado(
             final PtrVentaTotalizadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizado(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrVentaTotalizadoByMccResponseDto> getVentaTotalizadoByMcc(
+    public CompletableFuture<PtrVentaTotalizadoByMccResponseDto> ventaTotalizadoByMcc(
             final PtrVentaTotalizadoByMccRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizadoByMcc(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrVentaTotalizadoXmlResponseDto> getVentaTotalizadoXML(
+    public CompletableFuture<PtrVentaTotalizadoXmlResponseDto> ventaTotalizadoXML(
             final PtrVentaTotalizadoXmlRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizadoXML(request));
     }
@@ -75,7 +75,7 @@ public class PtrVentaGeneralAsyncServiceImpl implements PtrVentaGeneralAsyncServ
 
     @Async
     @Override
-    public CompletableFuture<String> getVersion() {
+    public CompletableFuture<String> version() {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.version());
     }
 }

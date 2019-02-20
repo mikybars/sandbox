@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.service;
 
 import javax.validation.Valid;
 
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.diaria.dto.PtrVentaDiariaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.diaria.dto.PtrVentaDiariaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.mensual.dto.PtrVentaMensualRequestDto;
@@ -18,8 +15,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadobymcc.dto.PtrVentaTotal
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotalizadoXmlRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotalizadoXmlResponseDto;
 
-@Service
-@Validated
 public interface PtrVentaGeneralService {
 
     PtrVentaTotalizadoResponseDto ventaTotalizado(@Valid PtrVentaTotalizadoRequestDto request);

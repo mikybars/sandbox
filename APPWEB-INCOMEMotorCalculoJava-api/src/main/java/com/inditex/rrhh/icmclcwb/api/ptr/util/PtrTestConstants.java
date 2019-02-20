@@ -13,7 +13,21 @@ public class PtrTestConstants {
     public static final String FECHA_DESDE = "2017-12-01";
 
     public static final String FECHA_HASTA = "2017-12-31";
+    
+    public static final String FECHA_FORMAT_DD_MM_YYYY = "01-12-2015";
 
+    public static final String FECHA_HORA_DESDE_FORMAT_DD_MM_YYYY = "04-12-2004 09:00:00";
+
+    public static final String FECHA_HORA_HASTA_FORMAT_DD_MM_YYYY = "05-12-2004 09:00:00";
+    
+    public static final String FECHA_HORA_DESDE = "2017-12-01 00:00";
+
+    public static final String FECHA_HORA_HASTA = "2017-12-31 00:00";
+
+    public static final List<Integer> PAIS_LIST = Arrays.asList(11);
+
+    public static final List<Integer> CADENA_LIST = Arrays.asList(1);
+    
     public static final Integer PAIS = 11;
 
     public static final Integer CADENA = 1;

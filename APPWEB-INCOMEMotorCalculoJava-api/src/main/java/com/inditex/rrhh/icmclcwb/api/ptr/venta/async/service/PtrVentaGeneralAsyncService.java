@@ -17,22 +17,22 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotaliz
 
 public interface PtrVentaGeneralAsyncService {
 
-    CompletableFuture<PtrVentaDiariaResponseDto> getVentaDiaria(PtrVentaDiariaRequestDto request);
+    CompletableFuture<PtrVentaDiariaResponseDto> ventaDiaria(PtrVentaDiariaRequestDto request);
 
-    CompletableFuture<PtrVentaMensualResponseDto> getVentaMensual(PtrVentaMensualRequestDto request);
+    CompletableFuture<PtrVentaMensualResponseDto> ventaMensual(PtrVentaMensualRequestDto request);
 
-    CompletableFuture<PtrVentaPresupuestadaMensualResponseDto> getVentaPresupuestadaMensual(
+    CompletableFuture<PtrVentaPresupuestadaMensualResponseDto> ventaPresupuestadaMensual(
             PtrVentaPresupuestadaMensualRequestDto request);
 
-    CompletableFuture<PtrVentaTotalizadoResponseDto> getVentaTotalizado(PtrVentaTotalizadoRequestDto request);
+    CompletableFuture<PtrVentaTotalizadoResponseDto> ventaTotalizado(PtrVentaTotalizadoRequestDto request);
 
-    CompletableFuture<PtrVentaTotalizadoByMccResponseDto> getVentaTotalizadoByMcc(
+    CompletableFuture<PtrVentaTotalizadoByMccResponseDto> ventaTotalizadoByMcc(
             PtrVentaTotalizadoByMccRequestDto request);
 
-    CompletableFuture<PtrVentaTotalizadoXmlResponseDto> getVentaTotalizadoXML(PtrVentaTotalizadoXmlRequestDto request);
+    CompletableFuture<PtrVentaTotalizadoXmlResponseDto> ventaTotalizadoXML(PtrVentaTotalizadoXmlRequestDto request);
 
     CompletableFuture<String> test();
 
-    CompletableFuture<String> getVersion();
+    CompletableFuture<String> version();
 
 }

@@ -6,7 +6,6 @@ public class PtrConstants {
     }
     
 	public static final String PTR_DATE = "yyyy-MM-dd";
-	
 
 	/* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - VENTAGENERAL*/
     public static final String VENTA_MENSUAL = "getVentaMensual";
@@ -26,6 +25,23 @@ public class PtrConstants {
     public static final String VENTA_EMPLEADO_TEST = "test";
     public static final String VENTA_EMPLEADO_VERSION = "getVersion";
     
+    /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - VENTAECOMMERCE*/
+    public static final String VENTA_ONLINE_IPOD = "getVentaOnlineiPod";
+    public static final String VENTA_ONLINE_ENTREGA_TIENDA = "getVentaOnlineEntregaTienda";
+    public static final String VENTA_ONLINE_ENTREGA_DOMICILIO = "getVentaOnlineEntregaDomicilio";
+    public static final String VENTA_ONLINE_PICKING = "getVentaOnlinePicking";
+    public static final String ORDERS_BY_COUNTRY_MINUTE = "getOrdersByCountryMinute";
+    public static final String ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR = "getOrdersByCountrySectionProductHour";
+    public static final String ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE = "getOrdersByCountrySectionProductMinute";
+    public static final String ORDERS_BY_COUNTRY_HOUR = "getOrdersByCountryHour";
+    public static final String VENTA_ECOMMERCE_TEST = "test";
+    public static final String VENTA_ECOMMERCE_VERSION = "getVersion";
+    
+    /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - ACUMULADO*/
+    public static final String VENTA_ACUMULADA_DIA = "getVentaAcumDia";
+    public static final String VENTA_ACUMULADA = "getVentaAcumUTC";
+    public static final String VENTA_ACUMULADA_TEST = "test";
+    public static final String VENTA_ACUMULADA_VERSION = "getVersion";
     
     /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - PRESENCIAS*/
     public static final String PRESENCIA_TOTAL_TIENDA_SECCION = "getPresenciasTotalTiendaSeccion";
@@ -35,8 +51,5 @@ public class PtrConstants {
     public static final String PRESENCIA_TIPOS_HORAS = "getTiposHoras";
     public static final String PRESENCIA_TEST = "test";
     public static final String PRESENCIA_VERSION = "getVersion";
-
-
-    
 
 }

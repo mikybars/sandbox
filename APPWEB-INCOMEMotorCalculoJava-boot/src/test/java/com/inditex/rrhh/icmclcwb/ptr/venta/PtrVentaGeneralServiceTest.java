@@ -91,22 +91,9 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
-    @Ignore
+    @Ignore("Devuelve un 500")
     @Test
     public void ventaPresupuestadaMensual(){
-        //TODO: Revisar
-        /*
-         * 
-         *  {
-                "clase": "com.inditex.ofda.appwsdacumuladoventaimporte.service.VentaGeneralService",
-                "metodo": "getVentaPresupuestadaMensual",
-                "codigoError": 0,
-                "descripcionError": "Error interno del servicio. Avise al administrador del mismo",
-                "mediaType": "application/json"
-         *  }   
-         * 
-         * 
-         * */
         PtrVentaPresupuestadaMensualRequestDto request = new PtrVentaPresupuestadaMensualRequestDto(); 
         request.setIdTienda(PtrTestConstants.ID_TIENDA);
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
