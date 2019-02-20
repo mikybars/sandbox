@@ -20,7 +20,7 @@ public class ProgramacionAmbitoPersona {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PROGRAMACION_AMBITO_ORIGEN")
+    @Column(name = "ID_PROGRAMACION_AMBITO_PERSONA")
     private /* BigInteger */ Long id;
 
     @NotNull

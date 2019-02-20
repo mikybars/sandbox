@@ -51,8 +51,10 @@ public class ProgramacionServiceImpl implements ProgramacionService {
         return result;
     }
 
+    // TODO Cambiar por un metodo que cambie los atributos concretos
+    // y valide los dattos de entrada
     @Override
-    public ProgramacionDto modify(@Valid final ProgramacionDto programacion) {
+    public ProgramacionDto modify(final ProgramacionDto programacion) {
         ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
                 programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
         result.setAmbito(programacion.getAmbito());

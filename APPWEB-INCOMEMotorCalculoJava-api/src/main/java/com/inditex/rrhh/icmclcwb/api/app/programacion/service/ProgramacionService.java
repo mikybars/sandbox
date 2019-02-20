@@ -9,7 +9,7 @@ public interface ProgramacionService {
 
 	ProgramacionDto create(@Valid final ProgramacionDto programacion);
 
-	ProgramacionDto modify(@Valid final ProgramacionDto programacion);
+	ProgramacionDto modify(final ProgramacionDto programacion);
 
 	LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion);
 
