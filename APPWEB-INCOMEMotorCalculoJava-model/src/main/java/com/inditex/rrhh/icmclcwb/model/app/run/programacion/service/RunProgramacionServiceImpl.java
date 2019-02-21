@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.programacion.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +31,9 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     public List<RunProgramacionDto> run() {
         List<RunProgramacionDto> result = new ArrayList<>();
         programacionService.findPendiente().stream().forEach(programacion -> {
+            programacionService.updateEjecucion(programacion);
             RunProgramacionDto runProgramacion = RunProgramacionDto.builder().programacion(programacion)
                     .runProgramacionPeriodo(new ArrayList<>()).build();
-            programacion.setFechaUltimaEjecucion(LocalDateTime.now());
-            // TODO No marcamos la siguiente ejecucion para que siempre se ejecute
-            // programacion.setFechaSiguienteEjecucion(programacionService.fechaSiguienteEjecucion(programacion));
-            programacionService.modify(programacion);
             meta4IcmWsCalcIncomeSessionService.periodo().stream().forEach(periodo -> {
                 RunProgramacionPeriodoDto runProgramacionPeriodo = RunProgramacionPeriodoDto.builder().periodo(periodo)
                         .trabajo(trabajoService.create(programacion, periodo)).build();

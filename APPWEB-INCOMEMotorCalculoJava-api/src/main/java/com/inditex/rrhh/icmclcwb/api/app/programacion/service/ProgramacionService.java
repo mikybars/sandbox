@@ -16,5 +16,7 @@ public interface ProgramacionService {
 	LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion);
 	
 	List<ProgramacionDto> findPendiente();
+	
+	ProgramacionDto updateEjecucion(@Valid final ProgramacionDto programacion);
 
 }

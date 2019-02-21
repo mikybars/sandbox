@@ -60,7 +60,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     public ProgramacionDto modify(final ProgramacionDto programacion) {
         ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
                 programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
-        result.setAmbito(programacion.getAmbito());
+        result.setAmbito(programacionAmbitoService.findByProgramacion(programacion));
         return result;
     }
 
@@ -86,6 +86,14 @@ public class ProgramacionServiceImpl implements ProgramacionService {
                 programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()));
         result.forEach(item -> item.setAmbito(programacionAmbitoService.findByProgramacion(item)));
         return result;
+    }
+
+    @Override
+    public ProgramacionDto updateEjecucion(@Valid ProgramacionDto programacion) {
+        programacion.setFechaUltimaEjecucion(LocalDateTime.now());
+        // TODO No marcamos la siguiente ejecucion para que siempre se ejecute
+        // programacion.setFechaSiguienteEjecucion(programacionService.fechaSiguienteEjecucion(programacion));
+        return modify(programacion);
     }
 
 }
