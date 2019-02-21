@@ -73,4 +73,17 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
         return result;
     }
 
+    @Override
+    public List<ProgramacionAmbitoDto> findByProgramacion(@NotNull final ProgramacionDto programacion) {
+        List<ProgramacionAmbitoDto> result = programacionAmbitoMapper.programacionAmbitoToProgramacionAmbitoDto(
+                programacionAmbitoRepository.findByProgramacionId(programacion.getId()));
+        result.forEach(item -> {
+            item.setOrigen(programacionAmbitoOrigenService.findByProgramacionAmbito(item));
+            item.setEmpresa(programacionAmbitoEmpresaService.findByProgramacionAmbito(item));
+            item.setLocalizacion(programacionAmbitoLocalizacionService.findByProgramacionAmbito(item));
+            item.setPersona(programacionAmbitoPersonaService.findByProgramacionAmbito(item));
+        });
+        return result;
+    }
+
 }

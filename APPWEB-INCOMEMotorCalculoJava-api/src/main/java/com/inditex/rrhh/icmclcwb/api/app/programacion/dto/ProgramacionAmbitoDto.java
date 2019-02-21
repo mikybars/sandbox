@@ -21,12 +21,16 @@ public class ProgramacionAmbitoDto {
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "0001")
     private String idSociedad;
 
+    @ApiModelProperty(value = "Ambito origen de la programacion", required = false)
     private List<ProgramacionAmbitoOrigenDto> origen;
 
+    @ApiModelProperty(value = "Ambito empresa de la programacion", required = false)
     private List<ProgramacionAmbitoEmpresaDto> empresa;
 
+    @ApiModelProperty(value = "Ambito persona de la programacion", required = false)
     private List<ProgramacionAmbitoPersonaDto> persona;
-
+    
+    @ApiModelProperty(value = "Ambito localizacion de la programacion", required = false)
     private List<ProgramacionAmbitoLocalizacionDto> localizacion;
 
 }

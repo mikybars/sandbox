@@ -15,4 +15,7 @@ public interface ProgramacionAmbitoLocalizacionService {
             @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoLocalizacionDto> programacionAmbitoLocalizacion,
             @NotNull final ProgramacionAmbitoDto programacionAmbito);
 
+    List<ProgramacionAmbitoLocalizacionDto> findByProgramacionAmbito(
+            @NotNull final ProgramacionAmbitoDto programacionAmbito);
+
 }

@@ -1,9 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +26,6 @@ public class RunProgramacionPeriodoDto implements Serializable {
     @NotEmpty
     private PeriodoDto periodo;
 
-    // TODO Dtos generados
+    private List<TrabajoDto> trabajo;
 
 }

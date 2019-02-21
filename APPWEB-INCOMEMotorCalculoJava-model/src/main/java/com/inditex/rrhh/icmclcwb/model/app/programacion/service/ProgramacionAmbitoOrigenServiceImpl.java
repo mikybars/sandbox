@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoOrig
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoOrigenService;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoOrigenMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoOrigenRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -33,6 +34,13 @@ public class ProgramacionAmbitoOrigenServiceImpl implements ProgramacionAmbitoOr
                 programacionAmbitoOrigenRepository.saveAll(programacionAmbitoOrigenMapper
                         .mergeProgramacionAmbitoOrigenDtoAndProgramacionDtoToProgramacionAmbitoOrigen(
                                 programacionAmbitoOrigen, programacionAmbito)));
+    }
+
+    @Override
+    public List<ProgramacionAmbitoOrigenDto> findByProgramacionAmbito(
+            @NotNull final ProgramacionAmbitoDto programacionAmbito) {
+        return programacionAmbitoOrigenMapper.programacionAmbitoOrigenToProgramacionAmbitoOrigenDto(
+                programacionAmbitoOrigenRepository.findByProgramacionAmbitoId(programacionAmbito.getId()));
     }
 
 }

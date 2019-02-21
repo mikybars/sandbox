@@ -27,7 +27,7 @@ public class ProgramacionController {
     @PostMapping
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Crea una nueva programación", response = ProgramacionDto.class)
-    public @Valid ProgramacionDto createProgramacion(@Valid @RequestBody final ProgramacionDto programacion) {
+    public @Valid ProgramacionDto create(@Valid @RequestBody final ProgramacionDto programacion) {
         return programacionService.create(programacion);
     }
 

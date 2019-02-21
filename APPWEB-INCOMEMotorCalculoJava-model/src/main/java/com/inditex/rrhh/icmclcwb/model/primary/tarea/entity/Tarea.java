@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 
 import lombok.Data;
 
@@ -59,9 +59,9 @@ public class Tarea {
 	private Date fechaFinPeriodo;
 
 	@ManyToOne
-	@JoinTable(name = "PROGRAMACION_TAREA", joinColumns = {
+	@JoinTable(name = "TRABAJO_TAREA", joinColumns = {
 			@JoinColumn(name = "ID_TAREA", referencedColumnName = "ID_TAREA") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") })
-	private Programacion programacion;
+					@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") })
+	private Trabajo trabajo;
 
 }

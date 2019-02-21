@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 @Mapper
 public abstract class TareaMapper {
 
-    @Mapping(target = "idProgramacion", source = "programacion.id")
+    @Mapping(target = "idTrabajo", source = "trabajo.id")
     public abstract TareaDto tareaToTareaDto(Tarea src);
 
     @InheritInverseConfiguration
@@ -31,12 +31,12 @@ public abstract class TareaMapper {
 
     public abstract List<Tarea> tareaDtoToTarea(List<TareaDto> src);
 
-    @AfterMapping
-    protected void controlProgramacion(TareaDto dto, @MappingTarget Tarea result) {
-        if (dto.getIdProgramacion() == null) {
-            result.setProgramacion(null);
-        }
-    }
+//    @AfterMapping
+//    protected void controlProgramacion(TareaDto dto, @MappingTarget Tarea result) {
+//        if (dto.getIdProgramacion() == null) {
+//            result.setProgramacion(null);
+//        }
+//    }
 
 //    @Mapping(target = "id", ignore = true)
 //    @Mapping(target = "fechaCreacion", ignore = true)

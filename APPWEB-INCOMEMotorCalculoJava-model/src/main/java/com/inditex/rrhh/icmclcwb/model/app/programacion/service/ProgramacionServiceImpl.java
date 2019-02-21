@@ -17,6 +17,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.List;
+
 import javax.validation.Valid;
 
 @Service
@@ -75,6 +78,14 @@ public class ProgramacionServiceImpl implements ProgramacionService {
                                 .of(LocalDate.now(ZoneId.of(programacion.getHuso())).plusDays(1),
                                         programacion.getHora(), ZoneId.of(programacion.getHuso()))
                                 .withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    @Override
+    public List<ProgramacionDto> findPendiente() {
+        List<ProgramacionDto> result = programacionMapper.programacionToProgramacionDto(
+                programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()));
+        result.forEach(item -> item.setAmbito(programacionAmbitoService.findByProgramacion(item)));
+        return result;
     }
 
 }

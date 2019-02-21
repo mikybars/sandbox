@@ -24,8 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproducthour
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEcommerceService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotalizadoXmlRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotalizadoXmlResponseDto;
 
 @Service
 public class PtrVentaEcommerceAsyncServiceImpl implements PtrVentaEcommerceAsyncService {

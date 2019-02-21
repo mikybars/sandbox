@@ -14,5 +14,8 @@ public interface ProgramacionAmbitoPersonaService {
     List<ProgramacionAmbitoPersonaDto> create(
             @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoPersonaDto> programacionAmbitoPersona,
             @NotNull final ProgramacionAmbitoDto programacionAmbito);
+    
+    List<ProgramacionAmbitoPersonaDto> findByProgramacionAmbito(
+            @NotNull final ProgramacionAmbitoDto programacionAmbito);
 
 }

@@ -10,6 +10,9 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 
 public interface ProgramacionAmbitoService {
 
-    List<ProgramacionAmbitoDto> create(@Valid @NotNull final List<ProgramacionAmbitoDto> programacionAmbito, @NotNull final ProgramacionDto programacion);
+    List<ProgramacionAmbitoDto> create(@Valid @NotNull final List<ProgramacionAmbitoDto> programacionAmbito,
+            @NotNull final ProgramacionDto programacion);
+
+    List<ProgramacionAmbitoDto> findByProgramacion(@NotNull final ProgramacionDto programacion);
 
 }

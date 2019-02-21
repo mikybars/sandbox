@@ -110,6 +110,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
             int mes = isMes.findFirst().getAsInt();
             isMes.close();
             LocalDate localDate = LocalDate.of(2017, mes, 1);
+            item.setId(new StringBuilder("MOCK_").append(periodo).toString());
             item.setFechaInicioPeriodo(localDate.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
             item.setFechaFinPeriodo(localDate.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX));
             result.add(item);
