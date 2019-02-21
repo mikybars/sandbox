@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
+import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
@@ -11,10 +13,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoD
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,24 +50,28 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Override
     public TrabajoDto create(@Valid final TrabajoDto trabajo) {
-
-//        tarea.setFechaCreacion(LocalDateTime.now());
-//        tarea.setEstado(EstadoTareaEnum.PENDIENTE_DATOS.getDto());
-//        if (StringUtils.isBlank(tarea.getIdUsuario())) {
-//            UserSSO userSSO = SsoUtils.getUserSSO();
-//            if (StringUtils.isNotBlank(userSSO.getUsername())) {
-//                tarea.setIdUsuario(userSSO.getUsername());
-//            }
-//        }
-//        TareaDto result = tareaMapper
-//                .tareaToTareaDto(tareaRepository.save(tareaMapper.tareaDtoToTarea(tarea)));
-//        if (CollectionUtils.isNotEmpty(tarea.getTiendas())) {
-//            result.setTiendas(tareaTiendaService.createTareaTienda(result, tarea.getTiendas()));
-//        } else if (CollectionUtils.isNotEmpty(tarea.getEmpleados())) {
-//            result.setEmpleados(tareaEmpleadoService.createTareaEmpleado(result, tarea.getEmpleados()));
-//        }
-//        senderTarea.send(result);
-        return trabajo;
+        trabajo.setFechaCreacion(LocalDateTime.now());
+        if (StringUtils.isBlank(trabajo.getIdUsuario())) {
+            UserSSO userSSO = SsoUtils.getUserSSO();
+            if (StringUtils.isNotBlank(userSSO.getUsername())) {
+                trabajo.setIdUsuario(userSSO.getUsername());
+            }
+        }
+        TrabajoDto result = trabajoMapper
+                .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
+        if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
+            result.setOrigen(trabajoAmbitoOrigenService.create(trabajo.getOrigen(), result));
+        }
+        if (CollectionUtils.isNotEmpty(trabajo.getEmpresa())) {
+            result.setEmpresa(trabajoAmbitoEmpresaService.create(trabajo.getEmpresa(), result));
+        }
+        if (CollectionUtils.isNotEmpty(trabajo.getLocalizacion())) {
+            result.setLocalizacion(trabajoAmbitoLocalizacionService.create(trabajo.getLocalizacion(), result));
+        }
+        if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
+            result.setPersona(trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
+        }
+        return result;
     }
 
     @Override
