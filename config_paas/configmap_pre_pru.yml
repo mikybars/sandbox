@@ -50,6 +50,9 @@ amiga:
           pubSubDomain: false
 app:
   envars:
+    calculo:
+      cast: false
+      precision: 'AS DECIMAL(23, 8)'  
     proceso:
       calcular:
         algoritmo:

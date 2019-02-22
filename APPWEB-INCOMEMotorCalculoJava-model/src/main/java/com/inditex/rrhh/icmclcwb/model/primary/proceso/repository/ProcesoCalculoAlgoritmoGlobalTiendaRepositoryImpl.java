@@ -18,10 +18,10 @@ public class ProcesoCalculoAlgoritmoGlobalTiendaRepositoryImpl implements Proces
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['ProcesoCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdProceso']}")
+    @Value("#{calculoPrimaryQuery['ProcesoCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdProceso']}")
     private String sqlCalcularWhereIdProceso;
 
-    @Value("#{primaryQuery['ProcesoCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdProceso']} #{primaryQuery['ProcesoCalculoAlgoritmoGlobalTiendaRepository.calcular.AndIdProcesoAndIdEmpleado']}")
+    @Value("#{calculoPrimaryQuery['ProcesoCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdProceso']} #{calculoPrimaryQuery['ProcesoCalculoAlgoritmoGlobalTiendaRepository.calcular.AndIdProcesoAndIdEmpleado']}")
     private String sqlCalcularWhereIdProcesoAndIdEmpleado;
 
     @Override

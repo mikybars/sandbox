@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.inditex.rrhh.icmclcwb.api.app.proceso.AlgoritmoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.AlgoritmoDto;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -20,5 +21,7 @@ public class RunProcesoCalcularDto implements Serializable {
     private Set<String> empleado = new HashSet<>();
 
     private Set<AlgoritmoEnum> algoritmoCalculo = new HashSet<>();
+
+    private Set<AlgoritmoDto> algoritmoCalculoDto = new HashSet<>();
 
 }

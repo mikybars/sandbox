@@ -13,15 +13,17 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetri
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunProcesoAuditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.proceso.service.RunProcesoCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.AlgoritmoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.EstadoProcesoEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.EstadoProcesoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.service.ProcesoEmpleadoEstadoService;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.service.ProcesoEmpleadoEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.service.ProcesoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.proceso.service.AlgoritmoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.proceso.service.RunProcesoCalcularService;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.AlgoritmoFactory;
 
 import reactor.core.publisher.Flux;
@@ -45,6 +47,9 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
 
     @Autowired
     private AlgoritmoFactory calculoAlgoritmoFactory;
+    
+    @Autowired
+    private AlgoritmoService algoritmoService;
 
     @CounterMetric
     @TimerMetric
@@ -60,12 +65,12 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
             runProceso.getRunProcesoCalcular().getTipoCalculo()
                     .addAll(procesoEmpleadoEstructuraService.findIdTipoCalculoByIdProceso(proceso.getId()));
             runProceso.getRunProcesoCalcular().getTipoCalculo().forEach(item -> {
-                AlgoritmoEnum algoritmo = AlgoritmoEnum.of(item);
-                if (algoritmo != null) {
-                    runProceso.getRunProcesoCalcular().getAlgoritmoCalculo().add(algoritmo);
+                AlgoritmoDto algoritmoDto = algoritmoService.findById(item);
+                if (algoritmoDto != null) {
+                    runProceso.getRunProcesoCalcular().getAlgoritmoCalculoDto().add(algoritmoDto);
                 } else {
                     log.warn(
-                            "Proceso[{}] :: RunProcesoCalcularService.run() :: No existe algoritmo para el tipo de calculo: {}",
+                            "Tarea[{}] :: RunProcesoCalcularService.run() :: No existe algoritmo para el tipo de calculo: {}",
                             proceso.getId(), item);
                 }
             });
