@@ -1,0 +1,24 @@
+package com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.inditex.rrhh.icmclcwb.api.app.proceso.AlgoritmoEnum;
+
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+
+@ApiModel(description = "Modelo RunProcesoCalcularDto")
+@Data
+public class RunProcesoCalcularDto implements Serializable {
+
+    private static final long serialVersionUID = -7845168234640449805L;
+
+    private Set<Long> tipoCalculo = new HashSet<>();
+
+    private Set<String> empleado = new HashSet<>();
+
+    private Set<AlgoritmoEnum> algoritmoCalculo = new HashSet<>();
+
+}

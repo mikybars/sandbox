@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 
 @Aspect
 @Component
@@ -30,13 +30,13 @@ public class LoggingAspect {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.TareaAuditoria)")
-    public void auditoriaTareaPointcut() {
+    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.ProcesoAuditoria)")
+    public void auditoriaProcesoPointcut() {
         throw new UnsupportedOperationException("Not implemented");
     }
     
-    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunTareaAuditoria)")
-    public void auditoriaRunTareaPointcut() {
+    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunProcesoAuditoria)")
+    public void auditoriaRunProcesoPointcut() {
         throw new UnsupportedOperationException("Not implemented");
     }
 
@@ -55,28 +55,28 @@ public class LoggingAspect {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    @Around(value = "auditoriaTareaPointcut()")
-    public Object auditoriaTareaAround(ProceedingJoinPoint pjp) throws Throwable {
-//        TareaAuditoria auditoriaTarea = Optional.of(pjp.getSignature())
+    @Around(value = "auditoriaProcesoPointcut()")
+    public Object auditoriaProcesoAround(ProceedingJoinPoint pjp) throws Throwable {
+//        ProcesoAuditoria auditoriaProceso = Optional.of(pjp.getSignature())
 //                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
-//                .map(method -> method.getAnnotation(TareaAuditoria.class))
-//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación TareaAuditoria"));
-        TareaDto tarea = null;
+//                .map(method -> method.getAnnotation(ProcesoAuditoria.class))
+//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación ProcesoAuditoria"));
+        ProcesoDto proceso = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
-            if (TareaDto.class.isAssignableFrom(obj.getClass())) {
-                tarea = (TareaDto) obj;
+            if (ProcesoDto.class.isAssignableFrom(obj.getClass())) {
+                proceso = (ProcesoDto) obj;
                 break;
             }
         }
-        if (tarea == null) {
+        if (proceso == null) {
             throw new IcmclcwbException(
-                    "La anotacion TareaAuditoria necesita que el metodo tenga un parametro TareaDto");
+                    "La anotacion ProcesoAuditoria necesita que el metodo tenga un parametro ProcesoDto");
         }
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
-            log.info("Tarea[{}] :: Inicio :: TareaAuditoria :: {} :: {} :: {}", tarea.getId(),
-                    pjp.getSignature().toShortString(), args, tarea);
+            log.info("Proceso[{}] :: Inicio :: ProcesoAuditoria :: {} :: {} :: {}", proceso.getId(),
+                    pjp.getSignature().toShortString(), args, proceso);
         }
         Object result;
         try {
@@ -84,48 +84,48 @@ public class LoggingAspect {
         } catch (Throwable e) {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
-                String msg = new StringBuilder("Tarea[").append(tarea.getId())
-                        .append("] :: Fin :: Error :: TareaAuditoria[").append(Duration.between(start, end)).append("] :: ")
-                        .append(pjp.getSignature().toShortString()).append(" :: ").append(tarea).toString();
+                String msg = new StringBuilder("Proceso[").append(proceso.getId())
+                        .append("] :: Fin :: Error :: ProcesoAuditoria[").append(Duration.between(start, end)).append("] :: ")
+                        .append(pjp.getSignature().toShortString()).append(" :: ").append(proceso).toString();
                 log.error(msg, e);
             }
             throw e;
         }
         if (log.isInfoEnabled()) {
             Instant end = Instant.now();
-            log.info("Tarea[{}] :: Fin :: Ok :: TareaAuditoria[{}] :: {} :: {} :: {}", tarea.getId(),
-                    Duration.between(start, end), pjp.getSignature().toShortString(), result, tarea);
+            log.info("Proceso[{}] :: Fin :: Ok :: ProcesoAuditoria[{}] :: {} :: {} :: {}", proceso.getId(),
+                    Duration.between(start, end), pjp.getSignature().toShortString(), result, proceso);
         }
         return result;
     }
     
-    @Around(value = "auditoriaRunTareaPointcut()")
-    public Object auditoriaRunTareaAround(ProceedingJoinPoint pjp) throws Throwable {
-//        RunTareaAuditoria auditoriaRunTarea = Optional.of(pjp.getSignature())
+    @Around(value = "auditoriaRunProcesoPointcut()")
+    public Object auditoriaRunProcesoAround(ProceedingJoinPoint pjp) throws Throwable {
+//        RunProcesoAuditoria auditoriaRunProceso = Optional.of(pjp.getSignature())
 //                .map(signature -> (MethodSignature) signature).map(MethodSignature::getMethod)
-//                .map(method -> method.getAnnotation(TareaAuditoria.class))
-//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación RunTareaAuditoria"));
-        RunTareaDto runTarea = null;
+//                .map(method -> method.getAnnotation(ProcesoAuditoria.class))
+//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación RunProcesoAuditoria"));
+        RunProcesoDto runProceso = null;
         List<Object> args = Arrays.asList(pjp.getArgs());
         for (Object obj : args) {
-            if (RunTareaDto.class.isAssignableFrom(obj.getClass())) {
-                runTarea = (RunTareaDto) obj;
+            if (RunProcesoDto.class.isAssignableFrom(obj.getClass())) {
+                runProceso = (RunProcesoDto) obj;
                 break;
             }
         }
-        if (runTarea == null) {
+        if (runProceso == null) {
             throw new IcmclcwbException(
-                    "La anotacion RunTareaAuditoria necesita que el metodo tenga un parametro RunTareaDto");
+                    "La anotacion RunProcesoAuditoria necesita que el metodo tenga un parametro RunProcesoDto");
         }
-        TareaDto tarea = runTarea.getTarea();
-        if (tarea == null) {
+        ProcesoDto proceso = runProceso.getProceso();
+        if (proceso == null) {
             throw new IcmclcwbException(
-                    "La anotacion RunTareaAuditoria necesita que el metodo tenga un parametro TareaDto");
+                    "La anotacion RunProcesoAuditoria necesita que el metodo tenga un parametro ProcesoDto");
         }
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
-            log.info("Tarea[{}] :: Inicio :: RunTareaAuditoria :: {} :: {} :: {}", tarea.getId(),
-                    pjp.getSignature().toShortString(), args, tarea);
+            log.info("Proceso[{}] :: Inicio :: RunProcesoAuditoria :: {} :: {} :: {}", proceso.getId(),
+                    pjp.getSignature().toShortString(), args, proceso);
         }
         Object result;
         try {
@@ -133,17 +133,17 @@ public class LoggingAspect {
         } catch (Throwable e) {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
-                String msg = new StringBuilder("Tarea[").append(tarea.getId())
-                        .append("] :: Fin :: Error :: RunTareaAuditoria[").append(Duration.between(start, end)).append("] :: ")
-                        .append(pjp.getSignature().toShortString()).append(" :: ").append(tarea).toString();
+                String msg = new StringBuilder("Proceso[").append(proceso.getId())
+                        .append("] :: Fin :: Error :: RunProcesoAuditoria[").append(Duration.between(start, end)).append("] :: ")
+                        .append(pjp.getSignature().toShortString()).append(" :: ").append(proceso).toString();
                 log.error(msg, e);
             }
             throw e;
         }
         if (log.isInfoEnabled()) {
             Instant end = Instant.now();
-            log.info("Tarea[{}] :: Fin :: Ok :: RunTareaAuditoria[{}] :: {} :: {} :: {}", tarea.getId(),
-                    Duration.between(start, end), pjp.getSignature().toShortString(), result, tarea);
+            log.info("Proceso[{}] :: Fin :: Ok :: RunProcesoAuditoria[{}] :: {} :: {} :: {}", proceso.getId(),
+                    Duration.between(start, end), pjp.getSignature().toShortString(), result, proceso);
         }
         return result;
     }
@@ -152,7 +152,7 @@ public class LoggingAspect {
     public Object auditoriaAround(ProceedingJoinPoint pjp) throws Throwable {
 //        Auditoria auditoria = Optional.of(pjp.getSignature()).map(signature -> (MethodSignature) signature)
 //                .map(MethodSignature::getMethod).map(method -> method.getAnnotation(Auditoria.class))
-//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación TareaAuditoria"));
+//                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación ProcesoAuditoria"));
         Instant start = Instant.now();
         if (log.isInfoEnabled()) {
             List<Object> args = Arrays.asList(pjp.getArgs());
@@ -209,7 +209,7 @@ public class LoggingAspect {
         return result;
     }
 
-    @AfterThrowing(pointcut = "auditoriaPointcut() || auditoriaTareaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()", throwing = "e")
+    @AfterThrowing(pointcut = "auditoriaPointcut() || auditoriaProcesoPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()", throwing = "e")
     public void genericAfterThrowing(JoinPoint jp, Exception e) {
         if (log.isErrorEnabled()) {
             String msg = new StringBuilder("Error :: ").append(jp.getSignature().toShortString()).append(" :: ")

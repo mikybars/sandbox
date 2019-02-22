@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoTareaTiendaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TipoTareaTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.TipoProcesoTiendaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.TipoProcesoTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 
 @Component
 public class RunUtils {
@@ -15,20 +15,20 @@ public class RunUtils {
     private RunUtils() {
     }
 
-    public static boolean isPresenciaTienda(final TareaDto tarea) {
-        return CollectionUtils.isNotEmpty(tarea.getTiendas()) || CollectionUtils.isNotEmpty(tarea.getEmpleados());
+    public static boolean isPresenciaTienda(final ProcesoDto proceso) {
+        return CollectionUtils.isNotEmpty(proceso.getTiendas()) || CollectionUtils.isNotEmpty(proceso.getEmpleados());
     }
 
-    public static boolean isTipoTareaTiendaPresencia(final List<TipoTareaTiendaDto> tipoTareaTienda) {
-        return tipoTareaTienda.contains(TipoTareaTiendaEnum.PRESENCIA.getDto());
+    public static boolean isTipoProcesoTiendaPresencia(final List<TipoProcesoTiendaDto> tipoProcesoTienda) {
+        return tipoProcesoTienda.contains(TipoProcesoTiendaEnum.PRESENCIA.getDto());
     }
 
-    public static boolean isPivot(final TareaDto tarea, final List<TipoTareaTiendaDto> tipoTareaTienda) {
-        return !RunUtils.isPresenciaTienda(tarea) || RunUtils.isTipoTareaTiendaPresencia(tipoTareaTienda);
+    public static boolean isPivot(final ProcesoDto proceso, final List<TipoProcesoTiendaDto> tipoProcesoTienda) {
+        return !RunUtils.isPresenciaTienda(proceso) || RunUtils.isTipoProcesoTiendaPresencia(tipoProcesoTienda);
     }
     
-    public static boolean isPivot(final TareaDto tarea) {
-        return !RunUtils.isPresenciaTienda(tarea);
+    public static boolean isPivot(final ProcesoDto proceso) {
+        return !RunUtils.isPresenciaTienda(proceso);
     }
 
 

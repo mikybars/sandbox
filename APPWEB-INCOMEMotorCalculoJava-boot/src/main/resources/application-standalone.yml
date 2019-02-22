@@ -35,8 +35,8 @@ amiga:
           base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
   service:
     jms:
-      tarea-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
+      proceso-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.proceso-queue-${metadata.slot}
         concurrency: 10-20
     session:
       session-type: EMBEDDED
@@ -58,8 +58,8 @@ amiga:
           userName: root
           password: V3ct0r1nd1t3x
       client:
-        tarea:
-          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
+        proceso:
+          destinationName: ${amiga.service.jms.proceso-queue.destination-fqdn}
           receiveTimeout: 100
           pubSubDomain: false
     jdbc:
@@ -79,7 +79,7 @@ amiga:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
 app:
   envars:
-    tarea:
+    proceso:
       calcular:
         algoritmo:
           getConfig:

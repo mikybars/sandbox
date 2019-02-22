@@ -43,8 +43,8 @@ public class JmsConfig {
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "amiga.data.jms.client.tarea")
-    public JmsClient tareaJmsClient(final JmsClientBuilder builder,
+    @ConfigurationProperties(prefix = "amiga.data.jms.client.proceso")
+    public JmsClient procesoJmsClient(final JmsClientBuilder builder,
             @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
         return builder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();
     }

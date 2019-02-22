@@ -7,7 +7,7 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_EMPLEADO = "idEmpleado";
 
-    public static final String SQL_PARAM_ID_TAREA = "idTarea";
+    public static final String SQL_PARAM_ID_PROCESO = "idProceso";
     
     public static final String SQL_PARAM_ID_ESTADO = "idEstado";
     

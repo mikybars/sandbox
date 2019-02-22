@@ -8,23 +8,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.proceso.service.RunProcesoService;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.service.ProcesoService;
 
 @Service
 @Validated
 public class RunServiceImpl implements RunService {
 
     @Autowired
-    private RunTareaService runTareaService;
+    private RunProcesoService runProcesoService;
 
     @Autowired
-    private TareaService tareaService;
+    private ProcesoService procesoService;
 
     @Override
-    public RunTareaDto runTarea(@NotNull @Positive final Long id) {
-        return runTareaService.run(RunTareaDto.builder().tarea(tareaService.findTarea(id)).build());
+    public RunProcesoDto runProceso(@NotNull @Positive final Long id) {
+        return runProcesoService.run(RunProcesoDto.builder().proceso(procesoService.findProceso(id)).build());
     }
 
 }
