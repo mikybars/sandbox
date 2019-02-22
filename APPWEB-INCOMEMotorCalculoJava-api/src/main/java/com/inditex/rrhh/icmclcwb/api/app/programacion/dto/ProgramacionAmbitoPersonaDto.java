@@ -28,7 +28,7 @@ public class ProgramacionAmbitoPersonaDto {
     private String idPersona;
 
     @NotBlank
-    @ApiModelProperty(value = "Ordinal de la empresa", required = true, example = "1")
+    @ApiModelProperty(value = "Ordinal de la persona", required = true, example = "1")
     private String orPersona;
 
 }

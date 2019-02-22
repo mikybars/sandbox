@@ -60,7 +60,4 @@ public class ProcesoDto implements Serializable {
     @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
     private LocalDateTime fechaFinPeriodo;
 
-    @ApiModelProperty(value = "Trabajo asociado", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idTrabajo;
-
 }

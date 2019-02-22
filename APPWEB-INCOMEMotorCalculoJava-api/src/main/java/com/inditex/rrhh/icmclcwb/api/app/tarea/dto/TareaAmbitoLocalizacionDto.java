@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.trabajo.dto;
+package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import javax.validation.constraints.NotBlank;
 
@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 
 @Data
-public class TrabajoAmbitoLocalizacionDto {
+public class TareaAmbitoLocalizacionDto {
 
     @ApiModelProperty(value = "Identificador del ambito localizacion del trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long id;
@@ -18,10 +18,6 @@ public class TrabajoAmbitoLocalizacionDto {
     @NotBlank
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "11")
     private String idOrigen;
-
-    @NotBlank
-    @ApiModelProperty(value = "Id de la empresa", required = true, example = "8")
-    private String idEmpresa;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la localizacion", required = true, example = "T57")

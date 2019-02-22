@@ -2,12 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.proceso.mapper;
 
 import java.util.List;
 
-import org.mapstruct.AfterMapping;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
@@ -21,10 +17,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.Proceso;
 @Mapper
 public abstract class ProcesoMapper {
 
-    @Mapping(target = "idTrabajo", source = "trabajo.id")
     public abstract ProcesoDto procesoToProcesoDto(Proceso src);
 
-    @InheritInverseConfiguration
     public abstract Proceso procesoDtoToProceso(ProcesoDto src);
 
     public abstract List<ProcesoDto> procesoToProcesoDto(List<Proceso> src);

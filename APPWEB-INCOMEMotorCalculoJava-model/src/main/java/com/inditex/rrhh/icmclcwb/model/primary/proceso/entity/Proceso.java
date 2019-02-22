@@ -7,13 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-
-import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 
 import lombok.Data;
 
@@ -57,11 +53,5 @@ public class Proceso {
 
 	@Column(name = "FECHA_FIN_PERIODO", nullable = false)
 	private Date fechaFinPeriodo;
-
-	@ManyToOne
-	@JoinTable(name = "TRABAJO_PROCESO", joinColumns = {
-			@JoinColumn(name = "ID_PROCESO", referencedColumnName = "ID_PROCESO") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") })
-	private Trabajo trabajo;
 
 }

@@ -16,7 +16,7 @@ public class ProgramacionAmbitoLocalizacionDto {
     private Long idProgramacionAmbito;
 
     @NotBlank
-    @ApiModelProperty(value = "Id de la sociedad", required = true, example = "11")
+    @ApiModelProperty(value = "Id del origen", required = true, example = "11")
     private String idOrigen;
 
     @NotBlank
@@ -24,7 +24,7 @@ public class ProgramacionAmbitoLocalizacionDto {
     private String idEmpresa;
 
     @NotBlank
-    @ApiModelProperty(value = "Ordinal de la empresa", required = true, example = "T57")
+    @ApiModelProperty(value = "Id de la localizacion", required = true, example = "T57")
     private String idLocalizacion;
 
 }
