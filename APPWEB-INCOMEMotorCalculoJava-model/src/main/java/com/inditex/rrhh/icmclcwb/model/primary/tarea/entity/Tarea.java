@@ -50,6 +50,7 @@ public class Tarea {
     @Column(name = "ID_EMPRESA", nullable = false)
     private String idEmpresa;
 
+    @NotNull
     @ManyToOne
     @JoinTable(name = "TRABAJO_TAREA", joinColumns = {
             @JoinColumn(name = "ID_TAREA", referencedColumnName = "ID_TAREA", nullable = false) }, inverseJoinColumns = {
