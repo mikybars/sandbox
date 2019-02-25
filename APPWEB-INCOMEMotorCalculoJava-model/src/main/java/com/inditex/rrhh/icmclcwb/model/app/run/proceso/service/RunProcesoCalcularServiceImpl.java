@@ -13,7 +13,6 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetri
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunProcesoAuditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.app.proceso.AlgoritmoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.EstadoProcesoEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.EstadoProcesoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.AlgoritmoDto;

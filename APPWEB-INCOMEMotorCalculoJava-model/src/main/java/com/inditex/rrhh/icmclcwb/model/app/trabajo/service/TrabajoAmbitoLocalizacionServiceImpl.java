@@ -31,7 +31,14 @@ public class TrabajoAmbitoLocalizacionServiceImpl implements TrabajoAmbitoLocali
             @NotNull final TrabajoDto trabajo) {
         return trabajoAmbitoLocalizacionMapper.trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
                 trabajoAmbitoLocalizacionRepository.saveAll(trabajoAmbitoLocalizacionMapper
-                        .mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(trabajoAmbitoLocalizacion, trabajo)));
+                        .mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(
+                                trabajoAmbitoLocalizacion, trabajo)));
+    }
+
+    @Override
+    public List<TrabajoAmbitoLocalizacionDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
+        return trabajoAmbitoLocalizacionMapper.trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
+                trabajoAmbitoLocalizacionRepository.findByTrabajoId(trabajo.getId()));
     }
 
 }

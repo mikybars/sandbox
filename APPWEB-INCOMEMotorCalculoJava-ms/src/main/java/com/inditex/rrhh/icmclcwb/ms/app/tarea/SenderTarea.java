@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.ms;
+package com.inditex.rrhh.icmclcwb.ms.app.tarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,14 +8,14 @@ import com.inditex.aqsw.framework.data.jms.JmsClient;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 
 @Component
-public class SenderProceso {
+public class SenderTarea {
 
-	@Autowired
-	@Qualifier("procesoJmsClient")
-	private JmsClient procesoJmsClient;
+    @Autowired
+    @Qualifier("tareaJmsClient")
+    private JmsClient tareaJmsClient;
 
-	public void send(ProcesoDto proceso) {
-		procesoJmsClient.convertAndSend(proceso);
-	}
+    public void send(ProcesoDto proceso) {
+        tareaJmsClient.convertAndSend(proceso);
+    }
 
 }

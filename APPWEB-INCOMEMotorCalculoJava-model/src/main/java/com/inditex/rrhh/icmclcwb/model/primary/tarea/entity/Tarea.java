@@ -31,11 +31,11 @@ public class Tarea {
     @OneToOne
     @JoinColumn(name = "ID_ESTADO_TAREA", nullable = false)
     private /* BigInteger */ EstadoTarea estado;
-    
+
     @NotNull
     @Column(name = "FECHA_CREACION", nullable = false)
     private Date fechaCreacion;
-    
+
     @Column(name = "FECHA_INICIO_TAREA", nullable = true)
     private Date fechaInicioTarea;
 
@@ -45,15 +45,15 @@ public class Tarea {
     @NotBlank
     @Column(name = "ID_SOCIEDAD", nullable = false)
     private String idSociedad;
-    
+
     @NotBlank
     @Column(name = "ID_EMPRESA", nullable = false)
     private String idEmpresa;
 
     @ManyToOne
     @JoinTable(name = "TRABAJO_TAREA", joinColumns = {
-            @JoinColumn(name = "ID_TAREA", referencedColumnName = "ID_TAREA") }, inverseJoinColumns = {
-                    @JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") })
+            @JoinColumn(name = "ID_TAREA", referencedColumnName = "ID_TAREA", nullable = false) }, inverseJoinColumns = {
+                    @JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO", nullable = false) })
     private Trabajo trabajo;
 
 }

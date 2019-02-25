@@ -11,6 +11,8 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 public interface TrabajoAmbitoOrigenService {
 
+    List<TrabajoAmbitoOrigenDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo);
+
     List<TrabajoAmbitoOrigenDto> create(
             @Valid @NotNull @NotEmpty final List<TrabajoAmbitoOrigenDto> programacionAmbitoOrigen,
             @NotNull final TrabajoDto trabajo);

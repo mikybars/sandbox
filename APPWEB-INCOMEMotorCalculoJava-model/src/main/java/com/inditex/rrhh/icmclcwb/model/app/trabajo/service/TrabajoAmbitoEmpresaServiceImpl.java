@@ -29,9 +29,15 @@ public class TrabajoAmbitoEmpresaServiceImpl implements TrabajoAmbitoEmpresaServ
     public List<TrabajoAmbitoEmpresaDto> create(
             @Valid @NotNull @NotEmpty final List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa,
             @NotNull final TrabajoDto trabajo) {
+        return trabajoAmbitoEmpresaMapper.trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(trabajoAmbitoEmpresaRepository
+                .saveAll(trabajoAmbitoEmpresaMapper.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTrabajoAmbitoEmpresa(
+                        trabajoAmbitoEmpresa, trabajo)));
+    }
+
+    @Override
+    public List<TrabajoAmbitoEmpresaDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
         return trabajoAmbitoEmpresaMapper.trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(
-                trabajoAmbitoEmpresaRepository.saveAll(trabajoAmbitoEmpresaMapper
-                        .mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTrabajoAmbitoEmpresa(trabajoAmbitoEmpresa, trabajo)));
+                trabajoAmbitoEmpresaRepository.findByTrabajoId(trabajo.getId()));
     }
 
 }

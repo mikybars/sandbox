@@ -35,6 +35,12 @@ amiga:
           base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
   service:
     jms:
+      trabajo-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
+        concurrency: 10-20
+      tarea-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
+        concurrency: 10-20
       proceso-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.proceso-queue-${metadata.slot}
         concurrency: 10-20
@@ -58,6 +64,14 @@ amiga:
           userName: root
           password: V3ct0r1nd1t3x
       client:
+        trabajo:
+          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
+          receiveTimeout: 100
+          pubSubDomain: false
+        tarea:
+          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
+          receiveTimeout: 100
+          pubSubDomain: false
         proceso:
           destinationName: ${amiga.service.jms.proceso-queue.destination-fqdn}
           receiveTimeout: 100
@@ -92,7 +106,7 @@ app:
         maxAttempts: 2
       venta:
         service:
-          version: 1.0.21
+          version: 1.0.22-rc.2
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
@@ -235,7 +249,7 @@ app:
               endpoint: /ventaGeneral/getVersion
       presencia: 
         service:
-          version: 1.0.5-rc.1
+          version: 1.0.5-rc.2
           presenciasService:
             getPresenciasTotalTiendaSeccion:
               endpoint: /presenciasService/presenciasTotalTiendaSeccion

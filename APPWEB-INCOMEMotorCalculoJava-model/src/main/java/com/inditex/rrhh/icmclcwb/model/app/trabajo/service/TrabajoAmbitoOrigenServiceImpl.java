@@ -34,4 +34,10 @@ public class TrabajoAmbitoOrigenServiceImpl implements TrabajoAmbitoOrigenServic
                         .mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(trabajoAmbitoOrigen, trabajo)));
     }
 
+    @Override
+    public List<TrabajoAmbitoOrigenDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
+        return trabajoAmbitoOrigenMapper.trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
+                trabajoAmbitoOrigenRepository.findByTrabajoId(trabajo.getId()));
+    }
+
 }

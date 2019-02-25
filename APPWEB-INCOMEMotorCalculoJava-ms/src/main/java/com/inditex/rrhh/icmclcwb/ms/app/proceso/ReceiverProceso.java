@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.ms;
+package com.inditex.rrhh.icmclcwb.ms.app.proceso;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;

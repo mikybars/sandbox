@@ -23,7 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.proceso.service.ProcesoService;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.service.ProcesoTiendaService;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.ProcesoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoRepository;
-import com.inditex.rrhh.icmclcwb.ms.SenderProceso;
+import com.inditex.rrhh.icmclcwb.ms.app.proceso.SenderProceso;
 
 @Service
 @Validated

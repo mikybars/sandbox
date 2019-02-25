@@ -12,7 +12,6 @@ import com.inditex.rrhh.icmclcwb.api.app.proceso.EstadoProcesoEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.EstadoProcesoEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoEmpleadoEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.ProcesoEmpleadoEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.EstadoProcesoEmpleado;

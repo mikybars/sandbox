@@ -14,7 +14,8 @@ public class TipoCalculoServiceImpl implements TipoCalculoService {
 
     @Autowired
     private TipoCalculoRepository tipoCalculoRepository;
-    
+
     @Autowired
     private TipoCalculoMapper tipoCalculoMapper;
+
 }

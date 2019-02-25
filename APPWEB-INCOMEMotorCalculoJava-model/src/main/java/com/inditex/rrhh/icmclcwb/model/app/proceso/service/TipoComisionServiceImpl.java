@@ -14,8 +14,8 @@ public class TipoComisionServiceImpl implements TipoComisionService {
 
     @Autowired
     private TipoComisionRepository tipoComisionRepository;
-    
+
     @Autowired
     private TipoComisionMapper tipoComisionMapper;
-    
+
 }

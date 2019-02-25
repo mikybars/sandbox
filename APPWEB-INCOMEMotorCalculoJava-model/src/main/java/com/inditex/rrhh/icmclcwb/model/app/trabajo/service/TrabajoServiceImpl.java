@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Service
 @Validated
@@ -47,6 +48,16 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private TrabajoAmbitoPersonaService trabajoAmbitoPersonaService;
+
+    @Override
+    public TrabajoDto find(@NotNull @Positive final Long id) {
+        TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findById(id).get());
+        trabajo.setOrigen(trabajoAmbitoOrigenService.findByTrabajo(trabajo));
+        trabajo.setEmpresa(trabajoAmbitoEmpresaService.findByTrabajo(trabajo));
+        trabajo.setLocalizacion(trabajoAmbitoLocalizacionService.findByTrabajo(trabajo));
+        trabajo.setPersona(trabajoAmbitoPersonaService.findByTrabajo(trabajo));
+        return trabajo;
+    }
 
     @Override
     public TrabajoDto create(@Valid final TrabajoDto trabajo) {

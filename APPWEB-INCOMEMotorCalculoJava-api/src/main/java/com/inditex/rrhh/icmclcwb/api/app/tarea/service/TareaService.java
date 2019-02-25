@@ -4,15 +4,17 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 
 public interface TareaService {
 
-    TrabajoDto create(@Valid final TrabajoDto trabajo);
+    TareaDto find(@NotNull @Positive final Long id);
+    
+    TareaDto create(@Valid final TareaDto tarea);
 
-    List<TrabajoDto> create(@Valid @NotNull final ProgramacionDto programacion, @Valid @NotNull final PeriodoDto periodo);
+    List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo);
 
 }
