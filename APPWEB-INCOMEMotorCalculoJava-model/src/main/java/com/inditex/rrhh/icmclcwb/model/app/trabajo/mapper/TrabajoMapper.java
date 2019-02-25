@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 import java.util.List;
 
 import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -22,14 +21,14 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoD
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 
-@Mapper
+@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class })
 @DecoratedWith(value = TrabajoMapperDecorator.class)
 public abstract class TrabajoMapper {
 
-    @Mapping(target = "idProgramacion", source = "programacion.id")
+    @Mapping(target = "idProgramacion", expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ? src.getProgramacion().getId() : null)")
     public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
-    @InheritInverseConfiguration
+    @Mapping(target = "programacion", expression = "java(src != null && src.getIdProgramacion() != null ? Programacion.builder().id(src.getIdProgramacion()).build() : null)")
     public abstract Trabajo trabajoDtoToTrabajo(TrabajoDto src);
 
     public abstract List<TrabajoDto> trabajoToTrabajoDto(List<Trabajo> src);
