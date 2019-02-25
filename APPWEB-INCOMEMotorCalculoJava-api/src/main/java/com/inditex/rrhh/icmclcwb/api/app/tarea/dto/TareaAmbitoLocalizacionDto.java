@@ -2,8 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import javax.validation.constraints.NotBlank;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto.TareaAmbitoDtoBuilder;
-
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.AllArgsConstructor;
