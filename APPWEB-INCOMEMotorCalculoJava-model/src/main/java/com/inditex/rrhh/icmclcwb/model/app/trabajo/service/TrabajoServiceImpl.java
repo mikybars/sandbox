@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
+import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,9 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private TrabajoAmbitoPersonaService trabajoAmbitoPersonaService;
+    
+    @Autowired
+    private SenderTrabajo senderTrabajo;
 
     @Override
     public TrabajoDto find(@NotNull @Positive final Long id) {
@@ -82,6 +86,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
             result.setPersona(trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
         }
+        senderTrabajo.send(result);
         return result;
     }
 

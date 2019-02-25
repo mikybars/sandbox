@@ -8,7 +8,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunProcesoAuditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
@@ -22,7 +21,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
 
     @CounterMetric
     @TimerMetric
-    @RunProcesoAuditoria
+    //TODO @RunProcesoAuditoria Crear anotacion que se le puede pasar la clase a pintar 
     @Override
     public RunTrabajoDto run(@NotNull @Valid final RunTrabajoDto runTrabajo) {
         // TODO Periodo + validaciones + eventos + ...
