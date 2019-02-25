@@ -70,7 +70,7 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
                     runProceso.getRunProcesoCalcular().getAlgoritmoCalculoDto().add(algoritmoDto);
                 } else {
                     log.warn(
-                            "Tarea[{}] :: RunProcesoCalcularService.run() :: No existe algoritmo para el tipo de calculo: {}",
+                            "Proceso[{}] :: RunProcesoCalcularService.run() :: No existe algoritmo para el tipo de calculo: {}",
                             proceso.getId(), item);
                 }
             });
