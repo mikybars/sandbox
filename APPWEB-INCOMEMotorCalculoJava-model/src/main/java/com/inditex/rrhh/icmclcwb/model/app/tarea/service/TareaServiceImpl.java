@@ -2,10 +2,14 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
+import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,39 +32,43 @@ public class TareaServiceImpl implements TareaService {
 
     @Autowired
     private TareaMapper tareaMapper;
-//
-//    @Autowired
-//    private TareaAmbitoOrigenService tareaAmbitoOrigenService;
-//
-//    @Autowired
-//    private TareaAmbitoEmpresaService tareaAmbitoEmpresaService;
-//
-//    @Autowired
-//    private TareaAmbitoLocalizacionService tareaAmbitoLocalizacionService;
-//
-//    @Autowired
-//    private TareaAmbitoPersonaService tareaAmbitoPersonaService;
+
+    @Autowired
+    private TareaAmbitoService tareaAmbitoService;
+
+    @Autowired
+    private TareaAmbitoLocalizacionService tareaAmbitoLocalizacionService;
+
+    @Autowired
+    private TareaAmbitoPersonaService tareaAmbitoPersonaService;
+
+    @Autowired
+    private SenderTarea senderTarea;
 
     @Override
     public TareaDto find(@NotNull @Positive final Long id) {
-        return null;
+        TareaDto tarea = tareaMapper.tareaToTareaDto(tareaRepository.findById(id).get());
+        tarea.setAmbito(tareaAmbitoService.findByTarea(tarea));
+        tarea.setLocalizacion(tareaAmbitoLocalizacionService.findByTarea(tarea));
+        tarea.setPersona(tareaAmbitoPersonaService.findByTarea(tarea));
+        return tarea;
     }
 
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
         tarea.setFechaCreacion(LocalDateTime.now());
         tarea.setEstado(EstadoTareaEnum.PENDIENTE_DATOS.getDto());
-        TareaDto result = tareaMapper
-                .tareaToTareaDto(tareaRepository.save(tareaMapper.tareaDtoToTarea(tarea)));
+        TareaDto result = tareaMapper.tareaToTareaDto(tareaRepository.save(tareaMapper.tareaDtoToTarea(tarea)));
         if (CollectionUtils.isNotEmpty(tarea.getAmbito())) {
-            //result.setOrigen(tareaAmbitoService.create(tarea.getOrigen(), result));
+            result.setAmbito(tareaAmbitoService.create(tarea.getAmbito(), result));
         }
         if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
-            //result.setLocalizacion(tareaAmbitoLocalizacionService.create(tarea.getLocalizacion(), result));
+            result.setLocalizacion(tareaAmbitoLocalizacionService.create(tarea.getLocalizacion(), result));
         }
         if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
-            //result.setEmpresa(tareaAmbitoPersonaService.create(tarea.getPersona(), result));
+            result.setPersona(tareaAmbitoPersonaService.create(tarea.getPersona(), result));
         }
+        senderTarea.send(result);
         return null;
     }
 

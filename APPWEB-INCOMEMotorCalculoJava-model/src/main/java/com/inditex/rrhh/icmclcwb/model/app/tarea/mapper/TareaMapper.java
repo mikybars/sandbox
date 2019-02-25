@@ -67,8 +67,9 @@ public abstract class TareaMapper {
         List<TareaAmbitoPersonaDto> persona = new ArrayList<>();
         srcTrabajo.getPersona().stream()
                 .filter(item -> item.getIdEmpresa().equals(srcTrabajoAmbitoEmpresa.getIdEmpresa()))
-                .collect(Collectors.toList()).forEach(item -> persona.add(TareaAmbitoPersonaDto.builder()
-                        .idPersona(item.getIdPersona()).idOrigen(item.getIdOrigen()).build()));
+                .collect(Collectors.toList())
+                .forEach(item -> persona.add(TareaAmbitoPersonaDto.builder().idPersona(item.getIdPersona())
+                        .orPersona(item.getOrPersona()).idOrigen(item.getIdOrigen()).build()));
         tarea.setPersona(persona);
     }
 

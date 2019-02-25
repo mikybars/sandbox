@@ -4,11 +4,15 @@ import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Builder
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TareaAmbitoDto {
 
     @ApiModelProperty(value = "Identificador del ambito origen de la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)

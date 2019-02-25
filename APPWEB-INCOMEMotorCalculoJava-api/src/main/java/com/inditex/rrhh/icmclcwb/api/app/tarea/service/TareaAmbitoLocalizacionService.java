@@ -6,13 +6,15 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface TareaAmbitoLocalizacionService {
 
-    List<TrabajoAmbitoLocalizacionDto> create(
-            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoLocalizacionDto> programacionAmbitoLocalizacion,
-            @NotNull final TrabajoDto trabajo);
+    List<TareaAmbitoLocalizacionDto> findByTarea(@Valid @NotNull final TareaDto tarea);
+    
+    List<TareaAmbitoLocalizacionDto> create(
+            @Valid @NotNull @NotEmpty final List<TareaAmbitoLocalizacionDto> tareaAmbitoLocalizacion,
+            @NotNull final TareaDto tarea);
 
 }
