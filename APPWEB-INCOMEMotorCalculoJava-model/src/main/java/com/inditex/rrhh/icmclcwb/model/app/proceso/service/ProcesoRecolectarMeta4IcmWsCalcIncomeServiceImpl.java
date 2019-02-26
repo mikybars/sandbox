@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.ProcesoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.TipoProcesoTiendaEnum;
@@ -125,7 +125,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
     @Qualifier("getEmpleadosDto")
     private Meta4PropertiesDto getEmpleadosDto;
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void tiendasHistorico(@Valid final ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
@@ -267,7 +267,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
         }
     }
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void tiendasPresencia(@Valid final ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
@@ -339,7 +339,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
         }
     }
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void tiendasEmpleadoHistorico(@Valid ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
@@ -447,7 +447,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
         }
     }
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void condicionesEmpleados(@Valid final ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
@@ -526,7 +526,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
         }
     }
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void tiendasComisionable(@Valid final ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
@@ -569,7 +569,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
         }
     }
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void empleadosTienda(@Valid final ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {

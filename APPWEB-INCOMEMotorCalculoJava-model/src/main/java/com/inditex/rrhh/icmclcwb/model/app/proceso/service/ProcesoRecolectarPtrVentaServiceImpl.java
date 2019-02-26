@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.ProcesoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.async.service.ProcesoTiendaSeccionVentaAsyncService;
@@ -63,7 +63,7 @@ public class ProcesoRecolectarPtrVentaServiceImpl implements ProcesoRecolectarPt
     protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
     
     
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void ventaTotalizadaTienda(@Valid final ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
@@ -102,7 +102,7 @@ public class ProcesoRecolectarPtrVentaServiceImpl implements ProcesoRecolectarPt
         }
     }
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void ventaDetalleEmpleado(@Valid final ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {

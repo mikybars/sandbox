@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoAmbitoOrigenMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoAmbitoOrigen;
 
@@ -35,7 +36,7 @@ public abstract class TrabajoAmbitoOrigenMapper {
 
     public List<TrabajoAmbitoOrigen> mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(
             List<TrabajoAmbitoOrigenDto> srcTrabajoAmbitoOrigen, TrabajoDto srcTrabajo) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
 }

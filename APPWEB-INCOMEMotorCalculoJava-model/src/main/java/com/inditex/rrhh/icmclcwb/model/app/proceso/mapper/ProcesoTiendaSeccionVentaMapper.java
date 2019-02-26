@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoTiendaSeccionVentaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.decorator.ProcesoTiendaSeccionVentaDecorator;
@@ -40,6 +41,6 @@ public abstract class ProcesoTiendaSeccionVentaMapper {
 
     public List<ProcesoTiendaSeccionVenta> getVentaTotalizadoReponseItemsDtoToProcesoTiendaSeccionVentas(
             List<PtrVentaTotalizadoResultItemDto> src, ProcesoDto procesoDto) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 }

@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDt
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
@@ -48,7 +49,7 @@ public abstract class TrabajoMapper {
 
     public List<TrabajoDto> mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
             List<ProgramacionAmbitoDto> srcProgramacionAmbito, ProgramacionDto srcProgramacion, PeriodoDto srcPeriodo) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     @Mapping(target = "id", ignore = true)

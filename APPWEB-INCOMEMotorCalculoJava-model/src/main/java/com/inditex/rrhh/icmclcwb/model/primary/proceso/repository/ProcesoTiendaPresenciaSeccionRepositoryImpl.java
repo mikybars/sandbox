@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.ProcesoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 
 @Repository
@@ -24,7 +24,7 @@ public class ProcesoTiendaPresenciaSeccionRepositoryImpl implements ProcesoTiend
     @Qualifier("pscfProcesoTiendaPresenciaSeccionRepositorySave")
     private PreparedStatementCreatorFactory pscfSave;
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void save(@NotNull final ProcesoDto procesoDto) {
         jdbcTemplate.update(pscfSave.newPreparedStatementCreator(Arrays.asList(procesoDto.getId())));

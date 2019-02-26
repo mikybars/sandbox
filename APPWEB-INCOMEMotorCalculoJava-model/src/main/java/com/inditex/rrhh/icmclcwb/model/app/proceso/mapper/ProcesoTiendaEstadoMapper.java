@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.TipoProcesoTiendaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
@@ -39,7 +40,7 @@ public abstract class ProcesoTiendaEstadoMapper {
 
 	public List<ProcesoTiendaEstado> mergeProcesoTiendaEstadoDtoAndProcesoDtoToProcesoTiendaEstado(
 			List<ProcesoTiendaEstadoDto> procesoTiendaEstado, ProcesoDto proceso) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
 	}
 
 	@Mapping(target = "id", ignore = true)
@@ -55,7 +56,7 @@ public abstract class ProcesoTiendaEstadoMapper {
 
 	public List<ProcesoTiendaEstadoDto> genericTiendaResultItemDtoToProcesoTiendaEstadoDto(
 			List<GenericTiendaResultItemDto> srcGenericTiendaResultItem, TipoProcesoTiendaDto srcTipoProcesoTienda) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
 	}
 
 }

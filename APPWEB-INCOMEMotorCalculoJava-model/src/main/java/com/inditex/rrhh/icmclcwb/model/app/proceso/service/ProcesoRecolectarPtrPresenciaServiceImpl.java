@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.ProcesoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
@@ -65,7 +65,7 @@ public class ProcesoRecolectarPtrPresenciaServiceImpl implements ProcesoRecolect
     @Qualifier("presenciasProperties")
     private Map<String, PtrPropertiesDto> presenciasProperties;
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void tiposHoras(@Valid final ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
@@ -96,7 +96,7 @@ public class ProcesoRecolectarPtrPresenciaServiceImpl implements ProcesoRecolect
         }
     }
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void presenciaTotalizadaTienda(@Valid ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
@@ -139,7 +139,7 @@ public class ProcesoRecolectarPtrPresenciaServiceImpl implements ProcesoRecolect
         }
     }
 
-    @ProcesoAuditoria
+    @Auditoria
     @Override
     public void presenciaDetalleEmpleado(@Valid ProcesoDto proceso,
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {

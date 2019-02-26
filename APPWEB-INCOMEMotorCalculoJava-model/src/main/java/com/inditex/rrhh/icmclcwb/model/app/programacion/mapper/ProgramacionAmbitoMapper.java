@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.decorator.ProgramacionAmbitoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbito;
 
@@ -33,7 +34,7 @@ public abstract class ProgramacionAmbitoMapper {
 
     public List<ProgramacionAmbito> mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
             List<ProgramacionAmbitoDto> srcProgramacionAmbito, ProgramacionDto srcProgramacion) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
 }

@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.decorator.ProcesoEmpleadoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.ProcesoEmpleado;
 
@@ -34,7 +35,7 @@ public abstract class ProcesoEmpleadoMapper {
 
     public List<ProcesoEmpleado> mergeProcesoEmpleadoDtoAndProcesoDtoToProcesoEmpleado(
             List<ProcesoEmpleadoDto> srcProcesoEmpleadoDto, ProcesoDto srcProcesoDto) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
 }

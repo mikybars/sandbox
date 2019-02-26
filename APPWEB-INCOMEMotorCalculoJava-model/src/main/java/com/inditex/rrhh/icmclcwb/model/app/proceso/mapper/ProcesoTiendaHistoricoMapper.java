@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoTiendaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.decorator.ProcesoTiendaHistoricoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.ProcesoTiendaHistorico;
@@ -38,7 +39,7 @@ public abstract class ProcesoTiendaHistoricoMapper {
 
 	public List<ProcesoTiendaHistorico> mergeProcesoTiendaHistoricoDtoAndProcesoDtoToProcesoTiendaHistorico(
 			List<ProcesoTiendaHistoricoDto> srcProcesoTiendaHistorico, ProcesoDto srcProcesoDto) {
-		throw new UnsupportedOperationException("Not implemented");
+		throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
 	}
 	
 	@Mapping(target = "idPais", source = "idPais")

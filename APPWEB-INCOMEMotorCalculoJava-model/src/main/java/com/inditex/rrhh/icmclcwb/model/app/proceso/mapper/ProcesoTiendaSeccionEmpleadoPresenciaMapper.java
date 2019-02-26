@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoTiendaSeccionEmpleadoPresenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
@@ -43,7 +44,7 @@ public abstract class ProcesoTiendaSeccionEmpleadoPresenciaMapper {
 
     public List<ProcesoTiendaSeccionEmpleadoPresencia> presenciasDetalleResponsesDtoToProcesoTiendaSeccionVentas(
             List<PtrPresenciaDetalleResultItemDto> src, ProcesoDto procesoDto) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -59,7 +60,7 @@ public abstract class ProcesoTiendaSeccionEmpleadoPresenciaMapper {
 
     public List<ProcesoTiendaSeccionEmpleadoPresencia> presenciasDetalleComisionableResponsesDtoToProcesoTiendaSeccionVentas(
             List<PtrPresenciaDetalleComisionableResultItemDto> src, ProcesoDto procesoDto) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
 }

@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoTipoHoraDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.decorator.ProcesoTipoHoraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.ProcesoTipoHora;
@@ -35,6 +36,6 @@ public abstract class ProcesoTipoHoraMapper {
 
     public List<ProcesoTipoHora> ptrPresenciaTipoHoraResponsesDtoToProcesoTipoHoraDto(
             List<PtrPresenciaTiposHorasResultItemDto> src, ProcesoDto procesoDto) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 }

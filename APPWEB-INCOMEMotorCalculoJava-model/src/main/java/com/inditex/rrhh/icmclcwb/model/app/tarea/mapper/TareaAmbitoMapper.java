@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAmbitoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbito;
 
@@ -35,7 +36,7 @@ public abstract class TareaAmbitoMapper {
 
     public List<TareaAmbito> mergeTareaAmbitoDtoAndTareaDtoToTareaAmbito(
             List<TareaAmbitoDto> srcTareaAmbito, TareaDto srcTarea) {
-        throw new UnsupportedOperationException("Not implemented");
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
 }

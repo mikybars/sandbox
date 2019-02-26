@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.RunProcesoAuditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.EstadoProcesoEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.EstadoProcesoEnum;
@@ -52,7 +52,7 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
 
     @CounterMetric
     @TimerMetric
-    @RunProcesoAuditoria
+    @Auditoria
     @Override
     public RunProcesoDto run(@Valid final RunProcesoDto runProceso) {
         ProcesoDto proceso = runProceso.getProceso();
