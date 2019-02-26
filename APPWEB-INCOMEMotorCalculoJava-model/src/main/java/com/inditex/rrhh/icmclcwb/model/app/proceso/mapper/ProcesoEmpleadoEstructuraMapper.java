@@ -41,6 +41,10 @@ public abstract class ProcesoEmpleadoEstructuraMapper {
     }
     
     @Mapping(target = "idEmpleado", source = "src.idEmpleado")
+    @Mapping(target = "porcentaje", expression = "java(StringUtils.isNotEmpty(src.getPercentageAll()) ? Double.parseDouble(src.getPercentageAll().replace(',', '.')) : 0)" )
+    @Mapping(target = "porcentaje1", expression = "java(StringUtils.isNotEmpty(src.getPercentageWoman()) ? Double.parseDouble(src.getPercentageWoman().replace(',', '.')) : 0)")
+    @Mapping(target = "porcentaje2", expression = "java(StringUtils.isNotEmpty(src.getPercentageMan()) ? Double.parseDouble(src.getPercentageMan().replace(',', '.')) : 0)")
+    @Mapping(target = "porcentaje3", expression = "java(StringUtils.isNotEmpty(src.getPercentageBoy()) ? Double.parseDouble(src.getPercentageBoy().replace(',', '.')) : 0)")
     public abstract ProcesoEmpleadoEstructuraDto genericEmpleadoResultItemDtoToProcesoEmpleadoEstructuraDto(
             GenericEmpleadoResultItemDto src, ProcesoDto proceso);
 

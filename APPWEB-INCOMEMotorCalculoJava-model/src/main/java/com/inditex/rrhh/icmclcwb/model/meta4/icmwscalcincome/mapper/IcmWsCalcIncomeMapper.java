@@ -90,6 +90,9 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
     @Mapping(target = "idEmpleadoLocal", source = "idempleadolocal")
     @Mapping(target = "percentageWoman", source = "percentagewoman")
+    @Mapping(target = "idEstructura", source = "idestructura")
+    @Mapping(target = "idTipoComision", source = "idtipocomision")
+    @Mapping(target = "percentageAll", source = "percentageall")
     GenericEmpleadoResultItemDto asGenericEmpleadoResultItemDto(IcmListaempleadosRecord src);
 
     @InheritInverseConfiguration

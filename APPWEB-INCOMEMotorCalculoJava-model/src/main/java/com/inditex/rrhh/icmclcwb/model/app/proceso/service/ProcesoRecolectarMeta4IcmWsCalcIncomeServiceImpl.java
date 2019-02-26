@@ -454,7 +454,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            for (List<String> iter : StreamUtils.partition(runProcesoRecolectarBloque.getEmpleadoLocal(),
+            for (List<String> iter : StreamUtils.partition(runProcesoRecolectarBloque.getEmpleado().stream().map(e->e.getIdEmpleado()).collect(Collectors.toList()),
                     getComisionEmpleadoDto.getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
                 comisionEmpleadoRequest.setPage(getComisionEmpleadoDto.getPage());
@@ -482,43 +482,43 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
             }
             AsyncUtils.waitAllOfIsOk(cf);
             // TODO Inicio :: Mock condiciones
-            Random random = new Random();
-            List<ProcesoEmpleadoEstructuraDto> mockDataList = new ArrayList<>();
-            runProcesoRecolectarBloque.getEmpleado().stream().forEach(item -> {
-                for (int x = 1; x < 3; x++) {
-                    for (int y = 1; y < 3; y++) {
-                        ProcesoEmpleadoEstructuraDto mockData = new ProcesoEmpleadoEstructuraDto();
-                        mockData.setFechaInicio(
-                                Date.from(proceso.getFechaInicioPeriodo().atZone(ZoneId.systemDefault()).toInstant()));
-                        mockData.setFechaFin(
-                                Date.from(proceso.getFechaFinPeriodo().atZone(ZoneId.systemDefault()).toInstant()));
-                        mockData.setIdEmpleado(item.getIdEmpleado());
-                        mockData.setIdEmpleadoLocal(item.getIdEmpleadoLocal());
-                        mockData.setOrEmpleado(item.getOrEmpleado());
-                        mockData.setIdEstructura(1L);
-                        mockData.setIdTipoCalculo(Long.valueOf(x));
-                        mockData.setIdTipoComision(Long.valueOf(y));
-                        mockData.setIdProceso(proceso.getId());
-                        if (random.nextInt(2) == 0) {
-                            mockData.setPorcentaje(Double.valueOf(random.nextInt(20)) + random.nextDouble());
-                            mockData.setPorcentaje1(NumberUtils.DOUBLE_ZERO);
-                            mockData.setPorcentaje2(NumberUtils.DOUBLE_ZERO);
-                            mockData.setPorcentaje3(NumberUtils.DOUBLE_ZERO);
-                        } else {
-                            mockData.setPorcentaje(NumberUtils.DOUBLE_ZERO);
-                            mockData.setPorcentaje1(Double.valueOf(random.nextInt(20)) + random.nextDouble());
-                            mockData.setPorcentaje2(Double.valueOf(random.nextInt(20)) + random.nextDouble());
-                            mockData.setPorcentaje3(Double.valueOf(random.nextInt(20)) + random.nextDouble());
-                        }
-                        mockDataList.add(mockData);
-                    }
-                }
-            });
-            if (CollectionUtils.isNotEmpty(mockDataList)) {
-                AsyncUtils.checkAsyncAvaliable(cfPersist, getComisionEmpleadoDto.getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = procesoEmpleadoEstructuraAsyncService.save(mockDataList, proceso);
-                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-            }
+//            Random random = new Random();
+//            List<ProcesoEmpleadoEstructuraDto> mockDataList = new ArrayList<>();
+//            runProcesoRecolectarBloque.getEmpleado().stream().forEach(item -> {
+//                for (int x = 1; x < 3; x++) {
+//                    for (int y = 1; y < 3; y++) {
+//                        ProcesoEmpleadoEstructuraDto mockData = new ProcesoEmpleadoEstructuraDto();
+//                        mockData.setFechaInicio(
+//                                Date.from(proceso.getFechaInicioPeriodo().atZone(ZoneId.systemDefault()).toInstant()));
+//                        mockData.setFechaFin(
+//                                Date.from(proceso.getFechaFinPeriodo().atZone(ZoneId.systemDefault()).toInstant()));
+//                        mockData.setIdEmpleado(item.getIdEmpleado());
+//                        mockData.setIdEmpleadoLocal(item.getIdEmpleadoLocal());
+//                        mockData.setOrEmpleado(item.getOrEmpleado());
+//                        mockData.setIdEstructura(1L);
+//                        mockData.setIdTipoCalculo(Long.valueOf(x));
+//                        mockData.setIdTipoComision(Long.valueOf(y));
+//                        mockData.setIdProceso(proceso.getId());
+//                        if (random.nextInt(2) == 0) {
+//                            mockData.setPorcentaje(Double.valueOf(random.nextInt(20)) + random.nextDouble());
+//                            mockData.setPorcentaje1(NumberUtils.DOUBLE_ZERO);
+//                            mockData.setPorcentaje2(NumberUtils.DOUBLE_ZERO);
+//                            mockData.setPorcentaje3(NumberUtils.DOUBLE_ZERO);
+//                        } else {
+//                            mockData.setPorcentaje(NumberUtils.DOUBLE_ZERO);
+//                            mockData.setPorcentaje1(Double.valueOf(random.nextInt(20)) + random.nextDouble());
+//                            mockData.setPorcentaje2(Double.valueOf(random.nextInt(20)) + random.nextDouble());
+//                            mockData.setPorcentaje3(Double.valueOf(random.nextInt(20)) + random.nextDouble());
+//                        }
+//                        mockDataList.add(mockData);
+//                    }
+//                }
+//            });
+//            if (CollectionUtils.isNotEmpty(mockDataList)) {
+//                AsyncUtils.checkAsyncAvaliable(cfPersist, getComisionEmpleadoDto.getFilter().getMaxPersistenceSize());
+//                CompletableFuture<Void> cfSave = procesoEmpleadoEstructuraAsyncService.save(mockDataList, proceso);
+//                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+//            }
             // TODO Fin :: Mock condiciones
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

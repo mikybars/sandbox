@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoEmpleadoEstructuraDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.ProcesoEmpleadoEstructuraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.ProcesoEmpleadoEstructura;
 
@@ -28,5 +29,19 @@ public abstract class ProcesoEmpleadoEstructuraDecorator extends ProcesoEmpleado
 		}
 		return result;
 	}
+
+
+    @Override
+    public List<ProcesoEmpleadoEstructuraDto> genericEmpleadoResultItemDtoToProcesoEmpleadoEstructuraDto(
+            List<GenericEmpleadoResultItemDto> src, ProcesoDto proceso) {
+        List<ProcesoEmpleadoEstructuraDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(src)) {
+            src.forEach(item -> 
+                result.add(
+                        delegate.genericEmpleadoResultItemDtoToProcesoEmpleadoEstructuraDto(item, proceso))
+            );
+        }
+        return result;
+    }
 
 }
