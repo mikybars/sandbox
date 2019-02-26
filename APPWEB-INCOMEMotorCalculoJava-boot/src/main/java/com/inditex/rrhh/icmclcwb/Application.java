@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb;
 
 import com.inditex.aqsw.framework.amiga.service.AmigaBootServiceApplication;
-
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
@@ -9,16 +8,15 @@ import javax.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 
 @AmigaBootServiceApplication
-//TODO (JPA Arquetipo) @AmigaEnableJpaRepositories
 public class Application {
 
-	@PostConstruct
-	void started() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-	}
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
-	public static void main(final String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(final String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
 }

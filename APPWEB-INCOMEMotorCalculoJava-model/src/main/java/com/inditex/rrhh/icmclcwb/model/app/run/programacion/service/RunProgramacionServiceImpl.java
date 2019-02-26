@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
@@ -27,6 +28,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
+    @Transactional
     @Override
     public List<RunProgramacionDto> run() {
         List<RunProgramacionDto> result = new ArrayList<>();

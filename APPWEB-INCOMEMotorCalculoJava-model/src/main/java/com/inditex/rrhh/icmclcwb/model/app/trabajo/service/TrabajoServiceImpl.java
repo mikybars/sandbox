@@ -18,6 +18,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
@@ -63,6 +64,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         return trabajo;
     }
 
+    @Transactional
     @Override
     public TrabajoDto create(@Valid final TrabajoDto trabajo) {
         trabajo.setFechaCreacion(LocalDateTime.now());
@@ -90,6 +92,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         return result;
     }
 
+    @Transactional
     @Override
     public List<TrabajoDto> create(@Valid @NotNull final ProgramacionDto programacion,
             @Valid @NotNull final PeriodoDto periodo) {

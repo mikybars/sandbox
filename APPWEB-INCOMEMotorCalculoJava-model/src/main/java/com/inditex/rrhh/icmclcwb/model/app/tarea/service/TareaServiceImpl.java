@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
@@ -54,6 +55,7 @@ public class TareaServiceImpl implements TareaService {
         return tarea;
     }
 
+    @Transactional
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
         tarea.setFechaCreacion(LocalDateTime.now());
@@ -72,6 +74,7 @@ public class TareaServiceImpl implements TareaService {
         return null;
     }
 
+    @Transactional
     @Override
     public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
         List<TareaDto> result = new ArrayList<>();

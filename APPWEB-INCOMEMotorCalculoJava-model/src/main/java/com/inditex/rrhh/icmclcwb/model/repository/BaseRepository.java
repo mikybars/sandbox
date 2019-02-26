@@ -2,11 +2,11 @@ package com.inditex.rrhh.icmclcwb.model.repository;
 
 import java.io.Serializable;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
-// TODO (JPA Arquetipo) Cambiar JpaRepository por JpaCrudRepository
+import com.inditex.aqsw.framework.data.jpa.repositories.JpaCrudRepository;
+
 @NoRepositoryBean
-public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
+public interface BaseRepository<T, ID extends Serializable> extends JpaCrudRepository<T, ID> {
 
 }
