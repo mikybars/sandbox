@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.proceso.mapper;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -14,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.decorator.ProcesoEmpleadoEstructuraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.ProcesoEmpleadoEstructura;
 
-@Mapper
+@Mapper(imports = org.apache.commons.lang3.StringUtils.class)
 @DecoratedWith(value = ProcesoEmpleadoEstructuraDecorator.class)
 public abstract class ProcesoEmpleadoEstructuraMapper {
     
@@ -41,10 +42,10 @@ public abstract class ProcesoEmpleadoEstructuraMapper {
     }
     
     @Mapping(target = "idEmpleado", source = "src.idEmpleado")
-    @Mapping(target = "porcentaje", expression = "java(StringUtils.isNotEmpty(src.getPercentageAll()) ? Double.parseDouble(src.getPercentageAll().replace(',', '.')) : 0)" )
-    @Mapping(target = "porcentaje1", expression = "java(StringUtils.isNotEmpty(src.getPercentageWoman()) ? Double.parseDouble(src.getPercentageWoman().replace(',', '.')) : 0)")
-    @Mapping(target = "porcentaje2", expression = "java(StringUtils.isNotEmpty(src.getPercentageMan()) ? Double.parseDouble(src.getPercentageMan().replace(',', '.')) : 0)")
-    @Mapping(target = "porcentaje3", expression = "java(StringUtils.isNotEmpty(src.getPercentageBoy()) ? Double.parseDouble(src.getPercentageBoy().replace(',', '.')) : 0)")
+    @Mapping(target = "porcentaje", expression = "java(StringUtils.isNotEmpty(src.getPercentageAll()) ? Double.parseDouble(src.getPercentageAll()) : 0)" )
+    @Mapping(target = "porcentaje1", expression = "java(StringUtils.isNotEmpty(src.getPercentageWoman()) ? Double.parseDouble(src.getPercentageWoman()) : 0)")
+    @Mapping(target = "porcentaje2", expression = "java(StringUtils.isNotEmpty(src.getPercentageMan()) ? Double.parseDouble(src.getPercentageMan()) : 0)")
+    @Mapping(target = "porcentaje3", expression = "java(StringUtils.isNotEmpty(src.getPercentageBoy()) ? Double.parseDouble(src.getPercentageBoy()) : 0)")
     public abstract ProcesoEmpleadoEstructuraDto genericEmpleadoResultItemDtoToProcesoEmpleadoEstructuraDto(
             GenericEmpleadoResultItemDto src, ProcesoDto proceso);
 
