@@ -19,7 +19,7 @@ public class RunTareaServiceImpl implements RunTareaService {
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
+    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
         return runTarea;
     }
 
