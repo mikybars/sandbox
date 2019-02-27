@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.proceso.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,9 +24,9 @@ public class AlgoritmoDto implements Serializable {
     private String nombre;
 
     @ApiModelProperty(value = "Tipo de comisión asociado", required = false, accessMode = AccessMode.READ_ONLY)
-    private TipoComisionDto tipoComision;
+    private List<TipoComisionDto> tipoComision;
 
     @ApiModelProperty(value = "Tipo de calculo asociado", required = false, accessMode = AccessMode.READ_ONLY)
-    private TipoCalculoDto tipoCalculo;
+    private List<TipoCalculoDto> tipoCalculo;
 
 }

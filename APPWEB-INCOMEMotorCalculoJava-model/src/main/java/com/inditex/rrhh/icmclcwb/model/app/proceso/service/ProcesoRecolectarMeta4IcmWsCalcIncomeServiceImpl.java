@@ -454,7 +454,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            for (List<String> iter : StreamUtils.partition(runProcesoRecolectarBloque.getEmpleado().stream().map(e->e.getIdEmpleado()).collect(Collectors.toList()),
+            for (List<String> iter : StreamUtils.partition(runProcesoRecolectarBloque.getEmpleadoUniversal(),
                     getComisionEmpleadoDto.getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
                 comisionEmpleadoRequest.setPage(getComisionEmpleadoDto.getPage());

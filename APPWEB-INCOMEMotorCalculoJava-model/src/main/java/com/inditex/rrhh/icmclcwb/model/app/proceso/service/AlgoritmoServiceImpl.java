@@ -1,5 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.proceso.service;
 
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -10,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.proceso.service.AlgoritmoService;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.AlgoritmoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.Algoritmo;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.AlgoritmoRepository;
 
 @Service
@@ -35,5 +40,24 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
     @Override
     public AlgoritmoDto findById(Long id) {
         return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findById(id).orElse(null));
+    }
+    
+    @Override
+    public Boolean checkDuplicatedActives(){
+        Set<Algoritmo> algoritmosActivos = algoritmoRepository.findByActivo(Boolean.TRUE);
+        
+        if (!algoritmosActivos.isEmpty()) {
+            Set<Algoritmo> algoritmosTipoCalculoDuplicado = algoritmosActivos.stream()
+                    .filter(i -> Collections.frequency(algoritmosActivos.stream().map(Algoritmo::getTipoCalculo).collect(Collectors.toList()), i.getTipoCalculo()) > 1)
+                    .collect(Collectors.toSet());
+            if (!algoritmosTipoCalculoDuplicado.isEmpty()) {
+                Set<Algoritmo> algoritmosDuplicados = algoritmosTipoCalculoDuplicado.stream()
+                        .filter(i -> Collections.frequency(algoritmosTipoCalculoDuplicado.stream().map(Algoritmo::getTipoComision).collect(Collectors.toList()), i.getTipoComision()) > 1)
+                        .collect(Collectors.toSet());
+                return !algoritmosDuplicados.isEmpty();
+            }
+        }
+
+        return Boolean.FALSE;
     }
 }

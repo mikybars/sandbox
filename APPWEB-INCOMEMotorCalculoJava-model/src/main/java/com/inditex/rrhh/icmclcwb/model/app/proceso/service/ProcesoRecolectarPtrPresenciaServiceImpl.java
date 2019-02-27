@@ -91,8 +91,8 @@ public class ProcesoRecolectarPtrPresenciaServiceImpl implements ProcesoRecolect
                         .append(proceso.getIdPaisOrigen()).toString());
             }
         } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+//            AsyncUtils.cancel(cf);
+//            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 

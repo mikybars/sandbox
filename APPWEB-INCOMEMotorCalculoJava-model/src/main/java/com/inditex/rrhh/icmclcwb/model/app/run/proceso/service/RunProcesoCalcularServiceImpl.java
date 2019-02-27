@@ -64,7 +64,7 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
             runProceso.getRunProcesoCalcular().getTipoCalculo()
                     .addAll(procesoEmpleadoEstructuraService.findIdTipoCalculoByIdProceso(proceso.getId()));
             runProceso.getRunProcesoCalcular().getTipoCalculo().forEach(item -> {
-                AlgoritmoDto algoritmoDto = algoritmoService.findById(item);
+                AlgoritmoDto algoritmoDto = algoritmoService.findByTipoCalculoId(item);
                 if (algoritmoDto != null) {
                     runProceso.getRunProcesoCalcular().getAlgoritmoCalculoDto().add(algoritmoDto);
                 } else {
@@ -75,9 +75,9 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
             });
 
             CountDownLatch latch = new CountDownLatch(1);
-            Flux.fromIterable(runProceso.getRunProcesoCalcular().getAlgoritmoCalculo()).log().parallel()
+            Flux.fromIterable(runProceso.getRunProcesoCalcular().getAlgoritmoCalculoDto()).log().parallel()
                     .runOn(Schedulers.parallel()).doOnNext(algoritmo -> calculoAlgoritmoFactory
-                            .getAlgoritmo(algoritmo.getType()).execute(runProceso).onErrorResume(ex -> {
+                            .getAlgoritmo(algoritmo.getNombre()).execute(runProceso).onErrorResume(ex -> {
                                 log.error(ex.getMessage(), ex);
                                 return Flux.empty();
                             }).subscribe())

@@ -1,10 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.primary.proceso.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
-@Table(name = "ALGORITMO" /*, uniqueConstraints = {@UniqueConstraint(columnNames = {"ID_TIPO_COMISION", "ID_TIPO_CALCULO"}, name = "IX_ALGORITMO_02")}*/)
+@Table(name = "ALGORITMO")
 @Data
 public class Algoritmo {
 
@@ -28,12 +32,16 @@ public class Algoritmo {
     @Column(name = "NOMBRE", nullable = false)
     private String nombre;
     
-    @ManyToOne
-    @JoinColumn(name = "ID_TIPO_COMISION", nullable = false)
-    private TipoComision tipoComision;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ALGORITMO_TIPO_COMISION", joinColumns = {
+            @JoinColumn(name = "ID_ALGORITMO") }, inverseJoinColumns = {
+                    @JoinColumn(name = "ID_TIPO_COMISION") })
+    private Set<TipoComision> tipoComision;
     
-    @ManyToOne
-    @JoinColumn(name = "ID_TIPO_CALCULO", nullable = false)
-    private TipoCalculo tipoCalculo;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ALGORITMO_TIPO_CALCULO", joinColumns = {
+            @JoinColumn(name = "ID_ALGORITMO") }, inverseJoinColumns = {
+                    @JoinColumn(name = "ID_TIPO_CALCULO") })
+    private Set<TipoCalculo> tipoCalculo;
     
 }

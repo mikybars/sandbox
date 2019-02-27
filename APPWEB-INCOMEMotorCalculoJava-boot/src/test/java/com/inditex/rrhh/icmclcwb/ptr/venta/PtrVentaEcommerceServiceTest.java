@@ -21,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaRequestDto;
@@ -56,53 +57,54 @@ public class PtrVentaEcommerceServiceTest {
     @Qualifier("ventaVersion")
     private String version;
     
-    @Ignore("El formato de fechas ha cambiado y dejaron de funcionar")
     @Test
     public void ventaOnlineIpod() {
         PtrVentaOnlineIpodRequestDto request = new PtrVentaOnlineIpodRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
+        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         ResponseEntity<PtrVentaOnlineIpodResponseDto> response = ptrVentaClient
                 .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getEndpoint(), request, PtrVentaOnlineIpodResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
-    @Ignore("El formato de fechas ha cambiado y dejaron de funcionar")
     @Test
     public void ventaOnlineEntregaDomicilio() {
         PtrVentaOnlineEntregaDomicilioRequestDto request = new PtrVentaOnlineEntregaDomicilioRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
-        request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+        request.setFechaHasta(PtrTestConstants.FECHA_HASTA); 
         request.setPais(1);
         request.setCadena(2);
         request.setEmpresa(7);
         request.setSeccion(3);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
+        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = ptrVentaClient
                 .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
-    @Ignore("El formato de fechas ha cambiado y dejaron de funcionar")
     @Test
     public void ventaOnlineEntregaTienda() { 
         PtrVentaOnlineEntregaTiendaRequestDto request = new PtrVentaOnlineEntregaTiendaRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
+        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         ResponseEntity<PtrVentaOnlineEntregaTiendaResponseDto> response = ptrVentaClient
                 .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request, PtrVentaOnlineEntregaTiendaResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
-    @Ignore("El formato de fechas ha cambiado y dejaron de funcionar")
     @Test
     public void ventaOnlinePicking() {
         PtrVentaOnlinePickingRequestDto request = new PtrVentaOnlinePickingRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
+        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+
         ResponseEntity<PtrVentaOnlinePickingResponseDto> response = ptrVentaClient
                 .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request, PtrVentaOnlinePickingResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());

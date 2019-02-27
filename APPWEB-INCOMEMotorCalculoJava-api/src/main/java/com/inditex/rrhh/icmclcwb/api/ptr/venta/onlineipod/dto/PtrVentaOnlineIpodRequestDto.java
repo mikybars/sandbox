@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
+
 import lombok.Data;
 
 @Data
@@ -31,9 +33,5 @@ public class PtrVentaOnlineIpodRequestDto implements Serializable {
     
     private Integer seccion;
     
-//    private Integer temporada;
-    
-//    private Integer producto;
-    
-//    private PtrGroupTypeEnum agrupacion;
+    private PtrGroupTypeEnum agrupacion;
 }

@@ -150,10 +150,9 @@ public class Meta4ServiceTest {
     
     
     @Test
-    @Ignore
+    @Ignore("Esto sirve para buscar e imprimir en consola estructuras a partir de tiendas/origen")
     public void comprobarEstructurasTiendasOrigen() {
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
-        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
         IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
 
         param1.setFechainicio("2017-01-01");

@@ -13,4 +13,6 @@ public interface AlgoritmoService {
 
     AlgoritmoDto findById(Long id);
 
+    Boolean checkDuplicatedActives();
+
 }

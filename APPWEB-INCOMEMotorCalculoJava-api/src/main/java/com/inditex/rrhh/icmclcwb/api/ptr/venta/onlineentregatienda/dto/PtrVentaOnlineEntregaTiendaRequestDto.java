@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
+
 import lombok.Data;
 
 @Data
@@ -26,9 +28,10 @@ public class PtrVentaOnlineEntregaTiendaRequestDto implements Serializable {
     private Integer empresa;
     
     private List<Integer> tiendaOnline = new ArrayList<>();
-    
-    private List<Integer> tienda = new ArrayList<>();
 
+    private List<Integer> tienda = new ArrayList<>();
+    
     private Integer seccion;
     
+    private PtrGroupTypeEnum agrupacion;
 }

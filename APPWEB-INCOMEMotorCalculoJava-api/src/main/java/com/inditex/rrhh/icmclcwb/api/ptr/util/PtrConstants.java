@@ -48,6 +48,7 @@ public class PtrConstants {
     public static final String PRESENCIA_TOTAL_TIENDA = "getPresenciasTotalTienda";
     public static final String PRESENCIA_DETALLE= "getPresenciasDetalle";
     public static final String PRESENCIA_DETALLE_COMISIONABLE= "getPresenciasDetalleComisionable";
+    public static final String PRESENCIA_TIENDAS_EMPLEADO = "getPresenciasTiendasEmpleado";
     public static final String PRESENCIA_TIPOS_HORAS = "getTiposHoras";
     public static final String PRESENCIA_TEST = "test";
     public static final String PRESENCIA_VERSION = "getVersion";

@@ -73,7 +73,7 @@ public class PtrVentaGeneralServiceTest  {
         request.setFechaInicio(PtrTestConstants.FECHA_DESDE);
         request.setIdTienda(PtrTestConstants.ID_TIENDA);
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
-        
+
         ResponseEntity<PtrVentaDiariaResponseDto> response = ptrVentaClient.postForEntity(
                 ventaGeneralProperties.get(PtrConstants.VENTA_DIARIA).getEndpoint(), request, PtrVentaDiariaResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
@@ -85,7 +85,7 @@ public class PtrVentaGeneralServiceTest  {
         request.setIdTienda(PtrTestConstants.ID_TIENDA);
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
         request.setIdEjercicio(PtrTestConstants.ID_EJERCICIO);
-        
+
         ResponseEntity<PtrVentaMensualResponseDto> response = ptrVentaClient.postForEntity(
                 ventaGeneralProperties.get(PtrConstants.VENTA_MENSUAL).getEndpoint(), request, PtrVentaMensualResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
@@ -115,10 +115,9 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
-    @Ignore
+    @Ignore("Ver como se gestiona el xml")
     @Test
     public void ventaTotalizadoXML(){
-        //TODO: Revisar
         PtrVentaTotalizadoXmlRequestDto request = new PtrVentaTotalizadoXmlRequestDto(); 
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
