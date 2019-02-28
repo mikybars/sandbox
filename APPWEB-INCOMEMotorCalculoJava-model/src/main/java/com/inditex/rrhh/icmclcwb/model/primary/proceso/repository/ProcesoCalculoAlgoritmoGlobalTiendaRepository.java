@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface ProcesoCalculoAlgoritmoGlobalTiendaRepository {
 
-    public void calcularByIdProceso(final Long idProceso);
+    public void calcularByIdProceso(final Long idProceso, final Long idAlgoritmo);
 
-    public void calcularByIdProcesoAndIdsEmpleado(final Long idProceso, final List<String> idsEmpleado);
+    public void calcularByIdProcesoAndIdsEmpleado(final Long idProceso, final List<String> idsEmpleado, final Long idAlgoritmo);
 
 }

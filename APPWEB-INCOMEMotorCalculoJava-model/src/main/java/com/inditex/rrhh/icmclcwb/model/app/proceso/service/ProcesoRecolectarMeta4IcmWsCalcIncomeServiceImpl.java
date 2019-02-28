@@ -30,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.app.proceso.async.service.ProcesoTiendaComi
 import com.inditex.rrhh.icmclcwb.api.app.proceso.async.service.ProcesoTiendaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoEmpleadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoEmpleadoHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoTiendaComisionHistoricoDto;
@@ -454,7 +455,7 @@ public class ProcesoRecolectarMeta4IcmWsCalcIncomeServiceImpl implements Proceso
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            for (List<String> iter : StreamUtils.partition(runProcesoRecolectarBloque.getEmpleadoUniversal(),
+            for (List<String> iter : StreamUtils.partition(runProcesoRecolectarBloque.getEmpleado().stream().map(ProcesoEmpleadoEstadoDto::getIdEmpleado).collect(Collectors.toList()),
                     getComisionEmpleadoDto.getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
                 comisionEmpleadoRequest.setPage(getComisionEmpleadoDto.getPage());

@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.proceso.service;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import javax.validation.Valid;
@@ -63,8 +64,9 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
                             EstadoProcesoEmpleadoEnum.PENDIENTE.getId()));
             runProceso.getRunProcesoCalcular().getTipoCalculo()
                     .addAll(procesoEmpleadoEstructuraService.findIdTipoCalculoByIdProceso(proceso.getId()));
-            runProceso.getRunProcesoCalcular().getTipoCalculo().forEach(item -> {
-                AlgoritmoDto algoritmoDto = algoritmoService.findByTipoCalculoId(item);
+            List<Long> algoritmosIds = algoritmoService.customFindAlgoritmosIdsByProceso(proceso.getId());
+            algoritmosIds.stream().forEach(item -> {
+                AlgoritmoDto algoritmoDto = algoritmoService.findById(item);
                 if (algoritmoDto != null) {
                     runProceso.getRunProcesoCalcular().getAlgoritmoCalculoDto().add(algoritmoDto);
                 } else {
@@ -77,7 +79,7 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
             CountDownLatch latch = new CountDownLatch(1);
             Flux.fromIterable(runProceso.getRunProcesoCalcular().getAlgoritmoCalculoDto()).log().parallel()
                     .runOn(Schedulers.parallel()).doOnNext(algoritmo -> calculoAlgoritmoFactory
-                            .getAlgoritmo(algoritmo.getNombre()).execute(runProceso).onErrorResume(ex -> {
+                            .getAlgoritmo(algoritmo.getNombre()).execute(runProceso, algoritmo).onErrorResume(ex -> {
                                 log.error(ex.getMessage(), ex);
                                 return Flux.empty();
                             }).subscribe())

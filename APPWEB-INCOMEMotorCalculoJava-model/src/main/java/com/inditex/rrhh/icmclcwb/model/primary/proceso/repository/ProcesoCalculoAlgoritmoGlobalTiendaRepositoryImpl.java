@@ -25,18 +25,20 @@ public class ProcesoCalculoAlgoritmoGlobalTiendaRepositoryImpl implements Proces
     private String sqlCalcularWhereIdProcesoAndIdEmpleado;
 
     @Override
-    public void calcularByIdProceso(final Long idProceso) {
+    public void calcularByIdProceso(final Long idProceso, final Long idAlgoritmo) {
         MapSqlParameterSource arg = new MapSqlParameterSource();
         arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROCESO, idProceso);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, idAlgoritmo);
         namedParameterJdbcTemplate.update(sqlCalcularWhereIdProceso, arg);
     }
 
     @Override
-    public void calcularByIdProcesoAndIdsEmpleado(final Long idProceso, final List<String> idsEmpleados) {
+    public void calcularByIdProcesoAndIdsEmpleado(final Long idProceso, final List<String> idsEmpleados, final Long idAlgoritmo) {
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
         idsEmpleados.forEach(idEmpleado -> {
             MapSqlParameterSource arg = new MapSqlParameterSource();
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROCESO, idProceso);
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, idAlgoritmo);
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_EMPLEADO, idEmpleado);
             batchArgs.add(arg);
         });

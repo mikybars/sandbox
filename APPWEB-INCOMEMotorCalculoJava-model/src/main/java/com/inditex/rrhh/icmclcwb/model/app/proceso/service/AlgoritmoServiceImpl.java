@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.proceso.service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.proceso.service.AlgoritmoService;
 import com.inditex.rrhh.icmclcwb.model.app.proceso.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.Algoritmo;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.AlgoritmoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.AlgoritmoRepositoryCustom;
 
 @Service
 @Validated
@@ -25,7 +27,15 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
     private AlgoritmoRepository algoritmoRepository;
     
     @Autowired
+    private AlgoritmoRepositoryCustom algoritmoRepositoryCustom;
+    
+    @Autowired
     private AlgoritmoMapper algoritmoMapper;
+
+    @Override
+    public List<Long> customFindAlgoritmosIdsByProceso(@NotNull @Positive final Long id){
+        return algoritmoRepositoryCustom.customFindAlgoritmosIdsByProceso(id);
+    }
     
     @Override
     public AlgoritmoDto findByTipoCalculoId(@NotNull @Positive final Long id) {
@@ -33,13 +43,18 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
     }
     
     @Override
-    public AlgoritmoDto findByTipoCalculoId(@NotNull @Positive final Long idTipoCalculo, @NotNull @Positive final Long idTipoComision) {
+    public AlgoritmoDto findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive final Long idTipoCalculo, @NotNull @Positive final Long idTipoComision) {
         return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findByTipoCalculoIdAndTipoComisionId(idTipoCalculo, idTipoComision));
     }
 
     @Override
-    public AlgoritmoDto findById(Long id) {
+    public AlgoritmoDto findById(@NotNull @Positive final Long id) {
         return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findById(id).orElse(null));
+    }
+    
+    @Override
+    public List<AlgoritmoDto> findAll(){
+        return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findAll());
     }
     
     @Override

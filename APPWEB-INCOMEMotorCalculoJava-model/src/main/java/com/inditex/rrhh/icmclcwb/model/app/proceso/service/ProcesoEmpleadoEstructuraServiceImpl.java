@@ -42,9 +42,4 @@ public class ProcesoEmpleadoEstructuraServiceImpl implements ProcesoEmpleadoEstr
 		return procesoEmpleadoEstructuraRepository.findIdTipoCalculoByIdProceso(idProceso);
 	}
     
-    
-    
-    
-    
-    
 }

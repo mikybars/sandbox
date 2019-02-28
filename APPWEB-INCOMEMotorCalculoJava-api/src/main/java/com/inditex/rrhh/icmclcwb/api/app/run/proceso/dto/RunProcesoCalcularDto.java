@@ -20,8 +20,6 @@ public class RunProcesoCalcularDto implements Serializable {
 
     private Set<String> empleado = new HashSet<>();
 
-    private Set<AlgoritmoEnum> algoritmoCalculo = new HashSet<>();
-
     private Set<AlgoritmoDto> algoritmoCalculoDto = new HashSet<>();
 
 }

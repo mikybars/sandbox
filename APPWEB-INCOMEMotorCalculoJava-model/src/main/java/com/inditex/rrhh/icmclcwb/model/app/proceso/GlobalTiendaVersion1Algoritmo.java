@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.properties.dto.AlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
@@ -29,27 +30,27 @@ public class GlobalTiendaVersion1Algoritmo implements Algoritmo {
     private AlgoritmoPropertiesDto algoritmoProperties;
 
     @Override
-    public Flux<Void> execute(RunProcesoDto runProceso) {
+    public Flux<Void> execute(RunProcesoDto runProceso, AlgoritmoDto algoritmo) {
         if (runProceso.getRunProcesoCalcular().getEmpleado().size() >= algoritmoProperties.getMaxBatchSize()) {
             CountDownLatch latch = new CountDownLatch(1);
             Flux.fromIterable(StreamUtils.partition(/* TODO Hay que lanzarlo por empleado y ordinal */runProceso
                     .getRunProcesoCalcular().getEmpleado(), algoritmoProperties.getMaxBatchSize())).parallel()
                     .runOn(Schedulers.parallel())
                     .doOnNext(idsEmpleados -> procesoCalculoAlgoritmoGlobalTiendaRepository
-                            .calcularByIdProcesoAndIdsEmpleado(runProceso.getProceso().getId(), idsEmpleados))
+                            .calcularByIdProcesoAndIdsEmpleado(runProceso.getProceso().getId(), idsEmpleados, algoritmo.getId()))
                     .doOnError(ex -> log.error(ex.getMessage(), ex)).doAfterTerminate(latch::countDown).subscribe();
             try {
                 latch.await();
             } catch (Exception e) {
                 // TODO Modificar el estado de los empleados no procesados
                 String msg = new StringBuilder("Proceso[{").append(runProceso.getProceso().getId()).append(
-                        "}] :: GlobalTiendaAlgoritmo.execute() :: Ha fallado el algoritmo para un bloque de empleados")
+                        "}] :: GlobalTiendaAlgoritmo.execute() :: Ha fallado el algoritmo: ").append(algoritmo.getId()).append(" para un bloque de empleados")
                         .toString();
                 log.error(msg, e);
                 return Flux.error(new IcmclcwbException(msg, e));
             }
         } else {
-            procesoCalculoAlgoritmoGlobalTiendaRepository.calcularByIdProceso(runProceso.getProceso().getId());
+            procesoCalculoAlgoritmoGlobalTiendaRepository.calcularByIdProceso(runProceso.getProceso().getId(), algoritmo.getId());
         }
         return Flux.empty();
     }

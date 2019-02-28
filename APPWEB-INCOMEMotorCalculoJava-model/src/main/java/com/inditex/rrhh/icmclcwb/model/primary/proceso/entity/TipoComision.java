@@ -19,7 +19,7 @@ public class TipoComision {
 
     @Id
     @Column(name = "ID_TIPO_COMISION")
-    private /* BigInteger */ Long id;
+    private String id;
 
     @NotBlank
     @Column(name = "NOMBRE", nullable = false)

@@ -36,8 +36,8 @@ public class ProcesoEmpleadoEstructuraRepositoryCustomImpl extends JdbcBatchPrim
         pstmt.setString(3, entity.getIdEmpleado());
         pstmt.setString(4, entity.getIdEmpleadoLocal());
         pstmt.setLong(5, entity.getIdEstructura());
-        pstmt.setLong(6, entity.getIdTipoCalculo());
-        pstmt.setLong(7, entity.getIdTipoComision());
+        pstmt.setString(6, entity.getIdTipoCalculo());
+        pstmt.setString(7, entity.getIdTipoComision());
         pstmt.setString(8, entity.getOrEmpleado());
         pstmt.setDouble(9, entity.getPorcentaje());
         pstmt.setDouble(10, entity.getPorcentaje1());

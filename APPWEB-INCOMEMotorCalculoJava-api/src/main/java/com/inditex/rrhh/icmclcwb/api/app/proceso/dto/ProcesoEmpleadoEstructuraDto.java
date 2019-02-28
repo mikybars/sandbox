@@ -39,11 +39,11 @@ public class ProcesoEmpleadoEstructuraDto implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Id formula calculo a aplicar", required = true)
-    private Long idTipoCalculo;
+    private String idTipoCalculo;
 
     @NotNull
     @ApiModelProperty(value = "Id tipo comisión asociado a la estructura ", required = true)
-    private Long idTipoComision;
+    private String idTipoComision;
 
     @NotNull
     @ApiModelProperty(value = "Id tipo comisión asociado a todas las secciones ", required = true)

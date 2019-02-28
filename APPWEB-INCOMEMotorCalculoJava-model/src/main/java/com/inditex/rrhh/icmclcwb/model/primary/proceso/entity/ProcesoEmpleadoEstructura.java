@@ -47,11 +47,11 @@ public class ProcesoEmpleadoEstructura {
 
     @NotNull
     @Column(name = "ID_TIPO_CALCULO", nullable = false)
-    private /* BigInteger */ Long idTipoCalculo;
+    private /* BigInteger */ String idTipoCalculo;
     
     @NotNull
     @Column(name = "ID_TIPO_COMISION", nullable = false)
-    private /* BigInteger */ Long idTipoComision;
+    private /* BigInteger */ String idTipoComision;
     
     @Column(name = "PORCENTAJE", nullable = true)
     private /* BigInteger */ Double porcentaje;
