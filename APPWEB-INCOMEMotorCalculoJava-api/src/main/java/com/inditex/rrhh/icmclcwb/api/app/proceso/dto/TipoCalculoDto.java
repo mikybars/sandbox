@@ -13,5 +13,5 @@ public class TipoCalculoDto implements Serializable {
     private static final long serialVersionUID = -5773205858357489594L;
 
     @ApiModelProperty(value = "Identificador del tipo de calculo", required = true)
-    private /* BigInteger */ Long id;
+    private String id;
 }

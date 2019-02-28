@@ -62,8 +62,6 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
             runProceso.getRunProcesoCalcular().getEmpleado()
                     .addAll(procesoEmpleadoEstadoService.findIdsEmpleadoByIdProcesoAndIdEstado(proceso.getId(),
                             EstadoProcesoEmpleadoEnum.PENDIENTE.getId()));
-            runProceso.getRunProcesoCalcular().getTipoCalculo()
-                    .addAll(procesoEmpleadoEstructuraService.findIdTipoCalculoByIdProceso(proceso.getId()));
             List<Long> algoritmosIds = algoritmoService.customFindAlgoritmosIdsByProceso(proceso.getId());
             algoritmosIds.stream().forEach(item -> {
                 AlgoritmoDto algoritmoDto = algoritmoService.findById(item);
@@ -71,8 +69,8 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
                     runProceso.getRunProcesoCalcular().getAlgoritmoCalculoDto().add(algoritmoDto);
                 } else {
                     log.warn(
-                            "Proceso[{}] :: RunProcesoCalcularService.run() :: No existe algoritmo para el tipo de calculo: {}",
-                            proceso.getId(), item);
+                            "Proceso[{}] :: RunProcesoCalcularService.run() :: No existe algoritmo para el tipo de calculo + tipo de comision",
+                            proceso.getId());
                 }
             });
 

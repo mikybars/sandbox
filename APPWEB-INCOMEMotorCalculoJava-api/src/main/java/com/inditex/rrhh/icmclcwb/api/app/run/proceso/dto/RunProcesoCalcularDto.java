@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.inditex.rrhh.icmclcwb.api.app.proceso.AlgoritmoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.AlgoritmoDto;
 
 import io.swagger.annotations.ApiModel;
