@@ -6,6 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -13,19 +15,24 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 
 public interface PtrPresenciaAsyncService {
 
-    CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
+    CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
             final PtrPresenciaTotalTiendaSeccionRequestDto request);
 
-    CompletableFuture<PtrPresenciaDetalleResponseDto> getPresenciasDetalleDto(
+    CompletableFuture<PtrPresenciaDetalleResponseDto> presenciasDetalle(
             final PtrPresenciaDetalleRequestDto request);
 
-    CompletableFuture<PtrPresenciaTiposHorasResponseDto> getTiposHoras(final PtrPresenciaTiposHorasRequestDto request);
+    CompletableFuture<PtrPresenciaTiposHorasResponseDto> tiposHoras(final PtrPresenciaTiposHorasRequestDto request);
 
-    CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> getPresenciasDetalleComisionableDto(
-            PtrPresenciaDetalleComisionableRequestDto request);
+    CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> presenciasDetalleComisionable(
+            final PtrPresenciaDetalleComisionableRequestDto request);
+    
+    CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciasTiendasEmpleado(
+            final PtrPresenciaTiendasEmpleadoRequestDto request);
 
-    CompletableFuture<String> getVersion();
+    CompletableFuture<String> version();
 
     CompletableFuture<String> test();
+
+
 
 }

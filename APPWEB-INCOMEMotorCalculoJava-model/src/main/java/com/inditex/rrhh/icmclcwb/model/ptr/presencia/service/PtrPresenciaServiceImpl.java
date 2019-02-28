@@ -17,6 +17,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
@@ -84,6 +86,16 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), request,
                         PtrPresenciaTotalTiendaResponseDto.class),
                 ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), request);
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Override
+    public PtrPresenciaTiendasEmpleadoResponseDto presenciasTiendasEmpleado(
+            @Valid final PtrPresenciaTiendasEmpleadoRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), request,
+                        PtrPresenciaTiendasEmpleadoResponseDto.class),
+                ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), request);
     }
     
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")

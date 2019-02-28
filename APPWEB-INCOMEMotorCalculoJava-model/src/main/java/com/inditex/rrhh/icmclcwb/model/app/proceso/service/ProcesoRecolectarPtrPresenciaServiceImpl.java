@@ -71,7 +71,7 @@ public class ProcesoRecolectarPtrPresenciaServiceImpl implements ProcesoRecolect
             @Valid final RunProcesoRecolectarBloqueDto runProcesoRecolectarBloque) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.getTiposHoras(
+            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.tiposHoras(
                     PtrPresenciaTiposHorasRequestDto.builder().origen(Integer.parseInt(proceso.getIdPaisOrigen()))
                             .excluidoCalculo(Boolean.FALSE).build());
             AsyncUtils.exceptionally(cfData, cf);
@@ -118,7 +118,7 @@ public class ProcesoRecolectarPtrPresenciaServiceImpl implements ProcesoRecolect
                     // denominador
 
                     CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> cfData = ptrPresenciaAsyncService
-                            .getPresenciasTotalTiendaSeccionDto(paramPresenciasTotalTiendaSeccion);
+                            .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
                     PtrPresenciaTotalTiendaSeccionResponseDto data = cfData.get();
@@ -156,7 +156,7 @@ public class ProcesoRecolectarPtrPresenciaServiceImpl implements ProcesoRecolect
                     paramPresenciasDetalleComisionable.setCadena(Integer.valueOf(cadena));
 
                     CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> cfData = ptrPresenciaAsyncService
-                            .getPresenciasDetalleComisionableDto(paramPresenciasDetalleComisionable);
+                            .presenciasDetalleComisionable(paramPresenciasDetalleComisionable);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
                     PtrPresenciaDetalleComisionableResponseDto data = cfData.get();

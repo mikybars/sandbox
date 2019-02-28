@@ -249,7 +249,13 @@ app:
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
-                maxBatchSize: 100  
+                maxBatchSize: 100
+            getPresenciasTiendasEmpleado:
+              endpoint: /presenciasService/presenciasTiendasEmpleado
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100                   
             getTiposHoras:
               endpoint: /presenciasService/tiposHoras
               filter:

@@ -12,6 +12,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -25,35 +27,42 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
 
     @Async
     @Override
-    public CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> getPresenciasTotalTiendaSeccionDto(
+    public CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
             final PtrPresenciaTotalTiendaSeccionRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTotalTiendaSeccion(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrPresenciaDetalleResponseDto> getPresenciasDetalleDto(
+    public CompletableFuture<PtrPresenciaDetalleResponseDto> presenciasDetalle(
             final PtrPresenciaDetalleRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasDetalle(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> getPresenciasDetalleComisionableDto(
+    public CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> presenciasDetalleComisionable(
             final PtrPresenciaDetalleComisionableRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasDetalleComisionable(request));
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciasTiendasEmpleado(
+            final PtrPresenciaTiendasEmpleadoRequestDto request) {
+        return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTiendasEmpleado(request));
     }
 
     @Async
     @Override
-    public CompletableFuture<PtrPresenciaTiposHorasResponseDto> getTiposHoras(
+    public CompletableFuture<PtrPresenciaTiposHorasResponseDto> tiposHoras(
             final PtrPresenciaTiposHorasRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.tiposHoras(request));
     }
     
     @Async
     @Override
-    public CompletableFuture<String> getVersion() {
+    public CompletableFuture<String> version() {
         return CompletableFuture.completedFuture(ptrPresenciaService.version());
     }
     
