@@ -9,9 +9,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EstadoProcesoEnum {
 
-    PENDIENTE_DATOS(1L, new EstadoProcesoDto(1L)), EN_CURSO_DATOS(2L, new EstadoProcesoDto(2L)),
-    PENDIENTE_CALCULO(3L, new EstadoProcesoDto(3L)), EN_CURSO_CALCULO(4L, new EstadoProcesoDto(4L)),
-    PENDIENTE_CONSOLIDACION(5L, new EstadoProcesoDto(5L)), EN_CURSO_CONSOLIDACION(6L, new EstadoProcesoDto(6L)),
+    PENDIENTE_RECOLECTAR(1L, new EstadoProcesoDto(1L)), EN_CURSO_RECOLECTAR(2L, new EstadoProcesoDto(2L)),
+    PENDIENTE_CALCULAR(3L, new EstadoProcesoDto(3L)), EN_CURSO_CALCULAR(4L, new EstadoProcesoDto(4L)),
+    PENDIENTE_CONSOLIDAR(5L, new EstadoProcesoDto(5L)), EN_CURSO_CONSOLIDAR(6L, new EstadoProcesoDto(6L)),
     FINALIZADO_SIN_ERRORES(7L, new EstadoProcesoDto(7L)), FINALIZADO_CON_ERRORES(8L, new EstadoProcesoDto(8L)),
     ERROR(9L, new EstadoProcesoDto(9L));
 

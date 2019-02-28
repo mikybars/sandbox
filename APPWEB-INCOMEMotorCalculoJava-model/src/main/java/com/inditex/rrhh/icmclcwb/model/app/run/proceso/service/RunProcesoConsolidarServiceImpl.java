@@ -28,8 +28,8 @@ public class RunProcesoConsolidarServiceImpl implements RunProcesoConsolidarServ
     @Override
     public RunProcesoDto run(@Valid final RunProcesoDto runProceso) {
         final ProcesoDto proceso = runProceso.getProceso();
-        if (EstadoProcesoEnum.PENDIENTE_CONSOLIDACION.getId().equals(proceso.getEstado().getId())) {
-            procesoService.modifyEstadoProceso(proceso, EstadoProcesoEnum.EN_CURSO_CONSOLIDACION.getDto());
+        if (EstadoProcesoEnum.PENDIENTE_CONSOLIDAR.getId().equals(proceso.getEstado().getId())) {
+            procesoService.modifyEstadoProceso(proceso, EstadoProcesoEnum.EN_CURSO_CONSOLIDAR.getDto());
             TestUtils.threadSleep();
             procesoService.modifyEstadoProcesoFinal(proceso, EstadoProcesoEnum.FINALIZADO_SIN_ERRORES.getDto());
         }

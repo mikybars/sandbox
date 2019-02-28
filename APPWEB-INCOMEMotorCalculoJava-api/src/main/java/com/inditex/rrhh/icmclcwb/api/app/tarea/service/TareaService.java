@@ -6,15 +6,28 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 public interface TareaService {
 
-    TareaDto find(@NotNull @Positive final Long id);
+    TareaDto save(@Valid final TareaDto tarea);
     
+    TareaDto find(@NotNull @Positive final Long id);
+
     TareaDto create(@Valid final TareaDto tarea);
 
     List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo);
+
+    TareaDto modifyEstadoTareaInicial(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado);
+    
+    TareaDto modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado);
+
+    TareaDto modifyEstadoTareaFinal(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado);
+    
+    TareaDto modifyFechaInicioTarea(@Valid final TareaDto tarea);
+
+    TareaDto modifyFechaFinTarea(@Valid final TareaDto tarea);
 
 }

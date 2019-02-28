@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService;
@@ -46,6 +47,12 @@ public class TareaServiceImpl implements TareaService {
     @Autowired
     private SenderTarea senderTarea;
 
+    @Transactional
+    @Override
+    public TareaDto save(@Valid final TareaDto tarea) {
+        return tareaMapper.tareaToTareaDto(tareaRepository.save(tareaMapper.tareaDtoToTarea(tarea)));
+    }
+
     @Override
     public TareaDto find(@NotNull @Positive final Long id) {
         TareaDto tarea = tareaMapper.tareaToTareaDto(tareaRepository.findById(id).get());
@@ -59,8 +66,8 @@ public class TareaServiceImpl implements TareaService {
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
         tarea.setFechaCreacion(LocalDateTime.now());
-        tarea.setEstado(EstadoTareaEnum.PENDIENTE_DATOS.getDto());
-        TareaDto result = tareaMapper.tareaToTareaDto(tareaRepository.save(tareaMapper.tareaDtoToTarea(tarea)));
+        tarea.setEstado(EstadoTareaEnum.PENDIENTE_RECOLECTAR.getDto());
+        TareaDto result = save(tarea);
         if (CollectionUtils.isNotEmpty(tarea.getAmbito())) {
             result.setAmbito(tareaAmbitoService.create(tarea.getAmbito(), result));
         }
@@ -81,6 +88,41 @@ public class TareaServiceImpl implements TareaService {
         tareaMapper.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajo.getEmpresa(), trabajo)
                 .forEach(item -> result.add(create(item)));
         return result;
+    }
+
+    @Transactional
+    @Override
+    public TareaDto modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
+        tarea.setEstado(estado);
+        return save(tarea);
+    }
+
+    @Transactional
+    @Override
+    public TareaDto modifyEstadoTareaInicial(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
+        tarea.setFechaInicioTarea(LocalDateTime.now());
+        return modifyEstadoTarea(tarea, estado);
+    }
+
+    @Transactional
+    @Override
+    public TareaDto modifyEstadoTareaFinal(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
+        tarea.setFechaFinTarea(LocalDateTime.now());
+        return modifyEstadoTarea(tarea, estado);
+    }
+
+    @Transactional
+    @Override
+    public TareaDto modifyFechaInicioTarea(@Valid TareaDto tarea) {
+        tarea.setFechaInicioTarea(LocalDateTime.now());
+        return save(tarea);
+    }
+
+    @Transactional
+    @Override
+    public TareaDto modifyFechaFinTarea(@Valid TareaDto tarea) {
+        tarea.setFechaFinTarea(LocalDateTime.now());
+        return save(tarea);
     }
 
 }

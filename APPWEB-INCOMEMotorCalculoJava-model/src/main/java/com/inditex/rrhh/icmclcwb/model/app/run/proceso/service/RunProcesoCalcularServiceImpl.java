@@ -56,8 +56,8 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
     @Override
     public RunProcesoDto run(@Valid final RunProcesoDto runProceso) {
         ProcesoDto proceso = runProceso.getProceso();
-        if (EstadoProcesoEnum.PENDIENTE_CALCULO.getId().equals(proceso.getEstado().getId())) {
-            procesoService.modifyEstadoProceso(proceso, EstadoProcesoEnum.EN_CURSO_CALCULO.getDto());
+        if (EstadoProcesoEnum.PENDIENTE_CALCULAR.getId().equals(proceso.getEstado().getId())) {
+            procesoService.modifyEstadoProceso(proceso, EstadoProcesoEnum.EN_CURSO_CALCULAR.getDto());
             runProceso.getRunProcesoCalcular().getEmpleado()
                     .addAll(procesoEmpleadoEstadoService.findIdsEmpleadoByIdProcesoAndIdEstado(proceso.getId(),
                             EstadoProcesoEmpleadoEnum.PENDIENTE.getId()));
@@ -88,7 +88,7 @@ public class RunProcesoCalcularServiceImpl implements RunProcesoCalcularService 
                 throw new ReactorIcmclcwbException(e.getMessage(), e);
             }
 
-            procesoService.modifyEstadoProceso(proceso, EstadoProcesoEnum.PENDIENTE_CONSOLIDACION.getDto());
+            procesoService.modifyEstadoProceso(proceso, EstadoProcesoEnum.PENDIENTE_CONSOLIDAR.getDto());
         }
         return runProceso;
     }

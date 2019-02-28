@@ -64,8 +64,8 @@ public class RunProcesoRecolectarServiceImpl implements RunProcesoRecolectarServ
         try {
             final ProcesoDto proceso = runProceso.getProceso();
             final RunProcesoRecolectarDto runProcesoRecolectar = runProceso.getRunProcesoRecolectar();
-            if (EstadoProcesoEnum.PENDIENTE_DATOS.getId().equals(proceso.getEstado().getId())) {
-                procesoService.modifyEstadoProcesoInicial(proceso, EstadoProcesoEnum.EN_CURSO_DATOS.getDto());
+            if (EstadoProcesoEnum.PENDIENTE_RECOLECTAR.getId().equals(proceso.getEstado().getId())) {
+                procesoService.modifyEstadoProcesoInicial(proceso, EstadoProcesoEnum.EN_CURSO_RECOLECTAR.getDto());
 
                 CompletableFuture<Void> cfTiendasHistorico = procesoRecolectarMeta4IcmWsCalcIncomeAsyncService
                         .tiendasHistorico(proceso, runProcesoRecolectar.getUno());
@@ -171,7 +171,7 @@ public class RunProcesoRecolectarServiceImpl implements RunProcesoRecolectarServ
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
-                procesoService.modifyEstadoProceso(proceso, EstadoProcesoEnum.PENDIENTE_CALCULO.getDto());
+                procesoService.modifyEstadoProceso(proceso, EstadoProcesoEnum.PENDIENTE_CALCULAR.getDto());
             }
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);

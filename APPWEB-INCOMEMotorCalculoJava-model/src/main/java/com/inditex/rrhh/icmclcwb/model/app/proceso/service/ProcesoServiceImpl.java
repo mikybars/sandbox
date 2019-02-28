@@ -47,7 +47,7 @@ public class ProcesoServiceImpl implements ProcesoService {
     @Override
     public ProcesoDto createProceso(@Valid final ProcesoDto proceso) {
         proceso.setFechaCreacion(LocalDateTime.now());
-        proceso.setEstado(EstadoProcesoEnum.PENDIENTE_DATOS.getDto());
+        proceso.setEstado(EstadoProcesoEnum.PENDIENTE_RECOLECTAR.getDto());
         if (StringUtils.isBlank(proceso.getIdUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUsername())) {
