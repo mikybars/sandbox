@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.query;
+package com.inditex.rrhh.icmclcwb.calculo;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
@@ -20,32 +19,35 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-public class QueryTest {
+public class CalculoQueryTest {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdTarea']}")
+    @Value("#{calculoPrimaryQuery['ProcesoCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdProceso']}")
     private String sqlCalcularGlobalTiendaWhereIdTarea;
     
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalSeccionRepository.calcular.WhereIdTarea']}")
+    @Value("#{calculoPrimaryQuery['ProcesoCalculoAlgoritmoGlobalSeccionRepository.calcular.WhereIdProceso']}")
     private String sqlCalcularGlobalSeccionWhereIdTarea;
 
     @Test
-    @Ignore("Se necesita una tarea para probar este calculo")
+//    @Ignore("Se necesita un proceso y un algoritmo para probar este calculo")
     public void sqlCalcularGlobalTiendaWhereIdTarea() {
         MapSqlParameterSource arg = new MapSqlParameterSource();
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROCESO, 1L);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROCESO, 7L);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, 1L);
         namedParameterJdbcTemplate.update(sqlCalcularGlobalTiendaWhereIdTarea, arg);
     }
     
     
     @Test
-    @Ignore("Se necesita una tarea para probar este calculo")
+    @Ignore("Se necesita un proceso y un algoritmo para probar este calculo")
     public void sqlCalcularGlobalSeccionWhereIdTarea() {
         MapSqlParameterSource arg = new MapSqlParameterSource();
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROCESO, 1L);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROCESO, 7L);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, 1L);
+
         namedParameterJdbcTemplate.update(sqlCalcularGlobalSeccionWhereIdTarea, arg);
     }
 }
