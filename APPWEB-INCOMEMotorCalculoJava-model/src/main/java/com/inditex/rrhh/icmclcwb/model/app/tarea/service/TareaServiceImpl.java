@@ -113,14 +113,14 @@ public class TareaServiceImpl implements TareaService {
 
     @Transactional
     @Override
-    public TareaDto modifyFechaInicioTarea(@Valid TareaDto tarea) {
+    public TareaDto modifyFechaInicioTarea(@Valid final TareaDto tarea) {
         tarea.setFechaInicioTarea(LocalDateTime.now());
         return save(tarea);
     }
 
     @Transactional
     @Override
-    public TareaDto modifyFechaFinTarea(@Valid TareaDto tarea) {
+    public TareaDto modifyFechaFinTarea(@Valid final TareaDto tarea) {
         tarea.setFechaFinTarea(LocalDateTime.now());
         return save(tarea);
     }
