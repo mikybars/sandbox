@@ -77,7 +77,7 @@ app:
         maxAttempts: 2
       venta:
         service:
-          version: 1.0.22-rc.3
+          version: 1.0.22-rc.4
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia

@@ -27,6 +27,10 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 
 @Aspect
 @Component
@@ -80,17 +84,35 @@ public class LoggingAspect {
 
         String id = StringUtils.EMPTY;
         for (Object obj : args) {
-            if (ProgramacionDto.class.isAssignableFrom(obj.getClass())) {
+            Class<? extends Object> objClass = obj.getClass();
+            if (RunProgramacionDto.class.isAssignableFrom(objClass)) {
+                id = new StringBuilder("Programacion[").append(((RunProgramacionDto) obj).getProgramacion().getId())
+                        .append("] :: ").toString();
+                break;
+            } else if (RunTrabajoDto.class.isAssignableFrom(objClass)) {
+                id = new StringBuilder("Trabajo[").append(((RunTrabajoDto) obj).getTrabajo().getId()).append("] :: ")
+                        .toString();
+                break;
+            } else if (RunTareaDto.class.isAssignableFrom(objClass)) {
+                id = new StringBuilder("Trabajo[").append(((RunTareaDto) obj).getTarea().getIdTrabajo()).append("]")
+                        .append("Tarea[").append(((RunTareaDto) obj).getTarea().getId()).append("] :: ").toString();
+                break;
+            } else if (RunProcesoDto.class.isAssignableFrom(objClass)) {
+                id = new StringBuilder("Proceso[").append(((RunProcesoDto) obj).getProceso().getId()).append("] :: ")
+                        .toString();
+                break;
+            } else if (ProgramacionDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Programacion[").append(((ProgramacionDto) obj).getId()).append("] :: ")
                         .toString();
                 break;
-            } else if (TrabajoDto.class.isAssignableFrom(obj.getClass())) {
+            } else if (TrabajoDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Trabajo[").append(((TrabajoDto) obj).getId()).append("] :: ").toString();
                 break;
-            } else if (TareaDto.class.isAssignableFrom(obj.getClass())) {
-                id = new StringBuilder("Tarea[").append(((TrabajoDto) obj).getId()).append("] :: ").toString();
+            } else if (TareaDto.class.isAssignableFrom(objClass)) {
+                id = new StringBuilder("Trabajo[").append(((TareaDto) obj).getIdTrabajo()).append("]").append("Tarea[")
+                        .append(((TareaDto) obj).getId()).append("] :: ").toString();
                 break;
-            } else if (ProcesoDto.class.isAssignableFrom(obj.getClass())) {
+            } else if (ProcesoDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Proceso[").append(((ProcesoDto) obj).getId()).append("] :: ").toString();
                 break;
             }
@@ -120,8 +142,8 @@ public class LoggingAspect {
                         .append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString())
                         .toString(), e);
                 for (Object o : args) {
-                    log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Args :: {} :: {}").toString(),
-                            pjp.getSignature().toShortString(), o);
+                    log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Args :: {} :: {}")
+                            .toString(), pjp.getSignature().toShortString(), o);
                 }
             }
             throw e;
@@ -138,7 +160,8 @@ public class LoggingAspect {
     public Object genericAround(ProceedingJoinPoint pjp) throws Throwable {
         Instant start = Instant.now();
         if (log.isDebugEnabled()) {
-            log.debug("GenericAround :: Inicio :: {} :: {}", pjp.getSignature().toShortString(), Arrays.asList(pjp.getArgs()));
+            log.debug("GenericAround :: Inicio :: {} :: {}", pjp.getSignature().toShortString(),
+                    Arrays.asList(pjp.getArgs()));
         }
         Object result;
         try {
@@ -146,8 +169,9 @@ public class LoggingAspect {
         } catch (Throwable e) {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
-                String msg = new StringBuilder("GenericAround :: Fin :: Error :: Duration[").append(Duration.between(start, end))
-                        .append("] :: ").append(pjp.getSignature().toShortString()).toString();
+                String msg = new StringBuilder("GenericAround :: Fin :: Error :: Duration[")
+                        .append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString())
+                        .toString();
                 log.error(msg, e);
             }
             throw e;
@@ -159,7 +183,8 @@ public class LoggingAspect {
         Instant end = Instant.now();
         Duration duration = Duration.between(start, end);
         if (duration.compareTo(Duration.ofSeconds(15)) > 0) {
-            log.warn("GenericAround :: Lento :: Duration[{}] :: {} :: {}", duration, pjp.getSignature().toShortString(), result);
+            log.warn("GenericAround :: Lento :: Duration[{}] :: {} :: {}", duration, pjp.getSignature().toShortString(),
+                    result);
         }
 
         return result;
@@ -168,8 +193,9 @@ public class LoggingAspect {
     @AfterThrowing(pointcut = "auditoriaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()", throwing = "e")
     public void genericAfterThrowing(JoinPoint jp, Exception e) {
         if (log.isErrorEnabled()) {
-            String msg = new StringBuilder("GenericAfterThrowing :: Error :: ").append(jp.getSignature().toShortString()).append(" :: ")
-                    .append(Arrays.asList(jp.getArgs())).toString();
+            String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
+                    .append(jp.getSignature().toShortString()).append(" :: ").append(Arrays.asList(jp.getArgs()))
+                    .toString();
             log.error(msg, e);
         }
     }
