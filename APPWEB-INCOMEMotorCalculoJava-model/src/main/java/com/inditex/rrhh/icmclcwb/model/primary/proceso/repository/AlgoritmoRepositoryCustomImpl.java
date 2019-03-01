@@ -10,6 +10,7 @@ import javax.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -44,8 +45,13 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
     
     @Override
     public Boolean checkDuplicatedActives() {
-        Integer value = namedParameterJdbcTemplate.queryForObject(sqlCheckDuplicatedActives, new MapSqlParameterSource(), Integer.class);
-        if(value != null && value > 0) {
+        List<Integer> value = namedParameterJdbcTemplate.query(sqlCheckDuplicatedActives, new RowMapper<Integer>() {
+            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                  return rs.getInt(1);
+            }
+        });
+
+        if(value != null && !value.isEmpty()) {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
