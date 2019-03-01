@@ -23,10 +23,12 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     
     @Value("#{primaryQuery['RunProcesoCalcularService.customFindAlgoritmosIdsByProceso']}")
     private String sqlCustomFindAlgoritmosIdsByProceso;
+    
+    @Value("#{primaryQuery['RunProcesoCalcularService.checkDuplicatedActives']}")
+    private String sqlCheckDuplicatedActives;
     
     @Override
     public List<Long> customFindAlgoritmosIdsByProceso(@NotNull @Positive final Long idProceso) {
@@ -38,6 +40,15 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
                 return rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO);
             }
         });
+    }
+    
+    @Override
+    public Boolean checkDuplicatedActives() {
+        Integer value = namedParameterJdbcTemplate.queryForObject(sqlCheckDuplicatedActives, new MapSqlParameterSource(), Integer.class);
+        if(value != null && value > 0) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 
 }
