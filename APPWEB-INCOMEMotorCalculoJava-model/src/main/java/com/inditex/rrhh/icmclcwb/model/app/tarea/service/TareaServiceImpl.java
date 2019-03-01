@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.apache.commons.collections.CollectionUtils;
@@ -19,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -92,37 +94,20 @@ public class TareaServiceImpl implements TareaService {
 
     @Transactional
     @Override
-    public TareaDto modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
-        tarea.setEstado(estado);
-        return save(tarea);
+    public int modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
+        return tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(estado.getId()).build());
     }
 
     @Transactional
     @Override
-    public TareaDto modifyEstadoTareaInicial(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
-        tarea.setFechaInicioTarea(LocalDateTime.now());
-        return modifyEstadoTarea(tarea, estado);
+    public int modifyFechaInicioTarea(@Valid final TareaDto tarea) {
+        return tareaRepository.setFechaInicioTarea(tarea.getId(), new Date());
     }
 
     @Transactional
     @Override
-    public TareaDto modifyEstadoTareaFinal(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
-        tarea.setFechaFinTarea(LocalDateTime.now());
-        return modifyEstadoTarea(tarea, estado);
-    }
-
-    @Transactional
-    @Override
-    public TareaDto modifyFechaInicioTarea(@Valid final TareaDto tarea) {
-        tarea.setFechaInicioTarea(LocalDateTime.now());
-        return save(tarea);
-    }
-
-    @Transactional
-    @Override
-    public TareaDto modifyFechaFinTarea(@Valid final TareaDto tarea) {
-        tarea.setFechaFinTarea(LocalDateTime.now());
-        return save(tarea);
+    public int modifyFechaFinTarea(@Valid final TareaDto tarea) {
+        return tareaRepository.setFechaFinTarea(tarea.getId(), new Date());
     }
 
 }

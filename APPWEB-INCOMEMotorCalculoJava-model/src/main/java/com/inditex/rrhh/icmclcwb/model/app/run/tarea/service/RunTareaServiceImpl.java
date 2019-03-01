@@ -46,7 +46,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             runTareaCalcularService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {
-            tareaService.modifyEstadoTareaFinal(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
+            tareaService.modifyEstadoTarea(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
             throw new IcmclcwbException(e.getMessage(), e);
         } finally {
             tareaService.modifyFechaFinTarea(runTarea.getTarea());

@@ -32,7 +32,7 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
         if (EstadoTareaEnum.PENDIENTE_CONSOLIDAR.getId().equals(tarea.getEstado().getId())) {
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_CONSOLIDAR.getDto());
             
-            tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.PENDIENTE_CONSOLIDAR.getDto());
+            tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getDto());
         }
         return runTarea;
     }

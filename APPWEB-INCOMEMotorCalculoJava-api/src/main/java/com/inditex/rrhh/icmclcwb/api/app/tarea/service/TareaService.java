@@ -13,21 +13,17 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 public interface TareaService {
 
     TareaDto save(@Valid final TareaDto tarea);
-    
+
     TareaDto find(@NotNull @Positive final Long id);
 
     TareaDto create(@Valid final TareaDto tarea);
 
     List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo);
 
-    TareaDto modifyEstadoTareaInicial(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado);
-    
-    TareaDto modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado);
+    int modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado);
 
-    TareaDto modifyEstadoTareaFinal(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado);
-    
-    TareaDto modifyFechaInicioTarea(@Valid final TareaDto tarea);
+    int modifyFechaInicioTarea(@Valid final TareaDto tarea);
 
-    TareaDto modifyFechaFinTarea(@Valid final TareaDto tarea);
+    int modifyFechaFinTarea(@Valid final TareaDto tarea);
 
 }
