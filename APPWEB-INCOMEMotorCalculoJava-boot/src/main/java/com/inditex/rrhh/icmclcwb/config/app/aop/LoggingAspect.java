@@ -25,11 +25,9 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.ProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 
 @Aspect
@@ -97,10 +95,6 @@ public class LoggingAspect {
                 id = new StringBuilder("Trabajo[").append(((RunTareaDto) obj).getTarea().getIdTrabajo()).append("]")
                         .append("Tarea[").append(((RunTareaDto) obj).getTarea().getId()).append("] :: ").toString();
                 break;
-            } else if (RunProcesoDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Proceso[").append(((RunProcesoDto) obj).getProceso().getId()).append("] :: ")
-                        .toString();
-                break;
             } else if (ProgramacionDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Programacion[").append(((ProgramacionDto) obj).getId()).append("] :: ")
                         .toString();
@@ -111,9 +105,6 @@ public class LoggingAspect {
             } else if (TareaDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Trabajo[").append(((TareaDto) obj).getIdTrabajo()).append("]").append("Tarea[")
                         .append(((TareaDto) obj).getId()).append("] :: ").toString();
-                break;
-            } else if (ProcesoDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Proceso[").append(((ProcesoDto) obj).getId()).append("] :: ").toString();
                 break;
             }
         }

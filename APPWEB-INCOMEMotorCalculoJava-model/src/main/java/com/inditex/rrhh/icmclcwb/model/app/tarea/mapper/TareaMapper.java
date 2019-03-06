@@ -14,6 +14,12 @@ import org.mapstruct.MappingTarget;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoPersonaDto;
@@ -79,4 +85,41 @@ public abstract class TareaMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
+//    @Mapping(target = "fechaInicio", source = "fechaInicioPeriodo")
+//    @Mapping(target = "fechaFin", source = "fechaFinPeriodo")
+//    @Mapping(target = "idOrigen", source = "idPaisOrigen")
+    @Mapping(target = "idEmpresa", source = "idEmpresa")
+    public abstract GenericFilterDto tareaDtoToGenericFilterDto(TareaDto src);
+
+//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "pais", source = "idPaisOrigen")
+    @Mapping(target = "tienda", ignore = true)
+    public abstract PtrVentaTotalizadoRequestDto tareaDtoToPtrVentaTotalizadoRequestDto(TareaDto src);
+
+//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "pais", source = "idPaisOrigen")
+    @Mapping(target = "tienda", ignore = true)
+    public abstract PtrVentaIndividualDetalleRequestDto tareaDtoToPtrVentaIndividualDetalleRequestDto(TareaDto src);
+
+//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "origen", source = "idPaisOrigen")
+    public abstract PtrPresenciaTotalTiendaSeccionRequestDto tareaDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
+            TareaDto src);
+
+//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "origen", source = "idPaisOrigen")
+    @Mapping(target = "persona", ignore = true)
+    public abstract PtrPresenciaDetalleRequestDto tareaDtoToPtrPresenciasDetalleRequestDto(TareaDto src);
+
+//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+//    @Mapping(target = "origen", source = "idPaisOrigen")
+    @Mapping(target = "persona", ignore = true)
+    public abstract PtrPresenciaDetalleComisionableRequestDto tareaDtoToPtrPresenciasDetalleComisionableRequestDto(
+            TareaDto src);
+    
 }

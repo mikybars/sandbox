@@ -15,19 +15,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.run.proceso.dto.RunProcesoDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.proceso.service.RunProcesoService;
-import com.inditex.rrhh.icmclcwb.api.app.proceso.service.ProcesoService;
 
 @Service
 @Validated
 public class RunServiceImpl implements RunService {
-
-    @Autowired
-    private RunProcesoService runProcesoService;
-
-    @Autowired
-    private ProcesoService procesoService;
 
     @Autowired
     private RunTrabajoService runTrabajoService;
@@ -40,11 +31,6 @@ public class RunServiceImpl implements RunService {
 
     @Autowired
     private TareaService tareaService;
-
-    @Override
-    public RunProcesoDto runProceso(@NotNull @Positive final Long id) {
-        return runProcesoService.run(RunProcesoDto.builder().proceso(procesoService.findProceso(id)).build());
-    }
 
     @Override
     public RunTrabajoDto runTrabajo(@NotNull @Positive final Long id) {

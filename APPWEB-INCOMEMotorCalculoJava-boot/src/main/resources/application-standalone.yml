@@ -41,9 +41,6 @@ amiga:
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
         concurrency: 10-20
-      proceso-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.proceso-queue-${metadata.slot}
-        concurrency: 10-20
     session:
       session-type: EMBEDDED
     aaa:
@@ -72,10 +69,6 @@ amiga:
           destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
           receiveTimeout: 100
           pubSubDomain: false
-        proceso:
-          destinationName: ${amiga.service.jms.proceso-queue.destination-fqdn}
-          receiveTimeout: 100
-          pubSubDomain: false
     jdbc:
       configuration:
         prop:
@@ -97,7 +90,7 @@ app:
     calculo:
       cast: false
       precision: 'AS DECIMAL(23, 8)'  
-    proceso:
+    tarea:
       calcular:
         algoritmo:
           getConfig:

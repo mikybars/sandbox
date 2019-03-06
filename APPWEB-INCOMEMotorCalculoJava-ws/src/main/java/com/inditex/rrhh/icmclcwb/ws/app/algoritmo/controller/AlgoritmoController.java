@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.proceso.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.proceso.service.AlgoritmoService;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,9 +25,9 @@ import io.swagger.annotations.Authorization;
 @RequestMapping(path = "/algoritmo")
 @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
 public class AlgoritmoController {
-    
+
     @Autowired
-    AlgoritmoService algoritmoService;
+    private AlgoritmoService algoritmoService;
 
     @GetMapping
     @ApiOperation("Devuelve el listado de algoritmos")
@@ -40,11 +40,11 @@ public class AlgoritmoController {
     public @Valid Boolean checkDuplicatedActives() {
         return algoritmoService.checkDuplicatedActives();
     }
-    
+
     @GetMapping("/{id}")
     @ApiOperation("Obtiene un algoritmo")
     public @Valid AlgoritmoDto findById(@PathVariable @Valid @NotNull @Positive final Long id) {
         return algoritmoService.findById(id);
     }
-    
+
 }

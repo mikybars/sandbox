@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarSer
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
+import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
 
 @Service
 @Validated
@@ -31,7 +32,7 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
         TareaDto tarea = tareaService.find(runTarea.getTarea().getId());
         if (EstadoTareaEnum.PENDIENTE_CONSOLIDAR.getId().equals(tarea.getEstado().getId())) {
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_CONSOLIDAR.getDto());
-            
+            TestUtils.threadSleep();
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getDto());
         }
         return runTarea;

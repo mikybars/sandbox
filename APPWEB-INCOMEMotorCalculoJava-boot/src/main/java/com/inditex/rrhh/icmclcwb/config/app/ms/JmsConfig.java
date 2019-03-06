@@ -57,14 +57,6 @@ public class JmsConfig {
             @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
         return builder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();
     }
-    
-    @Bean
-    @Qualifier("procesoJmsClient")
-    @ConfigurationProperties(prefix = "amiga.data.jms.client.proceso")
-    public JmsClient procesoJmsClient(final JmsClientBuilder builder,
-            @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
-        return builder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();
-    }
 
     @Bean
     public JmsConnectionFactoryGlobalCustomizer globalCustomizer() {

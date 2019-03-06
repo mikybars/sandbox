@@ -24,5 +24,9 @@ public class RunTareaDto implements Serializable {
     
     @NotNull
     private TareaDto tarea;
+    
+    private final RunTareaRecolectarDto runTareaRecolectar = new RunTareaRecolectarDto();
+
+    private final RunTareaCalcularDto runTareaCalcular = new RunTareaCalcularDto();
 
 }
