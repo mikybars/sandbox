@@ -2,15 +2,15 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-public interface TareaRecolectarPtrVentaAsyncService {
+public interface RunTareaRecolectarPtrVentaAsyncService {
 
-    CompletableFuture<Void> ventaDetalleEmpleado(final TareaDto tarea,
+    CompletableFuture<Void> ventaDetalleEmpleado(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    CompletableFuture<Void> ventaTotalizadaTienda(final TareaDto tarea,
+    CompletableFuture<Void> ventaTotalizadaTienda(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
 }

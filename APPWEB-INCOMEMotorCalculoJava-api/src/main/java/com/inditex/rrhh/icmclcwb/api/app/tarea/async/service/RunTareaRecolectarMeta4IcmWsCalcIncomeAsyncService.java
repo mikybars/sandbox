@@ -2,27 +2,27 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-public interface TareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
+public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
-    CompletableFuture<Void> tiendasHistorico(final TareaDto tarea,
+    CompletableFuture<Void> tiendasHistorico(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    CompletableFuture<Void> tiendasEmpleadoHistorico(final TareaDto tarea,
+    CompletableFuture<Void> tiendasEmpleadoHistorico(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    CompletableFuture<Void> condicionesEmpleados(final TareaDto tarea,
+    CompletableFuture<Void> condicionesEmpleados(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    CompletableFuture<Void> empleadosTienda(final TareaDto tarea,
+    CompletableFuture<Void> empleadosTienda(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    CompletableFuture<Void> tiendasPresencia(final TareaDto tarea,
+    CompletableFuture<Void> tiendasPresencia(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    CompletableFuture<Void> tiendasComisionable(final TareaDto tarea,
+    CompletableFuture<Void> tiendasComisionable(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
 }

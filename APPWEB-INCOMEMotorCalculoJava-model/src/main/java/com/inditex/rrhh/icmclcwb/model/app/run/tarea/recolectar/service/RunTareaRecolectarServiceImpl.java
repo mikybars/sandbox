@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoEstadoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPivotAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaRecolectarPtrPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaRecolectarPtrVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPivotAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPtrVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
@@ -38,16 +38,16 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     private TareaService tareaService;
 
     @Autowired
-    private TareaRecolectarMeta4IcmWsCalcIncomeAsyncService tareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+    private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
     @Autowired
-    private TareaRecolectarPtrVentaAsyncService tareaRecolectarPtrVentaAsyncService;
+    private RunTareaRecolectarPtrVentaAsyncService runTareaRecolectarPtrVentaAsyncService;
 
     @Autowired
-    private TareaRecolectarPtrPresenciaAsyncService tareaRecolectarPtrPresenciaAsyncService;
+    private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
 
     @Autowired
-    private TareaPivotAsyncService tareaPivotAsyncService;
+    private RunTareaRecolectarPivotAsyncService runTareaRecolectarPivotAsyncService;
 
     @Autowired
     private TareaTiendaEstadoAsyncService tareaTiendaEstadoAsyncService;
@@ -63,24 +63,24 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
-            final TareaDto tarea = tareaService.find(runTarea.getTarea().getId());
+            final TareaDto tarea = runTarea.getTarea();
             final RunTareaRecolectarDto runTareaRecolectar = runTarea.getRunTareaRecolectar();
             if (EstadoTareaEnum.PENDIENTE_RECOLECTAR.getId().equals(tarea.getEstado().getId())) {
                 tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_RECOLECTAR.getDto());
-                
-                CompletableFuture<Void> cfTiendasHistorico = tareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                        .tiendasHistorico(tarea, runTareaRecolectar.getUno());
+
+                CompletableFuture<Void> cfTiendasHistorico = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                        .tiendasHistorico(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfTiendasHistorico, cf, cfWait);
 
                 if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
                     /*-------------------------------------------------------------*/
                     AsyncUtils.waitAllOfIsOk(cf, cfWait);
                     /*-------------------------------------------------------------*/
-                    AsyncUtils.exceptionally(tareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                            .tiendasEmpleadoHistorico(tarea, runTareaRecolectar.getUno()), cf, cfWait);
+                    AsyncUtils.exceptionally(runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                            .tiendasEmpleadoHistorico(runTarea, runTareaRecolectar.getUno()), cf, cfWait);
                 }
 
-                CompletableFuture<Void> cfTiposHoras = tareaRecolectarPtrPresenciaAsyncService.tiposHoras(tarea,
+                CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService.tiposHoras(runTarea,
                         runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfTiposHoras, cf);
 
@@ -88,32 +88,32 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
                 AsyncUtils.waitAllOfIsOk(cf, cfWait);
                 /*-------------------------------------------------------------*/
 
-                CompletableFuture<Void> cfTiendasComisionable = tareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                        .tiendasComisionable(tarea, runTareaRecolectar.getUno());
+                CompletableFuture<Void> cfTiendasComisionable = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                        .tiendasComisionable(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfTiendasComisionable, cf);
 
-                CompletableFuture<Void> cfEmpleados = tareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                        .empleadosTienda(tarea, runTareaRecolectar.getUno());
+                CompletableFuture<Void> cfEmpleados = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                        .empleadosTienda(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfEmpleados, cf);
 
-                CompletableFuture<Void> cfVentaTotalizadaTienda = tareaRecolectarPtrVentaAsyncService
-                        .ventaTotalizadaTienda(tarea, runTareaRecolectar.getUno());
+                CompletableFuture<Void> cfVentaTotalizadaTienda = runTareaRecolectarPtrVentaAsyncService
+                        .ventaTotalizadaTienda(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
 
-                CompletableFuture<Void> cfPresenciaTotalizadaTienda = tareaRecolectarPtrPresenciaAsyncService
-                        .presenciaTotalizadaTienda(tarea, runTareaRecolectar.getUno());
+                CompletableFuture<Void> cfPresenciaTotalizadaTienda = runTareaRecolectarPtrPresenciaAsyncService
+                        .presenciaTotalizadaTienda(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
 
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cfEmpleados);
                 /*-------------------------------------------------------------*/
 
-                CompletableFuture<Void> cfPresenciaDetalleEmpleado = tareaRecolectarPtrPresenciaAsyncService
-                        .presenciaDetalleEmpleado(tarea, runTareaRecolectar.getUno());
+                CompletableFuture<Void> cfPresenciaDetalleEmpleado = runTareaRecolectarPtrPresenciaAsyncService
+                        .presenciaDetalleEmpleado(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
 
-                CompletableFuture<Void> cfCondicionesEmpleados = tareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                        .condicionesEmpleados(tarea, runTareaRecolectar.getUno());
+                CompletableFuture<Void> cfCondicionesEmpleados = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                        .condicionesEmpleados(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfCondicionesEmpleados, cf);
 
                 if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())
@@ -132,23 +132,23 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
                         runTareaRecolectar.getDos().getTipoHoraComisionableDenominador()
                                 .addAll(runTareaRecolectar.getUno().getTipoHoraComisionableDenominador());
 
-                        CompletableFuture<Void> cfTiendasPresencia = tareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                                .tiendasPresencia(tarea, runTareaRecolectar.getDos());
+                        CompletableFuture<Void> cfTiendasPresencia = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                                .tiendasPresencia(runTarea, runTareaRecolectar.getDos());
                         AsyncUtils.exceptionally(cfTiendasPresencia, cf);
 
                         AsyncUtils.waitAllOfIsOk(cf, cfTiendasPresencia);
 
                         if (CollectionUtils.isNotEmpty(runTareaRecolectar.getDos().getTiendaMtu())) {
-                            CompletableFuture<Void> cfTiendasComisionablePresencia = tareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                                    .tiendasComisionable(tarea, runTareaRecolectar.getDos());
+                            CompletableFuture<Void> cfTiendasComisionablePresencia = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                                    .tiendasComisionable(runTarea, runTareaRecolectar.getDos());
                             AsyncUtils.exceptionally(cfTiendasComisionablePresencia, cf);
 
-                            CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = tareaRecolectarPtrVentaAsyncService
-                                    .ventaTotalizadaTienda(tarea, runTareaRecolectar.getDos());
+                            CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = runTareaRecolectarPtrVentaAsyncService
+                                    .ventaTotalizadaTienda(runTarea, runTareaRecolectar.getDos());
                             AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
 
-                            CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = tareaRecolectarPtrPresenciaAsyncService
-                                    .presenciaTotalizadaTienda(tarea, runTareaRecolectar.getDos());
+                            CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = runTareaRecolectarPtrPresenciaAsyncService
+                                    .presenciaTotalizadaTienda(runTarea, runTareaRecolectar.getDos());
                             AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
                         }
                     }
@@ -158,21 +158,21 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
 
-                CompletableFuture<Void> cfPivot = tareaPivotAsyncService.pivot(tarea);
+                CompletableFuture<Void> cfPivot = runTareaRecolectarPivotAsyncService.pivot(runTarea);
                 AsyncUtils.exceptionally(cfPivot, cf);
 
-                CompletableFuture<Void> cftareaTiendaEstado = tareaTiendaEstadoAsyncService
-                        .save(runTareaRecolectar, tarea);
+                CompletableFuture<Void> cftareaTiendaEstado = tareaTiendaEstadoAsyncService.save(runTareaRecolectar,
+                        tarea);
                 AsyncUtils.exceptionally(cftareaTiendaEstado, cf);
 
-                CompletableFuture<Void> cftareaEmpleadoEstado = tareaEmpleadoEstadoAsyncService
-                        .save(runTareaRecolectar, tarea);
+                CompletableFuture<Void> cftareaEmpleadoEstado = tareaEmpleadoEstadoAsyncService.save(runTareaRecolectar,
+                        tarea);
                 AsyncUtils.exceptionally(cftareaEmpleadoEstado, cf);
 
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
-                
+
                 tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.PENDIENTE_CALCULAR.getDto());
             }
         } catch (IcmclcwbException e) {
