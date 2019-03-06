@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFi
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -85,41 +86,45 @@ public abstract class TareaMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-//    @Mapping(target = "fechaInicio", source = "fechaInicioPeriodo")
-//    @Mapping(target = "fechaFin", source = "fechaFinPeriodo")
-//    @Mapping(target = "idOrigen", source = "idPaisOrigen")
-    @Mapping(target = "idEmpresa", source = "idEmpresa")
-    public abstract GenericFilterDto tareaDtoToGenericFilterDto(TareaDto src);
+    @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
+    @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
+    @Mapping(target = "idEmpresa", source = "srcTarea.idEmpresa")
+    public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
-//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "pais", source = "idPaisOrigen")
     @Mapping(target = "tienda", ignore = true)
-    public abstract PtrVentaTotalizadoRequestDto tareaDtoToPtrVentaTotalizadoRequestDto(TareaDto src);
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "pais", source = "srcTareaAmbito.idCatalogo")
+    public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
-//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "pais", source = "idPaisOrigen")
     @Mapping(target = "tienda", ignore = true)
-    public abstract PtrVentaIndividualDetalleRequestDto tareaDtoToPtrVentaIndividualDetalleRequestDto(TareaDto src);
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "pais", source = "srcTareaAmbito.idCatalogo")
+    public abstract PtrVentaIndividualDetalleRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
-//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "origen", source = "idPaisOrigen")
-    public abstract PtrPresenciaTotalTiendaSeccionRequestDto tareaDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
-            TareaDto src);
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "origen", source = "srcTareaAmbito.idCatalogo")
+    public abstract PtrPresenciaTotalTiendaSeccionRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
-//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "origen", source = "idPaisOrigen")
     @Mapping(target = "persona", ignore = true)
-    public abstract PtrPresenciaDetalleRequestDto tareaDtoToPtrPresenciasDetalleRequestDto(TareaDto src);
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "origen", source = "srcTareaAmbito.idCatalogo")
+    public abstract PtrPresenciaDetalleRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasDetalleRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
-//    @Mapping(target = "fechaDesde", source = "fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "fechaHasta", source = "fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
-//    @Mapping(target = "origen", source = "idPaisOrigen")
     @Mapping(target = "persona", ignore = true)
-    public abstract PtrPresenciaDetalleComisionableRequestDto tareaDtoToPtrPresenciasDetalleComisionableRequestDto(
-            TareaDto src);
-    
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "origen", source = "srcTareaAmbito.idCatalogo")
+    public abstract PtrPresenciaDetalleComisionableRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasDetalleComisionableRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+
 }
