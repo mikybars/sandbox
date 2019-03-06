@@ -27,6 +27,7 @@ public class PtrConstants {
     
     /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - VENTAECOMMERCE*/
     public static final String VENTA_ONLINE_IPOD = "getVentaOnlineiPod";
+    public static final String VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE = "getVentaOnlineIpodIndividualDetalle";
     public static final String VENTA_ONLINE_ENTREGA_TIENDA = "getVentaOnlineEntregaTienda";
     public static final String VENTA_ONLINE_ENTREGA_DOMICILIO = "getVentaOnlineEntregaDomicilio";
     public static final String VENTA_ONLINE_PICKING = "getVentaOnlinePicking";

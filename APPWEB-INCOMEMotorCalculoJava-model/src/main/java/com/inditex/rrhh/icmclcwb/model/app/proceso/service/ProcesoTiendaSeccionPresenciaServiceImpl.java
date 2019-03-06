@@ -41,7 +41,7 @@ public class ProcesoTiendaSeccionPresenciaServiceImpl implements ProcesoTiendaSe
     @Override
     public CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, ProcesoDto proceso) {
         mapper.procesoTiendaSeccionPresenciasToProcesoTiendaSeccionPresenciasDto(procesoTiendaSeccionPresenciaRepositoryCustom
-                .save(mapper.presenciasTotalTiendaSeccionResponseDtosDtoToProcesoTiendaSeccionPresencias(dto, proceso)));
+                .save(mapper.presenciasTotalTiendaSeccionResponseDtoToProcesoTiendaSeccionPresencias(dto, proceso)));
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

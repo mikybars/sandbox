@@ -2,7 +2,14 @@ package com.inditex.rrhh.icmclcwb.ptr.venta;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Arrays;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpStatus;
 import org.junit.Ignore;
@@ -12,15 +19,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
@@ -28,6 +42,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaO
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourRequestDto;
@@ -70,6 +86,19 @@ public class PtrVentaEcommerceServiceTest {
     }
     
     @Test
+    @Ignore("Devuelve un 500")
+    public void ventaOnlineIpodIndividualDetalle() {
+        PtrVentaOnlineIpodIndividualDetalleRequestDto request = new PtrVentaOnlineIpodIndividualDetalleRequestDto();
+        request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
+        request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+        request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
+        request.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA);
+        ResponseEntity<PtrVentaOnlineIpodIndividualDetalleResponseDto> response = ptrVentaClient
+                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaOnlineIpodIndividualDetalleResponseDto.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    }
+    
+    @Test
     public void ventaOnlineEntregaDomicilio() {
         PtrVentaOnlineEntregaDomicilioRequestDto request = new PtrVentaOnlineEntregaDomicilioRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
@@ -107,6 +136,27 @@ public class PtrVentaEcommerceServiceTest {
 
         ResponseEntity<PtrVentaOnlinePickingResponseDto> response = ptrVentaClient
                 .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request, PtrVentaOnlinePickingResponseDto.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    }
+    
+    @Ignore
+    @Test
+    public void ventaOnlinePickingXml() throws SAXException, IOException, ParserConfigurationException {
+       
+        PtrVentaOnlinePickingRequestDto request = new PtrVentaOnlinePickingRequestDto();
+        request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
+        request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+        request.setTiendaOnline(Arrays.asList(9724));
+        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_XML);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+
+        HttpEntity<PtrVentaOnlinePickingRequestDto> request2 = new HttpEntity<PtrVentaOnlinePickingRequestDto>(request, headers);
+
+        ResponseEntity<String> response = ptrVentaClient
+                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request2, String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     

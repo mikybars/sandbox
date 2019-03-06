@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +31,6 @@ public class PtrPresenciaDetalleComisionableResultItemDto {
 	
 	private Integer origen;
 
-	private Boolean modificado_income;
+	private List<SeccionPresenciasDetalleComisionableType> listaSeccion;
 
 }

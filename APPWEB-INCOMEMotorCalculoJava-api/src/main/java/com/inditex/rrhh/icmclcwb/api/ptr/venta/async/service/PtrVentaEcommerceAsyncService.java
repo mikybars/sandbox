@@ -8,6 +8,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaO
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourRequestDto;
@@ -26,6 +28,9 @@ public interface PtrVentaEcommerceAsyncService {
     CompletableFuture<String> getVersion();
 
     CompletableFuture<PtrVentaOnlineIpodResponseDto> ventaOnlineiPod(PtrVentaOnlineIpodRequestDto request);
+
+    CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> ventaOnlineiPodIndividualDetalle(
+            PtrVentaOnlineIpodIndividualDetalleRequestDto request);
 
     CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> ventaOnlineEntregaDomicilio(
             PtrVentaOnlineEntregaDomicilioRequestDto request);
@@ -46,6 +51,5 @@ public interface PtrVentaEcommerceAsyncService {
 
     CompletableFuture<PtrVentaOrdersByCountryMinuteResponseDto> ordersByCountryHour(
             PtrVentaOrdersByCountryMinuteRequestDto request);
-
 
 }

@@ -107,7 +107,7 @@ app:
         maxAttempts: 2
       venta:
         service:
-          version: 1.0.22-rc.5
+          version: 1.0.22-rc.6
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
@@ -140,6 +140,12 @@ app:
                 maxBatchSize: 100
             getVentaOnlineiPod:
               endpoint: /ventaEcommerce/getVentaOnlineiPod
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100  
+            getVentaOnlineIpodIndividualDetalle:
+              endpoint: /ventaEcommerce/getVentaOnlineIpodIndividualDetalle
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3

@@ -19,6 +19,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaO
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourRequestDto;
@@ -54,6 +56,18 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                         ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getEndpoint(), request,
                         PtrVentaOnlineIpodResponseDto.class),
                 ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getEndpoint(),
+                request);
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Override
+    public PtrVentaOnlineIpodIndividualDetalleResponseDto ventaOnlineiPodIndividualDetalle(
+            @Valid final PtrVentaOnlineIpodIndividualDetalleRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrVentaClient.postForEntity(
+                        ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(), request,
+                        PtrVentaOnlineIpodIndividualDetalleResponseDto.class),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(),
                 request);
     }
     

@@ -42,6 +42,7 @@ public class PtrTestConstants {
 
     public static final Integer ID_EJERCICIO = 1;
     
+    public static final Integer AGRUPAR_SECCION_TRUE = 1;
     
     public static final Integer TIPO = 1;
     
