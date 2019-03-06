@@ -9,4 +9,6 @@ public interface AlgoritmoRepositoryCustom {
 
     public List<Long> customFindAlgoritmosIdsByProceso(@NotNull @Positive final Long idProceso);
 
+    Boolean checkDuplicatedActives();
+
 }
