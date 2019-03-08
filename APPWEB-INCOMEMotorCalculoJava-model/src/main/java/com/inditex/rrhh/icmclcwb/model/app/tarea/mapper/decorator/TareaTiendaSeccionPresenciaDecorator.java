@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaSeccionPresenciaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaPresenciaSeccion;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaSeccionPresencia;
 
+@Deprecated
 public abstract class TareaTiendaSeccionPresenciaDecorator extends TareaTiendaSeccionPresenciaMapper {
 
     @Autowired
@@ -29,17 +29,5 @@ public abstract class TareaTiendaSeccionPresenciaDecorator extends TareaTiendaSe
         return dtoList;
     }
     
-    @Override
-    public List<TareaTiendaPresenciaSeccion> presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(
-            List<PtrPresenciaTotalTiendaSeccionResultItemDto> src, TareaDto tareaDto) {
-        List<TareaTiendaPresenciaSeccion> dtoList = new ArrayList<>();
-        for (PtrPresenciaTotalTiendaSeccionResultItemDto childDto : src) {
-            TareaTiendaPresenciaSeccion dto = delegate.presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(childDto,
-                    tareaDto);
-            dtoList.add(dto);
-        }
-
-        return dtoList;
-    }
     
 }

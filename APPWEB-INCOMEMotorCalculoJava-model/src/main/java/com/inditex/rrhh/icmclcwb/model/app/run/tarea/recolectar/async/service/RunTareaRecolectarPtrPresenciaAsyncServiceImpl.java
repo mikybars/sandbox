@@ -28,6 +28,14 @@ public class RunTareaRecolectarPtrPresenciaAsyncServiceImpl implements RunTareaR
 
     @Async
     @Override
+    public CompletableFuture<Void> presenciaTotalizadaTiendaSeccion(final RunTareaDto runTarea,
+            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
+        tareaRecolectarPtrPresenciaService.presenciaTotalizadaTiendaSeccion(runTarea, runTareaRecolectarBloque);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
     public CompletableFuture<Void> presenciaTotalizadaTienda(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
         tareaRecolectarPtrPresenciaService.presenciaTotalizadaTienda(runTarea, runTareaRecolectarBloque);
@@ -36,9 +44,9 @@ public class RunTareaRecolectarPtrPresenciaAsyncServiceImpl implements RunTareaR
 
     @Async
     @Override
-    public CompletableFuture<Void> presenciaDetalleEmpleado(final RunTareaDto runTarea,
+    public CompletableFuture<Void> presenciaDetalleComisionable(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
-        tareaRecolectarPtrPresenciaService.presenciaDetalleEmpleado(runTarea, runTareaRecolectarBloque);
+        tareaRecolectarPtrPresenciaService.presenciaDetalleComisionable(runTarea, runTareaRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

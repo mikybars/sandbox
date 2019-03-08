@@ -20,17 +20,20 @@ public class PtrVentaOnlinePickingResultItemDto implements Serializable {
 
     private Integer cadena;
 
-    @NotBlank
-    private Integer tienda;
-    
     private Integer empresa;
 
     private Integer seccion;
+    
+    private Integer tienda;
 
     @NotNull
     private BigDecimal importeSinIVA;
 
     @NotNull
     private BigDecimal importeConIVA;
+    
+    private String ano;
+    
+    private String cmp;
 
 }

@@ -10,11 +10,16 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
 
 public interface PtrPresenciaAsyncService {
 
+    CompletableFuture<PtrPresenciaTotalTiendaResponseDto> presenciasTotalTienda(
+            PtrPresenciaTotalTiendaRequestDto request);
+    
     CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
             final PtrPresenciaTotalTiendaSeccionRequestDto request);
 
@@ -32,7 +37,5 @@ public interface PtrPresenciaAsyncService {
     CompletableFuture<String> version();
 
     CompletableFuture<String> test();
-
-
 
 }

@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 
+@Deprecated
 @Data
 public class TareaTiendaSeccionPresenciaDto implements Serializable {
 

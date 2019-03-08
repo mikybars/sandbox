@@ -1,0 +1,47 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEmpleadoPresenciaSeccion;
+
+@Repository
+public class TareaTiendaEmpleadoPresenciaSeccionRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaTiendaEmpleadoPresenciaSeccion>
+        implements TareaTiendaEmpleadoPresenciaSeccionRepositoryCustom {
+
+    @Autowired
+    @Qualifier("presenciasProperties")
+    private Map<String, PtrPropertiesDto> presenciasProperties;
+    
+    @Value("#{primaryQuery['TareaTiendaEmpleadoPresenciaSeccionRepositoryCustom.save']}")
+    private String sqlSave;
+    
+    @Override
+    public List<TareaTiendaEmpleadoPresenciaSeccion> save(final List<TareaTiendaEmpleadoPresenciaSeccion> src) {
+        return saveJdbcBatchList(src, sqlSave, presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE_COMISIONABLE).getFilter().getMaxBatchSize());
+    }
+    
+    @Override
+    public void setParameters(PreparedStatement pstmt, TareaTiendaEmpleadoPresenciaSeccion entity) throws SQLException {
+        pstmt.setObject(1, entity.getFecha());
+        pstmt.setString(2, entity.getIdEmpleado());
+        pstmt.setString(3, entity.getIdTienda());
+        pstmt.setString(4, entity.getIdTipoHora());
+        pstmt.setLong(5, entity.getMinutos1() != null ? entity.getMinutos1() : 0);
+        pstmt.setLong(6, entity.getMinutos2() != null ? entity.getMinutos2() : 0);
+        pstmt.setLong(7, entity.getMinutos3() != null ? entity.getMinutos3() : 0);
+        pstmt.setLong(8, entity.getTarea().getId());
+    }
+
+}

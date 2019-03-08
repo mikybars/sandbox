@@ -6,6 +6,8 @@ public class PtrConstants {
     }
     
 	public static final String PTR_DATE = "yyyy-MM-dd";
+    public static final Integer AGRUPAR_SECCION_TRUE = 1;
+    public static final Integer AGRUPAR_SECCION_FALSE = 0;
 
 	/* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - VENTAGENERAL*/
     public static final String VENTA_MENSUAL = "getVentaMensual";

@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
@@ -7,15 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaPresenciaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaPresenciaSeccionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 
 @Service
-@Validated
 public class TareaTiendaPresenciaSeccionAsyncServiceImpl implements TareaTiendaPresenciaSeccionAsyncService {
 
     @Autowired
@@ -27,4 +27,12 @@ public class TareaTiendaPresenciaSeccionAsyncServiceImpl implements TareaTiendaP
         tareaTiendaPresenciaSeccionService.pivot(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TareaDto tarea) {
+        tareaTiendaPresenciaSeccionService.save(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

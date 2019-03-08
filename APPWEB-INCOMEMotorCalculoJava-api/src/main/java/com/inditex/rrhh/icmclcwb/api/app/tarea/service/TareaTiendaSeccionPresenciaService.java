@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaSeccionPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 
+@Deprecated
 public interface TareaTiendaSeccionPresenciaService {
 
     CompletableFuture<Void> save(@Valid final TareaTiendaSeccionPresenciaDto dto);

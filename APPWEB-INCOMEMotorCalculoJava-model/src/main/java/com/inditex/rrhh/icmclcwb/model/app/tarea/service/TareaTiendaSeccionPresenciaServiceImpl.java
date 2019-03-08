@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaSeccionPresen
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaSeccionPresenciaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaSeccionPresenciaRepositoryCustom;
 
+@Deprecated
 @Service
 @Validated
 public class TareaTiendaSeccionPresenciaServiceImpl implements TareaTiendaSeccionPresenciaService {

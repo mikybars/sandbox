@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoEstado
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPivotAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPtrVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaEstadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
@@ -41,7 +41,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
     @Autowired
-    private RunTareaRecolectarPtrVentaAsyncService runTareaRecolectarPtrVentaAsyncService;
+    private RunTareaRecolectarPtrVentaGeneralAsyncService runTareaRecolectarPtrVentaAsyncService;
 
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
@@ -101,7 +101,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
                 AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
 
                 CompletableFuture<Void> cfPresenciaTotalizadaTienda = runTareaRecolectarPtrPresenciaAsyncService
-                        .presenciaTotalizadaTienda(runTarea, runTareaRecolectar.getUno());
+                        .presenciaTotalizadaTiendaSeccion(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfPresenciaTotalizadaTienda, cf);
 
                 /*-------------------------------------------------------------*/
@@ -109,7 +109,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
                 /*-------------------------------------------------------------*/
 
                 CompletableFuture<Void> cfPresenciaDetalleEmpleado = runTareaRecolectarPtrPresenciaAsyncService
-                        .presenciaDetalleEmpleado(runTarea, runTareaRecolectar.getUno());
+                        .presenciaDetalleComisionable(runTarea, runTareaRecolectar.getUno());
                 AsyncUtils.exceptionally(cfPresenciaDetalleEmpleado, cf);
 
                 CompletableFuture<Void> cfCondicionesEmpleados = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
@@ -148,7 +148,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
                             AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
 
                             CompletableFuture<Void> cfPresenciaTotalizadaTiendaPresencia = runTareaRecolectarPtrPresenciaAsyncService
-                                    .presenciaTotalizadaTienda(runTarea, runTareaRecolectar.getDos());
+                                    .presenciaTotalizadaTiendaSeccion(runTarea, runTareaRecolectar.getDos());
                             AsyncUtils.exceptionally(cfPresenciaTotalizadaTiendaPresencia, cf);
                         }
                     }

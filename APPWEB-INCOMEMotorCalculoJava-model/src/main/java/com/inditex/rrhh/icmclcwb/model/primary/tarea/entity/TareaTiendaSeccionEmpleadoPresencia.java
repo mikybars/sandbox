@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
+@Deprecated
 @Entity
 @Table(name = "TAREA_TIENDA_SECCION_EMPLEADO_PRESENCIA")
 @Data

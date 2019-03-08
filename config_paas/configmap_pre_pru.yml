@@ -70,7 +70,7 @@ app:
         maxAttempts: 2
       venta:
         service:
-          version: 1.0.22-rc.6
+          version: 1.0.22-rc.17
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
@@ -106,7 +106,13 @@ app:
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
-                maxBatchSize: 100  
+                maxBatchSize: 100
+            getVentaOnlineIpodIndividualDetalle:
+              endpoint: /ventaEcommerce/getVentaOnlineIpodIndividualDetalle
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+                maxBatchSize: 100                    
             getOrdersByCountryMinute:
               endpoint: /ventaEcommerce/getOrdersByCountryMinute
               filter:
@@ -136,7 +142,11 @@ app:
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
-                maxBatchSize: 100                   
+                maxBatchSize: 100
+            test:
+              endpoint: /ventaEcommerce/test
+            getVersion:
+              endpoint: /ventaEcommerce/getVersion                                   
           ventaEmpleado: 
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
@@ -205,19 +215,11 @@ app:
                 maxBatchSize: 100
             test:
               endpoint: /ventaGeneral/test
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-                maxBatchSize: 100 
             getVersion:
-              endpoint: /ventaGeneral/getVersion
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-                maxBatchSize: 100                                   
+              endpoint: /ventaGeneral/getVersion                           
       presencia:
         service:
-          version: 1.0.5-rc.2
+          version: 1.0.5-rc.3
           presenciasService:
             getPresenciasTotalTiendaSeccion:
               endpoint: /presenciasService/presenciasTotalTiendaSeccion

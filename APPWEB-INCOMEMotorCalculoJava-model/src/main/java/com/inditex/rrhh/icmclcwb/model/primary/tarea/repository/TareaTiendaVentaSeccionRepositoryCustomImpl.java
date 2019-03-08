@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +13,14 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Repository
-public class TareaTiendaPresenciaSeccionRepositoryImpl implements TareaTiendaPresenciaSeccionRepository {
+public class TareaTiendaVentaSeccionRepositoryCustomImpl implements TareaTiendaVentaSeccionRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    @Qualifier("pscfTareaTiendaPresenciaSeccionRepositorySave")
+    @Qualifier("pscfTareaTiendaVentaSeccionRepositorySave")
     private PreparedStatementCreatorFactory pscfSave;
 
     @Auditoria

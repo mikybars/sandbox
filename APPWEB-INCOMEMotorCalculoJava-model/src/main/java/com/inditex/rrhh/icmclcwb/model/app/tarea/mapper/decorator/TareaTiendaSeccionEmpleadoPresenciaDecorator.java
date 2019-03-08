@@ -9,9 +9,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaSeccionEmpleadoPresenciaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEmpleadoPresenciaSeccion;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaSeccionEmpleadoPresencia;
 
+@Deprecated
 public abstract class TareaTiendaSeccionEmpleadoPresenciaDecorator
 		extends TareaTiendaSeccionEmpleadoPresenciaMapper {
 
@@ -40,15 +40,5 @@ public abstract class TareaTiendaSeccionEmpleadoPresenciaDecorator
 
         return dtoList;
 	}
-	
-    @Override
-    public List<TareaTiendaEmpleadoPresenciaSeccion> presenciasDetalleComisionableResponseDtoToTareaTiendaEmpleadoPresenciaSeccion(List<PtrPresenciaDetalleComisionableResultItemDto> src, TareaDto tareaDto)  {
-        List<TareaTiendaEmpleadoPresenciaSeccion> dtoList = new ArrayList<>();
-        for (PtrPresenciaDetalleComisionableResultItemDto childDto : src) {
-            TareaTiendaEmpleadoPresenciaSeccion dto = delegate.presenciasDetalleComisionableResponseDtoToTareaTiendaEmpleadoPresenciaSeccion(childDto, tareaDto);
-            dtoList.add(dto);
-        }
-        return dtoList;
-    }
 	
 }

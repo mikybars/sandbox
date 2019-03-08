@@ -37,6 +37,8 @@ public class PtrTestConstants {
     public static final Integer ID_TIENDA = 57;
     
     public static final List<Integer> ID_TIENDA_LIST = Arrays.asList(57);
+    
+    public static final List<String> ID_TIENDA_ONLINE_LIST = Arrays.asList("9724");
 
     public static final List<Integer> ID_TIPO_SECCION = Arrays.asList(1);
 

@@ -126,7 +126,7 @@ public class PtrVentaEcommerceServiceTest {
         PtrVentaOnlinePickingRequestDto request = new PtrVentaOnlinePickingRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
+        request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
 
         ResponseEntity<PtrVentaOnlinePickingResponseDto> response = ptrVentaClient
@@ -134,14 +134,13 @@ public class PtrVentaEcommerceServiceTest {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
-    @Ignore
     @Test
     public void ventaOnlinePickingXml() throws SAXException, IOException, ParserConfigurationException {
        
         PtrVentaOnlinePickingRequestDto request = new PtrVentaOnlinePickingRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        request.setTiendaOnline(Arrays.asList(9724));
+        request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         
         HttpHeaders headers = new HttpHeaders();
@@ -150,8 +149,8 @@ public class PtrVentaEcommerceServiceTest {
 
         HttpEntity<PtrVentaOnlinePickingRequestDto> request2 = new HttpEntity<PtrVentaOnlinePickingRequestDto>(request, headers);
 
-        ResponseEntity<String> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request2, String.class);
+        ResponseEntity<PtrVentaOnlinePickingResponseDto> response = ptrVentaClient
+                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request2, PtrVentaOnlinePickingResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     

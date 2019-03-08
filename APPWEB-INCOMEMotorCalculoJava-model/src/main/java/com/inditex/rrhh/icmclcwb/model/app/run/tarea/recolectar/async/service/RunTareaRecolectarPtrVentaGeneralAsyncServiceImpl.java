@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPtrVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.RunTareaRecolectarPtrVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.RunTareaRecolectarPtrVentaGeneralService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
-public class RunTareaRecolectarPtrVentaAsyncServiceImpl implements RunTareaRecolectarPtrVentaAsyncService {
+public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl implements RunTareaRecolectarPtrVentaGeneralAsyncService {
 
     @Autowired
-    private RunTareaRecolectarPtrVentaService tareaRecolectarPtrVentaService;
+    private RunTareaRecolectarPtrVentaGeneralService tareaRecolectarPtrVentaService;
 
     @Async
     @Override
@@ -24,12 +24,4 @@ public class RunTareaRecolectarPtrVentaAsyncServiceImpl implements RunTareaRecol
         tareaRecolectarPtrVentaService.ventaTotalizadaTienda(runTarea, runTareaRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-
-    @Async
-    @Override
-    public CompletableFuture<Void> ventaDetalleEmpleado(final RunTareaDto runTarea, final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
-        tareaRecolectarPtrVentaService.ventaDetalleEmpleado(runTarea, runTareaRecolectarBloque);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
 }

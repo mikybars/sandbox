@@ -21,32 +21,32 @@ public class PtrVentaOnlinePickingRequestDto implements Serializable {
     
     private static final long serialVersionUID = 7536621533080093360L;
 
-    @XmlElement(name="fechaDesde", nillable = true, defaultValue = "")
+    @XmlElement(name="fechaDesde")
     @NotNull
     private String fechaDesde;
     
-    @XmlElement(name="fechaHasta", nillable = true, defaultValue = "")
+    @XmlElement(name="fechaHasta")
     @NotNull
     private String fechaHasta;
 
-    @XmlElement(name="pais", nillable = true, defaultValue = "")
+    @XmlElement(name="pais")
     private Integer pais;
 
-    @XmlElement(name="cadena", nillable = true, defaultValue = "")
+    @XmlElement(name="cadena")
     private Integer cadena;
     
-    @XmlElement(name="empresa", nillable = true, defaultValue = "")
+    @XmlElement(name="empresa")
     private Integer empresa;
     
-    @XmlElement(name="tiendaOnline", nillable = true, defaultValue = "")
-    private List<Integer> tiendaOnline = new ArrayList<>();
+    @XmlElement(name = "tiendaOnline")
+    private List<String> tiendaOnline;
 
-    @XmlElement(name="tienda", nillable = true, defaultValue = "")
+    @XmlElement(name="tienda")
     private List<Integer> tienda = new ArrayList<>();
     
-    @XmlElement(name="seccion", nillable = true, defaultValue = "")
+    @XmlElement(name="seccion")
     private Integer seccion;
     
-    @XmlElement(name="agrupacion", nillable = true, defaultValue = "")
+    @XmlElement(name="agrupacion")
     private PtrGroupTypeEnum agrupacion;
 }

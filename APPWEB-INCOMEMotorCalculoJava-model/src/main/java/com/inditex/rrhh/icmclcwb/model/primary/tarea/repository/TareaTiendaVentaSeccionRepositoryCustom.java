@@ -4,8 +4,8 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-public interface TareaTiendaPresenciaSeccionRepository {
+public interface TareaTiendaVentaSeccionRepositoryCustom {
 
-	void save(@NotNull final TareaDto tarea);
+	void save(@NotNull final TareaDto tareaDto);
 
 }

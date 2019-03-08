@@ -9,8 +9,11 @@ public interface RunTareaRecolectarPtrPresenciaService {
 
     void tiposHoras(@Valid final RunTareaDto runTarea, @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    void presenciaDetalleEmpleado(@Valid final RunTareaDto runTarea, @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+    void presenciaDetalleComisionable(@Valid final RunTareaDto runTarea, @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    void presenciaTotalizadaTienda(@Valid final RunTareaDto runTarea, @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+    void presenciaTotalizadaTiendaSeccion(@Valid final RunTareaDto runTarea, @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+
+    void presenciaTotalizadaTienda(@Valid RunTareaDto runTarea,
+            @Valid RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
 }

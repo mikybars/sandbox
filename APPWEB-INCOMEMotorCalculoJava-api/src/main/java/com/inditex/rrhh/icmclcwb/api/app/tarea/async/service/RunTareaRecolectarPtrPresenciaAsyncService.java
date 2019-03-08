@@ -10,7 +10,10 @@ public interface RunTareaRecolectarPtrPresenciaAsyncService {
     CompletableFuture<Void> tiposHoras(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
-    CompletableFuture<Void> presenciaDetalleEmpleado(final RunTareaDto runTarea,
+    CompletableFuture<Void> presenciaDetalleComisionable(final RunTareaDto runTarea,
+            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+
+    CompletableFuture<Void> presenciaTotalizadaTiendaSeccion(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
     CompletableFuture<Void> presenciaTotalizadaTienda(final RunTareaDto runTarea,

@@ -1,11 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import javax.validation.constraints.NotNull;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEmpleadoPresenciaSeccion;
+import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-
-public interface TareaTiendaEmpleadoPresenciaSeccionRepository {
-
-	void save(@NotNull final TareaDto tareaDto);
-
+public interface TareaTiendaEmpleadoPresenciaSeccionRepository
+        extends BaseRepository<TareaTiendaEmpleadoPresenciaSeccion, Long> {
+    
 }
