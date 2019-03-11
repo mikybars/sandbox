@@ -17,6 +17,7 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
@@ -60,6 +61,52 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     @TimerMetric
     @Override
     public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+//        final TareaDto tarea = runTarea.getTarea();
+//        if (EstadoTareaEnum.PENDIENTE_RECOLECTAR.getId().equals(tarea.getEstado().getId())) {
+//            tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_RECOLECTAR.getDto());
+//            if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
+//                doRunByLocalizacion(runTarea);
+//            } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
+//                doRunByPersona(runTarea);
+//            } else {
+//                doRun(runTarea);
+//            }
+//            tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.PENDIENTE_CALCULAR.getDto());
+//        }
+        doRunPoC(runTarea);
+        return runTarea;
+    }
+
+    private void doRunByLocalizacion(@NotNull @Valid final RunTareaDto runTarea) {
+
+    }
+
+    private void doRunByPersona(@NotNull @Valid final RunTareaDto runTarea) {
+
+    }
+
+    private void doRun(@NotNull @Valid final RunTareaDto runTarea) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfWait = new ArrayList<>();
+        try {
+            final TareaDto tarea = runTarea.getTarea();
+            CompletableFuture<List<RunTareaPersonaDto>> cfPersona = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .persona(runTarea);
+            AsyncUtils.exceptionally(cfPersona, cf, cfWait);
+            List<RunTareaPersonaDto> persona = AsyncUtils.get(cfPersona);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
+            tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.PENDIENTE_CALCULAR.getDto());
+        } catch (IcmclcwbException e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+    private void doRunPoC(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
@@ -179,7 +226,6 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return runTarea;
     }
 
 }

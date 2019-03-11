@@ -744,6 +744,9 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     hasNext = empleadosRequest.nextPage();
                 } while (hasNext);
             }
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);
