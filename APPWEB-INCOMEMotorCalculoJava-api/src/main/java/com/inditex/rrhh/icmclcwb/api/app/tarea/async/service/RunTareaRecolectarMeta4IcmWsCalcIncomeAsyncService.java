@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 
 public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
@@ -24,5 +26,7 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> tiendasComisionable(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+
+    CompletableFuture<List<RunTareaPersonaDto>> persona(final RunTareaDto runTarea);
 
 }

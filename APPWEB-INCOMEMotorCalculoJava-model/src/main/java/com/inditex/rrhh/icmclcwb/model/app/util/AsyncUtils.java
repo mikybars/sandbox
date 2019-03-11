@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ public class AsyncUtils {
             return null;
         });
     }
-    
+
     public static void cancel(final List<CompletableFuture<?>> cfList) {
         cfList.stream().forEach(item -> {
             if (!item.isDone()) {
@@ -75,6 +76,14 @@ public class AsyncUtils {
     public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final List<CompletableFuture<?>> cfWait) {
         AsyncUtils.waitAllOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfWait.size()]));
         AsyncUtils.isOk(cfWait);
+    }
+
+    public static <T> T get(CompletableFuture<T> cf) {
+        try {
+            return cf.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new AsyncIcmclcwbException("Error al recuperar los datos asincronamente", e);
+        }
     }
 
 }

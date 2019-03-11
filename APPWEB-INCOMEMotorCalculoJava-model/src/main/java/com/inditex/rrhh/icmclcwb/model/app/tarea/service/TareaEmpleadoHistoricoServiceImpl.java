@@ -1,9 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -11,7 +13,9 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaEmpleadoHistoricoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaEmpleadoHistoricoRepositoryCustom;
 
 @Service
@@ -25,12 +29,23 @@ public class TareaEmpleadoHistoricoServiceImpl implements TareaEmpleadoHistorico
     private TareaEmpleadoHistoricoMapper tareaEmpleadoHistoricoMapper;
 
     @Override
-    public List<TareaEmpleadoHistoricoDto> save(final List<TareaEmpleadoHistoricoDto> tareaEmpleadoHistorico , @Valid TareaDto tarea) {
-        return tareaEmpleadoHistoricoMapper.tareaEmpleadoHistoricoToTareaEmpleadoHistoricoDto(
-                tareaEmpleadoHistoricoRepositoryCustom.save(tareaEmpleadoHistoricoMapper
-                        .mergeTareaEmpleadoHistoricoDtoAndTareaDtoToTareaEmpleadoHistorico(tareaEmpleadoHistorico,
-                                tarea)));
+    public List<TareaEmpleadoHistoricoDto> save(@Valid final List<TareaEmpleadoHistoricoDto> tareaEmpleadoHistorico,
+            @Valid final TareaDto tarea) {
+        List<TareaEmpleadoHistoricoDto> result = new ArrayList<>();
+        List<TareaEmpleadoHistorico> data = tareaEmpleadoHistoricoMapper
+                .mergeTareaEmpleadoHistoricoDtoAndTareaDtoToTareaEmpleadoHistorico(tareaEmpleadoHistorico, tarea);
+        if (CollectionUtils.isNotEmpty(data)) {
+            result.addAll(tareaEmpleadoHistoricoMapper.tareaEmpleadoHistoricoToTareaEmpleadoHistoricoDto(
+                    tareaEmpleadoHistoricoRepositoryCustom.save(data)));
+        }
+        return result;
     }
-    
-    
+
+    @Override
+    public List<TareaEmpleadoHistoricoDto> saveGenericEmpleadoResultItemDto(
+            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {
+        return save(tareaEmpleadoHistoricoMapper
+                .genericEmpleadoResultItemDtoToTareaEmpleadoHistoricoDto(genericEmpleadoResultItemDto), tarea);
+    }
+
 }

@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
+import java.util.List;
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 
 public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
@@ -24,5 +26,7 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void tiendasComisionable(@Valid final RunTareaDto runTarea,
             @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+    
+    List<RunTareaPersonaDto> persona(@Valid final RunTareaDto runTarea);
 
 }

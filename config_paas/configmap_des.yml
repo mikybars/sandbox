@@ -70,7 +70,7 @@ app:
         maxAttempts: 2
       venta:
         service:
-          version: 1.0.22-rc.6
+          version: 1.0.22-rc.18
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
@@ -219,7 +219,7 @@ app:
               endpoint: /ventaGeneral/getVersion
       presencia:
         service:
-          version: 1.0.5-rc.2
+          version: 1.0.5-rc.4
           presenciasService:
             getPresenciasTotalTiendaSeccion:
               endpoint: /presenciasService/presenciasTotalTiendaSeccion

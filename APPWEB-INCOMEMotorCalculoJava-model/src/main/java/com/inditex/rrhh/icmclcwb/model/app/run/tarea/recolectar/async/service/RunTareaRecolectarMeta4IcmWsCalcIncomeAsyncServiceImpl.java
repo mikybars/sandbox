@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +8,15 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
-public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl implements RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
+public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
+        implements RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeService tareaRecolectarMeta4IcmWsCalcIncomeService;
@@ -28,7 +31,8 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl implements R
 
     @Async
     @Override
-    public CompletableFuture<Void> tiendasComisionable(final RunTareaDto runTarea, final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
+    public CompletableFuture<Void> tiendasComisionable(final RunTareaDto runTarea,
+            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.tiendasComisionable(runTarea, runTareaRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -64,4 +68,10 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl implements R
         tareaRecolectarMeta4IcmWsCalcIncomeService.empleadosTienda(runTarea, runTareaRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<List<RunTareaPersonaDto>> persona(final RunTareaDto runTarea) {
+        return CompletableFuture.completedFuture(tareaRecolectarMeta4IcmWsCalcIncomeService.persona(runTarea));
+    }
+
 }
