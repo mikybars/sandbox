@@ -49,4 +49,7 @@ public class PtrVentaOnlinePickingRequestDto implements Serializable {
     
     @XmlElement(name="agrupacion")
     private PtrGroupTypeEnum agrupacion;
+    
+    @XmlElement(name="agruparSeccion")
+    private Integer agruparSeccion;
 }

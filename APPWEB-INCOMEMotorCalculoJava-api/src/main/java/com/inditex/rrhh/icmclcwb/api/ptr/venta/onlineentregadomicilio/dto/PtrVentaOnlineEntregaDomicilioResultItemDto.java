@@ -2,9 +2,12 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import lombok.Data;
 
@@ -24,14 +27,16 @@ public class PtrVentaOnlineEntregaDomicilioResultItemDto implements Serializable
 
     private Integer seccion;
     
-    private Integer temporada;
+    private String ano;
 
-    private Integer producto;
+    private String cmp;
 
     @NotNull
     private BigDecimal importeSinIVA;
 
     @NotNull
     private BigDecimal importeConIVA;
+    
+    private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

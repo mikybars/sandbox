@@ -2,9 +2,12 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import lombok.Data;
 
@@ -35,5 +38,7 @@ public class PtrVentaOnlinePickingResultItemDto implements Serializable {
     private String ano;
     
     private String cmp;
+    
+    private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

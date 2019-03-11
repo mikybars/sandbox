@@ -16,6 +16,8 @@ public class PtrPresenciaTotalTiendaSeccionResultItemDto {
 
 	@NotNull
 	private Integer seccion;
+	
+	private Integer empresa;
 
 	@NotNull
 	private Integer minutos;

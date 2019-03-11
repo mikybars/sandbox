@@ -38,4 +38,6 @@ public class PtrVentaOnlineIpodIndividualDetalleRequestDto implements Serializab
     private String operacion;
 
     private PtrGroupSellerTypeEnum agrupacion;
+    
+    private Integer agruparSeccion;
 }

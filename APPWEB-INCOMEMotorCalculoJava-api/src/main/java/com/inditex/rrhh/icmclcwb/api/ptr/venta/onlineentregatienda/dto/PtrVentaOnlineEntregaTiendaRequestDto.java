@@ -34,4 +34,6 @@ public class PtrVentaOnlineEntregaTiendaRequestDto implements Serializable {
     private Integer seccion;
     
     private PtrGroupTypeEnum agrupacion;
+    
+    private Integer agruparSeccion;
 }

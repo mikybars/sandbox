@@ -29,6 +29,8 @@ public class PtrPresenciaDetalleComisionableResultItemDto {
 
 	private Integer cadena;
 	
+	private Integer empresa;
+	
 	private Integer origen;
 
 	private List<SeccionPresenciasDetalleComisionableType> listaSeccion;

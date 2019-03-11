@@ -41,12 +41,15 @@ public class PtrPresenciaDetalleComisionableRequestDto implements Serializable {
 
 	@ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
 	private Integer tipo;
+	
+	@ApiModelProperty(value = "Id empresa", required = false, example = "1")
+	private Integer empresa;
 
 	@NotNull
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;
 	
-    @ApiModelProperty(value = "Agrupar seccion flag", required = false, example = "1")
+    @ApiModelProperty(value = "Agrupar seccion flag (pivotado)", required = false, example = "1")
 	private Integer agruparSeccion;
 
 }

@@ -29,12 +29,15 @@ public class PtrPresenciaTotalTiendaSeccionRequestDto {
 
 	@ApiModelProperty(value = "Id cadena", required = true, example = " 1 ")
 	private Integer cadena;
+	
+	@ApiModelProperty(value = "Id empresa", required = true, example = " 1 ")
+	private Integer empresa;
 
 	@NotNull
 	@ApiModelProperty(value = "Id origen", required = true, example = "11")
 	private Integer origen;
 	
-    @ApiModelProperty(value = "Agrupar seccion flag", required = false, example = "1")
+    @ApiModelProperty(value = "Agrupar seccion flag (pivotado)", required = false, example = "1")
     private Integer agruparSeccion;
 
 }

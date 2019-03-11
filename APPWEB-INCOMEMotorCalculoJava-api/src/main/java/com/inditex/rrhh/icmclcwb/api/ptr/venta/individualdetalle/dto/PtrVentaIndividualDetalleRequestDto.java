@@ -44,5 +44,7 @@ public class PtrVentaIndividualDetalleRequestDto implements Serializable {
 	private String operacion;
 	
 	private PtrGroupSellerTypeEnum agrupacion;
+	
+	private Integer agruparSeccion;
 
 }
