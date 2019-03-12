@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -26,5 +27,7 @@ public interface TareaRepository extends BaseRepository<Tarea, Long> {
     @Modifying
     @Query("UPDATE Tarea t set t.fechaFinTarea = :fechaFinTarea WHERE t.id = :id")
     int setFechaFinTarea(@NotNull @Param("id") final Long id, @NotNull @Param("fechaFinTarea") final Date fechaFinTarea);
+    
+    List<Tarea> findByTrabajoId(@NotNull final Long id);
 
 }

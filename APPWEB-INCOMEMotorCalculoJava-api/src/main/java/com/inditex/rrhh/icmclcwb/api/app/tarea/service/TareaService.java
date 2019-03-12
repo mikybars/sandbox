@@ -26,4 +26,6 @@ public interface TareaService {
 
     int modifyFechaFinTarea(@Valid final TareaDto tarea);
 
+    List<TareaDto> findByTrabajoId(@Valid Long id);
+
 }

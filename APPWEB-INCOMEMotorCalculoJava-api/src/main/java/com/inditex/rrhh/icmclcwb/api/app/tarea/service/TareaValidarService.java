@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -28,6 +29,10 @@ public interface TareaValidarService {
     Integer countTiendaEmpleadoPresenciaSeccion(@NotNull @Positive Long idTarea);
 
     Integer countTiendaVentaSeccion(@NotNull @Positive Long idTarea);
+
+    Map<String, Object> validateByIdTarea(@NotNull @Positive Long idTarea);
+
+    List<Map<String, Object>> validateByIdTrabajo(@NotNull @Positive Long idTrabajo);
 
 
 }

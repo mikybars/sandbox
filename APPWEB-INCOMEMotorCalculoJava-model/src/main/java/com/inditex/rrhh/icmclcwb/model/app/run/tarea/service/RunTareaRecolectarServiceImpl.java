@@ -46,16 +46,16 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
         if (EstadoTareaEnum.PENDIENTE_RECOLECTAR.getId().equals(tarea.getEstado().getId())) {
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_RECOLECTAR.getDto());
             // TODO PoC
-//            runTareaRecolectarByAmbitoService.runPoC(runTarea);
-            if (CollectionUtils.isNotEmpty(tarea.getLocalizacion()) && CollectionUtils.isNotEmpty(tarea.getPersona())) {
-                throw new IcmclcwbException("No es posible ejecutar por localizacion y persona");
-            }else if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
-                runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
-            } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
-                runTareaRecolectarByAmbitoPersonaService.run(runTarea);
-            } else {
-                runTareaRecolectarByAmbitoService.run(runTarea);
-            }
+            runTareaRecolectarByAmbitoService.runPoC(runTarea);
+//            if (CollectionUtils.isNotEmpty(tarea.getLocalizacion()) && CollectionUtils.isNotEmpty(tarea.getPersona())) {
+//                throw new IcmclcwbException("No es posible ejecutar por localizacion y persona");
+//            }else if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
+//                runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
+//            } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
+//                runTareaRecolectarByAmbitoPersonaService.run(runTarea);
+//            } else {
+//                runTareaRecolectarByAmbitoService.run(runTarea);
+//            }
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.PENDIENTE_CALCULAR.getDto());
         }
         return runTarea;

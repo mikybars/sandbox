@@ -1,5 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -12,21 +28,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 @Service
 @Validated
@@ -114,6 +115,11 @@ public class TareaServiceImpl implements TareaService {
         tarea.setFechaFinTarea(LocalDateTime.now());
         return tareaRepository.setFechaFinTarea(tarea.getId(),
                 Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
+    }
+    
+    @Override
+    public List<TareaDto> findByTrabajoId(@Valid final Long id) {
+        return tareaMapper.tareaToTareaDto(tareaRepository.findByTrabajoId(id));
     }
 
 }

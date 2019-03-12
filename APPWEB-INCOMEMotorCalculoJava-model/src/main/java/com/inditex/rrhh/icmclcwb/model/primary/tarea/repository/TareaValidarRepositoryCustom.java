@@ -5,6 +5,10 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstadoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEstadoDto;
+
 public interface TareaValidarRepositoryCustom {
 
     List<String> checkDuplicatedEmpleados(@NotNull @Positive Long idTarea);
@@ -28,6 +32,12 @@ public interface TareaValidarRepositoryCustom {
     Integer countTiendaEmpleadoPresenciaSeccion(@NotNull @Positive Long idTarea);
 
     Integer countTiendaVentaSeccion(@NotNull @Positive Long idTarea);
+
+    List<TareaTiendaEstadoDto> tiendaEmptyFields(@NotNull @Positive Long idTarea);
+
+    List<TareaEmpleadoEstadoDto> empleadoEmptyFields(@NotNull @Positive Long idTarea);
+
+    List<TareaEmpleadoHistoricoDto> empleadoHistoricoEmptyFields(@NotNull @Positive Long idTarea);
 
 
 }
