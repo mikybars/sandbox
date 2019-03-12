@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
@@ -69,9 +67,24 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Async
     @Override
-    public CompletableFuture<List<RunTareaPersonaDto>> persona(final RunTareaDto runTarea) {
-        return CompletableFuture.completedFuture(tareaRecolectarMeta4IcmWsCalcIncomeService.persona(runTarea));
+    public CompletableFuture<Void> personaByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.personaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Async
+    @Override
+    public CompletableFuture<Void> localizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> condicionPersonaByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.condicionPersonaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
 }

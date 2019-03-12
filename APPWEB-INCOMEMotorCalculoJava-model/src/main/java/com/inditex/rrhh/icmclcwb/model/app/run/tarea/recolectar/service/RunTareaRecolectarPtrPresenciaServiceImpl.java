@@ -7,8 +7,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.RunTareaRecolectarPtrPres
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.exception.PtrException;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
@@ -48,6 +49,9 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecolectarPtrPresenciaService {
 
     @Autowired
+    private Logger log;
+
+    @Autowired
     private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
     @Autowired
@@ -62,43 +66,44 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     @Autowired
     private TareaMapper tareaMapper;
 
-
     @Autowired
     @Qualifier("presenciasProperties")
     private Map<String, PtrPropertiesDto> presenciasProperties;
 
     @Auditoria
     @Override
-    public void tiposHoras(@Valid final RunTareaDto runTarea,
-            @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
+    public void tiposHorasByRunTarea(@Valid final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
+        for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
+            tiposHorasByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        }
+    }
+
+    @Auditoria
+    @Override
+    public void tiposHorasByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
-                CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.tiposHoras(
-                        PtrPresenciaTiposHorasRequestDto.builder().origen(Integer.parseInt(tareaAmbito.getIdCatalogo()))
-                                .excluidoCalculo(Boolean.FALSE).build());
-                AsyncUtils.exceptionally(cfData, cf);
-                PtrPresenciaTiposHorasResponseDto data = cfData.get();
-                if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
-                    AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
-                    data.getTiposHoras().stream().forEach(item -> {
-                        if (Boolean.FALSE.equals(item.getExcluidoCalculo())) {
-                            runTareaRecolectarBloque.getTipoHoraComisionable().add(item.getTipoHora());
-                            if (Boolean.FALSE.equals(item.getExcluidoDenom())) {
-                                runTareaRecolectarBloque.getTipoHoraComisionableDenominador().add(item.getTipoHora());
-                            }
-                        }
-                    });
-                } else {
-                    throw new PtrException(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
-                            .append(tareaAmbito.getIdCatalogo()).toString());
-                }
+            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.tiposHoras(
+                    PtrPresenciaTiposHorasRequestDto.builder().origen(Integer.parseInt(tareaAmbito.getIdCatalogo()))
+                            .excluidoCalculo(Boolean.FALSE).build());
+            AsyncUtils.exceptionally(cfData, cf);
+            PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
+            if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
+                AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
+            } else {
+                // TODO No esta devolviendo tipos de hora para los origenes de la fase 1
+                log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
+                        .append(tareaAmbito.getIdCatalogo()).toString());
+//                    throw new PtrException(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
+//                            .append(tareaAmbito.getIdCatalogo()).toString());
             }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
-            // TODO No esta devolviendo tipos de hora para los origenes de la fase 1
-//            AsyncUtils.cancel(cf);
-//            throw new IcmclcwbException(e.getMessage(), e);
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 
@@ -117,37 +122,33 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                     for (List<String> iter : StreamUtils.partition(runTareaRecolectarBloque.getTiendaMtu(),
                             presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA).getFilter()
                                     .getMaxPageSize())) {
-                        List<Integer> tiendas = iter.stream().map(Integer::valueOf)
-                                .collect(Collectors.toList());
+                        List<Integer> tiendas = iter.stream().map(Integer::valueOf).collect(Collectors.toList());
                         PtrPresenciaTotalTiendaRequestDto paramPresenciasTotalTienda = tareaMapper
                                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaRequestDto(
                                         trabajo, tarea, tareaAmbito);
                         paramPresenciasTotalTienda.setCadena(Integer.valueOf(cadena));
                         paramPresenciasTotalTienda.setTienda(tiendas);
 //                        paramPresenciasTotalTienda.setAgruparSeccion(PtrConstants.AGRUPAR_SECCION_TRUE);+
-                        
+
                         CompletableFuture<PtrPresenciaTotalTiendaResponseDto> cfData = ptrPresenciaAsyncService
                                 .presenciasTotalTienda(paramPresenciasTotalTienda);
                         AsyncUtils.exceptionally(cfData, cf, cfPersist);
-                        
+
                         PtrPresenciaTotalTiendaResponseDto data = cfData.get();
                         if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalTienda())) {
-                            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                    presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA).getFilter()
-                                            .getMaxPersistenceSize());
+                            AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
+                                    .get(PtrConstants.PRESENCIA_TOTAL_TIENDA).getFilter().getMaxPersistenceSize());
                         }
                     }
                 }
             }
-            
+
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);
         }
     }
-    
-    
-    
+
     @Auditoria
     @Override
     public void presenciaTotalizadaTiendaSeccion(@Valid final RunTareaDto runTarea,
@@ -171,7 +172,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                                         trabajo, tarea, tareaAmbito);
                         paramPresenciasTotalTiendaSeccion.setCadena(Integer.valueOf(cadena));
                         paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
-                        paramPresenciasTotalTiendaSeccion.setAgruparSeccion(PtrConstants.AGRUPAR_SECCION_TRUE);
+                        paramPresenciasTotalTiendaSeccion.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
                         // TODO Obtener las presencias comisionables por tipo de hora y excluido
                         // denominador
 
@@ -219,8 +220,8 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                                         trabajo, tarea, tareaAmbito);
                         paramPresenciasDetalleComisionable.setPersona(empleados);
                         paramPresenciasDetalleComisionable.setCadena(Integer.valueOf(cadena));
-                        paramPresenciasDetalleComisionable.setAgruparSeccion(PtrConstants.AGRUPAR_SECCION_TRUE);
-                        
+                        paramPresenciasDetalleComisionable.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
+
                         CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> cfData = ptrPresenciaAsyncService
                                 .presenciasDetalleComisionable(paramPresenciasDetalleComisionable);
                         AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -247,6 +248,29 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
 
                 AsyncUtils.waitAllOfIsOk(cf, cf);
 
+            }
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void personaPresenciaDetalleComisionableByAmbitoAndLocalizacion(@Valid final RunTareaDto runTarea) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
+
+                PtrPresenciaDetalleComisionableRequestDto paramPresenciasDetalleComisionable = tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasDetalleComisionableRequestDto(
+                                trabajo, tarea, tareaAmbito);
+                CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> cfData = ptrPresenciaAsyncService
+                        .presenciasDetalleComisionable(paramPresenciasDetalleComisionable);
+                AsyncUtils.exceptionally(cfData, cf);
+
+                PtrPresenciaDetalleComisionableResponseDto data = AsyncUtils.get(cfData);
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

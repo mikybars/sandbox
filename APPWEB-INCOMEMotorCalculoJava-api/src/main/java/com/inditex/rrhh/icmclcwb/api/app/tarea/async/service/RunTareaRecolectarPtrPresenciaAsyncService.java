@@ -7,8 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueD
 
 public interface RunTareaRecolectarPtrPresenciaAsyncService {
 
-    CompletableFuture<Void> tiposHoras(final RunTareaDto runTarea,
-            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+    CompletableFuture<Void> tiposHorasByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> presenciaDetalleComisionable(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);

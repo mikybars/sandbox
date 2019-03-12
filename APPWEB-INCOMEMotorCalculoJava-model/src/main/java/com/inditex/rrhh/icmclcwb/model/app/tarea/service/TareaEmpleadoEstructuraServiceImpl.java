@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoEstructuraService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaEmpleadoEstructuraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaEmpleadoEstructuraRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaEmpleadoEstructuraRepositoryCustom;
@@ -22,24 +23,32 @@ public class TareaEmpleadoEstructuraServiceImpl implements TareaEmpleadoEstructu
 
     @Autowired
     private TareaEmpleadoEstructuraRepository tareaEmpleadoEstructuraRepository;
-    
+
     @Autowired
     private TareaEmpleadoEstructuraRepositoryCustom tareaEmpleadoEstructuraRepositoryCustom;
 
     @Autowired
     private TareaEmpleadoEstructuraMapper tareaEmpleadoEstructuraMapper;
-    
+
     @Override
-    public List<TareaEmpleadoEstructuraDto> save(final List<TareaEmpleadoEstructuraDto> tareaEmpleadoEstructura, @Valid TareaDto tarea) {
+    public Set<Long> findIdTipoCalculoByIdTarea(@Valid final Long idTarea) {
+        return tareaEmpleadoEstructuraRepository.findIdTipoCalculoByIdTarea(idTarea);
+    }
+
+    @Override
+    public List<TareaEmpleadoEstructuraDto> save(final List<TareaEmpleadoEstructuraDto> tareaEmpleadoEstructura,
+            @Valid final TareaDto tarea) {
         return tareaEmpleadoEstructuraMapper.tareaEmpleadoEstructuraToTareaEmpleadoEstructuraDto(
                 tareaEmpleadoEstructuraRepositoryCustom.save(tareaEmpleadoEstructuraMapper
                         .mergeTareaEmpleadoEstructuraDtoAndTareaDtoToTareaEmpleadoEstructura(tareaEmpleadoEstructura,
                                 tarea)));
     }
-    
-	@Override
-	public Set<Long> findIdTipoCalculoByIdTarea(@Valid Long idTarea) {
-		return tareaEmpleadoEstructuraRepository.findIdTipoCalculoByIdTarea(idTarea);
-	}
-    
+
+    @Override
+    public List<TareaEmpleadoEstructuraDto> saveGenericEmpleadoResultItemDto(
+            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {
+        return save(tareaEmpleadoEstructuraMapper
+                .genericEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(genericEmpleadoResultItemDto), tarea);
+    }
+
 }

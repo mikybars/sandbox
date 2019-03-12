@@ -18,43 +18,44 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaHistorico
 @DecoratedWith(TareaTiendaHistoricoDecorator.class)
 public abstract class TareaTiendaHistoricoMapper {
 
-	@Mapping(target = "idTarea", source = "tarea.id")
-	public abstract TareaTiendaHistoricoDto tareaTiendaHistoricoToTareaTiendaHistoricoDto(TareaTiendaHistorico src);
+    @Mapping(target = "idTarea", source = "tarea.id")
+    public abstract TareaTiendaHistoricoDto tareaTiendaHistoricoToTareaTiendaHistoricoDto(TareaTiendaHistorico src);
 
-	@InheritInverseConfiguration
-	public abstract TareaTiendaHistorico tareaTiendaHistoricoDtoToTareaTiendaHistorico(TareaTiendaHistoricoDto src);
+    @InheritInverseConfiguration
+    public abstract TareaTiendaHistorico tareaTiendaHistoricoDtoToTareaTiendaHistorico(TareaTiendaHistoricoDto src);
 
-	public abstract List<TareaTiendaHistoricoDto> tareaTiendaHistoricoToTareaTiendaHistoricoDto(
-			List<TareaTiendaHistorico> src);
+    public abstract List<TareaTiendaHistoricoDto> tareaTiendaHistoricoToTareaTiendaHistoricoDto(
+            List<TareaTiendaHistorico> src);
 
-	public abstract List<TareaTiendaHistorico> tareaTiendaHistoricoDtoToTareaTiendaHistorico(
-			List<TareaTiendaHistoricoDto> src);
-	
-	@Mapping(target = "tarea.id", source = "srcTarea.id")
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "idPaisOrigen", source = "srcTareaTiendaHistorico.idPais")
-	@Mapping(target = "idEmpresa", source = "srcTareaTiendaHistorico.idEmpresa")
-	public abstract TareaTiendaHistorico mergeTareaTiendaHistoricoDtoAndTareaDtoToTareaTiendaHistorico(
-			TareaTiendaHistoricoDto srcTareaTiendaHistorico, TareaDto srcTarea);
+    public abstract List<TareaTiendaHistorico> tareaTiendaHistoricoDtoToTareaTiendaHistorico(
+            List<TareaTiendaHistoricoDto> src);
 
-	public List<TareaTiendaHistorico> mergeTareaTiendaHistoricoDtoAndTareaDtoToTareaTiendaHistorico(
-			List<TareaTiendaHistoricoDto> srcTareaTiendaHistorico, TareaDto srcTareaDto) {
-		throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-	}
-	
-	@Mapping(target = "idPais", source = "idPais")
-	@Mapping(target = "idPaisOrigen", source = "idOrigen")
-	@Mapping(target = "idEmpresa", source = "idEmpresa")
-	@Mapping(target = "idCadena", source = "idCadena")
-	@Mapping(target = "idTienda", source = "idTiendaMtu")
-	@Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
-	@Mapping(target = "fechaInicio", source = "fechaInicio")
-	@Mapping(target = "fechaFin", source = "fechaFin")
-	@Mapping(target = "comisionable", source = "esComisionable")
-	public abstract TareaTiendaHistoricoDto genericTiendaResultItemDtoToTareaTiendaHistoricoDto(
-			GenericTiendaResultItemDto src);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "tarea.id", source = "srcTarea.id")
+    @Mapping(target = "idPaisOrigen", source = "srcTareaTiendaHistorico.idPais")
+    @Mapping(target = "idEmpresa", source = "srcTareaTiendaHistorico.idEmpresa")
+    public abstract TareaTiendaHistorico mergeTareaTiendaHistoricoDtoAndTareaDtoToTareaTiendaHistorico(
+            TareaTiendaHistoricoDto srcTareaTiendaHistorico, TareaDto srcTarea);
 
-	public abstract List<TareaTiendaHistoricoDto> genericTiendaResultItemDtoToTareaTiendaHistoricoDto(
-			List<GenericTiendaResultItemDto> src);
+    public List<TareaTiendaHistorico> mergeTareaTiendaHistoricoDtoAndTareaDtoToTareaTiendaHistorico(
+            List<TareaTiendaHistoricoDto> srcTareaTiendaHistorico, TareaDto srcTareaDto) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idPais", source = "idPais")
+    @Mapping(target = "idPaisOrigen", source = "idOrigen")
+    @Mapping(target = "idEmpresa", source = "idEmpresa")
+    @Mapping(target = "idCadena", source = "idCadena")
+    @Mapping(target = "idTienda", source = "idTiendaMtu")
+    @Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
+    @Mapping(target = "fechaInicio", source = "fechaInicio")
+    @Mapping(target = "fechaFin", source = "fechaFin")
+    @Mapping(target = "comisionable", source = "esComisionable")
+    public abstract TareaTiendaHistoricoDto genericTiendaResultItemDtoToTareaTiendaHistoricoDto(
+            GenericTiendaResultItemDto src);
+
+    public abstract List<TareaTiendaHistoricoDto> genericTiendaResultItemDtoToTareaTiendaHistoricoDto(
+            List<GenericTiendaResultItemDto> src);
 
 }

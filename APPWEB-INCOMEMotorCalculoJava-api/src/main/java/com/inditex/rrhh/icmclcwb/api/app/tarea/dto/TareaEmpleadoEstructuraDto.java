@@ -45,20 +45,15 @@ public class TareaEmpleadoEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Id tipo comisión asociado a la estructura ", required = true)
     private String idTipoComision;
 
-    @NotNull
     @ApiModelProperty(value = "Id tipo comisión asociado a todas las secciones ", required = true)
     private Double porcentaje;
 
-    @NotNull
     private Double porcentaje1;
 
-    @NotNull
     private Double porcentaje2;
 
-    @NotNull
     private Double porcentaje3;
 
-    @NotNull
     private Date fechaInicio;
 
     @NotNull

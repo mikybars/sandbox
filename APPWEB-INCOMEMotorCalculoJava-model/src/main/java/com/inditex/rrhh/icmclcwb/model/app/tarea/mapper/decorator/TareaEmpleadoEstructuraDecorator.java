@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstructuraDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaEmpleadoEstructuraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoEstructura;
 
@@ -29,19 +28,5 @@ public abstract class TareaEmpleadoEstructuraDecorator extends TareaEmpleadoEstr
 		}
 		return result;
 	}
-
-
-    @Override
-    public List<TareaEmpleadoEstructuraDto> genericEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(
-            List<GenericEmpleadoResultItemDto> src, TareaDto tarea) {
-        List<TareaEmpleadoEstructuraDto> result = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> 
-                result.add(
-                        delegate.genericEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(item, tarea))
-            );
-        }
-        return result;
-    }
 
 }

@@ -92,6 +92,15 @@ public abstract class TareaMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
+    @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
+    @Mapping(target = "idEmpresa", source = "srcTarea.idEmpresa")
+    public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoToGenericFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+            List<TareaAmbitoLocalizacionDto> srcTareaAmbitoLocalizacion);
+
     @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
     @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
@@ -119,7 +128,7 @@ public abstract class TareaMapper {
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
     public abstract PtrPresenciaTotalTiendaSeccionRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
-    
+
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "origen", source = "srcTareaAmbito.idCatalogo")
@@ -133,20 +142,22 @@ public abstract class TareaMapper {
     public abstract PtrPresenciaDetalleRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasDetalleRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
+    @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "persona", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "origen", source = "srcTareaAmbito.idCatalogo")
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
+    @Mapping(target = "agruparSeccion", defaultValue = PtrConstants.BOOLEAN_STRING_TRUE)
     public abstract PtrPresenciaDetalleComisionableRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasDetalleComisionableRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
-    
+
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     public abstract PtrVentaOnlineIpodIndividualDetalleRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
-    
+
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
@@ -158,13 +169,13 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     public abstract PtrVentaOnlinePickingRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlinePickingRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
-    
+
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     public abstract PtrVentaOnlineEntregaTiendaRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineEntregaTiendaRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
-    
+
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)

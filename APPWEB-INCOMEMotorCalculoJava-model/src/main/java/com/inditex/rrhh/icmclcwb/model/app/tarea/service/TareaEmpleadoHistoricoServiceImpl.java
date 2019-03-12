@@ -2,8 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,16 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoHistoricoSer
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaEmpleadoHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoHistorico;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaEmpleadoHistoricoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaEmpleadoHistoricoRepositoryCustom;
 
 @Service
 @Validated
 public class TareaEmpleadoHistoricoServiceImpl implements TareaEmpleadoHistoricoService {
 
+    @Autowired
+    private TareaEmpleadoHistoricoRepository tareaEmpleadoHistoricoRepository;
+    
     @Autowired
     private TareaEmpleadoHistoricoRepositoryCustom tareaEmpleadoHistoricoRepositoryCustom;
 
@@ -46,6 +52,12 @@ public class TareaEmpleadoHistoricoServiceImpl implements TareaEmpleadoHistorico
             final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {
         return save(tareaEmpleadoHistoricoMapper
                 .genericEmpleadoResultItemDtoToTareaEmpleadoHistoricoDto(genericEmpleadoResultItemDto), tarea);
+    }
+
+    @Override
+    public Set<String> findIdEmpleadoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen) {
+        // TODO Agregar idOrigen
+        return tareaEmpleadoHistoricoRepository.findIdEmpleadoByIdTareaAndIdOrigen(idTarea/*, idOrigen*/);
     }
 
 }
