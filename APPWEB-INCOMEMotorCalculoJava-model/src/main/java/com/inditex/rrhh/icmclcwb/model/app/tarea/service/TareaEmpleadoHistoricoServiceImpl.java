@@ -61,28 +61,21 @@ public class TareaEmpleadoHistoricoServiceImpl implements TareaEmpleadoHistorico
     public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String idOrigen) {
         // TODO Agregar idOrigen
-        return tareaEmpleadoHistoricoRepository.findIdPersonaByIdTareaAndIdOrigen(idTarea/* , idOrigen */).stream()
-                .map(item -> IdPersonaDto.builder().idPersona(String.valueOf(item[0])).build())
-                .collect(Collectors.toList());
+        return tareaEmpleadoHistoricoRepository.findIdPersonaByIdTareaAndIdOrigen(idTarea/* , idOrigen */);
     }
 
     @Override
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String idOrigen) {
         // TODO Agregar idOrigen
-        return tareaEmpleadoHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea/* , idOrigen */)
-                .stream().map(item -> IdPersonaHistoricoDto.builder().idPersona(String.valueOf(item[0]))
-                        .orPersona(String.valueOf(item[1])).build())
-                .collect(Collectors.toList());
+        return tareaEmpleadoHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea/* , idOrigen */);
     }
 
     @Override
     public List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String idOrigen) {
         // TODO Agregar idOrigen
-        return tareaEmpleadoHistoricoRepository.findIdPersonaLocalByIdTareaAndIdOrigen(idTarea/* , idOrigen */).stream()
-                .map(item -> IdPersonaLocalDto.builder().idPersonaLocal(String.valueOf(item[0])).build())
-                .collect(Collectors.toList());
+        return tareaEmpleadoHistoricoRepository.findIdPersonaLocalByIdTareaAndIdOrigen(idTarea/* , idOrigen */);
     }
 
 }
