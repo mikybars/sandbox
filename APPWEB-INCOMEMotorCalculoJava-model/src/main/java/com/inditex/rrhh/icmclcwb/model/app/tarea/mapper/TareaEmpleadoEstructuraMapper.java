@@ -43,14 +43,24 @@ public abstract class TareaEmpleadoEstructuraMapper {
     }
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idTarea", ignore = true)
     @Mapping(target = "idEmpleado", source = "src.idEmpleado")
-    @Mapping(target = "porcentaje", expression = "java(StringUtils.isNotEmpty(src.getPercentageAll()) ? Double.parseDouble(src.getPercentageAll()) : 0)")
-    @Mapping(target = "porcentaje1", expression = "java(StringUtils.isNotEmpty(src.getPercentageWoman()) ? Double.parseDouble(src.getPercentageWoman()) : 0)")
-    @Mapping(target = "porcentaje2", expression = "java(StringUtils.isNotEmpty(src.getPercentageMan()) ? Double.parseDouble(src.getPercentageMan()) : 0)")
-    @Mapping(target = "porcentaje3", expression = "java(StringUtils.isNotEmpty(src.getPercentageBoy()) ? Double.parseDouble(src.getPercentageBoy()) : 0)")
+    @Mapping(target = "orEmpleado", source = "src.orEmpleado")
+    @Mapping(target = "idEmpleadoLocal", source = "src.idEmpleadoLocal")
+    @Mapping(target = "fechaInicio", source = "src.fechaInicio")
+    // TODO Agregar en la respuesta de estructuras
+    @Mapping(target = "idOrigen", defaultValue = "38")
+    @Mapping(target = "fechaFin", source = "src.fechaFin")
+    @Mapping(target = "idTipoCalculo", source = "src.idTipoCalculo")
+    @Mapping(target = "idTipoComision", source = "src.idTipoComision")
+    @Mapping(target = "porcentaje", expression = "java(StringUtils.isNotEmpty(src.getPercentageAll()) ? Double.parseDouble(src.getPercentageAll()) : null)")
+    @Mapping(target = "porcentaje1", expression = "java(StringUtils.isNotEmpty(src.getPercentageWoman()) ? Double.parseDouble(src.getPercentageWoman()) : null)")
+    @Mapping(target = "porcentaje2", expression = "java(StringUtils.isNotEmpty(src.getPercentageMan()) ? Double.parseDouble(src.getPercentageMan()) : null)")
+    @Mapping(target = "porcentaje3", expression = "java(StringUtils.isNotEmpty(src.getPercentageBoy()) ? Double.parseDouble(src.getPercentageBoy()) : null)")
     public abstract TareaEmpleadoEstructuraDto genericEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(
             final GenericEmpleadoResultItemDto src);
 
     public abstract List<TareaEmpleadoEstructuraDto> genericEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(
             List<GenericEmpleadoResultItemDto> src);
+
 }

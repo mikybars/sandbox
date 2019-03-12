@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoEstructura;
 
 @Repository
-public class TareaEmpleadoEstructuraRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaEmpleadoEstructura>
-        implements TareaEmpleadoEstructuraRepositoryCustom {
+public class TareaEmpleadoEstructuraRepositoryCustomImpl extends
+        JdbcBatchPrimaryRepositoryAbstract<TareaEmpleadoEstructura> implements TareaEmpleadoEstructuraRepositoryCustom {
 
     @Autowired
     @Qualifier("getComisionEmpleadoDto")
@@ -39,11 +40,28 @@ public class TareaEmpleadoEstructuraRepositoryCustomImpl extends JdbcBatchPrimar
         pstmt.setString(6, entity.getIdTipoCalculo());
         pstmt.setString(7, entity.getIdTipoComision());
         pstmt.setString(8, entity.getOrEmpleado());
-        pstmt.setDouble(9, entity.getPorcentaje());
-        pstmt.setDouble(10, entity.getPorcentaje1());
-        pstmt.setDouble(11, entity.getPorcentaje2());
-        pstmt.setDouble(12, entity.getPorcentaje3());
+        if (entity.getPorcentaje() != null) {
+            pstmt.setDouble(9, entity.getPorcentaje());
+        } else {
+            pstmt.setNull(9, Types.DOUBLE);
+        }
+        if (entity.getPorcentaje1() != null) {
+            pstmt.setDouble(9, entity.getPorcentaje1());
+        } else {
+            pstmt.setNull(9, Types.DOUBLE);
+        }
+        if (entity.getPorcentaje2() != null) {
+            pstmt.setDouble(9, entity.getPorcentaje2());
+        } else {
+            pstmt.setNull(9, Types.DOUBLE);
+        }
+        if (entity.getPorcentaje3() != null) {
+            pstmt.setDouble(9, entity.getPorcentaje3());
+        } else {
+            pstmt.setNull(9, Types.DOUBLE);
+        }
         pstmt.setLong(13, entity.getTarea().getId());
+        pstmt.setString(14, entity.getIdOrigen());
     }
 
 }

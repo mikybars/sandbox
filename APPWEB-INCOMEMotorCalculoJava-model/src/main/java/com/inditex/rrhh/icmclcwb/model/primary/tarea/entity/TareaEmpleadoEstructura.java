@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -29,6 +30,10 @@ public class TareaEmpleadoEstructura {
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private /* BigInteger */ Tarea tarea;
 
+    @NotBlank
+    @Column(name = "ID_ORIGEN", nullable = false)
+    private String idOrigen;
+
     @NotNull
     @Column(name = "ID_EMPLEADO", nullable = false)
     private String idEmpleado;
@@ -36,7 +41,7 @@ public class TareaEmpleadoEstructura {
     @NotNull
     @Column(name = "OR_EMPLEADO", nullable = false)
     private String orEmpleado;
-    
+
     @NotNull
     @Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
     private String idEmpleadoLocal;
@@ -48,20 +53,20 @@ public class TareaEmpleadoEstructura {
     @NotNull
     @Column(name = "ID_TIPO_CALCULO", nullable = false)
     private /* BigInteger */ String idTipoCalculo;
-    
+
     @NotNull
     @Column(name = "ID_TIPO_COMISION", nullable = false)
     private /* BigInteger */ String idTipoComision;
-    
+
     @Column(name = "PORCENTAJE", nullable = true)
     private /* BigInteger */ Double porcentaje;
-    
+
     @Column(name = "PORCENTAJE_SECCION_1", nullable = true)
     private /* BigInteger */ Double porcentaje1;
-    
+
     @Column(name = "PORCENTAJE_SECCION_2", nullable = true)
     private /* BigInteger */ Double porcentaje2;
-    
+
     @Column(name = "PORCENTAJE_SECCION_3", nullable = true)
     private /* BigInteger */ Double porcentaje3;
 
