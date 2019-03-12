@@ -19,14 +19,14 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarEstructurasAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarPersonaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.async.service.RunTareaRecolectarValidarEstructurasAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.async.service.RunTareaRecolectarValidarPersonaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.async.service.RunTareaRecolectarValidarTiendaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.async.service.RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.async.service.RunTareaRecolectarValidarTiendaHistoricoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.async.service.RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.async.service.RunTareaRecolectarValidarTiendaVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
