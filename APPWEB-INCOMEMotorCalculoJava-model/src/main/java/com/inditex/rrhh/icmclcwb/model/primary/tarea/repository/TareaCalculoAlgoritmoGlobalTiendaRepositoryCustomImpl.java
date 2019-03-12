@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
-public class TareaCalculoAlgoritmoGlobalTiendaRepositoryImpl implements TareaCalculoAlgoritmoGlobalTiendaRepository {
+public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl implements TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")

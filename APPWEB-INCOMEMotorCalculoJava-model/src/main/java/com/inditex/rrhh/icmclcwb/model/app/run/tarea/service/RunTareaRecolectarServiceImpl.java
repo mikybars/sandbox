@@ -1,9 +1,8 @@
-package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

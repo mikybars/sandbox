@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.AlgoritmoProper
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -23,7 +23,7 @@ public class GlobalTiendaVersion1Algoritmo implements Algoritmo {
     private Logger log;
 
     @Autowired
-    private TareaCalculoAlgoritmoGlobalTiendaRepository tareaCalculoAlgoritmoGlobalTiendaRepository;
+    private TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom tareaCalculoAlgoritmoGlobalTiendaRepository;
 
     @Autowired
     @Qualifier("algoritmoProperties")

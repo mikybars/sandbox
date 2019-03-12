@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularServi
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 
@@ -34,6 +35,9 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private RunTareaConsolidarService runTareaConsolidarService;
+    
+    @Autowired
+    private RunTareaRecolectarValidarService runTareaRecolectarValidarService;
 
     @Auditoria
     @CounterMetric
@@ -43,6 +47,7 @@ public class RunTareaServiceImpl implements RunTareaService {
         try {
             tareaService.modifyFechaInicioTarea(runTarea.getTarea());
             runTareaRecolectarService.run(runTarea);
+            runTareaRecolectarValidarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {

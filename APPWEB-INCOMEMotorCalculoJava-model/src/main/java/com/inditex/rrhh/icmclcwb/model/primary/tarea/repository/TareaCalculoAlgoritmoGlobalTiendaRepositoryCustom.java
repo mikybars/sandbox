@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
-public interface TareaCalculoAlgoritmoGlobalTiendaRepository {
+public interface TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom {
 
     public void calcularByIdTarea(final Long idTarea, final Long idAlgoritmo);
 

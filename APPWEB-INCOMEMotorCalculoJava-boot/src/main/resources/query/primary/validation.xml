@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="RunTareaValidarService.checkDuplicatedEmpleados">
+    <![CDATA[
+SELECT ID_EMPLEADO
+FROM TAREA_EMPLEADO_ESTADO 
+WHERE ID_TAREA = :idTarea 
+GROUP BY ID_EMPLEADO, ID_TAREA
+HAVING COUNT(*) > 1
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.checkDuplicatedTiendas">
+    <![CDATA[
+SELECT CCL_ID_COD_ORIGEN 
+FROM TAREA_TIENDA_ESTADO 
+WHERE ID_TAREA = :idTarea 
+GROUP BY CCL_ID_COD_ORIGEN, ID_TAREA
+HAVING COUNT(*) > 1
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.checkDuplicatedTiendasHistorico">
+    <![CDATA[
+SELECT CCL_ID_COD_ORIGEN 
+FROM TAREA_TIENDA_HISTORICO
+WHERE ID_TAREA = :idTarea 
+GROUP BY CCL_ID_COD_ORIGEN, ID_TAREA
+HAVING COUNT(*) > 1
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countEmpleados">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM TAREA_EMPLEADO_ESTADO 
+WHERE ID_TAREA = :idTarea 
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countEmpleadosHistorico">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM TAREA_EMPLEADO_HISTORICO 
+WHERE ID_TAREA = :idTarea 
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countTiendas">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM TAREA_TIENDA_ESTADO 
+WHERE ID_TAREA = :idTarea 
+    ]]>
+</entry>
+    
+<entry key="RunTareaValidarService.countTiendasHistorico">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM TAREA_TIENDA_HISTORICO 
+WHERE ID_TAREA = :idTarea 
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countEstructuras">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM TAREA_EMPLEADO_ESTRUCTURA 
+WHERE ID_TAREA = :idTarea 
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countTiendaPresenciaSeccion">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM TAREA_TIENDA_PRESENCIA_SECCION 
+WHERE ID_TAREA = :idTarea 
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countTiendaEmpleadoPresenciaSeccion">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM TAREA_TIENDA_EMPLEADO_PRESENCIA_SECCION 
+WHERE ID_TAREA = :idTarea 
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countTiendaVentaSeccion">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM TAREA_TIENDA_VENTA_SECCION 
+WHERE ID_TAREA = :idTarea 
+    ]]>
+</entry>
+
+
+</properties>

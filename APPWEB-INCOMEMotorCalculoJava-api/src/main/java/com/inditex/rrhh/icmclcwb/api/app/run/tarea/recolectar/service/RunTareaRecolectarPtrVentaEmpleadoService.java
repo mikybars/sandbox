@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
+package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service;
 
 import javax.validation.Valid;
 
