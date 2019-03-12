@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
@@ -716,8 +717,8 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             EmpleadosRequestDto request = new EmpleadosRequestDto();
             request.setPage(getEmpleadosDto.getPage());
             request.setData(tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoToGenericFilterDto(trabajo,
-                            tarea, tareaAmbito, tarea.getLocalizacion()));
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
+                            trabajo, tarea, tareaAmbito, tarea.getLocalizacion(), tarea.getPersona()));
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -758,8 +759,8 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             SearchTiendasRequestDto request = new SearchTiendasRequestDto();
             request.setPage(searchTiendasDto.getPage());
             request.setData(tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoToGenericFilterDto(trabajo,
-                            tarea, tareaAmbito, tarea.getLocalizacion()));
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
+                            trabajo, tarea, tareaAmbito, tarea.getLocalizacion(), tarea.getPersona()));
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -795,15 +796,15 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (List<String> iter : StreamUtils.partition(tareaEmpleadoHistoricoervice
-                    .findIdEmpleadoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen()),
+            for (List<IdPersonaDto> iter : StreamUtils.partition(tareaEmpleadoHistoricoervice
+                    .findIdPersonaByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen()),
                     getComisionEmpleadoDto.getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
                 comisionEmpleadoRequest.setPage(getComisionEmpleadoDto.getPage());
                 comisionEmpleadoRequest.setData(tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
                 comisionEmpleadoRequest.getData().getItem()
-                        .addAll(iter.stream().map(item -> GenericFilterParametersDto.builder().idEmpleado(item).build())
+                        .addAll(iter.stream().map(item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).build())
                                 .collect(Collectors.toList()));
                 CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                         .getComisionEmpleado(comisionEmpleadoRequest);

@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoHistoricoService;
@@ -27,7 +30,7 @@ public class TareaEmpleadoHistoricoServiceImpl implements TareaEmpleadoHistorico
 
     @Autowired
     private TareaEmpleadoHistoricoRepository tareaEmpleadoHistoricoRepository;
-    
+
     @Autowired
     private TareaEmpleadoHistoricoRepositoryCustom tareaEmpleadoHistoricoRepositoryCustom;
 
@@ -55,9 +58,31 @@ public class TareaEmpleadoHistoricoServiceImpl implements TareaEmpleadoHistorico
     }
 
     @Override
-    public Set<String> findIdEmpleadoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen) {
+    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigen(@NotNull final Long idTarea,
+            @NotNull final String idOrigen) {
         // TODO Agregar idOrigen
-        return tareaEmpleadoHistoricoRepository.findIdEmpleadoByIdTareaAndIdOrigen(idTarea/*, idOrigen*/);
+        return tareaEmpleadoHistoricoRepository.findIdPersonaByIdTareaAndIdOrigen(idTarea/* , idOrigen */).stream()
+                .map(item -> IdPersonaDto.builder().idPersona(String.valueOf(item[0])).build())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
+            @NotNull final String idOrigen) {
+        // TODO Agregar idOrigen
+        return tareaEmpleadoHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea/* , idOrigen */)
+                .stream().map(item -> IdPersonaHistoricoDto.builder().idPersona(String.valueOf(item[0]))
+                        .orPersona(String.valueOf(item[1])).build())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea,
+            @NotNull final String idOrigen) {
+        // TODO Agregar idOrigen
+        return tareaEmpleadoHistoricoRepository.findIdPersonaLocalByIdTareaAndIdOrigen(idTarea/* , idOrigen */).stream()
+                .map(item -> IdPersonaLocalDto.builder().idPersonaLocal(String.valueOf(item[0])).build())
+                .collect(Collectors.toList());
     }
 
 }

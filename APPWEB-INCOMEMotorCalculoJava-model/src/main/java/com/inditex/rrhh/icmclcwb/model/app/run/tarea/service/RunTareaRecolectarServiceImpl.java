@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoPersonaService;
@@ -44,14 +46,16 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
         if (EstadoTareaEnum.PENDIENTE_RECOLECTAR.getId().equals(tarea.getEstado().getId())) {
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_RECOLECTAR.getDto());
             // TODO PoC
-            runTareaRecolectarByAmbitoService.runPoC(runTarea);
-//            if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
-//                runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
-//            } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
-//                runTareaRecolectarByAmbitoPersonaService.run(runTarea);
-//            } else {
-//                runTareaRecolectarByAmbitoService.run(runTarea);
-//            }
+//            runTareaRecolectarByAmbitoService.runPoC(runTarea);
+            if (CollectionUtils.isNotEmpty(tarea.getLocalizacion()) && CollectionUtils.isNotEmpty(tarea.getPersona())) {
+                throw new IcmclcwbException("No es posible ejecutar por localizacion y persona");
+            }else if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
+                runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
+            } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
+                runTareaRecolectarByAmbitoPersonaService.run(runTarea);
+            } else {
+                runTareaRecolectarByAmbitoService.run(runTarea);
+            }
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.PENDIENTE_CALCULAR.getDto());
         }
         return runTarea;

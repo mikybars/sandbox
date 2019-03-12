@@ -15,7 +15,21 @@ public interface TareaEmpleadoHistoricoRepository extends BaseRepository<TareaEm
 
     // TODO Filtrar por idOrigen
     @Query("SELECT teh.idEmpleado FROM TareaEmpleadoHistorico teh WHERE teh.tarea.id=:idTarea GROUP BY teh.idEmpleado")
-    Set<String> findIdEmpleadoByIdTareaAndIdOrigen(
+    Set<Object[]> findIdPersonaByIdTareaAndIdOrigen(
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea
+    // ,@NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String
+    // idOrigen
+    );
+
+    @Query("SELECT teh.idEmpleado, teh.orEmpleado  FROM TareaEmpleadoHistorico teh WHERE teh.tarea.id=:idTarea GROUP BY teh.idEmpleado, teh.orEmpleado")
+    Set<Object[]> findIdPersonaHistoricoByIdTareaAndIdOrigen(
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea
+    // ,@NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String
+    // idOrigen
+    );
+
+    @Query("SELECT teh.idEmpleadoLocal FROM TareaEmpleadoHistorico teh WHERE teh.tarea.id=:idTarea GROUP BY teh.idEmpleadoLocal")
+    Set<Object[]> findIdPersonaLocalByIdTareaAndIdOrigen(
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea
     // ,@NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String
     // idOrigen

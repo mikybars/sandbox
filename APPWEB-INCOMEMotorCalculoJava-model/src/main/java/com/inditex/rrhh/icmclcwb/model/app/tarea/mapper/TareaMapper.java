@@ -97,10 +97,12 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
     @Mapping(target = "idEmpresa", source = "srcTarea.idEmpresa")
-    public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoToGenericFilterDto(
+    public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
-            List<TareaAmbitoLocalizacionDto> srcTareaAmbitoLocalizacion);
+            List<TareaAmbitoLocalizacionDto> srcTareaAmbitoLocalizacion,
+            List<TareaAmbitoPersonaDto> srcTareaAmbitoPersona);
 
+    @Mapping(target = "item", ignore = true)
     @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
     @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
