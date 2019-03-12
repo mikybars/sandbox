@@ -76,7 +76,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
 
             CompletableFuture<Void> cfCondicionPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .condicionPersonaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfTiposHoras, cf);
+            AsyncUtils.exceptionally(cfCondicionPersonaByRunTarea, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
