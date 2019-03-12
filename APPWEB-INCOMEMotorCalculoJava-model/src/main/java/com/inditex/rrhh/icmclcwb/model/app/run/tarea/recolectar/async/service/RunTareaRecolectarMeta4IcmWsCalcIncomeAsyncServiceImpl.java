@@ -81,6 +81,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Async
     @Override
     public CompletableFuture<Void> condicionPersonaByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.condicionPersonaByRunTarea(runTarea);
