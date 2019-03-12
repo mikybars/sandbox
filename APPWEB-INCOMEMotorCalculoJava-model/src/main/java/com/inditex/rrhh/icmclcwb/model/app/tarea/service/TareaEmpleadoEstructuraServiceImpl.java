@@ -1,8 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,7 @@ public class TareaEmpleadoEstructuraServiceImpl implements TareaEmpleadoEstructu
     private TareaEmpleadoEstructuraMapper tareaEmpleadoEstructuraMapper;
 
     @Override
-    public Set<Long> findIdTipoCalculoByIdTarea(@Valid final Long idTarea) {
+    public List<Long> findIdTipoCalculoByIdTarea(@Valid final Long idTarea) {
         return tareaEmpleadoEstructuraRepository.findIdTipoCalculoByIdTarea(idTarea);
     }
 

@@ -1,8 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -11,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 
 public interface TareaEmpleadoEstructuraService {
 
-    Set<Long> findIdTipoCalculoByIdTarea(@Valid final Long idTarea);
+    List<Long> findIdTipoCalculoByIdTarea(@Valid final Long idTarea);
     
     List<TareaEmpleadoEstructuraDto> save(final List<TareaEmpleadoEstructuraDto> tareaEmpleadoHistorico,
             @Valid final TareaDto tarea);
