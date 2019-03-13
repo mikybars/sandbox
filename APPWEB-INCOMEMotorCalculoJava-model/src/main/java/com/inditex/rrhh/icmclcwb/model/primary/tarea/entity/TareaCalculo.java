@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +33,18 @@ public class TareaCalculo {
 	@Column(name = "ID_TIENDA", nullable = false)
 	private String idTienda;
 	
+    @NotNull
+    @Column(name = "ID_TIENDA_PRESENCIA", nullable = false)
+    private String idTiendaPresencia;
+    
+    @NotNull
+    @Column(name = "ID_TIENDA_MTU", nullable = false)
+    private String idTiendaMtu;
+    
+    @NotNull
+    @Column(name = "ID_TIENDA_PRESENCIA_MTU", nullable = false)
+    private String idTiendaPresenciaMtu;
+	
 	@NotNull
     @Column(name = "ID_EMPLEADO", nullable = false)
     private String idEmpleado;
@@ -60,16 +74,16 @@ public class TareaCalculo {
     private /* BigInteger */ String idTipoComision;
 
     @Column(name = "COMISION_PORCENTAJE")
-    private /* BigInteger */ Long comisionPorcentaje;
+    private /* BigInteger */ Double comisionPorcentaje;
     
 	@Column(name = "COMISION_PORCENTAJE_SECCION_1")
-	private /* BigInteger */ Long comisionPorcentaje1;
+	private /* BigInteger */ Double comisionPorcentaje1;
 
 	@Column(name = "COMISION_PORCENTAJE_SECCION_2")
-	private /* BigInteger */ Long comisionPorcentaje2;
+	private /* BigInteger */ Double comisionPorcentaje2;
 
 	@Column(name = "COMISION_PORCENTAJE_SECCION_3")
-	private /* BigInteger */ Long comisionPorcentaje3;
+	private /* BigInteger */ Double comisionPorcentaje3;
 
 	@NotNull
 	@Column(name = "EMPLEADO_PRESENCIA_MINUTOS_SECCION_1", nullable = false)
@@ -122,5 +136,8 @@ public class TareaCalculo {
 	@NotNull
     @Column(name = "ID_TIPO_HORA", nullable = false)
     private /* BigInteger */ String idTipoHora;
+	
+    @Column(name = "FECHA", nullable = false)
+    private Date fecha;
 
 }
