@@ -46,19 +46,19 @@ public class TareaEmpleadoEstructuraRepositoryCustomImpl extends
             pstmt.setNull(9, Types.DOUBLE);
         }
         if (entity.getPorcentaje1() != null) {
-            pstmt.setDouble(9, entity.getPorcentaje1());
+            pstmt.setDouble(10, entity.getPorcentaje1());
         } else {
-            pstmt.setNull(9, Types.DOUBLE);
+            pstmt.setNull(10, Types.DOUBLE);
         }
         if (entity.getPorcentaje2() != null) {
-            pstmt.setDouble(9, entity.getPorcentaje2());
+            pstmt.setDouble(11, entity.getPorcentaje2());
         } else {
-            pstmt.setNull(9, Types.DOUBLE);
+            pstmt.setNull(11, Types.DOUBLE);
         }
         if (entity.getPorcentaje3() != null) {
-            pstmt.setDouble(9, entity.getPorcentaje3());
+            pstmt.setDouble(12, entity.getPorcentaje3());
         } else {
-            pstmt.setNull(9, Types.DOUBLE);
+            pstmt.setNull(12, Types.DOUBLE);
         }
         pstmt.setLong(13, entity.getTarea().getId());
         pstmt.setString(14, entity.getIdOrigen());
