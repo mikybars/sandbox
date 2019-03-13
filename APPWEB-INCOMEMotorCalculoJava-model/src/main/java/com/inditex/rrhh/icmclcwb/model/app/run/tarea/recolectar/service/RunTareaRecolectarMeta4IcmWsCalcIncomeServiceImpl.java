@@ -79,9 +79,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     private TareaEmpleadoEstadoMapper tareaEmpleadoEstadoMapper;
 
     @Autowired
-    private TareaTiendaComisionHistoricoMapper tareaTiendaComisionHistoricoMapper;
-
-    @Autowired
     private TareaEmpleadoHistoricoAsyncService tareaEmpleadoHistoricoAsyncService;
 
     @Autowired
@@ -557,16 +554,11 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         AsyncUtils.exceptionally(cfData, cf);
                         List<GenericTiendaResultItemDto> data = cfData.get();
                         if (CollectionUtils.isNotEmpty(data)) {
-
-                            List<TareaTiendaComisionHistoricoDto> tareaTiendaComision = tareaTiendaComisionHistoricoMapper
-                                    .genericTiendaResultItemDtoToTareaTiendaComisionHistoricoDto(data, tarea);
-                            if (CollectionUtils.isNotEmpty(tareaTiendaComision)) {
-                                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                        getTiendasDto.getFilter().getMaxPersistenceSize());
-                                CompletableFuture<Void> cfSave = tareaTiendaComisionHistoricoAsyncService
-                                        .save(tareaTiendaComision);
-                                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                            }
+                            AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                    getTiendasDto.getFilter().getMaxPersistenceSize());
+                            CompletableFuture<Void> cfSave = tareaTiendaComisionHistoricoAsyncService
+                                    .saveGenericTiendaResultItemDto(data, tarea);
+                            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                         }
                         hasNext = tiendasRequest.nextPage();
                     } while (hasNext);

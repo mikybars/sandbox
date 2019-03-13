@@ -114,6 +114,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "pais", source = "srcTareaAmbito.idCatalogo")
+    @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
     public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
@@ -121,6 +122,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "pais", source = "srcTareaAmbito.idCatalogo")
+    @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
     public abstract PtrVentaIndividualDetalleRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 

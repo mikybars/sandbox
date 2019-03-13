@@ -32,6 +32,8 @@ public class PtrVentaIndividualByMccResultItemDto implements Serializable {
 	private Integer producto;
 	
     private MccType mcc;
+    
+    private Integer empresa;
 
     private Integer vendedor;
 

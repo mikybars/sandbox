@@ -35,6 +35,8 @@ public class PtrVentaTotalizadoByMccRequestDto implements Serializable {
     private Integer temporada;
     
     private Integer producto;
+    
+    private Integer empresa;
 
     private List<MccType> mcc;
     

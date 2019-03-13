@@ -37,6 +37,8 @@ public class PtrVentaIndividualRequestDto implements Serializable {
 	
 	private List<Integer> vendedores = new ArrayList<>();
 	
+	private Integer empresa;
+	
 	private PtrGroupTypeEnum agrupacion;
 
 }

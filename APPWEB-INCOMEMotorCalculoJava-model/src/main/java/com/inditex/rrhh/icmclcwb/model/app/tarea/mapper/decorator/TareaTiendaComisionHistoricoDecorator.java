@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaComisionHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaComisionHistoricoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaComisionHistorico;
 
 public abstract class TareaTiendaComisionHistoricoDecorator extends TareaTiendaComisionHistoricoMapper {
 
@@ -17,15 +17,16 @@ public abstract class TareaTiendaComisionHistoricoDecorator extends TareaTiendaC
     private TareaTiendaComisionHistoricoMapper delegate;
 
     @Override
-    public List<TareaTiendaComisionHistoricoDto> genericTiendaResultItemDtoToTareaTiendaComisionHistoricoDto(
-            List<GenericTiendaResultItemDto> src, TareaDto tarea) {
-        List<TareaTiendaComisionHistoricoDto> result = new ArrayList<>();
-        
-        if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> result.add(delegate
-                    .genericTiendaResultItemDtoToTareaTiendaComisionHistoricoDto(item, tarea)));
+    public List<TareaTiendaComisionHistorico> mergeTareaTiendaComisionHistoricoDtoAndTareaDtoToTareaTiendaComisionHistorico(
+            List<TareaTiendaComisionHistoricoDto> srcTareaTiendaComisionHistorico, TareaDto srcTarea) {
+        List<TareaTiendaComisionHistorico> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(srcTareaTiendaComisionHistorico)) {
+            srcTareaTiendaComisionHistorico.forEach(item -> 
+                result.add(
+                        delegate.mergeTareaTiendaComisionHistoricoDtoAndTareaDtoToTareaTiendaComisionHistorico(item, srcTarea))
+            );
         }
-        
         return result;
     }
+
 }

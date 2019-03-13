@@ -27,6 +27,8 @@ public class PtrVentaTotalizadoByMccResultItemDto implements Serializable {
 
 	private Integer producto;
 	
+    private Integer empresa;
+	
 	private List<MccType> mcc;
 
 	private BigDecimal importeSinIVA;

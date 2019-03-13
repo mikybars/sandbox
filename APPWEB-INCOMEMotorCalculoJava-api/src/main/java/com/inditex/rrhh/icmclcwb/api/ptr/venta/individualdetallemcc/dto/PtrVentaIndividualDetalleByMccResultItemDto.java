@@ -45,6 +45,8 @@ public class PtrVentaIndividualDetalleByMccResultItemDto implements Serializable
 	
 	private Integer cajero;
 	
+	private Integer empresa;
+	
 	private String operacion;
 	
 }

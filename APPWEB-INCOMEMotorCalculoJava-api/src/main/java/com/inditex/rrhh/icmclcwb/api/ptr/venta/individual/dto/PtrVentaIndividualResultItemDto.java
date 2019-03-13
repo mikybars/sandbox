@@ -29,6 +29,8 @@ public class PtrVentaIndividualResultItemDto implements Serializable {
 	private Integer temporada;
 
 	private Integer producto;
+	
+	private Integer empresa;
 
     private Integer vendedor;
 

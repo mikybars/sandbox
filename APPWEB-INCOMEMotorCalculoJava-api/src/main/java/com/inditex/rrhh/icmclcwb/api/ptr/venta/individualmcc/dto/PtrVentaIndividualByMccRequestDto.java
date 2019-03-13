@@ -40,6 +40,8 @@ public class PtrVentaIndividualByMccRequestDto implements Serializable {
 	
     private MccType mcc;
     
+    private Integer empresa;
+    
     private Integer familia;
     
     private Integer subFamilia;

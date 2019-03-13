@@ -36,7 +36,15 @@ public class PtrVentaIndividualDetalleByMccRequestDto implements Serializable {
 	
 	private Integer producto;
 	
+	private Integer empresa;
+	
 	private List<Integer> vendedores = new ArrayList<>();
+	
+	private String fechaVentaInicial;
+	
+	private Integer cajero;
+	
+	private String operacion;
 	
 	private MccType mcc;
 	

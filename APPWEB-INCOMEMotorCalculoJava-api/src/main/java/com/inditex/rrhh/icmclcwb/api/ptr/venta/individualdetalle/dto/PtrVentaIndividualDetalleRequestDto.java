@@ -26,6 +26,8 @@ public class PtrVentaIndividualDetalleRequestDto implements Serializable {
 
 	@NotNull
 	private Integer cadena;
+	
+	private Integer empresa;
 
 	private List<Integer> tienda = new ArrayList<>();
 	

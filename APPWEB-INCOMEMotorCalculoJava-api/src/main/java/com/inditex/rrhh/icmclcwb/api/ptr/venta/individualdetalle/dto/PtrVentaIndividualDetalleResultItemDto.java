@@ -23,6 +23,8 @@ public class PtrVentaIndividualDetalleResultItemDto implements Serializable {
 	private Integer pais;
 
 	private Integer cadena;
+	
+    private Integer empresa;
 
 	@NotBlank
 	private Integer tienda;
