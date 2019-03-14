@@ -32,7 +32,7 @@ public abstract class TareaTiendaHistoricoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "srcTarea.id")
-    @Mapping(target = "idPaisOrigen", source = "srcTareaTiendaHistorico.idPais")
+    @Mapping(target = "idPaisOrigen", source = "srcTareaTiendaHistorico.idPaisOrigen")
     @Mapping(target = "idEmpresa", source = "srcTareaTiendaHistorico.idEmpresa")
     public abstract TareaTiendaHistorico mergeTareaTiendaHistoricoDtoAndTareaDtoToTareaTiendaHistorico(
             TareaTiendaHistoricoDto srcTareaTiendaHistorico, TareaDto srcTarea);

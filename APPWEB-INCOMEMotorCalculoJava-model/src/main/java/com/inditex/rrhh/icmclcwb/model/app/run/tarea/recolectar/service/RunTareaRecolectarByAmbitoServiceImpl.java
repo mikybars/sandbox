@@ -77,6 +77,15 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
             CompletableFuture<Void> cfCondicionPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .condicionPersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfCondicionPersonaByRunTarea, cf, cfWait);
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
+            // TODO Se detectan que datos son necesarios recuperar
+            
+            CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = runTareaRecolectarPtrVentaAsyncService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);;
+            AsyncUtils.exceptionally(cfVentaFisicaLocalizacionSeccion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
