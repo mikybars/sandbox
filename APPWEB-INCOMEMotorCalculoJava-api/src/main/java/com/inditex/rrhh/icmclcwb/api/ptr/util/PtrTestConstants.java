@@ -12,7 +12,7 @@ public class PtrTestConstants {
 
     public static final String FECHA_DESDE = "2017-12-01";
 
-    public static final String FECHA_HASTA = "2017-12-31";
+    public static final String FECHA_HASTA = "2017-12-01";
     
     public static final String FECHA_HORA_DESDE = "2017-12-01 00:00";
 
@@ -38,9 +38,13 @@ public class PtrTestConstants {
     
     public static final Integer ID_EMPRESA = 95;
     
-    public static final Integer ID_EMPRESA2 = 329;
+    public static final Integer ID_EMPRESA_VENTA_ECOMMERCE = 329;
+    
+    public static final Integer ID_EMPRESA_VENTA_EMPLEADO = 8;
     
     public static final List<Integer> ID_TIENDA_LIST = Arrays.asList(57);
+    
+    public static final List<Integer> ID_TIENDA_VENTA_EMPLEADO = Arrays.asList(125);
     
     public static final List<String> ID_TIENDA_ONLINE_LIST = Arrays.asList("9724");
     

@@ -53,19 +53,41 @@ public class PtrVentaGeneralServiceTest  {
     @Qualifier("ventaVersion")
     private String version;
     
+    @Ignore
     @Test
-    public void ventaTotalizado() {
+    public void ventaTotalizadoFechaTiendaSeccion() {
         PtrVentaTotalizadoRequestDto request = new PtrVentaTotalizadoRequestDto();
-        request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
-        request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+//        request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
+//        request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+        request.setFechaDesde("2014-01-01");
+        request.setFechaHasta("2016-12-31");
+        request.setPais(70);
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
-        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION_TEMPORADA_PRODUCTO);
+        ResponseEntity<PtrVentaTotalizadoResponseDto> response = ptrVentaClient
+                .postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request, PtrVentaTotalizadoResponseDto.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    }
+    
+    @Ignore
+    @Test
+    public void ventaTotalizadoFechaTienda() {
+        PtrVentaTotalizadoRequestDto request = new PtrVentaTotalizadoRequestDto();
+//        request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
+//        request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+      request.setFechaDesde("2014-01-01");
+      request.setFechaHasta("2016-12-31");
+      request.setPais(70);
+//        request.setPais(PtrTestConstants.PAIS);
+        request.setCadena(PtrTestConstants.CADENA);
+        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
         ResponseEntity<PtrVentaTotalizadoResponseDto> response = ptrVentaClient
                 .postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request, PtrVentaTotalizadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
    
+    @Ignore
     @Test
     public void ventaDiaria() {
         PtrVentaDiariaRequestDto request = new PtrVentaDiariaRequestDto(); 
@@ -79,6 +101,7 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
+    @Ignore
     @Test
     public void ventaMensual() {
         PtrVentaMensualRequestDto request = new PtrVentaMensualRequestDto(); 
@@ -103,6 +126,7 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
+    @Ignore
     @Test
     public void ventaTotalizadoByMcc(){
         PtrVentaTotalizadoByMccRequestDto request = new PtrVentaTotalizadoByMccRequestDto(); 
@@ -128,6 +152,7 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
+    @Ignore
     @Test
     public void test() { 
         ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
@@ -136,6 +161,7 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(Boolean.TRUE, response.getBody());
     }
     
+    @Ignore
     @Test
     public void version() {
         ResponseEntity<String> response = ptrVentaClient.getForEntity(

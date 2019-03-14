@@ -29,4 +29,6 @@ public interface TareaValidarAsyncService {
     CompletableFuture<Integer> countTiendaEmpleadoPresenciaSeccion(@NotNull @Positive Long idTarea);
 
     CompletableFuture<Integer> countTiendaVentaSeccion(@NotNull @Positive Long idTarea);
+
+    CompletableFuture<List<String>> validateAmbito(@NotNull @Positive Long idTarea);
 }

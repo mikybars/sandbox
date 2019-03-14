@@ -49,7 +49,7 @@ public class RunTareaRecolectarValidarPersonaServiceImpl implements RunTareaReco
             
             validation.getDuplicated().addAll(cfDuplicatedEmpleados.get());
             validation.setCount(cfCountEmpleados.get());
-            validation.setType(TareaEmpleadoEstado.class);
+            validation.setType(TareaEmpleadoEstado.class.getSimpleName());
     
             runTarea.getTarea().getRunTareaValidar().add(validation);
             

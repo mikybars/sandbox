@@ -21,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPivotAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoEstadoAsyncService;
@@ -36,7 +37,10 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
     @Autowired
-    private RunTareaRecolectarPtrVentaGeneralAsyncService runTareaRecolectarPtrVentaAsyncService;
+    private RunTareaRecolectarPtrVentaGeneralAsyncService runTareaRecolectarPtrVentaGeneralAsyncService;
+    
+    @Autowired
+    private RunTareaRecolectarPtrVentaEcommerceAsyncService runTareaRecolectarPtrVentaEcommerceAsyncService;
 
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
@@ -84,7 +88,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
             
             // TODO Se detectan que datos son necesarios recuperar
             
-            CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = runTareaRecolectarPtrVentaAsyncService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);;
+            CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = runTareaRecolectarPtrVentaGeneralAsyncService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaFisicaLocalizacionSeccion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
@@ -137,7 +141,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
                     .empleadosTienda(runTarea, runTareaRecolectar.getUno());
             AsyncUtils.exceptionally(cfEmpleados, cf);
 
-            CompletableFuture<Void> cfVentaTotalizadaTienda = runTareaRecolectarPtrVentaAsyncService
+            CompletableFuture<Void> cfVentaTotalizadaTienda = runTareaRecolectarPtrVentaGeneralAsyncService
                     .ventaTotalizadaTienda(runTarea, runTareaRecolectar.getUno());
             AsyncUtils.exceptionally(cfVentaTotalizadaTienda, cf);
 
@@ -183,7 +187,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
                                 .tiendasComisionable(runTarea, runTareaRecolectar.getDos());
                         AsyncUtils.exceptionally(cfTiendasComisionablePresencia, cf);
 
-                        CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = runTareaRecolectarPtrVentaAsyncService
+                        CompletableFuture<Void> cfVentaTotalizadaTiendaPresencia = runTareaRecolectarPtrVentaGeneralAsyncService
                                 .ventaTotalizadaTienda(runTarea, runTareaRecolectar.getDos());
                         AsyncUtils.exceptionally(cfVentaTotalizadaTiendaPresencia, cf);
 

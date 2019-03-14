@@ -34,5 +34,7 @@ public interface TareaValidarService {
 
     List<Map<String, Object>> validateByIdTrabajo(@NotNull @Positive Long idTrabajo);
 
+    List<String> validateAmbito(@NotNull @Positive Long idTarea);
+
 
 }

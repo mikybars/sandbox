@@ -17,14 +17,14 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarTiendaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaValidarAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEstado;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 
 @Service
 @Validated
-public class RunTareaRecolectarValidarTiendaServiceImpl implements RunTareaRecolectarValidarTiendaService {
+public class RunTareaRecolectarValidarAmbitoServiceImpl implements RunTareaRecolectarValidarAmbitoService {
 
     @Autowired
     private TareaValidarAsyncService tareaValidarAsyncService;
@@ -37,28 +37,20 @@ public class RunTareaRecolectarValidarTiendaServiceImpl implements RunTareaRecol
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             RunTareaValidarDto validation = new RunTareaValidarDto();
-    
-            CompletableFuture<Integer> cfCountTiendas = tareaValidarAsyncService
-                    .countTiendas(runTarea.getTarea().getId());
-            AsyncUtils.exceptionally(cfCountTiendas, cf);
             
-            CompletableFuture<List<String>> cfDuplicatedTiendas = tareaValidarAsyncService
-                    .checkDuplicatedTiendas(runTarea.getTarea().getId());
-            AsyncUtils.exceptionally(cfDuplicatedTiendas, cf);
-            
+            CompletableFuture<List<String>> cfValidAmbito = tareaValidarAsyncService
+                    .validateAmbito(runTarea.getTarea().getId());
+            AsyncUtils.exceptionally(cfValidAmbito, cf);
+
             AsyncUtils.waitAllOfIsOk(cf, cf);
             
-            validation.getDuplicated().addAll(cfDuplicatedTiendas.get());
-            validation.setCount(cfCountTiendas.get());
-            validation.setType(TareaTiendaEstado.class.getSimpleName());
-            
+            validation.setType(Tarea.class.getSimpleName());
             runTarea.getTarea().getRunTareaValidar().add(validation);
             return runTarea;
-        
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);
-        }          
+        }
     }
-    
+
 }

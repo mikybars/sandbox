@@ -52,7 +52,7 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
             
             validation.getDuplicated().addAll(cfDuplicatedTiendaHistorico.get());
             validation.setCount(cfCountTiendaHistorico.get());
-            validation.setType(TareaTiendaHistorico.class);
+            validation.setType(TareaTiendaHistorico.class.getSimpleName());
     
             runTarea.getTarea().getRunTareaValidar().add(validation);
             return runTarea;

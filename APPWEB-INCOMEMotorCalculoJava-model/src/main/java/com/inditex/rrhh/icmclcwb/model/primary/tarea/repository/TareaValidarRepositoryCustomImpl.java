@@ -21,8 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TipoTareaTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoEstado;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoHistorico;
 
 @Repository
 public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryCustom {
@@ -72,6 +70,49 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     
     @Value("#{primaryQuery['RunTareaValidarService.EmpleadoHistoricoEmptyFields']}")
     private String sqlEmpleadoHistoricoEmptyFields;
+    //---
+    @Value("#{primaryQuery['RunTareaValidarService.AmbitoLocalizacion']}")
+    private String sqlValidacionAmbitoLocalizacion;
+    
+    @Value("#{primaryQuery['RunTareaValidarService.AmbitoPersona']}")
+    private String sqlValidacionAmbitoPersona;
+    
+    @Value("#{primaryQuery['RunTareaValidarService.AmbitoEmpresa']}")
+    private String sqlValidacionAmbitoEmpresa;
+   
+    @Override
+    public List<String> validateAmbitoEmpresa(@NotNull @Positive final Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        return namedParameterJdbcTemplate.query(sqlValidacionAmbitoEmpresa, parameters, new RowMapper<String>() {
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                  return rs.getString(1);
+            }
+        });
+    }
+    
+    @Override
+    public List<String> validateAmbitoPersona(@NotNull @Positive final Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        return namedParameterJdbcTemplate.query(sqlValidacionAmbitoPersona, parameters, new RowMapper<String>() {
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                  return rs.getString(1);
+            }
+        });
+    }
+    
+    @Override
+    public List<String> validateAmbitoLocalizacion(@NotNull @Positive final Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        return namedParameterJdbcTemplate.query(sqlValidacionAmbitoLocalizacion, parameters, new RowMapper<String>() {
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                  return rs.getString(1);
+            }
+        });
+    }
+    
     
     @Override
     public List<String> checkDuplicatedEmpleados(@NotNull @Positive final Long idTarea) {

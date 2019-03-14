@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetallemcc.dto.PtrVenta
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualmcc.dto.PtrVentaIndividualByMccRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualmcc.dto.PtrVentaIndividualByMccResponseDto;
 
+@Ignore("Se ignora por que tarda demasiado")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
@@ -54,6 +56,8 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
+        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
+        request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
                 ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaIndividualDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
@@ -66,6 +70,8 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
+        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
+        request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         ResponseEntity<PtrVentaIndividualDetalleByMccResponseDto> response = ptrVentaClient.postForEntity(
                 ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(), request, PtrVentaIndividualDetalleByMccResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
@@ -78,6 +84,8 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
+        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
+        request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         ResponseEntity<PtrVentaIndividualResponseDto> response = ptrVentaClient.postForEntity(
                 ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL).getEndpoint(), request, PtrVentaIndividualResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
@@ -90,10 +98,11 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
+        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
+        request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         ResponseEntity<PtrVentaIndividualByMccResponseDto> response = ptrVentaClient.postForEntity(
                 ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(), request, PtrVentaIndividualByMccResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
-
     
 }

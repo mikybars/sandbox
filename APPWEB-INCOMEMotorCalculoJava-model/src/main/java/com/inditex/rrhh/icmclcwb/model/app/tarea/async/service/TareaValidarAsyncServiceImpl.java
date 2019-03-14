@@ -84,5 +84,11 @@ public class TareaValidarAsyncServiceImpl implements TareaValidarAsyncService {
     public CompletableFuture<Integer> countTiendaVentaSeccion(@NotNull @Positive Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendaVentaSeccion(idTarea));
     }
-
+    
+    @Async
+    @Override
+    public CompletableFuture<List<String>> validateAmbito(@NotNull @Positive Long idTarea) {
+        return CompletableFuture.completedFuture(tareaValidarService.validateAmbito(idTarea));
+    }
+    
 }

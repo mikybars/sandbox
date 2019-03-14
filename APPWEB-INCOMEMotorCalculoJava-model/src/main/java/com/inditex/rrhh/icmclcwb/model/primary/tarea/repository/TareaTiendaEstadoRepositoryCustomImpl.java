@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEstado;
 
@@ -30,8 +32,8 @@ public class TareaTiendaEstadoRepositoryCustomImpl extends JdbcBatchPrimaryRepos
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
-    @Qualifier("searchTiendasDto")
-    private Meta4PropertiesDto searchTiendasDto;
+    @Qualifier("meta4Properties")
+    private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Value("#{primaryQuery['TareaTiendaEstadoRepositoryCustom.customFindByIdTiendaNotExists']}")
     private String sqlCustomFindByIdTiendaNotExists;
@@ -41,7 +43,7 @@ public class TareaTiendaEstadoRepositoryCustomImpl extends JdbcBatchPrimaryRepos
 
     @Override
     public List<TareaTiendaEstado> save(final List<TareaTiendaEstado> src) {
-        return saveJdbcBatchList(src, sqlSave, searchTiendasDto.getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, sqlSave, meta4Properties.get(Meta4Constants.SEARCH_TIENDAS).getFilter().getMaxBatchSize());
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,23 +11,24 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaHistorico;
 
 @Repository
 public class TareaTiendaHistoricoRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaTiendaHistorico>
         implements TareaTiendaHistoricoRepositoryCustom {
-
+    
     @Autowired
-    @Qualifier("searchTiendasDto")
-    private Meta4PropertiesDto searchTiendasDto;
+    @Qualifier("meta4Properties")
+    private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Value("#{primaryQuery['TareaTiendaHistoricoRepositoryCustom.save']}")
     private String sqlSave;
 
     @Override
     public List<TareaTiendaHistorico> save(final List<TareaTiendaHistorico> src) {
-        return saveJdbcBatchList(src, sqlSave, searchTiendasDto.getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, sqlSave, meta4Properties.get(Meta4Constants.SEARCH_TIENDAS).getFilter().getMaxBatchSize());
     }
 
     @Override

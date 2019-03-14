@@ -17,6 +17,12 @@ public interface TareaValidarRepositoryCustom {
     
     List<String> checkDuplicatedTiendasHistorico(@NotNull @Positive Long idTarea);
 
+    List<String> validateAmbitoEmpresa(@NotNull @Positive Long idTarea);
+
+    List<String> validateAmbitoPersona(@NotNull @Positive Long idTarea);
+
+    List<String> validateAmbitoLocalizacion(@NotNull @Positive Long idTarea);
+    
     Integer countEmpleados(@NotNull @Positive Long idTarea);
 
     Integer countEmpleadosHistorico(@NotNull @Positive Long idTarea);
@@ -38,6 +44,5 @@ public interface TareaValidarRepositoryCustom {
     List<TareaEmpleadoEstadoDto> empleadoEmptyFields(@NotNull @Positive Long idTarea);
 
     List<TareaEmpleadoHistoricoDto> empleadoHistoricoEmptyFields(@NotNull @Positive Long idTarea);
-
 
 }

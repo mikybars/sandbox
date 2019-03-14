@@ -45,7 +45,7 @@ public class RunTareaRecolectarValidarTiendaPresenciaSeccionServiceImpl implemen
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
             validation.setCount(cfCountPresenciaSeccion.get());
-            validation.setType(TareaTiendaPresenciaSeccion.class);
+            validation.setType(TareaTiendaPresenciaSeccion.class.getSimpleName());
             runTarea.getTarea().getRunTareaValidar().add(validation);
             
             return runTarea;

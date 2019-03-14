@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -82,6 +83,18 @@ public class TareaValidarServiceImpl implements TareaValidarService {
     @Override
     public Integer countTiendaVentaSeccion(@NotNull @Positive Long idTarea) {
         return tareaValidarRepositoryCustom.countTiendaVentaSeccion(idTarea);
+    }
+    
+    @Override
+    public List<String> validateAmbito(@NotNull @Positive Long idTarea){
+        TareaDto tareaDto = tareaService.find(idTarea);
+        if (CollectionUtils.isNotEmpty(tareaDto.getLocalizacion())) {
+            return tareaValidarRepositoryCustom.validateAmbitoLocalizacion(idTarea);
+        } else if (CollectionUtils.isNotEmpty(tareaDto.getPersona())) {
+            return tareaValidarRepositoryCustom.validateAmbitoPersona(idTarea);
+        } 
+
+        return tareaValidarRepositoryCustom.validateAmbitoEmpresa(idTarea);
     }
     
     @Override

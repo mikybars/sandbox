@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarAmbitoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarEstructurasAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaAsyncService;
@@ -53,6 +54,8 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     @Autowired
     private RunTareaRecolectarValidarTiendaVentaSeccionAsyncService runTareaRecolectarValidarTiendaVentaSeccionAsyncService;
     
+    @Autowired
+    private RunTareaRecolectarValidarAmbitoAsyncService runTareaRecolectarValidarAmbitoAsyncService;
   
     @Auditoria
     @CounterMetric
@@ -81,7 +84,10 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
 
         CompletableFuture<Void> cfTiendaVentaSeccion = runTareaRecolectarValidarTiendaVentaSeccionAsyncService.run(runTarea);
         AsyncUtils.exceptionally(cfTiendaVentaSeccion, cf);
-
+        
+        CompletableFuture<Void> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService.run(runTarea);
+        AsyncUtils.exceptionally(cfAmbito, cf);
+        
         /*-------------------------------------------------------------*/
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/

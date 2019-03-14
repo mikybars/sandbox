@@ -45,7 +45,7 @@ public class RunTareaRecolectarValidarEstructurasServiceImpl implements RunTarea
             AsyncUtils.waitAllOfIsOk(cf, cf);
             
             validation.setCount(cfCountEstructuras.get());
-            validation.setType(TareaEmpleadoEstructura.class);
+            validation.setType(TareaEmpleadoEstructura.class.getSimpleName());
             runTarea.getTarea().getRunTareaValidar().add(validation);
             
             return runTarea;
