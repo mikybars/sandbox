@@ -24,7 +24,6 @@ public class PtrVentaIndividualDetalleRequestDto implements Serializable {
 	@NotNull
 	private Integer pais;
 
-	@NotNull
 	private Integer cadena;
 	
 	private Integer empresa;

@@ -25,7 +25,6 @@ public class PtrVentaTotalizadoByMccRequestDto implements Serializable {
     @NotNull
     private Integer pais;
 
-    @NotNull
     private Integer cadena;
 
     private List<String> tienda = new ArrayList<>();
