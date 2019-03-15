@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -28,6 +29,9 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
+    @Autowired
+    private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
+
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -36,12 +40,54 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
+            CompletableFuture<Void> cfPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .personaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPersonaByRunTarea, cf, cfWait);
+
             CompletableFuture<Void> cfLocalizacionByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .localizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf, cfWait);
+            AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf);
+
+            CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService
+                    .tiposHorasByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfTiposHoras, cf);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // TODO Personas adicionales con presencias dentro de las tiendas del ambito
+            // (PTR:
+            // presenciaDetalleComisionable; Se va a intentar pedir a PTR otro método más
+            // concreto)
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Personas adicionales con desplazamientos entrantes a las tiendas (Meta4:
+            // Falta el servicio)
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Personas adicionales con presencias manuales dentro de las tiendas
+            // (Meta4: Falta el
+            // servicio)
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones adicionales asociadas a presencias de las personas (PTR:
+            // presenciaTiendasEmpleado)
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones adicionales asociadas a presencias manuales salientes de
+            // las personas (Meta4: Falta el servicio)
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -38,9 +38,27 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
             CompletableFuture<Void> cfPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .personaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPersonaByRunTarea, cf, cfWait);
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/ 
+            
+            // TODO Datos de las tiendas asociadas al historico del empleado (Meta4: SEARCHTIENDAS)
+            
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones adicionales asociadas a presencias de las
+            // personas (PTR:
+            // presenciaTiendasEmpleado)
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones adicionales asociadas a presencias manuales salientes de
+            // las personas (Meta4: Falta el servicio)
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
