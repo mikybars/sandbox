@@ -21,4 +21,12 @@ public interface RunTareaRecolectarPtrVentaEcommerceAsyncService {
     CompletableFuture<Void> ventaOnlinePicking(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
+    CompletableFuture<Void> ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> ventaOnlineIpodLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> ventaOnlinePickingLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
+
 }

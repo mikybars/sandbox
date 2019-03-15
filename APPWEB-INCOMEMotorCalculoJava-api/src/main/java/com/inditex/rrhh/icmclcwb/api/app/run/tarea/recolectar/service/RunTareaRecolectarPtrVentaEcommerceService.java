@@ -20,4 +20,12 @@ public interface RunTareaRecolectarPtrVentaEcommerceService {
     void ventaOnlineEntregaDomicilio(@Valid RunTareaDto runTarea,
             @Valid RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
+    void ventaOnlineIpodLocalizacionSeccionByRunTarea(@Valid RunTareaDto runTarea);
+
+    void ventaOnlinePickingLocalizacionSeccionByRunTarea(@Valid RunTareaDto runTarea);
+
+    void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@Valid RunTareaDto runTarea);
+
+    void ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@Valid RunTareaDto runTarea);
+
 }

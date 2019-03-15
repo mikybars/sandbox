@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -28,6 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 
@@ -98,6 +100,16 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
             result.add(item);
         }
         return result;
+    }
+    
+    // TODO PoC
+    @Override
+    public List<TiendaOnlineDto> tiendaOnline(){
+        TiendaOnlineDto dto = new TiendaOnlineDto();
+        dto.setId(4031L);
+        TiendaOnlineDto dto2 = new TiendaOnlineDto();
+        dto2.setId(9724L);
+        return Arrays.asList(dto, dto2);
     }
 
 }

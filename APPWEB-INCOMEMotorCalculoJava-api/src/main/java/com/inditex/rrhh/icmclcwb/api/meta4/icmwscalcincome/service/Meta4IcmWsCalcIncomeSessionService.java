@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineDto;
 
 public interface Meta4IcmWsCalcIncomeSessionService {
 
@@ -27,5 +28,7 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 	List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request);
 
 	List<PeriodoDto> periodo();
+
+    List<TiendaOnlineDto> tiendaOnline();
 
 }
