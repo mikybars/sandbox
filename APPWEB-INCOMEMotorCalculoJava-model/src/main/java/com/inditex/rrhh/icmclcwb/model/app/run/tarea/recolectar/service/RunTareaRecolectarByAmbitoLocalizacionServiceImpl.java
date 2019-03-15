@@ -88,6 +88,13 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
 
             // TODO Localizaciones adicionales asociadas a presencias manuales salientes de
             // las personas (Meta4: Falta el servicio)
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones adicionales asociadas a desplazamientos salientes de
+            // las personas (Meta4: Falta el servicio)
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
