@@ -1,2 +1,2 @@
 # Sandbox
-Git sandobox project
+This is a Git sandobox project
