@@ -35,9 +35,9 @@ public class PtrVentaTotalizadoRequestDto implements Serializable {
     private Integer producto;
     
     private Integer empresa;
+    
+    private Integer agruparSeccion;
 
     private PtrGroupTypeEnum agrupacion;
-    
-    
 
 }

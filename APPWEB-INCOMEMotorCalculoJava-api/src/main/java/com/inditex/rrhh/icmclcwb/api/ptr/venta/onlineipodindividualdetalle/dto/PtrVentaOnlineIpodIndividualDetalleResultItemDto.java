@@ -1,9 +1,11 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineIpodIndividualDetalle;
 
@@ -28,9 +30,13 @@ public class PtrVentaOnlineIpodIndividualDetalleResultItemDto implements Seriali
 
     private Integer seccion;
 
-    private List<Integer> vendedores;
+    private List<Integer> vendedor;
     
     private String operacion;
+    
+    private BigDecimal importeSinIVA;
+
+    private BigDecimal importeConIVA;
     
     private List<PtrSeccionVentaOnlineIpodIndividualDetalle> listaSeccion;
 }

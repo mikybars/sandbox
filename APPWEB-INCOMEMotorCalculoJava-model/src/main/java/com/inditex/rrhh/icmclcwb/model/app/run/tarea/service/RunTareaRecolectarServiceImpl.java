@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -11,11 +10,9 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoLocalizacionService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -29,14 +26,11 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     private TareaService tareaService;
 
     @Autowired
-    private RunTareaRecolectarByAmbitoService runTareaRecolectarByAmbitoService;
-
+    private RunTareaRecolectarAmbitoService runTareaRecolectarAmbitoService;
+    
     @Autowired
-    private RunTareaRecolectarByAmbitoLocalizacionService runTareaRecolectarByAmbitoLocalizacionService;
-
-    @Autowired
-    private RunTareaRecolectarByAmbitoPersonaService runTareaRecolectarByAmbitoPersonaService;
-
+    private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
+    
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -47,15 +41,8 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_RECOLECTAR.getDto());
             // TODO PoC
 //            runTareaRecolectarByAmbitoService.runPoC(runTarea);
-            if (CollectionUtils.isNotEmpty(tarea.getLocalizacion()) && CollectionUtils.isNotEmpty(tarea.getPersona())) {
-                throw new IcmclcwbException("No es posible ejecutar por localizacion y persona");
-            }else if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
-                runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
-            } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
-                runTareaRecolectarByAmbitoPersonaService.run(runTarea);
-            } else {
-                runTareaRecolectarByAmbitoService.run(runTarea);
-            }
+            runTareaRecolectarAmbitoService.run(runTarea);
+            runTareaRecolectarCondicionesService.run(runTarea);
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.PENDIENTE_CALCULAR.getDto());
         }
         return runTarea;

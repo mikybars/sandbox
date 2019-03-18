@@ -27,8 +27,15 @@ public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl implements RunTar
 
     @Async
     @Override
-    public CompletableFuture<Void> ventaFisicaLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
+    public CompletableFuture<Void> ventaFisicaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaFisicaLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaService.ventaFisicaLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

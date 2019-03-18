@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.venta;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 import lombok.Data;
 
@@ -9,5 +9,7 @@ public class PtrSeccionVentaOnlineIpodIndividualDetalle {
 
     private Integer seccion;
     
-    private List<Integer> vendedores;
+    private BigDecimal importeSinIVA;
+
+    private BigDecimal importeConIVA;
 }

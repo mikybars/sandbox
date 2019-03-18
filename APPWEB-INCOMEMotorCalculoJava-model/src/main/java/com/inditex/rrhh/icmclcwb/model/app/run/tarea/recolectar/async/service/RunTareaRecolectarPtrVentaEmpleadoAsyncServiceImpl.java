@@ -25,4 +25,19 @@ public class RunTareaRecolectarPtrVentaEmpleadoAsyncServiceImpl
         tareaRecolectarPtrVentaEmpleadoService.ventaDetalleEmpleado(runTarea, runTareaRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaFisicaPersonaLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaPersonaLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaFisicaPersonaOperacionLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaPersonaOperacionLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
 }

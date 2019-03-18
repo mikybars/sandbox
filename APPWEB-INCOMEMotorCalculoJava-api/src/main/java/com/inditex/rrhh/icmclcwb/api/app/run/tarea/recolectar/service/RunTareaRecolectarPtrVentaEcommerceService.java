@@ -28,4 +28,14 @@ public interface RunTareaRecolectarPtrVentaEcommerceService {
 
     void ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@Valid RunTareaDto runTarea);
 
+    void ventaOnlineIpodLocalizacionByRunTarea(@Valid RunTareaDto runTarea);
+
+    void ventaOnlinePickingLocalizacionByRunTarea(@Valid RunTareaDto runTarea);
+
+    void ventaOnlineEntregaTiendaLocalizacionByRunTarea(@Valid RunTareaDto runTarea);
+
+    void ventaOnlineEntregaDomicilioLocalizacionByRunTarea(@Valid RunTareaDto runTarea);
+
+    void ventaOnlineIpodPersonaByRunTarea(@Valid RunTareaDto runTarea);
+
 }

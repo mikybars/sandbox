@@ -10,4 +10,8 @@ public interface RunTareaRecolectarPtrVentaEmpleadoService {
     void ventaDetalleEmpleado(@Valid final RunTareaDto runTarea,
             @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
+    void ventaFisicaPersonaLocalizacionByRunTarea(@Valid final RunTareaDto runTarea);
+
+    void ventaFisicaPersonaOperacionLocalizacionByRunTarea(@Valid final RunTareaDto runTarea);
+
 }

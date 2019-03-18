@@ -91,7 +91,8 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
             throw new IcmclcwbException(e.getMessage(), e);
         }
     }
-
+    
+    @Auditoria
     @Override
     public void ventaFisicaLocalizacionSeccionByRunTarea(@Valid final RunTareaDto runTarea) {
         final TareaDto tarea = runTarea.getTarea();
@@ -99,7 +100,50 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
             ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         }
     }
+    
+    @Auditoria
+    @Override
+    public void ventaFisicaLocalizacionByRunTarea(@Valid final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
+        for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
+            ventaFisicaLocalizacionByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        }
+    }
 
+    private void ventaFisicaLocalizacionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
+                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
+                            tareaAmbito.getIdOrigen()),
+                    ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
+                PtrVentaTotalizadoRequestDto request = tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
+                                tareaAmbito);
+                request.setTienda(iter.stream().map(item -> item.getId()).collect(Collectors.toList()));
+                request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
+                request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
+                request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                // TODO Falta el pivotado por seccion
+                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
+                        .ventaTotalizado(request);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+               //TODO: Persistir
+                
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+    }
+    
+    @Auditoria
     @Override
     public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito) {
@@ -127,8 +171,9 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                         ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
                         tareaTiendaSeccionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
-                AsyncUtils.waitAllOfIsOk(cf, cf);
             }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);

@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +16,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaEmpleadoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
@@ -38,6 +45,9 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
 
     @Autowired
     private PtrVentaEmpleadoAsyncService ptrVentaEmpleadoAsyncService;
+    
+    @Autowired
+    private TareaEmpleadoHistoricoService tareaEmpleadoHistoricoService; 
    
     @Autowired
     private TareaMapper tareaMapper;
@@ -45,6 +55,105 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
     @Autowired
     @Qualifier("ventaEmpleadoProperties")
     protected Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
+    
+    
+    @Auditoria
+    @Override
+    public void ventaFisicaPersonaLocalizacionByRunTarea(@Valid final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
+        for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
+            ventaFisicaPersonaLocalizacionByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        }
+    }
+    
+    @Auditoria
+    @Override
+    public void ventaFisicaPersonaOperacionLocalizacionByRunTarea(@Valid final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
+        for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
+            ventaFisicaPersonaOperacionLocalizacionByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        }
+    }
+    
+    private void ventaFisicaPersonaOperacionLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito){
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            for (List<IdPersonaDto> iter : StreamUtils.partition(
+                    tareaEmpleadoHistoricoService.findIdPersonaByIdTareaAndIdOrigen(tarea.getId(),
+                            tareaAmbito.getIdOrigen()),
+                    ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+
+                PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
+                                trabajo, tarea, tareaAmbito);
+                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(e -> e.getIdPersona()).map(e -> Integer.valueOf(e)).collect(Collectors.toList()));
+                //TODO: Cambiar por OPERACION_FECHA_TIENDA cuando esté disponible.
+                paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA);
+                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                
+                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
+                        .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
+                
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
+               //TODO: Persistir
+                
+                if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties
+                            .get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                    // TODO PERSISTIR
+                }
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+    }
+    
+    private void ventaFisicaPersonaLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito){
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            for (List<IdPersonaDto> iter : StreamUtils.partition(
+                    tareaEmpleadoHistoricoService.findIdPersonaByIdTareaAndIdOrigen(tarea.getId(),
+                            tareaAmbito.getIdOrigen()),
+                    ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+
+                PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
+                                trabajo, tarea, tareaAmbito);
+                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(e -> e.getIdPersona()).map(e -> Integer.valueOf(e)).collect(Collectors.toList()));
+                //TODO: Cambiar por FECHA_TIENDA cuando esté disponible.
+                paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
+                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                
+                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
+                        .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
+                
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
+               //TODO: Persistir
+                
+                if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties
+                            .get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                    // TODO PERSISTIR
+                }
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+    }
     
     @Auditoria
     @Override

@@ -10,4 +10,8 @@ public interface RunTareaRecolectarPtrVentaEmpleadoAsyncService {
     CompletableFuture<Void> ventaDetalleEmpleado(RunTareaDto runTarea,
             RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
 
+    CompletableFuture<Void> ventaFisicaPersonaLocalizacionByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> ventaFisicaPersonaOperacionLocalizacionByRunTarea(final RunTareaDto runTarea);
+
 }
