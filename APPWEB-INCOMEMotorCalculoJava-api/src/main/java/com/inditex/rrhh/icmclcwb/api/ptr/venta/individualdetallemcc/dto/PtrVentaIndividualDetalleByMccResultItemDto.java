@@ -2,11 +2,13 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetallemcc.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.MccType;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import lombok.Data;
 
@@ -48,5 +50,7 @@ public class PtrVentaIndividualDetalleByMccResultItemDto implements Serializable
 	private Integer empresa;
 	
 	private String operacion;
+	
+	private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 	
 }

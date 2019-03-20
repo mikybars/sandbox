@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.MccType;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import lombok.Data;
 
@@ -34,5 +35,7 @@ public class PtrVentaTotalizadoByMccResultItemDto implements Serializable {
 	private BigDecimal importeSinIVA;
 
 	private BigDecimal importeConIVA;
+	
+	private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

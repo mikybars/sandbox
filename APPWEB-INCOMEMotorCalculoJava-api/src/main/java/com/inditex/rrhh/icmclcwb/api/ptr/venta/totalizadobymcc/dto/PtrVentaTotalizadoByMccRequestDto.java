@@ -45,6 +45,6 @@ public class PtrVentaTotalizadoByMccRequestDto implements Serializable {
 
     private PtrGroupTypeEnum agrupacion;
     
-    
+    private Integer agruparSeccion;
 
 }

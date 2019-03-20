@@ -28,6 +28,8 @@ public class PtrVentaOnlineEntregaDomicilioRequestDto implements Serializable {
     private Integer empresa;
     
     private List<Integer> tiendaOnline = new ArrayList<>();
+    
+    private List<Integer> producto = new ArrayList<>();
 
     private Integer seccion;
     

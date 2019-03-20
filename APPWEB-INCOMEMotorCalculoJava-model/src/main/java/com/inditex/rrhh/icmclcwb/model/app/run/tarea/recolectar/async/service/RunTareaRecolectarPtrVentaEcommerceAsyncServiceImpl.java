@@ -98,8 +98,8 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
     
     @Async
     @Override
-    public CompletableFuture<Void> ventaOnlineIpodPersonaByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodPersonaByRunTarea(runTarea);
+    public CompletableFuture<Void> ventaOnlineIpodDetalleLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodDetalleLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
@@ -115,6 +115,20 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
     @Override
     public CompletableFuture<Void> ventaOnlinePickingLocalizacionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEcommerceService.ventaOnlinePickingLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

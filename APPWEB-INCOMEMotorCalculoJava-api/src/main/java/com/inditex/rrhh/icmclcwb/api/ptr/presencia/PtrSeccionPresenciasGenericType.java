@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto;
+package com.inditex.rrhh.icmclcwb.api.ptr.presencia;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class SeccionPresenciasDetalleComisionableType {
+public class PtrSeccionPresenciasGenericType {
 
     private Integer seccion;
 

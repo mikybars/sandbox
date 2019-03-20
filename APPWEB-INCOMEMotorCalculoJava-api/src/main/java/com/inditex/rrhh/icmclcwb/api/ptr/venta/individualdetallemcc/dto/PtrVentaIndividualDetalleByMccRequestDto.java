@@ -52,5 +52,7 @@ public class PtrVentaIndividualDetalleByMccRequestDto implements Serializable {
 	private Integer subFamilia;
 	
 	private PtrGroupTypeEnum agrupacion;
+	
+	private Integer agruparSeccion;
 
 }

@@ -31,6 +31,8 @@ public class PtrVentaOnlineEntregaTiendaRequestDto implements Serializable {
 
     private List<Integer> tienda = new ArrayList<>();
     
+    private List<Integer> producto = new ArrayList<>();
+    
     private Integer seccion;
     
     private PtrGroupTypeEnum agrupacion;

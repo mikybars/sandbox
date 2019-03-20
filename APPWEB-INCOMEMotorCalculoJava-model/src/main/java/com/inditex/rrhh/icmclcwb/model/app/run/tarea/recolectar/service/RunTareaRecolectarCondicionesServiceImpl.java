@@ -86,14 +86,29 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfOnlineEntregaDomicilioLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineEntregaDomicilioLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfOnlineEntregaDomicilioLocalizacion, cf, cfWait);
             
-            CompletableFuture<Void> cfFisicaPersonaLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaPersonaLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFisicaPersonaLocalizacion, cf, cfWait);
-            
+            CompletableFuture<Void> cfFisicaDetalleLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaDetalleLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFisicaDetalleLocalizacion, cf, cfWait);
             
             //Operacion localizacion 
             
-            CompletableFuture<Void> cfFisicaPersonaOperacionLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaPersonaOperacionLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFisicaPersonaOperacionLocalizacion, cf, cfWait);
+            CompletableFuture<Void> cfFisicaDetalleOperacionLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaDetalleOperacionLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFisicaDetalleOperacionLocalizacion, cf, cfWait);
+            
+            CompletableFuture<Void> cfOnlineIpodDetalleOperacionLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineIpodDetalleOperacionLocalizacion, cf, cfWait);
+            
+            //Operacion vendedor localizacion
+            
+            CompletableFuture<Void> cfFisicaDetalleOperacionVendedorLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFisicaDetalleOperacionVendedorLocalizacion, cf, cfWait);
+            
+            //Vendedor localizacion
+            
+            CompletableFuture<Void> cfFisicaDetalleVendedorLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaDetalleVendedorLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFisicaDetalleVendedorLocalizacion, cf, cfWait);
+            
+            CompletableFuture<Void> cfOnlineIpodDetalleVendedorLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineIpodDetalleVendedorLocalizacion, cf, cfWait);
             
             //Persona
             
@@ -101,8 +116,8 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
             
             //Localizacion Persona
-            CompletableFuture<Void> cfOnlineIpodPersona= runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodPersonaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineIpodPersona, cf, cfWait);
+            CompletableFuture<Void> cfOnlineIpodDetalle = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodDetalleLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineIpodDetalle, cf, cfWait);
             
             
             /*-------------------------------------------------------------*/

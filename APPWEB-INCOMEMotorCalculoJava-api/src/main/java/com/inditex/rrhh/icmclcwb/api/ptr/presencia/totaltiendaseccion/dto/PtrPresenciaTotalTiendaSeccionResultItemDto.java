@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
+
 import lombok.Data;
 
 @Data
@@ -24,6 +26,6 @@ public class PtrPresenciaTotalTiendaSeccionResultItemDto {
 	
 	private Integer origen;
 	
-	private List<SeccionPresenciasTotalTiendaSeccionType> listaSeccion;
+	private List<PtrSeccionPresenciasGenericType> listaSeccion;
 	
 }

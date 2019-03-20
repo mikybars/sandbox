@@ -128,6 +128,8 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
                 request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                //TODO Se necesita la cadena
+                request.setCadena(1);
                 // TODO Falta el pivotado por seccion
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);
@@ -162,6 +164,8 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 request.setTienda(iter.stream().map(item -> item.getId()).collect(Collectors.toList()));
                 request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+                //TODO Se necesita la cadena
+                request.setCadena(1);
                 // TODO Falta el pivotado por seccion
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);

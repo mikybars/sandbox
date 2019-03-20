@@ -41,6 +41,9 @@ public class PtrVentaOnlinePickingRequestDto implements Serializable {
     @XmlElement(name = "tiendaOnline")
     private List<String> tiendaOnline;
 
+    @XmlElement(name = "producto")
+    private List<Integer> producto;
+    
     @XmlElement(name="tienda")
     private List<Integer> tienda = new ArrayList<>();
     

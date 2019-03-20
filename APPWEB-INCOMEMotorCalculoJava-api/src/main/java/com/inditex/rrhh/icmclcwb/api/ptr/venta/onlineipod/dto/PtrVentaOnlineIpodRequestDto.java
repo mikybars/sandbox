@@ -28,6 +28,8 @@ public class PtrVentaOnlineIpodRequestDto implements Serializable {
     private Integer empresa;
     
     private List<Integer> tiendaOnline = new ArrayList<>();
+    
+    private List<Integer> producto = new ArrayList<>();
 
     private List<Integer> tienda = new ArrayList<>();
     

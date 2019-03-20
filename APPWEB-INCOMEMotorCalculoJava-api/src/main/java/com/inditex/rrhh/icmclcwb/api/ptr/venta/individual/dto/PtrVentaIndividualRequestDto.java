@@ -39,5 +39,7 @@ public class PtrVentaIndividualRequestDto implements Serializable {
 	private Integer empresa;
 	
 	private PtrGroupTypeEnum agrupacion;
+	
+	private Integer agruparSeccion;
 
 }

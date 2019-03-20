@@ -1,8 +1,11 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
 
 import lombok.Data;
 
@@ -29,5 +32,7 @@ public class PtrPresenciaDetalleResultItemDto implements Serializable {
 	private Integer cadena;
 
 	private Integer origen;
+	
+	private List<PtrSeccionPresenciasGenericType> listaSeccion;
 
 }

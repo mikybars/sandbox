@@ -11,8 +11,8 @@ import org.mapstruct.MappingTarget;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaPresenciaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.SeccionPresenciasTotalTiendaSeccionType;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaPresenciaSeccionDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaPresenciaSeccion;
@@ -46,7 +46,7 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaPresenciaSeccion tareaTienda, PtrPresenciaTotalTiendaSeccionResultItemDto src){
-        for(SeccionPresenciasTotalTiendaSeccionType item : src.getListaSeccion()) {
+        for(PtrSeccionPresenciasGenericType item : src.getListaSeccion()) {
             if(item.getSeccion().equals(1)){
                 tareaTienda.setMinutos1(item.getMinutos());
             }else if(item.getSeccion().equals(2)) {

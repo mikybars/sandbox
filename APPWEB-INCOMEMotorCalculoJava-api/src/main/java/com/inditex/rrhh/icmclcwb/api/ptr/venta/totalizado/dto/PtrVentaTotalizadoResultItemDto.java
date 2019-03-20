@@ -2,6 +2,10 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
+
 import lombok.Data;
 
 @Data
@@ -28,5 +32,7 @@ public class PtrVentaTotalizadoResultItemDto implements Serializable {
 	private BigDecimal importeSinIVA;
 
 	private BigDecimal importeConIVA;
+	
+	private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

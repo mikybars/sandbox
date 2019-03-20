@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 
@@ -29,7 +28,7 @@ public class TrabajoController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Crea un nuevo trabajo", response = ProgramacionDto.class)
+    @ApiOperation(value = "Crea un nuevo trabajo", response = TrabajoDto.class)
     public @Valid TrabajoDto create(@Valid @RequestBody final TrabajoDto trabajo) {
         return trabajoService.create(trabajo);
     }

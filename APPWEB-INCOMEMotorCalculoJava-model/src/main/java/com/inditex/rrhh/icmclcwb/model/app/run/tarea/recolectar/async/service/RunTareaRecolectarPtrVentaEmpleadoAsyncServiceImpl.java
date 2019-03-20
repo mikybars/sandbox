@@ -28,15 +28,29 @@ public class RunTareaRecolectarPtrVentaEmpleadoAsyncServiceImpl
     
     @Async
     @Override
-    public CompletableFuture<Void> ventaFisicaPersonaLocalizacionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaPersonaLocalizacionByRunTarea(runTarea);
+    public CompletableFuture<Void> ventaFisicaDetalleLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
     @Async
     @Override
-    public CompletableFuture<Void> ventaFisicaPersonaOperacionLocalizacionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaPersonaOperacionLocalizacionByRunTarea(runTarea);
+    public CompletableFuture<Void> ventaFisicaDetalleOperacionLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleOperacionLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaFisicaDetalleVendedorLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleVendedorLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

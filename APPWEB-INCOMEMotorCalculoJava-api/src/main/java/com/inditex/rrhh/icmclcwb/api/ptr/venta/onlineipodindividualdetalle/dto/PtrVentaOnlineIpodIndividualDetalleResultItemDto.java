@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineIpodIndividualDetalle;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import lombok.Data;
 
@@ -38,5 +38,8 @@ public class PtrVentaOnlineIpodIndividualDetalleResultItemDto implements Seriali
 
     private BigDecimal importeConIVA;
     
-    private List<PtrSeccionVentaOnlineIpodIndividualDetalle> listaSeccion;
+    private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
+    
+    private PtrGroupSellerTypeEnum agrupacion;
+    
 }

@@ -25,7 +25,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
@@ -61,10 +60,28 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     
     @Auditoria
     @Override
-    public void ventaOnlineIpodPersonaByRunTarea(@Valid final RunTareaDto runTarea) {
+    public void ventaOnlineIpodDetalleLocalizacionByRunTarea(@Valid final RunTareaDto runTarea) {
         final TareaDto tarea = runTarea.getTarea();
         for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
-            ventaOnlineIpodPersonaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+            ventaOnlineIpodDetalleLocalizacionByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        }
+    }
+    
+    @Auditoria
+    @Override
+    public void ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(@Valid final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
+        for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
+            ventaOnlineIpodDetalleOperacionLocalizacionByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        }
+    }
+    
+    @Auditoria
+    @Override
+    public void ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(@Valid final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
+        for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
+            ventaOnlineIpodDetalleVendedorLocalizacionByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         }
     }
     
@@ -152,8 +169,11 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = 
                         tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineEntregaDomicilioRequestDto(trabajo, tarea, tareaAmbito);
-                paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
+                paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineEntregaDomicilio.setTiendaOnline(iter.stream().map(e->Integer.valueOf(e.getId())).collect(Collectors.toList()));
+
+                //TODO Se necesita el producto
+                paramVentaOnlineEntregaDomicilio.setProducto(Arrays.asList(1,2,3,4,5));
 
                 CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
@@ -189,12 +209,16 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
                 paramVentaOnlineEntregaDomicilio.setTiendaOnline(iter.stream().map(e->Integer.valueOf(e.getId())).collect(Collectors.toList()));
 
+                //TODO Se necesita el producto
+                paramVentaOnlineEntregaDomicilio.setProducto(Arrays.asList(1,2,3,4,5));
                 CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
                 
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 
                 PtrVentaOnlineEntregaDomicilioResponseDto data = cfData.get();
+                
+                //TODO: Ver como se reparte
                 
                 if (data != null && CollectionUtils.isNotEmpty(data.getVentaOnline())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
@@ -223,6 +247,9 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                         tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineEntregaTiendaRequestDto(trabajo, tarea, tareaAmbito);
                 paramVentaOnlineEntregaTienda.setTiendaOnline(iter.stream().map(e->Integer.valueOf(e.getId())).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+                
+                //TODO Se necesita el producto
+                paramVentaOnlineEntregaTienda.setProducto(Arrays.asList(1,2,3,4,5));
                 
                 CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineEntregaTienda(paramVentaOnlineEntregaTienda);
@@ -261,7 +288,9 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                         tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineEntregaTiendaRequestDto(trabajo, tarea, tareaAmbito);
                 paramVentaOnlineEntregaTienda.setTiendaOnline(iter.stream().map(e->Integer.valueOf(e.getId())).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                
+                //TODO Se necesita el producto
+                paramVentaOnlineEntregaTienda.setProducto(Arrays.asList(1,2,3,4,5));
+
                 CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineEntregaTienda(paramVentaOnlineEntregaTienda);
                 
@@ -292,12 +321,15 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
             final TareaDto tarea = runTarea.getTarea();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
-                    ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getFilter().getMaxPageSize())) {
+                    ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = 
                         tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlinePickingRequestDto(trabajo, tarea, tareaAmbito);
                 paramVentaOnlinePicking.setTiendaOnline(iter.stream().map(e->e.getId()).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+                
+                //TODO Se necesita el producto
+                paramVentaOnlinePicking.setProducto(Arrays.asList(1,2,3,4,5));
                 
                 CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlinePicking(paramVentaOnlinePicking);
@@ -333,6 +365,8 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                         tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlinePickingRequestDto(trabajo, tarea, tareaAmbito);
                 paramVentaOnlinePicking.setTiendaOnline(iter.stream().map(e->e.getId()).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
+                //TODO Se necesita el producto
+                paramVentaOnlinePicking.setProducto(Arrays.asList(1,2,3,4,5));
                 
                 CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlinePicking(paramVentaOnlinePicking);
@@ -366,6 +400,8 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea, tareaAmbito);
                 paramVentaOnlineIpod.setTiendaOnline(iter.stream().map(e->Integer.valueOf(e.getId())).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
+                //TODO Se necesita el producto
+                paramVentaOnlineIpod.setProducto(Arrays.asList(1,2,3,4,5));
                 
                 CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineiPod(paramVentaOnlineIpod);
@@ -398,6 +434,9 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea, tareaAmbito);
                 paramVentaOnlineIpod.setTiendaOnline(iter.stream().map(e->Integer.valueOf(e.getId())).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+                
+                //TODO Se necesita el producto
+                paramVentaOnlineIpod.setProducto(Arrays.asList(1,2,3,4,5));
                 
                 CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineiPod(paramVentaOnlineIpod);
@@ -463,7 +502,44 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     }
     
     
-    public void ventaOnlineIpodPersonaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+    public void ventaOnlineIpodDetalleVendedorLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea(); 
+            //TODO Recuperar tiendas online
+            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
+                    ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+
+                PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpodIndividualDetalle = 
+                        tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(trabajo, tarea, tareaAmbito);
+                paramVentaOnlineIpodIndividualDetalle.setTiendaOnline(iter.stream().map(e->e.getId()).map(e->Integer.valueOf(e)).collect(Collectors.toList()));
+                //TODO: Se necesita el producto
+                paramVentaOnlineIpodIndividualDetalle.setProducto(Arrays.asList(1,2,3,4,5));
+                paramVentaOnlineIpodIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
+                    
+                CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> cfData = ptrVentaEcommerceAsyncService
+                        .ventaOnlineiPodIndividualDetalle(paramVentaOnlineIpodIndividualDetalle);
+                
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                
+                PtrVentaOnlineIpodIndividualDetalleResponseDto data = cfData.get();
+
+                if (data != null && CollectionUtils.isNotEmpty(data.getVentaOnlineIpodIndividual())) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
+                            .get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                    // TODO PERSISTIR
+                }
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+    }
+    
+    public void ventaOnlineIpodDetalleLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
@@ -476,7 +552,51 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpodIndividualDetalle = 
                         tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(trabajo, tarea, tareaAmbito);
                 paramVentaOnlineIpodIndividualDetalle.setTiendaOnline(iter.stream().map(e->e.getId()).map(e->Integer.valueOf(e)).collect(Collectors.toList()));
-                paramVentaOnlineIpodIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
+                //TODO: Se necesita el producto
+                paramVentaOnlineIpodIndividualDetalle.setProducto(Arrays.asList(1,2,3,4,5));
+                //TODO: Cambiar por FECHA_TIENDA cuando exista
+//                paramVentaOnlineIpodIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
+                    
+                CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> cfData = ptrVentaEcommerceAsyncService
+                        .ventaOnlineiPodIndividualDetalle(paramVentaOnlineIpodIndividualDetalle);
+                
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                
+                PtrVentaOnlineIpodIndividualDetalleResponseDto data = cfData.get();
+
+                if (data != null && CollectionUtils.isNotEmpty(data.getVentaOnlineIpodIndividual())) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
+                            .get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                    // TODO PERSISTIR
+                }
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+    }
+    
+    public void ventaOnlineIpodDetalleOperacionLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            //TODO Recuperar tiendas online
+            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
+                    ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+
+                PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpodIndividualDetalle = 
+                        tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(trabajo, tarea, tareaAmbito);
+                paramVentaOnlineIpodIndividualDetalle.setTiendaOnline(iter.stream().map(e->e.getId()).map(e->Integer.valueOf(e)).collect(Collectors.toList()));
+                //TODO: Se necesita el producto
+                paramVentaOnlineIpodIndividualDetalle.setProducto(Arrays.asList(1,2,3,4,5));
+
+                //TODO: Cambiar por OPERACION_FECHA_TIENDA cuando exista
+//                paramVentaOnlineIpodIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
+                paramVentaOnlineIpodIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
                 CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineiPodIndividualDetalle(paramVentaOnlineIpodIndividualDetalle);
                 
@@ -612,6 +732,8 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                         paramVentaOnlineEntregaTienda.setTienda(iter.stream().map(Integer::valueOf).collect(Collectors.toList()));
                         //TODO: Ver agrupación correcta.
                         paramVentaOnlineEntregaTienda.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
+                        //TODO: Se necesita el producto
+                        paramVentaOnlineEntregaTienda.setProducto(Arrays.asList(1,2,3,4,5));
                         
                         CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = ptrVentaEcommerceAsyncService
                                 .ventaOnlineEntregaTienda(paramVentaOnlineEntregaTienda);
@@ -661,7 +783,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                         CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
                                 .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
                         
-                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist); 
                         
                         PtrVentaOnlineEntregaDomicilioResponseDto data = cfData.get();
                         

@@ -35,6 +35,8 @@ public class PtrVentaOnlineIpodIndividualDetalleRequestDto implements Serializab
 
     private List<Integer> vendedores = new ArrayList<>();
     
+    private List<Integer> producto = new ArrayList<>();
+    
     private String operacion;
 
     private PtrGroupSellerTypeEnum agrupacion;
