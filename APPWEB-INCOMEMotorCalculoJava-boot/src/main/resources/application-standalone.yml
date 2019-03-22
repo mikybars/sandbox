@@ -93,6 +93,10 @@ app:
       cast: false
       precision: 'AS DECIMAL(23, 8)'  
     tarea:
+      validar:
+        enabled: true
+        logging: true
+        exception: false
       calcular:
         algoritmo:
           getConfig:
@@ -102,18 +106,18 @@ app:
         maxAttempts: 2
       venta:
         service:
-          version: 1.0.24-rc.1
+          version: 1.0.24
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100
             getVentaAcumUTC:
               endpoint: /acumuladoVentaImporte/getVentaAcumUTC
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100
             test:
@@ -124,55 +128,55 @@ app:
             getVentaOnlineEntregaTienda:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaTienda
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100
             getVentaOnlineEntregaDomicilio:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaDomicilio
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100
             getVentaOnlineiPod:
               endpoint: /ventaEcommerce/getVentaOnlineiPod
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100  
             getVentaOnlineIpodIndividualDetalle:
               endpoint: /ventaEcommerce/getVentaOnlineIpodIndividualDetalle
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100  
             getOrdersByCountryMinute:
               endpoint: /ventaEcommerce/getOrdersByCountryMinute
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100   
             getOrdersByCountrySectionProductHour:
               endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100     
             getOrdersByCountrySectionProductMinute:
               endpoint: /ventaEcommerce/getOrdersByCountrySectionProductMinute
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100  
             getVentaOnlinePicking:
               endpoint: /ventaEcommerce/getVentaOnlinePicking
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100                                    
             getOrdersByCountryHour:
               endpoint: /ventaEcommerce/getOrdersByCountryHour
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100                                                    
             test:
@@ -183,25 +187,25 @@ app:
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100
             getVentaIndividualDetalleByMCC:
               endpoint: /ventaEmpleado/getVentaIndividualDetalleByMCC
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100
             getVentaIndividual:
               endpoint: /ventaEmpleado/getVentaIndividual
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100           
             getVentaIndividualByMCC:
               endpoint: /ventaEmpleado/getVentaIndividualByMCC
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
                 maxBatchSize: 100  
             test:

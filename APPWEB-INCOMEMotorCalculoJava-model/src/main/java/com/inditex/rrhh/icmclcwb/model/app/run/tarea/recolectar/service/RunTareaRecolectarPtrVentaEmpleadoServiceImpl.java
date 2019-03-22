@@ -200,11 +200,6 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                 PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
                //TODO: Persistir
                 
-                if (data != null && CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties
-                            .get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
-                    // TODO PERSISTIR
-                }
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {

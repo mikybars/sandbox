@@ -31,7 +31,7 @@ public class RunTareaRecolectarPivotAsyncServiceImpl implements RunTareaRecolect
     public CompletableFuture<Void> pivot(@Valid final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
         //tareaTiendaPresenciaSeccionAsyncService.pivot(tarea);
-        tareaTiendaVentaSeccionAsyncService.pivot(tarea);
+//        tareaTiendaVentaSeccionAsyncService.pivot(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

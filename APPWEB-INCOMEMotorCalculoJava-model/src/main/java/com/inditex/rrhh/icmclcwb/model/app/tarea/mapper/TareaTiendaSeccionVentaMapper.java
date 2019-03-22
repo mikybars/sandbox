@@ -2,16 +2,20 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
+import org.mapstruct.AfterMapping;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaSeccionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaSeccionVentaDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaSeccionVenta;
 
 @Mapper
@@ -42,5 +46,11 @@ public abstract class TareaTiendaSeccionVentaMapper {
     public List<TareaTiendaSeccionVenta> getVentaTotalizadoReponseItemsDtoToTareaTiendaSeccionVentas(
             List<PtrVentaTotalizadoResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+    
+    @AfterMapping
+    void afterMapping(@MappingTarget TareaTiendaSeccionVenta tareaTiendaSeccionVenta, PtrVentaTotalizadoResultItemDto src){
+        tareaTiendaSeccionVenta.setTipoImporteVenta(new TipoImporteVenta());
+        tareaTiendaSeccionVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId());
     }
 }

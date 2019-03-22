@@ -174,8 +174,7 @@ public class LoggingAspect {
         Instant end = Instant.now();
         Duration duration = Duration.between(start, end);
         if (duration.compareTo(Duration.ofSeconds(15)) > 0) {
-            log.warn("GenericAround :: Lento :: Duration[{}] :: {} :: {}", duration, pjp.getSignature().toShortString(),
-                    result);
+            log.warn("GenericAround :: Lento :: Duration[{}] :: {}", duration, pjp.getSignature().toShortString());
         }
 
         return result;

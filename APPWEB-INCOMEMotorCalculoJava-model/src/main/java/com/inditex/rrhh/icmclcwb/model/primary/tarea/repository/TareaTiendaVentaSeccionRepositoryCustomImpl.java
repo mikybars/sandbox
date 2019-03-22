@@ -1,32 +1,54 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.util.Arrays;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaVentaSeccion;
 
 @Repository
-public class TareaTiendaVentaSeccionRepositoryCustomImpl implements TareaTiendaVentaSeccionRepositoryCustom {
-
-    @Autowired
-    @Qualifier("primaryJdbcTemplate")
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    @Qualifier("pscfTareaTiendaVentaSeccionRepositorySave")
-    private PreparedStatementCreatorFactory pscfSave;
+public class TareaTiendaVentaSeccionRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaTiendaVentaSeccion> implements TareaTiendaVentaSeccionRepositoryCustom {
 
     @Auditoria
     @Override
+    @Deprecated
     public void save(@NotNull final TareaDto tareaDto) {
-        jdbcTemplate.update(pscfSave.newPreparedStatementCreator(Arrays.asList(tareaDto.getId())));
+    }
+    
+    @Autowired
+    @Qualifier("ventaGeneralProperties")
+    protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
+    
+    @Value("#{primaryQuery['TareaTiendaVentaSeccionRepositoryCustom.save']}")
+    private String sqlSave;
+
+    @Override
+    public List<TareaTiendaVentaSeccion> save(List<TareaTiendaVentaSeccion> src) {
+        return saveJdbcBatchList(src, sqlSave, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxBatchSize());
+    }
+
+    @Override
+    public void setParameters(PreparedStatement pstmt, TareaTiendaVentaSeccion entity) throws SQLException {
+        pstmt.setObject(1, entity.getFecha());
+        pstmt.setString(2, entity.getIdTienda());
+        pstmt.setDouble(3, entity.getImporte1() != null ? entity.getImporte1() : 0);
+        pstmt.setDouble(4, entity.getImporte2() != null ? entity.getImporte2() : 0);
+        pstmt.setDouble(5, entity.getImporte3() != null ? entity.getImporte3() : 0);
+        pstmt.setDouble(6, entity.getTipoImporteVenta().getId());
+        pstmt.setLong(7, entity.getTarea().getId());
     }
 
 }

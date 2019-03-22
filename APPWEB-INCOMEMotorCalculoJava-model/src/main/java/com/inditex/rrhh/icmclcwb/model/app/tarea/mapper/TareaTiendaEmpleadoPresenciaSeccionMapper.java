@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoMinutosPresenciaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEmpleadoPresenciaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -15,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericTy
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaEmpleadoPresenciaSeccionDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoMinutosPresencia;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEmpleadoPresenciaSeccion;
 
 
@@ -60,5 +62,7 @@ public abstract class TareaTiendaEmpleadoPresenciaSeccionMapper {
                 tareaTienda.setMinutos3(item.getMinutos());
             }
         }
+        tareaTienda.setTipoMinutosPresencia(new TipoMinutosPresencia());
+        tareaTienda.getTipoMinutosPresencia().setId(TipoMinutosPresenciaEnum.MINUTOS_DE_VENDEDORES.getId());
     }
 }

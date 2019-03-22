@@ -41,7 +41,8 @@ public class TareaTiendaEmpleadoPresenciaSeccionRepositoryCustomImpl
         pstmt.setLong(5, entity.getMinutos1() != null ? entity.getMinutos1() : 0);
         pstmt.setLong(6, entity.getMinutos2() != null ? entity.getMinutos2() : 0);
         pstmt.setLong(7, entity.getMinutos3() != null ? entity.getMinutos3() : 0);
-        pstmt.setLong(8, entity.getTarea().getId());
+        pstmt.setLong(8, entity.getTipoMinutosPresencia().getId());
+        pstmt.setLong(9, entity.getTarea().getId());
     }
 
 }

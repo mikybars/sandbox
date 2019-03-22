@@ -41,5 +41,7 @@ public class TareaTiendaVentaSeccionDto implements Serializable{
     @ApiModelProperty(value = "Importe sin iva de la venta en la seccion 3", required = true)
     private Double importe3;
     
+    @ApiModelProperty(value = "Tipo importe venta", required = true)
+    private Long idTipoImporteVenta;
     
 }

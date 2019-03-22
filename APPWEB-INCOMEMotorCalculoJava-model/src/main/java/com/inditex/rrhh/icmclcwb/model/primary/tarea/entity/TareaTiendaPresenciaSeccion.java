@@ -8,9 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoMinutosPresencia;
 
 import lombok.Data;
 
@@ -49,4 +53,7 @@ public class TareaTiendaPresenciaSeccion {
 	@Column(name = "MINUTOS_SECCION_3", nullable = false)
 	private /* BigInteger */ Long minutos3;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_TIPO_MINUTOS_PRESENCIA", nullable = false)
+    private TipoMinutosPresencia tipoMinutosPresencia;
 }

@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -27,6 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.serv
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
+import com.inditex.rrhh.icmclcwb.api.app.validar.properties.dto.ValidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
@@ -56,49 +59,65 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     
     @Autowired
     private RunTareaRecolectarValidarAmbitoAsyncService runTareaRecolectarValidarAmbitoAsyncService;
+    
+    @Autowired
+    @Qualifier("validarProperties")
+    private ValidarPropertiesDto validarProperties;
+    
+    @Autowired
+    private Logger log;
   
     @Auditoria
     @CounterMetric
     @TimerMetric
     @Override
     public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-
-        CompletableFuture<Void> cfPersona = runTareaRecolectarValidarPersonaAsyncService.run(runTarea);
-        AsyncUtils.exceptionally(cfPersona, cf);
         
-        CompletableFuture<Void> cfTienda = runTareaRecolectarValidarTiendaAsyncService.run(runTarea);
-        AsyncUtils.exceptionally(cfTienda, cf);
+        if(validarProperties.isEnabled()) {
+            List<CompletableFuture<?>> cf = new ArrayList<>();
 
-        CompletableFuture<Void> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService.run(runTarea);
-        AsyncUtils.exceptionally(cfEstructura, cf);
+            CompletableFuture<Void> cfPersona = runTareaRecolectarValidarPersonaAsyncService.run(runTarea);
+            AsyncUtils.exceptionally(cfPersona, cf);
+            
+            CompletableFuture<Void> cfTienda = runTareaRecolectarValidarTiendaAsyncService.run(runTarea);
+            AsyncUtils.exceptionally(cfTienda, cf);
 
-        CompletableFuture<Void> cfTiendaHistorico = runTareaRecolectarValidarTiendaHistoricoAsyncService.run(runTarea);
-        AsyncUtils.exceptionally(cfTiendaHistorico, cf);
+            CompletableFuture<Void> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService.run(runTarea);
+            AsyncUtils.exceptionally(cfEstructura, cf);
 
-        CompletableFuture<Void> cfTiendaEmpleadoPresenciaSeccion = runTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService.run(runTarea);
-        AsyncUtils.exceptionally(cfTiendaEmpleadoPresenciaSeccion, cf);
+            CompletableFuture<Void> cfTiendaHistorico = runTareaRecolectarValidarTiendaHistoricoAsyncService.run(runTarea);
+            AsyncUtils.exceptionally(cfTiendaHistorico, cf);
 
-        CompletableFuture<Void> cfTiendaPresenciaSeccion = runTareaRecolectarValidarTiendaPresenciaSeccionAsyncService.run(runTarea);
-        AsyncUtils.exceptionally(cfTiendaPresenciaSeccion, cf);
+            CompletableFuture<Void> cfTiendaEmpleadoPresenciaSeccion = runTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService.run(runTarea);
+            AsyncUtils.exceptionally(cfTiendaEmpleadoPresenciaSeccion, cf);
 
-        CompletableFuture<Void> cfTiendaVentaSeccion = runTareaRecolectarValidarTiendaVentaSeccionAsyncService.run(runTarea);
-        AsyncUtils.exceptionally(cfTiendaVentaSeccion, cf);
-        
-        CompletableFuture<Void> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService.run(runTarea);
-        AsyncUtils.exceptionally(cfAmbito, cf);
-        
-        /*-------------------------------------------------------------*/
-        AsyncUtils.waitAllOfIsOk(cf, cf);
-        /*-------------------------------------------------------------*/
+            CompletableFuture<Void> cfTiendaPresenciaSeccion = runTareaRecolectarValidarTiendaPresenciaSeccionAsyncService.run(runTarea);
+            AsyncUtils.exceptionally(cfTiendaPresenciaSeccion, cf);
 
-        List<RunTareaValidarDto> runTareaValidarDto = runTarea.getTarea().getRunTareaValidar().stream().filter(e-> !e.getDuplicated().isEmpty()).collect(Collectors.toList());
-        
-        if(!runTareaValidarDto.isEmpty()) {
-            throw new IcmclcwbException("Valores duplicados");
+            CompletableFuture<Void> cfTiendaVentaSeccion = runTareaRecolectarValidarTiendaVentaSeccionAsyncService.run(runTarea);
+            AsyncUtils.exceptionally(cfTiendaVentaSeccion, cf);
+            
+            CompletableFuture<Void> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService.run(runTarea);
+            AsyncUtils.exceptionally(cfAmbito, cf);
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
+            List<RunTareaValidarDto> runTareaValidarDto = runTarea.getTarea().getRunTareaValidar().stream().filter(e-> !e.getDuplicated().isEmpty()).collect(Collectors.toList());
+            
+            if(validarProperties.isLogging() && !runTareaValidarDto.isEmpty()) {
+                log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]", runTareaValidarDto);
+            }
+            
+            if(validarProperties.isException() && !runTareaValidarDto.isEmpty()) {
+                throw new IcmclcwbException("Valores duplicados");
+            }
+            
         }
         
         return runTarea;
+
     }
 
 }

@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaGeneralService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaSeccionVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaHistoricoService;
@@ -50,7 +50,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
     private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
 
     @Autowired
-    private TareaTiendaSeccionVentaAsyncService tareaTiendaSeccionVentaAsyncService;
+    private TareaTiendaVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
 
     @Autowired
     private TareaTiendaHistoricoService tareaTiendaHistoricoService;
@@ -74,6 +74,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                     paramGetVentaTotalizado.setTienda(iter);
                     paramGetVentaTotalizado.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                     paramGetVentaTotalizado.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+                    paramGetVentaTotalizado.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
                     CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                             .ventaTotalizado(paramGetVentaTotalizado);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -81,7 +82,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                     AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
                             .getFilter().getMaxPersistenceSize());
                     AsyncUtils.exceptionally(
-                            tareaTiendaSeccionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
+                            tareaTiendaVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
                             cfPersist);
                 }
                 AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -124,7 +125,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
                                 tareaAmbito);
-                request.setTienda(iter.stream().map(item -> item.getId()).collect(Collectors.toList()));
+                request.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
                 request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
                 request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
@@ -135,7 +136,13 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-               //TODO: Persistir
+               //TODO: Persistir  ¿TAREA_TIENDA_VENTA?
+                
+//                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
+//                        .getFilter().getMaxPersistenceSize());
+//                AsyncUtils.exceptionally(
+//                        tareaTiendaSeccionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
+//                        cfPersist);
                 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -161,9 +168,10 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
                                 tareaAmbito);
-                request.setTienda(iter.stream().map(item -> item.getId()).collect(Collectors.toList()));
+                request.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
                 request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+                request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
                 //TODO Se necesita la cadena
                 request.setCadena(1);
                 // TODO Falta el pivotado por seccion
@@ -174,7 +182,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                         ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaTiendaSeccionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
+                        tareaTiendaVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 

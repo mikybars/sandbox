@@ -39,7 +39,5 @@ public class PtrVentaOnlineIpodIndividualDetalleResultItemDto implements Seriali
     private BigDecimal importeConIVA;
     
     private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
-    
-    private PtrGroupSellerTypeEnum agrupacion;
-    
+        
 }

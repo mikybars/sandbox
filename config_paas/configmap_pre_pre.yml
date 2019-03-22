@@ -61,6 +61,10 @@ app:
       cast: false
       precision: 'AS DECIMAL(23, 8)'  
     tarea:
+      validar:
+        enabled: true
+        logging: true
+        exception: true
       calcular:
         algoritmo:
           getConfig:

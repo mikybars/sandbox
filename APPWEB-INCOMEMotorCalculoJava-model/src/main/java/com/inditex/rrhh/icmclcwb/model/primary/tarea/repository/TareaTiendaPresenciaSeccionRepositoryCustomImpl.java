@@ -62,7 +62,8 @@ extends JdbcBatchPrimaryRepositoryAbstract<TareaTiendaPresenciaSeccion>
         pstmt.setDouble(3, entity.getMinutos1() != null ? entity.getMinutos1() : 0);
         pstmt.setDouble(4, entity.getMinutos2() != null ? entity.getMinutos2() : 0);
         pstmt.setDouble(5, entity.getMinutos3() != null ? entity.getMinutos3() : 0);
-        pstmt.setLong(6, entity.getTarea().getId());        
+        pstmt.setDouble(6, entity.getTipoMinutosPresencia().getId());
+        pstmt.setLong(7, entity.getTarea().getId());        
     }
 
 }
