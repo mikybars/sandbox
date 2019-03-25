@@ -69,13 +69,6 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
             // las personas (Meta4: Falta el servicio)
 
             /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-
-            // TODO Detectar si el empleado tiene un tipo de cálculo por venta, si lo tiene,
-            // hay que recuperar todos los empleados de las tiendas asociadas
-
-            /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
         } catch (IcmclcwbException e) {
