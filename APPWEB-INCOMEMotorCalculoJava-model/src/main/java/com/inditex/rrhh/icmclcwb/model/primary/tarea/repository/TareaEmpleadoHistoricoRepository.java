@@ -22,7 +22,7 @@ public interface TareaEmpleadoHistoricoRepository extends BaseRepository<TareaEm
     // ,@NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String
     // idOrigen
     );
-
+    
     @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto(teh.idEmpleado, teh.orEmpleado) FROM TareaEmpleadoHistorico teh WHERE teh.tarea.id=:idTarea GROUP BY teh.idEmpleado, teh.orEmpleado")
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea

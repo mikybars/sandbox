@@ -33,6 +33,9 @@ public interface PtrPresenciaAsyncService {
     
     CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciasTiendasEmpleado(
             final PtrPresenciaTiendasEmpleadoRequestDto request);
+    
+    CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciaDetalleComisionablePersonaByRunTarea(
+            PtrPresenciaTiendasEmpleadoRequestDto request);
 
     CompletableFuture<String> version();
 

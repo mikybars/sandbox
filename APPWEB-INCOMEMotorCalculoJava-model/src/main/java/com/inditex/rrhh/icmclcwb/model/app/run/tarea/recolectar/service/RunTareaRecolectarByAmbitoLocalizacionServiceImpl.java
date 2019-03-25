@@ -55,11 +55,8 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // TODO Personas adicionales con presencias dentro de las tiendas del ambito
-            // (PTR:
-            // presenciaDetalleComisionable; Se va a intentar pedir a PTR otro método más
-            // concreto)
-
+            CompletableFuture<Void> cfPersonaPresenciaDetalle = runTareaRecolectarPtrPresenciaAsyncService.personaPresenciaDetalleComisionableByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPersonaPresenciaDetalle, cf);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
@@ -79,9 +76,8 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // TODO Localizaciones adicionales asociadas a presencias de las personas (PTR:
-            // presenciaTiendasEmpleado)
-
+            CompletableFuture<Void> cfPresenciaTiendaEmpleado = runTareaRecolectarPtrPresenciaAsyncService.presenciaTiendaEmpleadoByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciaTiendaEmpleado, cf);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/

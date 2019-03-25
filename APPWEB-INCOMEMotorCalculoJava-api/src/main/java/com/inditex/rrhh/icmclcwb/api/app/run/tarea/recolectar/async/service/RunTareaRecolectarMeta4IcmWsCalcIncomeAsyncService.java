@@ -9,6 +9,8 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> tiendasHistorico(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+    
+    CompletableFuture<Void> tiendasHistoricoByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> tiendasEmpleadoHistorico(final RunTareaDto runTarea,
             final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);

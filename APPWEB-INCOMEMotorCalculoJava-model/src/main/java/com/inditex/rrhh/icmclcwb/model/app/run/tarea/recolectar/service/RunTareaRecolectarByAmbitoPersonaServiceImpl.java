@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -26,6 +27,9 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
 
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+    
+    @Autowired
+    private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
 
     @Auditoria
     @CounterMetric
@@ -41,19 +45,19 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-
-            // TODO Datos de las tiendas asociadas al historico del empleado (Meta4:
-            // SEARCHTIENDAS)
-
+            /*-------------------------------------------------------------*/ 
+            
+            // Datos de las tiendas asociadas al historico del empleado
+            CompletableFuture<Void> cfTiendasHistorico = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.tiendasHistoricoByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfTiendasHistorico, cf, cfWait);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // TODO Localizaciones adicionales asociadas a presencias de las
-            // personas (PTR:
-            // presenciaTiendasEmpleado)
-
+            // Localizaciones adicionales asociadas a presencias de las
+            // personas (PTR: presenciaTiendasEmpleado)
+            CompletableFuture<Void> cfPresenciaTiendaEmpleado = runTareaRecolectarPtrPresenciaAsyncService.presenciaTiendaEmpleadoByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciaTiendaEmpleado, cf);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/

@@ -11,6 +11,8 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void tiendasHistorico(@Valid final RunTareaDto runTarea,
             @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);
+    
+    void tiendasHistoricoByRunTarea(@Valid final RunTareaDto runTarea);
 
     void tiendasEmpleadoHistorico(@Valid final RunTareaDto runTarea,
             @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque);

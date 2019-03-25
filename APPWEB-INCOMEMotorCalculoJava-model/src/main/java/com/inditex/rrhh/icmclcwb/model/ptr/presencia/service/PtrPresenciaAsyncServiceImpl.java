@@ -57,6 +57,12 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
     
     @Async
     @Override
+    public CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciaDetalleComisionablePersonaByRunTarea(PtrPresenciaTiendasEmpleadoRequestDto request) {
+        return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTiendasEmpleado(request));
+    }
+    
+    @Async
+    @Override
     public CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciasTiendasEmpleado(
             final PtrPresenciaTiendasEmpleadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTiendasEmpleado(request));
