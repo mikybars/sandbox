@@ -23,6 +23,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaPresencia
 @DecoratedWith(value= TareaTiendaPresenciaSeccionDecorator.class)
 public abstract class TareaTiendaPresenciaSeccionMapper {
 
+    private static final Integer SECCION_1 = 1;
+    private static final Integer SECCION_2 = 2;
+    private static final Integer SECCION_3 = 3;
+    
     public abstract TareaTiendaPresenciaSeccion tareaTiendaPresenciaSeccionDtoToTareaTiendaPresenciaSeccion(
             TareaTiendaPresenciaSeccionDto src);
 
@@ -49,11 +53,11 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaPresenciaSeccion tareaTienda, PtrPresenciaTotalTiendaSeccionResultItemDto src){
         for(PtrSeccionPresenciasGenericType item : src.getListaSeccion()) {
-            if(item.getSeccion().equals(1)){
+            if(item.getSeccion().equals(SECCION_1)){
                 tareaTienda.setMinutos1(item.getMinutos());
-            }else if(item.getSeccion().equals(2)) {
+            }else if(item.getSeccion().equals(SECCION_2)) {
                 tareaTienda.setMinutos2(item.getMinutos());
-            }else if(item.getSeccion().equals(3)) {
+            }else if(item.getSeccion().equals(SECCION_3)) {
                 tareaTienda.setMinutos3(item.getMinutos());
             }
         }

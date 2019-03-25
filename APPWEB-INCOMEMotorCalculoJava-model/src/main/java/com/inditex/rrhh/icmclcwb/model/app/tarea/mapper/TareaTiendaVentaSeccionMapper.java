@@ -23,6 +23,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaVentaSecc
 @DecoratedWith(TareaTiendaVentaSeccionDecorator.class)
 public abstract class TareaTiendaVentaSeccionMapper {
 
+    private static final Integer SECCION_1 = 1;
+    private static final Integer SECCION_2 = 2;
+    private static final Integer SECCION_3 = 3;
+    
     public abstract TareaTiendaVentaSeccion tareaTiendaVentaSeccionDtoToTareaTiendaVentaSeccion(
             TareaTiendaVentaSeccionDto src);
 
@@ -50,11 +54,11 @@ public abstract class TareaTiendaVentaSeccionMapper {
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaTotalizadoResultItemDto src){
         for(PtrSeccionVentaOnlineGenericType item : src.getListaSeccion()) {
-            if(item.getSeccion().equals(1)){
+            if(item.getSeccion().equals(SECCION_1)){
                 tareaTiendaVentaSeccion.setImporte1(item.getImporteSinIVA().doubleValue());
-            }else if(item.getSeccion().equals(2)) {
+            }else if(item.getSeccion().equals(SECCION_2)) {
                 tareaTiendaVentaSeccion.setImporte2(item.getImporteSinIVA().doubleValue());
-            }else if(item.getSeccion().equals(3)) {
+            }else if(item.getSeccion().equals(SECCION_3)) {
                 tareaTiendaVentaSeccion.setImporte3(item.getImporteSinIVA().doubleValue());
             }
         }
