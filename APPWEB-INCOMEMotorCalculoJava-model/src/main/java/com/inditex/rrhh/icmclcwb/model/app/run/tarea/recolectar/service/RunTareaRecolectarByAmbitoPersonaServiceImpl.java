@@ -38,13 +38,14 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
             CompletableFuture<Void> cfPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .personaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPersonaByRunTarea, cf, cfWait);
-            
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/ 
-            
-            // TODO Datos de las tiendas asociadas al historico del empleado (Meta4: SEARCHTIENDAS)
-            
+            /*-------------------------------------------------------------*/
+
+            // TODO Datos de las tiendas asociadas al historico del empleado (Meta4:
+            // SEARCHTIENDAS)
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
@@ -52,20 +53,27 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
             // TODO Localizaciones adicionales asociadas a presencias de las
             // personas (PTR:
             // presenciaTiendasEmpleado)
-            
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
             // TODO Localizaciones adicionales asociadas a presencias manuales salientes de
             // las personas (Meta4: Falta el servicio)
-            
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
             // TODO Localizaciones adicionales asociadas a desplazamientos salientes de
             // las personas (Meta4: Falta el servicio)
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Detectar si el empleado tiene un tipo de cálculo por venta, si lo tiene,
+            // hay que recuperar todos los empleados de las tiendas asociadas
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
