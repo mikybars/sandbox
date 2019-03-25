@@ -27,10 +27,10 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
 
     @Autowired
     private RunTareaRecolectarAmbitoService runTareaRecolectarAmbitoService;
-    
+
     @Autowired
     private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
-    
+
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -42,6 +42,11 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
             // TODO PoC
 //            runTareaRecolectarByAmbitoService.runPoC(runTarea);
             runTareaRecolectarAmbitoService.run(runTarea);
+            // TODO Una vez tengamos las localizaciones, personas y condiciones hay que
+            // recuperar las personas o localizaciones adicionales según condiciones
+            // Por ejemplo si un empleado tiene un tipo de calculo por venta, habrá que
+            // recuperar todos los empleados de las tiendas en las que este ese empleado
+            // para recuperar sus condiciones
             runTareaRecolectarCondicionesService.run(runTarea);
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.PENDIENTE_CALCULAR.getDto());
         }
