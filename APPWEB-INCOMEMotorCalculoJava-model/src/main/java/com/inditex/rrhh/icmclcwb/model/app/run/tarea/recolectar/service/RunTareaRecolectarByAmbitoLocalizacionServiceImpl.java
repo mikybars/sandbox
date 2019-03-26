@@ -40,57 +40,63 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
+            // Personas asociadas al ambito
             CompletableFuture<Void> cfPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .personaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPersonaByRunTarea, cf, cfWait);
 
+            // Localizaciones asociadas al ambito
             CompletableFuture<Void> cfLocalizacionByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .localizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf);
-
-            CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService
-                    .tiposHorasByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfTiposHoras, cf);
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-
-            CompletableFuture<Void> cfPersonaPresenciaDetalle = runTareaRecolectarPtrPresenciaAsyncService.personaPresenciaDetalleComisionableByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPersonaPresenciaDetalle, cf);
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-
-            // TODO Personas adicionales con desplazamientos entrantes a las tiendas (Meta4:
-            // Falta el servicio)
+            AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // TODO Personas adicionales con presencias manuales dentro de las tiendas
-            // (Meta4: Falta el
-            // servicio)
+            // Personas asociadas a presencias de las localizaciones
+            // (PTR: presenciaTiendasEmpleado)
+            CompletableFuture<Void> cfPersonaPresenciaDetalle = runTareaRecolectarPtrPresenciaAsyncService
+                    .personaPresenciaDetalleComisionableByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPersonaPresenciaDetalle, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            CompletableFuture<Void> cfPresenciaTiendaEmpleado = runTareaRecolectarPtrPresenciaAsyncService.presenciaTiendaEmpleadoByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciaTiendaEmpleado, cf);
+            // TODO Personas con desplazamientos entrantes a las tiendas
+            // (Meta4: Falta el servicio)
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // TODO Localizaciones adicionales asociadas a presencias manuales salientes de
-            // las personas (Meta4: Falta el servicio)
-            
+            // TODO Personas con presencias manuales entrantes a las tiendas
+            // (Meta4: Falta el servicio)
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // TODO Localizaciones adicionales asociadas a desplazamientos salientes de
-            // las personas (Meta4: Falta el servicio)
+            // Localizaciones asociadas a presencias de las personas
+            // (PTR: presenciaTiendasEmpleado)
+            CompletableFuture<Void> cfPresenciaTiendaEmpleado = runTareaRecolectarPtrPresenciaAsyncService
+                    .presenciaTiendaEmpleadoByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciaTiendaEmpleado, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones asociadas a presencias manuales salientes de las personas
+            // (Meta4: Falta el servicio)
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones asociadas a desplazamientos salientes de las personas
+            // (Meta4: Falta el servicio)
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

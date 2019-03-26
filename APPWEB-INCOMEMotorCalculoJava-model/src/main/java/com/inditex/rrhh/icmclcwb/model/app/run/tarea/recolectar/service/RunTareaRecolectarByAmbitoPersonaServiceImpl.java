@@ -27,7 +27,7 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
 
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
-    
+
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
 
@@ -39,38 +39,43 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
+            // Personas asociadas al ambito
             CompletableFuture<Void> cfPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .personaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPersonaByRunTarea, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/ 
-            
-            // Datos de las tiendas asociadas al historico del empleado
-            CompletableFuture<Void> cfTiendasHistorico = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.tiendasHistoricoByRunTarea(runTarea);
+            /*-------------------------------------------------------------*/
+
+            // Localizaciones asociadas al historico de personas
+            CompletableFuture<Void> cfTiendasHistorico = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .tiendasHistoricoByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiendasHistorico, cf, cfWait);
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-
-            // Localizaciones adicionales asociadas a presencias de las
-            // personas (PTR: presenciaTiendasEmpleado)
-            CompletableFuture<Void> cfPresenciaTiendaEmpleado = runTareaRecolectarPtrPresenciaAsyncService.presenciaTiendaEmpleadoByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciaTiendaEmpleado, cf);
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-
-            // TODO Localizaciones adicionales asociadas a presencias manuales salientes de
-            // las personas (Meta4: Falta el servicio)
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // TODO Localizaciones adicionales asociadas a desplazamientos salientes de
-            // las personas (Meta4: Falta el servicio)
+            // Localizaciones asociadas a presencias de las personas
+            // (PTR: presenciaTiendasEmpleado)
+            CompletableFuture<Void> cfPresenciaTiendaEmpleado = runTareaRecolectarPtrPresenciaAsyncService
+                    .presenciaTiendaEmpleadoByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciaTiendaEmpleado, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones asociadas a presencias manuales salientes de las personas
+            // (Meta4: Falta el servicio)
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // TODO Localizaciones asociadas a desplazamientos salientes de las personas
+            // (Meta4: Falta el servicio)
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmb
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByPoCService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Service
@@ -25,13 +26,16 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
 
     @Autowired
     private RunTareaRecolectarByAmbitoService runTareaRecolectarByAmbitoService;
-    
+
     @Autowired
     private RunTareaRecolectarByAmbitoLocalizacionService runTareaRecolectarByAmbitoLocalizacionService;
 
     @Autowired
     private RunTareaRecolectarByAmbitoPersonaService runTareaRecolectarByAmbitoPersonaService;
-    
+
+    @Autowired
+    private RunTareaRecolectarByPoCService runTareaRecolectarByPoCService;
+
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -39,15 +43,16 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
     public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
         final TareaDto tarea = runTarea.getTarea();
         if (CollectionUtils.isNotEmpty(tarea.getLocalizacion()) && CollectionUtils.isNotEmpty(tarea.getPersona())) {
-            throw new IcmclcwbException("No es posible ejecutar por localizacion y persona");
-        }else if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
+            throw new IcmclcwbException("No es posible ejecutar por ambito localizacion y persona simultaneamente");
+        } else if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
             runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
         } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
             runTareaRecolectarByAmbitoPersonaService.run(runTarea);
         } else {
             runTareaRecolectarByAmbitoService.run(runTarea);
         }
-        
+        // TODO PoC
+        // runTareaRecolectarByPoCService.run(runTarea);
         return runTarea;
     }
 }
