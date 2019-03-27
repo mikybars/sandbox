@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -36,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
@@ -51,7 +53,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaEmpleadoEstadoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaEstadoMapper;
@@ -86,6 +87,9 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaEmpleadoHistoricoService tareaEmpleadoHistoricoervice;
+    
+    @Autowired
+    private TareaTiendaHistoricoService tareaTiendaHistoricoService;
 
     @Autowired
     private TareaEmpleadoEstructuraAsyncService tareaEmpleadoEstructuraAsyncService;
@@ -839,6 +843,58 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 }
             } while (hasNext);
             AsyncUtils.waitAllOfIsOk(cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
+        }
+    }
+    
+    @Auditoria
+    @Override
+    public void tiendasComisionableByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
+        for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
+            tiendasComisionableByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        }
+    }
+    
+    private void tiendasComisionableByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+                // TODO Falta el origen relacionado con los empleados
+                for (List<IdLocalizacionDto> iter : StreamUtils.partition(tareaTiendaHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigen(tarea.getId(),
+                        tareaAmbito.getIdOrigen()),
+                        meta4Properties.get(Meta4Constants.TIENDAS).getFilter().getMaxPageSize())) {
+                    TiendasRequestDto tiendasRequest = new TiendasRequestDto();
+                    tiendasRequest.setPage(meta4Properties.get(Meta4Constants.TIENDAS).getPage());
+                    tiendasRequest.setData(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
+                            trabajo, tarea, tareaAmbito));
+                    tiendasRequest.getData().getItem()
+                            .addAll(iter.stream()
+                                    .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
+                                    .collect(Collectors.toList()));
+                    boolean hasNext = false;
+                    do {
+                        CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                                .getTiendas(tiendasRequest);
+                        AsyncUtils.exceptionally(cfData, cf);
+                        List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
+                        //TODO: Revisar esta persistencia
+                        if (CollectionUtils.isNotEmpty(data)) {
+                            AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                    meta4Properties.get(Meta4Constants.TIENDAS).getFilter().getMaxPersistenceSize());
+                            CompletableFuture<Void> cfSave = tareaTiendaComisionHistoricoAsyncService
+                                    .saveGenericTiendaResultItemDto(data, tarea);
+                            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        }
+                        hasNext = tiendasRequest.nextPage();
+                    } while (hasNext);
+                }
+                AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);

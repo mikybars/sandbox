@@ -11,6 +11,10 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaSeccionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaSeccionVentaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaSeccionVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaSeccionVentaRepositoryCustom;
@@ -33,6 +37,58 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
             result.addAll(mapper
                     .tareaTiendaSeccionVentasToTareaTiendaSeccionVentasDto(tareaTiendaSeccionVentaRepositoryCustom.save(
                             mapper.getVentaTotalizadoReponseItemsDtoToTareaTiendaSeccionVentas(dto.getVentaTotalizado(),
+                                    tarea))));
+        }
+        return result;
+    }
+    
+    @Override
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(final PtrVentaOnlineEntregaDomicilioResponseDto dto,
+            final TareaDto tarea) {
+        List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
+        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
+            result.addAll(mapper
+                    .tareaTiendaSeccionVentasToTareaTiendaSeccionVentasDto(tareaTiendaSeccionVentaRepositoryCustom.save(
+                            mapper.getVentaOnlineEntregaDomicilioReponseItemsDtoToTareaTiendaSeccionVentas(dto.getVentaOnline(),
+                                    tarea))));
+        }
+        return result;
+    }
+    
+    @Override
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto,
+            final TareaDto tarea) {
+        List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
+        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
+            result.addAll(mapper
+                    .tareaTiendaSeccionVentasToTareaTiendaSeccionVentasDto(tareaTiendaSeccionVentaRepositoryCustom.save(
+                            mapper.getVentaOnlineEntregaTiendaReponseItemsDtoToTareaTiendaSeccionVentas(dto.getVentaOnline(),
+                                    tarea))));
+        }
+        return result;
+    }
+    
+    @Override
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,
+            final TareaDto tarea) {
+        List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
+        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
+            result.addAll(mapper
+                    .tareaTiendaSeccionVentasToTareaTiendaSeccionVentasDto(tareaTiendaSeccionVentaRepositoryCustom.save(
+                            mapper.getVentaOnlinePickingReponseItemsDtoToTareaTiendaSeccionVentas(dto.getVentaOnline(),
+                                    tarea))));
+        }
+        return result;
+    }
+    
+    @Override
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto,
+            final TareaDto tarea) {
+        List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
+        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
+            result.addAll(mapper
+                    .tareaTiendaSeccionVentasToTareaTiendaSeccionVentasDto(tareaTiendaSeccionVentaRepositoryCustom.save(
+                            mapper.getVentaOnlineIpodReponseItemsDtoToTareaTiendaSeccionVentas(dto.getVentaOnline(),
                                     tarea))));
         }
         return result;

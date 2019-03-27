@@ -61,6 +61,13 @@ VALUES (?, ?, ?, ? , ?)
     ]]>
 </entry>
 
+<entry key="TareaTiendaVentaRepositoryCustom.save">
+    <![CDATA[
+INSERT INTO TAREA_TIENDA_VENTA (FECHA, ID_TIENDA, IMPORTE, ID_TIPO_IMPORTE_VENTA, ID_TAREA )
+VALUES (?, ?, ?, ?, ?)
+    ]]>
+</entry>
+
 <entry key="TareaTiendaSeccionEmpleadoPresenciaRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_TIENDA_SECCION_EMPLEADO_PRESENCIA (FECHA, ID_EMPLEADO, ID_SECCION, ID_TIENDA, ID_TIPO_HORA, MINUTOS, ID_TAREA) VALUES(?, ?, ?, ?, ?, ?, ?)

@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.util;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PtrConstants {
 	
     private PtrConstants() {
@@ -10,7 +13,10 @@ public class PtrConstants {
     public static final String BOOLEAN_STRING_FALSE = "0";
     public static final Integer BOOLEAN_INTEGER_TRUE = 1;
     public static final Integer BOOLEAN_INTEGER_FALSE = 0;
-
+    public static final List<Integer> PRODUCTO_LIST = Arrays.asList(1,2,3,4,5);
+    public static final Integer SECCION_1 = 1;
+    public static final Integer SECCION_2 = 2;
+    public static final Integer SECCION_3 = 3;
 	/* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - VENTAGENERAL*/
     public static final String VENTA_MENSUAL = "getVentaMensual";
     public static final String VENTA_DIARIA = "getVentaDiaria";

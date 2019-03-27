@@ -95,4 +95,11 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Async
+    @Override
+    public CompletableFuture<Void> tiendasComisionableByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.tiendasComisionableByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
 }

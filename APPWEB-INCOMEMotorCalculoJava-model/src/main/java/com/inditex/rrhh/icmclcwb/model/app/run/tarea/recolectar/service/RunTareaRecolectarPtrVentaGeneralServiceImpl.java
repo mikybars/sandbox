@@ -75,6 +75,8 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                     paramGetVentaTotalizado.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                     paramGetVentaTotalizado.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                     paramGetVentaTotalizado.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
+                    //TODO: MOCK
+                    paramGetVentaTotalizado.setCadena(1);
                     CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                             .ventaTotalizado(paramGetVentaTotalizado);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);

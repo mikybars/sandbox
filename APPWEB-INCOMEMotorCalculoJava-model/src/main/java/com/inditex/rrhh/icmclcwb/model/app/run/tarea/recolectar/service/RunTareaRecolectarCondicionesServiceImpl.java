@@ -16,6 +16,7 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEmpleadoAsyncService;
@@ -39,6 +40,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
     
+    @Autowired
+    private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+    
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -48,9 +52,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
             // TODO Se detectan que datos son necesarios recuperar
-            
-            //Localizacion y seccion
-            
+            //Localizacion y seccion          
             CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = runTareaRecolectarPtrVentaGeneralAsyncService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaFisicaLocalizacionSeccion, cf, cfWait);
             
@@ -111,7 +113,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfOnlineIpodDetalleVendedorLocalizacion, cf, cfWait);
             
             //Persona
-            
             CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = runTareaRecolectarPtrPresenciaAsyncService.presenciaDetalleComisionablePersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
             
@@ -119,6 +120,18 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfOnlineIpodDetalle = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodDetalleLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfOnlineIpodDetalle, cf, cfWait);
             
+            //Tienda comisionable
+            CompletableFuture<Void> cfTiendaComisionable = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.tiendasComisionableByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfTiendaComisionable, cf, cfWait);
+            
+            //Estructuras
+            CompletableFuture<Void> cfCondicionPersona = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.condicionPersonaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfCondicionPersona, cf, cfWait);
+
+            //Tipos hora
+            CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService
+                    .tiposHorasByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfTiposHoras, cf, cfWait);
             
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

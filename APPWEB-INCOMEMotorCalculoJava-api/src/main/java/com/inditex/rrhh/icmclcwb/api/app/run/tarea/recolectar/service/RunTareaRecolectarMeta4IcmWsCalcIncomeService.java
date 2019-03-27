@@ -43,4 +43,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
     
     void condicionPersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea, @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
+    void tiendasComisionableByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }
