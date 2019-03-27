@@ -33,24 +33,24 @@ public class GlobalTiendaVersion1Algoritmo implements Algoritmo {
     public Flux<Void> execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         if (runTarea.getRunTareaCalcular().getEmpleado().size() >= algoritmoProperties.getMaxBatchSize()) {
             CountDownLatch latch = new CountDownLatch(1);
-            Flux.fromIterable(StreamUtils.partition(/* TODO Hay que lanzarlo por empleado y ordinal */runTarea
-                    .getRunTareaCalcular().getEmpleado(), algoritmoProperties.getMaxBatchSize())).parallel()
-                    .runOn(Schedulers.parallel())
+            Flux.fromIterable(StreamUtils.partition(
+                    /* TODO Hay que lanzarlo por empleado y ordinal */runTarea.getRunTareaCalcular().getEmpleado(),
+                    algoritmoProperties.getMaxBatchSize())).parallel().runOn(Schedulers.parallel())
                     .doOnNext(idsEmpleados -> tareaCalculoAlgoritmoGlobalTiendaRepository
-                            .calcularByIdTareaAndIdsEmpleado(runTarea.getTarea().getId(), idsEmpleados, algoritmo.getId()))
+                            .calcularByIdTareaAndIdsEmpleado(runTarea.getTarea().getId(), algoritmo, idsEmpleados))
                     .doOnError(ex -> log.error(ex.getMessage(), ex)).doAfterTerminate(latch::countDown).subscribe();
             try {
                 latch.await();
             } catch (Exception e) {
                 // TODO Modificar el estado de los empleados no procesados
-                String msg = new StringBuilder("Tarea[{").append(runTarea.getTarea().getId()).append(
-                        "}] :: GlobalTiendaAlgoritmo.execute() :: Ha fallado el algoritmo: ").append(algoritmo.getId()).append(" para un bloque de empleados")
-                        .toString();
+                String msg = new StringBuilder("Tarea[{").append(runTarea.getTarea().getId())
+                        .append("}] :: GlobalTiendaAlgoritmo.execute() :: Ha fallado el algoritmo: ")
+                        .append(algoritmo.getId()).append(" para un bloque de empleados").toString();
                 log.error(msg, e);
                 return Flux.error(new IcmclcwbException(msg, e));
             }
         } else {
-            tareaCalculoAlgoritmoGlobalTiendaRepository.calcularByIdTarea(runTarea.getTarea().getId(), algoritmo.getId());
+            tareaCalculoAlgoritmoGlobalTiendaRepository.calcularByIdTarea(runTarea.getTarea().getId(), algoritmo);
         }
         return Flux.empty();
     }
