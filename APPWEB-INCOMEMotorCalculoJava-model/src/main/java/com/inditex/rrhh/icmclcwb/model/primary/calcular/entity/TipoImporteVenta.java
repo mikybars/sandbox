@@ -20,4 +20,8 @@ public class TipoImporteVenta {
     @NotBlank
     @Column(name = "NOMBRE", nullable = false)
     private String nombre;
+    
+    @NotBlank
+    @Column(name = "PROCESADO", nullable = false)
+    private Boolean procesado;
 }
