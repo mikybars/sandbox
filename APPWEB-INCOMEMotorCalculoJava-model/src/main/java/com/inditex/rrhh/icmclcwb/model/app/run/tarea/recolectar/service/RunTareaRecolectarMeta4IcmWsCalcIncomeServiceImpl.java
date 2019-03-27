@@ -740,6 +740,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             request.setData(tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
                             trabajo, tarea, tareaAmbito, tarea.getLocalizacion(), tarea.getPersona()));
+
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -803,36 +804,40 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Auditoria
     @Override
-    public void tiendasHistoricoByRunTarea(@Valid RunTareaDto runTarea) {
+    public void localizacionHistoricoByRunTarea(@Valid RunTareaDto runTarea) {
         final TareaDto tarea = runTarea.getTarea();
         for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
-            tiendasHistoricoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+            localizacionHistoricoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         }
     }
     
-    private void tiendasHistoricoByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+    private void localizacionHistoricoByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         TrabajoDto trabajo = runTarea.getTrabajo();
-        TareaDto tarea = runTarea.getTarea();
+        TareaDto tarea = runTarea.getTarea(); 
+        List<IdPersonaDto> idsPersona = tareaEmpleadoHistoricoervice.findIdPersonaByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
         try {
             SearchTiendasRequestDto searchTiendasRequest = new SearchTiendasRequestDto();
             searchTiendasRequest.setPage(meta4Properties.get(Meta4Constants.SEARCH_TIENDAS).getPage());
             searchTiendasRequest.setData(tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
-            CompletableFuture<List<GenericTiendaResultItemDto>> cfDataSearchTiendas = meta4IcmWsCalcIncomeSessionAsyncService
-                    .searchTiendas(searchTiendasRequest);
-            AsyncUtils.exceptionally(cfDataSearchTiendas, cf);
-            List<GenericTiendaResultItemDto> tiendas = cfDataSearchTiendas.get();
-            if (CollectionUtils.isNotEmpty(tiendas)) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-                AsyncUtils.checkAsyncAvaliable(cfPersist, 
-                        presenciasProperties.get(PtrConstants.PRESENCIA_TIENDAS_EMPLEADO).getFilter()
-                        .getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaTiendaHistoricoAsyncService
-                        .saveGenericTiendaResultItemDto(tiendas, tarea);
-                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-            }
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdPersonaDtoToGenericFilterDto(trabajo, tarea, tareaAmbito, idsPersona));
+            boolean hasNext = false;
+            do {
+                CompletableFuture<List<GenericTiendaResultItemDto>> cfDataSearchTiendas = meta4IcmWsCalcIncomeSessionAsyncService
+                        .searchTiendas(searchTiendasRequest);
+                AsyncUtils.exceptionally(cfDataSearchTiendas, cf);
+                List<GenericTiendaResultItemDto> tiendas = cfDataSearchTiendas.get();
+                if (CollectionUtils.isNotEmpty(tiendas)) {
+                    List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, 
+                            meta4Properties.get(Meta4Constants.SEARCH_TIENDAS).getFilter().getMaxPersistenceSize());
+                    CompletableFuture<Void> cfSave = tareaTiendaHistoricoAsyncService
+                            .saveGenericTiendaResultItemDto(tiendas, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    hasNext = searchTiendasRequest.nextPage();
+                }
+            } while (hasNext);
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

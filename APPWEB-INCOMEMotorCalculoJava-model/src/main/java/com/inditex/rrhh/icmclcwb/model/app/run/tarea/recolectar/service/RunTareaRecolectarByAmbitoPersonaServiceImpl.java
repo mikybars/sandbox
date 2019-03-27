@@ -50,7 +50,7 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
 
             // Localizaciones asociadas al historico de personas
             CompletableFuture<Void> cfTiendasHistorico = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .tiendasHistoricoByRunTarea(runTarea);
+                    .localizacionHistoricoByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiendasHistorico, cf, cfWait);
 
             /*-------------------------------------------------------------*/

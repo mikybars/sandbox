@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
@@ -28,6 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpod
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoPersonaDto;
@@ -102,6 +104,27 @@ public abstract class TareaMapper {
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             List<TareaAmbitoLocalizacionDto> srcTareaAmbitoLocalizacion,
             List<TareaAmbitoPersonaDto> srcTareaAmbitoPersona);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
+    @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
+    @Mapping(target = "idEmpresa", source = "srcTarea.idEmpresa")
+    public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdPersonaDtoToGenericFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+            List<IdPersonaDto> srcIdsPersona);
+    
+    @AfterMapping
+    public void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdPersonaDtoToGenericFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+            List<IdPersonaDto> srcIdsPersona, @MappingTarget GenericFilterDto genericFilter) {
+        if (genericFilter != null && srcIdsPersona != null) {
+            genericFilter.getItem()
+                    .addAll(srcIdsPersona.stream()
+                            .map(x -> GenericFilterParametersDto.builder().idEmpleado(x.getIdPersona()).build())
+                            .collect(Collectors.toList()));
+        }
+    }
 
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
