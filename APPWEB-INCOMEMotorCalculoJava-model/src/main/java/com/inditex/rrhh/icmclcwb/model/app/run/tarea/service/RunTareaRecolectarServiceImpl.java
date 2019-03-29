@@ -12,7 +12,6 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmbitoService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
@@ -28,9 +27,6 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
 
     @Autowired
     private RunTareaRecolectarAmbitoService runTareaRecolectarAmbitoService;
-    
-    @Autowired
-    private RunTareaRecolectarByAmbitoService runTareaRecolectarByAmbitoService;
 
     @Autowired
     private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
@@ -43,8 +39,6 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
         final TareaDto tarea = runTarea.getTarea();
         if (EstadoTareaEnum.PENDIENTE_RECOLECTAR.getId().equals(tarea.getEstado().getId())) {
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_RECOLECTAR.getDto());
-            // TODO PoC
-//            runTareaRecolectarByAmbitoService.runPoC(runTarea);
             runTareaRecolectarAmbitoService.run(runTarea);
             // TODO Una vez tengamos las localizaciones, personas y condiciones hay que
             // recuperar las personas o localizaciones adicionales según condiciones
