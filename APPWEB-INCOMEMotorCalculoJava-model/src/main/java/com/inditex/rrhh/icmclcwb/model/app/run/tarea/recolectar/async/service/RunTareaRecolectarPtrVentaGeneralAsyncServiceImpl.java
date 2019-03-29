@@ -13,14 +13,16 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRe
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
-public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl implements RunTareaRecolectarPtrVentaGeneralAsyncService {
+public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl
+        implements RunTareaRecolectarPtrVentaGeneralAsyncService {
 
     @Autowired
     private RunTareaRecolectarPtrVentaGeneralService tareaRecolectarPtrVentaService;
 
     @Async
     @Override
-    public CompletableFuture<Void> ventaTotalizadaTienda(final RunTareaDto runTarea, final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
+    public CompletableFuture<Void> ventaTotalizadaTienda(final RunTareaDto runTarea,
+            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
         tareaRecolectarPtrVentaService.ventaTotalizadaTienda(runTarea, runTareaRecolectarBloque);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -31,11 +33,12 @@ public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl implements RunTar
         tareaRecolectarPtrVentaService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Async
     @Override
     public CompletableFuture<Void> ventaFisicaLocalizacionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaService.ventaFisicaLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

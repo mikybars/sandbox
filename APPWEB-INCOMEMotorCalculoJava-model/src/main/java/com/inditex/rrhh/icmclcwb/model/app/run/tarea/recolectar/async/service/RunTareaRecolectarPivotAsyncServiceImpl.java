@@ -19,19 +19,20 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 @Service
 @Validated
 public class RunTareaRecolectarPivotAsyncServiceImpl implements RunTareaRecolectarPivotAsyncService {
-    
+
     @Autowired
     private TareaTiendaPresenciaSeccionAsyncService tareaTiendaPresenciaSeccionAsyncService;
-   
+
     @Autowired
     private TareaTiendaVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
-    
+
     @Async
     @Override
     public CompletableFuture<Void> pivot(@Valid final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
-        //tareaTiendaPresenciaSeccionAsyncService.pivot(tarea);
+        // tareaTiendaPresenciaSeccionAsyncService.pivot(tarea);
 //        tareaTiendaVentaSeccionAsyncService.pivot(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }
