@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +26,7 @@ public class TareaTipoHoraServiceImpl implements TareaTipoHoraService {
     private TareaTipoHoraRepositoryCustom tareaTipoHoraRepositoryCustom;
 
     @Override
-    public List<TareaTipoHoraDto> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TareaDto tareaDto) {
+    public List<TareaTipoHoraDto> save(@Valid final List<PtrPresenciaTiposHorasResultItemDto> dto, @Valid final TareaDto tareaDto) {
         return mapper.tareaTareaTipoHoraListTotareaTipoHoraDtoList(tareaTipoHoraRepositoryCustom
                 .save(mapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(dto, tareaDto)));
     }

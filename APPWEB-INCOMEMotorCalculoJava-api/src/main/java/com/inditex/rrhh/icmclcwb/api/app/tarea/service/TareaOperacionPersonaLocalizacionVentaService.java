@@ -11,6 +11,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaInd
 public interface TareaOperacionPersonaLocalizacionVentaService {
 
     List<TareaOperacionPersonaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponse(
-            PtrVentaIndividualDetalleResponseDto dto, @Valid TareaDto tarea);
+            @Valid final PtrVentaIndividualDetalleResponseDto dto, @Valid final TareaDto tarea);
 
 }

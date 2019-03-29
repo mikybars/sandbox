@@ -13,6 +13,6 @@ public interface TareaTiendaPresenciaSeccionService {
     @Deprecated
     void pivot(@Valid final TareaDto tarea);
 
-    List<TareaTiendaPresenciaSeccionDto> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TareaDto tarea);
+    List<TareaTiendaPresenciaSeccionDto> save(@Valid final List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, @Valid final TareaDto tarea);
 
 }

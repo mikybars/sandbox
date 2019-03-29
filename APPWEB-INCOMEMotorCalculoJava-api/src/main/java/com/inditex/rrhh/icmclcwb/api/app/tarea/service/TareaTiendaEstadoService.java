@@ -9,6 +9,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEstadoDto;
 
 public interface TareaTiendaEstadoService {
 
-	List<TareaTiendaEstadoDto> save(List<TareaTiendaEstadoDto> tareaTiendaEstadoDto, @Valid TareaDto tarea);
+	List<TareaTiendaEstadoDto> save(@Valid final List<TareaTiendaEstadoDto> tareaTiendaEstadoDto, @Valid final TareaDto tarea);
 
 }

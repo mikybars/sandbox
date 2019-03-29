@@ -29,7 +29,7 @@ public class TareaPersonaLocalizacionVentaServiceImpl implements TareaPersonaLoc
     private TareaPersonaLocalizacionVentaMapper tareaPersonaLocalizacionVentaMapper;
     
     @Override
-    public List<TareaPersonaLocalizacionVentaDto> savePtrVentaOnlineIpodIndividualDetalleResponse(final PtrVentaOnlineIpodIndividualDetalleResponseDto dto,
+    public List<TareaPersonaLocalizacionVentaDto> savePtrVentaOnlineIpodIndividualDetalleResponse(@Valid final PtrVentaOnlineIpodIndividualDetalleResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaPersonaLocalizacionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnlineIpodIndividual())) {
@@ -42,7 +42,7 @@ public class TareaPersonaLocalizacionVentaServiceImpl implements TareaPersonaLoc
     }
     
     @Override
-    public List<TareaPersonaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponseDto(final PtrVentaIndividualDetalleResponseDto dto,
+    public List<TareaPersonaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponseDto(@Valid final PtrVentaIndividualDetalleResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaPersonaLocalizacionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaIndividualDetalle())) {

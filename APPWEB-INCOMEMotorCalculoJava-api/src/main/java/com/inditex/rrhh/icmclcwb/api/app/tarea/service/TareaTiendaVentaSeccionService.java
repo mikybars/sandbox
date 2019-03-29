@@ -17,20 +17,20 @@ public interface TareaTiendaVentaSeccionService {
 
     void pivot(@Valid final TareaDto tarea);
 
-    List<TareaTiendaVentaSeccionDto> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea);
+    List<TareaTiendaVentaSeccionDto> savePtrVentaTotalizadoResponse(@Valid final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea);
 
-    List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto, @Valid final TareaDto tarea);
+    List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodResponse(@Valid final PtrVentaOnlineIpodResponseDto dto, @Valid final TareaDto tarea);
 
     List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodIndividualDetalleResponse(
-            final PtrVentaOnlineIpodIndividualDetalleResponseDto dto, @Valid final TareaDto tarea);
+            @Valid final PtrVentaOnlineIpodIndividualDetalleResponseDto dto, @Valid final TareaDto tarea);
 
-    List<TareaTiendaVentaSeccionDto> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,
+    List<TareaTiendaVentaSeccionDto> savePtrVentaOnlinePickingResponse(@Valid final PtrVentaOnlinePickingResponseDto dto,
             @Valid final TareaDto tarea);
 
-    List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto,
+    List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid final PtrVentaOnlineEntregaTiendaResponseDto dto,
             @Valid final TareaDto tarea);
 
     List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaDomicilioResponse(
-            final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid final TareaDto tarea);
+            @Valid final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid final TareaDto tarea);
 
 }

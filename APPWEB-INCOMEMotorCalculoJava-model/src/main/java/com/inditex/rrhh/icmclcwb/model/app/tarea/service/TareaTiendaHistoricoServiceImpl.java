@@ -50,7 +50,7 @@ public class TareaTiendaHistoricoServiceImpl implements TareaTiendaHistoricoServ
 
     @Override
     public List<TareaTiendaHistoricoDto> saveGenericTiendaResultItemDto(
-            final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea) {
+            @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea) {
         return save(tareaTiendaHistoricoMapper
                 .genericTiendaResultItemDtoToTareaTiendaHistoricoDto(genericTiendaResultItemDto), tarea);
     }

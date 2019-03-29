@@ -12,9 +12,9 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 public interface TareaPersonaLocalizacionVentaService {
 
     List<TareaPersonaLocalizacionVentaDto> savePtrVentaOnlineIpodIndividualDetalleResponse(
-            PtrVentaOnlineIpodIndividualDetalleResponseDto dto, @Valid TareaDto tarea);
+            @Valid final PtrVentaOnlineIpodIndividualDetalleResponseDto dto, @Valid final TareaDto tarea);
 
     List<TareaPersonaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponseDto(
-            PtrVentaIndividualDetalleResponseDto dto, @Valid TareaDto tarea);
+            @Valid final PtrVentaIndividualDetalleResponseDto dto, @Valid final TareaDto tarea);
 
 }

@@ -50,7 +50,7 @@ public class TareaEmpleadoHistoricoServiceImpl implements TareaEmpleadoHistorico
 
     @Override
     public List<TareaEmpleadoHistoricoDto> saveGenericEmpleadoResultItemDto(
-            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {
+            @Valid final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {
         return save(tareaEmpleadoHistoricoMapper
                 .genericEmpleadoResultItemDtoToTareaEmpleadoHistoricoDto(genericEmpleadoResultItemDto), tarea);
     }

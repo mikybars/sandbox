@@ -12,9 +12,9 @@ public interface TareaTiendaComisionHistoricoService {
 
 
     List<TareaTiendaComisionHistoricoDto> saveGenericTiendaResultItemDto(
-            List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid TareaDto tarea);
+            @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
 
-    List<TareaTiendaComisionHistoricoDto> save(@Valid List<TareaTiendaComisionHistoricoDto> tareaTiendaComisionHistorico,
-            @Valid TareaDto tarea);
+    List<TareaTiendaComisionHistoricoDto> save(@Valid final List<TareaTiendaComisionHistoricoDto> tareaTiendaComisionHistorico,
+            @Valid final TareaDto tarea);
 
 }

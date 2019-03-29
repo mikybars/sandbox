@@ -14,7 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 public interface TareaEmpleadoHistoricoService {
 
     List<TareaEmpleadoHistoricoDto> saveGenericEmpleadoResultItemDto(
-            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea);
+            @Valid final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea);
 
     List<TareaEmpleadoHistoricoDto> save(@Valid final List<TareaEmpleadoHistoricoDto> tareaEmpleadoHistorico,
             @Valid final TareaDto tarea);

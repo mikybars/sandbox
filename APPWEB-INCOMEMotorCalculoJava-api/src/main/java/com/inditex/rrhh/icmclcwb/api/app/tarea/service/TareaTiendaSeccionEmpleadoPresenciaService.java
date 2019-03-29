@@ -13,6 +13,6 @@ public interface TareaTiendaSeccionEmpleadoPresenciaService {
 
 	TareaTiendaSeccionEmpleadoPresenciaDto save(@Valid final TareaTiendaSeccionEmpleadoPresenciaDto item);
 
-    List<TareaTiendaSeccionEmpleadoPresenciaDto> save(final List<PtrPresenciaDetalleComisionableResultItemDto> item, final TareaDto tarea);
+    List<TareaTiendaSeccionEmpleadoPresenciaDto> save(@Valid final List<PtrPresenciaDetalleComisionableResultItemDto> item, @Valid final TareaDto tarea);
 
 }

@@ -38,7 +38,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
     }
     
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto,
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaTotalizadoResponse(@Valid final PtrVentaTotalizadoResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
@@ -51,7 +51,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
     }
     
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto,
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodResponse(@Valid final PtrVentaOnlineIpodResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
@@ -64,7 +64,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
     }
     
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodIndividualDetalleResponse(final PtrVentaOnlineIpodIndividualDetalleResponseDto dto,
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodIndividualDetalleResponse(@Valid final PtrVentaOnlineIpodIndividualDetalleResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnlineIpodIndividual())) {
@@ -77,7 +77,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
     }
     
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlinePickingResponse(@Valid final PtrVentaOnlinePickingResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
@@ -90,7 +90,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
     }
     
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto,
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid final PtrVentaOnlineEntregaTiendaResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
@@ -103,7 +103,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
     }
     
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaDomicilioResponse(final PtrVentaOnlineEntregaDomicilioResponseDto dto,
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaDomicilioResponse(@Valid final PtrVentaOnlineEntregaDomicilioResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {

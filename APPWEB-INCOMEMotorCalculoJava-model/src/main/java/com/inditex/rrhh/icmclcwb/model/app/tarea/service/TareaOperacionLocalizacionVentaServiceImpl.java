@@ -29,7 +29,7 @@ public class TareaOperacionLocalizacionVentaServiceImpl implements TareaOperacio
     private TareaOperacionLocalizacionVentaMapper tareaOperacionLocalizacionVentaMapper;
     
     @Override
-    public List<TareaOperacionLocalizacionVentaDto> savePtrVentaOnlineIpodIndividualDetalleResponse(final PtrVentaOnlineIpodIndividualDetalleResponseDto dto,
+    public List<TareaOperacionLocalizacionVentaDto> savePtrVentaOnlineIpodIndividualDetalleResponse(@Valid final PtrVentaOnlineIpodIndividualDetalleResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaOperacionLocalizacionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnlineIpodIndividual())) {
@@ -42,7 +42,7 @@ public class TareaOperacionLocalizacionVentaServiceImpl implements TareaOperacio
     }
     
     @Override
-    public List<TareaOperacionLocalizacionVentaDto> savePtrVentaIndividualDetalleResponse(final PtrVentaIndividualDetalleResponseDto dto,
+    public List<TareaOperacionLocalizacionVentaDto> savePtrVentaIndividualDetalleResponse(@Valid final PtrVentaIndividualDetalleResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaOperacionLocalizacionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaIndividualDetalle())) {
