@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResultItemDto;
@@ -130,5 +131,23 @@ public abstract class TareaTiendaVentaMapper {
     void afterMapping(@MappingTarget TareaTiendaVenta tareaTiendaVenta, PtrVentaOnlineIpodResultItemDto src){
         tareaTiendaVenta.setTipoImporteVenta(new TipoImporteVenta());
         tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId());
+    }
+    
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "tarea.id", target = "tarea.id")
+    @Mapping(target = "id", ignore = true)
+    public abstract TareaTiendaVenta getVentaIndividualDetalleReponseItemsDtoToTareaTiendaVentas(
+            PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea);
+
+    public List<TareaTiendaVenta> getVentaIndividualDetalleReponseItemsDtoToTareaTiendaVentas(
+            List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tareaDto) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+    
+    @AfterMapping
+    void afterMapping(@MappingTarget TareaTiendaVenta tareaTiendaVenta, PtrVentaIndividualDetalleResultItemDto src){
+        tareaTiendaVenta.setTipoImporteVenta(new TipoImporteVenta());
+        tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_LOCALIZACION.getId());
     }
 }

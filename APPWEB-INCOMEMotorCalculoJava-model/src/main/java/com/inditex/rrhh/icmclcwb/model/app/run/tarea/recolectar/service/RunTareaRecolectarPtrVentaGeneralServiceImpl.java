@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaGeneralService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -51,6 +52,9 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
 
     @Autowired
     private TareaTiendaVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
+    
+    @Autowired
+    private TareaTiendaVentaAsyncService tareaTiendaVentaAsyncService;
 
     @Autowired
     private TareaTiendaHistoricoService tareaTiendaHistoricoService;
@@ -134,16 +138,16 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 //TODO Se necesita la cadena
                 request.setCadena(1);
                 // TODO Falta el pivotado por seccion
-                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
-                        .ventaTotalizado(request);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+//                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
+//                        .ventaTotalizado(request);
+//                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+//                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
                //TODO: Persistir  ¿TAREA_TIENDA_VENTA?
                 
 //                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
 //                        .getFilter().getMaxPersistenceSize());
 //                AsyncUtils.exceptionally(
-//                        tareaTiendaSeccionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
+//                        tareaTiendaVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
 //                        cfPersist);
                 
             }

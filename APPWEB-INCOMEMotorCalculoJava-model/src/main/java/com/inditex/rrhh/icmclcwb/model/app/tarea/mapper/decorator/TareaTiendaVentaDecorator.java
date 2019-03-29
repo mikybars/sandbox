@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResultItemDto;
@@ -70,4 +71,13 @@ public abstract class TareaTiendaVentaDecorator extends TareaTiendaVentaMapper {
         return dtoList;
     }
 
+    @Override
+    public List<TareaTiendaVenta> getVentaIndividualDetalleReponseItemsDtoToTareaTiendaVentas(List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tarea){
+        List<TareaTiendaVenta> dtoList = new ArrayList<>();
+        for (PtrVentaIndividualDetalleResultItemDto childDto : src) {
+            TareaTiendaVenta dto = delegate.getVentaIndividualDetalleReponseItemsDtoToTareaTiendaVentas(childDto, tarea);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
 }

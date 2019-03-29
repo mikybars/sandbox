@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 
-public class TareaTiendaVentaDto implements Serializable {
+public class TareaOperacionLocalizacionVentaDto implements Serializable{
 
-    private static final long serialVersionUID = -1012901232574802311L;
+    private static final long serialVersionUID = -7382277554577377686L;
 
     @ApiModelProperty(value = "Identificador de la entidad", required = false, accessMode = AccessMode.READ_ONLY)
     private Long id;
@@ -24,8 +24,11 @@ public class TareaTiendaVentaDto implements Serializable {
     private LocalDate fecha;
     
     @NotBlank
-    @ApiModelProperty(value = "Id de la tienda", required = true)
-    private String idTienda;
+    @ApiModelProperty(value = "Id de la localizacion", required = true)
+    private String idLocalizacion;
+    
+    @ApiModelProperty(value = "Id de la operacion", required = true)
+    private String idOperacion;
        
     @NotNull
     @ApiModelProperty(value = "Importe sin iva de la venta", required = true)

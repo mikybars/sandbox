@@ -68,6 +68,27 @@ VALUES (?, ?, ?, ?, ?)
     ]]>
 </entry>
 
+<entry key="TareaPersonaLocalizacionVentaRepositoryCustom.save">
+    <![CDATA[
+INSERT INTO TAREA_PERSONA_LOCALIZACION_VENTA (FECHA, ID_LOCALIZACION, ID_PERSONA, IMPORTE, ID_TIPO_IMPORTE_VENTA, ID_TAREA )
+VALUES (?, ?, ?, ?, ?, ?)
+    ]]>
+</entry>
+
+<entry key="TareaOperacionPersonaLocalizacionVentaRepositoryCustom.save">
+    <![CDATA[
+INSERT INTO TAREA_OPERACION_PERSONA_LOCALIZACION_VENTA (FECHA, ID_LOCALIZACION, ID_OPERACION, ID_PERSONA, IMPORTE, ID_TIPO_IMPORTE_VENTA, ID_TAREA )
+VALUES (?, ?, ?, ?, ?, ?, ?)
+    ]]>
+</entry>
+
+<entry key="TareaOperacionLocalizacionVentaRepositoryCustom">
+    <![CDATA[
+INSERT INTO TAREA_OPERACION_LOCALIZACION_VENTA (FECHA, ID_LOCALIZACION, ID_OPERACION, IMPORTE, ID_TIPO_IMPORTE_VENTA, ID_TAREA )
+VALUES (?, ?, ?, ?, ?, ?)
+    ]]>
+</entry>
+
 <entry key="TareaTiendaSeccionEmpleadoPresenciaRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_TIENDA_SECCION_EMPLEADO_PRESENCIA (FECHA, ID_EMPLEADO, ID_SECCION, ID_TIENDA, ID_TIPO_HORA, MINUTOS, ID_TAREA) VALUES(?, ?, ?, ?, ?, ?, ?)

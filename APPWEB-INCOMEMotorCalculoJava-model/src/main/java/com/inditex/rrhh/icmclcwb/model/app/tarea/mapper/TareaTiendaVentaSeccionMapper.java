@@ -124,7 +124,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
             } 
         }
         tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_PERSONA.getId());
+        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION.getId());
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)

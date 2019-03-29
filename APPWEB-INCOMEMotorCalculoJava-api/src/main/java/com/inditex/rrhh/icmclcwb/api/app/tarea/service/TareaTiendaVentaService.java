@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaVentaDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -26,5 +27,8 @@ public interface TareaTiendaVentaService {
             @Valid final TareaDto tarea);
 
     List<TareaTiendaVentaDto> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto, @Valid final TareaDto tarea);
+
+    List<TareaTiendaVentaDto> savePtrVentaIndividualDetalleResponse(final PtrVentaIndividualDetalleResponseDto dto,
+            @Valid final TareaDto tarea);
 
 }

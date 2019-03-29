@@ -12,6 +12,7 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
@@ -27,6 +28,9 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
 
     @Autowired
     private RunTareaRecolectarAmbitoService runTareaRecolectarAmbitoService;
+    
+    @Autowired
+    private RunTareaRecolectarByAmbitoService runTareaRecolectarByAmbitoService;
 
     @Autowired
     private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;

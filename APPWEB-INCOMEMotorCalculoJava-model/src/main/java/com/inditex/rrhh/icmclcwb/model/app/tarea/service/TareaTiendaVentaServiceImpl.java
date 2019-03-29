@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaVentaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -30,7 +31,6 @@ public class TareaTiendaVentaServiceImpl implements TareaTiendaVentaService {
     
     @Autowired
     private TareaTiendaVentaMapper tareaTiendaVentaMapper;
-    
     
     @Override
     public List<TareaTiendaVentaDto> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto,
@@ -92,6 +92,19 @@ public class TareaTiendaVentaServiceImpl implements TareaTiendaVentaService {
             result.addAll(tareaTiendaVentaMapper
                     .tareaTiendaVentasToTareaTiendaVentasDto(tareaTiendaVentaRepository.save(
                             tareaTiendaVentaMapper.getVentaOnlineEntregaDomicilioReponseItemsDtoToTareaTiendaVentas(dto.getVentaOnline(),
+                                    tarea))));
+        }
+        return result;
+    }
+    
+    @Override
+    public List<TareaTiendaVentaDto> savePtrVentaIndividualDetalleResponse(final PtrVentaIndividualDetalleResponseDto dto,
+            @Valid final TareaDto tarea) {
+        List<TareaTiendaVentaDto> result = new ArrayList<>();
+        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaIndividualDetalle())) {
+            result.addAll(tareaTiendaVentaMapper
+                    .tareaTiendaVentasToTareaTiendaVentasDto(tareaTiendaVentaRepository.save(
+                            tareaTiendaVentaMapper.getVentaIndividualDetalleReponseItemsDtoToTareaTiendaVentas(dto.getVentaIndividualDetalle(),
                                     tarea))));
         }
         return result;

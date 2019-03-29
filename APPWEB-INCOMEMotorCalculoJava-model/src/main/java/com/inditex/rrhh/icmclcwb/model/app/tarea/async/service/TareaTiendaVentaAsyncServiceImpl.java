@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaAsy
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -57,6 +58,14 @@ public class TareaTiendaVentaAsyncServiceImpl implements TareaTiendaVentaAsyncSe
     public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto dto,
             @Valid TareaDto tarea) {
         tareaTiendaVentaService.savePtrVentaOnlineIpodResponse(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> savePtrVentaIndividualDetalleResponse(PtrVentaIndividualDetalleResponseDto dto,
+            @Valid TareaDto tarea) {
+        tareaTiendaVentaService.savePtrVentaIndividualDetalleResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }
