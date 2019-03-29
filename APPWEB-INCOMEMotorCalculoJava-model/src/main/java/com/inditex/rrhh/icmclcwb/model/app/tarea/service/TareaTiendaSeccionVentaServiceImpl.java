@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +32,8 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
     private TareaTiendaSeccionVentaRepositoryCustom tareaTiendaSeccionVentaRepositoryCustom;
 
     @Override
-    public List<TareaTiendaSeccionVentaDto> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto,
-            final TareaDto tarea) {
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaTotalizadoResponse(@Valid final PtrVentaTotalizadoResponseDto dto,
+            @Valid final TareaDto tarea) {
         List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
             result.addAll(mapper
@@ -43,8 +45,8 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
     }
     
     @Override
-    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(final PtrVentaOnlineEntregaDomicilioResponseDto dto,
-            final TareaDto tarea) {
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(@Valid final PtrVentaOnlineEntregaDomicilioResponseDto dto,
+            @Valid final TareaDto tarea) {
         List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(mapper
@@ -56,8 +58,8 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
     }
     
     @Override
-    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto,
-            final TareaDto tarea) {
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid final PtrVentaOnlineEntregaTiendaResponseDto dto,
+            @Valid final TareaDto tarea) {
         List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(mapper
@@ -69,8 +71,8 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
     }
     
     @Override
-    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,
-            final TareaDto tarea) {
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlinePickingResponse(@Valid final PtrVentaOnlinePickingResponseDto dto,
+            @Valid final TareaDto tarea) {
         List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(mapper
@@ -82,8 +84,8 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
     }
     
     @Override
-    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto,
-            final TareaDto tarea) {
+    public List<TareaTiendaSeccionVentaDto> savePtrVentaOnlineIpodResponse(@Valid final PtrVentaOnlineIpodResponseDto dto,
+            @Valid final TareaDto tarea) {
         List<TareaTiendaSeccionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(mapper

@@ -31,7 +31,7 @@ public class TareaTiendaPresenciaSeccionServiceImpl implements TareaTiendaPresen
     }
     
     @Override
-    public List<TareaTiendaPresenciaSeccionDto> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TareaDto tarea) {
+    public List<TareaTiendaPresenciaSeccionDto> save(@Valid final List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, @Valid final TareaDto tarea) {
         return mapper.tareaTiendaPresenciaSeccionToTareaTiendaPresenciaSeccionDto(tareaTiendaPresenciaSeccionRepositoryCustom
                 .save(mapper.presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(dto, tarea)));
     }

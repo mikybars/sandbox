@@ -15,20 +15,20 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 
 public interface TareaTiendaVentaService {
 
-    List<TareaTiendaVentaDto> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea);
+    List<TareaTiendaVentaDto> savePtrVentaTotalizadoResponse(@Valid final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea);
 
     List<TareaTiendaVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(
-            final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid final TareaDto tarea);
+            @Valid final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid final TareaDto tarea);
 
-    List<TareaTiendaVentaDto> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto,
+    List<TareaTiendaVentaDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid final PtrVentaOnlineEntregaTiendaResponseDto dto,
             @Valid final TareaDto tarea);
 
-    List<TareaTiendaVentaDto> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,
+    List<TareaTiendaVentaDto> savePtrVentaOnlinePickingResponse(@Valid final PtrVentaOnlinePickingResponseDto dto,
             @Valid final TareaDto tarea);
 
-    List<TareaTiendaVentaDto> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto, @Valid final TareaDto tarea);
+    List<TareaTiendaVentaDto> savePtrVentaOnlineIpodResponse(@Valid final PtrVentaOnlineIpodResponseDto dto, @Valid final TareaDto tarea);
 
-    List<TareaTiendaVentaDto> savePtrVentaIndividualDetalleResponse(final PtrVentaIndividualDetalleResponseDto dto,
+    List<TareaTiendaVentaDto> savePtrVentaIndividualDetalleResponse(@Valid final PtrVentaIndividualDetalleResponseDto dto,
             @Valid final TareaDto tarea);
 
 }

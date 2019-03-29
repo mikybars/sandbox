@@ -44,7 +44,7 @@ public class TareaTiendaComisionHistoricoServiceImpl implements TareaTiendaComis
 
     @Override
     public List<TareaTiendaComisionHistoricoDto> saveGenericTiendaResultItemDto(
-            final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea) {
+            @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea) {
         return save(mapper
                 .genericTiendaResultItemDtoToTareaTiendaComisionHistoricoDto(genericTiendaResultItemDto), tarea);
     }

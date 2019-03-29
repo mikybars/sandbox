@@ -14,6 +14,6 @@ public interface TareaTiendaSeccionPresenciaService {
 
     CompletableFuture<Void> save(@Valid final TareaTiendaSeccionPresenciaDto dto);
 
-    CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TareaDto tarea);
+    CompletableFuture<Void> save(@Valid final List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, @Valid final TareaDto tarea);
 
 }

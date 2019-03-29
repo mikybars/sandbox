@@ -17,7 +17,7 @@ public interface TareaTiendaHistoricoService {
             @Valid final TareaDto tarea);
 
     List<TareaTiendaHistoricoDto> saveGenericTiendaResultItemDto(
-            final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
+            @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
 
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String idOrigen);

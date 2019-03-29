@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +26,7 @@ public class TareaTiendaEmpleadoPresenciaSeccionServiceImpl implements TareaTien
     private TareaTiendaEmpleadoPresenciaSeccionRepositoryCustom tareaTiendaSeccionEmpleadoPresenciaRepositoryCustom;
     
     @Override
-    public List<TareaTiendaEmpleadoPresenciaSeccionDto> save(List<PtrPresenciaDetalleComisionableResultItemDto> dtos, TareaDto tareaDto) {
+    public List<TareaTiendaEmpleadoPresenciaSeccionDto> save(@Valid final List<PtrPresenciaDetalleComisionableResultItemDto> dtos, @Valid final TareaDto tareaDto) {
        return mapper.tareaTiendaEmpleadoPresenciaSeccionToTareaTiendaEmpleadoPresenciaSeccionDto(
         tareaTiendaSeccionEmpleadoPresenciaRepositoryCustom.save(mapper
                 .presenciasDetalleComisionableResponseDtoToTareaTiendaEmpleadoPresenciaSeccion(dtos, tareaDto)));

@@ -25,8 +25,8 @@ public class TareaTiendaEstadoServiceImpl implements TareaTiendaEstadoService {
 	private TareaTiendaEstadoMapper tareaTiendaEstadoMapper;
 
 	@Override
-	public List<TareaTiendaEstadoDto> save(final List<TareaTiendaEstadoDto> tareaTiendaEstadoDto,
-			@Valid TareaDto tarea) {
+	public List<TareaTiendaEstadoDto> save(@Valid final List<TareaTiendaEstadoDto> tareaTiendaEstadoDto,
+			@Valid final TareaDto tarea) {
 		return tareaTiendaEstadoMapper.tareaTiendaEstadoToTareaTiendaEstadoDto(tareaTiendaEstadoRepositoryCustom
 				.save(tareaTiendaEstadoMapper.mergeTareaTiendaEstadoDtoAndTareaDtoToTareaTiendaEstado(
 						tareaTiendaEstadoDto, tarea)));

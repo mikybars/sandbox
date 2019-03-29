@@ -29,7 +29,7 @@ public class TareaOperacionPersonaLocalizacionVentaServiceImpl
     private TareaOperacionPersonaLocalizacionVentaMapper tareaOperacionPersonaLocalizacionVentaMapper;
     
     @Override
-    public List<TareaOperacionPersonaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponse(final PtrVentaIndividualDetalleResponseDto dto,
+    public List<TareaOperacionPersonaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponse(@Valid final PtrVentaIndividualDetalleResponseDto dto,
             @Valid final TareaDto tarea) {
         List<TareaOperacionPersonaLocalizacionVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaIndividualDetalle())) {

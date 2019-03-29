@@ -40,7 +40,7 @@ public class TareaTiendaSeccionPresenciaServiceImpl implements TareaTiendaSeccio
     }
 
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TareaDto tarea) {
+    public CompletableFuture<Void> save(@Valid final List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, @Valid final TareaDto tarea) {
         mapper.tareaTiendaSeccionPresenciasToTareaTiendaSeccionPresenciasDto(tareaTiendaSeccionPresenciaRepositoryCustom
                 .save(mapper.presenciasTotalTiendaSeccionResponseDtoToTareaTiendaSeccionPresencias(dto, tarea)));
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

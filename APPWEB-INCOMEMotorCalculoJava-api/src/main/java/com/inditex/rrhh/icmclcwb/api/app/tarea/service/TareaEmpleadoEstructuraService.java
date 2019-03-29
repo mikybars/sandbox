@@ -15,6 +15,6 @@ public interface TareaEmpleadoEstructuraService {
             @Valid final TareaDto tarea);
 
     List<TareaEmpleadoEstructuraDto> saveGenericEmpleadoResultItemDto(
-            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea);
+            @Valid final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea);
 
 }
