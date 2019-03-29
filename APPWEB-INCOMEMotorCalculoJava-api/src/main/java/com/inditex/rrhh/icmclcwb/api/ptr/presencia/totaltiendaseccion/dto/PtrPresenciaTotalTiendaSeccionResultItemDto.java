@@ -16,12 +16,10 @@ public class PtrPresenciaTotalTiendaSeccionResultItemDto {
 
 	private String fecha;
 
-	@NotNull
 	private Integer seccion;
 	
 	private Integer empresa;
 
-	@NotNull
 	private Integer minutos;
 	
 	private Integer origen;
