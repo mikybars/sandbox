@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarDto;
@@ -25,14 +25,14 @@ public class TareaEmpleadoEstadoAsyncServiceImpl implements TareaEmpleadoEstadoA
     @Autowired
     private TareaEmpleadoEstadoService tareaEmpleadoEstadoService;
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> save(final List<TareaEmpleadoEstadoDto> tareaEmpleadoEstado) {
         tareaEmpleadoEstadoService.save(tareaEmpleadoEstado);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> save(final RunTareaRecolectarDto runTareaRecolectar,
             @Valid final TareaDto tarea) {

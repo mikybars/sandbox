@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoEstructuraAsyncService;
@@ -22,7 +22,7 @@ public class TareaEmpleadoEstructuraAsyncServiceImpl implements TareaEmpleadoEst
     @Autowired
     private TareaEmpleadoEstructuraService tareaEmpleadoEstructuraService;
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> save(final List<TareaEmpleadoEstructuraDto> tareaEmpleadoEstructura,
             @Valid final TareaDto tarea) {
@@ -30,7 +30,7 @@ public class TareaEmpleadoEstructuraAsyncServiceImpl implements TareaEmpleadoEst
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(
             final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {

@@ -19,10 +19,30 @@ amiga:
         enabled: false
     async:
       default-executor:
-        #name-format: async-test-default-executor-%d
-        core-pool-size: 25
-        maximum-pool-size: 150
-        keep-alive-time: 60s
+        core-pool-size: 5
+        maximum-pool-size: 100
+        queue-size: 200
+    executor:
+      meta4-executor:
+        name: async-meta4-executor
+        core-pool-size: 5
+        maximum-pool-size: 10
+        queue-size: 200
+      ptr-venta-executor:
+        name: async-ptr-venta-executor
+        core-pool-size: 5
+        maximum-pool-size: 10
+        queue-size: 200
+      ptr-presencia-executor:
+        name: async-ptr-presencia-executor
+        core-pool-size: 5
+        maximum-pool-size: 10
+        queue-size: 200
+      repository-primary-executor:
+        name: async-repository-primary-executor
+        core-pool-size: 5
+        maximum-pool-size: 10
+        queue-size: 200
   service:
     session:
       session-type: REMOTE

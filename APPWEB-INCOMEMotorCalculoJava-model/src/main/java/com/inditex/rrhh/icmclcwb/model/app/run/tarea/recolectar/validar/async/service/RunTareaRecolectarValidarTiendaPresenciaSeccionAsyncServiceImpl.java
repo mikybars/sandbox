@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -21,7 +21,7 @@ public class RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncServiceImpl
     @Autowired
     private RunTareaRecolectarValidarTiendaPresenciaSeccionService runTareaRecolectarValidarTiendaPresenciaSeccionService;
     
-    @Async
+    
     @Override
     public CompletableFuture<Void> run(@NotNull @Valid RunTareaDto runTarea) {
         runTareaRecolectarValidarTiendaPresenciaSeccionService.run(runTarea);

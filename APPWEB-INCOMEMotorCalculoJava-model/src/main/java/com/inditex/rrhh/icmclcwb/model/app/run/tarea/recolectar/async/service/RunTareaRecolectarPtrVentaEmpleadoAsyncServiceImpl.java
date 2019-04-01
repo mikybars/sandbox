@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -18,28 +18,28 @@ public class RunTareaRecolectarPtrVentaEmpleadoAsyncServiceImpl
     @Autowired
     private RunTareaRecolectarPtrVentaEmpleadoService tareaRecolectarPtrVentaEmpleadoService;
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> ventaFisicaDetalleLocalizacionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
-    @Async
+    
     @Override
     public CompletableFuture<Void> ventaFisicaDetalleOperacionLocalizacionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleOperacionLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
-    @Async
+    
     @Override
     public CompletableFuture<Void> ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
-    @Async
+    
     @Override
     public CompletableFuture<Void> ventaFisicaDetalleVendedorLocalizacionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleVendedorLocalizacionByRunTarea(runTarea);

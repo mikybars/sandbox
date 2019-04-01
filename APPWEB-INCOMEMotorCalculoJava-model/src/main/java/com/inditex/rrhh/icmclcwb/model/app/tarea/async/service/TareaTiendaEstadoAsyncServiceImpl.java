@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarDto;
@@ -24,7 +24,7 @@ public class TareaTiendaEstadoAsyncServiceImpl implements TareaTiendaEstadoAsync
     @Autowired
     private TareaTiendaEstadoService tareaTiendaEstadoService;
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> save(final RunTareaRecolectarDto runTareaRecolectar, final TareaDto tarea) {
         List<TareaTiendaEstadoDto> list = Stream

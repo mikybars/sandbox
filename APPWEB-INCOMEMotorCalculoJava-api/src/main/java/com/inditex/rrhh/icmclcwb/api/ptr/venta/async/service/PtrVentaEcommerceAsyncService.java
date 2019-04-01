@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.scheduling.annotation.Async;
+
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaRequestDto;
@@ -21,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproducthour
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteResponseDto;
 
+@Async("ptrVentaExecutor")
 public interface PtrVentaEcommerceAsyncService {
 
     CompletableFuture<String> test();

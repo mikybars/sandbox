@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaSeccionVentaAsyncService;
@@ -24,35 +24,35 @@ public class TareaTiendaSeccionVentaAsyncServiceImpl implements TareaTiendaSecci
     @Autowired
     private TareaTiendaSeccionVentaService tareaTiendaSeccionVentaService;
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea)  {
         tareaTiendaSeccionVentaService.savePtrVentaTotalizadoResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid final TareaDto tarea)  {
         tareaTiendaSeccionVentaService.savePtrVentaOnlineEntregaDomicilioResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
-    @Async
+    
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid final TareaDto tarea)  {
         tareaTiendaSeccionVentaService.savePtrVentaOnlineEntregaTiendaResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto, @Valid final TareaDto tarea)  {
         tareaTiendaSeccionVentaService.savePtrVentaOnlinePickingResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
-    @Async
+    
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto dto,
             @Valid TareaDto tarea) {

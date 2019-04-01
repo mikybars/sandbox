@@ -5,10 +5,13 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 
+import org.springframework.scheduling.annotation.Async;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstadoDto;
 
+@Async("repositoryPrimaryExecutor")
 public interface TareaEmpleadoEstadoAsyncService {
 	
 	CompletableFuture<Void> save(List<TareaEmpleadoEstadoDto> tareaEmpleadoEstado);

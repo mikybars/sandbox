@@ -2,9 +2,12 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.scheduling.annotation.Async;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 
+@Async
 public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> tiendasHistorico(final RunTareaDto runTarea,

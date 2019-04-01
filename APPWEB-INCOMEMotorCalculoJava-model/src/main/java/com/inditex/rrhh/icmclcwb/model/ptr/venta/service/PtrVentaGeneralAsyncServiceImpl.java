@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.ptr.venta.service;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaGeneralAsyncService;
@@ -27,53 +27,53 @@ public class PtrVentaGeneralAsyncServiceImpl implements PtrVentaGeneralAsyncServ
     @Autowired
     private PtrVentaGeneralService ptrVentaGeneralService;
 
-    @Async
+    
     @Override
     public CompletableFuture<PtrVentaDiariaResponseDto> ventaDiaria(final PtrVentaDiariaRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaDiaria(request));
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<PtrVentaMensualResponseDto> ventaMensual(final PtrVentaMensualRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaMensual(request));
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<PtrVentaPresupuestadaMensualResponseDto> ventaPresupuestadaMensual(
             final PtrVentaPresupuestadaMensualRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaPresupuestadaMensual(request));
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<PtrVentaTotalizadoResponseDto> ventaTotalizado(
             final PtrVentaTotalizadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizado(request));
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<PtrVentaTotalizadoByMccResponseDto> ventaTotalizadoByMcc(
             final PtrVentaTotalizadoByMccRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizadoByMcc(request));
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<PtrVentaTotalizadoXmlResponseDto> ventaTotalizadoXML(
             final PtrVentaTotalizadoXmlRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizadoXML(request));
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<String> test() {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.test());
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<String> version() {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.version());

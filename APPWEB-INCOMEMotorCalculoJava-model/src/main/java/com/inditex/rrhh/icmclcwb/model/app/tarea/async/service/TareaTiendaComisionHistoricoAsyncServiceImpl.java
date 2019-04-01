@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaComisionHistoricoAsyncService;
@@ -22,14 +22,14 @@ public class TareaTiendaComisionHistoricoAsyncServiceImpl implements TareaTienda
     @Autowired
     private TareaTiendaComisionHistoricoService tareaTiendaComisionHistoricoService;
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> save(final List<TareaTiendaComisionHistoricoDto> tareaTiendaComisionHistoricoDto, @Valid TareaDto tarea) {
         tareaTiendaComisionHistoricoService.save(tareaTiendaComisionHistoricoDto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> saveGenericTiendaResultItemDto(final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid TareaDto tarea) {
         tareaTiendaComisionHistoricoService.saveGenericTiendaResultItemDto(genericTiendaResultItemDto, tarea);

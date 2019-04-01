@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaHistoricoAsyncService;
@@ -20,7 +20,7 @@ public class TareaTiendaHistoricoAsyncServiceImpl implements TareaTiendaHistoric
     @Autowired
     private TareaTiendaHistoricoService tareaTiendaHistoricoService;
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> save(final List<TareaTiendaHistoricoDto> tareaTiendaHistorico,
             final TareaDto tarea) {
@@ -28,7 +28,7 @@ public class TareaTiendaHistoricoAsyncServiceImpl implements TareaTiendaHistoric
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> saveGenericTiendaResultItemDto(
             final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, final TareaDto tarea) {

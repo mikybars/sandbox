@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.scheduling.annotation.Async;
+
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.diaria.dto.PtrVentaDiariaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.diaria.dto.PtrVentaDiariaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.mensual.dto.PtrVentaMensualRequestDto;
@@ -15,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadobymcc.dto.PtrVentaTotal
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotalizadoXmlRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotalizadoXmlResponseDto;
 
+@Async("ptrVentaExecutor")
 public interface PtrVentaGeneralAsyncService {
 
     CompletableFuture<PtrVentaDiariaResponseDto> ventaDiaria(PtrVentaDiariaRequestDto request);

@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -26,7 +26,7 @@ public class RunTareaRecolectarPivotAsyncServiceImpl implements RunTareaRecolect
     @Autowired
     private TareaTiendaVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
 
-    @Async
+    
     @Override
     public CompletableFuture<Void> pivot(@Valid final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();

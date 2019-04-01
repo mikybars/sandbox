@@ -6,11 +6,14 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 
+import org.springframework.scheduling.annotation.Async;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaSeccionEmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResultItemDto;
 
 @Deprecated
+@Async("repositoryPrimaryExecutor")
 public interface TareaTiendaSeccionEmpleadoPresenciaAsyncService {
 
     CompletableFuture<Void> save(@Valid TareaTiendaSeccionEmpleadoPresenciaDto dto);
