@@ -48,16 +48,16 @@ public class PtrVentaIndividualByMccRequestDto implements Serializable {
 	private List<Integer> vendedores = new ArrayList<>();
 	
     @ApiModelProperty(value = "Modelo/Calidad/Color", required = false, example = "{ 'model':1, 'quality': 1, 'colour' : 1}")
-    private MccType mcc;
+    private List<MccType> mcc;
     
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
     private Integer empresa;
     
     @ApiModelProperty(value = "Id familia", required = false, example = "1")
-    private Integer familia;
+    private List<Integer> familia;
     
     @ApiModelProperty(value = "Id subfamilia", required = false, example = "1")
-    private Integer subFamilia;
+    private List<Integer> subFamilia;
 	
     @ApiModelProperty(value = "Agrupación de datos", required = false, example = "FECHA_VENDEDOR_TIENDA")
 	private PtrGroupTypeEnum agrupacion;

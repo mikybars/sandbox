@@ -101,12 +101,16 @@ app:
         algoritmo:
           getConfig:
             maxBatchSize: 1000
+    repository:
+      batch-size:
+        default: 100
+        tarea-tienda-venta: 200
     ptr:
       config:
         maxAttempts: 2
       venta:
         service:
-          version: 1.0.25
+          version: 1.0.26-rc.1
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
