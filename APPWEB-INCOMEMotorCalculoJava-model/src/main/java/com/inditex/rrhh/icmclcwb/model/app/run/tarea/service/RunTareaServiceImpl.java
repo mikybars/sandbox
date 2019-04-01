@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
@@ -29,6 +30,9 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private RunTareaRecolectarService runTareaRecolectarService;
+    
+    @Autowired
+    private RunTareaProcesarService runTareaProcesarService;
 
     @Autowired
     private RunTareaCalcularService runTareaCalcularService;
@@ -48,6 +52,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             tareaService.modifyFechaInicioTarea(runTarea.getTarea());
             runTareaRecolectarService.run(runTarea);
             runTareaRecolectarValidarService.run(runTarea);
+            runTareaProcesarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {

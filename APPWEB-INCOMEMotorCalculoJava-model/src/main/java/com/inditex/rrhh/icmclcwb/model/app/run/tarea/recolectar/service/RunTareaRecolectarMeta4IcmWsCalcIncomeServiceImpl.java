@@ -818,6 +818,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     private void localizacionHistoricoByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         TrabajoDto trabajo = runTarea.getTrabajo();
         TareaDto tarea = runTarea.getTarea(); 
         List<IdPersonaDto> idsPersona = tareaEmpleadoHistoricoervice.findIdPersonaByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
@@ -833,7 +834,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 AsyncUtils.exceptionally(cfDataSearchTiendas, cf);
                 List<GenericTiendaResultItemDto> tiendas = cfDataSearchTiendas.get();
                 if (CollectionUtils.isNotEmpty(tiendas)) {
-                    List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                     AsyncUtils.checkAsyncAvaliable(cfPersist, 
                             meta4Properties.get(Meta4Constants.SEARCH_TIENDAS).getFilter().getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaTiendaHistoricoAsyncService

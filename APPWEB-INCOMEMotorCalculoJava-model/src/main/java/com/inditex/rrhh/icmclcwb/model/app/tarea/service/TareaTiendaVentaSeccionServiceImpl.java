@@ -27,14 +27,14 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVenta
 public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSeccionService {
     
     @Autowired
-    private TareaTiendaVentaSeccionRepositoryCustom tareaTiendaVentaSeccionRepository;
+    private TareaTiendaVentaSeccionRepositoryCustom tareaTiendaVentaSeccionRepositoryCustom;
     
     @Autowired
     private TareaTiendaVentaSeccionMapper tareaTiendaVentaSeccionMapper;
 
     @Override
     public void pivot(@Valid final TareaDto tareaDto) {
-        tareaTiendaVentaSeccionRepository.save(tareaDto);
+        tareaTiendaVentaSeccionRepositoryCustom.save(tareaDto);
     }
     
     @Override
@@ -43,7 +43,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
             result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepository.save(
+                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
                             tareaTiendaVentaSeccionMapper.getVentaTotalizadoResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaTotalizado(),
                                     tarea))));
         }
@@ -56,7 +56,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepository.save(
+                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
                             tareaTiendaVentaSeccionMapper.getVentaOnlineIpodResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
                                     tarea))));
         }
@@ -69,7 +69,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnlineIpodIndividual())) {
             result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepository.save(
+                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
                             tareaTiendaVentaSeccionMapper.getVentaOnlineIpodIndividualDetalleResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnlineIpodIndividual(),
                                     tarea))));
         }
@@ -82,7 +82,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepository.save(
+                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
                             tareaTiendaVentaSeccionMapper.getVentaOnlinePickingResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
                                     tarea))));
         }
@@ -95,7 +95,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepository.save(
+                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
                             tareaTiendaVentaSeccionMapper.getVentaOnlineEntregaTiendaResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
                                     tarea))));
         }
@@ -108,7 +108,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepository.save(
+                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
                             tareaTiendaVentaSeccionMapper.getVentaOnlineEntregaDomicilioResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
                                     tarea))));
         }

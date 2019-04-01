@@ -212,5 +212,4 @@ public abstract class TareaTiendaVentaSeccionMapper {
         tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
         tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId());
     }
-    
 }

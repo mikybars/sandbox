@@ -33,6 +33,7 @@ public enum TipoImporteVentaEnum {
     IMPORTE_VENTA_LOCALIZACION(24L), 
     IMPORTE_VENTA_LOCALIZACION_SECCION(25L);
     
+
     private final Long id;
 
 }
