@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
-import javax.validation.constraints.Positive;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,73 +21,73 @@ public class TareaValidarAsyncServiceImpl implements TareaValidarAsyncService {
     
     
     @Override
-    public CompletableFuture<List<String>> checkDuplicatedEmpleados(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<List<String>> checkDuplicatedEmpleados(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.checkDuplicatedEmpleados(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<List<String>> checkDuplicatedTiendas(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<List<String>> checkDuplicatedTiendas(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.checkDuplicatedTiendas(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<List<String>> checkDuplicatedTiendasHistorico(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<List<String>> checkDuplicatedTiendasHistorico(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.checkDuplicatedTiendasHistorico(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<Integer> countEmpleados(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<Integer> countEmpleados(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countEmpleados(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<Integer> countEmpleadosHistorico(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<Integer> countEmpleadosHistorico(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countEmpleadosHistorico(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<Integer> countTiendas(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<Integer> countTiendas(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendas(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<Integer> countTiendasHistorico(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<Integer> countTiendasHistorico(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendasHistorico(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<Integer> countEstructuras(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<Integer> countEstructuras(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countEstructuras(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<Integer> countTiendaPresenciaSeccion(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<Integer> countTiendaPresenciaSeccion(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendaPresenciaSeccion(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<Integer> countTiendaEmpleadoPresenciaSeccion(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<Integer> countTiendaEmpleadoPresenciaSeccion(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendaEmpleadoPresenciaSeccion(idTarea));
     }
 
     
     @Override
-    public CompletableFuture<Integer> countTiendaVentaSeccion(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<Integer> countTiendaVentaSeccion(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendaVentaSeccion(idTarea));
     }
     
     
     @Override
-    public CompletableFuture<List<String>> validateAmbito(@NotNull @Positive Long idTarea) {
+    public CompletableFuture<List<String>> validateAmbito(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.validateAmbito(idTarea));
     }
     
