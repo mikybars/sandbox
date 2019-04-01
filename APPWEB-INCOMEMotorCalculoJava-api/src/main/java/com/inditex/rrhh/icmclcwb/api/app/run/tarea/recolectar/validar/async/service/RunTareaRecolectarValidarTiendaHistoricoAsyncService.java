@@ -2,8 +2,8 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.ser
 
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+
+
 
 import org.springframework.scheduling.annotation.Async;
 
@@ -12,6 +12,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 @Async
 public interface RunTareaRecolectarValidarTiendaHistoricoAsyncService {
 
-    CompletableFuture<Void> run(@NotNull @Valid RunTareaDto runTarea);
+    CompletableFuture<Void> run(RunTareaDto runTarea);
 
 }

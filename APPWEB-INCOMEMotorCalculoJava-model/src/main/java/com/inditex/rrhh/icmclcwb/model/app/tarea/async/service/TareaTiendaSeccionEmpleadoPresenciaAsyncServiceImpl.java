@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,7 +25,7 @@ public class TareaTiendaSeccionEmpleadoPresenciaAsyncServiceImpl implements Tare
     
     
     @Override
-    public CompletableFuture<Void> save(@Valid final TareaTiendaSeccionEmpleadoPresenciaDto dto) {
+    public CompletableFuture<Void> save(final TareaTiendaSeccionEmpleadoPresenciaDto dto) {
         tareaTiendaSeccionEmpleadoPresenciaService.save(dto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

@@ -2,8 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.validar.async.s
 
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,7 +22,7 @@ public class RunTareaRecolectarValidarTiendaAsyncServiceImpl implements RunTarea
     
     
     @Override
-    public CompletableFuture<Void> run(@NotNull @Valid RunTareaDto runTarea) {
+    public CompletableFuture<Void> run(RunTareaDto runTarea) {
         runTareaRecolectarValidarTiendaService.run(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

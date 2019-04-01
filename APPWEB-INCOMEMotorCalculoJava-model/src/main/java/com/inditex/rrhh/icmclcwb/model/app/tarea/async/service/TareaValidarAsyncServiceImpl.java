@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;

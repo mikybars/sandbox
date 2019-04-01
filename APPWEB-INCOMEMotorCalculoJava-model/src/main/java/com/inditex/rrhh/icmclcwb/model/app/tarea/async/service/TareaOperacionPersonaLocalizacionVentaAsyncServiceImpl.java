@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,7 +23,7 @@ public class TareaOperacionPersonaLocalizacionVentaAsyncServiceImpl
     
     
     @Override
-    public CompletableFuture<Void> savePtrVentaIndividualDetalleResponse(final PtrVentaIndividualDetalleResponseDto dto, @Valid final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaIndividualDetalleResponse(final PtrVentaIndividualDetalleResponseDto dto,final TareaDto tarea)  {
         tareaOperacionPersonaLocalizacionVentaService.savePtrVentaIndividualDetalleResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

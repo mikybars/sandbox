@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,7 +23,7 @@ public class TareaTiendaPresenciaSeccionAsyncServiceImpl implements TareaTiendaP
     
     
     @Override
-    public CompletableFuture<Void> pivot(@Valid final TareaDto tarea)  {
+    public CompletableFuture<Void> pivot(final TareaDto tarea)  {
         tareaTiendaPresenciaSeccionService.pivot(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

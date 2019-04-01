@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,7 +35,7 @@ public class TareaEmpleadoEstadoAsyncServiceImpl implements TareaEmpleadoEstadoA
     
     @Override
     public CompletableFuture<Void> save(final RunTareaRecolectarDto runTareaRecolectar,
-            @Valid final TareaDto tarea) {
+           final TareaDto tarea) {
         List<TareaEmpleadoEstadoDto> list = new ArrayList<>();
         list.addAll(runTareaRecolectar.getUno().getEmpleado().stream().collect(Collectors.toList()));
         list.addAll(runTareaRecolectar.getDos().getEmpleado().stream().collect(Collectors.toList()));

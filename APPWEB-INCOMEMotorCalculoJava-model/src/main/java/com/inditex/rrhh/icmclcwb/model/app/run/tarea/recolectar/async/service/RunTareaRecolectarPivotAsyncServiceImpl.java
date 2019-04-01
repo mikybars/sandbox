@@ -2,13 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPivotAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaPresenciaSeccionAsyncService;
@@ -17,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
-@Validated
 public class RunTareaRecolectarPivotAsyncServiceImpl implements RunTareaRecolectarPivotAsyncService {
 
     @Autowired
@@ -26,9 +21,8 @@ public class RunTareaRecolectarPivotAsyncServiceImpl implements RunTareaRecolect
     @Autowired
     private TareaTiendaVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
 
-    
     @Override
-    public CompletableFuture<Void> pivot(@Valid final RunTareaDto runTarea) {
+    public CompletableFuture<Void> pivot(final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
         // tareaTiendaPresenciaSeccionAsyncService.pivot(tarea);
 //        tareaTiendaVentaSeccionAsyncService.pivot(tarea);

@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,28 +26,28 @@ public class TareaTiendaSeccionVentaAsyncServiceImpl implements TareaTiendaSecci
 
     
     @Override
-    public CompletableFuture<Void> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto,final TareaDto tarea)  {
         tareaTiendaSeccionVentaService.savePtrVentaTotalizadoResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(final PtrVentaOnlineEntregaDomicilioResponseDto dto,final TareaDto tarea)  {
         tareaTiendaSeccionVentaService.savePtrVentaOnlineEntregaDomicilioResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
     
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto,final TareaDto tarea)  {
         tareaTiendaSeccionVentaService.savePtrVentaOnlineEntregaTiendaResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto, @Valid final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,final TareaDto tarea)  {
         tareaTiendaSeccionVentaService.savePtrVentaOnlinePickingResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -55,7 +55,7 @@ public class TareaTiendaSeccionVentaAsyncServiceImpl implements TareaTiendaSecci
     
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto dto,
-            @Valid TareaDto tarea) {
+           TareaDto tarea) {
         tareaTiendaSeccionVentaService.savePtrVentaOnlineIpodResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

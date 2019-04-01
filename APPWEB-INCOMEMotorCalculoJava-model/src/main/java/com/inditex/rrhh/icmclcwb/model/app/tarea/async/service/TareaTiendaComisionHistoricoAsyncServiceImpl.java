@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,14 +24,14 @@ public class TareaTiendaComisionHistoricoAsyncServiceImpl implements TareaTienda
 
     
     @Override
-    public CompletableFuture<Void> save(final List<TareaTiendaComisionHistoricoDto> tareaTiendaComisionHistoricoDto, @Valid TareaDto tarea) {
+    public CompletableFuture<Void> save(final List<TareaTiendaComisionHistoricoDto> tareaTiendaComisionHistoricoDto,TareaDto tarea) {
         tareaTiendaComisionHistoricoService.save(tareaTiendaComisionHistoricoDto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     
     @Override
-    public CompletableFuture<Void> saveGenericTiendaResultItemDto(final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid TareaDto tarea) {
+    public CompletableFuture<Void> saveGenericTiendaResultItemDto(final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,TareaDto tarea) {
         tareaTiendaComisionHistoricoService.saveGenericTiendaResultItemDto(genericTiendaResultItemDto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

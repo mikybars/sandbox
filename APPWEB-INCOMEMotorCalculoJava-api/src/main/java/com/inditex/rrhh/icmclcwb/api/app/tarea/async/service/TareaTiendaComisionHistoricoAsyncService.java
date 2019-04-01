@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
+
 
 import org.springframework.scheduling.annotation.Async;
 
@@ -15,9 +15,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 public interface TareaTiendaComisionHistoricoAsyncService {
 
     CompletableFuture<Void> save(List<TareaTiendaComisionHistoricoDto> tareaTiendaComisionHistoricoDto,
-            @Valid TareaDto tarea);
+           TareaDto tarea);
 
     CompletableFuture<Void> saveGenericTiendaResultItemDto(List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
-            @Valid TareaDto tarea);
+           TareaDto tarea);
 
 }
