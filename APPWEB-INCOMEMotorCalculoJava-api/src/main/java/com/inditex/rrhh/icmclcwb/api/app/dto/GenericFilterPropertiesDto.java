@@ -9,6 +9,4 @@ public abstract class GenericFilterPropertiesDto {
 
     private Integer maxPersistenceSize;
 
-    private Integer maxBatchSize;
-
 }

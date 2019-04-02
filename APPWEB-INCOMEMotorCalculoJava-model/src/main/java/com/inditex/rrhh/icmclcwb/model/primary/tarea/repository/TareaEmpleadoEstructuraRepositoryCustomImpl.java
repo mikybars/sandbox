@@ -4,15 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoEstructura;
 
@@ -20,16 +15,15 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoEstruct
 public class TareaEmpleadoEstructuraRepositoryCustomImpl extends
         JdbcBatchPrimaryRepositoryAbstract<TareaEmpleadoEstructura> implements TareaEmpleadoEstructuraRepositoryCustom {
 
-    @Autowired
-    @Qualifier("meta4Properties")
-    private Map<String, Meta4PropertiesDto> meta4Properties;
+    @Value("${app.envars.repository.batch-size.tarea-empleado-estructura:${app.envars.repository.batch-size.default}}")
+    private int batchSize;
 
     @Value("#{primaryQuery['TareaEmpleadoEstructuraRepositoryCustom.save']}")
     private String sqlSave;
 
     @Override
     public List<TareaEmpleadoEstructura> save(final List<TareaEmpleadoEstructura> src) {
-        return saveJdbcBatchList(src, sqlSave, meta4Properties.get(Meta4Constants.COMISION_EMPLEADO).getFilter().getMaxBatchSize());
+        return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override
