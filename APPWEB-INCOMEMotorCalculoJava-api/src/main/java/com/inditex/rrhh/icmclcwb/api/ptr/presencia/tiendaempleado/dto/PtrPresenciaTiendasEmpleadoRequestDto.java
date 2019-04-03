@@ -33,4 +33,7 @@ public class PtrPresenciaTiendasEmpleadoRequestDto {
     
     @ApiModelProperty(value = "Tipo", required = false, allowableValues = "1")
     private List<Integer> tipo;
+    
+    @ApiModelProperty(value = "Agrupacion", required = false, allowableValues = "TIENDA, TIENDA_PERSONA")
+    private String agrupacion;
 }

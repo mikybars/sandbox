@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +122,7 @@ public class PtrPresenciaServiceTest {
         req.setCadena(PtrTestConstants.CADENA_LIST);
         req.setPersona(PtrTestConstants.PERSONA_LIST);
         req.setTipo(PtrTestConstants.TIPO_LIST);
+        req.setAgrupacion(PtrTestConstants.AGRUPACION);
         ResponseEntity<PtrPresenciaTiendasEmpleadoResponseDto> ret = ptrPresenciaClient.postForEntity(
                 presenciasProperties.get(PtrConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), req,
                 PtrPresenciaTiendasEmpleadoResponseDto.class);

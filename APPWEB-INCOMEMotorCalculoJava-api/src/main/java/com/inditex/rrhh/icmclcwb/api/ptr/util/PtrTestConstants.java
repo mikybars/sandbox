@@ -64,7 +64,7 @@ public class PtrTestConstants {
     
     public static final PtrPresenciaTiendaSeccionDto TIENDA_SECCION_2 = new PtrPresenciaTiendaSeccionDto(150, null);
 
-    
+    public static final String AGRUPACION = "TIENDA";
     
 
 
