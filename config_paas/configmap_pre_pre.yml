@@ -61,7 +61,7 @@ app:
       cast: false
       precision: 'AS DECIMAL(23, 8)'  
     tarea:
-      recolectar:		
+      recolectar:
         days-number: 3
       validar:
         enabled: true
