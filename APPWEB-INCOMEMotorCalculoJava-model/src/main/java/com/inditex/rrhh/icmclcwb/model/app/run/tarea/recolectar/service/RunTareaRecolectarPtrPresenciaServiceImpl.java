@@ -21,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaService;
@@ -146,6 +147,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 for (String cadena : runTareaRecolectarBloque.getCadenaEmpresa()) {
@@ -156,7 +158,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                         List<Integer> tiendas = iter.stream().map(Integer::valueOf).collect(Collectors.toList());
                         PtrPresenciaTotalTiendaRequestDto paramPresenciasTotalTienda = tareaMapper
                                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaRequestDto(
-                                        trabajo, tarea, tareaAmbito);
+                                        trabajo, tarea, tareaAmbito, recolectarProperties);
                         paramPresenciasTotalTienda.setCadena(Integer.valueOf(cadena));
                         paramPresenciasTotalTienda.setTienda(tiendas);
 //                        paramPresenciasTotalTienda.setAgruparSeccion(PtrConstants.AGRUPAR_SECCION_TRUE);+
@@ -188,6 +190,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 for (String cadena : runTareaRecolectarBloque.getCadenaEmpresa()) {
@@ -199,8 +202,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                                 item -> PtrPresenciaTiendaSeccionDto.builder().tienda(Integer.valueOf(item)).build())
                                 .collect(Collectors.toList());
                         PtrPresenciaTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = tareaMapper
-                                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
-                                        trabajo, tarea, tareaAmbito);
+                                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaSecceionRequestDto(trabajo, tarea, tareaAmbito, recolectarProperties);
                         paramPresenciasTotalTiendaSeccion.setCadena(Integer.valueOf(cadena));
                         paramPresenciasTotalTiendaSeccion.setTiendaSeccion(tiendas);
                         paramPresenciasTotalTiendaSeccion.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
@@ -299,14 +301,15 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
                     tareaAmbito.getIdOrigen()),
                     presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
                 PtrPresenciaTotalTiendaSeccionRequestDto paramPresenciasTotalTiendaSeccion = tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaSeccionRequestDto(
-                                trabajo, tarea, tareaAmbito);
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaSecceionRequestDto(
+                                trabajo, tarea, tareaAmbito, recolectarProperties);
                 paramPresenciasTotalTiendaSeccion.setTiendaSeccion(iter.stream().map(e -> PtrPresenciaTiendaSeccionDto.builder().tienda(Integer.valueOf(e.getId())).build()).collect(Collectors.toList()));
                 paramPresenciasTotalTiendaSeccion.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
 

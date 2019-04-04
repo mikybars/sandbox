@@ -4,12 +4,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
@@ -30,6 +32,10 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
 
     @Autowired
     private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
+    
+    @Autowired
+    @Qualifier(value="recolectarProperties")
+    private RecolectarPropertiesDto recolectarProperties;
 
     @Auditoria
     @CounterMetric
@@ -38,6 +44,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
         final TareaDto tarea = runTarea.getTarea();
         if (EstadoTareaEnum.PENDIENTE_RECOLECTAR.getId().equals(tarea.getEstado().getId())) {
+            runTarea.getRecolectarProperties().setDaysNumber(recolectarProperties.getDaysNumber());
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_RECOLECTAR.getDto());
             runTareaRecolectarAmbitoService.run(runTarea);
             // TODO Una vez tengamos las localizaciones, personas y condiciones hay que

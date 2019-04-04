@@ -61,14 +61,16 @@ app:
       cast: false
       precision: 'AS DECIMAL(23, 8)'  
     tarea:
+      recolectar:
+        days-number: 3
       validar:
         enabled: true
         logging: true
         exception: true
       calcular:
         algoritmo:
-          getConfig:
-            maxBatchSize: 1000
+          config:
+            batch-size: 1000
     repository:
       batch-size:
         default: 100            

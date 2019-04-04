@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
@@ -28,5 +29,7 @@ public class RunTareaDto implements Serializable {
     private final RunTareaRecolectarDto runTareaRecolectar = new RunTareaRecolectarDto();
 
     private final RunTareaCalcularDto runTareaCalcular = new RunTareaCalcularDto();
+    
+    private final RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
 
 }
