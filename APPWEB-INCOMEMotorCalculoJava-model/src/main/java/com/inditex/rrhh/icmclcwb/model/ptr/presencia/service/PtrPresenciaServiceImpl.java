@@ -40,7 +40,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     @Qualifier("presenciasProperties")
     private Map<String, PtrPropertiesDto> presenciasProperties;
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTotalTiendaSeccionResponseDto presenciasTotalTiendaSeccion(
             @Valid final PtrPresenciaTotalTiendaSeccionRequestDto request) {
@@ -50,7 +50,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getEndpoint(), request);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaDetalleResponseDto presenciasDetalle(@Valid final PtrPresenciaDetalleRequestDto request) {
         return RestUtils.checkResponse(
@@ -59,7 +59,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE).getEndpoint(), request);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaDetalleComisionableResponseDto presenciasDetalleComisionable(
             @Valid final PtrPresenciaDetalleComisionableRequestDto request) {
@@ -69,7 +69,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(), request);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid final PtrPresenciaTiposHorasRequestDto request) {
         return RestUtils.checkResponse(
@@ -78,7 +78,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTotalTiendaResponseDto presenciasTotalTienda(
             @Valid final PtrPresenciaTotalTiendaRequestDto request) {
@@ -88,7 +88,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTiendasEmpleadoResponseDto presenciasTiendasEmpleado(
             @Valid final PtrPresenciaTiendasEmpleadoRequestDto request) {
@@ -98,7 +98,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String test() {
         return RestUtils.checkResponse(
@@ -107,7 +107,7 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TEST).getEndpoint(), null);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String version() {
         return RestUtils.checkResponse(

@@ -32,7 +32,7 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
     @Qualifier("acumuladoVentaImporteProperties")
     private Map<String, PtrPropertiesDto> acumuladoVentaImporteProperties;
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrObtenerVentaAcumuladaResponseDto ventaAcumulada(
             @Valid final PtrObtenerVentaAcumuladaRequestDto request) {
@@ -44,7 +44,7 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrObtenerVentaAcumuladaDiaResponseDto ventaAcumuladaDia(
             @Valid final PtrObtenerVentaAcumuladaDiaRequestDto request) {
@@ -56,7 +56,7 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String test() {
         return RestUtils.checkResponse(
@@ -65,7 +65,7 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
                 ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_TEST).getEndpoint(), null);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String version() {
         return RestUtils.checkResponse(

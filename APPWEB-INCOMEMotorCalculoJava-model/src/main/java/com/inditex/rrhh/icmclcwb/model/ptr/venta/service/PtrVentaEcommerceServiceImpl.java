@@ -47,7 +47,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
     @Qualifier("ventaEcommerceProperties")
     private Map<String, PtrPropertiesDto> ventaEcommerceProperties;
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOnlineIpodResponseDto ventaOnlineiPod(
             @Valid final PtrVentaOnlineIpodRequestDto request) {
@@ -59,7 +59,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOnlineIpodIndividualDetalleResponseDto ventaOnlineiPodIndividualDetalle(
             @Valid final PtrVentaOnlineIpodIndividualDetalleRequestDto request) {
@@ -71,7 +71,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOnlineEntregaDomicilioResponseDto ventaOnlineEntregaDomicilio(
             @Valid final PtrVentaOnlineEntregaDomicilioRequestDto request) {
@@ -83,7 +83,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOnlineEntregaTiendaResponseDto ventaOnlineEntregaTienda(
             @Valid final PtrVentaOnlineEntregaTiendaRequestDto request) {
@@ -95,7 +95,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOnlinePickingResponseDto ventaOnlinePicking(
             @Valid final PtrVentaOnlinePickingRequestDto request) {
@@ -107,7 +107,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOrdersByCountryHourResponseDto ordersByCountryHour(
             @Valid final PtrVentaOrdersByCountryHourRequestDto request) {
@@ -119,7 +119,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOrdersByCountryMinuteResponseDto ordersByCountryMinute(
             @Valid final PtrVentaOrdersByCountryMinuteRequestDto request) {
@@ -131,7 +131,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }    
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOrdersByCountrySectionProductHourResponseDto ordersByCountrySectionProductHour(
             @Valid final PtrVentaOrdersByCountrySectionProductHourRequestDto request) {
@@ -143,7 +143,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaOrdersByCountrySectionProductMinuteResponseDto ordersByCountrySectionProductMinute(
             @Valid final PtrVentaOrdersByCountrySectionProductMinuteRequestDto request) {
@@ -155,7 +155,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String test() {
         return RestUtils.checkResponse(
@@ -164,7 +164,7 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                 ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_EMPLEADO_TEST).getEndpoint(), null);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String version() {
         return RestUtils.checkResponse(

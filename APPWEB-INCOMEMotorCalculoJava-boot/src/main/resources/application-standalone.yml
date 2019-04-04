@@ -109,7 +109,7 @@ app:
         tarea-tienda-venta: 200
     ptr:
       config:
-        maxAttempts: 2
+        max-attempts: 2
       venta:
         service:
           version: 1.0.27
@@ -278,7 +278,7 @@ app:
               endpoint: /presenciasService/getVersion                
     meta4:
       config:
-        maxAttempts: 20
+        max-attempts: 20
         credentials:
           user: INCOME_CALC
           password: 123

@@ -36,7 +36,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
     @Qualifier("ventaEmpleadoProperties")
     private Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaIndividualDetalleResponseDto ventaIndividualDetalle(
             @Valid final PtrVentaIndividualDetalleRequestDto request) {
@@ -48,7 +48,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaIndividualDetalleByMccResponseDto ventaIndividualDetalleByMcc(
             @Valid final PtrVentaIndividualDetalleByMccRequestDto request) {
@@ -60,7 +60,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaIndividualResponseDto ventaIndividual(
             @Valid final PtrVentaIndividualRequestDto request) {
@@ -72,7 +72,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaIndividualByMccResponseDto ventaIndividualByMCC(
             @Valid final PtrVentaIndividualByMccRequestDto request) {
@@ -84,7 +84,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
                 request);
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String test() {
         return RestUtils.checkResponse(
@@ -93,7 +93,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
                 ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_TEST).getEndpoint(), null);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.maxAttempts}}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String version() {
         return RestUtils.checkResponse(
