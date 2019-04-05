@@ -33,10 +33,6 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     @Autowired
     private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
     
-    @Autowired
-    @Qualifier(value="recolectarProperties")
-    private RecolectarPropertiesDto recolectarProperties;
-
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -44,7 +40,6 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
         final TareaDto tarea = runTarea.getTarea();
         if (EstadoTareaEnum.PENDIENTE_RECOLECTAR.getId().equals(tarea.getEstado().getId())) {
-            runTarea.getRecolectarProperties().setDaysNumber(recolectarProperties.getDaysNumber());
             tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_RECOLECTAR.getDto());
             runTareaRecolectarAmbitoService.run(runTarea);
             // TODO Una vez tengamos las localizaciones, personas y condiciones hay que

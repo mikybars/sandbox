@@ -76,6 +76,10 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     @Qualifier("ventaEcommerceProperties")
     protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
     
+    @Autowired
+    @Qualifier(value="recolectarProperties")
+    private RecolectarPropertiesDto recolectarProperties;
+    
     @Auditoria
     @Override
     public void ventaOnlineIpodDetalleLocalizacionByRunTarea(@Valid final RunTareaDto runTarea) {
@@ -181,7 +185,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getFilter().getMaxPageSize())) {
@@ -219,7 +222,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getFilter().getMaxPageSize())) {
@@ -255,7 +257,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter().getMaxPageSize())) {
@@ -297,7 +298,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter().getMaxPageSize())) {
@@ -336,7 +336,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPageSize())) {
@@ -376,7 +375,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPageSize())) {
@@ -414,7 +412,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getFilter().getMaxPageSize())) {
@@ -448,7 +445,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getFilter().getMaxPageSize())) {
@@ -485,7 +481,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea(); 
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
@@ -524,7 +519,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
@@ -563,7 +557,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             //TODO Recuperar tiendas online
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(Arrays.asList("4037", "9724").stream().map(e-> new IdLocalizacionLocalDto(e)).collect(Collectors.toList()),
                     ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {

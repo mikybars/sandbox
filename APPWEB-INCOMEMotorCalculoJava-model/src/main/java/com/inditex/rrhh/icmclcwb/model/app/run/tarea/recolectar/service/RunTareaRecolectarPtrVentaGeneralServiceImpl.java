@@ -47,6 +47,10 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
     @Autowired
     @Qualifier("ventaGeneralProperties")
     protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
+    
+    @Autowired
+    @Qualifier("recolectarProperties")
+    private RecolectarPropertiesDto recolectarProperties;
 
     @Autowired
     private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
@@ -68,7 +72,6 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 // TODO Filtrar por origen
@@ -126,7 +129,6 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
@@ -170,7 +172,6 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
@@ -192,7 +193,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                         ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaTiendaVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
+                        tareaTiendaVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist); 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 

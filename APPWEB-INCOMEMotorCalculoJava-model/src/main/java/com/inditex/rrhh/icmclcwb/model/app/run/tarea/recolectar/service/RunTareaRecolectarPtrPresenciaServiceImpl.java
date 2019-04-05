@@ -101,6 +101,10 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     @Autowired
     @Qualifier("presenciasProperties")
     private Map<String, PtrPropertiesDto> presenciasProperties;
+    
+    @Autowired
+    @Qualifier(value="recolectarProperties")
+    private RecolectarPropertiesDto recolectarProperties;
 
     @Auditoria
     @Override
@@ -147,7 +151,6 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 for (String cadena : runTareaRecolectarBloque.getCadenaEmpresa()) {
@@ -190,7 +193,6 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 for (String cadena : runTareaRecolectarBloque.getCadenaEmpresa()) {
@@ -301,7 +303,6 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final RecolectarPropertiesDto recolectarProperties = runTarea.getRecolectarProperties();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
                     tareaAmbito.getIdOrigen()),
                     presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getFilter().getMaxPageSize())) {
