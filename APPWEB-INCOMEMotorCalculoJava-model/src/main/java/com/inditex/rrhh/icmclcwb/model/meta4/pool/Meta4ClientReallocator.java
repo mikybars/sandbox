@@ -38,6 +38,7 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
             id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
                     meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
                     meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
+            // TODO
 //          List<String> setCookie = CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
 //          String jSessionID = CxfUtils.getJSessionID(setCookie);
 //          CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapJSessionID(jSessionID));
