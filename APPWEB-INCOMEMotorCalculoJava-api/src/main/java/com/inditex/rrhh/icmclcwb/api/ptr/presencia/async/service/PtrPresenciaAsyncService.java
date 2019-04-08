@@ -8,6 +8,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
@@ -39,6 +41,9 @@ public interface PtrPresenciaAsyncService {
     
     CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciaDetalleComisionablePersonaByRunTarea(
             PtrPresenciaTiendasEmpleadoRequestDto request);
+    
+    CompletableFuture<PtrPresenciaEmpleadosTiendaResponseDto> presenciasEmpleadosTienda(
+            final PtrPresenciaEmpleadosTiendaRequestDto request);
 
     CompletableFuture<String> version();
 

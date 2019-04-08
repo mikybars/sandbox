@@ -267,6 +267,11 @@ app:
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+            getPresenciasEmpleadosTienda:
+              endpoint: /presenciasService/presenciasEmpleadosTienda
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
             getTiposHoras:
               endpoint: /presenciasService/tiposHoras
               filter:

@@ -11,6 +11,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -24,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFi
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -198,6 +200,24 @@ public abstract class TareaMapper {
     public abstract PtrPresenciaTiendasEmpleadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaTiendasEmpleadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srtTareaAmbito);
 
+    @Mapping(target = "empresa", ignore = true)
+    @Mapping(target = "tienda", ignore = true)
+    @Mapping(target = "origen", source = "srtTareaAmbito.idOrigen")
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)    
+    public abstract PtrPresenciaEmpleadosTiendaRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srtTareaAmbito, List<IdLocalizacionLocalDto> srcLocalizaciones);
+    
+    @AfterMapping
+    public void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+            List<IdLocalizacionLocalDto> srcLocalizaciones, @MappingTarget PtrPresenciaEmpleadosTiendaRequestDto result) {
+        if (result != null && srcLocalizaciones != null) {
+            List<Integer> localizaciones = srcLocalizaciones.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList());
+            result.setTienda(localizaciones);
+        }
+    }
+    
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.PTR_DATE))")
