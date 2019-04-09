@@ -8,7 +8,9 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.Data;
 
+@Data
 public class TareaTiendaVentaDto implements Serializable {
 
     private static final long serialVersionUID = -1012901232574802311L;
