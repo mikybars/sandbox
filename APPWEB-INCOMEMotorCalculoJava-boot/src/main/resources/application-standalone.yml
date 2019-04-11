@@ -287,6 +287,8 @@ app:
         credentials:
           user: INCOME_CALC
           password: 123
+          #user: CRISTINASOL
+          #password: 1234
           language: 2
         pool:
           size: 20
@@ -297,8 +299,10 @@ app:
           receiveTimeout: 300000
       login:
         server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
         server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getTiendasEmpleado:
             page:
