@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaSeccionRespositoryProcesarCustom;
 
@@ -25,6 +26,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     
     @Autowired
     private TareaTiendaVentaRepositoryProcesarCustom tareaTiendaVentaRepository;
+    
+    @Autowired
+    private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
     
     @Auditoria
     @Override
@@ -51,7 +55,18 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId());
         
+        
         tareaTiendaVentaRepository.procesar(runTarea.getTarea(), tipos);
+    }
+    
+    @Override
+    public void saveAbierto(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(runTarea.getTarea(), runTarea.getTrabajo());
+    }
+    
+    @Override
+    public void saveCerrado(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo());
     }
 
 }

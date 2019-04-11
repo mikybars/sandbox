@@ -50,6 +50,18 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
         
+        /* Días abiertos*/
+        CompletableFuture<Void> cfSaveAbierto = runTareaProcesarVentaLocalizacionAsyncService.saveAbierto(runTarea);
+        AsyncUtils.exceptionally(cfSaveAbierto, cf);
+        
+        /* Días festivos*/
+        CompletableFuture<Void> cfSaveCerrado = runTareaProcesarVentaLocalizacionAsyncService.saveCerrado(runTarea);
+        AsyncUtils.exceptionally(cfSaveCerrado, cf);
+        
+        /*-------------------------------------------------------------*/
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+        /*-------------------------------------------------------------*/
+        
         return runTarea;
     }
 

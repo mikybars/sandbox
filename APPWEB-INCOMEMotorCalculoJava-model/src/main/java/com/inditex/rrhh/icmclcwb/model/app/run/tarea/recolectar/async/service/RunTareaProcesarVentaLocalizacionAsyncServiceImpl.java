@@ -32,4 +32,18 @@ public class RunTareaProcesarVentaLocalizacionAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Async
+    @Override
+    public CompletableFuture<Void> saveAbierto(RunTareaDto runTarea) {
+        tareaProcesarVentaService.saveAbierto(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> saveCerrado(RunTareaDto runTarea) {
+        tareaProcesarVentaService.saveCerrado(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

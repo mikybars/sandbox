@@ -10,4 +10,8 @@ public interface RunTareaProcesarVentaService {
     
     void ventaLocalizacionTienda(@Valid RunTareaDto runTarea);
 
+    void saveAbierto(@Valid RunTareaDto runTarea);
+
+    void saveCerrado(@Valid RunTareaDto runTarea);
+
 }

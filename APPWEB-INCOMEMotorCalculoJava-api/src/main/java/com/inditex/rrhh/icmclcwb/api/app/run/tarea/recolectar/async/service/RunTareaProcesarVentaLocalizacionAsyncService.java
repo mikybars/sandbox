@@ -10,4 +10,8 @@ public interface RunTareaProcesarVentaLocalizacionAsyncService {
     
     CompletableFuture<Void> ventaLocalizacionTienda(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> saveAbierto(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> saveCerrado(final RunTareaDto runTarea);
+
 }
