@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PtrConstants {
 	
+    public static final String FECHA_TIENDA_TIPOHORA_SECCION = "FECHA_TIENDA_TIPOHORA_SECCION";
     private PtrConstants() {
     }
     

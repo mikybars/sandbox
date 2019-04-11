@@ -265,8 +265,10 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                                     trabajo, tarea, tareaAmbito);
                     paramPresenciasDetalleComisionable.setPersona(empleados);
                     paramPresenciasDetalleComisionable.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
+                    paramPresenciasDetalleComisionable.setAgrupacion(PtrConstants.FECHA_TIENDA_TIPOHORA_SECCION);
                     paramPresenciasDetalleComisionable.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
 
+                    
                     CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> cfData = ptrPresenciaAsyncService
                             .presenciasDetalleComisionable(paramPresenciasDetalleComisionable);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -372,6 +374,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                                 trabajo, tarea, tareaAmbito);
                 paramPresenciasDetalleComisionable.setPersona(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramPresenciasDetalleComisionable.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
+                paramPresenciasDetalleComisionable.setAgrupacion(PtrConstants.FECHA_TIENDA_TIPOHORA_SECCION);
 
                 CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> cfData = ptrPresenciaAsyncService
                         .presenciasDetalleComisionable(paramPresenciasDetalleComisionable);

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,15 +54,16 @@ public class PtrPresenciaServiceTest {
     
     @Test
     public void presenciasDetalle() {
-        PtrPresenciaDetalleRequestDto request = new PtrPresenciaDetalleRequestDto();
-        request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
-        request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        request.setCadena(PtrTestConstants.CADENA);
-        request.setTienda(PtrTestConstants.ID_TIENDA);
-        request.setOrigen(PtrTestConstants.PAIS);
-        request.setPersona(PtrTestConstants.PERSONA_LIST);
+        PtrPresenciaDetalleRequestDto req = new PtrPresenciaDetalleRequestDto();
+        req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
+        req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+        req.setCadena(PtrTestConstants.CADENA);
+        req.setTienda(PtrTestConstants.ID_TIENDA_LIST);
+        req.setOrigen(PtrTestConstants.PAIS);
+        req.setPersona(PtrTestConstants.PERSONA_LIST);
+        req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
         ResponseEntity<PtrPresenciaDetalleResponseDto> response = ptrPresenciaClient
-                .postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE).getEndpoint(), request, PtrPresenciaDetalleResponseDto.class);
+                .postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE).getEndpoint(), req, PtrPresenciaDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -73,11 +73,12 @@ public class PtrPresenciaServiceTest {
         req.setCadena(PtrTestConstants.CADENA);
         req.setTipo(PtrTestConstants.TIPO);
         req.setSeccion(PtrTestConstants.SECCION);
-        req.setTienda(PtrTestConstants.ID_TIENDA);
+        req.setTienda(PtrTestConstants.ID_TIENDA_LIST);
         req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         req.setOrigen(PtrTestConstants.PAIS);
         req.setPersona(PtrTestConstants.PERSONA_LIST);
+        req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
         ResponseEntity<PtrPresenciaDetalleComisionableResponseDto> ret = ptrPresenciaClient.postForEntity(
                 presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(), req,
                 PtrPresenciaDetalleComisionableResponseDto.class);
@@ -131,10 +132,10 @@ public class PtrPresenciaServiceTest {
 
     @Test
     public void tiposHoras() {
-        PtrPresenciaTiposHorasRequestDto req2 = new PtrPresenciaTiposHorasRequestDto();
-        req2.setOrigen(PtrTestConstants.PAIS);
+        PtrPresenciaTiposHorasRequestDto req = new PtrPresenciaTiposHorasRequestDto();
+        req.setOrigen(PtrTestConstants.PAIS);
         ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = ptrPresenciaClient
-                .postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), req2, PtrPresenciaTiposHorasResponseDto.class);
+                .postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), req, PtrPresenciaTiposHorasResponseDto.class);
         assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
     }
     

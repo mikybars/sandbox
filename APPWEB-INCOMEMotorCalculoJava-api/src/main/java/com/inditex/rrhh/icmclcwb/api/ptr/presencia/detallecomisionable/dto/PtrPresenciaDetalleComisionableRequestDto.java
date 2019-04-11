@@ -22,8 +22,8 @@ public class PtrPresenciaDetalleComisionableRequestDto implements Serializable {
 	private static final long serialVersionUID = 484679933963140419L;
 
 	@ApiModelProperty(value = "Id tienda", required = false, example = "160")
-	private Integer tienda;
-
+	private List<Integer> tienda;
+	
 	@ApiModelProperty(value = "Id seccion", required = false, example = "1")
 	private Integer seccion;
 
@@ -48,6 +48,9 @@ public class PtrPresenciaDetalleComisionableRequestDto implements Serializable {
 	@NotNull
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;
+	
+    @ApiModelProperty(value = "Agrupacion", required = false, example = "FECHA_TIENDA")
+    private String agrupacion;
 	
     @ApiModelProperty(value = "Agrupar seccion flag (pivotado)", required = false, example = "1")
 	private Integer agruparSeccion;

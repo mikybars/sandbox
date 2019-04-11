@@ -66,6 +66,8 @@ public class PtrTestConstants {
 
     public static final String AGRUPACION = "TIENDA";
     
+    public static final String AGRUPACION_FECHA_TIENDA = "FECHA_TIENDA";
+    
 
 
 }
