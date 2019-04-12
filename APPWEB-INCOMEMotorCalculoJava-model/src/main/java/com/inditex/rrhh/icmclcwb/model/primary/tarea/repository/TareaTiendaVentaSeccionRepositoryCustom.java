@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaVentaSecc
 
 public interface TareaTiendaVentaSeccionRepositoryCustom {
 
+    @Deprecated
 	void save(@NotNull final TareaDto tareaDto);
 
     List<TareaTiendaVentaSeccion> save(List<TareaTiendaVentaSeccion> src);

@@ -14,21 +14,21 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaVentaSeccion;
 
+@Deprecated
 @Repository
-public class TareaTiendaVentaSeccionRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaTiendaVentaSeccion> implements TareaTiendaVentaSeccionRepositoryCustom {
+public class TareaTiendaVentaSeccionRepositoryCustomImpl extends
+        JdbcBatchPrimaryRepositoryAbstract<TareaTiendaVentaSeccion> implements TareaTiendaVentaSeccionRepositoryCustom {
 
-    @Auditoria
-    @Override
-    @Deprecated
-    public void save(@NotNull final TareaDto tareaDto) {
-    }
-    
     @Value("${app.envars.repository.batch-size.tarea-tienda-venta-seccion:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
-    
     @Value("#{primaryQuery['TareaTiendaVentaSeccionRepositoryCustom.save']}")
     private String sqlSave;
+
+    @Auditoria
+    @Override
+    public void save(@NotNull final TareaDto tareaDto) {
+    }
 
     @Override
     public List<TareaTiendaVentaSeccion> save(List<TareaTiendaVentaSeccion> src) {

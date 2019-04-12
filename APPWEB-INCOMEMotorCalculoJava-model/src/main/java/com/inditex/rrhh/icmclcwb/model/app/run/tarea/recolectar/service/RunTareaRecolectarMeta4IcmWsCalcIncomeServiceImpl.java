@@ -274,7 +274,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                                 .searchTiendas(searchTiendasRequest);
                         AsyncUtils.exceptionally(cfData, cf);
-                        List<GenericTiendaResultItemDto> data = cfData.get();
+                        List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
                         if (CollectionUtils.isNotEmpty(data)) {
                             AsyncUtils.checkAsyncAvaliable(cfPersist,
                                     meta4Properties.get(Meta4Constants.SEARCH_TIENDAS).getFilter().getMaxPersistenceSize());
@@ -351,7 +351,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                                     .getTiendasEmpleado(tiendasEmpleadoRequest);
                             AsyncUtils.exceptionally(cfData, cf);
-                            List<GenericTiendaResultItemDto> data = cfData.get();
+                            List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
                             if (CollectionUtils.isNotEmpty(data)) {
                                 tiendas.addAll(data.stream().map(GenericTiendaResultItemDto::getIdLugarTrabajo)
                                         .collect(Collectors.toSet()));
@@ -382,7 +382,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                                 CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                                         .searchTiendas(searchTiendasRequest);
                                 AsyncUtils.exceptionally(cfData, cf);
-                                List<GenericTiendaResultItemDto> data = cfData.get();
+                                List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
                                 if (CollectionUtils.isNotEmpty(data)) {
                                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                                             meta4Properties.get(Meta4Constants.SEARCH_TIENDAS).getFilter().getMaxPersistenceSize());
@@ -462,7 +462,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                             .getComisionEmpleado(comisionEmpleadoRequest);
                     AsyncUtils.exceptionally(cfData, cf);
-                    List<GenericEmpleadoResultItemDto> data = cfData.get();
+                    List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                             meta4Properties.get(Meta4Constants.COMISION_EMPLEADO).getFilter().getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaEmpleadoEstructuraAsyncService
@@ -543,7 +543,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                                 .getTiendas(tiendasRequest);
                         AsyncUtils.exceptionally(cfData, cf);
-                        List<GenericTiendaResultItemDto> data = cfData.get();
+                        List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
                         if (CollectionUtils.isNotEmpty(data)) {
                             AsyncUtils.checkAsyncAvaliable(cfPersist,
                                     meta4Properties.get(Meta4Constants.TIENDAS).getFilter().getMaxPersistenceSize());
@@ -602,7 +602,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                                 .getEmpleados(empleadosRequest);
                         AsyncUtils.exceptionally(cfData, cf);
-                        List<GenericEmpleadoResultItemDto> data = cfData.get();
+                        List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                         if (CollectionUtils.isNotEmpty(data)) {
                             data.stream().forEach(item -> {
                                 if (StringUtils.isNotBlank(item.getIdEmpleado())

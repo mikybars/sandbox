@@ -181,7 +181,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                                 .presenciasTotalTienda(paramPresenciasTotalTienda);
                         AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                        PtrPresenciaTotalTiendaResponseDto data = cfData.get();
+                        PtrPresenciaTotalTiendaResponseDto data = AsyncUtils.get(cfData);
                         if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalTienda())) {
                             AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
                                     .get(PtrConstants.PRESENCIA_TOTAL_TIENDA).getFilter().getMaxPersistenceSize());
@@ -226,7 +226,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                                 .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
                         AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                        PtrPresenciaTotalTiendaSeccionResponseDto data = cfData.get();
+                        PtrPresenciaTotalTiendaSeccionResponseDto data = AsyncUtils.get(cfData);
                         if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalTiendaSeccion())) {
                             AsyncUtils.checkAsyncAvaliable(cfPersist,
                                     presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getFilter()
@@ -273,7 +273,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                             .presenciasDetalleComisionable(paramPresenciasDetalleComisionable);
                     AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                    PtrPresenciaDetalleComisionableResponseDto data = cfData.get();
+                    PtrPresenciaDetalleComisionableResponseDto data = AsyncUtils.get(cfData);
                     if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasDetalleComisionable())) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                                 presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE_COMISIONABLE).getFilter()
@@ -332,7 +332,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                         .presenciasTotalTiendaSeccion(paramPresenciasTotalTiendaSeccion);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 
-                PtrPresenciaTotalTiendaSeccionResponseDto data = cfData.get();
+                PtrPresenciaTotalTiendaSeccionResponseDto data = AsyncUtils.get(cfData);
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalTiendaSeccion())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                             presenciasProperties.get(PtrConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getFilter()
@@ -380,7 +380,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                         .presenciasDetalleComisionable(paramPresenciasDetalleComisionable);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 
-                PtrPresenciaDetalleComisionableResponseDto data = cfData.get();
+                PtrPresenciaDetalleComisionableResponseDto data = AsyncUtils.get(cfData);
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasDetalleComisionable())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                             presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE_COMISIONABLE).getFilter()
@@ -427,7 +427,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                 CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> cfData = ptrPresenciaAsyncService
                         .presenciasTiendasEmpleado(paramPresenciaTiendaEmpleado);
                 
-                PtrPresenciaTiendasEmpleadoResponseDto data = cfData.get();
+                PtrPresenciaTiendasEmpleadoResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTiendasEmpleado())) {

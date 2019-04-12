@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaSec
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
+@Deprecated
 @Service
 public class RunTareaRecolectarPivotAsyncServiceImpl implements RunTareaRecolectarPivotAsyncService {
 
@@ -21,11 +22,12 @@ public class RunTareaRecolectarPivotAsyncServiceImpl implements RunTareaRecolect
     @Autowired
     private TareaTiendaVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
 
+    @Deprecated
     @Override
     public CompletableFuture<Void> pivot(final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
-        // tareaTiendaPresenciaSeccionAsyncService.pivot(tarea);
-//        tareaTiendaVentaSeccionAsyncService.pivot(tarea);
+        tareaTiendaPresenciaSeccionAsyncService.pivot(tarea);
+        tareaTiendaVentaSeccionAsyncService.pivot(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

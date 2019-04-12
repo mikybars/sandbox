@@ -107,6 +107,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
     private void ventaFisicaDetalleOperacionLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito){
         List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
@@ -114,8 +115,6 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                     tareaEmpleadoHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
@@ -144,6 +143,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
     private void ventaFisicaDetalleVendedorLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
     @NotNull @Valid TareaAmbitoDto tareaAmbito){
         List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
@@ -151,8 +151,6 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                     tareaEmpleadoHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
@@ -218,6 +216,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
     private void ventaFisicaDetalleLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito){
         List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
@@ -225,8 +224,6 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                     tareaEmpleadoHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);

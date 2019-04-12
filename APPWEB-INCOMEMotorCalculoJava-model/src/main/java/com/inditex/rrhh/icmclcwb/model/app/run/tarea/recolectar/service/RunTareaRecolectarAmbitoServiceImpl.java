@@ -17,7 +17,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmb
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByPoCService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Service
@@ -32,9 +31,6 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
 
     @Autowired
     private RunTareaRecolectarByAmbitoPersonaService runTareaRecolectarByAmbitoPersonaService;
-
-    @Autowired
-    private RunTareaRecolectarByPoCService runTareaRecolectarByPoCService;
 
     @Auditoria
     @CounterMetric
@@ -51,8 +47,6 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
         } else {
             runTareaRecolectarByAmbitoService.run(runTarea);
         }
-        // TODO PoC
-        // runTareaRecolectarByPoCService.run(runTarea);
         return runTarea;
     }
 }

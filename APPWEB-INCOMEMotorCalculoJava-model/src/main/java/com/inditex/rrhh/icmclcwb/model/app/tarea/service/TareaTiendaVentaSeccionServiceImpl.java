@@ -32,6 +32,7 @@ public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSecci
     @Autowired
     private TareaTiendaVentaSeccionMapper tareaTiendaVentaSeccionMapper;
 
+    @Deprecated
     @Override
     public void pivot(@Valid final TareaDto tareaDto) {
         tareaTiendaVentaSeccionRepositoryCustom.save(tareaDto);

@@ -25,6 +25,7 @@ public class TareaTiendaPresenciaSeccionServiceImpl implements TareaTiendaPresen
     @Autowired
     private TareaTiendaPresenciaSeccionRepositoryCustom tareaTiendaPresenciaSeccionRepositoryCustom;
     
+    @Deprecated
     @Override
     public void pivot(@Valid final TareaDto tareaDto) {
         tareaTiendaPresenciaSeccionRepositoryCustom.save(tareaDto);

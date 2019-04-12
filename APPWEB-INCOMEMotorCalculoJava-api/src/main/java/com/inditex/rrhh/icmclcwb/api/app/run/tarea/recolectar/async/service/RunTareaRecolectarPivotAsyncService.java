@@ -6,6 +6,7 @@ import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
+@Deprecated
 @Async
 public interface RunTareaRecolectarPivotAsyncService {
 

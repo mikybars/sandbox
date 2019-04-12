@@ -19,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarTiendaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaValidarAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaValidarService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaHistorico;
 
@@ -30,7 +29,7 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
 
     @Autowired
     private TareaValidarAsyncService tareaValidarAsyncService;
-    
+
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -39,21 +38,21 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             RunTareaValidarDto validation = new RunTareaValidarDto();
-            
+
             CompletableFuture<Integer> cfCountTiendaHistorico = tareaValidarAsyncService
                     .countTiendasHistorico(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountTiendaHistorico, cf);
-            
+
             CompletableFuture<List<String>> cfDuplicatedTiendaHistorico = tareaValidarAsyncService
                     .checkDuplicatedTiendasHistorico(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfDuplicatedTiendaHistorico, cf);
 
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            
+
             validation.getDuplicated().addAll(cfDuplicatedTiendaHistorico.get());
             validation.setCount(cfCountTiendaHistorico.get());
             validation.setType(TareaTiendaHistorico.class.getSimpleName());
-    
+
             runTarea.getTarea().getRunTareaValidar().add(validation);
             return runTarea;
         } catch (Exception e) {
@@ -61,5 +60,5 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
             throw new IcmclcwbException(e.getMessage(), e);
         }
     }
-    
+
 }

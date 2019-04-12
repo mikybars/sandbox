@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 
 public interface TareaTiendaVentaSeccionService {
 
+    @Deprecated
     void pivot(@Valid final TareaDto tarea);
 
     List<TareaTiendaVentaSeccionDto> savePtrVentaTotalizadoResponse(@Valid final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea);

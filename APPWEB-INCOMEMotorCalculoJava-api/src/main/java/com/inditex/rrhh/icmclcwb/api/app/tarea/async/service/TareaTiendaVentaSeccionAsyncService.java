@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 @Async("repositoryPrimaryExecutor")
 public interface TareaTiendaVentaSeccionAsyncService {
 
+    @Deprecated
     CompletableFuture<Void> pivot(final TareaDto tarea);
 
     CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto dto,TareaDto tarea);

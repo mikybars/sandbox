@@ -25,7 +25,7 @@ public class TareaTiendaVentaSeccionAsyncServiceImpl implements TareaTiendaVenta
     @Autowired
     private TareaTiendaVentaSeccionService tareaTiendaVentaSeccionService;
     
-    
+    @Deprecated
     @Override
     public CompletableFuture<Void> pivot(final TareaDto tarea)  {
         tareaTiendaVentaSeccionService.pivot(tarea);

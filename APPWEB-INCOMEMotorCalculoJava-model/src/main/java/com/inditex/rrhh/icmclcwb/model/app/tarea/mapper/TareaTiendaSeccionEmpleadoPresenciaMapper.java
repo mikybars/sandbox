@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaSeccionEmpleadoPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaSeccionEmpleadoPresencia;
 
+@Deprecated
 @Mapper
 @DecoratedWith(TareaTiendaSeccionEmpleadoPresenciaDecorator.class)
 public abstract class TareaTiendaSeccionEmpleadoPresenciaMapper {

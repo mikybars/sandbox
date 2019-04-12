@@ -29,7 +29,7 @@ public class RunTareaRecolectarValidarTiendaVentaSeccionServiceImpl
 
     @Autowired
     private TareaValidarAsyncService tareaValidarAsyncService;
-    
+
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -38,16 +38,13 @@ public class RunTareaRecolectarValidarTiendaVentaSeccionServiceImpl
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             RunTareaValidarDto validation = new RunTareaValidarDto();
-            
+
             CompletableFuture<Integer> cfData = tareaValidarAsyncService
                     .countTiendaVentaSeccion(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfData, cf);
-     
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            
-            validation.setCount(cfData.get());
+            validation.setCount(AsyncUtils.get(cfData));
             validation.setType(TareaTiendaVentaSeccion.class.getSimpleName());
-
             runTarea.getTarea().getRunTareaValidar().add(validation);
             return runTarea;
         } catch (Exception e) {

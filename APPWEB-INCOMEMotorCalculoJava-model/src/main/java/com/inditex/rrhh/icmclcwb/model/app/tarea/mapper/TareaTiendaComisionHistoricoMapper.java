@@ -9,22 +9,22 @@ import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaComisionHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaComisionHistoricoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaComisionHistorico;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaHistorico;
 
 @Mapper
 @DecoratedWith(value = TareaTiendaComisionHistoricoDecorator.class)
 public abstract class TareaTiendaComisionHistoricoMapper {
-    
+
     @Mapping(target = "idTarea", source = "tarea.id")
-    public abstract TareaTiendaComisionHistoricoDto tareaTiendaComisionHistoricoToTareaTiendaComisionHistoricoDto(TareaTiendaComisionHistorico src);
+    public abstract TareaTiendaComisionHistoricoDto tareaTiendaComisionHistoricoToTareaTiendaComisionHistoricoDto(
+            TareaTiendaComisionHistorico src);
 
     @InheritInverseConfiguration
-    public abstract TareaTiendaComisionHistorico tareaTiendaComisionHistoricoDtoToTareaTiendaComisionHistorico(TareaTiendaComisionHistoricoDto src);
+    public abstract TareaTiendaComisionHistorico tareaTiendaComisionHistoricoDtoToTareaTiendaComisionHistorico(
+            TareaTiendaComisionHistoricoDto src);
 
     public abstract List<TareaTiendaComisionHistoricoDto> tareaTiendaComisionHistoricoToTareaTiendaComisionHistoricoDto(
             List<TareaTiendaComisionHistorico> src);
@@ -32,7 +32,7 @@ public abstract class TareaTiendaComisionHistoricoMapper {
     @InheritInverseConfiguration
     public abstract List<TareaTiendaComisionHistorico> tareaTiendaComisionHistoricoDtoToTareaTiendaComisionHistorico(
             List<TareaTiendaComisionHistoricoDto> src);
-    
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "srcTarea.id")
     public abstract TareaTiendaComisionHistorico mergeTareaTiendaComisionHistoricoDtoAndTareaDtoToTareaTiendaComisionHistorico(
@@ -42,7 +42,7 @@ public abstract class TareaTiendaComisionHistoricoMapper {
             List<TareaTiendaComisionHistoricoDto> srcTareaTiendaComisionHistorico, TareaDto srcTareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
     @Mapping(target = "idTienda", source = "src.idTiendaMtu")
     @Mapping(target = "idTiendaMeta4", source = "src.idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")

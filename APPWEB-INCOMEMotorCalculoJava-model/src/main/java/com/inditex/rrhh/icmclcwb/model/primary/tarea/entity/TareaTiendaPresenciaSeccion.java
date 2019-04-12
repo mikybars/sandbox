@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoMinutosPresencia;
 
 import lombok.Data;
@@ -23,35 +22,35 @@ import lombok.Data;
 @Data
 public class TareaTiendaPresenciaSeccion {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TAREA_TIENDA_PRESENCIA_SECCION")
-	private /* BigInteger */ Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREA_TIENDA_PRESENCIA_SECCION")
+    private /* BigInteger */ Long id;
 
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TAREA", nullable = false)
-	private /* BigInteger */ Tarea tarea;
-	
-	@NotNull
-	@Column(name = "FECHA", nullable = false)
-	private Date fecha;
-	
-	@NotNull
-	@Column(name = "ID_TIENDA", nullable = false)
-	private String idTienda;
-	
-	@NotNull
-	@Column(name = "MINUTOS_SECCION_1", nullable = false)
-	private /* BigInteger */ Long minutos1;
-	
-	@NotNull
-	@Column(name = "MINUTOS_SECCION_2", nullable = false)
-	private /* BigInteger */ Long minutos2;
-	
-	@NotNull
-	@Column(name = "MINUTOS_SECCION_3", nullable = false)
-	private /* BigInteger */ Long minutos3;
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TAREA", nullable = false)
+    private /* BigInteger */ Tarea tarea;
+
+    @NotNull
+    @Column(name = "FECHA", nullable = false)
+    private Date fecha;
+
+    @NotNull
+    @Column(name = "ID_TIENDA", nullable = false)
+    private String idTienda;
+
+    @NotNull
+    @Column(name = "MINUTOS_SECCION_1", nullable = false)
+    private /* BigInteger */ Long minutos1;
+
+    @NotNull
+    @Column(name = "MINUTOS_SECCION_2", nullable = false)
+    private /* BigInteger */ Long minutos2;
+
+    @NotNull
+    @Column(name = "MINUTOS_SECCION_3", nullable = false)
+    private /* BigInteger */ Long minutos3;
 
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_MINUTOS_PRESENCIA", nullable = false)
