@@ -8,6 +8,8 @@ public interface RunTareaProcesarVentaService {
     
     void ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea);
     
+    void ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea);
+    
     void ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea);
     
     void ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea);

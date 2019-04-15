@@ -14,6 +14,8 @@ public interface RunTareaProcesarVentaAsyncService {
     
     CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadena(RunTareaDto runTarea);
     
+    CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(RunTareaDto runTarea);
+    
     CompletableFuture<Void> ventaFisicaAgrupacionCadena(RunTareaDto runTarea);
     
     CompletableFuture<Void> ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea);

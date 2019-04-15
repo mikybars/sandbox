@@ -54,6 +54,13 @@ public class RunTareaProcesarVentaAsyncServiceImpl
         tareaProcesarVentaService.ventaOnlineEntregaTiendaAgrupacionCadena(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
+        tareaProcesarVentaService.ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 
     @Async
     @Override

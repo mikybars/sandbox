@@ -42,8 +42,16 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     @Override
     public void ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
         tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), 
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_CADENA, 
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_AGRUPACION_CADENA);
+                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA, 
+                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA);
+    }
+    
+    @Auditoria
+    @Override
+    public void ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
+        tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(), 
+                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA_SECCION, 
+                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA_SECCION);
     }
     
     @Auditoria
