@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -59,6 +59,13 @@ public class RunTareaProcesarVentaAsyncServiceImpl
     @Override
     public CompletableFuture<Void> ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
         tareaProcesarVentaService.ventaFisicaAgrupacionCadena(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
+        tareaProcesarVentaService.ventaFisicaAgrupacionCadenaSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

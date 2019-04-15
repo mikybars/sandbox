@@ -14,11 +14,5 @@ public class PscfTareaTiendaVentaSeccionRepositoryConfig {
             @Value("#{primaryQuery['TareaTiendaVentaSeccionRepository.save']}") final String sql) {
         return new PreparedStatementCreatorFactory(sql, Types.BIGINT);
     }
-    
-    @Bean(name = "pscfTareaTiendaVentaSeccionRepositoryProcesar")
-    public PreparedStatementCreatorFactory pscfTareaTiendaVentaSeccionRepositoryProcesar(
-            @Value("#{primaryQuery['RunTareaProcesarService.procesarVentaSeccion']}" ) final String sql) {
-        return new PreparedStatementCreatorFactory(sql);
-    }
 
 }

@@ -38,9 +38,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         CompletableFuture<Void> cfVentaFisicaAgrupacion = runTareaProcesarVentaAsyncService.ventaFisicaAgrupacionCadena(runTarea);
         AsyncUtils.exceptionally(cfVentaFisicaAgrupacion, cf);
         
-        CompletableFuture<Void> cfVentaOnlineEntregaTiendaAgrupacion = runTareaProcesarVentaAsyncService.ventaOnlineEntregaTiendaAgrupacionCadena(runTarea);
-        AsyncUtils.exceptionally(cfVentaOnlineEntregaTiendaAgrupacion, cf);
-        
+        // Suma de ventas por agrupacion de cadena y seccion
+        CompletableFuture<Void> cfVentaFisicaAgrupacionSeccion = runTareaProcesarVentaAsyncService.ventaFisicaAgrupacionCadenaSeccion(runTarea);
+        AsyncUtils.exceptionally(cfVentaFisicaAgrupacionSeccion, cf);
+
         /*-------------------------------------------------------------*/
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/

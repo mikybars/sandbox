@@ -14,17 +14,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
-public class TareaAgrupacionCadenaRepositoryCustomImpl implements TareaAgrupacionCadenaRepositoryCustom {
-
-    @Value("#{primaryQuery['RunTareaProcesarService.procesarVentaAgrupacionCadena']}")
+public class TareaAgrupacionCadenaSeccionRespositoryCustomImpl implements TareaAgrupacionCadenaSeccionRepositoryCustom {
+    
+    @Value("#{primaryQuery['RunTareaProcesarService.procesarVentaAgrupacionCadenaSeccion']}")
     private String sql;
     
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Override
-    public void procesar(@NotNull TareaDto tareaDto, @NotNull TipoImporteVentaEnum tipoImporteOrigen, 
+    public void procesar(@NotNull TareaDto tareaDto, @NotNull TipoImporteVentaEnum tipoImporteOrigen,
             @NotNull TipoImporteVentaEnum tipoImporteDestino) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SUMA, tipoImporteDestino.getId());

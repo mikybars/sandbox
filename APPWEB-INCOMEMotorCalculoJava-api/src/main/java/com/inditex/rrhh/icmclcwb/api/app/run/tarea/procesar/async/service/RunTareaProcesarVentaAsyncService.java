@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.Valid;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaProcesarVentaAsyncService {
@@ -13,6 +15,8 @@ public interface RunTareaProcesarVentaAsyncService {
     CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadena(RunTareaDto runTarea);
     
     CompletableFuture<Void> ventaFisicaAgrupacionCadena(RunTareaDto runTarea);
+    
+    CompletableFuture<Void> ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea);
     
     CompletableFuture<Void> saveAbierto(RunTareaDto runTarea);
     

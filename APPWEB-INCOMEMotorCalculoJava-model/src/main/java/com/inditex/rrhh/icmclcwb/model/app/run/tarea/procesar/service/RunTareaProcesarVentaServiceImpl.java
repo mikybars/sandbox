@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProc
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaSeccionRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaSeccionRespositoryProcesarCustom;
 
@@ -34,6 +35,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     @Autowired
     private TareaAgrupacionCadenaRepositoryCustom tareaAgrupacionCadenaRepository;
     
+    @Autowired
+    private TareaAgrupacionCadenaSeccionRepositoryCustom tareaAgrupacionCadenaSeccionRepository;
+    
     @Auditoria
     @Override
     public void ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
@@ -48,6 +52,14 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
         tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), 
                 TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA, 
                 TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA);  
+    }
+
+    @Auditoria
+    @Override
+    public void ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
+        tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(), 
+                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA_SECCION, 
+                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA_SECCION);
     }
 
     @Auditoria
