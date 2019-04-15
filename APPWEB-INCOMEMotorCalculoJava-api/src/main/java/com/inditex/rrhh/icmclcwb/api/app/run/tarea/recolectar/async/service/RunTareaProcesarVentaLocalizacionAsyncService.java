@@ -14,4 +14,6 @@ public interface RunTareaProcesarVentaLocalizacionAsyncService {
 
     CompletableFuture<Void> saveCerrado(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> trasladar(final RunTareaDto runTarea);
+
 }

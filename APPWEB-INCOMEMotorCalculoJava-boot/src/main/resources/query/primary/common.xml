@@ -240,4 +240,37 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
     ]]>
 </entry>
 
+
+<entry key="TareaLocalizacionAbiertaRepositoryCustom.trasladar">
+    <![CDATA[
+MERGE INTO TAREA_TIENDA_VENTA USING
+    (SELECT TTV.FECHA, TTV.ID_TIENDA, TTV.IMPORTE, TTV.ID_TIPO_IMPORTE_VENTA
+        FROM TAREA_TIENDA_VENTA TTV
+        INNER JOIN TAREA_LOCALIZACION_ABIERTA TLA
+        ON TTV.ID_TIENDA = TLA.ID_TIENDA
+        AND TTV.FECHA = TLA.FECHA
+        WHERE TTV.ID_TIPO_IMPORTE_VENTA IN (8,9,10,11,12,13,14,15,16,17,18)
+        AND TTV.ID_TAREA = :idTarea
+        AND TLA.ABIERTO = 0
+        GROUP BY TTV.FECHA, TTV.ID_TIENDA, TTV.IMPORTE, TTV.ID_TIPO_IMPORTE_VENTA
+        ) AS S ON (1=0)
+        WHEN NOT MATCHED THEN
+                INSERT (FECHA, ID_TIENDA, IMPORTE, ID_TAREA, ID_TIPO_IMPORTE_VENTA) 
+                values 
+                 (SELECT
+                    T.FECHA,
+                    T.ID_TIENDA,
+                    T.IMPORTE,
+                    T.ID_TAREA,
+                    34
+                FROM 
+                    ( SELECT FECHA, ID_TIENDA, S.ID_TIENDA, S.IMPORTE
+                   ROW_NUMBER() OVER (PARTITION BY ID_TIENDA ORDER BY FECHA DESC) AS FECHATEST 
+                   FROM TAREA_LOCALIZACION_ABIERTA
+                   WHERE FECHA < S.FECHA
+                   AND ID_TIENDA = S.ID_TIENDA
+                   AND ABIERTO = 1) T
+                WHERE T.FECHATEST = 1)
+    ]]>
+</entry>
 </properties>

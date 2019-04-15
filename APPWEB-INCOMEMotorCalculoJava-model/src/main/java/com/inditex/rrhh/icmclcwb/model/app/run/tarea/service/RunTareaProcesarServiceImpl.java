@@ -62,6 +62,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
         
+        CompletableFuture<Void> cfTrasladar = runTareaProcesarVentaLocalizacionAsyncService.trasladar(runTarea);
+        AsyncUtils.exceptionally(cfTrasladar, cf);
+        
         return runTarea;
     }
 

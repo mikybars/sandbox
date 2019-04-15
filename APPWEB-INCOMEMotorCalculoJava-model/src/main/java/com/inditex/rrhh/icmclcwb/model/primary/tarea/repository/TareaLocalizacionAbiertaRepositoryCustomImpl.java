@@ -29,6 +29,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.saveCerrado']}")
     private String sqlSaveCerrado;
     
+    @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.trasladar']}")
+    private String sqlTrasladar;
+    
     @Override
     public void saveAbierto(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -37,6 +40,14 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue("idTarea", tareaDto.getId());
         
         namedParameterJdbcTemplate.update(sqlSaveAbierto, parameters);
+    }
+    
+    @Override
+    public void trasladar(@NotNull TareaDto tareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("idTarea", tareaDto.getId());
+        
+        namedParameterJdbcTemplate.update(sqlTrasladar, parameters);
     }
     
     @Override

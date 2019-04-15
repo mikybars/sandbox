@@ -14,4 +14,6 @@ public interface RunTareaProcesarVentaService {
 
     void saveCerrado(@Valid RunTareaDto runTarea);
 
+    void trasladar(@Valid RunTareaDto runTarea);
+
 }

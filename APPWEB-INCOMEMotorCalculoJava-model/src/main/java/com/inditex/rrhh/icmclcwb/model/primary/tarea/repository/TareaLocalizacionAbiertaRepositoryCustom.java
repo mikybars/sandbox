@@ -11,5 +11,6 @@ public interface TareaLocalizacionAbiertaRepositoryCustom {
 
     void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto);
 
-
+    void trasladar(@NotNull final TareaDto tareaDto);
+    
 }

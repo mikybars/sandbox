@@ -68,5 +68,10 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void saveCerrado(@Valid RunTareaDto runTarea) {
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo());
     }
+    
+    @Override
+    public void trasladar(@Valid RunTareaDto runTarea) {
+//        tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea());
+    }
 
 }
