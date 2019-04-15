@@ -30,7 +30,7 @@ public class TareaTiendaVentaRepositoryProcesarCustomImpl implements TareaTienda
     @Override
     public void procesar(@NotNull TareaDto tareaDto, @NotNull List<Long> tipoImportes) {
         Map<String, Object> params = new HashMap<>();
-        params.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_TIENDA, TipoImporteVentaEnum.IMPORTE_VENTA_LOCALIZACION.getId());
+        params.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SUMA, TipoImporteVentaEnum.IMPORTE_VENTA_LOCALIZACION.getId());
         params.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, tipoImportes);
         params.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         namedParameterJdbcTemplate.update(pscfSave.getSql(), params);

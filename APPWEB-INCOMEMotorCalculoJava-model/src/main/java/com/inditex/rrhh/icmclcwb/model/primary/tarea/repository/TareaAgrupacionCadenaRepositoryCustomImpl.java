@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.constraints.NotNull;
@@ -17,10 +16,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
-public class TareaTiendaVentaSeccionRespositoryProcesarCustomImpl implements TareaTiendaVentaSeccionRespositoryProcesarCustom {
-    
+public class TareaAgrupacionCadenaRepositoryCustomImpl implements TareaAgrupacionCadenaRepositoryCustom {
+
     @Autowired
-    @Qualifier("pscfTareaTiendaVentaSeccionRepositoryProcesar")
+    @Qualifier("pscfTareaAgrupacionCadenvaVentaRepositoryProcesar")
     private PreparedStatementCreatorFactory pscfSave;
     
     @Autowired
@@ -28,11 +27,11 @@ public class TareaTiendaVentaSeccionRespositoryProcesarCustomImpl implements Tar
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
     @Override
-    public void procesar(@NotNull final TareaDto tareaDto, @NotNull final List<Long> tipoImportes) {
+    public void procesar(@NotNull TareaDto tareaDto, @NotNull TipoImporteVentaEnum tipoImporteOrigen, @NotNull TipoImporteVentaEnum tipoImporteDestino) {
         Map<String, Object> params = new HashMap<>();
-        params.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SUMA, TipoImporteVentaEnum.IMPORTE_VENTA_LOCALIZACION_SECCION.getId());
-        params.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, tipoImportes);
-        params.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        params.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SUMA, tipoImporteDestino.getId());
+        params.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, tipoImporteOrigen.getId());
         namedParameterJdbcTemplate.update(pscfSave.getSql(), params);
     }
+
 }

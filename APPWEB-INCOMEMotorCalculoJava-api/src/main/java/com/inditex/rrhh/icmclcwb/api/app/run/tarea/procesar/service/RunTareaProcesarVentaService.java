@@ -1,10 +1,14 @@
-package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service;
+package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service;
 
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaProcesarVentaService {
+    
+    void ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea);
+    
+    void ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea);
     
     void ventaLocalizacionSeccion(@Valid RunTareaDto runTarea);
     

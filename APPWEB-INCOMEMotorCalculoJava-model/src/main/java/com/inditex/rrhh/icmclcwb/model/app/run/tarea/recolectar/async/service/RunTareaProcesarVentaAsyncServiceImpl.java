@@ -2,22 +2,24 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaProcesarVentaLocalizacionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaProcesarVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
-public class RunTareaProcesarVentaLocalizacionAsyncServiceImpl
-        implements RunTareaProcesarVentaLocalizacionAsyncService {
+public class RunTareaProcesarVentaAsyncServiceImpl
+        implements RunTareaProcesarVentaAsyncService {
     
     @Autowired
     private RunTareaProcesarVentaService tareaProcesarVentaService;
-
+    
     @Async
     @Override
     public CompletableFuture<Void> ventaLocalizacionSeccion(RunTareaDto runTarea) {
@@ -43,6 +45,20 @@ public class RunTareaProcesarVentaLocalizacionAsyncServiceImpl
     @Override
     public CompletableFuture<Void> saveCerrado(RunTareaDto runTarea) {
         tareaProcesarVentaService.saveCerrado(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
+        tareaProcesarVentaService.ventaOnlineEntregaTiendaAgrupacionCadena(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Async
+    @Override
+    public CompletableFuture<Void> ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
+        tareaProcesarVentaService.ventaFisicaAgrupacionCadena(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

@@ -15,7 +15,7 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetri
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaProcesarVentaLocalizacionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
     
     @Autowired
-    private RunTareaProcesarVentaLocalizacionAsyncService runTareaProcesarVentaLocalizacionAsyncService; 
+    private RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService; 
 
     @Auditoria
     @CounterMetric
@@ -34,8 +34,19 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         
         List<CompletableFuture<?>> cf = new ArrayList<>();
         
+        // Suma de ventas por agrupacion de cadena
+        CompletableFuture<Void> cfVentaFisicaAgrupacion = runTareaProcesarVentaAsyncService.ventaFisicaAgrupacionCadena(runTarea);
+        AsyncUtils.exceptionally(cfVentaFisicaAgrupacion, cf);
+        
+        CompletableFuture<Void> cfVentaOnlineEntregaTiendaAgrupacion = runTareaProcesarVentaAsyncService.ventaOnlineEntregaTiendaAgrupacionCadena(runTarea);
+        AsyncUtils.exceptionally(cfVentaOnlineEntregaTiendaAgrupacion, cf);
+        
+        /*-------------------------------------------------------------*/
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+        /*-------------------------------------------------------------*/
+        
         // Suma de ventas totales por localizaciones 
-        CompletableFuture<Void> cfVentasLocalizacionTienda = runTareaProcesarVentaLocalizacionAsyncService.ventaLocalizacionTienda(runTarea);
+        CompletableFuture<Void> cfVentasLocalizacionTienda = runTareaProcesarVentaAsyncService.ventaLocalizacionTienda(runTarea);
         AsyncUtils.exceptionally(cfVentasLocalizacionTienda, cf);
         
         /*-------------------------------------------------------------*/
@@ -43,7 +54,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         /*-------------------------------------------------------------*/
         
         // Suma de ventas por localizaciones y seccion
-        CompletableFuture<Void> cfVentasLocalizacionSeccion = runTareaProcesarVentaLocalizacionAsyncService.ventaLocalizacionSeccion(runTarea);
+        CompletableFuture<Void> cfVentasLocalizacionSeccion = runTareaProcesarVentaAsyncService.ventaLocalizacionSeccion(runTarea);
         AsyncUtils.exceptionally(cfVentasLocalizacionSeccion, cf);
         
         /*-------------------------------------------------------------*/
@@ -51,18 +62,18 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         /*-------------------------------------------------------------*/
         
         /* Días abiertos*/
-        CompletableFuture<Void> cfSaveAbierto = runTareaProcesarVentaLocalizacionAsyncService.saveAbierto(runTarea);
+        CompletableFuture<Void> cfSaveAbierto = runTareaProcesarVentaAsyncService.saveAbierto(runTarea);
         AsyncUtils.exceptionally(cfSaveAbierto, cf);
         
         /* Días festivos*/
-        CompletableFuture<Void> cfSaveCerrado = runTareaProcesarVentaLocalizacionAsyncService.saveCerrado(runTarea);
+        CompletableFuture<Void> cfSaveCerrado = runTareaProcesarVentaAsyncService.saveCerrado(runTarea);
         AsyncUtils.exceptionally(cfSaveCerrado, cf);
         
         /*-------------------------------------------------------------*/
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
         
-        CompletableFuture<Void> cfTrasladar = runTareaProcesarVentaLocalizacionAsyncService.trasladar(runTarea);
+        CompletableFuture<Void> cfTrasladar = runTareaProcesarVentaAsyncService.trasladar(runTarea);
         AsyncUtils.exceptionally(cfTrasladar, cf);
         
         return runTarea;

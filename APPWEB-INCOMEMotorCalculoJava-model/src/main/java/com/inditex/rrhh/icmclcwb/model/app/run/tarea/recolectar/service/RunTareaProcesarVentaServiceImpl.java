@@ -11,9 +11,10 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaProcesarVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaSeccionRespositoryProcesarCustom;
 
@@ -29,7 +30,26 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     
     @Autowired
     private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
+
+    @Autowired
+    private TareaAgrupacionCadenaRepositoryCustom tareaAgrupacionCadenaRepository;
     
+    @Auditoria
+    @Override
+    public void ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
+        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), 
+                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_CADENA, 
+                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_AGRUPACION_CADENA);
+    }
+    
+    @Auditoria
+    @Override
+    public void ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
+        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), 
+                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA, 
+                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA);  
+    }
+
     @Auditoria
     @Override
     public void ventaLocalizacionSeccion(@Valid RunTareaDto runTarea) {
