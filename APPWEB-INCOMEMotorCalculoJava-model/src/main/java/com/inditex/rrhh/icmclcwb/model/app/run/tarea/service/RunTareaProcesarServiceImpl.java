@@ -85,6 +85,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         CompletableFuture<Void> cfTrasladar = runTareaProcesarVentaAsyncService.trasladar(runTarea);
         AsyncUtils.exceptionally(cfTrasladar, cf);
         
+        CompletableFuture<Void> cfCompensar = runTareaProcesarVentaAsyncService.compensar(runTarea);
+        AsyncUtils.exceptionally(cfCompensar, cf);
+        
         return runTarea;
     }
 

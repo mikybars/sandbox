@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -37,6 +38,20 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     
     @Autowired
     private TareaAgrupacionCadenaSeccionRepositoryCustom tareaAgrupacionCadenaSeccionRepository;
+    
+    private static final List<Long> ID_TIPO_IMPORTE_VENTA_ONLINE = Arrays.asList(
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_OPERACION_LOCALIZACION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId(),
+            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId()
+        );
     
     @Auditoria
     @Override
@@ -106,12 +121,17 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     
     @Override
     public void saveCerrado(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo());
+        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(), ID_TIPO_IMPORTE_VENTA_ONLINE);
     }
     
     @Override
     public void trasladar(@Valid RunTareaDto runTarea) {
-//        tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea());
+        tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(), ID_TIPO_IMPORTE_VENTA_ONLINE);
+    }
+    
+    @Override
+    public void compensar(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(), ID_TIPO_IMPORTE_VENTA_ONLINE);
     }
 
 }

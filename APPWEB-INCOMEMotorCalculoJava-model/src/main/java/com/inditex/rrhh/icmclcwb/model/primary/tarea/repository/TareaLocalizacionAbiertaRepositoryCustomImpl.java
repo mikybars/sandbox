@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +19,16 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 @Repository
 public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocalizacionAbiertaRepositoryCustom {
 
+
+    private static final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+ 
+    private static final String ID_TIPO_IMPORTE_VENTA_NUEVO = "idTipoImporteVentaNuevo";
+    private static final String ID_TIPO_IMPORTE_VENTA = "idTipoImporteVenta";
+    private static final String FECHA_INICIO = "fechaInicio";
+    private static final String FECHA_FIN = "fechaFin";
+    private static final String ID_TAREA = "idTarea";
+    private static final String MULTIPLICADOR = "multiplicador";
+
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -32,43 +42,51 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.trasladar']}")
     private String sqlTrasladar;
     
+    @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.trasladar']} #{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.trasladar.actual']}")
+    private String sqlTrasladarActual;
+    
+    @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.trasladar']} #{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.trasladar.destino']}")
+    private String sqlTrasladarDestino;
+    
     @Override
     public void saveAbierto(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("fechaInicio", trabajoDto.getFechaInicioPeriodo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        parameters.addValue("fechaFin", trabajoDto.getFechaFinPeriodo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        parameters.addValue("idTarea", tareaDto.getId());
+        parameters.addValue(FECHA_INICIO, trabajoDto.getFechaInicioPeriodo().format(DATE_PATTERN));
+        parameters.addValue(FECHA_FIN, trabajoDto.getFechaFinPeriodo().format(DATE_PATTERN));
+        parameters.addValue(ID_TAREA, tareaDto.getId());
         
         namedParameterJdbcTemplate.update(sqlSaveAbierto, parameters);
     }
     
     @Override
-    public void trasladar(@NotNull TareaDto tareaDto) {
+    public void trasladar(@NotNull TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("idTarea", tareaDto.getId());
-        
-        namedParameterJdbcTemplate.update(sqlTrasladar, parameters);
+        parameters.addValue(ID_TAREA, tareaDto.getId());
+        parameters.addValue(ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
+        parameters.addValue(ID_TIPO_IMPORTE_VENTA_NUEVO, TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_TRASLADADA.getId());
+        parameters.addValue(MULTIPLICADOR, 1);
+
+        namedParameterJdbcTemplate.update(sqlTrasladarDestino, parameters);
     }
     
     @Override
-    public void saveCerrado(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
+    public void compensar(@NotNull TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("fechaInicio", trabajoDto.getFechaInicioPeriodo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        parameters.addValue("fechaFin", trabajoDto.getFechaFinPeriodo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        parameters.addValue("idTarea", tareaDto.getId());
-        parameters.addValue("idTipoImporteVenta", Arrays.asList(
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_OPERACION_LOCALIZACION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId()
-                ));
+        parameters.addValue(ID_TAREA, tareaDto.getId());
+        parameters.addValue(ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
+        parameters.addValue(ID_TIPO_IMPORTE_VENTA_NUEVO, TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_COMPENSADA.getId());
+        parameters.addValue(MULTIPLICADOR, -1);
+
+        namedParameterJdbcTemplate.update(sqlTrasladarActual, parameters);
+    }
+    
+    @Override
+    public void saveCerrado(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto, @NotNull List<Long> idTipoImporteVenta) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(FECHA_INICIO, trabajoDto.getFechaInicioPeriodo().format(DATE_PATTERN));
+        parameters.addValue(FECHA_FIN, trabajoDto.getFechaFinPeriodo().format(DATE_PATTERN));
+        parameters.addValue(ID_TAREA, tareaDto.getId());
+        parameters.addValue(ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
         
         namedParameterJdbcTemplate.update(sqlSaveCerrado, parameters);
     }

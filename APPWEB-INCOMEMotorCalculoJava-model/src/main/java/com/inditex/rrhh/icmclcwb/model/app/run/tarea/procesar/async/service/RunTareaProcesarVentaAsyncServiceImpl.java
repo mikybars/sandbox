@@ -82,5 +82,12 @@ public class RunTareaProcesarVentaAsyncServiceImpl
         tareaProcesarVentaService.trasladar(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Async
+    @Override
+    public CompletableFuture<Void> compensar(RunTareaDto runTarea) {
+        tareaProcesarVentaService.compensar(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 
 }
