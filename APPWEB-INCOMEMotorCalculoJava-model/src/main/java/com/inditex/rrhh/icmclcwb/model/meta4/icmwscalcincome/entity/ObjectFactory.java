@@ -154,19 +154,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASINCOME }
-     * 
-     */
-    public GETTIENDASINCOME createGETTIENDASINCOME() {
-        return new GETTIENDASINCOME();
-    }
-
-    /**
      * Create an instance of {@link GETTIENDASEMPLEADO }
      * 
      */
     public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
         return new GETTIENDASEMPLEADO();
+    }
+
+    /**
+     * Create an instance of {@link GETTIENDASINCOME }
+     * 
+     */
+    public GETTIENDASINCOME createGETTIENDASINCOME() {
+        return new GETTIENDASINCOME();
     }
 
     /**

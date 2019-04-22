@@ -697,18 +697,18 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
 
-            EmpleadosRequestDto request = new EmpleadosRequestDto();
-            request.setPage(meta4Properties.get(Meta4Constants.EMPLEADOS).getPage());
+            SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
+            request.setPage(meta4Properties.get(Meta4Constants.SEARCH_EMPLEADOS).getPage());
             request.setData(tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
                             trabajo, tarea, tareaAmbito, tarea.getLocalizacion(), tarea.getPersona()));
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                        .getEmpleados(request);
+                        .searchEmpleados(request);
                 AsyncUtils.exceptionally(cfData, cf);
                 List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4Constants.EMPLEADOS).getFilter().getMaxPersistenceSize());
+                AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4Constants.SEARCH_EMPLEADOS).getFilter().getMaxPersistenceSize());
                 CompletableFuture<Void> cfSave = tareaEmpleadoHistoricoAsyncService
                         .saveGenericEmpleadoResultItemDto(data, tarea);
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);

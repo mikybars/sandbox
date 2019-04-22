@@ -375,6 +375,9 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                 paramPresenciasDetalleComisionable.setPersona(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramPresenciasDetalleComisionable.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
                 paramPresenciasDetalleComisionable.setAgrupacion(PtrConstants.FECHA_TIENDA_TIPOHORA_SECCION);
+                
+                //TODO: VER TIPO HORA
+                paramPresenciasDetalleComisionable.setTipo(1);
 
                 CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> cfData = ptrPresenciaAsyncService
                         .presenciasDetalleComisionable(paramPresenciasDetalleComisionable);

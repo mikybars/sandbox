@@ -83,7 +83,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idEmpresa", source = "idempresa")
     @Mapping(target = "idEmpleado", source = "idempleado")
     @Mapping(target = "orEmpleado", source = "orempleado")
-    @Mapping(target = "idTiendaMtu", source = "idtiendamtu")
+    @Mapping(target = "idLugarTrabajoMtu", source = "idlugartrabajomtu")
     @Mapping(target = "idTipoCalculo", source = "idtipocalculo")
     @Mapping(target = "percentageBoy" , source = "percentageboy")
     @Mapping(target = "percentageMan", source = "percentageman")

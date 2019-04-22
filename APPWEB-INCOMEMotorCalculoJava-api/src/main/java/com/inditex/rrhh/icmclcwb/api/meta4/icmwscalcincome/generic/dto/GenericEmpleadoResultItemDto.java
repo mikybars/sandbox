@@ -30,8 +30,6 @@ public class GenericEmpleadoResultItemDto implements Serializable {
 
     private String orEmpleado;
 
-    private String idTiendaMtu;
-
     private String idComponente;
 
     private String idTipoCalculo;
@@ -43,6 +41,8 @@ public class GenericEmpleadoResultItemDto implements Serializable {
     private String esComisionable;
 
     private String idLugarTrabajo;
+    
+    private String idLugarTrabajoMtu;
 
     private String idEmpleadoLocal;
 

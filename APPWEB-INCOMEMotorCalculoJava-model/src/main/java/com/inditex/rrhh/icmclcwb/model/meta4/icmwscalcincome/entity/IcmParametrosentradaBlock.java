@@ -36,6 +36,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idperiodo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_ParametrosentradaRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrosentradaRecord" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
@@ -51,6 +52,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "fechafin",
     "idorigen",
     "idempresa",
+    "idperiodo",
     "fechainicio",
     "icmParametrosentradaRecordSet"
 })
@@ -63,6 +65,8 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
     protected String idorigen;
     @XmlElement(required = true, nillable = true)
     protected String idempresa;
+    @XmlElement(required = true, nillable = true)
+    protected String idperiodo;
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
     @XmlElement(name = "Icm_ParametrosentradaRecordSet", nillable = true)
@@ -138,6 +142,30 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
      */
     public void setIdempresa(String value) {
         this.idempresa = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad idperiodo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdperiodo() {
+        return idperiodo;
+    }
+
+    /**
+     * Define el valor de la propiedad idperiodo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdperiodo(String value) {
+        this.idperiodo = value;
     }
 
     /**
@@ -229,6 +257,15 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
+            String lhsIdperiodo;
+            lhsIdperiodo = this.getIdperiodo();
+            String rhsIdperiodo;
+            rhsIdperiodo = that.getIdperiodo();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idperiodo", lhsIdperiodo), LocatorUtils.property(thatLocator, "idperiodo", rhsIdperiodo), lhsIdperiodo, rhsIdperiodo, (this.idperiodo!= null), (that.idperiodo!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsFechainicio;
             lhsFechainicio = this.getFechainicio();
             String rhsFechainicio;
@@ -285,6 +322,11 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "idempresa", buffer, theIdempresa, (this.idempresa!= null));
         }
         {
+            String theIdperiodo;
+            theIdperiodo = this.getIdperiodo();
+            strategy.appendField(locator, this, "idperiodo", buffer, theIdperiodo, (this.idperiodo!= null));
+        }
+        {
             String theFechainicio;
             theFechainicio = this.getFechainicio();
             strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
@@ -313,6 +355,11 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             String theIdempresa;
             theIdempresa = this.getIdempresa();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempresa", theIdempresa), currentHashCode, theIdempresa, (this.idempresa!= null));
+        }
+        {
+            String theIdperiodo;
+            theIdperiodo = this.getIdperiodo();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idperiodo", theIdperiodo), currentHashCode, theIdperiodo, (this.idperiodo!= null));
         }
         {
             String theFechainicio;
@@ -381,6 +428,19 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
                 } else {
                     if (idempresaShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idempresa = null;
+                    }
+                }
+            }
+            {
+                Boolean idperiodoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idperiodo!= null));
+                if (idperiodoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdperiodo;
+                    sourceIdperiodo = this.getIdperiodo();
+                    String copyIdperiodo = ((String) strategy.copy(LocatorUtils.property(locator, "idperiodo", sourceIdperiodo), sourceIdperiodo, (this.idperiodo!= null)));
+                    copy.setIdperiodo(copyIdperiodo);
+                } else {
+                    if (idperiodoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idperiodo = null;
                     }
                 }
             }

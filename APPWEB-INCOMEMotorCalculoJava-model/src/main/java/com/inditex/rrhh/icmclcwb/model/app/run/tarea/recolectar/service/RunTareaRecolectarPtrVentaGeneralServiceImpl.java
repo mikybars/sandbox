@@ -142,18 +142,17 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
                 //TODO Se necesita la cadena
                 request.setCadena(1);
-                // TODO Falta el pivotado por seccion
-//                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
-//                        .ventaTotalizado(request);
-//                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-//                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
+                        .ventaTotalizado(request);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
                //TODO: Persistir  ¿TAREA_TIENDA_VENTA?
                 
-//                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
-//                        .getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(
-//                        tareaTiendaVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
-//                        cfPersist);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
+                        .getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                        tareaTiendaVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
+                        cfPersist);
                 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -119,18 +119,16 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
-                //TODO: Cambiar por OPERACION_FECHA_TIENDA cuando esté disponible.
-//                paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_TIENDA);
+                paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_TIENDA);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
                 //TODO Se necesita la cadena
                 paramGetVentaIndividualDetalle.setCadena(1);
-//                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
-//                        .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
-//                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-//                PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-//               //TODO: Persistir
-//              AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
-//              AsyncUtils.exceptionally(tareaOperacionLocalizacionVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
+                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
+                        .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(tareaOperacionLocalizacionVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -160,13 +158,13 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                 //TODO Se necesita la cadena
                 paramGetVentaIndividualDetalle.setCadena(1);
                 
-//                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
-//                        .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
-//                
-//                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-//                PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-//                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(tareaPersonaLocalizacionVentaAsyncService.savePtrVentaIndividualDetalleResponseDto(data, tarea), cf, cfPersist);
+                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
+                        .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
+                
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(tareaPersonaLocalizacionVentaAsyncService.savePtrVentaIndividualDetalleResponseDto(data, tarea), cf, cfPersist);
 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -228,20 +226,18 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
-                //TODO: Cambiar por FECHA_TIENDA cuando esté disponible.
-//                paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
+                paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                //TODO Se necesita la cadena
                 paramGetVentaIndividualDetalle.setCadena(Integer.valueOf(1));
 
-//                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
-//                        .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
-//                
-//                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-//                PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-//                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
-  
+                CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
+                        .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
                 
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
