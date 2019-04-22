@@ -51,7 +51,7 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
     }
     
     @AfterMapping
-    void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta, PtrVentaOnlineIpodIndividualDetalleResponseDto src){
+    void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta, PtrVentaOnlineIpodIndividualDetalleResultItemDto src){
         tareaPersonaLocalizacionVenta.setTipoImporteVenta(new TipoImporteVenta());
         tareaPersonaLocalizacionVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId());
     }

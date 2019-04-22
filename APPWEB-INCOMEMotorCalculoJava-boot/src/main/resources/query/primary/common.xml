@@ -82,7 +82,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?)
     ]]>
 </entry>
 
-<entry key="TareaOperacionLocalizacionVentaRepositoryCustom">
+<entry key="TareaOperacionLocalizacionVentaRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_OPERACION_LOCALIZACION_VENTA (FECHA, ID_LOCALIZACION, ID_OPERACION, IMPORTE, ID_TIPO_IMPORTE_VENTA, ID_TAREA )
 VALUES (?, ?, ?, ?, ?, ?)
