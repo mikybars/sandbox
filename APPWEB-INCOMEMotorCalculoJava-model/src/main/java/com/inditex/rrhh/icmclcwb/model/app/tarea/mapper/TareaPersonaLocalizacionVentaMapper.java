@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaLocalizacionVenta
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaLocalizacionVentaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
@@ -35,7 +34,7 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
 
     public abstract List<TareaPersonaLocalizacionVentaDto> tareaPersonaLocalizacionVentaToTareaPersonaLocalizacionVentaDto(
             List<TareaPersonaLocalizacionVenta> src);
-    
+
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.vendedor", target = "idPersona")
@@ -49,13 +48,15 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
             List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
     @AfterMapping
-    void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta, PtrVentaOnlineIpodIndividualDetalleResultItemDto src){
+    void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta,
+            PtrVentaOnlineIpodIndividualDetalleResultItemDto src) {
         tareaPersonaLocalizacionVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaPersonaLocalizacionVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId());
+        tareaPersonaLocalizacionVenta.getTipoImporteVenta()
+                .setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId());
     }
-    
+
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.vendedor", target = "idPersona")
@@ -69,10 +70,13 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
             List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
     @AfterMapping
-    void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta, PtrVentaIndividualDetalleResultItemDto src){
+    void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta,
+            PtrVentaIndividualDetalleResultItemDto src) {
         tareaPersonaLocalizacionVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaPersonaLocalizacionVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_PERSONA_LOCALIZACION.getId());
+        tareaPersonaLocalizacionVenta.getTipoImporteVenta()
+                .setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_PERSONA_LOCALIZACION.getId());
     }
+
 }

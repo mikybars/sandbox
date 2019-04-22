@@ -5,7 +5,6 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -14,76 +13,65 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProc
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
-public class RunTareaProcesarVentaAsyncServiceImpl
-        implements RunTareaProcesarVentaAsyncService {
-    
+public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVentaAsyncService {
+
     @Autowired
     private RunTareaProcesarVentaService tareaProcesarVentaService;
-    
-    @Async
+
     @Override
     public CompletableFuture<Void> ventaLocalizacionSeccion(RunTareaDto runTarea) {
         tareaProcesarVentaService.ventaLocalizacionSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
     @Override
     public CompletableFuture<Void> ventaLocalizacionTienda(RunTareaDto runTarea) {
         tareaProcesarVentaService.ventaLocalizacionTienda(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
     @Override
     public CompletableFuture<Void> saveAbierto(RunTareaDto runTarea) {
         tareaProcesarVentaService.saveAbierto(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    @Async
+
     @Override
     public CompletableFuture<Void> saveCerrado(RunTareaDto runTarea) {
         tareaProcesarVentaService.saveCerrado(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
     @Override
     public CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
         tareaProcesarVentaService.ventaOnlineEntregaTiendaAgrupacionCadena(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    @Async
+
     @Override
     public CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
         tareaProcesarVentaService.ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Async
     @Override
     public CompletableFuture<Void> ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
         tareaProcesarVentaService.ventaFisicaAgrupacionCadena(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    @Async
+
     @Override
     public CompletableFuture<Void> ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
         tareaProcesarVentaService.ventaFisicaAgrupacionCadenaSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    @Async
+
     @Override
     public CompletableFuture<Void> trasladar(RunTareaDto runTarea) {
         tareaProcesarVentaService.trasladar(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    @Async
+
     @Override
     public CompletableFuture<Void> compensar(RunTareaDto runTarea) {
         tareaProcesarVentaService.compensar(runTarea);
