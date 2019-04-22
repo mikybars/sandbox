@@ -21,40 +21,43 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
 
     @Autowired
     private AlgoritmoRepository algoritmoRepository;
-    
+
     @Autowired
     private AlgoritmoRepositoryCustom algoritmoRepositoryCustom;
-    
+
     @Autowired
     private AlgoritmoMapper algoritmoMapper;
 
     @Override
-    public List<Long> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id){
+    public List<Long> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id) {
         return algoritmoRepositoryCustom.customFindAlgoritmosIdsByTarea(id);
     }
-    
+
     @Override
     public AlgoritmoDto findByTipoCalculoId(@NotNull @Positive final Long id) {
         return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findByTipoCalculoId(id));
     }
-    
+
     @Override
-    public AlgoritmoDto findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive final Long idTipoCalculo, @NotNull @Positive final Long idTipoComision) {
-        return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findByTipoCalculoIdAndTipoComisionId(idTipoCalculo, idTipoComision));
+    public AlgoritmoDto findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive final Long idTipoCalculo,
+            @NotNull @Positive final Long idTipoComision) {
+        return algoritmoMapper.algoritmoToAlgoritmoDto(
+                algoritmoRepository.findByTipoCalculoIdAndTipoComisionId(idTipoCalculo, idTipoComision));
     }
 
     @Override
     public AlgoritmoDto findById(@NotNull @Positive final Long id) {
-        return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findById(id).orElse(null));
+        return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findById(id).get());
     }
-    
+
     @Override
-    public List<AlgoritmoDto> findAll(){
+    public List<AlgoritmoDto> findAll() {
         return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findAll());
     }
-    
+
     @Override
-    public Boolean checkDuplicatedActives(){
+    public Boolean checkDuplicatedActives() {
         return algoritmoRepositoryCustom.checkDuplicatedActives();
     }
+
 }

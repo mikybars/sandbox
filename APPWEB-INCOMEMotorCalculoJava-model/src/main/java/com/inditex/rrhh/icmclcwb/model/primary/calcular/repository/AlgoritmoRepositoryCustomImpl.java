@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,17 +20,17 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
 public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom {
-    
+
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("#{primaryQuery['RunTareaCalcularService.customFindAlgoritmosIdsByTarea']}")
     private String sqlCustomFindAlgoritmosIdsByTarea;
-    
+
     @Value("#{primaryQuery['RunTareaCalcularService.checkDuplicatedActives']}")
     private String sqlCheckDuplicatedActives;
-    
+
     @Override
     public List<Long> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -41,19 +42,19 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
             }
         });
     }
-    
+
     @Override
     public Boolean checkDuplicatedActives() {
+        Boolean result = Boolean.FALSE;
         List<Integer> value = namedParameterJdbcTemplate.query(sqlCheckDuplicatedActives, new RowMapper<Integer>() {
             public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                  return rs.getInt(1);
+                return rs.getInt(1);
             }
         });
-
-        if(value != null && !value.isEmpty()) {
-            return Boolean.TRUE;
+        if (CollectionUtils.isNotEmpty(value)) {
+            result = Boolean.TRUE;
         }
-        return Boolean.FALSE;
+        return result;
     }
 
 }
