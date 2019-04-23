@@ -150,9 +150,9 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
                         .getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        tareaTiendaVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
-                        cfPersist);
+//                AsyncUtils.exceptionally(
+//                        tareaTiendaVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
+//                        cfPersist);
                 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
