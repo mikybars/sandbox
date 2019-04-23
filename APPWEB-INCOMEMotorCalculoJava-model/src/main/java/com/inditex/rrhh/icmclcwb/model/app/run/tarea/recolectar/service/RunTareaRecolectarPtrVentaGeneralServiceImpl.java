@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,9 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
     @Autowired
     @Qualifier("recolectarProperties")
     private RecolectarPropertiesDto recolectarProperties;
+    
+    @Autowired
+    private Logger log;
 
     @Autowired
     private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
@@ -140,19 +144,16 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
                 request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
-                //TODO Se necesita la cadena
-                request.setCadena(1);
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-               //TODO: Persistir  ¿TAREA_TIENDA_VENTA?
-                
+
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
                         .getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(
-//                        tareaTiendaVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
-//                        cfPersist);
+                AsyncUtils.exceptionally(
+                        tareaTiendaVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
+                        cfPersist);
                 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -182,9 +183,6 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
-                //TODO Se necesita la cadena
-                request.setCadena(1);
-                // TODO Falta el pivotado por seccion
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);

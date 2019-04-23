@@ -411,7 +411,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 paramVentaOnlinePicking
                         .setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                // TODO Se necesita el producto
                 paramVentaOnlinePicking.setProducto(PtrConstants.PRODUCTO_LIST);
 
                 CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = ptrVentaEcommerceAsyncService
@@ -451,7 +450,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 paramVentaOnlineIpod.setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId)
                         .map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                // TODO Se necesita el producto
                 paramVentaOnlineIpod.setProducto(PtrConstants.PRODUCTO_LIST);
 
                 CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = ptrVentaEcommerceAsyncService
@@ -625,11 +623,11 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 PtrVentaOnlineIpodIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
                 // TODO: Queda pendiente de agrupar
                 // TODO: Agrupa bien pero no devuelve la tienda
-//                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLxE)
-//                        .getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(
-//                        tareaOperacionLocalizacionVentaAsyncService.savePtrVentaOnlineIpodIndividualDetalleResponse(data, tarea), cf,
-//                        cfPersist);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
+                        .getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                        tareaOperacionLocalizacionVentaAsyncService.savePtrVentaOnlineIpodIndividualDetalleResponse(data, tarea), cf,
+                        cfPersist);
 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);

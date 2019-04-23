@@ -13,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEmpleadoPresenciaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaEmpleadoPresenciaSeccionDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoMinutosPresencia;
@@ -47,16 +47,16 @@ public abstract class TareaTiendaEmpleadoPresenciaSeccionMapper {
     @Mapping(source = "src.persona", target = "idEmpleado")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    public abstract TareaTiendaEmpleadoPresenciaSeccion presenciasDetalleComisionableResponseDtoToTareaTiendaEmpleadoPresenciaSeccion( 
-            PtrPresenciaDetalleComisionableResultItemDto src, TareaDto tareaDto);
+    public abstract TareaTiendaEmpleadoPresenciaSeccion presenciasDetalleResponseDtoToTareaTiendaEmpleadoPresenciaSeccion( 
+            PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto);
 
-    public List<TareaTiendaEmpleadoPresenciaSeccion> presenciasDetalleComisionableResponseDtoToTareaTiendaEmpleadoPresenciaSeccion(
-            List<PtrPresenciaDetalleComisionableResultItemDto> src, TareaDto tareaDto) {
+    public List<TareaTiendaEmpleadoPresenciaSeccion> presenciasDetalleResponseDtoToTareaTiendaEmpleadoPresenciaSeccion(
+            List<PtrPresenciaDetalleResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
     @AfterMapping
-    void afterMapping(@MappingTarget TareaTiendaEmpleadoPresenciaSeccion tareaTienda, PtrPresenciaDetalleComisionableResultItemDto src){
+    void afterMapping(@MappingTarget TareaTiendaEmpleadoPresenciaSeccion tareaTienda, PtrPresenciaDetalleResultItemDto src){
         for(PtrSeccionPresenciasGenericType item : src.getListaSeccion()) {
             if(item.getSeccion().equals(SECCION_1)){
                 tareaTienda.setMinutos1(item.getMinutos());

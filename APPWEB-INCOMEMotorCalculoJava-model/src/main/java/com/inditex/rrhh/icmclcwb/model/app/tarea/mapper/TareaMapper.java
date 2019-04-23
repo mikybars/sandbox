@@ -168,11 +168,13 @@ public abstract class TareaMapper {
     public abstract PtrPresenciaTotalTiendaRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasTotalTiendaRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, RecolectarPropertiesDto srcRecolectarProperties);
 
+    @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "persona", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(target = "origen", source = "srcTareaAmbito.idCatalogo")
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
+    @Mapping(target = "agruparSeccion", defaultValue = PtrConstants.BOOLEAN_STRING_TRUE)
     public abstract PtrPresenciaDetalleRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasDetalleRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 

@@ -27,10 +27,11 @@ public class TareaTiendaVentaRepositoryCustomImpl extends JdbcBatchPrimaryReposi
     @Override
     public void setParameters(PreparedStatement pstmt, TareaTiendaVenta entity) throws SQLException {
         pstmt.setObject(1, entity.getFecha());
-        pstmt.setString(2, entity.getIdTienda());
-        pstmt.setDouble(3, entity.getImporte());
-        pstmt.setDouble(4, entity.getTipoImporteVenta().getId());
-        pstmt.setLong(5, entity.getTarea().getId());
+        pstmt.setString(2, entity.getIdCadena());
+        pstmt.setString(3, entity.getIdTienda());
+        pstmt.setDouble(4, entity.getImporte());
+        pstmt.setDouble(5, entity.getTipoImporteVenta().getId());
+        pstmt.setLong(6, entity.getTarea().getId());
     }
 
 }

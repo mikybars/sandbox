@@ -6,10 +6,11 @@ import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEmpleadoPresenciaSeccionDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 
 public interface TareaTiendaEmpleadoPresenciaSeccionService {
 
-    List<TareaTiendaEmpleadoPresenciaSeccionDto> save(@Valid final List<PtrPresenciaDetalleComisionableResultItemDto> dtos, @Valid final TareaDto tareaDto);
+    List<TareaTiendaEmpleadoPresenciaSeccionDto> save(@Valid final List<PtrPresenciaDetalleResultItemDto> dtos,
+            @Valid final TareaDto tareaDto);
 
 }

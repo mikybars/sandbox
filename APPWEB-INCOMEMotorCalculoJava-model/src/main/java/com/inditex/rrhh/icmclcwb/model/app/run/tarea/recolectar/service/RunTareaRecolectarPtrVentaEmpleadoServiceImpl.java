@@ -121,8 +121,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_TIENDA);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
-                //TODO Se necesita la cadena
-                paramGetVentaIndividualDetalle.setCadena(1);
+
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -155,8 +154,6 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
-                //TODO Se necesita la cadena
-                paramGetVentaIndividualDetalle.setCadena(1);
                 
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
@@ -192,9 +189,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
-                //TODO Se necesita la cadena
-                paramGetVentaIndividualDetalle.setCadena(1);
-                
+
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
                 
@@ -228,8 +223,6 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
-                //TODO Se necesita la cadena
-                paramGetVentaIndividualDetalle.setCadena(Integer.valueOf(1));
 
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);

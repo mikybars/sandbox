@@ -33,6 +33,8 @@ public class PtrPresenciaDetalleResultItemDto implements Serializable {
 
 	private Integer origen;
 	
+    private Integer empresa;
+	
 	private List<PtrSeccionPresenciasGenericType> listaSeccion;
 
 }

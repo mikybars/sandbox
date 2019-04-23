@@ -49,6 +49,12 @@ public class PtrPresenciaDetalleRequestDto implements Serializable {
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;
 	
+    @ApiModelProperty(value = "Flag excluído denominador", required = false, example = "true")
+	private Boolean excluidoDenom;
+	
+    @ApiModelProperty(value = "Flag excluído calculo", required = false, example = "true")
+	private Boolean excluidoCalculo;
+	
 	@ApiModelProperty(value = "Agrupacion", required = false, example = "FECHA_TIENDA")
 	private String agrupacion;
 	
