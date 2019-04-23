@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
 
 import lombok.Data;
@@ -38,9 +37,8 @@ public class TareaAgrupacionCadenaVenta {
     private Date fecha;
     
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_AGRUPACION", nullable = false)
-    private TareaAgrupacionCadena agrupacionCadena;
+    @Column(name = "ID_AGRUPACION", nullable = false)
+    private Long idAgrupacion;
     
     @NotNull
     @Column(name = "IMPORTE", nullable = false)
