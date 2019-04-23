@@ -34,6 +34,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         
         List<CompletableFuture<?>> cf = new ArrayList<>();
         
+        // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
+        CompletableFuture<Void> cfRepartoCadenas = runTareaProcesarVentaAsyncService.repartoVentaEntregaDomicilioCadenas(runTarea);
+        AsyncUtils.exceptionally(cfRepartoCadenas, cf);
+        
         // Suma de ventas fisicas por agrupacion de cadena
         CompletableFuture<Void> cfVentaFisicaAgrupacion = runTareaProcesarVentaAsyncService.ventaFisicaAgrupacionCadena(runTarea);
         AsyncUtils.exceptionally(cfVentaFisicaAgrupacion, cf);
@@ -53,6 +57,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         /*-------------------------------------------------------------*/
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
+        
+        // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas
+        CompletableFuture<Void> cfRepartoAgrupaciones = runTareaProcesarVentaAsyncService.repartoVentaEntregaDomicilioAgrupaciones(runTarea);
+        AsyncUtils.exceptionally(cfRepartoAgrupaciones, cf);
+        
+        /*-------------------------------------------------------------*/
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+        /*-------------------------------------------------------------*/
+        
         
         // Suma de ventas totales por localizaciones 
         CompletableFuture<Void> cfVentasLocalizacionTienda = runTareaProcesarVentaAsyncService.ventaLocalizacionTienda(runTarea);

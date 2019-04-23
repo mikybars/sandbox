@@ -21,6 +21,14 @@ public class SqlPrimaryConstants {
     
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SUMA = "idTipoImporteVentaSuma";
     
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_LOCALIZACION = "idTipoImporteVentaFisicaLocalizacion";
+    
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoImporteVentaEntregaDomicilioLocalizacion";
+    
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_CADENA = "idTipoImporteVentaFisicaCadena";
+    
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_CADENA = "idTipoImporteVentaEntregaDomicilioCadena";
+    
     public static final String SQL_RESULT_ID = "ID";
     
     public static final String SQL_RESULT_ID_ALGORITMO = "ID_ALGORITMO";

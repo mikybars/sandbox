@@ -10,4 +10,8 @@ public interface TareaTiendaVentaRepositoryProcesarCustom {
 
     void procesar(@NotNull final TareaDto tareaDto, @NotNull final List<Long> tipoImportes);
     
+    void procesarRepartoEntregaDomicilioAgrupaciones(@NotNull final TareaDto tareaDto);
+    
+    void procesarRepartoEntregaDomicilioCadenas(@NotNull final TareaDto tareaDto);
+    
 }

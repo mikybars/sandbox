@@ -134,4 +134,16 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
         tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(), ID_TIPO_IMPORTE_VENTA_ONLINE);
     }
 
+    @Auditoria
+    @Override
+    public void repartoVentaEntregaDomicilioAgrupaciones(@Valid RunTareaDto runTarea) {
+        tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioAgrupaciones(runTarea.getTarea());
+    }
+    
+    @Auditoria
+    @Override
+    public void repartoVentaEntregaDomicilioCadenas(@Valid RunTareaDto runTarea) {
+        tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioCadenas(runTarea.getTarea());
+    }
+
 }

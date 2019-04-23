@@ -28,6 +28,10 @@ public interface RunTareaProcesarVentaAsyncService {
     CompletableFuture<Void> saveCerrado(RunTareaDto runTarea);
 
     CompletableFuture<Void> trasladar(RunTareaDto runTarea);
+    
+    CompletableFuture<Void> repartoVentaEntregaDomicilioAgrupaciones(RunTareaDto runTarea);
+    
+    CompletableFuture<Void> repartoVentaEntregaDomicilioCadenas(RunTareaDto runTarea);
 
     CompletableFuture<Void> compensar(RunTareaDto runTarea);
 

@@ -6,7 +6,7 @@ metadata:
   tenant: global
   domain: core
   openshiftproject: icmclcwb
-  slot: develop
+  slot: develop-javierev
 spring:
   jta:
     atomikos:

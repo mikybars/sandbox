@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.AgrupacionCadena;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
 
 import lombok.Data;
@@ -40,7 +40,7 @@ public class TareaAgrupacionCadenaVentaSeccion {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_AGRUPACION", nullable = false)
-    private AgrupacionCadena agrupacionCadena;
+    private TareaAgrupacionCadena agrupacionCadena;
     
     @NotNull
     @Column(name = "IMPORTE_SECCION_1", nullable = false)

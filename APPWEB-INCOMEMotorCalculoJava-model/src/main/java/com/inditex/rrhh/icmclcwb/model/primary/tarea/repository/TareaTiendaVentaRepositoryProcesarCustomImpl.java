@@ -18,6 +18,12 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 @Repository
 public class TareaTiendaVentaRepositoryProcesarCustomImpl implements TareaTiendaVentaRepositoryProcesarCustom{
     
+    @Value("#{primaryQuery['TareaTiendaVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones']}")
+    private String sqlProcesarEntregaDomicilioAgrupaciones;
+    
+    @Value("#{primaryQuery['TareaTiendaVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioCadenas']}")
+    private String sqlProcesarEntregaDomicilioCadenas;
+    
     @Value("#{primaryQuery['RunTareaProcesarService.procesarVentaTienda']}" )
     private String sql;
     
@@ -32,6 +38,28 @@ public class TareaTiendaVentaRepositoryProcesarCustomImpl implements TareaTienda
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, tipoImportes);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         namedParameterJdbcTemplate.update(sql, params);
+    }
+    
+    @Override
+    public void procesarRepartoEntregaDomicilioAgrupaciones(@NotNull TareaDto tareaDto) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_CADENA, TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION, TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_LOCALIZACION, TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_CADENA, TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioAgrupaciones, params);
+    }
+
+    @Override
+    public void procesarRepartoEntregaDomicilioCadenas(@NotNull TareaDto tareaDto) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_CADENA, TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION, TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_LOCALIZACION, TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_CADENA, TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioCadenas, params);
     }
 
 }

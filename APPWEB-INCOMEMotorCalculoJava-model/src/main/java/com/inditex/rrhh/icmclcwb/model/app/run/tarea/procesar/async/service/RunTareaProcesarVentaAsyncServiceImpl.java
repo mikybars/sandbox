@@ -78,4 +78,16 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> repartoVentaEntregaDomicilioAgrupaciones(RunTareaDto runTarea) {
+        tareaProcesarVentaService.repartoVentaEntregaDomicilioAgrupaciones(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> repartoVentaEntregaDomicilioCadenas(RunTareaDto runTarea) {
+        tareaProcesarVentaService.repartoVentaEntregaDomicilioCadenas(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

@@ -322,4 +322,84 @@ MERGE INTO TAREA_AGRUPACION_CADENA_VENTA_SECCION USING
 ]]>
 </entry>
 
+
+
+<!-- 
+    Obtencion del reparto de ventas de tienda online entrega domicilio (ED) cuyas cadenas
+    están agrupadas. 
+    El cálculo es Venta Online ED de la agrupación de la cadena * peso de las ventas de la tienda, donde
+    el peso = Ventas físicas de la tienda / ventas físicas de la agrupación cadena.
+
+    Alias de la consulta:
+     * VTF - Ventas físicas de tienda.
+     * AC - Agrupaciones de cadenas.
+     * ACVF - Ventas físicas de agrupaciones de cadenas.
+     * ACVED - Ventas online ED de agrupaciones de cadenas.
+ -->
+
+<entry key="TareaTiendaVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones">
+    <![CDATA[
+MERGE INTO TAREA_TIENDA_VENTA  USING
+    (SELECT VTF.FECHA, VTF.ID_TIENDA, ACVED.IMPORTE * (VTF.IMPORTE / ACVF.IMPORTE) AS IMPORTE,
+        VTF.ID_TAREA, :idTipoImporteVentaEntregaDomicilioLocalizacion AS ID_TIPO_IMPORTE_VENTA
+    FROM DESARROLLO_RRHH.TAREA_TIENDA_VENTA VTF
+    JOIN DESARROLLO_RRHH.AGRUPACION_CADENA AC
+        ON VTF.ID_CADENA = AC.ID_CADENA
+        AND AC.MULTIPLE = 1
+    JOIN DESARROLLO_RRHH.TAREA_AGRUPACION_CADENA_VENTA ACVF
+        ON ACVF.ID_AGRUPACION = AC.ID_AGRUPACION AND ACVF.FECHA = VTF.FECHA
+        AND ACVF.ID_TIPO_IMPORTE_VENTA = :idTipoImporteVentaFisicaCadena
+    JOIN DESARROLLO_RRHH.TAREA_AGRUPACION_CADENA_VENTA ACVED
+        ON ACVED.ID_TIPO_IMPORTE_VENTA = :idTipoImporteVentaEntregaDomicilioCadena 
+        AND AC.ID_AGRUPACION = ACVED.ID_AGRUPACION
+        AND ACVED.FECHA = VTF.FECHA AND ACVED.ID_TAREA = VTF.ID_TAREA
+    WHERE VTF.ID_TAREA = :idTarea) AS S ON (1 = 0)
+    WHEN NOT MATCHED THEN
+        INSERT (FECHA, ID_TIENDA, IMPORTE, ID_TAREA, ID_TIPO_IMPORTE_VENTA)
+        VALUES (S.FECHA, S.ID_TIENDA, S.IMPORTE, S.ID_TAREA, S.ID_TIPO_IMPORTE_VENTA)
+    ]]>
+</entry>
+
+
+
+<!-- 
+    Obtencion del reparto de ventas de tienda online entrega domicilio (ED) para tiendas cuyas
+    cadenas no están agrupadas. 
+    El cálculo es Venta Online ED de la cadena * peso de las ventas de la tienda, donde
+    el peso = Ventas físicas de la tienda / ventas físicas de la cadena.
+
+    Alias de la consulta:
+     * VTF - Ventas físicas de tienda.
+     * AC - Agrupaciones de cadenas.
+     * VCF - Ventas físicas de cadenas.
+     * VCOED - Ventas online ED de cadenas.
+ -->
+
+<entry key="TareaTiendaVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioCadenas">
+    <![CDATA[
+MERGE INTO TAREA_TIENDA_VENTA USING
+    (SELECT VTF.FECHA, VTF.ID_TIENDA, VCOED.IMPORTE * (VTF.IMPORTE / VCF.IMPORTE) AS IMPORTE,
+        VTF.ID_TAREA, :idTipoImporteVentaEntregaDomicilioLocalizacion AS ID_TIPO_IMPORTE_VENTA
+    FROM DESARROLLO_RRHH.TAREA_TIENDA_VENTA VTF
+    JOIN DESARROLLO_RRHH.AGRUPACION_CADENA AC
+        ON VTF.ID_CADENA = AC.ID_CADENA
+        AND AC.MULTIPLE = 0
+    JOIN DESARROLLO_RRHH.TAREA_CADENA_VENTA VCF
+        ON VTF.FECHA = VCF.FECHA
+        AND VTF.ID_CADENA = VCF.ID_CADENA
+        AND VTF.ID_TAREA = VCF.ID_TAREA
+        AND VCF.ID_TIPO_IMPORTE_VENTA = :idTipoImporteVentaFisicaCadena
+        AND VCF.FECHA = VTF.FECHA
+    JOIN DESARROLLO_RRHH.TAREA_CADENA_VENTA VCOED
+        ON VTF.ID_TAREA = VCOED.ID_TAREA
+        AND VTF.ID_CADENA = VCOED.ID_CADENA
+        AND VCOED.ID_TIPO_IMPORTE_VENTA = :idTipoImporteVentaEntregaDomicilioCadena
+        AND VCOED.FECHA = VTF.FECHA
+    WHERE VTF.ID_TAREA = :idTarea) AS S ON (1 = 0)
+    WHEN NOT MATCHED THEN
+        INSERT (FECHA, ID_TIENDA, IMPORTE, ID_TAREA, ID_TIPO_IMPORTE_VENTA)
+        VALUES (S.FECHA, S.ID_TIENDA, S.IMPORTE, S.ID_TAREA, S.ID_TIPO_IMPORTE_VENTA)
+    ]]>
+</entry>
+
 </properties>
