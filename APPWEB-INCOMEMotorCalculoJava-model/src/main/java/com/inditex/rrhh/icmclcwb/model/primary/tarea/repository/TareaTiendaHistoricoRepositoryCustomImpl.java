@@ -29,14 +29,13 @@ public class TareaTiendaHistoricoRepositoryCustomImpl extends JdbcBatchPrimaryRe
     public void setParameters(PreparedStatement pstmt, TareaTiendaHistorico entity) throws SQLException {
         pstmt.setObject(1, entity.getFechaFin());
         pstmt.setObject(2, entity.getFechaInicio());
-        pstmt.setBoolean(3, entity.getComisionable());
-        pstmt.setString(4, entity.getIdCadena());
-        pstmt.setString(5, entity.getIdEmpresa());
-        pstmt.setString(6, entity.getIdPais());
-        pstmt.setString(7, entity.getIdPaisOrigen());
-        pstmt.setString(8, entity.getIdTienda());
-        pstmt.setString(9, entity.getIdTiendaMeta4());
-        pstmt.setLong(10, entity.getTarea().getId());
+        pstmt.setString(3, entity.getIdCadena());
+        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setString(5, entity.getIdPais());
+        pstmt.setString(6, entity.getIdPaisOrigen());
+        pstmt.setString(7, entity.getIdTienda());
+        pstmt.setString(8, entity.getIdTiendaMeta4());
+        pstmt.setLong(9, entity.getTarea().getId());
     }
 
 }

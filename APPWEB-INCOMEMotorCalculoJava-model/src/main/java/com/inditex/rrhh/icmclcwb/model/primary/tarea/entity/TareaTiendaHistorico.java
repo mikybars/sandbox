@@ -62,8 +62,4 @@ public class TareaTiendaHistorico {
 	@Column(name = "FECHA_FIN", nullable = false)
 	private Date fechaFin;
 
-	@NotNull
-	@Column(name = "COMISIONABLE", nullable = false)
-	private Boolean comisionable;
-
 }

@@ -51,7 +51,6 @@ public abstract class TareaTiendaHistoricoMapper {
     @Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "fechaInicio")
     @Mapping(target = "fechaFin", source = "fechaFin")
-    @Mapping(target = "comisionable", source = "esComisionable")
     public abstract TareaTiendaHistoricoDto genericTiendaResultItemDtoToTareaTiendaHistoricoDto(
             GenericTiendaResultItemDto src);
 

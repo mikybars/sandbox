@@ -45,8 +45,5 @@ public class TareaTiendaHistoricoDto implements Serializable {
 
 	@NotNull
     private LocalDateTime fechaFin;
-	
-	@NotNull
-	private Boolean comisionable;
 
 }
