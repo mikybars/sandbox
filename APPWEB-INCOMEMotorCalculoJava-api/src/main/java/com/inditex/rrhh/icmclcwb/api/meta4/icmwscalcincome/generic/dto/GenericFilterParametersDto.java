@@ -24,5 +24,14 @@ public class GenericFilterParametersDto implements Serializable {
     private String orEmpleado;
 
     private String idLugarTrabajo;
+    
+    private String activo;
+    
+    private String abierto;
+    
+    private String idTipoHora;
 
+    private String idEmpleadoLocal;
+    
+    private String idLugarTrabajoMtu;
 }

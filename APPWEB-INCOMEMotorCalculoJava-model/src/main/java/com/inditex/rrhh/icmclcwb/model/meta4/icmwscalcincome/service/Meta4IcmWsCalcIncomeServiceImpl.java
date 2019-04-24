@@ -64,7 +64,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         if (getPresenciaManualOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getPresenciaManualOutput.getReturn()) == 0 
                     && getPresenciaManualOutput.getIcmListaempleados() != null
-                    && getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet() != null
                     && CollectionUtils.isNotEmpty(
                             getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
                 List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
@@ -83,7 +82,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         if (getempleadospresenciaOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getempleadospresenciaOutput.getReturn()) == 0 
                     && getempleadospresenciaOutput.getIcmListaempleados() != null
-                    && getempleadospresenciaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet() != null
                     && CollectionUtils.isNotEmpty(
                             getempleadospresenciaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
                 List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
@@ -102,7 +100,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         if (getperiodosOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getperiodosOutput.getReturn()) == 0 
                     && getperiodosOutput.getIcmListaperiodos() != null
-                    && getperiodosOutput.getIcmListaperiodos().getIcmListaperiodosRecordSet() != null
                     && CollectionUtils.isNotEmpty(
                             getperiodosOutput.getIcmListaperiodos().getIcmListaperiodosRecordSet())) {
                 List<PeriodosResultItemDto> items = icmWsCalcIncomeMapper.asPeriodosResultItemDtos(
@@ -217,7 +214,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         if (getComisionEmpleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 
                     && getComisionEmpleadoOutput.getIcmListaempleados() != null
-                    && getComisionEmpleadoOutput.getIcmListaempleados().getIcmListaempleadosRecordSet() != null
                     && CollectionUtils.isNotEmpty(
                             getComisionEmpleadoOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
                 List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
