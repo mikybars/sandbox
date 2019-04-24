@@ -38,9 +38,8 @@ public class TareaAgrupacionCadenaVentaSeccion {
     private Date fecha;
     
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_AGRUPACION", nullable = false)
-    private TareaAgrupacionCadena agrupacionCadena;
+    @Column(name = "ID_AGRUPACION", nullable = false)
+    private Long idAgrupacion;
     
     @NotNull
     @Column(name = "IMPORTE_SECCION_1", nullable = false)
