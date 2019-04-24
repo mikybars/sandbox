@@ -16,11 +16,19 @@ import org.springframework.core.io.support.ResourcePatternUtils;
 public class QueryPrimaryConfig {
     
     @Value("${app.envars.calculo.precision}")
-    private String precision;
+    private String precisionCalculo;
     
     @Value("${app.envars.calculo.cast}")
-    private boolean cast;
+    private boolean castCalculo;
     
+    @Value("${app.envars.proceso.precision}")
+    private String precisionProceso;
+    
+    @Value("${app.envars.proceso.cast}")
+    private boolean castProceso;
+    
+    private static final String RESOURCE_COMMON = "classpath*:/query/primary/*.xml";
+    private static final String RESOURCE_CALCULO = "classpath*:/query/primary/calculo/*.xml";
     private static final String PRECISION_CONSTANT_INICIO = "/*PRECISION_INI*/";
     private static final String PRECISION_CONSTANT_FIN = "/*PRECISION_FIN*/";
     private static final String PRECISION_TYPE = "/*PRECISION*/";
@@ -29,19 +37,19 @@ public class QueryPrimaryConfig {
 
     @Bean(name = "primaryQuery")
     public PropertiesFactoryBean primaryQuery(ResourceLoader resourceLoader) throws IOException {
-        PropertiesFactoryBean bean = new PropertiesFactoryBean();
-        Resource[] resources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
-                .getResources("classpath*:/query/primary/*.xml");
-        bean.setLocations(resources);
-        bean.setIgnoreResourceNotFound(true);
-        return bean;
+        return loadBean(resourceLoader, RESOURCE_COMMON, precisionProceso, castProceso);
     }
     
     @Bean(name = "calculoPrimaryQuery")
     public PropertiesFactoryBean calculoPrimaryQuery(ResourceLoader resourceLoader) throws IOException {
+        return loadBean(resourceLoader, RESOURCE_CALCULO, precisionCalculo, castCalculo);
+    }
+
+    private PropertiesFactoryBean loadBean(ResourceLoader resourceLoader, String resource, String precision,
+            boolean cast) throws IOException {
         PropertiesFactoryBean bean = new PropertiesFactoryBean();
         Resource[] resources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
-                .getResources("classpath*:/query/primary/calculo/*.xml");
+                .getResources(resource);
         bean.setLocations(resources);
         bean.setIgnoreResourceNotFound(true);
         bean.afterPropertiesSet();
