@@ -22,7 +22,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -68,7 +67,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
                     && getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet() != null
                     && CollectionUtils.isNotEmpty(
                             getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
-                List<PresenciaManualResultItemDto> items = icmWsCalcIncomeMapper.asPresenciaManualResultItemDtos(
+                List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
                         getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
                 result.setData(items);
         }
