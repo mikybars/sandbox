@@ -38,4 +38,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
     
     CompletableFuture<Void> tiendasComisionableByRunTarea(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> periodosByRunTarea(final RunTareaDto runTarea);
+
 }

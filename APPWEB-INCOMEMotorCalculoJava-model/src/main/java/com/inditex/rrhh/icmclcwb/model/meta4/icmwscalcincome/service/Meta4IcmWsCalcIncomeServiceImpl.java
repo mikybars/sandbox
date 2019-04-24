@@ -13,8 +13,16 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -26,6 +34,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.T
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -45,6 +56,63 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Autowired
     private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
 	
+    @Override
+    public PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request) {
+        PresenciaManualResponseDto result = new PresenciaManualResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        GetpresenciamanualOutput getPresenciaManualOutput = meta4ClientPool.getpresenciamanual(param1);
+        
+        if (getPresenciaManualOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getPresenciaManualOutput.getReturn()) == 0 
+                    && getPresenciaManualOutput.getIcmListaempleados() != null
+                    && getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet() != null
+                    && CollectionUtils.isNotEmpty(
+                            getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
+                List<PresenciaManualResultItemDto> items = icmWsCalcIncomeMapper.asPresenciaManualResultItemDtos(
+                        getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
+                result.setData(items);
+        }
+        return result;
+    }
+    
+    @Override
+    public EmpleadosPresenciaResponseDto getEmpleadosPresencia(EmpleadosPresenciaRequestDto request) {
+        EmpleadosPresenciaResponseDto result = new EmpleadosPresenciaResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        GetempleadospresenciaOutput getempleadospresenciaOutput = meta4ClientPool.getempleadospresencia(param1);
+        
+        if (getempleadospresenciaOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getempleadospresenciaOutput.getReturn()) == 0 
+                    && getempleadospresenciaOutput.getIcmListaempleados() != null
+                    && getempleadospresenciaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet() != null
+                    && CollectionUtils.isNotEmpty(
+                            getempleadospresenciaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
+                List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
+                        getempleadospresenciaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
+                result.setData(items);
+        }
+        return result;
+    }
+    
+    @Override
+    public PeriodosResponseDto getPeriodos(PeriodosRequestDto request) {
+        PeriodosResponseDto result = new PeriodosResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        GetperiodosOutput getperiodosOutput = meta4ClientPool.getperiodos(param1);
+        
+        if (getperiodosOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getperiodosOutput.getReturn()) == 0 
+                    && getperiodosOutput.getIcmListaperiodos() != null
+                    && getperiodosOutput.getIcmListaperiodos().getIcmListaperiodosRecordSet() != null
+                    && CollectionUtils.isNotEmpty(
+                            getperiodosOutput.getIcmListaperiodos().getIcmListaperiodosRecordSet())) {
+                List<PeriodosResultItemDto> items = icmWsCalcIncomeMapper.asPeriodosResultItemDtos(
+                        getperiodosOutput.getIcmListaperiodos().getIcmListaperiodosRecordSet());
+                result.setData(items);
+        }
+        return result;
+    }
+    
     @Override
     public TiendasEmpleadoResponseDto getTiendasEmpleado(TiendasEmpleadoRequestDto request) {
         TiendasEmpleadoResponseDto result = new TiendasEmpleadoResponseDto();

@@ -16,6 +16,9 @@ public class Meta4Constants {
     public static final String SEARCH_EMPLEADOS = "searchEmpleados";
     public static final String COMISION_EMPLEADO = "getComisionEmpleado";
     public static final String EMPLEADOS = "getEmpleados";
+    public static final String PERIODOS = "getPeriodos";
+    public static final String EMPLEADOS_PRESENCIA = "getEmpleadosPresencia";
+    public static final String PRESENCIA_MANUAL = "getPresenciaManual";
 
 
 }

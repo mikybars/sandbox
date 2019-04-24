@@ -206,12 +206,11 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
                 PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
-                // TODO No devuelve la tienda
-//                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
-//                        .getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(
-//                        tareaTiendaVentaSeccionAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
-//                        cfPersist);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
+                        .getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                        tareaTiendaVentaSeccionAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
+                        cfPersist);
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
@@ -248,7 +247,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
                 PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
-                // TODO: Falta que devuelva la tienda
 //                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
 //                        .getFilter().getMaxPersistenceSize());
 //                AsyncUtils.exceptionally(

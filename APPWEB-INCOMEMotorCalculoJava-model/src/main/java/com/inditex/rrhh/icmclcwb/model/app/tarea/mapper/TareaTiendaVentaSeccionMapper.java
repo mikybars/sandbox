@@ -186,6 +186,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaTiendaVentaSeccion getVentaOnlineEntregaDomicilioResponseItemDtoToTareaTiendaVentaSeccion(

@@ -37,6 +37,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="Icm_Ws_Tools" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/>
  *         &lt;element name="Icm_Listatiendas" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/>
+ *         &lt;element name="Icm_Listaperiodos" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/>
  *         &lt;element name="Icm_Listaempleados" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/>
  *         &lt;element name="Icm_Parametrosentrada" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/>
  *         &lt;element name="Icm_Ws_Calc_Operaciones" type="{http://schemas.meta4.com/}Icm_Ws_Calc_OperacionesBlock"/>
@@ -55,6 +56,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "logMessage",
     "icmWsTools",
     "icmListatiendas",
+    "icmListaperiodos",
     "icmListaempleados",
     "icmParametrosentrada",
     "icmWsCalcOperaciones",
@@ -71,6 +73,8 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
     protected IcmWsToolsBlock icmWsTools;
     @XmlElement(name = "Icm_Listatiendas", required = true, nillable = true)
     protected IcmListatiendasBlock icmListatiendas;
+    @XmlElement(name = "Icm_Listaperiodos", required = true, nillable = true)
+    protected IcmListaperiodosBlock icmListaperiodos;
     @XmlElement(name = "Icm_Listaempleados", required = true, nillable = true)
     protected IcmListaempleadosBlock icmListaempleados;
     @XmlElement(name = "Icm_Parametrosentrada", required = true, nillable = true)
@@ -171,6 +175,30 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
      */
     public void setIcmListatiendas(IcmListatiendasBlock value) {
         this.icmListatiendas = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmListaperiodos.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaperiodosBlock }
+     *     
+     */
+    public IcmListaperiodosBlock getIcmListaperiodos() {
+        return icmListaperiodos;
+    }
+
+    /**
+     * Define el valor de la propiedad icmListaperiodos.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaperiodosBlock }
+     *     
+     */
+    public void setIcmListaperiodos(IcmListaperiodosBlock value) {
+        this.icmListaperiodos = value;
     }
 
     /**
@@ -314,6 +342,15 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
             }
         }
         {
+            IcmListaperiodosBlock lhsIcmListaperiodos;
+            lhsIcmListaperiodos = this.getIcmListaperiodos();
+            IcmListaperiodosBlock rhsIcmListaperiodos;
+            rhsIcmListaperiodos = that.getIcmListaperiodos();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaperiodos", lhsIcmListaperiodos), LocatorUtils.property(thatLocator, "icmListaperiodos", rhsIcmListaperiodos), lhsIcmListaperiodos, rhsIcmListaperiodos, (this.icmListaperiodos!= null), (that.icmListaperiodos!= null))) {
+                return false;
+            }
+        }
+        {
             IcmListaempleadosBlock lhsIcmListaempleados;
             lhsIcmListaempleados = this.getIcmListaempleados();
             IcmListaempleadosBlock rhsIcmListaempleados;
@@ -393,6 +430,11 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
             strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas, (this.icmListatiendas!= null));
         }
         {
+            IcmListaperiodosBlock theIcmListaperiodos;
+            theIcmListaperiodos = this.getIcmListaperiodos();
+            strategy.appendField(locator, this, "icmListaperiodos", buffer, theIcmListaperiodos, (this.icmListaperiodos!= null));
+        }
+        {
             IcmListaempleadosBlock theIcmListaempleados;
             theIcmListaempleados = this.getIcmListaempleados();
             strategy.appendField(locator, this, "icmListaempleados", buffer, theIcmListaempleados, (this.icmListaempleados!= null));
@@ -436,6 +478,11 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
             IcmListatiendasBlock theIcmListatiendas;
             theIcmListatiendas = this.getIcmListatiendas();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListatiendas", theIcmListatiendas), currentHashCode, theIcmListatiendas, (this.icmListatiendas!= null));
+        }
+        {
+            IcmListaperiodosBlock theIcmListaperiodos;
+            theIcmListaperiodos = this.getIcmListaperiodos();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaperiodos", theIcmListaperiodos), currentHashCode, theIcmListaperiodos, (this.icmListaperiodos!= null));
         }
         {
             IcmListaempleadosBlock theIcmListaempleados;
@@ -531,6 +578,19 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
                 } else {
                     if (icmListatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmListatiendas = null;
+                    }
+                }
+            }
+            {
+                Boolean icmListaperiodosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaperiodos!= null));
+                if (icmListaperiodosShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaperiodosBlock sourceIcmListaperiodos;
+                    sourceIcmListaperiodos = this.getIcmListaperiodos();
+                    IcmListaperiodosBlock copyIcmListaperiodos = ((IcmListaperiodosBlock) strategy.copy(LocatorUtils.property(locator, "icmListaperiodos", sourceIcmListaperiodos), sourceIcmListaperiodos, (this.icmListaperiodos!= null)));
+                    copy.setIcmListaperiodos(copyIcmListaperiodos);
+                } else {
+                    if (icmListaperiodosShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaperiodos = null;
                     }
                 }
             }

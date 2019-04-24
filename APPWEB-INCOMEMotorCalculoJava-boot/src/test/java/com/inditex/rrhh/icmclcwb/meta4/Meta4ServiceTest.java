@@ -23,6 +23,9 @@ import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4TestConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
@@ -44,6 +47,54 @@ public class Meta4ServiceTest {
     @Qualifier("meta4ClientPool")
     private Meta4ClientPool meta4ClientPool;
 
+    @Test
+    public void getPeriodos() {
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+
+        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        
+        GetperiodosOutput getperiodosOutput = meta4ClientPool.getperiodos(param1);
+     
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getperiodosOutput.getReturn()));
+    }
+    
+    @Test
+    public void getPresenciaManual() {
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+
+        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        
+        GetpresenciamanualOutput getpresenciamanualOutput = meta4ClientPool.getpresenciamanual(param1);
+     
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getpresenciamanualOutput.getReturn()));
+    }
+    
+    @Test
+    public void getEmpleadosPresencia() {
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+
+        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        
+        GetempleadospresenciaOutput getempleadospresenciaOutput = meta4ClientPool.getempleadospresencia(param1);
+     
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getempleadospresenciaOutput.getReturn()));
+    }
+    
     @Test
     public void getTiendasEmpleado() {
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();

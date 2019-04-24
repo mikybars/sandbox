@@ -60,6 +60,7 @@ public abstract class TareaTiendaVentaMapper {
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "src.importeSinIVA", target = "importe")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "tarea.id", target = "tarea.id")

@@ -34,6 +34,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETEMPLEADOSPRESENCIAResponse }
+     * 
+     */
+    public GETEMPLEADOSPRESENCIAResponse createGETEMPLEADOSPRESENCIAResponse() {
+        return new GETEMPLEADOSPRESENCIAResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetempleadospresenciaOutput }
+     * 
+     */
+    public GetempleadospresenciaOutput createGetempleadospresenciaOutput() {
+        return new GetempleadospresenciaOutput();
+    }
+
+    /**
      * Create an instance of {@link GETCOMISIONEMPLEADO }
      * 
      */
@@ -47,6 +63,14 @@ public class ObjectFactory {
      */
     public IcmParametrosentradaBlock createIcmParametrosentradaBlock() {
         return new IcmParametrosentradaBlock();
+    }
+
+    /**
+     * Create an instance of {@link GETPRESENCIAMANUAL }
+     * 
+     */
+    public GETPRESENCIAMANUAL createGETPRESENCIAMANUAL() {
+        return new GETPRESENCIAMANUAL();
     }
 
     /**
@@ -90,6 +114,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETEMPLEADOSPRESENCIA }
+     * 
+     */
+    public GETEMPLEADOSPRESENCIA createGETEMPLEADOSPRESENCIA() {
+        return new GETEMPLEADOSPRESENCIA();
+    }
+
+    /**
      * Create an instance of {@link M4SoapException }
      * 
      */
@@ -130,6 +162,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETPERIODOS }
+     * 
+     */
+    public GETPERIODOS createGETPERIODOS() {
+        return new GETPERIODOS();
+    }
+
+    /**
      * Create an instance of {@link RetrieveM4SessionResponse }
      * 
      */
@@ -154,19 +194,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASEMPLEADO }
-     * 
-     */
-    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
-        return new GETTIENDASEMPLEADO();
-    }
-
-    /**
      * Create an instance of {@link GETTIENDASINCOME }
      * 
      */
     public GETTIENDASINCOME createGETTIENDASINCOME() {
         return new GETTIENDASINCOME();
+    }
+
+    /**
+     * Create an instance of {@link GETTIENDASEMPLEADO }
+     * 
+     */
+    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
+        return new GETTIENDASEMPLEADO();
     }
 
     /**
@@ -194,6 +234,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IcmListaperiodosBlock }
+     * 
+     */
+    public IcmListaperiodosBlock createIcmListaperiodosBlock() {
+        return new IcmListaperiodosBlock();
+    }
+
+    /**
      * Create an instance of {@link IcmListaempleadosBlock }
      * 
      */
@@ -215,6 +263,22 @@ public class ObjectFactory {
      */
     public SEARCHTIENDAS createSEARCHTIENDAS() {
         return new SEARCHTIENDAS();
+    }
+
+    /**
+     * Create an instance of {@link GETPERIODOSResponse }
+     * 
+     */
+    public GETPERIODOSResponse createGETPERIODOSResponse() {
+        return new GETPERIODOSResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetperiodosOutput }
+     * 
+     */
+    public GetperiodosOutput createGetperiodosOutput() {
+        return new GetperiodosOutput();
     }
 
     /**
@@ -258,6 +322,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETPRESENCIAMANUALResponse }
+     * 
+     */
+    public GETPRESENCIAMANUALResponse createGETPRESENCIAMANUALResponse() {
+        return new GETPRESENCIAMANUALResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetpresenciamanualOutput }
+     * 
+     */
+    public GetpresenciamanualOutput createGetpresenciamanualOutput() {
+        return new GetpresenciamanualOutput();
+    }
+
+    /**
      * Create an instance of {@link M4LoadObjectResponse }
      * 
      */
@@ -271,14 +351,6 @@ public class ObjectFactory {
      */
     public M4LoadobjectOutput createM4LoadobjectOutput() {
         return new M4LoadobjectOutput();
-    }
-
-    /**
-     * Create an instance of {@link IcmWsToolsRecord }
-     * 
-     */
-    public IcmWsToolsRecord createIcmWsToolsRecord() {
-        return new IcmWsToolsRecord();
     }
 
     /**
@@ -306,11 +378,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LogMessage }
+     * Create an instance of {@link IcmListaperiodosRecord }
      * 
      */
-    public LogMessage createLogMessage() {
-        return new LogMessage();
+    public IcmListaperiodosRecord createIcmListaperiodosRecord() {
+        return new IcmListaperiodosRecord();
     }
 
     /**
@@ -319,6 +391,22 @@ public class ObjectFactory {
      */
     public IcmParametrosentradaRecord createIcmParametrosentradaRecord() {
         return new IcmParametrosentradaRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmWsToolsRecord }
+     * 
+     */
+    public IcmWsToolsRecord createIcmWsToolsRecord() {
+        return new IcmWsToolsRecord();
+    }
+
+    /**
+     * Create an instance of {@link LogMessage }
+     * 
+     */
+    public LogMessage createLogMessage() {
+        return new LogMessage();
     }
 
     /**

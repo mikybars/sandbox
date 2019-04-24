@@ -21,7 +21,7 @@ import lombok.Data;
 public class TareaAgrupacionCadena {
 
     @Id
-    @Column(name = "ID_AGRUPACION_CADENA")
+    @Column(name = "ID_TAREA_AGRUPACION_CADENA")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     

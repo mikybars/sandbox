@@ -20,9 +20,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
@@ -44,6 +48,24 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     @Qualifier("meta4Properties")
     private Map<String, Meta4PropertiesDto> meta4Properties;
 
+    @Override
+    public List<GenericTiendaResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.PRESENCIA_MANUAL,
+                meta4Properties.get(Meta4Constants.PRESENCIA_MANUAL).getFilter().getMaxPageSize());
+    }
+    
+    @Override
+    public List<GenericTiendaResultItemDto> getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.EMPLEADOS_PRESENCIA,
+                meta4Properties.get(Meta4Constants.EMPLEADOS_PRESENCIA).getFilter().getMaxPageSize());
+    }
+    
+    @Override
+    public List<PeriodosResultItemDto> getPeriodos(final PeriodosRequestDto request) {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.PERIODOS,
+                meta4Properties.get(Meta4Constants.PERIODOS).getFilter().getMaxPageSize());
+    }
+    
     @Override
     public List<GenericTiendaResultItemDto> getTiendasEmpleado(final TiendasEmpleadoRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.TIENDAS_EMPLEADO,

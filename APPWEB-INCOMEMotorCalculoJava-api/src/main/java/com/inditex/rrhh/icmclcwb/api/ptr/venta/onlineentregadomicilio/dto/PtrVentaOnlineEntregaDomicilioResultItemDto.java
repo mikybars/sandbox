@@ -27,6 +27,8 @@ public class PtrVentaOnlineEntregaDomicilioResultItemDto implements Serializable
 
     private Integer seccion;
     
+    private Integer tienda;
+    
     private String ano;
 
     private String cmp;
