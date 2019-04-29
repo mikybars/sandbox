@@ -6,9 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoAmbito;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,5 +58,10 @@ public class Programacion {
     @NotNull
     @Column(name = "FECHA_SIGUIENTE_EJECUCION", nullable = false)
     private Date fechaSiguienteEjecucion;
+    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
+    private /* BigInteger */ TipoAmbito tipoAmbito;
 
 }

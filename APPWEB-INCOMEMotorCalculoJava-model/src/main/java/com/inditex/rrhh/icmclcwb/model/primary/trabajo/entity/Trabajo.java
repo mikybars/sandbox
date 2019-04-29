@@ -9,12 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoAmbito;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
-
 import lombok.Data;
 
 @Entity
@@ -51,6 +52,11 @@ public class Trabajo {
     @Column(name = "ID_SOCIEDAD", nullable = false)
     private String idSociedad;
 
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
+    private /* BigInteger */ TipoAmbito tipoAmbito;
+    
     @ManyToOne
     @JoinTable(name = "PROGRAMACION_TRABAJO", joinColumns = {
             @JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {

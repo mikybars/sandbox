@@ -72,7 +72,6 @@ public abstract class TareaMapper {
     @AfterMapping
     protected void mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa,
             TrabajoDto srcTrabajo, @MappingTarget TareaDto tarea) {
-
         List<TareaAmbitoDto> ambito = new ArrayList<>();
         srcTrabajo.getOrigen().forEach(item -> ambito.add(TareaAmbitoDto.builder().idOrigen(item.getIdOrigen())
                 .idCatalogo(/* TODO Cambiar por valor de Meta4 */item.getIdOrigen()).build()));

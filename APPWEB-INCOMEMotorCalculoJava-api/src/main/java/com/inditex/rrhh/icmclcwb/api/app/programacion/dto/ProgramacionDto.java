@@ -16,6 +16,7 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 
 @ApiModel(description = "Modelo ProgramacionDto")
@@ -54,6 +55,10 @@ public class ProgramacionDto implements Serializable {
     @ApiModelProperty(value = "Fecha de la siguiente ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private LocalDateTime fechaSiguienteEjecucion;
 
+    @NotNull
+    @ApiModelProperty(value = "Tipo Ambito", required = true, example = "1")
+    private /* BigInteger */ TipoAmbitoDto tipoAmbito;
+    
     @NotNull
     @NotEmpty
     @ApiModelProperty(value = "Ambito de la programacion", required = true)

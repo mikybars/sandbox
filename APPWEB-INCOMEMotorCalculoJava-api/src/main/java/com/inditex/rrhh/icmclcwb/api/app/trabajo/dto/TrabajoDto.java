@@ -11,6 +11,8 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
+
 @ApiModel(description = "Modelo TrabajoDto")
 @Data
 public class TrabajoDto implements Serializable {
@@ -44,6 +46,10 @@ public class TrabajoDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "0001")
     private String idSociedad;
+    
+    @NotNull
+    @ApiModelProperty(value = "Tipo Ambito", required = true, example = "1")
+    private /* BigInteger */ TipoAmbitoDto tipoAmbito;
     
     @ApiModelProperty(value = "Ambito origen del trabajo", required = false)
     private List<TrabajoAmbitoOrigenDto> origen;

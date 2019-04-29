@@ -38,12 +38,13 @@ public abstract class TrabajoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "fechaCreacion", ignore = true /* expression = "java(java.time.LocalDateTime.now())" */)
+    @Mapping(target = "idProgramacion", source = "srcProgramacion.id")
+    @Mapping(target = "tipoAmbito", source = "srcProgramacion.tipoAmbito")
     @Mapping(target = "idUsuario", source = "srcProgramacion.idUsuario")
     @Mapping(target = "idPeriodo", source = "srcPeriodo.id")
     @Mapping(target = "fechaInicioPeriodo", source = "srcPeriodo.fechaInicioPeriodo")
     @Mapping(target = "fechaFinPeriodo", source = "srcPeriodo.fechaFinPeriodo")
     @Mapping(target = "idSociedad", source = "srcProgramacionAmbito.idSociedad")
-    @Mapping(target = "idProgramacion", source = "srcProgramacion.id")
     public abstract TrabajoDto mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
             ProgramacionAmbitoDto srcProgramacionAmbito, ProgramacionDto srcProgramacion, PeriodoDto srcPeriodo);
 
