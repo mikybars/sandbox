@@ -343,7 +343,7 @@ public class PtrVentaEcommerceServiceTest {
     @Test
     public void test() { 
         ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
-                ventaEcommerceProperties.get(PtrConstants.VENTA_ECOMMERCE_TEST).getEndpoint(), Boolean.class);
+                ventaEcommerceProperties.get(PtrConstants.TEST).getEndpoint(), Boolean.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(Boolean.TRUE, response.getBody());
     }
@@ -352,7 +352,7 @@ public class PtrVentaEcommerceServiceTest {
     @Test
     public void version() {
         ResponseEntity<String> response = ptrVentaClient.getForEntity(
-                ventaEcommerceProperties.get(PtrConstants.VENTA_ECOMMERCE_VERSION).getEndpoint(), String.class);
+                ventaEcommerceProperties.get(PtrConstants.VERSION).getEndpoint(), String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(version, response.getBody());
         

@@ -22,17 +22,32 @@ public class PtrPresenciaEmpleadosTiendaRequestDto {
     @ApiModelProperty(value = "Id origen", required = true, example = "11")
     private Integer origen;  
     
-    @ApiModelProperty(value = "Id empresa", required = false, allowableValues = "1000")
+    @ApiModelProperty(value = "Id empresa", required = false, example = "[1000]")
     private List<Integer> empresa;
     
-    @ApiModelProperty(value = "Id cadena", required = false, allowableValues = "8")
+    @ApiModelProperty(value = "Id cadena", required = false, example = "[8]")
     private List<Integer> cadena;
     
-    @ApiModelProperty(value = "Id tienda", required = false, allowableValues = "1000")
+    @ApiModelProperty(value = "Id tienda", required = false, example = "[1000]")
     private List<Integer> tienda;
     
-    @ApiModelProperty(value = "Tipo", required = false, allowableValues = "1")
+    @ApiModelProperty(value = "Tipo", required = false, example = "[1]")
     private List<Integer> tipo;
+    
+    @ApiModelProperty(value = "Flag incluido venta", required = false, example = "true")
+    private boolean incluidoVenta;
+    
+    @ApiModelProperty(value = "Flag incluido challenge", required = false, example = "true")
+    private boolean incluidoChallenge;
+    
+    @ApiModelProperty(value = "Flag incluido ecommerce", required = false, example = "true")
+    private boolean incluidoEcommerce;
+    
+    @ApiModelProperty(value = "Flag excluido calculo", required = false, example = "true")
+    private boolean excluidoCalculo;
+    
+    @ApiModelProperty(value = "Flag excluido denominador", required = false, example = "true")
+    private boolean excluidoDenom;
     
     @ApiModelProperty(value = "Agrupacion", required = false, allowableValues = "TIENDA, TIENDA_PERSONA")
     private String agrupacion;

@@ -77,7 +77,7 @@ public class PtrVentaAcumuladoServiceTest {
     @Test
     public void test() { 
         ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
-                acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_TEST).getEndpoint(), Boolean.class);
+                acumuladoVentaImporteProperties.get(PtrConstants.TEST).getEndpoint(), Boolean.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(Boolean.TRUE, response.getBody());
     }
@@ -85,7 +85,7 @@ public class PtrVentaAcumuladoServiceTest {
     @Test
     public void version() {
         ResponseEntity<String> response = ptrVentaClient.getForEntity(
-                acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_VERSION).getEndpoint(), String.class);
+                acumuladoVentaImporteProperties.get(PtrConstants.VERSION).getEndpoint(), String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(version, response.getBody());
         

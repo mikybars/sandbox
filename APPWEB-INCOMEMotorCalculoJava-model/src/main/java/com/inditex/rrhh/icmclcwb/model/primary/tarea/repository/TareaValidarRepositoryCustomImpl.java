@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaEmpleadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEstadoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TipoTareaTiendaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -187,12 +187,12 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     }
     
     @Override
-    public List<TareaEmpleadoHistoricoDto> empleadoHistoricoEmptyFields(@NotNull @Positive final Long idTarea) {
+    public List<TareaPersonaHistoricoDto> empleadoHistoricoEmptyFields(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return namedParameterJdbcTemplate.query(sqlEmpleadoEmptyFields, parameters, new RowMapper<TareaEmpleadoHistoricoDto>() {
-            public TareaEmpleadoHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                TareaEmpleadoHistoricoDto dto = new TareaEmpleadoHistoricoDto();
+        return namedParameterJdbcTemplate.query(sqlEmpleadoEmptyFields, parameters, new RowMapper<TareaPersonaHistoricoDto>() {
+            public TareaPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                TareaPersonaHistoricoDto dto = new TareaPersonaHistoricoDto();
                 dto.setId(rs.getString("ID_TAREA_EMPLEADO_ESTADO"));
                 dto.setIdEmpleado(rs.getString("ID_EMPLEADO"));
                 dto.setIdEmpleadoLocal(rs.getString("ID_EMPLEADO_LOCAL"));

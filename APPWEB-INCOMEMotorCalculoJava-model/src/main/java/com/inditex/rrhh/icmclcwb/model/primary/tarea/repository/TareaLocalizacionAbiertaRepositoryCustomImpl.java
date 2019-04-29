@@ -47,7 +47,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     
     @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.trasladar']} #{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.trasladar.destino']}")
     private String sqlTrasladarDestino;
-    
+
     @Override
     public void saveAbierto(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();

@@ -25,7 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaLocaliz
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
@@ -45,7 +45,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
     private PtrVentaEmpleadoAsyncService ptrVentaEmpleadoAsyncService;
     
     @Autowired
-    private TareaEmpleadoHistoricoService tareaEmpleadoHistoricoService; 
+    private TareaPersonaHistoricoService tareaPersonaHistoricoService; 
     
     @Autowired
     private TareaPersonaLocalizacionVentaAsyncService tareaPersonaLocalizacionVentaAsyncService;
@@ -112,7 +112,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
-                    tareaEmpleadoHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
@@ -145,7 +145,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
-                    tareaEmpleadoHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
@@ -178,7 +178,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
-                    tareaEmpleadoHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -214,7 +214,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
-                    tareaEmpleadoHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper

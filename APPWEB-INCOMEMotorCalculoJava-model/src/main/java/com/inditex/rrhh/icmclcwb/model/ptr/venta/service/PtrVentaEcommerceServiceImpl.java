@@ -159,9 +159,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_EMPLEADO_TEST).getEndpoint(),
+                ptrVentaClient.getForEntity(ventaEcommerceProperties.get(PtrConstants.TEST).getEndpoint(),
                         String.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_EMPLEADO_TEST).getEndpoint(), null);
+                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -169,8 +169,8 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
     public String version() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.VENTA_EMPLEADO_VERSION).getEndpoint(), String.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_EMPLEADO_VERSION).getEndpoint(), null);
+                        ventaEcommerceProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VERSION).getEndpoint(), null);
     }
     
 }

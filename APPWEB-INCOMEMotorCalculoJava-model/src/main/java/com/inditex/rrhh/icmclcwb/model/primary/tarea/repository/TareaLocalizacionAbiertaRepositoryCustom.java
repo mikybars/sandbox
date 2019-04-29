@@ -13,8 +13,8 @@ public interface TareaLocalizacionAbiertaRepositoryCustom {
 
     void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto, @NotNull List<Long> idTipoImporteVenta);
 
-    void trasladar(@NotNull TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta);
+    void trasladar(@NotNull final TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta);
 
-    void compensar(@NotNull TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta);
-    
+    void compensar(@NotNull final TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta);
+
 }

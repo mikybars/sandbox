@@ -142,7 +142,7 @@ public class PtrPresenciaServiceTest {
     @Test
     public void test() {
         ResponseEntity<Boolean> response = ptrPresenciaClient.getForEntity(
-                presenciasProperties.get(PtrConstants.PRESENCIA_TEST).getEndpoint(), Boolean.class);
+                presenciasProperties.get(PtrConstants.TEST).getEndpoint(), Boolean.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(Boolean.TRUE, response.getBody());
     }
@@ -150,7 +150,7 @@ public class PtrPresenciaServiceTest {
     @Test
     public void version() {
         ResponseEntity<String> response = ptrPresenciaClient.getForEntity(
-                presenciasProperties.get(PtrConstants.PRESENCIA_VERSION).getEndpoint(), String.class);
+                presenciasProperties.get(PtrConstants.VERSION).getEndpoint(), String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(version, response.getBody());
         

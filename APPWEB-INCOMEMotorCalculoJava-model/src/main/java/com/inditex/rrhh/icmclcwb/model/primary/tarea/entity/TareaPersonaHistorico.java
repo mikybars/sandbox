@@ -16,13 +16,13 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
-@Table(name = "TAREA_EMPLEADO_HISTORICO")
+@Table(name = "TAREA_PERSONA_HISTORICO")
 @Data
-public class TareaEmpleadoHistorico {
+public class TareaPersonaHistorico {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TAREA_EMPLEADO_HISTORICO")
+	@Column(name = "ID_TAREA_PERSONA_HISTORICO")
 	private /* BigInteger */ Long id;
 
 	@NotNull

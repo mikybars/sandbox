@@ -9,6 +9,27 @@
     ]]>
 </entry>
 
+<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_TAREA)  
+        VALUES(?, ?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="TareaLocalizacionPersonaRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO TAREA_LOCALIZACION_PERSONA (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_TAREA)  
+        VALUES(?, ?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="TareaLocalizacionPersonaPresenciaManualRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA_MANUAL (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_TAREA)  
+        VALUES(?, ?, ?, ?) 
+    ]]>
+</entry>
+
 <entry key="TareaTiendaVentaSeccionRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_TIENDA_VENTA_SECCION (FECHA, ID_TIENDA, IMPORTE_SECCION_1, IMPORTE_SECCION_2, IMPORTE_SECCION_3, ID_TIPO_IMPORTE_VENTA, ID_TAREA) VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -115,10 +136,17 @@ VALUES (?, ?, ?, ?, ?, ?)
     ]]>
 </entry>
 
-<entry key="TareaEmpleadoHistoricoRepositoryCustom.save">
+<entry key="TareaPersonaHistoricoRepositoryCustom.save">
     <![CDATA[
-INSERT INTO TAREA_EMPLEADO_HISTORICO (FECHA_FIN, FECHA_INICIO, ID_EMPLEADO, ID_EMPLEADO_LOCAL, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, OR_EMPLEADO, ID_TAREA)
+INSERT INTO TAREA_PERSONA_HISTORICO (FECHA_FIN, FECHA_INICIO, ID_EMPLEADO, ID_EMPLEADO_LOCAL, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, OR_EMPLEADO, ID_TAREA)
 VALUES (?, ?, ?, ? , ?, ?, ?, ?)
+    ]]>
+</entry>
+
+<entry key="TareaPersonaRepositoryCustom.save">
+    <![CDATA[
+INSERT INTO TAREA_PERSONA (ID_TAREA, ID_ORIGEN, ID_PERSONA)
+VALUES (?, ?, ?)
     ]]>
 </entry>
 
@@ -240,6 +268,24 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
     ]]>
 </entry>
 
+<entry key="TareaLocalizacionAbiertaRepositoryCustom.mergePersonaLocalizacion">
+    <![CDATA[
+MERGE INTO TAREA_LOCALIZACION_PERSONA USING 
+    (SELECT CCL_ID_COD_ORIGEN, ID_EMPLEADO_LOCAL, ID_TAREA FROM (
+        SELECT CCL_ID_COD_ORIGEN, ID_EMPLEADO_LOCAL, ID_TAREA FROM TAREA_PERSONA_HISTORICO WHERE ID_TAREA = :idTarea  
+        UNION 
+        SELECT ID_LOCALIZACION, ID_PERSONA, ID_TAREA FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA WHERE ID_TAREA = :idTarea
+        UNION 
+        SELECT ID_LOCALIZACION, ID_PERSONA, ID_TAREA FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA_MANUAL WHERE ID_TAREA = :idTarea )
+        GROUP BY CCL_ID_COD_ORIGEN, ID_EMPLEADO_LOCAL, ID_TAREA)
+        AS S ON (1 = 0)
+     WHEN NOT MATCHED THEN
+        INSERT (ID_LOCALIZACION, ID_PERSONA, ID_TAREA)
+        VALUES (S.ID_LOCALIZACION, S.ID_PERSONA, S.ID_TAREA)
+    ]]>
+</entry>
+
+
 <entry key="TareaLocalizacionAbiertaRepositoryCustom.trasladar">
     <![CDATA[
 INSERT INTO TAREA_TIENDA_VENTA (FECHA, ID_TIENDA, IMPORTE, ID_TAREA, ID_TIPO_IMPORTE_VENTA)
@@ -326,7 +372,6 @@ MERGE INTO TAREA_AGRUPACION_CADENA_VENTA_SECCION USING
 </entry>
 
 
-
 <!-- 
     Obtencion del reparto de ventas de tienda online entrega domicilio (ED) cuyas cadenas
     están agrupadas. 
@@ -410,6 +455,19 @@ MERGE INTO TAREA_TIENDA_VENTA USING
         INSERT (FECHA, ID_TIENDA, ID_CADENA, IMPORTE, ID_TAREA, ID_TIPO_IMPORTE_VENTA)
         VALUES (S.FECHA, S.ID_TIENDA, S.ID_CADENA, S.IMPORTE, S.ID_TAREA, S.ID_TIPO_IMPORTE_VENTA)
     ]]>
+</entry>
+
+<entry key="TareaPersonaRepositoryCustom.mergePersona">
+    <![CDATA[
+MERGE INTO TAREA_LOCALIZACION_PERSONA USING 
+    (SELECT ID_ORIGEN, ID_LOCALIZACION, ID_PERSONA 
+    FROM TAREA_LOCALIZACION_PERSONA WHERE ID_TAREA = 1  
+    GROUP BY ID_ORIGEN, ID_LOCALIZACION, ID_PERSONA )
+        AS S ON (1 = 0)
+     WHEN NOT MATCHED THEN
+        INSERT (ID_ORIGEN, ID_LOCALIZACION, ID_PERSONA)
+        VALUES (S.ID_ORIGEN, S.ID_LOCALIZACION, S.ID_PERSONA)
+     ]]>
 </entry>
 
 </properties>

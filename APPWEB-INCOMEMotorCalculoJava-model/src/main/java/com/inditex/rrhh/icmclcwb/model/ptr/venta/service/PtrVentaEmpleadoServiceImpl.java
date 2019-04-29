@@ -88,9 +88,9 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_TEST).getEndpoint(),
+                ptrVentaClient.getForEntity(ventaEmpleadoProperties.get(PtrConstants.TEST).getEndpoint(),
                         String.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_TEST).getEndpoint(), null);
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -98,7 +98,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
     public String version() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(
-                        ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_VERSION).getEndpoint(), String.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_EMPLEADO_VERSION).getEndpoint(), null);
+                        ventaEmpleadoProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VERSION).getEndpoint(), null);
     }
 }

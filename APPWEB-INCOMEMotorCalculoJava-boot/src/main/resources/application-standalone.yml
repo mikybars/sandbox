@@ -92,6 +92,9 @@ app:
     calculo:
       cast: false
       precision: 'AS DECIMAL(23, 8)'  
+    proceso: 
+      cast: true
+      precision: 'AS DECIMAL(23, 8)'  
     tarea:
       recolectar:
         days-number: 3
@@ -112,7 +115,7 @@ app:
         max-attempts: 2
       venta:
         service:
-          version: 1.0.31-rc.3
+          version: 1.0.31
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
@@ -240,7 +243,7 @@ app:
               endpoint: /ventaGeneral/getVersion
       presencia: 
         service:
-          version: 1.0.12
+          version: 1.0.13
           presenciasService:
             getPresenciasTotalTiendaSeccion:
               endpoint: /presenciasService/presenciasTotalTiendaSeccion

@@ -8,25 +8,25 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoHistorico;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 
 @Repository
-public class TareaEmpleadoHistoricoRepositoryCustomImpl 
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaEmpleadoHistorico> implements TareaEmpleadoHistoricoRepositoryCustom {
+public class TareaPersonaHistoricoRepositoryCustomImpl 
+    extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaHistorico> implements TareaPersonaHistoricoRepositoryCustom {
 
     @Value("${app.envars.repository.batch-size.tarea-empleado-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
     
-    @Value("#{primaryQuery['TareaEmpleadoHistoricoRepositoryCustom.save']}")
+    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.save']}")
     private String sqlSave;
     
     @Override
-    public List<TareaEmpleadoHistorico> save(final List<TareaEmpleadoHistorico> src) {
+    public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaEmpleadoHistorico entity) throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaPersonaHistorico entity) throws SQLException {
         pstmt.setObject(1, entity.getFechaFin());
         pstmt.setObject(2, entity.getFechaInicio());
         pstmt.setString(3, entity.getIdEmpleado());

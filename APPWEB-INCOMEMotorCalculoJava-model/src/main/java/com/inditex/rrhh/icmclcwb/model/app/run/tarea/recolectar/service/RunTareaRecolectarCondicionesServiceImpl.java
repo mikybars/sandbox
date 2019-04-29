@@ -133,6 +133,21 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .tiposHorasByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiposHoras, cf, cfWait);
             
+            //Periodos
+            CompletableFuture<Void> cfPeriodos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .periodosByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPeriodos, cf, cfWait);
+            
+            //Presencia manual
+            CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .presenciaManualByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciaManual, cf, cfWait);
+            
+            //Empleados presencia
+            CompletableFuture<Void> cfEmpleadosPresencia = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .empleadosPresenciaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEmpleadosPresencia, cf, cfWait);
+            
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

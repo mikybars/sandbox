@@ -14,9 +14,11 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaSeccionRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaSeccionRespositoryProcesarCustom;
 
@@ -38,6 +40,12 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     
     @Autowired
     private TareaAgrupacionCadenaSeccionRepositoryCustom tareaAgrupacionCadenaSeccionRepository;
+    
+    @Autowired
+    private TareaLocalizacionPersonaRepositoryCustom tareaLocalizacionPersonaRepositoryCustom;
+    
+    @Autowired
+    private TareaPersonaRepositoryCustom tareaPersonaRepositoryCustom;
     
     private static final List<Long> ID_TIPO_IMPORTE_VENTA_ONLINE = Arrays.asList(
             TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId(),
@@ -145,5 +153,19 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void repartoVentaEntregaDomicilioCadenas(@Valid RunTareaDto runTarea) {
         tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioCadenas(runTarea.getTarea());
     }
-
+    
+    @Auditoria
+    @Override
+    public void mergePersonaLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion(runTarea);
+    }
+    
+    @Auditoria
+    @Override
+    public void mergePersona(@Valid RunTareaDto runTarea) {
+        tareaPersonaRepositoryCustom.mergePersona(runTarea);
+    }
+    
+    
+    
 }

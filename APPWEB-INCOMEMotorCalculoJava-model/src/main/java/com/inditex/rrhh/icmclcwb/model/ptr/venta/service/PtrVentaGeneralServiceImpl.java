@@ -107,9 +107,9 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_TEST).getEndpoint(),
+                ptrVentaClient.getForEntity(ventaGeneralProperties.get(PtrConstants.TEST).getEndpoint(),
                         String.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_TEST).getEndpoint(), null);
+                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -117,8 +117,8 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     public String version() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(
-                        ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_VERSION).getEndpoint(), String.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_VERSION).getEndpoint(), null);
+                        ventaGeneralProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
+                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VERSION).getEndpoint(), null);
     }
 
 }

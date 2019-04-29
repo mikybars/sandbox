@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
@@ -87,6 +88,18 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     @Override
     public CompletableFuture<Void> repartoVentaEntregaDomicilioCadenas(RunTareaDto runTarea) {
         tareaProcesarVentaService.repartoVentaEntregaDomicilioCadenas(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> mergePersonaLocalizacion(RunTareaDto runTarea) {
+        tareaProcesarVentaService.mergePersonaLocalizacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> mergePersona(RunTareaDto runTarea) {
+        tareaProcesarVentaService.mergePersona(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

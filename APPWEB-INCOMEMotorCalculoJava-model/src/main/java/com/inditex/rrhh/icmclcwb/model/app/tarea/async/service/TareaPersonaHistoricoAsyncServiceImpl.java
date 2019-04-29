@@ -9,24 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 
 @Service
-public class TareaEmpleadoHistoricoAsyncServiceImpl implements TareaEmpleadoHistoricoAsyncService {
+public class TareaPersonaHistoricoAsyncServiceImpl implements TareaPersonaHistoricoAsyncService {
 
     @Autowired
-    private TareaEmpleadoHistoricoService tareaEmpleadoHistoricoService;
-
+    private TareaPersonaHistoricoService tareaPersonaHistoricoService;
     
     @Override
-    public CompletableFuture<Void> save(final List<TareaEmpleadoHistoricoDto> tareaEmpleadoHistorico,
+    public CompletableFuture<Void> save(final List<TareaPersonaHistoricoDto> tareaPersonaHistorico,
            final TareaDto tarea) {
-        tareaEmpleadoHistoricoService.save(tareaEmpleadoHistorico, tarea);
+        tareaPersonaHistoricoService.save(tareaPersonaHistorico, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
@@ -34,7 +33,7 @@ public class TareaEmpleadoHistoricoAsyncServiceImpl implements TareaEmpleadoHist
     @Override
     public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(
             final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto,final TareaDto tarea) {
-        tareaEmpleadoHistoricoService.saveGenericEmpleadoResultItemDto(genericEmpleadoResultItemDto, tarea);
+        tareaPersonaHistoricoService.saveGenericEmpleadoResultItemDto(genericEmpleadoResultItemDto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

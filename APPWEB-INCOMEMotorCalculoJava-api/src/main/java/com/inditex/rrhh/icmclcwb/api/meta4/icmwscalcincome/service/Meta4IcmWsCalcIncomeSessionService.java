@@ -37,8 +37,8 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 
     List<PeriodosResultItemDto> getPeriodos(PeriodosRequestDto request);
 
-    List<GenericTiendaResultItemDto> getEmpleadosPresencia(EmpleadosPresenciaRequestDto request);
+    List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(EmpleadosPresenciaRequestDto request);
 
-    List<GenericTiendaResultItemDto> getPresenciaManual(PresenciaManualRequestDto request);
+    List<GenericEmpleadoResultItemDto> getPresenciaManual(PresenciaManualRequestDto request);
 
 }

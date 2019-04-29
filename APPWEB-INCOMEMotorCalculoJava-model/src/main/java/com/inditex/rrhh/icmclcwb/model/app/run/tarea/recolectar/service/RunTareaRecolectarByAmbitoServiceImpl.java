@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -27,6 +28,9 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
+    @Autowired
+    private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
+    
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -45,6 +49,16 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
                     .localizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf, cfWait);
 
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
+            // Presencias
+            CompletableFuture<Void> cfPresenciaEmpleadoTienda = runTareaRecolectarPtrPresenciaAsyncService
+                    .presenciaEmpleadoTiendaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciaEmpleadoTienda, cf, cfWait);
+
+            
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

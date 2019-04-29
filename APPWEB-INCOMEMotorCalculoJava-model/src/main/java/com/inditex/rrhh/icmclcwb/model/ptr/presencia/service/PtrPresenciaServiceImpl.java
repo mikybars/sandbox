@@ -114,9 +114,9 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.getForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TEST).getEndpoint(),
+                ptrPresenciaClient.getForEntity(presenciasProperties.get(PtrConstants.TEST).getEndpoint(),
                         String.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TEST).getEndpoint(), null);
+                ptrPresenciaClient, presenciasProperties.get(PtrConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -124,8 +124,8 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     public String version() {
         return RestUtils.checkResponse(
                 ptrPresenciaClient.getForEntity(
-                        presenciasProperties.get(PtrConstants.PRESENCIA_VERSION).getEndpoint(), String.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_VERSION).getEndpoint(), null);
+                        presenciasProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
+                ptrPresenciaClient, presenciasProperties.get(PtrConstants.VERSION).getEndpoint(), null);
     }
 
 }

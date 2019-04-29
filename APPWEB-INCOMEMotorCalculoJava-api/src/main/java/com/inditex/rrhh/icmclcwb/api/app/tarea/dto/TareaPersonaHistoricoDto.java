@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class TareaEmpleadoHistoricoDto implements Serializable {
+public class TareaPersonaHistoricoDto implements Serializable {
 
 	private static final long serialVersionUID = 1168987218682802281L;
 

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Async
 public interface RunTareaProcesarVentaAsyncService {
@@ -34,5 +35,9 @@ public interface RunTareaProcesarVentaAsyncService {
     CompletableFuture<Void> repartoVentaEntregaDomicilioCadenas(RunTareaDto runTarea);
 
     CompletableFuture<Void> compensar(RunTareaDto runTarea);
+
+    CompletableFuture<Void> mergePersonaLocalizacion(RunTareaDto runTarea);
+
+    CompletableFuture<Void> mergePersona(RunTareaDto runTarea);
 
 }

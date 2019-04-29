@@ -49,13 +49,13 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Override
-    public List<GenericTiendaResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
+    public List<GenericEmpleadoResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.PRESENCIA_MANUAL,
                 meta4Properties.get(Meta4Constants.PRESENCIA_MANUAL).getFilter().getMaxPageSize());
     }
     
     @Override
-    public List<GenericTiendaResultItemDto> getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
+    public List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.EMPLEADOS_PRESENCIA,
                 meta4Properties.get(Meta4Constants.EMPLEADOS_PRESENCIA).getFilter().getMaxPageSize());
     }

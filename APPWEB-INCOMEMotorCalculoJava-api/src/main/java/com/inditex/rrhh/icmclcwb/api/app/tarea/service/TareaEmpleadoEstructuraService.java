@@ -11,7 +11,7 @@ public interface TareaEmpleadoEstructuraService {
 
     List<Long> findIdTipoCalculoByIdTarea(@Valid final Long idTarea);
     
-    List<TareaEmpleadoEstructuraDto> save(final List<TareaEmpleadoEstructuraDto> tareaEmpleadoHistorico,
+    List<TareaEmpleadoEstructuraDto> save(final List<TareaEmpleadoEstructuraDto> tareaPersonaHistorico,
             @Valid final TareaDto tarea);
 
     List<TareaEmpleadoEstructuraDto> saveGenericEmpleadoResultItemDto(

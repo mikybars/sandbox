@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEstadoDto;
 
 public interface TareaValidarRepositoryCustom {
@@ -43,6 +43,6 @@ public interface TareaValidarRepositoryCustom {
 
     List<TareaEmpleadoEstadoDto> empleadoEmptyFields(@NotNull @Positive Long idTarea);
 
-    List<TareaEmpleadoHistoricoDto> empleadoHistoricoEmptyFields(@NotNull @Positive Long idTarea);
+    List<TareaPersonaHistoricoDto> empleadoHistoricoEmptyFields(@NotNull @Positive Long idTarea);
 
 }

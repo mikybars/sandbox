@@ -156,7 +156,7 @@ public class PtrVentaGeneralServiceTest  {
     @Test
     public void test() { 
         ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
-                ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_TEST).getEndpoint(), Boolean.class);
+                ventaGeneralProperties.get(PtrConstants.TEST).getEndpoint(), Boolean.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(Boolean.TRUE, response.getBody());
     }
@@ -165,7 +165,7 @@ public class PtrVentaGeneralServiceTest  {
     @Test
     public void version() {
         ResponseEntity<String> response = ptrVentaClient.getForEntity(
-                ventaGeneralProperties.get(PtrConstants.VENTA_GENERAL_VERSION).getEndpoint(), String.class);
+                ventaGeneralProperties.get(PtrConstants.VERSION).getEndpoint(), String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(version, response.getBody());
         

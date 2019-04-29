@@ -60,9 +60,9 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_TEST).getEndpoint(),
+                ptrVentaClient.getForEntity(acumuladoVentaImporteProperties.get(PtrConstants.TEST).getEndpoint(),
                         String.class),
-                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_TEST).getEndpoint(), null);
+                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -70,7 +70,7 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
     public String version() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(
-                        acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_VERSION).getEndpoint(), String.class),
-                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_VERSION).getEndpoint(), null);
+                        acumuladoVentaImporteProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
+                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.VERSION).getEndpoint(), null);
     }
 }
