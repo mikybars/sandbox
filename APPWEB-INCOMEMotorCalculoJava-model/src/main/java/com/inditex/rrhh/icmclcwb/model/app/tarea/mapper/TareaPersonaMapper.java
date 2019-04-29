@@ -13,16 +13,13 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersona;
 public abstract class TareaPersonaMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
-    public abstract TareaPersonaDto tareaPersonaToTareaPersonaDto(
-            TareaPersona src);
+    public abstract TareaPersonaDto tareaPersonaToTareaPersonaDto(TareaPersona src);
 
     @InheritInverseConfiguration
-    public abstract TareaPersona tareaPersonaDtoToTareaPersona(
-            TareaPersonaDto src);
+    public abstract TareaPersona tareaPersonaDtoToTareaPersona(TareaPersonaDto src);
 
-    public abstract List<TareaPersonaDto> tareaPersonaToTareaPersonaDto(
-            List<TareaPersona> src);
+    public abstract List<TareaPersonaDto> tareaPersonaToTareaPersonaDto(List<TareaPersona> src);
 
-    public abstract List<TareaPersona> tareaPersonaDtoToTareaPersona(
-            List<TareaPersonaDto> src);
+    public abstract List<TareaPersona> tareaPersonaDtoToTareaPersona(List<TareaPersonaDto> src);
+
 }

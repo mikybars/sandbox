@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service;
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface RunTareaProcesarVentaService {
     

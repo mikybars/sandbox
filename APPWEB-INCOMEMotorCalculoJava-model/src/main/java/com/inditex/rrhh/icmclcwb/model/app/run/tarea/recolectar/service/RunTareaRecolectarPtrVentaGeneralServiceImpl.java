@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -52,9 +51,6 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
     @Autowired
     @Qualifier("recolectarProperties")
     private RecolectarPropertiesDto recolectarProperties;
-    
-    @Autowired
-    private Logger log;
 
     @Autowired
     private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
