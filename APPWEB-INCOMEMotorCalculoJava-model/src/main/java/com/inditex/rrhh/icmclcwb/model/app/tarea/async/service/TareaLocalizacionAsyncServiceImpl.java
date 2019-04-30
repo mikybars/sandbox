@@ -7,20 +7,20 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
-public class TareaPersonaAsyncServiceImpl implements TareaPersonaAsyncService {
+public class TareaLocalizacionAsyncServiceImpl implements TareaLocalizacionAsyncService {
 
     @Autowired
-    private TareaPersonaService tareaPersonaService;
+    private TareaLocalizacionService tareaLocalizacionService; 
     
     @Async
     @Override
-    public CompletableFuture<Void> mergePersona(final RunTareaDto runTareaDto) {
-        tareaPersonaService.mergePersona(runTareaDto);
+    public CompletableFuture<Void> mergeLocalizacion(final RunTareaDto runTareaDto) {
+        tareaLocalizacionService.mergeLocalizacion(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

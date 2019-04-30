@@ -34,6 +34,7 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     
     @Mapping(source = "src.origen", target = "idOrigen")
     @Mapping(source = "src.tienda", target = "idLocalizacion")
+    @Mapping(source = "src.empresa", target = "idEmpresa")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(source = "personas", target = "idPersona")
     @Mapping(target = "id", ignore = true)

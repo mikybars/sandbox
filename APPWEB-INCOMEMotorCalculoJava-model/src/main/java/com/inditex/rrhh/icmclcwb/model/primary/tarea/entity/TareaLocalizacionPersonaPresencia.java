@@ -40,5 +40,7 @@ public class TareaLocalizacionPersonaPresencia {
     @Column(name = "ID_ORIGEN", nullable = false)
     private String idOrigen;
     
-    
+    @NotBlank
+    @Column(name = "ID_EMPRESA", nullable = false)
+    private String idEmpresa;
 }

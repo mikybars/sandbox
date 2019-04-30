@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
@@ -18,8 +18,8 @@ public class TareaTipoHoraAsyncServiceImpl implements TareaTipoHoraAsyncService 
 
     @Autowired
     private TareaTipoHoraService tareaTipoHoraService;
-    
-    
+  
+    @Async
     @Override
     public CompletableFuture<Void> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TareaDto tareaDto) {
         tareaTipoHoraService.save(dto, tareaDto);

@@ -33,6 +33,7 @@ public abstract class TareaPersonaHistoricoMapper {
             List<TareaPersonaHistoricoDto> src);
 
     @Mapping(target = "tarea.id", source = "srcTarea.id")
+    @Mapping(target = "idEmpresa", source = "srcTareaPersonaHistorico.idEmpresa")
     @Mapping(target = "id", ignore = true)
     public abstract TareaPersonaHistorico mergeTareaPersonaHistoricoDtoAndTareaDtoToTareaPersonaHistorico(
             TareaPersonaHistoricoDto srcTareaPersonaHistorico, TareaDto srcTarea);
@@ -49,6 +50,7 @@ public abstract class TareaPersonaHistoricoMapper {
     @Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "fechaInicio")
     @Mapping(target = "fechaFin", source = "fechaFin")
+    @Mapping(target = "idEmpresa", source = "idEmpresa")
     public abstract TareaPersonaHistoricoDto genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
             GenericEmpleadoResultItemDto src);
 

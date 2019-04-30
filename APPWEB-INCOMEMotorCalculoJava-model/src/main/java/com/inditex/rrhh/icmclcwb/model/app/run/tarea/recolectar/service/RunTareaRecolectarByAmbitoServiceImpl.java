@@ -19,6 +19,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaCalculoPersonaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
@@ -30,6 +34,18 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
 
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
+    
+    @Autowired
+    private TareaPersonaAsyncService tareaPersonaAsyncService;
+    
+    @Autowired
+    private TareaLocalizacionPersonaAsyncService tareaLocalizacionPersonaAsyncService;
+    
+    @Autowired
+    private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
+    
+    @Autowired
+    private TareaLocalizacionAsyncService tareaLocalizacionAsyncService;
     
     @Auditoria
     @CounterMetric
@@ -57,11 +73,46 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
             CompletableFuture<Void> cfPresenciaEmpleadoTienda = runTareaRecolectarPtrPresenciaAsyncService
                     .presenciaEmpleadoTiendaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciaEmpleadoTienda, cf, cfWait);
-
+            
+            //Presencia manual
+            CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .presenciaManualByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciaManual, cf, cfWait);
+            
+            //Empleados presencia
+            CompletableFuture<Void> cfEmpleadosPresencia = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .empleadosPresenciaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEmpleadosPresencia, cf, cfWait);
             
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfMergePersonaLocalizacion = tareaLocalizacionPersonaAsyncService.mergePersonaLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfMergePersonaLocalizacion, cf, cfWait);
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfMergePersona = tareaPersonaAsyncService.mergePersona(runTarea);
+            AsyncUtils.exceptionally(cfMergePersona, cf, cfWait);
+            
+            CompletableFuture<Void> cfMergeLocalizacion = tareaLocalizacionAsyncService.mergeLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfMergeLocalizacion, cf, cfWait);
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService.mergePersonaCalculo(runTarea);
+            AsyncUtils.exceptionally(cfMergePersonaCalculo, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
+            
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);
             throw e;

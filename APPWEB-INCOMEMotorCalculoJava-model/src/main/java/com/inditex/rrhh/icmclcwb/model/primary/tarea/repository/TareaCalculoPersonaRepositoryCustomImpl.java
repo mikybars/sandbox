@@ -16,43 +16,45 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersona;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
 
 @Repository
-public class TareaPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaPersona>
-        implements TareaPersonaRepositoryCustom {
+public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaCalculoPersona>
+        implements TareaCalculoPersonaRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
-    @Value("${app.envars.repository.batch-size.tarea-persona:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-calculo-persona:${app.envars.repository.batch-size.default}}")
     private int batchSize;
     
-    @Value("#{primaryQuery['TareaPersonaRepositoryCustom.save']}")
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.save']}")
     private String sqlSave;
     
-    @Value("#{primaryQuery['TareaPersonaRepositoryCustom.mergePersona']}")
-    private String sqlMergePersona;
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.mergePersonaCalculo']}")
+    private String sqlMergePersonaCalculo;
     
     @Override
-    public List<TareaPersona> save(final List<TareaPersona> src) {
+    public List<TareaCalculoPersona> save(final List<TareaCalculoPersona> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
     
     @Override
-    public void mergePersona(@NotNull RunTareaDto tareaDto) {
+    public void mergePersonaCalculo(@NotNull RunTareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
-        namedParameterJdbcTemplate.update(sqlMergePersona, params);
+        //TODO: Origen
+        namedParameterJdbcTemplate.update(sqlMergePersonaCalculo, params);
     }
     
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaPersona entity) throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaCalculoPersona entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());        
         pstmt.setString(2, entity.getIdOrigen());
         pstmt.setString(3, entity.getIdPersona());
-        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setString(4, entity.getOrPersona());
+        pstmt.setLong(5, entity.getEstadoTareaEmpleado().getId());
     }
 
 }

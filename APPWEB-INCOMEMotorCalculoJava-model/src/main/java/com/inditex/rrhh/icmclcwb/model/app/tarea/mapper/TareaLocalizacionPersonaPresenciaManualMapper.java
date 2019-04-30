@@ -34,6 +34,7 @@ public abstract class TareaLocalizacionPersonaPresenciaManualMapper {
     
     @Mapping(source = "src.idOrigen", target = "idOrigen")
     @Mapping(source = "src.idLugarTrabajo", target = "idLocalizacion")
+    @Mapping(source = "src.idEmpresa", target = "idEmpresa")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(source = "src.idEmpleadoLocal", target = "idPersona")
     @Mapping(target = "id", ignore = true)

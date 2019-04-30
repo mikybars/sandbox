@@ -17,12 +17,11 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 @Validated
 public class TareaLocalizacionPersonaServiceImpl implements TareaLocalizacionPersonaService {
     
+    @Autowired
+    private TareaLocalizacionPersonaRepositoryCustom tareaLocalizacionPersonaRepositoryCustom;
     
     @Autowired
-    TareaLocalizacionPersonaRepositoryCustom tareaLocalizacionPersonaRepositoryCustom;
-    
-    @Autowired
-    TareaLocalizacionPersonaMapper tareaLocalizacionPersonaMapper;
+    private TareaLocalizacionPersonaMapper tareaLocalizacionPersonaMapper;
     
     @Override
     public void save(@NotNull final PtrPresenciaEmpleadosTiendaResponseDto src, @NotNull final TareaDto tareaDto) {

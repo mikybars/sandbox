@@ -23,7 +23,8 @@ public class TareaLocalizacionPersonaRepositoryCustomImpl
         implements TareaLocalizacionPersonaRepositoryCustom {
 
     private static final String ID_TAREA = "idTarea";
-
+    private static final String ID_ORIGEN = "idOrigen";
+    
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -34,14 +35,16 @@ public class TareaLocalizacionPersonaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaRepositoryCustom.save']}")
     private String sqlSave;
     
-    @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.mergePersonaLocalizacion']}")
+    @Value("#{primaryQuery['TareaLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion']}")
     private String sqlMergePersonaLocalizacion;
     
     @Override
     public void mergePersonaLocalizacion(@NotNull final RunTareaDto tareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(ID_TAREA, tareaDto.getTarea().getId());
-        
+        //TODO: ORIGEN
+        parameters.addValue(ID_ORIGEN, tareaDto.getTarea().getAmbito().get(0).getIdOrigen());
+
         namedParameterJdbcTemplate.update(sqlMergePersonaLocalizacion, parameters);
     }
     
@@ -55,7 +58,8 @@ public class TareaLocalizacionPersonaRepositoryCustomImpl
         pstmt.setString(1, entity.getIdLocalizacion());
         pstmt.setString(2, entity.getIdOrigen());
         pstmt.setString(3, entity.getIdPersona());
-        pstmt.setLong(4, entity.getTarea().getId());
+        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setLong(5, entity.getTarea().getId());
     }
 
 }
