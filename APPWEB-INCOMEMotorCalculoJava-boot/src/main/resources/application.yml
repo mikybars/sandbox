@@ -54,7 +54,7 @@ amiga:
         enable-local-test: true
       classic:
         sso:
-          applicationSSO: AppJoinFashionIntegracion
+          applicationSSO: AppINCOMEMotorCalculoJava
     rest-swagger:
       ui:
         title: '@project.name@'
