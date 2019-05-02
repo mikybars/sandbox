@@ -20,7 +20,6 @@ public class TareaLocalizacionPersonaPresenciaManualAsyncServiceImpl
     @Autowired
     private TareaLocalizacionPersonaPresenciaManualService tareaLocalizacionPersonaPresenciaManualService;
     
-    @Async
     @Override
     public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto)  {
         tareaLocalizacionPersonaPresenciaManualService.save(src, tareaDto);

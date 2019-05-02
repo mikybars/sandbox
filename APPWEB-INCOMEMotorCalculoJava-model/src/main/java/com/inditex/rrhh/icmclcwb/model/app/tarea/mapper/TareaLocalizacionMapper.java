@@ -12,7 +12,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacion;
 @Mapper
 public abstract class TareaLocalizacionMapper {
 
-
     @Mapping(target = "idTarea", source = "tarea.id")
     public abstract TareaLocalizacionDto tareaLocalizacionToTareaLocalizacionDto(TareaLocalizacion src);
 

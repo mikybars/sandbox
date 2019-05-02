@@ -19,7 +19,6 @@ public class TareaTipoHoraAsyncServiceImpl implements TareaTipoHoraAsyncService 
     @Autowired
     private TareaTipoHoraService tareaTipoHoraService;
   
-    @Async
     @Override
     public CompletableFuture<Void> save(List<PtrPresenciaTiposHorasResultItemDto> dto, TareaDto tareaDto) {
         tareaTipoHoraService.save(dto, tareaDto);

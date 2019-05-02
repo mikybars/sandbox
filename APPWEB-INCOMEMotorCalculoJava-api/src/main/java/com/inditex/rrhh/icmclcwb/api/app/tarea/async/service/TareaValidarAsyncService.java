@@ -3,9 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-
-
-
 import org.springframework.scheduling.annotation.Async;
 
 @Async("repositoryPrimaryExecutor")

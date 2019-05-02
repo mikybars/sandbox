@@ -23,6 +23,35 @@
     ]]>
 </entry>
 
+<entry key="PeriodoLocalizacionPersonaRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO PERIODO_LOCALIZACION_PERSONA (ID_PERIODO, ID_ORIGEN, ID_EMPRESA, ID_LOCALIZACION, ID_PERSONA)  
+        VALUES(?, ?, ?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="PeriodoLocalizacionRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO PERIODO_LOCALIZACION (ID_PERIODO, ID_ORIGEN, ID_EMPRESA, ID_LOCALIZACION)  
+        VALUES(?, ?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="PeriodoPersonaRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO PERIODO_LOCALIZACION (ID_PERIODO, ID_ORIGEN, ID_EMPRESA, ID_PERSONA)  
+        VALUES(?, ?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="PeriodoCalculoPersonaRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO PERIODO_CALCULO_PERSONA (ID_PERIODO, ID_ORIGEN, ID_EMPRESA, ID_PERSONA, OR_PERSONA, ID_TAREA_ACTUAL, ID_TAREA_ULTIMA, ID_ESTADO, FECHA_CREACION, FECHA_ACTUALIZACION)  
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+    ]]>
+</entry>
+
+
 <entry key="TareaLocalizacionPersonaPresenciaManualRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA_MANUAL (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_EMPRESA, ID_TAREA)  

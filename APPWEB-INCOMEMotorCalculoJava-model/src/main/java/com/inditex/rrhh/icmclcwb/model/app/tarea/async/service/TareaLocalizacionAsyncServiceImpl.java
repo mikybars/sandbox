@@ -17,7 +17,6 @@ public class TareaLocalizacionAsyncServiceImpl implements TareaLocalizacionAsync
     @Autowired
     private TareaLocalizacionService tareaLocalizacionService; 
     
-    @Async
     @Override
     public CompletableFuture<Void> mergeLocalizacion(final RunTareaDto runTareaDto) {
         tareaLocalizacionService.mergeLocalizacion(runTareaDto);

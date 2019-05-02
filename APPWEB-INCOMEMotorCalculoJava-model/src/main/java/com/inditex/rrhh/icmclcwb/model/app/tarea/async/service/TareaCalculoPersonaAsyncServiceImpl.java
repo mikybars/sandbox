@@ -17,7 +17,6 @@ public class TareaCalculoPersonaAsyncServiceImpl implements TareaCalculoPersonaA
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
     
-    @Async
     @Override
     public CompletableFuture<Void> mergePersonaCalculo(final RunTareaDto runTareaDto) {
         tareaCalculoPersonaService.mergePersonaCalculo(runTareaDto);

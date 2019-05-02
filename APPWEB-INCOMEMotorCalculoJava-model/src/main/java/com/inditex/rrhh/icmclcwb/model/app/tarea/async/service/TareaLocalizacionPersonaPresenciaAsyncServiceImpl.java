@@ -19,7 +19,6 @@ public class TareaLocalizacionPersonaPresenciaAsyncServiceImpl
     @Autowired
     private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
     
-    @Async
     @Override
     public CompletableFuture<Void> savePtrPresenciaEmpleadosTiendaResponse(final PtrPresenciaEmpleadosTiendaResponseDto dto, final TareaDto tarea)  {
         tareaLocalizacionPersonaPresenciaService.save(dto, tarea);
