@@ -34,6 +34,6 @@ public class TareaCalculoPersonaDto implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "Estado de la tarea", required = true)
-    private EstadoTareaEmpleadoDto estadoTareaEmpleado;
+    private EstadoTareaPersonaDto estado;
 
 }

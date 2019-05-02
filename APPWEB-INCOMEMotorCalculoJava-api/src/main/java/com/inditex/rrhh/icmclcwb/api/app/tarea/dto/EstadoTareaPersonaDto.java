@@ -11,17 +11,17 @@ import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "Modelo EstadoTareaEmpleadoDto")
+@ApiModel(description = "Modelo EstadoTareaPersonaDto")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
-public class EstadoTareaEmpleadoDto implements Serializable {
+public class EstadoTareaPersonaDto implements Serializable {
 
 	private static final long serialVersionUID = 690542159104929423L;
 
-	@ApiModelProperty(value = "Identificador del estado del tarea", required = true)
+	@ApiModelProperty(value = "Identificador del estado", required = true)
 	private /* BigInteger */ Long id;
 
 }

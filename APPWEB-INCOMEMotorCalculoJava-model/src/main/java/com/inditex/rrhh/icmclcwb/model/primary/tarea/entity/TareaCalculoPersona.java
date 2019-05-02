@@ -43,6 +43,6 @@ public class TareaCalculoPersona {
     
     @ManyToOne
     @JoinColumn(name = "ID_ESTADO", nullable = false)
-    private EstadoTareaEmpleado estadoTareaEmpleado;
+    private EstadoTareaPersona estado;
     
 }

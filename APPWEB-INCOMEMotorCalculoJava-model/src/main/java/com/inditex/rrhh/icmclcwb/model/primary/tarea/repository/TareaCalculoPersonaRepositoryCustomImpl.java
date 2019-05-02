@@ -25,36 +25,36 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("${app.envars.repository.batch-size.tarea-calculo-persona:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.mergePersonaCalculo']}")
     private String sqlMergePersonaCalculo;
-    
+
     @Override
     public List<TareaCalculoPersona> save(final List<TareaCalculoPersona> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
-    
+
     @Override
     public void mergePersonaCalculo(@NotNull RunTareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
-        //TODO: Origen
+        // TODO Origen
         namedParameterJdbcTemplate.update(sqlMergePersonaCalculo, params);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaCalculoPersona entity) throws SQLException {
-        pstmt.setLong(1, entity.getTarea().getId());        
+        pstmt.setLong(1, entity.getTarea().getId());
         pstmt.setString(2, entity.getIdOrigen());
         pstmt.setString(3, entity.getIdPersona());
         pstmt.setString(4, entity.getOrPersona());
-        pstmt.setLong(5, entity.getEstadoTareaEmpleado().getId());
+        pstmt.setLong(5, entity.getEstado().getId());
     }
 
 }

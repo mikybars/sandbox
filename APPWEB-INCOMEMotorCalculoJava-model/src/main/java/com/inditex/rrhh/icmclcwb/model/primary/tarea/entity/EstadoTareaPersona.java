@@ -8,12 +8,12 @@ import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
-@Table(name = "ESTADO_TAREA_EMPLEADO")
+@Table(name = "ESTADO_TAREA_PERSONA")
 @Data
-public class EstadoTareaEmpleado {
+public class EstadoTareaPersona {
 
 	@Id
-	@Column(name = "ID_ESTADO_TAREA_EMPLEADO")
+	@Column(name = "ID_ESTADO_TAREA_PERSONA")
 	private /* BigInteger */ Long id;
 
 	@NotBlank
