@@ -31,7 +31,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         pstmt.setString(1, entity.getIdLocalizacion());
         pstmt.setString(2, entity.getIdOrigen());
         pstmt.setString(3, entity.getIdPersona());
-        pstmt.setLong(4, entity.getTarea().getId());
+        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setLong(5, entity.getTarea().getId());
     }
 
 }

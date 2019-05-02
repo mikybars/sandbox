@@ -14,7 +14,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistoric
 public class TareaPersonaHistoricoRepositoryCustomImpl 
     extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaHistorico> implements TareaPersonaHistoricoRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-empleado-historico:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
     
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.save']}")
@@ -34,7 +34,8 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setString(5, entity.getIdTienda());
         pstmt.setString(6, entity.getIdTiendaMeta4());
         pstmt.setString(7, entity.getOrEmpleado());
-        pstmt.setLong(8, entity.getTarea().getId());        
+        pstmt.setString(8, entity.getIdEmpresa());
+        pstmt.setLong(9, entity.getTarea().getId());        
     }
 
 }

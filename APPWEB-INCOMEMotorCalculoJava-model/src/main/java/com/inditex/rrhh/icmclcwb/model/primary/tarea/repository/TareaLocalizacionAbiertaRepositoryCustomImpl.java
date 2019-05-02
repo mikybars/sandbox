@@ -19,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 @Repository
 public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocalizacionAbiertaRepositoryCustom {
 
-
     private static final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd");
  
     private static final String ID_TIPO_IMPORTE_VENTA_NUEVO = "idTipoImporteVentaNuevo";

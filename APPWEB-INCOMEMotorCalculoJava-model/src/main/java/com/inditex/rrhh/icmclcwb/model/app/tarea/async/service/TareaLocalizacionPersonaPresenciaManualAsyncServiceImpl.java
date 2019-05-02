@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaManualAsyncService;
@@ -19,6 +20,7 @@ public class TareaLocalizacionPersonaPresenciaManualAsyncServiceImpl
     @Autowired
     private TareaLocalizacionPersonaPresenciaManualService tareaLocalizacionPersonaPresenciaManualService;
     
+    @Async
     @Override
     public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto)  {
         tareaLocalizacionPersonaPresenciaManualService.save(src, tareaDto);

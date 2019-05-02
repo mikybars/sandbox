@@ -31,4 +31,7 @@ public class TareaLocalizacionPersonaDto implements Serializable {
     @ApiModelProperty(value = "Identificador del origen", required = true)
     private Long idOrigen;
     
+    @NotNull
+    @ApiModelProperty(value = "Identificador de la empresa", required = true)
+    private Long idEmpresa;
 }
