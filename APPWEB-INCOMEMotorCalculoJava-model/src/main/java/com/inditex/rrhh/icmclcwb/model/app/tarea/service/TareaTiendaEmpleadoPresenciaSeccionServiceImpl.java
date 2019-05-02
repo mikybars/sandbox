@@ -17,18 +17,19 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaEmple
 
 @Service
 @Validated
-public class TareaTiendaEmpleadoPresenciaSeccionServiceImpl implements TareaTiendaEmpleadoPresenciaSeccionService{
+public class TareaTiendaEmpleadoPresenciaSeccionServiceImpl implements TareaTiendaEmpleadoPresenciaSeccionService {
 
     @Autowired
     private TareaTiendaEmpleadoPresenciaSeccionMapper mapper;
 
     @Autowired
-    private TareaTiendaEmpleadoPresenciaSeccionRepositoryCustom tareaTiendaSeccionEmpleadoPresenciaRepositoryCustom;
-    
+    private TareaTiendaEmpleadoPresenciaSeccionRepositoryCustom tareaTiendaEmpleadoPresenciaSeccionRepositoryCustom;
+
     @Override
-    public List<TareaTiendaEmpleadoPresenciaSeccionDto> save(@Valid final List<PtrPresenciaDetalleResultItemDto> dtos, @Valid final TareaDto tareaDto) {
-       return mapper.tareaTiendaEmpleadoPresenciaSeccionToTareaTiendaEmpleadoPresenciaSeccionDto(
-        tareaTiendaSeccionEmpleadoPresenciaRepositoryCustom.save(mapper
-                .presenciasDetalleResponseDtoToTareaTiendaEmpleadoPresenciaSeccion(dtos, tareaDto)));
+    public List<TareaTiendaEmpleadoPresenciaSeccionDto> save(@Valid final List<PtrPresenciaDetalleResultItemDto> dtos,
+            @Valid final TareaDto tareaDto) {
+        return mapper.tareaTiendaEmpleadoPresenciaSeccionToTareaTiendaEmpleadoPresenciaSeccionDto(
+                tareaTiendaEmpleadoPresenciaSeccionRepositoryCustom.save(
+                        mapper.presenciasDetalleResponseDtoToTareaTiendaEmpleadoPresenciaSeccion(dtos, tareaDto)));
     }
 }

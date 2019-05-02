@@ -2,26 +2,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<entry key="RunTareaValidarService.checkDuplicatedEmpleados">
-    <![CDATA[
-SELECT ID_EMPLEADO
-FROM TAREA_EMPLEADO_ESTADO 
-WHERE ID_TAREA = :idTarea 
-GROUP BY ID_EMPLEADO, OR_EMPLEADO, ID_TAREA
-HAVING COUNT(*) > 1
-    ]]>
-</entry>
-
-<entry key="RunTareaValidarService.checkDuplicatedTiendas">
-    <![CDATA[
-SELECT CCL_ID_COD_ORIGEN 
-FROM TAREA_TIENDA_ESTADO 
-WHERE ID_TAREA = :idTarea 
-GROUP BY CCL_ID_COD_ORIGEN, ID_TAREA
-HAVING COUNT(*) > 1
-    ]]>
-</entry>
-
 <entry key="RunTareaValidarService.checkDuplicatedTiendasHistorico">
     <![CDATA[
 SELECT CCL_ID_COD_ORIGEN 
@@ -32,26 +12,10 @@ HAVING COUNT(*) > 1
     ]]>
 </entry>
 
-<entry key="RunTareaValidarService.countEmpleados">
-    <![CDATA[
-SELECT COUNT(*) 
-FROM TAREA_EMPLEADO_ESTADO 
-WHERE ID_TAREA = :idTarea 
-    ]]>
-</entry>
-
 <entry key="RunTareaValidarService.countEmpleadosHistorico">
     <![CDATA[
 SELECT COUNT(*) 
 FROM TAREA_PERSONA_HISTORICO 
-WHERE ID_TAREA = :idTarea 
-    ]]>
-</entry>
-
-<entry key="RunTareaValidarService.countTiendas">
-    <![CDATA[
-SELECT COUNT(*) 
-FROM TAREA_TIENDA_ESTADO 
 WHERE ID_TAREA = :idTarea 
     ]]>
 </entry>
@@ -93,33 +57,6 @@ WHERE ID_TAREA = :idTarea
 SELECT COUNT(*) 
 FROM TAREA_TIENDA_VENTA_SECCION 
 WHERE ID_TAREA = :idTarea 
-    ]]>
-</entry>
-
-<entry key="RunTareaValidarService.TiendaEmptyFields">
-    <![CDATA[
-SELECT * FROM TAREA_TIENDA_ESTADO 
-WHERE ID_TAREA = :idTarea 
-AND ((CCL_ID_CADENA IS NULL OR CCL_ID_CADENA = '') 
-OR (STD_ID_LEG_ENT IS NULL OR STD_ID_LEG_ENT = '') 
-OR (STD_ID_COUNTRY IS NULL OR STD_ID_COUNTRY = '') 
-OR (CCL_ID_ORIGEN IS NULL OR CCL_ID_ORIGEN = '')
-OR (CCL_ID_COD_ORIGEN IS NULL OR CCL_ID_COD_ORIGEN = '')
-OR (STD_ID_WORK_LOCAT IS NULL OR STD_ID_WORK_LOCAT = '')
-OR (ID_TAREA IS NULL) 
-OR (ID_TIPO_TAREA_TIENDA IS NULL))
-    ]]>
-</entry>
-
-<entry key="RunTareaValidarService.EmpleadoEmptyFields">
-    <![CDATA[
-SELECT * FROM TAREA_EMPLEADO_ESTADO 
-WHERE ID_TAREA = :idTarea 
-AND ((ID_EMPLEADO IS NULL OR ID_EMPLEADO = '') 
-OR (ID_EMPLEADO_LOCAL IS NULL OR ID_EMPLEADO_LOCAL = '') 
-OR (OR_EMPLEADO IS NULL OR OR_EMPLEADO = '') 
-OR (ID_ESTADO_TAREA_EMPLEADO IS NULL )
-OR (ID_TAREA IS NULL ))
     ]]>
 </entry>
 

@@ -9,11 +9,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EstadoTareaEnum {
 
-    PENDIENTE_RECOLECTAR(1L, new EstadoTareaDto(1L)), EN_CURSO_RECOLECTAR(2L, new EstadoTareaDto(2L)),
-    PENDIENTE_CALCULAR(3L, new EstadoTareaDto(3L)), EN_CURSO_CALCULAR(4L, new EstadoTareaDto(4L)),
-    PENDIENTE_CONSOLIDAR(5L, new EstadoTareaDto(5L)), EN_CURSO_CONSOLIDAR(6L, new EstadoTareaDto(6L)),
-    FINALIZADO_SIN_ERRORES(7L, new EstadoTareaDto(7L)), FINALIZADO_CON_ERRORES(8L, new EstadoTareaDto(8L)),
-    ERROR(9L, new EstadoTareaDto(9L));
+    PENDIENTE(1L, new EstadoTareaDto(1L)), EN_CURSO(2L, new EstadoTareaDto(2L)),
+    FINALIZADO_SIN_ERRORES(3L, new EstadoTareaDto(3L)), FINALIZADO_CON_ERRORES(4L, new EstadoTareaDto(4L)),
+    ERROR(5L, new EstadoTareaDto(5L));
 
     private final Long id;
 

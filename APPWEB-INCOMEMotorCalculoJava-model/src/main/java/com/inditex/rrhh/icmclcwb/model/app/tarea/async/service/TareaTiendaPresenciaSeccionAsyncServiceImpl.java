@@ -17,15 +17,7 @@ public class TareaTiendaPresenciaSeccionAsyncServiceImpl implements TareaTiendaP
 
     @Autowired
     private TareaTiendaPresenciaSeccionService tareaTiendaPresenciaSeccionService;
-    
-    @Deprecated
-    @Override
-    public CompletableFuture<Void> pivot(final TareaDto tarea)  {
-        tareaTiendaPresenciaSeccionService.pivot(tarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    
+
     @Override
     public CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TareaDto tarea) {
         tareaTiendaPresenciaSeccionService.save(dto, tarea);

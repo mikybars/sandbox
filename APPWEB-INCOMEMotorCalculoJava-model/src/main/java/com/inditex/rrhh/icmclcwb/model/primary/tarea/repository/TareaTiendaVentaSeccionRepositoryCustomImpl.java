@@ -4,17 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaVentaSeccion;
 
-@Deprecated
 @Repository
 public class TareaTiendaVentaSeccionRepositoryCustomImpl extends
         JdbcBatchPrimaryRepositoryAbstract<TareaTiendaVentaSeccion> implements TareaTiendaVentaSeccionRepositoryCustom {
@@ -24,11 +19,6 @@ public class TareaTiendaVentaSeccionRepositoryCustomImpl extends
 
     @Value("#{primaryQuery['TareaTiendaVentaSeccionRepositoryCustom.save']}")
     private String sqlSave;
-
-    @Auditoria
-    @Override
-    public void save(@NotNull final TareaDto tareaDto) {
-    }
 
     @Override
     public List<TareaTiendaVentaSeccion> save(List<TareaTiendaVentaSeccion> src) {

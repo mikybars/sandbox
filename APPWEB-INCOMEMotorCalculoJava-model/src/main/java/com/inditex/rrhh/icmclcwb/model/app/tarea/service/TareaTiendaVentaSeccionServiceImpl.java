@@ -25,95 +25,88 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVenta
 @Service
 @Validated
 public class TareaTiendaVentaSeccionServiceImpl implements TareaTiendaVentaSeccionService {
-    
+
     @Autowired
     private TareaTiendaVentaSeccionRepositoryCustom tareaTiendaVentaSeccionRepositoryCustom;
-    
+
     @Autowired
     private TareaTiendaVentaSeccionMapper tareaTiendaVentaSeccionMapper;
 
-    @Deprecated
     @Override
-    public void pivot(@Valid final TareaDto tareaDto) {
-        tareaTiendaVentaSeccionRepositoryCustom.save(tareaDto);
-    }
-    
-    @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaTotalizadoResponse(@Valid final PtrVentaTotalizadoResponseDto dto,
-            @Valid final TareaDto tarea) {
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaTotalizadoResponse(
+            @Valid final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
             result.addAll(tareaTiendaVentaSeccionMapper
                     .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
-                            tareaTiendaVentaSeccionMapper.getVentaTotalizadoResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaTotalizado(),
-                                    tarea))));
+                            tareaTiendaVentaSeccionMapper.getVentaTotalizadoResponseItemDtoToTareaTiendaVentaSeccion(
+                                    dto.getVentaTotalizado(), tarea))));
         }
         return result;
     }
-    
+
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodResponse(@Valid final PtrVentaOnlineIpodResponseDto dto,
-            @Valid final TareaDto tarea) {
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodResponse(
+            @Valid final PtrVentaOnlineIpodResponseDto dto, @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
-            result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
-                            tareaTiendaVentaSeccionMapper.getVentaOnlineIpodResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
-                                    tarea))));
+            result.addAll(tareaTiendaVentaSeccionMapper.tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(
+                    tareaTiendaVentaSeccionRepositoryCustom.save(tareaTiendaVentaSeccionMapper
+                            .getVentaOnlineIpodResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(), tarea))));
         }
         return result;
     }
-    
+
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodIndividualDetalleResponse(@Valid final PtrVentaOnlineIpodIndividualDetalleResponseDto dto,
-            @Valid final TareaDto tarea) {
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineIpodIndividualDetalleResponse(
+            @Valid final PtrVentaOnlineIpodIndividualDetalleResponseDto dto, @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnlineIpodIndividual())) {
-            result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
-                            tareaTiendaVentaSeccionMapper.getVentaOnlineIpodIndividualDetalleResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnlineIpodIndividual(),
-                                    tarea))));
+            result.addAll(tareaTiendaVentaSeccionMapper.tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(
+                    tareaTiendaVentaSeccionRepositoryCustom.save(tareaTiendaVentaSeccionMapper
+                            .getVentaOnlineIpodIndividualDetalleResponseItemDtoToTareaTiendaVentaSeccion(
+                                    dto.getVentaOnlineIpodIndividual(), tarea))));
         }
         return result;
     }
-    
+
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlinePickingResponse(@Valid final PtrVentaOnlinePickingResponseDto dto,
-            @Valid final TareaDto tarea) {
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlinePickingResponse(
+            @Valid final PtrVentaOnlinePickingResponseDto dto, @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaTiendaVentaSeccionMapper
                     .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
-                            tareaTiendaVentaSeccionMapper.getVentaOnlinePickingResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
-                                    tarea))));
+                            tareaTiendaVentaSeccionMapper.getVentaOnlinePickingResponseItemDtoToTareaTiendaVentaSeccion(
+                                    dto.getVentaOnline(), tarea))));
         }
         return result;
     }
-    
+
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid final PtrVentaOnlineEntregaTiendaResponseDto dto,
-            @Valid final TareaDto tarea) {
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaTiendaResponse(
+            @Valid final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
-            result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
-                            tareaTiendaVentaSeccionMapper.getVentaOnlineEntregaTiendaResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
+            result.addAll(tareaTiendaVentaSeccionMapper.tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(
+                    tareaTiendaVentaSeccionRepositoryCustom.save(tareaTiendaVentaSeccionMapper
+                            .getVentaOnlineEntregaTiendaResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
                                     tarea))));
         }
         return result;
     }
-    
+
     @Override
-    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaDomicilioResponse(@Valid final PtrVentaOnlineEntregaDomicilioResponseDto dto,
-            @Valid final TareaDto tarea) {
+    public List<TareaTiendaVentaSeccionDto> savePtrVentaOnlineEntregaDomicilioResponse(
+            @Valid final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid final TareaDto tarea) {
         List<TareaTiendaVentaSeccionDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
-            result.addAll(tareaTiendaVentaSeccionMapper
-                    .tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(tareaTiendaVentaSeccionRepositoryCustom.save(
-                            tareaTiendaVentaSeccionMapper.getVentaOnlineEntregaDomicilioResponseItemDtoToTareaTiendaVentaSeccion(dto.getVentaOnline(),
-                                    tarea))));
+            result.addAll(tareaTiendaVentaSeccionMapper.tareaTiendaVentaSeccionToTareaTiendaVentaSeccionDto(
+                    tareaTiendaVentaSeccionRepositoryCustom.save(tareaTiendaVentaSeccionMapper
+                            .getVentaOnlineEntregaDomicilioResponseItemDtoToTareaTiendaVentaSeccion(
+                                    dto.getVentaOnline(), tarea))));
         }
         return result;
     }
-    
+
 }

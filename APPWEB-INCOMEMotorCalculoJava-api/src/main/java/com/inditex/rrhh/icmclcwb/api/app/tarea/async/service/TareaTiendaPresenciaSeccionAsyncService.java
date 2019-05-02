@@ -13,9 +13,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 @Async("repositoryPrimaryExecutor")
 public interface TareaTiendaPresenciaSeccionAsyncService {
 
-    @Deprecated
-    CompletableFuture<Void> pivot(final TareaDto tarea);
-
     CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TareaDto tarea);
 
 }

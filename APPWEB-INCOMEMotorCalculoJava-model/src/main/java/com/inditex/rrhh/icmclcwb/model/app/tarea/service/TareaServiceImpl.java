@@ -70,7 +70,7 @@ public class TareaServiceImpl implements TareaService {
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
         tarea.setFechaCreacion(LocalDateTime.now());
-        tarea.setEstado(EstadoTareaEnum.PENDIENTE_RECOLECTAR.getDto());
+        tarea.setEstado(EstadoTareaEnum.PENDIENTE.getDto());
         TareaDto result = save(tarea);
         if (CollectionUtils.isNotEmpty(tarea.getAmbito())) {
             result.setAmbito(tareaAmbitoService.create(tarea.getAmbito(), result));

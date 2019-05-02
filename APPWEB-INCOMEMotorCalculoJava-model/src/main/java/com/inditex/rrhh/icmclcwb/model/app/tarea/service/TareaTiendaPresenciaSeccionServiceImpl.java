@@ -18,23 +18,19 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaPrese
 @Service
 @Validated
 public class TareaTiendaPresenciaSeccionServiceImpl implements TareaTiendaPresenciaSeccionService {
-    
+
     @Autowired
     private TareaTiendaPresenciaSeccionMapper mapper;
-    
+
     @Autowired
     private TareaTiendaPresenciaSeccionRepositoryCustom tareaTiendaPresenciaSeccionRepositoryCustom;
-    
-    @Deprecated
+
     @Override
-    public void pivot(@Valid final TareaDto tareaDto) {
-        tareaTiendaPresenciaSeccionRepositoryCustom.save(tareaDto);
-    }
-    
-    @Override
-    public List<TareaTiendaPresenciaSeccionDto> save(@Valid final List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, @Valid final TareaDto tarea) {
-        return mapper.tareaTiendaPresenciaSeccionToTareaTiendaPresenciaSeccionDto(tareaTiendaPresenciaSeccionRepositoryCustom
-                .save(mapper.presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(dto, tarea)));
+    public List<TareaTiendaPresenciaSeccionDto> save(@Valid final List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto,
+            @Valid final TareaDto tarea) {
+        return mapper
+                .tareaTiendaPresenciaSeccionToTareaTiendaPresenciaSeccionDto(tareaTiendaPresenciaSeccionRepositoryCustom
+                        .save(mapper.presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(dto, tarea)));
     }
 
 }

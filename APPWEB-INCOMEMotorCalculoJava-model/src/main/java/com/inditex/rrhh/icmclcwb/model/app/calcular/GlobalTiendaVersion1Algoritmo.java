@@ -33,9 +33,12 @@ public class GlobalTiendaVersion1Algoritmo implements Algoritmo {
     public Flux<Void> execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         if (runTarea.getRunTareaCalcular().getEmpleado().size() >= algoritmoProperties.getBatchSize()) {
             CountDownLatch latch = new CountDownLatch(1);
-            Flux.fromIterable(StreamUtils.partition(
-                    /* TODO Hay que lanzarlo por empleado y ordinal */runTarea.getRunTareaCalcular().getEmpleado(),
-                    algoritmoProperties.getBatchSize())).parallel().runOn(Schedulers.parallel())
+            Flux.fromIterable(StreamUtils
+                    .partition(/*
+                                * TODO Hay que lanzarlo por empleado y ordinal, hay que recuperar los ids que
+                                * tienen la comisión
+                                */runTarea.getRunTareaCalcular().getEmpleado(), algoritmoProperties.getBatchSize()))
+                    .parallel().runOn(Schedulers.parallel())
                     .doOnNext(idsEmpleados -> tareaCalculoAlgoritmoGlobalTiendaRepository
                             .calcularByIdTareaAndIdsEmpleado(runTarea.getTarea().getId(), algoritmo, idsEmpleados))
                     .doOnError(ex -> log.error(ex.getMessage(), ex)).doAfterTerminate(latch::countDown).subscribe();

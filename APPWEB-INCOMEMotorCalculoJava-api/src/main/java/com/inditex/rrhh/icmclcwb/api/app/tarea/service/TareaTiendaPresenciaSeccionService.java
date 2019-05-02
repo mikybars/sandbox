@@ -10,9 +10,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 
 public interface TareaTiendaPresenciaSeccionService {
 
-    @Deprecated
-    void pivot(@Valid final TareaDto tarea);
-
     List<TareaTiendaPresenciaSeccionDto> save(@Valid final List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, @Valid final TareaDto tarea);
 
 }

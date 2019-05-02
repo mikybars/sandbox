@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstadoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEstadoDto;
 import lombok.Data;
 
 @Data
@@ -30,9 +28,5 @@ public class RunTareaRecolectarBloqueDto implements Serializable {
     private Set<String> empleadoUniversal = new HashSet<>();
 
     private Set<String> tiendaPresencia = new HashSet<>();
-
-    private Set<TareaTiendaEstadoDto> tienda = new HashSet<>();
-
-    private Set<TareaEmpleadoEstadoDto> empleado = new HashSet<>();
 
 }

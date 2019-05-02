@@ -8,17 +8,9 @@ import javax.validation.constraints.Positive;
 
 public interface TareaValidarService {
 
-    List<String> checkDuplicatedEmpleados(@NotNull @Positive Long idTarea);
-
-    List<String> checkDuplicatedTiendas(@NotNull @Positive Long idTarea);
-    
     List<String> checkDuplicatedTiendasHistorico(@NotNull @Positive Long idTarea);
 
-    Integer countEmpleados(@NotNull @Positive Long idTarea);
-
     Integer countEmpleadosHistorico(@NotNull @Positive Long idTarea);
-
-    Integer countTiendas(@NotNull @Positive Long idTarea);
 
     Integer countTiendasHistorico(@NotNull @Positive Long idTarea);
 
@@ -35,6 +27,5 @@ public interface TareaValidarService {
     List<Map<String, Object>> validateByIdTrabajo(@NotNull @Positive Long idTrabajo);
 
     List<String> validateAmbito(@NotNull @Positive Long idTarea);
-
 
 }

@@ -2,8 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-
-
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -17,23 +15,19 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 @Async("repositoryPrimaryExecutor")
 public interface TareaTiendaVentaSeccionAsyncService {
 
-    @Deprecated
-    CompletableFuture<Void> pivot(final TareaDto tarea);
+    CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto dto, TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto dto,TareaDto tarea);
-
-    CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto dto,TareaDto tarea);
+    CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto dto, TareaDto tarea);
 
     CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResponse(
-            PtrVentaOnlineIpodIndividualDetalleResponseDto dto,TareaDto tarea);
+            PtrVentaOnlineIpodIndividualDetalleResponseDto dto, TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaOnlinePickingResponse(PtrVentaOnlinePickingResponseDto dto,
-           TareaDto tarea);
+    CompletableFuture<Void> savePtrVentaOnlinePickingResponse(PtrVentaOnlinePickingResponseDto dto, TareaDto tarea);
 
     CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(PtrVentaOnlineEntregaTiendaResponseDto dto,
-           TareaDto tarea);
+            TareaDto tarea);
 
     CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(PtrVentaOnlineEntregaDomicilioResponseDto dto,
-           TareaDto tarea);
+            TareaDto tarea);
 
 }

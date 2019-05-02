@@ -29,12 +29,9 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
     @TimerMetric
     @Override
     public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
-        TareaDto tarea = tareaService.find(runTarea.getTarea().getId());
-        if (EstadoTareaEnum.PENDIENTE_CONSOLIDAR.getId().equals(tarea.getEstado().getId())) {
-            tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.EN_CURSO_CONSOLIDAR.getDto());
-            TestUtils.threadSleep();
-            tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getDto());
-        }
+        TareaDto tarea = runTarea.getTarea();
+        TestUtils.threadSleep();
+        tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getDto());
         return runTarea;
     }
 

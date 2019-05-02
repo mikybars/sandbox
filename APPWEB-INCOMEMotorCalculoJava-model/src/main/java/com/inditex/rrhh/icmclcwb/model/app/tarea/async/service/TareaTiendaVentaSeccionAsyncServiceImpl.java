@@ -2,8 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -24,54 +22,47 @@ public class TareaTiendaVentaSeccionAsyncServiceImpl implements TareaTiendaVenta
 
     @Autowired
     private TareaTiendaVentaSeccionService tareaTiendaVentaSeccionService;
-    
-    @Deprecated
+
     @Override
-    public CompletableFuture<Void> pivot(final TareaDto tarea)  {
-        tareaTiendaVentaSeccionService.pivot(tarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    
-    @Override
-    public CompletableFuture<Void> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto, final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto,
+            final TareaDto tarea) {
         tareaTiendaVentaSeccionService.savePtrVentaTotalizadoResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    
+
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto, final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto,
+            final TareaDto tarea) {
         tareaTiendaVentaSeccionService.savePtrVentaOnlineIpodResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    
+
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResponse(final PtrVentaOnlineIpodIndividualDetalleResponseDto dto, final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResponse(
+            final PtrVentaOnlineIpodIndividualDetalleResponseDto dto, final TareaDto tarea) {
         tareaTiendaVentaSeccionService.savePtrVentaOnlineIpodIndividualDetalleResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    
+
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto, final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,
+            final TareaDto tarea) {
         tareaTiendaVentaSeccionService.savePtrVentaOnlinePickingResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    
+
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto, final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(
+            final PtrVentaOnlineEntregaTiendaResponseDto dto, final TareaDto tarea) {
         tareaTiendaVentaSeccionService.savePtrVentaOnlineEntregaTiendaResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    
+
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(final PtrVentaOnlineEntregaDomicilioResponseDto dto, final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(
+            final PtrVentaOnlineEntregaDomicilioResponseDto dto, final TareaDto tarea) {
         tareaTiendaVentaSeccionService.savePtrVentaOnlineEntregaDomicilioResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
 }

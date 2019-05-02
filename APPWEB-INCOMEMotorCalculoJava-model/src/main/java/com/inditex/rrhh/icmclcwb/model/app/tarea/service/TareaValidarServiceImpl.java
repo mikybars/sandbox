@@ -23,41 +23,21 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaValidarRepo
 @Service
 @Validated
 public class TareaValidarServiceImpl implements TareaValidarService {
-    
+
     @Autowired
     private TareaValidarRepositoryCustom tareaValidarRepositoryCustom;
-    
+
     @Autowired
     private TareaService tareaService;
-
-    @Override
-    public List<String> checkDuplicatedEmpleados(@NotNull @Positive Long idTarea) {
-        return tareaValidarRepositoryCustom.checkDuplicatedEmpleados(idTarea);
-    }
-
-    @Override
-    public List<String> checkDuplicatedTiendas(@NotNull @Positive Long idTarea) {
-        return tareaValidarRepositoryCustom.checkDuplicatedTiendas(idTarea);
-    }
 
     @Override
     public List<String> checkDuplicatedTiendasHistorico(@NotNull @Positive Long idTarea) {
         return tareaValidarRepositoryCustom.checkDuplicatedTiendasHistorico(idTarea);
     }
-    
-    @Override
-    public Integer countEmpleados(@NotNull @Positive Long idTarea) {
-        return tareaValidarRepositoryCustom.countEmpleados(idTarea);
-    }
 
     @Override
     public Integer countEmpleadosHistorico(@NotNull @Positive Long idTarea) {
         return tareaValidarRepositoryCustom.countEmpleadosHistorico(idTarea);
-    }
-
-    @Override
-    public Integer countTiendas(@NotNull @Positive Long idTarea) {
-        return tareaValidarRepositoryCustom.countTiendas(idTarea);
     }
 
     @Override
@@ -84,39 +64,39 @@ public class TareaValidarServiceImpl implements TareaValidarService {
     public Integer countTiendaVentaSeccion(@NotNull @Positive Long idTarea) {
         return tareaValidarRepositoryCustom.countTiendaVentaSeccion(idTarea);
     }
-    
+
     @Override
-    public List<String> validateAmbito(@NotNull @Positive Long idTarea){
+    public List<String> validateAmbito(@NotNull @Positive Long idTarea) {
         TareaDto tareaDto = tareaService.find(idTarea);
         if (CollectionUtils.isNotEmpty(tareaDto.getLocalizacion())) {
             return tareaValidarRepositoryCustom.validateAmbitoLocalizacion(idTarea);
         } else if (CollectionUtils.isNotEmpty(tareaDto.getPersona())) {
             return tareaValidarRepositoryCustom.validateAmbitoPersona(idTarea);
-        } 
+        }
 
         return tareaValidarRepositoryCustom.validateAmbitoEmpresa(idTarea);
     }
-    
+
     @Override
-    public List<Map<String, Object>> validateByIdTrabajo(@NotNull @Positive Long idTrabajo){
+    public List<Map<String, Object>> validateByIdTrabajo(@NotNull @Positive Long idTrabajo) {
         List<TareaDto> tareaDto = tareaService.findByTrabajoId(idTrabajo);
         return tareaDto.stream().map(TareaDto::getId).map(this::validateByIdTarea).collect(Collectors.toList());
     }
-    
+
     @Override
-    public Map<String, Object> validateByIdTarea(@NotNull @Positive Long idTarea){
+    public Map<String, Object> validateByIdTarea(@NotNull @Positive Long idTarea) {
         try {
             Map<String, Object> objects = new HashMap<String, Object>();
             Method[] methods = TareaValidarRepositoryCustom.class.getMethods();
-            
+
             for (Method method : methods) {
-                objects.put(method.getName(), method.invoke(tareaValidarRepositoryCustom, idTarea));    
+                objects.put(method.getName(), method.invoke(tareaValidarRepositoryCustom, idTarea));
             }
-            
+
             return objects;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new IcmclcwbException(e.getMessage(), e);
         }
     }
-    
+
 }
