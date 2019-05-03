@@ -59,7 +59,10 @@ app:
   envars:
     calculo:
       cast: false
-      precision: 'AS DECIMAL(23, 8)'  
+      precision: 'AS DECIMAL(23, 8)'
+    proceso: 
+      cast: true
+      precision: 'AS DECIMAL(23, 8)'
     tarea:
       recolectar:
         days-number: 3
