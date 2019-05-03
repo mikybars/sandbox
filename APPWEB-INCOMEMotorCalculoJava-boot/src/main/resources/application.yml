@@ -50,8 +50,8 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
-      local:
-        enable-local-test: true
+#      local:
+#        enable-local-test: true
       classic:
         sso:
           applicationSSO: AppINCOMEMotorCalculoJava
