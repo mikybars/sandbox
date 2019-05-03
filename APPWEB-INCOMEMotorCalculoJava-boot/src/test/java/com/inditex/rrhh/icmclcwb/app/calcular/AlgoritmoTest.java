@@ -18,10 +18,10 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
 public class AlgoritmoTest {
-    
+
     @Autowired
     private AlgoritmoService algoritmoService;
-    
+
     @Test
     public void checkDuplicatedActives() {
         assertEquals(Boolean.FALSE, algoritmoService.checkDuplicatedActives());
