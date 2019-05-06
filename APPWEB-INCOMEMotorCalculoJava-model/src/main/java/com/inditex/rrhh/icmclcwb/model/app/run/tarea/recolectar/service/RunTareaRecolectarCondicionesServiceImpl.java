@@ -30,19 +30,19 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
     @Autowired
     private RunTareaRecolectarPtrVentaGeneralAsyncService runTareaRecolectarPtrVentaGeneralAsyncService;
-    
+
     @Autowired
     private RunTareaRecolectarPtrVentaEcommerceAsyncService runTareaRecolectarPtrVentaEcommerceAsyncService;
-    
+
     @Autowired
     private RunTareaRecolectarPtrVentaEmpleadoAsyncService runTareaRecolectarPtrVentaEmpleadoAsyncService;
 
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
-    
+
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
-    
+
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -51,93 +51,116 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
-            // TODO Se detectan que datos son necesarios recuperar
-            //Localizacion y seccion          
-            CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = runTareaRecolectarPtrVentaGeneralAsyncService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfVentaFisicaLocalizacionSeccion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlineIpodLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineIpodLocalizacionSeccion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlinePickingLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlinePickingLocalizacionSeccion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlineEntregaTiendaLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
-
-            CompletableFuture<Void> cfOnlineEntregaDomicilioLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineEntregaDomicilioLocalizacionSeccion, cf, cfWait);
-            
-            CompletableFuture<Void> cfPresenciasTotalLocalizacionSeccion = runTareaRecolectarPtrPresenciaAsyncService.presenciaTotalLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasTotalLocalizacionSeccion, cf, cfWait);
-            
-            //Localizacion 
-            
-            CompletableFuture<Void> cfVentaFisicaLocalizacion = runTareaRecolectarPtrVentaGeneralAsyncService.ventaFisicaLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfVentaFisicaLocalizacion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlineIpodLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineIpodLocalizacion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlinePickingLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlinePickingLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlinePickingLocalizacion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlineEntregaTiendaLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineEntregaTiendaLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlineEntregaDomicilioLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineEntregaDomicilioLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineEntregaDomicilioLocalizacion, cf, cfWait);
-            
-            CompletableFuture<Void> cfFisicaDetalleLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaDetalleLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFisicaDetalleLocalizacion, cf, cfWait);
-            
-            //Operacion localizacion 
-            
-            CompletableFuture<Void> cfFisicaDetalleOperacionLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaDetalleOperacionLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFisicaDetalleOperacionLocalizacion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlineIpodDetalleOperacionLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineIpodDetalleOperacionLocalizacion, cf, cfWait);
-            
-            //Operacion vendedor localizacion
-            
-            CompletableFuture<Void> cfFisicaDetalleOperacionVendedorLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFisicaDetalleOperacionVendedorLocalizacion, cf, cfWait);
-            
-            //Vendedor localizacion
-            
-            CompletableFuture<Void> cfFisicaDetalleVendedorLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService.ventaFisicaDetalleVendedorLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFisicaDetalleVendedorLocalizacion, cf, cfWait);
-            
-            CompletableFuture<Void> cfOnlineIpodDetalleVendedorLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineIpodDetalleVendedorLocalizacion, cf, cfWait);
-            
-            //Persona
-            CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = runTareaRecolectarPtrPresenciaAsyncService.presenciaDetalleComisionablePersonaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
-            
-            //Localizacion Persona
-            CompletableFuture<Void> cfOnlineIpodDetalle = runTareaRecolectarPtrVentaEcommerceAsyncService.ventaOnlineIpodDetalleLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineIpodDetalle, cf, cfWait);
-            
-            //Tienda comisionable
-            CompletableFuture<Void> cfTiendaComisionable = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.tiendasComisionableByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfTiendaComisionable, cf, cfWait);
-            
-            //Estructuras
-            CompletableFuture<Void> cfCondicionPersona = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.condicionPersonaByRunTarea(runTarea);
+            // Estructuras
+            CompletableFuture<Void> cfCondicionPersona = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .condicionPersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfCondicionPersona, cf, cfWait);
 
-            //Tipos hora
+            // TODO Por cada recuperacion hay que detectar para que localizaciones o
+            // personas es necesario recuperar el dato
+
+            // Localizacion y seccion
+            CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = runTareaRecolectarPtrVentaGeneralAsyncService
+                    .ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfVentaFisicaLocalizacionSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlineIpodLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineIpodLocalizacionSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlinePickingLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlinePickingLocalizacionSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlineEntregaTiendaLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlineEntregaDomicilioLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineEntregaDomicilioLocalizacionSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfPresenciasTotalLocalizacionSeccion = runTareaRecolectarPtrPresenciaAsyncService
+                    .presenciaTotalLocalizacionSeccionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasTotalLocalizacionSeccion, cf, cfWait);
+
+            // Localizacion
+
+            CompletableFuture<Void> cfVentaFisicaLocalizacion = runTareaRecolectarPtrVentaGeneralAsyncService
+                    .ventaFisicaLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfVentaFisicaLocalizacion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlineIpodLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineIpodLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineIpodLocalizacion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlinePickingLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlinePickingLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlinePickingLocalizacion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlineEntregaTiendaLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineEntregaTiendaLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlineEntregaDomicilioLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineEntregaDomicilioLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineEntregaDomicilioLocalizacion, cf, cfWait);
+
+            CompletableFuture<Void> cfFisicaDetalleLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
+                    .ventaFisicaDetalleLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFisicaDetalleLocalizacion, cf, cfWait);
+
+            // Operacion localizacion
+
+            CompletableFuture<Void> cfFisicaDetalleOperacionLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
+                    .ventaFisicaDetalleOperacionLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFisicaDetalleOperacionLocalizacion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlineIpodDetalleOperacionLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineIpodDetalleOperacionLocalizacion, cf, cfWait);
+
+            // Operacion vendedor localizacion
+
+            CompletableFuture<Void> cfFisicaDetalleOperacionVendedorLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
+                    .ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFisicaDetalleOperacionVendedorLocalizacion, cf, cfWait);
+
+            // Vendedor localizacion
+
+            CompletableFuture<Void> cfFisicaDetalleVendedorLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
+                    .ventaFisicaDetalleVendedorLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFisicaDetalleVendedorLocalizacion, cf, cfWait);
+
+            CompletableFuture<Void> cfOnlineIpodDetalleVendedorLocalizacion = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineIpodDetalleVendedorLocalizacion, cf, cfWait);
+
+            // Persona
+            CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = runTareaRecolectarPtrPresenciaAsyncService
+                    .presenciaDetalleComisionablePersonaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
+
+            // Localizacion Persona
+            CompletableFuture<Void> cfOnlineIpodDetalle = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineIpodDetalleLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfOnlineIpodDetalle, cf, cfWait);
+
+            // Tienda comisionable
+            CompletableFuture<Void> cfTiendaComisionable = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .tiendasComisionableByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfTiendaComisionable, cf, cfWait);
+
+            // Tipos hora
             CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService
                     .tiposHorasByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiposHoras, cf, cfWait);
-            
-            //Periodos
+
+            // Periodos
             CompletableFuture<Void> cfPeriodos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .periodosByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPeriodos, cf, cfWait);
-            
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

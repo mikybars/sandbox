@@ -73,7 +73,6 @@ public class TareaValidarServiceImpl implements TareaValidarService {
         } else if (CollectionUtils.isNotEmpty(tareaDto.getPersona())) {
             return tareaValidarRepositoryCustom.validateAmbitoPersona(idTarea);
         }
-
         return tareaValidarRepositoryCustom.validateAmbitoEmpresa(idTarea);
     }
 

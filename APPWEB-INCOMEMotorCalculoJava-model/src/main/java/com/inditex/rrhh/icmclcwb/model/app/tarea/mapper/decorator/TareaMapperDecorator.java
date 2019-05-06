@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
@@ -42,31 +43,40 @@ public abstract class TareaMapperDecorator extends TareaMapper {
         GenericFilterDto result = delegate
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
                         srcTrabajo, srcTarea, srcTareaAmbito, srcTareaAmbitoLocalizacion, srcTareaAmbitoPersona);
-        if (CollectionUtils.isNotEmpty(srcTareaAmbitoLocalizacion)) {
-            List<GenericFilterParametersDto> resultItem = srcTareaAmbitoLocalizacion.stream()
-                    .filter(item -> srcTareaAmbito.getIdOrigen().equals(item.getIdOrigen()))
-                    .map(item -> GenericFilterParametersDto.builder().idLugarTrabajo(item.getIdLocalizacion()).build())
-                    .collect(Collectors.toList());
-            if (CollectionUtils.isNotEmpty(resultItem)) {
-                result.getItem().addAll(resultItem);
-            } else {
-                throw new IcmclcwbException(
-                        new StringBuilder("Parametrizacion por localizacion sin localizaciones para el origen: ")
-                                .append(srcTareaAmbito.getIdOrigen()).toString());
+        if (TipoAmbitoEnum.LOCALIZACION.getId().equals(srcTrabajo.getTipoAmbito().getId())) {
+            if (CollectionUtils.isNotEmpty(srcTareaAmbitoLocalizacion)) {
+                List<GenericFilterParametersDto> resultItem = srcTareaAmbitoLocalizacion.stream()
+                        .filter(item -> srcTareaAmbito.getIdOrigen().equals(item.getIdOrigen()))
+                        .map(item -> GenericFilterParametersDto.builder().idLugarTrabajo(item.getIdLocalizacion())
+                                .build())
+                        .collect(Collectors.toList());
+                if (CollectionUtils.isNotEmpty(resultItem)) {
+                    result.getItem().addAll(resultItem);
+                } else {
+                    throw new IcmclcwbException(new StringBuilder(
+                            "Parametrizacion por tipo ambito localizacion sin localizaciones para el origen: ")
+                                    .append(srcTareaAmbito.getIdOrigen()).toString());
+                }
             }
+        } else {
+            throw new IcmclcwbException("Parametrizacion por tipo ambito localizacion sin localizaciones");
         }
-        if (CollectionUtils.isNotEmpty(srcTareaAmbitoPersona)) {
-            List<GenericFilterParametersDto> resultItem = srcTareaAmbitoPersona.stream()
-                    .filter(item -> srcTareaAmbito.getIdOrigen().equals(item.getIdOrigen()))
-                    .map(item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).build())
-                    .collect(Collectors.toList());
-            if (CollectionUtils.isNotEmpty(resultItem)) {
-                result.getItem().addAll(resultItem);
-            } else {
-                throw new IcmclcwbException(
-                        new StringBuilder("Parametrizacion por persona sin personas para el origen: ")
-                                .append(srcTareaAmbito.getIdOrigen()).toString());
+        if (TipoAmbitoEnum.PERSONA.getId().equals(srcTrabajo.getTipoAmbito().getId())) {
+            if (CollectionUtils.isNotEmpty(srcTareaAmbitoPersona)) {
+                List<GenericFilterParametersDto> resultItem = srcTareaAmbitoPersona.stream()
+                        .filter(item -> srcTareaAmbito.getIdOrigen().equals(item.getIdOrigen()))
+                        .map(item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).build())
+                        .collect(Collectors.toList());
+                if (CollectionUtils.isNotEmpty(resultItem)) {
+                    result.getItem().addAll(resultItem);
+                } else {
+                    throw new IcmclcwbException(
+                            new StringBuilder("Parametrizacion por persona sin personas para el origen: ")
+                                    .append(srcTareaAmbito.getIdOrigen()).toString());
+                }
             }
+        } else {
+            throw new IcmclcwbException("Parametrizacion por tipo ambito persona sin personas");
         }
         return result;
     }

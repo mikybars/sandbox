@@ -3,13 +3,13 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmb
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 @Service
 @Validated
@@ -37,15 +37,18 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
     @TimerMetric
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
-        final TareaDto tarea = runTarea.getTarea();
-        if (CollectionUtils.isNotEmpty(tarea.getLocalizacion()) && CollectionUtils.isNotEmpty(tarea.getPersona())) {
-            throw new IcmclcwbException("No es posible ejecutar por ambito localizacion y persona simultaneamente");
-        } else if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
+        final TrabajoDto trabajo = runTarea.getTrabajo();
+        if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
+                || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
+                || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
+            runTareaRecolectarByAmbitoService.run(runTarea);
+        } else if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
             runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
-        } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
+        } else if (TipoAmbitoEnum.PERSONA.getId().equals(trabajo.getTipoAmbito().getId())) {
             runTareaRecolectarByAmbitoPersonaService.run(runTarea);
         } else {
-            runTareaRecolectarByAmbitoService.run(runTarea);
+            throw new IcmclcwbException("El tipo ambito no esta soportado");
         }
     }
+
 }

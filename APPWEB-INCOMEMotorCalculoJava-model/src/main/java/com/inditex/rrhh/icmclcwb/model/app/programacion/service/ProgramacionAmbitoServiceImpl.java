@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoEmpresaService;
@@ -60,13 +62,22 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
                 programacionAmbitoResult.setEmpresa(
                         programacionAmbitoEmpresaService.create(item.getEmpresa(), programacionAmbitoResult));
             }
-            if (CollectionUtils.isNotEmpty(item.getLocalizacion())) {
-                programacionAmbitoResult.setLocalizacion(
-                        programacionAmbitoLocalizacionService.create(item.getLocalizacion(), programacionAmbitoResult));
+            if (TipoAmbitoEnum.LOCALIZACION.getId().equals(programacion.getTipoAmbito().getId())) {
+                if (CollectionUtils.isNotEmpty(item.getLocalizacion())) {
+                    programacionAmbitoResult.setLocalizacion(programacionAmbitoLocalizacionService
+                            .create(item.getLocalizacion(), programacionAmbitoResult));
+                } else {
+                    throw new IcmclcwbException(
+                            "No se puede programar por tipo ambito localizacion y no definir localizaciones");
+                }
             }
-            if (CollectionUtils.isNotEmpty(item.getPersona())) {
-                programacionAmbitoResult.setPersona(
-                        programacionAmbitoPersonaService.create(item.getPersona(), programacionAmbitoResult));
+            if (TipoAmbitoEnum.LOCALIZACION.getId().equals(programacion.getTipoAmbito().getId())) {
+                if (CollectionUtils.isNotEmpty(item.getPersona())) {
+                    programacionAmbitoResult.setPersona(
+                            programacionAmbitoPersonaService.create(item.getPersona(), programacionAmbitoResult));
+                } else {
+                    throw new IcmclcwbException("No se puede programar por tipo ambito persona y no definir personas");
+                }
             }
             result.add(programacionAmbitoResult);
         });
