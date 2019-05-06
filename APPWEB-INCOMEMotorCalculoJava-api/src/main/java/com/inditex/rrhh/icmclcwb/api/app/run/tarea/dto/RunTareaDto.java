@@ -24,11 +24,10 @@ public class RunTareaDto implements Serializable {
 
     @NotNull
     private TrabajoDto trabajo;
-    
+
     @NotNull
     private TareaDto tarea;
-    
+
     private final List<RunTareaValidarDto> runTareaValidar = new ArrayList<>();
 
-    
 }

@@ -65,46 +65,51 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     @TimerMetric
     @Override
     public void run(@NotNull @Valid RunTareaDto runTarea) {
-        if (validarProperties.isEnabled()) {
-            List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            if (validarProperties.isEnabled()) {
+                CompletableFuture<Void> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService.run(runTarea);
+                AsyncUtils.exceptionally(cfEstructura, cf);
 
-            CompletableFuture<Void> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService.run(runTarea);
-            AsyncUtils.exceptionally(cfEstructura, cf);
+                CompletableFuture<Void> cfTiendaHistorico = runTareaRecolectarValidarTiendaHistoricoAsyncService
+                        .run(runTarea);
+                AsyncUtils.exceptionally(cfTiendaHistorico, cf);
 
-            CompletableFuture<Void> cfTiendaHistorico = runTareaRecolectarValidarTiendaHistoricoAsyncService
-                    .run(runTarea);
-            AsyncUtils.exceptionally(cfTiendaHistorico, cf);
+                CompletableFuture<Void> cfTiendaEmpleadoPresenciaSeccion = runTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService
+                        .run(runTarea);
+                AsyncUtils.exceptionally(cfTiendaEmpleadoPresenciaSeccion, cf);
 
-            CompletableFuture<Void> cfTiendaEmpleadoPresenciaSeccion = runTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService
-                    .run(runTarea);
-            AsyncUtils.exceptionally(cfTiendaEmpleadoPresenciaSeccion, cf);
+                CompletableFuture<Void> cfTiendaPresenciaSeccion = runTareaRecolectarValidarTiendaPresenciaSeccionAsyncService
+                        .run(runTarea);
+                AsyncUtils.exceptionally(cfTiendaPresenciaSeccion, cf);
 
-            CompletableFuture<Void> cfTiendaPresenciaSeccion = runTareaRecolectarValidarTiendaPresenciaSeccionAsyncService
-                    .run(runTarea);
-            AsyncUtils.exceptionally(cfTiendaPresenciaSeccion, cf);
+                CompletableFuture<Void> cfTiendaVentaSeccion = runTareaRecolectarValidarTiendaVentaSeccionAsyncService
+                        .run(runTarea);
+                AsyncUtils.exceptionally(cfTiendaVentaSeccion, cf);
 
-            CompletableFuture<Void> cfTiendaVentaSeccion = runTareaRecolectarValidarTiendaVentaSeccionAsyncService
-                    .run(runTarea);
-            AsyncUtils.exceptionally(cfTiendaVentaSeccion, cf);
+                CompletableFuture<Void> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService.run(runTarea);
+                AsyncUtils.exceptionally(cfAmbito, cf);
 
-            CompletableFuture<Void> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService.run(runTarea);
-            AsyncUtils.exceptionally(cfAmbito, cf);
+                /*-------------------------------------------------------------*/
+                AsyncUtils.waitAllOfIsOk(cf, cf);
+                /*-------------------------------------------------------------*/
 
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/
-
-            List<RunTareaValidarDto> runTareaValidar = runTarea.getRunTareaValidar().stream()
-                    .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated())).collect(Collectors.toList());
-            if (CollectionUtils.isNotEmpty(runTareaValidar)) {
-                if (validarProperties.isLogging()) {
-                    log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]", runTareaValidar);
-                }
-
-                if (validarProperties.isException()) {
-                    throw new IcmclcwbException("Valores duplicados");
+                List<RunTareaValidarDto> runTareaValidar = runTarea.getRunTareaValidar().stream()
+                        .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated())).collect(Collectors.toList());
+                if (CollectionUtils.isNotEmpty(runTareaValidar)) {
+                    if (validarProperties.isLogging()) {
+                        log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
+                                runTareaValidar);
+                    }
+                    
+                    if (validarProperties.isException()) {
+                        throw new IcmclcwbException("Valores duplicados");
+                    }
                 }
             }
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw new IcmclcwbException(e.getMessage(), e);
         }
     }
 
