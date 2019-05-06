@@ -10,9 +10,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 import reactor.core.publisher.Flux;
@@ -29,18 +29,17 @@ public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
     private String sqlCalcular;
 
     @Autowired
-    private TareaPersonaHistoricoService tareaPersonaHistoricoService;
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
-    public List<IdPersonaHistoricoDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
+    public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
         // TODO Hay que cambiarlo para obtener las personas relacionadas con el
         // algoritmo
-        return tareaPersonaHistoricoService.findIdPersonaHistoricoByIdTareaAndIdOrigen(tarea.getId(),
-                tarea.getAmbito().get(0).getIdOrigen());
+        return tareaCalculoPersonaService.findByTarea(tarea);
     }
 
     @Override
-    public Flux<Void> calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<IdPersonaHistoricoDto> persona) {
+    public Flux<Void> calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<TareaCalculoPersonaDto> persona) {
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
         persona.forEach(idPersona -> {
             // TODO
@@ -50,7 +49,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
             MapSqlParameterSource arg = new MapSqlParameterSource();
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona.getIdPersona());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona.getIdPersonaLocal());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, idPersona.getOrPersona());
             batchArgs.add(arg);
         });

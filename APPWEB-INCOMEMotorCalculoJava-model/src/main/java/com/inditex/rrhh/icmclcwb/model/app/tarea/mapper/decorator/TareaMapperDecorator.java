@@ -57,9 +57,9 @@ public abstract class TareaMapperDecorator extends TareaMapper {
                             "Parametrizacion por tipo ambito localizacion sin localizaciones para el origen: ")
                                     .append(srcTareaAmbito.getIdOrigen()).toString());
                 }
+            } else {
+                throw new IcmclcwbException("Parametrizacion por tipo ambito localizacion sin localizaciones");
             }
-        } else {
-            throw new IcmclcwbException("Parametrizacion por tipo ambito localizacion sin localizaciones");
         }
         if (TipoAmbitoEnum.PERSONA.getId().equals(srcTrabajo.getTipoAmbito().getId())) {
             if (CollectionUtils.isNotEmpty(srcTareaAmbitoPersona)) {
@@ -74,9 +74,9 @@ public abstract class TareaMapperDecorator extends TareaMapper {
                             new StringBuilder("Parametrizacion por persona sin personas para el origen: ")
                                     .append(srcTareaAmbito.getIdOrigen()).toString());
                 }
+            } else {
+                throw new IcmclcwbException("Parametrizacion por tipo ambito persona sin personas");
             }
-        } else {
-            throw new IcmclcwbException("Parametrizacion por tipo ambito persona sin personas");
         }
         return result;
     }
