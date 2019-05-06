@@ -105,7 +105,8 @@ app:
       calcular:
         algoritmo:
           config:
-            batch-size: 1000
+            #batch-size: 1000
+            batch-size: 10
     repository:
       batch-size:
         default: 100
