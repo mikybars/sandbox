@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaCalculoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepositoryCustom;
 
 @Service
@@ -16,11 +15,9 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     @Autowired
     private TareaCalculoPersonaRepositoryCustom tareaCalculoPersonaRepositoryCustom;
 
-    @Autowired
-    private TareaCalculoPersonaMapper tareaCalculoPersonaMapper;
-    
     @Override
     public void mergePersonaCalculo(RunTareaDto runTareaDto) {
         tareaCalculoPersonaRepositoryCustom.mergePersonaCalculo(runTareaDto);
     }
+
 }

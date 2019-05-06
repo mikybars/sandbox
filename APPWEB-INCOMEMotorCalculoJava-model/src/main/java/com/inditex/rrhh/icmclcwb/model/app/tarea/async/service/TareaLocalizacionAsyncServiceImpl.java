@@ -14,11 +14,12 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 public class TareaLocalizacionAsyncServiceImpl implements TareaLocalizacionAsyncService {
 
     @Autowired
-    private TareaLocalizacionService tareaLocalizacionService; 
-    
+    private TareaLocalizacionService tareaLocalizacionService;
+
     @Override
     public CompletableFuture<Void> mergeLocalizacion(final RunTareaDto runTareaDto) {
         tareaLocalizacionService.mergeLocalizacion(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

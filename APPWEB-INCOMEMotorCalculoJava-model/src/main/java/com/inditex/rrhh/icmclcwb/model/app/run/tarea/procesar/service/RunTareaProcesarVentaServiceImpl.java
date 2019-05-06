@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,11 +13,10 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaSeccionRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaSeccionRespositoryProcesarCustom;
 
@@ -28,118 +26,101 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Autowired
     private TareaTiendaVentaSeccionRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
-    
+
     @Autowired
     private TareaTiendaVentaRepositoryProcesarCustom tareaTiendaVentaRepository;
-    
+
     @Autowired
     private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
 
     @Autowired
     private TareaAgrupacionCadenaRepositoryCustom tareaAgrupacionCadenaRepository;
-    
+
     @Autowired
     private TareaAgrupacionCadenaSeccionRepositoryCustom tareaAgrupacionCadenaSeccionRepository;
-    
-    @Autowired
-    private TareaLocalizacionPersonaRepositoryCustom tareaLocalizacionPersonaRepositoryCustom;
-    
-    @Autowired
-    private TareaPersonaRepositoryCustom tareaPersonaRepositoryCustom;
-    
-    private static final List<Long> ID_TIPO_IMPORTE_VENTA_ONLINE = Arrays.asList(
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_OPERACION_LOCALIZACION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId(),
-            TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId()
-        );
-    
+
     @Auditoria
     @Override
     public void ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), 
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA, 
+        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(),
+                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA,
                 TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA);
     }
-    
+
     @Auditoria
     @Override
     public void ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(), 
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA_SECCION, 
+        tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(),
+                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA_SECCION,
                 TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA_SECCION);
     }
-    
+
     @Auditoria
     @Override
     public void ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), 
-                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA, 
-                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA);  
+        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA,
+                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA);
     }
 
     @Auditoria
     @Override
     public void ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(), 
-                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA_SECCION, 
+        tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(),
+                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA_SECCION,
                 TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA_SECCION);
     }
 
     @Auditoria
     @Override
     public void ventaLocalizacionSeccion(@Valid RunTareaDto runTarea) {
-        
-        //TODO obtener los tipos de importe relacionados con el de venta localizacion seccion en lugar de usar este listado
+
+        // TODO obtener los tipos de importe relacionados con el de venta localizacion
+        // seccion en lugar de usar este listado
         List<Long> tipos = new ArrayList<>();
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId());
-        
+
         tareaTiendaVentaSeccionRepository.procesar(runTarea.getTarea(), tipos);
     }
 
     @Override
     public void ventaLocalizacionTienda(@Valid RunTareaDto runTarea) {
-        // TODO obtener los tipos de importe relacionados con el de venta localizacion seccion en lugar de usar este listado
+        // TODO obtener los tipos de importe relacionados con el de venta localizacion
+        // seccion en lugar de usar este listado
         List<Long> tipos = new ArrayList<>();
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
         tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId());
-        
-        
+
         tareaTiendaVentaRepository.procesar(runTarea.getTarea(), tipos);
     }
-    
+
     @Override
     public void saveAbierto(@Valid RunTareaDto runTarea) {
         tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(runTarea.getTarea(), runTarea.getTrabajo());
     }
-    
+
     @Override
     public void saveCerrado(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(), ID_TIPO_IMPORTE_VENTA_ONLINE);
+        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
+                AppConstants.ID_TIPO_IMPORTE_VENTA_ONLINE);
     }
-    
+
     @Override
     public void trasladar(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(), ID_TIPO_IMPORTE_VENTA_ONLINE);
+        tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(),
+                AppConstants.ID_TIPO_IMPORTE_VENTA_ONLINE);
     }
-    
+
     @Override
     public void compensar(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(), ID_TIPO_IMPORTE_VENTA_ONLINE);
+        tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(),
+                AppConstants.ID_TIPO_IMPORTE_VENTA_ONLINE);
     }
 
     @Auditoria
@@ -147,25 +128,11 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void repartoVentaEntregaDomicilioAgrupaciones(@Valid RunTareaDto runTarea) {
         tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioAgrupaciones(runTarea.getTarea());
     }
-    
+
     @Auditoria
     @Override
     public void repartoVentaEntregaDomicilioCadenas(@Valid RunTareaDto runTarea) {
         tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioCadenas(runTarea.getTarea());
     }
-    
-    @Auditoria
-    @Override
-    public void mergePersonaLocalizacion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion(runTarea);
-    }
-    
-    @Auditoria
-    @Override
-    public void mergePersona(@Valid RunTareaDto runTarea) {
-        tareaPersonaRepositoryCustom.mergePersona(runTarea);
-    }
-    
-    
-    
+
 }

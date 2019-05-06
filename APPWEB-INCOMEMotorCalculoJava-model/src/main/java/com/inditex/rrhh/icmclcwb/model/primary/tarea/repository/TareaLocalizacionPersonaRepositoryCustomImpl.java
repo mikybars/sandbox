@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersona;
 
@@ -22,32 +23,26 @@ public class TareaLocalizacionPersonaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPersona>
         implements TareaLocalizacionPersonaRepositoryCustom {
 
-    private static final String ID_TAREA = "idTarea";
-    private static final String ID_ORIGEN = "idOrigen";
-    
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("${app.envars.repository.batch-size.tarea-localizacion-persona:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion']}")
     private String sqlMergePersonaLocalizacion;
-    
+
     @Override
     public void mergePersonaLocalizacion(@NotNull final RunTareaDto tareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(ID_TAREA, tareaDto.getTarea().getId());
-        //TODO: ORIGEN
-        parameters.addValue(ID_ORIGEN, tareaDto.getTarea().getAmbito().get(0).getIdOrigen());
-
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlMergePersonaLocalizacion, parameters);
     }
-    
+
     @Override
     public List<TareaLocalizacionPersona> save(List<TareaLocalizacionPersona> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);

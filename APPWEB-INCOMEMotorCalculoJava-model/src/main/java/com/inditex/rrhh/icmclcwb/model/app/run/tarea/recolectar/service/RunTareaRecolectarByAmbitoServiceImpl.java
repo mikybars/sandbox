@@ -34,79 +34,78 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
 
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
-    
+
     @Autowired
     private TareaPersonaAsyncService tareaPersonaAsyncService;
-    
+
     @Autowired
     private TareaLocalizacionPersonaAsyncService tareaLocalizacionPersonaAsyncService;
-    
+
     @Autowired
     private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
-    
+
     @Autowired
     private TareaLocalizacionAsyncService tareaLocalizacionAsyncService;
-    
+
     @Auditoria
     @CounterMetric
     @TimerMetric
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
             // Personas asociadas al ambito
             CompletableFuture<Void> cfPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .personaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPersonaByRunTarea, cf, cfWait);
+            AsyncUtils.exceptionally(cfPersonaByRunTarea, cf);
 
             // Localizaciones asociadas al ambito
             CompletableFuture<Void> cfLocalizacionByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .localizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf, cfWait);
+            AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-            
-            // Presencias
+
+            // Relacion de personas en localizaciones según presencias reales
             CompletableFuture<Void> cfPresenciaEmpleadoTienda = runTareaRecolectarPtrPresenciaAsyncService
                     .presenciaEmpleadoTiendaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciaEmpleadoTienda, cf, cfWait);
-            
-            //Presencia manual
-            CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .presenciaManualByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciaManual, cf, cfWait);
-            
-            //Empleados presencia
+            AsyncUtils.exceptionally(cfPresenciaEmpleadoTienda, cf);
+
+            // Relacion de personas en localizaciones según presencias manuales
             CompletableFuture<Void> cfEmpleadosPresencia = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .empleadosPresenciaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfEmpleadosPresencia, cf, cfWait);
-            
+            AsyncUtils.exceptionally(cfEmpleadosPresencia, cf);
+
+            // Relacion de personas en localizaciones según desplazamientos
+            // TODO Falta el servicio de Meta4
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-            
-            CompletableFuture<Void> cfMergePersonaLocalizacion = tareaLocalizacionPersonaAsyncService.mergePersonaLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfMergePersonaLocalizacion, cf, cfWait);
-            
+
+            CompletableFuture<Void> cfMergePersonaLocalizacion = tareaLocalizacionPersonaAsyncService
+                    .mergePersonaLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfMergePersonaLocalizacion, cf);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-            
+
             CompletableFuture<Void> cfMergePersona = tareaPersonaAsyncService.mergePersona(runTarea);
-            AsyncUtils.exceptionally(cfMergePersona, cf, cfWait);
-            
+            AsyncUtils.exceptionally(cfMergePersona, cf);
+
             CompletableFuture<Void> cfMergeLocalizacion = tareaLocalizacionAsyncService.mergeLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfMergeLocalizacion, cf, cfWait);
-            
+            AsyncUtils.exceptionally(cfMergeLocalizacion, cf);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-            
-            CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService.mergePersonaCalculo(runTarea);
-            AsyncUtils.exceptionally(cfMergePersonaCalculo, cf, cfWait);
+
+            CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService
+                    .mergePersonaCalculo(runTarea);
+            AsyncUtils.exceptionally(cfMergePersonaCalculo, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

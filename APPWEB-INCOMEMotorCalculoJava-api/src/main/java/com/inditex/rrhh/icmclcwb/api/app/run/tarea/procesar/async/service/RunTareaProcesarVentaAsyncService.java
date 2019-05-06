@@ -35,8 +35,4 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> compensar(RunTareaDto runTarea);
 
-    CompletableFuture<Void> mergePersonaLocalizacion(RunTareaDto runTarea);
-
-    CompletableFuture<Void> mergePersona(RunTareaDto runTarea);
-
 }
