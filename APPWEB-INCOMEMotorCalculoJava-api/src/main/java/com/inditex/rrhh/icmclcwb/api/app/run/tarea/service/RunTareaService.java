@@ -7,6 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaService {
 
-    RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea);
+    void run(@NotNull @Valid final RunTareaDto runTarea);
 
 }

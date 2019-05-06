@@ -36,7 +36,7 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         final TareaDto tarea = runTarea.getTarea();
         if (CollectionUtils.isNotEmpty(tarea.getLocalizacion()) && CollectionUtils.isNotEmpty(tarea.getPersona())) {
             throw new IcmclcwbException("No es posible ejecutar por ambito localizacion y persona simultaneamente");
@@ -47,6 +47,5 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
         } else {
             runTareaRecolectarByAmbitoService.run(runTarea);
         }
-        return runTarea;
     }
 }

@@ -34,19 +34,15 @@ public class RunTareaRecolectarValidarTiendaVentaSeccionServiceImpl
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
+    public void run(@NotNull @Valid RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            RunTareaValidarDto validation = new RunTareaValidarDto();
-
             CompletableFuture<Integer> cfData = tareaValidarAsyncService
                     .countTiendaVentaSeccion(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfData, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            validation.setCount(AsyncUtils.get(cfData));
-            validation.setType(TareaTiendaVentaSeccion.class.getSimpleName());
-            runTarea.getRunTareaValidar().add(validation);
-            return runTarea;
+            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder()
+                    .type(TareaTiendaVentaSeccion.class.getSimpleName()).count(AsyncUtils.get(cfData)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);

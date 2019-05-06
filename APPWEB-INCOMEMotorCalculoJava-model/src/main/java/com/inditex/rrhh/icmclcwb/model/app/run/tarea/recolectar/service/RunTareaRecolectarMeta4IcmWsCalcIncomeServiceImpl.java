@@ -356,7 +356,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 CompletableFuture<List<GenericTiendaResultItemDto>> cfDataSearchTiendas = meta4IcmWsCalcIncomeSessionAsyncService
                         .searchTiendas(searchTiendasRequest);
                 AsyncUtils.exceptionally(cfDataSearchTiendas, cf);
-                List<GenericTiendaResultItemDto> tiendas = cfDataSearchTiendas.get();
+                List<GenericTiendaResultItemDto> tiendas = AsyncUtils.get(cfDataSearchTiendas);
                 if (CollectionUtils.isNotEmpty(tiendas)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                             meta4Properties.get(Meta4Constants.SEARCH_TIENDAS).getFilter().getMaxPersistenceSize());

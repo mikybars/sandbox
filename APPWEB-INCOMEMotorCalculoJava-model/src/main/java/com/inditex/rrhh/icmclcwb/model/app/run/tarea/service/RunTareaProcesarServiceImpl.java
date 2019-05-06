@@ -30,7 +30,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
+    public void run(@NotNull @Valid RunTareaDto runTarea) {
 
         List<CompletableFuture<?>> cf = new ArrayList<>();
 
@@ -102,8 +102,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
         CompletableFuture<Void> cfCompensar = runTareaProcesarVentaAsyncService.compensar(runTarea);
         AsyncUtils.exceptionally(cfCompensar, cf);
-
-        return runTarea;
     }
 
 }

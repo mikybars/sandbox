@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Service
 @Validated
@@ -30,8 +29,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
-        final TareaDto tarea = runTarea.getTarea();
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         runTareaRecolectarAmbitoService.run(runTarea);
         // TODO Una vez tengamos las localizaciones, personas y condiciones hay que
         // recuperar las personas o localizaciones adicionales según condiciones
@@ -39,7 +37,6 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
         // recuperar todos los empleados de las tiendas en las que este ese empleado
         // para recuperar sus condiciones
         runTareaRecolectarCondicionesService.run(runTarea);
-        return runTarea;
     }
 
 }

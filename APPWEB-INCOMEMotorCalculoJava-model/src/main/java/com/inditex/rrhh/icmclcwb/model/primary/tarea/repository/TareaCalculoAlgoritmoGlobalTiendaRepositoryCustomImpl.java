@@ -10,41 +10,54 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
+import reactor.core.publisher.Flux;
+
 @Repository
-public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl implements TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom {
+public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
+        implements TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdTarea']}")
-    private String sqlCalcularWhereIdTarea;
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaRepository.calcular']}")
+    private String sqlCalcular;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdTarea']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaRepository.calcular.AndIdTareaAndIdEmpleado']}")
-    private String sqlCalcularWhereIdTareaAndIdEmpleado;
+    @Autowired
+    private TareaPersonaHistoricoService tareaPersonaHistoricoService;
 
     @Override
-    public void calcularByIdTarea(final Long idTarea, final AlgoritmoDto algoritmo) {
-        MapSqlParameterSource arg = new MapSqlParameterSource();
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-        namedParameterJdbcTemplate.update(sqlCalcularWhereIdTarea, arg);
+    public List<IdPersonaHistoricoDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
+        // TODO Hay que cambiarlo para obtener las personas relacionadas con el
+        // algoritmo
+        return tareaPersonaHistoricoService.findIdPersonaHistoricoByIdTareaAndIdOrigen(tarea.getId(),
+                tarea.getAmbito().get(0).getIdOrigen());
     }
 
     @Override
-    public void calcularByIdTareaAndIdsEmpleado(final Long idTarea, final AlgoritmoDto algoritmo, final List<String> idsEmpleados) {
+    public Flux<Void> calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<IdPersonaHistoricoDto> persona) {
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
-        idsEmpleados.forEach(idEmpleado -> {
+        persona.forEach(idPersona -> {
+            // TODO
+//            if (idPersona.getIdPersona().equals("AT1010325")) {
+//                throw new ReactorIcmclcwbException("AT1010325 falló");
+//            }
             MapSqlParameterSource arg = new MapSqlParameterSource();
-            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_EMPLEADO, idEmpleado);
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona.getIdPersona());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, idPersona.getOrPersona());
             batchArgs.add(arg);
         });
-        namedParameterJdbcTemplate.batchUpdate(sqlCalcularWhereIdTareaAndIdEmpleado,
+        namedParameterJdbcTemplate.batchUpdate(sqlCalcular,
                 batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
+        return Flux.empty();
     }
 
 }

@@ -51,7 +51,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
@@ -111,13 +111,10 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-            
-            
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return runTarea;
     }
 
 }

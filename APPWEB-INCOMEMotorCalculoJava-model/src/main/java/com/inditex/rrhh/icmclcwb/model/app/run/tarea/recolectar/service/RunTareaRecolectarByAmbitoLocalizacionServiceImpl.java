@@ -36,7 +36,7 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
@@ -105,7 +105,6 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return runTarea;
     }
 
 }

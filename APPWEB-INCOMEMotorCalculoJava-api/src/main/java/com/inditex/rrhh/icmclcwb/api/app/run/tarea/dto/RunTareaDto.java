@@ -28,10 +28,6 @@ public class RunTareaDto implements Serializable {
     @NotNull
     private TareaDto tarea;
     
-    private final RunTareaRecolectarDto runTareaRecolectar = new RunTareaRecolectarDto();
-
-    private final RunTareaCalcularDto runTareaCalcular = new RunTareaCalcularDto();
-    
     private final List<RunTareaValidarDto> runTareaValidar = new ArrayList<>();
 
     

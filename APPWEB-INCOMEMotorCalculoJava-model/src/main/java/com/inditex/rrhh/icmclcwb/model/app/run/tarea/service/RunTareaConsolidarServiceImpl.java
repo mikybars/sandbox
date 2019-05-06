@@ -36,7 +36,7 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
         List<CompletableFuture<?>> cf = new ArrayList<>();
 
@@ -56,7 +56,6 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
         tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getDto());
-        return runTarea;
     }
 
 }

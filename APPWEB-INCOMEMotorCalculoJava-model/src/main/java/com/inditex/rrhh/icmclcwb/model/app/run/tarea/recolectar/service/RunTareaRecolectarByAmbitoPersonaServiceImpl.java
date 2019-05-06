@@ -35,7 +35,7 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
@@ -84,7 +84,6 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return runTarea;
     }
 
 }

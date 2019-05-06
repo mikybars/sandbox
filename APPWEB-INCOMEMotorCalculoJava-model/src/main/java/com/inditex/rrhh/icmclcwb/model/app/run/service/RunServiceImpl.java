@@ -33,14 +33,15 @@ public class RunServiceImpl implements RunService {
     private TareaService tareaService;
 
     @Override
-    public RunTrabajoDto runTrabajo(@NotNull @Positive final Long id) {
-        return runTrabajoService.run(RunTrabajoDto.builder().trabajo(trabajoService.find(id)).build());
+    public void runTrabajo(@NotNull @Positive final Long id) {
+        runTrabajoService.run(RunTrabajoDto.builder().trabajo(trabajoService.find(id)).build());
     }
 
     @Override
-    public RunTareaDto runTarea(@NotNull @Positive final Long id) {
+    public void runTarea(@NotNull @Positive final Long id) {
         TareaDto tarea = tareaService.find(id);
-        return runTareaService.run(RunTareaDto.builder().trabajo(trabajoService.find(tarea.getIdTrabajo())).tarea(tarea).build());
+        runTareaService
+                .run(RunTareaDto.builder().trabajo(trabajoService.find(tarea.getIdTrabajo())).tarea(tarea).build());
     }
 
 }

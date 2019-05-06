@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,13 +14,12 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.AlgoritmoFactory;
+import com.inditex.rrhh.icmclcwb.model.app.util.ReactorUtils;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -42,34 +41,19 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
-        List<Long> algoritmosIds = algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId());
-        algoritmosIds.stream().forEach(item -> {
-            AlgoritmoDto algoritmoDto = algoritmoService.findById(item);
-            if (algoritmoDto != null) {
-                runTarea.getRunTareaCalcular().getAlgoritmoCalculoDto().add(algoritmoDto);
-            } else {
-                log.warn(
-                        "Tarea[{}] :: RunTareaCalcularService.run() :: No existe algoritmo para el tipo de calculo + tipo de comision",
-                        tarea.getId());
-            }
-        });
-
         CountDownLatch latch = new CountDownLatch(1);
-        Flux.fromIterable(runTarea.getRunTareaCalcular().getAlgoritmoCalculoDto()).log().parallel()
+        Flux.fromIterable(algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId()).stream()
+                .map(item -> algoritmoService.findById(item)).collect(Collectors.toList())).log().parallel()
                 .runOn(Schedulers.parallel()).doOnNext(algoritmo -> algoritmoFactory.getAlgoritmo(algoritmo.getNombre())
                         .execute(runTarea, algoritmo).onErrorResume(ex -> {
-                            log.error(ex.getMessage(), ex);
+                            log.error("onErrorResume: " + ex.getMessage(), ex);
                             return Flux.empty();
                         }).subscribe())
-                .doOnError(ex -> log.error(ex.getMessage(), ex)).doAfterTerminate(latch::countDown).subscribe();
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            throw new ReactorIcmclcwbException(e.getMessage(), e);
-        }
-        return runTarea;
+                .doOnError(ex -> log.error("doOnError: " + ex.getMessage(), ex)).doAfterTerminate(latch::countDown)
+                .subscribe();
+        ReactorUtils.await(latch);
     }
 
 }

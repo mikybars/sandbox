@@ -33,22 +33,14 @@ public class RunTareaRecolectarValidarEstructurasServiceImpl implements RunTarea
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
+    public void run(@NotNull @Valid RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            RunTareaValidarDto validation = new RunTareaValidarDto();
-            
             CompletableFuture<Integer> cfCountEstructuras = tareaValidarAsyncService
                     .countEstructuras(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountEstructuras, cf);
-
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            
-            validation.setCount(cfCountEstructuras.get());
-            validation.setType(TareaEmpleadoEstructura.class.getSimpleName());
-            runTarea.getRunTareaValidar().add(validation);
-            
-            return runTarea;
+            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(TareaEmpleadoEstructura.class.getSimpleName()).count(AsyncUtils.get(cfCountEstructuras)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);

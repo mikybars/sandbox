@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -63,8 +64,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
-
+    public void run(@NotNull @Valid RunTareaDto runTarea) {
         if (validarProperties.isEnabled()) {
             List<CompletableFuture<?>> cf = new ArrayList<>();
 
@@ -94,20 +94,18 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            List<RunTareaValidarDto> runTareaValidarDto = runTarea.getRunTareaValidar().stream()
-                    .filter(e -> !e.getDuplicated().isEmpty()).collect(Collectors.toList());
+            List<RunTareaValidarDto> runTareaValidar = runTarea.getRunTareaValidar().stream()
+                    .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated())).collect(Collectors.toList());
+            if (CollectionUtils.isNotEmpty(runTareaValidar)) {
+                if (validarProperties.isLogging()) {
+                    log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]", runTareaValidar);
+                }
 
-            if (validarProperties.isLogging() && !runTareaValidarDto.isEmpty()) {
-                log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]", runTareaValidarDto);
-            }
-
-            if (validarProperties.isException() && !runTareaValidarDto.isEmpty()) {
-                throw new IcmclcwbException("Valores duplicados");
+                if (validarProperties.isException()) {
+                    throw new IcmclcwbException("Valores duplicados");
+                }
             }
         }
-
-        return runTarea;
-
     }
 
 }

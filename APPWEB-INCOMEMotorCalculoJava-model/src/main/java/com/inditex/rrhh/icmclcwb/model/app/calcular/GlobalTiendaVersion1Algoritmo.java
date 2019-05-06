@@ -8,11 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.AlgoritmoPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.model.app.util.ReactorUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom;
-
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
@@ -23,38 +22,29 @@ public class GlobalTiendaVersion1Algoritmo implements Algoritmo {
     private Logger log;
 
     @Autowired
-    private TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom tareaCalculoAlgoritmoGlobalTiendaRepository;
-
-    @Autowired
     @Qualifier("algoritmoProperties")
     private AlgoritmoPropertiesDto algoritmoProperties;
 
+    @Autowired
+    private TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom tareaCalculoAlgoritmoGlobalTiendaRepository;
+
     @Override
     public Flux<Void> execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
-        if (runTarea.getRunTareaCalcular().getEmpleado().size() >= algoritmoProperties.getBatchSize()) {
-            CountDownLatch latch = new CountDownLatch(1);
-            Flux.fromIterable(StreamUtils
-                    .partition(/*
-                                * TODO Hay que lanzarlo por empleado y ordinal, hay que recuperar los ids que
-                                * tienen la comisión
-                                */runTarea.getRunTareaCalcular().getEmpleado(), algoritmoProperties.getBatchSize()))
-                    .parallel().runOn(Schedulers.parallel())
-                    .doOnNext(idsEmpleados -> tareaCalculoAlgoritmoGlobalTiendaRepository
-                            .calcularByIdTareaAndIdsEmpleado(runTarea.getTarea().getId(), algoritmo, idsEmpleados))
-                    .doOnError(ex -> log.error(ex.getMessage(), ex)).doAfterTerminate(latch::countDown).subscribe();
-            try {
-                latch.await();
-            } catch (Exception e) {
-                // TODO Modificar el estado de los empleados no procesados
-                String msg = new StringBuilder("Tarea[{").append(runTarea.getTarea().getId())
-                        .append("}] :: GlobalTiendaAlgoritmo.execute() :: Ha fallado el algoritmo: ")
-                        .append(algoritmo.getId()).append(" para un bloque de empleados").toString();
-                log.error(msg, e);
-                return Flux.error(new IcmclcwbException(msg, e));
-            }
-        } else {
-            tareaCalculoAlgoritmoGlobalTiendaRepository.calcularByIdTarea(runTarea.getTarea().getId(), algoritmo);
-        }
+        CountDownLatch latch = new CountDownLatch(1);
+        Flux.fromIterable(
+                StreamUtils.partition(tareaCalculoAlgoritmoGlobalTiendaRepository.ids(algoritmo, runTarea.getTarea()),
+                        algoritmoProperties.getBatchSize()))
+                .parallel().runOn(Schedulers.parallel()).doOnNext(personas -> {
+                    //log.info("Lanzando: {}", personas);
+                    tareaCalculoAlgoritmoGlobalTiendaRepository.calcular(algoritmo, runTarea.getTarea(), personas)
+                            .onErrorResume(ex -> {
+                                //TODO Hay que marcar las personas como error
+                                log.error("Ha fallado el bloque: {}", personas, ex);
+                                return Flux.empty();
+                            });
+                }).doOnError(ex -> log.error("Ha fallado un bloque", ex)).doAfterTerminate(latch::countDown)
+                .subscribe();
+        ReactorUtils.await(latch);
         return Flux.empty();
     }
 

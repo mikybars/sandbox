@@ -24,36 +24,30 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaPresencia
 
 @Service
 @Validated
-public class RunTareaRecolectarValidarTiendaPresenciaSeccionServiceImpl implements RunTareaRecolectarValidarTiendaPresenciaSeccionService {
+public class RunTareaRecolectarValidarTiendaPresenciaSeccionServiceImpl
+        implements RunTareaRecolectarValidarTiendaPresenciaSeccionService {
 
     @Autowired
     private TareaValidarAsyncService tareaValidarAsyncService;
-    
+
     @Auditoria
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
+    public void run(@NotNull @Valid RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            RunTareaValidarDto validation = new RunTareaValidarDto();
-    
             CompletableFuture<Integer> cfCountPresenciaSeccion = tareaValidarAsyncService
                     .countTiendaPresenciaSeccion(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountPresenciaSeccion, cf);
-            
             AsyncUtils.waitAllOfIsOk(cf, cf);
-
-            validation.setCount(cfCountPresenciaSeccion.get());
-            validation.setType(TareaTiendaPresenciaSeccion.class.getSimpleName());
-            runTarea.getRunTareaValidar().add(validation);
-            
-            return runTarea;
-            
+            runTarea.getRunTareaValidar()
+                    .add(RunTareaValidarDto.builder().type(TareaTiendaPresenciaSeccion.class.getSimpleName())
+                            .count(AsyncUtils.get(cfCountPresenciaSeccion)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);
-        }            
+        }
     }
 
 }

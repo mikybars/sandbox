@@ -7,6 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaRecolectarValidarTiendaHistoricoService {
 
-    RunTareaDto run(@NotNull @Valid RunTareaDto runTarea);
+   void run(@NotNull @Valid RunTareaDto runTarea);
 
 }

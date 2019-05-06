@@ -29,27 +29,20 @@ public class RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionServiceImpl
 
     @Autowired
     private TareaValidarAsyncService tareaValidarAsyncService;
-    
+
     @Auditoria
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
+    public void run(@NotNull @Valid RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            RunTareaValidarDto validation = new RunTareaValidarDto();
-            
             CompletableFuture<Integer> cfCountTiendaEmpleadoPresenciaSeccion = tareaValidarAsyncService
                     .countTiendaEmpleadoPresenciaSeccion(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountTiendaEmpleadoPresenciaSeccion, cf);
-
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            
-            validation.setCount(cfCountTiendaEmpleadoPresenciaSeccion.get());
-            validation.setType(TareaTiendaEmpleadoPresenciaSeccion.class.getSimpleName());
-            runTarea.getRunTareaValidar().add(validation);
-            
-            return runTarea;
+            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(TareaTiendaEmpleadoPresenciaSeccion.class.getSimpleName())
+                    .count(AsyncUtils.get(cfCountTiendaEmpleadoPresenciaSeccion)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);

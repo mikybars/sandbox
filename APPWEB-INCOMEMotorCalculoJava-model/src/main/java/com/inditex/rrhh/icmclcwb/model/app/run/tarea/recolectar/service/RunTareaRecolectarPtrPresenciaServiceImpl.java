@@ -516,7 +516,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                         CompletableFuture<List<GenericTiendaResultItemDto>> cfTiendas = meta4IcmWsCalcIncomeSessionAsyncService
                                 .getTiendas(tiendasRequest);
                         AsyncUtils.exceptionally(cfTiendas, cf, cfPersist);
-                        List<GenericTiendaResultItemDto> tiendas = cfTiendas.get();
+                        List<GenericTiendaResultItemDto> tiendas = AsyncUtils.get(cfTiendas);
                         if (CollectionUtils.isNotEmpty(tiendas)) {
                             AsyncUtils.checkAsyncAvaliable(cfPersist, 
                                     presenciasProperties.get(PtrConstants.PRESENCIA_TIENDAS_EMPLEADO).getFilter()

@@ -2,7 +2,13 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<entry key="TareaCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdTarea">
+<entry key="TareaCalculoAlgoritmoGlobalTiendaRepository.persona">
+    <![CDATA[
+    
+    ]]>
+</entry>
+
+<entry key="TareaCalculoAlgoritmoGlobalTiendaRepository.calcular">
     <![CDATA[
 INSERT INTO TAREA_CALCULO (
   ID_TAREA
@@ -144,13 +150,8 @@ INNER JOIN TAREA_TIENDA_PRESENCIA_SECCION TIENDA_HISTORICO_TIENDA_PRESENCIA_SECC
  AND TIENDA_HISTORICO_TIENDA_PRESENCIA_SECCION.ID_TIENDA = TIENDA_EMPLEADO_PRESENCIA_SECCION_TIENDA_HISTORICO.CCL_ID_COD_ORIGEN
  AND TIENDA_HISTORICO_TIENDA_PRESENCIA_SECCION.FECHA = TIENDA_EMPLEADO_PRESENCIA_SECCION.FECHA
 WHERE TAREA.ID_TAREA = :idTarea
-    ]]>
-</entry>
-
-<entry key="TareaCalculoAlgoritmoGlobalTiendaRepository.calcular.AndIdTareaAndIdEmpleado">
-    <![CDATA[
-AND EMPLEADO_HISTORICO.ID_EMPLEADO = :idEmpleado
-/*AND EMPLEADO_HISTORICO.OR_EMPLEADO = :orEmpleado*/
+AND EMPLEADO_HISTORICO.ID_EMPLEADO = :idPersona
+AND EMPLEADO_HISTORICO.OR_EMPLEADO = :orPersona
     ]]>
 </entry>
 

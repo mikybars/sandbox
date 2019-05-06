@@ -47,7 +47,7 @@ public class RunTareaServiceImpl implements RunTareaService {
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {
             tareaService.modifyFechaInicioTarea(runTarea.getTarea());
             runTareaRecolectarService.run(runTarea);
@@ -61,7 +61,6 @@ public class RunTareaServiceImpl implements RunTareaService {
         } finally {
             tareaService.modifyFechaFinTarea(runTarea.getTarea());
         }
-        return runTarea;
     }
 
 }

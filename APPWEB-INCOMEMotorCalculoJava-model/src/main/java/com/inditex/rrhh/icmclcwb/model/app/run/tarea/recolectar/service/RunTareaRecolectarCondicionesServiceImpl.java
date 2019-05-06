@@ -47,7 +47,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
@@ -145,6 +145,5 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return runTarea;
     }
 }

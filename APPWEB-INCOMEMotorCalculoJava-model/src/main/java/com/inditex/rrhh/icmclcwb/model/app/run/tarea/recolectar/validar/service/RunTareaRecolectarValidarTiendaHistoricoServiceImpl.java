@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.validar.service
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -34,27 +35,22 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid RunTareaDto runTarea) {
+    public void run(@NotNull @Valid RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            RunTareaValidarDto validation = new RunTareaValidarDto();
-
             CompletableFuture<Integer> cfCountTiendaHistorico = tareaValidarAsyncService
                     .countTiendasHistorico(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountTiendaHistorico, cf);
-
             CompletableFuture<List<String>> cfDuplicatedTiendaHistorico = tareaValidarAsyncService
                     .checkDuplicatedTiendasHistorico(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfDuplicatedTiendaHistorico, cf);
-
             AsyncUtils.waitAllOfIsOk(cf, cf);
-
-            validation.getDuplicated().addAll(cfDuplicatedTiendaHistorico.get());
-            validation.setCount(cfCountTiendaHistorico.get());
-            validation.setType(TareaTiendaHistorico.class.getSimpleName());
-
-            runTarea.getRunTareaValidar().add(validation);
-            return runTarea;
+            runTarea.getRunTareaValidar()
+                    .add(RunTareaValidarDto.builder().type(TareaTiendaHistorico.class.getSimpleName())
+                            .count(AsyncUtils.get(cfCountTiendaHistorico))
+                            .duplicated(
+                                    AsyncUtils.get(cfDuplicatedTiendaHistorico).stream().collect(Collectors.toSet()))
+                            .build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);
