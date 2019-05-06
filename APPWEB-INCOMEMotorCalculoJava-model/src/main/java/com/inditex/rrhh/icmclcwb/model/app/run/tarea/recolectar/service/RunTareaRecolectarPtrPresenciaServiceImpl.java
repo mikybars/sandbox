@@ -215,9 +215,6 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                     for (List<String> iter : StreamUtils.partition(runTareaRecolectarBloque.getTiendaMtu(),
                             presenciasProperties.get(PtrConstants.PRESENCIA_TOTALIZADO).getFilter()
                                     .getMaxPageSize())) {
-                        List<PtrPresenciaTiendaSeccionDto> tiendas = iter.stream().map(
-                                item -> PtrPresenciaTiendaSeccionDto.builder().tienda(Integer.valueOf(item)).build())
-                                .collect(Collectors.toList());
                         PtrPresenciaTotalizadoRequestDto paramPresenciasTotalizado = tareaMapper
                                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaTotalizadoRequestDto(trabajo, tarea, tareaAmbito, recolectarProperties);
                         paramPresenciasTotalizado.setCadena(Integer.valueOf(cadena));

@@ -63,7 +63,6 @@ public class RunTareaRecolectarPtrPresenciaAsyncServiceImpl implements RunTareaR
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
-    
     @Override
     public CompletableFuture<Void> presenciaTiendaEmpleadoByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrPresenciaService.presenciaTiendaEmpleadoByRunTarea(runTarea);

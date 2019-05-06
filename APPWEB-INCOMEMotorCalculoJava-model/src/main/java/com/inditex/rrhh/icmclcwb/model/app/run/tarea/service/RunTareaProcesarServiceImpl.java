@@ -44,7 +44,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
         //TODO: reparto de ventas por seccion, el código comentado a continuación probablemente cambie
         // Suma de ventas fisicas por agrupacion de cadena y seccion
-//        CompletableFuture<Void> cfVentaFisicaAgrupacionSeccion = runTareaProcesarVentaAsyncService.ventaFisicaAgrupacionCadenaSeccion(runTarea);
+        CompletableFuture<Void> cfVentaFisicaAgrupacionSeccion = runTareaProcesarVentaAsyncService.ventaFisicaAgrupacionCadenaSeccion(runTarea);
 //        AsyncUtils.exceptionally(cfVentaFisicaAgrupacionSeccion, cf);
 
         // Suma de ventas online entrega domicilio por agrupacion de cadena
@@ -53,7 +53,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
         //TODO: reparto de ventas por seccion, el código comentado a continuación probablemente cambie
         // Suma de ventas online entrega domicilio por agrupacion de cadena y seccion
-//        CompletableFuture<Void> cfVentaEntregaDomicilioAgrupacionSeccion = runTareaProcesarVentaAsyncService.ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(runTarea);
+        CompletableFuture<Void> cfVentaEntregaDomicilioAgrupacionSeccion = runTareaProcesarVentaAsyncService.ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(runTarea);
 //        AsyncUtils.exceptionally(cfVentaEntregaDomicilioAgrupacionSeccion, cf);
 
         /*-------------------------------------------------------------*/

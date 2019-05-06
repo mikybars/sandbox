@@ -1,12 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -14,48 +11,44 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.async.service.RunTareaConsolidarPeriodoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoLocalizacionService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
-import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
 @Validated
 public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService {
 
     @Autowired
-    private TareaService tareaService;
+    private RunTareaConsolidarByAmbitoService runTareaConsolidarByAmbitoService;
     
     @Autowired
-    private RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
-
+    private RunTareaConsolidarByAmbitoLocalizacionService runTareaConsolidarByAmbitoLocalizacionService;
+    
+    @Autowired
+    private RunTareaConsolidarByAmbitoPersonaService runTareaConsolidarByAmbitoPersonaService;
+    
     @Auditoria
     @CounterMetric
     @TimerMetric
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
-        TareaDto tarea = runTarea.getTarea();
-        List<CompletableFuture<?>> cf = new ArrayList<>();
+        final TareaDto tarea = runTarea.getTarea();
 
-        CompletableFuture<Void> cfPeriodo = runTareaConsolidarPeriodoAsyncService.mergePeriodoPersona(runTarea);
-        AsyncUtils.exceptionally(cfPeriodo, cf);
-        
-        CompletableFuture<Void> cfPeriodoCalculoPersona = runTareaConsolidarPeriodoAsyncService.mergePeriodoCalculoPersona(runTarea);
-        AsyncUtils.exceptionally(cfPeriodoCalculoPersona, cf);
-        
-        CompletableFuture<Void> cfPeriodoLocalizacion = runTareaConsolidarPeriodoAsyncService.mergePeriodoLocalizacion(runTarea);
-        AsyncUtils.exceptionally(cfPeriodoLocalizacion, cf);
-        
-        CompletableFuture<Void> cfPeriodoLocalizacionPersona = runTareaConsolidarPeriodoAsyncService.mergePeriodoLocalizacionPersona(runTarea);
-        AsyncUtils.exceptionally(cfPeriodoLocalizacionPersona, cf);
-        
-        /*-------------------------------------------------------------*/
-        AsyncUtils.waitAllOfIsOk(cf, cf);
-        /*-------------------------------------------------------------*/
-        tareaService.modifyEstadoTarea(tarea, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getDto());
+        if (CollectionUtils.isNotEmpty(tarea.getLocalizacion()) && CollectionUtils.isNotEmpty(tarea.getPersona())) {
+            throw new IcmclcwbException("No es posible ejecutar por ambito localizacion y persona simultaneamente");
+        } else if (CollectionUtils.isNotEmpty(tarea.getLocalizacion())) {
+            runTareaConsolidarByAmbitoLocalizacionService.run(runTarea);
+        } else if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
+            runTareaConsolidarByAmbitoPersonaService.run(runTarea);
+        } else {
+            runTareaConsolidarByAmbitoService.run(runTarea);
+        }
+
     }
 
 }

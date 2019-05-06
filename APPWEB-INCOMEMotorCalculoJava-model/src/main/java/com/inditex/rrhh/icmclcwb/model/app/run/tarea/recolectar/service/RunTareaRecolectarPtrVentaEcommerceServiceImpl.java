@@ -336,9 +336,9 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 PtrVentaOnlineEntregaTiendaResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(
-//                        tareaTiendaVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
-//                        cfPersist);
+                AsyncUtils.exceptionally(
+                        tareaTiendaVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
+                        cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
@@ -419,8 +419,8 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
 
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea),
-//                        cf, cfPersist);
+                AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea),
+                        cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
@@ -457,8 +457,8 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 PtrVentaOnlineIpodResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD)
                         .getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf,
-//                        cfPersist);
+                AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf,
+                        cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
