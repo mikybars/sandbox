@@ -50,6 +50,7 @@ public class RunTareaServiceImpl implements RunTareaService {
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {
             tareaService.modifyFechaInicioTarea(runTarea.getTarea());
+            tareaService.modifyEstadoTarea(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
             runTareaRecolectarService.run(runTarea);
             runTareaRecolectarValidarService.run(runTarea);
             runTareaProcesarService.run(runTarea);
