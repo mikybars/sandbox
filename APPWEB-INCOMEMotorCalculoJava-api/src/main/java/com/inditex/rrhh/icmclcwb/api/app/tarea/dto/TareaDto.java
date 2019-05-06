@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,7 +24,8 @@ public class TareaDto implements Serializable {
     @ApiModelProperty(value = "Estado actual de la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private /* BigInteger */ EstadoTareaDto estado;
 
-    @ApiModelProperty(value = "Trabajo asociado", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @NotNull
+    @ApiModelProperty(value = "Trabajo asociado", required = true, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idTrabajo;
 
     @ApiModelProperty(value = "Fecha en la que se creo el tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)

@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -58,9 +57,7 @@ public class Trabajo {
     private /* BigInteger */ TipoAmbito tipoAmbito;
     
     @ManyToOne
-    @JoinTable(name = "PROGRAMACION_TRABAJO", joinColumns = {
-            @JoinColumn(name = "ID_TRABAJO", referencedColumnName = "ID_TRABAJO") }, inverseJoinColumns = {
-                    @JoinColumn(name = "ID_PROGRAMACION", referencedColumnName = "ID_PROGRAMACION") })
+    @JoinColumn(name = "ID_PROGRAMACION")
     private Programacion programacion;
 
 }
