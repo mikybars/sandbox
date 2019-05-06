@@ -4,9 +4,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.entity.PeriodoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 
@@ -14,15 +22,29 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 public class PeriodoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<PeriodoPersona>
         implements PeriodoPersonaRepositoryCustom {
 
+    @Autowired
+    @Qualifier("primaryNamedParameterJdbcTemplate")
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
     @Value("${app.envars.repository.batch-size.periodo-persona:${app.envars.repository.batch-size.default}}")
     private int batchSize;
     
     @Value("#{primaryQuery['PeriodoPersonaRepositoryCustom.save']}")
     private String sqlSave;
     
+    @Value("#{primaryQuery['PeriodoPersonaRepositoryCustom.mergePeriodoPersona']}")
+    private String sqlMergePeriodoPersona;
+    
     @Override
     public List<PeriodoPersona> save(List<PeriodoPersona> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
+    }
+    
+    @Override
+    public void mergePeriodoPersona(@NotNull RunTareaDto tareaDto) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        namedParameterJdbcTemplate.update(sqlMergePeriodoPersona, params);
     }
     
     @Override

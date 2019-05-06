@@ -1,15 +1,16 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.dto;
 
+import java.io.Serializable;
+
+import org.apache.commons.lang3.math.NumberUtils;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.io.Serializable;
-import org.apache.commons.lang3.math.NumberUtils;
-
-import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
 
 @Data
 @AllArgsConstructor

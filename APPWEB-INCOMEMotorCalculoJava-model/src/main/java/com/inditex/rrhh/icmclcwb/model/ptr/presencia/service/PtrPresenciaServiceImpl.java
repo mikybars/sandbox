@@ -23,6 +23,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -41,6 +43,17 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     @Autowired
     @Qualifier("presenciasProperties")
     private Map<String, PtrPropertiesDto> presenciasProperties;
+    
+
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Override
+    public PtrPresenciaTotalizadoResponseDto presenciasTotalizado(
+          @Valid final PtrPresenciaTotalizadoRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrConstants.PRESENCIA_TOTALIZADO).getEndpoint(), request,
+                        PtrPresenciaTotalizadoResponseDto.class),
+                ptrPresenciaClient, presenciasProperties.get(PtrConstants.PRESENCIA_TOTALIZADO).getEndpoint(), request);
+    }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override

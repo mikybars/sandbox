@@ -47,7 +47,7 @@ public class RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionServiceImpl
             
             validation.setCount(cfCountTiendaEmpleadoPresenciaSeccion.get());
             validation.setType(TareaTiendaEmpleadoPresenciaSeccion.class.getSimpleName());
-            runTarea.getTarea().getRunTareaValidar().add(validation);
+            runTarea.getRunTareaValidar().add(validation);
             
             return runTarea;
         } catch (Exception e) {

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -84,7 +87,24 @@ public class PtrPresenciaServiceTest {
                 PtrPresenciaDetalleComisionableResponseDto.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
     }
+    
+    @Test
+    public void presenciasTotalizado() {
+        PtrPresenciaTotalizadoRequestDto req = new PtrPresenciaTotalizadoRequestDto();
+        req.setTienda(PtrTestConstants.ID_TIENDA_LIST);
+        req.setOrigen(PtrTestConstants.PAIS);
+        req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
+        req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+        req.setCadena(PtrTestConstants.CADENA);
+        req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
+        req.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
+        ResponseEntity<PtrPresenciaTotalizadoResponseDto> ret = ptrPresenciaClient.postForEntity(
+                presenciasProperties.get(PtrConstants.PRESENCIA_TOTALIZADO).getEndpoint(), req, PtrPresenciaTotalizadoResponseDto.class);
+        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+    }
 
+    @Ignore
+    @Deprecated
     @Test
     public void presenciasTotalTienda() {
         PtrPresenciaTotalTiendaRequestDto req = new PtrPresenciaTotalTiendaRequestDto();
@@ -99,6 +119,8 @@ public class PtrPresenciaServiceTest {
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
     }
 
+    @Ignore
+    @Deprecated
     @Test
     public void presenciasTotalTiendaSeccion() {
         PtrPresenciaTotalTiendaSeccionRequestDto req = new PtrPresenciaTotalTiendaSeccionRequestDto();

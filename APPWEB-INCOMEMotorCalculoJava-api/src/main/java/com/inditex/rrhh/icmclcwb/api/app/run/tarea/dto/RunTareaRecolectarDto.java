@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto;
 
 import java.io.Serializable;
+
 import lombok.Data;
 
 @Data

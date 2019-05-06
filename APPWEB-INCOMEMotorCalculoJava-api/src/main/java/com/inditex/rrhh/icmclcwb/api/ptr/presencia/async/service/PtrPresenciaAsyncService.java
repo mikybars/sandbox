@@ -14,6 +14,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -22,8 +24,10 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 @Async("ptrPresenciaExecutor")
 public interface PtrPresenciaAsyncService {
 
+    CompletableFuture<PtrPresenciaTotalizadoResponseDto> presenciasTotalizado(final PtrPresenciaTotalizadoRequestDto request);
+
     CompletableFuture<PtrPresenciaTotalTiendaResponseDto> presenciasTotalTienda(
-            PtrPresenciaTotalTiendaRequestDto request);
+            final PtrPresenciaTotalTiendaRequestDto request);
     
     CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
             final PtrPresenciaTotalTiendaSeccionRequestDto request);
@@ -40,7 +44,7 @@ public interface PtrPresenciaAsyncService {
             final PtrPresenciaTiendasEmpleadoRequestDto request);
     
     CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciaDetalleComisionablePersonaByRunTarea(
-            PtrPresenciaTiendasEmpleadoRequestDto request);
+            final PtrPresenciaTiendasEmpleadoRequestDto request);
     
     CompletableFuture<PtrPresenciaEmpleadosTiendaResponseDto> presenciasEmpleadosTienda(
             final PtrPresenciaEmpleadosTiendaRequestDto request);
@@ -48,5 +52,6 @@ public interface PtrPresenciaAsyncService {
     CompletableFuture<String> version();
 
     CompletableFuture<String> test();
+
 
 }

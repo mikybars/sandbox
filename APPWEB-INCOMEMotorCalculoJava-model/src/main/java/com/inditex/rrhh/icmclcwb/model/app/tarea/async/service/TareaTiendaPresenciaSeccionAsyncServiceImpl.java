@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaPresenci
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaPresenciaSeccionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResultItemDto;
 
 @Service
 public class TareaTiendaPresenciaSeccionAsyncServiceImpl implements TareaTiendaPresenciaSeccionAsyncService {
@@ -19,7 +19,7 @@ public class TareaTiendaPresenciaSeccionAsyncServiceImpl implements TareaTiendaP
     private TareaTiendaPresenciaSeccionService tareaTiendaPresenciaSeccionService;
 
     @Override
-    public CompletableFuture<Void> save(List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto, TareaDto tarea) {
+    public CompletableFuture<Void> save(List<PtrPresenciaTotalizadoResultItemDto> dto, TareaDto tarea) {
         tareaTiendaPresenciaSeccionService.save(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

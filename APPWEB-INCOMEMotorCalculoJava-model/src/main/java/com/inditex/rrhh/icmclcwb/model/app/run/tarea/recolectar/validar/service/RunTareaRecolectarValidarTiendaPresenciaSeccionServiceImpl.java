@@ -46,7 +46,7 @@ public class RunTareaRecolectarValidarTiendaPresenciaSeccionServiceImpl implemen
 
             validation.setCount(cfCountPresenciaSeccion.get());
             validation.setType(TareaTiendaPresenciaSeccion.class.getSimpleName());
-            runTarea.getTarea().getRunTareaValidar().add(validation);
+            runTarea.getRunTareaValidar().add(validation);
             
             return runTarea;
             

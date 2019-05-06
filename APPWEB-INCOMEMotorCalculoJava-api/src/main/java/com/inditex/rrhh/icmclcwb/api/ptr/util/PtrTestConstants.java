@@ -56,6 +56,8 @@ public class PtrTestConstants {
     
     public static final Integer AGRUPAR_SECCION_TRUE = 1;
     
+    public static final Integer AGRUPAR_SECCION_FALSE = 0;
+    
     public static final Integer TIPO = 1;
     
     public static final Integer SECCION = 1;

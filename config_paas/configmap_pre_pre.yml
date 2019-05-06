@@ -209,6 +209,11 @@ app:
         service:
           version: 1.0.5-rc.3
           presenciasService:
+            getPresenciasTotalizado:
+              endpoint: /presenciasService/presenciasTotalizado
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
             getPresenciasTotalTiendaSeccion:
               endpoint: /presenciasService/presenciasTotalTiendaSeccion
               filter:

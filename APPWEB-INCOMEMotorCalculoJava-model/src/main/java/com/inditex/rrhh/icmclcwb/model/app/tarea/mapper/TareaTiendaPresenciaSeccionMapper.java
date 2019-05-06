@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaPresenciaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaPresenciaSeccionDecorator;
@@ -45,13 +46,39 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
     public abstract TareaTiendaPresenciaSeccion presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(
             PtrPresenciaTotalTiendaSeccionResultItemDto src, TareaDto tareaDto);
 
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.tienda", target = "idTienda")
+    @Mapping(source = "tareaDto.id", target = "tarea.id")
+    public abstract TareaTiendaPresenciaSeccion presenciasTotalizadoResponseDtoToTareaTiendaPresenciaSeccion(
+            PtrPresenciaTotalizadoResultItemDto src, TareaDto tareaDto);
+    
     public List<TareaTiendaPresenciaSeccion> presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(
             List<PtrPresenciaTotalTiendaSeccionResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
+    public List<TareaTiendaPresenciaSeccion> presenciasTotalizadoResponseDtoToTareaTiendaPresenciaSeccion(
+            List<PtrPresenciaTotalizadoResultItemDto> src, TareaDto tareaDto) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+    
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaPresenciaSeccion tareaTienda, PtrPresenciaTotalTiendaSeccionResultItemDto src){
+        for(PtrSeccionPresenciasGenericType item : src.getListaSeccion()) {
+            if(item.getSeccion().equals(SECCION_1)){
+                tareaTienda.setMinutos1(item.getMinutos());
+            }else if(item.getSeccion().equals(SECCION_2)) {
+                tareaTienda.setMinutos2(item.getMinutos());
+            }else if(item.getSeccion().equals(SECCION_3)) {
+                tareaTienda.setMinutos3(item.getMinutos());
+            }
+        }
+        tareaTienda.setTipoMinutosPresencia(new TipoMinutosPresencia());
+        tareaTienda.getTipoMinutosPresencia().setId(TipoMinutosPresenciaEnum.MINUTOS_TOTALES.getId());
+    }
+    
+    @AfterMapping
+    void afterMapping(@MappingTarget TareaTiendaPresenciaSeccion tareaTienda, PtrPresenciaTotalizadoResultItemDto src){
         for(PtrSeccionPresenciasGenericType item : src.getListaSeccion()) {
             if(item.getSeccion().equals(SECCION_1)){
                 tareaTienda.setMinutos1(item.getMinutos());

@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -9,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 @ApiModel(description = "Modelo PeriodoDto")
 @Data

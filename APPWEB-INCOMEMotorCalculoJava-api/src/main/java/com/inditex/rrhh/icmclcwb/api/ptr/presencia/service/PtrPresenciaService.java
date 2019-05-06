@@ -12,6 +12,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -33,6 +35,8 @@ public interface PtrPresenciaService {
             @Valid final PtrPresenciaTiendasEmpleadoRequestDto request);
 
     PtrPresenciaTotalTiendaResponseDto presenciasTotalTienda(@Valid final PtrPresenciaTotalTiendaRequestDto request);
+    
+    PtrPresenciaTotalizadoResponseDto presenciasTotalizado(@Valid final PtrPresenciaTotalizadoRequestDto request);
     
     PtrPresenciaEmpleadosTiendaResponseDto presenciasEmpleadosTienda(
             @Valid final PtrPresenciaEmpleadosTiendaRequestDto request);

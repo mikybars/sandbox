@@ -94,7 +94,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            List<RunTareaValidarDto> runTareaValidarDto = runTarea.getTarea().getRunTareaValidar().stream()
+            List<RunTareaValidarDto> runTareaValidarDto = runTarea.getRunTareaValidar().stream()
                     .filter(e -> !e.getDuplicated().isEmpty()).collect(Collectors.toList());
 
             if (validarProperties.isLogging() && !runTareaValidarDto.isEmpty()) {
@@ -104,7 +104,6 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
             if (validarProperties.isException() && !runTareaValidarDto.isEmpty()) {
                 throw new IcmclcwbException("Valores duplicados");
             }
-
         }
 
         return runTarea;

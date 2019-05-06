@@ -8,6 +8,8 @@ public class PtrConstants {
     public static final String VERSION = "getVersion";
     public static final String TEST = "test";
 
+    public static final String FECHA_TIENDA = "FECHA_TIENDA";
+    public static final String FECHA_TIENDA_SECCION = "FECHA_TIENDA_SECCION";
     public static final String FECHA_TIENDA_TIPOHORA_SECCION = "FECHA_TIENDA_TIPOHORA_SECCION";
     public static final String PERSONA_TIENDA = "PERSONA_TIENDA";
 
@@ -53,6 +55,7 @@ public class PtrConstants {
     public static final String VENTA_ACUMULADA = "getVentaAcumUTC";
     
     /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE PTR - PRESENCIAS*/
+    public static final String PRESENCIA_TOTALIZADO = "getPresenciasTotalizado";
     public static final String PRESENCIA_TOTAL_TIENDA_SECCION = "getPresenciasTotalTiendaSeccion";
     public static final String PRESENCIA_TOTAL_TIENDA = "getPresenciasTotalTienda";
     public static final String PRESENCIA_DETALLE= "getPresenciasDetalle";

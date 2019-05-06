@@ -53,7 +53,7 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
             validation.setCount(cfCountTiendaHistorico.get());
             validation.setType(TareaTiendaHistorico.class.getSimpleName());
 
-            runTarea.getTarea().getRunTareaValidar().add(validation);
+            runTarea.getRunTareaValidar().add(validation);
             return runTarea;
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

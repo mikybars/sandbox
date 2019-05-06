@@ -18,6 +18,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
@@ -29,6 +31,11 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
     @Autowired
     private PtrPresenciaService ptrPresenciaService;
 
+    @Override
+    public CompletableFuture<PtrPresenciaTotalizadoResponseDto> presenciasTotalizado(
+            final PtrPresenciaTotalizadoRequestDto request) {
+        return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTotalizado(request));
+    }
     
     @Override
     public CompletableFuture<PtrPresenciaTotalTiendaResponseDto> presenciasTotalTienda(

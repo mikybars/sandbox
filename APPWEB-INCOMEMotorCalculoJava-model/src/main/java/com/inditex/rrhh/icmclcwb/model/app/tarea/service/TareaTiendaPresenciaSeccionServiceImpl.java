@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaPresenciaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaPresenciaSeccionService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaPresenciaSeccionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaPresenciaSeccionRepositoryCustom;
 
@@ -26,11 +26,11 @@ public class TareaTiendaPresenciaSeccionServiceImpl implements TareaTiendaPresen
     private TareaTiendaPresenciaSeccionRepositoryCustom tareaTiendaPresenciaSeccionRepositoryCustom;
 
     @Override
-    public List<TareaTiendaPresenciaSeccionDto> save(@Valid final List<PtrPresenciaTotalTiendaSeccionResultItemDto> dto,
+    public List<TareaTiendaPresenciaSeccionDto> save(@Valid final List<PtrPresenciaTotalizadoResultItemDto> dto,
             @Valid final TareaDto tarea) {
         return mapper
                 .tareaTiendaPresenciaSeccionToTareaTiendaPresenciaSeccionDto(tareaTiendaPresenciaSeccionRepositoryCustom
-                        .save(mapper.presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(dto, tarea)));
+                        .save(mapper.presenciasTotalizadoResponseDtoToTareaTiendaPresenciaSeccion(dto, tarea)));
     }
 
 }

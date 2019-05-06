@@ -45,7 +45,7 @@ public class RunTareaRecolectarValidarTiendaVentaSeccionServiceImpl
             AsyncUtils.waitAllOfIsOk(cf, cf);
             validation.setCount(AsyncUtils.get(cfData));
             validation.setType(TareaTiendaVentaSeccion.class.getSimpleName());
-            runTarea.getTarea().getRunTareaValidar().add(validation);
+            runTarea.getRunTareaValidar().add(validation);
             return runTarea;
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

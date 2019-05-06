@@ -46,7 +46,7 @@ public class RunTareaRecolectarValidarEstructurasServiceImpl implements RunTarea
             
             validation.setCount(cfCountEstructuras.get());
             validation.setType(TareaEmpleadoEstructura.class.getSimpleName());
-            runTarea.getTarea().getRunTareaValidar().add(validation);
+            runTarea.getRunTareaValidar().add(validation);
             
             return runTarea;
         } catch (Exception e) {

@@ -1,15 +1,15 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.constraints.NotBlank;import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 
 @ApiModel(description = "Modelo TareaDto")
 @Data
@@ -51,8 +51,5 @@ public class TareaDto implements Serializable {
 
     @ApiModelProperty(value = "Ambito localizacion de la tarea", required = false)
     private List<TareaAmbitoLocalizacionDto> localizacion;
-
-    @ApiModelProperty(value = "Validaciones", required = false)
-    private List<RunTareaValidarDto> runTareaValidar = new ArrayList<>();
 
 }

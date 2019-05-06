@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
