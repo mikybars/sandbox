@@ -21,8 +21,8 @@ public class TareaCalculoPersonaDto implements Serializable {
 	private Long idTarea;
 
 	@NotBlank
-    @ApiModelProperty(value = "Identificador de la persona local", required = true)
-	private String idPersonaLocal;
+    @ApiModelProperty(value = "Identificador de la persona", required = true)
+	private String idPersona;
 	
     @NotBlank
     @ApiModelProperty(value = "Ordinal del empleado", required = true)

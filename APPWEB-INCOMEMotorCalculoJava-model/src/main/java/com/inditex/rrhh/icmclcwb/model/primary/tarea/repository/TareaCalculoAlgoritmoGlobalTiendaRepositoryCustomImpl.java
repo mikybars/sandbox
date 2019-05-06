@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -43,13 +44,13 @@ public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
         persona.forEach(idPersona -> {
             // TODO
-//            if (idPersona.getIdPersona().equals("AT1010325")) {
-//                throw new ReactorIcmclcwbException("AT1010325 falló");
+//            if (idPersona.getIdPersona().equals("1242")) {
+//                throw new ReactorIcmclcwbException("1242 falló");
 //            }
             MapSqlParameterSource arg = new MapSqlParameterSource();
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona.getIdPersonaLocal());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona.getIdPersona());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, idPersona.getOrPersona());
             batchArgs.add(arg);
         });
