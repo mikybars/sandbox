@@ -19,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaGeneralService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaSeccionAsyncService;
@@ -63,46 +62,6 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
 
     @Autowired
     private TareaTiendaHistoricoService tareaTiendaHistoricoService;
- 
-    @Auditoria
-    @Override
-    public void ventaTotalizadaTienda(@Valid final RunTareaDto runTarea,
-            @Valid final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
-            final TareaDto tarea = runTarea.getTarea();
-            for (TareaAmbitoDto tareaAmbito : tarea.getAmbito()) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-                // TODO Filtrar por origen
-                for (List<String> iter : StreamUtils.partition(runTareaRecolectarBloque.getTiendaMtu(),
-                        ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
-                    PtrVentaTotalizadoRequestDto paramGetVentaTotalizado = tareaMapper
-                            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
-                                    tareaAmbito, recolectarProperties);
-                    paramGetVentaTotalizado.setTienda(iter.stream().map(Integer::valueOf).collect(Collectors.toList()));
-                    paramGetVentaTotalizado.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
-                    paramGetVentaTotalizado.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
-                    paramGetVentaTotalizado.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
-                    //TODO: MOCK
-                    paramGetVentaTotalizado.setCadena(1);
-                    CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
-                            .ventaTotalizado(paramGetVentaTotalizado);
-                    AsyncUtils.exceptionally(cfData, cf, cfPersist);
-                    PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
-                            .getFilter().getMaxPersistenceSize());
-                    AsyncUtils.exceptionally(
-                            tareaTiendaVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
-                            cfPersist);
-                }
-                AsyncUtils.waitAllOfIsOk(cf, cf);
-            }
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
-        }
-    }
     
     @Auditoria
     @Override

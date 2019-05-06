@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaGeneralService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
@@ -19,22 +18,12 @@ public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl
     @Autowired
     private RunTareaRecolectarPtrVentaGeneralService tareaRecolectarPtrVentaService;
 
-    
-    @Override
-    public CompletableFuture<Void> ventaTotalizadaTienda(final RunTareaDto runTarea,
-            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
-        tareaRecolectarPtrVentaService.ventaTotalizadaTienda(runTarea, runTareaRecolectarBloque);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    
     @Override
     public CompletableFuture<Void> ventaFisicaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    
     @Override
     public CompletableFuture<Void> ventaFisicaLocalizacionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaService.ventaFisicaLocalizacionByRunTarea(runTarea);

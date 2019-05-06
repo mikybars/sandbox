@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaRecolectarBloqueDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
@@ -18,63 +17,36 @@ public class RunTareaRecolectarPtrPresenciaAsyncServiceImpl implements RunTareaR
     @Autowired
     private RunTareaRecolectarPtrPresenciaService tareaRecolectarPtrPresenciaService;
 
-    
     @Override
     public CompletableFuture<Void> tiposHorasByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrPresenciaService.tiposHorasByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    
-    @Override
-    public CompletableFuture<Void> presenciaTotalizadaTiendaSeccion(final RunTareaDto runTarea,
-            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
-        tareaRecolectarPtrPresenciaService.presenciaTotalizadaTiendaSeccion(runTarea, runTareaRecolectarBloque);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    
-    @Override
-    public CompletableFuture<Void> presenciaTotalizadaTienda(final RunTareaDto runTarea,
-            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
-        tareaRecolectarPtrPresenciaService.presenciaTotalizadaTienda(runTarea, runTareaRecolectarBloque);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    
-    @Override
-    public CompletableFuture<Void> presenciaDetalleComisionable(final RunTareaDto runTarea,
-            final RunTareaRecolectarBloqueDto runTareaRecolectarBloque) {
-        tareaRecolectarPtrPresenciaService.presenciaDetalleComisionable(runTarea, runTareaRecolectarBloque);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    
     @Override
     public CompletableFuture<Void> presenciaDetalleComisionablePersonaByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrPresenciaService.presenciaDetalleComisionablePersonaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    
     @Override
     public CompletableFuture<Void> presenciaTotalLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrPresenciaService.presenciaTotalLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> presenciaTiendaEmpleadoByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrPresenciaService.presenciaTiendaEmpleadoByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> presenciaEmpleadoTiendaByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrPresenciaService.presenciaEmpleadoTiendaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> personaPresenciaDetalleComisionableByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrPresenciaService.personaPresenciaDetalleComisionableByRunTarea(runTarea);
