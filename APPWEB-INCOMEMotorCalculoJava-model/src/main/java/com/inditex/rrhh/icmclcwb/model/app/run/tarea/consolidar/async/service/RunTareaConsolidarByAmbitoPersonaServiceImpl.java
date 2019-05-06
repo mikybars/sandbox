@@ -20,22 +20,19 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
 @Validated
-public class RunTareaConsolidarByAmbitoPersonaServiceImpl implements RunTareaConsolidarByAmbitoPersonaService{
+public class RunTareaConsolidarByAmbitoPersonaServiceImpl implements RunTareaConsolidarByAmbitoPersonaService {
 
     @Auditoria
     @CounterMetric
     @TimerMetric
     @Override
-    public RunTareaDto run(@NotNull @Valid final RunTareaDto runTarea) {
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
-
         try {
-        
+            // TODO
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
-    
-        return runTarea;
     }
 }

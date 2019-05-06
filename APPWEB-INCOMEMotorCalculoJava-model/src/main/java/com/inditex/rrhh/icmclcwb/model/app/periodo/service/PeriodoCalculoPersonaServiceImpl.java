@@ -18,22 +18,24 @@ import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculo
 @Service
 @Validated
 public class PeriodoCalculoPersonaServiceImpl implements PeriodoCalculoPersonaService {
-    
+
     @Autowired
     private PeriodoCalculoPersonaRepositoryCustom periodoCalculoPersonaRepositoryCustom;
 
     @Autowired
     private PeriodoCalculoPersonaMapper periodoCalculoPersonaMapper;
-    
+
     @Override
     public List<PeriodoCalculoPersonaDto> save(@Valid final List<PeriodoCalculoPersonaDto> src) {
-        return periodoCalculoPersonaMapper.periodoCalculoPersonaToPeriodoCalculoPersonaDto(
-                periodoCalculoPersonaRepositoryCustom.save(periodoCalculoPersonaMapper.periodoCalculoPersonaDtoToPeriodoCalculoPersona(src)));
-        
+        return periodoCalculoPersonaMapper
+                .periodoCalculoPersonaToPeriodoCalculoPersonaDto(periodoCalculoPersonaRepositoryCustom
+                        .save(periodoCalculoPersonaMapper.periodoCalculoPersonaDtoToPeriodoCalculoPersona(src)));
+
     }
-    
+
     @Override
     public void mergePeriodoCalculoPersona(@NotNull RunTareaDto tareaDto) {
         periodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona(tareaDto);
     }
+
 }

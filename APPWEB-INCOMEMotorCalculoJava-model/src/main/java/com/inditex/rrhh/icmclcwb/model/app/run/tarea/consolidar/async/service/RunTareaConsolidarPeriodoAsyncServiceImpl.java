@@ -15,28 +15,29 @@ public class RunTareaConsolidarPeriodoAsyncServiceImpl implements RunTareaConsol
 
     @Autowired
     private RunTareaConsolidarPeriodoService runTareaConsolidarPeriodoService;
-    
+
     @Override
     public CompletableFuture<Void> mergePeriodoPersona(final RunTareaDto runTarea) {
         runTareaConsolidarPeriodoService.mergePeriodoPersona(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> mergePeriodoCalculoPersona(final RunTareaDto runTarea) {
         runTareaConsolidarPeriodoService.mergePeriodoCalculoPersona(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> mergePeriodoLocalizacion(final RunTareaDto runTarea) {
         runTareaConsolidarPeriodoService.mergePeriodoLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> mergePeriodoLocalizacionPersona(final RunTareaDto runTarea) {
         runTareaConsolidarPeriodoService.mergePeriodoLocalizacionPersona(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

@@ -19,33 +19,34 @@ public class RunTareaConsolidarPeriodoServiceImpl implements RunTareaConsolidarP
 
     @Autowired
     private PeriodoCalculoPersonaService periodoCalculoPersonaService;
-    
+
     @Autowired
     private PeriodoPersonaService periodoPersonaService;
-    
+
     @Autowired
     private PeriodoLocalizacionService periodoLocalizacionService;
-    
+
     @Autowired
     private PeriodoLocalizacionPersonaService periodoLocalizacionPersonaService;
-    
+
     @Override
     public void mergePeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto) {
         periodoCalculoPersonaService.mergePeriodoCalculoPersona(tareaDto);
     }
-    
+
     @Override
     public void mergePeriodoPersona(@NotNull final RunTareaDto tareaDto) {
         periodoPersonaService.mergePeriodoPersona(tareaDto);
     }
-    
+
     @Override
     public void mergePeriodoLocalizacion(@NotNull final RunTareaDto tareaDto) {
         periodoLocalizacionService.mergePeriodoLocalizacion(tareaDto);
     }
-    
+
     @Override
     public void mergePeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto) {
         periodoLocalizacionPersonaService.mergePeriodoLocalizacionPersona(tareaDto);
     }
+
 }
