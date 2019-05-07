@@ -24,12 +24,9 @@ public class TareaCalculoQueryTest {
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaRepository.calcular.WhereIdTarea']}")
     private String sqlCalcularGlobalTiendaWhereIdTarea;
-    
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalSeccionRepository.calcular.WhereIdTarea']}")
-    private String sqlCalcularGlobalSeccionWhereIdTarea;
 
     @Test
     @Ignore("Se necesita un tarea y un algoritmo para probar este calculo")
@@ -39,14 +36,5 @@ public class TareaCalculoQueryTest {
         arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, 1L);
         namedParameterJdbcTemplate.update(sqlCalcularGlobalTiendaWhereIdTarea, arg);
     }
-    
-    
-    @Test
-    @Ignore("Se necesita un tarea y un algoritmo para probar este calculo")
-    public void sqlCalcularGlobalSeccionWhereIdTarea() {
-        MapSqlParameterSource arg = new MapSqlParameterSource();
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, 7L);
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, 1L);
-        namedParameterJdbcTemplate.update(sqlCalcularGlobalSeccionWhereIdTarea, arg);
-    }
+
 }
