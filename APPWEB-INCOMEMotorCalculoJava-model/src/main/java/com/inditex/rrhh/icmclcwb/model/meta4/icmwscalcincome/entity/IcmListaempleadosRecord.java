@@ -41,6 +41,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="diav" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="diax" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fecha" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="inout" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idpais" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="importe" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="minutos" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -53,6 +54,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipohora" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="orempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="coefjornada" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idestructura" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipocalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -98,6 +100,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "diav",
     "diax",
     "fecha",
+    "inout",
     "idpais",
     "importe",
     "minutos",
@@ -110,6 +113,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idempleado",
     "idtipohora",
     "orempleado",
+    "coefjornada",
     "fechainicio",
     "idestructura",
     "idtipocalculo",
@@ -159,6 +163,8 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
     @XmlElement(required = true, nillable = true)
     protected String fecha;
     @XmlElement(required = true, nillable = true)
+    protected String inout;
+    @XmlElement(required = true, nillable = true)
     protected String idpais;
     @XmlElement(required = true, nillable = true)
     protected String importe;
@@ -182,6 +188,8 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
     protected String idtipohora;
     @XmlElement(required = true, nillable = true)
     protected String orempleado;
+    @XmlElement(required = true, nillable = true)
+    protected String coefjornada;
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
     @XmlElement(required = true, nillable = true)
@@ -463,6 +471,30 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
      */
     public void setFecha(String value) {
         this.fecha = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad inout.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getInout() {
+        return inout;
+    }
+
+    /**
+     * Define el valor de la propiedad inout.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setInout(String value) {
+        this.inout = value;
     }
 
     /**
@@ -751,6 +783,30 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
      */
     public void setOrempleado(String value) {
         this.orempleado = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad coefjornada.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCoefjornada() {
+        return coefjornada;
+    }
+
+    /**
+     * Define el valor de la propiedad coefjornada.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCoefjornada(String value) {
+        this.coefjornada = value;
     }
 
     /**
@@ -1452,6 +1508,15 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             }
         }
         {
+            String lhsInout;
+            lhsInout = this.getInout();
+            String rhsInout;
+            rhsInout = that.getInout();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "inout", lhsInout), LocatorUtils.property(thatLocator, "inout", rhsInout), lhsInout, rhsInout, (this.inout!= null), (that.inout!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdpais;
             lhsIdpais = this.getIdpais();
             String rhsIdpais;
@@ -1556,6 +1621,15 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String rhsOrempleado;
             rhsOrempleado = that.getOrempleado();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "orempleado", lhsOrempleado), LocatorUtils.property(thatLocator, "orempleado", rhsOrempleado), lhsOrempleado, rhsOrempleado, (this.orempleado!= null), (that.orempleado!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsCoefjornada;
+            lhsCoefjornada = this.getCoefjornada();
+            String rhsCoefjornada;
+            rhsCoefjornada = that.getCoefjornada();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "coefjornada", lhsCoefjornada), LocatorUtils.property(thatLocator, "coefjornada", rhsCoefjornada), lhsCoefjornada, rhsCoefjornada, (this.coefjornada!= null), (that.coefjornada!= null))) {
                 return false;
             }
         }
@@ -1858,6 +1932,11 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             strategy.appendField(locator, this, "fecha", buffer, theFecha, (this.fecha!= null));
         }
         {
+            String theInout;
+            theInout = this.getInout();
+            strategy.appendField(locator, this, "inout", buffer, theInout, (this.inout!= null));
+        }
+        {
             String theIdpais;
             theIdpais = this.getIdpais();
             strategy.appendField(locator, this, "idpais", buffer, theIdpais, (this.idpais!= null));
@@ -1916,6 +1995,11 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String theOrempleado;
             theOrempleado = this.getOrempleado();
             strategy.appendField(locator, this, "orempleado", buffer, theOrempleado, (this.orempleado!= null));
+        }
+        {
+            String theCoefjornada;
+            theCoefjornada = this.getCoefjornada();
+            strategy.appendField(locator, this, "coefjornada", buffer, theCoefjornada, (this.coefjornada!= null));
         }
         {
             String theFechainicio;
@@ -2098,6 +2182,11 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fecha", theFecha), currentHashCode, theFecha, (this.fecha!= null));
         }
         {
+            String theInout;
+            theInout = this.getInout();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "inout", theInout), currentHashCode, theInout, (this.inout!= null));
+        }
+        {
             String theIdpais;
             theIdpais = this.getIdpais();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idpais", theIdpais), currentHashCode, theIdpais, (this.idpais!= null));
@@ -2156,6 +2245,11 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String theOrempleado;
             theOrempleado = this.getOrempleado();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "orempleado", theOrempleado), currentHashCode, theOrempleado, (this.orempleado!= null));
+        }
+        {
+            String theCoefjornada;
+            theCoefjornada = this.getCoefjornada();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "coefjornada", theCoefjornada), currentHashCode, theCoefjornada, (this.coefjornada!= null));
         }
         {
             String theFechainicio;
@@ -2433,6 +2527,19 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
                 }
             }
             {
+                Boolean inoutShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.inout!= null));
+                if (inoutShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceInout;
+                    sourceInout = this.getInout();
+                    String copyInout = ((String) strategy.copy(LocatorUtils.property(locator, "inout", sourceInout), sourceInout, (this.inout!= null)));
+                    copy.setInout(copyInout);
+                } else {
+                    if (inoutShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.inout = null;
+                    }
+                }
+            }
+            {
                 Boolean idpaisShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idpais!= null));
                 if (idpaisShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdpais;
@@ -2585,6 +2692,19 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
                 } else {
                     if (orempleadoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.orempleado = null;
+                    }
+                }
+            }
+            {
+                Boolean coefjornadaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.coefjornada!= null));
+                if (coefjornadaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceCoefjornada;
+                    sourceCoefjornada = this.getCoefjornada();
+                    String copyCoefjornada = ((String) strategy.copy(LocatorUtils.property(locator, "coefjornada", sourceCoefjornada), sourceCoefjornada, (this.coefjornada!= null)));
+                    copy.setCoefjornada(copyCoefjornada);
+                } else {
+                    if (coefjornadaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.coefjornada = null;
                     }
                 }
             }

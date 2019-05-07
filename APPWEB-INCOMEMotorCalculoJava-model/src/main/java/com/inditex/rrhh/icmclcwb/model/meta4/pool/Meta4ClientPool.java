@@ -137,7 +137,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().searchtiendas(param2, param1);
+            return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
         } catch (Exception e) {
             expire(client);
             throw new Meta4Exception(ERROR_MESSAGE, e);
