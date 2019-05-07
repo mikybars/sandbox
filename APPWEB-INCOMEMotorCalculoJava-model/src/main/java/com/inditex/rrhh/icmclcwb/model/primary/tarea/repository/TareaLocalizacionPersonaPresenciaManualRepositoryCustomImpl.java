@@ -14,24 +14,26 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPer
 public class TareaLocalizacionPersonaPresenciaManualRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPersonaPresenciaManual>
         implements TareaLocalizacionPersonaPresenciaManualRepositoryCustom {
-    
+
     @Value("${app.envars.repository.batch-size.tarea-localizacion-persona-presencia-manual:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaManualRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Override
     public List<TareaLocalizacionPersonaPresenciaManual> save(final List<TareaLocalizacionPersonaPresenciaManual> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionPersonaPresenciaManual entity)
             throws SQLException {
         pstmt.setString(1, entity.getIdLocalizacion());
         pstmt.setString(2, entity.getIdOrigen());
         pstmt.setString(3, entity.getIdPersona());
-        pstmt.setLong(4, entity.getTarea().getId());        
+        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setLong(5, entity.getTarea().getId());
     }
 
 }

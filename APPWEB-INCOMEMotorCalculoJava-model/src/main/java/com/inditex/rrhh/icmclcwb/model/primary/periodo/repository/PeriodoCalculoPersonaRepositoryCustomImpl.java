@@ -25,28 +25,30 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("${app.envars.repository.batch-size.periodo-calculo-persona:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona']}")
     private String sqlMergePeriodoCalculoPersona;
-    
+
     @Override
     public List<PeriodoCalculoPersona> save(List<PeriodoCalculoPersona> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
-    
+
     @Override
     public void mergePeriodoCalculoPersona(@NotNull RunTareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA,
+                /* TODO Cambiar por un flag o definir los estados posibles */1L);
         namedParameterJdbcTemplate.update(sqlMergePeriodoCalculoPersona, params);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoCalculoPersona entity) throws SQLException {
         pstmt.setString(1, entity.getPk().getIdPeriodo());

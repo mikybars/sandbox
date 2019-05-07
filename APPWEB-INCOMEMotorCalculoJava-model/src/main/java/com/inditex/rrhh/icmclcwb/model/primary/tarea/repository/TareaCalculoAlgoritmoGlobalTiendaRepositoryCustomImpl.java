@@ -16,8 +16,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
-import reactor.core.publisher.Flux;
-
 @Repository
 public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
         implements TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom {
@@ -40,7 +38,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
     }
 
     @Override
-    public Flux<Void> calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<TareaCalculoPersonaDto> persona) {
+    public void calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<TareaCalculoPersonaDto> persona) {
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
         persona.forEach(idPersona -> {
             // TODO Test error bloque
@@ -56,7 +54,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
         });
         namedParameterJdbcTemplate.batchUpdate(sqlCalcular,
                 batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
-        return Flux.empty();
     }
 
 }

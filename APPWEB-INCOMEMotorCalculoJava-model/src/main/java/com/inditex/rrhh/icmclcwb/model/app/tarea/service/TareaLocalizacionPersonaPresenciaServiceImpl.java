@@ -15,16 +15,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 @Service
 @Validated
 public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocalizacionPersonaPresenciaService {
-    
+
     @Autowired
-    TareaLocalizacionPersonaPresenciaRepositoryCustom tareaLocalizacionPersonaPresenciaRepositoryCustom;
-    
+    private TareaLocalizacionPersonaPresenciaRepositoryCustom tareaLocalizacionPersonaPresenciaRepositoryCustom;
+
     @Autowired
-    TareaLocalizacionPersonaPresenciaMapper tareaLocalizacionPersonaPresenciaMapper;
-    
+    private TareaLocalizacionPersonaPresenciaMapper tareaLocalizacionPersonaPresenciaMapper;
+
     @Override
     public void save(@NotNull final PtrPresenciaEmpleadosTiendaResponseDto src, @NotNull final TareaDto tareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.save(
-                tareaLocalizacionPersonaPresenciaMapper.presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(src.getPresenciasEmpleadosTienda(), tareaDto));
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.save(tareaLocalizacionPersonaPresenciaMapper
+                .presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
+                        src.getPresenciasEmpleadosTienda(), tareaDto));
     }
+
 }

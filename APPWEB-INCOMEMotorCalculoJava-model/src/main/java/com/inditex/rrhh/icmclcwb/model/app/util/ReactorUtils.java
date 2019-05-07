@@ -18,5 +18,11 @@ public class ReactorUtils {
             throw new ReactorIcmclcwbException(e.getMessage(), e);
         }
     }
+    
+    public static void countDown(final CountDownLatch latch) {
+        latch.countDown();
+        // TODO Eliminar
+        System.out.println("latch.countDown();");
+    }
 
 }

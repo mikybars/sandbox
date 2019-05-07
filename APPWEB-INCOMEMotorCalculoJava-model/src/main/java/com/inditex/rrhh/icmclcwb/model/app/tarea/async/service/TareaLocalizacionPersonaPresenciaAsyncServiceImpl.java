@@ -17,10 +17,12 @@ public class TareaLocalizacionPersonaPresenciaAsyncServiceImpl
 
     @Autowired
     private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
-    
+
     @Override
-    public CompletableFuture<Void> savePtrPresenciaEmpleadosTiendaResponse(final PtrPresenciaEmpleadosTiendaResponseDto dto, final TareaDto tarea)  {
+    public CompletableFuture<Void> savePtrPresenciaEmpleadosTiendaResponse(
+            final PtrPresenciaEmpleadosTiendaResponseDto dto, final TareaDto tarea) {
         tareaLocalizacionPersonaPresenciaService.save(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

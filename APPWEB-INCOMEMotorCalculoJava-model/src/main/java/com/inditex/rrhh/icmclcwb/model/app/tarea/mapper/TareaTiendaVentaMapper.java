@@ -139,10 +139,12 @@ public abstract class TareaTiendaVentaMapper {
         tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId());
     }
     
+    @Mapping(target = "id", ignore = true)
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.tienda", target = "idTienda")
+    @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "tarea.id", target = "tarea.id")
-    @Mapping(target = "id", ignore = true)
     public abstract TareaTiendaVenta getVentaIndividualDetalleReponseItemsDtoToTareaTiendaVentas(
             PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea);
 
