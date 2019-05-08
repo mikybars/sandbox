@@ -15,14 +15,12 @@ public class ReactorUtils {
         try {
             latch.await();
         } catch (InterruptedException e) {
-            throw new ReactorIcmclcwbException(e.getMessage(), e);
+            throw new ReactorIcmclcwbException("Error ReactorUtils.ReactorUtils()", e);
         }
     }
-    
+
     public static void countDown(final CountDownLatch latch) {
         latch.countDown();
-        // TODO Eliminar
-        System.out.println("latch.countDown();");
     }
 
 }
