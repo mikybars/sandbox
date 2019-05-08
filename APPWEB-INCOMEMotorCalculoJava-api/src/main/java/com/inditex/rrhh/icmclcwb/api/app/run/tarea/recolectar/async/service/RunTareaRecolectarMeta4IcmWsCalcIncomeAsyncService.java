@@ -25,4 +25,10 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> empleadosPresenciaByRunTarea(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> coefJornadaByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> festivosByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> flagCalculaByRunTarea(final RunTareaDto runTarea);
+
 }

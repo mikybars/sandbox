@@ -19,6 +19,9 @@ public class Meta4Constants {
     public static final String PERIODOS = "getPeriodos";
     public static final String EMPLEADOS_PRESENCIA = "getEmpleadosPresencia";
     public static final String PRESENCIA_MANUAL = "getPresenciaManual";
+    public static final String FESTIVOS = "getFestivos";
+    public static final String COEF_JORNADA= "getCoefJornada";
+    public static final String FLAG_CALCULA = "getFlagCalcula";
 
 
 }

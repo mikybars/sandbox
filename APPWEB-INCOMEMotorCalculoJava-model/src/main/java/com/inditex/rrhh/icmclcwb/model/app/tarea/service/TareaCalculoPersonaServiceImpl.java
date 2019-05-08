@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -30,6 +31,11 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     @Autowired
     private TareaCalculoPersonaRepositoryCustom tareaCalculoPersonaRepositoryCustom;
 
+    @Override
+    public void save(final List<TareaCalculoPersonaDto> personas, final EstadoTareaPersonaDto estado) {
+        tareaCalculoPersonaRepositoryCustom.save(tareaCalculoPersonaMapper.tareaCalculoPersonaDtoToTareaCalculoPersona(personas, estado));
+    }
+    
     @Override
     public void mergePersonaCalculo(RunTareaDto runTareaDto) {
         tareaCalculoPersonaRepositoryCustom.mergePersonaCalculo(runTareaDto);

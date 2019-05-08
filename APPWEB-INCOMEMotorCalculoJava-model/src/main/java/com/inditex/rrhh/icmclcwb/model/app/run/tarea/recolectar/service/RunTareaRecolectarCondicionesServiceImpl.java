@@ -56,6 +56,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .condicionPersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfCondicionPersona, cf, cfWait);
 
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
             // TODO Por cada recuperacion hay que detectar para que localizaciones o
             // personas es necesario recuperar el dato
 
@@ -160,7 +164,27 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfPeriodos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .periodosByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPeriodos, cf, cfWait);
+            
+            // Coeficiente de reduccion de jornada
+            CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .coefJornadaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfCoefJornada, cf, cfWait);
+            
+            // Flag calcula de localizacion
+            CompletableFuture<Void> cfFlagCalcula = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .flagCalculaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFlagCalcula, cf, cfWait);
 
+            //Presencia manual
+            CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .presenciaManualByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciaManual, cf, cfWait);
+            
+            // Festivos
+            CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .festivosByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFestivos, cf, cfWait);
+            
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

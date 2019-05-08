@@ -46,8 +46,6 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA, EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
-        // TODO Origen, en la consulta esta el origen como constante 'SELECT 38 as
-        // ID_ORIGEN' hay que recuperarlo de la tabla
         namedParameterJdbcTemplate.update(sqlMergePersonaCalculo, params);
     }
 

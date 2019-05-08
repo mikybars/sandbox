@@ -66,6 +66,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETCONFVENTAONLINEResponse }
+     * 
+     */
+    public GETCONFVENTAONLINEResponse createGETCONFVENTAONLINEResponse() {
+        return new GETCONFVENTAONLINEResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetconfventaonlineOutput }
+     * 
+     */
+    public GetconfventaonlineOutput createGetconfventaonlineOutput() {
+        return new GetconfventaonlineOutput();
+    }
+
+    /**
      * Create an instance of {@link RetrieveM4SessionResponse }
      * 
      */
@@ -82,14 +98,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmParametrosentradaBlock }
-     * 
-     */
-    public IcmParametrosentradaBlock createIcmParametrosentradaBlock() {
-        return new IcmParametrosentradaBlock();
-    }
-
-    /**
      * Create an instance of {@link IcmParametrospaginacionBlock }
      * 
      */
@@ -98,11 +106,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASINCOME }
+     * Create an instance of {@link IcmParametrosentradaBlock }
      * 
      */
-    public GETTIENDASINCOME createGETTIENDASINCOME() {
-        return new GETTIENDASINCOME();
+    public IcmParametrosentradaBlock createIcmParametrosentradaBlock() {
+        return new IcmParametrosentradaBlock();
     }
 
     /**
@@ -111,6 +119,14 @@ public class ObjectFactory {
      */
     public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
         return new GETTIENDASEMPLEADO();
+    }
+
+    /**
+     * Create an instance of {@link GETTIENDASINCOME }
+     * 
+     */
+    public GETTIENDASINCOME createGETTIENDASINCOME() {
+        return new GETTIENDASINCOME();
     }
 
     /**
@@ -146,6 +162,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETFESTIVOS }
+     * 
+     */
+    public GETFESTIVOS createGETFESTIVOS() {
+        return new GETFESTIVOS();
+    }
+
+    /**
      * Create an instance of {@link SEARCHTIENDASResponse }
      * 
      */
@@ -159,14 +183,6 @@ public class ObjectFactory {
      */
     public SearchtiendasOutput createSearchtiendasOutput() {
         return new SearchtiendasOutput();
-    }
-
-    /**
-     * Create an instance of {@link GETFESTIVOS }
-     * 
-     */
-    public GETFESTIVOS createGETFESTIVOS() {
-        return new GETFESTIVOS();
     }
 
     /**
@@ -231,6 +247,14 @@ public class ObjectFactory {
      */
     public GetflagcalculaOutput createGetflagcalculaOutput() {
         return new GetflagcalculaOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETCONFVENTAONLINE }
+     * 
+     */
+    public GETCONFVENTAONLINE createGETCONFVENTAONLINE() {
+        return new GETCONFVENTAONLINE();
     }
 
     /**
@@ -370,19 +394,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IcmListaconfiguracionBlock }
+     * 
+     */
+    public IcmListaconfiguracionBlock createIcmListaconfiguracionBlock() {
+        return new IcmListaconfiguracionBlock();
+    }
+
+    /**
      * Create an instance of {@link IcmWsCalcOperacionesBlock }
      * 
      */
     public IcmWsCalcOperacionesBlock createIcmWsCalcOperacionesBlock() {
         return new IcmWsCalcOperacionesBlock();
-    }
-
-    /**
-     * Create an instance of {@link SEARCHTIENDAS }
-     * 
-     */
-    public SEARCHTIENDAS createSEARCHTIENDAS() {
-        return new SEARCHTIENDAS();
     }
 
     /**
@@ -394,19 +418,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETCOEFJORNADAResponse }
+     * Create an instance of {@link SEARCHTIENDAS }
      * 
      */
-    public GETCOEFJORNADAResponse createGETCOEFJORNADAResponse() {
-        return new GETCOEFJORNADAResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetcoefjornadaOutput }
-     * 
-     */
-    public GetcoefjornadaOutput createGetcoefjornadaOutput() {
-        return new GetcoefjornadaOutput();
+    public SEARCHTIENDAS createSEARCHTIENDAS() {
+        return new SEARCHTIENDAS();
     }
 
     /**
@@ -423,6 +439,22 @@ public class ObjectFactory {
      */
     public SearchempleadosOutput createSearchempleadosOutput() {
         return new SearchempleadosOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETCOEFJORNADAResponse }
+     * 
+     */
+    public GETCOEFJORNADAResponse createGETCOEFJORNADAResponse() {
+        return new GETCOEFJORNADAResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetcoefjornadaOutput }
+     * 
+     */
+    public GetcoefjornadaOutput createGetcoefjornadaOutput() {
+        return new GetcoefjornadaOutput();
     }
 
     /**
@@ -463,6 +495,14 @@ public class ObjectFactory {
      */
     public IcmParametrosentradaRecord createIcmParametrosentradaRecord() {
         return new IcmParametrosentradaRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmListaconfiguracionRecord }
+     * 
+     */
+    public IcmListaconfiguracionRecord createIcmListaconfiguracionRecord() {
+        return new IcmListaconfiguracionRecord();
     }
 
     /**

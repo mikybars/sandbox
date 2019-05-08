@@ -32,7 +32,7 @@ public class TareaCalculoPersonaDto implements Serializable {
     @ApiModelProperty(value = "Identificador del origen", required = true)
     private String idOrigen;
 
-    @NotBlank
+    @NotNull
     @ApiModelProperty(value = "Estado de la tarea", required = true)
     private EstadoTareaPersonaDto estado;
 

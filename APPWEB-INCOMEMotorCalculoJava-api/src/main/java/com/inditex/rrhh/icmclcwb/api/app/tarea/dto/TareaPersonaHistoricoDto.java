@@ -36,6 +36,8 @@ public class TareaPersonaHistoricoDto implements Serializable {
 
 	@NotBlank
 	private String idTiendaMeta4;
+	
+	private String idOrigen;
 
 	@NotNull
 	private Date fechaInicio;

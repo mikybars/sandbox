@@ -9,12 +9,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
@@ -31,9 +37,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoResponseDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
@@ -56,20 +65,94 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
 	
     @Override
+    public FlagCalculaResponseDto getFlagCalcula(FlagCalculaRequestDto request) {
+        FlagCalculaResponseDto result = new FlagCalculaResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetflagcalculaOutput getFlagCalculaOutput = meta4ClientPool.getflagcalcula(param1, param2);
+        if (getFlagCalculaOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getFlagCalculaOutput.getReturn()) == 0) {
+            if (getFlagCalculaOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getFlagCalculaOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if(getFlagCalculaOutput.getIcmListatiendas() != null
+                    && CollectionUtils.isNotEmpty(
+                            getFlagCalculaOutput.getIcmListatiendas().getIcmListatiendasRecordSet())) {
+            List<GenericTiendaResultItemDto> items = icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(
+                    getFlagCalculaOutput.getIcmListatiendas().getIcmListatiendasRecordSet());
+                result.setData(items);
+            }
+        } 
+                   
+        return result;
+    }
+    
+    @Override
+    public CoefJornadaResponseDto getCoefJornada(CoefJornadaRequestDto request) {
+        CoefJornadaResponseDto result = new CoefJornadaResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetcoefjornadaOutput getCoefJornadaOutput = meta4ClientPool.getcoefjornada(param1, param2);
+        if (getCoefJornadaOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getCoefJornadaOutput.getReturn()) == 0 ) {
+            if (getCoefJornadaOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getCoefJornadaOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if(getCoefJornadaOutput.getIcmListaempleados() != null
+            && CollectionUtils.isNotEmpty(
+                    getCoefJornadaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
+                List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
+                        getCoefJornadaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
+                result.setData(items);
+            }
+        }
+        return result;
+    }
+    
+    @Override
+    public FestivosResponseDto getFestivos(FestivosRequestDto request) {
+        FestivosResponseDto result = new FestivosResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetfestivosOutput getFestivosOutput = meta4ClientPool.getfestivos(param1, param2);
+        if (getFestivosOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getFestivosOutput.getReturn()) == 0) {
+            if (getFestivosOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getFestivosOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if(getFestivosOutput.getIcmListatiendas() != null  && CollectionUtils.isNotEmpty(
+                    getFestivosOutput.getIcmListatiendas().getIcmListatiendasRecordSet())) {
+                    List<GenericTiendaResultItemDto> items = icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(
+                            getFestivosOutput.getIcmListatiendas().getIcmListatiendasRecordSet());
+                    result.setData(items);
+            } 
+        }
+        return result;
+    }
+    
+    @Override
     public PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request) {
         PresenciaManualResponseDto result = new PresenciaManualResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
-        GetpresenciamanualOutput getPresenciaManualOutput = meta4ClientPool.getpresenciamanual(param1);
-        
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetpresenciamanualOutput getPresenciaManualOutput = meta4ClientPool.getpresenciamanual(param1, param2);
         if (getPresenciaManualOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, getPresenciaManualOutput.getReturn()) == 0 
-                    && getPresenciaManualOutput.getIcmListaempleados() != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getPresenciaManualOutput.getReturn()) == 0 ) {
+            if (getPresenciaManualOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getPresenciaManualOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if(getPresenciaManualOutput.getIcmListaempleados() != null
                     && CollectionUtils.isNotEmpty(
                             getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
                 List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
                         getPresenciaManualOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
                 result.setData(items);
-        }
+            }
+        }  
         return result;
     }
     
@@ -77,16 +160,21 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     public EmpleadosPresenciaResponseDto getEmpleadosPresencia(EmpleadosPresenciaRequestDto request) {
         EmpleadosPresenciaResponseDto result = new EmpleadosPresenciaResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
-        GetempleadospresenciaOutput getempleadospresenciaOutput = meta4ClientPool.getempleadospresencia(param1);
-        
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetempleadospresenciaOutput getempleadospresenciaOutput = meta4ClientPool.getempleadospresencia(param1, param2);
         if (getempleadospresenciaOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, getempleadospresenciaOutput.getReturn()) == 0 
-                    && getempleadospresenciaOutput.getIcmListaempleados() != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getempleadospresenciaOutput.getReturn()) == 0 ) {
+            if (getempleadospresenciaOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getempleadospresenciaOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if(getempleadospresenciaOutput.getIcmListaempleados() != null
                     && CollectionUtils.isNotEmpty(
                             getempleadospresenciaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
                 List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
                         getempleadospresenciaOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
                 result.setData(items);
+            }
         }
         return result;
     }
@@ -95,16 +183,21 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     public PeriodosResponseDto getPeriodos(PeriodosRequestDto request) {
         PeriodosResponseDto result = new PeriodosResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
-        GetperiodosOutput getperiodosOutput = meta4ClientPool.getperiodos(param1);
-        
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetperiodosOutput getperiodosOutput = meta4ClientPool.getperiodos(param1, param2);
         if (getperiodosOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, getperiodosOutput.getReturn()) == 0 
-                    && getperiodosOutput.getIcmListaperiodos() != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getperiodosOutput.getReturn()) == 0 ) {
+            if (getperiodosOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getperiodosOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if(getperiodosOutput.getIcmListaperiodos() != null
                     && CollectionUtils.isNotEmpty(
                             getperiodosOutput.getIcmListaperiodos().getIcmListaperiodosRecordSet())) {
                 List<PeriodosResultItemDto> items = icmWsCalcIncomeMapper.asPeriodosResultItemDtos(
                         getperiodosOutput.getIcmListaperiodos().getIcmListaperiodosRecordSet());
                 result.setData(items);
+            }
         }
         return result;
     }
@@ -210,17 +303,18 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     public ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request) {
     	ComisionEmpleadoResponseDto result = new ComisionEmpleadoResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
-        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1);
+        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, null);
         if (getComisionEmpleadoOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 
-                    && getComisionEmpleadoOutput.getIcmListaempleados() != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 ) {
+            if( getComisionEmpleadoOutput.getIcmListaempleados() != null
                     && CollectionUtils.isNotEmpty(
                             getComisionEmpleadoOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
                 List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
                         getComisionEmpleadoOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
                 result.setData(items);
-            
+            }
         }
+
     	return result;
     }
     

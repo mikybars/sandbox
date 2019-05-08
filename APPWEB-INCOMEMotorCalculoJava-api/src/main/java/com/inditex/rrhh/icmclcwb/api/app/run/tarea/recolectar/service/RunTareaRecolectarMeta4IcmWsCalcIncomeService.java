@@ -42,4 +42,19 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
     void empleadosPresenciaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
+    void festivosByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
+    void festivosByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void coefJornadaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void coefJornadaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
+    void flagCalculaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void flagCalculaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
 }

@@ -18,9 +18,12 @@ import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
@@ -48,6 +51,23 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     @Qualifier("meta4Properties")
     private Map<String, Meta4PropertiesDto> meta4Properties;
 
+    @Override
+    public List<GenericEmpleadoResultItemDto> getFlagCalcula(final FlagCalculaRequestDto request) {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.FLAG_CALCULA,
+                meta4Properties.get(Meta4Constants.FLAG_CALCULA).getFilter().getMaxPageSize());
+    }
+    
+    @Override
+    public List<GenericTiendaResultItemDto> getFestivos(final FestivosRequestDto request) {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.FESTIVOS,
+                meta4Properties.get(Meta4Constants.FESTIVOS).getFilter().getMaxPageSize());
+    }
+    
+    @Override
+    public List<GenericEmpleadoResultItemDto> getCoefJornada(final CoefJornadaRequestDto request) {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.COEF_JORNADA,
+                meta4Properties.get(Meta4Constants.COEF_JORNADA).getFilter().getMaxPageSize());
+    }
     @Override
     public List<GenericEmpleadoResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.PRESENCIA_MANUAL,

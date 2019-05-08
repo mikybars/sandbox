@@ -33,6 +33,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/>
+ *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,7 +44,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparametrosentrada"
+    "icmparametrosentrada",
+    "icmparametrospaginacion"
 })
 @XmlRootElement(name = "GETFESTIVOS")
 public class GETFESTIVOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
@@ -51,6 +53,8 @@ public class GETFESTIVOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
 
     @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
     protected IcmParametrosentradaBlock icmparametrosentrada;
+    @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
+    protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
     /**
      * Obtiene el valor de la propiedad icmparametrosentrada.
@@ -76,6 +80,30 @@ public class GETFESTIVOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
         this.icmparametrosentrada = value;
     }
 
+    /**
+     * Obtiene el valor de la propiedad icmparametrospaginacion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParametrospaginacionBlock }
+     *     
+     */
+    public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
+        return icmparametrospaginacion;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparametrospaginacion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParametrospaginacionBlock }
+     *     
+     */
+    public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
+        this.icmparametrospaginacion = value;
+    }
+
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
         if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
@@ -90,6 +118,15 @@ public class GETFESTIVOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
             IcmParametrosentradaBlock rhsICMPARAMETROSENTRADA;
             rhsICMPARAMETROSENTRADA = that.getICMPARAMETROSENTRADA();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrosentrada", lhsICMPARAMETROSENTRADA), LocatorUtils.property(thatLocator, "icmparametrosentrada", rhsICMPARAMETROSENTRADA), lhsICMPARAMETROSENTRADA, rhsICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null), (that.icmparametrosentrada!= null))) {
+                return false;
+            }
+        }
+        {
+            IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
+            lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
+            rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION), LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null), (that.icmparametrospaginacion!= null))) {
                 return false;
             }
         }
@@ -121,6 +158,11 @@ public class GETFESTIVOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
             theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
             strategy.appendField(locator, this, "icmparametrosentrada", buffer, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
         }
+        {
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+        }
         return buffer;
     }
 
@@ -130,6 +172,11 @@ public class GETFESTIVOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
             IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
             theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrosentrada", theICMPARAMETROSENTRADA), currentHashCode, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+        }
+        {
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION), currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
         }
         return currentHashCode;
     }
@@ -162,6 +209,19 @@ public class GETFESTIVOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
                 } else {
                     if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmparametrosentrada = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion!= null));
+                if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
+                    sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null)));
+                    copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
+                } else {
+                    if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparametrospaginacion = null;
                     }
                 }
             }

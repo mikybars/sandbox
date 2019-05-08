@@ -49,12 +49,16 @@ public class TareaPersonaHistorico {
 	@NotBlank
 	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
 	private String idTiendaMeta4;
+	
+    @NotBlank
+    @Column(name = "ID_ORIGEN", nullable = false)
+    private String idOrigen;
 
-	 @NotNull
+	@NotNull
 	@Column(name = "FECHA_INICIO", nullable = false)
 	private Date fechaInicio;
 
-	 @NotNull
+	@NotNull
 	@Column(name = "FECHA_FIN", nullable = false)
 	private Date fechaFin;
 	 

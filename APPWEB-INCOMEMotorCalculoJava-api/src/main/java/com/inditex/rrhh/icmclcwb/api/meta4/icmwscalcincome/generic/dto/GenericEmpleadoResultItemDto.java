@@ -25,6 +25,7 @@ public class GenericEmpleadoResultItemDto implements Serializable {
     private String diaS;
     private String diaV;
     private String diaX;
+    private String inOut;
     private String idPais;
     private String importe;
     private String minutos;
@@ -36,6 +37,7 @@ public class GenericEmpleadoResultItemDto implements Serializable {
     private String idEmpleado;
     private String idTipoHora;
     private String orEmpleado;
+    private String coefJornada;
     private String idEstructura;
     private String idTipoCalculo;
     private String percentageAll;

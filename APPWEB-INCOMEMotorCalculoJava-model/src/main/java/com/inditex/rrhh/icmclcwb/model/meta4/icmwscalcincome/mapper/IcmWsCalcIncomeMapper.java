@@ -73,6 +73,8 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idEmpresa", source = "idempresa")
     @Mapping(target = "idTiendaMtu", source = "idtiendamtu")
     @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
+    @Mapping(target = "idLugarTrabajoMtu", source = "idlugartrabajomtu")
+    @Mapping(target = "calcula", source = "calcula")
     GenericTiendaResultItemDto asGenericTiendaResultItemDto(IcmListatiendasRecord src);
 
     @InheritInverseConfiguration
@@ -125,6 +127,8 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "percentageWomanT1", source = "percentagewomant1")
     @Mapping(target = "percentageWomanT2", source = "percentagewomant2")
     @Mapping(target = "percentageWomanT3", source = "percentagewomant3")
+    @Mapping(target = "coefJornada", source = "coefjornada")
+    @Mapping(target = "inOut", source = "inout")
     GenericEmpleadoResultItemDto asGenericEmpleadoResultItemDto(IcmListaempleadosRecord src);
 
     @InheritInverseConfiguration

@@ -14,6 +14,6 @@ public enum EstadoTareaCalculoPersonaEnum {
 
     private final Long id;
 
-    private final EstadoTareaPersonaDto dto;
 
+    private final EstadoTareaPersonaDto dto;
 }

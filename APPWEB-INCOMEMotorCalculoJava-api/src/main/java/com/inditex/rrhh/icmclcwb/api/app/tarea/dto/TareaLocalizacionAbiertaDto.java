@@ -13,7 +13,6 @@ public class TareaLocalizacionAbiertaDto implements Serializable {
 
     private static final long serialVersionUID = 5072975705443047327L;
 
-
     @ApiModelProperty(value = "Identificador de la tabla tienda abierta", required = false)
     private String id;
 
