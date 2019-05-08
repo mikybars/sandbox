@@ -46,4 +46,4 @@ jobs:
       - run: 
             name: Deploy app to Scaleway
             command: |
-                ssh -o StrictHostKeyChecking=no root@mperezi.com docker/script.sh
+                ssh -o StrictHostKeyChecking=no root@mperezi.com docker/spring-tasks-app/gradlew dockerBuildImage
