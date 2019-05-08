@@ -15,7 +15,7 @@ public class RunAlgoritmoPropertiesConfig {
 
     private RunAlgoritmoPropertiesDto config;
     
-    @Bean(name = "algoritmoProperties")
+    @Bean(name = "runAlgoritmoProperties")
     public RunAlgoritmoPropertiesDto config() {
         return config;
     }

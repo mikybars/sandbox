@@ -23,7 +23,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
     private Logger log;
 
     @Autowired
-    @Qualifier("algoritmoProperties")
+    @Qualifier("runAlgoritmoProperties")
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
