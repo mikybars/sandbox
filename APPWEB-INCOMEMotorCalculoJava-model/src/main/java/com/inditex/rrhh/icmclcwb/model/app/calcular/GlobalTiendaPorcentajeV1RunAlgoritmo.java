@@ -37,7 +37,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
         Flux.fromIterable(
                 StreamUtils.partition(tareaCalculoAlgoritmoGlobalTiendaRepository.ids(algoritmo, runTarea.getTarea()),
                         runAlgoritmoProperties.getBatchSize()))
-                .parallel().runOn(ItxSchedulers.parallel()).map(personas -> {
+                .parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);
                     try {
                         tareaCalculoAlgoritmoGlobalTiendaRepository.calcular(algoritmo, runTarea.getTarea(), personas);
