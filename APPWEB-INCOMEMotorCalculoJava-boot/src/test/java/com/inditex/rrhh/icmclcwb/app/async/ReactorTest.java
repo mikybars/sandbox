@@ -2,8 +2,12 @@ package com.inditex.rrhh.icmclcwb.app.async;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -13,8 +17,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
 
 import reactor.core.publisher.Flux;
@@ -29,14 +35,40 @@ public class ReactorTest {
     @Autowired
     private Logger log;
 
-    private final static List<String> personas = Arrays.asList("persona-1", "persona-2", "persona-3", "persona-4",
-            "persona-5", "persona-6", "persona-7", "persona-8", "persona-9");
+    private final static List<String> algoritmos = new ArrayList<>();
 
+    private final static List<String> personas = new ArrayList<>();
+
+    private final static String prefijoAlgoritmo = "algoritmo-";
+
+    private final static String prefijoPersona = "persona-";
+
+    private void run(String... args) {
+        List<String> items = Arrays.asList(args);
+        log.info("Inicio :: run() :: {}", items);
+        TestUtils.threadSleep();
+        if (items.contains("persona-4") || items.contains("persona-7")) {
+            log.error("Ha fallado el bloque: {}", items);
+            new ReactorIcmclcwbException("Ha fallado el bloque:");
+        }
+        log.info("Fin :: run() :: {}", items);
+    }
+
+    @Before
+    public void setUp() {
+        for (int x = 0; x < 20; x++) {
+            algoritmos.add(prefijoAlgoritmo + x);
+        }
+        for (int x = 0; x < 1000; x++) {
+            personas.add(prefijoPersona + x);
+        }
+    }
+
+    @Ignore
     @Test
     public void reactorSequentialBlockLastTest() {
         log.info("Inicio :: ReactorSequentialBlockLastTest");
         final Instant start = Instant.now();
-        // CountDownLatch latch = new CountDownLatch(1);
         Flux.fromIterable(personas).log().parallel().runOn(Schedulers.parallel()).doOnNext(item -> {
             log.info("ReactorSequentialBlockLastTest :: doOnNext() :: {}", item);
         }).map(item -> {
@@ -50,11 +82,11 @@ public class ReactorTest {
         log.info("Fin :: ReactorSequentialBlockLastTest :: {}", duration);
     }
 
+    @Ignore
     @Test
     public void reactorSequentialCollectListBlockTest() {
         log.info("Inicio :: reactorSequentialCollectListBlockTest");
         final Instant start = Instant.now();
-        // CountDownLatch latch = new CountDownLatch(1);
         Flux.fromIterable(personas).log().parallel().runOn(Schedulers.parallel()).doOnNext(item -> {
             log.info("reactorSequentialCollectListBlockTest :: doOnNext() :: {}", item);
         }).map(item -> {
@@ -68,14 +100,39 @@ public class ReactorTest {
         log.info("Fin :: reactorSequentialCollectListBlockTest :: {}", duration);
     }
 
-    private void run(String item) {
-        log.info("Inicio :: run() :: {}", item);
-        TestUtils.threadSleep();
-        if ("persona-4".equals(item) || "persona-7".equals(item)) {
-            log.error("run :: La persona persona '{}' falla", item);
-            new ReactorIcmclcwbException("La persona persona '" + item + "' falla");
-        }
-        log.info("Fin :: run() :: {}", item);
+    @Test
+    public void reactorSequentialCollectListBlockTestWithChild() {
+        log.info("Inicio :: reactorSequentialCollectListBlockTestWithChild");
+        final Instant start = Instant.now();
+
+        Flux.fromIterable(algoritmos).log().parallel().runOn(ItxSchedulers.elastic()).doOnNext(item -> {
+            log.info("reactorSequentialCollectListBlockTest :: algoritmos :: doOnNext() :: {}", item);
+        }).map(algoritmo -> {
+            log.info("reactorSequentialCollectListBlockTest :: algoritmos :: Inicio :: map() :: {}", algoritmo);
+
+            Flux.fromIterable(StreamUtils.partition(personas, 100)).log().parallel().runOn(ItxSchedulers.elastic())
+                    .doOnNext(partitionPersonas -> {
+                        log.info(
+                                "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: doOnNext() :: {}",
+                                partitionPersonas);
+                    }).map(partitionPersonas -> {
+                        log.info(
+                                "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: Inicio :: map() :: {}",
+                                partitionPersonas);
+                        run(partitionPersonas.toArray(new String[partitionPersonas.size()]));
+                        log.info(
+                                "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: Fin :: map() :: {}",
+                                partitionPersonas);
+                        return Flux.empty();
+                    }).sequential().collectList().block();
+
+            log.info("reactorSequentialCollectListBlockTest :: algoritmos :: Fin :: map() :: {}", algoritmo);
+            return Flux.empty();
+        }).sequential().collectList().block();
+
+        final Instant end = Instant.now();
+        final Duration duration = Duration.between(start, end);
+        log.info("Fin :: reactorSequentialCollectListBlockTestWithChild :: {}", duration);
     }
 
 }

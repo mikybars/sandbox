@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -14,7 +15,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom;
 
 import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
 
 @Component("globalTiendaPorcentajeV1")
 public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
@@ -28,7 +28,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired
     private TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom tareaCalculoAlgoritmoGlobalTiendaRepository;
-    
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
@@ -37,7 +37,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
         Flux.fromIterable(
                 StreamUtils.partition(tareaCalculoAlgoritmoGlobalTiendaRepository.ids(algoritmo, runTarea.getTarea()),
                         runAlgoritmoProperties.getBatchSize()))
-                .parallel().runOn(Schedulers.parallel()).map(personas -> {
+                .parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);
                     try {
                         tareaCalculoAlgoritmoGlobalTiendaRepository.calcular(algoritmo, runTarea.getTarea(), personas);

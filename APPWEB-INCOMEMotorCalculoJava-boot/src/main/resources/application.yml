@@ -17,6 +17,11 @@ amiga:
         enabled: false
       graylog:
         enabled: false
+    reactor:
+      scheduler:
+        elastic:
+          core-pool-size: 10
+          maximum-pool-size: 100
     async:
       default-executor:
         core-pool-size: 10

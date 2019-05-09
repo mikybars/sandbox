@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
@@ -17,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularServi
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
 
 @Service
 @Validated
@@ -37,7 +37,7 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
         TareaDto tarea = runTarea.getTarea();
         // TODO Controlar error
         Flux.fromIterable(algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId())).parallel()
-                .runOn(Schedulers.parallel()).map(idAlgoritmo -> {
+                .runOn(ItxSchedulers.elastic()).map(idAlgoritmo -> {
                     AlgoritmoDto algoritmo = algoritmoService.findById(idAlgoritmo);
                     runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).execute(runTarea, algoritmo);
                     return Flux.empty();
