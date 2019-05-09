@@ -22,9 +22,9 @@ public class TestUtils {
             LongStream ls = random.longs(1000, 5000);
             long time = ls.findFirst().getAsLong();
             ls.close();
-            System.out.println("Inicio :: Thread.sleep(" + time + ")");
+            System.out.println(Thread.currentThread().getName() + " :: Inicio :: Thread.sleep(" + time + ")");
             Thread.sleep(time);
-            System.out.println("Fin :: Thread.sleep(" + time + ")");
+            System.out.println(Thread.currentThread().getName() + " :: Fin :: Thread.sleep(" + time + ")");
         } catch (InterruptedException e) {
             throw new IcmclcwbException("Error en Thread.sleep()");
         }
