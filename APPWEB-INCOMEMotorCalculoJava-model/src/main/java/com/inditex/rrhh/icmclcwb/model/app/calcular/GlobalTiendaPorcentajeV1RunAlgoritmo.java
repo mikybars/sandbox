@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom;
+
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
@@ -25,6 +28,9 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired
     private TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom tareaCalculoAlgoritmoGlobalTiendaRepository;
+    
+    @Autowired
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
@@ -36,8 +42,8 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
                     try {
                         tareaCalculoAlgoritmoGlobalTiendaRepository.calcular(algoritmo, runTarea.getTarea(), personas);
                     } catch (Exception e) {
+                        tareaCalculoPersonaService.save(personas, EstadoTareaCalculoPersonaEnum.KO.getDto());
                         log.error("Han fallado las personas", personas, e);
-                        // TODO Marcar las personas con error
                     }
                     log.info("Fin :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);
                     return Flux.empty();
