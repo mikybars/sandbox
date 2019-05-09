@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,11 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     @Override
     public void save(final List<TareaCalculoPersonaDto> personas, final EstadoTareaPersonaDto estado) {
         tareaCalculoPersonaRepositoryCustom.save(tareaCalculoPersonaMapper.tareaCalculoPersonaDtoToTareaCalculoPersona(personas, estado));
+    }
+    
+    @Override
+    public void updateWithEstado(final List<TareaCalculoPersonaDto> personas, RunTareaDto runTareaDto , final EstadoTareaPersonaDto estado) {
+        tareaCalculoPersonaRepositoryCustom.updateWithEstado(personas.stream().map(e->e.getIdPersona()).collect(Collectors.toList()), runTareaDto, estado);
     }
     
     @Override

@@ -28,7 +28,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired
     private TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom tareaCalculoAlgoritmoGlobalTiendaRepository;
-
+    
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
@@ -37,13 +37,13 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
         Flux.fromIterable(
                 StreamUtils.partition(tareaCalculoAlgoritmoGlobalTiendaRepository.ids(algoritmo, runTarea.getTarea()),
                         runAlgoritmoProperties.getBatchSize()))
-                .parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
+                .parallel().runOn(ItxSchedulers.parallel()).map(personas -> {
                     log.info("Inicio :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);
                     try {
                         tareaCalculoAlgoritmoGlobalTiendaRepository.calcular(algoritmo, runTarea.getTarea(), personas);
                     } catch (Exception e) {
+                        tareaCalculoPersonaService.updateWithEstado(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
                         log.error("Han fallado las personas", personas, e);
-                        tareaCalculoPersonaService.save(personas, EstadoTareaCalculoPersonaEnum.KO.getDto());
                     }
                     log.info("Fin :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);
                     return Flux.empty();

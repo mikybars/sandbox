@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
@@ -35,10 +37,22 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
 
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.mergePersonaCalculo']}")
     private String sqlMergePersonaCalculo;
+    
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.updateWithEstado']}")
+    private String sqlUpdateWithEstado;
 
     @Override
     public List<TareaCalculoPersona> save(final List<TareaCalculoPersona> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
+    }
+
+    @Override
+    public void updateWithEstado(final List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estado.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        namedParameterJdbcTemplate.update(sqlUpdateWithEstado, parameters);
     }
 
     @Override

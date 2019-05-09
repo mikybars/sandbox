@@ -18,4 +18,6 @@ public interface TareaCalculoPersonaService {
 
     void save(@Valid @NotNull final List<TareaCalculoPersonaDto> personas, final EstadoTareaPersonaDto estado);
 
+    void updateWithEstado(List<TareaCalculoPersonaDto> personas, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado);
+
 }

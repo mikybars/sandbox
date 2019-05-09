@@ -16,6 +16,27 @@
     ]]>
 </entry>
 
+<entry key="TareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, OR_PERSONA, ID_EMPRESA, ID_SECCION, FECHA, MINUTOS, ID_TIPO_HORA, ID_TAREA)  
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="TareaPeriodoRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO TAREA_PERIODO (ID_ORIGEN, ID_PERIODO, ACTIVO, ABIERTO, BORRADO, MODIFICADO, NUEVO, FECHA_INICIO, FECHA_FIN, ID_TAREA)  
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="TareaPersonaCoeficienteRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO TAREA_PERSONA_COEFICIENTE (COEFICIENTE, ID_PERSONA, ID_PERSONA_LOCAL, OR_PERSONA, FECHA_INICIO, FECHA_FIN, ID_TAREA)  
+        VALUES(?, ?, ?, ?, ?, ?, ?) 
+    ]]>
+</entry>
+
 <entry key="TareaLocalizacionPersonaRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_PERSONA (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_TAREA)  
@@ -27,6 +48,19 @@
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_FESTIVO (ID_TAREA, ID_LOCALIZACION, FECHA )  
         VALUES(?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="TareaLocalizacionCalcularRepositoryCustom.save">
+    <![CDATA[
+        INSERT INTO TAREA_LOCALIZACION_CALCULAR (ID_TAREA, ID_LOCALIZACION, CALCULA, FECHA_INICIO, FECHA_FIN )  
+        VALUES(?, ?, ?, ?, ?) 
+    ]]>
+</entry>
+
+<entry key="TareaCalculoPersonaRepositoryCustom.updateWithEstado">
+    <![CDATA[
+        UPDATE TAREA_CALCULO_PERSONA SET ID_ESTADO = :idEstado WHERE ID_PERSONA IN (:idPersona) AND ID_TAREA = :idTarea
     ]]>
 </entry>
 

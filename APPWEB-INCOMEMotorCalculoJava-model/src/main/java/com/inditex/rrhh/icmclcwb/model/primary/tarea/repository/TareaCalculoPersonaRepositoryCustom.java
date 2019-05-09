@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
 
 public interface TareaCalculoPersonaRepositoryCustom {
@@ -12,5 +13,7 @@ public interface TareaCalculoPersonaRepositoryCustom {
     List<TareaCalculoPersona> save(List<TareaCalculoPersona> src);
 
     void mergePersonaCalculo(@NotNull RunTareaDto tareaDto);
+
+    void updateWithEstado(List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado);
 
 }
