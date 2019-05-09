@@ -34,7 +34,9 @@ amiga:
         primary:
           driverClassName: com.ibm.db2.jcc.DB2Driver
           url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;
-          user: uincome
+          #user: uincome
+          user: oincome
+          password: aMJLp8ahF09w
     hibernate:
       primary:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
