@@ -16,12 +16,17 @@ public class RestUtils {
     public static <T, R> T checkResponse(ResponseEntity<T> responseEntity, RestClient restClient, String url,
             Object request) {
         T result = null;
-        if (responseEntity.getStatusCode().value() == HttpStatus.SC_OK) {
-            result = responseEntity.getBody();
+        if (responseEntity != null) {
+            if (responseEntity.getStatusCode().value() == HttpStatus.SC_OK) {
+                result = responseEntity.getBody();
+            } else {
+                throw new IcmclcwbException(new StringBuilder("La llamada a '").append(restClient.getBaseUrl())
+                        .append(url).append("' ha fallado (Código: ").append(responseEntity.getStatusCode().value())
+                        .append(") con la petición: ").append(request.toString()).toString());
+            }
         } else {
             throw new IcmclcwbException(new StringBuilder("La llamada a '").append(restClient.getBaseUrl()).append(url)
-                    .append("' ha fallado (Código: ").append(responseEntity.getStatusCode().value())
-                    .append(") con la petición: ").append(request.toString()).toString());
+                    .append("' ha fallado con la petición: ").append(request.toString()).toString());
         }
         return result;
     }
