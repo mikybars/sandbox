@@ -35,7 +35,6 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
-        // TODO Controlar error
         Flux.fromIterable(algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId())).parallel()
                 .runOn(ItxSchedulers.elastic()).map(idAlgoritmo -> {
                     AlgoritmoDto algoritmo = algoritmoService.findById(idAlgoritmo);
