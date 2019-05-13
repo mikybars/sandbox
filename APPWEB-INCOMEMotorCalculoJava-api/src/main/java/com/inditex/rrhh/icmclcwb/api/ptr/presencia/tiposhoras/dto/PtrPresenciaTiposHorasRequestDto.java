@@ -22,6 +22,15 @@ public class PtrPresenciaTiposHorasRequestDto {
 
     @ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
     private Integer tipoHora;
+    
+    @ApiModelProperty(value = "Flag incluido venta", required = false, example = "true")
+    private boolean incluidoVenta;
+    
+    @ApiModelProperty(value = "Flag incluido challenge", required = false, example = "true")
+    private boolean incluidoChallenge;
+    
+    @ApiModelProperty(value = "Flag incluido ecommerce", required = false, example = "true")
+    private boolean incluidoEcommerce;
 
     @ApiModelProperty(value = "Excluido denonimandor", required = false, example = "true")
     private Boolean excluidoDenom;

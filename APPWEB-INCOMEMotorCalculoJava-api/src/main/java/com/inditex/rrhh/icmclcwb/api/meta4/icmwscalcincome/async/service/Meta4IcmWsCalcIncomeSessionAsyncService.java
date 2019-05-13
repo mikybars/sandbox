@@ -46,6 +46,6 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 
     CompletableFuture<List<GenericEmpleadoResultItemDto>> getCoefJornada(CoefJornadaRequestDto request);
 
-    CompletableFuture<List<GenericEmpleadoResultItemDto>> getFlagCalcula(FlagCalculaRequestDto request);
+    CompletableFuture<List<GenericTiendaResultItemDto>> getFlagCalcula(FlagCalculaRequestDto request);
 
 }

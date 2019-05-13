@@ -18,6 +18,9 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.async.service.RunTareaConsolidarPeriodoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
@@ -26,7 +29,13 @@ public class RunTareaConsolidarByAmbitoServiceImpl implements RunTareaConsolidar
 
     @Autowired
     private RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
-
+    
+    @Autowired
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
+    
+    @Autowired
+    private TareaService tareaService;
+    
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -34,6 +43,8 @@ public class RunTareaConsolidarByAmbitoServiceImpl implements RunTareaConsolidar
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
+            tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(), EstadoTareaCalculoPersonaEnum.OK.getDto());
+                 
             CompletableFuture<Void> cfPeriodo = runTareaConsolidarPeriodoAsyncService.mergePeriodoPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodo, cf);
 
@@ -49,9 +60,13 @@ public class RunTareaConsolidarByAmbitoServiceImpl implements RunTareaConsolidar
                     .mergePeriodoLocalizacionPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodoLocalizacionPersona, cf);
 
+            //TODO: Update tarea
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
+
+            
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);
             throw e;

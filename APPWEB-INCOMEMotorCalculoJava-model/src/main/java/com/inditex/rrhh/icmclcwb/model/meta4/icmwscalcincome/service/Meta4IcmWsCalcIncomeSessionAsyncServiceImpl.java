@@ -31,7 +31,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Override
-    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getFlagCalcula(FlagCalculaRequestDto request) {
+    public CompletableFuture<List<GenericTiendaResultItemDto>> getFlagCalcula(FlagCalculaRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getFlagCalcula(request));
     }
     

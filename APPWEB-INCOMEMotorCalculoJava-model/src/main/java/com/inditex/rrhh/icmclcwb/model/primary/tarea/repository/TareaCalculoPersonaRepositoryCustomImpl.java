@@ -41,18 +41,30 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.updateWithEstado']}")
     private String sqlUpdateWithEstado;
 
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.updateEstadoActualWithEstadoNuevo']}")
+    private String sqlUpdateEstadoActualWithEstadoNuevo;
+    
     @Override
     public List<TareaCalculoPersona> save(final List<TareaCalculoPersona> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override
-    public void updateWithEstado(final List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado) {
+    public void updateWithEstadoAndidPersona(final List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estado.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlUpdateWithEstado, parameters);
+    }
+    
+    @Override
+    public void updateWithEstado(RunTareaDto runTareaDto, EstadoTareaPersonaDto estadoActual, EstadoTareaPersonaDto estadoNuevo) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_ACTUAL, estadoActual.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_NUEVO, estadoNuevo.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        namedParameterJdbcTemplate.update(sqlUpdateEstadoActualWithEstadoNuevo, parameters);
     }
 
     @Override

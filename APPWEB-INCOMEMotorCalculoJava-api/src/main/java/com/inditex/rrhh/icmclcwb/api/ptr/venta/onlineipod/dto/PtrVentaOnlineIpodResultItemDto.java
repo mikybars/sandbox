@@ -32,8 +32,6 @@ public class PtrVentaOnlineIpodResultItemDto implements Serializable {
     
     private String ano;
     
-    private String cmp;
-
     @NotNull
     private BigDecimal importeSinIVA;
 

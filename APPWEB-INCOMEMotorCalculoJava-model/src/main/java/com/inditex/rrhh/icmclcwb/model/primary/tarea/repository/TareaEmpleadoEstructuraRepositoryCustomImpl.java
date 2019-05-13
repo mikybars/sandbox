@@ -32,7 +32,7 @@ public class TareaEmpleadoEstructuraRepositoryCustomImpl extends
         pstmt.setObject(2, entity.getFechaInicio());
         pstmt.setString(3, entity.getIdEmpleado());
         pstmt.setString(4, entity.getIdEmpleadoLocal());
-        pstmt.setLong(5, entity.getIdEstructura());
+        pstmt.setString(5, entity.getIdEstructura());
         pstmt.setString(6, entity.getIdTipoCalculo());
         pstmt.setString(7, entity.getIdTipoComision());
         pstmt.setString(8, entity.getOrEmpleado());

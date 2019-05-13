@@ -37,8 +37,6 @@ public class PtrVentaOnlinePickingResultItemDto implements Serializable {
     
     private String ano;
     
-    private String cmp;
-    
     private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

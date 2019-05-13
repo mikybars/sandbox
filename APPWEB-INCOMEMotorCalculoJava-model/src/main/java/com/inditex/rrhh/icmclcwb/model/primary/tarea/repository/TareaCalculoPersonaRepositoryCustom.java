@@ -14,6 +14,9 @@ public interface TareaCalculoPersonaRepositoryCustom {
 
     void mergePersonaCalculo(@NotNull RunTareaDto tareaDto);
 
-    void updateWithEstado(List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado);
+    void updateWithEstadoAndidPersona(List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado);
+
+    void updateWithEstado(RunTareaDto runTareaDto, EstadoTareaPersonaDto estadoActual,
+            EstadoTareaPersonaDto estadoNuevo);
 
 }

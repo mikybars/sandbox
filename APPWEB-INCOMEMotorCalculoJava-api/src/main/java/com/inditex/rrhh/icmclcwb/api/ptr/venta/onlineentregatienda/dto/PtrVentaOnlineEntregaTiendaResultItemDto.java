@@ -25,15 +25,13 @@ public class PtrVentaOnlineEntregaTiendaResultItemDto implements Serializable {
 
     @NotBlank
     private Integer tienda;
-
+    
     private Integer seccion;
 
     private Integer empresa;
     
     private String ano;
     
-    private String cmp;
-
     @NotNull
     private BigDecimal importeSinIVA;
 

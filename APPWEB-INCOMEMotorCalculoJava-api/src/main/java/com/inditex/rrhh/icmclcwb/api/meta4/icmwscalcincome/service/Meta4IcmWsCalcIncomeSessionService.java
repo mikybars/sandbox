@@ -48,6 +48,6 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 
     List<GenericTiendaResultItemDto> getFestivos(FestivosRequestDto request);
 
-    List<GenericEmpleadoResultItemDto> getFlagCalcula(FlagCalculaRequestDto request);
+    List<GenericTiendaResultItemDto> getFlagCalcula(FlagCalculaRequestDto request);
 
 }

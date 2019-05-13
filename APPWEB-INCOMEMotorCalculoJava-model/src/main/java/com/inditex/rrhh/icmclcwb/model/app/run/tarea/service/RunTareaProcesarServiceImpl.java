@@ -102,6 +102,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
         CompletableFuture<Void> cfCompensar = runTareaProcesarVentaAsyncService.compensar(runTarea);
         AsyncUtils.exceptionally(cfCompensar, cf);
+
+        /*-------------------------------------------------------------*/
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+        /*-------------------------------------------------------------*/
     }
 
 }

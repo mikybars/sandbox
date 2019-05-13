@@ -39,7 +39,7 @@ public class TareaEmpleadoEstructuraDto implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
-    private Long idEstructura;
+    private String idEstructura;
 
     @NotNull
     @ApiModelProperty(value = "Id tipo calculo asociado a la estructura", required = true)

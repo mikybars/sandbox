@@ -1,9 +1,13 @@
 package com.inditex.rrhh.icmclcwb.ptr.venta;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestClientException;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
@@ -24,6 +29,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.acumulada.dto.PtrObtenerVentaAcumuladaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.acumulada.dto.PtrObtenerVentaAcumuladaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.acumuladadia.dto.PtrObtenerVentaAcumuladaDiaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.acumuladadia.dto.PtrObtenerVentaAcumuladaDiaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrAcumuladoVentaImporteService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
@@ -35,6 +42,9 @@ public class PtrVentaAcumuladoServiceTest {
     @Autowired
     @Qualifier("ptrVentaClient")
     private RestClient ptrVentaClient;
+    
+    @Autowired
+    private PtrAcumuladoVentaImporteService ptrAcumuladoVentaImporteService;
 
     @Autowired
     @Qualifier("acumuladoVentaImporteProperties")
@@ -55,9 +65,9 @@ public class PtrVentaAcumuladoServiceTest {
         request.setPais(PtrTestConstants.PAIS_LIST);
         request.setVentaComercial(0);
         request.setOnline(0);
-        ResponseEntity<PtrObtenerVentaAcumuladaResponseDto> response = ptrVentaClient
-                .postForEntity(acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA).getEndpoint(), request, PtrObtenerVentaAcumuladaResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+        
+        PtrObtenerVentaAcumuladaResponseDto response = ptrAcumuladoVentaImporteService.ventaAcumulada(request);
+        assertNotNull(response.getDatoVentaTienda());
     }
     
     @Ignore("El formato de fechas no es el correcto")
@@ -69,26 +79,19 @@ public class PtrVentaAcumuladoServiceTest {
         request.setPais(PtrTestConstants.PAIS_LIST);
         request.setVentaComercial(0);
         request.setOnline(0);
-        ResponseEntity<PtrObtenerVentaAcumuladaResponseDto> response = ptrVentaClient
-                .postForEntity(acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_DIA).getEndpoint(), request, PtrObtenerVentaAcumuladaResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+
+        PtrObtenerVentaAcumuladaDiaResponseDto response = ptrAcumuladoVentaImporteService.ventaAcumuladaDia(request);
+        assertNotNull(response.getDatoVentaTienda());
     }
     
     @Test
     public void test() { 
-        ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
-                acumuladoVentaImporteProperties.get(PtrConstants.TEST).getEndpoint(), Boolean.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
-        assertEquals(Boolean.TRUE, response.getBody());
+        assertTrue(Boolean.valueOf(ptrAcumuladoVentaImporteService.test()));
     }
     
     @Test
     public void version() {
-        ResponseEntity<String> response = ptrVentaClient.getForEntity(
-                acumuladoVentaImporteProperties.get(PtrConstants.VERSION).getEndpoint(), String.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
-        assertEquals(version, response.getBody());
-        
+        assertEquals(version, ptrAcumuladoVentaImporteService.version());
     }
     
 }

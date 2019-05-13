@@ -52,7 +52,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Override
-    public List<GenericEmpleadoResultItemDto> getFlagCalcula(final FlagCalculaRequestDto request) {
+    public List<GenericTiendaResultItemDto> getFlagCalcula(final FlagCalculaRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.FLAG_CALCULA,
                 meta4Properties.get(Meta4Constants.FLAG_CALCULA).getFilter().getMaxPageSize());
     }

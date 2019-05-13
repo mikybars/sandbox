@@ -43,7 +43,7 @@ public class PtrVentaOnlineEntregaTiendaRequestDto implements Serializable {
     private List<Integer> producto = new ArrayList<>();
     
     @ApiModelProperty(value = "Id seccion", required = false, example = "1")
-    private Integer seccion;
+    private List<Integer> seccion;
     
     @ApiModelProperty(value = "Agrupación de datos", required = false, example = "FECHA_TIENDA")
     private PtrGroupTypeEnum agrupacion;

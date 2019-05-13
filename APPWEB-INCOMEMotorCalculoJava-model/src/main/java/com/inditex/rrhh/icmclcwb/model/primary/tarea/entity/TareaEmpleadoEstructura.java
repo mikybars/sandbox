@@ -34,27 +34,27 @@ public class TareaEmpleadoEstructura {
     @Column(name = "ID_ORIGEN", nullable = false)
     private String idOrigen;
 
-    @NotNull
+    @NotBlank
     @Column(name = "ID_EMPLEADO", nullable = false)
     private String idEmpleado;
 
-    @NotNull
+    @NotBlank
     @Column(name = "OR_EMPLEADO", nullable = false)
     private String orEmpleado;
 
-    @NotNull
+    @NotBlank
     @Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
     private String idEmpleadoLocal;
 
-    @NotNull
+    @NotBlank
     @Column(name = "ID_ESTRUCTURA", nullable = false)
-    private /* BigInteger */ Long idEstructura;
+    private /* BigInteger */ String idEstructura;
 
-    @NotNull
+    @NotBlank
     @Column(name = "ID_TIPO_CALCULO", nullable = false)
     private /* BigInteger */ String idTipoCalculo;
 
-    @NotNull
+    @NotBlank
     @Column(name = "ID_TIPO_COMISION", nullable = false)
     private /* BigInteger */ String idTipoComision;
 

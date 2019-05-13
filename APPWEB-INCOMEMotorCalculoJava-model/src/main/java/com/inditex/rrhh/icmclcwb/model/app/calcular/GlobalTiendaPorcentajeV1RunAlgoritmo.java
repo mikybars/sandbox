@@ -42,7 +42,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
                     try {
                         tareaCalculoAlgoritmoGlobalTiendaRepository.calcular(algoritmo, runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        tareaCalculoPersonaService.updateWithEstado(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
+                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
                         log.error("Han fallado las personas", personas, e);
                     }
                     log.info("Fin :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);

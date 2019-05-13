@@ -145,6 +145,9 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "nombrePeriodo", source = "nombreperiodo")
     @Mapping(target = "abierto", source = "abierto")
     @Mapping(target = "activo", source = "activo")
+    @Mapping(target = "modificado", source = "modificado")
+    @Mapping(target = "nuevo", source = "nuevo")
+    @Mapping(target = "borrado", source = "borrado")
     PeriodosResultItemDto asPeriodosResultItemDto(IcmListaperiodosRecord src);
 
     @InheritInverseConfiguration

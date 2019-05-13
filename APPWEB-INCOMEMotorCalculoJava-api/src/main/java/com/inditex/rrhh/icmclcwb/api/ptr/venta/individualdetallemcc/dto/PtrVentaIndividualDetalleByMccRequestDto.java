@@ -36,13 +36,13 @@ public class PtrVentaIndividualDetalleByMccRequestDto implements Serializable {
 	private List<Integer> tienda = new ArrayList<>();
 	
     @ApiModelProperty(value = "Id seccion", required = false, example = "1")
-	private Integer seccion;
+	private List<Integer> seccion;
 	
     @ApiModelProperty(value = "Id temporada", required = false, example = "1")
 	private Integer temporada;
 	
     @ApiModelProperty(value = "Id producto", required = false, example = "1")
-	private Integer producto;
+	private List<Integer> producto;
 	
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
 	private Integer empresa;

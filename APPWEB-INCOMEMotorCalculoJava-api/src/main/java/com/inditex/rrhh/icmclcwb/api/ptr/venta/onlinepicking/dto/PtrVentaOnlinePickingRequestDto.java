@@ -58,7 +58,7 @@ public class PtrVentaOnlinePickingRequestDto implements Serializable {
     
     @ApiModelProperty(value = "Id seccion", required = false, example = "1")
     @XmlElement(name="seccion")
-    private Integer seccion;
+    private List<Integer> seccion;
     
     @ApiModelProperty(value = "Agrupación de datos", required = false, example = "FECHA_TIENDA")
     @XmlElement(name="agrupacion")

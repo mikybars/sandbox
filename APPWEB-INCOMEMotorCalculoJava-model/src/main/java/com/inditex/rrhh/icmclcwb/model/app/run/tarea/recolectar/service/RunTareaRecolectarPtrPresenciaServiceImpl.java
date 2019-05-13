@@ -218,8 +218,8 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
-                    tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
+            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
+                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -227,7 +227,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                 PtrPresenciaDetalleRequestDto paramPresenciasDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciasDetalleRequestDto(trabajo, tarea,
                                 tareaAmbito);
-                paramPresenciasDetalle.setPersona(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal)
+                paramPresenciasDetalle.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId)
                         .map(Integer::valueOf).collect(Collectors.toList()));
                 paramPresenciasDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
                 paramPresenciasDetalle.setAgrupacion(PtrConstants.FECHA_TIENDA_TIPOHORA_SECCION);
