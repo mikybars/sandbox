@@ -28,8 +28,8 @@ public interface TareaRepository extends BaseRepository<Tarea, Long> {
     @Query("UPDATE Tarea t set t.fechaFinTarea = :fechaFinTarea WHERE t.id = :id")
     int setFechaFinTarea(@NotNull @Param("id") final Long id, @NotNull @Param("fechaFinTarea") final Date fechaFinTarea);
     
-    @Modifying
-    int setFinalizado(@NotNull @Param("id") final Long id, @NotNull @Param("fechaFinTarea") final Date fechaFinTarea);
+//    @Modifying
+//    int setFinalizado(@NotNull @Param("id") final Long id, @NotNull @Param("fechaFinTarea") final Date fechaFinTarea);
     
     List<Tarea> findByTrabajoId(@NotNull final Long id);
 

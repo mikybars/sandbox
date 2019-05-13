@@ -121,8 +121,9 @@ public class TareaServiceImpl implements TareaService {
     @Override
     public int setFinalizado(@Valid final TareaDto tarea) {
         tarea.setFechaFinTarea(LocalDateTime.now());
-        return tareaRepository.setFinalizado(tarea.getId(),
-                Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
+//        return tareaRepository.setFinalizado(tarea.getId(),
+//                Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
+        return 0;
     }
     
     @Override
