@@ -100,6 +100,7 @@ public class ReactorTest {
         log.info("Fin :: reactorSequentialCollectListBlockTest :: {}", duration);
     }
 
+    @Ignore
     @Test
     public void reactorSequentialCollectListBlockTestWithChild() {
         log.info("Inicio :: reactorSequentialCollectListBlockTestWithChild");
