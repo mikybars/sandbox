@@ -22,6 +22,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaSeccionPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
@@ -42,6 +44,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+    
+    @Autowired
+    private TareaLocalizacionPersonaSeccionPresenciaAsyncService tareaLocalizacionPersonaSeccionPresenciaAsyncService;
 
     @Auditoria
     @CounterMetric
@@ -175,7 +180,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .flagCalculaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFlagCalcula, cf, cfWait);
 
-            //Presencia manual
+            // Presencia manual
             CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .presenciaManualByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciaManual, cf, cfWait);
@@ -188,6 +193,16 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
+            
+            // Marcado de presencias manuales como activas
+            CompletableFuture<Void> cfUpdateActivo = tareaLocalizacionPersonaSeccionPresenciaAsyncService
+                    .updateActivo(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivo, cf, cfWait);
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);
             throw e;

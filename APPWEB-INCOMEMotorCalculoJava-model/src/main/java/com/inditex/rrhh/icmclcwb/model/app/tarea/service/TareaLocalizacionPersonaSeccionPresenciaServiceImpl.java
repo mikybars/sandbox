@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
@@ -29,5 +30,10 @@ public class TareaLocalizacionPersonaSeccionPresenciaServiceImpl
     public void save(@NotNull final List<GenericEmpleadoResultItemDto> src, @NotNull final TareaDto tareaDto) {
         tareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.save(tareaLocalizacionPersonaSeccionPresenciaMapper
                 .genericEmpleadoResultItemDtoToTareaLocalizacionPersonaSeccionPresencia(src, tareaDto));
+    }
+    
+    @Override
+    public void updateActivo(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.updateActivo(runTareaDto);
     }
 }

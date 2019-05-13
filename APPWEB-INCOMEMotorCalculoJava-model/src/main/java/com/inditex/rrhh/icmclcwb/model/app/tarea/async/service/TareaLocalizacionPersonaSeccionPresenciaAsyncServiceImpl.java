@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaSeccionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
@@ -27,4 +28,9 @@ public class TareaLocalizacionPersonaSeccionPresenciaAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
+    @Override
+    public CompletableFuture<Void> updateActivo(@NotNull RunTareaDto runTareaDto){
+        tareaLocalizacionPersonaSeccionPresenciaService.updateActivo(runTareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

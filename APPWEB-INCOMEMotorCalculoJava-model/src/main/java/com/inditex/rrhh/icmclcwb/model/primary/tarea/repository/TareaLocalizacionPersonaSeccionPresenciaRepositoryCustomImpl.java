@@ -4,9 +4,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaSeccionPresencia;
 
@@ -15,11 +23,26 @@ public class TareaLocalizacionPersonaSeccionPresenciaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPersonaSeccionPresencia>
         implements TareaLocalizacionPersonaSeccionPresenciaRepositoryCustom {
 
+    @Autowired
+    @Qualifier("primaryNamedParameterJdbcTemplate")
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
     @Value("${app.envars.repository.batch-size.tarea-localizacion-persona-seccion-presencia:${app.envars.repository.batch-size.default}}")
     private int batchSize;
     
     @Value("#{primaryQuery['TareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.save']}")
     private String sqlSave;
+    
+    @Value("#{primaryQuery['TareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.updateActivo']}")
+    private String sqlUpdateActivo;
+    
+    @Override
+    public void updateActivo(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        
+        namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
+    }
     
     @Override
     public List<TareaLocalizacionPersonaSeccionPresencia> save(final List<TareaLocalizacionPersonaSeccionPresencia> src) {
@@ -38,7 +61,8 @@ public class TareaLocalizacionPersonaSeccionPresenciaRepositoryCustomImpl
         pstmt.setObject(7, entity.getFecha());
         pstmt.setLong(8, entity.getMinutos());
         pstmt.setString(9, entity.getIdTipoHora());
-        pstmt.setLong(10, entity.getTarea().getId());
+        pstmt.setBoolean(10, entity.getActivo());
+        pstmt.setLong(11, entity.getTarea().getId());
     }
 
 }

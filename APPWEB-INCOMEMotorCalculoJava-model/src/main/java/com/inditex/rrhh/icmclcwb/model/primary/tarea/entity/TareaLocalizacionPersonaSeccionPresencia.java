@@ -65,4 +65,9 @@ public class TareaLocalizacionPersonaSeccionPresencia {
     @NotNull
     @Column(name = "ID_TIPO_HORA", nullable = false)
     private /* BigInteger */ String idTipoHora;
+    
+    @NotNull
+    @Column(name = "ACTIVO", nullable = false)
+    private Boolean activo;
+    
 }

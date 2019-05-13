@@ -28,6 +28,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA = "idTipoImporteVenta";
+    
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO = "idTipoImporteVentaNuevo";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SUMA = "idTipoImporteVentaSuma";
 
@@ -38,9 +40,15 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_CADENA = "idTipoImporteVentaFisicaCadena";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_CADENA = "idTipoImporteVentaEntregaDomicilioCadena";
+    
+    public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
+
+    public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
+    
+    public static final String SQL_PARAM_MULTIPLICADOR = "multiplicador";
 
     public static final String SQL_RESULT_ID = "ID";
-
+    
     public static final String SQL_RESULT_ID_ALGORITMO = "ID_ALGORITMO";
-
+    
 }

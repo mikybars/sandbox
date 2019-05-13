@@ -60,12 +60,11 @@ public class RunTareaConsolidarByAmbitoServiceImpl implements RunTareaConsolidar
                     .mergePeriodoLocalizacionPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodoLocalizacionPersona, cf);
 
-            //TODO: Update tarea
-
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
+            tareaService.setFinalizado(runTarea.getTarea());
             
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);

@@ -28,4 +28,6 @@ public interface TareaService {
 
     List<TareaDto> findByTrabajoId(@Valid Long id);
 
+    int setFinalizado(@Valid final TareaDto tarea);
+
 }

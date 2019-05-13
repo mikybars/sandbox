@@ -117,6 +117,14 @@ public class TareaServiceImpl implements TareaService {
                 Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
     }
     
+    @Transactional
+    @Override
+    public int setFinalizado(@Valid final TareaDto tarea) {
+        tarea.setFechaFinTarea(LocalDateTime.now());
+        return tareaRepository.setFinalizado(tarea.getId(),
+                Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
+    }
+    
     @Override
     public List<TareaDto> findByTrabajoId(@Valid final Long id) {
         return tareaMapper.tareaToTareaDto(tareaRepository.findByTrabajoId(id));
