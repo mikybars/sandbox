@@ -34,6 +34,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idcadena" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idperiodo" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -50,6 +51,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParametrosentradaBlock", propOrder = {
     "fechafin",
+    "idcadena",
     "idorigen",
     "idempresa",
     "idperiodo",
@@ -61,6 +63,8 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
 
     @XmlElement(required = true, nillable = true)
     protected String fechafin;
+    @XmlElement(required = true, nillable = true)
+    protected String idcadena;
     @XmlElement(required = true, nillable = true)
     protected String idorigen;
     @XmlElement(required = true, nillable = true)
@@ -94,6 +98,30 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
      */
     public void setFechafin(String value) {
         this.fechafin = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad idcadena.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdcadena() {
+        return idcadena;
+    }
+
+    /**
+     * Define el valor de la propiedad idcadena.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdcadena(String value) {
+        this.idcadena = value;
     }
 
     /**
@@ -239,6 +267,15 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
+            String lhsIdcadena;
+            lhsIdcadena = this.getIdcadena();
+            String rhsIdcadena;
+            rhsIdcadena = that.getIdcadena();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idcadena", lhsIdcadena), LocatorUtils.property(thatLocator, "idcadena", rhsIdcadena), lhsIdcadena, rhsIdcadena, (this.idcadena!= null), (that.idcadena!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdorigen;
             lhsIdorigen = this.getIdorigen();
             String rhsIdorigen;
@@ -312,6 +349,11 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "fechafin", buffer, theFechafin, (this.fechafin!= null));
         }
         {
+            String theIdcadena;
+            theIdcadena = this.getIdcadena();
+            strategy.appendField(locator, this, "idcadena", buffer, theIdcadena, (this.idcadena!= null));
+        }
+        {
             String theIdorigen;
             theIdorigen = this.getIdorigen();
             strategy.appendField(locator, this, "idorigen", buffer, theIdorigen, (this.idorigen!= null));
@@ -345,6 +387,11 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             String theFechafin;
             theFechafin = this.getFechafin();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin), currentHashCode, theFechafin, (this.fechafin!= null));
+        }
+        {
+            String theIdcadena;
+            theIdcadena = this.getIdcadena();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idcadena", theIdcadena), currentHashCode, theIdcadena, (this.idcadena!= null));
         }
         {
             String theIdorigen;
@@ -402,6 +449,19 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
                 } else {
                     if (fechafinShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.fechafin = null;
+                    }
+                }
+            }
+            {
+                Boolean idcadenaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idcadena!= null));
+                if (idcadenaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdcadena;
+                    sourceIdcadena = this.getIdcadena();
+                    String copyIdcadena = ((String) strategy.copy(LocatorUtils.property(locator, "idcadena", sourceIdcadena), sourceIdcadena, (this.idcadena!= null)));
+                    copy.setIdcadena(copyIdcadena);
+                } else {
+                    if (idcadenaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idcadena = null;
                     }
                 }
             }

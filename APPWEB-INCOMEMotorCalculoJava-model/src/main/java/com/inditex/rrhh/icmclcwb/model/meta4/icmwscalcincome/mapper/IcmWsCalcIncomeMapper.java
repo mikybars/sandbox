@@ -71,9 +71,9 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idCadena", source = "idcadena")
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idEmpresa", source = "idempresa")
-    @Mapping(target = "idTiendaMtu", source = "idtiendamtu")
     @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
     @Mapping(target = "idLugarTrabajoMtu", source = "idlugartrabajomtu")
+    @Mapping(target = "esComisionable", source = "escomisionable")
     @Mapping(target = "calcula", source = "calcula")
     GenericTiendaResultItemDto asGenericTiendaResultItemDto(IcmListatiendasRecord src);
 
@@ -100,7 +100,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idEmpresa", source = "idempresa")
     @Mapping(target = "idEmpleado", source = "idempleado")
     @Mapping(target = "orEmpleado", source = "orempleado")
-    @Mapping(target = "idPeriodo", source = "idperiodo")
     @Mapping(target = "idSeccion", source = "idseccion")
     @Mapping(target = "idTipoHora", source = "idtipohora")
     @Mapping(target = "idLugarTrabajoMtu", source = "idlugartrabajomtu")
@@ -113,8 +112,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idEstructura", source = "idestructura")
     @Mapping(target = "idTipoComision", source = "idtipocomision")
     @Mapping(target = "percentageAll", source = "percentageall")
-    @Mapping(target = "esComisionable", source = "escomisionable")
-    @Mapping(target = "idEstadoPeriodo", source = "idestadoperiodo")
     @Mapping(target = "percentageAllT1", source = "percentageallt1")
     @Mapping(target = "percentageAllT2", source = "percentageallt2")
     @Mapping(target = "percentageAllT3", source = "percentageallt3")

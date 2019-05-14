@@ -41,7 +41,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idtiendamtu" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechafestivo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="escomisionable" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -66,7 +65,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idorigen",
     "idempresa",
     "fechainicio",
-    "idtiendamtu",
     "fechafestivo",
     "escomisionable",
     "idlugartrabajo",
@@ -94,8 +92,6 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
     protected String idempresa;
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
-    @XmlElement(required = true, nillable = true)
-    protected String idtiendamtu;
     @XmlElement(required = true, nillable = true)
     protected String fechafestivo;
     @XmlElement(required = true, nillable = true)
@@ -338,30 +334,6 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
     }
 
     /**
-     * Obtiene el valor de la propiedad idtiendamtu.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdtiendamtu() {
-        return idtiendamtu;
-    }
-
-    /**
-     * Define el valor de la propiedad idtiendamtu.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdtiendamtu(String value) {
-        this.idtiendamtu = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad fechafestivo.
      * 
      * @return
@@ -556,15 +528,6 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             }
         }
         {
-            String lhsIdtiendamtu;
-            lhsIdtiendamtu = this.getIdtiendamtu();
-            String rhsIdtiendamtu;
-            rhsIdtiendamtu = that.getIdtiendamtu();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idtiendamtu", lhsIdtiendamtu), LocatorUtils.property(thatLocator, "idtiendamtu", rhsIdtiendamtu), lhsIdtiendamtu, rhsIdtiendamtu, (this.idtiendamtu!= null), (that.idtiendamtu!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsFechafestivo;
             lhsFechafestivo = this.getFechafestivo();
             String rhsFechafestivo;
@@ -674,11 +637,6 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
         }
         {
-            String theIdtiendamtu;
-            theIdtiendamtu = this.getIdtiendamtu();
-            strategy.appendField(locator, this, "idtiendamtu", buffer, theIdtiendamtu, (this.idtiendamtu!= null));
-        }
-        {
             String theFechafestivo;
             theFechafestivo = this.getFechafestivo();
             strategy.appendField(locator, this, "fechafestivo", buffer, theFechafestivo, (this.fechafestivo!= null));
@@ -752,11 +710,6 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             String theFechainicio;
             theFechainicio = this.getFechainicio();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
-        }
-        {
-            String theIdtiendamtu;
-            theIdtiendamtu = this.getIdtiendamtu();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtiendamtu", theIdtiendamtu), currentHashCode, theIdtiendamtu, (this.idtiendamtu!= null));
         }
         {
             String theFechafestivo;
@@ -925,19 +878,6 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
                 } else {
                     if (fechainicioShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.fechainicio = null;
-                    }
-                }
-            }
-            {
-                Boolean idtiendamtuShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtiendamtu!= null));
-                if (idtiendamtuShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdtiendamtu;
-                    sourceIdtiendamtu = this.getIdtiendamtu();
-                    String copyIdtiendamtu = ((String) strategy.copy(LocatorUtils.property(locator, "idtiendamtu", sourceIdtiendamtu), sourceIdtiendamtu, (this.idtiendamtu!= null)));
-                    copy.setIdtiendamtu(copyIdtiendamtu);
-                } else {
-                    if (idtiendamtuShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idtiendamtu = null;
                     }
                 }
             }
