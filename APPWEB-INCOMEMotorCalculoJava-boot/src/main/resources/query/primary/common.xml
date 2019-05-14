@@ -41,19 +41,13 @@
     ]]>
 </entry>
 
-<entry key="Tarea.updateEstado">
+<entry key="TareaRepositoryCustom.updateEstadoFinal">
     <![CDATA[
-        MERGE INTO TAREA T USING (
-            SELECT TCP.ID_ESTADO, TCP.ID_TAREA
-            FROM TAREA_CALCULO_PERSONA TCP
-            WHERE TCP.ID_TAREA = :idTarea
-            GROUP BY TCP.ID_TAREA, TCP.ID_ESTADO
-        )
-         AS S ON (T.ID_TAREA = S.ID_TAREA)
-         WHEN MATCHED AND ID_ESTADO = 3 THEN
-            UPDATE SET T.ID_ESTADO = 3 
-         WHEN MATCHED AND ID_ESTADO IN 2 THEN
-            UPDATE SET T.ID_ESTADO = 4
+    SELECT ID_ESTADO
+    FROM TAREA_CALCULO_PERSONA TCP
+    WHERE TCP.ID_TAREA = :idTarea
+    GROUP BY ID_ESTADO, ID_TAREA
+    ORDER BY ID_ESTADO ASC
     ]]>
 </entry>
 

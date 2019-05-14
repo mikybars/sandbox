@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -27,6 +28,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
 @Service
@@ -35,6 +37,9 @@ public class TareaServiceImpl implements TareaService {
 
     @Autowired
     private TareaRepository tareaRepository;
+    
+    @Autowired
+    private TareaRepositoryCustom tareaRepositoryCustom;
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -119,11 +124,20 @@ public class TareaServiceImpl implements TareaService {
     
     @Transactional
     @Override
-    public int setFinalizado(@Valid final TareaDto tarea) {
-        tarea.setFechaFinTarea(LocalDateTime.now());
-//        return tareaRepository.setFinalizado(tarea.getId(),
-//                Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
-        return 0;
+    public void updateEstadoFinal(@Valid final TareaDto tarea) {
+        List<Long> estados = tareaRepositoryCustom.updateEstadoFinal(tarea);
+        if(estados.size() == 1 ) {
+            if(estados.get(0).equals(EstadoTareaCalculoPersonaEnum.KO)) {
+                tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(EstadoTareaEnum.ERROR.getId()).build());
+            }else if (estados.get(0).equals(EstadoTareaCalculoPersonaEnum.OK)) {
+                tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId()).build());
+            }
+        }
+        if(estados.size() > 1) {
+            if(estados.contains(2) && estados.contains(3)) {
+                tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(EstadoTareaEnum.FINALIZADO_CON_ERRORES.getId()).build());
+            }
+        }
     }
     
     @Override

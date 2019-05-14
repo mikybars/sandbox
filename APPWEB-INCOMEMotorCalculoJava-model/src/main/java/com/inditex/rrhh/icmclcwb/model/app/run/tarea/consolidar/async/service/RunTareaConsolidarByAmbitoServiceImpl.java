@@ -64,7 +64,7 @@ public class RunTareaConsolidarByAmbitoServiceImpl implements RunTareaConsolidar
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-//            tareaService.setFinalizado(runTarea.getTarea());
+            tareaService.updateEstadoFinal(runTarea.getTarea());
             
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);
