@@ -39,6 +39,7 @@ public abstract class TareaOperacionPersonaLocalizacionVentaMapper {
     @Mapping(source = "src.operacion", target = "idOperacion")
     @Mapping(source = "src.vendedor", target = "idPersona")
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaOperacionPersonaLocalizacionVenta getVentaIndividualDetalleResponseItemsDtoToTareaOperacionLocalizacionVentas(

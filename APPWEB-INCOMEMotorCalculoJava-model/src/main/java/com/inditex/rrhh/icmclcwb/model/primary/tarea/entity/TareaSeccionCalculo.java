@@ -98,6 +98,10 @@ public class TareaSeccionCalculo {
     private /* BigInteger */ Double importe;
     
     @NotNull
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
+    private /* BigInteger */ Double importeConImpuestos;
+    
+    @NotNull
     @Column(name = "ID_TIPO_HORA", nullable = false)
     private /* BigInteger */ String idTipoHora;
     

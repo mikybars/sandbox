@@ -54,19 +54,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaTotalizadoResultItemDto src){
-        if (src.getListaSeccion() != null ) {
-            for (PtrSeccionVentaOnlineGenericType item : src.getListaSeccion()) {
-                if (PtrConstants.SECCION_1.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte1(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_2.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte2(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_3.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte3(item.getImporteSinIVA().doubleValue());
-                }
-            } 
-        }
-        tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId());
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -83,19 +71,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlineIpodResultItemDto src){
-        if (src.getListaSeccion() != null ) {
-            for (PtrSeccionVentaOnlineGenericType item : src.getListaSeccion()) {
-                if (PtrConstants.SECCION_1.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte1(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_2.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte2(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_3.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte3(item.getImporteSinIVA().doubleValue());
-                }
-            } 
-        }
-        tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId());
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -112,19 +88,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlineIpodIndividualDetalleResultItemDto src){
-        if (src.getListaSeccion() != null ) {
-            for (PtrSeccionVentaOnlineGenericType item : src.getListaSeccion()) {
-                if (PtrConstants.SECCION_1.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte1(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_2.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte2(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_3.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte3(item.getImporteSinIVA().doubleValue());
-                }
-            } 
-        }
-        tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION.getId());
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -141,21 +105,9 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlinePickingResultItemDto src){
-        if (src.getListaSeccion() != null ) {
-            for (PtrSeccionVentaOnlineGenericType item : src.getListaSeccion()) {
-                if (PtrConstants.SECCION_1.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte1(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_2.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte2(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_3.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte3(item.getImporteSinIVA().doubleValue());
-                }
-            } 
-        }
-        tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId());
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION);
     }
-    
+
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tarea.id", target = "tarea.id")
@@ -170,19 +122,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlineEntregaTiendaResultItemDto src){
-        if (src.getListaSeccion() != null ) {
-            for (PtrSeccionVentaOnlineGenericType item : src.getListaSeccion()) {
-                if (PtrConstants.SECCION_1.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte1(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_2.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte2(item.getImporteSinIVA().doubleValue());
-                } else if (PtrConstants.SECCION_3.equals(item.getSeccion())) {
-                    tareaTiendaVentaSeccion.setImporte3(item.getImporteSinIVA().doubleValue());
-                }
-            } 
-        }
-        tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId());
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -199,18 +139,26 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlineEntregaDomicilioResultItemDto src){
-        if (src.getListaSeccion() != null ) {
-            for (PtrSeccionVentaOnlineGenericType item : src.getListaSeccion()) {
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION);
+    }
+    
+    private void setListaSeccion(TareaTiendaVentaSeccion tareaTiendaVentaSeccion,
+            List<PtrSeccionVentaOnlineGenericType> listaSeccion, TipoImporteVentaEnum tipoImporteVenta) {
+        if (listaSeccion != null ) {
+            for (PtrSeccionVentaOnlineGenericType item : listaSeccion) {
                 if (PtrConstants.SECCION_1.equals(item.getSeccion())) {
                     tareaTiendaVentaSeccion.setImporte1(item.getImporteSinIVA().doubleValue());
+                    tareaTiendaVentaSeccion.setImporteConImpuestos1(item.getImporteConIVA().doubleValue());
                 } else if (PtrConstants.SECCION_2.equals(item.getSeccion())) {
                     tareaTiendaVentaSeccion.setImporte2(item.getImporteSinIVA().doubleValue());
+                    tareaTiendaVentaSeccion.setImporteConImpuestos2(item.getImporteConIVA().doubleValue());
                 } else if (PtrConstants.SECCION_3.equals(item.getSeccion())) {
                     tareaTiendaVentaSeccion.setImporte3(item.getImporteSinIVA().doubleValue());
+                    tareaTiendaVentaSeccion.setImporteConImpuestos3(item.getImporteConIVA().doubleValue());
                 }
             } 
         }
         tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId());
+        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(tipoImporteVenta.getId());
     }
 }

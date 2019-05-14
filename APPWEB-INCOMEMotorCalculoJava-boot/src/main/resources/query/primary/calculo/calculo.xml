@@ -4,7 +4,7 @@
 
 <entry key="TareaCalculoAlgoritmoGlobalTiendaRepository.calcular">
     <![CDATA[
-INSERT INTO TAREA_CALCULO (
+INSERT INTO TAREA_CALCULO_SECCION (
   ID_TAREA
   ,ID_ALGORITMO
   ,FECHA

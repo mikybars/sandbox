@@ -43,6 +43,7 @@ public abstract class TareaTiendaVentaMapper {
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaTiendaVenta getVentaTotalizadoResponseItemDtoToTareaTiendaVenta(
@@ -62,6 +63,7 @@ public abstract class TareaTiendaVentaMapper {
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -83,6 +85,7 @@ public abstract class TareaTiendaVentaMapper {
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaTiendaVenta getVentaOnlineEntregaTiendaReponseItemsDtoToTareaTiendaVentas(
@@ -103,6 +106,7 @@ public abstract class TareaTiendaVentaMapper {
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaTiendaVenta getVentaOnlinePickingReponseItemsDtoToTareaTiendaVentas(
@@ -123,6 +127,7 @@ public abstract class TareaTiendaVentaMapper {
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaTiendaVenta getVentaOnlineIpodReponseItemsDtoToTareaTiendaVentas(
@@ -142,6 +147,7 @@ public abstract class TareaTiendaVentaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "tarea.id", target = "tarea.id")

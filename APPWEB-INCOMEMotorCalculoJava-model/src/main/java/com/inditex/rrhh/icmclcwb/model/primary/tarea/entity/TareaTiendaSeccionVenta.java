@@ -49,6 +49,10 @@ public class TareaTiendaSeccionVenta {
     @Column(name = "IMPORTE_SECCION", nullable = false)
     private /* BigInteger */ Double importe;
     
+    @NotNull
+    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION", nullable = false)
+    private /* BigInteger */ Double importeConImpuestosSeccion;
+    
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_IMPORTE_VENTA", nullable = false)
     private TipoImporteVenta tipoImporteVenta;

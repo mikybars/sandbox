@@ -51,6 +51,18 @@ public class TareaAgrupacionCadenaVentaSeccion {
     @NotNull
     @Column(name = "IMPORTE_SECCION_3", nullable = false)
     private /* BigInteger */ Double importe3;
+    
+    @NotNull
+    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_1", nullable = false)
+    private /* BigInteger */ Double importeConImpuestos1;
+
+    @NotNull
+    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_2", nullable = false)
+    private /* BigInteger */ Double importeConImpuestos2;
+
+    @NotNull
+    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_3", nullable = false)
+    private /* BigInteger */ Double importeConImpuestos3;
 
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_IMPORTE_VENTA", nullable = false)

@@ -121,17 +121,41 @@ public class TareaCalculoSeccion {
 	@Column(name = "TIENDA_VENTA_IMPORTE_SECCION_3", nullable = false)
 	private /* BigInteger */ Double tiendaVentaImporte3;
 	
+    @NotNull
+    @Column(name = "TIENDA_VENTA_IMPORTE_CON_IMPUESTOS_SECCION_1", nullable = false)
+    private /* BigInteger */ Double tiendaVentaImporteConImpuestos1;
+
+    @NotNull
+    @Column(name = "TIENDA_VENTA_IMPORTE_CON_IMPUESTOS_SECCION_2", nullable = false)
+    private /* BigInteger */ Double tiendaVentaImporteConImpuestos2;
+
+    @NotNull
+    @Column(name = "TIENDA_VENTA_IMPORTE_CON_IMPUESTOS_SECCION_3", nullable = false)
+    private /* BigInteger */ Double tiendaVentaImporteConImpuestos3;
+	
 	@NotNull
-	@Column(name = "IMPORTE_SECCION_1", nullable = false)
-	private /* BigInteger */ Double importe1;
+	@Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_1", nullable = false)
+	private /* BigInteger */ Double importeConImpuestos1;
 
 	@NotNull
-	@Column(name = "IMPORTE_SECCION_2", nullable = false)
-	private /* BigInteger */ Double importe2;
+	@Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_2", nullable = false)
+	private /* BigInteger */ Double importeConImpuestos2;
 
 	@NotNull
-	@Column(name = "IMPORTE_SECCION_3", nullable = false)
-	private /* BigInteger */ Double importe3;
+	@Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_3", nullable = false)
+	private /* BigInteger */ Double importeConImpuestos3;
+	
+    @NotNull
+    @Column(name = "IMPORTE_SECCION_1", nullable = false)
+    private /* BigInteger */ Double importe1;
+
+    @NotNull
+    @Column(name = "IMPORTE_SECCION_2", nullable = false)
+    private /* BigInteger */ Double importe2;
+
+    @NotNull
+    @Column(name = "IMPORTE_SECCION_3", nullable = false)
+    private /* BigInteger */ Double importe3;
 
 	@NotNull
     @Column(name = "ID_TIPO_HORA", nullable = false)

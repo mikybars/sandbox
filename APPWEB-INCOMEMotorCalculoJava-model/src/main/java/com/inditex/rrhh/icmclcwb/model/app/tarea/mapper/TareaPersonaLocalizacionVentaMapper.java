@@ -39,6 +39,7 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.vendedor", target = "idPersona")
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaPersonaLocalizacionVenta getVentaOnlineIpodIndividualDetalleResponseItemsDtoToTareaPersonaLocalizacionVentas(
@@ -61,6 +62,7 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.vendedor", target = "idPersona")
     @Mapping(source = "src.importeSinIVA", target = "importe")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaPersonaLocalizacionVenta getVentaIndividualDetalleResponseResponseItemsDtoToTareaPersonaLocalizacionVentas(

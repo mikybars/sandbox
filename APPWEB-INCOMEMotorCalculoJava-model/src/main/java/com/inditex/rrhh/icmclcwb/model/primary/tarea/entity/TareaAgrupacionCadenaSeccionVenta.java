@@ -48,6 +48,10 @@ public class TareaAgrupacionCadenaSeccionVenta {
     @NotNull
     @Column(name = "IMPORTE", nullable = false)
     private /* BigInteger */ Double importe;
+    
+    @NotNull
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
+    private /* BigInteger */ Double importeConImpuestos;
 
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_IMPORTE_VENTA", nullable = false)
