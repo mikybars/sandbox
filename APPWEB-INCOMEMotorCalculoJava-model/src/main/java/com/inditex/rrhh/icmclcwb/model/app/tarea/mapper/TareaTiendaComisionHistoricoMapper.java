@@ -43,7 +43,7 @@ public abstract class TareaTiendaComisionHistoricoMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @Mapping(target = "idTienda", source = "src.idTiendaMtu")
+    @Mapping(target = "idTienda", source = "src.idLugarTrabajoMtu")
     @Mapping(target = "idTiendaMeta4", source = "src.idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")

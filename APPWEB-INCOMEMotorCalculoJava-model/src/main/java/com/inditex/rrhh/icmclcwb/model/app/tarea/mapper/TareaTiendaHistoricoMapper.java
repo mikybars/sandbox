@@ -47,7 +47,7 @@ public abstract class TareaTiendaHistoricoMapper {
     @Mapping(target = "idPaisOrigen", source = "idOrigen")
     @Mapping(target = "idEmpresa", source = "idEmpresa")
     @Mapping(target = "idCadena", source = "idCadena")
-    @Mapping(target = "idTienda", source = "idTiendaMtu")
+    @Mapping(target = "idTienda", source = "idLugarTrabajoMtu")
     @Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "fechaInicio")
     @Mapping(target = "fechaFin", source = "fechaFin")
