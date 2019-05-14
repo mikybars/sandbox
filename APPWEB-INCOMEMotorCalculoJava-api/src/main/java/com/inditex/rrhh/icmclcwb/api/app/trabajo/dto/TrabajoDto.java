@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.aqsw.framework.common.validation.constraints.SpelExpression;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 
 import io.swagger.annotations.ApiModel;
@@ -16,6 +17,7 @@ import lombok.Data;
 
 @ApiModel(description = "Modelo TrabajoDto")
 @Data
+@SpelExpression("fechaInicioPeriodo <= fechaFinPeriodo")
 public class TrabajoDto implements Serializable {
 
     private static final long serialVersionUID = 6263836371385557891L;
