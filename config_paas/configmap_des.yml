@@ -75,7 +75,7 @@ app:
       calcular:
         algoritmo:
           config:
-            batch-size: 1000
+            batch-size: 10
     repository:
       batch-size:
         default: 100
@@ -89,12 +89,12 @@ app:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getVentaAcumUTC:
               endpoint: /acumuladoVentaImporte/getVentaAcumUTC
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             test:
               endpoint: /acumuladoVentaImporte/test
@@ -104,47 +104,47 @@ app:
             getVentaOnlineEntregaTienda:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaTienda
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getVentaOnlineEntregaDomicilio:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaDomicilio
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getVentaOnlineiPod:
               endpoint: /ventaEcommerce/getVentaOnlineiPod
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getVentaOnlineIpodIndividualDetalle:
               endpoint: /ventaEcommerce/getVentaOnlineIpodIndividualDetalle
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getOrdersByCountryMinute:
               endpoint: /ventaEcommerce/getOrdersByCountryMinute
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getOrdersByCountrySectionProductHour:
               endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getOrdersByCountrySectionProductMinute:
               endpoint: /ventaEcommerce/getOrdersByCountrySectionProductMinute
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getVentaOnlinePicking:
               endpoint: /ventaEcommerce/getVentaOnlinePicking
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getOrdersByCountryHour:
               endpoint: /ventaEcommerce/getOrdersByCountryHour
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             test:
               endpoint: /ventaEcommerce/test
@@ -154,22 +154,22 @@ app:
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getVentaIndividualDetalleByMCC:
               endpoint: /ventaEmpleado/getVentaIndividualDetalleByMCC
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getVentaIndividual:
               endpoint: /ventaEmpleado/getVentaIndividual
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             getVentaIndividualByMCC:
               endpoint: /ventaEmpleado/getVentaIndividualByMCC
               filter:
-                maxPageSize: 200
+                maxPageSize: 1000
                 maxPersistenceSize: 3
             test:
               endpoint: /ventaEmpleado/test
@@ -214,6 +214,11 @@ app:
         service:
           version: 1.0.5
           presenciasService:
+            getPresenciasTotalizado:
+              endpoint: /presenciasService/presenciasTotalizado
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
             getPresenciasTotalTiendaSeccion:
               endpoint: /presenciasService/presenciasTotalTiendaSeccion
               filter:
