@@ -32,8 +32,9 @@ public class TareaOperacionLocalizacionVentaRepositoryCustomImpl
         pstmt.setString(2, entity.getIdLocalizacion());
         pstmt.setString(3, entity.getIdOperacion());
         pstmt.setDouble(4, entity.getImporte());
-        pstmt.setDouble(5, entity.getTipoImporteVenta().getId());
-        pstmt.setLong(6, entity.getTarea().getId());
+        pstmt.setDouble(5, entity.getImporteConImpuestos());
+        pstmt.setDouble(6, entity.getTipoImporteVenta().getId());
+        pstmt.setLong(7, entity.getTarea().getId());
     }
 
 }
