@@ -147,7 +147,7 @@ public class TestServiceImpl implements TestService {
             for (long x = 0; x < 70; x++) {
                 TrabajoDto trabajo = new TrabajoDto();
                 trabajo.setIdPeriodo("PERIODO_" + x);
-                trabajo.setFechaInicioPeriodo(LocalDateTime.now().minusMonths(x - 1));
+                trabajo.setFechaInicioPeriodo(LocalDateTime.now().minusMonths(x + 1));
                 trabajo.setFechaFinPeriodo(LocalDateTime.now().minusMonths(x));
                 trabajo.setIdSociedad(sociedad);
                 TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
