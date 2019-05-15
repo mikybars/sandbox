@@ -30,6 +30,10 @@ public class TareaCalculoSeccion {
 	private /* BigInteger */ Tarea tarea;
 
 	@NotNull
+	@Column(name = "ID_SOCIEDAD", nullable = false)
+	private String idSociedad;
+	
+	@NotNull
 	@Column(name = "ID_TIENDA", nullable = false)
 	private String idTienda;
 	
@@ -56,6 +60,10 @@ public class TareaCalculoSeccion {
     @NotNull
     @Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
     private String idEmpleadoLocal;
+    
+    //TODO @NotNull
+    @Column(name = "ID_SECCION_EMPLEADO") //TODO nullable = false
+    private String idSeccionEmpleado;
 
     @NotNull
     @Column(name = "ID_ESTRUCTURA", nullable = false)
