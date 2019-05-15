@@ -46,6 +46,8 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
+    @Mapping(target = "idPeriodo", source = "idperiodo")
+    @Mapping(target = "idCadena", source = "idcadena")
     @Mapping(target = "idEmpresa", source = "idempresa")
     @Mapping(target = "item", source = "icmParametrosentradaRecordSet")
     GenericFilterDto asGenericFilterDto(IcmParametrosentradaBlock src);

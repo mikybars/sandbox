@@ -36,7 +36,8 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setString(7, entity.getOrEmpleado());
         pstmt.setString(8, entity.getIdEmpresa());
         pstmt.setString(9, entity.getIdOrigen());
-        pstmt.setLong(10, entity.getTarea().getId());        
+        pstmt.setString(10, entity.getIdSeccion());
+        pstmt.setLong(11, entity.getTarea().getId());        
     }
 
 }

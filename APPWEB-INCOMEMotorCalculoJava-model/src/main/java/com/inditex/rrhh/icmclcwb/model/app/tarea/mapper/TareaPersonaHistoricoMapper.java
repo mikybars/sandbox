@@ -52,6 +52,7 @@ public abstract class TareaPersonaHistoricoMapper {
     @Mapping(target = "fechaFin", source = "fechaFin")
     @Mapping(target = "idEmpresa", source = "idEmpresa")
     @Mapping(target = "idOrigen", source = "idOrigen")
+    @Mapping(target = "idSeccion", source = "idSeccion")
     public abstract TareaPersonaHistoricoDto genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
             GenericEmpleadoResultItemDto src);
 

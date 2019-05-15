@@ -53,6 +53,10 @@ public class TareaPersonaHistorico {
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)
     private String idOrigen;
+    
+    @NotBlank
+    @Column(name = "ID_SECCION", nullable = false)
+    private String idSeccion;
 
 	@NotNull
 	@Column(name = "FECHA_INICIO", nullable = false)

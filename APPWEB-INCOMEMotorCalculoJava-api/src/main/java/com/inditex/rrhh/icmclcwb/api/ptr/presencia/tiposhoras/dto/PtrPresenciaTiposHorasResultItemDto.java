@@ -17,7 +17,7 @@ public class PtrPresenciaTiposHorasResultItemDto {
 	private Integer tipoHora;
 	private Boolean excluidoDenom;
 	private Boolean excluidoCalculo;
-    private boolean incluidoVenta;
-    private boolean incluidoChallenge;
-    private boolean incluidoEcommerce;
+    private Boolean incluidoVenta;
+    private Boolean incluidoChallenge;
+    private Boolean incluidoEcommerce;
 }

@@ -8,6 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface TareaRepositoryCustom {
 
-    List<Long> updateEstadoFinal(@NotNull TareaDto tareaDto);
+    void updateEstadoFinal(@NotNull TareaDto tareaDto);
 
 }
