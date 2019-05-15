@@ -18,6 +18,16 @@ public class AppConstants {
 
     public static final String PREFIJO_TIENDA_META4 = "T";
 
+    public static final Integer SECCION_0 = 0;
+    
+    public static final Integer SECCION_1 = 1;
+    
+    public static final Integer SECCION_2 = 2;
+    
+    public static final Integer SECCION_3 = 3;
+    
+    public static final Integer SECCION_4 = 4;
+    
     // TODO Se tiene que obtener de BBDD
     @Deprecated
     public static final List<Long> ID_TIPO_IMPORTE_VENTA_ONLINE = Arrays.asList(

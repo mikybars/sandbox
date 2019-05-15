@@ -5,6 +5,9 @@ import java.util.List;
 
 public class PtrConstants {
 	
+    private PtrConstants() {
+    }
+    
     public static final String VERSION = "getVersion";
     public static final String TEST = "test";
 
@@ -12,9 +15,6 @@ public class PtrConstants {
     public static final String FECHA_TIENDA_SECCION = "FECHA_TIENDA_SECCION";
     public static final String FECHA_TIENDA_TIPOHORA_SECCION = "FECHA_TIENDA_TIPOHORA_SECCION";
     public static final String PERSONA_TIENDA = "PERSONA_TIENDA";
-
-    private PtrConstants() {
-    }
     
 	public static final String PTR_DATE = "yyyy-MM-dd";
 	public static final String BOOLEAN_STRING_TRUE = "1";
