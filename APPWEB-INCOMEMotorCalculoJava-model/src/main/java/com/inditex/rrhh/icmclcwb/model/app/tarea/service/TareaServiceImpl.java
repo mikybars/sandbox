@@ -125,19 +125,7 @@ public class TareaServiceImpl implements TareaService {
     @Transactional
     @Override
     public void updateEstadoFinal(@Valid final TareaDto tarea) {
-        List<Long> estados = tareaRepositoryCustom.updateEstadoFinal(tarea);
-        if(estados.size() == 1 ) {
-            if(estados.get(0).equals(EstadoTareaCalculoPersonaEnum.KO)) {
-                tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(EstadoTareaEnum.ERROR.getId()).build());
-            }else if (estados.get(0).equals(EstadoTareaCalculoPersonaEnum.OK)) {
-                tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId()).build());
-            }
-        }
-        if(estados.size() > 1) {
-            if(estados.contains(2) && estados.contains(3)) {
-                tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(EstadoTareaEnum.FINALIZADO_CON_ERRORES.getId()).build());
-            }
-        }
+        tareaRepositoryCustom.updateEstadoFinal(tarea);
     }
     
     @Override
