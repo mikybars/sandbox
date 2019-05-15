@@ -79,4 +79,10 @@ public class TestController {
         return ptrVentaClient.getForObject(TestUtils.decode(path), String.class);
     }
 
+    @GetMapping("/trabajo/fase1a")
+    @ApiOperation("Crea los trabajos para todos los origenes y empresas de la fase 1a")
+    public void trabajoFase1a() {
+        testService.trabajoFase1a();
+    }
+
 }

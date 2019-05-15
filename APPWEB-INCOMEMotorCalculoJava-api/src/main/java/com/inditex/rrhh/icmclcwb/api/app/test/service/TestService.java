@@ -14,5 +14,7 @@ public interface TestService {
 	void errorAsync();
 	
 	void sesion();
+	
+	void trabajoFase1a();
 
 }

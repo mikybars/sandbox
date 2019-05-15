@@ -1,11 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -17,7 +23,9 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
@@ -32,7 +40,7 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private Logger log;
-    
+
     @Autowired
     private TestExceptionService testExceptionService;
 
@@ -40,9 +48,12 @@ public class TestServiceImpl implements TestService {
     private TestExceptionAsyncService testExceptionAsyncService;
 
     @Autowired
+    private TrabajoService trabajoService;
+
+    @Autowired
     @Qualifier("meta4ClientPool")
     private Meta4ClientPool meta4ClientPool;
-    
+
     @Override
     public RelojDto reloj() {
         return new RelojDto();
@@ -79,9 +90,9 @@ public class TestServiceImpl implements TestService {
         filterGetempleados.setIdorigen("11");
         filterGetempleados.setIdempresa("8");
         IcmParametrosentradaRecord itemGetempleados = new IcmParametrosentradaRecord();
-        //itemGetempleados.setIdlugartrabajo("T57");
+        // itemGetempleados.setIdlugartrabajo("T57");
         filterGetempleados.getIcmParametrosentradaRecordSet().add(itemGetempleados);
-        
+
         final IcmParametrospaginacionBlock pageGetempleados = new IcmParametrospaginacionBlock();
         pageGetempleados.setCampoorden("idempleado");
         pageGetempleados.setNumeropagina("1");
@@ -89,7 +100,7 @@ public class TestServiceImpl implements TestService {
         pageGetempleados.setTipoorden("DESC");
         pageGetempleados.setIdbusqueda(StringUtils.EMPTY);
         pageGetempleados.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
-        
+
         GetempleadosOutput outputGetempleados;
         outputGetempleados = meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
         log.info("outputGetempleados: {}", outputGetempleados.getReturn());
@@ -97,7 +108,7 @@ public class TestServiceImpl implements TestService {
         log.info("outputGetempleados: {}", outputGetempleados.getReturn());
         outputGetempleados = meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
         log.info("outputGetempleados: {}", outputGetempleados.getReturn());
-        
+
         final IcmParametrosentradaBlock filterSearchtiendas = new IcmParametrosentradaBlock();
         filterSearchtiendas.setFechainicio("2017-07-01T00:00:00.000Z");
         filterSearchtiendas.setFechafin("2017-12-31T00:00:00.000Z");
@@ -106,7 +117,7 @@ public class TestServiceImpl implements TestService {
         IcmParametrosentradaRecord itemSearchtiendas = new IcmParametrosentradaRecord();
         itemSearchtiendas.setIdlugartrabajo("T57");
         filterSearchtiendas.getIcmParametrosentradaRecordSet().add(itemSearchtiendas);
-        
+
         final IcmParametrospaginacionBlock pageSearchtiendas = new IcmParametrospaginacionBlock();
         pageSearchtiendas.setCampoorden("idempleado");
         pageSearchtiendas.setNumeropagina("1");
@@ -114,7 +125,7 @@ public class TestServiceImpl implements TestService {
         pageSearchtiendas.setTipoorden("DESC");
         pageSearchtiendas.setIdbusqueda(StringUtils.EMPTY);
         pageSearchtiendas.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
-        
+
         SearchtiendasOutput outputSearchtiendas;
         outputSearchtiendas = meta4ClientPool.searchtiendas(filterSearchtiendas, pageSearchtiendas);
         log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
@@ -122,10 +133,35 @@ public class TestServiceImpl implements TestService {
         log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
         outputSearchtiendas = meta4ClientPool.searchtiendas(filterSearchtiendas, pageSearchtiendas);
         log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
-        
+
         log.error("Test sesion()");
     }
-    
-    
+
+    @Override
+    public void trabajoFase1a() {
+        AppTestConstants.FASE_1A.stream().forEach(item -> {
+            String[] values = StringUtils.split(item, ",");
+            String sociedad = values[0];
+            String origen = values[1];
+            String empresa = values[2];
+            for (long x = 0; x < 70; x++) {
+                TrabajoDto trabajo = new TrabajoDto();
+                trabajo.setIdPeriodo("PERIODO_" + x);
+                trabajo.setFechaInicioPeriodo(LocalDateTime.now().minusMonths(x - 1));
+                trabajo.setFechaFinPeriodo(LocalDateTime.now().minusMonths(x));
+                trabajo.setIdSociedad(sociedad);
+                TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
+                trabajoAmbitoOrigenDto.setIdOrigen(origen);
+                trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
+                TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
+                trabajoAmbitoEmpresa.setIdEmpresa(empresa);
+                trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
+                TipoAmbitoDto tipoAmbito = new TipoAmbitoDto();
+                tipoAmbito.setId(3L);
+                trabajo.setTipoAmbito(tipoAmbito);
+                trabajoService.create(trabajo);
+            }
+        });
+    }
 
 }
