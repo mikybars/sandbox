@@ -6,7 +6,7 @@ metadata:
   tenant: global
   domain: core
   openshiftproject: icmclcwb
-  slot: develop
+  slot: dtenreiro
 spring:
   jta:
     atomikos:
@@ -116,7 +116,7 @@ app:
         max-attempts: 2
       venta:
         service:
-          version: 1.0.33
+          version: 1.0.32
           acumuladoVentaImporte:
             getVentaAcumDia:
               endpoint: /acumuladoVentaImporte/getVentaAcumDia
