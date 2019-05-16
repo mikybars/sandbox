@@ -219,26 +219,35 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
-            request.setPage(meta4Properties.get(Meta4Constants.EMPLEADOS_PRESENCIA).getPage());
-            request.setData(tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
-                            trabajo, tarea, tareaAmbito, tarea.getLocalizacion(), tarea.getPersona()));
-            
-            boolean hasNext = false;
-            do {
-                CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                        .getEmpleadosPresencia(request);
-                AsyncUtils.exceptionally(cfData, cf);
-                List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        meta4Properties.get(Meta4Constants.EMPLEADOS_PRESENCIA).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaLocalizacionPersonaPresenciaManualAsyncService
-                        .saveGenericEmpleadoResultItemDto(data, tarea);
-                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                hasNext = request.nextPage();
-            } while (hasNext);  
-            AsyncUtils.waitAllOfIsOk(cf);
+            for (List<IdLocalizacionDto> iter : StreamUtils.partition(
+                    tareaTiendaHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigen(tarea.getId(),
+                            tareaAmbito.getIdOrigen()),
+                    meta4Properties.get(Meta4Constants.EMPLEADOS_PRESENCIA).getFilter().getMaxPageSize())) {
+                EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
+                request.setPage(meta4Properties.get(Meta4Constants.EMPLEADOS_PRESENCIA).getPage());
+                request.setData(tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
+                                trabajo, tarea, tareaAmbito, tarea.getLocalizacion(), tarea.getPersona()));
+                request.getData().getItem()
+                .addAll(iter.stream()
+                        .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
+                        .collect(Collectors.toList()));
+                
+                boolean hasNext = false;
+                do {
+                    CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                            .getEmpleadosPresencia(request);
+                    AsyncUtils.exceptionally(cfData, cf);
+                    List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            meta4Properties.get(Meta4Constants.EMPLEADOS_PRESENCIA).getFilter().getMaxPersistenceSize());
+                    CompletableFuture<Void> cfSave = tareaLocalizacionPersonaPresenciaManualAsyncService
+                            .saveGenericEmpleadoResultItemDto(data, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    hasNext = request.nextPage();
+                } while (hasNext);  
+                AsyncUtils.waitAllOfIsOk(cf);
+            }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);
@@ -398,24 +407,33 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            PresenciaManualRequestDto request = new PresenciaManualRequestDto();
-            request.setPage(meta4Properties.get(Meta4Constants.PRESENCIA_MANUAL).getPage());
-            request.setData(tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
-                            trabajo, tarea, tareaAmbito, tarea.getLocalizacion(), tarea.getPersona()));
-            boolean hasNext = false;
-            do {
-                CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                        .getPresenciaManual(request);
-                AsyncUtils.exceptionally(cfData, cf);
-                List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        meta4Properties.get(Meta4Constants.PRESENCIA_MANUAL).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaLocalizacionPersonaSeccionPresenciaAsyncService.save(data, tarea);
-                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                hasNext = request.nextPage();
-            } while (hasNext);  
-            AsyncUtils.waitAllOfIsOk(cf);
+            for (List<IdLocalizacionDto> iter : StreamUtils.partition(
+                    tareaTiendaHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigen(tarea.getId(),
+                            tareaAmbito.getIdOrigen()),
+                    meta4Properties.get(Meta4Constants.PRESENCIA_MANUAL).getFilter().getMaxPageSize())) {
+                PresenciaManualRequestDto request = new PresenciaManualRequestDto();
+                request.setPage(meta4Properties.get(Meta4Constants.PRESENCIA_MANUAL).getPage());
+                request.setData(tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
+                                trabajo, tarea, tareaAmbito, tarea.getLocalizacion(), tarea.getPersona()));
+                request.getData().getItem()
+                .addAll(iter.stream()
+                        .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
+                        .collect(Collectors.toList()));
+                boolean hasNext = false;
+                do {
+                    CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                            .getPresenciaManual(request);
+                    AsyncUtils.exceptionally(cfData, cf);
+                    List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            meta4Properties.get(Meta4Constants.PRESENCIA_MANUAL).getFilter().getMaxPersistenceSize());
+                    CompletableFuture<Void> cfSave = tareaLocalizacionPersonaSeccionPresenciaAsyncService.save(data, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    hasNext = request.nextPage();
+                } while (hasNext);  
+                AsyncUtils.waitAllOfIsOk(cf);
+            }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw new IcmclcwbException(e.getMessage(), e);

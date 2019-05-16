@@ -247,11 +247,11 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
                 PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
-//                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
-//                        .getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(
-//                        tareaTiendaVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
-//                        cfPersist);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
+                        .getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                        tareaTiendaVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
+                        cfPersist);
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

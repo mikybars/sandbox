@@ -52,5 +52,8 @@ public class TareaLocalizacionPersonaSeccionPresenciaDto implements Serializable
     private Long minutos;
     
     @ApiModelProperty(value = "Identificador del tipo de hora", required = true)
-    private  String idTipoHora;
+    private String idTipoHora;
+    
+    @ApiModelProperty(value = "Flag activa", required = true)
+    private Boolean activo;
 }

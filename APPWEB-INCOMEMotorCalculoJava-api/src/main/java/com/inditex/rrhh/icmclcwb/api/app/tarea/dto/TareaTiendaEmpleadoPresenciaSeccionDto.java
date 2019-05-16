@@ -48,5 +48,8 @@ public class TareaTiendaEmpleadoPresenciaSeccionDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Tarea - Tipo Hora", required = true)
     private TareaTipoHoraDto tareaTipoHoraDto;
+    
+    @ApiModelProperty(value = "Flag activa", required = true)
+    private Boolean activo;
 
 }
