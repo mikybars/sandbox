@@ -61,8 +61,8 @@ public class TareaCalculoSeccion {
     @Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
     private String idEmpleadoLocal;
     
-    //TODO @NotNull
-    @Column(name = "ID_SECCION_EMPLEADO") //TODO nullable = false
+    @NotNull
+    @Column(name = "ID_SECCION_EMPLEADO", nullable = false)
     private String idSeccionEmpleado;
 
     @NotNull
