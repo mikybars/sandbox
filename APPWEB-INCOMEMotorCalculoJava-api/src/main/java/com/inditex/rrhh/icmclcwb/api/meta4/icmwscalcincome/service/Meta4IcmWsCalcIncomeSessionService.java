@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
@@ -30,7 +31,7 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 
 	List<GenericEmpleadoResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request);
 
-	List<GenericEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request);
+	List<ComisionEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request);
 
 	List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request);
 

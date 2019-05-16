@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
@@ -111,7 +112,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     }
 
     @Override
-    public List<GenericEmpleadoResultItemDto> getComisionEmpleado(final ComisionEmpleadoRequestDto request) {
+    public List<ComisionEmpleadoResultItemDto> getComisionEmpleado(final ComisionEmpleadoRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.COMISION_EMPLEADO,
                 meta4Properties.get(Meta4Constants.COMISION_EMPLEADO).getFilter().getMaxPageSize());
     }

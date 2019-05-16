@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaPresenciaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaPresenciaSeccionService;
@@ -33,4 +34,8 @@ public class TareaTiendaPresenciaSeccionServiceImpl implements TareaTiendaPresen
                         .save(mapper.presenciasTotalizadoResponseDtoToTareaTiendaPresenciaSeccion(dto, tarea)));
     }
 
+    @Override
+    public void compensar(@Valid final RunTareaDto runTarea) {
+        tareaTiendaPresenciaSeccionRepositoryCustom.compensar(runTarea);
+    }
 }

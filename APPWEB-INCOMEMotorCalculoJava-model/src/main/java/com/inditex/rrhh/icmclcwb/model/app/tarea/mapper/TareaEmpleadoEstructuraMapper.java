@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaEmpleadoEstructuraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoEstructura;
@@ -57,10 +58,10 @@ public abstract class TareaEmpleadoEstructuraMapper {
     @Mapping(target = "porcentaje1", expression = "java(StringUtils.isNotEmpty(src.getPercentageWoman()) ? Double.parseDouble(src.getPercentageWoman()) : null)")
     @Mapping(target = "porcentaje2", expression = "java(StringUtils.isNotEmpty(src.getPercentageMan()) ? Double.parseDouble(src.getPercentageMan()) : null)")
     @Mapping(target = "porcentaje3", expression = "java(StringUtils.isNotEmpty(src.getPercentageBoy()) ? Double.parseDouble(src.getPercentageBoy()) : null)")
-    public abstract TareaEmpleadoEstructuraDto genericEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(
-            final GenericEmpleadoResultItemDto src);
+    public abstract TareaEmpleadoEstructuraDto comisionEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(
+            final ComisionEmpleadoResultItemDto src);
 
-    public abstract List<TareaEmpleadoEstructuraDto> genericEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(
-            List<GenericEmpleadoResultItemDto> src);
+    public abstract List<TareaEmpleadoEstructuraDto> comisionEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(
+            List<ComisionEmpleadoResultItemDto> src);
 
 }

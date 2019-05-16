@@ -42,6 +42,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
@@ -507,14 +508,14 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         .addAll(iter.stream().map(
                                 item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).build())
                                 .collect(Collectors.toList()));
-                CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                CompletableFuture<List<ComisionEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                         .getComisionEmpleado(comisionEmpleadoRequest);
                 AsyncUtils.exceptionally(cfData, cf);
-                List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
+                List<ComisionEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                         meta4Properties.get(Meta4Constants.COMISION_EMPLEADO).getFilter().getMaxPersistenceSize());
                 CompletableFuture<Void> cfSave = tareaEmpleadoEstructuraAsyncService
-                        .saveGenericEmpleadoResultItemDto(data, tarea);
+                        .saveComisionEmpleadoResultItemDto(data, tarea);
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                 AsyncUtils.waitAllOfIsOk(cf);
             }

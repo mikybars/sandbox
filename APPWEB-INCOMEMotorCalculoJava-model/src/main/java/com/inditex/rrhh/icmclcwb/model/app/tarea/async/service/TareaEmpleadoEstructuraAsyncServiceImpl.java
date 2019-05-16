@@ -3,10 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoEstructuraAsyncService;
@@ -14,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 
 @Service
 public class TareaEmpleadoEstructuraAsyncServiceImpl implements TareaEmpleadoEstructuraAsyncService {
@@ -32,9 +29,9 @@ public class TareaEmpleadoEstructuraAsyncServiceImpl implements TareaEmpleadoEst
 
     
     @Override
-    public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(
-            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto,final TareaDto tarea) {
-        tareaEmpleadoEstructuraService.saveGenericEmpleadoResultItemDto(genericEmpleadoResultItemDto, tarea);
+    public CompletableFuture<Void> saveComisionEmpleadoResultItemDto(
+            final List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto,final TareaDto tarea) {
+        tareaEmpleadoEstructuraService.saveComisionEmpleadoResultItemDto(comisionEmpleadoResultItemDto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

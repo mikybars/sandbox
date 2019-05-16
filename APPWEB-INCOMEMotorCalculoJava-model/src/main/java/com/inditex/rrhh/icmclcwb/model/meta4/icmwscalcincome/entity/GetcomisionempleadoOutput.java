@@ -36,7 +36,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
- *         &lt;element name="Icm_Listaempleados" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/>
+ *         &lt;element name="Icm_Listaestructuras" type="{http://schemas.meta4.com/}Icm_ListaestructurasBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -50,7 +50,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "_return",
     "logMessage",
     "icmParametrospaginacion",
-    "icmListaempleados"
+    "icmListaestructuras"
 })
 public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
@@ -61,8 +61,8 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
     protected List<LogMessage> logMessage;
     @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
     protected IcmParametrospaginacionBlock icmParametrospaginacion;
-    @XmlElement(name = "Icm_Listaempleados", required = true, nillable = true)
-    protected IcmListaempleadosBlock icmListaempleados;
+    @XmlElement(name = "Icm_Listaestructuras", required = true, nillable = true)
+    protected IcmListaestructurasBlock icmListaestructuras;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -134,27 +134,27 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad icmListaempleados.
+     * Obtiene el valor de la propiedad icmListaestructuras.
      * 
      * @return
      *     possible object is
-     *     {@link IcmListaempleadosBlock }
+     *     {@link IcmListaestructurasBlock }
      *     
      */
-    public IcmListaempleadosBlock getIcmListaempleados() {
-        return icmListaempleados;
+    public IcmListaestructurasBlock getIcmListaestructuras() {
+        return icmListaestructuras;
     }
 
     /**
-     * Define el valor de la propiedad icmListaempleados.
+     * Define el valor de la propiedad icmListaestructuras.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmListaempleadosBlock }
+     *     {@link IcmListaestructurasBlock }
      *     
      */
-    public void setIcmListaempleados(IcmListaempleadosBlock value) {
-        this.icmListaempleados = value;
+    public void setIcmListaestructuras(IcmListaestructurasBlock value) {
+        this.icmListaestructuras = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -193,11 +193,11 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            IcmListaempleadosBlock lhsIcmListaempleados;
-            lhsIcmListaempleados = this.getIcmListaempleados();
-            IcmListaempleadosBlock rhsIcmListaempleados;
-            rhsIcmListaempleados = that.getIcmListaempleados();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaempleados", lhsIcmListaempleados), LocatorUtils.property(thatLocator, "icmListaempleados", rhsIcmListaempleados), lhsIcmListaempleados, rhsIcmListaempleados, (this.icmListaempleados!= null), (that.icmListaempleados!= null))) {
+            IcmListaestructurasBlock lhsIcmListaestructuras;
+            lhsIcmListaestructuras = this.getIcmListaestructuras();
+            IcmListaestructurasBlock rhsIcmListaestructuras;
+            rhsIcmListaestructuras = that.getIcmListaestructuras();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaestructuras", lhsIcmListaestructuras), LocatorUtils.property(thatLocator, "icmListaestructuras", rhsIcmListaestructuras), lhsIcmListaestructuras, rhsIcmListaestructuras, (this.icmListaestructuras!= null), (that.icmListaestructuras!= null))) {
                 return false;
             }
         }
@@ -240,9 +240,9 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
         }
         {
-            IcmListaempleadosBlock theIcmListaempleados;
-            theIcmListaempleados = this.getIcmListaempleados();
-            strategy.appendField(locator, this, "icmListaempleados", buffer, theIcmListaempleados, (this.icmListaempleados!= null));
+            IcmListaestructurasBlock theIcmListaestructuras;
+            theIcmListaestructuras = this.getIcmListaestructuras();
+            strategy.appendField(locator, this, "icmListaestructuras", buffer, theIcmListaestructuras, (this.icmListaestructuras!= null));
         }
         return buffer;
     }
@@ -265,9 +265,9 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
         }
         {
-            IcmListaempleadosBlock theIcmListaempleados;
-            theIcmListaempleados = this.getIcmListaempleados();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaempleados", theIcmListaempleados), currentHashCode, theIcmListaempleados, (this.icmListaempleados!= null));
+            IcmListaestructurasBlock theIcmListaestructuras;
+            theIcmListaestructuras = this.getIcmListaestructuras();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaestructuras", theIcmListaestructuras), currentHashCode, theIcmListaestructuras, (this.icmListaestructuras!= null));
         }
         return currentHashCode;
     }
@@ -334,15 +334,15 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean icmListaempleadosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaempleados!= null));
-                if (icmListaempleadosShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListaempleadosBlock sourceIcmListaempleados;
-                    sourceIcmListaempleados = this.getIcmListaempleados();
-                    IcmListaempleadosBlock copyIcmListaempleados = ((IcmListaempleadosBlock) strategy.copy(LocatorUtils.property(locator, "icmListaempleados", sourceIcmListaempleados), sourceIcmListaempleados, (this.icmListaempleados!= null)));
-                    copy.setIcmListaempleados(copyIcmListaempleados);
+                Boolean icmListaestructurasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaestructuras!= null));
+                if (icmListaestructurasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaestructurasBlock sourceIcmListaestructuras;
+                    sourceIcmListaestructuras = this.getIcmListaestructuras();
+                    IcmListaestructurasBlock copyIcmListaestructuras = ((IcmListaestructurasBlock) strategy.copy(LocatorUtils.property(locator, "icmListaestructuras", sourceIcmListaestructuras), sourceIcmListaestructuras, (this.icmListaestructuras!= null)));
+                    copy.setIcmListaestructuras(copyIcmListaestructuras);
                 } else {
-                    if (icmListaempleadosShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListaempleados = null;
+                    if (icmListaestructurasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaestructuras = null;
                     }
                 }
             }

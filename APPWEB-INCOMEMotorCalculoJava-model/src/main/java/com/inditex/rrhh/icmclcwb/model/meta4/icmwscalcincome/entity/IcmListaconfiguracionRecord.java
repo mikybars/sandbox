@@ -39,6 +39,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idconcepto" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idproducto" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="porcentaje" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idagrupacion" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -60,6 +61,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idorigen",
     "idempresa",
     "idconcepto",
+    "idproducto",
     "porcentaje",
     "fechainicio",
     "idagrupacion"
@@ -82,6 +84,8 @@ public class IcmListaconfiguracionRecord implements Cloneable, CopyTo2, Equals2,
     protected String idempresa;
     @XmlElement(required = true, nillable = true)
     protected String idconcepto;
+    @XmlElement(required = true, nillable = true)
+    protected String idproducto;
     @XmlElement(required = true, nillable = true)
     protected String porcentaje;
     @XmlElement(required = true, nillable = true)
@@ -274,6 +278,30 @@ public class IcmListaconfiguracionRecord implements Cloneable, CopyTo2, Equals2,
     }
 
     /**
+     * Obtiene el valor de la propiedad idproducto.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdproducto() {
+        return idproducto;
+    }
+
+    /**
+     * Define el valor de la propiedad idproducto.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdproducto(String value) {
+        this.idproducto = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad porcentaje.
      * 
      * @return
@@ -426,6 +454,15 @@ public class IcmListaconfiguracionRecord implements Cloneable, CopyTo2, Equals2,
             }
         }
         {
+            String lhsIdproducto;
+            lhsIdproducto = this.getIdproducto();
+            String rhsIdproducto;
+            rhsIdproducto = that.getIdproducto();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idproducto", lhsIdproducto), LocatorUtils.property(thatLocator, "idproducto", rhsIdproducto), lhsIdproducto, rhsIdproducto, (this.idproducto!= null), (that.idproducto!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsPorcentaje;
             lhsPorcentaje = this.getPorcentaje();
             String rhsPorcentaje;
@@ -516,6 +553,11 @@ public class IcmListaconfiguracionRecord implements Cloneable, CopyTo2, Equals2,
             strategy.appendField(locator, this, "idconcepto", buffer, theIdconcepto, (this.idconcepto!= null));
         }
         {
+            String theIdproducto;
+            theIdproducto = this.getIdproducto();
+            strategy.appendField(locator, this, "idproducto", buffer, theIdproducto, (this.idproducto!= null));
+        }
+        {
             String thePorcentaje;
             thePorcentaje = this.getPorcentaje();
             strategy.appendField(locator, this, "porcentaje", buffer, thePorcentaje, (this.porcentaje!= null));
@@ -574,6 +616,11 @@ public class IcmListaconfiguracionRecord implements Cloneable, CopyTo2, Equals2,
             String theIdconcepto;
             theIdconcepto = this.getIdconcepto();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idconcepto", theIdconcepto), currentHashCode, theIdconcepto, (this.idconcepto!= null));
+        }
+        {
+            String theIdproducto;
+            theIdproducto = this.getIdproducto();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idproducto", theIdproducto), currentHashCode, theIdproducto, (this.idproducto!= null));
         }
         {
             String thePorcentaje;
@@ -711,6 +758,19 @@ public class IcmListaconfiguracionRecord implements Cloneable, CopyTo2, Equals2,
                 } else {
                     if (idconceptoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idconcepto = null;
+                    }
+                }
+            }
+            {
+                Boolean idproductoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idproducto!= null));
+                if (idproductoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdproducto;
+                    sourceIdproducto = this.getIdproducto();
+                    String copyIdproducto = ((String) strategy.copy(LocatorUtils.property(locator, "idproducto", sourceIdproducto), sourceIdproducto, (this.idproducto!= null)));
+                    copy.setIdproducto(copyIdproducto);
+                } else {
+                    if (idproductoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idproducto = null;
                     }
                 }
             }

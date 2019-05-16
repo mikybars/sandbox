@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJ
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -306,11 +307,11 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, null);
         if (getComisionEmpleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 ) {
-            if( getComisionEmpleadoOutput.getIcmListaempleados() != null
+            if( getComisionEmpleadoOutput.getIcmListaestructuras() != null
                     && CollectionUtils.isNotEmpty(
-                            getComisionEmpleadoOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
-                List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
-                        getComisionEmpleadoOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
+                            getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet())) {
+                List<ComisionEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asComisionEmpleadoResultItemDtos(
+                        getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet());
                 result.setData(items);
             }
         }

@@ -32,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getpresencia
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructurasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
@@ -300,9 +301,9 @@ public class Meta4ServiceTest {
             
             if (emprec.size()>0) {
                 GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, param2);
-                List<IcmListaempleadosRecord> recordset = getComisionEmpleadoOutput.getIcmListaempleados()
-                        .getIcmListaempleadosRecordSet();
-                for (IcmListaempleadosRecord record2 : recordset) {
+                List<IcmListaestructurasRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructuras()
+                        .getIcmListaestructurasRecordSet();
+                for (IcmListaestructurasRecord record2 : recordset) {
                     System.out.println("tienda:" + tienda + " idempleado: " + record2.getIdempleado()
                             + " idempleadolocal: " + record2.getIdempleadolocal() + " estructura: "
                             + record2.getIdestructura() + " tipo comision: " + record2.getIdtipocomision() + " tipo calculo: " 

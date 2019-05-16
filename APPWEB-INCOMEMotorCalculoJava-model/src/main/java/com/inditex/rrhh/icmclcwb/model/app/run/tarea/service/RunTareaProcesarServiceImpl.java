@@ -15,6 +15,7 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetri
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
@@ -25,6 +26,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
     @Autowired
     private RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService;
+    
+    @Autowired
+    private RunTareaProcesarPresenciaAsyncService runTareaProcesarPresenciaAsyncService;
 
     @Auditoria
     @CounterMetric
@@ -34,6 +38,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
         List<CompletableFuture<?>> cf = new ArrayList<>();
 
+        // Actualizar flags de presencias activas
+        CompletableFuture<Void> cfUpdatePresenciasActivas = runTareaProcesarPresenciaAsyncService.updateActivo(runTarea);
+        AsyncUtils.exceptionally(cfUpdatePresenciasActivas, cf);
+        
         // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
         CompletableFuture<Void> cfRepartoCadenas = runTareaProcesarVentaAsyncService.repartoVentaEntregaDomicilioCadenas(runTarea);
         AsyncUtils.exceptionally(cfRepartoCadenas, cf);
@@ -59,6 +67,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         /*-------------------------------------------------------------*/
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
+        
+        // Compensar presencia total con las manuales
+        CompletableFuture<Void> cfCompensarPresencia = runTareaProcesarPresenciaAsyncService.compensar(runTarea);
+        AsyncUtils.exceptionally(cfCompensarPresencia, cf);
 
         // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas
         CompletableFuture<Void> cfRepartoAgrupaciones = runTareaProcesarVentaAsyncService.repartoVentaEntregaDomicilioAgrupaciones(runTarea);

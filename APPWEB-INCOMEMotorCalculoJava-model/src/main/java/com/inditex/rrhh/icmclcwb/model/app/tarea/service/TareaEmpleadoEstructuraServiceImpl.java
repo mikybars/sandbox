@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoEstructuraService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaEmpleadoEstructuraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaEmpleadoEstructuraRepository;
@@ -43,10 +44,10 @@ public class TareaEmpleadoEstructuraServiceImpl implements TareaEmpleadoEstructu
     }
 
     @Override
-    public List<TareaEmpleadoEstructuraDto> saveGenericEmpleadoResultItemDto(
-            @Valid final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {
+    public List<TareaEmpleadoEstructuraDto> saveComisionEmpleadoResultItemDto(
+            @Valid final List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto, @Valid final TareaDto tarea) {
         return save(tareaEmpleadoEstructuraMapper
-                .genericEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(genericEmpleadoResultItemDto), tarea);
+                .comisionEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(comisionEmpleadoResultItemDto), tarea);
     }
 
 }
