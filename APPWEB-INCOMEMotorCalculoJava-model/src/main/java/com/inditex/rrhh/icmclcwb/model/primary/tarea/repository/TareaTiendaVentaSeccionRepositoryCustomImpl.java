@@ -35,7 +35,7 @@ public class TareaTiendaVentaSeccionRepositoryCustomImpl extends
         pstmt.setDouble(6, entity.getImporteConImpuestos1() != null ? entity.getImporteConImpuestos1() : 0);
         pstmt.setDouble(7, entity.getImporteConImpuestos2() != null ? entity.getImporteConImpuestos2() : 0);
         pstmt.setDouble(8, entity.getImporteConImpuestos3() != null ? entity.getImporteConImpuestos3() : 0);
-        pstmt.setDouble(9, entity.getTipoImporteVenta().getId());
+        pstmt.setDouble(9, entity.getTipoDato().getId());
         pstmt.setLong(10, entity.getTarea().getId());
     }
 

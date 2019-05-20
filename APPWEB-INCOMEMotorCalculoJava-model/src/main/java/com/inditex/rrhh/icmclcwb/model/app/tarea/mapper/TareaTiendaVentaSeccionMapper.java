@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaVentaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaVentaSeccionDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaVentaSeccion;
 
 @Mapper
@@ -54,7 +54,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaTotalizadoResultItemDto src){
-        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION);
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -71,7 +71,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlineIpodResultItemDto src){
-        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION);
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -88,7 +88,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlineIpodIndividualDetalleResultItemDto src){
-        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION);
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -105,7 +105,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlinePickingResultItemDto src){
-        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION);
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION);
     }
 
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -122,7 +122,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlineEntregaTiendaResultItemDto src){
-        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION);
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION);
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -139,11 +139,11 @@ public abstract class TareaTiendaVentaSeccionMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVentaSeccion tareaTiendaVentaSeccion, PtrVentaOnlineEntregaDomicilioResultItemDto src){
-        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION);
+        setListaSeccion(tareaTiendaVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION);
     }
     
     private void setListaSeccion(TareaTiendaVentaSeccion tareaTiendaVentaSeccion,
-            List<PtrSeccionVentaOnlineGenericType> listaSeccion, TipoImporteVentaEnum tipoImporteVenta) {
+            List<PtrSeccionVentaOnlineGenericType> listaSeccion, TipoDatoEnum tipoImporteVenta) {
         if (listaSeccion != null ) {
             for (PtrSeccionVentaOnlineGenericType item : listaSeccion) {
                 if (PtrConstants.SECCION_1.equals(item.getSeccion())) {
@@ -158,7 +158,7 @@ public abstract class TareaTiendaVentaSeccionMapper {
                 }
             } 
         }
-        tareaTiendaVentaSeccion.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVentaSeccion.getTipoImporteVenta().setId(tipoImporteVenta.getId());
+        tareaTiendaVentaSeccion.setTipoDato(new TipoDato());
+        tareaTiendaVentaSeccion.getTipoDato().setId(tipoImporteVenta.getId());
     }
 }

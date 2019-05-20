@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -56,7 +56,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO, TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_TRASLADADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO, TipoDatoEnum.IMPORTE_VENTA_ONLINE_TRASLADADA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR, 1);
 
         namedParameterJdbcTemplate.update(sqlTrasladarDestino, parameters);
@@ -67,7 +67,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO, TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_COMPENSADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO, TipoDatoEnum.IMPORTE_VENTA_ONLINE_COMPENSADA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR, -1);
 
         namedParameterJdbcTemplate.update(sqlTrasladarActual, parameters);

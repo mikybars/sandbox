@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoMinutosPresenciaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaEmpleadoPresenciaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericTy
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaEmpleadoPresenciaSeccionDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoMinutosPresencia;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEmpleadoPresenciaSeccion;
 
 @Mapper
@@ -62,8 +62,8 @@ public abstract class TareaTiendaEmpleadoPresenciaSeccionMapper {
                 tareaTienda.setMinutos3(item.getMinutos());
             }
         }
-        tareaTienda.setTipoMinutosPresencia(new TipoMinutosPresencia());
-        tareaTienda.getTipoMinutosPresencia().setId(TipoMinutosPresenciaEnum.MINUTOS_DE_VENDEDORES.getId());
+        tareaTienda.setTipoDato(new TipoDato());
+        tareaTienda.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
         tareaTienda.setActivo(Boolean.TRUE);
     }
 }

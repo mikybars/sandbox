@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
@@ -24,8 +24,8 @@ public class TareaAgrupacionCadenaRepositoryCustomImpl implements TareaAgrupacio
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
     @Override
-    public void procesar(@NotNull TareaDto tareaDto, @NotNull TipoImporteVentaEnum tipoImporteOrigen, 
-            @NotNull TipoImporteVentaEnum tipoImporteDestino) {
+    public void procesar(@NotNull TareaDto tareaDto, @NotNull TipoDatoEnum tipoImporteOrigen, 
+            @NotNull TipoDatoEnum tipoImporteDestino) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SUMA, tipoImporteDestino.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, tipoImporteOrigen.getId());

@@ -36,7 +36,7 @@ public class TareaTiendaEmpleadoPresenciaSeccionRepositoryCustomImpl
         pstmt.setLong(5, entity.getMinutos1() != null ? entity.getMinutos1() : NumberUtils.LONG_ZERO);
         pstmt.setLong(6, entity.getMinutos2() != null ? entity.getMinutos2() : NumberUtils.LONG_ZERO);
         pstmt.setLong(7, entity.getMinutos3() != null ? entity.getMinutos3() : NumberUtils.LONG_ZERO);
-        pstmt.setLong(8, entity.getTipoMinutosPresencia().getId());
+        pstmt.setLong(8, entity.getTipoDato().getId());
         pstmt.setBoolean(9, entity.getActivo());
         pstmt.setLong(10, entity.getTarea().getId());
     }

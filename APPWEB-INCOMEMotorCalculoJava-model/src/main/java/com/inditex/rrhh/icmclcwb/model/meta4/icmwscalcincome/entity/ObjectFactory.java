@@ -594,6 +594,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IcmListaporcentajesRecord }
+     * 
+     */
+    public IcmListaporcentajesRecord createIcmListaporcentajesRecord() {
+        return new IcmListaporcentajesRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmListaporcentajesBlock }
+     * 
+     */
+    public IcmListaporcentajesBlock createIcmListaporcentajesBlock() {
+        return new IcmListaporcentajesBlock();
+    }
+
+    /**
      * Create an instance of {@link LogMessage }
      * 
      */

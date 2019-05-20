@@ -214,8 +214,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="SEARCHTIENDAS">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
       <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -305,8 +305,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="GETFLAGCALCULA">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
       <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -321,15 +321,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
      <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
     </sequence>
    </complexType>
    <element name="SEARCHEMPLEADOS">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
       <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -344,15 +344,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
     </sequence>
    </complexType>
    <element name="GETCONFPRODVENTA">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
       <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -374,8 +374,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="GETTIENDASINCOME">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
       <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -413,15 +413,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaconfiguracion" nillable="true" type="impl:Icm_ListaconfiguracionBlock"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaconfiguracion" nillable="true" type="impl:Icm_ListaconfiguracionBlock"/>
     </sequence>
    </complexType>
    <element name="GETPRESENCIAMANUAL">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
       <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -436,8 +436,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
     </sequence>
    </complexType>
    <element name="GETTIENDASEMPLEADO">
@@ -459,15 +459,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
      <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
     </sequence>
    </complexType>
    <element name="GETCOMISIONEMPLEADO">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
       <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -478,74 +478,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
-   <complexType name="Icm_ListaestructurasRecord">
-    <sequence>
-     <element name="m4AutoGeneratedRecordID" nillable="true" type="xsd:string"/>
-     <element name="m4AutoGeneratedToDelete" type="xsd:boolean"/>
-     <element name="diad" nillable="true" type="xsd:string"/>
-     <element name="diaj" nillable="true" type="xsd:string"/>
-     <element name="dial" nillable="true" type="xsd:string"/>
-     <element name="diam" nillable="true" type="xsd:string"/>
-     <element name="dias" nillable="true" type="xsd:string"/>
-     <element name="diav" nillable="true" type="xsd:string"/>
-     <element name="diax" nillable="true" type="xsd:string"/>
-     <element name="tipo" nillable="true" type="xsd:string"/>
-     <element name="inout" nillable="true" type="xsd:string"/>
-     <element name="importe" nillable="true" type="xsd:string"/>
-     <element name="fechafin" nillable="true" type="xsd:string"/>
-     <element name="numhoras" nillable="true" type="xsd:string"/>
-     <element name="idempleado" nillable="true" type="xsd:string"/>
-     <element name="importemax" nillable="true" type="xsd:string"/>
-     <element name="importemin" nillable="true" type="xsd:string"/>
-     <element name="orempleado" nillable="true" type="xsd:string"/>
-     <element name="fechainicio" nillable="true" type="xsd:string"/>
-     <element name="idestructura" nillable="true" type="xsd:string"/>
-     <element name="idmotivobaja" nillable="true" type="xsd:string"/>
-     <element name="idtipocalculo" nillable="true" type="xsd:string"/>
-     <element name="nummesesmedia" nillable="true" type="xsd:string"/>
-     <element name="percentageall" nillable="true" type="xsd:string"/>
-     <element name="percentageboy" nillable="true" type="xsd:string"/>
-     <element name="percentageman" nillable="true" type="xsd:string"/>
-     <element name="excdenominador" nillable="true" type="xsd:string"/>
-     <element name="idlugartrabajo" nillable="true" type="xsd:string"/>
-     <element name="idtipocomision" nillable="true" type="xsd:string"/>
-     <element name="idtipopolitica" nillable="true" type="xsd:string"/>
-     <element name="idempleadolocal" nillable="true" type="xsd:string"/>
-     <element name="percentageallt1" nillable="true" type="xsd:string"/>
-     <element name="percentageallt2" nillable="true" type="xsd:string"/>
-     <element name="percentageallt3" nillable="true" type="xsd:string"/>
-     <element name="percentageboyt1" nillable="true" type="xsd:string"/>
-     <element name="percentageboyt2" nillable="true" type="xsd:string"/>
-     <element name="percentageboyt3" nillable="true" type="xsd:string"/>
-     <element name="percentagemant1" nillable="true" type="xsd:string"/>
-     <element name="percentagemant2" nillable="true" type="xsd:string"/>
-     <element name="percentagemant3" nillable="true" type="xsd:string"/>
-     <element name="percentagewoman" nillable="true" type="xsd:string"/>
-     <element name="idlugartrabajomtu" nillable="true" type="xsd:string"/>
-     <element name="percentagewomant1" nillable="true" type="xsd:string"/>
-     <element name="percentagewomant2" nillable="true" type="xsd:string"/>
-     <element name="percentagewomant3" nillable="true" type="xsd:string"/>
-    </sequence>
-   </complexType>
-   
-   <complexType name="Icm_ListaestructurasBlock">
-    <sequence>
-     <element maxOccurs="unbounded" minOccurs="0" name="Icm_ListaestructurasRecordSet" nillable="true" type="impl:Icm_ListaestructurasRecord"/>
-    </sequence>
-   </complexType>
    <complexType name="GetcomisionempleadoOutput">
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-     <element name="Icm_Listaestructuras" nillable="true" type="impl:Icm_ListaestructurasBlock"/>
     </sequence>
    </complexType>
    <element name="GETEMPLEADOSDESPLAZ">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
       <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -560,7 +504,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaestructuras" nillable="true" type="impl:Icm_ListaestructurasBlock"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
     </sequence>
    </complexType>
@@ -583,8 +526,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
      <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
     </sequence>
    </complexType>
    <element name="M4LoadObject">
@@ -632,6 +575,81 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="icm_Prp_Load_Depth" nillable="true" type="xsd:double"/>
      <element name="icm_Have_Idexecution" nillable="true" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="Icm_Ws_ToolsRecordSet" nillable="true" type="impl:Icm_Ws_ToolsRecord"/>
+    </sequence>
+   </complexType>
+   <complexType name="Icm_ListaporcentajesRecord">
+    <sequence>
+     <element name="m4AutoGeneratedRecordID" nillable="true" type="xsd:string"/>
+     <element name="m4AutoGeneratedToDelete" type="xsd:boolean"/>
+     <element name="idseccion" nillable="true" type="xsd:string"/>
+     <element name="porcentaje" nillable="true" type="xsd:string"/>
+     <element name="idestructura" nillable="true" type="xsd:string"/>
+     <element name="porcentajet1" nillable="true" type="xsd:string"/>
+     <element name="porcentajet2" nillable="true" type="xsd:string"/>
+     <element name="porcentajet3" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="Icm_ListaporcentajesBlock">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="Icm_ListaporcentajesRecordSet" nillable="true" type="impl:Icm_ListaporcentajesRecord"/>
+    </sequence>
+   </complexType>
+   <complexType name="Icm_ListaestructurasRecord">
+    <sequence>
+     <element name="m4AutoGeneratedRecordID" nillable="true" type="xsd:string"/>
+     <element name="m4AutoGeneratedToDelete" type="xsd:boolean"/>
+     <element name="diad" nillable="true" type="xsd:string"/>
+     <element name="diaj" nillable="true" type="xsd:string"/>
+     <element name="dial" nillable="true" type="xsd:string"/>
+     <element name="diam" nillable="true" type="xsd:string"/>
+     <element name="dias" nillable="true" type="xsd:string"/>
+     <element name="diav" nillable="true" type="xsd:string"/>
+     <element name="diax" nillable="true" type="xsd:string"/>
+     <element name="tipo" nillable="true" type="xsd:string"/>
+     <element name="inout" nillable="true" type="xsd:string"/>
+     <element name="importe" nillable="true" type="xsd:string"/>
+     <element name="fechafin" nillable="true" type="xsd:string"/>
+     <element name="idorigen" nillable="true" type="xsd:string"/>
+     <element name="numhoras" nillable="true" type="xsd:string"/>
+     <element name="idempleado" nillable="true" type="xsd:string"/>
+     <element name="importemax" nillable="true" type="xsd:string"/>
+     <element name="importemin" nillable="true" type="xsd:string"/>
+     <element name="orempleado" nillable="true" type="xsd:string"/>
+     <element name="fechainicio" nillable="true" type="xsd:string"/>
+     <element name="idestructura" nillable="true" type="xsd:string"/>
+     <element name="idmotivobaja" nillable="true" type="xsd:string"/>
+     <element name="idtipocalculo" nillable="true" type="xsd:string"/>
+     <element name="nummesesmedia" nillable="true" type="xsd:string"/>
+     <element name="percentageall" nillable="true" type="xsd:string"/>
+     <element name="percentageboy" nillable="true" type="xsd:string"/>
+     <element name="percentageman" nillable="true" type="xsd:string"/>
+     <element name="excdenominador" nillable="true" type="xsd:string"/>
+     <element name="idlugartrabajo" nillable="true" type="xsd:string"/>
+     <element name="idtipocomision" nillable="true" type="xsd:string"/>
+     <element name="idtipopolitica" nillable="true" type="xsd:string"/>
+     <element name="idempleadolocal" nillable="true" type="xsd:string"/>
+     <element name="percentageallt1" nillable="true" type="xsd:string"/>
+     <element name="percentageallt2" nillable="true" type="xsd:string"/>
+     <element name="percentageallt3" nillable="true" type="xsd:string"/>
+     <element name="percentageboyt1" nillable="true" type="xsd:string"/>
+     <element name="percentageboyt2" nillable="true" type="xsd:string"/>
+     <element name="percentageboyt3" nillable="true" type="xsd:string"/>
+     <element name="percentagemant1" nillable="true" type="xsd:string"/>
+     <element name="percentagemant2" nillable="true" type="xsd:string"/>
+     <element name="percentagemant3" nillable="true" type="xsd:string"/>
+     <element name="percentagewoman" nillable="true" type="xsd:string"/>
+     <element name="idlugartrabajomtu" nillable="true" type="xsd:string"/>
+     <element name="percentagewomant1" nillable="true" type="xsd:string"/>
+     <element name="percentagewomant2" nillable="true" type="xsd:string"/>
+     <element name="percentagewomant3" nillable="true" type="xsd:string"/>
+     <element name="Icm_Listaporcentajes" nillable="true" type="impl:Icm_ListaporcentajesBlock"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="Icm_ListaestructurasBlock">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="Icm_ListaestructurasRecordSet" nillable="true" type="impl:Icm_ListaestructurasRecord"/>
     </sequence>
    </complexType>
    <complexType name="Icm_Ws_Calc_OperacionesRecord">

@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaLocalizacionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaLocalizacionVentaDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaLocalizacionVenta;
 
 @Mapper
@@ -53,9 +53,9 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
     @AfterMapping
     void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta,
             PtrVentaOnlineIpodIndividualDetalleResultItemDto src) {
-        tareaPersonaLocalizacionVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaPersonaLocalizacionVenta.getTipoImporteVenta()
-                .setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId());
+        tareaPersonaLocalizacionVenta.setTipoDato(new TipoDato());
+        tareaPersonaLocalizacionVenta.getTipoDato()
+                .setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId());
     }
 
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -76,9 +76,9 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
     @AfterMapping
     void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta,
             PtrVentaIndividualDetalleResultItemDto src) {
-        tareaPersonaLocalizacionVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaPersonaLocalizacionVenta.getTipoImporteVenta()
-                .setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_PERSONA_LOCALIZACION.getId());
+        tareaPersonaLocalizacionVenta.setTipoDato(new TipoDato());
+        tareaPersonaLocalizacionVenta.getTipoDato()
+                .setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_PERSONA_LOCALIZACION.getId());
     }
 
 }

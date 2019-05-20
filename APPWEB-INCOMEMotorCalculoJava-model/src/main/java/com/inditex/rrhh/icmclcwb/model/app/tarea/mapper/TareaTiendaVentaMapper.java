@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpod
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaVentaDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaVenta;
 
 @Mapper
@@ -56,8 +56,8 @@ public abstract class TareaTiendaVentaMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVenta tareaTiendaVenta, PtrVentaTotalizadoResultItemDto src){
-        tareaTiendaVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
+        tareaTiendaVenta.setTipoDato(new TipoDato());
+        tareaTiendaVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -77,8 +77,8 @@ public abstract class TareaTiendaVentaMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVenta tareaTiendaVenta, PtrVentaOnlineEntregaDomicilioResultItemDto src){
-        tareaTiendaVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
+        tareaTiendaVenta.setTipoDato(new TipoDato());
+        tareaTiendaVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -98,8 +98,8 @@ public abstract class TareaTiendaVentaMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVenta tareaTiendaVenta, PtrVentaOnlineEntregaTiendaResultItemDto src){
-        tareaTiendaVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId());
+        tareaTiendaVenta.setTipoDato(new TipoDato());
+        tareaTiendaVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId());
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -119,8 +119,8 @@ public abstract class TareaTiendaVentaMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVenta tareaTiendaVenta, PtrVentaOnlinePickingResultItemDto src){
-        tareaTiendaVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId());
+        tareaTiendaVenta.setTipoDato(new TipoDato());
+        tareaTiendaVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId());
     }
     
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
@@ -140,8 +140,8 @@ public abstract class TareaTiendaVentaMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVenta tareaTiendaVenta, PtrVentaOnlineIpodResultItemDto src){
-        tareaTiendaVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId());
+        tareaTiendaVenta.setTipoDato(new TipoDato());
+        tareaTiendaVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId());
     }
     
     @Mapping(target = "id", ignore = true)
@@ -161,7 +161,7 @@ public abstract class TareaTiendaVentaMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaVenta tareaTiendaVenta, PtrVentaIndividualDetalleResultItemDto src){
-        tareaTiendaVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaTiendaVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_LOCALIZACION.getId());
+        tareaTiendaVenta.setTipoDato(new TipoDato());
+        tareaTiendaVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_LOCALIZACION.getId());
     }
 }

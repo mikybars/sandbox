@@ -29,6 +29,9 @@ public abstract class TareaTipoHoraMapper {
 
     @Mapping(source = "src.tipoHora", target = "idTipoHora")
     @Mapping(expression = "java(!src.getExcluidoCalculo())", target = "comisionable")
+    @Mapping(expression = "java(!src.getIncluidoVenta())", target = "incluidoVenta")
+    @Mapping(expression = "java(!src.getIncluidoChallenge())", target = "incluidoChallenge")
+    @Mapping(expression = "java(!src.getIncluidoEcommerce())", target = "incluidoEcommerce")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaTipoHora ptrPresenciasMockTiposHorasResponseDtoToTareaTipoHoraDto(

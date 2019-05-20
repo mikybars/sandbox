@@ -29,15 +29,17 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     public void setParameters(PreparedStatement pstmt, TareaPersonaHistorico entity) throws SQLException {
         pstmt.setObject(1, entity.getFechaFin());
         pstmt.setObject(2, entity.getFechaInicio());
-        pstmt.setString(3, entity.getIdEmpleado());
-        pstmt.setString(4, entity.getIdEmpleadoLocal());
-        pstmt.setString(5, entity.getIdTienda());
-        pstmt.setString(6, entity.getIdTiendaMeta4());
-        pstmt.setString(7, entity.getOrEmpleado());
-        pstmt.setString(8, entity.getIdEmpresa());
-        pstmt.setString(9, entity.getIdOrigen());
-        pstmt.setString(10, entity.getIdSeccion());
-        pstmt.setLong(11, entity.getTarea().getId());        
+        pstmt.setObject(3, entity.getFechaFinSeccion());
+        pstmt.setObject(4, entity.getFechaInicioSeccion());
+        pstmt.setString(5, entity.getIdEmpleado());
+        pstmt.setString(6, entity.getIdEmpleadoLocal());
+        pstmt.setString(7, entity.getIdTienda());
+        pstmt.setString(8, entity.getIdTiendaMeta4());
+        pstmt.setString(9, entity.getOrEmpleado());
+        pstmt.setString(10, entity.getIdEmpresa());
+        pstmt.setString(11, entity.getIdOrigen());
+        pstmt.setString(12, entity.getIdSeccion());
+        pstmt.setLong(13, entity.getTarea().getId());        
     }
 
 }

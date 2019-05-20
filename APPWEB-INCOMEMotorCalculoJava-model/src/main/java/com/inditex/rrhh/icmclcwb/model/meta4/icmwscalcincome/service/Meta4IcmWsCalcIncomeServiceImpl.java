@@ -307,13 +307,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, null);
         if (getComisionEmpleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 ) {
-            if( getComisionEmpleadoOutput.getIcmListaestructuras() != null
-                    && CollectionUtils.isNotEmpty(
-                            getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet())) {
-                List<ComisionEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asComisionEmpleadoResultItemDtos(
-                        getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet());
-                result.setData(items);
-            }
+//            if( getComisionEmpleadoOutput.getIcmListaestructuras() != null
+//                    && CollectionUtils.isNotEmpty(
+//                            getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet())) {
+//                List<ComisionEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asComisionEmpleadoResultItemDtos(
+//                        getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet());
+//                result.setData(items);
+//            }
         }
 
     	return result;

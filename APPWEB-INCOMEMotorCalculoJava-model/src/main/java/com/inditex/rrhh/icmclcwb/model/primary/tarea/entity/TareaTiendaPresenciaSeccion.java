@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoMinutosPresencia;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 
 import lombok.Data;
 
@@ -53,6 +53,11 @@ public class TareaTiendaPresenciaSeccion {
     private /* BigInteger */ Long minutos3;
 
     @ManyToOne
-    @JoinColumn(name = "ID_TIPO_MINUTOS_PRESENCIA", nullable = false)
-    private TipoMinutosPresencia tipoMinutosPresencia;
+    @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
+    private TipoDato tipoDato;
+    
+    @NotNull
+    @Column(name = "ACTIVO", nullable = false)
+    private Boolean activo;
+
 }

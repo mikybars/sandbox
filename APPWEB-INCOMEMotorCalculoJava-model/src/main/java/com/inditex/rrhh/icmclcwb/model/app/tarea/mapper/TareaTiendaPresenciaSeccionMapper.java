@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoMinutosPresenciaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaPresenciaSeccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTo
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaPresenciaSeccionDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoMinutosPresencia;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaPresenciaSeccion;
 
 @Mapper
@@ -73,8 +73,9 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
                 tareaTienda.setMinutos3(item.getMinutos());
             }
         }
-        tareaTienda.setTipoMinutosPresencia(new TipoMinutosPresencia());
-        tareaTienda.getTipoMinutosPresencia().setId(TipoMinutosPresenciaEnum.MINUTOS_TOTALES.getId());
+        tareaTienda.setTipoDato(new TipoDato());
+        tareaTienda.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES.getId());
+        tareaTienda.setActivo(Boolean.TRUE);
     }
     
     @AfterMapping
@@ -88,8 +89,9 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
                 tareaTienda.setMinutos3(item.getMinutos());
             }
         }
-        tareaTienda.setTipoMinutosPresencia(new TipoMinutosPresencia());
-        tareaTienda.getTipoMinutosPresencia().setId(TipoMinutosPresenciaEnum.MINUTOS_TOTALES.getId());
+        tareaTienda.setTipoDato(new TipoDato());
+        tareaTienda.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES.getId());
+        tareaTienda.setActivo(Boolean.TRUE);
     }
     
 }

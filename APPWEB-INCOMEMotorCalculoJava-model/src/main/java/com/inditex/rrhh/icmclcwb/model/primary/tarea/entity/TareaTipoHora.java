@@ -29,6 +29,15 @@ public class TareaTipoHora {
 	@Column(name = "COMISIONABLE", nullable = false)
 	private Boolean comisionable;
 	
+	@Column(name = "INCLUIDO_VENTA", nullable = false)
+	private Boolean incluidoVenta;
+        
+	@Column(name = "INCLUIDO_CHALLENGE", nullable = false)
+	private Boolean incluidoChallenge;
+        
+    @Column(name = "INCLUIDO_ECOMMERCE", nullable = false)
+    private Boolean incluidoEcommerce;
+	    
 	@NotNull
 	@OneToOne
 	@JoinColumn(name = "ID_TAREA", nullable = false)

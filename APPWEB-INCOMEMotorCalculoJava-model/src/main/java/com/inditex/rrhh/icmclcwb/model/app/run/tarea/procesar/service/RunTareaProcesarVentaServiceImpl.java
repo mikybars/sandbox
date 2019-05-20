@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaSeccionRepositoryCustom;
@@ -43,31 +43,31 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     @Override
     public void ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
         tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA,
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA);
+                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA,
+                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA);
     }
 
     @Auditoria
     @Override
     public void ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
         tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA_SECCION,
-                TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA_SECCION);
+                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA_SECCION,
+                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA_SECCION);
     }
 
     @Auditoria
     @Override
     public void ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA,
-                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA);
+        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA,
+                TipoDatoEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA);
     }
 
     @Auditoria
     @Override
     public void ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
         tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(),
-                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_CADENA_SECCION,
-                TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA_SECCION);
+                TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA_SECCION,
+                TipoDatoEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA_SECCION);
     }
 
     @Auditoria
@@ -77,11 +77,11 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
         // TODO obtener los tipos de importe relacionados con el de venta localizacion
         // seccion en lugar de usar este listado
         List<Long> tipos = new ArrayList<>();
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId());
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId());
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId());
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId());
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId());
 
         tareaTiendaVentaSeccionRepository.procesar(runTarea.getTarea(), tipos);
     }
@@ -91,11 +91,11 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
         // TODO obtener los tipos de importe relacionados con el de venta localizacion
         // seccion en lugar de usar este listado
         List<Long> tipos = new ArrayList<>();
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId());
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId());
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
-        tipos.add(TipoImporteVentaEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
+        tipos.add(TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId());
 
         tareaTiendaVentaRepository.procesar(runTarea.getTarea(), tipos);
     }

@@ -65,6 +65,15 @@ public class TareaPersonaHistorico {
 	@NotNull
 	@Column(name = "FECHA_FIN", nullable = false)
 	private Date fechaFin;
+	
+    @NotNull
+    @Column(name = "FECHA_INICIO_SECCION", nullable = false)
+    private Date fechaInicioSeccion;
+
+    @NotNull
+    @Column(name = "FECHA_FIN_SECCION", nullable = false)
+    private Date fechaFinSeccion;
+	     
 	 
     @NotBlank
     @Column(name = "ID_EMPRESA", nullable = false)

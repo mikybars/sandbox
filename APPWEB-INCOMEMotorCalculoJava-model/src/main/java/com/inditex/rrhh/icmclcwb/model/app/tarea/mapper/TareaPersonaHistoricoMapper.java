@@ -50,6 +50,8 @@ public abstract class TareaPersonaHistoricoMapper {
     @Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "fechaInicio")
     @Mapping(target = "fechaFin", source = "fechaFin")
+    @Mapping(target = "fechaInicioSeccion", source = "fechaInicioSec")
+    @Mapping(target = "fechaFinSeccion", source = "fechaFinSec")
     @Mapping(target = "idEmpresa", source = "idEmpresa")
     @Mapping(target = "idOrigen", source = "idOrigen")
     @Mapping(target = "idSeccion", source = "idSeccion")

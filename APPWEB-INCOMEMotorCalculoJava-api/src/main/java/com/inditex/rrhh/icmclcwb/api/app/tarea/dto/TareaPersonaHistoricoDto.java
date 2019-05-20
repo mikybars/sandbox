@@ -48,6 +48,12 @@ public class TareaPersonaHistoricoDto implements Serializable {
 
 	@NotNull
 	private Date fechaFin;
+	
+	@NotNull
+    private Date fechaInicioSeccion;
+
+    @NotNull
+    private Date fechaFinSeccion;
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la empresa", required = true)

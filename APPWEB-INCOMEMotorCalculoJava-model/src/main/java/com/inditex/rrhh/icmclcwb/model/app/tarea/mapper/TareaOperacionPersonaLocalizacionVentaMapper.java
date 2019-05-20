@@ -8,14 +8,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoImporteVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaOperacionPersonaLocalizacionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaOperacionPersonaLocalizacionVentaDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoImporteVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaOperacionPersonaLocalizacionVenta;
 
 @Mapper
@@ -52,7 +52,7 @@ public abstract class TareaOperacionPersonaLocalizacionVentaMapper {
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaOperacionPersonaLocalizacionVenta tareaOperacionPersonaLocalizacionVenta, PtrVentaIndividualDetalleResultItemDto src){
-        tareaOperacionPersonaLocalizacionVenta.setTipoImporteVenta(new TipoImporteVenta());
-        tareaOperacionPersonaLocalizacionVenta.getTipoImporteVenta().setId(TipoImporteVentaEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_OPERACION_PERSONA_LOCALIZACION.getId());
+        tareaOperacionPersonaLocalizacionVenta.setTipoDato(new TipoDato());
+        tareaOperacionPersonaLocalizacionVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_OPERACION_PERSONA_LOCALIZACION.getId());
     }
 }
