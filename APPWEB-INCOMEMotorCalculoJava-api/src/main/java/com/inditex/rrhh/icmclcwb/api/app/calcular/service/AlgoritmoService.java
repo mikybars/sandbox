@@ -22,5 +22,4 @@ public interface AlgoritmoService {
 
     Boolean checkDuplicatedActives();
 
-
 }

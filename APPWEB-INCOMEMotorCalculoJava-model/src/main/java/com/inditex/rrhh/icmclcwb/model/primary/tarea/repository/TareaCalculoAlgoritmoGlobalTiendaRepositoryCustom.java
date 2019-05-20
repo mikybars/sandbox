@@ -11,5 +11,7 @@ public interface TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom {
     List<TareaCalculoPersonaDto> ids(final AlgoritmoDto algoritmo, final TareaDto tarea);
 
     void calcular(final AlgoritmoDto algoritmo, final TareaDto tarea, final List<TareaCalculoPersonaDto> persona);
+    
+    String getSqlCalcular(final AlgoritmoDto algoritmo);
 
 }

@@ -6,5 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 public interface RunAlgoritmo {
 	
     void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo);
+    
+    String getSqlCalcular(AlgoritmoDto algoritmo);
 	
 }

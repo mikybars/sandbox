@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -41,10 +40,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
     public void calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<TareaCalculoPersonaDto> persona) {
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
         persona.forEach(idPersona -> {
-            // TODO Test error bloque
-            if (idPersona.getIdPersona().equals("2721")) {
-                throw new ReactorIcmclcwbException("Se fuerza que falle el bloque que contenga el id 2721");
-            }
             MapSqlParameterSource arg = new MapSqlParameterSource();
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
@@ -54,6 +49,11 @@ public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
         });
         namedParameterJdbcTemplate.batchUpdate(sqlCalcular,
                 batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
+    }
+
+    @Override
+    public String getSqlCalcular(AlgoritmoDto algoritmo) {
+        return sqlCalcular;
     }
 
 }
