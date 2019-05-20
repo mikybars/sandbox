@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.ws.app.test.controller;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.annotation.Validated;
@@ -83,6 +85,12 @@ public class TestController {
     @ApiOperation("Crea los trabajos para todos los origenes y empresas de la fase 1a")
     public void trabajoFase1a() {
         testService.trabajoFase1a();
+    }
+    
+    @GetMapping("/sql/formatter")
+    @ApiOperation("Formatea una consulta")
+    public String sqlformatter(@Valid @NotBlank String sql) {
+        return new BasicFormatterImpl().format(StringUtils.normalizeSpace(StringUtils.trim(sql)));
     }
 
 }
