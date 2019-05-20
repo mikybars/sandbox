@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,8 +25,11 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaRepository.calcular']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     private String sqlCalcular;
+
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    private String sqlCalcularBase;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -53,7 +58,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return sqlCalcular;
+        return StringUtils.normalizeSpace(sqlCalcularBase);
     }
 
 }
