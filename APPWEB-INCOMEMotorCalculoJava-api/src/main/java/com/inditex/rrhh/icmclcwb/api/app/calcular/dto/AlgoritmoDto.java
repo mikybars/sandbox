@@ -11,15 +11,15 @@ import lombok.Data;
 @ApiModel(description = "Modelo AlgoritmoDto")
 @Data
 public class AlgoritmoDto implements Serializable {
-    
+
     private static final long serialVersionUID = -8045541542256497791L;
 
     @ApiModelProperty(value = "Identificador del algoritmo", required = true)
     private /* BigInteger */ Long id;
-    
+
     @ApiModelProperty(value = "Si el algoritmo está [activo|inactivo]", required = true, example = "true")
     private Boolean activo;
-   
+
     @ApiModelProperty(value = "Nombre del algoritmo", required = true, example = "true")
     private String nombre;
 
@@ -28,5 +28,8 @@ public class AlgoritmoDto implements Serializable {
 
     @ApiModelProperty(value = "Tipo de calculo asociado", required = false, accessMode = AccessMode.READ_ONLY)
     private List<TipoCalculoDto> tipoCalculo;
+
+    @ApiModelProperty(value = "Tipo de dato asociado", required = false, accessMode = AccessMode.READ_ONLY)
+    private List<TipoDatoDto> tipoDato;
 
 }
