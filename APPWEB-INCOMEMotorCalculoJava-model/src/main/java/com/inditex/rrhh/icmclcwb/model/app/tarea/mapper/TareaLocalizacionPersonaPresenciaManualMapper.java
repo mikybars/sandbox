@@ -53,7 +53,7 @@ public abstract class TareaLocalizacionPersonaPresenciaManualMapper {
     }
     
     @AfterMapping
-    void afterMapping(@MappingTarget TareaTiendaEmpleadoPresenciaSeccion tareaTienda,
+    void afterMapping(@MappingTarget TareaLocalizacionPersonaPresenciaManual tareaTienda,
             PtrPresenciaDetalleResultItemDto src) {
         tareaTienda.setTipoDato(new TipoDato());
         tareaTienda.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());

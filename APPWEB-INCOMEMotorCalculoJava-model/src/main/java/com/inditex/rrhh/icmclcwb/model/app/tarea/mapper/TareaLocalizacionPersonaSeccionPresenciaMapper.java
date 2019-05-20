@@ -9,11 +9,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPersonaSeccionPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionPersonaSeccionPresenciaDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaSeccionPresencia;
 
 @Mapper
@@ -57,6 +59,8 @@ public abstract class TareaLocalizacionPersonaSeccionPresenciaMapper {
     void afterMapping(@MappingTarget TareaLocalizacionPersonaSeccionPresencia tareaLocalizacionPersonaSeccionPresencia,
             GenericEmpleadoResultItemDto src) {
         tareaLocalizacionPersonaSeccionPresencia.setActivo(Boolean.TRUE);
+        tareaLocalizacionPersonaSeccionPresencia.setTipoDato(new TipoDato());
+        tareaLocalizacionPersonaSeccionPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
     }    
     
 }
