@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-public interface TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom {
+public interface TareaCalculoAlgoritmoBaseRepositoryCustom {
 
     List<TareaCalculoPersonaDto> ids(final AlgoritmoDto algoritmo, final TareaDto tarea);
 

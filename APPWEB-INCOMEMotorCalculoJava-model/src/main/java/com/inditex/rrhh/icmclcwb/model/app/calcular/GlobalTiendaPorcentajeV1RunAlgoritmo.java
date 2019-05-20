@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
@@ -27,7 +27,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom tareaCalculoAlgoritmoGlobalTiendaRepository;
+    private TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
     
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -35,12 +35,12 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(
-                StreamUtils.partition(tareaCalculoAlgoritmoGlobalTiendaRepository.ids(algoritmo, runTarea.getTarea()),
+                StreamUtils.partition(tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                         runAlgoritmoProperties.getBatchSize()))
                 .parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);
                     try {
-                        tareaCalculoAlgoritmoGlobalTiendaRepository.calcular(algoritmo, runTarea.getTarea(), personas);
+                        tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo, runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("Han fallado las personas", personas, e);
                         tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
@@ -52,7 +52,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoGlobalTiendaRepository.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }

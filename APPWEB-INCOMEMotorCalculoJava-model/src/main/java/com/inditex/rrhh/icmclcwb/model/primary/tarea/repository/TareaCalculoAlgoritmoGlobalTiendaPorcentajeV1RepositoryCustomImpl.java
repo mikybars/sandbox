@@ -16,8 +16,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
-public class TareaCalculoAlgoritmoGlobalTiendaRepositoryCustomImpl
-        implements TareaCalculoAlgoritmoGlobalTiendaRepositoryCustom {
+public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
+        implements TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
