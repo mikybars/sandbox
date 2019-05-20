@@ -6,10 +6,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -88,15 +89,9 @@ public class TestController {
         testService.trabajoFase1a();
     }
 
-    @GetMapping("/sql/formatter/{sql}")
+    @PostMapping(path = "/sql/formatter", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation("Formatea una consulta")
-    public String sqlformatterGet(@PathVariable @Valid @NotBlank String sql) {
-        return new BasicFormatterImpl().format(StringUtils.normalizeSpace(StringUtils.trim(sql)));
-    }
-
-    @PostMapping("/sql/formatter")
-    @ApiOperation("Formatea una consulta")
-    public String sqlformatterPost(@Valid @NotBlank String sql) {
+    public String sqlformatter(@RequestBody @NotBlank String sql) {
         return new BasicFormatterImpl().format(StringUtils.normalizeSpace(StringUtils.trim(sql)));
     }
 
