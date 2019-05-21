@@ -21,8 +21,8 @@ public class TareaTipoHoraDto implements Serializable {
 	private String idTipoHora;
 
 	@NotNull
-	@ApiModelProperty(value = "Flag comisionable", required = true)
-	private Boolean comisionable;
+	@ApiModelProperty(value = "Flag excluido calculo", required = true)
+	private Boolean excluidoCalculo;
 	
     @NotNull
     @ApiModelProperty(value = "Flag excluido denominador", required = true)

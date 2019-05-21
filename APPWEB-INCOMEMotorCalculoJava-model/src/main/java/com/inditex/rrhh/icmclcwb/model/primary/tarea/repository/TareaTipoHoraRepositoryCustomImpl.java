@@ -28,7 +28,7 @@ public class TareaTipoHoraRepositoryCustomImpl extends JdbcBatchPrimaryRepositor
 
     @Override
     public void setParameters(PreparedStatement pstmt, TareaTipoHora entity) throws SQLException {
-        pstmt.setObject(1, entity.getComisionable());
+        pstmt.setObject(1, entity.getExcluidoCalculo());
         pstmt.setObject(2, entity.getExcluidoDenominador());
         pstmt.setObject(3, entity.getIncluidoVenta());
         pstmt.setObject(4, entity.getIncluidoChallenge());

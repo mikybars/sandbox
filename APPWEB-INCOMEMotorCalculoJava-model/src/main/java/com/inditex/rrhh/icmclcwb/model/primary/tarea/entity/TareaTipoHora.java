@@ -26,8 +26,8 @@ public class TareaTipoHora {
 	@Column(name = "ID_TIPO_HORA", nullable = false)
 	private String idTipoHora;
 	
-	@Column(name = "COMISIONABLE", nullable = false)
-	private Boolean comisionable;
+	@Column(name = "EXCLUIDO_CALCULO", nullable = false)
+	private Boolean excluidoCalculo;
 	
 	@Column(name = "EXCLUIDO_DENOMINADOR", nullable = false)
     private Boolean excluidoDenominador;
