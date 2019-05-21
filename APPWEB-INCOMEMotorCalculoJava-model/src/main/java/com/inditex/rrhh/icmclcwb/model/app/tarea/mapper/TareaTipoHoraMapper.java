@@ -28,11 +28,11 @@ public abstract class TareaTipoHoraMapper {
     public abstract TareaTipoHoraDto tareaTipoHoraToTareaTipoHoraDto(TareaTipoHora src);
 
     @Mapping(source = "src.tipoHora", target = "idTipoHora")
-    @Mapping(expression = "excluidoCalculo", target = "excluidoCalculo")
-    @Mapping(expression = "excluidoDenominador", target = "excluidoDenominador")
-    @Mapping(expression = "incluidoVenta", target = "incluidoVenta")
-    @Mapping(expression = "incluidoChallenge", target = "incluidoChallenge")
-    @Mapping(expression = "incluidoEcommerce", target = "incluidoEcommerce")
+    @Mapping(source = "src.excluidoCalculo", target = "excluidoCalculo")
+    @Mapping(source = "src.excluidoDenom", target = "excluidoDenominador")
+    @Mapping(source = "src.incluidoVenta", target = "incluidoVenta")
+    @Mapping(source = "src.incluidoChallenge", target = "incluidoChallenge")
+    @Mapping(source = "src.incluidoEcommerce", target = "incluidoEcommerce")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     public abstract TareaTipoHora ptrPresenciasMockTiposHorasResponseDtoToTareaTipoHoraDto(
