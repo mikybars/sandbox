@@ -35,19 +35,26 @@ public abstract class TareaEmpleadoEstructuraDecorator extends TareaEmpleadoEstr
     public List<TareaEmpleadoEstructuraDto> comisionEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(
             List<ComisionEmpleadoResultItemDto> src){
         List<TareaEmpleadoEstructuraDto> result = new ArrayList<>();
-        
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> {
+                TareaEmpleadoEstructuraDto estructura = delegate.comisionEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(item);
                 if (CollectionUtils.isNotEmpty(item.getIcmListaPorcentajes())) {
                     item.getIcmListaPorcentajes().forEach(porcentaje -> {
-                        TareaEmpleadoEstructuraDto estructura = delegate.comisionEmpleadoResultItemDtoToTareaEmpleadoEstructuraDto(item);
-                        estructura.setPorcentaje(StringUtils.isNotEmpty(porcentaje.getPorcentaje()) ? Double.valueOf(porcentaje.getPorcentaje()) : null);
-                        estructura.setPorcentaje3(StringUtils.isNotEmpty(porcentaje.getPorcentajeT1()) ? Double.valueOf(porcentaje.getPorcentajeT1()) : null);
-                        estructura.setPorcentaje3(StringUtils.isNotEmpty(porcentaje.getPorcentajeT2()) ? Double.valueOf(porcentaje.getPorcentajeT2()) : null);
-                        estructura.setPorcentaje3(StringUtils.isNotEmpty(porcentaje.getPorcentajeT3()) ? Double.valueOf(porcentaje.getPorcentajeT3()) : null);
-                        result.add(estructura);
+                        if(StringUtils.isNotEmpty(porcentaje.getPorcentaje())){
+                            estructura.setPorcentaje(Double.valueOf(porcentaje.getPorcentaje()));
+                        }
+                        if(StringUtils.isNotEmpty(porcentaje.getPorcentajeT1())){
+                            estructura.setPorcentaje1(Double.valueOf(porcentaje.getPorcentajeT1()));
+                        }
+                        if(StringUtils.isNotEmpty(porcentaje.getPorcentajeT2())){
+                            estructura.setPorcentaje2(Double.valueOf(porcentaje.getPorcentajeT2()));
+                        }
+                        if(StringUtils.isNotEmpty(porcentaje.getPorcentajeT3())){
+                            estructura.setPorcentaje3(Double.valueOf(porcentaje.getPorcentajeT3()));
+                        }
                     });
                 }
+                result.add(estructura);
             });
         }
         return result;
