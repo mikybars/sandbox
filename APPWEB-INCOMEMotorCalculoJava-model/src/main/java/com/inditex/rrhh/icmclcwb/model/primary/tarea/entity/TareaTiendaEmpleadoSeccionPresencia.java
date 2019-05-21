@@ -60,5 +60,9 @@ public class TareaTiendaEmpleadoSeccionPresencia {
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
+    
+    @NotNull
+    @Column(name = "ACTIVO", nullable = false)
+    private Boolean activo;
 
 }

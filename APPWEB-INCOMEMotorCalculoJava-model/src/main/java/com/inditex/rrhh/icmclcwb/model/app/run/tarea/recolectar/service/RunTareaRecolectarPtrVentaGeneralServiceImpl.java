@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaGeneralService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -56,6 +57,9 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
 
     @Autowired
     private TareaTiendaVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
+    
+    @Autowired
+    private TareaTiendaSeccionVentaAsyncService tareaTiendaSeccionVentaAsyncService;
     
     @Autowired
     private TareaTiendaVentaAsyncService tareaTiendaVentaAsyncService;
@@ -144,8 +148,11 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                         ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+                //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                 AsyncUtils.exceptionally(
-                        tareaTiendaVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist); 
+                        tareaTiendaVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
+                AsyncUtils.exceptionally(
+                        tareaTiendaSeccionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 

@@ -51,11 +51,15 @@ public class TareaTiendaSeccionVenta {
     
     @NotNull
     @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION", nullable = false)
-    private /* BigInteger */ Double importeConImpuestosSeccion;
+    private /* BigInteger */ Double importeConImpuestos;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
 
+    
+    public boolean skip() {
+        return importe == 0D && importeConImpuestos == 0D;
+    }
     
 }

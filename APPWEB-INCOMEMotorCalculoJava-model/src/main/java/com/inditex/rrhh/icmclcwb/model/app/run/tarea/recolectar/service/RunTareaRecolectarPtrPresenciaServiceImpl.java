@@ -29,6 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaEmpleadoPresenciaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaEmpleadoSeccionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaPresenciaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
@@ -80,7 +81,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
 
     @Autowired
     private TareaTiendaPresenciaSeccionAsyncService tareaTiendaPresenciaSeccionAsyncService;
-
+    
     @Autowired
     private TareaTipoHoraAsyncService tareaTipoHoraAsyncSevice;
 
@@ -95,6 +96,9 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
 
     @Autowired
     private TareaTiendaEmpleadoPresenciaSeccionAsyncService tareaTiendaEmpleadoPresenciaSeccionAsyncService;
+    
+    @Autowired
+    private TareaTiendaEmpleadoSeccionPresenciaAsyncService tareaTiendaEmpleadoSeccionPresenciaAsyncService;
 
     @Autowired
     private TareaPersonaHistoricoAsyncService tareaPersonaHistoricoAsyncService;
@@ -241,8 +245,12 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasDetalle())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties.get(PtrConstants.PRESENCIA_DETALLE)
                             .getFilter().getMaxPersistenceSize());
+                    //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                     AsyncUtils.exceptionally(
                             tareaTiendaEmpleadoPresenciaSeccionAsyncService.save(data.getPresenciasDetalle(), tarea),
+                            cf, cfPersist);
+                    AsyncUtils.exceptionally(
+                            tareaTiendaEmpleadoSeccionPresenciaAsyncService.save(data.getPresenciasDetalle(), tarea),
                             cf, cfPersist);
                 }
             }
