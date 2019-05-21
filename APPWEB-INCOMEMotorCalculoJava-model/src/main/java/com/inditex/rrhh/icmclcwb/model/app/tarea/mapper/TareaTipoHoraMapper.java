@@ -29,6 +29,7 @@ public abstract class TareaTipoHoraMapper {
 
     @Mapping(source = "src.tipoHora", target = "idTipoHora")
     @Mapping(expression = "java(!src.getExcluidoCalculo())", target = "comisionable")
+    @Mapping(expression = "java(!src.getExcluidoDenominador())", target = "excluidoDenominador")
     @Mapping(expression = "java(!src.getIncluidoVenta())", target = "incluidoVenta")
     @Mapping(expression = "java(!src.getIncluidoChallenge())", target = "incluidoChallenge")
     @Mapping(expression = "java(!src.getIncluidoEcommerce())", target = "incluidoEcommerce")

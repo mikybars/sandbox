@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +23,22 @@ public class TareaTipoHoraDto implements Serializable {
 	@NotNull
 	@ApiModelProperty(value = "Flag comisionable", required = true)
 	private Boolean comisionable;
+	
+    @NotNull
+    @ApiModelProperty(value = "Flag excluido denominador", required = true)
+    private Boolean excluidoDenominador;
+    
+    @NotNull
+    @ApiModelProperty(value = "Flag incluido venta", required = true)
+    private Boolean incluidoVenta;    
+    
+    @NotNull
+    @ApiModelProperty(value = "Flag incluido challenge", required = true)
+    private Boolean incluidoChallenge;      
+    
+    @NotNull
+    @ApiModelProperty(value = "Flag incluido ecommerce", required = true)
+    private Boolean incluidoEcommerce; 
 
 	@NotNull
 	@ApiModelProperty(value = "Tarea", required = true)
