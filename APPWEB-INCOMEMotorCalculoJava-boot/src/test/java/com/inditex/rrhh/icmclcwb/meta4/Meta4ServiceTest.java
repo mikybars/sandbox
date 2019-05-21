@@ -33,6 +33,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Gettiendasem
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructurasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaporcentajesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
@@ -301,15 +302,18 @@ public class Meta4ServiceTest {
             
             if (emprec.size()>0) {
                 GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, param2);
-//                List<IcmListaestructurasRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructuras()
-//                        .getIcmListaestructurasRecordSet();
-//                for (IcmListaestructurasRecord record2 : recordset) {
-//                    System.out.println("tienda:" + tienda + " idempleado: " + record2.getIdempleado()
-//                            + " idempleadolocal: " + record2.getIdempleadolocal() + " estructura: "
-//                            + record2.getIdestructura() + " tipo comision: " + record2.getIdtipocomision() + " tipo calculo: " 
-//                            + record2.getIdtipocalculo() + " percentageall: " + record2.getPercentageall() + " percentageboy: "  + record2.getPercentageboy() 
-//                            + " percentageman: " + record2.getPercentageman() + " percentagewoman: " + record2.getPercentagewoman() );
-//                } 
+                List<IcmListaestructurasRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructuras()
+                        .getIcmListaestructurasRecordSet();
+                for (IcmListaestructurasRecord record2 : recordset) {
+                    System.out.println("tienda:" + tienda + " idempleado: " + record2.getIdempleado()
+                            + " idempleadolocal: " + record2.getIdempleadolocal() + " estructura: "
+                            + record2.getIdestructura() + " tipo comision: " + record2.getIdtipocomision() + " tipo calculo: " 
+                            + record2.getIdtipocalculo() + " percentageall: " );
+                    for(IcmListaporcentajesRecord record3 : record2.getIcmListaporcentajes().getIcmListaporcentajesRecordSet()) {
+                        System.out.println("-- seccion: " + record3.getIdseccion() + " porcentaje " + record3.getPorcentaje() + " porcentaje1 " + record3.getPorcentajet1()
+                        + " porcentaje2 " + record3.getPorcentajet2() + " porcentaje3 " + record3.getPorcentajet3());
+                    }
+                } 
             }
         }
 

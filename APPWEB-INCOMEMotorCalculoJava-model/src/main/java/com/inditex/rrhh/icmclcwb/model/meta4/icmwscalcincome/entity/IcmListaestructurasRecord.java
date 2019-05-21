@@ -55,28 +55,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idmotivobaja" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipocalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="nummesesmedia" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageall" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageboy" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageman" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="excdenominador" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipocomision" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipopolitica" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleadolocal" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageallt1" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageallt2" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageallt3" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageboyt1" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageboyt2" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentageboyt3" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentagemant1" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentagemant2" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentagemant3" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentagewoman" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajomtu" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentagewomant1" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentagewomant2" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="percentagewomant3" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_Listaporcentajes" type="{http://schemas.meta4.com/}Icm_ListaporcentajesBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -112,28 +96,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idmotivobaja",
     "idtipocalculo",
     "nummesesmedia",
-    "percentageall",
-    "percentageboy",
-    "percentageman",
     "excdenominador",
     "idlugartrabajo",
     "idtipocomision",
     "idtipopolitica",
     "idempleadolocal",
-    "percentageallt1",
-    "percentageallt2",
-    "percentageallt3",
-    "percentageboyt1",
-    "percentageboyt2",
-    "percentageboyt3",
-    "percentagemant1",
-    "percentagemant2",
-    "percentagemant3",
-    "percentagewoman",
     "idlugartrabajomtu",
-    "percentagewomant1",
-    "percentagewomant2",
-    "percentagewomant3",
     "icmListaporcentajes"
 })
 public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
@@ -187,12 +155,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     @XmlElement(required = true, nillable = true)
     protected String nummesesmedia;
     @XmlElement(required = true, nillable = true)
-    protected String percentageall;
-    @XmlElement(required = true, nillable = true)
-    protected String percentageboy;
-    @XmlElement(required = true, nillable = true)
-    protected String percentageman;
-    @XmlElement(required = true, nillable = true)
     protected String excdenominador;
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajo;
@@ -203,33 +165,7 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     @XmlElement(required = true, nillable = true)
     protected String idempleadolocal;
     @XmlElement(required = true, nillable = true)
-    protected String percentageallt1;
-    @XmlElement(required = true, nillable = true)
-    protected String percentageallt2;
-    @XmlElement(required = true, nillable = true)
-    protected String percentageallt3;
-    @XmlElement(required = true, nillable = true)
-    protected String percentageboyt1;
-    @XmlElement(required = true, nillable = true)
-    protected String percentageboyt2;
-    @XmlElement(required = true, nillable = true)
-    protected String percentageboyt3;
-    @XmlElement(required = true, nillable = true)
-    protected String percentagemant1;
-    @XmlElement(required = true, nillable = true)
-    protected String percentagemant2;
-    @XmlElement(required = true, nillable = true)
-    protected String percentagemant3;
-    @XmlElement(required = true, nillable = true)
-    protected String percentagewoman;
-    @XmlElement(required = true, nillable = true)
     protected String idlugartrabajomtu;
-    @XmlElement(required = true, nillable = true)
-    protected String percentagewomant1;
-    @XmlElement(required = true, nillable = true)
-    protected String percentagewomant2;
-    @XmlElement(required = true, nillable = true)
-    protected String percentagewomant3;
     @XmlElement(name = "Icm_Listaporcentajes", required = true, nillable = true)
     protected IcmListaporcentajesBlock icmListaporcentajes;
 
@@ -802,78 +738,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad percentageall.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageall() {
-        return percentageall;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageall.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageall(String value) {
-        this.percentageall = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentageboy.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageboy() {
-        return percentageboy;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageboy.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageboy(String value) {
-        this.percentageboy = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentageman.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageman() {
-        return percentageman;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageman.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageman(String value) {
-        this.percentageman = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad excdenominador.
      * 
      * @return
@@ -994,246 +858,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad percentageallt1.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageallt1() {
-        return percentageallt1;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageallt1.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageallt1(String value) {
-        this.percentageallt1 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentageallt2.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageallt2() {
-        return percentageallt2;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageallt2.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageallt2(String value) {
-        this.percentageallt2 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentageallt3.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageallt3() {
-        return percentageallt3;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageallt3.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageallt3(String value) {
-        this.percentageallt3 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentageboyt1.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageboyt1() {
-        return percentageboyt1;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageboyt1.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageboyt1(String value) {
-        this.percentageboyt1 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentageboyt2.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageboyt2() {
-        return percentageboyt2;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageboyt2.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageboyt2(String value) {
-        this.percentageboyt2 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentageboyt3.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentageboyt3() {
-        return percentageboyt3;
-    }
-
-    /**
-     * Define el valor de la propiedad percentageboyt3.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentageboyt3(String value) {
-        this.percentageboyt3 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentagemant1.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentagemant1() {
-        return percentagemant1;
-    }
-
-    /**
-     * Define el valor de la propiedad percentagemant1.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentagemant1(String value) {
-        this.percentagemant1 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentagemant2.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentagemant2() {
-        return percentagemant2;
-    }
-
-    /**
-     * Define el valor de la propiedad percentagemant2.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentagemant2(String value) {
-        this.percentagemant2 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentagemant3.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentagemant3() {
-        return percentagemant3;
-    }
-
-    /**
-     * Define el valor de la propiedad percentagemant3.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentagemant3(String value) {
-        this.percentagemant3 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentagewoman.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentagewoman() {
-        return percentagewoman;
-    }
-
-    /**
-     * Define el valor de la propiedad percentagewoman.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentagewoman(String value) {
-        this.percentagewoman = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad idlugartrabajomtu.
      * 
      * @return
@@ -1255,78 +879,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
      */
     public void setIdlugartrabajomtu(String value) {
         this.idlugartrabajomtu = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentagewomant1.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentagewomant1() {
-        return percentagewomant1;
-    }
-
-    /**
-     * Define el valor de la propiedad percentagewomant1.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentagewomant1(String value) {
-        this.percentagewomant1 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentagewomant2.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentagewomant2() {
-        return percentagewomant2;
-    }
-
-    /**
-     * Define el valor de la propiedad percentagewomant2.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentagewomant2(String value) {
-        this.percentagewomant2 = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad percentagewomant3.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPercentagewomant3() {
-        return percentagewomant3;
-    }
-
-    /**
-     * Define el valor de la propiedad percentagewomant3.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPercentagewomant3(String value) {
-        this.percentagewomant3 = value;
     }
 
     /**
@@ -1578,33 +1130,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsPercentageall;
-            lhsPercentageall = this.getPercentageall();
-            String rhsPercentageall;
-            rhsPercentageall = that.getPercentageall();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageall", lhsPercentageall), LocatorUtils.property(thatLocator, "percentageall", rhsPercentageall), lhsPercentageall, rhsPercentageall, (this.percentageall!= null), (that.percentageall!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentageboy;
-            lhsPercentageboy = this.getPercentageboy();
-            String rhsPercentageboy;
-            rhsPercentageboy = that.getPercentageboy();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageboy", lhsPercentageboy), LocatorUtils.property(thatLocator, "percentageboy", rhsPercentageboy), lhsPercentageboy, rhsPercentageboy, (this.percentageboy!= null), (that.percentageboy!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentageman;
-            lhsPercentageman = this.getPercentageman();
-            String rhsPercentageman;
-            rhsPercentageman = that.getPercentageman();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageman", lhsPercentageman), LocatorUtils.property(thatLocator, "percentageman", rhsPercentageman), lhsPercentageman, rhsPercentageman, (this.percentageman!= null), (that.percentageman!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsExcdenominador;
             lhsExcdenominador = this.getExcdenominador();
             String rhsExcdenominador;
@@ -1650,128 +1175,11 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsPercentageallt1;
-            lhsPercentageallt1 = this.getPercentageallt1();
-            String rhsPercentageallt1;
-            rhsPercentageallt1 = that.getPercentageallt1();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageallt1", lhsPercentageallt1), LocatorUtils.property(thatLocator, "percentageallt1", rhsPercentageallt1), lhsPercentageallt1, rhsPercentageallt1, (this.percentageallt1 != null), (that.percentageallt1 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentageallt2;
-            lhsPercentageallt2 = this.getPercentageallt2();
-            String rhsPercentageallt2;
-            rhsPercentageallt2 = that.getPercentageallt2();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageallt2", lhsPercentageallt2), LocatorUtils.property(thatLocator, "percentageallt2", rhsPercentageallt2), lhsPercentageallt2, rhsPercentageallt2, (this.percentageallt2 != null), (that.percentageallt2 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentageallt3;
-            lhsPercentageallt3 = this.getPercentageallt3();
-            String rhsPercentageallt3;
-            rhsPercentageallt3 = that.getPercentageallt3();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageallt3", lhsPercentageallt3), LocatorUtils.property(thatLocator, "percentageallt3", rhsPercentageallt3), lhsPercentageallt3, rhsPercentageallt3, (this.percentageallt3 != null), (that.percentageallt3 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentageboyt1;
-            lhsPercentageboyt1 = this.getPercentageboyt1();
-            String rhsPercentageboyt1;
-            rhsPercentageboyt1 = that.getPercentageboyt1();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageboyt1", lhsPercentageboyt1), LocatorUtils.property(thatLocator, "percentageboyt1", rhsPercentageboyt1), lhsPercentageboyt1, rhsPercentageboyt1, (this.percentageboyt1 != null), (that.percentageboyt1 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentageboyt2;
-            lhsPercentageboyt2 = this.getPercentageboyt2();
-            String rhsPercentageboyt2;
-            rhsPercentageboyt2 = that.getPercentageboyt2();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageboyt2", lhsPercentageboyt2), LocatorUtils.property(thatLocator, "percentageboyt2", rhsPercentageboyt2), lhsPercentageboyt2, rhsPercentageboyt2, (this.percentageboyt2 != null), (that.percentageboyt2 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentageboyt3;
-            lhsPercentageboyt3 = this.getPercentageboyt3();
-            String rhsPercentageboyt3;
-            rhsPercentageboyt3 = that.getPercentageboyt3();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentageboyt3", lhsPercentageboyt3), LocatorUtils.property(thatLocator, "percentageboyt3", rhsPercentageboyt3), lhsPercentageboyt3, rhsPercentageboyt3, (this.percentageboyt3 != null), (that.percentageboyt3 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentagemant1;
-            lhsPercentagemant1 = this.getPercentagemant1();
-            String rhsPercentagemant1;
-            rhsPercentagemant1 = that.getPercentagemant1();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentagemant1", lhsPercentagemant1), LocatorUtils.property(thatLocator, "percentagemant1", rhsPercentagemant1), lhsPercentagemant1, rhsPercentagemant1, (this.percentagemant1 != null), (that.percentagemant1 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentagemant2;
-            lhsPercentagemant2 = this.getPercentagemant2();
-            String rhsPercentagemant2;
-            rhsPercentagemant2 = that.getPercentagemant2();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentagemant2", lhsPercentagemant2), LocatorUtils.property(thatLocator, "percentagemant2", rhsPercentagemant2), lhsPercentagemant2, rhsPercentagemant2, (this.percentagemant2 != null), (that.percentagemant2 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentagemant3;
-            lhsPercentagemant3 = this.getPercentagemant3();
-            String rhsPercentagemant3;
-            rhsPercentagemant3 = that.getPercentagemant3();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentagemant3", lhsPercentagemant3), LocatorUtils.property(thatLocator, "percentagemant3", rhsPercentagemant3), lhsPercentagemant3, rhsPercentagemant3, (this.percentagemant3 != null), (that.percentagemant3 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentagewoman;
-            lhsPercentagewoman = this.getPercentagewoman();
-            String rhsPercentagewoman;
-            rhsPercentagewoman = that.getPercentagewoman();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentagewoman", lhsPercentagewoman), LocatorUtils.property(thatLocator, "percentagewoman", rhsPercentagewoman), lhsPercentagewoman, rhsPercentagewoman, (this.percentagewoman!= null), (that.percentagewoman!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsIdlugartrabajomtu;
             lhsIdlugartrabajomtu = this.getIdlugartrabajomtu();
             String rhsIdlugartrabajomtu;
             rhsIdlugartrabajomtu = that.getIdlugartrabajomtu();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "idlugartrabajomtu", lhsIdlugartrabajomtu), LocatorUtils.property(thatLocator, "idlugartrabajomtu", rhsIdlugartrabajomtu), lhsIdlugartrabajomtu, rhsIdlugartrabajomtu, (this.idlugartrabajomtu!= null), (that.idlugartrabajomtu!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentagewomant1;
-            lhsPercentagewomant1 = this.getPercentagewomant1();
-            String rhsPercentagewomant1;
-            rhsPercentagewomant1 = that.getPercentagewomant1();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentagewomant1", lhsPercentagewomant1), LocatorUtils.property(thatLocator, "percentagewomant1", rhsPercentagewomant1), lhsPercentagewomant1, rhsPercentagewomant1, (this.percentagewomant1 != null), (that.percentagewomant1 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentagewomant2;
-            lhsPercentagewomant2 = this.getPercentagewomant2();
-            String rhsPercentagewomant2;
-            rhsPercentagewomant2 = that.getPercentagewomant2();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentagewomant2", lhsPercentagewomant2), LocatorUtils.property(thatLocator, "percentagewomant2", rhsPercentagewomant2), lhsPercentagewomant2, rhsPercentagewomant2, (this.percentagewomant2 != null), (that.percentagewomant2 != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsPercentagewomant3;
-            lhsPercentagewomant3 = this.getPercentagewomant3();
-            String rhsPercentagewomant3;
-            rhsPercentagewomant3 = that.getPercentagewomant3();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "percentagewomant3", lhsPercentagewomant3), LocatorUtils.property(thatLocator, "percentagewomant3", rhsPercentagewomant3), lhsPercentagewomant3, rhsPercentagewomant3, (this.percentagewomant3 != null), (that.percentagewomant3 != null))) {
                 return false;
             }
         }
@@ -1928,21 +1336,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "nummesesmedia", buffer, theNummesesmedia, (this.nummesesmedia!= null));
         }
         {
-            String thePercentageall;
-            thePercentageall = this.getPercentageall();
-            strategy.appendField(locator, this, "percentageall", buffer, thePercentageall, (this.percentageall!= null));
-        }
-        {
-            String thePercentageboy;
-            thePercentageboy = this.getPercentageboy();
-            strategy.appendField(locator, this, "percentageboy", buffer, thePercentageboy, (this.percentageboy!= null));
-        }
-        {
-            String thePercentageman;
-            thePercentageman = this.getPercentageman();
-            strategy.appendField(locator, this, "percentageman", buffer, thePercentageman, (this.percentageman!= null));
-        }
-        {
             String theExcdenominador;
             theExcdenominador = this.getExcdenominador();
             strategy.appendField(locator, this, "excdenominador", buffer, theExcdenominador, (this.excdenominador!= null));
@@ -1968,74 +1361,9 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "idempleadolocal", buffer, theIdempleadolocal, (this.idempleadolocal!= null));
         }
         {
-            String thePercentageallt1;
-            thePercentageallt1 = this.getPercentageallt1();
-            strategy.appendField(locator, this, "percentageallt1", buffer, thePercentageallt1, (this.percentageallt1 != null));
-        }
-        {
-            String thePercentageallt2;
-            thePercentageallt2 = this.getPercentageallt2();
-            strategy.appendField(locator, this, "percentageallt2", buffer, thePercentageallt2, (this.percentageallt2 != null));
-        }
-        {
-            String thePercentageallt3;
-            thePercentageallt3 = this.getPercentageallt3();
-            strategy.appendField(locator, this, "percentageallt3", buffer, thePercentageallt3, (this.percentageallt3 != null));
-        }
-        {
-            String thePercentageboyt1;
-            thePercentageboyt1 = this.getPercentageboyt1();
-            strategy.appendField(locator, this, "percentageboyt1", buffer, thePercentageboyt1, (this.percentageboyt1 != null));
-        }
-        {
-            String thePercentageboyt2;
-            thePercentageboyt2 = this.getPercentageboyt2();
-            strategy.appendField(locator, this, "percentageboyt2", buffer, thePercentageboyt2, (this.percentageboyt2 != null));
-        }
-        {
-            String thePercentageboyt3;
-            thePercentageboyt3 = this.getPercentageboyt3();
-            strategy.appendField(locator, this, "percentageboyt3", buffer, thePercentageboyt3, (this.percentageboyt3 != null));
-        }
-        {
-            String thePercentagemant1;
-            thePercentagemant1 = this.getPercentagemant1();
-            strategy.appendField(locator, this, "percentagemant1", buffer, thePercentagemant1, (this.percentagemant1 != null));
-        }
-        {
-            String thePercentagemant2;
-            thePercentagemant2 = this.getPercentagemant2();
-            strategy.appendField(locator, this, "percentagemant2", buffer, thePercentagemant2, (this.percentagemant2 != null));
-        }
-        {
-            String thePercentagemant3;
-            thePercentagemant3 = this.getPercentagemant3();
-            strategy.appendField(locator, this, "percentagemant3", buffer, thePercentagemant3, (this.percentagemant3 != null));
-        }
-        {
-            String thePercentagewoman;
-            thePercentagewoman = this.getPercentagewoman();
-            strategy.appendField(locator, this, "percentagewoman", buffer, thePercentagewoman, (this.percentagewoman!= null));
-        }
-        {
             String theIdlugartrabajomtu;
             theIdlugartrabajomtu = this.getIdlugartrabajomtu();
             strategy.appendField(locator, this, "idlugartrabajomtu", buffer, theIdlugartrabajomtu, (this.idlugartrabajomtu!= null));
-        }
-        {
-            String thePercentagewomant1;
-            thePercentagewomant1 = this.getPercentagewomant1();
-            strategy.appendField(locator, this, "percentagewomant1", buffer, thePercentagewomant1, (this.percentagewomant1 != null));
-        }
-        {
-            String thePercentagewomant2;
-            thePercentagewomant2 = this.getPercentagewomant2();
-            strategy.appendField(locator, this, "percentagewomant2", buffer, thePercentagewomant2, (this.percentagewomant2 != null));
-        }
-        {
-            String thePercentagewomant3;
-            thePercentagewomant3 = this.getPercentagewomant3();
-            strategy.appendField(locator, this, "percentagewomant3", buffer, thePercentagewomant3, (this.percentagewomant3 != null));
         }
         {
             IcmListaporcentajesBlock theIcmListaporcentajes;
@@ -2168,21 +1496,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nummesesmedia", theNummesesmedia), currentHashCode, theNummesesmedia, (this.nummesesmedia!= null));
         }
         {
-            String thePercentageall;
-            thePercentageall = this.getPercentageall();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageall", thePercentageall), currentHashCode, thePercentageall, (this.percentageall!= null));
-        }
-        {
-            String thePercentageboy;
-            thePercentageboy = this.getPercentageboy();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageboy", thePercentageboy), currentHashCode, thePercentageboy, (this.percentageboy!= null));
-        }
-        {
-            String thePercentageman;
-            thePercentageman = this.getPercentageman();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageman", thePercentageman), currentHashCode, thePercentageman, (this.percentageman!= null));
-        }
-        {
             String theExcdenominador;
             theExcdenominador = this.getExcdenominador();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "excdenominador", theExcdenominador), currentHashCode, theExcdenominador, (this.excdenominador!= null));
@@ -2208,74 +1521,9 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempleadolocal", theIdempleadolocal), currentHashCode, theIdempleadolocal, (this.idempleadolocal!= null));
         }
         {
-            String thePercentageallt1;
-            thePercentageallt1 = this.getPercentageallt1();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageallt1", thePercentageallt1), currentHashCode, thePercentageallt1, (this.percentageallt1 != null));
-        }
-        {
-            String thePercentageallt2;
-            thePercentageallt2 = this.getPercentageallt2();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageallt2", thePercentageallt2), currentHashCode, thePercentageallt2, (this.percentageallt2 != null));
-        }
-        {
-            String thePercentageallt3;
-            thePercentageallt3 = this.getPercentageallt3();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageallt3", thePercentageallt3), currentHashCode, thePercentageallt3, (this.percentageallt3 != null));
-        }
-        {
-            String thePercentageboyt1;
-            thePercentageboyt1 = this.getPercentageboyt1();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageboyt1", thePercentageboyt1), currentHashCode, thePercentageboyt1, (this.percentageboyt1 != null));
-        }
-        {
-            String thePercentageboyt2;
-            thePercentageboyt2 = this.getPercentageboyt2();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageboyt2", thePercentageboyt2), currentHashCode, thePercentageboyt2, (this.percentageboyt2 != null));
-        }
-        {
-            String thePercentageboyt3;
-            thePercentageboyt3 = this.getPercentageboyt3();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentageboyt3", thePercentageboyt3), currentHashCode, thePercentageboyt3, (this.percentageboyt3 != null));
-        }
-        {
-            String thePercentagemant1;
-            thePercentagemant1 = this.getPercentagemant1();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentagemant1", thePercentagemant1), currentHashCode, thePercentagemant1, (this.percentagemant1 != null));
-        }
-        {
-            String thePercentagemant2;
-            thePercentagemant2 = this.getPercentagemant2();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentagemant2", thePercentagemant2), currentHashCode, thePercentagemant2, (this.percentagemant2 != null));
-        }
-        {
-            String thePercentagemant3;
-            thePercentagemant3 = this.getPercentagemant3();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentagemant3", thePercentagemant3), currentHashCode, thePercentagemant3, (this.percentagemant3 != null));
-        }
-        {
-            String thePercentagewoman;
-            thePercentagewoman = this.getPercentagewoman();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentagewoman", thePercentagewoman), currentHashCode, thePercentagewoman, (this.percentagewoman!= null));
-        }
-        {
             String theIdlugartrabajomtu;
             theIdlugartrabajomtu = this.getIdlugartrabajomtu();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idlugartrabajomtu", theIdlugartrabajomtu), currentHashCode, theIdlugartrabajomtu, (this.idlugartrabajomtu!= null));
-        }
-        {
-            String thePercentagewomant1;
-            thePercentagewomant1 = this.getPercentagewomant1();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentagewomant1", thePercentagewomant1), currentHashCode, thePercentagewomant1, (this.percentagewomant1 != null));
-        }
-        {
-            String thePercentagewomant2;
-            thePercentagewomant2 = this.getPercentagewomant2();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentagewomant2", thePercentagewomant2), currentHashCode, thePercentagewomant2, (this.percentagewomant2 != null));
-        }
-        {
-            String thePercentagewomant3;
-            thePercentagewomant3 = this.getPercentagewomant3();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "percentagewomant3", thePercentagewomant3), currentHashCode, thePercentagewomant3, (this.percentagewomant3 != null));
         }
         {
             IcmListaporcentajesBlock theIcmListaporcentajes;
@@ -2615,45 +1863,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean percentageallShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageall!= null));
-                if (percentageallShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageall;
-                    sourcePercentageall = this.getPercentageall();
-                    String copyPercentageall = ((String) strategy.copy(LocatorUtils.property(locator, "percentageall", sourcePercentageall), sourcePercentageall, (this.percentageall!= null)));
-                    copy.setPercentageall(copyPercentageall);
-                } else {
-                    if (percentageallShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageall = null;
-                    }
-                }
-            }
-            {
-                Boolean percentageboyShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageboy!= null));
-                if (percentageboyShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageboy;
-                    sourcePercentageboy = this.getPercentageboy();
-                    String copyPercentageboy = ((String) strategy.copy(LocatorUtils.property(locator, "percentageboy", sourcePercentageboy), sourcePercentageboy, (this.percentageboy!= null)));
-                    copy.setPercentageboy(copyPercentageboy);
-                } else {
-                    if (percentageboyShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageboy = null;
-                    }
-                }
-            }
-            {
-                Boolean percentagemanShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageman!= null));
-                if (percentagemanShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageman;
-                    sourcePercentageman = this.getPercentageman();
-                    String copyPercentageman = ((String) strategy.copy(LocatorUtils.property(locator, "percentageman", sourcePercentageman), sourcePercentageman, (this.percentageman!= null)));
-                    copy.setPercentageman(copyPercentageman);
-                } else {
-                    if (percentagemanShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageman = null;
-                    }
-                }
-            }
-            {
                 Boolean excdenominadorShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.excdenominador!= null));
                 if (excdenominadorShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceExcdenominador;
@@ -2719,136 +1928,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean percentageallt1ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageallt1 != null));
-                if (percentageallt1ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageallt1;
-                    sourcePercentageallt1 = this.getPercentageallt1();
-                    String copyPercentageallt1 = ((String) strategy.copy(LocatorUtils.property(locator, "percentageallt1", sourcePercentageallt1), sourcePercentageallt1, (this.percentageallt1 != null)));
-                    copy.setPercentageallt1(copyPercentageallt1);
-                } else {
-                    if (percentageallt1ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageallt1 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentageallt2ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageallt2 != null));
-                if (percentageallt2ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageallt2;
-                    sourcePercentageallt2 = this.getPercentageallt2();
-                    String copyPercentageallt2 = ((String) strategy.copy(LocatorUtils.property(locator, "percentageallt2", sourcePercentageallt2), sourcePercentageallt2, (this.percentageallt2 != null)));
-                    copy.setPercentageallt2(copyPercentageallt2);
-                } else {
-                    if (percentageallt2ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageallt2 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentageallt3ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageallt3 != null));
-                if (percentageallt3ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageallt3;
-                    sourcePercentageallt3 = this.getPercentageallt3();
-                    String copyPercentageallt3 = ((String) strategy.copy(LocatorUtils.property(locator, "percentageallt3", sourcePercentageallt3), sourcePercentageallt3, (this.percentageallt3 != null)));
-                    copy.setPercentageallt3(copyPercentageallt3);
-                } else {
-                    if (percentageallt3ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageallt3 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentageboyt1ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageboyt1 != null));
-                if (percentageboyt1ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageboyt1;
-                    sourcePercentageboyt1 = this.getPercentageboyt1();
-                    String copyPercentageboyt1 = ((String) strategy.copy(LocatorUtils.property(locator, "percentageboyt1", sourcePercentageboyt1), sourcePercentageboyt1, (this.percentageboyt1 != null)));
-                    copy.setPercentageboyt1(copyPercentageboyt1);
-                } else {
-                    if (percentageboyt1ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageboyt1 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentageboyt2ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageboyt2 != null));
-                if (percentageboyt2ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageboyt2;
-                    sourcePercentageboyt2 = this.getPercentageboyt2();
-                    String copyPercentageboyt2 = ((String) strategy.copy(LocatorUtils.property(locator, "percentageboyt2", sourcePercentageboyt2), sourcePercentageboyt2, (this.percentageboyt2 != null)));
-                    copy.setPercentageboyt2(copyPercentageboyt2);
-                } else {
-                    if (percentageboyt2ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageboyt2 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentageboyt3ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentageboyt3 != null));
-                if (percentageboyt3ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentageboyt3;
-                    sourcePercentageboyt3 = this.getPercentageboyt3();
-                    String copyPercentageboyt3 = ((String) strategy.copy(LocatorUtils.property(locator, "percentageboyt3", sourcePercentageboyt3), sourcePercentageboyt3, (this.percentageboyt3 != null)));
-                    copy.setPercentageboyt3(copyPercentageboyt3);
-                } else {
-                    if (percentageboyt3ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentageboyt3 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentagemant1ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentagemant1 != null));
-                if (percentagemant1ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentagemant1;
-                    sourcePercentagemant1 = this.getPercentagemant1();
-                    String copyPercentagemant1 = ((String) strategy.copy(LocatorUtils.property(locator, "percentagemant1", sourcePercentagemant1), sourcePercentagemant1, (this.percentagemant1 != null)));
-                    copy.setPercentagemant1(copyPercentagemant1);
-                } else {
-                    if (percentagemant1ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentagemant1 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentagemant2ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentagemant2 != null));
-                if (percentagemant2ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentagemant2;
-                    sourcePercentagemant2 = this.getPercentagemant2();
-                    String copyPercentagemant2 = ((String) strategy.copy(LocatorUtils.property(locator, "percentagemant2", sourcePercentagemant2), sourcePercentagemant2, (this.percentagemant2 != null)));
-                    copy.setPercentagemant2(copyPercentagemant2);
-                } else {
-                    if (percentagemant2ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentagemant2 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentagemant3ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentagemant3 != null));
-                if (percentagemant3ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentagemant3;
-                    sourcePercentagemant3 = this.getPercentagemant3();
-                    String copyPercentagemant3 = ((String) strategy.copy(LocatorUtils.property(locator, "percentagemant3", sourcePercentagemant3), sourcePercentagemant3, (this.percentagemant3 != null)));
-                    copy.setPercentagemant3(copyPercentagemant3);
-                } else {
-                    if (percentagemant3ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentagemant3 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentagewomanShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentagewoman!= null));
-                if (percentagewomanShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentagewoman;
-                    sourcePercentagewoman = this.getPercentagewoman();
-                    String copyPercentagewoman = ((String) strategy.copy(LocatorUtils.property(locator, "percentagewoman", sourcePercentagewoman), sourcePercentagewoman, (this.percentagewoman!= null)));
-                    copy.setPercentagewoman(copyPercentagewoman);
-                } else {
-                    if (percentagewomanShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentagewoman = null;
-                    }
-                }
-            }
-            {
                 Boolean idlugartrabajomtuShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idlugartrabajomtu!= null));
                 if (idlugartrabajomtuShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdlugartrabajomtu;
@@ -2858,45 +1937,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 } else {
                     if (idlugartrabajomtuShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idlugartrabajomtu = null;
-                    }
-                }
-            }
-            {
-                Boolean percentagewomant1ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentagewomant1 != null));
-                if (percentagewomant1ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentagewomant1;
-                    sourcePercentagewomant1 = this.getPercentagewomant1();
-                    String copyPercentagewomant1 = ((String) strategy.copy(LocatorUtils.property(locator, "percentagewomant1", sourcePercentagewomant1), sourcePercentagewomant1, (this.percentagewomant1 != null)));
-                    copy.setPercentagewomant1(copyPercentagewomant1);
-                } else {
-                    if (percentagewomant1ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentagewomant1 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentagewomant2ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentagewomant2 != null));
-                if (percentagewomant2ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentagewomant2;
-                    sourcePercentagewomant2 = this.getPercentagewomant2();
-                    String copyPercentagewomant2 = ((String) strategy.copy(LocatorUtils.property(locator, "percentagewomant2", sourcePercentagewomant2), sourcePercentagewomant2, (this.percentagewomant2 != null)));
-                    copy.setPercentagewomant2(copyPercentagewomant2);
-                } else {
-                    if (percentagewomant2ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentagewomant2 = null;
-                    }
-                }
-            }
-            {
-                Boolean percentagewomant3ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.percentagewomant3 != null));
-                if (percentagewomant3ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourcePercentagewomant3;
-                    sourcePercentagewomant3 = this.getPercentagewomant3();
-                    String copyPercentagewomant3 = ((String) strategy.copy(LocatorUtils.property(locator, "percentagewomant3", sourcePercentagewomant3), sourcePercentagewomant3, (this.percentagewomant3 != null)));
-                    copy.setPercentagewomant3(copyPercentagewomant3);
-                } else {
-                    if (percentagewomant3ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.percentagewomant3 = null;
                     }
                 }
             }

@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
@@ -50,5 +52,7 @@ public interface Meta4IcmWsCalcIncomeService {
     CoefJornadaResponseDto getCoefJornada(CoefJornadaRequestDto request);
 
     FlagCalculaResponseDto getFlagCalcula(FlagCalculaRequestDto request);
+
+    AgrupOnlineResponseDto getAgrupOnline(AgrupOnlineRequestDto request);
 	
 }

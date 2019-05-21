@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -35,28 +36,13 @@ public class ComisionEmpleadoResultItemDto implements Serializable {
     private String idMotivoBaja;
     private String idTipoCalculo;
     private String numMesesMedia;
-    private String percentageAll;
-    private String percentageBoy;
-    private String percentageMan;
     private String excDenominador;
     private String idLugarTrabajo;
     private String idTipoComision;
     private String idTipoPolitica;
     private String idEmpleadoLocal;
-    private String percentageAllT1;
-    private String percentageAllT2;
-    private String percentageAllT3;
-    private String percentageBoyT1;
-    private String percentageBoyT2;
-    private String percentageBoyT3;
-    private String percentageManT1;
-    private String percentageManT2;
-    private String percentageManT3;
-    private String percentageWoman;
     private String idLugarTrabajoMtu;
-    private String percentageWomanT1;
-    private String percentageWomanT2;
-    private String percentageWomanT3;
     private String idOrigen;
+    private List<ListaPorcentajesResultItemDto> icmListaPorcentajes;
 
 }

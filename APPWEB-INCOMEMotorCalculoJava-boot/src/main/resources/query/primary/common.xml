@@ -268,7 +268,7 @@ VALUES (?, ?, ?, ?, ?, ?)
 <entry key="TareaPersonaHistoricoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_PERSONA_HISTORICO (FECHA_FIN, FECHA_INICIO, FECHA_FIN_SECCION, FECHA_INICIO_SECCION, ID_EMPLEADO, ID_EMPLEADO_LOCAL, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, OR_EMPLEADO, ID_EMPRESA, ID_ORIGEN, ID_SECCION, ID_TAREA)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ]]>
 </entry>
 

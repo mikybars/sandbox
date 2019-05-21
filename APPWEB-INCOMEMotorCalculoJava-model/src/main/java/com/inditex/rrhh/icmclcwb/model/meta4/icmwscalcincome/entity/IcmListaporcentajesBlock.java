@@ -33,6 +33,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="idestructura" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_ListaporcentajesRecordSet" type="{http://schemas.meta4.com/}Icm_ListaporcentajesRecord" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -44,13 +45,40 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaporcentajesBlock", propOrder = {
+    "idestructura",
     "icmListaporcentajesRecordSet"
 })
 public class IcmListaporcentajesBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    @XmlElement(required = true, nillable = true)
+    protected String idestructura;
     @XmlElement(name = "Icm_ListaporcentajesRecordSet", nillable = true)
     protected List<IcmListaporcentajesRecord> icmListaporcentajesRecordSet;
+
+    /**
+     * Obtiene el valor de la propiedad idestructura.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdestructura() {
+        return idestructura;
+    }
+
+    /**
+     * Define el valor de la propiedad idestructura.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdestructura(String value) {
+        this.idestructura = value;
+    }
 
     /**
      * Gets the value of the icmListaporcentajesRecordSet property.
@@ -90,6 +118,15 @@ public class IcmListaporcentajesBlock implements Cloneable, CopyTo2, Equals2, Ha
         }
         final IcmListaporcentajesBlock that = ((IcmListaporcentajesBlock) object);
         {
+            String lhsIdestructura;
+            lhsIdestructura = this.getIdestructura();
+            String rhsIdestructura;
+            rhsIdestructura = that.getIdestructura();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idestructura", lhsIdestructura), LocatorUtils.property(thatLocator, "idestructura", rhsIdestructura), lhsIdestructura, rhsIdestructura, (this.idestructura!= null), (that.idestructura!= null))) {
+                return false;
+            }
+        }
+        {
             List<IcmListaporcentajesRecord> lhsIcmListaporcentajesRecordSet;
             lhsIcmListaporcentajesRecordSet = (((this.icmListaporcentajesRecordSet!= null)&&(!this.icmListaporcentajesRecordSet.isEmpty()))?this.getIcmListaporcentajesRecordSet():null);
             List<IcmListaporcentajesRecord> rhsIcmListaporcentajesRecordSet;
@@ -122,6 +159,11 @@ public class IcmListaporcentajesBlock implements Cloneable, CopyTo2, Equals2, Ha
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
+            String theIdestructura;
+            theIdestructura = this.getIdestructura();
+            strategy.appendField(locator, this, "idestructura", buffer, theIdestructura, (this.idestructura!= null));
+        }
+        {
             List<IcmListaporcentajesRecord> theIcmListaporcentajesRecordSet;
             theIcmListaporcentajesRecordSet = (((this.icmListaporcentajesRecordSet!= null)&&(!this.icmListaporcentajesRecordSet.isEmpty()))?this.getIcmListaporcentajesRecordSet():null);
             strategy.appendField(locator, this, "icmListaporcentajesRecordSet", buffer, theIcmListaporcentajesRecordSet, ((this.icmListaporcentajesRecordSet!= null)&&(!this.icmListaporcentajesRecordSet.isEmpty())));
@@ -131,6 +173,11 @@ public class IcmListaporcentajesBlock implements Cloneable, CopyTo2, Equals2, Ha
 
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
+        {
+            String theIdestructura;
+            theIdestructura = this.getIdestructura();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura), currentHashCode, theIdestructura, (this.idestructura!= null));
+        }
         {
             List<IcmListaporcentajesRecord> theIcmListaporcentajesRecordSet;
             theIcmListaporcentajesRecordSet = (((this.icmListaporcentajesRecordSet!= null)&&(!this.icmListaporcentajesRecordSet.isEmpty()))?this.getIcmListaporcentajesRecordSet():null);
@@ -157,6 +204,19 @@ public class IcmListaporcentajesBlock implements Cloneable, CopyTo2, Equals2, Ha
         final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmListaporcentajesBlock) {
             final IcmListaporcentajesBlock copy = ((IcmListaporcentajesBlock) draftCopy);
+            {
+                Boolean idestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idestructura!= null));
+                if (idestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdestructura;
+                    sourceIdestructura = this.getIdestructura();
+                    String copyIdestructura = ((String) strategy.copy(LocatorUtils.property(locator, "idestructura", sourceIdestructura), sourceIdestructura, (this.idestructura!= null)));
+                    copy.setIdestructura(copyIdestructura);
+                } else {
+                    if (idestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idestructura = null;
+                    }
+                }
+            }
             {
                 Boolean icmListaporcentajesRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaporcentajesRecordSet!= null)&&(!this.icmListaporcentajesRecordSet.isEmpty())));
                 if (icmListaporcentajesRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {

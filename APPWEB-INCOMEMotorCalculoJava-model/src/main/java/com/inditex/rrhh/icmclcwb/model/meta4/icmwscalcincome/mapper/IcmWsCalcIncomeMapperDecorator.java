@@ -91,6 +91,14 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
+        if (StringUtils.isNotEmpty(src.getFechainiciosec())) {
+            mappedEntity.setFechaInicioSec(LocalDateTime.parse(src.getFechainiciosec(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(src.getFechafinsec())) {
+            mappedEntity.setFechaFinSec(LocalDateTime.parse(src.getFechafinsec(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
         if (StringUtils.isNotEmpty(src.getFecha())) {
             mappedEntity.setFecha(LocalDateTime.parse(src.getFecha(),
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
@@ -109,6 +117,14 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             }
             if (StringUtils.isNotEmpty(item.getFechafin())) {
                 mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
+                mappedEntity.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechafinsec())) {
+                mappedEntity.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
                         DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFecha())) {

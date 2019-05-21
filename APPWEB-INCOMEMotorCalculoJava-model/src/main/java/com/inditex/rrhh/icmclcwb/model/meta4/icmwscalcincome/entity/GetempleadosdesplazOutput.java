@@ -35,6 +35,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence>
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Icm_Listaempleados" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/>
  *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -48,6 +49,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "GetempleadosdesplazOutput", propOrder = {
     "_return",
     "logMessage",
+    "icmListaempleados",
     "icmParametrospaginacion"
 })
 public class GetempleadosdesplazOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
@@ -57,6 +59,8 @@ public class GetempleadosdesplazOutput implements Cloneable, CopyTo2, Equals2, H
     protected double _return;
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
+    @XmlElement(name = "Icm_Listaempleados", required = true, nillable = true)
+    protected IcmListaempleadosBlock icmListaempleados;
     @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
     protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
@@ -103,6 +107,30 @@ public class GetempleadosdesplazOutput implements Cloneable, CopyTo2, Equals2, H
             logMessage = new ArrayList<LogMessage>();
         }
         return this.logMessage;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmListaempleados.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaempleadosBlock }
+     *     
+     */
+    public IcmListaempleadosBlock getIcmListaempleados() {
+        return icmListaempleados;
+    }
+
+    /**
+     * Define el valor de la propiedad icmListaempleados.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaempleadosBlock }
+     *     
+     */
+    public void setIcmListaempleados(IcmListaempleadosBlock value) {
+        this.icmListaempleados = value;
     }
 
     /**
@@ -156,6 +184,15 @@ public class GetempleadosdesplazOutput implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
+            IcmListaempleadosBlock lhsIcmListaempleados;
+            lhsIcmListaempleados = this.getIcmListaempleados();
+            IcmListaempleadosBlock rhsIcmListaempleados;
+            rhsIcmListaempleados = that.getIcmListaempleados();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaempleados", lhsIcmListaempleados), LocatorUtils.property(thatLocator, "icmListaempleados", rhsIcmListaempleados), lhsIcmListaempleados, rhsIcmListaempleados, (this.icmListaempleados!= null), (that.icmListaempleados!= null))) {
+                return false;
+            }
+        }
+        {
             IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
             lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
             IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
@@ -198,6 +235,11 @@ public class GetempleadosdesplazOutput implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
+            IcmListaempleadosBlock theIcmListaempleados;
+            theIcmListaempleados = this.getIcmListaempleados();
+            strategy.appendField(locator, this, "icmListaempleados", buffer, theIcmListaempleados, (this.icmListaempleados!= null));
+        }
+        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
@@ -216,6 +258,11 @@ public class GetempleadosdesplazOutput implements Cloneable, CopyTo2, Equals2, H
             List<LogMessage> theLogMessage;
             theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+        }
+        {
+            IcmListaempleadosBlock theIcmListaempleados;
+            theIcmListaempleados = this.getIcmListaempleados();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaempleados", theIcmListaempleados), currentHashCode, theIcmListaempleados, (this.icmListaempleados!= null));
         }
         {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
@@ -270,6 +317,19 @@ public class GetempleadosdesplazOutput implements Cloneable, CopyTo2, Equals2, H
                 } else {
                     if (logMessageShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.logMessage = null;
+                    }
+                }
+            }
+            {
+                Boolean icmListaempleadosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaempleados!= null));
+                if (icmListaempleadosShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaempleadosBlock sourceIcmListaempleados;
+                    sourceIcmListaempleados = this.getIcmListaempleados();
+                    IcmListaempleadosBlock copyIcmListaempleados = ((IcmListaempleadosBlock) strategy.copy(LocatorUtils.property(locator, "icmListaempleados", sourceIcmListaempleados), sourceIcmListaempleados, (this.icmListaempleados!= null)));
+                    copy.setIcmListaempleados(copyIcmListaempleados);
+                } else {
+                    if (icmListaempleadosShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaempleados = null;
                     }
                 }
             }

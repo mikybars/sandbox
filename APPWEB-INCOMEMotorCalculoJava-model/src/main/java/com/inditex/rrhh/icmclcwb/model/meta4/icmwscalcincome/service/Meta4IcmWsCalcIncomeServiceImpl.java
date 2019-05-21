@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
@@ -38,6 +41,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoResponseDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
@@ -65,6 +69,30 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Autowired
     private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
 	
+    @Override
+    public AgrupOnlineResponseDto getAgrupOnline(AgrupOnlineRequestDto request) {
+        AgrupOnlineResponseDto result = new AgrupOnlineResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetagruponlineOutput getFlagCalculaOutput = meta4ClientPool.getagruponline(param1, param2);
+        if (getFlagCalculaOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getFlagCalculaOutput.getReturn()) == 0) {
+            if (getFlagCalculaOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getFlagCalculaOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if(getFlagCalculaOutput.getIcmListaconfiguracion() != null
+                    && CollectionUtils.isNotEmpty(
+                            getFlagCalculaOutput.getIcmListaconfiguracion().getIcmListaconfiguracionRecordSet())) {
+            List<AgrupOnlineResultItemDto> items = icmWsCalcIncomeMapper.asAgrupOnlineResultItemDtos(
+                    getFlagCalculaOutput.getIcmListaconfiguracion().getIcmListaconfiguracionRecordSet());
+                result.setData(items);
+            }
+        } 
+                   
+        return result;
+    }
+    
     @Override
     public FlagCalculaResponseDto getFlagCalcula(FlagCalculaRequestDto request) {
         FlagCalculaResponseDto result = new FlagCalculaResponseDto();
@@ -307,13 +335,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, null);
         if (getComisionEmpleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 ) {
-//            if( getComisionEmpleadoOutput.getIcmListaestructuras() != null
-//                    && CollectionUtils.isNotEmpty(
-//                            getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet())) {
-//                List<ComisionEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asComisionEmpleadoResultItemDtos(
-//                        getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet());
-//                result.setData(items);
-//            }
+            if( getComisionEmpleadoOutput.getIcmListaestructuras() != null
+                    && CollectionUtils.isNotEmpty(
+                            getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet())) {
+                List<ComisionEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asComisionEmpleadoResultItemDtos(
+                        getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet());
+                result.setData(items);
+            }
         }
 
     	return result;
