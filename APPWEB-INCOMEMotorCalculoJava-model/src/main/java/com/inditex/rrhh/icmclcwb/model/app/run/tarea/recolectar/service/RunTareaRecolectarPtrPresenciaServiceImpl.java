@@ -138,8 +138,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         try {
             final TareaDto tarea = runTarea.getTarea();
             CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService.tiposHoras(
-                    PtrPresenciaTiposHorasRequestDto.builder().origen(Integer.parseInt(tareaAmbito.getIdCatalogo()))
-                            .excluidoCalculo(Boolean.FALSE).build());
+                    PtrPresenciaTiposHorasRequestDto.builder().origen(Integer.parseInt(tareaAmbito.getIdCatalogo())).build());
             AsyncUtils.exceptionally(cfData, cf);
             PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
             if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
@@ -186,7 +185,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                         .setTienda(iter.stream().map(e -> Integer.valueOf(e.getId())).collect(Collectors.toList()));
                 paramPresenciasTotalTiendaSeccion.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
                 paramPresenciasTotalTiendaSeccion.setAgrupacion(PtrConstants.FECHA_TIENDA_SECCION);
-                paramPresenciasTotalTiendaSeccion.setExcluidoCalculo(Boolean.FALSE);
+                paramPresenciasTotalTiendaSeccion.setExcluidoDenom(Boolean.FALSE);
 
                 CompletableFuture<PtrPresenciaTotalizadoResponseDto> cfData = ptrPresenciaAsyncService
                         .presenciasTotalizado(paramPresenciasTotalTiendaSeccion);
