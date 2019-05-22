@@ -38,4 +38,9 @@ public class TareaTiendaPresenciaSeccionServiceImpl implements TareaTiendaPresen
     public void compensar(@Valid final RunTareaDto runTarea) {
         tareaTiendaPresenciaSeccionRepositoryCustom.compensar(runTarea);
     }
+    
+    @Override
+    public void updateActivo(@Valid final RunTareaDto runTarea) {
+        tareaTiendaPresenciaSeccionRepositoryCustom.updateActivo(runTarea);
+    }
 }

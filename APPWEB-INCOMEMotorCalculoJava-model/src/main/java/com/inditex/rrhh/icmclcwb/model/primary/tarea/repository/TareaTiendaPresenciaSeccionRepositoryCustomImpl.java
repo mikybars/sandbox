@@ -51,6 +51,13 @@ public class TareaTiendaPresenciaSeccionRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTarea.getTarea().getId());
         namedParameterJdbcTemplate.update(query.getProperty("TareaTiendaPresenciaSeccionRepositoryCustom.compensar"), parameters);
     }
+    
+    @Override
+    public void updateActivo(@NotNull final RunTareaDto runTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTarea.getTarea().getId());
+        namedParameterJdbcTemplate.update(query.getProperty("TareaTiendaPresenciaSeccionRepositoryCustom.updateActivo"), parameters);
+    }
 
     @Override
     public void setParameters(PreparedStatement pstmt, TareaTiendaPresenciaSeccion entity) throws SQLException {

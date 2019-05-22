@@ -10,4 +10,6 @@ public interface RunTareaProcesarPresenciaService {
 
     void updateActivo(@Valid RunTareaDto runTarea);
 
+    void updateActivoTotalizado(@Valid RunTareaDto runTarea);
+
 }

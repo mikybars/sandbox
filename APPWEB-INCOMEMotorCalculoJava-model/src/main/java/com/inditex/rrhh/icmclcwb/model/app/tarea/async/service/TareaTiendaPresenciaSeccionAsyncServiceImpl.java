@@ -32,5 +32,11 @@ public class TareaTiendaPresenciaSeccionAsyncServiceImpl implements TareaTiendaP
         tareaTiendaPresenciaSeccionService.compensar(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Override
+    public CompletableFuture<Void> updateActivo(@Valid final RunTareaDto runTarea) {
+        tareaTiendaPresenciaSeccionService.updateActivo(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 
 }

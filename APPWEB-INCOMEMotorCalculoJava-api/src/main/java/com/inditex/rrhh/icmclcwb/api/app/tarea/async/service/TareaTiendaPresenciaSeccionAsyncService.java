@@ -18,4 +18,6 @@ public interface TareaTiendaPresenciaSeccionAsyncService {
 
     CompletableFuture<Void> compensar(@Valid final RunTareaDto runTarea);
 
+    CompletableFuture<Void> updateActivo(@Valid final RunTareaDto runTarea);
+
 }

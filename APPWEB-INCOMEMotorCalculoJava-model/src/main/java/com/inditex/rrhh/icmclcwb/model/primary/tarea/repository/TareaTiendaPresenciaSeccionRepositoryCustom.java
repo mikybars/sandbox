@@ -13,4 +13,6 @@ public interface TareaTiendaPresenciaSeccionRepositoryCustom {
 
     void compensar(@NotNull final RunTareaDto tareaDto);
 
+    void updateActivo(@NotNull final RunTareaDto runTarea);
+
 }

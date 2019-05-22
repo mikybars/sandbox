@@ -16,4 +16,6 @@ public interface TareaTiendaPresenciaSeccionService {
 
     void compensar(@Valid final RunTareaDto runTarea);
 
+    void updateActivo(@Valid final RunTareaDto runTarea);
+
 }

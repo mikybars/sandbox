@@ -28,6 +28,13 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         tareaTiendaPresenciaSeccionService.compensar(runTarea);
     }
     
+    @Auditoria
+    @Override
+    public void updateActivoTotalizado(@Valid RunTareaDto runTarea) {
+        tareaTiendaPresenciaSeccionService.updateActivo(runTarea);
+    }
+    
+    @Auditoria
     @Override
     public void updateActivo(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaSeccionPresenciaService.updateActivo(runTarea);

@@ -68,10 +68,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
         
-        // Compensar presencia total con las manuales
-        CompletableFuture<Void> cfCompensarPresencia = runTareaProcesarPresenciaAsyncService.compensar(runTarea);
-        AsyncUtils.exceptionally(cfCompensarPresencia, cf);
-
+        // Actualizar flags de presencias totales activas
+        CompletableFuture<Void> cfUpdatePresenciasActivasTotalizado = runTareaProcesarPresenciaAsyncService.updateActivoTotalizado(runTarea);
+        AsyncUtils.exceptionally(cfUpdatePresenciasActivasTotalizado, cf);
+        
         // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas
         CompletableFuture<Void> cfRepartoAgrupaciones = runTareaProcesarVentaAsyncService.repartoVentaEntregaDomicilioAgrupaciones(runTarea);
         AsyncUtils.exceptionally(cfRepartoAgrupaciones, cf);
@@ -80,6 +80,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
 
+        // Compensar presencia total con las manuales
+        CompletableFuture<Void> cfCompensarPresencia = runTareaProcesarPresenciaAsyncService.compensar(runTarea);
+        AsyncUtils.exceptionally(cfCompensarPresencia, cf);
 
         // Suma de ventas totales por localizaciones
         CompletableFuture<Void> cfVentasLocalizacionTienda = runTareaProcesarVentaAsyncService.ventaLocalizacionTienda(runTarea);

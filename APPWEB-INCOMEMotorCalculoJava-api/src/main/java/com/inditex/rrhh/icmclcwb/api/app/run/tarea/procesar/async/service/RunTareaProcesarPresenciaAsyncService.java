@@ -10,4 +10,6 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
     CompletableFuture<Void> updateActivo(RunTareaDto runTarea);
 
+    CompletableFuture<Void> updateActivoTotalizado(RunTareaDto runTarea);
+
 }
