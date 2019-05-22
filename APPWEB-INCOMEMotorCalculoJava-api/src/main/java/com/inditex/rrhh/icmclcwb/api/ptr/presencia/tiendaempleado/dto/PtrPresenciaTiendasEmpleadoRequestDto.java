@@ -35,20 +35,19 @@ public class PtrPresenciaTiendasEmpleadoRequestDto {
     private List<Integer> tipo;
     
     @ApiModelProperty(value = "Flag incluido venta", required = false, example = "true")
-    private boolean incluidoVenta;
+    private Boolean incluidoVenta;
     
     @ApiModelProperty(value = "Flag incluido challenge", required = false, example = "true")
-    private boolean incluidoChallenge;
+    private Boolean incluidoChallenge;
     
     @ApiModelProperty(value = "Flag incluido ecommerce", required = false, example = "true")
-    private boolean incluidoEcommerce;
+    private Boolean incluidoEcommerce;
     
     @ApiModelProperty(value = "Flag excluido calculo", required = false, example = "true")
-    private boolean excluidoCalculo;
+    private Boolean excluidoCalculo;
     
     @ApiModelProperty(value = "Flag excluido denominador", required = false, example = "true")
-    private boolean excluidoDenom;
-    
+    private Boolean excluidoDenom;
     
     @ApiModelProperty(value = "Agrupacion", required = false, allowableValues = "TIENDA, TIENDA_PERSONA")
     private String agrupacion;

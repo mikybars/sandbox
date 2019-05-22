@@ -186,6 +186,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                         .setTienda(iter.stream().map(e -> Integer.valueOf(e.getId())).collect(Collectors.toList()));
                 paramPresenciasTotalTiendaSeccion.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
                 paramPresenciasTotalTiendaSeccion.setAgrupacion(PtrConstants.FECHA_TIENDA_SECCION);
+                paramPresenciasTotalTiendaSeccion.setExcluidoCalculo(Boolean.FALSE);
 
                 CompletableFuture<PtrPresenciaTotalizadoResponseDto> cfData = ptrPresenciaAsyncService
                         .presenciasTotalizado(paramPresenciasTotalTiendaSeccion);
@@ -440,6 +441,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                 PtrPresenciaEmpleadosTiendaResponseDto data = AsyncUtils.get(cfData);
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasEmpleadosTienda())) {
                     // Comprobacion de empleados guardados previamente para evitar duplicados
+                    //TODO: Revisar si se puede eliminar de la poc
                     if (personasGuardadas == null) {
                         List<IdPersonaLocalDto> ids = tareaPersonaHistoricoService
                                 .findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
