@@ -17,4 +17,6 @@ public class AppTestConstants {
             "HU,64,220", "HU,64,221", "HU,64,235", "HU,64,290", "HU,64,457", "SK,63,209", "SK,63,222", "SK,63,223",
             "SK,63,224", "SK,63,470", "SK,63,476", "UY,524,429", "UY,524,87", "ZA,388,343", "ZA,388,477");
 
+    public static final List<Integer> MESES_CON_DATOS = Arrays.asList(3, 5, 6, 7);
+
 }

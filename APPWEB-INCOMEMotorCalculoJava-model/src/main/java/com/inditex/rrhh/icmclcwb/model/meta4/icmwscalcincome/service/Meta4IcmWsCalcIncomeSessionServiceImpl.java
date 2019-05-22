@@ -8,14 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
@@ -57,36 +54,37 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.FLAG_CALCULA,
                 meta4Properties.get(Meta4Constants.FLAG_CALCULA).getFilter().getMaxPageSize());
     }
-    
+
     @Override
     public List<GenericTiendaResultItemDto> getFestivos(final FestivosRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.FESTIVOS,
                 meta4Properties.get(Meta4Constants.FESTIVOS).getFilter().getMaxPageSize());
     }
-    
+
     @Override
     public List<GenericEmpleadoResultItemDto> getCoefJornada(final CoefJornadaRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.COEF_JORNADA,
                 meta4Properties.get(Meta4Constants.COEF_JORNADA).getFilter().getMaxPageSize());
     }
+
     @Override
     public List<GenericEmpleadoResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.PRESENCIA_MANUAL,
                 meta4Properties.get(Meta4Constants.PRESENCIA_MANUAL).getFilter().getMaxPageSize());
     }
-    
+
     @Override
     public List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.EMPLEADOS_PRESENCIA,
                 meta4Properties.get(Meta4Constants.EMPLEADOS_PRESENCIA).getFilter().getMaxPageSize());
     }
-    
+
     @Override
     public List<PeriodosResultItemDto> getPeriodos(final PeriodosRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.PERIODOS,
                 meta4Properties.get(Meta4Constants.PERIODOS).getFilter().getMaxPageSize());
     }
-    
+
     @Override
     public List<GenericTiendaResultItemDto> getTiendasEmpleado(final TiendasEmpleadoRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4Constants.TIENDAS_EMPLEADO,
@@ -127,27 +125,20 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     @Override
     public List<PeriodoDto> periodo() {
         List<PeriodoDto> result = new ArrayList<>();
-        Random random = new Random();
-        LongStream lsPeriodos = random.longs(2, 3);
-        long periodos = lsPeriodos.findFirst().getAsLong();
-        lsPeriodos.close();
-        for (int periodo = 1; periodo <= periodos; periodo++) {
+        for (Integer mes : AppTestConstants.MESES_CON_DATOS) {
+            LocalDate localDate = LocalDate.of(2015, mes, 1);
             PeriodoDto item = new PeriodoDto();
-            IntStream isMes = random.ints(1, 12);
-            int mes = isMes.findFirst().getAsInt();
-            isMes.close();
-            LocalDate localDate = LocalDate.of(2017, mes, 1);
-            item.setId(new StringBuilder("MOCK_").append(periodo).toString());
+            item.setId(new StringBuilder("MOCK_2015_").append(mes).toString());
             item.setFechaInicioPeriodo(localDate.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
             item.setFechaFinPeriodo(localDate.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX));
             result.add(item);
         }
         return result;
     }
-    
+
     // TODO PoC
     @Override
-    public List<TiendaOnlineDto> tiendaOnline(){
+    public List<TiendaOnlineDto> tiendaOnline() {
         TiendaOnlineDto dto = new TiendaOnlineDto();
         dto.setId(4031L);
         TiendaOnlineDto dto2 = new TiendaOnlineDto();
