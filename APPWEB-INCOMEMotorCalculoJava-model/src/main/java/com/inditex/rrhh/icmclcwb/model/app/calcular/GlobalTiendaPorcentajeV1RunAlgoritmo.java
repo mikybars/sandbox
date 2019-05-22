@@ -38,14 +38,14 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
                 StreamUtils.partition(tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                         runAlgoritmoProperties.getBatchSize()))
                 .parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);
+                    log.info("Inicio :: GlobalTiendaPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
                     try {
                         tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo, runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        log.error("Han fallado las personas", personas, e);
+                        log.error("GlobalTiendaPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                         tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
                     }
-                    log.info("Fin :: Lanzando algoritmo: {} :: Personas: {}", algoritmo, personas);
+                    log.info("Fin :: GlobalTiendaPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
                     return Flux.empty();
                 }).sequential().collectList().block();
     }
