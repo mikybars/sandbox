@@ -27,6 +27,8 @@ public class AppConstants {
     public static final Integer SECCION_3 = 3;
     
     public static final Integer SECCION_4 = 4;
+
+    public static final Integer[] SECCIONES = { SECCION_1, SECCION_2, SECCION_3 };
     
     // TODO Se tiene que obtener de BBDD
     @Deprecated

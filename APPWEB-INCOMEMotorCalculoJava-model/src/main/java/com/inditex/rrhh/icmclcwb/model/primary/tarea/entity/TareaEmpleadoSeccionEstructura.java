@@ -34,6 +34,14 @@ public class TareaEmpleadoSeccionEstructura {
     private String idOrigen;
 
     @NotBlank
+    @Column(name = "ID_SECCION_ESTRUCTURA", nullable = false)
+    private String idSeccionEstructura;
+
+    @NotBlank
+    @Column(name = "ID_SECCION_EFECTIVA", nullable = false)
+    private String idSeccionEfectiva;
+
+    @NotBlank
     @Column(name = "ID_EMPLEADO", nullable = false)
     private String idEmpleado;
 
@@ -57,11 +65,8 @@ public class TareaEmpleadoSeccionEstructura {
     @Column(name = "ID_TIPO_COMISION", nullable = false)
     private /* BigInteger */ String idTipoComision;
 
-    @Column(name = "PORCENTAJE", nullable = true)
-    private /* BigInteger */ Double porcentaje;
-    
-    @Column(name = "PORCENTAJE_SECCION", nullable = true)
-    private Double porcentajeSeccion;
+    @Column(name = "VALOR", nullable = true)
+    private /* BigInteger */ Double valor;
     
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)

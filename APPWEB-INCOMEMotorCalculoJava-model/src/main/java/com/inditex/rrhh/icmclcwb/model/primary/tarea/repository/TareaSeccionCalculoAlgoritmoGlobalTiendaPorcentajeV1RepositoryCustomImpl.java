@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,25 +13,21 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
-@Qualifier("tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository")
-public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
-        implements TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom {
+@Qualifier("tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository")
+public class TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl implements TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoBaseRepository.calcular.where']}")
     private String sqlCalcular;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoBaseRepository.calcular.where']}")
     private String sqlCalcularBase;
 
     @Autowired
@@ -54,12 +52,11 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
             batchArgs.add(arg);
         });
         namedParameterJdbcTemplate.batchUpdate(sqlCalcular,
-                batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
+            batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
         return StringUtils.normalizeSpace(sqlCalcularBase);
     }
-
 }

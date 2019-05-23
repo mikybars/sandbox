@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,13 +27,6 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistoricoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaEmpleadoPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaEmpleadoSeccionPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaHistoricoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
@@ -81,6 +75,9 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
 
     @Autowired
     private TareaTiendaPresenciaSeccionAsyncService tareaTiendaPresenciaSeccionAsyncService;
+
+    @Autowired
+    private TareaTiendaSeccionPresenciaAsyncService tareaTiendaSeccionPresenciaAsyncService;
     
     @Autowired
     private TareaTipoHoraAsyncService tareaTipoHoraAsyncSevice;
@@ -195,9 +192,13 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalizado())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
                             .get(PtrConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+
                     AsyncUtils.exceptionally(
                             tareaTiendaPresenciaSeccionAsyncService.save(data.getPresenciasTotalizado(), tarea), cf,
                             cfPersist);
+                    AsyncUtils.exceptionally(
+                        tareaTiendaSeccionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea), cf,
+                        cfPersist);
                 }
 
             }

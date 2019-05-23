@@ -100,7 +100,12 @@ public class TareaSeccionCalculo {
     @NotNull
     @Column(name = "TIENDA_VENTA_IMPORTE", nullable = false)
     private /* BigInteger */ Double tiendaVentaImporte;
-    
+
+    @NotNull
+    @Column(name = "TIENDA_VENTA_IMPORTE_CON_IMPUESTOS", nullable = false)
+    private /* BigInteger */ Double tiendaVentaImporteImpuestos;
+
+
     @NotNull
     @Column(name = "IMPORTE", nullable = false)
     private /* BigInteger */ Double importe;

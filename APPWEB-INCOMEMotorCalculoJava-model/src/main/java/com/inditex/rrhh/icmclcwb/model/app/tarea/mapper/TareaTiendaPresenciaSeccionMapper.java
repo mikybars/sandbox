@@ -58,7 +58,7 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
     }
     
     public List<TareaTiendaPresenciaSeccion> presenciasTotalizadoResponseDtoToTareaTiendaPresenciaSeccion(
-            List<PtrPresenciaTotalizadoResultItemDto> src, TareaDto tareaDto) {
+        List<PtrPresenciaTotalizadoResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
