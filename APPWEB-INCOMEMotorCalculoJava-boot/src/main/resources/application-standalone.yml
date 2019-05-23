@@ -39,10 +39,10 @@ amiga:
     jms:
       trabajo-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
-        concurrency: 10-20
+        concurrency: 1
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
-        concurrency: 10-20
+        concurrency: 5
     session:
       session-type: EMBEDDED
     aaa:

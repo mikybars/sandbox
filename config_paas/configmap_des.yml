@@ -23,7 +23,7 @@ amiga:
         concurrency: 1
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
-        concurrency: 1
+        concurrency: 5
   data:
     jdbc:
       configuration:
