@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -36,7 +37,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Autowired
     private ProgramacionAmbitoService programacionAmbitoService;
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     @Override
     public ProgramacionDto create(@Valid final ProgramacionDto programacion) {
         programacion.setFechaCreacion(LocalDateTime.now());
@@ -58,7 +59,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     // TODO Cambiar por un metodo que cambie los atributos concretos
     // y valide los dattos de entrada
-    @Transactional
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     @Override
     public ProgramacionDto modify(final ProgramacionDto programacion) {
         ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
@@ -91,7 +92,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
         return result;
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     @Override
     public ProgramacionDto updateEjecucion(@Valid ProgramacionDto programacion) {
         programacion.setFechaUltimaEjecucion(LocalDateTime.now());

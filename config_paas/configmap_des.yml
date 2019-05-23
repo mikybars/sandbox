@@ -40,6 +40,11 @@ amiga:
           password: aMJLp8ahF09w
           min-pool-size: 10
           max-pool-size: 100
+          driver-properties:
+            clientProgramName: ${metadata.jirakey}
+            loginTimeout: 10
+            connectionTimeout: 10
+            commandTimeout: 5
     hibernate:
       primary:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
