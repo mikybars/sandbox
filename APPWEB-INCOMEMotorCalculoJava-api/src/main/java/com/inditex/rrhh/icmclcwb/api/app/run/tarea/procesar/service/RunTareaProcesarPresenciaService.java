@@ -6,10 +6,14 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaProcesarPresenciaService {
 
-    void compensar(@Valid RunTareaDto runTarea);
+    void compensarLocalizacionSeccion(@Valid RunTareaDto runTarea);
 
     void updateActivo(@Valid RunTareaDto runTarea);
 
-    void updateActivoTotalizado(@Valid RunTareaDto runTarea);
+    void updateActivoTotalizadoLocalizacion(@Valid RunTareaDto runTarea);
+
+    void updateActivoTotalizadoLocalizacionSeccion(@Valid RunTareaDto runTarea);
+
+    void compensarLocalizacion(@Valid RunTareaDto runTarea);
 
 }

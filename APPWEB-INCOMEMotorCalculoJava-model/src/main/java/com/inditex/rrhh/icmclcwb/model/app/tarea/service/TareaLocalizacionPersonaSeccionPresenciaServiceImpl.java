@@ -36,4 +36,5 @@ public class TareaLocalizacionPersonaSeccionPresenciaServiceImpl
     public void updateActivo(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.updateActivo(runTareaDto);
     }
+    
 }

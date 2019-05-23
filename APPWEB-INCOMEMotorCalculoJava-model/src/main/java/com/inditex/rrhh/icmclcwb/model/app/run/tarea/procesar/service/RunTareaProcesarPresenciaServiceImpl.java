@@ -10,6 +10,8 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaPresenciaSeccionService;
 
 @Service
@@ -22,15 +24,30 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     @Autowired
     private TareaLocalizacionPersonaSeccionPresenciaService tareaLocalizacionPersonaSeccionPresenciaService;
     
+    @Autowired
+    private TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
+    
     @Auditoria
     @Override
-    public void compensar(@Valid RunTareaDto runTarea) {
+    public void compensarLocalizacionSeccion(@Valid RunTareaDto runTarea) {
         tareaTiendaPresenciaSeccionService.compensar(runTarea);
     }
     
     @Auditoria
     @Override
-    public void updateActivoTotalizado(@Valid RunTareaDto runTarea) {
+    public void compensarLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.compensar(runTarea);
+    }
+        
+    @Auditoria
+    @Override
+    public void updateActivoTotalizadoLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.updateActivo(runTarea);
+    }
+    
+    @Auditoria
+    @Override
+    public void updateActivoTotalizadoLocalizacionSeccion(@Valid RunTareaDto runTarea) {
         tareaTiendaPresenciaSeccionService.updateActivo(runTarea);
     }
     

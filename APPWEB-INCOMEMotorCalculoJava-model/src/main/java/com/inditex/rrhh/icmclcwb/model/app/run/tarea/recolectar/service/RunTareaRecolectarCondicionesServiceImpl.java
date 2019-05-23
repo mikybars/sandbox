@@ -197,14 +197,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
             
-            // Marcado de presencias manuales como activas
-            CompletableFuture<Void> cfUpdateActivo = tareaLocalizacionPersonaSeccionPresenciaAsyncService
-                    .updateActivo(runTarea);
-            AsyncUtils.exceptionally(cfUpdateActivo, cf, cfWait);
-            
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/
             
         } catch (IcmclcwbException e) {
             AsyncUtils.cancel(cf);

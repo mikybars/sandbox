@@ -48,8 +48,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idtipohora" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="orempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="coefjornada" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechafincom" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechafinpar" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechafinsec" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechainiciocom" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechainiciopar" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainiciosec" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleadolocal" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -81,8 +85,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idtipohora",
     "orempleado",
     "coefjornada",
+    "fechafincom",
+    "fechafinpar",
     "fechafinsec",
     "fechainicio",
+    "fechainiciocom",
+    "fechainiciopar",
     "fechainiciosec",
     "idlugartrabajo",
     "idempleadolocal",
@@ -125,9 +133,17 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
     @XmlElement(required = true, nillable = true)
     protected String coefjornada;
     @XmlElement(required = true, nillable = true)
+    protected String fechafincom;
+    @XmlElement(required = true, nillable = true)
+    protected String fechafinpar;
+    @XmlElement(required = true, nillable = true)
     protected String fechafinsec;
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
+    @XmlElement(required = true, nillable = true)
+    protected String fechainiciocom;
+    @XmlElement(required = true, nillable = true)
+    protected String fechainiciopar;
     @XmlElement(required = true, nillable = true)
     protected String fechainiciosec;
     @XmlElement(required = true, nillable = true)
@@ -538,6 +554,54 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
     }
 
     /**
+     * Obtiene el valor de la propiedad fechafincom.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechafincom() {
+        return fechafincom;
+    }
+
+    /**
+     * Define el valor de la propiedad fechafincom.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechafincom(String value) {
+        this.fechafincom = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fechafinpar.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechafinpar() {
+        return fechafinpar;
+    }
+
+    /**
+     * Define el valor de la propiedad fechafinpar.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechafinpar(String value) {
+        this.fechafinpar = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad fechafinsec.
      * 
      * @return
@@ -583,6 +647,54 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
      */
     public void setFechainicio(String value) {
         this.fechainicio = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fechainiciocom.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechainiciocom() {
+        return fechainiciocom;
+    }
+
+    /**
+     * Define el valor de la propiedad fechainiciocom.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechainiciocom(String value) {
+        this.fechainiciocom = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fechainiciopar.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechainiciopar() {
+        return fechainiciopar;
+    }
+
+    /**
+     * Define el valor de la propiedad fechainiciopar.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechainiciopar(String value) {
+        this.fechainiciopar = value;
     }
 
     /**
@@ -843,6 +955,24 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             }
         }
         {
+            String lhsFechafincom;
+            lhsFechafincom = this.getFechafincom();
+            String rhsFechafincom;
+            rhsFechafincom = that.getFechafincom();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechafincom", lhsFechafincom), LocatorUtils.property(thatLocator, "fechafincom", rhsFechafincom), lhsFechafincom, rhsFechafincom, (this.fechafincom!= null), (that.fechafincom!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsFechafinpar;
+            lhsFechafinpar = this.getFechafinpar();
+            String rhsFechafinpar;
+            rhsFechafinpar = that.getFechafinpar();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechafinpar", lhsFechafinpar), LocatorUtils.property(thatLocator, "fechafinpar", rhsFechafinpar), lhsFechafinpar, rhsFechafinpar, (this.fechafinpar!= null), (that.fechafinpar!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsFechafinsec;
             lhsFechafinsec = this.getFechafinsec();
             String rhsFechafinsec;
@@ -857,6 +987,24 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String rhsFechainicio;
             rhsFechainicio = that.getFechainicio();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainicio", lhsFechainicio), LocatorUtils.property(thatLocator, "fechainicio", rhsFechainicio), lhsFechainicio, rhsFechainicio, (this.fechainicio!= null), (that.fechainicio!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsFechainiciocom;
+            lhsFechainiciocom = this.getFechainiciocom();
+            String rhsFechainiciocom;
+            rhsFechainiciocom = that.getFechainiciocom();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainiciocom", lhsFechainiciocom), LocatorUtils.property(thatLocator, "fechainiciocom", rhsFechainiciocom), lhsFechainiciocom, rhsFechainiciocom, (this.fechainiciocom!= null), (that.fechainiciocom!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsFechainiciopar;
+            lhsFechainiciopar = this.getFechainiciopar();
+            String rhsFechainiciopar;
+            rhsFechainiciopar = that.getFechainiciopar();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainiciopar", lhsFechainiciopar), LocatorUtils.property(thatLocator, "fechainiciopar", rhsFechainiciopar), lhsFechainiciopar, rhsFechainiciopar, (this.fechainiciopar!= null), (that.fechainiciopar!= null))) {
                 return false;
             }
         }
@@ -1005,6 +1153,16 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             strategy.appendField(locator, this, "coefjornada", buffer, theCoefjornada, (this.coefjornada!= null));
         }
         {
+            String theFechafincom;
+            theFechafincom = this.getFechafincom();
+            strategy.appendField(locator, this, "fechafincom", buffer, theFechafincom, (this.fechafincom!= null));
+        }
+        {
+            String theFechafinpar;
+            theFechafinpar = this.getFechafinpar();
+            strategy.appendField(locator, this, "fechafinpar", buffer, theFechafinpar, (this.fechafinpar!= null));
+        }
+        {
             String theFechafinsec;
             theFechafinsec = this.getFechafinsec();
             strategy.appendField(locator, this, "fechafinsec", buffer, theFechafinsec, (this.fechafinsec!= null));
@@ -1013,6 +1171,16 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String theFechainicio;
             theFechainicio = this.getFechainicio();
             strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
+        }
+        {
+            String theFechainiciocom;
+            theFechainiciocom = this.getFechainiciocom();
+            strategy.appendField(locator, this, "fechainiciocom", buffer, theFechainiciocom, (this.fechainiciocom!= null));
+        }
+        {
+            String theFechainiciopar;
+            theFechainiciopar = this.getFechainiciopar();
+            strategy.appendField(locator, this, "fechainiciopar", buffer, theFechainiciopar, (this.fechainiciopar!= null));
         }
         {
             String theFechainiciosec;
@@ -1125,6 +1293,16 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "coefjornada", theCoefjornada), currentHashCode, theCoefjornada, (this.coefjornada!= null));
         }
         {
+            String theFechafincom;
+            theFechafincom = this.getFechafincom();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafincom", theFechafincom), currentHashCode, theFechafincom, (this.fechafincom!= null));
+        }
+        {
+            String theFechafinpar;
+            theFechafinpar = this.getFechafinpar();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafinpar", theFechafinpar), currentHashCode, theFechafinpar, (this.fechafinpar!= null));
+        }
+        {
             String theFechafinsec;
             theFechafinsec = this.getFechafinsec();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafinsec", theFechafinsec), currentHashCode, theFechafinsec, (this.fechafinsec!= null));
@@ -1133,6 +1311,16 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String theFechainicio;
             theFechainicio = this.getFechainicio();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
+        }
+        {
+            String theFechainiciocom;
+            theFechainiciocom = this.getFechainiciocom();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainiciocom", theFechainiciocom), currentHashCode, theFechainiciocom, (this.fechainiciocom!= null));
+        }
+        {
+            String theFechainiciopar;
+            theFechainiciopar = this.getFechainiciopar();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainiciopar", theFechainiciopar), currentHashCode, theFechainiciopar, (this.fechainiciopar!= null));
         }
         {
             String theFechainiciosec;
@@ -1396,6 +1584,32 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
                 }
             }
             {
+                Boolean fechafincomShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafincom!= null));
+                if (fechafincomShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFechafincom;
+                    sourceFechafincom = this.getFechafincom();
+                    String copyFechafincom = ((String) strategy.copy(LocatorUtils.property(locator, "fechafincom", sourceFechafincom), sourceFechafincom, (this.fechafincom!= null)));
+                    copy.setFechafincom(copyFechafincom);
+                } else {
+                    if (fechafincomShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.fechafincom = null;
+                    }
+                }
+            }
+            {
+                Boolean fechafinparShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafinpar!= null));
+                if (fechafinparShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFechafinpar;
+                    sourceFechafinpar = this.getFechafinpar();
+                    String copyFechafinpar = ((String) strategy.copy(LocatorUtils.property(locator, "fechafinpar", sourceFechafinpar), sourceFechafinpar, (this.fechafinpar!= null)));
+                    copy.setFechafinpar(copyFechafinpar);
+                } else {
+                    if (fechafinparShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.fechafinpar = null;
+                    }
+                }
+            }
+            {
                 Boolean fechafinsecShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafinsec!= null));
                 if (fechafinsecShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceFechafinsec;
@@ -1418,6 +1632,32 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
                 } else {
                     if (fechainicioShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.fechainicio = null;
+                    }
+                }
+            }
+            {
+                Boolean fechainiciocomShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechainiciocom!= null));
+                if (fechainiciocomShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFechainiciocom;
+                    sourceFechainiciocom = this.getFechainiciocom();
+                    String copyFechainiciocom = ((String) strategy.copy(LocatorUtils.property(locator, "fechainiciocom", sourceFechainiciocom), sourceFechainiciocom, (this.fechainiciocom!= null)));
+                    copy.setFechainiciocom(copyFechainiciocom);
+                } else {
+                    if (fechainiciocomShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.fechainiciocom = null;
+                    }
+                }
+            }
+            {
+                Boolean fechainicioparShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechainiciopar!= null));
+                if (fechainicioparShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFechainiciopar;
+                    sourceFechainiciopar = this.getFechainiciopar();
+                    String copyFechainiciopar = ((String) strategy.copy(LocatorUtils.property(locator, "fechainiciopar", sourceFechainiciopar), sourceFechainiciopar, (this.fechainiciopar!= null)));
+                    copy.setFechainiciopar(copyFechainiciopar);
+                } else {
+                    if (fechainicioparShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.fechainiciopar = null;
                     }
                 }
             }

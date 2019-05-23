@@ -33,6 +33,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="icm_P_Trace" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_Ws_Calc_OperacionesRecordSet" type="{http://schemas.meta4.com/}Icm_Ws_Calc_OperacionesRecord" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -44,13 +45,40 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_Ws_Calc_OperacionesBlock", propOrder = {
+    "icmPTrace",
     "icmWsCalcOperacionesRecordSet"
 })
 public class IcmWsCalcOperacionesBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    @XmlElement(name = "icm_P_Trace", required = true, nillable = true)
+    protected String icmPTrace;
     @XmlElement(name = "Icm_Ws_Calc_OperacionesRecordSet", nillable = true)
     protected List<IcmWsCalcOperacionesRecord> icmWsCalcOperacionesRecordSet;
+
+    /**
+     * Obtiene el valor de la propiedad icmPTrace.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIcmPTrace() {
+        return icmPTrace;
+    }
+
+    /**
+     * Define el valor de la propiedad icmPTrace.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIcmPTrace(String value) {
+        this.icmPTrace = value;
+    }
 
     /**
      * Gets the value of the icmWsCalcOperacionesRecordSet property.
@@ -90,6 +118,15 @@ public class IcmWsCalcOperacionesBlock implements Cloneable, CopyTo2, Equals2, H
         }
         final IcmWsCalcOperacionesBlock that = ((IcmWsCalcOperacionesBlock) object);
         {
+            String lhsIcmPTrace;
+            lhsIcmPTrace = this.getIcmPTrace();
+            String rhsIcmPTrace;
+            rhsIcmPTrace = that.getIcmPTrace();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmPTrace", lhsIcmPTrace), LocatorUtils.property(thatLocator, "icmPTrace", rhsIcmPTrace), lhsIcmPTrace, rhsIcmPTrace, (this.icmPTrace!= null), (that.icmPTrace!= null))) {
+                return false;
+            }
+        }
+        {
             List<IcmWsCalcOperacionesRecord> lhsIcmWsCalcOperacionesRecordSet;
             lhsIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty()))?this.getIcmWsCalcOperacionesRecordSet():null);
             List<IcmWsCalcOperacionesRecord> rhsIcmWsCalcOperacionesRecordSet;
@@ -122,6 +159,11 @@ public class IcmWsCalcOperacionesBlock implements Cloneable, CopyTo2, Equals2, H
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
+            String theIcmPTrace;
+            theIcmPTrace = this.getIcmPTrace();
+            strategy.appendField(locator, this, "icmPTrace", buffer, theIcmPTrace, (this.icmPTrace!= null));
+        }
+        {
             List<IcmWsCalcOperacionesRecord> theIcmWsCalcOperacionesRecordSet;
             theIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty()))?this.getIcmWsCalcOperacionesRecordSet():null);
             strategy.appendField(locator, this, "icmWsCalcOperacionesRecordSet", buffer, theIcmWsCalcOperacionesRecordSet, ((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty())));
@@ -131,6 +173,11 @@ public class IcmWsCalcOperacionesBlock implements Cloneable, CopyTo2, Equals2, H
 
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
+        {
+            String theIcmPTrace;
+            theIcmPTrace = this.getIcmPTrace();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPTrace", theIcmPTrace), currentHashCode, theIcmPTrace, (this.icmPTrace!= null));
+        }
         {
             List<IcmWsCalcOperacionesRecord> theIcmWsCalcOperacionesRecordSet;
             theIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty()))?this.getIcmWsCalcOperacionesRecordSet():null);
@@ -157,6 +204,19 @@ public class IcmWsCalcOperacionesBlock implements Cloneable, CopyTo2, Equals2, H
         final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmWsCalcOperacionesBlock) {
             final IcmWsCalcOperacionesBlock copy = ((IcmWsCalcOperacionesBlock) draftCopy);
+            {
+                Boolean icmPTraceShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmPTrace!= null));
+                if (icmPTraceShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIcmPTrace;
+                    sourceIcmPTrace = this.getIcmPTrace();
+                    String copyIcmPTrace = ((String) strategy.copy(LocatorUtils.property(locator, "icmPTrace", sourceIcmPTrace), sourceIcmPTrace, (this.icmPTrace!= null)));
+                    copy.setIcmPTrace(copyIcmPTrace);
+                } else {
+                    if (icmPTraceShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmPTrace = null;
+                    }
+                }
+            }
             {
                 Boolean icmWsCalcOperacionesRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty())));
                 if (icmWsCalcOperacionesRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
