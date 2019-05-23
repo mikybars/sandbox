@@ -518,6 +518,8 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                 CompletableFuture<Void> cfSavePivotado = tareaEmpleadoEstructuraAsyncService
                         .saveComisionEmpleadoResultItemDto(data, tarea);
+                AsyncUtils.checkAsyncAvaliable(cfPersist,
+                        meta4Properties.get(Meta4Constants.COMISION_EMPLEADO).getFilter().getMaxPersistenceSize());
                 CompletableFuture<Void> cfSaveNoPivotado = tareaEmpleadoSeccionEstructuraAsyncService
                         .saveComisionEmpleadoResultItemDto(data, tarea);
                 AsyncUtils.exceptionally(cfSavePivotado, cf, cfPersist);
