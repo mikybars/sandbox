@@ -75,7 +75,7 @@ amiga:
       configuration:
         prop:
           default-isolation-level: 1
-          max-pool-size: 20
+          max-pool-size: 10
           query-timeout: 30s
       datasource:
         primary:
@@ -84,8 +84,8 @@ amiga:
           #url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;clientProgramName=${metadata.jirakey};loginTimeout=10;connectionTimeout=10;commandTimeout=5;
           user: oincome
           password: aMJLp8ahF09w
-          min-pool-size: 10
-          max-pool-size: 100
+          min-pool-size: 5
+          max-pool-size: 10
           driver-properties:
             clientProgramName: ${metadata.jirakey}
             loginTimeout: 10
