@@ -13,7 +13,6 @@ import javax.validation.constraints.Positive;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -56,7 +55,7 @@ public class TareaServiceImpl implements TareaService {
     @Autowired
     private SenderTarea senderTarea;
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public TareaDto save(@Valid final TareaDto tarea) {
         return tareaMapper.tareaToTareaDto(tareaRepository.save(tareaMapper.tareaDtoToTarea(tarea)));
@@ -71,7 +70,7 @@ public class TareaServiceImpl implements TareaService {
         return tarea;
     }
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
         tarea.setFechaCreacion(LocalDateTime.now());
@@ -90,7 +89,7 @@ public class TareaServiceImpl implements TareaService {
         return null;
     }
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
         List<TareaDto> result = new ArrayList<>();
@@ -99,14 +98,14 @@ public class TareaServiceImpl implements TareaService {
         return result;
     }
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public int modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
         tarea.setEstado(estado);
         return tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(estado.getId()).build());
     }
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public int modifyFechaInicioTarea(@Valid final TareaDto tarea) {
         tarea.setFechaInicioTarea(LocalDateTime.now());
@@ -114,7 +113,7 @@ public class TareaServiceImpl implements TareaService {
                 Date.from(tarea.getFechaInicioTarea().atZone(ZoneId.systemDefault()).toInstant()));
     }
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public int modifyFechaFinTarea(@Valid final TareaDto tarea) {
         tarea.setFechaFinTarea(LocalDateTime.now());
@@ -122,7 +121,7 @@ public class TareaServiceImpl implements TareaService {
                 Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
     }
     
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public void updateEstadoFinal(@Valid final TareaDto tarea) {
         tareaRepositoryCustom.updateEstadoFinal(tarea);

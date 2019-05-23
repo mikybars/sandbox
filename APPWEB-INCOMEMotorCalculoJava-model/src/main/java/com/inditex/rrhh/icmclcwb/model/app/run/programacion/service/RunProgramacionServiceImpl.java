@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,7 +28,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public List<RunProgramacionDto> run() {
         List<RunProgramacionDto> result = new ArrayList<>();
