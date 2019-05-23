@@ -30,7 +30,7 @@ amiga:
         prop:
           default-isolation-level: 1
           max-pool-size: 20
-          #query-timeout: 30s
+          query-timeout: 30s
       datasource:
         primary:
           driverClassName: com.ibm.db2.jcc.DB2Driver
@@ -38,8 +38,8 @@ amiga:
           #user: uincome
           user: oincome
           password: aMJLp8ahF09w
-          #min-pool-size: 5
-          #max-pool-size: 30
+          min-pool-size: 10
+          max-pool-size: 100
     hibernate:
       primary:
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
