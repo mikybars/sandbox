@@ -23,7 +23,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaSeccionPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
@@ -118,6 +117,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfFisicaDetalleLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
                     .ventaFisicaDetalleLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFisicaDetalleLocalizacion, cf, cfWait);
+            
+            CompletableFuture<Void> cfPresenciasTotalLocalizacion = runTareaRecolectarPtrPresenciaAsyncService
+                    .presenciaTotalLocalizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasTotalLocalizacion , cf, cfWait);
 
             // Operacion localizacion
 
