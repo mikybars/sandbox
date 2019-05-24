@@ -30,9 +30,9 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
     @Qualifier("tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository")
     private TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
 
-//    @Autowired
-//    @Qualifier("tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository")
-//    private TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
+    @Autowired
+    @Qualifier("tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository")
+    private TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
     
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -47,7 +47,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
                     try {
                         //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                         tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo, runTarea.getTarea(), personas);
-//                        tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo, runTarea.getTarea(), personas);
+                        tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo, runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("GlobalTiendaPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                         tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());

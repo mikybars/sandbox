@@ -27,7 +27,9 @@ public abstract class TareaEmpleadoSeccionEstructuraDecorator extends TareaEmple
             src.forEach(x -> {
                 if (StringUtils.isNotBlank(x.getPorcentaje())) {
                     Integer seccion = Integer.valueOf(x.getIdSeccion());
-                    if (AppConstants.SECCION_4 != seccion) {
+                    // Si la seccion es la 4 quiere decir que las tres secciones tienen el mismo porcentaje,
+                    // por lo que se crean las tres secciones por separado (se guarda el original en id_seccion_estructura)
+                    if (AppConstants.SECCION_4 == seccion) {
                         for (Integer idSeccionEfectiva : AppConstants.SECCIONES) {
                             result.add(createTareaEmpleadoSeccionEstructuraDto(idSeccionEfectiva.toString(),
                                 x.getIdSeccion(), x.getPorcentaje(), comisionEmpleado, tarea));

@@ -18,9 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaEmpleadoSeccionPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEmpleadoSeccionPresencia;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaEmpleadoSeccionPresenciaRepository;
-
-import net.logstash.logback.encoder.org.apache.commons.lang.math.NumberUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaEmpleadoSeccionPresenciaRepositoryCustom;
 
 @Service
 @Validated
@@ -32,7 +30,7 @@ public class TareaTiendaEmpleadoSeccionPresenciaServiceImpl implements TareaTien
     private TareaTiendaEmpleadoSeccionPresenciaMapper mapper;
     
     @Autowired
-    private TareaTiendaEmpleadoSeccionPresenciaRepository tareaTiendaEmpleadoSeccionPresenciaRepository; 
+    private TareaTiendaEmpleadoSeccionPresenciaRepositoryCustom tareaTiendaEmpleadoSeccionPresenciaRepositoryCustom;
     
     @Override
     public List<TareaTiendaEmpleadoSeccionPresenciaDto> save(@Valid List<PtrPresenciaDetalleResultItemDto> dtos,
@@ -46,7 +44,7 @@ public class TareaTiendaEmpleadoSeccionPresenciaServiceImpl implements TareaTien
                 toSave.addAll(presencias.stream().filter(x -> x.getMinutos() != 0).collect(Collectors.toList()));
             }
             result.addAll(mapper.tareaTiendaEmpleadoSeccionPresenciaToTareaTiendaEmpleadoSeccionPresenciaDto(
-                    tareaTiendaEmpleadoSeccionPresenciaRepository.saveAll(toSave)));
+                    tareaTiendaEmpleadoSeccionPresenciaRepositoryCustom.save(toSave)));
         }
         return result;
     }

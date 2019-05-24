@@ -187,7 +187,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .presenciaManualByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciaManual, cf, cfWait);
-            
+
             // Festivos
             CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .festivosByRunTarea(runTarea);

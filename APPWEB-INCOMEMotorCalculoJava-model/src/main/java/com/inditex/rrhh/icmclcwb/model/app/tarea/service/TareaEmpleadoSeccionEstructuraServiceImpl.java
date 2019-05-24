@@ -5,7 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaEmpleadoSeccionEstructur
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaEmpleadoSeccionEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaEmpleadoSeccionEstructuraMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaEmpleadoSeccionEstructuraRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaEmpleadoSeccionEstructuraRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +18,7 @@ import java.util.List;
 public class TareaEmpleadoSeccionEstructuraServiceImpl implements TareaEmpleadoSeccionEstructuraService {
 
     @Autowired
-    private TareaEmpleadoSeccionEstructuraRepository tareaEmpleadoSeccionEstructuraRepository;
+    private TareaEmpleadoSeccionEstructuraRepositoryCustom tareaEmpleadoSeccionEstructuraRepositoryCustom;
     
     @Autowired
     private TareaEmpleadoSeccionEstructuraMapper tareaEmpleadoSeccionEstructuraMapper;
@@ -27,7 +27,7 @@ public class TareaEmpleadoSeccionEstructuraServiceImpl implements TareaEmpleadoS
     public List<TareaEmpleadoSeccionEstructuraDto> save(List<TareaEmpleadoSeccionEstructuraDto> tareaEmpleadoSeccionEstructura,
             @Valid TareaDto tarea) {
         return tareaEmpleadoSeccionEstructuraMapper.tareaEmpleadoSeccionEstructuraToTareaEmpleadoSeccionEstructuraDto(
-                tareaEmpleadoSeccionEstructuraRepository.saveAll(tareaEmpleadoSeccionEstructuraMapper
+                tareaEmpleadoSeccionEstructuraRepositoryCustom.save(tareaEmpleadoSeccionEstructuraMapper
                         .tareaEmpleadoSeccionEstructuraDtoToTareaEmpleadoSeccionEstructura(tareaEmpleadoSeccionEstructura)));
     }
 

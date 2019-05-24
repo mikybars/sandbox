@@ -24,7 +24,7 @@ public class TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCusto
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     private String sqlCalcular;
 
     @Value("#{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaSeccionCalculoAlgoritmoBaseRepository.calcular.where']}")

@@ -23,7 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaTiendaSeccionVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaSeccionVenta;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaSeccionVentaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaSeccionVentaRepositoryCustom;
 
 @Service
 @Validated
@@ -32,7 +32,7 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
     private static final Integer[] SECCIONES = new Integer[] {PtrConstants.SECCION_1, PtrConstants.SECCION_2, PtrConstants.SECCION_3};
     
     @Autowired
-    private TareaTiendaSeccionVentaRepository tareaTiendaSeccionVentaRepository;
+    private TareaTiendaSeccionVentaRepositoryCustom tareaTiendaSeccionVentaRepositoryCustom;
     
     @Autowired
     private TareaTiendaSeccionVentaMapper tareaTiendaSeccionVentaMapper;
@@ -49,7 +49,7 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
                 toSave.addAll(ventas.stream().filter(x -> !x.skip()).collect(Collectors.toList()));
             }
             result.addAll(tareaTiendaSeccionVentaMapper.tareaTiendaSeccionVentaToTareaTiendaSeccionVentaDto(
-                    tareaTiendaSeccionVentaRepository.saveAll(toSave)));
+                    tareaTiendaSeccionVentaRepositoryCustom.save(toSave)));
         }
         return result;
     }
@@ -66,7 +66,7 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
                 toSave.addAll(ventas.stream().filter(x -> !x.skip()).collect(Collectors.toList()));
             }
             result.addAll(tareaTiendaSeccionVentaMapper.tareaTiendaSeccionVentaToTareaTiendaSeccionVentaDto(
-                    tareaTiendaSeccionVentaRepository.saveAll(toSave)));
+                    tareaTiendaSeccionVentaRepositoryCustom.save(toSave)));
         }
         return result;
     }
@@ -83,7 +83,7 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
                 toSave.addAll(ventas.stream().filter(x -> !x.skip()).collect(Collectors.toList()));
             }
             result.addAll(tareaTiendaSeccionVentaMapper.tareaTiendaSeccionVentaToTareaTiendaSeccionVentaDto(
-                    tareaTiendaSeccionVentaRepository.saveAll(toSave)));
+                    tareaTiendaSeccionVentaRepositoryCustom.save(toSave)));
         }
         return result;
     }
@@ -100,7 +100,7 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
                 toSave.addAll(ventas.stream().filter(x -> !x.skip()).collect(Collectors.toList()));
             }
             result.addAll(tareaTiendaSeccionVentaMapper.tareaTiendaSeccionVentaToTareaTiendaSeccionVentaDto(
-                    tareaTiendaSeccionVentaRepository.saveAll(toSave)));
+                    tareaTiendaSeccionVentaRepositoryCustom.save(toSave)));
         }
         return result;
     }
@@ -117,7 +117,7 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
                 toSave.addAll(ventas.stream().filter(x -> !x.skip()).collect(Collectors.toList()));
             }
             result.addAll(tareaTiendaSeccionVentaMapper.tareaTiendaSeccionVentaToTareaTiendaSeccionVentaDto(
-                    tareaTiendaSeccionVentaRepository.saveAll(toSave)));
+                    tareaTiendaSeccionVentaRepositoryCustom.save(toSave)));
         }
         return result;
     }
@@ -134,7 +134,7 @@ public class TareaTiendaSeccionVentaServiceImpl implements TareaTiendaSeccionVen
                 toSave.addAll(ventas.stream().filter(x -> !x.skip()).collect(Collectors.toList()));
             }
             result.addAll(tareaTiendaSeccionVentaMapper.tareaTiendaSeccionVentaToTareaTiendaSeccionVentaDto(
-                    tareaTiendaSeccionVentaRepository.saveAll(toSave)));
+                    tareaTiendaSeccionVentaRepositoryCustom.save(toSave)));
         }
         return result;
     }
