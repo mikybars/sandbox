@@ -39,8 +39,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         List<CompletableFuture<?>> cf = new ArrayList<>();
 
         // Actualizar flags de presencias activas
-        CompletableFuture<Void> cfUpdatePresenciasActivas = runTareaProcesarPresenciaAsyncService.updateActivo(runTarea);
-        AsyncUtils.exceptionally(cfUpdatePresenciasActivas, cf);
+        CompletableFuture<Void> cfUpdateSeccionPresenciasActivas = runTareaProcesarPresenciaAsyncService.updateActivoLocalizacionPersonaSeccionPresencia(runTarea);
+        AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf);
+        
+        CompletableFuture<Void> cfUpdatePresenciasSeccionActivas = runTareaProcesarPresenciaAsyncService.updateActivoLocalizacionPersonaPresenciaSeccion(runTarea);
+        AsyncUtils.exceptionally(cfUpdatePresenciasSeccionActivas, cf);
         
         // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
         CompletableFuture<Void> cfRepartoCadenas = runTareaProcesarVentaAsyncService.repartoVentaEntregaDomicilioCadenas(runTarea);

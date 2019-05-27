@@ -4,12 +4,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresenciaSeccion;
 
@@ -28,9 +33,19 @@ public class TareaLocalizacionPersonaPresenciaSeccionRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaSeccionRepositoryCustom.save']}")
     private String sqlSave;
     
+    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaSeccionRepositoryCustom.updateActivo']}")
+    private String sqlUpdateActivo;
+    
     @Override
     public List<TareaLocalizacionPersonaPresenciaSeccion> save(final List<TareaLocalizacionPersonaPresenciaSeccion> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
+    }
+    
+    @Override
+    public void updateActivo(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
 
     @Override
