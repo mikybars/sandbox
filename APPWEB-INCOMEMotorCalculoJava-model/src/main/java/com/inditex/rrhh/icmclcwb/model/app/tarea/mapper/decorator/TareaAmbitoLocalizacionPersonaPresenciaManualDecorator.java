@@ -8,19 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaPresenciaManualMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresenciaManual;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoLocalizacionPersonaPresenciaManualMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoLocalizacionPersonaPresenciaManual;
 
-public abstract class TareaLocalizacionPersonaPresenciaManualDecorator
-        extends TareaLocalizacionPersonaPresenciaManualMapper {
+public abstract class TareaAmbitoLocalizacionPersonaPresenciaManualDecorator
+        extends TareaAmbitoLocalizacionPersonaPresenciaManualMapper {
 
     @Autowired
-    TareaLocalizacionPersonaPresenciaManualMapper delegate;
+    TareaAmbitoLocalizacionPersonaPresenciaManualMapper delegate;
     
     @Override
-    public List<TareaLocalizacionPersonaPresenciaManual> genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
+    public List<TareaAmbitoLocalizacionPersonaPresenciaManual> genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
             List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
-        List<TareaLocalizacionPersonaPresenciaManual> result = new ArrayList<>();
+        List<TareaAmbitoLocalizacionPersonaPresenciaManual> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             for(GenericEmpleadoResultItemDto item : src) {
                 result.add(delegate.genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(item, tareaDto));                    

@@ -42,10 +42,6 @@ public class TareaLocalizacionPersonaSeccionPresencia {
     private String idPersona;
     
     @NotBlank
-    @Column(name = "OR_PERSONA", nullable = false)
-    private String orPersona;
-
-    @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)
     private String idOrigen;
     

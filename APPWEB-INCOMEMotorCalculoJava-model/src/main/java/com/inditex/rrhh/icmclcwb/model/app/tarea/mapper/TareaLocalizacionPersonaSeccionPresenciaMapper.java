@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPersonaSeccionPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionPersonaSeccionPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaSeccionPresencia;
@@ -38,7 +39,6 @@ public abstract class TareaLocalizacionPersonaSeccionPresenciaMapper {
     
     @Mapping(source = "src.idLugarTrabajo", target = "idLocalizacion")
     @Mapping(source = "src.idOrigen", target = "idOrigen")
-    @Mapping(source = "src.orEmpleado", target = "orPersona")
     @Mapping(source = "src.idEmpleado", target = "idPersona")
     @Mapping(source = "src.idSeccion", target = "idSeccion")
     @Mapping(source = "src.idEmpresa", target = "idEmpresa")
@@ -55,6 +55,24 @@ public abstract class TareaLocalizacionPersonaSeccionPresenciaMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
+    @Mapping(source = "src.tienda", target = "idLocalizacion")
+    @Mapping(source = "src.origen", target = "idOrigen")
+    @Mapping(source = "src.persona", target = "idPersona")
+    @Mapping(source = "src.seccion", target = "idSeccion")
+    @Mapping(source = "src.empresa", target = "idEmpresa")
+    @Mapping(source = "src.fecha", target = "fecha")
+    @Mapping(source = "src.minutos", target = "minutos")
+    @Mapping(source = "src.tipo", target = "idTipoHora")
+    @Mapping(source = "tareaDto.id", target = "tarea.id")
+    @Mapping(target = "id", ignore = true)
+    public abstract TareaLocalizacionPersonaSeccionPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaSeccionPresencia( 
+            PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto);
+
+    public List<TareaLocalizacionPersonaSeccionPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaSeccionPresencia(
+            List<PtrPresenciaDetalleResultItemDto> src, TareaDto tareaDto) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+    
     @AfterMapping
     void afterMapping(@MappingTarget TareaLocalizacionPersonaSeccionPresencia tareaLocalizacionPersonaSeccionPresencia,
             GenericEmpleadoResultItemDto src) {
@@ -62,5 +80,13 @@ public abstract class TareaLocalizacionPersonaSeccionPresenciaMapper {
         tareaLocalizacionPersonaSeccionPresencia.setTipoDato(new TipoDato());
         tareaLocalizacionPersonaSeccionPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
     }    
+    
+    @AfterMapping
+    void afterMapping(@MappingTarget TareaLocalizacionPersonaSeccionPresencia tareaLocalizacionPersonaSeccionPresencia,
+            PtrPresenciaDetalleResultItemDto src) {
+        tareaLocalizacionPersonaSeccionPresencia.setActivo(Boolean.TRUE);
+        tareaLocalizacionPersonaSeccionPresencia.setTipoDato(new TipoDato());
+        tareaLocalizacionPersonaSeccionPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
+    }   
     
 }

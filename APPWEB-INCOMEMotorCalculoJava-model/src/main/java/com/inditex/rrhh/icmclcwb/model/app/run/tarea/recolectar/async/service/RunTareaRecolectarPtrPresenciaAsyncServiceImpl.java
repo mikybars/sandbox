@@ -28,6 +28,12 @@ public class RunTareaRecolectarPtrPresenciaAsyncServiceImpl implements RunTareaR
         tareaRecolectarPtrPresenciaService.presenciaDetalleComisionablePersonaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Override
+    public CompletableFuture<Void> presenciaDetalleComisionableLocalizacionPersonaByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrPresenciaService.presenciaDetalleComisionableLocalizacionPersonaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 
     @Override
     public CompletableFuture<Void> presenciaTotalLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {

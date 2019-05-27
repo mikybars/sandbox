@@ -74,7 +74,7 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
             }
         }
         tareaTienda.setTipoDato(new TipoDato());
-        tareaTienda.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES.getId());
+        tareaTienda.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId());
         tareaTienda.setActivo(Boolean.TRUE);
     }
     
@@ -90,7 +90,7 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
             }
         }
         tareaTienda.setTipoDato(new TipoDato());
-        tareaTienda.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES.getId());
+        tareaTienda.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId());
         tareaTienda.setActivo(Boolean.TRUE);
     }
     

@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaSeccionPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaSeccionPresenciaRepositoryCustom;
 
@@ -30,6 +31,12 @@ public class TareaLocalizacionPersonaSeccionPresenciaServiceImpl
     public void save(@NotNull final List<GenericEmpleadoResultItemDto> src, @NotNull final TareaDto tareaDto) {
         tareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.save(tareaLocalizacionPersonaSeccionPresenciaMapper
                 .genericEmpleadoResultItemDtoToTareaLocalizacionPersonaSeccionPresencia(src, tareaDto));
+    }
+    
+    @Override
+    public void savePtrPresenciaDetalle(@NotNull final List<PtrPresenciaDetalleResultItemDto> src, @NotNull final TareaDto tareaDto) {
+        tareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.save(tareaLocalizacionPersonaSeccionPresenciaMapper
+                .presenciasDetalleResponseDtoToTareaLocalizacionPersonaSeccionPresencia(src, tareaDto));
     }
     
     @Override

@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPer
 
 public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
-    List<TareaLocalizacionPersonaPresencia> save(final List<TareaLocalizacionPersonaPresencia> src);
+    List<TareaLocalizacionPersonaPresencia> save(List<TareaLocalizacionPersonaPresencia> src);
 
 }

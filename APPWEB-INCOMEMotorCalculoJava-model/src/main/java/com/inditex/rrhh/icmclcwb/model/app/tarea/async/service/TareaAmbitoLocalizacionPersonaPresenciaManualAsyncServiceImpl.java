@@ -6,18 +6,18 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaManualAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoLocalizacionPersonaPresenciaManualAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaManualService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionPersonaPresenciaManualService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 
 @Service
-public class TareaLocalizacionPersonaPresenciaManualAsyncServiceImpl
-        implements TareaLocalizacionPersonaPresenciaManualAsyncService {
+public class TareaAmbitoLocalizacionPersonaPresenciaManualAsyncServiceImpl
+        implements TareaAmbitoLocalizacionPersonaPresenciaManualAsyncService {
 
     @Autowired
-    private TareaLocalizacionPersonaPresenciaManualService tareaLocalizacionPersonaPresenciaManualService;
+    private TareaAmbitoLocalizacionPersonaPresenciaManualService tareaLocalizacionPersonaPresenciaManualService;
     
     @Override
     public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto)  {

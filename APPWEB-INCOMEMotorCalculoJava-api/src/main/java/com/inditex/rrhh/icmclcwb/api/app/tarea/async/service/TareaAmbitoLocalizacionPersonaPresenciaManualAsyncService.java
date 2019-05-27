@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 
 @Async("repositoryPrimaryExecutor")
-public interface TareaLocalizacionPersonaPresenciaManualAsyncService {
+public interface TareaAmbitoLocalizacionPersonaPresenciaManualAsyncService {
 
     CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto);
 

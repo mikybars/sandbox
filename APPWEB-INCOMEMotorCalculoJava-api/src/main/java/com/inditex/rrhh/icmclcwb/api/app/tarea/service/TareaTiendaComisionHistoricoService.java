@@ -10,7 +10,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 
 public interface TareaTiendaComisionHistoricoService {
 
-
     List<TareaTiendaComisionHistoricoDto> saveGenericTiendaResultItemDto(
             @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
 

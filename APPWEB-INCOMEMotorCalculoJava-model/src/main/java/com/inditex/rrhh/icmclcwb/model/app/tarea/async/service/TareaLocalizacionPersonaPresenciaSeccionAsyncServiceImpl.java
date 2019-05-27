@@ -8,22 +8,23 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaSeccionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 
 @Service
-public class TareaLocalizacionPersonaPresenciaAsyncServiceImpl
-        implements TareaLocalizacionPersonaPresenciaAsyncService {
+public class TareaLocalizacionPersonaPresenciaSeccionAsyncServiceImpl
+        implements TareaLocalizacionPersonaPresenciaSeccionAsyncService {
 
     @Autowired
-    private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
+    private TareaLocalizacionPersonaPresenciaSeccionService tareaLocalizacionPersonaPresenciaSeccionService;
     
     @Override
     public CompletableFuture<Void> save(@NotNull List<PtrPresenciaDetalleResultItemDto> src, @NotNull TareaDto tareaDto){
-        tareaLocalizacionPersonaPresenciaService.save(src, tareaDto);
+        tareaLocalizacionPersonaPresenciaSeccionService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
 }

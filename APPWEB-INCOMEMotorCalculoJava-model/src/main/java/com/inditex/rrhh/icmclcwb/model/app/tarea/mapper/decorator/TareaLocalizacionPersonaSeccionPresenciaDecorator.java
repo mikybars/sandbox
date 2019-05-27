@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaSeccionPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaSeccionPresencia;
 
@@ -25,6 +26,19 @@ public abstract class TareaLocalizacionPersonaSeccionPresenciaDecorator
             src.forEach(item -> 
                 result.add(
                         delegate.genericEmpleadoResultItemDtoToTareaLocalizacionPersonaSeccionPresencia(item, tareaDto))
+            );
+        }
+        return result;
+    }
+    
+    @Override
+    public List<TareaLocalizacionPersonaSeccionPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaSeccionPresencia(
+            List<PtrPresenciaDetalleResultItemDto> src, TareaDto tareaDto) {
+        List<TareaLocalizacionPersonaSeccionPresencia> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(src)) {
+            src.forEach(item -> 
+                result.add(
+                        delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaSeccionPresencia(item, tareaDto))
             );
         }
         return result;

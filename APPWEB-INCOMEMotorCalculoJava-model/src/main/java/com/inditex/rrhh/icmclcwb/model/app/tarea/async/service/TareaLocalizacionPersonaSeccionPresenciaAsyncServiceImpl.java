@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 
 @Service
 public class TareaLocalizacionPersonaSeccionPresenciaAsyncServiceImpl
@@ -25,6 +26,12 @@ public class TareaLocalizacionPersonaSeccionPresenciaAsyncServiceImpl
     @Override
     public CompletableFuture<Void> save(@NotNull List<GenericEmpleadoResultItemDto> src, @NotNull TareaDto tareaDto){
         tareaLocalizacionPersonaSeccionPresenciaService.save(src, tareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> savePtrPresenciaDetalle(@NotNull List<PtrPresenciaDetalleResultItemDto> src, @NotNull TareaDto tareaDto){
+        tareaLocalizacionPersonaSeccionPresenciaService.savePtrPresenciaDetalle(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

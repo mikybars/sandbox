@@ -55,7 +55,7 @@ public abstract class TareaTiendaSeccionPresenciaMapper {
     public void presenciasTotalizadoResponseDtoToTareaTiendaSeccionPresencia(
         @MappingTarget TareaTiendaSeccionPresencia dest, PtrPresenciaTotalizadoResultItemDto src, TareaDto tareaDto) {
         dest.setTipoDato(new TipoDato());
-        dest.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES.getId());
+        dest.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId());
         dest.setActivo(Boolean.TRUE);
     }
 

@@ -55,15 +55,14 @@ public class TareaLocalizacionPersonaSeccionPresenciaRepositoryCustomImpl
         pstmt.setString(1, entity.getIdLocalizacion());
         pstmt.setString(2, entity.getIdOrigen());
         pstmt.setString(3, entity.getIdPersona());
-        pstmt.setString(4, entity.getOrPersona());
-        pstmt.setString(5, entity.getIdEmpresa());
-        pstmt.setString(6, entity.getIdSeccion());
-        pstmt.setObject(7, entity.getFecha());
-        pstmt.setLong(8, entity.getMinutos());
-        pstmt.setString(9, entity.getIdTipoHora());
-        pstmt.setBoolean(10, entity.getActivo());
-        pstmt.setLong(11, entity.getTipoDato().getId());
-        pstmt.setLong(12, entity.getTarea().getId());
+        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setString(5, entity.getIdSeccion());
+        pstmt.setObject(6, entity.getFecha());
+        pstmt.setLong(7, entity.getMinutos());
+        pstmt.setString(8, entity.getIdTipoHora());
+        pstmt.setBoolean(9, entity.getActivo());
+        pstmt.setLong(10, entity.getTipoDato().getId());
+        pstmt.setLong(11, entity.getTarea().getId());
     }
 
 }

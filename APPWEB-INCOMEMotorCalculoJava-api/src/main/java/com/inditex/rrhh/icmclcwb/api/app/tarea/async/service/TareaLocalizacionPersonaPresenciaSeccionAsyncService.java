@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 
 @Async("repositoryPrimaryExecutor")
-public interface TareaLocalizacionPersonaPresenciaAsyncService {
+public interface TareaLocalizacionPersonaPresenciaSeccionAsyncService {
 
     CompletableFuture<Void> save(@NotNull List<PtrPresenciaDetalleResultItemDto> src, @NotNull TareaDto tareaDto);
 

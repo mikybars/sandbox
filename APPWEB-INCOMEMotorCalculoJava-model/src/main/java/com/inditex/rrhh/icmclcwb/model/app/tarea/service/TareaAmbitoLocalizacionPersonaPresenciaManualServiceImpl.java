@@ -9,21 +9,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaManualService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionPersonaPresenciaManualService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaPresenciaManualMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaPresenciaManualRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoLocalizacionPersonaPresenciaManualMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoLocalizacionPersonaPresenciaManualRepositoryCustom;
 
 @Service
 @Validated
-public class TareaLocalizacionPersonaPresenciaManualServiceImpl
-        implements TareaLocalizacionPersonaPresenciaManualService {
+public class TareaAmbitoLocalizacionPersonaPresenciaManualServiceImpl
+        implements TareaAmbitoLocalizacionPersonaPresenciaManualService {
 
     @Autowired
-    TareaLocalizacionPersonaPresenciaManualRepositoryCustom tareaLocalizacionPersonaPresenciaManualRepositoryCustom;
+    TareaAmbitoLocalizacionPersonaPresenciaManualRepositoryCustom tareaLocalizacionPersonaPresenciaManualRepositoryCustom;
     
     @Autowired
-    TareaLocalizacionPersonaPresenciaManualMapper tareaLocalizacionPersonaPresenciaManualMapper;
+    TareaAmbitoLocalizacionPersonaPresenciaManualMapper tareaLocalizacionPersonaPresenciaManualMapper;
     
     @Override
     public void save(@NotNull final List<GenericEmpleadoResultItemDto> src, @NotNull final TareaDto tareaDto) {

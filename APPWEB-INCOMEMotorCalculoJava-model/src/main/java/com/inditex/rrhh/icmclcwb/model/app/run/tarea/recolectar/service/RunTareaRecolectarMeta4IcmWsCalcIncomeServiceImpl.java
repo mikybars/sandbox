@@ -26,7 +26,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoEstruc
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoSeccionEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionCalcularAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionFestivoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaManualAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoLocalizacionPersonaPresenciaManualAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaSeccionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPeriodoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaCoeficienteAsyncService;
@@ -102,7 +102,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     private TareaTiendaComisionHistoricoAsyncService tareaTiendaComisionHistoricoAsyncService;
 
     @Autowired
-    private TareaLocalizacionPersonaPresenciaManualAsyncService tareaLocalizacionPersonaPresenciaManualAsyncService;
+    private TareaAmbitoLocalizacionPersonaPresenciaManualAsyncService tareaLocalizacionPersonaPresenciaManualAsyncService;
     
     @Autowired
     private TareaLocalizacionFestivoAsyncService tareaLocalizacionFestivoAsyncService;

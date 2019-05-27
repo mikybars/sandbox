@@ -17,13 +17,13 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import lombok.Data;
 
 @Entity
-@Table(name = "TAREA_LOCALIZACION_PERSONA_PRESENCIA_MANUAL")
+@Table(name = "TAREA_AMBITO_LOCALIZACION_PERSONA_PRESENCIA_MANUAL")
 @Data
-public class TareaLocalizacionPersonaPresenciaManual {
+public class TareaAmbitoLocalizacionPersonaPresenciaManual {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA_MANUAL")
+    @Column(name = "ID_TAREA_AMBITO_LOCALIZACION_PERSONA_PRESENCIA_MANUAL")
     private /* BigInteger */ Long id;
 
     @NotNull
@@ -46,9 +46,5 @@ public class TareaLocalizacionPersonaPresenciaManual {
     @NotBlank
     @Column(name = "ID_EMPRESA", nullable = false)
     private String idEmpresa;
-    
-    @ManyToOne
-    @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
-    private TipoDato tipoDato;
-    
+   
 }

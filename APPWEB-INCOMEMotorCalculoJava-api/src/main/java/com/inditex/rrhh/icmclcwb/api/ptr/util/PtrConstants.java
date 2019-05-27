@@ -14,6 +14,7 @@ public class PtrConstants {
     public static final String FECHA_TIENDA = "FECHA_TIENDA";
     public static final String FECHA_TIENDA_SECCION = "FECHA_TIENDA_SECCION";
     public static final String FECHA_TIENDA_TIPOHORA_SECCION = "FECHA_TIENDA_TIPOHORA_SECCION";
+    public static final String FECHA_TIENDA_TIPOHORA = "FECHA_TIENDA_TIPOHORA";
     public static final String PERSONA_TIENDA = "PERSONA_TIENDA";
     
 	public static final String PTR_DATE = "yyyy-MM-dd";
