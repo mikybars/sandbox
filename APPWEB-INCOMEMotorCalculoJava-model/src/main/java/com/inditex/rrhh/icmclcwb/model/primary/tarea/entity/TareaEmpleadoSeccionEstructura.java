@@ -22,6 +22,7 @@ public class TareaEmpleadoSeccionEstructura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREA_EMPLEADO_SECCION_ESTRUCTURA")
     private Long id;
     
     @NotNull
