@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 
 @Data
-public class TareaTiendaVentaDto implements Serializable {
+public class TareaLocalizacionVentaDto implements Serializable {
 
     private static final long serialVersionUID = -1012901232574802311L;
 
@@ -26,8 +26,8 @@ public class TareaTiendaVentaDto implements Serializable {
     private LocalDate fecha;
     
     @NotBlank
-    @ApiModelProperty(value = "Id de la tienda", required = true)
-    private String idTienda;
+    @ApiModelProperty(value = "Id de la localizacion", required = true)
+    private String idLocalizacion;
        
     @NotNull
     @ApiModelProperty(value = "Importe sin iva de la venta", required = true)

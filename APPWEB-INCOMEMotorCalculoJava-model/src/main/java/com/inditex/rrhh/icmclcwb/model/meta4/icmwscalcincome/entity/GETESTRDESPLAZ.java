@@ -45,8 +45,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "", propOrder = {
     "icmparametrosentrada"
 })
-@XmlRootElement(name = "GETCOMISIONEMPLEADO")
-public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETESTRDESPLAZ")
+public class GETESTRDESPLAZ implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
@@ -83,7 +83,7 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
         if (this == object) {
             return true;
         }
-        final GETCOMISIONEMPLEADO that = ((GETCOMISIONEMPLEADO) object);
+        final GETESTRDESPLAZ that = ((GETESTRDESPLAZ) object);
         {
             IcmParametrosentradaBlock lhsICMPARAMETROSENTRADA;
             lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
@@ -150,8 +150,8 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETCOMISIONEMPLEADO) {
-            final GETCOMISIONEMPLEADO copy = ((GETCOMISIONEMPLEADO) draftCopy);
+        if (draftCopy instanceof GETESTRDESPLAZ) {
+            final GETESTRDESPLAZ copy = ((GETESTRDESPLAZ) draftCopy);
             {
                 Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrosentrada!= null));
                 if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -170,7 +170,7 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
     }
 
     public Object createNewInstance() {
-        return new GETCOMISIONEMPLEADO();
+        return new GETESTRDESPLAZ();
     }
 
 }

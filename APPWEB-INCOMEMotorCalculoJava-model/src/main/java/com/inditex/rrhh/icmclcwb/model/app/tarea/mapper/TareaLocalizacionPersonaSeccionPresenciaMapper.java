@@ -88,20 +88,6 @@ public abstract class TareaLocalizacionPersonaSeccionPresenciaMapper {
     @AfterMapping
     void afterMapping(@MappingTarget TareaLocalizacionPersonaSeccionPresencia tareaLocalizacionPersonaSeccionPresencia,
             PtrPresenciaDetalleResultItemDto src) {
-
-        for (PtrSeccionPresenciasGenericType item : src.getListaSeccion()) {
-            if (AppConstants.SECCION_1.equals(item.getSeccion())) {
-                tareaLocalizacionPersonaSeccionPresencia.setIdSeccion(AppConstants.SECCION_1.toString());
-                tareaLocalizacionPersonaSeccionPresencia.setMinutos(item.getMinutos());
-            } else if (AppConstants.SECCION_2.equals(item.getSeccion())) {
-                tareaLocalizacionPersonaSeccionPresencia.setIdSeccion(AppConstants.SECCION_2.toString());
-                tareaLocalizacionPersonaSeccionPresencia.setMinutos(item.getMinutos());
-            } else if (AppConstants.SECCION_3.equals(item.getSeccion())) {
-                tareaLocalizacionPersonaSeccionPresencia.setIdSeccion(AppConstants.SECCION_3.toString());
-                tareaLocalizacionPersonaSeccionPresencia.setMinutos(item.getMinutos());
-            }
-        }
-
         tareaLocalizacionPersonaSeccionPresencia.setActivo(Boolean.TRUE);
         tareaLocalizacionPersonaSeccionPresencia.setTipoDato(new TipoDato());
         tareaLocalizacionPersonaSeccionPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());

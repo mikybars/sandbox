@@ -32,7 +32,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/>
+ *         &lt;element name="GETESTRPOLITICASReturn" type="{http://schemas.meta4.com/}GetestrpoliticasOutput"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,37 +43,37 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparametrosentrada"
+    "getestrpoliticasReturn"
 })
-@XmlRootElement(name = "GETCOMISIONEMPLEADO")
-public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETESTRPOLITICASResponse")
+public class GETESTRPOLITICASResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
-    protected IcmParametrosentradaBlock icmparametrosentrada;
+    @XmlElement(name = "GETESTRPOLITICASReturn", required = true)
+    protected GetestrpoliticasOutput getestrpoliticasReturn;
 
     /**
-     * Obtiene el valor de la propiedad icmparametrosentrada.
+     * Obtiene el valor de la propiedad getestrpoliticasReturn.
      * 
      * @return
      *     possible object is
-     *     {@link IcmParametrosentradaBlock }
+     *     {@link GetestrpoliticasOutput }
      *     
      */
-    public IcmParametrosentradaBlock getICMPARAMETROSENTRADA() {
-        return icmparametrosentrada;
+    public GetestrpoliticasOutput getGETESTRPOLITICASReturn() {
+        return getestrpoliticasReturn;
     }
 
     /**
-     * Define el valor de la propiedad icmparametrosentrada.
+     * Define el valor de la propiedad getestrpoliticasReturn.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmParametrosentradaBlock }
+     *     {@link GetestrpoliticasOutput }
      *     
      */
-    public void setICMPARAMETROSENTRADA(IcmParametrosentradaBlock value) {
-        this.icmparametrosentrada = value;
+    public void setGETESTRPOLITICASReturn(GetestrpoliticasOutput value) {
+        this.getestrpoliticasReturn = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -83,13 +83,13 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
         if (this == object) {
             return true;
         }
-        final GETCOMISIONEMPLEADO that = ((GETCOMISIONEMPLEADO) object);
+        final GETESTRPOLITICASResponse that = ((GETESTRPOLITICASResponse) object);
         {
-            IcmParametrosentradaBlock lhsICMPARAMETROSENTRADA;
-            lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            IcmParametrosentradaBlock rhsICMPARAMETROSENTRADA;
-            rhsICMPARAMETROSENTRADA = that.getICMPARAMETROSENTRADA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrosentrada", lhsICMPARAMETROSENTRADA), LocatorUtils.property(thatLocator, "icmparametrosentrada", rhsICMPARAMETROSENTRADA), lhsICMPARAMETROSENTRADA, rhsICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null), (that.icmparametrosentrada!= null))) {
+            GetestrpoliticasOutput lhsGETESTRPOLITICASReturn;
+            lhsGETESTRPOLITICASReturn = this.getGETESTRPOLITICASReturn();
+            GetestrpoliticasOutput rhsGETESTRPOLITICASReturn;
+            rhsGETESTRPOLITICASReturn = that.getGETESTRPOLITICASReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getestrpoliticasReturn", lhsGETESTRPOLITICASReturn), LocatorUtils.property(thatLocator, "getestrpoliticasReturn", rhsGETESTRPOLITICASReturn), lhsGETESTRPOLITICASReturn, rhsGETESTRPOLITICASReturn, (this.getestrpoliticasReturn!= null), (that.getestrpoliticasReturn!= null))) {
                 return false;
             }
         }
@@ -117,9 +117,9 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            strategy.appendField(locator, this, "icmparametrosentrada", buffer, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            GetestrpoliticasOutput theGETESTRPOLITICASReturn;
+            theGETESTRPOLITICASReturn = this.getGETESTRPOLITICASReturn();
+            strategy.appendField(locator, this, "getestrpoliticasReturn", buffer, theGETESTRPOLITICASReturn, (this.getestrpoliticasReturn!= null));
         }
         return buffer;
     }
@@ -127,9 +127,9 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrosentrada", theICMPARAMETROSENTRADA), currentHashCode, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            GetestrpoliticasOutput theGETESTRPOLITICASReturn;
+            theGETESTRPOLITICASReturn = this.getGETESTRPOLITICASReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getestrpoliticasReturn", theGETESTRPOLITICASReturn), currentHashCode, theGETESTRPOLITICASReturn, (this.getestrpoliticasReturn!= null));
         }
         return currentHashCode;
     }
@@ -150,18 +150,18 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETCOMISIONEMPLEADO) {
-            final GETCOMISIONEMPLEADO copy = ((GETCOMISIONEMPLEADO) draftCopy);
+        if (draftCopy instanceof GETESTRPOLITICASResponse) {
+            final GETESTRPOLITICASResponse copy = ((GETESTRPOLITICASResponse) draftCopy);
             {
-                Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrosentrada!= null));
-                if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrosentradaBlock sourceICMPARAMETROSENTRADA;
-                    sourceICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-                    IcmParametrosentradaBlock copyICMPARAMETROSENTRADA = ((IcmParametrosentradaBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrosentrada", sourceICMPARAMETROSENTRADA), sourceICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null)));
-                    copy.setICMPARAMETROSENTRADA(copyICMPARAMETROSENTRADA);
+                Boolean getestrpoliticasReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getestrpoliticasReturn!= null));
+                if (getestrpoliticasReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetestrpoliticasOutput sourceGETESTRPOLITICASReturn;
+                    sourceGETESTRPOLITICASReturn = this.getGETESTRPOLITICASReturn();
+                    GetestrpoliticasOutput copyGETESTRPOLITICASReturn = ((GetestrpoliticasOutput) strategy.copy(LocatorUtils.property(locator, "getestrpoliticasReturn", sourceGETESTRPOLITICASReturn), sourceGETESTRPOLITICASReturn, (this.getestrpoliticasReturn!= null)));
+                    copy.setGETESTRPOLITICASReturn(copyGETESTRPOLITICASReturn);
                 } else {
-                    if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparametrosentrada = null;
+                    if (getestrpoliticasReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getestrpoliticasReturn = null;
                     }
                 }
             }
@@ -170,7 +170,7 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
     }
 
     public Object createNewInstance() {
-        return new GETCOMISIONEMPLEADO();
+        return new GETESTRPOLITICASResponse();
     }
 
 }

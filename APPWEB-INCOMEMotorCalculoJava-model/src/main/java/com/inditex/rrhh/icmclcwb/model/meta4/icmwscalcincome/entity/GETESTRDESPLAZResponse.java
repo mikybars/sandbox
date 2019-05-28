@@ -32,7 +32,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/>
+ *         &lt;element name="GETESTRDESPLAZReturn" type="{http://schemas.meta4.com/}GetestrdesplazOutput"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,37 +43,37 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparametrosentrada"
+    "getestrdesplazReturn"
 })
-@XmlRootElement(name = "GETCOMISIONEMPLEADO")
-public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETESTRDESPLAZResponse")
+public class GETESTRDESPLAZResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
-    protected IcmParametrosentradaBlock icmparametrosentrada;
+    @XmlElement(name = "GETESTRDESPLAZReturn", required = true)
+    protected GetestrdesplazOutput getestrdesplazReturn;
 
     /**
-     * Obtiene el valor de la propiedad icmparametrosentrada.
+     * Obtiene el valor de la propiedad getestrdesplazReturn.
      * 
      * @return
      *     possible object is
-     *     {@link IcmParametrosentradaBlock }
+     *     {@link GetestrdesplazOutput }
      *     
      */
-    public IcmParametrosentradaBlock getICMPARAMETROSENTRADA() {
-        return icmparametrosentrada;
+    public GetestrdesplazOutput getGETESTRDESPLAZReturn() {
+        return getestrdesplazReturn;
     }
 
     /**
-     * Define el valor de la propiedad icmparametrosentrada.
+     * Define el valor de la propiedad getestrdesplazReturn.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmParametrosentradaBlock }
+     *     {@link GetestrdesplazOutput }
      *     
      */
-    public void setICMPARAMETROSENTRADA(IcmParametrosentradaBlock value) {
-        this.icmparametrosentrada = value;
+    public void setGETESTRDESPLAZReturn(GetestrdesplazOutput value) {
+        this.getestrdesplazReturn = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -83,13 +83,13 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
         if (this == object) {
             return true;
         }
-        final GETCOMISIONEMPLEADO that = ((GETCOMISIONEMPLEADO) object);
+        final GETESTRDESPLAZResponse that = ((GETESTRDESPLAZResponse) object);
         {
-            IcmParametrosentradaBlock lhsICMPARAMETROSENTRADA;
-            lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            IcmParametrosentradaBlock rhsICMPARAMETROSENTRADA;
-            rhsICMPARAMETROSENTRADA = that.getICMPARAMETROSENTRADA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrosentrada", lhsICMPARAMETROSENTRADA), LocatorUtils.property(thatLocator, "icmparametrosentrada", rhsICMPARAMETROSENTRADA), lhsICMPARAMETROSENTRADA, rhsICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null), (that.icmparametrosentrada!= null))) {
+            GetestrdesplazOutput lhsGETESTRDESPLAZReturn;
+            lhsGETESTRDESPLAZReturn = this.getGETESTRDESPLAZReturn();
+            GetestrdesplazOutput rhsGETESTRDESPLAZReturn;
+            rhsGETESTRDESPLAZReturn = that.getGETESTRDESPLAZReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getestrdesplazReturn", lhsGETESTRDESPLAZReturn), LocatorUtils.property(thatLocator, "getestrdesplazReturn", rhsGETESTRDESPLAZReturn), lhsGETESTRDESPLAZReturn, rhsGETESTRDESPLAZReturn, (this.getestrdesplazReturn!= null), (that.getestrdesplazReturn!= null))) {
                 return false;
             }
         }
@@ -117,9 +117,9 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            strategy.appendField(locator, this, "icmparametrosentrada", buffer, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            GetestrdesplazOutput theGETESTRDESPLAZReturn;
+            theGETESTRDESPLAZReturn = this.getGETESTRDESPLAZReturn();
+            strategy.appendField(locator, this, "getestrdesplazReturn", buffer, theGETESTRDESPLAZReturn, (this.getestrdesplazReturn!= null));
         }
         return buffer;
     }
@@ -127,9 +127,9 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrosentrada", theICMPARAMETROSENTRADA), currentHashCode, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            GetestrdesplazOutput theGETESTRDESPLAZReturn;
+            theGETESTRDESPLAZReturn = this.getGETESTRDESPLAZReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getestrdesplazReturn", theGETESTRDESPLAZReturn), currentHashCode, theGETESTRDESPLAZReturn, (this.getestrdesplazReturn!= null));
         }
         return currentHashCode;
     }
@@ -150,18 +150,18 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETCOMISIONEMPLEADO) {
-            final GETCOMISIONEMPLEADO copy = ((GETCOMISIONEMPLEADO) draftCopy);
+        if (draftCopy instanceof GETESTRDESPLAZResponse) {
+            final GETESTRDESPLAZResponse copy = ((GETESTRDESPLAZResponse) draftCopy);
             {
-                Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrosentrada!= null));
-                if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrosentradaBlock sourceICMPARAMETROSENTRADA;
-                    sourceICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-                    IcmParametrosentradaBlock copyICMPARAMETROSENTRADA = ((IcmParametrosentradaBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrosentrada", sourceICMPARAMETROSENTRADA), sourceICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null)));
-                    copy.setICMPARAMETROSENTRADA(copyICMPARAMETROSENTRADA);
+                Boolean getestrdesplazReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getestrdesplazReturn!= null));
+                if (getestrdesplazReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetestrdesplazOutput sourceGETESTRDESPLAZReturn;
+                    sourceGETESTRDESPLAZReturn = this.getGETESTRDESPLAZReturn();
+                    GetestrdesplazOutput copyGETESTRDESPLAZReturn = ((GetestrdesplazOutput) strategy.copy(LocatorUtils.property(locator, "getestrdesplazReturn", sourceGETESTRDESPLAZReturn), sourceGETESTRDESPLAZReturn, (this.getestrdesplazReturn!= null)));
+                    copy.setGETESTRDESPLAZReturn(copyGETESTRDESPLAZReturn);
                 } else {
-                    if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparametrosentrada = null;
+                    if (getestrdesplazReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getestrdesplazReturn = null;
                     }
                 }
             }
@@ -170,7 +170,7 @@ public class GETCOMISIONEMPLEADO implements Cloneable, CopyTo2, Equals2, HashCod
     }
 
     public Object createNewInstance() {
-        return new GETCOMISIONEMPLEADO();
+        return new GETESTRDESPLAZResponse();
     }
 
 }

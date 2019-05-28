@@ -8,27 +8,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 
 @Repository
-public class TareaTiendaVentaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaTiendaVenta> implements TareaTiendaVentaRepositoryCustom {
+public class TareaLocalizacionVentaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionVenta> implements TareaLocalizacionVentaRepositoryCustom {
  
-    @Value("#{primaryQuery['TareaTiendaVentaRepositoryCustom.save']}")
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.save']}")
     private String sqlSave;
     
     @Value("${app.envars.repository.batch-size.tarea-tienda-venta:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
     @Override
-    public List<TareaTiendaVenta> save(List<TareaTiendaVenta> src) {
+    public List<TareaLocalizacionVenta> save(List<TareaLocalizacionVenta> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaTiendaVenta entity) throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaLocalizacionVenta entity) throws SQLException {
         pstmt.setObject(1, entity.getFecha());
         pstmt.setString(2, entity.getIdCadena());
-        pstmt.setString(3, entity.getIdTienda());
+        pstmt.setString(3, entity.getIdLocalizacion());
         pstmt.setDouble(4, entity.getImporte());
         pstmt.setDouble(5, entity.getImporteConImpuestos());
         pstmt.setDouble(6, entity.getTipoDato().getId());

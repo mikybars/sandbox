@@ -67,7 +67,7 @@ public class TareaCalculoSeccion {
 
     @NotNull
     @Column(name = "ID_ESTRUCTURA", nullable = false)
-    private /* BigInteger */ Long idEstructura;
+    private /* BigInteger */ String idEstructura;
     
     @NotNull
     @Column(name = "ID_ALGORITMO", nullable = false)
@@ -167,7 +167,7 @@ public class TareaCalculoSeccion {
 
 	@NotNull
     @Column(name = "ID_TIPO_HORA", nullable = false)
-    private /* BigInteger */ String idTipoHora;
+    private /* BigInteger */ Long idTipoHora;
 	
     @Column(name = "FECHA", nullable = false)
     private Date fecha;

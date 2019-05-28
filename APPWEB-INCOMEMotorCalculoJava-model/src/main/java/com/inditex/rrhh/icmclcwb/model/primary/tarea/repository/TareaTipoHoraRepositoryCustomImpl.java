@@ -17,7 +17,6 @@ public class TareaTipoHoraRepositoryCustomImpl extends JdbcBatchPrimaryRepositor
     @Value("${app.envars.repository.batch-size.tarea-tipo-hora:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
-
     @Value("#{primaryQuery['TareaTipoHoraRepositoryCustom.save']}")
     private String sqlSave;
 
@@ -33,7 +32,7 @@ public class TareaTipoHoraRepositoryCustomImpl extends JdbcBatchPrimaryRepositor
         pstmt.setObject(3, entity.getIncluidoVenta());
         pstmt.setObject(4, entity.getIncluidoChallenge());
         pstmt.setObject(5, entity.getIncluidoEcommerce());
-        pstmt.setString(6, entity.getIdTipoHora());
+        pstmt.setLong(6, entity.getIdTipoHora());
         pstmt.setLong(7, entity.getTarea().getId());
     }
 

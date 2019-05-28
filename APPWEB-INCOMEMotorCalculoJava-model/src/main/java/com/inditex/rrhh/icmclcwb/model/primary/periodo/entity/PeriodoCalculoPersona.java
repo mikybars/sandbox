@@ -42,6 +42,13 @@ public class PeriodoCalculoPersona {
 
     @Column(name = "FECHA_ACTUALIZACION", nullable = true)
     private Date fechaActualizacion;
-
+    
+    @OneToOne
+    @JoinColumn(name = "ID_ESTADO_PERIODO_CALCULO_PERSONA", nullable = false)
+    private EstadoPeriodoCalculoPersona estado;
+    
+    @NotNull
+    @Column(name = "BLOQUEADO", nullable = false)
+    private Boolean bloqueado;
 
 }

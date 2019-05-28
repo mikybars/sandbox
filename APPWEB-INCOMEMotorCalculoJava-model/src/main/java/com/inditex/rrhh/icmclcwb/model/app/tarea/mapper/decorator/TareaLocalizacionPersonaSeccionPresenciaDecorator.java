@@ -37,8 +37,13 @@ public abstract class TareaLocalizacionPersonaSeccionPresenciaDecorator
         List<TareaLocalizacionPersonaSeccionPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> 
-                result.add(
-                        delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaSeccionPresencia(item, tareaDto))
+                item.getListaSeccion().forEach(s -> {
+                        TareaLocalizacionPersonaSeccionPresencia tarea = delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaSeccionPresencia(item, tareaDto);
+                        tarea.setIdSeccion(String.valueOf(s.getSeccion()));
+                        tarea.setMinutos(s.getMinutos());
+                        result.add(tarea);
+                    }
+                )
             );
         }
         return result;

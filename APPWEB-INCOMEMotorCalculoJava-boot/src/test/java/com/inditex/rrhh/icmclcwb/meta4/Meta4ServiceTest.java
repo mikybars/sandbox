@@ -252,16 +252,14 @@ public class Meta4ServiceTest {
     public void getComisionEmpleado() {
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
 
         record.setIdempleado(Meta4TestConstants.ID_EMPLEADO);
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
         param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
         param1.getIcmParametrosentradaRecordSet().add(record);
-        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
 
-        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, param2);
+        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1);
 
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getComisionEmpleadoOutput.getReturn()));
     }
@@ -301,7 +299,7 @@ public class Meta4ServiceTest {
             param1.getIcmParametrosentradaRecordSet().addAll(entradas2);
             
             if (emprec.size()>0) {
-                GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, param2);
+                GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1);
                 List<IcmListaestructurasRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructuras()
                         .getIcmListaestructurasRecordSet();
                 for (IcmListaestructurasRecord record2 : recordset) {
@@ -310,8 +308,7 @@ public class Meta4ServiceTest {
                             + record2.getIdestructura() + " tipo comision: " + record2.getIdtipocomision() + " tipo calculo: " 
                             + record2.getIdtipocalculo() + " percentageall: " );
                     for(IcmListaporcentajesRecord record3 : record2.getIcmListaporcentajes().getIcmListaporcentajesRecordSet()) {
-                        System.out.println("-- seccion: " + record3.getIdseccion() + " porcentaje " + record3.getPorcentaje() + " porcentaje1 " + record3.getPorcentajet1()
-                        + " porcentaje2 " + record3.getPorcentajet2() + " porcentaje3 " + record3.getPorcentajet3());
+                        System.out.println("-- seccion: " + record3.getIdseccion() + " porcentaje " + record3.getPorcentaje());
                     }
                 } 
             }

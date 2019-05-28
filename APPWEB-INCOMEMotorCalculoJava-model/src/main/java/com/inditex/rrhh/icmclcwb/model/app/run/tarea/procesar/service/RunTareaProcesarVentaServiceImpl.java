@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaSeccionRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaRepositoryProcesarCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTiendaVentaSeccionRespositoryProcesarCustom;
 
 @Service
@@ -28,7 +28,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     private TareaTiendaVentaSeccionRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
 
     @Autowired
-    private TareaTiendaVentaRepositoryProcesarCustom tareaTiendaVentaRepository;
+    private TareaLocalizacionVentaRepositoryProcesarCustom tareaTiendaVentaRepository;
 
     @Autowired
     private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;

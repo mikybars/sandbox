@@ -13,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
 @Async("repositoryPrimaryExecutor")
-public interface TareaTiendaVentaAsyncService {
+public interface TareaLocalizacionVentaAsyncService {
 
     CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto dto,TareaDto tarea);
 

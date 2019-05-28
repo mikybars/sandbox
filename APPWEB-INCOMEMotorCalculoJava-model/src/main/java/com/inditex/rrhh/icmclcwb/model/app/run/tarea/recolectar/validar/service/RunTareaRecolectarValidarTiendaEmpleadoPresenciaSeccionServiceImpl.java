@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaValidarAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaEmpleadoPresenciaSeccion;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresenciaSeccion;
 
 @Service
 @Validated
@@ -40,7 +40,7 @@ public class RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionServiceImpl
                     .countTiendaEmpleadoPresenciaSeccion(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountTiendaEmpleadoPresenciaSeccion, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(TareaTiendaEmpleadoPresenciaSeccion.class.getSimpleName())
+            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(TareaLocalizacionPersonaPresenciaSeccion.class.getSimpleName())
                     .count(AsyncUtils.get(cfCountTiendaEmpleadoPresenciaSeccion)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

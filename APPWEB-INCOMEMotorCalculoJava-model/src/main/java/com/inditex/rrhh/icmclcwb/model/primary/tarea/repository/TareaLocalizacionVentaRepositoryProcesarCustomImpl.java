@@ -16,12 +16,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
-public class TareaTiendaVentaRepositoryProcesarCustomImpl implements TareaTiendaVentaRepositoryProcesarCustom{
+public class TareaLocalizacionVentaRepositoryProcesarCustomImpl implements TareaLocalizacionVentaRepositoryProcesarCustom{
     
-    @Value("#{primaryQuery['TareaTiendaVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones']}")
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones']}")
     private String sqlProcesarEntregaDomicilioAgrupaciones;
     
-    @Value("#{primaryQuery['TareaTiendaVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioCadenas']}")
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioCadenas']}")
     private String sqlProcesarEntregaDomicilioCadenas;
     
     @Value("#{primaryQuery['RunTareaProcesarService.procesarVentaTienda']}" )

@@ -332,7 +332,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     public ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request) {
     	ComisionEmpleadoResponseDto result = new ComisionEmpleadoResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
-        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1, null);
+        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1);
         if (getComisionEmpleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0 ) {
             if( getComisionEmpleadoOutput.getIcmListaestructuras() != null

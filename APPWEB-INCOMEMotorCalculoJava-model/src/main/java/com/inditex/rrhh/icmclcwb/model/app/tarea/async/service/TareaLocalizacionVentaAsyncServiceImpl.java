@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
@@ -20,36 +20,35 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
 @Service
-public class TareaTiendaVentaAsyncServiceImpl implements TareaTiendaVentaAsyncService {
+public class TareaLocalizacionVentaAsyncServiceImpl implements TareaLocalizacionVentaAsyncService {
 
     @Autowired
-    private TareaTiendaVentaService tareaTiendaVentaService;
-    
+    private TareaLocalizacionVentaService tareaLocalizacionVentaService;
     
     @Override
     public CompletableFuture<Void> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto,final TareaDto tarea)  {
-        tareaTiendaVentaService.savePtrVentaTotalizadoResponse(dto, tarea);
+        tareaLocalizacionVentaService.savePtrVentaTotalizadoResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(final PtrVentaOnlineEntregaDomicilioResponseDto dto,final TareaDto tarea)  {
-        tareaTiendaVentaService.savePtrVentaOnlineEntregaDomicilioResponse(dto, tarea);
+        tareaLocalizacionVentaService.savePtrVentaOnlineEntregaDomicilioResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
     
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(final PtrVentaOnlineEntregaTiendaResponseDto dto,final TareaDto tarea)  {
-        tareaTiendaVentaService.savePtrVentaOnlineEntregaTiendaResponse(dto, tarea);
+        tareaLocalizacionVentaService.savePtrVentaOnlineEntregaTiendaResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     
     @Override
     public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,final TareaDto tarea)  {
-        tareaTiendaVentaService.savePtrVentaOnlinePickingResponse(dto, tarea);
+        tareaLocalizacionVentaService.savePtrVentaOnlinePickingResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
@@ -57,7 +56,7 @@ public class TareaTiendaVentaAsyncServiceImpl implements TareaTiendaVentaAsyncSe
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto dto,
            TareaDto tarea) {
-        tareaTiendaVentaService.savePtrVentaOnlineIpodResponse(dto, tarea);
+        tareaLocalizacionVentaService.savePtrVentaOnlineIpodResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
@@ -65,7 +64,7 @@ public class TareaTiendaVentaAsyncServiceImpl implements TareaTiendaVentaAsyncSe
     @Override
     public CompletableFuture<Void> savePtrVentaIndividualDetalleResponse(PtrVentaIndividualDetalleResponseDto dto,
            TareaDto tarea) {
-        tareaTiendaVentaService.savePtrVentaIndividualDetalleResponse(dto, tarea);
+        tareaLocalizacionVentaService.savePtrVentaIndividualDetalleResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

@@ -18,13 +18,13 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import lombok.Data;
 
 @Entity
-@Table(name = "TAREA_TIENDA_VENTA")
+@Table(name = "TAREA_LOCALIZACION_VENTA")
 @Data
-public class TareaTiendaVenta {
+public class TareaLocalizacionVenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_TIENDA_VENTA")
+    @Column(name = "ID_TAREA_LOCALIZACION_VENTA")
     private /* BigInteger */ Long id;
 
     @NotNull
@@ -37,8 +37,8 @@ public class TareaTiendaVenta {
     private Date fecha;
     
     @NotNull
-    @Column(name = "ID_TIENDA", nullable = false)
-    private String idTienda;
+    @Column(name = "ID_LOCALIZACION", nullable = false)
+    private String idLocalizacion;
     
     @NotNull
     @Column(name = "ID_CADENA", nullable = false)

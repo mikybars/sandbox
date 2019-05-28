@@ -50,6 +50,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETESTRPOLITICASResponse }
+     * 
+     */
+    public GETESTRPOLITICASResponse createGETESTRPOLITICASResponse() {
+        return new GETESTRPOLITICASResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetestrpoliticasOutput }
+     * 
+     */
+    public GetestrpoliticasOutput createGetestrpoliticasOutput() {
+        return new GetestrpoliticasOutput();
+    }
+
+    /**
      * Create an instance of {@link GETEMPLEADOSResponse }
      * 
      */
@@ -82,6 +98,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETESTRDESPLAZ }
+     * 
+     */
+    public GETESTRDESPLAZ createGETESTRDESPLAZ() {
+        return new GETESTRDESPLAZ();
+    }
+
+    /**
+     * Create an instance of {@link IcmParametrosentradaBlock }
+     * 
+     */
+    public IcmParametrosentradaBlock createIcmParametrosentradaBlock() {
+        return new IcmParametrosentradaBlock();
+    }
+
+    /**
      * Create an instance of {@link GETCONFVENTAONLINEResponse }
      * 
      */
@@ -103,14 +135,6 @@ public class ObjectFactory {
      */
     public GETAGRUPONLINE createGETAGRUPONLINE() {
         return new GETAGRUPONLINE();
-    }
-
-    /**
-     * Create an instance of {@link IcmParametrosentradaBlock }
-     * 
-     */
-    public IcmParametrosentradaBlock createIcmParametrosentradaBlock() {
-        return new IcmParametrosentradaBlock();
     }
 
     /**
@@ -194,22 +218,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SEARCHTIENDASResponse }
-     * 
-     */
-    public SEARCHTIENDASResponse createSEARCHTIENDASResponse() {
-        return new SEARCHTIENDASResponse();
-    }
-
-    /**
-     * Create an instance of {@link SearchtiendasOutput }
-     * 
-     */
-    public SearchtiendasOutput createSearchtiendasOutput() {
-        return new SearchtiendasOutput();
-    }
-
-    /**
      * Create an instance of {@link GETEMPLEADOSDESPLAZResponse }
      * 
      */
@@ -223,6 +231,22 @@ public class ObjectFactory {
      */
     public GetempleadosdesplazOutput createGetempleadosdesplazOutput() {
         return new GetempleadosdesplazOutput();
+    }
+
+    /**
+     * Create an instance of {@link SEARCHTIENDASResponse }
+     * 
+     */
+    public SEARCHTIENDASResponse createSEARCHTIENDASResponse() {
+        return new SEARCHTIENDASResponse();
+    }
+
+    /**
+     * Create an instance of {@link SearchtiendasOutput }
+     * 
+     */
+    public SearchtiendasOutput createSearchtiendasOutput() {
+        return new SearchtiendasOutput();
     }
 
     /**
@@ -274,6 +298,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETCOMISIONEMPLEADO }
+     * 
+     */
+    public GETCOMISIONEMPLEADO createGETCOMISIONEMPLEADO() {
+        return new GETCOMISIONEMPLEADO();
+    }
+
+    /**
      * Create an instance of {@link GETFLAGCALCULAResponse }
      * 
      */
@@ -298,19 +330,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETCOMISIONEMPLEADO }
-     * 
-     */
-    public GETCOMISIONEMPLEADO createGETCOMISIONEMPLEADO() {
-        return new GETCOMISIONEMPLEADO();
-    }
-
-    /**
      * Create an instance of {@link GETPRESENCIAMANUAL }
      * 
      */
     public GETPRESENCIAMANUAL createGETPRESENCIAMANUAL() {
         return new GETPRESENCIAMANUAL();
+    }
+
+    /**
+     * Create an instance of {@link GETESTRPOLITICAS }
+     * 
+     */
+    public GETESTRPOLITICAS createGETESTRPOLITICAS() {
+        return new GETESTRPOLITICAS();
     }
 
     /**
@@ -322,19 +354,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETCONFPRODVENTA }
-     * 
-     */
-    public GETCONFPRODVENTA createGETCONFPRODVENTA() {
-        return new GETCONFPRODVENTA();
-    }
-
-    /**
      * Create an instance of {@link GETEMPLEADOSPRESENCIA }
      * 
      */
     public GETEMPLEADOSPRESENCIA createGETEMPLEADOSPRESENCIA() {
         return new GETEMPLEADOSPRESENCIA();
+    }
+
+    /**
+     * Create an instance of {@link GETCONFPRODVENTA }
+     * 
+     */
+    public GETCONFPRODVENTA createGETCONFPRODVENTA() {
+        return new GETCONFPRODVENTA();
     }
 
     /**
@@ -503,6 +535,22 @@ public class ObjectFactory {
      */
     public GetcoefjornadaOutput createGetcoefjornadaOutput() {
         return new GetcoefjornadaOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETESTRDESPLAZResponse }
+     * 
+     */
+    public GETESTRDESPLAZResponse createGETESTRDESPLAZResponse() {
+        return new GETESTRDESPLAZResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetestrdesplazOutput }
+     * 
+     */
+    public GetestrdesplazOutput createGetestrdesplazOutput() {
+        return new GetestrdesplazOutput();
     }
 
     /**

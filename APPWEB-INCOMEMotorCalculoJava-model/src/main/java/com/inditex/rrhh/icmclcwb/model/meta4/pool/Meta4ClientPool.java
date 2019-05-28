@@ -67,7 +67,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getconfprodventa(param1, param2);
+            return client.getIcmWsCalcIncomeService().getconfprodventa(param2, param1);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -110,7 +110,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public GetflagcalculaOutput getflagcalcula(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getflagcalcula(param2, param1);
+            return client.getIcmWsCalcIncomeService().getflagcalcula(param1, param2);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -124,7 +124,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public GetcoefjornadaOutput getcoefjornada(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getcoefjornada(param1, param2);
+            return client.getIcmWsCalcIncomeService().getcoefjornada(param2, param1);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -153,7 +153,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getpresenciamanual(param1, param2);
+            return client.getIcmWsCalcIncomeService().getpresenciamanual(param2, param1);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -168,7 +168,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getempleadospresencia(param1, param2);
+            return client.getIcmWsCalcIncomeService().getempleadospresencia(param2, param1);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -207,11 +207,10 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1,
-            IcmParametrospaginacionBlock param2) {
+    public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getcomisionempleado(param1, param2);
+            return client.getIcmWsCalcIncomeService().getcomisionempleado(param1);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -226,7 +225,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
+            return client.getIcmWsCalcIncomeService().gettiendasempleado(param2, param1);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -255,7 +254,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrosentradaBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().gettiendasincome(param2, param1);
+            return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);

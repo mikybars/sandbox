@@ -24,7 +24,7 @@ public class TareaTipoHora {
 
 	@NotNull
 	@Column(name = "ID_TIPO_HORA", nullable = false)
-	private String idTipoHora;
+	private Long idTipoHora;
 	
 	@Column(name = "EXCLUIDO_CALCULO", nullable = false)
 	private Boolean excluidoCalculo;

@@ -102,8 +102,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
     </sequence>
    </complexType>
    <complexType name="M4SoapException">
@@ -152,8 +152,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaperiodos" nillable="true" type="impl:Icm_ListaperiodosBlock"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaperiodos" nillable="true" type="impl:Icm_ListaperiodosBlock"/>
     </sequence>
    </complexType>
    <element name="GETEMPLEADOS">
@@ -216,29 +216,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
     </sequence>
    </complexType>
-   <element name="SEARCHTIENDAS">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="SEARCHTIENDASResponse">
-    <complexType>
-     <sequence>
-      <element name="SEARCHTIENDASReturn" type="impl:SearchtiendasOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="SearchtiendasOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-    </sequence>
-   </complexType>
    <element name="GETAGRUPONLINE">
     <complexType>
      <sequence>
@@ -284,202 +261,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="Icm_Listaconfiguracion" nillable="true" type="impl:Icm_ListaconfiguracionBlock"/>
     </sequence>
    </complexType>
-   <element name="GETCOEFJORNADA">
+   <element name="GETESTRPOLITICAS">
     <complexType>
      <sequence>
       <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
      </sequence>
     </complexType>
    </element>
-   <element name="GETCOEFJORNADAResponse">
+   <element name="GETESTRPOLITICASResponse">
     <complexType>
      <sequence>
-      <element name="GETCOEFJORNADAReturn" type="impl:GetcoefjornadaOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="GetcoefjornadaOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-    </sequence>
-   </complexType>
-   <element name="GETFLAGCALCULA">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="GETFLAGCALCULAResponse">
-    <complexType>
-     <sequence>
-      <element name="GETFLAGCALCULAReturn" type="impl:GetflagcalculaOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="GetflagcalculaOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
-    </sequence>
-   </complexType>
-   <element name="SEARCHEMPLEADOS">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="SEARCHEMPLEADOSResponse">
-    <complexType>
-     <sequence>
-      <element name="SEARCHEMPLEADOSReturn" type="impl:SearchempleadosOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="SearchempleadosOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-    </sequence>
-   </complexType>
-   <element name="GETCONFPRODVENTA">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="GETCONFPRODVENTAResponse">
-    <complexType>
-     <sequence>
-      <element name="GETCONFPRODVENTAReturn" type="impl:GetconfprodventaOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="GetconfprodventaOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-     <element name="Icm_Listaconfiguracion" nillable="true" type="impl:Icm_ListaconfiguracionBlock"/>
-    </sequence>
-   </complexType>
-   <element name="GETTIENDASINCOME">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="GETTIENDASINCOMEResponse">
-    <complexType>
-     <sequence>
-      <element name="GETTIENDASINCOMEReturn" type="impl:GettiendasincomeOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="GettiendasincomeOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
-    </sequence>
-   </complexType>
-   <element name="GETCONFVENTAONLINE">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="GETCONFVENTAONLINEResponse">
-    <complexType>
-     <sequence>
-      <element name="GETCONFVENTAONLINEReturn" type="impl:GetconfventaonlineOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="GetconfventaonlineOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaconfiguracion" nillable="true" type="impl:Icm_ListaconfiguracionBlock"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-    </sequence>
-   </complexType>
-   <element name="GETPRESENCIAMANUAL">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="GETPRESENCIAMANUALResponse">
-    <complexType>
-     <sequence>
-      <element name="GETPRESENCIAMANUALReturn" type="impl:GetpresenciamanualOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="GetpresenciamanualOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-    </sequence>
-   </complexType>
-   <element name="GETTIENDASEMPLEADO">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="GETTIENDASEMPLEADOResponse">
-    <complexType>
-     <sequence>
-      <element name="GETTIENDASEMPLEADOReturn" type="impl:GettiendasempleadoOutput"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="GettiendasempleadoOutput">
-    <sequence>
-     <element name="return" type="xsd:double"/>
-     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
-     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
-    </sequence>
-   </complexType>
-   <element name="GETCOMISIONEMPLEADO">
-    <complexType>
-     <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
-      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="GETCOMISIONEMPLEADOResponse">
-    <complexType>
-     <sequence>
-      <element name="GETCOMISIONEMPLEADOReturn" type="impl:GetcomisionempleadoOutput"/>
+      <element name="GETESTRPOLITICASReturn" type="impl:GetestrpoliticasOutput"/>
      </sequence>
     </complexType>
    </element>
@@ -487,11 +279,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="m4AutoGeneratedRecordID" nillable="true" type="xsd:string"/>
      <element name="m4AutoGeneratedToDelete" type="xsd:boolean"/>
+     <element name="tramo" nillable="true" type="xsd:double"/>
      <element name="idseccion" nillable="true" type="xsd:string"/>
      <element name="porcentaje" nillable="true" type="xsd:string"/>
-     <element name="porcentajet1" nillable="true" type="xsd:string"/>
-     <element name="porcentajet2" nillable="true" type="xsd:string"/>
-     <element name="porcentajet3" nillable="true" type="xsd:string"/>
     </sequence>
    </complexType>
    
@@ -523,16 +313,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="importemin" nillable="true" type="xsd:string"/>
      <element name="orempleado" nillable="true" type="xsd:string"/>
      <element name="fechainicio" nillable="true" type="xsd:string"/>
+     <element name="horasorigen" nillable="true" type="xsd:string"/>
+     <element name="horasdestino" nillable="true" type="xsd:string"/>
      <element name="idestructura" nillable="true" type="xsd:string"/>
      <element name="idmotivobaja" nillable="true" type="xsd:string"/>
+     <element name="idmotivodesp" nillable="true" type="xsd:string"/>
      <element name="idtipocalculo" nillable="true" type="xsd:string"/>
+     <element name="idtipoopccalc" nillable="true" type="xsd:string"/>
      <element name="nummesesmedia" nillable="true" type="xsd:string"/>
      <element name="excdenominador" nillable="true" type="xsd:string"/>
      <element name="idlugartrabajo" nillable="true" type="xsd:string"/>
      <element name="idtipocomision" nillable="true" type="xsd:string"/>
      <element name="idtipopolitica" nillable="true" type="xsd:string"/>
      <element name="idempleadolocal" nillable="true" type="xsd:string"/>
+     <element name="idpuestodestino" nillable="true" type="xsd:string"/>
+     <element name="idsecciondestino" nillable="true" type="xsd:string"/>
      <element name="idlugartrabajomtu" nillable="true" type="xsd:string"/>
+     <element name="idtiporeqcomision" nillable="true" type="xsd:string"/>
+     <element name="idlugartrabajodestino" nillable="true" type="xsd:string"/>
      <element name="Icm_Listaporcentajes" nillable="true" type="impl:Icm_ListaporcentajesBlock"/>
     </sequence>
    </complexType>
@@ -542,11 +340,77 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element maxOccurs="unbounded" minOccurs="0" name="Icm_ListaestructurasRecordSet" nillable="true" type="impl:Icm_ListaestructurasRecord"/>
     </sequence>
    </complexType>
-   <complexType name="GetcomisionempleadoOutput">
+   <complexType name="GetestrpoliticasOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Listaestructuras" nillable="true" type="impl:Icm_ListaestructurasBlock"/>
+    </sequence>
+   </complexType>
+   <element name="GETTIENDASINCOME">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETTIENDASINCOMEResponse">
+    <complexType>
+     <sequence>
+      <element name="GETTIENDASINCOMEReturn" type="impl:GettiendasincomeOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GettiendasincomeOutput">
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
+    </sequence>
+   </complexType>
+   <element name="GETTIENDASEMPLEADO">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETTIENDASEMPLEADOResponse">
+    <complexType>
+     <sequence>
+      <element name="GETTIENDASEMPLEADOReturn" type="impl:GettiendasempleadoOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GettiendasempleadoOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
+    </sequence>
+   </complexType>
+   <element name="GETCOMISIONEMPLEADO">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETCOMISIONEMPLEADOResponse">
+    <complexType>
+     <sequence>
+      <element name="GETCOMISIONEMPLEADOReturn" type="impl:GetcomisionempleadoOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GetcomisionempleadoOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
      <element name="Icm_Listaestructuras" nillable="true" type="impl:Icm_ListaestructurasBlock"/>
     </sequence>
    </complexType>
@@ -569,15 +433,38 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
+    </sequence>
+   </complexType>
+   <element name="SEARCHTIENDAS">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="SEARCHTIENDASResponse">
+    <complexType>
+     <sequence>
+      <element name="SEARCHTIENDASReturn" type="impl:SearchtiendasOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="SearchtiendasOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
     </sequence>
    </complexType>
    <element name="GETEMPLEADOSPRESENCIA">
     <complexType>
      <sequence>
-      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
       <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
      </sequence>
     </complexType>
    </element>
@@ -592,8 +479,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <sequence>
      <element name="return" type="xsd:double"/>
      <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
-     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
      <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
     </sequence>
    </complexType>
    <element name="M4LoadObject">
@@ -678,6 +565,165 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
     </sequence>
    </complexType>
+   <element name="GETCOEFJORNADA">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETCOEFJORNADAResponse">
+    <complexType>
+     <sequence>
+      <element name="GETCOEFJORNADAReturn" type="impl:GetcoefjornadaOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GetcoefjornadaOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
+    </sequence>
+   </complexType>
+   <element name="GETESTRDESPLAZ">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETESTRDESPLAZResponse">
+    <complexType>
+     <sequence>
+      <element name="GETESTRDESPLAZReturn" type="impl:GetestrdesplazOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GetestrdesplazOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Listaestructuras" nillable="true" type="impl:Icm_ListaestructurasBlock"/>
+    </sequence>
+   </complexType>
+   <element name="GETFLAGCALCULA">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETFLAGCALCULAResponse">
+    <complexType>
+     <sequence>
+      <element name="GETFLAGCALCULAReturn" type="impl:GetflagcalculaOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GetflagcalculaOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Listatiendas" nillable="true" type="impl:Icm_ListatiendasBlock"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+    </sequence>
+   </complexType>
+   <element name="GETCONFVENTAONLINE">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETCONFVENTAONLINEResponse">
+    <complexType>
+     <sequence>
+      <element name="GETCONFVENTAONLINEReturn" type="impl:GetconfventaonlineOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GetconfventaonlineOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaconfiguracion" nillable="true" type="impl:Icm_ListaconfiguracionBlock"/>
+    </sequence>
+   </complexType>
+   <element name="GETPRESENCIAMANUAL">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETPRESENCIAMANUALResponse">
+    <complexType>
+     <sequence>
+      <element name="GETPRESENCIAMANUALReturn" type="impl:GetpresenciamanualOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GetpresenciamanualOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
+    </sequence>
+   </complexType>
+   <element name="SEARCHEMPLEADOS">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="SEARCHEMPLEADOSResponse">
+    <complexType>
+     <sequence>
+      <element name="SEARCHEMPLEADOSReturn" type="impl:SearchempleadosOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="SearchempleadosOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaempleados" nillable="true" type="impl:Icm_ListaempleadosBlock"/>
+    </sequence>
+   </complexType>
+   <element name="GETCONFPRODVENTA">
+    <complexType>
+     <sequence>
+      <element name="ICM_PARAMETROSPAGINACION" type="impl:Icm_ParametrospaginacionBlock"/>
+      <element name="ICM_PARAMETROSENTRADA" type="impl:Icm_ParametrosentradaBlock"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="GETCONFPRODVENTAResponse">
+    <complexType>
+     <sequence>
+      <element name="GETCONFPRODVENTAReturn" type="impl:GetconfprodventaOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GetconfprodventaOutput">
+    <sequence>
+     <element name="return" type="xsd:double"/>
+     <element maxOccurs="unbounded" minOccurs="0" name="logMessage" nillable="true" type="impl:LogMessage"/>
+     <element name="Icm_Parametrospaginacion" nillable="true" type="impl:Icm_ParametrospaginacionBlock"/>
+     <element name="Icm_Listaconfiguracion" nillable="true" type="impl:Icm_ListaconfiguracionBlock"/>
+    </sequence>
+   </complexType>
    <element name="retrieveM4Session">
     <complexType>
      <sequence>
@@ -701,9 +747,21 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="GETESTRDESPLAZRequest">
+
+      <wsdl:part element="impl:GETESTRDESPLAZ" name="parameters"/>
+
+   </wsdl:message>
+
    <wsdl:message name="GETTIENDASEMPLEADORequest">
 
       <wsdl:part element="impl:GETTIENDASEMPLEADO" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="GETESTRPOLITICASRequest">
+
+      <wsdl:part element="impl:GETESTRPOLITICAS" name="parameters"/>
 
    </wsdl:message>
 
@@ -755,15 +813,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="GETFLAGCALCULAResponse">
-
-      <wsdl:part element="impl:GETFLAGCALCULAResponse" name="parameters"/>
-
-   </wsdl:message>
-
    <wsdl:message name="GETEMPLEADOSPRESENCIARequest">
 
       <wsdl:part element="impl:GETEMPLEADOSPRESENCIA" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="GETFLAGCALCULAResponse">
+
+      <wsdl:part element="impl:GETFLAGCALCULAResponse" name="parameters"/>
 
    </wsdl:message>
 
@@ -809,6 +867,12 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="GETESTRDESPLAZResponse">
+
+      <wsdl:part element="impl:GETESTRDESPLAZResponse" name="parameters"/>
+
+   </wsdl:message>
+
    <wsdl:message name="SEARCHEMPLEADOSResponse">
 
       <wsdl:part element="impl:SEARCHEMPLEADOSResponse" name="parameters"/>
@@ -842,6 +906,12 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="GETAGRUPONLINEResponse">
 
       <wsdl:part element="impl:GETAGRUPONLINEResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="GETESTRPOLITICASResponse">
+
+      <wsdl:part element="impl:GETESTRPOLITICASResponse" name="parameters"/>
 
    </wsdl:message>
 
@@ -899,15 +969,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="SEARCHTIENDASResponse">
-
-      <wsdl:part element="impl:SEARCHTIENDASResponse" name="parameters"/>
-
-   </wsdl:message>
-
    <wsdl:message name="GETEMPLEADOSDESPLAZResponse">
 
       <wsdl:part element="impl:GETEMPLEADOSDESPLAZResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="SEARCHTIENDASResponse">
+
+      <wsdl:part element="impl:SEARCHTIENDASResponse" name="parameters"/>
 
    </wsdl:message>
 
@@ -949,16 +1019,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="SEARCHTIENDAS">
-
-         <wsdl:input message="impl:SEARCHTIENDASRequest" name="SEARCHTIENDASRequest"/>
-
-         <wsdl:output message="impl:SEARCHTIENDASResponse" name="SEARCHTIENDASResponse"/>
-
-         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
-
-      </wsdl:operation>
-
       <wsdl:operation name="GETAGRUPONLINE">
 
          <wsdl:input message="impl:GETAGRUPONLINERequest" name="GETAGRUPONLINERequest"/>
@@ -969,41 +1029,11 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="GETCOEFJORNADA">
+      <wsdl:operation name="GETESTRPOLITICAS">
 
-         <wsdl:input message="impl:GETCOEFJORNADARequest" name="GETCOEFJORNADARequest"/>
+         <wsdl:input message="impl:GETESTRPOLITICASRequest" name="GETESTRPOLITICASRequest"/>
 
-         <wsdl:output message="impl:GETCOEFJORNADAResponse" name="GETCOEFJORNADAResponse"/>
-
-         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="GETFLAGCALCULA">
-
-         <wsdl:input message="impl:GETFLAGCALCULARequest" name="GETFLAGCALCULARequest"/>
-
-         <wsdl:output message="impl:GETFLAGCALCULAResponse" name="GETFLAGCALCULAResponse"/>
-
-         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="SEARCHEMPLEADOS">
-
-         <wsdl:input message="impl:SEARCHEMPLEADOSRequest" name="SEARCHEMPLEADOSRequest"/>
-
-         <wsdl:output message="impl:SEARCHEMPLEADOSResponse" name="SEARCHEMPLEADOSResponse"/>
-
-         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="GETCONFPRODVENTA">
-
-         <wsdl:input message="impl:GETCONFPRODVENTARequest" name="GETCONFPRODVENTARequest"/>
-
-         <wsdl:output message="impl:GETCONFPRODVENTAResponse" name="GETCONFPRODVENTAResponse"/>
+         <wsdl:output message="impl:GETESTRPOLITICASResponse" name="GETESTRPOLITICASResponse"/>
 
          <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
 
@@ -1014,26 +1044,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          <wsdl:input message="impl:GETTIENDASINCOMERequest" name="GETTIENDASINCOMERequest"/>
 
          <wsdl:output message="impl:GETTIENDASINCOMEResponse" name="GETTIENDASINCOMEResponse"/>
-
-         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="GETCONFVENTAONLINE">
-
-         <wsdl:input message="impl:GETCONFVENTAONLINERequest" name="GETCONFVENTAONLINERequest"/>
-
-         <wsdl:output message="impl:GETCONFVENTAONLINEResponse" name="GETCONFVENTAONLINEResponse"/>
-
-         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="GETPRESENCIAMANUAL">
-
-         <wsdl:input message="impl:GETPRESENCIAMANUALRequest" name="GETPRESENCIAMANUALRequest"/>
-
-         <wsdl:output message="impl:GETPRESENCIAMANUALResponse" name="GETPRESENCIAMANUALResponse"/>
 
          <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
 
@@ -1069,6 +1079,16 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="SEARCHTIENDAS">
+
+         <wsdl:input message="impl:SEARCHTIENDASRequest" name="SEARCHTIENDASRequest"/>
+
+         <wsdl:output message="impl:SEARCHTIENDASResponse" name="SEARCHTIENDASResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
       <wsdl:operation name="GETEMPLEADOSPRESENCIA">
 
          <wsdl:input message="impl:GETEMPLEADOSPRESENCIARequest" name="GETEMPLEADOSPRESENCIARequest"/>
@@ -1084,6 +1104,76 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          <wsdl:input message="impl:M4LoadObjectRequest" name="M4LoadObjectRequest"/>
 
          <wsdl:output message="impl:M4LoadObjectResponse" name="M4LoadObjectResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETCOEFJORNADA">
+
+         <wsdl:input message="impl:GETCOEFJORNADARequest" name="GETCOEFJORNADARequest"/>
+
+         <wsdl:output message="impl:GETCOEFJORNADAResponse" name="GETCOEFJORNADAResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETESTRDESPLAZ">
+
+         <wsdl:input message="impl:GETESTRDESPLAZRequest" name="GETESTRDESPLAZRequest"/>
+
+         <wsdl:output message="impl:GETESTRDESPLAZResponse" name="GETESTRDESPLAZResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETFLAGCALCULA">
+
+         <wsdl:input message="impl:GETFLAGCALCULARequest" name="GETFLAGCALCULARequest"/>
+
+         <wsdl:output message="impl:GETFLAGCALCULAResponse" name="GETFLAGCALCULAResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETCONFVENTAONLINE">
+
+         <wsdl:input message="impl:GETCONFVENTAONLINERequest" name="GETCONFVENTAONLINERequest"/>
+
+         <wsdl:output message="impl:GETCONFVENTAONLINEResponse" name="GETCONFVENTAONLINEResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETPRESENCIAMANUAL">
+
+         <wsdl:input message="impl:GETPRESENCIAMANUALRequest" name="GETPRESENCIAMANUALRequest"/>
+
+         <wsdl:output message="impl:GETPRESENCIAMANUALResponse" name="GETPRESENCIAMANUALResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="SEARCHEMPLEADOS">
+
+         <wsdl:input message="impl:SEARCHEMPLEADOSRequest" name="SEARCHEMPLEADOSRequest"/>
+
+         <wsdl:output message="impl:SEARCHEMPLEADOSResponse" name="SEARCHEMPLEADOSResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETCONFPRODVENTA">
+
+         <wsdl:input message="impl:GETCONFPRODVENTARequest" name="GETCONFPRODVENTARequest"/>
+
+         <wsdl:output message="impl:GETCONFPRODVENTAResponse" name="GETCONFPRODVENTAResponse"/>
 
          <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
 
@@ -1177,30 +1267,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="SEARCHTIENDAS">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="SEARCHTIENDASRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="SEARCHTIENDASResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-         <wsdl:fault name="M4SoapException">
-
-            <wsdlsoap:fault name="M4SoapException" use="literal"/>
-
-         </wsdl:fault>
-
-      </wsdl:operation>
-
       <wsdl:operation name="GETAGRUPONLINE">
 
          <wsdlsoap:operation soapAction=""/>
@@ -1225,89 +1291,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="GETCOEFJORNADA">
+      <wsdl:operation name="GETESTRPOLITICAS">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="GETCOEFJORNADARequest">
+         <wsdl:input name="GETESTRPOLITICASRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="GETCOEFJORNADAResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-         <wsdl:fault name="M4SoapException">
-
-            <wsdlsoap:fault name="M4SoapException" use="literal"/>
-
-         </wsdl:fault>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="GETFLAGCALCULA">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="GETFLAGCALCULARequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="GETFLAGCALCULAResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-         <wsdl:fault name="M4SoapException">
-
-            <wsdlsoap:fault name="M4SoapException" use="literal"/>
-
-         </wsdl:fault>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="SEARCHEMPLEADOS">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="SEARCHEMPLEADOSRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="SEARCHEMPLEADOSResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-         <wsdl:fault name="M4SoapException">
-
-            <wsdlsoap:fault name="M4SoapException" use="literal"/>
-
-         </wsdl:fault>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="GETCONFPRODVENTA">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="GETCONFPRODVENTARequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="GETCONFPRODVENTAResponse">
+         <wsdl:output name="GETESTRPOLITICASResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -1332,54 +1326,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="GETTIENDASINCOMEResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-         <wsdl:fault name="M4SoapException">
-
-            <wsdlsoap:fault name="M4SoapException" use="literal"/>
-
-         </wsdl:fault>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="GETCONFVENTAONLINE">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="GETCONFVENTAONLINERequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="GETCONFVENTAONLINEResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-         <wsdl:fault name="M4SoapException">
-
-            <wsdlsoap:fault name="M4SoapException" use="literal"/>
-
-         </wsdl:fault>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="GETPRESENCIAMANUAL">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="GETPRESENCIAMANUALRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="GETPRESENCIAMANUALResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -1465,6 +1411,30 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="SEARCHTIENDAS">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="SEARCHTIENDASRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="SEARCHTIENDASResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
       <wsdl:operation name="GETEMPLEADOSPRESENCIA">
 
          <wsdlsoap:operation soapAction=""/>
@@ -1500,6 +1470,174 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="M4LoadObjectResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETCOEFJORNADA">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="GETCOEFJORNADARequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="GETCOEFJORNADAResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETESTRDESPLAZ">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="GETESTRDESPLAZRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="GETESTRDESPLAZResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETFLAGCALCULA">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="GETFLAGCALCULARequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="GETFLAGCALCULAResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETCONFVENTAONLINE">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="GETCONFVENTAONLINERequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="GETCONFVENTAONLINEResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETPRESENCIAMANUAL">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="GETPRESENCIAMANUALRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="GETPRESENCIAMANUALResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="SEARCHEMPLEADOS">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="SEARCHEMPLEADOSRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="SEARCHEMPLEADOSResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="GETCONFPRODVENTA">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="GETCONFPRODVENTARequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="GETCONFPRODVENTAResponse">
 
             <wsdlsoap:body use="literal"/>
 

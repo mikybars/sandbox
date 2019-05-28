@@ -88,26 +88,6 @@ public interface IcmWsCalcIncomeService {
      * @param icmPARAMETROSENTRADA
      * @param icmPARAMETROSPAGINACION
      * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SearchtiendasOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod(operationName = "SEARCHTIENDAS")
-    @WebResult(name = "SEARCHTIENDASReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "SEARCHTIENDAS", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SEARCHTIENDAS")
-    @ResponseWrapper(localName = "SEARCHTIENDASResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SEARCHTIENDASResponse")
-    public SearchtiendasOutput searchtiendas(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param icmPARAMETROSENTRADA
-     * @param icmPARAMETROSPAGINACION
-     * @return
      *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetagruponlineOutput
      * @throws M4SoapException_Exception
      */
@@ -126,80 +106,17 @@ public interface IcmWsCalcIncomeService {
     /**
      * 
      * @param icmPARAMETROSENTRADA
-     * @param icmPARAMETROSPAGINACION
      * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetcoefjornadaOutput
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetestrpoliticasOutput
      * @throws M4SoapException_Exception
      */
-    @WebMethod(operationName = "GETCOEFJORNADA")
-    @WebResult(name = "GETCOEFJORNADAReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "GETCOEFJORNADA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCOEFJORNADA")
-    @ResponseWrapper(localName = "GETCOEFJORNADAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCOEFJORNADAResponse")
-    public GetcoefjornadaOutput getcoefjornada(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param icmPARAMETROSENTRADA
-     * @param icmPARAMETROSPAGINACION
-     * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetflagcalculaOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod(operationName = "GETFLAGCALCULA")
-    @WebResult(name = "GETFLAGCALCULAReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "GETFLAGCALCULA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETFLAGCALCULA")
-    @ResponseWrapper(localName = "GETFLAGCALCULAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETFLAGCALCULAResponse")
-    public GetflagcalculaOutput getflagcalcula(
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION,
+    @WebMethod(operationName = "GETESTRPOLITICAS")
+    @WebResult(name = "GETESTRPOLITICASReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "GETESTRPOLITICAS", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETESTRPOLITICAS")
+    @ResponseWrapper(localName = "GETESTRPOLITICASResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETESTRPOLITICASResponse")
+    public GetestrpoliticasOutput getestrpoliticas(
         @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
         IcmParametrosentradaBlock icmPARAMETROSENTRADA)
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param icmPARAMETROSENTRADA
-     * @param icmPARAMETROSPAGINACION
-     * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SearchempleadosOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod(operationName = "SEARCHEMPLEADOS")
-    @WebResult(name = "SEARCHEMPLEADOSReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "SEARCHEMPLEADOS", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SEARCHEMPLEADOS")
-    @ResponseWrapper(localName = "SEARCHEMPLEADOSResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SEARCHEMPLEADOSResponse")
-    public SearchempleadosOutput searchempleados(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param icmPARAMETROSENTRADA
-     * @param icmPARAMETROSPAGINACION
-     * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetconfprodventaOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod(operationName = "GETCONFPRODVENTA")
-    @WebResult(name = "GETCONFPRODVENTAReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "GETCONFPRODVENTA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCONFPRODVENTA")
-    @ResponseWrapper(localName = "GETCONFPRODVENTAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCONFPRODVENTAResponse")
-    public GetconfprodventaOutput getconfprodventa(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
         throws M4SoapException_Exception
     ;
 
@@ -216,50 +133,10 @@ public interface IcmWsCalcIncomeService {
     @RequestWrapper(localName = "GETTIENDASINCOME", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETTIENDASINCOME")
     @ResponseWrapper(localName = "GETTIENDASINCOMEResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETTIENDASINCOMEResponse")
     public GettiendasincomeOutput gettiendasincome(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
         @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param icmPARAMETROSENTRADA
-     * @param icmPARAMETROSPAGINACION
-     * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetconfventaonlineOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod(operationName = "GETCONFVENTAONLINE")
-    @WebResult(name = "GETCONFVENTAONLINEReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "GETCONFVENTAONLINE", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCONFVENTAONLINE")
-    @ResponseWrapper(localName = "GETCONFVENTAONLINEResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCONFVENTAONLINEResponse")
-    public GetconfventaonlineOutput getconfventaonline(
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION,
         @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param icmPARAMETROSENTRADA
-     * @param icmPARAMETROSPAGINACION
-     * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetpresenciamanualOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod(operationName = "GETPRESENCIAMANUAL")
-    @WebResult(name = "GETPRESENCIAMANUALReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "GETPRESENCIAMANUAL", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETPRESENCIAMANUAL")
-    @ResponseWrapper(localName = "GETPRESENCIAMANUALResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETPRESENCIAMANUALResponse")
-    public GetpresenciamanualOutput getpresenciamanual(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
         throws M4SoapException_Exception
     ;
 
@@ -276,17 +153,16 @@ public interface IcmWsCalcIncomeService {
     @RequestWrapper(localName = "GETTIENDASEMPLEADO", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETTIENDASEMPLEADO")
     @ResponseWrapper(localName = "GETTIENDASEMPLEADOResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETTIENDASEMPLEADOResponse")
     public GettiendasempleadoOutput gettiendasempleado(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
         @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION,
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
         throws M4SoapException_Exception
     ;
 
     /**
      * 
      * @param icmPARAMETROSENTRADA
-     * @param icmPARAMETROSPAGINACION
      * @return
      *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetcomisionempleadoOutput
      * @throws M4SoapException_Exception
@@ -297,9 +173,7 @@ public interface IcmWsCalcIncomeService {
     @ResponseWrapper(localName = "GETCOMISIONEMPLEADOResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCOMISIONEMPLEADOResponse")
     public GetcomisionempleadoOutput getcomisionempleado(
         @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
         throws M4SoapException_Exception
     ;
 
@@ -328,6 +202,26 @@ public interface IcmWsCalcIncomeService {
      * @param icmPARAMETROSENTRADA
      * @param icmPARAMETROSPAGINACION
      * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SearchtiendasOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "SEARCHTIENDAS")
+    @WebResult(name = "SEARCHTIENDASReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "SEARCHTIENDAS", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SEARCHTIENDAS")
+    @ResponseWrapper(localName = "SEARCHTIENDASResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SEARCHTIENDASResponse")
+    public SearchtiendasOutput searchtiendas(
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
+        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
+     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMETROSPAGINACION
+     * @return
      *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetempleadospresenciaOutput
      * @throws M4SoapException_Exception
      */
@@ -336,10 +230,10 @@ public interface IcmWsCalcIncomeService {
     @RequestWrapper(localName = "GETEMPLEADOSPRESENCIA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETEMPLEADOSPRESENCIA")
     @ResponseWrapper(localName = "GETEMPLEADOSPRESENCIAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETEMPLEADOSPRESENCIAResponse")
     public GetempleadospresenciaOutput getempleadospresencia(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
         @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION,
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
         throws M4SoapException_Exception
     ;
 
@@ -381,6 +275,143 @@ public interface IcmWsCalcIncomeService {
         IcmWsCalcOperacionesBlock icmWSCALCOPERACIONES,
         @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
         IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
+     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMETROSPAGINACION
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetcoefjornadaOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "GETCOEFJORNADA")
+    @WebResult(name = "GETCOEFJORNADAReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "GETCOEFJORNADA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCOEFJORNADA")
+    @ResponseWrapper(localName = "GETCOEFJORNADAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCOEFJORNADAResponse")
+    public GetcoefjornadaOutput getcoefjornada(
+        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION,
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
+     * @param icmPARAMETROSENTRADA
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetestrdesplazOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "GETESTRDESPLAZ")
+    @WebResult(name = "GETESTRDESPLAZReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "GETESTRDESPLAZ", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETESTRDESPLAZ")
+    @ResponseWrapper(localName = "GETESTRDESPLAZResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETESTRDESPLAZResponse")
+    public GetestrdesplazOutput getestrdesplaz(
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
+     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMETROSPAGINACION
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetflagcalculaOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "GETFLAGCALCULA")
+    @WebResult(name = "GETFLAGCALCULAReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "GETFLAGCALCULA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETFLAGCALCULA")
+    @ResponseWrapper(localName = "GETFLAGCALCULAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETFLAGCALCULAResponse")
+    public GetflagcalculaOutput getflagcalcula(
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
+        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
+     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMETROSPAGINACION
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetconfventaonlineOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "GETCONFVENTAONLINE")
+    @WebResult(name = "GETCONFVENTAONLINEReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "GETCONFVENTAONLINE", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCONFVENTAONLINE")
+    @ResponseWrapper(localName = "GETCONFVENTAONLINEResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCONFVENTAONLINEResponse")
+    public GetconfventaonlineOutput getconfventaonline(
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
+        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
+     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMETROSPAGINACION
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetpresenciamanualOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "GETPRESENCIAMANUAL")
+    @WebResult(name = "GETPRESENCIAMANUALReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "GETPRESENCIAMANUAL", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETPRESENCIAMANUAL")
+    @ResponseWrapper(localName = "GETPRESENCIAMANUALResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETPRESENCIAMANUALResponse")
+    public GetpresenciamanualOutput getpresenciamanual(
+        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION,
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
+     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMETROSPAGINACION
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SearchempleadosOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "SEARCHEMPLEADOS")
+    @WebResult(name = "SEARCHEMPLEADOSReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "SEARCHEMPLEADOS", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SEARCHEMPLEADOS")
+    @ResponseWrapper(localName = "SEARCHEMPLEADOSResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.SEARCHEMPLEADOSResponse")
+    public SearchempleadosOutput searchempleados(
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
+        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
+     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMETROSPAGINACION
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GetconfprodventaOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "GETCONFPRODVENTA")
+    @WebResult(name = "GETCONFPRODVENTAReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "GETCONFPRODVENTA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCONFPRODVENTA")
+    @ResponseWrapper(localName = "GETCONFPRODVENTAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.GETCONFPRODVENTAResponse")
+    public GetconfprodventaOutput getconfprodventa(
+        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION,
+        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
         throws M4SoapException_Exception
     ;
 

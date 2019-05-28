@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-public interface TareaTiendaVentaRepositoryProcesarCustom {
+public interface TareaLocalizacionVentaRepositoryProcesarCustom {
 
     void procesar(@NotNull final TareaDto tareaDto, @NotNull final List<Long> tipoImportes);
     

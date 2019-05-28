@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPro
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaGeneralService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaSeccionVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -61,7 +61,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
     private TareaTiendaSeccionVentaAsyncService tareaTiendaSeccionVentaAsyncService;
     
     @Autowired
-    private TareaTiendaVentaAsyncService tareaTiendaVentaAsyncService;
+    private TareaLocalizacionVentaAsyncService tareaTiendaVentaAsyncService;
 
     @Autowired
     private TareaTiendaHistoricoService tareaTiendaHistoricoService;

@@ -23,7 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaOperacionLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaSeccionVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -61,7 +61,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     private TareaTiendaSeccionVentaAsyncService tareaTiendaSeccionVentaAsyncService;
 
     @Autowired
-    private TareaTiendaVentaAsyncService tareaTiendaVentaAsyncService;
+    private TareaLocalizacionVentaAsyncService tareaTiendaVentaAsyncService;
 
     @Autowired
     private TareaPersonaLocalizacionVentaAsyncService tareaPersonaLocalizacionVentaAsyncService;
