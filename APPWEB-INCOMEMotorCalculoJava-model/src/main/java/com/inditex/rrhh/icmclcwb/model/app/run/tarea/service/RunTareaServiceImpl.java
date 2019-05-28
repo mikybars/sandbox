@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
@@ -58,7 +57,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {
             tareaService.modifyEstadoTarea(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         } finally {
             tareaService.modifyFechaFinTarea(runTarea.getTarea());
         }

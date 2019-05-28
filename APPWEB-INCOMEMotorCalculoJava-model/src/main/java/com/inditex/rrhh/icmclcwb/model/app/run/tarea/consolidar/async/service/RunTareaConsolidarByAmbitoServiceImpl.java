@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.async.service.RunTareaConsolidarPeriodoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -66,7 +65,7 @@ public class RunTareaConsolidarByAmbitoServiceImpl implements RunTareaConsolidar
 
             tareaService.updateEstadoFinal(runTarea.getTarea());
             
-        } catch (IcmclcwbException e) {
+        } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }

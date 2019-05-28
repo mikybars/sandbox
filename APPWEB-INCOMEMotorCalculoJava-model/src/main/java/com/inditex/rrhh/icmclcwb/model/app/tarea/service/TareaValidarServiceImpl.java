@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ReflectionIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaValidarService;
@@ -87,14 +88,14 @@ public class TareaValidarServiceImpl implements TareaValidarService {
         try {
             Map<String, Object> objects = new HashMap<String, Object>();
             Method[] methods = TareaValidarRepositoryCustom.class.getMethods();
-
             for (Method method : methods) {
                 objects.put(method.getName(), method.invoke(tareaValidarRepositoryCustom, idTarea));
             }
-
             return objects;
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            throw new ReflectionIcmclcwbException(e.getMessage(), e);
         } catch (Exception e) {
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 

@@ -109,7 +109,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 

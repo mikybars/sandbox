@@ -16,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaEmpleadoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaOperacionLocalizacionVentaAsyncService;
@@ -133,7 +132,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
     
@@ -167,7 +166,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
     
@@ -202,7 +201,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
     
@@ -235,7 +234,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
     

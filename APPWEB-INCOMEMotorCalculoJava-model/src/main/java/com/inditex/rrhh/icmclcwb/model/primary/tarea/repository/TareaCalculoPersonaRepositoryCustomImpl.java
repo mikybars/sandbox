@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;

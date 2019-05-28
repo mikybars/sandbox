@@ -16,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaGeneralService;
@@ -118,7 +117,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
     
@@ -160,7 +159,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
 
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 

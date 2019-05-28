@@ -39,8 +39,8 @@ public class Meta4PageableServiceImpl<U extends PageableListDto> implements Meta
                     }
                 }
             } while (hasNext);
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                | SecurityException e) {
             throw new Meta4Exception(e.getMessage(), e);
         }
         return result;

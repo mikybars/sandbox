@@ -10,10 +10,14 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTiendaSeccionPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaSeccionPresencia;
-import org.aspectj.lang.annotation.After;
-import org.mapstruct.*;
 
 import java.util.List;
+
+import org.mapstruct.AfterMapping;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper
 @DecoratedWith(value= TareaTiendaSeccionPresenciaDecorator.class)

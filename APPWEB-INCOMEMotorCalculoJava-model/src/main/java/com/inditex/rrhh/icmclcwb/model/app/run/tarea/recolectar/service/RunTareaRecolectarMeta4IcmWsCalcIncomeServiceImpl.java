@@ -19,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaEmpleadoEstructuraAsyncService;
@@ -159,7 +158,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             /*-------------------------------------------------------------*/
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -201,7 +200,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -252,7 +251,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -293,7 +292,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -340,7 +339,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
     
@@ -389,7 +388,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
     
@@ -438,7 +437,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -477,7 +476,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -528,7 +527,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -573,7 +572,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -626,7 +625,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             AsyncUtils.waitAllOfIsOk(cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
-            throw new IcmclcwbException(e.getMessage(), e);
+            throw e;
         }
     }
 

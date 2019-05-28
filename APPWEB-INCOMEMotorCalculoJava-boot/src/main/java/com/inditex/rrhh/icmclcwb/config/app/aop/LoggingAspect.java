@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.CompletionException;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -182,7 +184,8 @@ public class LoggingAspect {
 
     @AfterThrowing(pointcut = "auditoriaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()", throwing = "e")
     public void genericAfterThrowing(JoinPoint jp, Exception e) {
-        if (log.isErrorEnabled()) {
+        if (log.isErrorEnabled() && !(CompletionException.class.equals(e.getClass())
+                && CancellationException.class.equals(e.getCause().getClass()))) {
             String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
                     .append(jp.getSignature().toShortString()).append(" :: ").append(Arrays.asList(jp.getArgs()))
                     .toString();
