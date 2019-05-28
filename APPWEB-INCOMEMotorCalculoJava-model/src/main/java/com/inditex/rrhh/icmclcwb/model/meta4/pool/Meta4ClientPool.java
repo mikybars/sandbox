@@ -33,7 +33,9 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     private static final Logger log = LoggerFactory.getLogger(Meta4ClientPool.class);
 
-    private static final String ERROR_MESSAGE = "Session caducada (Pool) (Exception)";
+    private static final String ERROR_MESSAGE_LOG = "Error en la llamada a Meta4";
+
+    private static final String ERROR_MESSAGE_EXCEPTION = "Session caducada (Pool) (Exception)";
 
     private final Meta4ClientFactory meta4ClientFactory;
 
@@ -52,152 +54,168 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public void close() {
         log.info("Inicio :: Meta4ClientPool :: close()");
         try {
-            pool.shutdown().await(
-                    new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(), TimeUnit.MILLISECONDS));
+            pool.shutdown().await(new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(),
+                    TimeUnit.MILLISECONDS));
         } catch (InterruptedException e) {
             throw new Meta4Exception(e.getMessage(), e);
         }
         log.info("Fin :: Meta4ClientPool :: close()");
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetconfprodventaOutput getconfprodventa(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
+    public GetconfprodventaOutput getconfprodventa(IcmParametrosentradaBlock param1,
+            IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getconfprodventa(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetconfventaonlineOutput getconfventaonline(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
+    public GetconfventaonlineOutput getconfventaonline(IcmParametrosentradaBlock param1,
+            IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getconfventaonline(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetagruponlineOutput getagruponline(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getagruponline(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetflagcalculaOutput getflagcalcula(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getflagcalcula(param2, param1);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetcoefjornadaOutput getcoefjornada(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getcoefjornada(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetfestivosOutput getfestivos(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getfestivos(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetpresenciamanualOutput getpresenciamanual(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
+    public GetpresenciamanualOutput getpresenciamanual(IcmParametrosentradaBlock param1,
+            IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getpresenciamanual(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetempleadospresenciaOutput getempleadospresencia(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
+    public GetempleadospresenciaOutput getempleadospresencia(IcmParametrosentradaBlock param1,
+            IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getempleadospresencia(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetperiodosOutput getperiodos(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getperiodos(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
-        } finally {
-            release(client);
-        }
-    }
-    
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
-        Meta4ClientPoolable client = claim(pool);
-        try {
-            return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
-        } catch (Exception e) {
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
+    public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
+        } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
+            expire(client);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+        } finally {
+            release(client);
+        }
+    }
+
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public GetcomisionempleadoOutput getcomisionempleado(IcmParametrosentradaBlock param1,
+            IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().getcomisionempleado(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
@@ -210,8 +228,9 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
@@ -223,8 +242,9 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
@@ -237,8 +257,9 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().gettiendasincome(param2, param1);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
@@ -251,8 +272,9 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().searchempleados(param2, param1);
         } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
         } finally {
             release(client);
         }
