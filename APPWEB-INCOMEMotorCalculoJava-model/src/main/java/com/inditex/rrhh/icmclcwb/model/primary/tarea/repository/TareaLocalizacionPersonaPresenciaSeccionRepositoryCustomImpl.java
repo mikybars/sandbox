@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,9 +57,9 @@ public class TareaLocalizacionPersonaPresenciaSeccionRepositoryCustomImpl
         pstmt.setString(3, entity.getIdPersona());
         pstmt.setString(4, entity.getIdEmpresa());
         pstmt.setObject(5, entity.getFecha());
-        pstmt.setLong(6, entity.getMinutos1());
-        pstmt.setLong(7, entity.getMinutos2());
-        pstmt.setLong(8, entity.getMinutos3());
+        pstmt.setLong(6, entity.getMinutos1() != null ? entity.getMinutos1() : NumberUtils.LONG_ZERO);
+        pstmt.setLong(7, entity.getMinutos2() != null ? entity.getMinutos2() : NumberUtils.LONG_ZERO);
+        pstmt.setLong(8, entity.getMinutos3() != null ? entity.getMinutos3() : NumberUtils.LONG_ZERO);
         pstmt.setString(9, entity.getIdTipoHora());
         pstmt.setBoolean(10, entity.getActivo());
         pstmt.setLong(11, entity.getTipoDato().getId());

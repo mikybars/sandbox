@@ -358,7 +358,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                                 tareaAmbito);
                 paramPresenciasDetalle.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId)
                         .map(Integer::valueOf).collect(Collectors.toList()));
-                paramPresenciasDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
+                paramPresenciasDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
                 paramPresenciasDetalle.setAgrupacion(PtrConstants.FECHA_TIENDA_TIPOHORA);
                 paramPresenciasDetalle.setExcluidoCalculo(Boolean.FALSE);
 
@@ -373,12 +373,6 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                     //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                     AsyncUtils.exceptionally(
                             tareaLocalizacionPersonaPresenciaAsyncService.save(data.getPresenciasDetalle(), tarea),
-                            cf, cfPersist);
-                    //TODO Cambiar esto
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                            .get(PtrConstants.PRESENCIA_DETALLE).getFilter().getMaxPersistenceSize());
-                    AsyncUtils.exceptionally(
-                            tareaLocalizacionPersonaSeccionPresenciaAsyncService.savePtrPresenciaDetalle(data.getPresenciasDetalle(), tarea),
                             cf, cfPersist);
                 }
             }
@@ -418,7 +412,6 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
 
                 request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getIdEmpresa())));
                 request.setAgrupacion(PtrConstants.PERSONA_TIENDA);
-                request.setExcluidoCalculo(Boolean.FALSE);
 
                 CompletableFuture<PtrPresenciaEmpleadosTiendaResponseDto> cfData = ptrPresenciaAsyncService
                         .presenciasEmpleadosTienda(request);
