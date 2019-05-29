@@ -82,6 +82,9 @@ amiga:
           driverClassName: com.ibm.db2.jcc.DB2Driver
           url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;
           #url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;clientProgramName=${metadata.jirakey};loginTimeout=10;connectionTimeout=10;commandTimeout=5;
+#          url: jdbc:db2://10.202.10.178:50000/INDITEX:currentSchema=INCOME;
+          #user: db2inst1
+          #password: vector.hc
           user: oincome
           password: aMJLp8ahF09w
 #          min-pool-size: 5
@@ -254,7 +257,7 @@ app:
               endpoint: /ventaGeneral/getVersion
       presencia: 
         service:
-          version: 1.0.16-rc.4
+          version: 1.0.16-rc.5
           presenciasService:
             getPresenciasTotalizado:
               endpoint: /presenciasService/presenciasTotalizado
