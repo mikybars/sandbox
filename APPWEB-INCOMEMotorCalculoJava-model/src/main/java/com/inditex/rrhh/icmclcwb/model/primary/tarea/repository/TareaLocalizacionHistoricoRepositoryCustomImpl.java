@@ -17,7 +17,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl extends JdbcBatchPri
     @Value("${app.envars.repository.batch-size.tarea-localizacion-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
-    @Value("#{primaryQuery['TareaTiendaHistoricoRepositoryCustom.save']}")
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.save']}")
     private String sqlSave;
 
     @Override

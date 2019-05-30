@@ -20,7 +20,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_GLOBAL_AMBITO_LOCALIZACION_PERSONA_PRESENCIA")
+    @Column(name = "ID_TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA")
     private /* BigInteger */ Long id;
 
     @NotNull
