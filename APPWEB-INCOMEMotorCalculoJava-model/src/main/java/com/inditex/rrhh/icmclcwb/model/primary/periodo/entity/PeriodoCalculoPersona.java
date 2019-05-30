@@ -32,11 +32,7 @@ public class PeriodoCalculoPersona {
     @OneToOne
     @JoinColumn(name = "ID_TAREA_ULTIMA", nullable = false)
     private /* BigInteger */ Tarea tareaUltima;
-    
-    @NotBlank
-    @Column(name = "ID_ESTADO", nullable = false)
-    private String idEstado;
-    
+      
     @Column(name = "FECHA_CREACION", nullable = true)
     private Date fechaCreacion;
 
@@ -44,7 +40,7 @@ public class PeriodoCalculoPersona {
     private Date fechaActualizacion;
     
     @OneToOne
-    @JoinColumn(name = "ID_ESTADO_PERIODO_CALCULO_PERSONA", nullable = false)
+    @JoinColumn(name = "ID_ESTADO", nullable = false)
     private EstadoPeriodoCalculoPersona estado;
     
     @NotNull
