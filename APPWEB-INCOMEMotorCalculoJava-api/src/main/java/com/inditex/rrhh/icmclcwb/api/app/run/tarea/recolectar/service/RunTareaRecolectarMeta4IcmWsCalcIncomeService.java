@@ -4,57 +4,27 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
-    void personaByRunTarea(@Valid final RunTareaDto runTarea);
-
-    void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+    void personaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void localizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void localizacionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
-    void localizacionHistoricoByRunTarea(@Valid final RunTareaDto runTarea);
+    void localizacionHistoricoByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void condicionPersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void condicionPersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
     void tiendasComisionableByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void periodosByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void periodosByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void presenciaManualByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void presenciaManualByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
     void empleadosPresenciaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void empleadosPresenciaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
-    void festivosByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void festivosByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void coefJornadaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void coefJornadaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
     void flagCalculaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void flagCalculaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
 }

@@ -39,7 +39,7 @@ public abstract class TareaLocalizacionVentaMapper {
     public abstract List<TareaLocalizacionVentaDto> tareaLocalizacionVentasToTareaLocalizacionVentasDto(
             List<TareaLocalizacionVenta> src);
 
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "src.importeSinIVA", target = "importe")
@@ -60,7 +60,7 @@ public abstract class TareaLocalizacionVentaMapper {
         tareaLocalizacionVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.importeSinIVA", target = "importe")
     @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
@@ -81,7 +81,7 @@ public abstract class TareaLocalizacionVentaMapper {
         tareaLocalizacionVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "src.importeSinIVA", target = "importe")
@@ -102,7 +102,7 @@ public abstract class TareaLocalizacionVentaMapper {
         tareaLocalizacionVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId());
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "src.importeSinIVA", target = "importe")
@@ -123,7 +123,7 @@ public abstract class TareaLocalizacionVentaMapper {
         tareaLocalizacionVenta.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId());
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.cadena", target = "idCadena")
     @Mapping(source = "src.importeSinIVA", target = "importe")
@@ -145,7 +145,7 @@ public abstract class TareaLocalizacionVentaMapper {
     }
     
     @Mapping(target = "id", ignore = true)
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.importeSinIVA", target = "importe")
     @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "src.tienda", target = "idLocalizacion")

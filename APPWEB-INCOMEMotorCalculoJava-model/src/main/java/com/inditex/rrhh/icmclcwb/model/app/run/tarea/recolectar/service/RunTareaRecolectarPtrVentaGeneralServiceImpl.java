@@ -27,7 +27,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
@@ -94,20 +95,20 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
-                    ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
+                    ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
                                 tareaAmbito, recolectarProperties);
                 request.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                request.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
 
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO)
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO)
                         .getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
                         tareaTiendaVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
@@ -133,25 +134,25 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
-                    ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
+                    ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
                                 tareaAmbito, recolectarProperties);
                 request.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
-                request.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_TRUE);
+                request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+                        ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                 AsyncUtils.exceptionally(
                         tareaTiendaVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+                        ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
                         tareaTiendaSeccionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
             }

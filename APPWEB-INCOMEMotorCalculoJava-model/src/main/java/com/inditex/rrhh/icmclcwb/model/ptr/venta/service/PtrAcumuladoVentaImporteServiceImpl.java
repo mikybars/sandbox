@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.acumulada.dto.PtrObtenerVentaAcumuladaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.acumulada.dto.PtrObtenerVentaAcumuladaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.acumuladadia.dto.PtrObtenerVentaAcumuladaDiaRequestDto;
@@ -38,9 +38,9 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
             @Valid final PtrObtenerVentaAcumuladaRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA).getEndpoint(), request,
+                        acumuladoVentaImporteProperties.get(PtrPropertiesConstants.VENTA_ACUMULADA).getEndpoint(), request,
                         PtrObtenerVentaAcumuladaResponseDto.class),
-                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA).getEndpoint(),
+                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrPropertiesConstants.VENTA_ACUMULADA).getEndpoint(),
                 request);
     }
     
@@ -50,9 +50,9 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
             @Valid final PtrObtenerVentaAcumuladaDiaRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_DIA).getEndpoint(), request,
+                        acumuladoVentaImporteProperties.get(PtrPropertiesConstants.VENTA_ACUMULADA_DIA).getEndpoint(), request,
                         PtrObtenerVentaAcumuladaDiaResponseDto.class),
-                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.VENTA_ACUMULADA_DIA).getEndpoint(),
+                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrPropertiesConstants.VENTA_ACUMULADA_DIA).getEndpoint(),
                 request);
     }
     
@@ -60,9 +60,9 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(acumuladoVentaImporteProperties.get(PtrConstants.TEST).getEndpoint(),
+                ptrVentaClient.getForEntity(acumuladoVentaImporteProperties.get(PtrPropertiesConstants.TEST).getEndpoint(),
                         String.class),
-                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.TEST).getEndpoint(), null);
+                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrPropertiesConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -70,7 +70,7 @@ public class PtrAcumuladoVentaImporteServiceImpl implements PtrAcumuladoVentaImp
     public String version() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(
-                        acumuladoVentaImporteProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
-                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrConstants.VERSION).getEndpoint(), null);
+                        acumuladoVentaImporteProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class),
+                ptrVentaClient, acumuladoVentaImporteProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), null);
     }
 }

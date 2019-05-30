@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.diaria.dto.PtrVentaDiariaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.diaria.dto.PtrVentaDiariaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.mensual.dto.PtrVentaMensualRequestDto;
@@ -44,27 +44,27 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     @Override
     public PtrVentaTotalizadoResponseDto ventaTotalizado(@Valid final PtrVentaTotalizadoRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(),
+                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
                         request, PtrVentaTotalizadoResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO).getEndpoint(), request);
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(), request);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaMensualResponseDto ventaMensual(@Valid final PtrVentaMensualRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_MENSUAL).getEndpoint(),
+                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_MENSUAL).getEndpoint(),
                         request, PtrVentaMensualResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_MENSUAL).getEndpoint(), request);
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_MENSUAL).getEndpoint(), request);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaDiariaResponseDto ventaDiaria(@Valid final PtrVentaDiariaRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrConstants.VENTA_DIARIA).getEndpoint(),
+                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_DIARIA).getEndpoint(),
                         request, PtrVentaDiariaResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_DIARIA).getEndpoint(), request);
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_DIARIA).getEndpoint(), request);
     }
 
     // TODO Validar como gestiona la respuesta en xml
@@ -74,9 +74,9 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
             @Valid final PtrVentaTotalizadoXmlRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request,
+                        ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request,
                         PtrVentaTotalizadoXmlResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request);
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO_XML).getEndpoint(), request);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -85,9 +85,9 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
             @Valid final PtrVentaTotalizadoByMccRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(), request,
+                        ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(), request,
                         PtrVentaTotalizadoByMccResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(),
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO_BY_MCC).getEndpoint(),
                 request);
     }
  
@@ -97,9 +97,9 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
             @Valid final PtrVentaPresupuestadaMensualRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaGeneralProperties.get(PtrConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(), request,
+                        ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(), request,
                         PtrVentaPresupuestadaMensualResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(),
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_PRESUPUESTADA_MENSUAL).getEndpoint(),
                 request);
     }
 
@@ -107,9 +107,9 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(ventaGeneralProperties.get(PtrConstants.TEST).getEndpoint(),
+                ptrVentaClient.getForEntity(ventaGeneralProperties.get(PtrPropertiesConstants.TEST).getEndpoint(),
                         String.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.TEST).getEndpoint(), null);
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -117,8 +117,8 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     public String version() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(
-                        ventaGeneralProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrConstants.VERSION).getEndpoint(), null);
+                        ventaGeneralProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class),
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), null);
     }
 
 }

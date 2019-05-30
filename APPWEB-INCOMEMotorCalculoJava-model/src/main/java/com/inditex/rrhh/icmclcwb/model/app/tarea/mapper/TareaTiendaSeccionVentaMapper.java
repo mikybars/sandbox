@@ -42,7 +42,7 @@ public abstract class TareaTiendaSeccionVentaMapper {
             List<TareaTiendaSeccionVenta> src);
     
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -61,7 +61,7 @@ public abstract class TareaTiendaSeccionVentaMapper {
         setImporteSeccion(dest, src.getListaSeccion(), idSeccion, TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -79,7 +79,7 @@ public abstract class TareaTiendaSeccionVentaMapper {
         setImporteSeccion(dest, src.getListaSeccion(), idSeccion, TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -97,7 +97,7 @@ public abstract class TareaTiendaSeccionVentaMapper {
         setImporteSeccion(dest, src.getListaSeccion(), idSeccion, TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -115,7 +115,7 @@ public abstract class TareaTiendaSeccionVentaMapper {
         setImporteSeccion(dest, src.getListaSeccion(), idSeccion, TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -133,7 +133,7 @@ public abstract class TareaTiendaSeccionVentaMapper {
         setImporteSeccion(dest, src.getListaSeccion(), idSeccion, TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)

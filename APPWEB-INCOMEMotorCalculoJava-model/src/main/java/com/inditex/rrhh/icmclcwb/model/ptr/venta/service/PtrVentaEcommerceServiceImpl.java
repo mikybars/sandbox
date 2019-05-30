@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaRequestDto;
@@ -53,9 +53,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOnlineIpodRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(), request,
                         PtrVentaOnlineIpodResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(),
                 request);
     }
     
@@ -65,9 +65,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOnlineIpodIndividualDetalleRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(), request,
                         PtrVentaOnlineIpodIndividualDetalleResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(),
                 request);
     }
     
@@ -77,9 +77,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOnlineEntregaDomicilioRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request,
                         PtrVentaOnlineEntregaDomicilioResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(),
                 request);
     }
     
@@ -89,9 +89,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOnlineEntregaTiendaRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request,
                         PtrVentaOnlineEntregaTiendaResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
                 request);
     }
     
@@ -101,9 +101,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOnlinePickingRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(), request,
                         PtrVentaOnlinePickingResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
                 request);
     }
     
@@ -113,9 +113,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOrdersByCountryHourRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_HOUR).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_HOUR).getEndpoint(), request,
                         PtrVentaOrdersByCountryHourResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_HOUR).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_HOUR).getEndpoint(),
                 request);
     }
     
@@ -125,9 +125,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOrdersByCountryMinuteRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_MINUTE).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_MINUTE).getEndpoint(), request,
                         PtrVentaOrdersByCountryMinuteResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_MINUTE).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_MINUTE).getEndpoint(),
                 request);
     }    
     
@@ -137,9 +137,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOrdersByCountrySectionProductHourRequestDto request) {
         return RestUtils.checkResponse( 
                 ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR).getEndpoint(), request,
                         PtrVentaOrdersByCountrySectionProductHourResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR).getEndpoint(),
                 request);
     }
     
@@ -149,9 +149,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
             @Valid final PtrVentaOrdersByCountrySectionProductMinuteRequestDto request) {
         return RestUtils.checkResponse( 
                 ptrVentaClient.postForEntity( 
-                        ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE).getEndpoint(), request,
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE).getEndpoint(), request,
                         PtrVentaOrdersByCountrySectionProductMinuteResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE).getEndpoint(),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE).getEndpoint(),
                 request);
     }
     
@@ -159,9 +159,9 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(ventaEcommerceProperties.get(PtrConstants.TEST).getEndpoint(),
+                ptrVentaClient.getForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.TEST).getEndpoint(),
                         String.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.TEST).getEndpoint(), null);
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -169,8 +169,8 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
     public String version() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(
-                        ventaEcommerceProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrConstants.VERSION).getEndpoint(), null);
+                        ventaEcommerceProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class),
+                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), null);
     }
     
 }

@@ -27,7 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleRequestDto;
@@ -113,19 +113,19 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
-                    ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                    ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_TIENDA);
-                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
 
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(tareaOperacionLocalizacionVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
 
             }
@@ -146,20 +146,20 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
-                    ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                    ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
-                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
                 
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
                 
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(tareaPersonaLocalizacionVentaAsyncService.savePtrVentaIndividualDetalleResponseDto(data, tarea), cf, cfPersist);
 
             }
@@ -179,7 +179,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
-                    ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                    ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
@@ -187,14 +187,14 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
                                 trabajo, tarea, tareaAmbito);
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA);
-                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
 
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
                 
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(tareaOperacionPersonaLocalizacionVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
                 
             }
@@ -215,20 +215,20 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
-                    ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
+                    ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
                 paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
-                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrConstants.BOOLEAN_INTEGER_FALSE);
+                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
 
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
                 
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);

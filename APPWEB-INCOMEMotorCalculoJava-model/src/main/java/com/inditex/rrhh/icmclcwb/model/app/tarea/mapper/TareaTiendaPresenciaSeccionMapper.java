@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTiendaPresenciaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResultItemDto;
@@ -23,10 +24,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaPresencia
 @Mapper
 @DecoratedWith(value= TareaTiendaPresenciaSeccionDecorator.class)
 public abstract class TareaTiendaPresenciaSeccionMapper {
-
-    private static final Integer SECCION_1 = 1;
-    private static final Integer SECCION_2 = 2;
-    private static final Integer SECCION_3 = 3;
     
     public abstract TareaTiendaPresenciaSeccion tareaTiendaPresenciaSeccionDtoToTareaTiendaPresenciaSeccion(
             TareaTiendaPresenciaSeccionDto src);
@@ -40,13 +37,13 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
     public abstract List<TareaTiendaPresenciaSeccionDto> tareaTiendaPresenciaSeccionToTareaTiendaPresenciaSeccionDto(
             List<TareaTiendaPresenciaSeccion> src);
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     public abstract TareaTiendaPresenciaSeccion presenciasTotalTiendaSeccionResponseDtoToTareaTiendaPresenciaSeccion(
             PtrPresenciaTotalTiendaSeccionResultItemDto src, TareaDto tareaDto);
 
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idTienda")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     public abstract TareaTiendaPresenciaSeccion presenciasTotalizadoResponseDtoToTareaTiendaPresenciaSeccion(
@@ -65,11 +62,11 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaPresenciaSeccion tareaTienda, PtrPresenciaTotalTiendaSeccionResultItemDto src){
         for(PtrSeccionPresenciasGenericType item : src.getListaSeccion()) {
-            if(item.getSeccion().equals(SECCION_1)){
+            if(item.getSeccion().equals(AppConstants.SECCION_1)){
                 tareaTienda.setMinutos1(item.getMinutos());
-            }else if(item.getSeccion().equals(SECCION_2)) {
+            }else if(item.getSeccion().equals(AppConstants.SECCION_2)) {
                 tareaTienda.setMinutos2(item.getMinutos());
-            }else if(item.getSeccion().equals(SECCION_3)) {
+            }else if(item.getSeccion().equals(AppConstants.SECCION_3)) {
                 tareaTienda.setMinutos3(item.getMinutos());
             }
         }
@@ -81,11 +78,11 @@ public abstract class TareaTiendaPresenciaSeccionMapper {
     @AfterMapping
     void afterMapping(@MappingTarget TareaTiendaPresenciaSeccion tareaTienda, PtrPresenciaTotalizadoResultItemDto src){
         for(PtrSeccionPresenciasGenericType item : src.getListaSeccion()) {
-            if(item.getSeccion().equals(SECCION_1)){
+            if(item.getSeccion().equals(AppConstants.SECCION_1)){
                 tareaTienda.setMinutos1(item.getMinutos());
-            }else if(item.getSeccion().equals(SECCION_2)) {
+            }else if(item.getSeccion().equals(AppConstants.SECCION_2)) {
                 tareaTienda.setMinutos2(item.getMinutos());
-            }else if(item.getSeccion().equals(SECCION_3)) {
+            }else if(item.getSeccion().equals(AppConstants.SECCION_3)) {
                 tareaTienda.setMinutos3(item.getMinutos());
             }
         }

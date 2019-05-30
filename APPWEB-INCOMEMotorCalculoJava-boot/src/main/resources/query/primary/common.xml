@@ -203,13 +203,6 @@
     ]]>
 </entry>
 
-<entry key="TareaPeriodoRepositoryCustom.save">
-    <![CDATA[
-        INSERT INTO TAREA_PERIODO (ID_ORIGEN, ID_PERIODO, ACTIVO, ABIERTO, BORRADO, MODIFICADO, NUEVO, FECHA_INICIO, FECHA_FIN, ID_TAREA)  
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
-    ]]>
-</entry>
-
 <entry key="TareaPersonaCoeficienteRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_PERSONA_COEFICIENTE (COEFICIENTE, ID_PERSONA, ID_PERSONA_LOCAL, OR_PERSONA, FECHA_INICIO, FECHA_FIN, ID_TAREA)  

@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individual.dto.PtrVentaIndividualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individual.dto.PtrVentaIndividualResponseDto;
@@ -59,7 +59,7 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
         request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
-                ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaIndividualDetalleResponseDto.class);
+                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaIndividualDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -73,7 +73,7 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
         request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         ResponseEntity<PtrVentaIndividualDetalleByMccResponseDto> response = ptrVentaClient.postForEntity(
-                ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(), request, PtrVentaIndividualDetalleByMccResponseDto.class);
+                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(), request, PtrVentaIndividualDetalleByMccResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -87,7 +87,7 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
         request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         ResponseEntity<PtrVentaIndividualResponseDto> response = ptrVentaClient.postForEntity(
-                ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL).getEndpoint(), request, PtrVentaIndividualResponseDto.class);
+                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL).getEndpoint(), request, PtrVentaIndividualResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -101,7 +101,7 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
         request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         ResponseEntity<PtrVentaIndividualByMccResponseDto> response = ptrVentaClient.postForEntity(
-                ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(), request, PtrVentaIndividualByMccResponseDto.class);
+                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(), request, PtrVentaIndividualByMccResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     

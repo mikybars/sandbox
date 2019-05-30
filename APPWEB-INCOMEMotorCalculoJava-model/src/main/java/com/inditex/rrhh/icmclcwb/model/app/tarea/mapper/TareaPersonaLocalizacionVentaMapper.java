@@ -35,7 +35,7 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
     public abstract List<TareaPersonaLocalizacionVentaDto> tareaPersonaLocalizacionVentaToTareaPersonaLocalizacionVentaDto(
             List<TareaPersonaLocalizacionVenta> src);
 
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.vendedor", target = "idPersona")
     @Mapping(source = "src.importeSinIVA", target = "importe")
@@ -58,7 +58,7 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
                 .setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId());
     }
 
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.vendedor", target = "idPersona")
     @Mapping(source = "src.importeSinIVA", target = "importe")

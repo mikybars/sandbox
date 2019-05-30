@@ -84,6 +84,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
+            // Relacion de personas en localizaciones para todos los casos 
             CompletableFuture<Void> cfMergePersonaLocalizacion = tareaLocalizacionPersonaAsyncService
                     .mergePersonaLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaLocalizacion, cf);
@@ -92,9 +93,11 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
+            // Personas
             CompletableFuture<Void> cfMergePersona = tareaPersonaAsyncService.mergePersona(runTarea);
             AsyncUtils.exceptionally(cfMergePersona, cf);
 
+            // Localizaciones
             CompletableFuture<Void> cfMergeLocalizacion = tareaLocalizacionAsyncService.mergeLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergeLocalizacion, cf);
 
