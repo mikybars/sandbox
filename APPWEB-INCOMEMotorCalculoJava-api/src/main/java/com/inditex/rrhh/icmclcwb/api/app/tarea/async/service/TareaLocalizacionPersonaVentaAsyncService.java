@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaInd
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 
 @Async("repositoryPrimaryExecutor")
-public interface TareaPersonaLocalizacionVentaAsyncService {
+public interface TareaLocalizacionPersonaVentaAsyncService {
 
     CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResponse(
             PtrVentaOnlineIpodIndividualDetalleResponseDto dto,TareaDto tarea);

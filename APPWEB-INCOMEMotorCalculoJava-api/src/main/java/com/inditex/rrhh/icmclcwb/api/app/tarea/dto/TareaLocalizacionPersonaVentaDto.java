@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 
-public class TareaPersonaLocalizacionVentaDto implements Serializable {
+public class TareaLocalizacionPersonaVentaDto implements Serializable {
 
     private static final long serialVersionUID = 2095913202391554577L;
 

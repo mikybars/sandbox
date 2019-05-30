@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPro
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaEcommerceService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaOperacionLocalizacionVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaLocalizacionVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaSeccionAsyncService;
@@ -57,16 +57,16 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
     @Autowired
-    private TareaLocalizacionVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
+    private TareaLocalizacionVentaSeccionAsyncService tareaLocalizacionVentaSeccionAsyncService;
     
     @Autowired
-    private TareaLocalizacionSeccionVentaAsyncService tareaTiendaSeccionVentaAsyncService;
+    private TareaLocalizacionSeccionVentaAsyncService tareaLocalizacionSeccionVentaAsyncService;
 
     @Autowired
-    private TareaLocalizacionVentaAsyncService tareaTiendaVentaAsyncService;
+    private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
     @Autowired
-    private TareaPersonaLocalizacionVentaAsyncService tareaPersonaLocalizacionVentaAsyncService;
+    private TareaLocalizacionPersonaVentaAsyncService tareaLocalizacionPersonaVentaAsyncService;
 
     @Autowired
     private TareaOperacionLocalizacionVentaAsyncService tareaOperacionLocalizacionVentaAsyncService;
@@ -212,11 +212,11 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
                         .getFilter().getMaxPersistenceSize());
                 //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
-                AsyncUtils.exceptionally(tareaTiendaVentaSeccionAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
+                AsyncUtils.exceptionally(tareaLocalizacionVentaSeccionAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
                         cfPersist);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
                         .getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaTiendaSeccionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
+                AsyncUtils.exceptionally(tareaLocalizacionSeccionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -256,7 +256,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
                         .getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaTiendaVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
+                        tareaLocalizacionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -299,12 +299,12 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                         .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter().getMaxPersistenceSize());
                 //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                 AsyncUtils.exceptionally(
-                        tareaTiendaVentaSeccionAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
+                        tareaLocalizacionVentaSeccionAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
                         cfPersist);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaTiendaSeccionVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
+                        tareaLocalizacionSeccionVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -346,7 +346,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaTiendaVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
+                        tareaLocalizacionVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -387,12 +387,12 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                         .get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPersistenceSize());
                 //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                 AsyncUtils.exceptionally(
-                        tareaTiendaVentaSeccionAsyncService.savePtrVentaOnlinePickingResponse(data, tarea), cf,
+                        tareaLocalizacionVentaSeccionAsyncService.savePtrVentaOnlinePickingResponse(data, tarea), cf,
                         cfPersist);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaTiendaSeccionVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea), cf,
+                        tareaLocalizacionSeccionVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -431,7 +431,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
 
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea),
+                AsyncUtils.exceptionally(tareaLocalizacionVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea),
                         cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -469,7 +469,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 PtrVentaOnlineIpodResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD)
                         .getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaTiendaVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf,
+                AsyncUtils.exceptionally(tareaLocalizacionVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -509,11 +509,11 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                         .getFilter().getMaxPersistenceSize());
                 //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
                 AsyncUtils.exceptionally(
-                        tareaTiendaVentaSeccionAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf, cfPersist);
+                        tareaLocalizacionVentaSeccionAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf, cfPersist);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD)
                         .getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaTiendaSeccionVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf, cfPersist);
+                        tareaLocalizacionSeccionVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
@@ -551,7 +551,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 PtrVentaOnlineIpodIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaPersonaLocalizacionVentaAsyncService
+                AsyncUtils.exceptionally(tareaLocalizacionPersonaVentaAsyncService
                         .savePtrVentaOnlineIpodIndividualDetalleResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -591,11 +591,11 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
                 //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
-                AsyncUtils.exceptionally(tareaTiendaVentaSeccionAsyncService
+                AsyncUtils.exceptionally(tareaLocalizacionVentaSeccionAsyncService
                         .savePtrVentaOnlineIpodIndividualDetalleResponse(data, tarea), cf, cfPersist);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaTiendaSeccionVentaAsyncService
+                AsyncUtils.exceptionally(tareaLocalizacionSeccionVentaAsyncService
                         .savePtrVentaOnlineIpodIndividualDetalleResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);

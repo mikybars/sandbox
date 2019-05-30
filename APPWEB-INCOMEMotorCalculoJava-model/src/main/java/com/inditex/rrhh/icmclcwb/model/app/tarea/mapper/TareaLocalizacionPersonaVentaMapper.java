@@ -10,30 +10,30 @@ import org.mapstruct.MappingTarget;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaLocalizacionVentaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPersonaVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResultItemDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaLocalizacionVentaDecorator;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionPersonaVentaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaLocalizacionVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
 
 @Mapper
-@DecoratedWith(TareaPersonaLocalizacionVentaDecorator.class)
-public abstract class TareaPersonaLocalizacionVentaMapper {
+@DecoratedWith(TareaLocalizacionPersonaVentaDecorator.class)
+public abstract class TareaLocalizacionPersonaVentaMapper {
 
-    public abstract TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVentaDtoToTareaPersonaLocalizacionVenta(
-            TareaPersonaLocalizacionVentaDto src);
+    public abstract TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVentaDtoToTareaLocalizacionPersonaVenta(
+            TareaLocalizacionPersonaVentaDto src);
 
-    public abstract List<TareaPersonaLocalizacionVenta> tareaPersonaLocalizacionVentaDtoToTareaPersonaLocalizacionVenta(
-            List<TareaPersonaLocalizacionVentaDto> src);
+    public abstract List<TareaLocalizacionPersonaVenta> tareaLocalizacionPersonaVentaDtoToTareaLocalizacionPersonaVenta(
+            List<TareaLocalizacionPersonaVentaDto> src);
 
-    public abstract TareaPersonaLocalizacionVentaDto tareaPersonaLocalizacionVentaToTareaPersonaLocalizacionVentaDto(
-            TareaPersonaLocalizacionVenta src);
+    public abstract TareaLocalizacionPersonaVentaDto tareaLocalizacionPersonaVentaToTareaLocalizacionPersonaVentaDto(
+            TareaLocalizacionPersonaVenta src);
 
-    public abstract List<TareaPersonaLocalizacionVentaDto> tareaPersonaLocalizacionVentaToTareaPersonaLocalizacionVentaDto(
-            List<TareaPersonaLocalizacionVenta> src);
+    public abstract List<TareaLocalizacionPersonaVentaDto> tareaLocalizacionPersonaVentaToTareaLocalizacionPersonaVentaDto(
+            List<TareaLocalizacionPersonaVenta> src);
 
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
@@ -42,16 +42,16 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
     @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    public abstract TareaPersonaLocalizacionVenta getVentaOnlineIpodIndividualDetalleResponseItemsDtoToTareaPersonaLocalizacionVentas(
+    public abstract TareaLocalizacionPersonaVenta getVentaOnlineIpodIndividualDetalleResponseItemsDtoToTareaLocalizacionPersonaVentas(
             PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea);
 
-    public List<TareaPersonaLocalizacionVenta> getVentaOnlineIpodIndividualDetalleResponseItemsDtoToTareaPersonaLocalizacionVentas(
+    public List<TareaLocalizacionPersonaVenta> getVentaOnlineIpodIndividualDetalleResponseItemsDtoToTareaLocalizacionPersonaVentas(
             List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     @AfterMapping
-    void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta,
+    void afterMapping(@MappingTarget TareaLocalizacionPersonaVenta tareaPersonaLocalizacionVenta,
             PtrVentaOnlineIpodIndividualDetalleResultItemDto src) {
         tareaPersonaLocalizacionVenta.setTipoDato(new TipoDato());
         tareaPersonaLocalizacionVenta.getTipoDato()
@@ -65,16 +65,16 @@ public abstract class TareaPersonaLocalizacionVentaMapper {
     @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    public abstract TareaPersonaLocalizacionVenta getVentaIndividualDetalleResponseResponseItemsDtoToTareaPersonaLocalizacionVentas(
+    public abstract TareaLocalizacionPersonaVenta getVentaIndividualDetalleResponseResponseItemsDtoToTareaLocalizacionPersonaVentas(
             PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea);
 
-    public List<TareaPersonaLocalizacionVenta> getVentaIndividualDetalleResponseItemsDtoToTareaPersonaLocalizacionVentas(
+    public List<TareaLocalizacionPersonaVenta> getVentaIndividualDetalleResponseItemsDtoToTareaLocalizacionPersonaVentas(
             List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     @AfterMapping
-    void afterMapping(@MappingTarget TareaPersonaLocalizacionVenta tareaPersonaLocalizacionVenta,
+    void afterMapping(@MappingTarget TareaLocalizacionPersonaVenta tareaPersonaLocalizacionVenta,
             PtrVentaIndividualDetalleResultItemDto src) {
         tareaPersonaLocalizacionVenta.setTipoDato(new TipoDato());
         tareaPersonaLocalizacionVenta.getTipoDato()

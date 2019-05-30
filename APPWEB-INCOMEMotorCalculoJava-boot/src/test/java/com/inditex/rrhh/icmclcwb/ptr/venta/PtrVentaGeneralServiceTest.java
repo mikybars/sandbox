@@ -93,7 +93,7 @@ public class PtrVentaGeneralServiceTest  {
         PtrVentaDiariaRequestDto request = new PtrVentaDiariaRequestDto(); 
         request.setFechaFin(PtrTestConstants.FECHA_HASTA);
         request.setFechaInicio(PtrTestConstants.FECHA_DESDE);
-        request.setIdTienda(PtrTestConstants.ID_TIENDA);
+        request.setIdTienda(PtrTestConstants.ID_LOCALIZACION);
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
 
         ResponseEntity<PtrVentaDiariaResponseDto> response = ptrVentaClient.postForEntity(
@@ -105,7 +105,7 @@ public class PtrVentaGeneralServiceTest  {
     @Test
     public void ventaMensual() {
         PtrVentaMensualRequestDto request = new PtrVentaMensualRequestDto(); 
-        request.setIdTienda(PtrTestConstants.ID_TIENDA);
+        request.setIdTienda(PtrTestConstants.ID_LOCALIZACION);
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
         request.setIdEjercicio(PtrTestConstants.ID_EJERCICIO);
 
@@ -118,7 +118,7 @@ public class PtrVentaGeneralServiceTest  {
     @Test
     public void ventaPresupuestadaMensual(){
         PtrVentaPresupuestadaMensualRequestDto request = new PtrVentaPresupuestadaMensualRequestDto(); 
-        request.setIdTienda(PtrTestConstants.ID_TIENDA);
+        request.setIdTienda(PtrTestConstants.ID_LOCALIZACION);
         request.setIdTipoSeccion(PtrTestConstants.ID_TIPO_SECCION);
         request.setIdEjercicio(PtrTestConstants.ID_EJERCICIO);
         ResponseEntity<PtrVentaPresupuestadaMensualResponseDto> response = ptrVentaClient.postForEntity(

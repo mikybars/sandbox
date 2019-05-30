@@ -55,7 +55,7 @@ public class Meta4ServiceTest {
     @Test
     public void getCoefJornada() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -70,7 +70,7 @@ public class Meta4ServiceTest {
     @Test
     public void getFlagCalcula() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -85,7 +85,7 @@ public class Meta4ServiceTest {
     @Test
     public void getFestivos() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -100,7 +100,7 @@ public class Meta4ServiceTest {
     @Test
     public void getPeriodos() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -115,7 +115,7 @@ public class Meta4ServiceTest {
     @Test
     public void getPresenciaManual() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -130,7 +130,7 @@ public class Meta4ServiceTest {
     @Test
     public void getEmpleadosPresencia() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -145,7 +145,7 @@ public class Meta4ServiceTest {
     @Test
     public void getTiendasEmpleado() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -163,7 +163,7 @@ public class Meta4ServiceTest {
     @Test
     public void searchTiendas() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -181,7 +181,7 @@ public class Meta4ServiceTest {
     @Test
     public void getTiendas() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -199,7 +199,7 @@ public class Meta4ServiceTest {
     @Test
     public void searchEmpleados() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdempleado(Meta4TestConstants.ID_EMPLEADO);
+        record.setIdempleado(Meta4TestConstants.ID_PERSONA);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -217,7 +217,7 @@ public class Meta4ServiceTest {
     @Test
     public void getComisionEmpleado() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdempleado(Meta4TestConstants.ID_EMPLEADO);
+        record.setIdempleado(Meta4TestConstants.ID_PERSONA);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -279,7 +279,7 @@ public class Meta4ServiceTest {
     @Test
     public void getEmpleados() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_TIENDA);
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);

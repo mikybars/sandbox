@@ -8,26 +8,26 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaLocalizacionVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
 
 @Repository
-public class TareaPersonaLocalizacionVentaRepositoryCustomImpl
-        extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaLocalizacionVenta>
-        implements TareaPersonaLocalizacionVentaRepositoryCustom {
+public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPersonaVenta>
+        implements TareaLocalizacionPersonaVentaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-persona-localizacion-venta:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-persona-venta:${app.envars.repository.batch-size.default}}")
     private int batchSize;
     
-    @Value("#{primaryQuery['TareaPersonaLocalizacionVentaRepositoryCustom.save']}")
+    @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.save']}")
     private String sqlSave;
 
     @Override
-    public List<TareaPersonaLocalizacionVenta> save(List<TareaPersonaLocalizacionVenta> src) {
+    public List<TareaLocalizacionPersonaVenta> save(List<TareaLocalizacionPersonaVenta> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaPersonaLocalizacionVenta entity) throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaLocalizacionPersonaVenta entity) throws SQLException {
         pstmt.setObject(1, entity.getFecha());
         pstmt.setString(2, entity.getIdLocalizacion());
         pstmt.setString(3, entity.getIdPersona());

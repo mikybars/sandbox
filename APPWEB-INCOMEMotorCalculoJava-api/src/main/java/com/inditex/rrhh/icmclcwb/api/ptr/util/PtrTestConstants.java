@@ -34,7 +34,7 @@ public class PtrTestConstants {
 
     public static final Integer CADENA = 1;
 
-    public static final Integer ID_TIENDA = 57;
+    public static final Integer ID_LOCALIZACION = 57;
     
     public static final Integer ID_EMPRESA = 95;
     

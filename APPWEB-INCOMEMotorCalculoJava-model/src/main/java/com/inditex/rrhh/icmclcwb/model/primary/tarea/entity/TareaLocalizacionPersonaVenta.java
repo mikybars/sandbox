@@ -19,13 +19,13 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import lombok.Data;
 
 @Entity
-@Table(name = "TAREA_PERSONA_LOCALIZACION_VENTA")
+@Table(name = "TAREA_LOCALIZACION_PERSONA_VENTA")
 @Data
-public class TareaPersonaLocalizacionVenta {
+public class TareaLocalizacionPersonaVenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_PERSONA_LOCALIZACION_VENTA")
+    @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_VENTA")
     private /* BigInteger */ Long id;
     
     @NotNull

@@ -21,8 +21,8 @@ public class TareaLocalizacionAbiertaDto implements Serializable {
     private Long idTarea;
     
     @NotNull
-    @ApiModelProperty(value = "Identificador de la tienda", required = true)
-    private Long idTienda;
+    @ApiModelProperty(value = "Identificador de la localizacion", required = true)
+    private Long idLocalizacion;
     
     @NotNull
     private Date fecha;
