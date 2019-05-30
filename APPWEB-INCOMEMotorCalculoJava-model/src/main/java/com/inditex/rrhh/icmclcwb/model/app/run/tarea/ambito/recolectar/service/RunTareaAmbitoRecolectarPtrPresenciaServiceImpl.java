@@ -113,11 +113,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
                 AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
             } else {
-                // TODO No esta devolviendo tipos de hora para los origenes de la fase 1
                 log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
                         .append(tareaAmbito.getIdCatalogo()).toString());
-//                    throw new PtrException(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
-//                            .append(tareaAmbito.getIdCatalogo()).toString());
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
