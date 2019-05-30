@@ -39,10 +39,8 @@ amiga:
     jms:
       trabajo-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
-        concurrency: 1
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
-        concurrency: 5
     session:
       session-type: EMBEDDED
     aaa:
@@ -56,12 +54,23 @@ amiga:
       connection-factory:
         broker-escritura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+          concurrency: 1
           userName: root
           password: V3ct0r1nd1t3x
         broker-lectura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
+          concurrency: 50
           userName: root
           password: V3ct0r1nd1t3x
+      listener-container-factory:
+        trabajo:
+          concurrency: 1
+          sessionTransacted: false
+          globalTransacted: false
+        tarea:
+          concurrency: 5
+          sessionTransacted: false
+          globalTransacted: false
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
@@ -80,13 +89,13 @@ amiga:
       datasource:
         primary:
           driverClassName: com.ibm.db2.jcc.DB2Driver
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;
+          #url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;
           #url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;clientProgramName=${metadata.jirakey};loginTimeout=10;connectionTimeout=10;commandTimeout=5;
-#          url: jdbc:db2://10.202.10.178:50000/INDITEX:currentSchema=INCOME;
-          #user: db2inst1
-          #password: vector.hc
-          user: oincome
-          password: aMJLp8ahF09w
+          url: jdbc:db2://10.202.10.178:50000/INDITEX:currentSchema=INCOME;
+          user: db2inst1
+          password: vector.hc
+#          user: oincome
+#          password: aMJLp8ahF09w
 #          min-pool-size: 5
 #          max-pool-size: 10
           driver-properties:

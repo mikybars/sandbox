@@ -33,7 +33,6 @@ public class TareaLocalizacionPersonaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaRepositoryCustom.save']}")
     private String sqlSave;
 
-    // TODO El origen esta como constante en la consulta
     @Value("#{primaryQuery['TareaLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion']}")
     private String sqlMergePersonaLocalizacion;
 

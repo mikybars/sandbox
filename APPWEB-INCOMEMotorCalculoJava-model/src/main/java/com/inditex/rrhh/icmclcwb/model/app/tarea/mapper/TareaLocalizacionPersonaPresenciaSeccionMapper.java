@@ -43,7 +43,7 @@ public abstract class TareaLocalizacionPersonaPresenciaSeccionMapper {
     @Mapping(source = "src.origen", target = "idOrigen")
     @Mapping(source = "src.persona", target = "idPersona")
     @Mapping(source = "src.empresa", target = "idEmpresa")
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tipo", target = "idTipoHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)

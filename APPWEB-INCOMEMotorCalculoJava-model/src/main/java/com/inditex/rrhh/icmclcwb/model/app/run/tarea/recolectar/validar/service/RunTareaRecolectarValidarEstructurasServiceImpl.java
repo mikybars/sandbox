@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarEstructurasService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaValidarAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaEmpleadoEstructura;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 
 @Service
 @Validated
@@ -39,7 +39,7 @@ public class RunTareaRecolectarValidarEstructurasServiceImpl implements RunTarea
                     .countEstructuras(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountEstructuras, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(TareaEmpleadoEstructura.class.getSimpleName()).count(AsyncUtils.get(cfCountEstructuras)).build());
+            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(TareaPersonaEstructura.class.getSimpleName()).count(AsyncUtils.get(cfCountEstructuras)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

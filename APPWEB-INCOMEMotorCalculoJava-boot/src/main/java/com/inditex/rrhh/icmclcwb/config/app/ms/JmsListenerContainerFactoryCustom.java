@@ -18,7 +18,7 @@ public class JmsListenerContainerFactoryCustom implements JmsListenerContainerFa
 			converter.setTypeIdPropertyName("_type");
 			converter.setObjectMapper(new ObjectMapperCustom());
 			((DefaultJmsListenerContainerFactory) factory).setMessageConverter(converter);
-			((DefaultJmsListenerContainerFactory) factory).setErrorHandler(new JmsErrorHandlerCustom());
+			//((DefaultJmsListenerContainerFactory) factory).setErrorHandler(new JmsErrorHandlerCustom());
 		}
 	}
 

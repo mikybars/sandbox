@@ -27,7 +27,7 @@ import org.xml.sax.SAXException;
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
@@ -79,7 +79,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         ResponseEntity<PtrVentaOnlineIpodResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getEndpoint(), request, PtrVentaOnlineIpodResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(), request, PtrVentaOnlineIpodResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -94,7 +94,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         ResponseEntity<PtrVentaOnlineIpodResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getEndpoint(), request, PtrVentaOnlineIpodResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(), request, PtrVentaOnlineIpodResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -109,7 +109,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION_TEMPORADA_PRODUCTO);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         ResponseEntity<PtrVentaOnlineIpodResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD).getEndpoint(), request, PtrVentaOnlineIpodResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(), request, PtrVentaOnlineIpodResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -122,7 +122,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
         request.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA);
         ResponseEntity<PtrVentaOnlineIpodIndividualDetalleResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaOnlineIpodIndividualDetalleResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaOnlineIpodIndividualDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -136,7 +136,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
         ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
 
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -152,7 +152,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
 
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -169,7 +169,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION_TEMPORADA_PRODUCTO);
         
         ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
 
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -185,7 +185,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION_TEMPORADA_PRODUCTO);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         ResponseEntity<PtrVentaOnlineEntregaTiendaResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request, PtrVentaOnlineEntregaTiendaResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request, PtrVentaOnlineEntregaTiendaResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -200,7 +200,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
         request.setAgruparSeccion(0);
         ResponseEntity<PtrVentaOnlineEntregaTiendaResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request, PtrVentaOnlineEntregaTiendaResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request, PtrVentaOnlineEntregaTiendaResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -215,7 +215,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         ResponseEntity<PtrVentaOnlineEntregaTiendaResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request, PtrVentaOnlineEntregaTiendaResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(), request, PtrVentaOnlineEntregaTiendaResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -230,7 +230,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
 
         ResponseEntity<PtrVentaOnlinePickingResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request, PtrVentaOnlinePickingResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(), request, PtrVentaOnlinePickingResponseDto.class);
         
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -246,7 +246,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
 
         ResponseEntity<PtrVentaOnlinePickingResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request, PtrVentaOnlinePickingResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(), request, PtrVentaOnlinePickingResponseDto.class);
         
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -262,7 +262,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION_TEMPORADA_PRODUCTO);
 
         ResponseEntity<PtrVentaOnlinePickingResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request, PtrVentaOnlinePickingResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(), request, PtrVentaOnlinePickingResponseDto.class);
         
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -283,7 +283,7 @@ public class PtrVentaEcommerceServiceTest {
         HttpEntity<PtrVentaOnlinePickingRequestDto> request2 = new HttpEntity<PtrVentaOnlinePickingRequestDto>(request, headers);
 
         ResponseEntity<PtrVentaOnlinePickingResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.VENTA_ONLINE_PICKING).getEndpoint(), request2, PtrVentaOnlinePickingResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(), request2, PtrVentaOnlinePickingResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -296,7 +296,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setCadena(PtrTestConstants.CADENA_LIST);
         request.setPais(PtrTestConstants.PAIS_LIST);
         ResponseEntity<PtrVentaOrdersByCountrySectionProductHourResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR).getEndpoint(), request, PtrVentaOrdersByCountrySectionProductHourResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR).getEndpoint(), request, PtrVentaOrdersByCountrySectionProductHourResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -309,7 +309,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setCadena(PtrTestConstants.CADENA_LIST);
         request.setPais(PtrTestConstants.PAIS_LIST);
         ResponseEntity<PtrVentaOrdersByCountrySectionProductMinuteResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE).getEndpoint(), request, PtrVentaOrdersByCountrySectionProductMinuteResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE).getEndpoint(), request, PtrVentaOrdersByCountrySectionProductMinuteResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -322,7 +322,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setCadena(PtrTestConstants.CADENA_LIST);
         request.setPais(PtrTestConstants.PAIS_LIST);
         ResponseEntity<PtrVentaOrdersByCountryHourResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_HOUR).getEndpoint(), request, PtrVentaOrdersByCountryHourResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_HOUR).getEndpoint(), request, PtrVentaOrdersByCountryHourResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -335,7 +335,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setCadena(PtrTestConstants.CADENA_LIST);
         request.setPais(PtrTestConstants.PAIS_LIST);
         ResponseEntity<PtrVentaOrdersByCountryMinuteResponseDto> response = ptrVentaClient
-                .postForEntity(ventaEcommerceProperties.get(PtrConstants.ORDERS_BY_COUNTRY_MINUTE).getEndpoint(), request, PtrVentaOrdersByCountryMinuteResponseDto.class);
+                .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_MINUTE).getEndpoint(), request, PtrVentaOrdersByCountryMinuteResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
@@ -343,7 +343,7 @@ public class PtrVentaEcommerceServiceTest {
     @Test
     public void test() { 
         ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
-                ventaEcommerceProperties.get(PtrConstants.TEST).getEndpoint(), Boolean.class);
+                ventaEcommerceProperties.get(PtrPropertiesConstants.TEST).getEndpoint(), Boolean.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(Boolean.TRUE, response.getBody());
     }
@@ -352,7 +352,7 @@ public class PtrVentaEcommerceServiceTest {
     @Test
     public void version() {
         ResponseEntity<String> response = ptrVentaClient.getForEntity(
-                ventaEcommerceProperties.get(PtrConstants.VERSION).getEndpoint(), String.class);
+                ventaEcommerceProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(version, response.getBody());
         

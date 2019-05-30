@@ -42,8 +42,8 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
         List<TareaPersonaHistorico> data = tareaPersonaHistoricoMapper
                 .mergeTareaPersonaHistoricoDtoAndTareaDtoToTareaPersonaHistorico(tareaEmpleadoHistorico, tarea);
         if (CollectionUtils.isNotEmpty(data)) {
-            result.addAll(tareaPersonaHistoricoMapper.tareaPersonaHistoricoToTareaPersonaHistoricoDto(
-                    tareaPersonaHistoricoRepositoryCustom.save(data)));
+            result.addAll(tareaPersonaHistoricoMapper
+                    .tareaPersonaHistoricoToTareaPersonaHistoricoDto(tareaPersonaHistoricoRepositoryCustom.save(data)));
         }
         return result;
     }
@@ -58,22 +58,19 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     @Override
     public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String idOrigen) {
-        // TODO Agregar idOrigen
-        return tareaPersonaHistoricoRepository.findIdPersonaByIdTareaAndIdOrigen(idTarea/* , idOrigen */);
+        return tareaPersonaHistoricoRepository.findIdPersonaByIdTareaAndIdOrigen(idTarea, idOrigen);
     }
 
     @Override
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String idOrigen) {
-        // TODO Agregar idOrigen
-        return tareaPersonaHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea/* , idOrigen */);
+        return tareaPersonaHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, idOrigen);
     }
 
     @Override
     public List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String idOrigen) {
-        // TODO Agregar idOrigen
-        return tareaPersonaHistoricoRepository.findIdPersonaLocalByIdTareaAndIdOrigen(idTarea/* , idOrigen */);
+        return tareaPersonaHistoricoRepository.findIdPersonaLocalByIdTareaAndIdOrigen(idTarea, idOrigen);
     }
 
 }

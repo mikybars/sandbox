@@ -15,6 +15,7 @@ import com.inditex.aqsw.framework.data.jms.JmsClient;
 import com.inditex.aqsw.framework.data.jms.JmsClientBuilder;
 import com.inditex.aqsw.framework.data.jms.JmsConnectionFactoryBuilder;
 import com.inditex.aqsw.framework.data.jms.JmsConnectionFactoryGlobalCustomizer;
+import com.inditex.aqsw.framework.data.jms.JmsConnectionFactoryType;
 import com.inditex.aqsw.framework.service.jms.JmsListenerContainerFactoryBuilder;
 
 @Configuration
@@ -25,17 +26,27 @@ public class JmsConfig {
     @Bean
     @ConfigurationProperties(prefix = "amiga.data.jms.connection-factory.broker-lectura")
     public ConnectionFactory connectionFactoryLectura(JmsConnectionFactoryBuilder builder) throws JMSException {
-        return builder.build();
+        return builder.type(JmsConnectionFactoryType.NONXA).build();
     }
 
     @Bean
     @ConfigurationProperties(prefix = "amiga.data.jms.connection-factory.broker-escritura")
     public ConnectionFactory connectionFactoryEscritura(JmsConnectionFactoryBuilder builder) throws JMSException {
-        return builder.build();
+        return builder.type(JmsConnectionFactoryType.NONXA).build();
     }
 
     @Bean
-    public JmsListenerContainerFactory containerFactoryListener(
+    @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.trabajo")
+    public JmsListenerContainerFactory trabajoContainerFactoryListener(
+            @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
+            final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
+        return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
+                .connectionFactory(cf).build();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.tarea")
+    public JmsListenerContainerFactory tareaContainerFactoryListener(
             @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
@@ -49,7 +60,7 @@ public class JmsConfig {
             @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
         return builder.additionalCustomizers(new JmsClientCustom()).connectionFactory(cf).build();
     }
-    
+
     @Bean
     @Qualifier("tareaJmsClient")
     @ConfigurationProperties(prefix = "amiga.data.jms.client.tarea")

@@ -21,13 +21,15 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaSeccionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
 @Validated
 public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolectarCondicionesService {
 
+    @Autowired
+    private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+    
     @Autowired
     private RunTareaRecolectarPtrVentaGeneralAsyncService runTareaRecolectarPtrVentaGeneralAsyncService;
 
@@ -40,12 +42,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
 
-    @Autowired
-    private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
-    
-    @Autowired
-    private TareaLocalizacionPersonaSeccionPresenciaAsyncService tareaLocalizacionPersonaSeccionPresenciaAsyncService;
-
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -54,17 +50,35 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
-            // Estructuras
+            /*-----------------------------------------------------------------*/
+            /*
+             * Carga inicial de estructuras, datos por origen, datos comunes (tienda
+             * comisionable, etc), configuraciones
+             */
+            /*-----------------------------------------------------------------*/
+            // Estructuras (Tramado estructuras (ApV) + Detalle comision (Meta4))
             CompletableFuture<Void> cfCondicionPersona = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .condicionPersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfCondicionPersona, cf, cfWait);
 
+            // Tipos hora para los origenes
+            CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService
+                    .tiposHorasByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfTiposHoras, cf);
+
+            // Flag comisionable para las localizaciones del ambito
+            CompletableFuture<Void> cfTiendaComisionable = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .tiendasComisionableByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfTiendaComisionable, cf);
+
+            // Flag calcula para localizacion del ambito
+            CompletableFuture<Void> cfFlagCalcula = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .flagCalculaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfFlagCalcula, cf);
+
             /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
-            
-            // TODO Por cada recuperacion hay que detectar para que localizaciones o
-            // personas es necesario recuperar el dato
 
             // Localizacion y seccion
             CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = runTareaRecolectarPtrVentaGeneralAsyncService
@@ -116,10 +130,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfFisicaDetalleLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
                     .ventaFisicaDetalleLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFisicaDetalleLocalizacion, cf, cfWait);
-            
+
             CompletableFuture<Void> cfPresenciasTotalLocalizacion = runTareaRecolectarPtrPresenciaAsyncService
                     .presenciaTotalLocalizacionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasTotalLocalizacion , cf, cfWait);
+            AsyncUtils.exceptionally(cfPresenciasTotalLocalizacion, cf, cfWait);
 
             // Operacion localizacion
 
@@ -156,36 +170,15 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfOnlineIpodDetalle = runTareaRecolectarPtrVentaEcommerceAsyncService
                     .ventaOnlineIpodDetalleLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfOnlineIpodDetalle, cf, cfWait);
-            
+
             CompletableFuture<Void> cfPresenciasDetalleComisionableLocalizacionPersona = runTareaRecolectarPtrPresenciaAsyncService
                     .presenciaDetalleComisionableLocalizacionPersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionableLocalizacionPersona, cf, cfWait);
 
-
-            // Tienda comisionable
-            CompletableFuture<Void> cfTiendaComisionable = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .tiendasComisionableByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfTiendaComisionable, cf, cfWait);
-
-            // Tipos hora
-            CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService
-                    .tiposHorasByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfTiposHoras, cf, cfWait);
-
-            // Periodos
-            CompletableFuture<Void> cfPeriodos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .periodosByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPeriodos, cf, cfWait);
-            
             // Coeficiente de reduccion de jornada
             CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .coefJornadaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfCoefJornada, cf, cfWait);
-            
-            // Flag calcula de localizacion
-            CompletableFuture<Void> cfFlagCalcula = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .flagCalculaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFlagCalcula, cf, cfWait);
 
             // Presencia manual
             CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
@@ -196,12 +189,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .festivosByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFestivos, cf, cfWait);
-            
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-            
-            
+
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

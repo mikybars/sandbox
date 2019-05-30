@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individual.dto.PtrVentaIndividualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individual.dto.PtrVentaIndividualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleRequestDto;
@@ -42,9 +42,9 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
             @Valid final PtrVentaIndividualDetalleRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
+                        ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
                         PtrVentaIndividualDetalleResponseDto.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(),
                 request);
     }
     
@@ -54,9 +54,9 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
             @Valid final PtrVentaIndividualDetalleByMccRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(), request,
+                        ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(), request,
                         PtrVentaIndividualDetalleByMccResponseDto.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE_BY_MCC).getEndpoint(),
                 request);
     }
     
@@ -66,9 +66,9 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
             @Valid final PtrVentaIndividualRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL).getEndpoint(), request,
+                        ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL).getEndpoint(), request,
                         PtrVentaIndividualResponseDto.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL).getEndpoint(),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL).getEndpoint(),
                 request);
     }
     
@@ -78,9 +78,9 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
             @Valid final PtrVentaIndividualByMccRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(), request,
+                        ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(), request,
                         PtrVentaIndividualByMccResponseDto.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_BY_MCC).getEndpoint(),
                 request);
     }
     
@@ -88,9 +88,9 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
     @Override
     public String test() {
         return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(ventaEmpleadoProperties.get(PtrConstants.TEST).getEndpoint(),
+                ptrVentaClient.getForEntity(ventaEmpleadoProperties.get(PtrPropertiesConstants.TEST).getEndpoint(),
                         String.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.TEST).getEndpoint(), null);
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrPropertiesConstants.TEST).getEndpoint(), null);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -98,7 +98,7 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
     public String version() {
         return RestUtils.checkResponse(
                 ptrVentaClient.getForEntity(
-                        ventaEmpleadoProperties.get(PtrConstants.VERSION).getEndpoint(), String.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrConstants.VERSION).getEndpoint(), null);
+                        ventaEmpleadoProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class),
+                ptrVentaClient, ventaEmpleadoProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), null);
     }
 }

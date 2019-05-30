@@ -13,9 +13,9 @@ public class Meta4TestConstants {
 
     public static final String ID_ORIGEN = "1";
     
-    public static final String ID_TIENDA = "T57";
+    public static final String ID_LOCALIZACION = "T57";
     
-    public static final String ID_EMPLEADO = "10000";
+    public static final String ID_PERSONA = "10000";
     
     public static final String NUM_REGISTROS_PAGINA = "10";
 

@@ -31,8 +31,8 @@ public class TareaLocalizacionAbierta {
     private /* BigInteger */ Tarea tarea;
     
     @NotBlank
-    @Column(name = "ID_TIENDA", nullable = false)
-    private String idTienda;
+    @Column(name = "ID_LOCALIZACION", nullable = false)
+    private String idLocalizacion;
     
     @NotNull
     @Column(name = "FECHA", nullable = false)

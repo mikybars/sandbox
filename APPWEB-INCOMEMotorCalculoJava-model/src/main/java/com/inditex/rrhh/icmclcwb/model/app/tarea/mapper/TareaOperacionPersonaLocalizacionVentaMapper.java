@@ -34,7 +34,7 @@ public abstract class TareaOperacionPersonaLocalizacionVentaMapper {
     public abstract List<TareaOperacionPersonaLocalizacionVentaDto> tareaOperacionPersonaLocalizacionVentaToTareaOperacionPersonaLocalizacionVentaDto(
             List<TareaOperacionPersonaLocalizacionVenta> src);
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "src.operacion", target = "idOperacion")
     @Mapping(source = "src.vendedor", target = "idPersona")

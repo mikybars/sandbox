@@ -12,14 +12,14 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProc
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaSeccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaPresenciaSeccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaSeccionService;
 
 @Service
 @Validated
 public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPresenciaService {
     
     @Autowired
-    private TareaTiendaPresenciaSeccionService tareaTiendaPresenciaSeccionService;
+    private TareaLocalizacionPresenciaSeccionService tareaTiendaPresenciaSeccionService;
     
     @Autowired
     private TareaLocalizacionPersonaSeccionPresenciaService tareaLocalizacionPersonaSeccionPresenciaService;

@@ -15,26 +15,19 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TareaPersonaHistoricoRepository extends BaseRepository<TareaPersonaHistorico, Long> {
 
-    // TODO Filtrar por idOrigen
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto(teh.idEmpleado) FROM TareaPersonaHistorico teh WHERE teh.tarea.id=:idTarea GROUP BY teh.idEmpleado")
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto(teh.idPersona) FROM TareaPersonaHistorico teh WHERE teh.tarea.id=:idTarea AND teh.idOrigen=:idOrigen GROUP BY teh.idPersona")
     List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigen(
-            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea
-    // ,@NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String
-    // idOrigen
-    );
-    
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto(teh.idEmpleado, teh.orEmpleado) FROM TareaPersonaHistorico teh WHERE teh.tarea.id=:idTarea GROUP BY teh.idEmpleado, teh.orEmpleado")
-    List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(
-            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea
-    // ,@NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String
-    // idOrigen
-    );
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen);
 
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto(teh.idEmpleadoLocal) FROM TareaPersonaHistorico teh WHERE teh.tarea.id=:idTarea GROUP BY teh.idEmpleadoLocal")
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto(teh.idPersona, teh.orPersona) FROM TareaPersonaHistorico teh WHERE teh.tarea.id=:idTarea AND teh.idOrigen=:idOrigen GROUP BY teh.idPersona, teh.orPersona")
+    List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen);
+
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto(teh.idPersonaLocal) FROM TareaPersonaHistorico teh WHERE teh.tarea.id=:idTarea AND teh.idOrigen=:idOrigen GROUP BY teh.idPersonaLocal")
     List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(
-            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea
-    // ,@NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String
-    // idOrigen
-    );
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen);
 
 }

@@ -46,7 +46,7 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA,
-                /* TODO Cambiar por un flag o definir los estados posibles */1L);
+                /* TODO Cambiar por un flag o definir los estados posibles */2L);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.OK.getId());
         namedParameterJdbcTemplate.update(sqlMergePeriodoCalculoPersona, params);
@@ -61,7 +61,7 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
         pstmt.setString(5, entity.getPk().getOrPersona());
         pstmt.setLong(6, entity.getTareaActual().getId());
         pstmt.setLong(7, entity.getTareaUltima().getId());
-        pstmt.setString(8, entity.getIdEstado());
+        pstmt.setLong(8, entity.getEstado().getId());
         pstmt.setObject(9, entity.getFechaCreacion());
         pstmt.setObject(10, entity.getFechaActualizacion());
     }

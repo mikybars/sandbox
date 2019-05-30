@@ -6,19 +6,19 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionDto;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacion;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacion;
 
 @Mapper
 public abstract class TareaLocalizacionMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
-    public abstract TareaLocalizacionDto tareaLocalizacionToTareaLocalizacionDto(TareaLocalizacion src);
+    public abstract TareaAmbitoGlobalLocalizacionDto tareaLocalizacionToTareaLocalizacionDto(TareaAmbitoGlobalLocalizacion src);
 
     @InheritInverseConfiguration
-    public abstract TareaLocalizacion tareaLocalizacionDtoToTareaLocalizacion(TareaLocalizacionDto src);
+    public abstract TareaAmbitoGlobalLocalizacion tareaLocalizacionDtoToTareaLocalizacion(TareaAmbitoGlobalLocalizacionDto src);
 
-    public abstract List<TareaLocalizacionDto> tareaLocalizacionToTareaLocalizacionDto(List<TareaLocalizacion> src);
+    public abstract List<TareaAmbitoGlobalLocalizacionDto> tareaLocalizacionToTareaLocalizacionDto(List<TareaAmbitoGlobalLocalizacion> src);
 
-    public abstract List<TareaLocalizacion> tareaLocalizacionDtoToTareaLocalizacion(List<TareaLocalizacionDto> src);
+    public abstract List<TareaAmbitoGlobalLocalizacion> tareaLocalizacionDtoToTareaLocalizacion(List<TareaAmbitoGlobalLocalizacionDto> src);
 }

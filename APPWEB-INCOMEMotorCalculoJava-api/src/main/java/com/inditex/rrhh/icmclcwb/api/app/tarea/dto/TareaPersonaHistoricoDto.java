@@ -22,20 +22,20 @@ public class TareaPersonaHistoricoDto implements Serializable {
 	private Long idTarea;
 
 	@NotBlank
-	@ApiModelProperty(value = "Id del empleado", required = true)
-	private String idEmpleado;
+	@ApiModelProperty(value = "Id de la persona", required = true)
+	private String idPersona;
 
 	@NotBlank
-	private String orEmpleado;
+	private String orPersona;
 
 	@NotBlank
-	private String idEmpleadoLocal;
+	private String idPersonaLocal;
 
 	@NotBlank
-	private String idTienda;
+	private String idLocalizacion;
 
 	@NotBlank
-	private String idTiendaMeta4;
+	private String idLocalizacionMeta4;
 	
 	@NotBlank
 	private String idOrigen;

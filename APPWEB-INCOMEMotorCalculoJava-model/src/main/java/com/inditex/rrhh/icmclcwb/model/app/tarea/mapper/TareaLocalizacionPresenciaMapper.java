@@ -34,7 +34,7 @@ public abstract class TareaLocalizacionPresenciaMapper {
     public abstract List<TareaLocalizacionPresenciaDto> tareaLocalizacionPresenciaToTareaLocalizacionPresenciaDto(
             List<TareaLocalizacionPresencia> src);
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     public abstract TareaLocalizacionPresencia presenciasTotalizadoResponseDtoToTareaLocalizacionSeccion(
