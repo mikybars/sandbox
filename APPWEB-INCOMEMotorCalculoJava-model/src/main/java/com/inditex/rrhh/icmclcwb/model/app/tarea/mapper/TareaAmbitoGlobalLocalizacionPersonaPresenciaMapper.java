@@ -11,11 +11,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalLocalizacionPersonaPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResultItemDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAmbitoLocalizacionPersonaPresenciaDecorator;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacionPersonaPresencia;
 
 @Mapper
-@DecoratedWith(TareaAmbitoLocalizacionPersonaPresenciaDecorator.class)
+@DecoratedWith(TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator.class)
 public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")

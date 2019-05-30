@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacionPersonaPresencia;
 
-public abstract class TareaAmbitoLocalizacionPersonaPresenciaDecorator extends TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
+public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator extends TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper delegate;
