@@ -40,13 +40,13 @@ public abstract class TareaLocalizacionPresenciaSeccionMapper {
     public abstract List<TareaLocalizacionPresenciaSeccionDto> tareaLocalizacionPresenciaSeccionToTareaLocalizacionPresenciaSeccionDto(
             List<TareaLocalizacionPresenciaSeccion> src);
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     public abstract TareaLocalizacionPresenciaSeccion presenciasTotalLocalizacionSeccionResponseDtoToTareaLocalizacionPresenciaSeccion(
             PtrPresenciaTotalTiendaSeccionResultItemDto src, TareaDto tareaDto);
 
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     public abstract TareaLocalizacionPresenciaSeccion presenciasTotalizadoResponseDtoToTareaLocalizacionPresenciaSeccion(

@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaSeccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
@@ -40,7 +41,7 @@ public abstract class TareaLocalizacionVentaSeccionMapper {
     public abstract List<TareaLocalizacionVentaSeccionDto> tareaLocalizacionVentaSeccionToTareaLocalizacionVentaSeccionDto(
             List<TareaLocalizacionVentaSeccion> src);
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -57,7 +58,7 @@ public abstract class TareaLocalizacionVentaSeccionMapper {
         setListaSeccion(tareaLocalizacionVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -74,7 +75,7 @@ public abstract class TareaLocalizacionVentaSeccionMapper {
         setListaSeccion(tareaLocalizacionVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -91,7 +92,7 @@ public abstract class TareaLocalizacionVentaSeccionMapper {
         setListaSeccion(tareaLocalizacionVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -108,7 +109,7 @@ public abstract class TareaLocalizacionVentaSeccionMapper {
         setListaSeccion(tareaLocalizacionVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION);
     }
 
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -125,7 +126,7 @@ public abstract class TareaLocalizacionVentaSeccionMapper {
         setListaSeccion(tareaLocalizacionVentaSeccion, src.getListaSeccion(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION);
     }
     
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
@@ -146,13 +147,13 @@ public abstract class TareaLocalizacionVentaSeccionMapper {
             List<PtrSeccionVentaOnlineGenericType> listaSeccion, TipoDatoEnum tipoImporteVenta) {
         if (listaSeccion != null ) {
             for (PtrSeccionVentaOnlineGenericType item : listaSeccion) {
-                if (PtrConstants.SECCION_1.equals(item.getSeccion())) {
+                if (AppConstants.SECCION_1.equals(item.getSeccion())) {
                     tareaLocalizacionVentaSeccion.setImporte1(item.getImporteSinIVA().doubleValue());
                     tareaLocalizacionVentaSeccion.setImporteConImpuestos1(item.getImporteConIVA().doubleValue());
-                } else if (PtrConstants.SECCION_2.equals(item.getSeccion())) {
+                } else if (AppConstants.SECCION_2.equals(item.getSeccion())) {
                     tareaLocalizacionVentaSeccion.setImporte2(item.getImporteSinIVA().doubleValue());
                     tareaLocalizacionVentaSeccion.setImporteConImpuestos2(item.getImporteConIVA().doubleValue());
-                } else if (PtrConstants.SECCION_3.equals(item.getSeccion())) {
+                } else if (AppConstants.SECCION_3.equals(item.getSeccion())) {
                     tareaLocalizacionVentaSeccion.setImporte3(item.getImporteSinIVA().doubleValue());
                     tareaLocalizacionVentaSeccion.setImporteConImpuestos3(item.getImporteConIVA().doubleValue());
                 }

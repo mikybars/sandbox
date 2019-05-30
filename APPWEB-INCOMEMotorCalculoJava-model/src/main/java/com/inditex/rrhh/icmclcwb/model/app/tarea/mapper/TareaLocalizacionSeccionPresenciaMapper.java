@@ -46,7 +46,7 @@ public abstract class TareaLocalizacionSeccionPresenciaMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.PTR_DATE)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.tienda", target = "idLocalizacion")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "idSeccion", ignore = true)

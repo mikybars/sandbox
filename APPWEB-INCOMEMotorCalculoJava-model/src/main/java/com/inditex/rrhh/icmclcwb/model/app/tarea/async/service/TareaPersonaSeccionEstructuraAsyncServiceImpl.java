@@ -20,9 +20,9 @@ public class TareaPersonaSeccionEstructuraAsyncServiceImpl implements TareaPerso
     private TareaPersonaSeccionEstructuraService tareaPersonaSeccionEstructuraService;
     
     @Override
-    public CompletableFuture<Void> save(List<TareaPersonaSeccionEstructuraDto> tareaEmpleadoEstructura,
+    public CompletableFuture<Void> save(List<TareaPersonaSeccionEstructuraDto> tareaPersonaEstructura,
             TareaDto tareaDto) {
-        tareaPersonaSeccionEstructuraService.save(tareaEmpleadoEstructura, tareaDto);
+        tareaPersonaSeccionEstructuraService.save(tareaPersonaEstructura, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

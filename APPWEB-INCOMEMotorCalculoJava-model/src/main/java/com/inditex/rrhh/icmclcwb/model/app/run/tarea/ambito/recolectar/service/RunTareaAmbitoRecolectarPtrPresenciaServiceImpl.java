@@ -21,17 +21,17 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoLocalizacionPersonaPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaSeccionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaSeccionPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresenciaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionSeccionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTiendaHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
@@ -62,10 +62,10 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
     private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
     @Autowired
-    private TareaTiendaPresenciaSeccionAsyncService tareaTiendaPresenciaSeccionAsyncService;
+    private TareaLocalizacionPresenciaSeccionAsyncService tareaLocalizacionPresenciaSeccionAsyncService;
 
     @Autowired
-    private TareaTiendaSeccionPresenciaAsyncService tareaTiendaSeccionPresenciaAsyncService;
+    private TareaLocalizacionSeccionPresenciaAsyncService tareaLocalizacionSeccionPresenciaAsyncService;
 
     @Autowired
     private TareaLocalizacionPresenciaAsyncService tareaLocalizacionPresenciaAsyncService;
@@ -74,7 +74,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
     private TareaTipoHoraAsyncService tareaTipoHoraAsyncSevice;
 
     @Autowired
-    private TareaTiendaHistoricoService tareaTiendaHistoricoService;
+    private TareaLocalizacionHistoricoService tareaTiendaHistoricoService;
 
     @Autowired
     private TareaLocalizacionPersonaPresenciaSeccionAsyncService tareaLocalizacionPersonaPresenciaSeccionAsyncService;
@@ -83,7 +83,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
     private TareaLocalizacionPersonaSeccionPresenciaAsyncService tareaLocalizacionPersonaSeccionPresenciaAsyncService;
 
     @Autowired
-    private TareaAmbitoLocalizacionPersonaPresenciaAsyncService tareaAmbitoLocalizacionPersonaPresenciaAsyncService;
+    private TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
 
     @Autowired
     private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
@@ -158,13 +158,13 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
                     AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
                             .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                     AsyncUtils.exceptionally(
-                            tareaTiendaPresenciaSeccionAsyncService.save(data.getPresenciasTotalizado(), tarea), cf,
+                            tareaLocalizacionPresenciaSeccionAsyncService.save(data.getPresenciasTotalizado(), tarea), cf,
                             cfPersist);
                     AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
                             .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
 
                     AsyncUtils.exceptionally(
-                            tareaTiendaSeccionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea), cf,
+                            tareaLocalizacionSeccionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea), cf,
                             cfPersist);
                 }
 
@@ -339,7 +339,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                             presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getFilter()
                                     .getMaxPersistenceSize());
-                    AsyncUtils.exceptionally(tareaAmbitoLocalizacionPersonaPresenciaAsyncService
+                    AsyncUtils.exceptionally(tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService
                             .savePtrPresenciaEmpleadosTiendaResponse(data, tarea), cf, cfPersist);
                 }
             }

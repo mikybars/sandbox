@@ -35,11 +35,11 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
     }
 
     @Override
-    public List<TareaPersonaEstructuraDto> save(final List<TareaPersonaEstructuraDto> tareaEmpleadoEstructura,
+    public List<TareaPersonaEstructuraDto> save(final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
             @Valid final TareaDto tarea) {
         return tareaPersonaEstructuraMapper.tareaPersonaEstructuraToTareaPersonaEstructuraDto(
                 tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
-                        .mergeTareaPersonaEstructuraDtoAndTareaDtoToTareaPersonaEstructura(tareaEmpleadoEstructura,
+                        .mergeTareaPersonaEstructuraDtoAndTareaDtoToTareaPersonaEstructura(tareaPersonaEstructura,
                                 tarea)));
     }
 

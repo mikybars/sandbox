@@ -30,11 +30,11 @@ public class TareaLocalizacionComisionHistoricoServiceImpl implements TareaLocal
  
     
     @Override
-    public List<TareaLocalizacionComisionHistoricoDto> save(@Valid final List<TareaLocalizacionComisionHistoricoDto> tareaTiendaHistorico,
+    public List<TareaLocalizacionComisionHistoricoDto> save(@Valid final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico,
             @Valid final TareaDto tarea) {
         List<TareaLocalizacionComisionHistoricoDto> result = new ArrayList<>();
         List<TareaLocalizacionComisionHistorico> data = mapper
-                .mergeTareaLocalizacionComisionHistoricoDtoAndTareaDtoToTareaLocalizacionComisionHistorico(tareaTiendaHistorico, tarea);
+                .mergeTareaLocalizacionComisionHistoricoDtoAndTareaDtoToTareaLocalizacionComisionHistorico(tareaLocalizacionHistorico, tarea);
         if (CollectionUtils.isNotEmpty(data)) {
             result.addAll(mapper
                     .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(tareaLocalizacionComisionHistoricoRepositoryCustom.save(data)));

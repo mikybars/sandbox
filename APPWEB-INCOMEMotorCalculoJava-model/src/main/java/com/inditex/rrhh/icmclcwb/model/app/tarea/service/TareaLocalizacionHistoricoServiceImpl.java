@@ -36,11 +36,11 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     private TareaLocalizacionHistoricoMapper tareaLocalizacionHistoricoMapper;
 
     @Override
-    public List<TareaLocalizacionHistoricoDto> save(@Valid final List<TareaLocalizacionHistoricoDto> tareaTiendaHistorico,
+    public List<TareaLocalizacionHistoricoDto> save(@Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico,
             @Valid final TareaDto tarea) {
         List<TareaLocalizacionHistoricoDto> result = new ArrayList<>();
         List<TareaLocalizacionHistorico> data = tareaLocalizacionHistoricoMapper
-                .mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(tareaTiendaHistorico, tarea);
+                .mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(tareaLocalizacionHistorico, tarea);
         if (CollectionUtils.isNotEmpty(data)) {
             result.addAll(tareaLocalizacionHistoricoMapper
                     .tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(tareaLocalizacionHistoricoRepositoryCustom.save(data)));

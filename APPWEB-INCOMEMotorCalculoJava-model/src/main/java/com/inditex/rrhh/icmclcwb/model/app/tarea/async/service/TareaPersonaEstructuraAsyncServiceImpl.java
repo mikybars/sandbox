@@ -21,9 +21,9 @@ public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstru
 
     
     @Override
-    public CompletableFuture<Void> save(final List<TareaPersonaEstructuraDto> tareaEmpleadoEstructura,
+    public CompletableFuture<Void> save(final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
            final TareaDto tarea) {
-        tareaPersonaEstructuraService.save(tareaEmpleadoEstructura, tarea);
+        tareaPersonaEstructuraService.save(tareaPersonaEstructura, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

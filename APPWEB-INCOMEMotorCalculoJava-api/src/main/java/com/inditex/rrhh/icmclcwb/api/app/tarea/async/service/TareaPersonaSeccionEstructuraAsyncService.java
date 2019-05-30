@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.
 @Async("repositoryPrimaryExecutor")
 public interface TareaPersonaSeccionEstructuraAsyncService {
 
-    CompletableFuture<Void> save(final List<TareaPersonaSeccionEstructuraDto> tareaEmpleadoEstructura, final TareaDto tareaDto);
+    CompletableFuture<Void> save(final List<TareaPersonaSeccionEstructuraDto> tareaPersonaEstructura, final TareaDto tareaDto);
     
     CompletableFuture<Void> saveComisionEmpleadoResultItemDto(
             final List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto, final TareaDto tareaDto);

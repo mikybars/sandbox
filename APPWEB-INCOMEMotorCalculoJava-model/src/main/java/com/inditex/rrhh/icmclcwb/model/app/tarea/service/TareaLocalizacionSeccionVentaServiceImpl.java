@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionSeccionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionSeccionVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
@@ -29,7 +30,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 @Validated
 public class TareaLocalizacionSeccionVentaServiceImpl implements TareaLocalizacionSeccionVentaService {
 
-    private static final Integer[] SECCIONES = new Integer[] {PtrConstants.SECCION_1, PtrConstants.SECCION_2, PtrConstants.SECCION_3};
+    private static final Integer[] SECCIONES = new Integer[] {AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3};
     
     @Autowired
     private TareaLocalizacionSeccionVentaRepositoryCustom tareaLocalizacionSeccionVentaRepositoryCustom;
