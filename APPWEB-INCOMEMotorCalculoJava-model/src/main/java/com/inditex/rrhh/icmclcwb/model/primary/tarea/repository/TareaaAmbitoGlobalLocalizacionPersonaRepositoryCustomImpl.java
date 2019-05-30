@@ -16,24 +16,24 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersona;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacionPersona;
 
 @Repository
-public class TareaLocalizacionPersonaRepositoryCustomImpl
-        extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPersona>
-        implements TareaLocalizacionPersonaRepositoryCustom {
+public class TareaaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaAmbitoGlobalLocalizacionPersona>
+        implements TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-persona:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-ambito-global-localizacion-persona:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
-    @Value("#{primaryQuery['TareaLocalizacionPersonaRepositoryCustom.save']}")
+    @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.save']}")
     private String sqlSave;
 
-    @Value("#{primaryQuery['TareaLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion']}")
+    @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion']}")
     private String sqlMergePersonaLocalizacion;
 
     @Override
@@ -44,12 +44,12 @@ public class TareaLocalizacionPersonaRepositoryCustomImpl
     }
 
     @Override
-    public List<TareaLocalizacionPersona> save(List<TareaLocalizacionPersona> src) {
+    public List<TareaAmbitoGlobalLocalizacionPersona> save(List<TareaAmbitoGlobalLocalizacionPersona> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaLocalizacionPersona entity) throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacionPersona entity) throws SQLException {
         pstmt.setString(1, entity.getIdLocalizacion());
         pstmt.setString(2, entity.getIdOrigen());
         pstmt.setString(3, entity.getIdPersona());

@@ -51,4 +51,7 @@ public class SqlPrimaryConstants {
     
     public static final String SQL_RESULT_ID_ALGORITMO = "ID_ALGORITMO";
     
+    public static final String SQL_RESULT_ID_PERSONA = "ID_PERSONA";
+
+    
 }

@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaCalculoPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -38,7 +38,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
     private TareaAmbitoGlobalPersonaAsyncService tareaAmbitoGlobalPersonaAsyncService;
 
     @Autowired
-    private TareaLocalizacionPersonaAsyncService tareaLocalizacionPersonaAsyncService;
+    private TareaAmbitoGlobalLocalizacionPersonaAsyncService tareaAmbitoGlobalLocalizacionPersonaAsyncService;
 
     @Autowired
     private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
@@ -84,7 +84,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            CompletableFuture<Void> cfMergePersonaLocalizacion = tareaLocalizacionPersonaAsyncService
+            CompletableFuture<Void> cfMergePersonaLocalizacion = tareaAmbitoGlobalLocalizacionPersonaAsyncService
                     .mergePersonaLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaLocalizacion, cf);
 

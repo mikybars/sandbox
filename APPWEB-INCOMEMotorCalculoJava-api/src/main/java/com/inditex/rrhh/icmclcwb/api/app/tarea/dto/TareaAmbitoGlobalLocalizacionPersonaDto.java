@@ -8,11 +8,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class TareaLocalizacionPersonaDto implements Serializable {
+public class TareaAmbitoGlobalLocalizacionPersonaDto implements Serializable {
 
     private static final long serialVersionUID = 448147217269076424L;
 
-    @ApiModelProperty(value = "Identificador de la tabla tienda abierta", required = false)
+    @ApiModelProperty(value = "Identificador de la tabla localizacion persona", required = false)
     private String id;
 
     @NotNull

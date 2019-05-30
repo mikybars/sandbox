@@ -381,7 +381,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaDto> iter : StreamUtils.partition(
-                    tareaPersonaHistoricoService.findIdPersonaByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaPersonaHistoricoService.findIdPersonaByIdTareaAndIdOrigenInAmbito(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
@@ -421,7 +421,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         TrabajoDto trabajo = runTarea.getTrabajo();
         TareaDto tarea = runTarea.getTarea();
-        List<IdPersonaDto> idsPersona = tareaPersonaHistoricoService.findIdPersonaByIdTareaAndIdOrigen(tarea.getId(),
+        List<IdPersonaDto> idsPersona = tareaPersonaHistoricoService.findIdPersonaByIdTareaAndIdOrigenInAmbito(tarea.getId(),
                 tareaAmbito.getIdOrigen());
         try {
             SearchTiendasRequestDto searchTiendasRequest = new SearchTiendasRequestDto();

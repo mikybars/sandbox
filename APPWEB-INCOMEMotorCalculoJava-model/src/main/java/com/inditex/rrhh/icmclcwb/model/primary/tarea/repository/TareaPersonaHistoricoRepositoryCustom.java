@@ -2,10 +2,17 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 
 public interface TareaPersonaHistoricoRepositoryCustom {
 
     List<TareaPersonaHistorico> save(List<TareaPersonaHistorico> src);
+
+    List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
+            @NotNull @Positive String idOrigen);
 
 }

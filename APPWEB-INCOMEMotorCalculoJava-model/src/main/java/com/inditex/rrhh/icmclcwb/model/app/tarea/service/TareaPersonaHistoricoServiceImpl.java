@@ -56,9 +56,9 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     }
 
     @Override
-    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigen(@NotNull final Long idTarea,
+    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
             @NotNull final String idOrigen) {
-        return tareaPersonaHistoricoRepository.findIdPersonaByIdTareaAndIdOrigen(idTarea, idOrigen);
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
     }
 
     @Override

@@ -5,11 +5,11 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersona;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacionPersona;
 
-public interface TareaLocalizacionPersonaRepositoryCustom {
+public interface TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom {
 
-    List<TareaLocalizacionPersona> save(List<TareaLocalizacionPersona> src);
+    List<TareaAmbitoGlobalLocalizacionPersona> save(List<TareaAmbitoGlobalLocalizacionPersona> src);
 
     void mergePersonaLocalizacion(@NotNull final RunTareaDto tareaDto);
 

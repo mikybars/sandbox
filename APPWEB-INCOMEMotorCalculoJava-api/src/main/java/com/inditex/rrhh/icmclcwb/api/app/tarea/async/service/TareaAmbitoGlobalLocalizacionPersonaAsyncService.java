@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResponseDto;
 
 @Async("repositoryPrimaryExecutor")
-public interface TareaLocalizacionPersonaAsyncService {
+public interface TareaAmbitoGlobalLocalizacionPersonaAsyncService {
 
     CompletableFuture<Void> savePtrPresenciaEmpleadosTiendaResponse(PtrPresenciaEmpleadosTiendaResponseDto dto,
             TareaDto tarea);
