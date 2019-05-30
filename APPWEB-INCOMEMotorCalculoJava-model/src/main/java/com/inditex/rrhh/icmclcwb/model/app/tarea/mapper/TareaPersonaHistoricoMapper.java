@@ -43,11 +43,11 @@ public abstract class TareaPersonaHistoricoMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @Mapping(target = "idEmpleado", source = "idEmpleado")
-    @Mapping(target = "orEmpleado", source = "orEmpleado")
-    @Mapping(target = "idEmpleadoLocal", source = "idEmpleadoLocal")
-    @Mapping(target = "idTienda", source = "idLugarTrabajoMtu")
-    @Mapping(target = "idTiendaMeta4", source = "idLugarTrabajo")
+    @Mapping(target = "idPersona", source = "idEmpleado")
+    @Mapping(target = "orPersona", source = "orEmpleado")
+    @Mapping(target = "idPersonaLocal", source = "idEmpleadoLocal")
+    @Mapping(target = "idLocalizacion", source = "idLugarTrabajoMtu")
+    @Mapping(target = "idLocalizacionMeta4", source = "idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "fechaInicio")
     @Mapping(target = "fechaFin", source = "fechaFin")
     @Mapping(target = "fechaInicioSeccion", source = "fechaInicioSec")

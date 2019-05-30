@@ -8,18 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResultItemDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoLocalizacionPersonaPresenciaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoLocalizacionPersonaPresencia;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacionPersonaPresencia;
 
-public abstract class TareaAmbitoLocalizacionPersonaPresenciaDecorator extends TareaAmbitoLocalizacionPersonaPresenciaMapper {
+public abstract class TareaAmbitoLocalizacionPersonaPresenciaDecorator extends TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
 
     @Autowired
-    private TareaAmbitoLocalizacionPersonaPresenciaMapper delegate;
+    private TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper delegate;
     
     @Override
-    public List<TareaAmbitoLocalizacionPersonaPresencia> presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
+    public List<TareaAmbitoGlobalLocalizacionPersonaPresencia> presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
             List<PtrPresenciaEmpleadosTiendaResultItemDto> src, TareaDto tareaDto)  {
-        List<TareaAmbitoLocalizacionPersonaPresencia> result = new ArrayList<>();
+        List<TareaAmbitoGlobalLocalizacionPersonaPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             for(PtrPresenciaEmpleadosTiendaResultItemDto item : src) {
                 for(Integer persona : item.getPersonas()) {

@@ -31,11 +31,11 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setObject(2, entity.getFechaInicio());
         pstmt.setObject(3, entity.getFechaFinSeccion());
         pstmt.setObject(4, entity.getFechaInicioSeccion());
-        pstmt.setString(5, entity.getIdEmpleado());
-        pstmt.setString(6, entity.getIdEmpleadoLocal());
-        pstmt.setString(7, entity.getIdTienda());
-        pstmt.setString(8, entity.getIdTiendaMeta4());
-        pstmt.setString(9, entity.getOrEmpleado());
+        pstmt.setString(5, entity.getIdPersona());
+        pstmt.setString(6, entity.getIdPersonaLocal());
+        pstmt.setString(7, entity.getIdLocalizacion());
+        pstmt.setString(8, entity.getIdLocalizacionMeta4());
+        pstmt.setString(9, entity.getOrPersona());
         pstmt.setString(10, entity.getIdEmpresa());
         pstmt.setString(11, entity.getIdOrigen());
         pstmt.setString(12, entity.getIdSeccion());

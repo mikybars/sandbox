@@ -19,9 +19,9 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaCalculoPersonaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
@@ -35,7 +35,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
 
     @Autowired
-    private TareaPersonaAsyncService tareaPersonaAsyncService;
+    private TareaAmbitoGlobalPersonaAsyncService tareaAmbitoGlobalPersonaAsyncService;
 
     @Autowired
     private TareaLocalizacionPersonaAsyncService tareaLocalizacionPersonaAsyncService;
@@ -44,7 +44,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
     private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
 
     @Autowired
-    private TareaLocalizacionAsyncService tareaLocalizacionAsyncService;
+    private TareaAmbitoGlobalLocalizacionAsyncService tareaAmbitoGlobalLocalizacionAsyncService;
 
     @Auditoria
     @CounterMetric
@@ -93,12 +93,20 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
+<<<<<<< HEAD
             // Personas
             CompletableFuture<Void> cfMergePersona = tareaPersonaAsyncService.mergePersona(runTarea);
+=======
+            CompletableFuture<Void> cfMergePersona = tareaAmbitoGlobalPersonaAsyncService.mergePersona(runTarea);
+>>>>>>> stash
             AsyncUtils.exceptionally(cfMergePersona, cf);
 
+<<<<<<< HEAD
             // Localizaciones
             CompletableFuture<Void> cfMergeLocalizacion = tareaLocalizacionAsyncService.mergeLocalizacion(runTarea);
+=======
+            CompletableFuture<Void> cfMergeLocalizacion = tareaAmbitoGlobalLocalizacionAsyncService.mergeLocalizacion(runTarea);
+>>>>>>> stash
             AsyncUtils.exceptionally(cfMergeLocalizacion, cf);
 
             /*-------------------------------------------------------------*/

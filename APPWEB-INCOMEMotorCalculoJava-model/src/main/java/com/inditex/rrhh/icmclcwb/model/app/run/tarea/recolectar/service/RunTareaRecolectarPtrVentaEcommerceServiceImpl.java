@@ -22,9 +22,9 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaEcommerceService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaOperacionLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaLocalizacionVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaSeccionVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTiendaVentaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -57,10 +57,10 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
     @Autowired
-    private TareaTiendaVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
+    private TareaLocalizacionVentaSeccionAsyncService tareaTiendaVentaSeccionAsyncService;
     
     @Autowired
-    private TareaTiendaSeccionVentaAsyncService tareaTiendaSeccionVentaAsyncService;
+    private TareaLocalizacionSeccionVentaAsyncService tareaTiendaSeccionVentaAsyncService;
 
     @Autowired
     private TareaLocalizacionVentaAsyncService tareaTiendaVentaAsyncService;

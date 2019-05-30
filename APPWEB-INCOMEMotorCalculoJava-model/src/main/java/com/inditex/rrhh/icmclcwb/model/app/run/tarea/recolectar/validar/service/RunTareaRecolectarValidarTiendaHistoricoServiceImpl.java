@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarTiendaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaValidarAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTiendaHistorico;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
 @Service
 @Validated
@@ -45,7 +45,7 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
             AsyncUtils.exceptionally(cfDuplicatedTiendaHistorico, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
             runTarea.getRunTareaValidar()
-                    .add(RunTareaValidarDto.builder().type(TareaTiendaHistorico.class.getSimpleName())
+                    .add(RunTareaValidarDto.builder().type(TareaLocalizacionHistorico.class.getSimpleName())
                             .count(AsyncUtils.get(cfCountTiendaHistorico))
                             .duplicated(
                                     AsyncUtils.get(cfDuplicatedTiendaHistorico).stream().collect(Collectors.toSet()))

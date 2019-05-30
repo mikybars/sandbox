@@ -31,24 +31,24 @@ public class TareaPersonaHistorico {
 	private /* BigInteger */ Tarea tarea;
 
 	@NotBlank
-	@Column(name = "ID_EMPLEADO", nullable = false)
-	private String idEmpleado;
+	@Column(name = "ID_PERSONA", nullable = false)
+	private String idPersona;
 
 	@NotBlank
-	@Column(name = "OR_EMPLEADO", nullable = false)
-	private String orEmpleado;
+	@Column(name = "OR_PERSONA", nullable = false)
+	private String orPersona;
 
 	@NotBlank
-	@Column(name = "ID_EMPLEADO_LOCAL", nullable = false)
-	private String idEmpleadoLocal;
+	@Column(name = "ID_PERSONA_LOCAL", nullable = false)
+	private String idPersonaLocal;
 
 	@NotBlank
 	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
-	private String idTienda;
+	private String idLocalizacion;
 
 	@NotBlank
 	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
-	private String idTiendaMeta4;
+	private String idLocalizacionMeta4;
 	
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)
