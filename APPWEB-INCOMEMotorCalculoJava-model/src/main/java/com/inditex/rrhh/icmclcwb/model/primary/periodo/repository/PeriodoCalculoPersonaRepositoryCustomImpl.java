@@ -61,7 +61,7 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
         pstmt.setString(5, entity.getPk().getOrPersona());
         pstmt.setLong(6, entity.getTareaActual().getId());
         pstmt.setLong(7, entity.getTareaUltima().getId());
-        pstmt.setString(8, entity.getIdEstado());
+        pstmt.setLong(8, entity.getEstado().getId());
         pstmt.setObject(9, entity.getFechaCreacion());
         pstmt.setObject(10, entity.getFechaActualizacion());
     }
