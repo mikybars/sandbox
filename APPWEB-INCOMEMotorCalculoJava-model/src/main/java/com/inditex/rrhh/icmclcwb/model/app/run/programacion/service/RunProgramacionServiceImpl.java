@@ -27,8 +27,6 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
-    // TODO Da problemas, revisar las transacciones
-    // @Transactional
     @Override
     public List<RunProgramacionDto> run() {
         List<RunProgramacionDto> result = new ArrayList<>();

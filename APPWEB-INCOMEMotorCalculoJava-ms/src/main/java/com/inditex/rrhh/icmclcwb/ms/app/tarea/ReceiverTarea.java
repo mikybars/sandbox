@@ -14,7 +14,7 @@ public class ReceiverTarea {
     @Autowired
     private RunService runService;
 
-    @JmsListener(id = "tareaListener", destination = "${amiga.service.jms.tarea-queue.destination-fqdn}", containerFactory = "containerFactoryListener", concurrency = "${amiga.service.jms.tarea-queue.concurrency}")
+    @JmsListener(id = "tareaListener", destination = "${amiga.service.jms.tarea-queue.destination-fqdn}", containerFactory = "tareaContainerFactoryListener")
     public void onMessageTareaListener(
             Message<TareaDto> message /* TareaDto message */ /* TareaDto message, @Headers Map headers */) {
         runService.runTarea(message.getPayload().getId());

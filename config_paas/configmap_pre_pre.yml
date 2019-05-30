@@ -20,10 +20,8 @@ amiga:
     jms:
       trabajo-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
-        concurrency: 10-20
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
-        concurrency: 10-20
   data:
     jdbc:
       configuration:
@@ -42,10 +40,21 @@ amiga:
       connection-factory:
         broker-escritura:
           brokerURL: tcp://middleware-amq-tcp:61616
+          concurrency: 1
           userName: usr-write
         broker-lectura:
           brokerURL: tcp://middleware-amq-tcp:61616
+          concurrency: 50
           userName: usr-read
+      listener-container-factory:
+        trabajo:
+          concurrency: 1
+          sessionTransacted: false
+          globalTransacted: false
+        tarea:
+          concurrency: 5
+          sessionTransacted: false
+          globalTransacted: false
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}

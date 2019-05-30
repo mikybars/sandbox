@@ -20,8 +20,10 @@ amiga:
       connection-factory:
         broker-escritura:
           brokerURL: vm://embedded
+          concurrency: 1
         broker-lectura:
           brokerURL: vm://embedded
+          concurrency: 1
 app:
   envars:
     meta4:
