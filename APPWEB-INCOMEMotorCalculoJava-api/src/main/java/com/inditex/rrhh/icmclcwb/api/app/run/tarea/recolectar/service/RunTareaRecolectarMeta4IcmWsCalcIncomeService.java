@@ -11,8 +11,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void localizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void localizacionHistoricoByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
     void condicionPersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void tiendasComisionableByRunTarea(@NotNull @Valid final RunTareaDto runTarea);

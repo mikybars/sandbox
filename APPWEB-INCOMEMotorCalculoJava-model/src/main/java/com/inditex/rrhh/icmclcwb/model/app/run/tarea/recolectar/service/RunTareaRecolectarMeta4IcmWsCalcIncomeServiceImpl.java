@@ -69,12 +69,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void localizacionHistoricoByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .localizacionHistoricoByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
     public void tiendasComisionableByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .tiendasComisionableByRunTareaAndTareaAmbito(runTarea, item));

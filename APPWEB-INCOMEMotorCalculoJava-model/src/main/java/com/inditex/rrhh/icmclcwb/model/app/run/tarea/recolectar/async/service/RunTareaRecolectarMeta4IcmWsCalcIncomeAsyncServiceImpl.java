@@ -19,12 +19,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     private RunTareaRecolectarMeta4IcmWsCalcIncomeService tareaRecolectarMeta4IcmWsCalcIncomeService;
 
     @Override
-    public CompletableFuture<Void> localizacionHistoricoByRunTarea(RunTareaDto runTarea) {
-        tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionHistoricoByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
     public CompletableFuture<Void> personaByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.personaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
