@@ -172,9 +172,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionableLocalizacionPersona, cf, cfWait);
 
             // Coeficiente de reduccion de jornada
-            CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .coefJornadaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfCoefJornada, cf, cfWait);
+//            CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+//                    .coefJornadaByRunTarea(runTarea);
+//            AsyncUtils.exceptionally(cfCoefJornada, cf, cfWait);
 
             // Presencia manual
             CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
@@ -182,9 +182,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfPresenciaManual, cf, cfWait);
 
             // Festivos
-            CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .festivosByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFestivos, cf, cfWait);
+//            CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+//                    .festivosByRunTarea(runTarea);
+//            AsyncUtils.exceptionally(cfFestivos, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

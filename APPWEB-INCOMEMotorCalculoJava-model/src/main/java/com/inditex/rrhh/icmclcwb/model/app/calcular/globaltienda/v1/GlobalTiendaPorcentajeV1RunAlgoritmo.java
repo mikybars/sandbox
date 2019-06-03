@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
@@ -32,9 +31,6 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
     private TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
 
     @Autowired
-    private TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
-
-    @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
@@ -44,11 +40,7 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
                 runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: GlobalTiendaPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
                     try {
-                        // TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin
-                        // pivotar
                         tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo,
-                                runTarea.getTarea(), personas);
-                        tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo,
                                 runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("GlobalTiendaPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);

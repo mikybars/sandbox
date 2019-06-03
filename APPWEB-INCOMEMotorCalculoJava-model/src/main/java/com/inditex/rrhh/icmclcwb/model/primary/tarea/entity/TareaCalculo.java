@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
@@ -46,5 +47,14 @@ public class TareaCalculo {
     @NotNull
     @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
     private /* BigInteger */ Double importeConImpuestos;
+    
+    @NotBlank
+    @Column(name = "ID_LOCALIZACION", nullable = false)
+    private String idLocalizacion;
+    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA", nullable = false)
+    private /* BigInteger */ TareaPersonaEstructura personaEstructura;
 
 }
