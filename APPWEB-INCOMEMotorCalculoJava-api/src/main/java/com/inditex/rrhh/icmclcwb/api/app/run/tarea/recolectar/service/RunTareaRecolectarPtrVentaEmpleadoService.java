@@ -1,17 +1,18 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaRecolectarPtrVentaEmpleadoService {
 
-    void ventaFisicaDetalleLocalizacionByRunTarea(@Valid final RunTareaDto runTarea);
+    void ventaFisicaDetalleLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void ventaFisicaDetalleOperacionLocalizacionByRunTarea(@Valid final RunTareaDto runTarea);
+    void ventaFisicaDetalleOperacionLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(@Valid final RunTareaDto runTarea);
+    void ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void ventaFisicaDetalleVendedorLocalizacionByRunTarea(@Valid final RunTareaDto runTarea);
+    void ventaFisicaDetalleVendedorLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
 }
