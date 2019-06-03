@@ -40,8 +40,10 @@ public class RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionServiceImpl
                     .countTiendaEmpleadoPresenciaSeccion(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountTiendaEmpleadoPresenciaSeccion, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(TareaLocalizacionPersonaPresenciaSeccion.class.getSimpleName())
-                    .count(AsyncUtils.get(cfCountTiendaEmpleadoPresenciaSeccion)).build());
+            runTarea.getRunTareaValidar()
+                    .add(RunTareaValidarDto.builder()
+                            .type(TareaLocalizacionPersonaPresenciaSeccion.class.getSimpleName())
+                            .count(AsyncUtils.get(cfCountTiendaEmpleadoPresenciaSeccion)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

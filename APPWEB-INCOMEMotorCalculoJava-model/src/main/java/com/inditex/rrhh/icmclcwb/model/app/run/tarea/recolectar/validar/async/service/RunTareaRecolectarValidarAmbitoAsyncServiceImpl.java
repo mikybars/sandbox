@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.validar.async.s
 
 import java.util.concurrent.CompletableFuture;
 
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -20,7 +17,6 @@ public class RunTareaRecolectarValidarAmbitoAsyncServiceImpl implements RunTarea
     @Autowired
     private RunTareaRecolectarValidarAmbitoService runTareaRecolectarValidarAmbitoService;
 
-    
     @Override
     public CompletableFuture<Void> run(RunTareaDto runTarea) {
         runTareaRecolectarValidarAmbitoService.run(runTarea);

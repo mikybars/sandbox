@@ -27,7 +27,7 @@ public class RunTareaRecolectarValidarEstructurasServiceImpl implements RunTarea
 
     @Autowired
     private TareaValidarAsyncService tareaValidarAsyncService;
-    
+
     @Auditoria
     @CounterMetric
     @TimerMetric
@@ -39,10 +39,13 @@ public class RunTareaRecolectarValidarEstructurasServiceImpl implements RunTarea
                     .countEstructuras(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountEstructuras, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(TareaPersonaEstructura.class.getSimpleName()).count(AsyncUtils.get(cfCountEstructuras)).build());
+            runTarea.getRunTareaValidar()
+                    .add(RunTareaValidarDto.builder().type(TareaPersonaEstructura.class.getSimpleName())
+                            .count(AsyncUtils.get(cfCountEstructuras)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
     }
+
 }

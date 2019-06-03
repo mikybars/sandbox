@@ -94,9 +94,17 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
 
-                // TODO Revisar NullPointerException
-                List<RunTareaValidarDto> runTareaValidar = runTarea.getRunTareaValidar().stream()
-                        .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated())).collect(Collectors.toList());
+                List<RunTareaValidarDto> runTareaValidar = runTarea.getRunTareaValidar().stream().filter(item -> {
+                    // TODO Revisar NullPointerException, lo da en el item
+                    boolean result = false;
+                    if (item == null) {
+                        log.error("Nullpointer: {}", runTarea);
+                    } else {
+                        result = CollectionUtils.isNotEmpty(item.getDuplicated());
+                    }
+                    return result;
+                }).collect(Collectors.toList());
+
                 if (CollectionUtils.isNotEmpty(runTareaValidar)) {
                     if (validarProperties.isLogging()) {
                         log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
