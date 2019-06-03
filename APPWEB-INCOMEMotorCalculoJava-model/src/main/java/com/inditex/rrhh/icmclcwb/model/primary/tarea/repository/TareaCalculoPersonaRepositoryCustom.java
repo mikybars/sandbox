@@ -12,11 +12,15 @@ public interface TareaCalculoPersonaRepositoryCustom {
 
     List<TareaCalculoPersona> save(List<TareaCalculoPersona> src);
 
-    void mergePersonaCalculo(@NotNull RunTareaDto tareaDto);
+    void mergePersonaCalculoByAmbito(@NotNull RunTareaDto tareaDto);
 
     void updateWithEstadoAndidPersona(List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado);
 
     void updateWithEstado(RunTareaDto runTareaDto, EstadoTareaPersonaDto estadoActual,
             EstadoTareaPersonaDto estadoNuevo);
+
+    void mergePersonaCalculoByAmbitoLocalizacion(@NotNull RunTareaDto tareaDto);
+
+    void mergePersonaCalculoByAmbitoPersona(@NotNull RunTareaDto tareaDto);
 
 }

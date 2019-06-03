@@ -35,7 +35,7 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
         try {
             // TODO Mergear las personas de las tiendas del ambito
             CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService
-                    .mergePersonaCalculo(runTarea);
+                    .mergePersonaCalculoByAmbitoPersona(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaCalculo, cf);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -56,10 +56,17 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
 
     @Override
+    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
+            @NotNull String idOrigen) {
+        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
+    }
+    
+    @Override
     public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull String idOrigen) {
         return tareaLocalizacionHistoricoRepository.findIdLocalizacionDtoByIdTareaAndIdOrigen(idTarea, idOrigen);
     }
+
 
     @Override
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,

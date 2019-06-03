@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface TareaCalculoPersonaService {
 
-    void mergePersonaCalculo(RunTareaDto runTareaDto);
+    void mergePersonaCalculoByAmbito(RunTareaDto runTareaDto);
 
     List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea);
 
@@ -22,5 +22,9 @@ public interface TareaCalculoPersonaService {
 
     void updateWithEstado(RunTareaDto runTareaDto, final EstadoTareaPersonaDto estadoActual,
             final EstadoTareaPersonaDto estadoNuevo);
+
+    void mergePersonaCalculoByAmbitoLocalizacion(final RunTareaDto runTareaDto);
+
+    void mergePersonaCalculoByAmbitoPersona(final RunTareaDto runTareaDto);
 
 }

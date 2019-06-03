@@ -280,7 +280,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getFilter().getMaxPageSize())) {
                 FlagCalculaRequestDto request = new FlagCalculaRequestDto();
@@ -405,7 +405,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getFilter().getMaxPageSize())) {
                 TiendasRequestDto tiendasRequest = new TiendasRequestDto();

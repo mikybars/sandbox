@@ -34,7 +34,7 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService
-                    .mergePersonaCalculo(runTarea);
+                    .mergePersonaCalculoByAmbito(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaCalculo, cf);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

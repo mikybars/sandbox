@@ -48,8 +48,18 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     }
     
     @Override
-    public void mergePersonaCalculo(RunTareaDto runTareaDto) {
-        tareaCalculoPersonaRepositoryCustom.mergePersonaCalculo(runTareaDto);
+    public void mergePersonaCalculoByAmbito(RunTareaDto runTareaDto) {
+        tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito(runTareaDto);
+    }
+    
+    @Override
+    public void mergePersonaCalculoByAmbitoLocalizacion(final RunTareaDto runTareaDto) {
+        tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoLocalizacion(runTareaDto);
+    }
+    
+    @Override
+    public void mergePersonaCalculoByAmbitoPersona(final RunTareaDto runTareaDto) {
+        tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoPersona(runTareaDto);
     }
 
     @Override

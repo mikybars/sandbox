@@ -18,8 +18,20 @@ public class TareaCalculoPersonaAsyncServiceImpl implements TareaCalculoPersonaA
     private TareaCalculoPersonaService tareaCalculoPersonaService;
     
     @Override
-    public CompletableFuture<Void> mergePersonaCalculo(final RunTareaDto runTareaDto) {
-        tareaCalculoPersonaService.mergePersonaCalculo(runTareaDto);
+    public CompletableFuture<Void> mergePersonaCalculoByAmbito(final RunTareaDto runTareaDto) {
+        tareaCalculoPersonaService.mergePersonaCalculoByAmbito(runTareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> mergePersonaCalculoByAmbitoLocalizacion(final RunTareaDto runTareaDto) {
+        tareaCalculoPersonaService.mergePersonaCalculoByAmbitoLocalizacion(runTareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> mergePersonaCalculoByAmbitoPersona(final RunTareaDto runTareaDto) {
+        tareaCalculoPersonaService.mergePersonaCalculoByAmbitoPersona(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     
