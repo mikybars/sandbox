@@ -41,14 +41,14 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
     }
 
     @Override
-    public void calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<TareaCalculoPersonaDto> persona) {
+    public void calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<TareaCalculoPersonaDto> personas) {
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
-        persona.forEach(idPersona -> {
+        personas.forEach(persona -> {
             MapSqlParameterSource arg = new MapSqlParameterSource();
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona.getIdPersona());
-            arg.addValue(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, idPersona.getOrPersona());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, persona.getIdPersona());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, persona.getOrPersona());
             batchArgs.add(arg);
         });
         namedParameterJdbcTemplate.batchUpdate(sqlCalcular,

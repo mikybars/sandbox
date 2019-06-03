@@ -18,7 +18,7 @@ public class QueryPrimaryConfig {
     @Value("${app.envars.calculo.cast}")
     private boolean castCalculo;
 
-    @Value("${app.envars.calculo.precision})")
+    @Value("${app.envars.calculo.precision}")
     private String precisionCalculo;
 
     @Value("${app.envars.proceso.cast}")
