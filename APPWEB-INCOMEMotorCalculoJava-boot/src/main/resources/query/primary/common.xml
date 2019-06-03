@@ -63,10 +63,9 @@
     ]]>
 </entry>
 
-
 <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito">
     <![CDATA[
-    SELECT TPH.STD_ID_WORK_LOCAT AS ID_LOCALIZACION_META4
+    SELECT TPH.STD_ID_WORK_LOCAT AS ID_LOCALIZACION
     FROM TAREA_CALCULO_PERSONA TCP
     INNER JOIN TAREA_PERSONA_HISTORICO TPH
     ON TCP.ID_TAREA = TPH.ID_TAREA

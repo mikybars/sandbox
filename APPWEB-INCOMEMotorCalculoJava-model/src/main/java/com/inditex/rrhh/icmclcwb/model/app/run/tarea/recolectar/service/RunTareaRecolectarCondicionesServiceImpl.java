@@ -106,7 +106,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfPresenciasTotalLocalizacionSeccion, cf, cfWait);
 
             // Localizacion
-
             CompletableFuture<Void> cfVentaFisicaLocalizacion = runTareaRecolectarPtrVentaGeneralAsyncService
                     .ventaFisicaLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaFisicaLocalizacion, cf, cfWait);
@@ -136,7 +135,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfPresenciasTotalLocalizacion, cf, cfWait);
 
             // Operacion localizacion
-
             CompletableFuture<Void> cfFisicaDetalleOperacionLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
                     .ventaFisicaDetalleOperacionLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFisicaDetalleOperacionLocalizacion, cf, cfWait);
@@ -146,13 +144,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfOnlineIpodDetalleOperacionLocalizacion, cf, cfWait);
 
             // Operacion vendedor localizacion
-
             CompletableFuture<Void> cfFisicaDetalleOperacionVendedorLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
                     .ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFisicaDetalleOperacionVendedorLocalizacion, cf, cfWait);
 
             // Vendedor localizacion
-
             CompletableFuture<Void> cfFisicaDetalleVendedorLocalizacion = runTareaRecolectarPtrVentaEmpleadoAsyncService
                     .ventaFisicaDetalleVendedorLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFisicaDetalleVendedorLocalizacion, cf, cfWait);
