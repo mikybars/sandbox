@@ -112,7 +112,7 @@ amiga:
 app:
   envars:
     calculo:
-      cast: false
+      cast: true
       precision: 'DECIMAL(23, 8)'
     proceso: 
       cast: true
