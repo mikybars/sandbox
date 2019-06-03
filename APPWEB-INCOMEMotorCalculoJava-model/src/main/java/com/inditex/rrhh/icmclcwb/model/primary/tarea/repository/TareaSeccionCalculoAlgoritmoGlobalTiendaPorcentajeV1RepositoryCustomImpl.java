@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Qualifier("tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository")
-public class TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl implements TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom {
+public class TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl implements TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")

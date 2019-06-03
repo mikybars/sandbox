@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular;
+package com.inditex.rrhh.icmclcwb.model.app.calcular.globaltienda.v1;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,10 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPro
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
@@ -27,30 +29,31 @@ public class GlobalTiendaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    @Qualifier("tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository")
     private TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
 
     @Autowired
-    @Qualifier("tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository")
-    private TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
-    
+    private TareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom;
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
-        Flux.fromIterable(
-                StreamUtils.partition(tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-                        runAlgoritmoProperties.getBatchSize()))
-                .parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
+        Flux.fromIterable(StreamUtils.partition(
+                tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: GlobalTiendaPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
                     try {
-                        //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
-                        tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo, runTarea.getTarea(), personas);
-                        tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo, runTarea.getTarea(), personas);
+                        // TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin
+                        // pivotar
+                        tareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo,
+                                runTarea.getTarea(), personas);
+                        tareaSeccionCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustom.calcular(algoritmo,
+                                runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("GlobalTiendaPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
+                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                                EstadoTareaCalculoPersonaEnum.KO.getDto());
                     }
                     log.info("Fin :: GlobalTiendaPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
                     return Flux.empty();
