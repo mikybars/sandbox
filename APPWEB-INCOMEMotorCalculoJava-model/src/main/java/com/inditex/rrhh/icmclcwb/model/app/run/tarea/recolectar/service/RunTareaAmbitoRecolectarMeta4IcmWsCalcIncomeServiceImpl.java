@@ -29,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaCoeficienteAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistoricoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaSeccionEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
@@ -84,9 +83,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaPersonaEstructuraAsyncService tareaPersonaEstructuraAsyncService;
-
-    @Autowired
-    private TareaPersonaSeccionEstructuraAsyncService tareaPersonaSeccionEstructuraAsyncService;
 
     @Autowired
     private TareaLocalizacionComisionHistoricoAsyncService tareaLocalizacionComisionHistoricoAsyncService;
@@ -257,8 +253,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             .getCoefJornada(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-                    AsyncUtils.checkAsyncAvaliable(cfPersist,
-                            meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getFilter().getMaxPersistenceSize());
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA)
+                            .getFilter().getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaPersonaCoeficienteAsyncService.save(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     hasNext = request.nextPage();
@@ -367,7 +363,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             tareaAmbito.getIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
-                comisionEmpleadoRequest.setPage(meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getPage());
+                comisionEmpleadoRequest
+                        .setPage(meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getPage());
                 comisionEmpleadoRequest.setData(tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
                 comisionEmpleadoRequest.getData().getItem()
@@ -378,16 +375,11 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         .getComisionEmpleado(comisionEmpleadoRequest);
                 AsyncUtils.exceptionally(cfData, cf);
                 List<ComisionEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSavePivotado = tareaPersonaEstructuraAsyncService
+                AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
+                        .get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPersistenceSize());
+                CompletableFuture<Void> cfSave = tareaPersonaEstructuraAsyncService
                         .saveComisionEmpleadoResultItemDto(data, tarea);
-                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSaveNoPivotado = tareaPersonaSeccionEstructuraAsyncService
-                        .saveComisionEmpleadoResultItemDto(data, tarea);
-                AsyncUtils.exceptionally(cfSavePivotado, cf, cfPersist);
-                AsyncUtils.exceptionally(cfSaveNoPivotado, cf, cfPersist);
+                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                 AsyncUtils.waitAllOfIsOk(cf);
             }
         } catch (Exception e) {

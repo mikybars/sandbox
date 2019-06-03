@@ -23,8 +23,8 @@ public class TareaPersonaEstructura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA")
-    private /* BigInteger */ Long id;
-
+    private Long id;
+    
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
@@ -33,6 +33,14 @@ public class TareaPersonaEstructura {
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)
     private String idOrigen;
+
+    @NotBlank
+    @Column(name = "ID_SECCION_ESTRUCTURA", nullable = false)
+    private String idSeccionEstructura;
+
+    @NotBlank
+    @Column(name = "ID_SECCION_EFECTIVA", nullable = false)
+    private String idSeccionEfectiva;
 
     @NotBlank
     @Column(name = "ID_PERSONA", nullable = false)
@@ -58,18 +66,10 @@ public class TareaPersonaEstructura {
     @Column(name = "ID_TIPO_COMISION", nullable = false)
     private /* BigInteger */ String idTipoComision;
 
-    @Column(name = "PORCENTAJE", nullable = true)
-    private /* BigInteger */ Double porcentaje;
-
-    @Column(name = "PORCENTAJE_SECCION_1", nullable = true)
-    private /* BigInteger */ Double porcentaje1;
-
-    @Column(name = "PORCENTAJE_SECCION_2", nullable = true)
-    private /* BigInteger */ Double porcentaje2;
-
-    @Column(name = "PORCENTAJE_SECCION_3", nullable = true)
-    private /* BigInteger */ Double porcentaje3;
-
+    @NotNull
+    @Column(name = "VALOR", nullable = false)
+    private /* BigInteger */ Double valor;
+    
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     private Date fechaInicio;
@@ -77,5 +77,5 @@ public class TareaPersonaEstructura {
     @NotNull
     @Column(name = "FECHA_FIN", nullable = false)
     private Date fechaFin;
-
+    
 }
