@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventareduccionjornada.v1;
+package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventapresenciareduccionjornada.v1;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,8 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPro
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 
-@Component("directoVentaPresenciaReduccionJornadaTopesV1")
-public class DirectoVentaPresenciaReduccionJornadaTopesV1RunAlgoritmo implements RunAlgoritmo {
+@Component("directoVentaPresenciaReduccionJornadaManualV1")
+public class DirectoVentaPresenciaReduccionJornadaManualV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired
     private Logger log;

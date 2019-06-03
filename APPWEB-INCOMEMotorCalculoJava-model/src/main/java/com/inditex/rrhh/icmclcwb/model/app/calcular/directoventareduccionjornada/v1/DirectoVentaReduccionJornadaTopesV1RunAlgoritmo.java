@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventapresenciareduccionjornada.v1;
+package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventareduccionjornada.v1;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
