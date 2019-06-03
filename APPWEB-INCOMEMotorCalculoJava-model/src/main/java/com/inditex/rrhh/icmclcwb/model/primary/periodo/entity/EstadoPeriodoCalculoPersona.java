@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,4 +29,9 @@ public class EstadoPeriodoCalculoPersona {
     @NotBlank
     @Column(name = "NOMBRE", nullable = false)
     private String nombre;
+    
+    @NotNull
+    @Column(name = "PESO")
+    private /* BigInteger */ Long peso;
+    
 }
