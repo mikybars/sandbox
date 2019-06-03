@@ -67,8 +67,11 @@ amiga:
 app:
   envars:
     calculo:
-      cast: false
-      precision: 'AS DECIMAL(23, 8)'  
+      cast: true
+      precision: 'DECIMAL(23, 8)'
+    proceso: 
+      cast: true
+      precision: 'DECIMAL(23, 8)'
     tarea:
       recolectar:
         days-number: 3
