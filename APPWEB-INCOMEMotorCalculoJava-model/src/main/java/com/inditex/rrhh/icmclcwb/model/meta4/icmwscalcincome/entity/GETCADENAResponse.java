@@ -32,7 +32,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="GETCONFVENTAONLINEReturn" type="{http://schemas.meta4.com/}GetconfventaonlineOutput"/>
+ *         &lt;element name="GETCADENAReturn" type="{http://schemas.meta4.com/}GetcadenaOutput"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,37 +43,37 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getconfventaonlineReturn"
+    "getcadenaReturn"
 })
-@XmlRootElement(name = "GETCONFVENTAONLINEResponse")
-public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETCADENAResponse")
+public class GETCADENAResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(name = "GETCONFVENTAONLINEReturn", required = true)
-    protected GetconfventaonlineOutput getconfventaonlineReturn;
+    @XmlElement(name = "GETCADENAReturn", required = true)
+    protected GetcadenaOutput getcadenaReturn;
 
     /**
-     * Obtiene el valor de la propiedad getconfventaonlineReturn.
+     * Obtiene el valor de la propiedad getcadenaReturn.
      * 
      * @return
      *     possible object is
-     *     {@link GetconfventaonlineOutput }
+     *     {@link GetcadenaOutput }
      *     
      */
-    public GetconfventaonlineOutput getGETCONFVENTAONLINEReturn() {
-        return getconfventaonlineReturn;
+    public GetcadenaOutput getGETCADENAReturn() {
+        return getcadenaReturn;
     }
 
     /**
-     * Define el valor de la propiedad getconfventaonlineReturn.
+     * Define el valor de la propiedad getcadenaReturn.
      * 
      * @param value
      *     allowed object is
-     *     {@link GetconfventaonlineOutput }
+     *     {@link GetcadenaOutput }
      *     
      */
-    public void setGETCONFVENTAONLINEReturn(GetconfventaonlineOutput value) {
-        this.getconfventaonlineReturn = value;
+    public void setGETCADENAReturn(GetcadenaOutput value) {
+        this.getcadenaReturn = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -83,13 +83,13 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
         if (this == object) {
             return true;
         }
-        final GETCONFVENTAONLINEResponse that = ((GETCONFVENTAONLINEResponse) object);
+        final GETCADENAResponse that = ((GETCADENAResponse) object);
         {
-            GetconfventaonlineOutput lhsGETCONFVENTAONLINEReturn;
-            lhsGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-            GetconfventaonlineOutput rhsGETCONFVENTAONLINEReturn;
-            rhsGETCONFVENTAONLINEReturn = that.getGETCONFVENTAONLINEReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfventaonlineReturn", lhsGETCONFVENTAONLINEReturn), LocatorUtils.property(thatLocator, "getconfventaonlineReturn", rhsGETCONFVENTAONLINEReturn), lhsGETCONFVENTAONLINEReturn, rhsGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null), (that.getconfventaonlineReturn!= null))) {
+            GetcadenaOutput lhsGETCADENAReturn;
+            lhsGETCADENAReturn = this.getGETCADENAReturn();
+            GetcadenaOutput rhsGETCADENAReturn;
+            rhsGETCADENAReturn = that.getGETCADENAReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getcadenaReturn", lhsGETCADENAReturn), LocatorUtils.property(thatLocator, "getcadenaReturn", rhsGETCADENAReturn), lhsGETCADENAReturn, rhsGETCADENAReturn, (this.getcadenaReturn!= null), (that.getcadenaReturn!= null))) {
                 return false;
             }
         }
@@ -117,9 +117,9 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            GetconfventaonlineOutput theGETCONFVENTAONLINEReturn;
-            theGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-            strategy.appendField(locator, this, "getconfventaonlineReturn", buffer, theGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null));
+            GetcadenaOutput theGETCADENAReturn;
+            theGETCADENAReturn = this.getGETCADENAReturn();
+            strategy.appendField(locator, this, "getcadenaReturn", buffer, theGETCADENAReturn, (this.getcadenaReturn!= null));
         }
         return buffer;
     }
@@ -127,9 +127,9 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            GetconfventaonlineOutput theGETCONFVENTAONLINEReturn;
-            theGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfventaonlineReturn", theGETCONFVENTAONLINEReturn), currentHashCode, theGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null));
+            GetcadenaOutput theGETCADENAReturn;
+            theGETCADENAReturn = this.getGETCADENAReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getcadenaReturn", theGETCADENAReturn), currentHashCode, theGETCADENAReturn, (this.getcadenaReturn!= null));
         }
         return currentHashCode;
     }
@@ -150,18 +150,18 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETCONFVENTAONLINEResponse) {
-            final GETCONFVENTAONLINEResponse copy = ((GETCONFVENTAONLINEResponse) draftCopy);
+        if (draftCopy instanceof GETCADENAResponse) {
+            final GETCADENAResponse copy = ((GETCADENAResponse) draftCopy);
             {
-                Boolean getconfventaonlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfventaonlineReturn!= null));
-                if (getconfventaonlineReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    GetconfventaonlineOutput sourceGETCONFVENTAONLINEReturn;
-                    sourceGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-                    GetconfventaonlineOutput copyGETCONFVENTAONLINEReturn = ((GetconfventaonlineOutput) strategy.copy(LocatorUtils.property(locator, "getconfventaonlineReturn", sourceGETCONFVENTAONLINEReturn), sourceGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null)));
-                    copy.setGETCONFVENTAONLINEReturn(copyGETCONFVENTAONLINEReturn);
+                Boolean getcadenaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getcadenaReturn!= null));
+                if (getcadenaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetcadenaOutput sourceGETCADENAReturn;
+                    sourceGETCADENAReturn = this.getGETCADENAReturn();
+                    GetcadenaOutput copyGETCADENAReturn = ((GetcadenaOutput) strategy.copy(LocatorUtils.property(locator, "getcadenaReturn", sourceGETCADENAReturn), sourceGETCADENAReturn, (this.getcadenaReturn!= null)));
+                    copy.setGETCADENAReturn(copyGETCADENAReturn);
                 } else {
-                    if (getconfventaonlineReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.getconfventaonlineReturn = null;
+                    if (getcadenaReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getcadenaReturn = null;
                     }
                 }
             }
@@ -170,7 +170,7 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
     }
 
     public Object createNewInstance() {
-        return new GETCONFVENTAONLINEResponse();
+        return new GETCADENAResponse();
     }
 
 }

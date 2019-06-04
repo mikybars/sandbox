@@ -47,8 +47,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmparametrosentrada",
     "icmparametrospaginacion"
 })
-@XmlRootElement(name = "GETFLAGCALCULA")
-public class GETFLAGCALCULA implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETTIENDASONLINE")
+public class GETTIENDASONLINE implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
@@ -111,7 +111,7 @@ public class GETFLAGCALCULA implements Cloneable, CopyTo2, Equals2, HashCode2, T
         if (this == object) {
             return true;
         }
-        final GETFLAGCALCULA that = ((GETFLAGCALCULA) object);
+        final GETTIENDASONLINE that = ((GETTIENDASONLINE) object);
         {
             IcmParametrosentradaBlock lhsICMPARAMETROSENTRADA;
             lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
@@ -197,8 +197,8 @@ public class GETFLAGCALCULA implements Cloneable, CopyTo2, Equals2, HashCode2, T
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETFLAGCALCULA) {
-            final GETFLAGCALCULA copy = ((GETFLAGCALCULA) draftCopy);
+        if (draftCopy instanceof GETTIENDASONLINE) {
+            final GETTIENDASONLINE copy = ((GETTIENDASONLINE) draftCopy);
             {
                 Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrosentrada!= null));
                 if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -230,7 +230,7 @@ public class GETFLAGCALCULA implements Cloneable, CopyTo2, Equals2, HashCode2, T
     }
 
     public Object createNewInstance() {
-        return new GETFLAGCALCULA();
+        return new GETTIENDASONLINE();
     }
 
 }

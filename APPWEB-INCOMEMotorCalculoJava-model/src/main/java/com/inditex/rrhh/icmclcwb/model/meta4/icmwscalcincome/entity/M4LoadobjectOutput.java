@@ -36,6 +36,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="Icm_Ws_Tools" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/>
+ *         &lt;element name="Icm_Listacadenas" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/>
  *         &lt;element name="Icm_Listatiendas" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/>
  *         &lt;element name="Icm_Listaperiodos" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/>
  *         &lt;element name="Icm_Listaempleados" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/>
@@ -57,6 +58,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "_return",
     "logMessage",
     "icmWsTools",
+    "icmListacadenas",
     "icmListatiendas",
     "icmListaperiodos",
     "icmListaempleados",
@@ -75,6 +77,8 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
     protected List<LogMessage> logMessage;
     @XmlElement(name = "Icm_Ws_Tools", required = true, nillable = true)
     protected IcmWsToolsBlock icmWsTools;
+    @XmlElement(name = "Icm_Listacadenas", required = true, nillable = true)
+    protected IcmListacadenasBlock icmListacadenas;
     @XmlElement(name = "Icm_Listatiendas", required = true, nillable = true)
     protected IcmListatiendasBlock icmListatiendas;
     @XmlElement(name = "Icm_Listaperiodos", required = true, nillable = true)
@@ -159,6 +163,30 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
      */
     public void setIcmWsTools(IcmWsToolsBlock value) {
         this.icmWsTools = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmListacadenas.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListacadenasBlock }
+     *     
+     */
+    public IcmListacadenasBlock getIcmListacadenas() {
+        return icmListacadenas;
+    }
+
+    /**
+     * Define el valor de la propiedad icmListacadenas.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListacadenasBlock }
+     *     
+     */
+    public void setIcmListacadenas(IcmListacadenasBlock value) {
+        this.icmListacadenas = value;
     }
 
     /**
@@ -389,6 +417,15 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
             }
         }
         {
+            IcmListacadenasBlock lhsIcmListacadenas;
+            lhsIcmListacadenas = this.getIcmListacadenas();
+            IcmListacadenasBlock rhsIcmListacadenas;
+            rhsIcmListacadenas = that.getIcmListacadenas();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListacadenas", lhsIcmListacadenas), LocatorUtils.property(thatLocator, "icmListacadenas", rhsIcmListacadenas), lhsIcmListacadenas, rhsIcmListacadenas, (this.icmListacadenas!= null), (that.icmListacadenas!= null))) {
+                return false;
+            }
+        }
+        {
             IcmListatiendasBlock lhsIcmListatiendas;
             lhsIcmListatiendas = this.getIcmListatiendas();
             IcmListatiendasBlock rhsIcmListatiendas;
@@ -499,6 +536,11 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
             strategy.appendField(locator, this, "icmWsTools", buffer, theIcmWsTools, (this.icmWsTools!= null));
         }
         {
+            IcmListacadenasBlock theIcmListacadenas;
+            theIcmListacadenas = this.getIcmListacadenas();
+            strategy.appendField(locator, this, "icmListacadenas", buffer, theIcmListacadenas, (this.icmListacadenas!= null));
+        }
+        {
             IcmListatiendasBlock theIcmListatiendas;
             theIcmListatiendas = this.getIcmListatiendas();
             strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas, (this.icmListatiendas!= null));
@@ -557,6 +599,11 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
             IcmWsToolsBlock theIcmWsTools;
             theIcmWsTools = this.getIcmWsTools();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmWsTools", theIcmWsTools), currentHashCode, theIcmWsTools, (this.icmWsTools!= null));
+        }
+        {
+            IcmListacadenasBlock theIcmListacadenas;
+            theIcmListacadenas = this.getIcmListacadenas();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListacadenas", theIcmListacadenas), currentHashCode, theIcmListacadenas, (this.icmListacadenas!= null));
         }
         {
             IcmListatiendasBlock theIcmListatiendas;
@@ -659,6 +706,19 @@ public class M4LoadobjectOutput implements Cloneable, CopyTo2, Equals2, HashCode
                 } else {
                     if (icmWsToolsShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmWsTools = null;
+                    }
+                }
+            }
+            {
+                Boolean icmListacadenasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListacadenas!= null));
+                if (icmListacadenasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListacadenasBlock sourceIcmListacadenas;
+                    sourceIcmListacadenas = this.getIcmListacadenas();
+                    IcmListacadenasBlock copyIcmListacadenas = ((IcmListacadenasBlock) strategy.copy(LocatorUtils.property(locator, "icmListacadenas", sourceIcmListacadenas), sourceIcmListacadenas, (this.icmListacadenas!= null)));
+                    copy.setIcmListacadenas(copyIcmListacadenas);
+                } else {
+                    if (icmListacadenasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListacadenas = null;
                     }
                 }
             }

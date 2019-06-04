@@ -40,6 +40,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipohora" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="orempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idcadenareg" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorigenreg" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleadolocal" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -63,6 +64,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idempleado",
     "idtipohora",
     "orempleado",
+    "idcadenareg",
     "idorigenreg",
     "idlugartrabajo",
     "idempleadolocal",
@@ -88,6 +90,8 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
     protected String idtipohora;
     @XmlElement(required = true, nillable = true)
     protected String orempleado;
+    @XmlElement(required = true, nillable = true)
+    protected String idcadenareg;
     @XmlElement(required = true, nillable = true)
     protected String idorigenreg;
     @XmlElement(required = true, nillable = true)
@@ -306,6 +310,30 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
     }
 
     /**
+     * Obtiene el valor de la propiedad idcadenareg.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdcadenareg() {
+        return idcadenareg;
+    }
+
+    /**
+     * Define el valor de la propiedad idcadenareg.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdcadenareg(String value) {
+        this.idcadenareg = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idorigenreg.
      * 
      * @return
@@ -491,6 +519,15 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             }
         }
         {
+            String lhsIdcadenareg;
+            lhsIdcadenareg = this.getIdcadenareg();
+            String rhsIdcadenareg;
+            rhsIdcadenareg = that.getIdcadenareg();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idcadenareg", lhsIdcadenareg), LocatorUtils.property(thatLocator, "idcadenareg", rhsIdcadenareg), lhsIdcadenareg, rhsIdcadenareg, (this.idcadenareg!= null), (that.idcadenareg!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdorigenreg;
             lhsIdorigenreg = this.getIdorigenreg();
             String rhsIdorigenreg;
@@ -595,6 +632,11 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             strategy.appendField(locator, this, "orempleado", buffer, theOrempleado, (this.orempleado!= null));
         }
         {
+            String theIdcadenareg;
+            theIdcadenareg = this.getIdcadenareg();
+            strategy.appendField(locator, this, "idcadenareg", buffer, theIdcadenareg, (this.idcadenareg!= null));
+        }
+        {
             String theIdorigenreg;
             theIdorigenreg = this.getIdorigenreg();
             strategy.appendField(locator, this, "idorigenreg", buffer, theIdorigenreg, (this.idorigenreg!= null));
@@ -663,6 +705,11 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             String theOrempleado;
             theOrempleado = this.getOrempleado();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "orempleado", theOrempleado), currentHashCode, theOrempleado, (this.orempleado!= null));
+        }
+        {
+            String theIdcadenareg;
+            theIdcadenareg = this.getIdcadenareg();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idcadenareg", theIdcadenareg), currentHashCode, theIdcadenareg, (this.idcadenareg!= null));
         }
         {
             String theIdorigenreg;
@@ -818,6 +865,19 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
                 } else {
                     if (orempleadoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.orempleado = null;
+                    }
+                }
+            }
+            {
+                Boolean idcadenaregShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idcadenareg!= null));
+                if (idcadenaregShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdcadenareg;
+                    sourceIdcadenareg = this.getIdcadenareg();
+                    String copyIdcadenareg = ((String) strategy.copy(LocatorUtils.property(locator, "idcadenareg", sourceIdcadenareg), sourceIdcadenareg, (this.idcadenareg!= null)));
+                    copy.setIdcadenareg(copyIdcadenareg);
+                } else {
+                    if (idcadenaregShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idcadenareg = null;
                     }
                 }
             }

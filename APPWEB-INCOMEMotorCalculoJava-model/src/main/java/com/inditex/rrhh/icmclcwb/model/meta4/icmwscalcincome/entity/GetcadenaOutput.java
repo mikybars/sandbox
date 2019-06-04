@@ -24,19 +24,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para GetfestivosOutput complex type.
+ * <p>Clase Java para GetcadenaOutput complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="GetfestivosOutput">
+ * &lt;complexType name="GetcadenaOutput">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Icm_Listacadenas" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/>
  *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
- *         &lt;element name="Icm_Listatiendas" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -46,23 +46,23 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetfestivosOutput", propOrder = {
+@XmlType(name = "GetcadenaOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmParametrospaginacion",
-    "icmListatiendas"
+    "icmListacadenas",
+    "icmParametrospaginacion"
 })
-public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class GetcadenaOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     @XmlElement(name = "return")
     protected double _return;
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
+    @XmlElement(name = "Icm_Listacadenas", required = true, nillable = true)
+    protected IcmListacadenasBlock icmListacadenas;
     @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
     protected IcmParametrospaginacionBlock icmParametrospaginacion;
-    @XmlElement(name = "Icm_Listatiendas", required = true, nillable = true)
-    protected IcmListatiendasBlock icmListatiendas;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -110,6 +110,30 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
     }
 
     /**
+     * Obtiene el valor de la propiedad icmListacadenas.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListacadenasBlock }
+     *     
+     */
+    public IcmListacadenasBlock getIcmListacadenas() {
+        return icmListacadenas;
+    }
+
+    /**
+     * Define el valor de la propiedad icmListacadenas.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListacadenasBlock }
+     *     
+     */
+    public void setIcmListacadenas(IcmListacadenasBlock value) {
+        this.icmListacadenas = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmParametrospaginacion.
      * 
      * @return
@@ -133,30 +157,6 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
         this.icmParametrospaginacion = value;
     }
 
-    /**
-     * Obtiene el valor de la propiedad icmListatiendas.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListatiendasBlock }
-     *     
-     */
-    public IcmListatiendasBlock getIcmListatiendas() {
-        return icmListatiendas;
-    }
-
-    /**
-     * Define el valor de la propiedad icmListatiendas.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListatiendasBlock }
-     *     
-     */
-    public void setIcmListatiendas(IcmListatiendasBlock value) {
-        this.icmListatiendas = value;
-    }
-
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
         if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
@@ -164,7 +164,7 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
         if (this == object) {
             return true;
         }
-        final GetfestivosOutput that = ((GetfestivosOutput) object);
+        final GetcadenaOutput that = ((GetcadenaOutput) object);
         {
             double lhsReturn;
             lhsReturn = this.getReturn();
@@ -184,20 +184,20 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
             }
         }
         {
+            IcmListacadenasBlock lhsIcmListacadenas;
+            lhsIcmListacadenas = this.getIcmListacadenas();
+            IcmListacadenasBlock rhsIcmListacadenas;
+            rhsIcmListacadenas = that.getIcmListacadenas();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListacadenas", lhsIcmListacadenas), LocatorUtils.property(thatLocator, "icmListacadenas", rhsIcmListacadenas), lhsIcmListacadenas, rhsIcmListacadenas, (this.icmListacadenas!= null), (that.icmListacadenas!= null))) {
+                return false;
+            }
+        }
+        {
             IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
             lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
             IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
             rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
-                return false;
-            }
-        }
-        {
-            IcmListatiendasBlock lhsIcmListatiendas;
-            lhsIcmListatiendas = this.getIcmListatiendas();
-            IcmListatiendasBlock rhsIcmListatiendas;
-            rhsIcmListatiendas = that.getIcmListatiendas();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListatiendas", lhsIcmListatiendas), LocatorUtils.property(thatLocator, "icmListatiendas", rhsIcmListatiendas), lhsIcmListatiendas, rhsIcmListatiendas, (this.icmListatiendas!= null), (that.icmListatiendas!= null))) {
                 return false;
             }
         }
@@ -235,14 +235,14 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
+            IcmListacadenasBlock theIcmListacadenas;
+            theIcmListacadenas = this.getIcmListacadenas();
+            strategy.appendField(locator, this, "icmListacadenas", buffer, theIcmListacadenas, (this.icmListacadenas!= null));
+        }
+        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
-        {
-            IcmListatiendasBlock theIcmListatiendas;
-            theIcmListatiendas = this.getIcmListatiendas();
-            strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas, (this.icmListatiendas!= null));
         }
         return buffer;
     }
@@ -260,14 +260,14 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
+            IcmListacadenasBlock theIcmListacadenas;
+            theIcmListacadenas = this.getIcmListacadenas();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListacadenas", theIcmListacadenas), currentHashCode, theIcmListacadenas, (this.icmListacadenas!= null));
+        }
+        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
-        {
-            IcmListatiendasBlock theIcmListatiendas;
-            theIcmListatiendas = this.getIcmListatiendas();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListatiendas", theIcmListatiendas), currentHashCode, theIcmListatiendas, (this.icmListatiendas!= null));
         }
         return currentHashCode;
     }
@@ -288,8 +288,8 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GetfestivosOutput) {
-            final GetfestivosOutput copy = ((GetfestivosOutput) draftCopy);
+        if (draftCopy instanceof GetcadenaOutput) {
+            final GetcadenaOutput copy = ((GetcadenaOutput) draftCopy);
             {
                 Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -321,6 +321,19 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
                 }
             }
             {
+                Boolean icmListacadenasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListacadenas!= null));
+                if (icmListacadenasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListacadenasBlock sourceIcmListacadenas;
+                    sourceIcmListacadenas = this.getIcmListacadenas();
+                    IcmListacadenasBlock copyIcmListacadenas = ((IcmListacadenasBlock) strategy.copy(LocatorUtils.property(locator, "icmListacadenas", sourceIcmListacadenas), sourceIcmListacadenas, (this.icmListacadenas!= null)));
+                    copy.setIcmListacadenas(copyIcmListacadenas);
+                } else {
+                    if (icmListacadenasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListacadenas = null;
+                    }
+                }
+            }
+            {
                 Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
                 if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
@@ -333,25 +346,12 @@ public class GetfestivosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
                     }
                 }
             }
-            {
-                Boolean icmListatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListatiendas!= null));
-                if (icmListatiendasShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListatiendasBlock sourceIcmListatiendas;
-                    sourceIcmListatiendas = this.getIcmListatiendas();
-                    IcmListatiendasBlock copyIcmListatiendas = ((IcmListatiendasBlock) strategy.copy(LocatorUtils.property(locator, "icmListatiendas", sourceIcmListatiendas), sourceIcmListatiendas, (this.icmListatiendas!= null)));
-                    copy.setIcmListatiendas(copyIcmListatiendas);
-                } else {
-                    if (icmListatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListatiendas = null;
-                    }
-                }
-            }
         }
         return draftCopy;
     }
 
     public Object createNewInstance() {
-        return new GetfestivosOutput();
+        return new GetcadenaOutput();
     }
 
 }

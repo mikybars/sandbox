@@ -32,7 +32,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="GETCONFVENTAONLINEReturn" type="{http://schemas.meta4.com/}GetconfventaonlineOutput"/>
+ *         &lt;element name="GETTIENDASONLINEReturn" type="{http://schemas.meta4.com/}GettiendasonlineOutput"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,37 +43,37 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getconfventaonlineReturn"
+    "gettiendasonlineReturn"
 })
-@XmlRootElement(name = "GETCONFVENTAONLINEResponse")
-public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETTIENDASONLINEResponse")
+public class GETTIENDASONLINEResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(name = "GETCONFVENTAONLINEReturn", required = true)
-    protected GetconfventaonlineOutput getconfventaonlineReturn;
+    @XmlElement(name = "GETTIENDASONLINEReturn", required = true)
+    protected GettiendasonlineOutput gettiendasonlineReturn;
 
     /**
-     * Obtiene el valor de la propiedad getconfventaonlineReturn.
+     * Obtiene el valor de la propiedad gettiendasonlineReturn.
      * 
      * @return
      *     possible object is
-     *     {@link GetconfventaonlineOutput }
+     *     {@link GettiendasonlineOutput }
      *     
      */
-    public GetconfventaonlineOutput getGETCONFVENTAONLINEReturn() {
-        return getconfventaonlineReturn;
+    public GettiendasonlineOutput getGETTIENDASONLINEReturn() {
+        return gettiendasonlineReturn;
     }
 
     /**
-     * Define el valor de la propiedad getconfventaonlineReturn.
+     * Define el valor de la propiedad gettiendasonlineReturn.
      * 
      * @param value
      *     allowed object is
-     *     {@link GetconfventaonlineOutput }
+     *     {@link GettiendasonlineOutput }
      *     
      */
-    public void setGETCONFVENTAONLINEReturn(GetconfventaonlineOutput value) {
-        this.getconfventaonlineReturn = value;
+    public void setGETTIENDASONLINEReturn(GettiendasonlineOutput value) {
+        this.gettiendasonlineReturn = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -83,13 +83,13 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
         if (this == object) {
             return true;
         }
-        final GETCONFVENTAONLINEResponse that = ((GETCONFVENTAONLINEResponse) object);
+        final GETTIENDASONLINEResponse that = ((GETTIENDASONLINEResponse) object);
         {
-            GetconfventaonlineOutput lhsGETCONFVENTAONLINEReturn;
-            lhsGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-            GetconfventaonlineOutput rhsGETCONFVENTAONLINEReturn;
-            rhsGETCONFVENTAONLINEReturn = that.getGETCONFVENTAONLINEReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfventaonlineReturn", lhsGETCONFVENTAONLINEReturn), LocatorUtils.property(thatLocator, "getconfventaonlineReturn", rhsGETCONFVENTAONLINEReturn), lhsGETCONFVENTAONLINEReturn, rhsGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null), (that.getconfventaonlineReturn!= null))) {
+            GettiendasonlineOutput lhsGETTIENDASONLINEReturn;
+            lhsGETTIENDASONLINEReturn = this.getGETTIENDASONLINEReturn();
+            GettiendasonlineOutput rhsGETTIENDASONLINEReturn;
+            rhsGETTIENDASONLINEReturn = that.getGETTIENDASONLINEReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "gettiendasonlineReturn", lhsGETTIENDASONLINEReturn), LocatorUtils.property(thatLocator, "gettiendasonlineReturn", rhsGETTIENDASONLINEReturn), lhsGETTIENDASONLINEReturn, rhsGETTIENDASONLINEReturn, (this.gettiendasonlineReturn!= null), (that.gettiendasonlineReturn!= null))) {
                 return false;
             }
         }
@@ -117,9 +117,9 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            GetconfventaonlineOutput theGETCONFVENTAONLINEReturn;
-            theGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-            strategy.appendField(locator, this, "getconfventaonlineReturn", buffer, theGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null));
+            GettiendasonlineOutput theGETTIENDASONLINEReturn;
+            theGETTIENDASONLINEReturn = this.getGETTIENDASONLINEReturn();
+            strategy.appendField(locator, this, "gettiendasonlineReturn", buffer, theGETTIENDASONLINEReturn, (this.gettiendasonlineReturn!= null));
         }
         return buffer;
     }
@@ -127,9 +127,9 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            GetconfventaonlineOutput theGETCONFVENTAONLINEReturn;
-            theGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfventaonlineReturn", theGETCONFVENTAONLINEReturn), currentHashCode, theGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null));
+            GettiendasonlineOutput theGETTIENDASONLINEReturn;
+            theGETTIENDASONLINEReturn = this.getGETTIENDASONLINEReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "gettiendasonlineReturn", theGETTIENDASONLINEReturn), currentHashCode, theGETTIENDASONLINEReturn, (this.gettiendasonlineReturn!= null));
         }
         return currentHashCode;
     }
@@ -150,18 +150,18 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETCONFVENTAONLINEResponse) {
-            final GETCONFVENTAONLINEResponse copy = ((GETCONFVENTAONLINEResponse) draftCopy);
+        if (draftCopy instanceof GETTIENDASONLINEResponse) {
+            final GETTIENDASONLINEResponse copy = ((GETTIENDASONLINEResponse) draftCopy);
             {
-                Boolean getconfventaonlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfventaonlineReturn!= null));
-                if (getconfventaonlineReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    GetconfventaonlineOutput sourceGETCONFVENTAONLINEReturn;
-                    sourceGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-                    GetconfventaonlineOutput copyGETCONFVENTAONLINEReturn = ((GetconfventaonlineOutput) strategy.copy(LocatorUtils.property(locator, "getconfventaonlineReturn", sourceGETCONFVENTAONLINEReturn), sourceGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null)));
-                    copy.setGETCONFVENTAONLINEReturn(copyGETCONFVENTAONLINEReturn);
+                Boolean gettiendasonlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.gettiendasonlineReturn!= null));
+                if (gettiendasonlineReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GettiendasonlineOutput sourceGETTIENDASONLINEReturn;
+                    sourceGETTIENDASONLINEReturn = this.getGETTIENDASONLINEReturn();
+                    GettiendasonlineOutput copyGETTIENDASONLINEReturn = ((GettiendasonlineOutput) strategy.copy(LocatorUtils.property(locator, "gettiendasonlineReturn", sourceGETTIENDASONLINEReturn), sourceGETTIENDASONLINEReturn, (this.gettiendasonlineReturn!= null)));
+                    copy.setGETTIENDASONLINEReturn(copyGETTIENDASONLINEReturn);
                 } else {
-                    if (getconfventaonlineReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.getconfventaonlineReturn = null;
+                    if (gettiendasonlineReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.gettiendasonlineReturn = null;
                     }
                 }
             }
@@ -170,7 +170,7 @@ public class GETCONFVENTAONLINEResponse implements Cloneable, CopyTo2, Equals2, 
     }
 
     public Object createNewInstance() {
-        return new GETCONFVENTAONLINEResponse();
+        return new GETTIENDASONLINEResponse();
     }
 
 }
