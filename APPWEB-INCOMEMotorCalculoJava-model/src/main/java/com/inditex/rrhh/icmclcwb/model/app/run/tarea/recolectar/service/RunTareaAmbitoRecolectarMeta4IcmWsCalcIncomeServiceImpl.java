@@ -161,7 +161,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                 hasNext = request.nextPage();
             } while (hasNext);
-            AsyncUtils.waitAllOfIsOk(cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
@@ -192,7 +192,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             AsyncUtils.exceptionally(cfSave, cf, cfPersist);
             hasNext = request.nextPage();
         } while (hasNext);
-        AsyncUtils.waitAllOfIsOk(cf);
+        AsyncUtils.waitAllOfIsOk(cf, cf);
     }
 
     @Override
@@ -220,7 +220,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                 hasNext = request.nextPage();
             } while (hasNext);
-            AsyncUtils.waitAllOfIsOk(cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
@@ -259,7 +259,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     hasNext = request.nextPage();
                 } while (hasNext);
-                AsyncUtils.waitAllOfIsOk(cf);
+                AsyncUtils.waitAllOfIsOk(cf, cf);
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
@@ -300,7 +300,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     hasNext = request.nextPage();
                 } while (hasNext);
-                AsyncUtils.waitAllOfIsOk(cf);
+                AsyncUtils.waitAllOfIsOk(cf, cf);
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
@@ -342,7 +342,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     hasNext = request.nextPage();
                 } while (hasNext);
-                AsyncUtils.waitAllOfIsOk(cf);
+                AsyncUtils.waitAllOfIsOk(cf, cf);
             }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
@@ -380,8 +380,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 CompletableFuture<Void> cfSave = tareaPersonaEstructuraAsyncService
                         .saveComisionEmpleadoResultItemDto(data, tarea);
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                AsyncUtils.waitAllOfIsOk(cf);
             }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
@@ -424,7 +424,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     hasNext = tiendasRequest.nextPage();
                 } while (hasNext);
             }
-            AsyncUtils.waitAllOfIsOk(cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

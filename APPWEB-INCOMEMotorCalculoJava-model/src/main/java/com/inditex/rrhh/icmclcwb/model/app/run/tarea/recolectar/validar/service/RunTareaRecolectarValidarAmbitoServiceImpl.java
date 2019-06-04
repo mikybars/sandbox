@@ -32,18 +32,20 @@ public class RunTareaRecolectarValidarAmbitoServiceImpl implements RunTareaRecol
     @CounterMetric
     @TimerMetric
     @Override
-    public void run(@NotNull @Valid RunTareaDto runTarea) {
+    public List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea) {
+        List<RunTareaValidarDto> result = new ArrayList<>();
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<List<String>> cfValidAmbito = tareaValidarAsyncService
                     .validateAmbito(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfValidAmbito, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            runTarea.getRunTareaValidar().add(RunTareaValidarDto.builder().type(Tarea.class.getSimpleName()).build());
+            result.add(RunTareaValidarDto.builder().type(Tarea.class.getSimpleName()).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
+        return result;
     }
 
 }

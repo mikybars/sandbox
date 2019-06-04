@@ -34,7 +34,8 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
     @CounterMetric
     @TimerMetric
     @Override
-    public void run(@NotNull @Valid RunTareaDto runTarea) {
+    public List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea) {
+        List<RunTareaValidarDto> result = new ArrayList<>();
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<Integer> cfCountTiendaHistorico = tareaValidarAsyncService
@@ -44,16 +45,15 @@ public class RunTareaRecolectarValidarTiendaHistoricoServiceImpl
                     .checkDuplicatedTiendasHistorico(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfDuplicatedTiendaHistorico, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            runTarea.getRunTareaValidar()
-                    .add(RunTareaValidarDto.builder().type(TareaLocalizacionHistorico.class.getSimpleName())
-                            .count(AsyncUtils.get(cfCountTiendaHistorico))
-                            .duplicated(
-                                    AsyncUtils.get(cfDuplicatedTiendaHistorico).stream().collect(Collectors.toSet()))
-                            .build());
+            result.add(RunTareaValidarDto.builder().type(TareaLocalizacionHistorico.class.getSimpleName())
+                    .count(AsyncUtils.get(cfCountTiendaHistorico))
+                    .duplicated(AsyncUtils.get(cfDuplicatedTiendaHistorico).stream().collect(Collectors.toSet()))
+                    .build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
+        return result;
     }
 
 }

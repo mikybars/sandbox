@@ -1,12 +1,15 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 
 public interface RunTareaRecolectarValidarTiendaPresenciaSeccionService {
 
-    void run(@NotNull @Valid RunTareaDto runTarea);
+    List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea);
 
 }

@@ -68,33 +68,42 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             if (validarProperties.isEnabled()) {
-                CompletableFuture<Void> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService.run(runTarea);
+                CompletableFuture<List<RunTareaValidarDto>> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService
+                        .run(runTarea);
                 AsyncUtils.exceptionally(cfEstructura, cf);
 
-                CompletableFuture<Void> cfTiendaHistorico = runTareaRecolectarValidarTiendaHistoricoAsyncService
+                CompletableFuture<List<RunTareaValidarDto>> cfTiendaHistorico = runTareaRecolectarValidarTiendaHistoricoAsyncService
                         .run(runTarea);
                 AsyncUtils.exceptionally(cfTiendaHistorico, cf);
 
-                CompletableFuture<Void> cfTiendaEmpleadoPresenciaSeccion = runTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService
+                CompletableFuture<List<RunTareaValidarDto>> cfTiendaEmpleadoPresenciaSeccion = runTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService
                         .run(runTarea);
                 AsyncUtils.exceptionally(cfTiendaEmpleadoPresenciaSeccion, cf);
 
-                CompletableFuture<Void> cfTiendaPresenciaSeccion = runTareaRecolectarValidarTiendaPresenciaSeccionAsyncService
+                CompletableFuture<List<RunTareaValidarDto>> cfTiendaPresenciaSeccion = runTareaRecolectarValidarTiendaPresenciaSeccionAsyncService
                         .run(runTarea);
                 AsyncUtils.exceptionally(cfTiendaPresenciaSeccion, cf);
 
-                CompletableFuture<Void> cfTiendaVentaSeccion = runTareaRecolectarValidarTiendaVentaSeccionAsyncService
+                CompletableFuture<List<RunTareaValidarDto>> cfTiendaVentaSeccion = runTareaRecolectarValidarTiendaVentaSeccionAsyncService
                         .run(runTarea);
                 AsyncUtils.exceptionally(cfTiendaVentaSeccion, cf);
 
-                CompletableFuture<Void> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService.run(runTarea);
+                CompletableFuture<List<RunTareaValidarDto>> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService
+                        .run(runTarea);
                 AsyncUtils.exceptionally(cfAmbito, cf);
 
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
+                List<RunTareaValidarDto> runTareaValidar = new ArrayList<>();
+                runTareaValidar.addAll(AsyncUtils.get(cfEstructura));
+                runTareaValidar.addAll(AsyncUtils.get(cfTiendaHistorico));
+                runTareaValidar.addAll(AsyncUtils.get(cfTiendaEmpleadoPresenciaSeccion));
+                runTareaValidar.addAll(AsyncUtils.get(cfTiendaPresenciaSeccion));
+                runTareaValidar.addAll(AsyncUtils.get(cfTiendaVentaSeccion));
+                runTareaValidar.addAll(AsyncUtils.get(cfAmbito));
 
-                List<RunTareaValidarDto> runTareaValidar = runTarea.getRunTareaValidar().stream().filter(item -> {
+                List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream().filter(item -> {
                     // TODO Revisar NullPointerException, lo da en el item
                     boolean result = false;
                     if (item == null) {
@@ -105,10 +114,10 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                     return result;
                 }).collect(Collectors.toList());
 
-                if (CollectionUtils.isNotEmpty(runTareaValidar)) {
+                if (CollectionUtils.isNotEmpty(runTareaValidarDuplicated)) {
                     if (validarProperties.isLogging()) {
                         log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
-                                runTareaValidar);
+                                runTareaValidarDuplicated);
                     }
                     if (validarProperties.isException()) {
                         throw new IcmclcwbException("Valores duplicados");
