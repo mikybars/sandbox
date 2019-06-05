@@ -239,6 +239,18 @@
     ]]>
 </entry>
 
+<entry key="TareaRepositoryCustom.updateFechaFin">
+    <![CDATA[
+    UPDATE TAREA SET FECHA_FIN_TAREA = CURRENT_TIMESTAMP WHERE ID_TAREA = :idTarea
+    ]]>
+</entry>
+
+<entry key="TareaRepositoryCustom.updateFechaInicioAndEstado">
+    <![CDATA[
+    UPDATE TAREA SET FECHA_INICIO_TAREA = CURRENT_TIMESTAMP, ID_ESTADO_TAREA = :idEstado WHERE ID_TAREA = :idTarea
+    ]]>
+</entry>
+
 <entry key="TareaRepositoryCustom.updateEstadoFinal">
     <![CDATA[
    UPDATE TAREA SET ID_ESTADO_TAREA = ( 
@@ -252,6 +264,12 @@
         WHERE ID_TAREA = :idTarea
     )
     WHERE ID_TAREA = :idTarea
+    ]]>
+</entry>
+
+<entry key="TareaRepositoryCustom.updateEstado">
+    <![CDATA[
+    UPDATE TAREA SET ID_ESTADO_TAREA = :idEstado WHERE ID_TAREA = :idTarea
     ]]>
 </entry>
 

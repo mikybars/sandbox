@@ -1,9 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -24,7 +22,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
@@ -35,7 +32,7 @@ public class TareaServiceImpl implements TareaService {
 
     @Autowired
     private TareaRepository tareaRepository;
-    
+
     @Autowired
     private TareaRepositoryCustom tareaRepositoryCustom;
 
@@ -95,33 +92,28 @@ public class TareaServiceImpl implements TareaService {
     }
 
     @Override
-    public int modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
-        tarea.setEstado(estado);
-        return tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(estado.getId()).build());
+    public List<TareaDto> findByTrabajoId(@Valid final Long id) {
+        return tareaMapper.tareaToTareaDto(tareaRepository.findByTrabajoId(id));
     }
 
     @Override
-    public int modifyFechaInicioTarea(@Valid final TareaDto tarea) {
-        tarea.setFechaInicioTarea(LocalDateTime.now());
-        return tareaRepository.setFechaInicioTarea(tarea.getId(),
-                Date.from(tarea.getFechaInicioTarea().atZone(ZoneId.systemDefault()).toInstant()));
+    public void updateFechaFin(@NotNull final TareaDto tarea) {
+        tareaRepositoryCustom.updateFechaFin(tarea);
     }
 
     @Override
-    public int modifyFechaFinTarea(@Valid final TareaDto tarea) {
-        tarea.setFechaFinTarea(LocalDateTime.now());
-        return tareaRepository.setFechaFinTarea(tarea.getId(),
-                Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
+    public void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
+        tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
-    
+
+    @Override
+    public void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
+        tareaRepositoryCustom.updateEstado(tarea, estado);
+    }
+
     @Override
     public void updateEstadoFinal(@Valid final TareaDto tarea) {
         tareaRepositoryCustom.updateEstadoFinal(tarea);
-    }
-    
-    @Override
-    public List<TareaDto> findByTrabajoId(@Valid final Long id) {
-        return tareaMapper.tareaToTareaDto(tareaRepository.findByTrabajoId(id));
     }
 
 }

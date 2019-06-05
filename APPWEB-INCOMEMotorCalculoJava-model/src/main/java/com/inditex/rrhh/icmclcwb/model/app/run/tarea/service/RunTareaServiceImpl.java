@@ -29,7 +29,7 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private RunTareaRecolectarService runTareaRecolectarService;
-    
+
     @Autowired
     private RunTareaProcesarService runTareaProcesarService;
 
@@ -38,7 +38,7 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private RunTareaConsolidarService runTareaConsolidarService;
-    
+
     @Autowired
     private RunTareaRecolectarValidarService runTareaRecolectarValidarService;
 
@@ -48,18 +48,17 @@ public class RunTareaServiceImpl implements RunTareaService {
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {
-            tareaService.modifyFechaInicioTarea(runTarea.getTarea());
-            tareaService.modifyEstadoTarea(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
+            tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
             runTareaRecolectarService.run(runTarea);
             runTareaRecolectarValidarService.run(runTarea);
             runTareaProcesarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {
-            tareaService.modifyEstadoTarea(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
+            tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
             throw e;
         } finally {
-            tareaService.modifyFechaFinTarea(runTarea.getTarea());
+            tareaService.updateFechaFin(runTarea.getTarea());
         }
     }
 

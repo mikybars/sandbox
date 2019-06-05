@@ -64,7 +64,6 @@ public class RunTareaConsolidarByAmbitoServiceImpl implements RunTareaConsolidar
             /*-------------------------------------------------------------*/
 
             tareaService.updateEstadoFinal(runTarea.getTarea());
-            
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
