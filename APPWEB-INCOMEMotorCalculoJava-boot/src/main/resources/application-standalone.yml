@@ -2,6 +2,8 @@ logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: INFO
+    com.atomikos: INFO
+    org.apache.activemq: INFO
 metadata:
   tenant: global
   domain: core
@@ -11,7 +13,7 @@ spring:
   jta:
     atomikos:
       properties:
-        enable-logging: false
+        enable-logging: true
 amiga:
   monitoring:
     metrics:
@@ -129,12 +131,10 @@ app:
       calcular:
         algoritmo:
           config:
-            #batch-size: 1000
-            batch-size: 10
+            batch-size: 25
     repository:
       batch-size:
         default: 100
-        tarea-tienda-venta: 200
     ptr:
       config:
         max-attempts: 2
