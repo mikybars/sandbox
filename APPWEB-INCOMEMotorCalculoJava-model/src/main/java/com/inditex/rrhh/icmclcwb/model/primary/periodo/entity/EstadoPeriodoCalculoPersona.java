@@ -31,7 +31,7 @@ public class EstadoPeriodoCalculoPersona {
     private String nombre;
     
     @NotNull
-    @Column(name = "PESO")
+    @Column(name = "PESO", nullable = false)
     private /* BigInteger */ Long peso;
     
 }
