@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
-public class TareaLocalizacionVentaSeccionRespositoryProcesarCustomImpl implements TareaLocalizacionVentaSeccionRespositoryProcesarCustom {
+public class TareaLocalizacionVentaRespositoryProcesarCustomImpl implements TareaLocalizacionVentaRespositoryProcesarCustom {
     
     @Value("#{primaryQuery['RunTareaProcesarService.procesarVentaSeccion']}" )
     private String sql;

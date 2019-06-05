@@ -55,7 +55,7 @@ WHERE ID_TAREA = :idTarea
 <entry key="RunTareaValidarService.countTiendaVentaSeccion">
     <![CDATA[
 SELECT COUNT(*) 
-FROM TAREA_LOCALIZACION_VENTA_SECCION 
+FROM TAREA_LOCALIZACION_VENTA
 WHERE ID_TAREA = :idTarea 
     ]]>
 </entry>

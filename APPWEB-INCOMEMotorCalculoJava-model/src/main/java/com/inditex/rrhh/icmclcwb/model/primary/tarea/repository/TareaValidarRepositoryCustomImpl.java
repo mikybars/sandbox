@@ -43,6 +43,7 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     @Value("#{primaryQuery['RunTareaValidarService.countTiendaEmpleadoPresenciaSeccion']}")
     private String sqlCountTiendaEmpleadoPresenciaSeccion;
 
+    //TODO REVISAR LA QUERY
     @Value("#{primaryQuery['RunTareaValidarService.countTiendaVentaSeccion']}")
     private String sqlCountTiendaVentaSeccion;
     

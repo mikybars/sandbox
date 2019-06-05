@@ -28,4 +28,7 @@ public interface TareaLocalizacionHistoricoService {
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
             @NotNull final String idOrigen);
 
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
+            @NotNull final String idOrigen);
+
 }

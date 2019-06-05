@@ -19,9 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaGeneralService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionSeccionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaSeccionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
@@ -56,10 +54,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
     private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
 
     @Autowired
-    private TareaLocalizacionVentaSeccionAsyncService tareaLocalizacionVentaSeccionAsyncService;
-    
-    @Autowired
-    private TareaLocalizacionSeccionVentaAsyncService tareaLocalizacionSeccionVentaAsyncService;
+    private TareaLocalizacionVentaAsyncService tareaLocalizacionSeccionVentaAsyncService;
     
     @Autowired
     private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
@@ -93,9 +88,9 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
 
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO)
                         .getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
-                        cfPersist);
+//                AsyncUtils.exceptionally(
+//                        tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
+//                        cfPersist);
                 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -115,7 +110,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
                     ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
@@ -129,11 +124,6 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
-                //TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin pivotar
-                AsyncUtils.exceptionally(
-                        tareaLocalizacionVentaSeccionAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                         ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(

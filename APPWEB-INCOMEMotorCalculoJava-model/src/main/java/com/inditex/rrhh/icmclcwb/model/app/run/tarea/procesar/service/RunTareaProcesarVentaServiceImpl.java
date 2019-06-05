@@ -15,14 +15,14 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionC
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaSeccionRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryProcesarCustom;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaSeccionRespositoryProcesarCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRespositoryProcesarCustom;
 
 @Service
 @Validated
 public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaService {
 
     @Autowired
-    private TareaLocalizacionVentaSeccionRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
+    private TareaLocalizacionVentaRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
 
     @Autowired
     private TareaLocalizacionVentaRepositoryProcesarCustom tareaTiendaVentaRepository;

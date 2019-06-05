@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
+
 import lombok.Data;
 
 @Entity
@@ -67,8 +68,8 @@ public class TareaCalculo {
 
     // TODO Cambiar por TAREA_LOCALIZACION_VENTA
     @OneToOne
-    @JoinColumn(name = "ID_TAREA_LOCALIZACION_SECCION_VENTA", nullable = true)
-    private /* BigInteger */ TareaLocalizacionSeccionVenta localizacionVenta;
+    @JoinColumn(name = "ID_TAREA_LOCALIZACION_VENTA", nullable = true)
+    private /* BigInteger */ TareaLocalizacionVenta localizacionVenta;
 
     @OneToOne
     @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_VENTA", nullable = true)

@@ -67,7 +67,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getconfprodventa(param2, param1);
+            return client.getIcmWsCalcIncomeService().getconfprodventa(param1, param2);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -138,7 +138,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public GetfestivosOutput getfestivos(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getfestivos(param1, param2);
+            return client.getIcmWsCalcIncomeService().getfestivos(param2, param1);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -153,7 +153,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getpresenciamanual(param2, param1);
+            return client.getIcmWsCalcIncomeService().getpresenciamanual(param1, param2);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);
@@ -182,7 +182,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public GetperiodosOutput getperiodos(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getperiodos(param1, param2);
+            return client.getIcmWsCalcIncomeService().getperiodos(param2, param1 );
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);

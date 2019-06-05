@@ -10,25 +10,31 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaInd
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
 public interface TareaLocalizacionVentaService {
+    
+    List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(@Valid final PtrVentaTotalizadoResponseDto dto,
+            @Valid final TareaDto tarea);
+    
+    List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(@Valid final PtrVentaOnlineIpodResponseDto dto,
+            @Valid final TareaDto tarea);
 
-    List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(@Valid final PtrVentaTotalizadoResponseDto dto, @Valid final TareaDto tarea);
+    List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodIndividualDetalleResponse(
+            @Valid final PtrVentaOnlineIpodIndividualDetalleResponseDto dto, @Valid final TareaDto tarea);
+
+    List<TareaLocalizacionVentaDto> savePtrVentaOnlinePickingResponse(
+            @Valid final PtrVentaOnlinePickingResponseDto dto, @Valid final TareaDto tarea);
+
+    List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
+            @Valid final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid final TareaDto tarea);
 
     List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(
             @Valid final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid final TareaDto tarea);
 
-    List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid final PtrVentaOnlineEntregaTiendaResponseDto dto,
-            @Valid final TareaDto tarea);
-
-    List<TareaLocalizacionVentaDto> savePtrVentaOnlinePickingResponse(@Valid final PtrVentaOnlinePickingResponseDto dto,
-            @Valid final TareaDto tarea);
-
-    List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(@Valid final PtrVentaOnlineIpodResponseDto dto, @Valid final TareaDto tarea);
-
-    List<TareaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponse(@Valid final PtrVentaIndividualDetalleResponseDto dto,
-            @Valid final TareaDto tarea);
+    List<TareaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponse(
+            @Valid final PtrVentaIndividualDetalleResponseDto dto, @Valid final TareaDto tarea);
 
 }
