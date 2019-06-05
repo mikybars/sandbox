@@ -89,8 +89,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public ProgramacionDto updateEjecucion(@Valid ProgramacionDto programacion) {
         programacion.setFechaUltimaEjecucion(LocalDateTime.now());
-        // TODO No marcamos la siguiente ejecucion para que siempre se ejecute
-        // programacion.setFechaSiguienteEjecucion(programacionService.fechaSiguienteEjecucion(programacion));
+        programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
         return modify(programacion);
     }
 
