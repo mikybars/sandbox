@@ -77,11 +77,13 @@ public class PtrVentaAcumuladoServiceTest {
         assertNotNull(response.getDatoVentaTienda());
     }
     
+    @Ignore("No existe en los servicios publicados en Openshift, está pendiente que miren si los agregan")
     @Test
     public void test() { 
         assertTrue(Boolean.valueOf(ptrAcumuladoVentaImporteService.test()));
     }
     
+    @Ignore("No existe en los servicios publicados en Openshift, está pendiente que miren si los agregan")
     @Test
     public void version() {
         assertEquals(version, ptrAcumuladoVentaImporteService.version());

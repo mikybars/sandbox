@@ -65,6 +65,7 @@ public class PtrPresenciaServiceTest {
         req.setOrigen(PtrTestConstants.PAIS);
         req.setPersona(PtrTestConstants.PERSONA_LIST);
         req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
+        req.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         req.setExcluidoCalculo(Boolean.FALSE);
         ResponseEntity<PtrPresenciaDetalleResponseDto> response = ptrPresenciaClient
                 .postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), req, PtrPresenciaDetalleResponseDto.class);
@@ -98,7 +99,7 @@ public class PtrPresenciaServiceTest {
         req.setOrigen(PtrTestConstants.PAIS);
         req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        req.setCadena(PtrTestConstants.CADENA);
+        req.setEmpresa(PtrTestConstants.ID_EMPRESA);
         req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
         req.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         ResponseEntity<PtrPresenciaTotalizadoResponseDto> ret = ptrPresenciaClient.postForEntity(
@@ -166,6 +167,7 @@ public class PtrPresenciaServiceTest {
         assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
     }
     
+    @Ignore("No existe en los servicios publicados en Openshift, está pendiente que miren si los agregan")
     @Test
     public void test() {
         ResponseEntity<Boolean> response = ptrPresenciaClient.getForEntity(
@@ -174,13 +176,13 @@ public class PtrPresenciaServiceTest {
         assertEquals(Boolean.TRUE, response.getBody());
     }
     
+    @Ignore("No existe en los servicios publicados en Openshift, está pendiente que miren si los agregan")
     @Test
     public void version() {
         ResponseEntity<String> response = ptrPresenciaClient.getForEntity(
                 presenciasProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
         assertEquals(version, response.getBody());
-        
     }
 
 }

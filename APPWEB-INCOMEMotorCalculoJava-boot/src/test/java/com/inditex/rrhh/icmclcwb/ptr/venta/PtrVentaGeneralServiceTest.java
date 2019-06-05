@@ -152,7 +152,7 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
     
-    @Ignore
+    @Ignore("No existe en los servicios publicados en Openshift, está pendiente que miren si los agregan")
     @Test
     public void test() { 
         ResponseEntity<Boolean> response = ptrVentaClient.getForEntity(
@@ -161,7 +161,7 @@ public class PtrVentaGeneralServiceTest  {
         assertEquals(Boolean.TRUE, response.getBody());
     }
     
-    @Ignore
+    @Ignore("No existe en los servicios publicados en Openshift, está pendiente que miren si los agregan")
     @Test
     public void version() {
         ResponseEntity<String> response = ptrVentaClient.getForEntity(
