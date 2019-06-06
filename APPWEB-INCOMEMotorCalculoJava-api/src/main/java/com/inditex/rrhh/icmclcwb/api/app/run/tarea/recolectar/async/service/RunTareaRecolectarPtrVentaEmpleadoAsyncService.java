@@ -9,8 +9,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 @Async
 public interface RunTareaRecolectarPtrVentaEmpleadoAsyncService {
 
-    CompletableFuture<Void> ventaFisicaDetalleLocalizacionByRunTarea(final RunTareaDto runTarea);
-
     CompletableFuture<Void> ventaFisicaDetalleOperacionLocalizacionByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(final RunTareaDto runTarea);

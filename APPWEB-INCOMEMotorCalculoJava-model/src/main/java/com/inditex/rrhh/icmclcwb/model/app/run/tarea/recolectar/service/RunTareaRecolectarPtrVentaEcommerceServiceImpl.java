@@ -19,12 +19,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     private RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
 
     @Override
-    public void ventaOnlineIpodDetalleLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlineIpodDetalleLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
     public void ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
                 .ventaOnlineIpodDetalleOperacionLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
@@ -43,21 +37,9 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     }
 
     @Override
-    public void ventaOnlineIpodLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlineIpodLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
     public void ventaOnlinePickingLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
                 .ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
-    public void ventaOnlinePickingLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlinePickingLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
@@ -67,22 +49,15 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     }
     
     @Override
-    public void ventaOnlineEntregaTiendaLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlineEntregaTiendaLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
     public void ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
                 .ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
     
     @Override
-    public void ventaOnlineEntregaDomicilioLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+    public void ventaOnlineIpodDetalleLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlineEntregaDomicilioLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
+                .ventaOnlineIpodDetalleLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
-
   
 }

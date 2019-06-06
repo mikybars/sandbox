@@ -35,7 +35,6 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         pstmt.setDouble(7, entity.getTipoDato().getId());
         pstmt.setObject(8, entity.getActivo());
         pstmt.setLong(9, entity.getTarea().getId());
-
     }
 
 }

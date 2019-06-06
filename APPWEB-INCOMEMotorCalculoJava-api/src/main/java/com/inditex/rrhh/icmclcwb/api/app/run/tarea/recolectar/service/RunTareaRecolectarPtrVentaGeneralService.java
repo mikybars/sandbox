@@ -9,6 +9,4 @@ public interface RunTareaRecolectarPtrVentaGeneralService {
 
     void ventaFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void ventaFisicaLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
 }

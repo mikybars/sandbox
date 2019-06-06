@@ -17,7 +17,4 @@ public interface RunTareaAmbitoRecolectarPtrVentaEmpleadoService {
     void ventaFisicaDetalleOperacionVendedorLocalizacionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
-    void ventaFisicaDetalleLocalizacionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-            @NotNull @Valid TareaAmbitoDto tareaAmbito);
-
 }

@@ -24,10 +24,4 @@ public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Override
-    public CompletableFuture<Void> ventaFisicaLocalizacionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaService.ventaFisicaLocalizacionByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
 }

@@ -24,10 +24,4 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 .ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
     
-    @Override
-    public void ventaFisicaLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
-                .ventaFisicaLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
 }

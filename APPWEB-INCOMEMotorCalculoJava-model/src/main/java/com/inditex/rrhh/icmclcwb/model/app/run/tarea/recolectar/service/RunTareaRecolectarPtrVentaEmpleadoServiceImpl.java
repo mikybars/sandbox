@@ -17,13 +17,7 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
 
     @Autowired
     private RunTareaAmbitoRecolectarPtrVentaEmpleadoService runTareaAmbitoRecolectarPtrVentaEmpleadoService;
-    
-    @Override
-    public void ventaFisicaDetalleLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEmpleadoService
-                .ventaFisicaDetalleLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-    
+       
     @Override
     public void ventaFisicaDetalleOperacionLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEmpleadoService

@@ -20,18 +20,10 @@ public class RunTareaRecolectarPtrVentaEmpleadoAsyncServiceImpl
 
     
     @Override
-    public CompletableFuture<Void> ventaFisicaDetalleLocalizacionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleLocalizacionByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    
-    @Override
     public CompletableFuture<Void> ventaFisicaDetalleOperacionLocalizacionByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEmpleadoService.ventaFisicaDetalleOperacionLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
     
     @Override
     public CompletableFuture<Void> ventaFisicaDetalleOperacionVendedorLocalizacionByRunTarea(final RunTareaDto runTarea) {

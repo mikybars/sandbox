@@ -50,15 +50,13 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 @Validated
 public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements RunTareaAmbitoRecolectarPtrVentaEcommerceService{
 
+    
     @Autowired
     private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
     @Autowired
-    private TareaLocalizacionVentaAsyncService tareaLocalizacionSeccionVentaAsyncService;
-
-    @Autowired
     private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
-
+    
     @Autowired
     private TareaLocalizacionPersonaVentaAsyncService tareaLocalizacionPersonaVentaAsyncService;
 
@@ -108,48 +106,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
 
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
                         .getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaLocalizacionSeccionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
-                        cfPersist);
-            }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-    }
-    
-    @Override
-    public void ventaOnlineEntregaDomicilioLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
-            final TareaDto tarea = runTarea.getTarea();
-            // TODO Recuperar tiendas online
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    Arrays.asList("4037", "9724").stream().map(e -> new IdLocalizacionLocalDto(e))
-                            .collect(Collectors.toList()),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getFilter()
-                            .getMaxPageSize())) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-                PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineEntregaDomicilioRequestDto(trabajo,
-                                tarea, tareaAmbito, recolectarProperties);
-                paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                paramVentaOnlineEntregaDomicilio.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
-                paramVentaOnlineEntregaDomicilio.setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId)
-                        .map(Integer::valueOf).collect(Collectors.toList()));
-                paramVentaOnlineEntregaDomicilio.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
-                CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
-                        .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
-
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
-                        .getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        tareaLocalizacionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
+                AsyncUtils.exceptionally(tareaLocalizacionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -190,49 +147,6 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
 
                 PtrVentaOnlineEntregaTiendaResponseDto data = AsyncUtils.get(cfData);
 
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
-                        .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        tareaLocalizacionSeccionVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data, tarea), cf,
-                        cfPersist);
-            }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-    }
-
-    @Override
-    public void ventaOnlineEntregaTiendaLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
-            final TareaDto tarea = runTarea.getTarea();
-            // TODO Recuperar tiendas online
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    Arrays.asList("4037", "9724").stream().map(e -> new IdLocalizacionLocalDto(e))
-                            .collect(Collectors.toList()),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter()
-                            .getMaxPageSize())) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
-                PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTienda = tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineEntregaTiendaRequestDto(trabajo,
-                                tarea, tareaAmbito, recolectarProperties);
-                paramVentaOnlineEntregaTienda.setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId)
-                        .map(Integer::valueOf).collect(Collectors.toList()));
-                paramVentaOnlineEntregaTienda.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                paramVentaOnlineEntregaTienda.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
-
-                CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = ptrVentaEcommerceAsyncService
-                        .ventaOnlineEntregaTienda(paramVentaOnlineEntregaTienda);
-
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                PtrVentaOnlineEntregaTiendaResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
@@ -278,89 +192,11 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaLocalizacionSeccionVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea), cf,
+                        tareaLocalizacionVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-    }
-
-    @Override
-    public void ventaOnlinePickingLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
-            final TareaDto tarea = runTarea.getTarea();
-            // TODO Recuperar tiendas online
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    Arrays.asList("4037", "9724").stream().map(e -> new IdLocalizacionLocalDto(e))
-                            .collect(Collectors.toList()),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPageSize())) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-                PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlinePickingRequestDto(trabajo, tarea,
-                                tareaAmbito, recolectarProperties);
-                paramVentaOnlinePicking
-                        .setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
-                paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                paramVentaOnlinePicking.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
-
-                CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = ptrVentaEcommerceAsyncService
-                        .ventaOnlinePicking(paramVentaOnlinePicking);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                PtrVentaOnlinePickingResponseDto data = AsyncUtils.get(cfData);
-
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
-                        .get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaLocalizacionVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea),
-                        cf, cfPersist);
-            }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-    }
-
-    @Override
-    public void ventaOnlineIpodLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
-            final TareaDto tarea = runTarea.getTarea();
-            // TODO Recuperar tiendas online
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    Arrays.asList("4037", "9724").stream().map(e -> new IdLocalizacionLocalDto(e))
-                            .collect(Collectors.toList()),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getFilter().getMaxPageSize())) {
-                PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea,
-                                tareaAmbito, recolectarProperties);
-                paramVentaOnlineIpod.setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId)
-                        .map(Integer::valueOf).collect(Collectors.toList()));
-                paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                paramVentaOnlineIpod.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
-
-                CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = ptrVentaEcommerceAsyncService
-                        .ventaOnlineiPod(paramVentaOnlineIpod);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                PtrVentaOnlineIpodResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD)
-                        .getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaLocalizacionVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf,
-                        cfPersist);
-            }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
@@ -398,7 +234,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD)
                         .getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaLocalizacionSeccionVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf, cfPersist);
+                        tareaLocalizacionVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
@@ -448,7 +284,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
     }
 
     @Override
-    public void ventaOnlineIpodDetalleLocalizacionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+    public void ventaOnlineIpodDetalleLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -479,7 +315,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
 
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                         .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaLocalizacionSeccionVentaAsyncService
+                AsyncUtils.exceptionally(tareaLocalizacionVentaAsyncService
                         .savePtrVentaOnlineIpodIndividualDetalleResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -535,5 +371,6 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
             throw e;
         }
     }
+
 
 }

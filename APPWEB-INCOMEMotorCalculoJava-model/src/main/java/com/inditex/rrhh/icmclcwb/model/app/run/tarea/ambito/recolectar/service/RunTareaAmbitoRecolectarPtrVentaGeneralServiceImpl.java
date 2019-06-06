@@ -54,52 +54,11 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
     private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
 
     @Autowired
-    private TareaLocalizacionVentaAsyncService tareaLocalizacionSeccionVentaAsyncService;
-    
-    @Autowired
     private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
     @Autowired
     private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
-    
-    @Override
-    public void ventaFisicaLocalizacionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
-            final TareaDto tarea = runTarea.getTarea();
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
-                    ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
-                PtrVentaTotalizadoRequestDto request = tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
-                                tareaAmbito, recolectarProperties);
-                request.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
-                request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
-                request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-                request.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
-                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
-                        .ventaTotalizado(request);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO)
-                        .getFilter().getMaxPersistenceSize());
-//                AsyncUtils.exceptionally(
-//                        tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf,
-//                        cfPersist);
-                
-            }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-    }
-    
+      
     @Auditoria
     @Override
     public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
@@ -127,7 +86,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                         ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                        tareaLocalizacionSeccionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
+                        tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
