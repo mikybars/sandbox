@@ -63,7 +63,7 @@ public class PtrVentaGeneralServiceTest  {
         request.setFechaHasta("2016-12-31");
         request.setPais(70);
         request.setPais(PtrTestConstants.PAIS);
-        request.setCadena(PtrTestConstants.CADENA);
+        request.setCadena(PtrTestConstants.CADENA_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION_TEMPORADA_PRODUCTO);
         ResponseEntity<PtrVentaTotalizadoResponseDto> response = ptrVentaClient
                 .postForEntity(ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(), request, PtrVentaTotalizadoResponseDto.class);
@@ -80,7 +80,7 @@ public class PtrVentaGeneralServiceTest  {
       request.setFechaHasta("2016-12-31");
       request.setPais(70);
 //        request.setPais(PtrTestConstants.PAIS);
-        request.setCadena(PtrTestConstants.CADENA);
+        request.setCadena(PtrTestConstants.CADENA_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
         ResponseEntity<PtrVentaTotalizadoResponseDto> response = ptrVentaClient
                 .postForEntity(ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(), request, PtrVentaTotalizadoResponseDto.class);
