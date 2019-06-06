@@ -77,7 +77,7 @@ amiga:
         broker-lectura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
           #brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
-          concurrency: 1
+          concurrency: 5
           userName: root
           password: V3ct0r1nd1t3x
       listener-container-factory:
