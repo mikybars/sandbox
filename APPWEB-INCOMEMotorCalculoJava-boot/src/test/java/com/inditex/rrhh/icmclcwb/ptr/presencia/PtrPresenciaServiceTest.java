@@ -99,6 +99,7 @@ public class PtrPresenciaServiceTest {
         req.setOrigen(PtrTestConstants.PAIS);
         req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+        req.setCadena(PtrTestConstants.CADENA_LIST);
         req.setEmpresa(PtrTestConstants.ID_EMPRESA);
         req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
         req.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);

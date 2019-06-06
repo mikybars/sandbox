@@ -134,7 +134,9 @@ public class PtrVentaEcommerceServiceTest {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA); 
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST2);
         request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE);
+        request.setCadena(PtrTestConstants.CADENA_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
+        request.setPais(PtrTestConstants.PAIS);
         ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = ptrVentaClient
                 .postForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(), request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
 

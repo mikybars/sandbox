@@ -32,25 +32,25 @@ amiga:
         defaultConnectTimeout: 300000
         defaultReadTimeout: 300000
         ptr-venta:
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
+          #base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
           #base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDAVTIMPADWSD/service
           #base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
-          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
-          #auth-method: BASIC
+          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+          auth-method: BASIC
           #username: srvcicmclcwbdes
           #password: q2ZB)XKFWdeA
-          #username: srvcicmclcwbpreAX
-          #password: xynEJHKK4bu)
+          username: srvcicmclcwbpreAX
+          password: xynEJHKK4bu)
         ptr-presencia:
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
+          #base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
           #base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDARHPRSCAWSD/service
           #base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
-          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
-          #auth-method: BASIC
+          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+          auth-method: BASIC
           #username: srvcicmclcwbdes
           #password: q2ZB)XKFWdeA
-          #username: srvcicmclcwbpreAX
-          #password: xynEJHKK4bu)
+          username: srvcicmclcwbpreAX
+          password: xynEJHKK4bu)
   service:
     jms:
       trabajo-queue:

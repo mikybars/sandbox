@@ -28,7 +28,7 @@ public class PtrVentaOnlineEntregaDomicilioRequestDto implements Serializable {
     private Integer pais;
 
     @ApiModelProperty(value = "Id cadena", required = false, example = "1")
-    private Integer cadena;
+    private List<Integer> cadena;
     
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
     private Integer empresa;
