@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Service
@@ -21,12 +24,22 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     private TareaLocalizacionPresenciaMapper mapper;
 
     @Autowired
-    private TareaLocalizacionPresenciaRepositoryCustom tareaLocalizacionPresenciaRepository;
+    private TareaLocalizacionPresenciaRepositoryCustom tareaLocalizacionPresenciaRepositoryCustom;
 
     @Override
     public List<TareaLocalizacionPresenciaDto> save(@Valid List<PtrPresenciaTotalizadoResultItemDto> dto, @Valid TareaDto tarea) {
         return mapper.tareaLocalizacionPresenciaToTareaLocalizacionPresenciaDto(
-            tareaLocalizacionPresenciaRepository.save(
+            tareaLocalizacionPresenciaRepositoryCustom.save(
                 mapper.presenciasTotalizadoResponseDtoToTareaLocalizacionPresencia(dto, tarea)));
+    }
+    
+    @Override
+    public void updateActivo(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.updateActivo(runTareaDto);
+    }
+    
+    @Override
+    public void compensar(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.compensar(runTareaDto);
     }
 }

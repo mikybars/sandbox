@@ -16,24 +16,24 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
     @Autowired
     private RunTareaProcesarPresenciaService runTareaProcesarPresenciaService;
     
-//    @Override
-//    public CompletableFuture<Void> compensarLocalizacion(RunTareaDto runTarea) {
-//        runTareaProcesarPresenciaService.compensarLocalizacion(runTarea);
-//        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-//    }
+    @Override
+    public CompletableFuture<Void> compensarLocalizacion(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.compensarLocalizacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
     
     @Override
-    public CompletableFuture<Void> updateActivoLocalizacionPersonaSeccionPresencia(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaSeccionPresencia(runTarea);
+    public CompletableFuture<Void> updateActivoLocalizacionPersonaPresencia(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresencia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     
-//    @Override
-//    public CompletableFuture<Void> updateActivoTotalizadoLocalizacion(RunTareaDto runTarea) {
-//        runTareaProcesarPresenciaService.updateActivoTotalizadoLocalizacion(runTarea);
-//        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-//    }
+    @Override
+    public CompletableFuture<Void> updateActivoTotalizadoLocalizacion(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.updateActivoTotalizadoLocalizacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
     
 
 }

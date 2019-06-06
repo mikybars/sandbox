@@ -17,27 +17,27 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenci
 public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPresenciaService {
     
     @Autowired
-    private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaSeccionPresenciaService;
+    private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
     
     @Autowired
     private TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
     
-//    @Auditoria
-//    @Override
-//    public void compensarLocalizacion(@Valid RunTareaDto runTarea) {
-//        tareaLocalizacionPresenciaService.compensar(runTarea);
-//    }
+    @Auditoria
+    @Override
+    public void compensarLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.compensar(runTarea);
+    }
         
-//    @Auditoria
-//    @Override
-//    public void updateActivoTotalizadoLocalizacion(@Valid RunTareaDto runTarea) {
-//        tareaLocalizacionPresenciaService.updateActivo(runTarea);
-//    }
+    @Auditoria
+    @Override
+    public void updateActivoTotalizadoLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.updateActivo(runTarea);
+    }
    
     @Auditoria
     @Override
-    public void updateActivoLocalizacionPersonaSeccionPresencia(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaSeccionPresenciaService.updateActivo(runTarea);
+    public void updateActivoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.updateActivo(runTarea);
     }
     
 }

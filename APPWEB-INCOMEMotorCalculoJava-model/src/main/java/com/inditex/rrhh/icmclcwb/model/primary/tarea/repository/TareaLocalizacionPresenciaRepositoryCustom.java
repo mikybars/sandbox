@@ -1,10 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     List<TareaLocalizacionPresencia> save(List<TareaLocalizacionPresencia> src);
+
+    void updateActivo(@NotNull RunTareaDto runTareaDto);
+
+    void compensar(@NotNull RunTareaDto runTareaDto);
 }
