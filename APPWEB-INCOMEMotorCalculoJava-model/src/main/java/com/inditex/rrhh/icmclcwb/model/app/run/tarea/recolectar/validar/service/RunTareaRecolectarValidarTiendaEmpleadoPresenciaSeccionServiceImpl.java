@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaValidarAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresenciaSeccion;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
 
 @Service
 @Validated
@@ -41,7 +41,7 @@ public class RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionServiceImpl
                     .countTiendaEmpleadoPresenciaSeccion(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountTiendaEmpleadoPresenciaSeccion, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            result.add(RunTareaValidarDto.builder().type(TareaLocalizacionPersonaPresenciaSeccion.class.getSimpleName())
+            result.add(RunTareaValidarDto.builder().type(TareaLocalizacionPersonaPresencia.class.getSimpleName())
                     .count(AsyncUtils.get(cfCountTiendaEmpleadoPresenciaSeccion)).build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

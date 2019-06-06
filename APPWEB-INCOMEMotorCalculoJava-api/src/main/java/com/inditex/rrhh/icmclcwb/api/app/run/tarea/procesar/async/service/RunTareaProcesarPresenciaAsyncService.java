@@ -6,16 +6,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaProcesarPresenciaAsyncService {
 
-    CompletableFuture<Void> compensarLocalizacionSeccion(RunTareaDto runTarea);
-
     CompletableFuture<Void> updateActivoLocalizacionPersonaSeccionPresencia(RunTareaDto runTarea);
 
-    CompletableFuture<Void> updateActivoTotalizadoLocalizacion(RunTareaDto runTarea);
+//    CompletableFuture<Void> updateActivoTotalizadoLocalizacion(RunTareaDto runTarea);
 
-    CompletableFuture<Void> updateActivoTotalizadoLocalizacionSeccion(RunTareaDto runTarea);
-
-    CompletableFuture<Void> compensarLocalizacion(RunTareaDto runTarea);
-
-    CompletableFuture<Void> updateActivoLocalizacionPersonaPresenciaSeccion(RunTareaDto runTarea);
+//    CompletableFuture<Void> compensarLocalizacion(RunTareaDto runTarea);
 
 }

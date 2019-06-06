@@ -2,9 +2,9 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<entry key="TareaLocalizacionSeccionPresenciaRepositoryCustom.save">
+<entry key="TareaLocalizacionPresenciaRepositoryCustom.save">
     <![CDATA[
-    INSERT INTO TAREA_LOCALIZACION_SECCION_PRESENCIA (FECHA, ID_LOCALIZACION, ID_SECCION, MINUTOS, ID_TIPO_DATO, ACTIVO, ID_TAREA)
+    INSERT INTO TAREA_LOCALIZACION_PRESENCIA (FECHA, ID_LOCALIZACION, ID_SECCION, MINUTOS, ID_TIPO_DATO, ACTIVO, ID_TAREA)
     VALUES (?, ?, ?, ?, ?, ?, ?)
 ]]>
 </entry>
@@ -16,9 +16,9 @@
     ]]>
 </entry>
 
-<entry key="TareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.save">
+<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.save">
     <![CDATA[
-        INSERT INTO TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_EMPRESA, ID_SECCION, FECHA, MINUTOS, ID_TIPO_HORA, ACTIVO, ID_TIPO_DATO, ID_TAREA)  
+        INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_EMPRESA, ID_SECCION, FECHA, MINUTOS, ID_TIPO_HORA, ACTIVO, ID_TIPO_DATO, ID_TAREA)  
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
     ]]>
 </entry>
@@ -27,13 +27,6 @@
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_EMPRESA, FECHA, MINUTOS_SECCION_1, MINUTOS_SECCION_2, MINUTOS_SECCION_3, ID_TIPO_HORA, ACTIVO, ID_TIPO_DATO, ID_TAREA)  
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
-    ]]>
-</entry>
-
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.save">
-    <![CDATA[
-        INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (ID_ORIGEN, ID_PERSONA, ID_LOCALIZACION, ID_EMPRESA, FECHA, MINUTOS, ID_TIPO_DATO, ACTIVO, ID_TIPO_HORA, ID_TAREA)  
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
     ]]>
 </entry>
 
@@ -86,30 +79,6 @@
     WHERE TCP.ID_TAREA = :idTarea
     AND TCP.ID_ORIGEN = :idOrigen
     GROUP BY TPH.CCL_ID_COD_ORIGEN, TPH.ID_TAREA
-    ]]>
-</entry>
-
-<entry key="TareaLocalizacionPresenciaSeccionRepositoryCustom.updateActivo">
-    <![CDATA[
-        MERGE INTO TAREA_LOCALIZACION_PRESENCIA_SECCION P USING 
-        (  SELECT TLPSP.ID_LOCALIZACION,
-         TLPSP.ID_TAREA,
-         TLPSP.FECHA
-              FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION TLPSP 
-             INNER JOIN TAREA_LOCALIZACION_PRESENCIA_SECCION TTPS
-            ON (TTPS.ID_LOCALIZACION = TLPSP.ID_LOCALIZACION
-            AND TTPS.ID_TAREA = TLPSP.ID_TAREA
-            AND TTPS.FECHA = TLPSP.FECHA)
-            WHERE TLPSP.ACTIVO = 0
-            AND TLPSP.ID_TIPO_DATO = 38
-            AND TLPSP.ID_TAREA = :idTarea
-            GROUP BY TLPSP.ID_LOCALIZACION, TLPSP.ID_TAREA, TLPSP.FECHA) 
-            AS S ON (
-            P.ID_TAREA = S.ID_TAREA 
-            AND P.ID_LOCALIZACION = S.ID_LOCALIZACION
-            AND P.FECHA = S.FECHA)
-         WHEN MATCHED THEN
-         UPDATE SET ACTIVO = 0
     ]]>
 </entry>
 
@@ -193,47 +162,25 @@
 </entry>
 
 
-<entry key="TareaLocalizacionPersonaSeccionPresenciaRepositoryCustom.updateActivo">
+<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo">
     <![CDATA[
-   MERGE INTO TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA AS T USING (
-        select t2.ID_TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA
-        from TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA t1
-        inner join TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA t2
-        ON (t1.ID_LOCALIZACION = t2.ID_LOCALIZACION
-        AND t1.ID_TAREA = t2.ID_TAREA
-        AND t1.ID_PERSONA = t2.ID_PERSONA
-        AND t1.FECHA = t2.FECHA) 
-        where t1.id_tipo_dato = 38
-        and t1.id_tipo_dato = 1
-        and t2.id_tipo_dato = 37
-        and t2.id_tipo_dato = 1
-        and t1.id_tarea = :idTarea 
-        GROUP BY t2.ID_TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA
+   MERGE INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA AS T USING (
+        SELECT T2.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA
+        FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA T1
+        INNER JOIN TAREA_LOCALIZACION_PERSONA_PRESENCIA T2
+        ON (T1.ID_LOCALIZACION = T2.ID_LOCALIZACION
+        AND T1.ID_TAREA = T2.ID_TAREA
+        AND T1.ID_PERSONA = T2.ID_PERSONA
+        AND T1.ID_SECCION = T2.ID_SECCION
+        AND T1.FECHA = T2.FECHA) 
+        WHERE T1.ID_TIPO_DATO = 38
+        AND T1.ACTIVO = 1
+        AND T2.ID_TIPO_DATO = 37
+        AND T2.ACTIVO = 1
+        AND T1.ID_TAREA = :idTarea 
+        GROUP BY T2.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA
     )
-     AS S ON (S.ID_TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA = T.ID_TAREA_LOCALIZACION_PERSONA_SECCION_PRESENCIA)
-     WHEN MATCHED THEN
-     UPDATE SET T.ACTIVO = 0
-    ]]>
-</entry>
-
-<entry key="TareaLocalizacionPersonaPresenciaSeccionRepositoryCustom.updateActivo">
-    <![CDATA[
-        MERGE INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION AS T USING (
-        select t2.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION
-        from TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION t1
-        inner join TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION t2
-        ON (t1.ID_LOCALIZACION = t2.ID_LOCALIZACION
-        AND t1.ID_TAREA = t2.ID_TAREA
-        AND t1.ID_PERSONA = t2.ID_PERSONA
-        AND t1.FECHA = t2.FECHA) 
-        where t1.id_tipo_dato = 38
-        and t1.id_tipo_dato = 1
-        and t2.id_tipo_dato = 37
-        and t2.id_tipo_dato = 1
-        and t1.id_tarea = :idTarea 
-        GROUP BY t2.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION
-    )
-     AS S ON (S.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION = T.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA_SECCION)
+     AS S ON (S.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA = T.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA)
      WHEN MATCHED THEN
      UPDATE SET T.ACTIVO = 0
     ]]>
@@ -353,13 +300,6 @@
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_PRESENCIA_SECCION (FECHA, ID_LOCALIZACION, MINUTOS_SECCION_1, MINUTOS_SECCION_2, MINUTOS_SECCION_3, ID_TIPO_DATO, ACTIVO, ID_TAREA)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ]]>
-</entry>
-
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.save">
-    <![CDATA[
-        INSERT INTO TAREA_LOCALIZACION_PRESENCIA (FECHA, ID_LOCALIZACION, MINUTOS, ID_TIPO_DATO, ACTIVO, ID_TAREA)
-VALUES (?, ?, ?, ?, ?, ?)
     ]]>
 </entry>
 

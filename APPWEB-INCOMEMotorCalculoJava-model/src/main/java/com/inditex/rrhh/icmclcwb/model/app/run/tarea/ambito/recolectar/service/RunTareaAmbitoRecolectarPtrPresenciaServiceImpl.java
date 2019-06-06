@@ -23,11 +23,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.Run
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaSeccionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionSeccionPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -62,10 +59,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
     private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
     @Autowired
-    private TareaLocalizacionPresenciaSeccionAsyncService tareaLocalizacionPresenciaSeccionAsyncService;
-
-    @Autowired
-    private TareaLocalizacionSeccionPresenciaAsyncService tareaLocalizacionSeccionPresenciaAsyncService;
+    private TareaLocalizacionPresenciaAsyncService tareaLocalizacionSeccionPresenciaAsyncService;
 
     @Autowired
     private TareaLocalizacionPresenciaAsyncService tareaLocalizacionPresenciaAsyncService;
@@ -77,16 +71,10 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
     private TareaLocalizacionHistoricoService tareaTiendaHistoricoService;
 
     @Autowired
-    private TareaLocalizacionPersonaPresenciaSeccionAsyncService tareaLocalizacionPersonaPresenciaSeccionAsyncService;
-
-    @Autowired
-    private TareaLocalizacionPersonaSeccionPresenciaAsyncService tareaLocalizacionPersonaSeccionPresenciaAsyncService;
+    private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaSeccionPresenciaAsyncService;
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
-
-    @Autowired
-    private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -152,14 +140,9 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
 
                 PtrPresenciaTotalizadoResponseDto data = AsyncUtils.get(cfData);
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalizado())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                            .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
-                    AsyncUtils.exceptionally(
-                            tareaLocalizacionPresenciaSeccionAsyncService.save(data.getPresenciasTotalizado(), tarea),
-                            cf, cfPersist);
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                            .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
 
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
+                            .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                     AsyncUtils.exceptionally(
                             tareaLocalizacionSeccionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea),
                             cf, cfPersist);
@@ -245,12 +228,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasDetalle())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
                             .get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPersistenceSize());
-                    // TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin
-                    // pivotar
-                    AsyncUtils.exceptionally(tareaLocalizacionPersonaPresenciaSeccionAsyncService
-                            .save(data.getPresenciasDetalle(), tarea), cf, cfPersist);
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                            .get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPersistenceSize());
                     AsyncUtils.exceptionally(tareaLocalizacionPersonaSeccionPresenciaAsyncService
                             .savePtrPresenciaDetalle(data.getPresenciasDetalle(), tarea), cf, cfPersist);
                 }
@@ -264,6 +241,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
 
     }
 
+    //TODO: Quitar y actualizar presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito
     @Override
     public void presenciaDetalleComisionableLocalizacionPersonaByRunTareaAndTareaAmbito(
             @NotNull @Valid final RunTareaDto runTarea, @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
@@ -292,13 +270,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
 
                 PtrPresenciaDetalleResponseDto data = AsyncUtils.get(cfData);
                 if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasDetalle())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                            .get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPersistenceSize());
-                    // TODO Las dos siguientes líneas son respectivamente el guardado pivotado y sin
-                    // pivotar
-                    AsyncUtils.exceptionally(
-                            tareaLocalizacionPersonaPresenciaAsyncService.save(data.getPresenciasDetalle(), tarea), cf,
-                            cfPersist);
+
                 }
             }
 

@@ -1,31 +1,27 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 
 @Data
 public class TareaLocalizacionPersonaPresenciaDto implements Serializable {
+    
+    private static final long serialVersionUID = -5245069232542882963L;
 
-    private static final long serialVersionUID = 273156224645142146L;
+    @ApiModelProperty(value = "Identificador de la tabla de presencia por seccion", required = false)
+    private String id;
 
-    @ApiModelProperty(value = "Identificador de la entidad", required = false, accessMode = AccessMode.READ_ONLY)
-    private Long id;
+    @NotNull
+    @ApiModelProperty(value = "Identificador del tarea", required = true)
+    private Long idTarea;
     
     @NotNull
-    @ApiModelProperty(value = "Tarea", required = true)
-    private TareaDto tarea;
-    
-    @ApiModelProperty(value = "Fecha en la que se consultó la presencia", required = true, accessMode = AccessMode.READ_ONLY)
-    private LocalDate fecha;
-    
-    @NotNull
-    @ApiModelProperty(value = "Identificador de la localizacion", required = true)
+    @ApiModelProperty(value = "Identificador de la tienda", required = true)
     private Long idLocalizacion;
     
     @NotNull
@@ -45,7 +41,14 @@ public class TareaLocalizacionPersonaPresenciaDto implements Serializable {
     private Long idEmpresa;
     
     @NotNull
-    @ApiModelProperty(value = "Tiempo seccion", required = false, accessMode = AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Identificador de la seccion", required = true)
+    private Long idSeccion;
+    
+    @NotNull
+    private Date fecha;
+    
+    @NotNull
+    @ApiModelProperty(value = "Minutos", required = true)
     private Long minutos;
     
     @ApiModelProperty(value = "Identificador del tipo de hora", required = true)
