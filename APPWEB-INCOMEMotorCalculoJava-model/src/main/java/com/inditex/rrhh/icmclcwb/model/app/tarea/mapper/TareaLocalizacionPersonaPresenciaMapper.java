@@ -85,9 +85,9 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @AfterMapping
     void afterMapping(@MappingTarget TareaLocalizacionPersonaPresencia tareaLocalizacionPersonaPresencia,
             PtrPresenciaDetalleResultItemDto src) {
-        tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
         tareaLocalizacionPersonaPresencia.setTipoDato(new TipoDato());
         tareaLocalizacionPersonaPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
+        tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
     }   
     
 }

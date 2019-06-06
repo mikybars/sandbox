@@ -1,11 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
 import com.google.common.util.concurrent.AtomicDouble;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresenciaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +38,16 @@ public abstract class TareaLocalizacionPresenciaDecorator extends TareaLocalizac
                 TareaLocalizacionPresencia presencia = delegate.presenciasTotalizadoResponseDtoToTareaLocalizacionPresencia(presenciaTotalizado, tareaDto);
                 presencia.setIdSeccion(x.getSeccion().toString());
                 presencia.setMinutos(x.getMinutos());
+                presencia.setTipoDato(new TipoDato());
+                presencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId());
                 result.add(presencia);
                 minutos.getAndAdd(x.getMinutos());
             });
             TareaLocalizacionPresencia presencia = delegate.presenciasTotalizadoResponseDtoToTareaLocalizacionPresencia(presenciaTotalizado, tareaDto);
             presencia.setIdSeccion(AppConstants.SECCION_4.toString());
             presencia.setMinutos(minutos.longValue());
+            presencia.setTipoDato(new TipoDato());
+            presencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES.getId());
             result.add(presencia);
 
         }
