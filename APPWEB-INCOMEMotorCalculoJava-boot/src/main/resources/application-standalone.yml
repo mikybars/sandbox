@@ -71,24 +71,20 @@ amiga:
         broker-escritura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
           #brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
-          concurrency: 20
+          concurrency: 1
           userName: root
           password: V3ct0r1nd1t3x
         broker-lectura:
           brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
           #brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
-          concurrency: 50
+          concurrency: 1
           userName: root
           password: V3ct0r1nd1t3x
       listener-container-factory:
         trabajo:
-          concurrency: 20
-          sessionTransacted: false
-          globalTransacted: false
+          concurrency: 1
         tarea:
-          concurrency: 20
-          sessionTransacted: false
-          globalTransacted: false
+          concurrency: 5
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}

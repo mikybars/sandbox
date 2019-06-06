@@ -56,17 +56,13 @@ amiga:
           userName: usr-write
         broker-lectura:
           brokerURL: tcp://middleware-amq-tcp:61616
-          concurrency: 50
+          concurrency: 1
           userName: usr-read
       listener-container-factory:
         trabajo:
           concurrency: 1
-          sessionTransacted: false
-          globalTransacted: false
         tarea:
           concurrency: 5
-          sessionTransacted: false
-          globalTransacted: false
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
