@@ -26,7 +26,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaServiceImpl implements TareaAmb
     @Override
     public void save(@NotNull final PtrPresenciaEmpleadosTiendaResponseDto src, @NotNull final TareaDto tareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.save(
-                tareaAmbitoGlobalLocalizacionPersonaMapper.presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersona(src.getPresenciasEmpleadosTienda(), tareaDto));
+                tareaAmbitoGlobalLocalizacionPersonaMapper.presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersona(src.getPresenciasTiendasEmpleado(), tareaDto));
     }
     
     @Override

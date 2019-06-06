@@ -26,7 +26,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl implements
     public void save(@NotNull final PtrPresenciaEmpleadosTiendaResponseDto src, @NotNull final TareaDto tareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom.save(tareaAmbitoGlobalLocalizacionPersonaPresenciaMapper
                 .presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
-                        src.getPresenciasEmpleadosTienda(), tareaDto));
+                        src.getPresenciasTiendasEmpleado(), tareaDto));
     }
 
 }

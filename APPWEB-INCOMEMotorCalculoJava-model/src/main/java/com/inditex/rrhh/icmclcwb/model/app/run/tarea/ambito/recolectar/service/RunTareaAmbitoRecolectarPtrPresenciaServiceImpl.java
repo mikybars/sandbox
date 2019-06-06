@@ -304,7 +304,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
                     .presenciasEmpleadosTienda(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);
             PtrPresenciaEmpleadosTiendaResponseDto data = AsyncUtils.get(cfData);
-            if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasEmpleadosTienda())) {
+            if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTiendasEmpleado())) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
                         .get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService
