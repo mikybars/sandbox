@@ -79,14 +79,12 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
             GenericEmpleadoResultItemDto src) {
         tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
         tareaLocalizacionPersonaPresencia.setTipoDato(new TipoDato());
-        tareaLocalizacionPersonaPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
+        tareaLocalizacionPersonaPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
     }    
     
     @AfterMapping
     void afterMapping(@MappingTarget TareaLocalizacionPersonaPresencia tareaLocalizacionPersonaPresencia,
             PtrPresenciaDetalleResultItemDto src) {
-        tareaLocalizacionPersonaPresencia.setTipoDato(new TipoDato());
-        tareaLocalizacionPersonaPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
         tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
     }   
     

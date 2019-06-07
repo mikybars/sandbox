@@ -11,8 +11,6 @@ public interface RunTareaRecolectarPtrPresenciaService {
 
     void presenciaTotalLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void presenciaTotalLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
     void presenciaDetalleComisionablePersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void presenciaDetalleComisionableLocalizacionPersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);

@@ -17,10 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEmpleadoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaOperacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaOperacionLocalizacionVentaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaOperacionPersonaLocalizacionVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionOperacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
@@ -46,10 +45,10 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
     private TareaPersonaHistoricoService tareaPersonaHistoricoService; 
     
     @Autowired
-    private TareaOperacionLocalizacionVentaAsyncService tareaOperacionLocalizacionVentaAsyncService;
+    private TareaLocalizacionOperacionVentaAsyncService tareaOperacionLocalizacionVentaAsyncService;
    
     @Autowired
-    private TareaOperacionPersonaLocalizacionVentaAsyncService tareaOperacionPersonaLocalizacionVentaAsyncService;
+    private TareaLocalizacionPersonaOperacionVentaAsyncService tareaLocalizacionPersonaOperacionVentaAsyncService;
 
     @Autowired
     private TareaLocalizacionPersonaVentaAsyncService tareaLocalizacionPersonaVentaAsyncService;
@@ -76,7 +75,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
-                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
+//                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_TIENDA);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
 
@@ -146,9 +145,9 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
-                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
-                paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA);
-                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
+//                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
+                paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
+                paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_TRUE);
 
                 CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = ptrVentaEmpleadoAsyncService
                         .ventaIndividualDetalle(paramGetVentaIndividualDetalle);
@@ -156,7 +155,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaOperacionPersonaLocalizacionVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
+                AsyncUtils.exceptionally(tareaLocalizacionPersonaOperacionVentaAsyncService.savePtrVentaIndividualDetalleResponse(data, tarea), cf, cfPersist);
                 
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);

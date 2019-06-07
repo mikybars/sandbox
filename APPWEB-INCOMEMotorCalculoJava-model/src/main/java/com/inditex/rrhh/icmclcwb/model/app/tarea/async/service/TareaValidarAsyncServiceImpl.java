@@ -42,12 +42,12 @@ public class TareaValidarAsyncServiceImpl implements TareaValidarAsyncService {
     }
 
     @Override
-    public CompletableFuture<Integer> countTiendaEmpleadoPresenciaSeccion(Long idTarea) {
+    public CompletableFuture<Integer> countLocalizacionPersonaPresencia(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendaEmpleadoPresenciaSeccion(idTarea));
     }
 
     @Override
-    public CompletableFuture<Integer> countTiendaVentaSeccion(Long idTarea) {
+    public CompletableFuture<Integer> countLocalizacionVenta(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendaVentaSeccion(idTarea));
     }
 

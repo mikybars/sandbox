@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -57,9 +56,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
 
     @Autowired
     private PtrPresenciaAsyncService ptrPresenciaAsyncService;
-
-    @Autowired
-    private TareaLocalizacionPresenciaAsyncService tareaLocalizacionSeccionPresenciaAsyncService;
 
     @Autowired
     private TareaLocalizacionPresenciaAsyncService tareaLocalizacionPresenciaAsyncService;
@@ -144,51 +140,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
                     AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
                             .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                     AsyncUtils.exceptionally(
-                            tareaLocalizacionSeccionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea),
+                            tareaLocalizacionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea),
                             cf, cfPersist);
-                }
-
-            }
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-    }
-
-    @Override
-    public void presenciaTotalLocalizacionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
-            final TareaDto tarea = runTarea.getTarea();
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
-                    presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter()
-                            .getMaxPageSize())) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
-                PtrPresenciaTotalizadoRequestDto paramPresenciasTotalTiendaSeccion = tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaTotalizadoRequestDto(trabajo, tarea,
-                                tareaAmbito, recolectarProperties);
-                paramPresenciasTotalTiendaSeccion
-                        .setTienda(iter.stream().map(e -> Integer.valueOf(e.getId())).collect(Collectors.toList()));
-                paramPresenciasTotalTiendaSeccion.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
-                paramPresenciasTotalTiendaSeccion.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA.getValue());
-                paramPresenciasTotalTiendaSeccion.setExcluidoDenom(Boolean.FALSE);
-
-                CompletableFuture<PtrPresenciaTotalizadoResponseDto> cfData = ptrPresenciaAsyncService
-                        .presenciasTotalizado(paramPresenciasTotalTiendaSeccion);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                PtrPresenciaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-                if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalizado())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                            .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
-                    AsyncUtils.exceptionally(
-                            tareaLocalizacionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea), cf,
-                            cfPersist);
                 }
 
             }

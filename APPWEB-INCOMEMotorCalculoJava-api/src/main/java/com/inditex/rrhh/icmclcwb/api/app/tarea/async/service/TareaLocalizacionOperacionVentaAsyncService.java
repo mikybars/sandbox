@@ -1,0 +1,20 @@
+package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
+
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.scheduling.annotation.Async;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
+
+@Async("repositoryPrimaryExecutor")
+public interface TareaLocalizacionOperacionVentaAsyncService {
+
+    CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResponse(
+            PtrVentaOnlineIpodIndividualDetalleResponseDto dto,TareaDto tarea);
+
+    CompletableFuture<Void> savePtrVentaIndividualDetalleResponse(PtrVentaIndividualDetalleResponseDto dto,
+           TareaDto tarea);
+
+}

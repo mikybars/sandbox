@@ -14,9 +14,6 @@ public interface RunTareaAmbitoRecolectarPtrPresenciaService {
     void presenciaTotalLocalizacionSeccionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void presenciaTotalLocalizacionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
     void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 

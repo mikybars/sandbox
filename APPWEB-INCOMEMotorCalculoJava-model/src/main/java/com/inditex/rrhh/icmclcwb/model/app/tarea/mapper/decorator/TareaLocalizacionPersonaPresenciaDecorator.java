@@ -7,12 +7,14 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.util.concurrent.AtomicDouble;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaPresenciaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
 
 public abstract class TareaLocalizacionPersonaPresenciaDecorator
@@ -26,14 +28,18 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
             List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
         List<TareaLocalizacionPersonaPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> 
-                result.add(
-                        delegate.genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(item, tareaDto))
+            src.forEach(item -> {
+                //TODO: REVISAR CON LO QUE VENGA DE META4
+                if(AppConstants.SECCIONES_STRING.contains(item.getIdSeccion())) {
+                    result.add(
+                            delegate.genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(item, tareaDto));
+                    }                
+                }
             );
         }
         return result;
     }
-    
+      
     @Override
     public List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
             List<PtrPresenciaDetalleResultItemDto> src, TareaDto tareaDto) {
@@ -53,12 +59,16 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
                 TareaLocalizacionPersonaPresencia presencia = delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto);
                 presencia.setIdSeccion(x.getSeccion().toString());
                 presencia.setMinutos(x.getMinutos());
+                presencia.setTipoDato(new TipoDato());
+                presencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
                 result.add(presencia);
                 minutos.getAndAdd(x.getMinutos());
             });
             TareaLocalizacionPersonaPresencia presencia = delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto);
             presencia.setIdSeccion(AppConstants.SECCION_4.toString());
             presencia.setMinutos(minutos.longValue());
+            presencia.setTipoDato(new TipoDato());
+            presencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
             result.add(presencia);
 
         }

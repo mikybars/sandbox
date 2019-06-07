@@ -36,6 +36,6 @@ public class TipoDato {
 
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA", nullable = true)
-    private /* BigInteger */ TipoPresencia tipoVenta;
+    private /* BigInteger */ TipoVenta tipoVenta;
 
 }

@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarTiendaPresenciaSeccionService;
 
 @Service
 public class RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncServiceImpl
-        implements RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncService {
+        implements RunTareaRecolectarValidarLocalizacionPresenciaAsyncService {
 
     @Autowired
     private RunTareaRecolectarValidarTiendaPresenciaSeccionService runTareaRecolectarValidarTiendaPresenciaSeccionService;
