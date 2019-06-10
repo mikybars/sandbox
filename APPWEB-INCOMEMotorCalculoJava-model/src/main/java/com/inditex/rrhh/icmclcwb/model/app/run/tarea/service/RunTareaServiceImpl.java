@@ -19,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
-import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
 
 @Service
 @Validated

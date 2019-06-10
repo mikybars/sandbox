@@ -5,6 +5,7 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
@@ -34,11 +35,13 @@ public class RunServiceImpl implements RunService {
     @Autowired
     private TareaService tareaService;
 
+    @Transactional
     @Override
     public void runTrabajo(@NotNull @Positive final Long id) {
         runTrabajoService.run(RunTrabajoDto.builder().trabajo(trabajoService.find(id)).build());
     }
 
+    @Transactional
     @Override
     public void runTarea(@NotNull @Positive final Long id) {
         TareaDto tarea = tareaService.find(id);

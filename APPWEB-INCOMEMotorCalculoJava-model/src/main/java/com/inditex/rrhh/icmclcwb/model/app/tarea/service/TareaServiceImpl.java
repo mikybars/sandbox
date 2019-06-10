@@ -11,6 +11,8 @@ import javax.validation.constraints.Positive;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
@@ -65,6 +67,7 @@ public class TareaServiceImpl implements TareaService {
         return tarea;
     }
 
+    @Transactional
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
         tarea.setFechaCreacion(LocalDateTime.now());
@@ -83,6 +86,7 @@ public class TareaServiceImpl implements TareaService {
         return null;
     }
 
+    @Transactional
     @Override
     public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
         List<TareaDto> result = new ArrayList<>();
@@ -96,21 +100,25 @@ public class TareaServiceImpl implements TareaService {
         return tareaMapper.tareaToTareaDto(tareaRepository.findByTrabajoId(id));
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaFin(@NotNull final TareaDto tarea) {
         tareaRepositoryCustom.updateFechaFin(tarea);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
         tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
         tareaRepositoryCustom.updateEstado(tarea, estado);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateEstadoFinal(@Valid final TareaDto tarea) {
         tareaRepositoryCustom.updateEstadoFinal(tarea);

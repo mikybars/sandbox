@@ -31,28 +31,38 @@ amiga:
       client:
         defaultConnectTimeout: 300000
         defaultReadTimeout: 300000
+        #[PTR][DES][INICIO]
         ptr-venta:
-          #base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
-          #base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDAVTIMPADWSD/service
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
-          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
-          #username: srvcicmclcwbpreAX
-          #password: xynEJHKK4bu)
         ptr-presencia:
-          #base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
-          #base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDARHPRSCAWSD/service
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
-          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
-          #username: srvcicmclcwbpreAX
-          #password: xynEJHKK4bu)
+        #[PTR][DES][FIN]
+        #[PTR][PRE][INICIO]
+#        ptr-venta:
+#          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+#          auth-method: BASIC
+#          username: srvcicmclcwbpreAX
+#          password: xynEJHKK4bu)
+#        ptr-presencia:
+#          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+#          auth-method: BASIC
+#          username: srvcicmclcwbpreAX
+#          password: xynEJHKK4bu)
+        #[PTR][PRE][INICIO]
   service:
     jms:
+      listener:
+        default:
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
       trabajo-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
       tarea-queue:
@@ -69,54 +79,69 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-          #brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
-          userName: root
-          password: V3ct0r1nd1t3x
-          #concurrency: 1
+          xaConnectionFactory:
+            brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
+            userName: root
+            password: V3ct0r1nd1t3x
         broker-lectura:
-          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-          #brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
-          userName: root
-          password: V3ct0r1nd1t3x
-          #concurrency: 1
+          xaConnectionFactory:
+            brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
+            userName: root
+            password: V3ct0r1nd1t3x
       listener-container-factory:
         trabajo:
-          concurrency: 1
+          concurrency: 1-5
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
         tarea:
-          concurrency: 50
+          concurrency: 1-5
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
-          receiveTimeout: 100
           pubSubDomain: false
+          sessionTransacted: true
         tarea:
           destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
-          receiveTimeout: 100
           pubSubDomain: false
+          sessionTransacted: true
     jdbc:
       configuration:
         prop:
           default-isolation-level: 1
           max-pool-size: 10
-#          query-timeout: 30s
+          query-timeout: 30s
       datasource:
         primary:
-          driverClassName: com.ibm.db2.jcc.DB2Driver
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;
-          #url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;clientProgramName=${metadata.jirakey};loginTimeout=10;connectionTimeout=10;commandTimeout=5;
-          #url: jdbc:db2://10.202.10.178:50000/INDITEX:currentSchema=INCOME;
-          #user: db2inst1
-          #password: vector.hc
-          user: oincome
-          password: aMJLp8ahF09w
-#          min-pool-size: 5
-#          max-pool-size: 10
-          driver-properties:
+          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
+          xa-properties:
+            #[BBDD][ITX][DES][INICIO]
+            serverName: axdesdb22.central.inditex.grp
+            portNumber: 50000
+            databaseName: INDITEX
+            currentSchema: DESARROLLO_RRHH
+            user: oincome
+            password: aMJLp8ahF09w
+            #[BBDD][ITX][DES][FIN]
+            #[BBDD][VECTOR][DES][INICIO]
+#            serverName: 10.202.10.178
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: INCOME
+#            user: db2inst1
+#            password: vector.hc
+            #[BBDD][VECTOR][DES][FIN]
             clientProgramName: ${metadata.jirakey}
-#            loginTimeout: 10
-#            connectionTimeout: 10
-#            commandTimeout: 5
+            driverType: 4
+            loginTimeout: 10
+            connectionTimeout: 10
+            commandTimeout: 5
+            interruptProcessingMode: 2
     hibernate:
       primary:
         #properties: '{''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
@@ -165,7 +190,7 @@ app:
             test:
               endpoint: /acumuladoVentaImporte/test
             getVersion:
-              endpoint: /acumuladoVentaImporte/getVersion                    
+              endpoint: /acumuladoVentaImporte/getVersion
           ventaEcommerce:
             getVentaOnlineEntregaTienda:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaTienda
@@ -215,7 +240,7 @@ app:
             test:
               endpoint: /ventaEcommerce/test
             getVersion:
-              endpoint: /ventaEcommerce/getVersion          
+              endpoint: /ventaEcommerce/getVersion
           ventaEmpleado: 
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
@@ -240,7 +265,7 @@ app:
             test:
               endpoint: /ventaEmpleado/test
             getVersion:
-              endpoint: /ventaEmpleado/getVersion                        
+              endpoint: /ventaEmpleado/getVersion
           ventaGeneral:
             getVentaTotalizado:
               endpoint: /ventaGeneral/getVentaTotalizado
@@ -276,7 +301,7 @@ app:
               endpoint: /ventaGeneral/test
             getVersion:
               endpoint: /ventaGeneral/getVersion
-      presencia: 
+      presencia:
         service:
           version: 1.0.16-rc.5
           presenciasService:
@@ -323,7 +348,7 @@ app:
             test:
               endpoint: /presenciasService/test
             getVersion:
-              endpoint: /presenciasService/getVersion                
+              endpoint: /presenciasService/getVersion
     meta4:
       config:
         max-attempts: 20

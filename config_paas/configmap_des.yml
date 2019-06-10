@@ -13,65 +13,83 @@ amiga:
         defaultConnectTimeout: 300000
         defaultReadTimeout: 300000
         ptr-venta:
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
+          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
+          auth-method: BASIC
+          username: srvcicmclcwbdes
         ptr-presencia:
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
+          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
+          auth-method: BASIC
+          username: srvcicmclcwbdes
   service:
     jms:
+      listener:
+        default:
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
       trabajo-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
   data:
+    jms:
+      connection-factory:
+        broker-escritura:
+          xaConnectionFactory:
+            brokerURL: tcp://middleware-amq-tcp:61616
+            userName: usr-write
+        broker-lectura:
+          xaConnectionFactory:
+            brokerURL: tcp://middleware-amq-tcp:61616
+            userName: usr-read
+      listener-container-factory:
+        trabajo:
+          concurrency: 1-5
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
+        tarea:
+          concurrency: 1-5
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
+      client:
+        trabajo:
+          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
+        tarea:
+          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
     jdbc:
       configuration:
         prop:
           default-isolation-level: 1
           max-pool-size: 10
-#          query-timeout: 30s
+          query-timeout: 30s
       datasource:
         primary:
-          driverClassName: com.ibm.db2.jcc.DB2Driver
-          #url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;clientProgramName=${metadata.jirakey}
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=DESARROLLO_RRHH;
-          #user: uincome
-          user: oincome
-          password: aMJLp8ahF09w
-#          min-pool-size: 5
-#          max-pool-size: 10
-          driver-properties:
+          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
+          xa-properties:
+            serverName: axdesdb22.central.inditex.grp
+            portNumber: 50000
+            databaseName: INDITEX
+            currentSchema: DESARROLLO_RRHH
+            #user: uincome
+            user: oincome
             clientProgramName: ${metadata.jirakey}
-#            loginTimeout: 10
-#            connectionTimeout: 10
-#            commandTimeout: 5
+            driverType: 4
+            loginTimeout: 10
+            connectionTimeout: 10
+            commandTimeout: 5
+            interruptProcessingMode: 2
     hibernate:
       primary:
-        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
         properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
-    jms:
-      connection-factory:
-        broker-escritura:
-          brokerURL: tcp://middleware-amq-tcp:61616
-          concurrency: 1
-          userName: usr-write
-        broker-lectura:
-          brokerURL: tcp://middleware-amq-tcp:61616
-          concurrency: 1
-          userName: usr-read
-      listener-container-factory:
-        trabajo:
-          concurrency: 1
-        tarea:
-          concurrency: 5
-      client:
-        trabajo:
-          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
-          receiveTimeout: 100
-          pubSubDomain: false
-        tarea:
-          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
-          receiveTimeout: 100
-          pubSubDomain: false
 app:
   envars:
     calculo:
@@ -114,7 +132,7 @@ app:
             test:
               endpoint: /acumuladoVentaImporte/test
             getVersion:
-              endpoint: /acumuladoVentaImporte/getVersion       
+              endpoint: /acumuladoVentaImporte/getVersion
           ventaEcommerce:
             getVentaOnlineEntregaTienda:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaTienda
@@ -164,7 +182,7 @@ app:
             test:
               endpoint: /ventaEcommerce/test
             getVersion:
-              endpoint: /ventaEcommerce/getVersion                            
+              endpoint: /ventaEcommerce/getVersion
           ventaEmpleado: 
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
@@ -189,7 +207,7 @@ app:
             test:
               endpoint: /ventaEmpleado/test
             getVersion:
-              endpoint: /ventaEmpleado/getVersion                                             
+              endpoint: /ventaEmpleado/getVersion
           ventaGeneral:
             getVentaTotalizado:
               endpoint: /ventaGeneral/getVentaTotalizado
@@ -227,7 +245,7 @@ app:
               endpoint: /ventaGeneral/getVersion
       presencia:
         service:
-          version: 1.0.16-rc.4
+          version: 1.0.16-rc.5
           presenciasService:
             getPresenciasTotalizado:
               endpoint: /presenciasService/presenciasTotalizado
@@ -272,13 +290,12 @@ app:
             test:
               endpoint: /presenciasService/test
             getVersion:
-              endpoint: /presenciasService/getVersion      
+              endpoint: /presenciasService/getVersion
     meta4:
       config:
         max-attempts: 20
         credentials:
           user: INCOME_CALC
-          password: 123
           language: 2
         pool:
           size: 20
@@ -345,7 +362,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxPersistenceSize: 3        
+              maxPersistenceSize: 3
           getTiendasEmpleado:
             page:
               numeroPagina: 1
