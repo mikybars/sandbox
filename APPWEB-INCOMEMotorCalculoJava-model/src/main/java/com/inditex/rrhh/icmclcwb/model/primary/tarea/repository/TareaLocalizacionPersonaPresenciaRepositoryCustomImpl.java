@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
@@ -36,12 +38,31 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
     
+    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoTotalizado']}")
+    private String sqlUpdateActivoTotalizado;
+    
     @Override
     public void updateActivo(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL_MANUAL, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId()));
         
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
+    }
+    
+    @Override
+    public void updateActivoTotalizado(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL_MANUAL, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId()));
+
+        namedParameterJdbcTemplate.update(sqlUpdateActivoTotalizado, parameters);
     }
     
     @Override

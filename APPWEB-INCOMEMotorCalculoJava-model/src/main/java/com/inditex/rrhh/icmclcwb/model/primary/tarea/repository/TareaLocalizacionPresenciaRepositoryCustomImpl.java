@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
@@ -37,7 +38,10 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
-
+    
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivoTotalizado']}")
+    private String sqlUpdateActivoTotalizado;
+    
     @Override
     public List<TareaLocalizacionPresencia> save(List<TareaLocalizacionPresencia> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
@@ -47,14 +51,29 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     public void updateActivo(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
+
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
+    }
+
+    @Override
+    public void updateActivoTotalizado(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
+
+        namedParameterJdbcTemplate.update(sqlUpdateActivoTotalizado, parameters);
     }
     
     @Override
     public void compensar(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_SECCION_COMPENSADO, TipoDatoEnum.MINUTOS_TOTALES_SECCION_COMPENSADO.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_COMPENSADO, TipoDatoEnum.MINUTOS_TOTALES_COMPENSADO.getId());
+
         
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }

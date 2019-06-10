@@ -4,6 +4,20 @@ public class SqlPrimaryConstants {
 
     private SqlPrimaryConstants() {
     }
+    
+    public static final String SQL_PARAM_IDS_TIPOS_DATO = "tiposDato";
+
+    public static final String SQL_PARAM_TIPOS_DATO_INDIVIDUAL = "tiposDatoIndividual";
+    
+    public static final String SQL_PARAM_TIPOS_DATO_INDIVIDUAL_MANUAL = "tiposDatoIndividualManual";
+
+    public static final String SQL_PARAM_INACTIVO = "inactivo";
+
+    public static final String SQL_PARAM_ACTIVO = "activo";
+    
+    public static final String SQL_PARAM_TIPO_DATO_SECCION_COMPENSADO = "tipoDatoSeccionCompensado";
+    
+    public static final String SQL_PARAM_TIPO_DATO_COMPENSADO = "tipoDatoCompensado";
 
     public static final String SQL_PARAM_ID_PERSONA = "idPersona";
 

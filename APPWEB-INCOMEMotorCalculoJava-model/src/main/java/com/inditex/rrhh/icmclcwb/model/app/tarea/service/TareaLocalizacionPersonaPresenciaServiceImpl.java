@@ -44,4 +44,9 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl
         tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo(runTareaDto);
     }
     
+    @Override
+    public void updateActivoTotalizado(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoTotalizado(runTareaDto);
+    }
+    
 }

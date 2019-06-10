@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
@@ -38,6 +39,9 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
     private String sqlFindIdPersonaByIdTareaAndIdOrigen;
+    
+    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
+    private String sqlFindIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
     
     @Override
     public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
@@ -74,5 +78,23 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
             }
         });
     }
+    
+    @Override
+    public List<IdPersonaLocalDto> findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
+            @NotNull final List<Long> idsTipoDato) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
+
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito, parameters, new RowMapper<IdPersonaLocalDto>() {
+            public IdPersonaLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                IdPersonaLocalDto dto = new IdPersonaLocalDto();
+                dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA));
+                return dto;
+            }
+        });
+    }
+    
 
 }

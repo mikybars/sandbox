@@ -40,4 +40,10 @@ public class TareaLocalizacionPersonaPresenciaAsyncServiceImpl
         tareaLocalizacionPersonaPresenciaService.updateActivo(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Override
+    public CompletableFuture<Void> updateActivoTotalizado(@NotNull RunTareaDto runTareaDto){
+        tareaLocalizacionPersonaPresenciaService.updateActivoTotalizado(runTareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

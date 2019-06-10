@@ -17,7 +17,13 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
             @NotBlank String idOrigen);
 
+    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Long> idsTipoDato);
+
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
             @NotBlank String idOrigen);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Long> idsTipoDato);
 
 }

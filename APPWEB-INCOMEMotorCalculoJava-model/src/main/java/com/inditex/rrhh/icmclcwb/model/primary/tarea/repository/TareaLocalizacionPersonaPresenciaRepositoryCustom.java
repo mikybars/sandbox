@@ -13,4 +13,6 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
     void updateActivo(@NotNull RunTareaDto runTareaDto);
 
+    void updateActivoTotalizado(@NotNull RunTareaDto runTareaDto);
+
 }

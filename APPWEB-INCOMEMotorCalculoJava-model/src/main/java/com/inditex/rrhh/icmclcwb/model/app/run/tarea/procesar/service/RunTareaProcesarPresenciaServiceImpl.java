@@ -30,14 +30,26 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         
     @Auditoria
     @Override
-    public void updateActivoTotalizadoLocalizacion(@Valid RunTareaDto runTarea) {
+    public void updateActivoLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.updateActivo(runTarea);
+    }
+    
+    @Auditoria
+    @Override
+    public void updateActivoTotalizadoLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.updateActivoTotalizado(runTarea);
     }
    
     @Auditoria
     @Override
     public void updateActivoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.updateActivo(runTarea);
+    }
+    
+    @Auditoria
+    @Override
+    public void updateActivoTotalizadoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.updateActivoTotalizado(runTarea);
     }
     
 }
