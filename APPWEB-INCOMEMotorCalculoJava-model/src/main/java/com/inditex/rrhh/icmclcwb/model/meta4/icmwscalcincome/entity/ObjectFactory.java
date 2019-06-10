@@ -66,22 +66,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETEMPLEADOSResponse }
-     * 
-     */
-    public GETEMPLEADOSResponse createGETEMPLEADOSResponse() {
-        return new GETEMPLEADOSResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetempleadosOutput }
-     * 
-     */
-    public GetempleadosOutput createGetempleadosOutput() {
-        return new GetempleadosOutput();
-    }
-
-    /**
      * Create an instance of {@link GETESTRDESPLAZ }
      * 
      */
@@ -111,6 +95,22 @@ public class ObjectFactory {
      */
     public GettiendasempleadoOutput createGettiendasempleadoOutput() {
         return new GettiendasempleadoOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETEMPLEADOSResponse }
+     * 
+     */
+    public GETEMPLEADOSResponse createGETEMPLEADOSResponse() {
+        return new GETEMPLEADOSResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetempleadosOutput }
+     * 
+     */
+    public GetempleadosOutput createGetempleadosOutput() {
+        return new GetempleadosOutput();
     }
 
     /**
@@ -226,6 +226,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETEMPLEADOSDESPLAZResponse }
+     * 
+     */
+    public GETEMPLEADOSDESPLAZResponse createGETEMPLEADOSDESPLAZResponse() {
+        return new GETEMPLEADOSDESPLAZResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetempleadosdesplazOutput }
+     * 
+     */
+    public GetempleadosdesplazOutput createGetempleadosdesplazOutput() {
+        return new GetempleadosdesplazOutput();
+    }
+
+    /**
      * Create an instance of {@link GETFESTIVOS }
      * 
      */
@@ -247,22 +263,6 @@ public class ObjectFactory {
      */
     public SearchtiendasOutput createSearchtiendasOutput() {
         return new SearchtiendasOutput();
-    }
-
-    /**
-     * Create an instance of {@link GETEMPLEADOSDESPLAZResponse }
-     * 
-     */
-    public GETEMPLEADOSDESPLAZResponse createGETEMPLEADOSDESPLAZResponse() {
-        return new GETEMPLEADOSDESPLAZResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetempleadosdesplazOutput }
-     * 
-     */
-    public GetempleadosdesplazOutput createGetempleadosdesplazOutput() {
-        return new GetempleadosdesplazOutput();
     }
 
     /**
@@ -410,14 +410,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETPERIODOS }
-     * 
-     */
-    public GETPERIODOS createGETPERIODOS() {
-        return new GETPERIODOS();
-    }
-
-    /**
      * Create an instance of {@link GETCOMISIONEMPLEADOResponse }
      * 
      */
@@ -431,6 +423,14 @@ public class ObjectFactory {
      */
     public GetcomisionempleadoOutput createGetcomisionempleadoOutput() {
         return new GetcomisionempleadoOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETPERIODOS }
+     * 
+     */
+    public GETPERIODOS createGETPERIODOS() {
+        return new GETPERIODOS();
     }
 
     /**
@@ -522,19 +522,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SEARCHTIENDAS }
-     * 
-     */
-    public SEARCHTIENDAS createSEARCHTIENDAS() {
-        return new SEARCHTIENDAS();
-    }
-
-    /**
      * Create an instance of {@link GETFLAGCALCULA }
      * 
      */
     public GETFLAGCALCULA createGETFLAGCALCULA() {
         return new GETFLAGCALCULA();
+    }
+
+    /**
+     * Create an instance of {@link SEARCHTIENDAS }
+     * 
+     */
+    public SEARCHTIENDAS createSEARCHTIENDAS() {
+        return new SEARCHTIENDAS();
     }
 
     /**
@@ -642,6 +642,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IcmListaseccionesRecord }
+     * 
+     */
+    public IcmListaseccionesRecord createIcmListaseccionesRecord() {
+        return new IcmListaseccionesRecord();
+    }
+
+    /**
      * Create an instance of {@link IcmWsCalcOperacionesRecord }
      * 
      */
@@ -703,6 +711,14 @@ public class ObjectFactory {
      */
     public IcmWsToolsRecord createIcmWsToolsRecord() {
         return new IcmWsToolsRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmListaseccionesBlock }
+     * 
+     */
+    public IcmListaseccionesBlock createIcmListaseccionesBlock() {
+        return new IcmListaseccionesBlock();
     }
 
     /**
