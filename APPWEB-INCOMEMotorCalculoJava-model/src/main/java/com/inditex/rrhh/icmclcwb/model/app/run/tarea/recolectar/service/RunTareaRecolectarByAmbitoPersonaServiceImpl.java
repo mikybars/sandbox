@@ -33,7 +33,6 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            // TODO Mergear las personas de las tiendas del ambito
             CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService
                     .mergePersonaCalculoByAmbitoPersona(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaCalculo, cf);

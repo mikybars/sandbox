@@ -34,7 +34,6 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            // TODO Mergear solo la persona del ambito
             CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService
                     .mergePersonaCalculoByAmbitoLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaCalculo, cf);
