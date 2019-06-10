@@ -19,11 +19,11 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: vm://embedded
-          concurrency: 1
+          xaConnectionFactory:
+            brokerURL: vm://embedded
         broker-lectura:
-          brokerURL: vm://embedded
-          concurrency: 1
+          xaConnectionFactory:
+            brokerURL: vm://embedded
 app:
   envars:
     meta4:
