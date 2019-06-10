@@ -84,7 +84,7 @@ amiga:
         trabajo:
           concurrency: 1
         tarea:
-          concurrency: 5
+          concurrency: 50
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}

@@ -6,7 +6,9 @@
     <parent>
         <groupId>com.inditex.aqsw.framework.amiga</groupId>
         <artifactId>amiga-framework</artifactId>
-        <!--<version>2.5.1</version>-->
+        <!-- TODO Descomentar para test 2.5.1 -->
+<!--         <version>2.5.1</version> -->
+        <!-- TODO Comentar para test 2.5.1 -->
         <version>2.3.4</version>
     </parent>
 
