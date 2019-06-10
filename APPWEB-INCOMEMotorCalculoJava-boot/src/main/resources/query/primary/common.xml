@@ -214,7 +214,7 @@
             CASE WHEN (TLPP.ID_SECCION = 1) THEN :tipoDatoSeccionCompensado
             WHEN (TLPP.ID_SECCION = 2) THEN :tipoDatoSeccionCompensado 
             WHEN (TLPP.ID_SECCION = 3) THEN :tipoDatoSeccionCompensado 
-            WHEN (TLPP.ID_SECCION = 4) THEN tipoDatoCompensado  END  AS ID_TIPO_DATO, TLPP.ID_SECCION, :activo AS ACTIVO, TLPP.ID_TAREA
+            WHEN (TLPP.ID_SECCION = 4) THEN :tipoDatoCompensado  END  AS ID_TIPO_DATO, TLPP.ID_SECCION, :activo AS ACTIVO, TLPP.ID_TAREA
              FROM TAREA_LOCALIZACION_PRESENCIA TLP
              INNER JOIN TAREA_LOCALIZACION_PERSONA_PRESENCIA TLPP
              ON TLP.FECHA = TLPP.FECHA
