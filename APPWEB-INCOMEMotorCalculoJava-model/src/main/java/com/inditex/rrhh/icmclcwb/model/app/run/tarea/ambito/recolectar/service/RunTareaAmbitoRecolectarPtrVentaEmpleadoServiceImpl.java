@@ -75,7 +75,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
-//                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
+                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_TIENDA);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_FALSE);
 
@@ -145,7 +145,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito);
-//                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
+                paramGetVentaIndividualDetalle.setVendedores(iter.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf).collect(Collectors.toList()));
                 paramGetVentaIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
                 paramGetVentaIndividualDetalle.setAgruparSeccion(PtrPropertiesConstants.BOOLEAN_INTEGER_TRUE);
 
