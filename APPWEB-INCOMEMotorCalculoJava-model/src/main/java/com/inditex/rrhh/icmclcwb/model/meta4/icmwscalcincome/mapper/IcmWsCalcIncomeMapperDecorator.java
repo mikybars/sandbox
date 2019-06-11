@@ -140,6 +140,10 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                     setDates(item, presencia);
                     list.add(presencia);
                 });
+            }else {
+                GenericEmpleadoResultItemDto mappedEntity = delegate.asGenericEmpleadoResultItemDto(item);
+                setDates(item, mappedEntity);
+                list.add(mappedEntity);
             }
         }
         return list;

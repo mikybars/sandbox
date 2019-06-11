@@ -74,18 +74,18 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         AgrupOnlineResponseDto result = new AgrupOnlineResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        GetagruponlineOutput getFlagCalculaOutput = meta4ClientPool.getagruponline(param1, param2);
-        if (getFlagCalculaOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, getFlagCalculaOutput.getReturn()) == 0) {
-            if (getFlagCalculaOutput.getIcmParametrospaginacion() != null) {
-                PageDto page = icmWsCalcIncomeMapper.asPageDto(getFlagCalculaOutput.getIcmParametrospaginacion());
+        GetagruponlineOutput getAgrupOnlineOutput = meta4ClientPool.getagruponline(param1, param2);
+        if (getAgrupOnlineOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getAgrupOnlineOutput.getReturn()) == 0) {
+            if (getAgrupOnlineOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getAgrupOnlineOutput.getIcmParametrospaginacion());
                 result.setPage(page);
             }
-            if(getFlagCalculaOutput.getIcmListaconfiguracion() != null
+            if(getAgrupOnlineOutput.getIcmListaconfiguracion() != null
                     && CollectionUtils.isNotEmpty(
-                            getFlagCalculaOutput.getIcmListaconfiguracion().getIcmListaconfiguracionRecordSet())) {
+                            getAgrupOnlineOutput.getIcmListaconfiguracion().getIcmListaconfiguracionRecordSet())) {
             List<AgrupOnlineResultItemDto> items = icmWsCalcIncomeMapper.asAgrupOnlineResultItemDtos(
-                    getFlagCalculaOutput.getIcmListaconfiguracion().getIcmListaconfiguracionRecordSet());
+                    getAgrupOnlineOutput.getIcmListaconfiguracion().getIcmListaconfiguracionRecordSet());
                 result.setData(items);
             }
         } 

@@ -32,7 +32,8 @@ public abstract class TareaLocalizacionCalcularMapper {
     public abstract List<TareaLocalizacionCalcular> tareaLocalizacionCalcularDtoToLocalizacionCalcular(
             List<TareaLocalizacionCalcularDto> src);
     
-    @Mapping(source = "src.idLugarTrabajo", target = "idLocalizacion")
+    @Mapping(source = "src.idLugarTrabajoMtu", target = "idLocalizacion")
+    @Mapping(source = "src.idLugarTrabajo", target = "idLocalizacionMeta4")
     @Mapping(source = "src.fechaInicio", target = "fechaInicio")
     @Mapping(source = "src.fechaFin", target = "fechaFin")
     @Mapping(source = "src.calcula", target = "calcula")

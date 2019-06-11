@@ -29,10 +29,14 @@ public class TareaLocalizacionCalcular {
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private /* BigInteger */ Tarea tarea;
+
+    @NotBlank
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
+    private String idLocalizacion;
     
     @NotBlank
     @Column(name = "ID_LOCALIZACION", nullable = false)
-    private String idLocalizacion;
+    private String idLocalizacionMeta4;
     
     @NotNull
     @Column(name = "CALCULA", nullable = false)
