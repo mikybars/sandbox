@@ -16,4 +16,6 @@ public interface RunTareaProcesarPresenciaService {
 
     void updateActivoTotalizadoLocalizacion(@Valid RunTareaDto runTarea);
 
+    void compensarLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea);
+
 }

@@ -10,6 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.google.common.util.concurrent.AtomicDouble;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
@@ -21,6 +24,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
 
 public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeMapper {
 
@@ -126,45 +131,56 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtos(List<IcmListaempleadosRecord> src) {
         List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
         for (IcmListaempleadosRecord item : src) {
-            GenericEmpleadoResultItemDto mappedEntity = delegate.asGenericEmpleadoResultItemDto(item);
-            if (StringUtils.isNotEmpty(item.getFechainicio())) {
-                mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+
+            if (CollectionUtils.isNotEmpty(item.getIcmListasecciones().getIcmListaseccionesRecordSet())) {
+                item.getIcmListasecciones().getIcmListaseccionesRecordSet().forEach(x -> {
+                    GenericEmpleadoResultItemDto presencia = delegate.asGenericEmpleadoResultItemDto(item);
+                    presencia.setIdSeccion(x.getIdseccion());
+                    presencia.setMinutos(x.getMinutos());
+                    setDates(item, presencia);
+                    list.add(presencia);
+                });
             }
-            if (StringUtils.isNotEmpty(item.getFechafin())) {
-                mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
-                mappedEntity.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafinsec())) {
-                mappedEntity.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechainiciocom())) {
-                mappedEntity.setFechaInicioCom(LocalDateTime.parse(item.getFechainiciocom(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafincom())) {
-                mappedEntity.setFechaFinCom(LocalDateTime.parse(item.getFechafincom(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafinpar())) {
-                mappedEntity.setFechaFinPar(LocalDateTime.parse(item.getFechafinpar(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechainiciopar())) {
-                mappedEntity.setFechaInicioPar(LocalDateTime.parse(item.getFechainiciopar(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFecha())) {
-                mappedEntity.setFecha(LocalDateTime.parse(item.getFecha(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            list.add(mappedEntity);
         }
         return list;
+    }
+
+    private void setDates(IcmListaempleadosRecord item, GenericEmpleadoResultItemDto presencia) {
+        if (StringUtils.isNotEmpty(item.getFechainicio())) {
+            presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechafin())) {
+            presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
+            presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechafinsec())) {
+            presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechainiciocom())) {
+            presencia.setFechaInicioCom(LocalDateTime.parse(item.getFechainiciocom(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechafincom())) {
+            presencia.setFechaFinCom(LocalDateTime.parse(item.getFechafincom(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechafinpar())) {
+            presencia.setFechaFinPar(LocalDateTime.parse(item.getFechafinpar(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechainiciopar())) {
+            presencia.setFechaInicioPar(LocalDateTime.parse(item.getFechainiciopar(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFecha())) {
+            presencia.setFecha(LocalDateTime.parse(item.getFecha(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
     }
 }

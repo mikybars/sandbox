@@ -52,4 +52,10 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         tareaLocalizacionPersonaPresenciaService.updateActivoTotalizado(runTarea);
     }
     
+    @Auditoria
+    @Override
+    public void compensarLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.compensar(runTarea);
+    }
+    
 }

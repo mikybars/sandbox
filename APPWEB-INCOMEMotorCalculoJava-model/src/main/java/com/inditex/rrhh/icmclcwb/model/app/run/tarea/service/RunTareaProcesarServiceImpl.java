@@ -85,11 +85,13 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         /*-------------------------------------------------------------*/
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
-       
-        // Compensar presencia total localizacion con las manuales
-        CompletableFuture<Void> cfCompensarPresenciaLocalizacion = runTareaProcesarPresenciaAsyncService.compensarLocalizacion(runTarea);
-        AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf);
 
+        
+        // Compensar presencia total localizacion persona con las manuales
+        CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = runTareaProcesarPresenciaAsyncService.compensarLocalizacionPersonaPresencia(runTarea);
+        AsyncUtils.exceptionally(cfCompensarPresenciaPersonaLocalizacion, cf);
+
+        
         // Suma de ventas totales por localizaciones
         CompletableFuture<Void> cfVentasLocalizacionTienda = runTareaProcesarVentaAsyncService.ventaLocalizacionTienda(runTarea);
         AsyncUtils.exceptionally(cfVentasLocalizacionTienda, cf);
@@ -97,6 +99,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         /*-------------------------------------------------------------*/
         AsyncUtils.waitAllOfIsOk(cf, cf);
         /*-------------------------------------------------------------*/
+
+        
+        // Compensar presencia total localizacion con las manuales
+        CompletableFuture<Void> cfCompensarPresenciaLocalizacion = runTareaProcesarPresenciaAsyncService.compensarLocalizacion(runTarea);
+        AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf);
 
         // Suma de ventas por localizaciones y seccion
         CompletableFuture<Void> cfVentasLocalizacionSeccion = runTareaProcesarVentaAsyncService.ventaLocalizacionSeccion(runTarea);
