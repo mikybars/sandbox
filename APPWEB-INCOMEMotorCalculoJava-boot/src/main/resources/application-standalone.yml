@@ -9,11 +9,6 @@ metadata:
   domain: core
   openshiftproject: icmclcwb
   slot: develop
-spring:
-  jta:
-    atomikos:
-      properties:
-        enable-logging: true
 amiga:
   monitoring:
     metrics:
@@ -79,18 +74,22 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
+          minPoolSize: 1
+          maxPoolSize: 10
           xaConnectionFactory:
             brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
             userName: root
             password: V3ct0r1nd1t3x
         broker-lectura:
+          minPoolSize: 1
+          maxPoolSize: 10
           xaConnectionFactory:
             brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=0
             userName: root
             password: V3ct0r1nd1t3x
       listener-container-factory:
         trabajo:
-          concurrency: 1-5
+          concurrency: 1
           sessionTransacted: true
           globalTransacted: true
           pubSubDomain: false
