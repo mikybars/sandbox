@@ -144,9 +144,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionableLocalizacionPersona, cf, cfWait);
 
             // Coeficiente de reduccion de jornada
-//            CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-//                    .coefJornadaByRunTarea(runTarea);
-//            AsyncUtils.exceptionally(cfCoefJornada, cf, cfWait);
+            CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .coefJornadaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfCoefJornada, cf, cfWait);
 
             // Presencia manual
             CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService

@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
@@ -32,9 +33,9 @@ public interface TareaLocalizacionHistoricoService {
             @NotNull final String idOrigen);
 
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotNull final String idOrigen);
+            @NotBlank final String idOrigen, @NotNull final List<Long> idsTipoDato);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull final Long idTarea, @NotNull final String idOrigen);
+            @NotNull final Long idTarea, @NotBlank final String idOrigen, @NotNull final List<Long> idsTipoDato);
 
 }

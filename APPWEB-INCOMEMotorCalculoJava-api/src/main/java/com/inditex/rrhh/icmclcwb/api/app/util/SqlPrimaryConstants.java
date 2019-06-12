@@ -67,6 +67,8 @@ public class SqlPrimaryConstants {
     
     public static final String SQL_RESULT_ID_PERSONA = "ID_PERSONA";
     
+    public static final String SQL_RESULT_OR_PERSONA = "OR_PERSONA";
+    
     public static final String SQL_RESULT_ID_LOCALIZACION_META4 = "ID_LOCALIZACION";
     
 }

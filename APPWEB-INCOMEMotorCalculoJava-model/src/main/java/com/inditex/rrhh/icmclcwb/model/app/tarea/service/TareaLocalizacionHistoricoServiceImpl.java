@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
@@ -65,24 +64,14 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     
     @Override
     public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotNull String idOrigen) {
-        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, 
-                Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId(),
-                TipoDatoEnum.MINUTOS_INDIVIDUAL.getId(),
-                TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId(),
-                TipoDatoEnum.MINUTOS_TOTALES_SECCION_COMPENSADO.getId()));
+            @NotBlank String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
     }
     
     @Override
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotNull String idOrigen) {
-        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, 
-                Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId(),
-                TipoDatoEnum.MINUTOS_INDIVIDUAL.getId(),
-                TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId(),
-                TipoDatoEnum.MINUTOS_TOTALES_SECCION_COMPENSADO.getId()));
+            @NotBlank String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
     }
     
     @Override

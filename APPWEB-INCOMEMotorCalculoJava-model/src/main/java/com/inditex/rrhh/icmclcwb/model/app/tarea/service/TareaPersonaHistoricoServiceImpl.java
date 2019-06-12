@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
@@ -64,14 +63,21 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     }
     
     @Override
-    public List<IdPersonaLocalDto> findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotNull final String idOrigen) {
-        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, 
-                Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId(),
-                        TipoDatoEnum.MINUTOS_INDIVIDUAL.getId(),
-                        TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId(),
-                        TipoDatoEnum.MINUTOS_TOTALES_SECCION_COMPENSADO.getId()));
+    public List<IdPersonaLocalDto> findIdPersonaLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
+            @NotNull final String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
+    }
+    
+    @Override
+    public List<IdPersonaDto> findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
+            @NotNull final String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
+    }
+
+    @Override
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
+            @NotNull final String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
     }
 
     @Override

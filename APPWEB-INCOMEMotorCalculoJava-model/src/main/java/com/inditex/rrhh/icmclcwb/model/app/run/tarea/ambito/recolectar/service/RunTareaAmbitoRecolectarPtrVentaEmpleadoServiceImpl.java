@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -19,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.Run
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaOperacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionOperacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -69,8 +71,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
-                    tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                    tareaPersonaHistoricoService.findIdPersonaLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
+                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_OPERACION_LOCALIZACION.getId())),
                     ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
@@ -103,8 +105,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
-                    tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                    tareaPersonaHistoricoService.findIdPersonaLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
+                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_PERSONA_LOCALIZACION.getId())),
                     ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 PtrVentaIndividualDetalleRequestDto paramGetVentaIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
@@ -137,8 +139,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl implements RunT
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaLocalDto> iter : StreamUtils.partition(
-                    tareaPersonaHistoricoService.findIdPersonaLocalByIdTareaAndIdOrigen(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                    tareaPersonaHistoricoService.findIdPersonaLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
+                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_OPERACION_PERSONA_LOCALIZACION_SECCION.getId())),
                     ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
