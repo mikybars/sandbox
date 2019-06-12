@@ -36,8 +36,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
 
     @Override
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
-        // TODO Obtener las personas relacionadas con el algoritmo
-        return tareaCalculoPersonaService.findByTarea(tarea);
+        return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
     }
 
     @Override

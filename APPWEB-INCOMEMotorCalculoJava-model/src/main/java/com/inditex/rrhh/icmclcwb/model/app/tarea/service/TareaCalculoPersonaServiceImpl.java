@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
@@ -66,6 +67,12 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     public List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
         return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
                 tareaCalculoPersonaRepository.findByTareaId(tarea.getId()));
+    }
+    
+    @Override
+    public List<TareaCalculoPersonaDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final AlgoritmoDto algoritmo) {
+        return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
+                tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(tarea, algoritmo));
     }
 
 }

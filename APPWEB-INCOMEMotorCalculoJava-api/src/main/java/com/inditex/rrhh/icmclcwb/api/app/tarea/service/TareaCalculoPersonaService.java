@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
@@ -26,5 +27,8 @@ public interface TareaCalculoPersonaService {
     void mergePersonaCalculoByAmbitoLocalizacion(final RunTareaDto runTareaDto);
 
     void mergePersonaCalculoByAmbitoPersona(final RunTareaDto runTareaDto);
+
+    List<TareaCalculoPersonaDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
+            @Valid @NotNull final AlgoritmoDto idAlgoritmo);
 
 }

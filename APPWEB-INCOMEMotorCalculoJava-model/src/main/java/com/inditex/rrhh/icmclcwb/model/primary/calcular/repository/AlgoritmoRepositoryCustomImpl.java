@@ -45,16 +45,15 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
 
     @Override
     public Boolean checkDuplicatedActives() {
-        Boolean result = Boolean.FALSE;
         List<Integer> value = namedParameterJdbcTemplate.query(sqlCheckDuplicatedActives, new RowMapper<Integer>() {
             public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return rs.getInt(1);
             }
         });
         if (CollectionUtils.isNotEmpty(value)) {
-            result = Boolean.TRUE;
+            return Boolean.TRUE;
         }
-        return result;
+        return Boolean.FALSE;
     }
 
 }
