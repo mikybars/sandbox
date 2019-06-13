@@ -141,7 +141,7 @@ amiga:
 #            user: db2inst1
 #            password: vector.hc
             #[BBDD][VECTOR][DES][FIN]
-            clientProgramName: ${metadata.jirakey}
+            clientProgramName: ${metadata.jirakey}-${metadata.slot}
             driverType: 4
             loginTimeout: 10
             connectionTimeout: 10
