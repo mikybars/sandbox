@@ -17,8 +17,6 @@ public interface TareaLocalizacionPersonaPresenciaService {
 
     void savePtrPresenciaDetalle(@NotNull List<PtrPresenciaDetalleResultItemDto> src, @NotNull TareaDto tareaDto);
 
-    void updateActivoTotalizado(@NotNull RunTareaDto runTareaDto);
-
     void compensar(@NotNull RunTareaDto runTareaDto);
 
 }

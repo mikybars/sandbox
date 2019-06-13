@@ -15,10 +15,6 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
     CompletableFuture<Void> compensarLocalizacion(RunTareaDto runTarea);
 
-    CompletableFuture<Void> updateActivoTotalizadoLocalizacionPersonaPresencia(RunTareaDto runTarea);
-
-    CompletableFuture<Void> updateActivoTotalizadoLocalizacion(RunTareaDto runTarea);
-
     CompletableFuture<Void> compensarLocalizacionPersonaPresencia(RunTareaDto runTarea);
 
 }

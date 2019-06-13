@@ -37,10 +37,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
-    
-    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoTotalizado']}")
-    private String sqlUpdateActivoTotalizado;
-    
+       
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
     
@@ -55,19 +52,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
-    
-    @Override
-    public void updateActivoTotalizado(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL_MANUAL, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId()));
-
-        namedParameterJdbcTemplate.update(sqlUpdateActivoTotalizado, parameters);
-    }
-    
+       
     @Override
     public void compensar(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -78,7 +63,6 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
 
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
-    
     
     @Override
     public List<TareaLocalizacionPersonaPresencia> save(final List<TareaLocalizacionPersonaPresencia> src) {

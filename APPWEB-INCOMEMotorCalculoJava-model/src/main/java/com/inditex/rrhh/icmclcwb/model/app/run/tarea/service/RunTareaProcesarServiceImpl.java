@@ -42,10 +42,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .updateActivoLocalizacionPersonaPresencia(runTarea);
             AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf);
 
-            CompletableFuture<Void> cfUpdateSeccionPresenciasActivasTotalizado = runTareaProcesarPresenciaAsyncService
-                    .updateActivoTotalizadoLocalizacionPersonaPresencia(runTarea);
-            AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivasTotalizado, cf);
-
             // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
             CompletableFuture<Void> cfRepartoCadenas = runTareaProcesarVentaAsyncService
                     .repartoVentaEntregaDomicilioCadenas(runTarea);
@@ -83,10 +79,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfUpdatePresenciasActivas = runTareaProcesarPresenciaAsyncService
                     .updateActivoLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfUpdatePresenciasActivas, cf);
-
-            CompletableFuture<Void> cfUpdatePresenciasActivasTotalizado = runTareaProcesarPresenciaAsyncService
-                    .updateActivoTotalizadoLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfUpdatePresenciasActivasTotalizado, cf);
 
             // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas
             CompletableFuture<Void> cfRepartoAgrupaciones = runTareaProcesarVentaAsyncService

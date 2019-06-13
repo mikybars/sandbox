@@ -19,6 +19,4 @@ public interface TareaLocalizacionPresenciaService {
 
     void compensar(@NotNull final RunTareaDto runTareaDto);
 
-    void updateActivoTotalizado(@NotNull final RunTareaDto runTareaDto);
-
 }
