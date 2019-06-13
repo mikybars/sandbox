@@ -49,15 +49,11 @@ public class RunTareaServiceImpl implements RunTareaService {
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {
             tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
-            // TODO Comentar para test 2.5.1
             runTareaRecolectarService.run(runTarea);
             runTareaRecolectarValidarService.run(runTarea);
             runTareaProcesarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
-            // TODO Descomentar para test 2.5.1
-//            TestUtils.threadSleep();
-//            tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getDto());
         } catch (Exception e) {
             tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
             throw e;
