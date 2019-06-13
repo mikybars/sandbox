@@ -5,10 +5,16 @@ logging:
     com.atomikos: INFO
     org.apache.activemq: INFO
 metadata:
-  tenant: global
   domain: core
+  environment: local
+  jiracategory: sistemas-financiero-y-rrhh-core-rrhh
+  jirakey: ICMCLCWB
+  jiraprojectname: APPWEB-INCOMEMotorCalculoJava
   openshiftproject: icmclcwb
+  platform: Openshift-Intranet Arteixo
   slot: develop
+  tenant: global
+  version: 1.0.0
 amiga:
   monitoring:
     metrics:
