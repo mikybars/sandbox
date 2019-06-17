@@ -16,7 +16,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenci
 @Service
 @Validated
 public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPresenciaService {
-
     
     @Autowired
     private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
