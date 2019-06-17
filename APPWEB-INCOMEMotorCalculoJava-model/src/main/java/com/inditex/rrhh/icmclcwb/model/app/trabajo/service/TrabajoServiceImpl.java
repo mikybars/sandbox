@@ -50,7 +50,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private TrabajoAmbitoPersonaService trabajoAmbitoPersonaService;
-    
+
     @Autowired
     private SenderTrabajo senderTrabajo;
 
@@ -71,6 +71,12 @@ public class TrabajoServiceImpl implements TrabajoService {
         if (StringUtils.isBlank(trabajo.getIdUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUsername())) {
+                // TODO Eliminar System.out cuando se valide que campo hay que usar
+                System.out.println("userSSO.toString(): " + userSSO.toString());
+                System.out.println("userSSO.getUser(): " + userSSO.getUser());
+                System.out.println("userSSO.getUserDomain(): " + userSSO.getUserDomain());
+                System.out.println("userSSO.getUsername(): " + userSSO.getUsername());
+                System.out.println("userSSO.getUserPrincipalName(): " + userSSO.getUserPrincipalName());
                 trabajo.setIdUsuario(userSSO.getUsername());
             }
         }
