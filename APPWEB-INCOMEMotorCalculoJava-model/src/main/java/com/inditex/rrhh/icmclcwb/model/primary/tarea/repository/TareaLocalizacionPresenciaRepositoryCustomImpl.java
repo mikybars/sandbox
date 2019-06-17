@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -63,7 +64,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_TOTALES, TipoDatoEnum.MINUTOS_TOTALES.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_TOTALES, Arrays.asList(TipoDatoEnum.MINUTOS_TOTALES.getId(), TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_TOTALES_COMPENSADO, TipoDatoEnum.MINUTOS_TOTALES_COMPENSADO.getId());
 
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
