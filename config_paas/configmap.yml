@@ -1,0 +1,8 @@
+amiga:
+  common:
+    logging:
+      includeFullMDC: true
+      file:
+        enabled: false
+      graylog:
+        enabled: true
