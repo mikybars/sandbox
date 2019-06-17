@@ -12,10 +12,7 @@ amiga:
       remote:
         enabled: true
     logging:
-      includeFullMDC: true
       file:
-        enabled: false
-      graylog:
         enabled: false
     reactor:
       scheduler:

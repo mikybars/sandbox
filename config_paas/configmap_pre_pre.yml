@@ -1,4 +1,4 @@
-:
+logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: INFO
@@ -74,7 +74,7 @@ app:
       validar:
         enabled: true
         logging: true
-        exception: true
+        exception: false
       calcular:
         algoritmo:
           config:

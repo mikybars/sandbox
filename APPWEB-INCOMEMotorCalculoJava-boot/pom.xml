@@ -46,10 +46,6 @@
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.common</groupId>
-            <artifactId>common-framework-starter-graylog-hub</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.inditex.aqsw.framework.common</groupId>
             <artifactId>common-framework-starter-executor</artifactId>
         </dependency>
 
