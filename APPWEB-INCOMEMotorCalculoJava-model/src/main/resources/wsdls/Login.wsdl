@@ -37,21 +37,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
-   <element name="loginWithCertificate">
-    <complexType>
-     <sequence>
-      <element name="ai_sCertificate" type="xsd:string"/>
-      <element name="ai_sSessionContex" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="loginWithCertificateResponse">
-    <complexType>
-     <sequence>
-      <element name="loginWithCertificateReturn" type="impl:M4loginOutput"/>
-     </sequence>
-    </complexType>
-   </element>
    <element name="loginWithRole">
     <complexType>
      <sequence>
@@ -66,6 +51,21 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <complexType>
      <sequence>
       <element name="loginWithRoleReturn" type="impl:M4loginOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="loginWithCertificate">
+    <complexType>
+     <sequence>
+      <element name="ai_sCertificate" type="xsd:string"/>
+      <element name="ai_sSessionContex" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="loginWithCertificateResponse">
+    <complexType>
+     <sequence>
+      <element name="loginWithCertificateReturn" type="impl:M4loginOutput"/>
      </sequence>
     </complexType>
    </element>
@@ -180,21 +180,21 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="loginWithCertificate">
-
-         <wsdl:input message="impl:loginWithCertificateRequest" name="loginWithCertificateRequest"/>
-
-         <wsdl:output message="impl:loginWithCertificateResponse" name="loginWithCertificateResponse"/>
-
-         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
-
-      </wsdl:operation>
-
       <wsdl:operation name="loginWithRole">
 
          <wsdl:input message="impl:loginWithRoleRequest" name="loginWithRoleRequest"/>
 
          <wsdl:output message="impl:loginWithRoleResponse" name="loginWithRoleResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="loginWithCertificate">
+
+         <wsdl:input message="impl:loginWithCertificateRequest" name="loginWithCertificateRequest"/>
+
+         <wsdl:output message="impl:loginWithCertificateResponse" name="loginWithCertificateResponse"/>
 
          <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
 
@@ -264,17 +264,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="loginWithCertificate">
+      <wsdl:operation name="loginWithRole">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="loginWithCertificateRequest">
+         <wsdl:input name="loginWithRoleRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="loginWithCertificateResponse">
+         <wsdl:output name="loginWithRoleResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -288,17 +288,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="loginWithRole">
+      <wsdl:operation name="loginWithCertificate">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="loginWithRoleRequest">
+         <wsdl:input name="loginWithCertificateRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="loginWithRoleResponse">
+         <wsdl:output name="loginWithCertificateResponse">
 
             <wsdlsoap:body use="literal"/>
 

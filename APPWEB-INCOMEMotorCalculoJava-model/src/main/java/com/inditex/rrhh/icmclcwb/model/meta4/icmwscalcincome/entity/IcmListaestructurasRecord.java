@@ -46,6 +46,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="numhoras" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idseccion" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="importemax" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="importemin" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -95,6 +96,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "fechafin",
     "idorigen",
     "numhoras",
+    "idseccion",
     "idempleado",
     "importemax",
     "importemin",
@@ -152,6 +154,8 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     protected String idorigen;
     @XmlElement(required = true, nillable = true)
     protected String numhoras;
+    @XmlElement(required = true, nillable = true)
+    protected String idseccion;
     @XmlElement(required = true, nillable = true)
     protected String idempleado;
     @XmlElement(required = true, nillable = true)
@@ -551,6 +555,30 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
      */
     public void setNumhoras(String value) {
         this.numhoras = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad idseccion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdseccion() {
+        return idseccion;
+    }
+
+    /**
+     * Define el valor de la propiedad idseccion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdseccion(String value) {
+        this.idseccion = value;
     }
 
     /**
@@ -1273,6 +1301,15 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
+            String lhsIdseccion;
+            lhsIdseccion = this.getIdseccion();
+            String rhsIdseccion;
+            rhsIdseccion = that.getIdseccion();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idseccion", lhsIdseccion), LocatorUtils.property(thatLocator, "idseccion", rhsIdseccion), lhsIdseccion, rhsIdseccion, (this.idseccion!= null), (that.idseccion!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdempleado;
             lhsIdempleado = this.getIdempleado();
             String rhsIdempleado;
@@ -1587,6 +1624,11 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "numhoras", buffer, theNumhoras, (this.numhoras!= null));
         }
         {
+            String theIdseccion;
+            theIdseccion = this.getIdseccion();
+            strategy.appendField(locator, this, "idseccion", buffer, theIdseccion, (this.idseccion!= null));
+        }
+        {
             String theIdempleado;
             theIdempleado = this.getIdempleado();
             strategy.appendField(locator, this, "idempleado", buffer, theIdempleado, (this.idempleado!= null));
@@ -1785,6 +1827,11 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             String theNumhoras;
             theNumhoras = this.getNumhoras();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "numhoras", theNumhoras), currentHashCode, theNumhoras, (this.numhoras!= null));
+        }
+        {
+            String theIdseccion;
+            theIdseccion = this.getIdseccion();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idseccion", theIdseccion), currentHashCode, theIdseccion, (this.idseccion!= null));
         }
         {
             String theIdempleado;
@@ -2118,6 +2165,19 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 } else {
                     if (numhorasShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.numhoras = null;
+                    }
+                }
+            }
+            {
+                Boolean idseccionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idseccion!= null));
+                if (idseccionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdseccion;
+                    sourceIdseccion = this.getIdseccion();
+                    String copyIdseccion = ((String) strategy.copy(LocatorUtils.property(locator, "idseccion", sourceIdseccion), sourceIdseccion, (this.idseccion!= null)));
+                    copy.setIdseccion(copyIdseccion);
+                } else {
+                    if (idseccionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idseccion = null;
                     }
                 }
             }
