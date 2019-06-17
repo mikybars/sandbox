@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     public void updateFechaFin(@NotNull final TareaDto tarea) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, LocalDateTime.now());
         namedParameterJdbcTemplate.update(sqlUpdateFechaFin, params);
     }
     
@@ -44,6 +47,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estado.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, LocalDateTime.now());
         namedParameterJdbcTemplate.update(sqlUpdateFechaInicioAndEstado, params);
     }
 

@@ -461,13 +461,13 @@ MERGE INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA AS TLP USING
 
 <entry key="TareaRepositoryCustom.updateFechaFin">
     <![CDATA[
-    UPDATE TAREA SET FECHA_FIN_TAREA = CURRENT_TIMESTAMP WHERE ID_TAREA = :idTarea
+    UPDATE TAREA SET FECHA_FIN_TAREA = :fechaFin WHERE ID_TAREA = :idTarea
     ]]>
 </entry>
 
 <entry key="TareaRepositoryCustom.updateFechaInicioAndEstado">
     <![CDATA[
-    UPDATE TAREA SET FECHA_INICIO_TAREA = CURRENT_TIMESTAMP, ID_ESTADO_TAREA = :idEstado WHERE ID_TAREA = :idTarea
+    UPDATE TAREA SET FECHA_INICIO_TAREA = :fechaInicio, ID_ESTADO_TAREA = :idEstado WHERE ID_TAREA = :idTarea
     ]]>
 </entry>
 

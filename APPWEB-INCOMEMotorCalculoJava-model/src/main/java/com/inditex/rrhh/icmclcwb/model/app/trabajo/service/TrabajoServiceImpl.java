@@ -10,7 +10,6 @@ import javax.validation.constraints.Positive;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +32,6 @@ import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 @Service
 @Validated
 public class TrabajoServiceImpl implements TrabajoService {
-
-    @Autowired
-    private Logger log;
 
     @Autowired
     private TrabajoRepository trabajoRepository;
@@ -74,18 +70,9 @@ public class TrabajoServiceImpl implements TrabajoService {
         trabajo.setFechaCreacion(LocalDateTime.now());
         if (StringUtils.isBlank(trabajo.getIdUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
-            if (StringUtils.isNotBlank(userSSO.getUsername())) {
-                // TODO Eliminar cuando se valide que campo hay que usar
-                log.info("userSSO.toString(): {}", userSSO.toString());
-                log.info("userSSO.getUser(): {}", userSSO.getUser());
-                log.info("userSSO.getUserDomain(): {}", userSSO.getUserDomain());
-                log.info("userSSO.getUsername(): {}", userSSO.getUsername());
-                log.info("userSSO.getUserPrincipalName(): {}", userSSO.getUserPrincipalName());
-                trabajo.setIdUsuario(userSSO.getUsername());
+            if (StringUtils.isNotBlank(userSSO.getUser())) {
+                trabajo.setIdUsuario(userSSO.getUser());
             }
-        } else {
-            // TODO Eliminar cuando se valide que campo hay que usar
-            log.info("trabajo.getIdUsuario(): {}", trabajo.getIdUsuario());
         }
         TrabajoDto result = trabajoMapper
                 .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
