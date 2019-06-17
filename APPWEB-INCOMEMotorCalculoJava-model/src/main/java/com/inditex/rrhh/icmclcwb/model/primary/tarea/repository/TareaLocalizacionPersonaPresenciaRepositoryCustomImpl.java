@@ -47,9 +47,11 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL_MANUAL, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId()));
-        
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
+       
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
        
@@ -59,8 +61,11 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPOS_DATO_INDIVIDUAL_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
-
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
+       
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
     

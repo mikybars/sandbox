@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -48,6 +50,12 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, persona.getIdPersona());
             arg.addValue(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, persona.getOrPersona());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA, Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId(), TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId()));
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA, Arrays.asList(TipoDatoEnum.MINUTOS_TOTALES.getId(), TipoDatoEnum.MINUTOS_TOTALES_COMPENSADO.getId()));
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION, Arrays.asList(
+                    TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
+                    TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId(),
+                    TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId()));
             batchArgs.add(arg);
         });
         namedParameterJdbcTemplate.batchUpdate(sqlCalcular,
