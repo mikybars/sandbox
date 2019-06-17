@@ -13,5 +13,9 @@ public interface TareaLocalizacionVentaRepositoryProcesarCustom {
     void procesarRepartoEntregaDomicilioAgrupaciones(@NotNull final TareaDto tareaDto);
     
     void procesarRepartoEntregaDomicilioCadenas(@NotNull final TareaDto tareaDto);
+
+    void procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(@NotNull TareaDto tareaDto);
+
+    void procesarRepartoEntregaDomicilioPorPresenciaCadenas(@NotNull TareaDto tareaDto);
     
 }

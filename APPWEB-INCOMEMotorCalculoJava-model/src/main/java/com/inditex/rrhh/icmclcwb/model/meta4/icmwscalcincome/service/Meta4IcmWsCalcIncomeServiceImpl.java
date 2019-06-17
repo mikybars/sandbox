@@ -2,6 +2,14 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +73,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 	@Autowired
 	@Qualifier("meta4ClientPool")
 	private Meta4ClientPool meta4ClientPool;
-	
+
     @Autowired
     private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
 	
@@ -371,5 +379,47 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         }
         return result;
     }
-    
+
+    @Override
+    public ConfiguracionVentaOnlineResponseDto getConfVentaOnline(ConfiguracionVentaOnlineRequestDto request) {
+        ConfiguracionVentaOnlineResponseDto result = new ConfiguracionVentaOnlineResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetconfventaonlineOutput getconfventaonline = meta4ClientPool.getconfventaonline(param1, param2);
+        if (getconfventaonline != null) {
+            if (getconfventaonline.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getconfventaonline.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if (getconfventaonline.getIcmListaconfiguracion() != null
+                && getconfventaonline.getIcmListaconfiguracion().getIcmListaconfiguracionRecordSet() != null) {
+                List<ConfiguracionVentaOnlineResultItemDto> items = icmWsCalcIncomeMapper
+                    .asConfiguracionVentaOnlineResultItemDto(
+                        getconfventaonline.getIcmListaconfiguracion().getIcmListaconfiguracionRecordSet());
+                result.setData(items);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public TiendaOnlineResponseDto getTiendasOnline(TiendaOnlineRequestDto request) {
+        TiendaOnlineResponseDto result = new TiendaOnlineResponseDto();
+        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GettiendasonlineOutput gettiendasonline = meta4ClientPool.gettiendasonline(param2, param1);
+        if (gettiendasonline != null) {
+            if (gettiendasonline.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(gettiendasonline.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if (gettiendasonline.getIcmListatiendas() != null
+                && gettiendasonline.getIcmListatiendas().getIcmListatiendasRecordSet() != null) {
+                List<TiendaOnlineResultItemDto> items = icmWsCalcIncomeMapper
+                    .asTiendaOnlineResultItemDto(gettiendasonline.getIcmListatiendas().getIcmListatiendasRecordSet());
+                result.setData(items);
+            }
+        }
+        return result;
+    }
 }

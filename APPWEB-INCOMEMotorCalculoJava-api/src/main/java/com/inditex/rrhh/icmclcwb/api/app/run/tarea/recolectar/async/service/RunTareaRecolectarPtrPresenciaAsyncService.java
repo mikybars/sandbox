@@ -19,4 +19,7 @@ public interface RunTareaRecolectarPtrPresenciaAsyncService {
 
     CompletableFuture<Void> presenciaDetalleComisionableLocalizacionPersonaByRunTarea(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> presenciaTotalCadenaByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> updateActivoCadenaByRunTarea(final RunTareaDto runTarea);
 }

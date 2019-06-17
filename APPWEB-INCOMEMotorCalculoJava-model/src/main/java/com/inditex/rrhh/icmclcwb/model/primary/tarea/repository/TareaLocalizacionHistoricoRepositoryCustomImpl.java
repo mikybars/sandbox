@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +50,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl extends JdbcBatchPri
     
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
+
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen']}")
+    private String sqlCadenas;
 
     @Override
     public List<TareaLocalizacionHistorico> save(final List<TareaLocalizacionHistorico> src) {
@@ -97,7 +102,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl extends JdbcBatchPri
             }
         });
     }
-    
+
     @Override
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -129,6 +134,14 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl extends JdbcBatchPri
             }
         });
     }
-    
-    
+
+    @Override
+    public List<IdCadenaDto> getCadenasByTareaAndOrigen(Long idTarea, String idOrigen) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        return namedParameterJdbcTemplate.query(sqlCadenas, parameters, (rs, rowNum)->
+            IdCadenaDto.builder().id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA)).build());
+    }
+
 }

@@ -28,6 +28,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ORIGEN = "idOrigen";
 
     public static final String SQL_PARAM_ID_ESTADO = "idEstado";
+
+    public static final String SQL_PARAM_ID_SECCION = "idSeccion";
     
     public static final String SQL_PARAM_ID_ESTADO_ACTUAL = "idEstadoActual";
     
@@ -37,11 +39,15 @@ public class SqlPrimaryConstants {
     
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA = "idEstadoPeriodoPersona";
 
-    public static final String SQL_PARAM_ID_TIENDA = "idTienda";
+    public static final String SQL_PARAM_ID_TIENDA = "idLocalizacion";
 
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA = "idTipoImporteVenta";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION = "idTipoDatoLocalizacion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_SECCION = "idTipoDatoLocalizacionSeccion";
     
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO = "idTipoImporteVentaNuevo";
 
@@ -49,26 +55,38 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_LOCALIZACION = "idTipoImporteVentaFisicaLocalizacion";
 
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION = "idTipoImporteVentaFisicaLocalizacionSeccion";
+
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoImporteVentaEntregaDomicilioLocalizacion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION = "idTipoImporteVentaEntregaDomicilioLocalizacionSeccion";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_CADENA = "idTipoImporteVentaFisicaCadena";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_CADENA = "idTipoImporteVentaEntregaDomicilioCadena";
-    
+
+    public static final String SQL_PARAM_ID_TIPO_MINUTOS = "idTipoPresencia";
+
+    public static final String SQL_PARAM_ID_TIPO_MINUTOS_SUMA = "idTipoPresenciaSuma";
+
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
     
     public static final String SQL_PARAM_MULTIPLICADOR = "multiplicador";
 
+    public static final String SQL_PARAM_ID_CONCEPTO = "idConcepto";
+
     public static final String SQL_RESULT_ID = "ID";
     
     public static final String SQL_RESULT_ID_ALGORITMO = "ID_ALGORITMO";
     
     public static final String SQL_RESULT_ID_PERSONA = "ID_PERSONA";
-    
+
     public static final String SQL_RESULT_OR_PERSONA = "OR_PERSONA";
     
     public static final String SQL_RESULT_ID_LOCALIZACION_META4 = "ID_LOCALIZACION";
     
+    public static final String SQL_RESULT_ID_CADENA = "ID_CADENA";
+
 }

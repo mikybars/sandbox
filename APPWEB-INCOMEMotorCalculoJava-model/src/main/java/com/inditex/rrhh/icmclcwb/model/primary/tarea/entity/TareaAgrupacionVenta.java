@@ -18,55 +18,46 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import lombok.Data;
 
 @Entity
-@Table(name = "TAREA_AGRUPACION_CADENA_VENTA_SECCION")
+@Table(name = "TAREA_AGRUPACION_VENTA")
 @Data
-public class TareaAgrupacionCadenaVentaSeccion {
-
+public class TareaAgrupacionVenta {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_AGRUPACION_CADENA_VENTA_SECCION")
+    @Column(name = "ID_TAREA_AGRUPACION_VENTA")
     private Long id;
-
+    
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-
+    
     @NotNull
     @Column(name = "FECHA", nullable = false)
     private Date fecha;
-
+    
     @NotNull
     @Column(name = "ID_AGRUPACION", nullable = false)
     private Long idAgrupacion;
 
     @NotNull
-    @Column(name = "IMPORTE_SECCION_1", nullable = false)
-    private /* BigInteger */ Double importe1;
-
-    @NotNull
-    @Column(name = "IMPORTE_SECCION_2", nullable = false)
-    private /* BigInteger */ Double importe2;
-
-    @NotNull
-    @Column(name = "IMPORTE_SECCION_3", nullable = false)
-    private /* BigInteger */ Double importe3;
+    @Column(name = "ID_SECCION", nullable = false)
+    private String idSeccion;
     
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_1", nullable = false)
-    private /* BigInteger */ Double importeConImpuestos1;
+    @Column(name = "IMPORTE", nullable = false)
+    private /* BigInteger */ Double importe;
+    
+    @NotNull
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
+    private /* BigInteger */ Double importeConImpuestos;
 
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_2", nullable = false)
-    private /* BigInteger */ Double importeConImpuestos2;
-
-    @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION_3", nullable = false)
-    private /* BigInteger */ Double importeConImpuestos3;
-
+    @Column(name = "ACTIVO", nullable = false)
+    private boolean activo;
+    
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
-
 
 }

@@ -42,8 +42,8 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
                 TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_OPERACION_LOCALIZACION.getId(),
                 TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
                 TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId()
+                TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION.getId(),
+                TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId()
             ));
     }
 }

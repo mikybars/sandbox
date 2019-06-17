@@ -17,10 +17,10 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
 
     @Autowired
     private RunTareaRecolectarPtrVentaEcommerceService tareaRecolectarPtrVentaEcommerceService;
-    
+
     @Override
-    public CompletableFuture<Void> ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaEcommerceService.ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
+    public CompletableFuture<Void> ventaOnlineEntregaDomicilioCadenaByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaOnlineEntregaDomicilioCadenaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
@@ -59,5 +59,27 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
         tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodDetalleLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
+    @Override
+    public CompletableFuture<Void> updateActivoVentaOnlineIpodByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.updateActivoVentaOnlineIpodByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> updateActivoVentaOnlinePickingByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.updateActivoVentaOnlinePickingByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> updateActivoVentaOnlineEntregaTiendaByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.updateActivoVentaOnlineEntregaTiendaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> updateActivoVentaOnlineEntregaDomicilioByRunTarea(RunTareaDto runTarea) {
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

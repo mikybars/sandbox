@@ -1,8 +1,16 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoConceptoVenta;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -18,6 +26,13 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.save']}")
     private String sqlSave;
+
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.updateActivo']}")
+    private String sqlUpdateActivo;
+
+    @Autowired
+    @Qualifier("primaryNamedParameterJdbcTemplate")
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public List<TareaLocalizacionVenta> save(List<TareaLocalizacionVenta> src) {
@@ -37,4 +52,16 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         pstmt.setLong(9, entity.getTarea().getId());
     }
 
+    @Override
+    public void updateActivo(TareaDto tarea, TipoDatoEnum tipoDatoVentaLocalizacion, TipoDatoEnum tipoDatoVentaSecccion,
+        TipoConceptoVenta tipoConceptoVenta) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION,
+            tipoDatoVentaLocalizacion.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_SECCION,
+            tipoDatoVentaSecccion.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, tipoConceptoVenta.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        namedParameterJdbcTemplate.update(sqlUpdateActivo, params);
+    }
 }

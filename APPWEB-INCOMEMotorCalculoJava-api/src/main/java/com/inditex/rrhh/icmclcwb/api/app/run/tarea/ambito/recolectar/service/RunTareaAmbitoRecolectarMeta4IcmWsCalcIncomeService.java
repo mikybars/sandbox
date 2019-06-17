@@ -35,4 +35,12 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
     void tiendasComisionableByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
+    void configuracionVentaOnlineByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito);
+
+    void agrupacionesCadenaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
+    void localizacionesOnlineByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+                                                      @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 }

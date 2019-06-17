@@ -5,7 +5,9 @@ import java.io.Serializable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Pageable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import lombok.Data;
 
+@Data
 public class ComisionEmpleadoRequestDto extends PageableDto<GenericFilterDto>
 		implements Pageable<GenericFilterDto>, Serializable {
 

@@ -37,4 +37,10 @@ public interface TareaLocalizacionVentaService {
     List<TareaLocalizacionVentaDto> savePtrVentaIndividualDetalleResponse(
             @Valid final PtrVentaIndividualDetalleResponseDto dto, @Valid final TareaDto tarea);
 
+    void updateActivoVentaOnlineIpod(@Valid final TareaDto tarea);
+
+    void updateActivoVentaOnlinePicking(@Valid final TareaDto tarea);
+
+    void updateActivoVentaOnlineEntregaTienda(@Valid final TareaDto tarea);
+
 }

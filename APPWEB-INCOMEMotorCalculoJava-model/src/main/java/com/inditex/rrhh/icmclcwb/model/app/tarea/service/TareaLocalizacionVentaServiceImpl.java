@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoConceptoVenta;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,7 +76,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionVentaMapper.tareaLocalizacionVentaToTareaLocalizacionVentaDto(
                     tareaLocalizacionVentaRepositoryCustom.save(tareaLocalizacionVentaMapper.ventaOnlinePickingResponseItemDtoToTareaLocalizacionVenta(
-                            dto.getVentaOnline(), tarea, TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId()))));
+                            dto.getVentaOnline(), tarea, TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(), TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION.getId()))));
         }
         return result;
     }
@@ -114,6 +115,30 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
                             dto.getVentaIndividualDetalle(), tarea, TipoDatoEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_LOCALIZACION_SECCION.getId(), TipoDatoEnum.IMPORTE_VENTA_FISICA_INDIVIDUAL_LOCALIZACION.getId()))));
         }
         return result;
+    }
+
+    @Override
+    public void updateActivoVentaOnlineIpod(@Valid TareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea,
+            TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION,
+            TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION,
+            TipoConceptoVenta.IPOD);
+    }
+
+    @Override
+    public void updateActivoVentaOnlinePicking(@Valid TareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea,
+            TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION,
+            TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION_SECCION,
+            TipoConceptoVenta.SINT);
+    }
+
+    @Override
+    public void updateActivoVentaOnlineEntregaTienda(@Valid TareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea,
+            TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION,
+            TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION,
+            TipoConceptoVenta.ENTREGA_TIENDA);
     }
 
 }

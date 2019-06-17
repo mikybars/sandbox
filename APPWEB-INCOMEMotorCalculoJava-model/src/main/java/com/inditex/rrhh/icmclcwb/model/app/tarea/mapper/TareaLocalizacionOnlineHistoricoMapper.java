@@ -1,0 +1,44 @@
+package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.LocalizacionOnlineDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionOnlineHistoricoMapperDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionOnlineHistorico;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import java.util.List;
+
+@Mapper
+@DecoratedWith(TareaLocalizacionOnlineHistoricoMapperDecorator.class)
+public abstract class TareaLocalizacionOnlineHistoricoMapper {
+
+    @Mapping(source = "tarea.id", target = "tarea.id")
+    @Mapping(source = "src.idOrigen", target = "idPais")
+    @Mapping(source = "src.idLocalizacion", target = "idLocalizacion")
+    @Mapping(source = "src.idLocalizacionMeta4", target = "idLocalizacionMeta4")
+    @Mapping(source = "src.idEmpresa", target = "idEmpresa")
+    @Mapping(source = "src.idCadena", target = "idCadena")
+    @Mapping(source = "src.fechaInicio", target = "fechaInicio")
+    @Mapping(source = "src.fechaFin", target = "fechaFin")
+    public abstract TareaLocalizacionOnlineHistorico getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(
+        TiendaOnlineResultItemDto src, TareaDto tarea);
+
+    public List<TareaLocalizacionOnlineHistorico> getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(
+        List<TiendaOnlineResultItemDto> src, TareaDto tarea) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+
+    @Mapping(target = "id", source = "idLocalizacion")
+    public abstract LocalizacionOnlineDto getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
+        TareaLocalizacionOnlineHistorico src);
+
+    public List<LocalizacionOnlineDto> getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
+        List<TareaLocalizacionOnlineHistorico> src) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+
+}

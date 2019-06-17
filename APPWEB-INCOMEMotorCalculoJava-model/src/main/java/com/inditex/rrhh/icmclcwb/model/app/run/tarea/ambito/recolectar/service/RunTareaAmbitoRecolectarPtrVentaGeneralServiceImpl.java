@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaCadenaVentaAsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,9 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
 
     @Autowired
     private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
+
+    @Autowired
+    private TareaCadenaVentaAsyncService tareaCadenaVentaAsyncService;
       
     @Auditoria
     @Override
@@ -89,6 +94,43 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
                         ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
                         tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+    @Override
+    public void ventaFisicaCadenaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            for (List<IdCadenaDto> iter : StreamUtils.partition(
+                tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaAmbito.getIdOrigen()),
+                ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
+                PtrVentaTotalizadoRequestDto request = tareaMapper
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
+                        tareaAmbito, recolectarProperties);
+                request.setCadena(iter.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
+                request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
+                request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
+                request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
+                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
+                    .ventaTotalizado(request);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist,
+                    ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                    tareaCadenaVentaAsyncService
+                        .savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 

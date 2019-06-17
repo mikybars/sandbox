@@ -57,9 +57,14 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .compensarLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf);
 
-            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
+            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas - por venta
             CompletableFuture<Void> cfRepartoCadenas = runTareaProcesarVentaAsyncService
                     .repartoVentaEntregaDomicilioCadenas(runTarea);
+            AsyncUtils.exceptionally(cfRepartoCadenas, cf);
+
+            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas - por presencia
+            CompletableFuture<Void> cfRepartoPorPresenciaCadenas = runTareaProcesarVentaAsyncService
+                .repartoVentaEntregaDomicilioPorPresenciaCadenas(runTarea);
             AsyncUtils.exceptionally(cfRepartoCadenas, cf);
 
             // Suma de ventas fisicas por agrupacion de cadena
@@ -67,34 +72,30 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .ventaFisicaAgrupacionCadena(runTarea);
             AsyncUtils.exceptionally(cfVentaFisicaAgrupacion, cf);
 
-            // TODO Reparto de ventas por seccion, el código comentado a continuación
-            // probablemente cambie
-            // Suma de ventas fisicas por agrupacion de cadena y seccion
-            CompletableFuture<Void> cfVentaFisicaAgrupacionSeccion = runTareaProcesarVentaAsyncService
-                    .ventaFisicaAgrupacionCadenaSeccion(runTarea);
-            AsyncUtils.exceptionally(cfVentaFisicaAgrupacionSeccion, cf);
-
             // Suma de ventas online entrega domicilio por agrupacion de cadena
             CompletableFuture<Void> cfVentaEntregaDomicilioAgrupacion = runTareaProcesarVentaAsyncService
                     .ventaOnlineEntregaTiendaAgrupacionCadena(runTarea);
             AsyncUtils.exceptionally(cfVentaEntregaDomicilioAgrupacion, cf);
 
-            // TODO Reparto de ventas por seccion, el código comentado a continuación
-            // probablemente cambie
-            // Suma de ventas online entrega domicilio por agrupacion de cadena y seccion
-            CompletableFuture<Void> cfVentaEntregaDomicilioAgrupacionSeccion = runTareaProcesarVentaAsyncService
-                    .ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(runTarea);
-            AsyncUtils.exceptionally(cfVentaEntregaDomicilioAgrupacionSeccion, cf);
+            // Suma de presencias por agrupacion de cadena
+            CompletableFuture<Void> cfPresenciasAgrupacion = runTareaProcesarPresenciaAsyncService
+                    .presenciasAgrupacionCadena(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasAgrupacion, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
 
-            // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas
+            // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas - por ventas
             CompletableFuture<Void> cfRepartoAgrupaciones = runTareaProcesarVentaAsyncService
                     .repartoVentaEntregaDomicilioAgrupaciones(runTarea);
             AsyncUtils.exceptionally(cfRepartoAgrupaciones, cf);
+
+            // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas - por presencia
+            CompletableFuture<Void> cfRepartoPresenciaAgrupaciones = runTareaProcesarVentaAsyncService
+                .repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(runTarea);
+            AsyncUtils.exceptionally(cfRepartoPresenciaAgrupaciones, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -1,4 +1,4 @@
-logging:
+:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: INFO
@@ -385,6 +385,33 @@ app:
               numeroRegistrosPagina: 200
               tipoOrden: DESC
               campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+                maxPersistenceSize: 3
+            getConfVentaOnline:
+              page:
+                numeroPagina: 1
+                numeroRegistrosPagina: 200
+                tipoOrden: DESC
+                campoOrden: idagrupacion
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+            getAgrupOnline:
+              page:
+                numeroPagina: 1
+                numeroRegistrosPagina: 200
+                tipoOrden: DESC
+                campoOrden: idagrupacion
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+          getTiendasOnline:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idagrupacion
             filter:
               maxPageSize: 200
               maxPersistenceSize: 3

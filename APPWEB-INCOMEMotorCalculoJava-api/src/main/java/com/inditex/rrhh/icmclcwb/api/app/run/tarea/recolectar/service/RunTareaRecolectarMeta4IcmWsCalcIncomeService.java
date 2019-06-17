@@ -25,4 +25,10 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void flagCalculaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void configuracionVentaOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void agrupacionesCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void localizacionesOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }

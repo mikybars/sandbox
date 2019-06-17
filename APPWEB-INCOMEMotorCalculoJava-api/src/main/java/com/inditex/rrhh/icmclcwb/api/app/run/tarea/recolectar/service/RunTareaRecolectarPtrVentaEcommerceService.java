@@ -11,7 +11,7 @@ public interface RunTareaRecolectarPtrVentaEcommerceService {
 
     void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+    void ventaOnlineEntregaDomicilioCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
@@ -20,5 +20,13 @@ public interface RunTareaRecolectarPtrVentaEcommerceService {
     void ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void ventaOnlineIpodDetalleLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void updateActivoVentaOnlineIpodByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void updateActivoVentaOnlinePickingByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void updateActivoVentaOnlineEntregaTiendaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
 }

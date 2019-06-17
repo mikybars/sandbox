@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import java.util.concurrent.TimeUnit;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.retry.annotation.Retryable;
@@ -255,6 +256,21 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
+        } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
+            expire(client);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+        } finally {
+            release(client);
+        }
+    }
+
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public GettiendasonlineOutput gettiendasonline(IcmParametrospaginacionBlock param1,
+                                                   IcmParametrosentradaBlock param2) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().gettiendasonline(param2, param1);
         } catch (Exception e) {
             log.warn(ERROR_MESSAGE_LOG, e);
             expire(client);

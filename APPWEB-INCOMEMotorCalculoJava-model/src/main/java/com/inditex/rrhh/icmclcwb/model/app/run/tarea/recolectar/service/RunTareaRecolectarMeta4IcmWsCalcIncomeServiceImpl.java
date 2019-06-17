@@ -1,21 +1,31 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCadenaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionOnlineHistoricoAsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Service
 @Validated
 public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         implements RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
+    @Autowired
+    private TareaAgrupacionConfiguracionAsyncService tareaAgrupacionConfiguracionAsyncService;
+
+    @Autowired
+    private TareaAgrupacionCadenaAsyncService tareaAgrupacionCadenaAsyncService;
+
+    @Autowired
+    private TareaLocalizacionOnlineHistoricoAsyncService tareaTiendaOnlineHistoricoAsyncService;
 
     @Autowired
     private RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
@@ -72,6 +82,24 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     public void tiendasComisionableByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .tiendasComisionableByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
+    public void configuracionVentaOnlineByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .configuracionVentaOnlineByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
+    public void agrupacionesCadenaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .agrupacionesCadenaByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
+    public void localizacionesOnlineByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .localizacionesOnlineByRunTareaAndTareaAmbito(runTarea, item));
     }
 
 }

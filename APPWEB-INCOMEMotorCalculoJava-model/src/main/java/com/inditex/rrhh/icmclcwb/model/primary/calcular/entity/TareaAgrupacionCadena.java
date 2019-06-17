@@ -29,17 +29,21 @@ public class TareaAgrupacionCadena {
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private /* BigInteger */ Tarea tarea;
-    
+
+    @NotBlank
+    @Column(name = "ID_ORIGEN")
+    private String idOrigen;
+
     @NotBlank
     @Column(name = "ID_AGRUPACION")
     private Long idAgrupacion;
-    
+
     @NotBlank
     @Column(name = "ID_CADENA")
     private String idCadena;
-    
+
     @NotBlank
     @Column(name = "MULTIPLE")
     private Boolean multiple;
-    
+
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCadenaPresenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,8 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     @Qualifier(value = "recolectarProperties")
     private RecolectarPropertiesDto recolectarProperties;
 
+    @Autowired
+    private TareaCadenaPresenciaService tareaCadenaPresenciaService;
 
     @Autowired
     private RunTareaAmbitoRecolectarPtrPresenciaService runTareaAmbitoRecolectarPtrPresenciaService;
@@ -67,5 +70,14 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                 .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
+    @Override
+    public void presenciaTotalCadenaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
+                .presenciaTotalCadenaByRunTareaAndTareaAmbito(runTarea, item));
+    }
 
+    @Override
+    public void updateActivoCadenaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        tareaCadenaPresenciaService.updateActivoCadenaByRunTarea(runTarea.getTarea());
+    }
 }

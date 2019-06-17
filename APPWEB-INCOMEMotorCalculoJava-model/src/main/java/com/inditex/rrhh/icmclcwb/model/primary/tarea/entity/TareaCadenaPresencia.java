@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import java.util.Date;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,45 +13,44 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-
-import lombok.Data;
+import java.util.Date;
 
 @Entity
-@Table(name = "TAREA_AGRUPACION_CADENA_VENTA")
+@Table(name = "TAREA_CADENA_PRESENCIA")
 @Data
-public class TareaAgrupacionCadenaVenta {
-    
+public class TareaCadenaPresencia {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_AGRUPACION_CADENA_VENTA")
+    @Column(name = "ID_TAREA_CADENA_PRESENCIA")
     private Long id;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-    
+
     @NotNull
     @Column(name = "FECHA", nullable = false)
     private Date fecha;
-    
+
     @NotNull
-    @Column(name = "ID_AGRUPACION", nullable = false)
-    private Long idAgrupacion;
-    
+    @Column(name = "ID_CADENA", nullable = false)
+    private String idCadena;
+
     @NotNull
-    @Column(name = "IMPORTE", nullable = false)
-    private /* BigInteger */ Double importe;
-    
+    @Column(name = "ID_SECCION", nullable = false)
+    private String idSeccion;
+
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
-    private /* BigInteger */ Double importeConImpuestos;
-    
+    @Column(name = "MINUTOS", nullable = false)
+    private /* BigInteger */ Long minutos;
+
+    @NotNull
+    @Column(name = "ACTIVO", nullable = false)
+    private Boolean activo;
+
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
-
-
 }

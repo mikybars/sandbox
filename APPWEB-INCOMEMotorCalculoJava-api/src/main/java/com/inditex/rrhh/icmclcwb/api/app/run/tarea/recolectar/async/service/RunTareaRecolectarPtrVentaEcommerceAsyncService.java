@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 @Async
 public interface RunTareaRecolectarPtrVentaEcommerceAsyncService {
 
-    CompletableFuture<Void> ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
+    CompletableFuture<Void> ventaOnlineEntregaDomicilioCadenaByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
 
@@ -22,5 +22,13 @@ public interface RunTareaRecolectarPtrVentaEcommerceAsyncService {
     CompletableFuture<Void> ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> ventaOnlineIpodDetalleLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> updateActivoVentaOnlineIpodByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> updateActivoVentaOnlinePickingByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> updateActivoVentaOnlineEntregaTiendaByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> updateActivoVentaOnlineEntregaDomicilioByRunTarea(final RunTareaDto runTarea);
 
 }

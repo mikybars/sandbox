@@ -39,6 +39,10 @@ public class TareaCadenaVenta {
     @NotNull
     @Column(name = "ID_CADENA", nullable = false)
     private String idCadena;
+
+    @NotNull
+    @Column(name = "ID_SECCION", nullable = false)
+    private String idSeccion;
     
     @NotNull
     @Column(name = "IMPORTE", nullable = false)
@@ -47,6 +51,10 @@ public class TareaCadenaVenta {
     @NotNull
     @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
     private /* BigInteger */ Double importeConImpuestos;
+
+    @NotNull
+    @Column(name = "ACTIVO", nullable = false)
+    private Boolean activo;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)

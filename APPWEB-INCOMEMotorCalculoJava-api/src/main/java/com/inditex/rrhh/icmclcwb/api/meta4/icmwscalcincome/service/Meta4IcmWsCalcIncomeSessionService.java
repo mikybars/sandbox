@@ -1,10 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service;
 
-import java.util.List;
-
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
@@ -19,25 +21,28 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+
+import java.util.List;
 
 public interface Meta4IcmWsCalcIncomeSessionService {
 
-	List<GenericTiendaResultItemDto> getTiendasEmpleado(TiendasEmpleadoRequestDto request);
+    List<GenericTiendaResultItemDto> getTiendasEmpleado(TiendasEmpleadoRequestDto request);
 
-	List<GenericTiendaResultItemDto> searchTiendas(SearchTiendasRequestDto request);
+    List<GenericTiendaResultItemDto> searchTiendas(SearchTiendasRequestDto request);
 
-	List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request);
+    List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request);
 
-	List<GenericEmpleadoResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request);
+    List<GenericEmpleadoResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request);
 
-	List<ComisionEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request);
+    List<ComisionEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request);
 
-	List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request);
+    List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request);
 
-	List<PeriodoDto> periodo();
+    List<PeriodoDto> periodo();
 
-    List<TiendaOnlineDto> tiendaOnline();
+    List<TiendaOnlineResultItemDto> tiendaOnline(TiendaOnlineRequestDto request);
 
     List<PeriodosResultItemDto> getPeriodos(PeriodosRequestDto request);
 
@@ -50,5 +55,9 @@ public interface Meta4IcmWsCalcIncomeSessionService {
     List<GenericTiendaResultItemDto> getFestivos(FestivosRequestDto request);
 
     List<GenericTiendaResultItemDto> getFlagCalcula(FlagCalculaRequestDto request);
+
+    List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(final ConfiguracionVentaOnlineRequestDto request);
+
+    List<AgrupOnlineResultItemDto> getAgrupacionesOnline(AgrupOnlineRequestDto request);
 
 }

@@ -5,8 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.aspectj.lang.annotation.After;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -121,7 +125,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return mappedEntity;
     }
-    
+
     @Override
     public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtos(List<IcmListaempleadosRecord> src) {
         List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
@@ -181,5 +185,26 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             presencia.setFecha(LocalDateTime.parse(item.getFecha(),
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
+    }
+
+    //TODO elminar este metodo cuando esté disponible idlugartrabajomtu
+    @Override
+    public TiendaOnlineResultItemDto asTiendaOnlineResultItemDto(IcmListatiendasRecord src) {
+        TiendaOnlineResultItemDto result = delegate.asTiendaOnlineResultItemDto(src);
+        if (StringUtils.isNotEmpty(src.getIdlugartrabajo())) {
+            //Se elimina el primer caracter del id lugar de trabajo (la T de T1001)
+            String idLugarTrabajo = src.getIdlugartrabajo().substring(1);
+            result.setIdLocalizacion(Long.parseLong(idLugarTrabajo));
+        }
+        return result;
+    }
+
+    @Override
+    public List<TiendaOnlineResultItemDto> asTiendaOnlineResultItemDto(List<IcmListatiendasRecord> src) {
+        List<TiendaOnlineResultItemDto> tiendas = new ArrayList<>();
+        if (src != null) {
+            src.forEach(x -> tiendas.add(asTiendaOnlineResultItemDto(x)));
+        }
+        return tiendas;
     }
 }

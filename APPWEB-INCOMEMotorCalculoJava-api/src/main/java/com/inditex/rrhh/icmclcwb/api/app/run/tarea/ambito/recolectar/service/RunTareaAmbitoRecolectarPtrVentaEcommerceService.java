@@ -8,8 +8,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 public interface RunTareaAmbitoRecolectarPtrVentaEcommerceService {
 
-    void ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-            @Valid TareaAmbitoDto tareaAmbito);
+    void ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+                                                                   @Valid TareaAmbitoDto tareaAmbito);
 
     void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @Valid TareaAmbitoDto tareaAmbito);

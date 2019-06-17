@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCadenaVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +19,12 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
 
     @Autowired
     private RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
+
+    @Autowired
+    private TareaLocalizacionVentaService tareaLocalizacionVentaService;
+
+    @Autowired
+    private TareaCadenaVentaService tareaCadenaVentaService;
 
     @Override
     public void ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
@@ -49,9 +57,9 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     }
     
     @Override
-    public void ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+    public void ventaOnlineEntregaDomicilioCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlineEntregaDomicilioLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
+                .ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito(runTarea, item));
     }
     
     @Override
@@ -59,5 +67,24 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
                 .ventaOnlineIpodDetalleLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
-  
+
+    @Override
+    public void updateActivoVentaOnlineIpodByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
+    }
+
+    @Override
+    public void updateActivoVentaOnlinePickingByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        tareaLocalizacionVentaService.updateActivoVentaOnlinePicking(runTarea.getTarea());
+    }
+
+    @Override
+    public void updateActivoVentaOnlineEntregaTiendaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        tareaLocalizacionVentaService.updateActivoVentaOnlineEntregaTienda(runTarea.getTarea());
+    }
+
+    @Override
+    public void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        tareaCadenaVentaService.updateActivoVentaOnlineEntregaDomicilio(runTarea.getTarea());
+    }
 }

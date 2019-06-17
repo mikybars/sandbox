@@ -23,4 +23,7 @@ public interface RunTareaAmbitoRecolectarPtrPresenciaService {
     void presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
+    void presenciaTotalCadenaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbitoDto);
+
 }

@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import java.util.Date;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,21 +12,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-
-import lombok.Data;
+import java.util.Date;
 
 @Entity
-@Table(name = "TAREA_AGRUPACION_CADENA_SECCION_VENTA")
+@Table(name = "TAREA_AGRUPACION_PRESENCIA")
 @Data
-public class TareaAgrupacionCadenaSeccionVenta {
+public class TareaAgrupacionPresencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_AGRUPACION_CADENA_SECCION_VENTA")
+    @Column(name = "ID_TAREA_AGRUPACION_PRESENCIA")
     private Long id;
 
     @NotNull
@@ -40,21 +37,20 @@ public class TareaAgrupacionCadenaSeccionVenta {
     @NotNull
     @Column(name = "ID_AGRUPACION", nullable = false)
     private Long idAgrupacion;
-    
-    @NotBlank
+
+    @NotNull
     @Column(name = "ID_SECCION", nullable = false)
     private String idSeccion;
 
     @NotNull
-    @Column(name = "IMPORTE", nullable = false)
-    private /* BigInteger */ Double importe;
-    
+    @Column(name = "MINUTOS", nullable = false)
+    private /* BigInteger */ Long minutos;
+
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
-    private /* BigInteger */ Double importeConImpuestos;
+    @Column(name = "ACTIVO", nullable = false)
+    private Boolean activo;
 
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
-    private TipoDato tipoImporteVenta;
-    
+    private TipoDato tipoDato;
 }
