@@ -61,10 +61,11 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_SECCION_COMPENSADO, TipoDatoEnum.MINUTOS_TOTALES_SECCION_COMPENSADO.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_COMPENSADO, TipoDatoEnum.MINUTOS_TOTALES_COMPENSADO.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_TOTALES, TipoDatoEnum.MINUTOS_TOTALES.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_TOTALES_COMPENSADO, TipoDatoEnum.MINUTOS_TOTALES_COMPENSADO.getId());
 
-        
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
 

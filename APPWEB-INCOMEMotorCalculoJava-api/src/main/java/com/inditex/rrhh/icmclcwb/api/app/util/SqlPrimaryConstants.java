@@ -18,6 +18,24 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_TIPO_DATO_SECCION_COMPENSADO = "tipoDatoSeccionCompensado";
     
     public static final String SQL_PARAM_TIPO_DATO_COMPENSADO = "tipoDatoCompensado";
+    
+    public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA = "tipoDatoLocalizacionPersonaPresencia";
+    
+    public static final String SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA = "tipoDatoPersonaPresencia";
+    
+    public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION = "tipoDatoLocalizacionVentaSeccion";
+    
+    public static final String SQL_PARAM_MINUTOS_INDIVIDUAL = "minutosIndividual";
+    
+    public static final String SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL = "minutosIndividualManual";
+    
+    public static final String SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION = "minutosIndividualSeccion";
+
+    public static final String SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL = "minutosIndividualSeccionManual";
+    
+    public static final String SQL_PARAM_MINUTOS_TOTALES = "minutosTotales";
+    
+    public static final String SQL_PARAM_MINUTOS_TOTALES_COMPENSADO = "minutosTotalesCompensado";
 
     public static final String SQL_PARAM_ID_PERSONA = "idPersona";
 
