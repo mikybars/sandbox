@@ -10,6 +10,7 @@ import javax.validation.constraints.Positive;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,9 @@ import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 @Validated
 public class TrabajoServiceImpl implements TrabajoService {
 
+    @Autowired
+    private Logger log;
+    
     @Autowired
     private TrabajoRepository trabajoRepository;
 
@@ -71,12 +75,12 @@ public class TrabajoServiceImpl implements TrabajoService {
         if (StringUtils.isBlank(trabajo.getIdUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUsername())) {
-                // TODO Eliminar System.out cuando se valide que campo hay que usar
-                System.out.println("userSSO.toString(): " + userSSO.toString());
-                System.out.println("userSSO.getUser(): " + userSSO.getUser());
-                System.out.println("userSSO.getUserDomain(): " + userSSO.getUserDomain());
-                System.out.println("userSSO.getUsername(): " + userSSO.getUsername());
-                System.out.println("userSSO.getUserPrincipalName(): " + userSSO.getUserPrincipalName());
+                // TODO Eliminar cuando se valide que campo hay que usar
+                log.info("userSSO.toString(): {}", userSSO.toString());
+                log.info("userSSO.getUser(): {}", userSSO.getUser());
+                log.info("userSSO.getUserDomain(): {}", userSSO.getUserDomain());
+                log.info("userSSO.getUsername(): {}", userSSO.getUsername());
+                log.info("userSSO.getUserPrincipalName(): {}", userSSO.getUserPrincipalName());
                 trabajo.setIdUsuario(userSSO.getUsername());
             }
         }
