@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
@@ -23,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -147,8 +147,8 @@ public class TestServiceImpl implements TestService {
             for (long x = 0; x < 70; x++) {
                 TrabajoDto trabajo = new TrabajoDto();
                 trabajo.setIdPeriodo("PERIODO_" + x);
-                trabajo.setFechaInicioPeriodo(LocalDateTime.now().minusMonths(x + 1));
-                trabajo.setFechaFinPeriodo(LocalDateTime.now().minusMonths(x));
+                trabajo.setFechaInicioPeriodo(TimeUtils.nowLocalDateTime().minusMonths(x + 1));
+                trabajo.setFechaFinPeriodo(TimeUtils.nowLocalDateTime().minusMonths(x));
                 trabajo.setIdSociedad(sociedad);
                 TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
                 trabajoAmbitoOrigenDto.setIdOrigen(origen);

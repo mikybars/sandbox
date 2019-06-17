@@ -58,7 +58,7 @@ public abstract class TareaMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "estado", ignore = true)
-    @Mapping(target = "fechaCreacion", ignore = true /* expression = "java(java.time.LocalDateTime.now())" */)
+    @Mapping(target = "fechaCreacion", ignore = true)
     @Mapping(target = "fechaInicioTarea", ignore = true)
     @Mapping(target = "fechaFinTarea", ignore = true)
     @Mapping(target = "ambito", ignore = true)

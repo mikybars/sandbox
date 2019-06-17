@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 import stormpot.Reallocator;
@@ -58,7 +58,7 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
         Meta4ClientSession session = new Meta4ClientSession();
         session.setId(id);
         session.setCookies(cookies);
-        session.setFechaCreacion(LocalDateTime.now());
+        session.setFechaCreacion(TimeUtils.nowLocalDateTime());
         client.setSession(session);
 
         client.setCredentials(meta4ClientFactory.getMeta4ClientCredentials());

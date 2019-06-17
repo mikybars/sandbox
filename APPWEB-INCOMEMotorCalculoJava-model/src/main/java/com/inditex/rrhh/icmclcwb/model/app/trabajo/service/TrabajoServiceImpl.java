@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoPersonaSer
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 
@@ -67,7 +67,7 @@ public class TrabajoServiceImpl implements TrabajoService {
     @Transactional
     @Override
     public TrabajoDto create(@Valid final TrabajoDto trabajo) {
-        trabajo.setFechaCreacion(LocalDateTime.now());
+        trabajo.setFechaCreacion(TimeUtils.nowLocalDateTime());
         if (StringUtils.isBlank(trabajo.getIdUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUser())) {

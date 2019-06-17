@@ -37,7 +37,7 @@ public abstract class TrabajoMapper {
     public abstract List<Trabajo> trabajoDtoToTrabajo(List<TrabajoDto> src);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "fechaCreacion", ignore = true /* expression = "java(java.time.LocalDateTime.now())" */)
+    @Mapping(target = "fechaCreacion", ignore = true)
     @Mapping(target = "idProgramacion", source = "srcProgramacion.id")
     @Mapping(target = "tipoAmbito", source = "srcProgramacion.tipoAmbito")
     @Mapping(target = "idUsuario", source = "srcProgramacion.idUsuario")

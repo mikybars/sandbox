@@ -6,6 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -37,9 +37,9 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public ProgramacionDto create(@Valid final ProgramacionDto programacion) {
-        programacion.setFechaCreacion(LocalDateTime.now());
+        programacion.setFechaCreacion(TimeUtils.nowLocalDateTime());
         if (StringUtils.isBlank(programacion.getHuso())) {
-            programacion.setHuso(ZoneId.systemDefault().getId());
+            programacion.setHuso(TimeUtils.ofZoneId());
         }
         if (StringUtils.isBlank(programacion.getIdUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
@@ -64,18 +64,17 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion) {
-        return ZonedDateTime
-                .of(LocalDate.now(ZoneId.of(programacion.getHuso())), programacion.getHora(),
-                        ZoneId.of(programacion.getHuso()))
-                .isAfter(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of(programacion.getHuso())))
-                        ? ZonedDateTime
-                                .of(LocalDate.now(ZoneId.of(programacion.getHuso())), programacion.getHora(),
-                                        ZoneId.of(programacion.getHuso()))
-                                .withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
-                        : ZonedDateTime
-                                .of(LocalDate.now(ZoneId.of(programacion.getHuso())).plusDays(1),
-                                        programacion.getHora(), ZoneId.of(programacion.getHuso()))
-                                .withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime result = TimeUtils.nowLocalDateTime();
+        ZoneId zoneDefaultHuso = TimeUtils.ofZone();
+        ZoneId zoneProgramacionHuso = TimeUtils.ofZone(programacion.getHuso());
+        ZonedDateTime zonedDateTimeProgramacionHuso = TimeUtils.ofZonedDateTime(programacion.getHora(),
+                zoneProgramacionHuso);
+        ZonedDateTime nowZonedDateTimeProgramacionHuso = TimeUtils.nowZonedDateTime(zoneProgramacionHuso);
+        if (nowZonedDateTimeProgramacionHuso.isAfter(zonedDateTimeProgramacionHuso)) {
+            zonedDateTimeProgramacionHuso = zonedDateTimeProgramacionHuso.plusDays(1);
+        }
+        result = zonedDateTimeProgramacionHuso.withZoneSameInstant(zoneDefaultHuso).toLocalDateTime();
+        return result;
     }
 
     @Override
@@ -88,7 +87,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public ProgramacionDto updateEjecucion(@Valid ProgramacionDto programacion) {
-        programacion.setFechaUltimaEjecucion(LocalDateTime.now());
+        programacion.setFechaUltimaEjecucion(TimeUtils.nowLocalDateTime());
         programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
         return modify(programacion);
     }

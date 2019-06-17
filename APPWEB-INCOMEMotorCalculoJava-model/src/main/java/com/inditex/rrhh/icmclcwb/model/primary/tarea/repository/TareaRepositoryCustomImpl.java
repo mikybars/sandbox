@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.time.LocalDateTime;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 @Repository
 public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
@@ -24,7 +23,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
 
     @Value("#{primaryQuery['TareaRepositoryCustom.updateFechaFin']}")
     private String sqlUpdateFechaFin;
-    
+
     @Value("#{primaryQuery['TareaRepositoryCustom.updateFechaInicioAndEstado']}")
     private String sqlUpdateFechaInicioAndEstado;
 
@@ -38,16 +37,16 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     public void updateFechaFin(@NotNull final TareaDto tarea) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, LocalDateTime.now());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.nowDate());
         namedParameterJdbcTemplate.update(sqlUpdateFechaFin, params);
     }
-    
+
     @Override
     public void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estado.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, LocalDateTime.now());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.nowDate());
         namedParameterJdbcTemplate.update(sqlUpdateFechaInicioAndEstado, params);
     }
 
