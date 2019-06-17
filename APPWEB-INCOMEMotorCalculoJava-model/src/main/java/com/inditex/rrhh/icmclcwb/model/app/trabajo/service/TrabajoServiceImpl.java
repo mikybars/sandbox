@@ -36,7 +36,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private Logger log;
-    
+
     @Autowired
     private TrabajoRepository trabajoRepository;
 
@@ -83,6 +83,9 @@ public class TrabajoServiceImpl implements TrabajoService {
                 log.info("userSSO.getUserPrincipalName(): {}", userSSO.getUserPrincipalName());
                 trabajo.setIdUsuario(userSSO.getUsername());
             }
+        } else {
+            // TODO Eliminar cuando se valide que campo hay que usar
+            log.info("trabajo.getIdUsuario(): {}", trabajo.getIdUsuario());
         }
         TrabajoDto result = trabajoMapper
                 .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
