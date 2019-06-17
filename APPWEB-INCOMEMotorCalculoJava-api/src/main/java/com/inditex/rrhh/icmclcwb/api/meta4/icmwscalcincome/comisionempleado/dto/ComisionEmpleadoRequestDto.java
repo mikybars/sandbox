@@ -5,12 +5,10 @@ import java.io.Serializable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Pageable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
-import lombok.Data;
 
-@Data
 public class ComisionEmpleadoRequestDto extends PageableDto<GenericFilterDto>
-		implements Pageable<GenericFilterDto>, Serializable {
+        implements Pageable<GenericFilterDto>, Serializable {
 
-	private static final long serialVersionUID = -3120142266766920162L;
+    private static final long serialVersionUID = -3120142266766920162L;
 
 }

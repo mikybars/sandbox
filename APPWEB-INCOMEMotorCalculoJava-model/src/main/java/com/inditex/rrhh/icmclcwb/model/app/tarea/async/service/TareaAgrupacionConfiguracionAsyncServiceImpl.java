@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionConfiguracionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionConfiguracionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
@@ -19,8 +18,10 @@ public class TareaAgrupacionConfiguracionAsyncServiceImpl implements TareaAgrupa
     private TareaAgrupacionConfiguracionService tareaAgrupacionConfiguracionService;
 
     @Override
-    public CompletableFuture<Void> saveAgrupacionConfiguracionDto(List<ConfiguracionVentaOnlineResultItemDto> data, RunTareaDto tarea) {
-        List<TareaAgrupacionConfiguracionDto> result = tareaAgrupacionConfiguracionService.saveConfiguracionVentaOnline(data, tarea);
+    public CompletableFuture<Void> saveAgrupacionConfiguracionDto(List<ConfiguracionVentaOnlineResultItemDto> data,
+            RunTareaDto tarea) {
+        tareaAgrupacionConfiguracionService.saveConfiguracionVentaOnline(data, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

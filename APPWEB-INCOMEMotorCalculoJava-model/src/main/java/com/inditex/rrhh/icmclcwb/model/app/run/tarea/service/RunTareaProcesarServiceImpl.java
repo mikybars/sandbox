@@ -26,7 +26,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
     @Autowired
     private RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService;
-    
+
     @Autowired
     private RunTareaProcesarPresenciaAsyncService runTareaProcesarPresenciaAsyncService;
 
@@ -41,31 +41,33 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfUpdateSeccionPresenciasActivas = runTareaProcesarPresenciaAsyncService
                     .updateActivoLocalizacionPersonaPresencia(runTarea);
             AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf);
-            
+
             // Actualizar flags de presencias totales activas
             CompletableFuture<Void> cfUpdatePresenciasActivas = runTareaProcesarPresenciaAsyncService
                     .updateActivoLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfUpdatePresenciasActivas, cf);
-            
+
             // Compensar presencia total localizacion persona con las manuales
             CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = runTareaProcesarPresenciaAsyncService
                     .compensarLocalizacionPersonaPresencia(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaPersonaLocalizacion, cf);
-            
+
             // Compensar presencia total localizacion con las manuales
             CompletableFuture<Void> cfCompensarPresenciaLocalizacion = runTareaProcesarPresenciaAsyncService
                     .compensarLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf);
 
-            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas - por venta
+            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
+            // - por venta
             CompletableFuture<Void> cfRepartoCadenas = runTareaProcesarVentaAsyncService
                     .repartoVentaEntregaDomicilioCadenas(runTarea);
             AsyncUtils.exceptionally(cfRepartoCadenas, cf);
 
-            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas - por presencia
+            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
+            // - por presencia
             CompletableFuture<Void> cfRepartoPorPresenciaCadenas = runTareaProcesarVentaAsyncService
-                .repartoVentaEntregaDomicilioPorPresenciaCadenas(runTarea);
-            AsyncUtils.exceptionally(cfRepartoCadenas, cf);
+                    .repartoVentaEntregaDomicilioPorPresenciaCadenas(runTarea);
+            AsyncUtils.exceptionally(cfRepartoPorPresenciaCadenas, cf);
 
             // Suma de ventas fisicas por agrupacion de cadena
             CompletableFuture<Void> cfVentaFisicaAgrupacion = runTareaProcesarVentaAsyncService
@@ -86,15 +88,16 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-
-            // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas - por ventas
+            // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -
+            // por ventas
             CompletableFuture<Void> cfRepartoAgrupaciones = runTareaProcesarVentaAsyncService
                     .repartoVentaEntregaDomicilioAgrupaciones(runTarea);
             AsyncUtils.exceptionally(cfRepartoAgrupaciones, cf);
 
-            // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas - por presencia
+            // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -
+            // por presencia
             CompletableFuture<Void> cfRepartoPresenciaAgrupaciones = runTareaProcesarVentaAsyncService
-                .repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(runTarea);
+                    .repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(runTarea);
             AsyncUtils.exceptionally(cfRepartoPresenciaAgrupaciones, cf);
 
             /*-------------------------------------------------------------*/

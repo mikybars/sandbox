@@ -4,7 +4,6 @@ import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,4 +95,5 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
         tareaProcesarVentaService.repartoVentaEntregaDomicilioSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

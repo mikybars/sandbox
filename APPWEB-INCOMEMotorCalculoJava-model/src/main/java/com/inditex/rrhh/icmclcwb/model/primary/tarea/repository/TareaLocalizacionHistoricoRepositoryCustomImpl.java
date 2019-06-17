@@ -21,33 +21,33 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
 @Repository
-public class TareaLocalizacionHistoricoRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionHistorico>
+public class TareaLocalizacionHistoricoRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionHistorico>
         implements TareaLocalizacionHistoricoRepositoryCustom {
-    
+
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("${app.envars.repository.batch-size.tarea-localizacion-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito']}")
     private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito']}")
     private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
 
@@ -71,68 +71,76 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl extends JdbcBatchPri
         pstmt.setString(8, entity.getIdLocalizacionMeta4());
         pstmt.setLong(9, entity.getTarea().getId());
     }
-    
+
     @Override
-    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
+    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
             @NotNull final List<Long> idsTipoDato) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
-        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito, parameters, new RowMapper<IdLocalizacionDto>() {
-            public IdLocalizacionDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                IdLocalizacionDto dto = new IdLocalizacionDto();
-                dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
-                return dto;
-            }
-        });
-    }
-    
-    @Override
-    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
-        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito, parameters, new RowMapper<IdLocalizacionDto>() {
-            public IdLocalizacionDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                IdLocalizacionDto dto = new IdLocalizacionDto();
-                dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
-                return dto;
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
+                parameters, new RowMapper<IdLocalizacionDto>() {
+                    public IdLocalizacionDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        IdLocalizacionDto dto = new IdLocalizacionDto();
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                        return dto;
+                    }
+                });
     }
 
     @Override
-    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
+    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito, parameters,
+                new RowMapper<IdLocalizacionDto>() {
+                    public IdLocalizacionDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        IdLocalizacionDto dto = new IdLocalizacionDto();
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                        return dto;
+                    }
+                });
+    }
+
+    @Override
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
 
-        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito, parameters, new RowMapper<IdLocalizacionLocalDto>() {
-            public IdLocalizacionLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
-                return dto;
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito, parameters,
+                new RowMapper<IdLocalizacionLocalDto>() {
+                    public IdLocalizacionLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                        return dto;
+                    }
+                });
     }
-    
+
     @Override
-    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
             @NotNull final List<Long> idsTipoDato) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
-        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito, parameters, new RowMapper<IdLocalizacionLocalDto>() {
-            public IdLocalizacionLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
-                return dto;
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
+                parameters, new RowMapper<IdLocalizacionLocalDto>() {
+                    public IdLocalizacionLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                        return dto;
+                    }
+                });
     }
 
     @Override
@@ -140,8 +148,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl extends JdbcBatchPri
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
-        return namedParameterJdbcTemplate.query(sqlCadenas, parameters, (rs, rowNum)->
-            IdCadenaDto.builder().id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA)).build());
+        return namedParameterJdbcTemplate.query(sqlCadenas, parameters, (rs, rowNum) -> IdCadenaDto.builder()
+                .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA)).build());
     }
 
 }

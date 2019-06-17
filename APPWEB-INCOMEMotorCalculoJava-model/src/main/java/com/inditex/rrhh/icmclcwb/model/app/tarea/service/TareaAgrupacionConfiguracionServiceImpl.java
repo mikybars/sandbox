@@ -26,12 +26,16 @@ public class TareaAgrupacionConfiguracionServiceImpl implements TareaAgrupacionC
     private TareaAgrupacionConfiguracionRepositoryCustom tareaAgrupacionConfiguracionRepositoryCustom;
 
     @Override
-    public List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(@Valid @NotNull List<ConfiguracionVentaOnlineResultItemDto> data, @Valid @NotNull RunTareaDto tarea) {
+    public List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
+            @Valid @NotNull List<ConfiguracionVentaOnlineResultItemDto> data, @Valid @NotNull RunTareaDto tarea) {
         List<TareaAgrupacionConfiguracion> configuraciones = tareaAgrupacionConfiguracionMapper
-            .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(data, tarea.getTarea());
-        //TODO usar el guardado en BD real
-        //        return tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-        //            tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
-        return tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(configuraciones);
+                .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(data, tarea.getTarea());
+        // TODO Usar el guardado en BD real
+        // return
+        // tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
+        // tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
+        return tareaAgrupacionConfiguracionMapper
+                .getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(configuraciones);
     }
+
 }

@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionOnlineHistoricoService;
@@ -30,15 +29,16 @@ public class TareaLocalizacionOnlineHistoricoServiceImpl implements TareaLocaliz
     @Override
     public List<LocalizacionOnlineDto> save(List<TiendaOnlineResultItemDto> src, TareaDto tarea) {
         List<TareaLocalizacionOnlineHistorico> tiendas = tareaLocalizacionOnlineHistoricoMapper
-            .getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(src, tarea);
-        return tareaLocalizacionOnlineHistoricoMapper
-            .getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
+                .getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(src, tarea);
+        return tareaLocalizacionOnlineHistoricoMapper.getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
                 tareaLocalizacionOnlineHistoricoRepositoryCustom.save(tiendas));
     }
 
     @Override
-    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-        @NotBlank String idOrigen, @NotNull final List<Long> idsTipoDato) {
-        return tareaLocalizacionOnlineHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull final Long idTarea, @NotBlank String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaLocalizacionOnlineHistoricoRepositoryCustom
+                .findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
     }
+
 }

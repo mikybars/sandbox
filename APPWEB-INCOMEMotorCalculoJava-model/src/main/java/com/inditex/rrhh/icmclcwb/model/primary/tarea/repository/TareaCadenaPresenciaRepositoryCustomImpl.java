@@ -4,9 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.TipoConceptoVenta;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionPresencia;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCadenaPresencia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,8 +19,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class TareaCadenaPresenciaRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaCadenaPresencia> implements TareaCadenaPresenciaRepositoryCustom {
+public class TareaCadenaPresenciaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaCadenaPresencia>
+        implements TareaCadenaPresenciaRepositoryCustom {
 
     @Value("${app.envars.repository.batch-size.tarea-agrupacion-presencia:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -57,11 +55,9 @@ public class TareaCadenaPresenciaRepositoryCustomImpl
     public void updateActivo(@NotNull TareaDto tarea) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
-            TipoConceptoVenta.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
-            TipoDatoEnum.MINUTOS_TOTALES.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA,
-            tarea.getId());
+                TipoConceptoVenta.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS, TipoDatoEnum.MINUTOS_TOTALES.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         namedParameterJdbcTemplate.update(sqlUpdateActivo, params);
     }
 

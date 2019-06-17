@@ -4,9 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaCadenaVentaDecorator;
@@ -34,11 +32,11 @@ public abstract class TareaCadenaVentaMapper {
     @Mapping(target = "activo", ignore = true)
     @Mapping(target = "tipoDato", ignore = true)
     public abstract TareaCadenaVenta ventaTotalizadoResponseItemDtoToTareaCadenaVenta(
-        PtrVentaTotalizadoResultItemDto src, TareaDto tarea);
+            PtrVentaTotalizadoResultItemDto src, TareaDto tarea);
 
     @AfterMapping
-    public void ventaTotalizadoResponseItemDtoToTareaCadenaVenta(
-        @MappingTarget TareaCadenaVenta dest, PtrVentaTotalizadoResultItemDto src, TareaDto tarea) {
+    public void ventaTotalizadoResponseItemDtoToTareaCadenaVenta(@MappingTarget TareaCadenaVenta dest,
+            PtrVentaTotalizadoResultItemDto src, TareaDto tarea) {
         dest.setActivo(Boolean.TRUE);
         dest.setTipoDato(new TipoDato());
         dest.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA.getId());
@@ -46,7 +44,7 @@ public abstract class TareaCadenaVentaMapper {
     }
 
     public List<TareaCadenaVenta> ventaTotalizadoResponseItemDtoToTareaCadenaVenta(
-        List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -60,11 +58,11 @@ public abstract class TareaCadenaVentaMapper {
     @Mapping(target = "activo", ignore = true)
     @Mapping(target = "tipoDato", ignore = true)
     public abstract TareaCadenaVenta ventaOnlineEntregaDomicilioResultItemDtoToTareaCadenaVenta(
-        PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea);
+            PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea);
 
     @AfterMapping
-    public void ventaOnlineEntregaDomicilioResultItemDtoToTareaCadenaVenta(
-        @MappingTarget TareaCadenaVenta dest, PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea) {
+    public void ventaOnlineEntregaDomicilioResultItemDtoToTareaCadenaVenta(@MappingTarget TareaCadenaVenta dest,
+            PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea) {
         dest.setActivo(Boolean.TRUE);
         dest.setTipoDato(new TipoDato());
         dest.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA.getId());
@@ -72,7 +70,7 @@ public abstract class TareaCadenaVentaMapper {
     }
 
     public List<TareaCadenaVenta> ventaOnlineEntregaDomicilioResultItemDtoToTareaCadenaVenta(
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

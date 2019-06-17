@@ -8,9 +8,6 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.aspectj.lang.annotation.After;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -120,8 +117,8 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFecha())) {
-            mappedEntity.setFecha(LocalDateTime.parse(src.getFecha(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            mappedEntity.setFecha(
+                    LocalDateTime.parse(src.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         return mappedEntity;
     }
@@ -139,7 +136,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                     setDates(item, presencia);
                     list.add(presencia);
                 });
-            }else {
+            } else {
                 GenericEmpleadoResultItemDto mappedEntity = delegate.asGenericEmpleadoResultItemDto(item);
                 setDates(item, mappedEntity);
                 list.add(mappedEntity);
@@ -182,17 +179,17 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFecha())) {
-            presencia.setFecha(LocalDateTime.parse(item.getFecha(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            presencia.setFecha(
+                    LocalDateTime.parse(item.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
     }
 
-    //TODO elminar este metodo cuando esté disponible idlugartrabajomtu
+    // TODO Elminar este metodo cuando esté disponible idlugartrabajomtu
     @Override
     public TiendaOnlineResultItemDto asTiendaOnlineResultItemDto(IcmListatiendasRecord src) {
         TiendaOnlineResultItemDto result = delegate.asTiendaOnlineResultItemDto(src);
         if (StringUtils.isNotEmpty(src.getIdlugartrabajo())) {
-            //Se elimina el primer caracter del id lugar de trabajo (la T de T1001)
+            // Se elimina el primer caracter del id lugar de trabajo (la T de T1001)
             String idLugarTrabajo = src.getIdlugartrabajo().substring(1);
             result.setIdLocalizacion(Long.parseLong(idLugarTrabajo));
         }
@@ -207,4 +204,5 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return tiendas;
     }
+
 }

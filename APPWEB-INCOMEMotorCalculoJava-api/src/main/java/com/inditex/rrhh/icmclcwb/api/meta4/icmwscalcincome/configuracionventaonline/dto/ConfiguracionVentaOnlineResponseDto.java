@@ -1,13 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
-import lombok.Data;
-
 import java.io.Serializable;
 
-@Data
 public class ConfiguracionVentaOnlineResponseDto extends PageableListDto<ConfiguracionVentaOnlineResultItemDto>
-    implements Serializable {
+        implements Serializable {
 
     private static final long serialVersionUID = 309052303252169742L;
 

@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ public class TareaLocalizacionHistoricoAsyncServiceImpl implements TareaLocaliza
     @Autowired
     private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-    
     @Override
     public CompletableFuture<Void> save(final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico,
             final TareaDto tarea) {
@@ -29,7 +27,6 @@ public class TareaLocalizacionHistoricoAsyncServiceImpl implements TareaLocaliza
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    
     @Override
     public CompletableFuture<Void> saveGenericTiendaResultItemDto(
             final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, final TareaDto tarea) {
