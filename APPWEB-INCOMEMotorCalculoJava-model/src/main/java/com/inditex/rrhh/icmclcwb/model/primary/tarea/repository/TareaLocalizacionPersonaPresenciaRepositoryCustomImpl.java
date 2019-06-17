@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -28,55 +27,59 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("${app.envars.repository.batch-size.tarea-localizacion-persona-seccion-presencia:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
-       
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
-    
+
     @Override
     public void updateActivo(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
-       
+
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
-       
+
     @Override
     public void compensar(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
-       
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
-    
+
     @Override
     public List<TareaLocalizacionPersonaPresencia> save(final List<TareaLocalizacionPersonaPresencia> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaLocalizacionPersonaPresencia entity)
-            throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaLocalizacionPersonaPresencia entity) throws SQLException {
         pstmt.setString(1, entity.getIdLocalizacion());
         pstmt.setString(2, entity.getIdOrigen());
         pstmt.setString(3, entity.getIdPersona());
