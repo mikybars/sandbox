@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -37,9 +36,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 @Service
 @Validated
 public class PtrPresenciaServiceImpl implements PtrPresenciaService {
-
-    @Autowired
-    private Logger log;
 
     @Autowired
     @Qualifier("ptrPresenciaClient")
@@ -100,8 +96,6 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid final PtrPresenciaTiposHorasRequestDto request) {
-        // TODO Test cache
-        log.info("Dentro: {}", request);
         return RestUtils.checkResponse(
                 ptrPresenciaClient.postForEntity(
                         presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request,

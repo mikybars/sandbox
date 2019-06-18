@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.ptr.presencia.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -28,9 +27,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 
 @Service
 public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
-
-    @Autowired
-    private Logger log;
 
     @Autowired
     private PtrPresenciaService ptrPresenciaService;
@@ -86,8 +82,6 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
     @Override
     public CompletableFuture<PtrPresenciaTiposHorasResponseDto> tiposHoras(
             final PtrPresenciaTiposHorasRequestDto request) {
-        // TODO Test cache
-        log.info("Fuera: {}", request);
         return CompletableFuture.completedFuture(ptrPresenciaService.tiposHoras(request));
     }
 
