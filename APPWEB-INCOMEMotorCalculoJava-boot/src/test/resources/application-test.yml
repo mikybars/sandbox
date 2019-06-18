@@ -5,10 +5,6 @@ spring:
   profiles:
     active: test
 amiga:
-  common:
-    cache:
-      embedded:
-        enabled: true
   service:
     aaa:
       local:

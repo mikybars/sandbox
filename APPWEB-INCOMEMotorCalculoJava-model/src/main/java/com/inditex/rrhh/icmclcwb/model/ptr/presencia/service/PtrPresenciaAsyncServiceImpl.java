@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.ptr.presencia.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPre
 public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
 
     @Autowired
+    private Logger log;
+
+    @Autowired
     private PtrPresenciaService ptrPresenciaService;
 
     @Override
@@ -36,67 +40,62 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
             final PtrPresenciaTotalizadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTotalizado(request));
     }
-    
+
     @Override
     public CompletableFuture<PtrPresenciaTotalTiendaResponseDto> presenciasTotalTienda(
             final PtrPresenciaTotalTiendaRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTotalTienda(request));
     }
-    
-    
+
     @Override
     public CompletableFuture<PtrPresenciaTotalTiendaSeccionResponseDto> presenciasTotalTiendaSeccion(
             final PtrPresenciaTotalTiendaSeccionRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTotalTiendaSeccion(request));
     }
 
-    
     @Override
     public CompletableFuture<PtrPresenciaDetalleResponseDto> presenciasDetalle(
             final PtrPresenciaDetalleRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasDetalle(request));
     }
 
-    
     @Override
     public CompletableFuture<PtrPresenciaDetalleComisionableResponseDto> presenciasDetalleComisionable(
             final PtrPresenciaDetalleComisionableRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasDetalleComisionable(request));
     }
-    
-    
+
     @Override
-    public CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciaDetalleComisionablePersonaByRunTarea(PtrPresenciaTiendasEmpleadoRequestDto request) {
+    public CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciaDetalleComisionablePersonaByRunTarea(
+            PtrPresenciaTiendasEmpleadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTiendasEmpleado(request));
     }
-    
-    
+
     @Override
     public CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciasTiendasEmpleado(
             final PtrPresenciaTiendasEmpleadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasTiendasEmpleado(request));
     }
-    
+
     @Override
     public CompletableFuture<PtrPresenciaEmpleadosTiendaResponseDto> presenciasEmpleadosTienda(
             final PtrPresenciaEmpleadosTiendaRequestDto request) {
         return CompletableFuture.completedFuture(ptrPresenciaService.presenciasEmpleadosTienda(request));
     }
 
-    
     @Override
     public CompletableFuture<PtrPresenciaTiposHorasResponseDto> tiposHoras(
             final PtrPresenciaTiposHorasRequestDto request) {
+        // TODO Test cache
+        log.info("Fuera: {}", request);
         return CompletableFuture.completedFuture(ptrPresenciaService.tiposHoras(request));
     }
-    
-    
+
     @Override
     public CompletableFuture<String> version() {
         return CompletableFuture.completedFuture(ptrPresenciaService.version());
     }
-    
-    
+
     @Override
     public CompletableFuture<String> test() {
         return CompletableFuture.completedFuture(ptrPresenciaService.test());

@@ -11,6 +11,7 @@ amiga:
     cache:
       remote:
         enabled: true
+        cache-names: tiposhoras
     logging:
       file:
         enabled: false

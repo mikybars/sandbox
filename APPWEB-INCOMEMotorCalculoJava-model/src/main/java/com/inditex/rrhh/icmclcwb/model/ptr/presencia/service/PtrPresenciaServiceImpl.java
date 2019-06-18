@@ -4,8 +4,10 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -37,22 +39,26 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 public class PtrPresenciaServiceImpl implements PtrPresenciaService {
 
     @Autowired
+    private Logger log;
+
+    @Autowired
     @Qualifier("ptrPresenciaClient")
     private RestClient ptrPresenciaClient;
-   
+
     @Autowired
     @Qualifier("presenciasProperties")
     private Map<String, PtrPropertiesDto> presenciasProperties;
-    
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTotalizadoResponseDto presenciasTotalizado(
-          @Valid final PtrPresenciaTotalizadoRequestDto request) {
+            @Valid final PtrPresenciaTotalizadoRequestDto request) {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(), request,
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(), request,
                         PtrPresenciaTotalizadoResponseDto.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(), request);
+                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(),
+                request);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -60,18 +66,22 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     public PtrPresenciaTotalTiendaSeccionResponseDto presenciasTotalTiendaSeccion(
             @Valid final PtrPresenciaTotalTiendaSeccionRequestDto request) {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getEndpoint(), request,
-                        PtrPresenciaTotalTiendaSeccionResponseDto.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getEndpoint(), request);
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getEndpoint(),
+                        request, PtrPresenciaTotalTiendaSeccionResponseDto.class),
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getEndpoint(), request);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaDetalleResponseDto presenciasDetalle(@Valid final PtrPresenciaDetalleRequestDto request) {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), request,
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), request,
                         PtrPresenciaDetalleResponseDto.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), request);
+                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(),
+                request);
     }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
@@ -79,50 +89,63 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     public PtrPresenciaDetalleComisionableResponseDto presenciasDetalleComisionable(
             @Valid final PtrPresenciaDetalleComisionableRequestDto request) {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(), request,
-                        PtrPresenciaDetalleComisionableResponseDto.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(), request);
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(),
+                        request, PtrPresenciaDetalleComisionableResponseDto.class),
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(), request);
     }
 
+    @Cacheable(value = "tiposhoras", key = "#request.getOrigen()")
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid final PtrPresenciaTiposHorasRequestDto request) {
+        // TODO Test cache
+        log.info("Dentro: {}", request);
         return RestUtils.checkResponse(
-                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request, 
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request,
                         PtrPresenciaTiposHorasResponseDto.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request);
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request);
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTotalTiendaResponseDto presenciasTotalTienda(
             @Valid final PtrPresenciaTotalTiendaRequestDto request) {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), request,
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), request,
                         PtrPresenciaTotalTiendaResponseDto.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), request);
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), request);
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTiendasEmpleadoResponseDto presenciasTiendasEmpleado(
             @Valid final PtrPresenciaTiendasEmpleadoRequestDto request) {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), request,
-                        PtrPresenciaTiendasEmpleadoResponseDto.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), request);
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(),
+                        request, PtrPresenciaTiendasEmpleadoResponseDto.class),
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), request);
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaEmpleadosTiendaResponseDto presenciasEmpleadosTienda(
             @Valid final PtrPresenciaEmpleadosTiendaRequestDto request) {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getEndpoint(), request,
-                        PtrPresenciaEmpleadosTiendaResponseDto.class),
-                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getEndpoint(), request);
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getEndpoint(),
+                        request, PtrPresenciaEmpleadosTiendaResponseDto.class),
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getEndpoint(), request);
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public String test() {
@@ -136,8 +159,8 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     @Override
     public String version() {
         return RestUtils.checkResponse(
-                ptrPresenciaClient.getForEntity(
-                        presenciasProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class),
+                ptrPresenciaClient.getForEntity(presenciasProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(),
+                        String.class),
                 ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), null);
     }
 
