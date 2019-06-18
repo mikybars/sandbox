@@ -11,7 +11,7 @@ amiga:
     cache:
       remote:
         enabled: true
-        cache-names: tiposhoras
+        cache-names: itx.icmclcwb.tipos_hora
     logging:
       file:
         enabled: false
