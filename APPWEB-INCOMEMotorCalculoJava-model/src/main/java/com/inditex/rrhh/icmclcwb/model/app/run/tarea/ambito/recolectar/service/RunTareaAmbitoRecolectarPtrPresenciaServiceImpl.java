@@ -11,7 +11,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaCadenaPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +78,10 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
 
     @Autowired
-    private TareaCadenaPresenciaAsyncService tareaCadenaPresenciaAsyncService;
+    private TareaAgrupacionPresenciaAsyncService tareaAgrupacionPresenciaAsyncService;
+
+    @Autowired
+    private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -287,6 +292,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
             for (List<IdCadenaDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen()),
@@ -311,7 +317,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
                     AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
                             .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                     AsyncUtils.exceptionally(
-                            tareaCadenaPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea), cf,
+                            tareaAgrupacionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea, agrupaciones), cf,
                             cfPersist);
                 }
 

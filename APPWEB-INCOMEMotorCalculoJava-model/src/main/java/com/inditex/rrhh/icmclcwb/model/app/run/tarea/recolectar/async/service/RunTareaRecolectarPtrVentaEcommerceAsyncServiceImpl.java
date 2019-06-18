@@ -80,6 +80,7 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
 
     @Override
     public CompletableFuture<Void> updateActivoVentaOnlineEntregaDomicilioByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.updateActivoVentaOnlineEntregaDomicilioByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

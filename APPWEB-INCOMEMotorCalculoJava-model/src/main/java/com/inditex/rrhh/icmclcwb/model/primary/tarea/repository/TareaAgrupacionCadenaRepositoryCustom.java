@@ -10,7 +10,5 @@ import java.util.List;
 
 public interface TareaAgrupacionCadenaRepositoryCustom {
     
-    void procesar(@NotNull final TareaDto tareaDto, @NotNull TipoDatoEnum tipoImporteOrigen, @NotNull TipoDatoEnum tipoImporteDestino);
-
     List<TareaAgrupacionCadena> save(@NotNull final List<TareaAgrupacionCadena> agrupaciones);
 }

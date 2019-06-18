@@ -91,10 +91,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .localizacionesOnlineByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiendasOnlineByRunTarea, cf, cfWait);
 
-            // Presencias cadenas
-            CompletableFuture<Void> cfPresenciasCadena = runTareaRecolectarPtrPresenciaAsyncService
-                .presenciaTotalCadenaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasCadena, cf, cfWait);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
 
             // Ventas físicas cadenas
             CompletableFuture<Void> cfVentasFisicasByCadena = runTareaRecolectarPtrVentaGeneralAsyncService
@@ -105,6 +104,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfVentasEntregaDomicilioByCadena = runTareaRecolectarPtrVentaEcommerceAsyncService
                 .ventaOnlineEntregaDomicilioCadenaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentasEntregaDomicilioByCadena, cf, cfWait);
+
+            // Presencias cadenas
+            CompletableFuture<Void> cfPresenciasCadena = runTareaRecolectarPtrPresenciaAsyncService
+                .presenciaTotalCadenaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasCadena, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
@@ -205,10 +209,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .updateActivoVentaOnlineEntregaDomicilioByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdateEntregaDomicilio, cfWait);
 
-            // También de presencias
-            CompletableFuture<Void> cfUpdatePresenciaCadenas = runTareaRecolectarPtrPresenciaAsyncService
-                .updateActivoCadenaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfUpdatePresenciaCadenas, cfWait);
+            // También de presencias TODO ¿agrupaciones?
+            CompletableFuture<Void> cfUpdatePresencias = runTareaRecolectarPtrPresenciaAsyncService
+                .updateActivoPresenciaAgrupacionByRunTarea(runTarea);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

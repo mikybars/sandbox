@@ -34,21 +34,6 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Auditoria
     @Override
-    public void ventaOnlineEntregaDomicilioAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA);
-    }
-
-    @Auditoria
-    @Override
-    public void ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA,
-                TipoDatoEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA);
-    }
-
-    @Auditoria
-    @Override
     public void ventaLocalizacionSeccion(@Valid RunTareaDto runTarea) {
         tareaTiendaVentaSeccionRepository.procesarVentasSeccion(runTarea.getTarea(),
                 TipoDatoGrupoEnum.VENTA_LOCALIZACION_SECCION.getValue());
@@ -92,18 +77,6 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     @Override
     public void repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(@Valid RunTareaDto runTarea) {
         tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(runTarea.getTarea());
-    }
-
-    @Auditoria
-    @Override
-    public void repartoVentaEntregaDomicilioCadenas(@Valid RunTareaDto runTarea) {
-        tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioCadenas(runTarea.getTarea());
-    }
-
-    @Auditoria
-    @Override
-    public void repartoVentaEntregaDomicilioPorPresenciaCadenas(@Valid RunTareaDto runTarea) {
-        tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioPorPresenciaCadenas(runTarea.getTarea());
     }
 
     @Auditoria

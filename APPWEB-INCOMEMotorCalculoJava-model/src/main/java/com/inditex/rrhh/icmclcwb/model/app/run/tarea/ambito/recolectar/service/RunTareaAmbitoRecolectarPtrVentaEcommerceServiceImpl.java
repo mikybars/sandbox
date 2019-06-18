@@ -6,12 +6,14 @@ import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPro
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEcommerceService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaCadenaVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionOperacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionOnlineHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -61,7 +63,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
     private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
     @Autowired
-    private TareaCadenaVentaAsyncService tareaCadenaVentaAsyncService;
+    private TareaAgrupacionVentaAsyncService tareaAgrupacionVentaAsyncService;
     
     @Autowired
     private TareaLocalizacionPersonaVentaAsyncService tareaLocalizacionPersonaVentaAsyncService;
@@ -75,6 +77,9 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
 
     @Autowired
     private TareaLocalizacionOnlineHistoricoService tareaLocalizacionOnlineHistoricoService;
+
+    @Autowired
+    private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -94,6 +99,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
             Long idTarea = runTarea.getTarea().getId();
             String idOrigen = tareaAmbito.getIdOrigen();
             for (List<IdCadenaDto> iter : StreamUtils.partition(
@@ -119,7 +125,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
 
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
                         .getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaCadenaVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea), cf,
+                AsyncUtils.exceptionally(tareaAgrupacionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data, tarea, agrupaciones), cf,
                         cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -1,22 +1,20 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
-import java.util.Map;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCadenaPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 @Service
 @Validated
@@ -35,7 +33,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     private RecolectarPropertiesDto recolectarProperties;
 
     @Autowired
-    private TareaCadenaPresenciaService tareaCadenaPresenciaService;
+    private TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
 
     @Autowired
     private RunTareaAmbitoRecolectarPtrPresenciaService runTareaAmbitoRecolectarPtrPresenciaService;
@@ -77,7 +75,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     }
 
     @Override
-    public void updateActivoCadenaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-        tareaCadenaPresenciaService.updateActivoCadenaByRunTarea(runTarea.getTarea());
+    public void updateActivoPresenciaAgrupacionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        tareaAgrupacionPresenciaService.updateActivo(runTarea.getTarea());
     }
 }

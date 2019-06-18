@@ -21,5 +21,5 @@ public interface RunTareaRecolectarPtrPresenciaAsyncService {
 
     CompletableFuture<Void> presenciaTotalCadenaByRunTarea(final RunTareaDto runTarea);
 
-    CompletableFuture<Void> updateActivoCadenaByRunTarea(final RunTareaDto runTarea);
+    CompletableFuture<Void> updateActivoPresenciaAgrupacionByRunTarea(final RunTareaDto runTarea);
 }
