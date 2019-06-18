@@ -228,13 +228,13 @@ public interface IcmWsCalcIncomeMapper {
             List<IcmListaconfiguracionRecord> src);
 
     // TODO Usar idlugartrabajomtu cuando esté disponible
-//    @Mapping(target = "idLocalizacion", source = "idlugartrabajomtu")
+    @Mapping(target = "idLocalizacion", source = "idlugartrabajomtu")
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idCadena", source = "idcadena")
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idEmpresa", source = "idempresa")
-    @Mapping(target = "idLocalizacionMeta4", source = "idlugartrabajo")
+//    @Mapping(target = "idLocalizacionMeta4", source = "idlugartrabajo")
     TiendaOnlineResultItemDto asTiendaOnlineResultItemDto(IcmListatiendasRecord src);
 
     List<TiendaOnlineResultItemDto> asTiendaOnlineResultItemDto(List<IcmListatiendasRecord> src);
