@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionCadenaMapper;
@@ -8,7 +9,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCa
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupacionCadenaMapper {
 
@@ -35,6 +38,24 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
         if (src != null) {
             src.forEach(x -> result.add(delegate.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(x)));
         }
+        return result;
+    }
+
+    @Override
+    public List<TareaAgrupacionCadenasDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(List<TareaAgrupacionCadena> src) {
+        Map<Long, List<String>> cadenas = new HashMap<>();
+        if (src != null) {
+            src.forEach(x -> {
+                if (!cadenas.containsKey(x.getIdAgrupacion())) {
+                    cadenas.put(x.getIdAgrupacion(), new ArrayList<>());
+                }
+                cadenas.get(x.getIdAgrupacion()).add(x.getIdCadena());
+            });
+        }
+
+        List<TareaAgrupacionCadenasDto> result = new ArrayList<>();
+        cadenas.forEach((idAgrupacion, idCadenas) -> result.add(new TareaAgrupacionCadenasDto(idAgrupacion, idCadenas)));
+
         return result;
     }
 }

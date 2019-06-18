@@ -43,18 +43,6 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     }
 
     @Override
-    public CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaProcesarVentaService.ventaOnlineEntregaDomicilioAgrupacionCadena(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaProcesarVentaService.ventaFisicaAgrupacionCadena(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
     public CompletableFuture<Void> trasladar(RunTareaDto runTarea) {
         tareaProcesarVentaService.trasladar(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
@@ -75,18 +63,6 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     @Override
     public CompletableFuture<Void> repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(RunTareaDto runTarea) {
         tareaProcesarVentaService.repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> repartoVentaEntregaDomicilioCadenas(RunTareaDto runTarea) {
-        tareaProcesarVentaService.repartoVentaEntregaDomicilioCadenas(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> repartoVentaEntregaDomicilioPorPresenciaCadenas(RunTareaDto runTarea) {
-        tareaProcesarVentaService.repartoVentaEntregaDomicilioPorPresenciaCadenas(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

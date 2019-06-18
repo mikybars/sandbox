@@ -66,33 +66,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .compensarLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf);
 
-            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
-            // - por venta
-            CompletableFuture<Void> cfRepartoCadenas = runTareaProcesarVentaAsyncService
-                    .repartoVentaEntregaDomicilioCadenas(runTarea);
-            AsyncUtils.exceptionally(cfRepartoCadenas, cf);
-
-            // Reparto de ventas online entrega domicilio en tiendas de cadenas no agrupadas
-            // - por presencia
-            CompletableFuture<Void> cfRepartoPorPresenciaCadenas = runTareaProcesarVentaAsyncService
-                    .repartoVentaEntregaDomicilioPorPresenciaCadenas(runTarea);
-            AsyncUtils.exceptionally(cfRepartoPorPresenciaCadenas, cf);
-
-            // Suma de ventas fisicas por agrupacion de cadena
-            CompletableFuture<Void> cfVentaFisicaAgrupacion = runTareaProcesarVentaAsyncService
-                    .ventaFisicaAgrupacionCadena(runTarea);
-            AsyncUtils.exceptionally(cfVentaFisicaAgrupacion, cf);
-
-            // Suma de ventas online entrega domicilio por agrupacion de cadena
-            CompletableFuture<Void> cfVentaEntregaDomicilioAgrupacion = runTareaProcesarVentaAsyncService
-                    .ventaOnlineEntregaTiendaAgrupacionCadena(runTarea);
-            AsyncUtils.exceptionally(cfVentaEntregaDomicilioAgrupacion, cf);
-
-            // Suma de presencias por agrupacion de cadena
-            CompletableFuture<Void> cfPresenciasAgrupacion = runTareaProcesarPresenciaAsyncService
-                    .presenciasAgrupacionCadena(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasAgrupacion, cf);
-
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

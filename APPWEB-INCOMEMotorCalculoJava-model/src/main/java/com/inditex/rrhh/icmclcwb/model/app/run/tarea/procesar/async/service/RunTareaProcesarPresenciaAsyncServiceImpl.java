@@ -51,11 +51,5 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         runTareaProcesarPresenciaService.updateActivoLocalizacionTotalizado(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    @Override
-    public CompletableFuture<Void> presenciasAgrupacionCadena(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.presenciaAgrupacionCadena(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
 
 }

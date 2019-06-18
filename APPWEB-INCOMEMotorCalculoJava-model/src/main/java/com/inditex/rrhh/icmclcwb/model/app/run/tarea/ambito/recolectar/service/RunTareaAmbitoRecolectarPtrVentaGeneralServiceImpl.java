@@ -11,7 +11,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaCadenaVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -64,7 +66,10 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
     private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
     @Autowired
-    private TareaCadenaVentaAsyncService tareaCadenaVentaAsyncService;
+    private TareaAgrupacionVentaAsyncService tareaAgrupacionVentaAsyncService;
+
+    @Autowired
+    private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
       
     @Auditoria
     @Override
@@ -111,6 +116,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
             for (List<IdCadenaDto> iter : StreamUtils.partition(
                 tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
                     tareaAmbito.getIdOrigen()),
@@ -129,8 +135,8 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                     ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
-                    tareaCadenaVentaAsyncService
-                        .savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
+                    tareaAgrupacionVentaAsyncService
+                        .savePtrVentaTotalizadoResponse(data, tarea, agrupaciones), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 

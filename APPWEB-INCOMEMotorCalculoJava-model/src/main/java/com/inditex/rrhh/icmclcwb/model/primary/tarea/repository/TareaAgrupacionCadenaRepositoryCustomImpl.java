@@ -28,27 +28,12 @@ public class TareaAgrupacionCadenaRepositoryCustomImpl
     @Value("${app.envars.repository.batch-size.tarea-agrupacion-cadena:${app.envars.repository.batch-size.default}}")
     private int batchSize;
     
-    @Value("#{primaryQuery['RunTareaProcesarService.procesarVentaAgrupacionCadena']}")
-    private String sqlProcesar;
-
     @Value("#{primaryQuery['TareaAgrupacionCadenaRepositoryCustom.save']}")
     private String sqlSave;
     
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
-    @Override
-    public void procesar(@NotNull TareaDto tareaDto, @NotNull TipoDatoEnum tipoImporteOrigen, 
-            @NotNull TipoDatoEnum tipoImporteDestino) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SUMA, tipoImporteDestino.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, tipoImporteOrigen.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, TipoConceptoVenta.ENTREGA_DOMICILIO_POR_VENTA.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-        namedParameterJdbcTemplate.update(sqlProcesar, params);
-    }
 
     @Override
     public List<TareaAgrupacionCadena> save(@NotNull List<TareaAgrupacionCadena> agrupaciones) {

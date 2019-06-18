@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
@@ -31,6 +32,10 @@ public abstract class TareaAgrupacionCadenaMapper {
     public abstract TareaAgrupacionCadenaDto getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(TareaAgrupacionCadena src);
 
     public List<TareaAgrupacionCadenaDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(List<TareaAgrupacionCadena> src) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+
+    public List<TareaAgrupacionCadenasDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(List<TareaAgrupacionCadena> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 }

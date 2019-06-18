@@ -7,12 +7,13 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.CadenaVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import lombok.Data;
 
 @Data
-public class PtrVentaOnlineEntregaDomicilioResultItemDto implements Serializable {
+public class PtrVentaOnlineEntregaDomicilioResultItemDto implements Serializable, CadenaVentaResultItemDto {
     
     private static final long serialVersionUID = -3536933437981318182L;
     

@@ -54,8 +54,8 @@ public class RunTareaRecolectarPtrPresenciaAsyncServiceImpl implements RunTareaR
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoCadenaByRunTarea(RunTareaDto runTarea) {
-        tareaRecolectarPtrPresenciaService.updateActivoCadenaByRunTarea(runTarea);
+    public CompletableFuture<Void> updateActivoPresenciaAgrupacionByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrPresenciaService.updateActivoPresenciaAgrupacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

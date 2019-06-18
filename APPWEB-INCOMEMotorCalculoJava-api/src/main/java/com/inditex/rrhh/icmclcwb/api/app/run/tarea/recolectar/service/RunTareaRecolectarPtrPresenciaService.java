@@ -19,6 +19,6 @@ public interface RunTareaRecolectarPtrPresenciaService {
 
     void presenciaTotalCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void updateActivoCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+    void updateActivoPresenciaAgrupacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
 }

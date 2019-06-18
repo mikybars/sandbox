@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.CadenaVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import lombok.Data;
 
 @Data
-public class PtrVentaTotalizadoResultItemDto implements Serializable {
+public class PtrVentaTotalizadoResultItemDto implements Serializable, CadenaVentaResultItemDto {
 
 	private static final long serialVersionUID = -2758503405995399894L;
 

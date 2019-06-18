@@ -23,9 +23,6 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones']}")
     private String sqlProcesarEntregaDomicilioAgrupaciones;
 
-    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioCadenas']}")
-    private String sqlProcesarEntregaDomicilioCadenas;
-
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPresenciaAgrupaciones']}")
     private String sqlProcesarEntregaDomicilioPresenciaAgrupaciones;
 
@@ -70,23 +67,6 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
     }
 
     @Override
-    public void procesarRepartoEntregaDomicilioCadenas(@NotNull TareaDto tareaDto) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_CADENA,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_LOCALIZACION,
-                TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_CADENA,
-                TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
-                TipoConceptoVenta.ENTREGA_DOMICILIO_POR_VENTA.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioCadenas, params);
-    }
-
-    @Override
     public void procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(@NotNull TareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_CADENA,
@@ -102,24 +82,6 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
                 TipoConceptoVenta.ENTREGA_DOMICILIO_POR_VENTA.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioAgrupaciones, params);
-    }
-
-    @Override
-    public void procesarRepartoEntregaDomicilioPorPresenciaCadenas(@NotNull TareaDto tareaDto) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_CADENA,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_LOCALIZACION,
-                TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_CADENA,
-                TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS, TipoDatoEnum.MINUTOS_TOTALES.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
-                TipoConceptoVenta.ENTREGA_DOMICILIO_POR_VENTA.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioCadenas, params);
     }
 
 }

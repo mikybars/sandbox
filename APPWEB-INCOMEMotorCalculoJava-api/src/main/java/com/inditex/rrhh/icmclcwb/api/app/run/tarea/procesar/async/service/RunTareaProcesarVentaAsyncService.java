@@ -12,10 +12,6 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> ventaLocalizacionTienda(final RunTareaDto runTarea);
 
-    CompletableFuture<Void> ventaOnlineEntregaTiendaAgrupacionCadena(RunTareaDto runTarea);
-
-    CompletableFuture<Void> ventaFisicaAgrupacionCadena(RunTareaDto runTarea);
-
     CompletableFuture<Void> saveAbierto(RunTareaDto runTarea);
 
     CompletableFuture<Void> saveCerrado(RunTareaDto runTarea);
@@ -25,10 +21,6 @@ public interface RunTareaProcesarVentaAsyncService {
     CompletableFuture<Void> repartoVentaEntregaDomicilioAgrupaciones(RunTareaDto runTarea);
 
     CompletableFuture<Void> repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(RunTareaDto runTarea);
-
-    CompletableFuture<Void> repartoVentaEntregaDomicilioCadenas(RunTareaDto runTarea);
-
-    CompletableFuture<Void> repartoVentaEntregaDomicilioPorPresenciaCadenas(RunTareaDto runTarea);
 
     CompletableFuture<Void> repartoVentaEntregaDomicilioSeccion(RunTareaDto runTarea);
 

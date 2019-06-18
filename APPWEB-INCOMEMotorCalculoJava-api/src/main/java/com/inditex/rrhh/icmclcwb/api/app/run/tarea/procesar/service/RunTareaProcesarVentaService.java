@@ -6,10 +6,6 @@ import javax.validation.Valid;
 
 public interface RunTareaProcesarVentaService {
 
-    void ventaOnlineEntregaDomicilioAgrupacionCadena(@Valid RunTareaDto runTarea);
-
-    void ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea);
-
     void ventaLocalizacionSeccion(@Valid RunTareaDto runTarea);
 
     void ventaLocalizacionTienda(@Valid RunTareaDto runTarea);
@@ -25,10 +21,6 @@ public interface RunTareaProcesarVentaService {
     void repartoVentaEntregaDomicilioAgrupaciones(@Valid RunTareaDto runTarea);
 
     void repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(@Valid RunTareaDto runTarea);
-
-    void repartoVentaEntregaDomicilioCadenas(@Valid RunTareaDto runTarea);
-
-    void repartoVentaEntregaDomicilioPorPresenciaCadenas(@Valid RunTareaDto runTarea);
 
     void repartoVentaEntregaDomicilioSeccion(@Valid RunTareaDto runTarea);
 

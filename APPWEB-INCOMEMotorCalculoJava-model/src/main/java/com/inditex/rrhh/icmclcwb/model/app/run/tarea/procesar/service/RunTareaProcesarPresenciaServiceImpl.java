@@ -62,10 +62,4 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         tareaLocalizacionPersonaPresenciaService.compensar(runTarea);
     }
 
-    @Auditoria
-    @Override
-    public void presenciaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionPresenciaService.procesarPresenciaAgrupacion(runTarea);
-    }
-
 }
