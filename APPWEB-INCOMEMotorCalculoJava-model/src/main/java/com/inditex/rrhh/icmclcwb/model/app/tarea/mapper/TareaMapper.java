@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
@@ -148,6 +150,15 @@ public abstract class TareaMapper {
 
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
+    @Mapping(target = "pais", source = "srcTareaAmbito.idCatalogo")
+    @Mapping(target = "empresa", ignore = true)
+    public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(
+        TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+        RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas);
+
+    @Mapping(target = "tienda", ignore = true)
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "pais", source = "srcTareaAmbito.idCatalogo")
     @Mapping(target = "empresa", source = "srcTarea.idEmpresa")
@@ -263,5 +274,13 @@ public abstract class TareaMapper {
     public abstract PtrVentaOnlineEntregaDomicilioRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);
+
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
+    @Mapping(target = "pais", source = "srcTareaAmbito.idCatalogo")
+    @Mapping(target = "empresa", ignore = true)
+    public abstract PtrVentaOnlineEntregaDomicilioRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
+        TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+        RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas);
 
 }
