@@ -36,6 +36,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
+    
+    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoTotalizado']}")
+    private String sqlUpdateActivoTotalizado;
 
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
@@ -55,6 +58,23 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
 
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
+    }
+    
+    @Override
+    public void updateActivoTotalizado(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL,
+                TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
+
+        namedParameterJdbcTemplate.update(sqlUpdateActivoTotalizado, parameters);
     }
 
     @Override

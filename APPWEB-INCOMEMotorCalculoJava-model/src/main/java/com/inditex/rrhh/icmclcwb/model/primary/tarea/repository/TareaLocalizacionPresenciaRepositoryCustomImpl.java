@@ -37,6 +37,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
     
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivoTotalizado']}")
+    private String sqlUpdateActivoTotalizado;
+    
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
 
@@ -55,6 +58,14 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
 
+    @Override
+    public void updateActivoTotalizado(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
+
+        namedParameterJdbcTemplate.update(sqlUpdateActivoTotalizado, parameters);
+    }
 
     @Override
     public void compensar(@NotNull RunTareaDto runTareaDto) {
