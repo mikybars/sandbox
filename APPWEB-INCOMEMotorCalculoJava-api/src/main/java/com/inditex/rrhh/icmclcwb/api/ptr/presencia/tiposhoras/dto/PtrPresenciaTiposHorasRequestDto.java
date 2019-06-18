@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +16,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class PtrPresenciaTiposHorasRequestDto {
+public class PtrPresenciaTiposHorasRequestDto implements Serializable {
+
+    private static final long serialVersionUID = 8473916136604243658L;
 
     @NotNull
     @ApiModelProperty(value = "Id origen", required = false, example = "11")
@@ -22,13 +26,13 @@ public class PtrPresenciaTiposHorasRequestDto {
 
     @ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
     private Integer tipoHora;
-    
+
     @ApiModelProperty(value = "Flag incluido venta", required = false, example = "true")
     private Boolean incluidoVenta;
-    
+
     @ApiModelProperty(value = "Flag incluido challenge", required = false, example = "true")
     private Boolean incluidoChallenge;
-    
+
     @ApiModelProperty(value = "Flag incluido ecommerce", required = false, example = "true")
     private Boolean incluidoEcommerce;
 

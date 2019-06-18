@@ -1,7 +1,7 @@
 <replicated-cache name="itx.sessions" mode="SYNC" statistics="true"/>
 <replicated-cache name="itx.icmclcwb.tipos_hora" mode="SYNC" statistics="true">
     <memory>
-        <object size="1000" />
+        <object size="10000" />
     </memory>
     <expiration max-idle="6000000" />
 </replicated-cache>
