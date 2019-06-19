@@ -184,18 +184,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
     }
 
-    // TODO Elminar este metodo cuando esté disponible idlugartrabajomtu
-    @Override
-    public TiendaOnlineResultItemDto asTiendaOnlineResultItemDto(IcmListatiendasRecord src) {
-        TiendaOnlineResultItemDto result = delegate.asTiendaOnlineResultItemDto(src);
-        if (StringUtils.isNotEmpty(src.getIdlugartrabajo())) {
-            // Se elimina el primer caracter del id lugar de trabajo (la T de T1001)
-            String idLugarTrabajo = src.getIdlugartrabajo().substring(1);
-            result.setIdLocalizacion(Long.parseLong(idLugarTrabajo));
-        }
-        return result;
-    }
-
     @Override
     public List<TiendaOnlineResultItemDto> asTiendaOnlineResultItemDto(List<IcmListatiendasRecord> src) {
         List<TiendaOnlineResultItemDto> tiendas = new ArrayList<>();
