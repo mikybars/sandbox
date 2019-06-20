@@ -137,19 +137,15 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                tareaLocalizacionOnlineHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION.getId())),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getFilter()
-                            .getMaxPageSize())) {
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService
+                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
+            if (cadenas.size() > 0) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
                 PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTienda = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineEntregaTiendaRequestDto(trabajo,
                                 tarea, tareaAmbito, recolectarProperties);
-                paramVentaOnlineEntregaTienda.setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId)
-                        .map(Integer::valueOf).collect(Collectors.toList()));
+                paramVentaOnlineEntregaTienda
+                    .setCadena(cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineEntregaTienda.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlineEntregaTienda.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
@@ -182,17 +178,15 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                tareaLocalizacionOnlineHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION.getId())),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getFilter().getMaxPageSize())) {
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService
+                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
+            if (cadenas.size() > 0) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlinePickingRequestDto(trabajo, tarea,
                                 tareaAmbito, recolectarProperties);
                 paramVentaOnlinePicking
-                        .setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
+                        .setCadena(cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlinePicking.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
@@ -225,15 +219,13 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                tareaLocalizacionOnlineHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-                        TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId())),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getFilter().getMaxPageSize())) {
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService
+                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
+            if (cadenas.size() > 0) {
                 PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea,
                                 tareaAmbito, recolectarProperties);
-                paramVentaOnlineIpod.setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId)
+                paramVentaOnlineIpod.setCadena(cadenas.stream().map(IdCadenaDto::getId)
                         .map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
@@ -268,13 +260,13 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                 tareaLocalizacionOnlineHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(), tareaAmbito.getIdOrigen(),
                     Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId())),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter()
-                            .getMaxPageSize())) {
+                ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter()
+                    .getMaxPageSize())) {
                 PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpodIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito, recolectarProperties);
                 paramVentaOnlineIpodIndividualDetalle.setTiendaOnline(
-                        iter.stream().map(e -> e.getId()).map(e -> Integer.valueOf(e)).collect(Collectors.toList()));
+                    iter.stream().map(e -> e.getId()).map(e -> Integer.valueOf(e)).collect(Collectors.toList()));
                 paramVentaOnlineIpodIndividualDetalle.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
                 paramVentaOnlineIpodIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_VENDEDOR_TIENDA);
 
@@ -308,13 +300,13 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
                 tareaLocalizacionOnlineHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(), tareaAmbito.getIdOrigen(),
                     Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_SECCION.getId(),
                         TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_OPERACION_LOCALIZACION.getId())),
-                    ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter()
-                            .getMaxPageSize())) {
+                ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getFilter()
+                    .getMaxPageSize())) {
                 PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpodIndividualDetalle = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(
                                 trabajo, tarea, tareaAmbito, recolectarProperties);
                 paramVentaOnlineIpodIndividualDetalle.setTiendaOnline(iter.stream().map(IdLocalizacionLocalDto::getId)
-                        .map(Integer::valueOf).collect(Collectors.toList()));
+                    .map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineIpodIndividualDetalle.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
                 paramVentaOnlineIpodIndividualDetalle.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineIpodIndividualDetalle.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
