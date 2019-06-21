@@ -1,9 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoConceptoVenta;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionPresencia;
@@ -56,7 +55,7 @@ public class TareaAgrupacionPresenciaRepositoryCustomImpl
     public void updateActivo(TareaDto tarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS, TipoDatoEnum.MINUTOS_TOTALES.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, TipoConceptoVenta.ENTREGA_DOMICILIO_POR_VENTA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, TipoVentaEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }

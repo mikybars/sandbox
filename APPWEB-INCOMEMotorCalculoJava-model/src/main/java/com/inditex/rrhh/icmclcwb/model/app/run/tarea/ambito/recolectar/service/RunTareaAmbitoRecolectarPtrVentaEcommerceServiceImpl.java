@@ -37,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -102,7 +103,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
             List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
             Long idTarea = runTarea.getTarea().getId();
             String idOrigen = tareaAmbito.getIdOrigen();
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea, idOrigen);
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea, idOrigen,
+                Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA.getId()));
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(trabajo,
@@ -138,7 +140,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService
-                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
+                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen(),
+                    Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId()));
             if (cadenas.size() > 0) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTienda = tareaMapper
@@ -179,7 +182,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService
-                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
+                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen(),
+                    Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId()));
             if (cadenas.size() > 0) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = tareaMapper
@@ -220,7 +224,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl implements Run
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService
-                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen());
+                .findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(), tareaAmbito.getIdOrigen(),
+                    Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
             if (cadenas.size() > 0) {
                 PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea,

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoConceptoVenta;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,7 +61,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_CADENA,
                 TipoDatoEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
-                TipoConceptoVenta.ENTREGA_DOMICILIO_POR_VENTA.getId());
+                TipoVentaEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioAgrupaciones, params);
     }
@@ -79,7 +79,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
                 TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS, TipoDatoEnum.MINUTOS_TOTALES.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
-                TipoConceptoVenta.ENTREGA_DOMICILIO_POR_VENTA.getId());
+                TipoVentaEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioAgrupaciones, params);
     }

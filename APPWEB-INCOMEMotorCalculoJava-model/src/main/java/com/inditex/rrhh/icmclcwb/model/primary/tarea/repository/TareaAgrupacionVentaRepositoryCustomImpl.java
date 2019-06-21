@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoConceptoVenta;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -55,7 +55,7 @@ public class TareaAgrupacionVentaRepositoryCustomImpl
     public void updateActivo(TareaDto tarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, TipoConceptoVenta.ENTREGA_DOMICILIO_POR_VENTA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, TipoVentaEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }

@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoConceptoVenta;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -54,13 +54,13 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
 
     @Override
     public void updateActivo(TareaDto tarea, TipoDatoEnum tipoDatoVentaLocalizacion, TipoDatoEnum tipoDatoVentaSecccion,
-        TipoConceptoVenta tipoConceptoVenta) {
+        TipoVentaEnum tipoVentaEnum) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION,
             tipoDatoVentaLocalizacion.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_SECCION,
             tipoDatoVentaSecccion.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, tipoConceptoVenta.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, tipoVentaEnum.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         namedParameterJdbcTemplate.update(sqlUpdateActivo, params);
     }

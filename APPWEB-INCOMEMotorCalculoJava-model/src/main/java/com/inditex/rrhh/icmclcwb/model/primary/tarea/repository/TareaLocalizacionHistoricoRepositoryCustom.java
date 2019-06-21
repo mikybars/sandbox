@@ -27,6 +27,8 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
             @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Long> idsTipoDato);
 
+    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen, List<Long> idsTipoDato);
+
     List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen);
 
 }

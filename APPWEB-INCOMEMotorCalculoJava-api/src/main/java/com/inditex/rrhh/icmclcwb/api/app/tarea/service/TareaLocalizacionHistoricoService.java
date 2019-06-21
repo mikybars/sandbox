@@ -39,6 +39,9 @@ public interface TareaLocalizacionHistoricoService {
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
             @NotNull final Long idTarea, @NotBlank final String idOrigen, @NotNull final List<Long> idsTipoDato);
 
+    List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen,
+            @NotNull final List<Long> idsTipoDato);
+
     List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
 
 }

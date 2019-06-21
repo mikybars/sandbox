@@ -2,20 +2,13 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoConceptoVenta;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -46,5 +39,6 @@ public class TareaAgrupacionCadenaRepositoryCustomImpl
         pstmt.setLong(2, entity.getIdAgrupacion());
         pstmt.setString(3, entity.getIdCadena());
         pstmt.setBoolean(4, entity.getMultiple());
+        pstmt.setString(5, entity.getIdOrigen());
     }
 }
