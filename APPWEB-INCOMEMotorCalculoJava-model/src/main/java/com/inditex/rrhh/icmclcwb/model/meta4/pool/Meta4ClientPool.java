@@ -9,6 +9,7 @@ import org.springframework.retry.annotation.Retryable;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
@@ -63,6 +64,22 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         log.info("Fin :: Meta4ClientPool :: close()");
     }
 
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public GetcadenaOutput getcadena(IcmParametrosentradaBlock param1,
+            IcmParametrospaginacionBlock param2) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getcadena(param1, param2);
+        } catch (Exception e) {
+            log.warn(ERROR_MESSAGE_LOG, e);
+            expire(client);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+        } finally {
+            release(client);
+        }
+    }
+    
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetconfprodventaOutput getconfprodventa(IcmParametrosentradaBlock param1,
             IcmParametrospaginacionBlock param2) {
