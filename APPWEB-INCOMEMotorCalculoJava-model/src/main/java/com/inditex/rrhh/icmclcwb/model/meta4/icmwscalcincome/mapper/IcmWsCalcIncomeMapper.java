@@ -233,6 +233,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idEmpresa", source = "idempresa")
     @Mapping(target = "idLocalizacion", source = "idlugartrabajomtu")
+    @Mapping(target = "idLocalizacionMeta4", source = "idlugartrabajo")
     TiendaOnlineResultItemDto asTiendaOnlineResultItemDto(IcmListatiendasRecord src);
 
     List<TiendaOnlineResultItemDto> asTiendaOnlineResultItemDto(List<IcmListatiendasRecord> src);
