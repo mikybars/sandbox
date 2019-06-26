@@ -24,19 +24,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para GetconfprodventaOutput complex type.
+ * <p>Clase Java para GetempresasOutput complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="GetconfprodventaOutput">
+ * &lt;complexType name="GetempresasOutput">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Icm_Listaempresas" type="{http://schemas.meta4.com/}Icm_ListaempresasBlock"/>
  *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
- *         &lt;element name="Icm_Listaconfiguracion" type="{http://schemas.meta4.com/}Icm_ListaconfiguracionBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -46,23 +46,23 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetconfprodventaOutput", propOrder = {
+@XmlType(name = "GetempresasOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmParametrospaginacion",
-    "icmListaconfiguracion"
+    "icmListaempresas",
+    "icmParametrospaginacion"
 })
-public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class GetempresasOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     @XmlElement(name = "return")
     protected double _return;
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
+    @XmlElement(name = "Icm_Listaempresas", required = true, nillable = true)
+    protected IcmListaempresasBlock icmListaempresas;
     @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
     protected IcmParametrospaginacionBlock icmParametrospaginacion;
-    @XmlElement(name = "Icm_Listaconfiguracion", required = true, nillable = true)
-    protected IcmListaconfiguracionBlock icmListaconfiguracion;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -110,6 +110,30 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
     }
 
     /**
+     * Obtiene el valor de la propiedad icmListaempresas.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaempresasBlock }
+     *     
+     */
+    public IcmListaempresasBlock getIcmListaempresas() {
+        return icmListaempresas;
+    }
+
+    /**
+     * Define el valor de la propiedad icmListaempresas.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaempresasBlock }
+     *     
+     */
+    public void setIcmListaempresas(IcmListaempresasBlock value) {
+        this.icmListaempresas = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmParametrospaginacion.
      * 
      * @return
@@ -133,30 +157,6 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
         this.icmParametrospaginacion = value;
     }
 
-    /**
-     * Obtiene el valor de la propiedad icmListaconfiguracion.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaconfiguracionBlock }
-     *     
-     */
-    public IcmListaconfiguracionBlock getIcmListaconfiguracion() {
-        return icmListaconfiguracion;
-    }
-
-    /**
-     * Define el valor de la propiedad icmListaconfiguracion.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaconfiguracionBlock }
-     *     
-     */
-    public void setIcmListaconfiguracion(IcmListaconfiguracionBlock value) {
-        this.icmListaconfiguracion = value;
-    }
-
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
         if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
@@ -164,7 +164,7 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
         if (this == object) {
             return true;
         }
-        final GetconfprodventaOutput that = ((GetconfprodventaOutput) object);
+        final GetempresasOutput that = ((GetempresasOutput) object);
         {
             double lhsReturn;
             lhsReturn = this.getReturn();
@@ -184,20 +184,20 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
             }
         }
         {
+            IcmListaempresasBlock lhsIcmListaempresas;
+            lhsIcmListaempresas = this.getIcmListaempresas();
+            IcmListaempresasBlock rhsIcmListaempresas;
+            rhsIcmListaempresas = that.getIcmListaempresas();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaempresas", lhsIcmListaempresas), LocatorUtils.property(thatLocator, "icmListaempresas", rhsIcmListaempresas), lhsIcmListaempresas, rhsIcmListaempresas, (this.icmListaempresas!= null), (that.icmListaempresas!= null))) {
+                return false;
+            }
+        }
+        {
             IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
             lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
             IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
             rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
-                return false;
-            }
-        }
-        {
-            IcmListaconfiguracionBlock lhsIcmListaconfiguracion;
-            lhsIcmListaconfiguracion = this.getIcmListaconfiguracion();
-            IcmListaconfiguracionBlock rhsIcmListaconfiguracion;
-            rhsIcmListaconfiguracion = that.getIcmListaconfiguracion();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconfiguracion", lhsIcmListaconfiguracion), LocatorUtils.property(thatLocator, "icmListaconfiguracion", rhsIcmListaconfiguracion), lhsIcmListaconfiguracion, rhsIcmListaconfiguracion, (this.icmListaconfiguracion!= null), (that.icmListaconfiguracion!= null))) {
                 return false;
             }
         }
@@ -235,14 +235,14 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
+            IcmListaempresasBlock theIcmListaempresas;
+            theIcmListaempresas = this.getIcmListaempresas();
+            strategy.appendField(locator, this, "icmListaempresas", buffer, theIcmListaempresas, (this.icmListaempresas!= null));
+        }
+        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
-        {
-            IcmListaconfiguracionBlock theIcmListaconfiguracion;
-            theIcmListaconfiguracion = this.getIcmListaconfiguracion();
-            strategy.appendField(locator, this, "icmListaconfiguracion", buffer, theIcmListaconfiguracion, (this.icmListaconfiguracion!= null));
         }
         return buffer;
     }
@@ -260,14 +260,14 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
+            IcmListaempresasBlock theIcmListaempresas;
+            theIcmListaempresas = this.getIcmListaempresas();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaempresas", theIcmListaempresas), currentHashCode, theIcmListaempresas, (this.icmListaempresas!= null));
+        }
+        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
-        {
-            IcmListaconfiguracionBlock theIcmListaconfiguracion;
-            theIcmListaconfiguracion = this.getIcmListaconfiguracion();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaconfiguracion", theIcmListaconfiguracion), currentHashCode, theIcmListaconfiguracion, (this.icmListaconfiguracion!= null));
         }
         return currentHashCode;
     }
@@ -288,8 +288,8 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GetconfprodventaOutput) {
-            final GetconfprodventaOutput copy = ((GetconfprodventaOutput) draftCopy);
+        if (draftCopy instanceof GetempresasOutput) {
+            final GetempresasOutput copy = ((GetempresasOutput) draftCopy);
             {
                 Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -321,6 +321,19 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
                 }
             }
             {
+                Boolean icmListaempresasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaempresas!= null));
+                if (icmListaempresasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaempresasBlock sourceIcmListaempresas;
+                    sourceIcmListaempresas = this.getIcmListaempresas();
+                    IcmListaempresasBlock copyIcmListaempresas = ((IcmListaempresasBlock) strategy.copy(LocatorUtils.property(locator, "icmListaempresas", sourceIcmListaempresas), sourceIcmListaempresas, (this.icmListaempresas!= null)));
+                    copy.setIcmListaempresas(copyIcmListaempresas);
+                } else {
+                    if (icmListaempresasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaempresas = null;
+                    }
+                }
+            }
+            {
                 Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
                 if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
@@ -333,25 +346,12 @@ public class GetconfprodventaOutput implements Cloneable, CopyTo2, Equals2, Hash
                     }
                 }
             }
-            {
-                Boolean icmListaconfiguracionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaconfiguracion!= null));
-                if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListaconfiguracionBlock sourceIcmListaconfiguracion;
-                    sourceIcmListaconfiguracion = this.getIcmListaconfiguracion();
-                    IcmListaconfiguracionBlock copyIcmListaconfiguracion = ((IcmListaconfiguracionBlock) strategy.copy(LocatorUtils.property(locator, "icmListaconfiguracion", sourceIcmListaconfiguracion), sourceIcmListaconfiguracion, (this.icmListaconfiguracion!= null)));
-                    copy.setIcmListaconfiguracion(copyIcmListaconfiguracion);
-                } else {
-                    if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListaconfiguracion = null;
-                    }
-                }
-            }
         }
         return draftCopy;
     }
 
     public Object createNewInstance() {
-        return new GetconfprodventaOutput();
+        return new GetempresasOutput();
     }
 
 }

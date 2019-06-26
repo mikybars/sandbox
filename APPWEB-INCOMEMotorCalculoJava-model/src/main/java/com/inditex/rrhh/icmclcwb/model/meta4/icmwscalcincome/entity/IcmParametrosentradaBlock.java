@@ -38,7 +38,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fechainiciocalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_ParametrosentradaRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrosentradaRecord" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -55,7 +54,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idorigen",
     "idempresa",
     "fechainicio",
-    "fechainiciocalculo",
     "icmParametrosentradaRecordSet"
 })
 public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
@@ -71,8 +69,6 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
     protected String idempresa;
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
-    @XmlElement(required = true, nillable = true)
-    protected String fechainiciocalculo;
     @XmlElement(name = "Icm_ParametrosentradaRecordSet", nillable = true)
     protected List<IcmParametrosentradaRecord> icmParametrosentradaRecordSet;
 
@@ -197,30 +193,6 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad fechainiciocalculo.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFechainiciocalculo() {
-        return fechainiciocalculo;
-    }
-
-    /**
-     * Define el valor de la propiedad fechainiciocalculo.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setFechainiciocalculo(String value) {
-        this.fechainiciocalculo = value;
-    }
-
-    /**
      * Gets the value of the icmParametrosentradaRecordSet property.
      * 
      * <p>
@@ -303,15 +275,6 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsFechainiciocalculo;
-            lhsFechainiciocalculo = this.getFechainiciocalculo();
-            String rhsFechainiciocalculo;
-            rhsFechainiciocalculo = that.getFechainiciocalculo();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainiciocalculo", lhsFechainiciocalculo), LocatorUtils.property(thatLocator, "fechainiciocalculo", rhsFechainiciocalculo), lhsFechainiciocalculo, rhsFechainiciocalculo, (this.fechainiciocalculo!= null), (that.fechainiciocalculo!= null))) {
-                return false;
-            }
-        }
-        {
             List<IcmParametrosentradaRecord> lhsIcmParametrosentradaRecordSet;
             lhsIcmParametrosentradaRecordSet = (((this.icmParametrosentradaRecordSet!= null)&&(!this.icmParametrosentradaRecordSet.isEmpty()))?this.getIcmParametrosentradaRecordSet():null);
             List<IcmParametrosentradaRecord> rhsIcmParametrosentradaRecordSet;
@@ -369,11 +332,6 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
         }
         {
-            String theFechainiciocalculo;
-            theFechainiciocalculo = this.getFechainiciocalculo();
-            strategy.appendField(locator, this, "fechainiciocalculo", buffer, theFechainiciocalculo, (this.fechainiciocalculo!= null));
-        }
-        {
             List<IcmParametrosentradaRecord> theIcmParametrosentradaRecordSet;
             theIcmParametrosentradaRecordSet = (((this.icmParametrosentradaRecordSet!= null)&&(!this.icmParametrosentradaRecordSet.isEmpty()))?this.getIcmParametrosentradaRecordSet():null);
             strategy.appendField(locator, this, "icmParametrosentradaRecordSet", buffer, theIcmParametrosentradaRecordSet, ((this.icmParametrosentradaRecordSet!= null)&&(!this.icmParametrosentradaRecordSet.isEmpty())));
@@ -407,11 +365,6 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
             String theFechainicio;
             theFechainicio = this.getFechainicio();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
-        }
-        {
-            String theFechainiciocalculo;
-            theFechainiciocalculo = this.getFechainiciocalculo();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainiciocalculo", theFechainiciocalculo), currentHashCode, theFechainiciocalculo, (this.fechainiciocalculo!= null));
         }
         {
             List<IcmParametrosentradaRecord> theIcmParametrosentradaRecordSet;
@@ -501,19 +454,6 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
                 } else {
                     if (fechainicioShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.fechainicio = null;
-                    }
-                }
-            }
-            {
-                Boolean fechainiciocalculoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechainiciocalculo!= null));
-                if (fechainiciocalculoShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceFechainiciocalculo;
-                    sourceFechainiciocalculo = this.getFechainiciocalculo();
-                    String copyFechainiciocalculo = ((String) strategy.copy(LocatorUtils.property(locator, "fechainiciocalculo", sourceFechainiciocalculo), sourceFechainiciocalculo, (this.fechainiciocalculo!= null)));
-                    copy.setFechainiciocalculo(copyFechainiciocalculo);
-                } else {
-                    if (fechainiciocalculoShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.fechainiciocalculo = null;
                     }
                 }
             }

@@ -47,8 +47,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmparametrosentrada",
     "icmparametrospaginacion"
 })
-@XmlRootElement(name = "GETPERIODOS")
-public class GETPERIODOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETORIGENES")
+public class GETORIGENES implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
@@ -111,7 +111,7 @@ public class GETPERIODOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
         if (this == object) {
             return true;
         }
-        final GETPERIODOS that = ((GETPERIODOS) object);
+        final GETORIGENES that = ((GETORIGENES) object);
         {
             IcmParametrosentradaBlock lhsICMPARAMETROSENTRADA;
             lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
@@ -197,8 +197,8 @@ public class GETPERIODOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETPERIODOS) {
-            final GETPERIODOS copy = ((GETPERIODOS) draftCopy);
+        if (draftCopy instanceof GETORIGENES) {
+            final GETORIGENES copy = ((GETORIGENES) draftCopy);
             {
                 Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrosentrada!= null));
                 if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -230,7 +230,7 @@ public class GETPERIODOS implements Cloneable, CopyTo2, Equals2, HashCode2, ToSt
     }
 
     public Object createNewInstance() {
-        return new GETPERIODOS();
+        return new GETORIGENES();
     }
 
 }

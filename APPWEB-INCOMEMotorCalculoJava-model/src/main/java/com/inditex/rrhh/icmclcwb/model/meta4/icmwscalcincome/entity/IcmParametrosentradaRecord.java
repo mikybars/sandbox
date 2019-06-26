@@ -51,15 +51,15 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idcadenareg" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorigenreg" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idpoblacion" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idsociedadreg" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipoproceso" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="nombreempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fechacalculofin" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechafincalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleadolocal" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="apellidoempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajomtu" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fechacalculoinicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechainiciocalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idmanualprogramado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechafinexportacion" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicioexportacion" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -93,15 +93,15 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idcadenareg",
     "idorigenreg",
     "idpoblacion",
+    "idsociedadreg",
     "idtipoproceso",
     "idlugartrabajo",
     "nombreempleado",
-    "fechacalculofin",
     "fechafincalculo",
     "idempleadolocal",
     "apellidoempleado",
     "idlugartrabajomtu",
-    "fechacalculoinicio",
+    "fechainiciocalculo",
     "idmanualprogramado",
     "fechafinexportacion",
     "fechainicioexportacion"
@@ -149,13 +149,13 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
     @XmlElement(required = true, nillable = true)
     protected String idpoblacion;
     @XmlElement(required = true, nillable = true)
+    protected String idsociedadreg;
+    @XmlElement(required = true, nillable = true)
     protected String idtipoproceso;
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajo;
     @XmlElement(required = true, nillable = true)
     protected String nombreempleado;
-    @XmlElement(required = true, nillable = true)
-    protected String fechacalculofin;
     @XmlElement(required = true, nillable = true)
     protected String fechafincalculo;
     @XmlElement(required = true, nillable = true)
@@ -165,7 +165,7 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajomtu;
     @XmlElement(required = true, nillable = true)
-    protected String fechacalculoinicio;
+    protected String fechainiciocalculo;
     @XmlElement(required = true, nillable = true)
     protected String idmanualprogramado;
     @XmlElement(required = true, nillable = true)
@@ -646,6 +646,30 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
     }
 
     /**
+     * Obtiene el valor de la propiedad idsociedadreg.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdsociedadreg() {
+        return idsociedadreg;
+    }
+
+    /**
+     * Define el valor de la propiedad idsociedadreg.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdsociedadreg(String value) {
+        this.idsociedadreg = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idtipoproceso.
      * 
      * @return
@@ -715,30 +739,6 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
      */
     public void setNombreempleado(String value) {
         this.nombreempleado = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad fechacalculofin.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFechacalculofin() {
-        return fechacalculofin;
-    }
-
-    /**
-     * Define el valor de la propiedad fechacalculofin.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setFechacalculofin(String value) {
-        this.fechacalculofin = value;
     }
 
     /**
@@ -838,27 +838,27 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
     }
 
     /**
-     * Obtiene el valor de la propiedad fechacalculoinicio.
+     * Obtiene el valor de la propiedad fechainiciocalculo.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getFechacalculoinicio() {
-        return fechacalculoinicio;
+    public String getFechainiciocalculo() {
+        return fechainiciocalculo;
     }
 
     /**
-     * Define el valor de la propiedad fechacalculoinicio.
+     * Define el valor de la propiedad fechainiciocalculo.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setFechacalculoinicio(String value) {
-        this.fechacalculoinicio = value;
+    public void setFechainiciocalculo(String value) {
+        this.fechainiciocalculo = value;
     }
 
     /**
@@ -1122,6 +1122,15 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             }
         }
         {
+            String lhsIdsociedadreg;
+            lhsIdsociedadreg = this.getIdsociedadreg();
+            String rhsIdsociedadreg;
+            rhsIdsociedadreg = that.getIdsociedadreg();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idsociedadreg", lhsIdsociedadreg), LocatorUtils.property(thatLocator, "idsociedadreg", rhsIdsociedadreg), lhsIdsociedadreg, rhsIdsociedadreg, (this.idsociedadreg!= null), (that.idsociedadreg!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdtipoproceso;
             lhsIdtipoproceso = this.getIdtipoproceso();
             String rhsIdtipoproceso;
@@ -1145,15 +1154,6 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             String rhsNombreempleado;
             rhsNombreempleado = that.getNombreempleado();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "nombreempleado", lhsNombreempleado), LocatorUtils.property(thatLocator, "nombreempleado", rhsNombreempleado), lhsNombreempleado, rhsNombreempleado, (this.nombreempleado!= null), (that.nombreempleado!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsFechacalculofin;
-            lhsFechacalculofin = this.getFechacalculofin();
-            String rhsFechacalculofin;
-            rhsFechacalculofin = that.getFechacalculofin();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechacalculofin", lhsFechacalculofin), LocatorUtils.property(thatLocator, "fechacalculofin", rhsFechacalculofin), lhsFechacalculofin, rhsFechacalculofin, (this.fechacalculofin!= null), (that.fechacalculofin!= null))) {
                 return false;
             }
         }
@@ -1194,11 +1194,11 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             }
         }
         {
-            String lhsFechacalculoinicio;
-            lhsFechacalculoinicio = this.getFechacalculoinicio();
-            String rhsFechacalculoinicio;
-            rhsFechacalculoinicio = that.getFechacalculoinicio();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechacalculoinicio", lhsFechacalculoinicio), LocatorUtils.property(thatLocator, "fechacalculoinicio", rhsFechacalculoinicio), lhsFechacalculoinicio, rhsFechacalculoinicio, (this.fechacalculoinicio!= null), (that.fechacalculoinicio!= null))) {
+            String lhsFechainiciocalculo;
+            lhsFechainiciocalculo = this.getFechainiciocalculo();
+            String rhsFechainiciocalculo;
+            rhsFechainiciocalculo = that.getFechainiciocalculo();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainiciocalculo", lhsFechainiciocalculo), LocatorUtils.property(thatLocator, "fechainiciocalculo", rhsFechainiciocalculo), lhsFechainiciocalculo, rhsFechainiciocalculo, (this.fechainiciocalculo!= null), (that.fechainiciocalculo!= null))) {
                 return false;
             }
         }
@@ -1353,6 +1353,11 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             strategy.appendField(locator, this, "idpoblacion", buffer, theIdpoblacion, (this.idpoblacion!= null));
         }
         {
+            String theIdsociedadreg;
+            theIdsociedadreg = this.getIdsociedadreg();
+            strategy.appendField(locator, this, "idsociedadreg", buffer, theIdsociedadreg, (this.idsociedadreg!= null));
+        }
+        {
             String theIdtipoproceso;
             theIdtipoproceso = this.getIdtipoproceso();
             strategy.appendField(locator, this, "idtipoproceso", buffer, theIdtipoproceso, (this.idtipoproceso!= null));
@@ -1366,11 +1371,6 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             String theNombreempleado;
             theNombreempleado = this.getNombreempleado();
             strategy.appendField(locator, this, "nombreempleado", buffer, theNombreempleado, (this.nombreempleado!= null));
-        }
-        {
-            String theFechacalculofin;
-            theFechacalculofin = this.getFechacalculofin();
-            strategy.appendField(locator, this, "fechacalculofin", buffer, theFechacalculofin, (this.fechacalculofin!= null));
         }
         {
             String theFechafincalculo;
@@ -1393,9 +1393,9 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             strategy.appendField(locator, this, "idlugartrabajomtu", buffer, theIdlugartrabajomtu, (this.idlugartrabajomtu!= null));
         }
         {
-            String theFechacalculoinicio;
-            theFechacalculoinicio = this.getFechacalculoinicio();
-            strategy.appendField(locator, this, "fechacalculoinicio", buffer, theFechacalculoinicio, (this.fechacalculoinicio!= null));
+            String theFechainiciocalculo;
+            theFechainiciocalculo = this.getFechainiciocalculo();
+            strategy.appendField(locator, this, "fechainiciocalculo", buffer, theFechainiciocalculo, (this.fechainiciocalculo!= null));
         }
         {
             String theIdmanualprogramado;
@@ -1518,6 +1518,11 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idpoblacion", theIdpoblacion), currentHashCode, theIdpoblacion, (this.idpoblacion!= null));
         }
         {
+            String theIdsociedadreg;
+            theIdsociedadreg = this.getIdsociedadreg();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idsociedadreg", theIdsociedadreg), currentHashCode, theIdsociedadreg, (this.idsociedadreg!= null));
+        }
+        {
             String theIdtipoproceso;
             theIdtipoproceso = this.getIdtipoproceso();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtipoproceso", theIdtipoproceso), currentHashCode, theIdtipoproceso, (this.idtipoproceso!= null));
@@ -1531,11 +1536,6 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             String theNombreempleado;
             theNombreempleado = this.getNombreempleado();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nombreempleado", theNombreempleado), currentHashCode, theNombreempleado, (this.nombreempleado!= null));
-        }
-        {
-            String theFechacalculofin;
-            theFechacalculofin = this.getFechacalculofin();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechacalculofin", theFechacalculofin), currentHashCode, theFechacalculofin, (this.fechacalculofin!= null));
         }
         {
             String theFechafincalculo;
@@ -1558,9 +1558,9 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idlugartrabajomtu", theIdlugartrabajomtu), currentHashCode, theIdlugartrabajomtu, (this.idlugartrabajomtu!= null));
         }
         {
-            String theFechacalculoinicio;
-            theFechacalculoinicio = this.getFechacalculoinicio();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechacalculoinicio", theFechacalculoinicio), currentHashCode, theFechacalculoinicio, (this.fechacalculoinicio!= null));
+            String theFechainiciocalculo;
+            theFechainiciocalculo = this.getFechainiciocalculo();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainiciocalculo", theFechainiciocalculo), currentHashCode, theFechainiciocalculo, (this.fechainiciocalculo!= null));
         }
         {
             String theIdmanualprogramado;
@@ -1858,6 +1858,19 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
+                Boolean idsociedadregShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idsociedadreg!= null));
+                if (idsociedadregShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdsociedadreg;
+                    sourceIdsociedadreg = this.getIdsociedadreg();
+                    String copyIdsociedadreg = ((String) strategy.copy(LocatorUtils.property(locator, "idsociedadreg", sourceIdsociedadreg), sourceIdsociedadreg, (this.idsociedadreg!= null)));
+                    copy.setIdsociedadreg(copyIdsociedadreg);
+                } else {
+                    if (idsociedadregShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idsociedadreg = null;
+                    }
+                }
+            }
+            {
                 Boolean idtipoprocesoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtipoproceso!= null));
                 if (idtipoprocesoShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdtipoproceso;
@@ -1893,19 +1906,6 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
                 } else {
                     if (nombreempleadoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.nombreempleado = null;
-                    }
-                }
-            }
-            {
-                Boolean fechacalculofinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechacalculofin!= null));
-                if (fechacalculofinShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceFechacalculofin;
-                    sourceFechacalculofin = this.getFechacalculofin();
-                    String copyFechacalculofin = ((String) strategy.copy(LocatorUtils.property(locator, "fechacalculofin", sourceFechacalculofin), sourceFechacalculofin, (this.fechacalculofin!= null)));
-                    copy.setFechacalculofin(copyFechacalculofin);
-                } else {
-                    if (fechacalculofinShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.fechacalculofin = null;
                     }
                 }
             }
@@ -1962,15 +1962,15 @@ public class IcmParametrosentradaRecord implements Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean fechacalculoinicioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechacalculoinicio!= null));
-                if (fechacalculoinicioShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceFechacalculoinicio;
-                    sourceFechacalculoinicio = this.getFechacalculoinicio();
-                    String copyFechacalculoinicio = ((String) strategy.copy(LocatorUtils.property(locator, "fechacalculoinicio", sourceFechacalculoinicio), sourceFechacalculoinicio, (this.fechacalculoinicio!= null)));
-                    copy.setFechacalculoinicio(copyFechacalculoinicio);
+                Boolean fechainiciocalculoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechainiciocalculo!= null));
+                if (fechainiciocalculoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFechainiciocalculo;
+                    sourceFechainiciocalculo = this.getFechainiciocalculo();
+                    String copyFechainiciocalculo = ((String) strategy.copy(LocatorUtils.property(locator, "fechainiciocalculo", sourceFechainiciocalculo), sourceFechainiciocalculo, (this.fechainiciocalculo!= null)));
+                    copy.setFechainiciocalculo(copyFechainiciocalculo);
                 } else {
-                    if (fechacalculoinicioShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.fechacalculoinicio = null;
+                    if (fechainiciocalculoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.fechainiciocalculo = null;
                     }
                 }
             }
