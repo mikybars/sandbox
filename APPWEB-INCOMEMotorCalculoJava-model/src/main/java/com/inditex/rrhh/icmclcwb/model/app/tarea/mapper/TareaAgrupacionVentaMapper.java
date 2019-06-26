@@ -26,6 +26,7 @@ public abstract class TareaAgrupacionVentaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(source = "src.pais", target = "idOrigen")
     @Mapping(target = "importe", ignore = true)
     @Mapping(target = "importeConImpuestos", ignore = true)
     @Mapping(target = "idAgrupacion", ignore = true)
@@ -40,7 +41,7 @@ public abstract class TareaAgrupacionVentaMapper {
         @MappingTarget TareaAgrupacionVenta dest, PtrVentaTotalizadoResultItemDto src, TareaDto tarea) {
         dest.setActivo(Boolean.TRUE);
         dest.setTipoDato(new TipoDato());
-        dest.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA.getId());
+        dest.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA.getId());
         dest.setIdSeccion(AppConstants.SECCION_4.toString());
     }
 
@@ -52,6 +53,7 @@ public abstract class TareaAgrupacionVentaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(source = "src.pais", target = "idOrigen")
     @Mapping(target = "importe", ignore = true)
     @Mapping(target = "importeConImpuestos", ignore = true)
     @Mapping(target = "idAgrupacion", ignore = true)
@@ -66,7 +68,7 @@ public abstract class TareaAgrupacionVentaMapper {
         @MappingTarget TareaAgrupacionVenta dest, PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea) {
         dest.setActivo(Boolean.TRUE);
         dest.setTipoDato(new TipoDato());
-        dest.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA.getId());
+        dest.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA.getId());
         dest.setIdSeccion(AppConstants.SECCION_4.toString());
     }
 

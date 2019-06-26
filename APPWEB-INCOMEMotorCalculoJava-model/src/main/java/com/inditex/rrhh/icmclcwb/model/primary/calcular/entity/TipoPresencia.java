@@ -26,10 +26,6 @@ public class TipoPresencia {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
 
-    @NotBlank
-    @Column(name = "CODIGO", nullable = false)
-    private String codigo;
-
     @NotNull
     @Column(name = "PESO", nullable = false)
     private /* BigInteger */ Long peso;

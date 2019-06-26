@@ -41,6 +41,7 @@ public abstract class TareaAgrupacionPresenciaDecorator extends TareaAgrupacionP
                     .idAgrupacion(idAgrupacion)
                     .idSeccion(item.getSeccion())
                     .idTarea(tareaDto.getId())
+                    .idPais(item.getOrigen())
                     .build();
                 if (!presencias.containsKey(agrupacion)) {
                     TareaAgrupacionPresencia tareaAgrupacionPresencia =

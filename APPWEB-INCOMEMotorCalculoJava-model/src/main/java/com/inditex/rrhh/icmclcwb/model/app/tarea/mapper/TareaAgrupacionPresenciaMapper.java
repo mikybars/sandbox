@@ -26,6 +26,7 @@ public abstract class TareaAgrupacionPresenciaMapper {
     @Mapping(target = "idAgrupacion", ignore = true)
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(source = "src.minutos", target = "minutos")
+    @Mapping(source = "src.origen", target = "idOrigen")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "activo", ignore = true)
     @Mapping(target = "tipoDato", ignore = true)

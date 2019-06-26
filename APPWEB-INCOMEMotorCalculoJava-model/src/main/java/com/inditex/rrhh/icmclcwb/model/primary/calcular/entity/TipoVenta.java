@@ -30,10 +30,6 @@ public class TipoVenta {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
 
-    @NotBlank
-    @Column(name = "CODIGO", nullable = false)
-    private String codigo;
-
     @NotNull
     @Column(name = "PESO", nullable = false)
     private /* BigInteger */ Long peso;
@@ -41,8 +37,5 @@ public class TipoVenta {
     @NotNull
     @Column(name = "ONLINE", nullable = false)
     private Boolean online;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tiposVentaOnlineEntregaDomicilio")
-    private Set<TipoDato> tiposDatoVentaEntregaDomicilio;
 
 }

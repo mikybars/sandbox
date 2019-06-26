@@ -43,7 +43,7 @@ public abstract class TareaLocalizacionHistoricoMapper {
     }
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "idPais", source = "idPais")
+    @Mapping(target = "idPais", source = "idOrigen")
     @Mapping(target = "idPaisOrigen", source = "idOrigen")
     @Mapping(target = "idEmpresa", source = "idEmpresa")
     @Mapping(target = "idCadena", source = "idCadena")

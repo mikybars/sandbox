@@ -13,4 +13,6 @@ public interface CadenaVentaResultItemDto {
     String getFecha();
 
     Integer getSeccion();
+
+    Integer getPais();
 }

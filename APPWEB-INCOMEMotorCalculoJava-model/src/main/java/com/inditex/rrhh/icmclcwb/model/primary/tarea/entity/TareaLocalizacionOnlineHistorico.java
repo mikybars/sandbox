@@ -34,7 +34,7 @@ public class TareaLocalizacionOnlineHistorico {
     private String idLocalizacion;
 
     @NotBlank
-    @Column(name = "STD_ID_WORK_LOCAT", nullable = false)
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = true)
     private String idLocalizacionMeta4;
 
     @NotBlank

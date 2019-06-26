@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,6 +19,6 @@ public class TareaAgrupacionConfiguracionDto implements Serializable {
     private String idOrigen;
     private Double porcentajeInclusion;
 
-    private TipoVentaEnum tipoConceptoVenta;
+    private TipoVentaConceptoEnum tipoVentaConcepto;
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,7 +122,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
         tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea,
             TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION,
             TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION,
-            TipoVentaEnum.IPOD);
+            TipoVentaConceptoEnum.IPOD);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
         tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea,
             TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION,
             TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION_SECCION,
-            TipoVentaEnum.SINT);
+            TipoVentaConceptoEnum.SINT);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
         tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea,
             TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION,
             TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION,
-            TipoVentaEnum.ENTREGA_TIENDA);
+            TipoVentaConceptoEnum.ENTREGA_TIENDA);
     }
 
 }

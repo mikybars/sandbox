@@ -43,6 +43,10 @@ public class TareaAgrupacionVenta {
     @NotNull
     @Column(name = "ID_SECCION", nullable = false)
     private String idSeccion;
+
+    @NotNull
+    @Column(name = "ID_ORIGEN", nullable = false)
+    private String idOrigen;
     
     @NotNull
     @Column(name = "IMPORTE", nullable = false)

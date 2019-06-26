@@ -57,6 +57,7 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
                     .idAgrupacion(idAgrupacion)
                     .idSeccion(item.getSeccion())
                     .idTarea(tarea.getId())
+                    .idPais(item.getPais())
                     .build();
                 if (!ventas.containsKey(agrupacion)) {
                     TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);

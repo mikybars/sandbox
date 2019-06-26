@@ -44,10 +44,4 @@ public class TipoDato {
     @JoinColumn(name = "ID_TIPO_VENTA", nullable = true)
     private /* BigInteger */ TipoVenta tipoVenta;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "TIPO_DATO_VENTA_ENTREGA_DOMICILIO", joinColumns = {
-        @JoinColumn(name = "ID_TIPO_DATO", nullable = false, updatable = false)},
-        inverseJoinColumns = { @JoinColumn(name = "ID_TIPO_VENTA", nullable = false, updatable = false) })
-    private Set<TipoVenta> tiposVentaOnlineEntregaDomicilio;
-
 }

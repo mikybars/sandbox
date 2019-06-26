@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -40,8 +40,8 @@ public class TareaAgrupacionConfiguracion {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "ID_TIPO_CONCEPTO_VENTA")
-    private TipoVenta tipoConceptoVenta;
+    @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO")
+    private TipoVentaConcepto tipoVentaConcepto;
 
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)

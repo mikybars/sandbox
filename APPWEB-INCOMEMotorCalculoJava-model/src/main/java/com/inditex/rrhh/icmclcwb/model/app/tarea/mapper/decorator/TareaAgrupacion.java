@@ -15,4 +15,6 @@ public class TareaAgrupacion {
 
     private Long idTarea;
 
+    private Integer idPais;
+
 }

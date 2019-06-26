@@ -86,6 +86,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
+            // Reparto de ventas online entrega domicilio por sección
+            CompletableFuture<Void> cfRepartoVentaOnlineEntregaDomicilioSeccion = runTareaProcesarVentaAsyncService
+                .repartoVentaEntregaDomicilioSeccion(runTarea);
+            AsyncUtils.exceptionally(cfRepartoVentaOnlineEntregaDomicilioSeccion, cf);
+
             // Suma de ventas totales por localizaciones
             CompletableFuture<Void> cfVentasLocalizacionTienda = runTareaProcesarVentaAsyncService
                     .ventaLocalizacionTienda(runTarea);

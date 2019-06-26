@@ -33,6 +33,6 @@ public class TareaAgrupacionConfiguracionRepositoryCustomImpl
         pstmt.setObject(4, entity.getFechaInicio());
         pstmt.setObject(5, entity.getFechaFin());
         pstmt.setDouble(6, entity.getPorcentajeInclusion());
-        pstmt.setLong(7, entity.getTipoConceptoVenta().getId());
+        pstmt.setLong(7, entity.getTipoVentaConcepto().getId());
     }
 }

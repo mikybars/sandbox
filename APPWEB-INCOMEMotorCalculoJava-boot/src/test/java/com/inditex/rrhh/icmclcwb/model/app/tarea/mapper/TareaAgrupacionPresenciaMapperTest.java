@@ -91,8 +91,7 @@ public class TareaAgrupacionPresenciaMapperTest {
         List<TareaAgrupacionPresencia> presencias = tareaAgrupacionPresenciaMapper
             .presenciasTotalizadoResponseDtoToTareaAgrupacionPresencia(list, createTarea(), createAgrupaciones());
         assertNotNull(presencias);
-        assertEquals(1, presencias.size());
-        assertEquals(400L, presencias.get(0).getMinutos().longValue());
+        assertEquals(2, presencias.size());
     }
 
     @Test

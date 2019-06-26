@@ -1,12 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoVentaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionConfiguracionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAgrupacionAgrupacionConfiguracionDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionConfiguracion;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.DecoratedWith;
@@ -27,7 +27,7 @@ public abstract class TareaAgrupacionConfiguracionMapper {
     @Mapping(source = "src.idAgrupacion", target = "idAgrupacion")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tipoConceptoVenta", ignore = true)
+    @Mapping(target = "tipoVentaConcepto", ignore = true)
     public abstract TareaAgrupacionConfiguracion getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
         ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto);
 
@@ -39,19 +39,19 @@ public abstract class TareaAgrupacionConfiguracionMapper {
     @AfterMapping
     public void getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
         @MappingTarget TareaAgrupacionConfiguracion dest, ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto) {
-        dest.setTipoConceptoVenta(new TipoVenta());
-        dest.getTipoConceptoVenta().setId(TipoVentaEnum.fromIdMeta4(src.getIdConcepto()).getId());
+        dest.setTipoVentaConcepto(new TipoVentaConcepto());
+        dest.getTipoVentaConcepto().setId(TipoVentaConceptoEnum.fromIdMeta4(src.getIdConcepto()).getId());
     }
 
     @Mapping(source = "src.tarea.id", target = "idTarea")
-    @Mapping(target = "tipoConceptoVenta", ignore = true)
+    @Mapping(target = "tipoVentaConcepto", ignore = true)
     public abstract TareaAgrupacionConfiguracionDto getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
         TareaAgrupacionConfiguracion src);
 
     @AfterMapping
     public void getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
         @MappingTarget TareaAgrupacionConfiguracionDto dest, TareaAgrupacionConfiguracion src) {
-        dest.setTipoConceptoVenta(TipoVentaEnum.fromId(src.getTipoConceptoVenta().getId()));
+        dest.setTipoVentaConcepto(TipoVentaConceptoEnum.fromId(src.getTipoVentaConcepto().getId()));
     }
 
     public List<TareaAgrupacionConfiguracionDto> getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(

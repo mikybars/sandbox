@@ -43,6 +43,10 @@ public class TareaAgrupacionPresencia {
     private String idSeccion;
 
     @NotNull
+    @Column(name = "ID_ORIGEN", nullable = false)
+    private String idOrigen;
+
+    @NotNull
     @Column(name = "MINUTOS", nullable = false)
     private /* BigInteger */ Long minutos;
 
