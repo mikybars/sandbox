@@ -144,7 +144,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         for (Integer mes : AppTestConstants.MESES_CON_DATOS) {
             LocalDate localDate = LocalDate.of(2015, mes, 1);
             PeriodoDto item = new PeriodoDto();
-            item.setId(new StringBuilder("MOCK_2015_").append(mes).toString());
+            item.setId(new StringBuilder("ICM_2015").append(mes).toString());
             item.setFechaInicioPeriodo(localDate.with(TemporalAdjusters.firstDayOfMonth()).atTime(LocalTime.MIN));
             item.setFechaFinPeriodo(localDate.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX));
             result.add(item);
