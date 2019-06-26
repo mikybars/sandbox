@@ -21,5 +21,8 @@ public class Meta4PropertiesConstants {
     public static final String CONF_VENTA_ONLINE = "getConfVentaOnline";
     public static final String AGRUPACION_ONLINE = "getAgrupOnline";
     public static final String TIENDAS_ONLINE = "getTiendasOnline";
+    public static final String CONF_PRODUCTO_VENTA = "getConfiguracionProductoVenta";
+    public static final String EMPRESA = "getEmpresa";
+    public static final String ORIGEN = "getOrigen";
 
 }

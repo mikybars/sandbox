@@ -23,10 +23,13 @@ import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4TestConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcomisionempleadoOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
@@ -51,7 +54,48 @@ public class Meta4ServiceTest {
     @Autowired
     @Qualifier("meta4ClientPool")
     private Meta4ClientPool meta4ClientPool;
-
+    
+    @Test
+    public void getOrigenes() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetorigenesOutput getorigenesOutput = meta4ClientPool.getorigenes(param1, param2);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getorigenesOutput.getReturn()));
+    }
+    
+    @Test
+    public void getEmpresas() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetempresasOutput getempresasOutput = meta4ClientPool.getempresas(param1, param2);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getempresasOutput.getReturn()));
+    }
+    
+    @Test
+    public void getConfVentaOnline() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetconfventaonlineOutput getconfventaonlineoutput = meta4ClientPool.getconfventaonline(param1, param2);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getconfventaonlineoutput.getReturn()));
+    }
+    
     @Test
     public void getCoefJornada() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();

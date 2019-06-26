@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +31,8 @@ public class GenericFilterParametersDto implements Serializable {
     
     private String abierto;
     
+    private String vigente;
+    
     private String idTipoHora;
 
     private String idEmpleadoLocal;
@@ -36,4 +40,5 @@ public class GenericFilterParametersDto implements Serializable {
     private String idLugarTrabajoMtu;
 
     private String idCadena;
+
 }
