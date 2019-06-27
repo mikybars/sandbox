@@ -1,8 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -16,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
@@ -92,14 +90,11 @@ public class TrabajoServiceImpl implements TrabajoService {
         return result;
     }
 
-    @Transactional
     @Override
-    public List<TrabajoDto> create(@Valid @NotNull final ProgramacionDto programacion,
-            @Valid @NotNull final PeriodoDto periodo) {
-        List<TrabajoDto> result = new ArrayList<>();
-        trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(programacion.getAmbito(),
-                programacion, periodo).forEach(item -> result.add(create(item)));
-        return result;
+    public TrabajoDto merge(@Valid @NotNull final ProgramacionDto programacion,
+            @Valid @NotNull final ProgramacionAmbitoDto programacionAmbito, @Valid @NotNull final PeriodoDto periodo) {
+        return trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(programacionAmbito,
+                programacion, periodo);
     }
 
 }

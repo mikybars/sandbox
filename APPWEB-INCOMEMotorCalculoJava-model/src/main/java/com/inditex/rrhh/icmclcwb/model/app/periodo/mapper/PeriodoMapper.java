@@ -23,4 +23,5 @@ public abstract class PeriodoMapper {
     public abstract List<PeriodoDto> periodoResultItemDtoToPeriodoDto(List<PeriodosResultItemDto> src);
 
     public abstract List<PeriodosResultItemDto> periodoDtoToPeriodoResultItemDto(List<PeriodoDto> src);
+
 }

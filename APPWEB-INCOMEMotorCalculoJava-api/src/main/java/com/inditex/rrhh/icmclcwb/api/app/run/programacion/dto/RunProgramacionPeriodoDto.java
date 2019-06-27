@@ -1,11 +1,9 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 
@@ -23,9 +21,11 @@ public class RunProgramacionPeriodoDto implements Serializable {
     private static final long serialVersionUID = 8443425889094187729L;
 
     @NotNull
-    @NotEmpty
+    private ProgramacionAmbitoDto programacionAmbito;
+
+    @NotNull
     private PeriodoDto periodo;
 
-    private List<TrabajoDto> trabajo;
+    private TrabajoDto trabajo;
 
 }

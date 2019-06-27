@@ -87,6 +87,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_MINUTOS_SUMA = "idTipoPresenciaSuma";
 
+    public static final String SQL_PARAM_FECHA_ACTUAL = "fechaActual";
+    
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
