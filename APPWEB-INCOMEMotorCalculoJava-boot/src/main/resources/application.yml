@@ -44,7 +44,7 @@ amiga:
       repository-primary-executor:
         name: async-repository-primary-executor
         core-pool-size: 10
-        maximum-pool-size: 10
+        maximum-pool-size: 100
         queue-size: 200
   service:
     session:
