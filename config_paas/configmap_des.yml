@@ -87,9 +87,9 @@ amiga:
             user: oincome
             clientProgramName: ${metadata.jirakey}
             driverType: 4
-            loginTimeout: 10
-            connectionTimeout: 10
-            commandTimeout: 5
+            loginTimeout: 300
+            connectionTimeout: 300
+            commandTimeout: 300
             interruptProcessingMode: 2
     hibernate:
       primary:
