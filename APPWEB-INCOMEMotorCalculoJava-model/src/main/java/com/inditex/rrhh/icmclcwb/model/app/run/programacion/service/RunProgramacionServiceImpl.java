@@ -66,10 +66,14 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                 request.setPage(new PageDto());
                 request.setData(new GenericFilterDto());
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
-                // Se usa el primer origen, porque los periodos van por sociedad
-                request.getData().setIdOrigen(origen.stream().findFirst().get());
-                request.getData().getItem().add(GenericFilterParametersDto.builder().abierto(Boolean.TRUE.toString())
-                        .activo(Boolean.TRUE.toString()).vigente(Boolean.TRUE.toString()).build());
+//                request.getData().getItem()
+//                        .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdSociedad())
+//                                .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
+//                                .vigente(Boolean.TRUE.toString()).build());
+                request.getData().getItem()
+                        .add(GenericFilterParametersDto.builder().idOrigenReg(origen.stream().findFirst().get())
+                                .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
+                                .vigente(Boolean.TRUE.toString()).build());
                 List<PeriodoDto> periodos = periodoMapper
                         .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
                 periodos.stream().forEach(periodo -> {
