@@ -2,15 +2,11 @@ package com.inditex.rrhh.icmclcwb.model.app.run.programacion.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionPeriodoDto;
@@ -49,31 +45,31 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                     .runProgramacionPeriodo(new ArrayList<>()).build();
             programacionService.updateEjecucion(programacion);
             programacion.getAmbito().stream().forEach(programacionAmbito -> {
-                List<String> origen = new ArrayList<>();
-                if (TipoAmbitoEnum.SOCIEDAD.getId().equals(programacion.getTipoAmbito().getId())) {
-                    // TODO Recuperar los origenes y lanzar las programaciones
-                    throw new IcmclcwbException("El tipo ambito no esta soportado");
-                } else if (TipoAmbitoEnum.ORIGEN.getId().equals(programacion.getTipoAmbito().getId())
-                        || TipoAmbitoEnum.EMPRESA.getId().equals(programacion.getTipoAmbito().getId())
-                        || TipoAmbitoEnum.LOCALIZACION.getId().equals(programacion.getTipoAmbito().getId())
-                        || TipoAmbitoEnum.PERSONA.getId().equals(programacion.getTipoAmbito().getId())) {
-                    origen = programacionAmbito.getOrigen().stream().map(item -> item.getIdOrigen())
-                            .collect(Collectors.toList());
-                } else {
-                    throw new IcmclcwbException("El tipo ambito no esta soportado");
-                }
+//                List<String> origen = new ArrayList<>();
+//                if (TipoAmbitoEnum.SOCIEDAD.getId().equals(programacion.getTipoAmbito().getId())) {
+//                    // TODO Recuperar los origenes y lanzar las programaciones
+//                    throw new IcmclcwbException("El tipo ambito no esta soportado");
+//                } else if (TipoAmbitoEnum.ORIGEN.getId().equals(programacion.getTipoAmbito().getId())
+//                        || TipoAmbitoEnum.EMPRESA.getId().equals(programacion.getTipoAmbito().getId())
+//                        || TipoAmbitoEnum.LOCALIZACION.getId().equals(programacion.getTipoAmbito().getId())
+//                        || TipoAmbitoEnum.PERSONA.getId().equals(programacion.getTipoAmbito().getId())) {
+//                    origen = programacionAmbito.getOrigen().stream().map(item -> item.getIdOrigen())
+//                            .collect(Collectors.toList());
+//                } else {
+//                    throw new IcmclcwbException("El tipo ambito no esta soportado");
+//                }
                 PeriodosRequestDto request = new PeriodosRequestDto();
                 request.setPage(new PageDto());
                 request.setData(new GenericFilterDto());
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
-//                request.getData().getItem()
-//                        .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdSociedad())
-//                                .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
-//                                .vigente(Boolean.TRUE.toString()).build());
                 request.getData().getItem()
-                        .add(GenericFilterParametersDto.builder().idOrigenReg(origen.stream().findFirst().get())
+                        .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdSociedad())
                                 .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
                                 .vigente(Boolean.TRUE.toString()).build());
+//                request.getData().getItem()
+//                        .add(GenericFilterParametersDto.builder().idOrigenReg(origen.stream().findFirst().get())
+//                                .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
+//                                .vigente(Boolean.TRUE.toString()).build());
                 List<PeriodoDto> periodos = periodoMapper
                         .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
                 periodos.stream().forEach(periodo -> {
