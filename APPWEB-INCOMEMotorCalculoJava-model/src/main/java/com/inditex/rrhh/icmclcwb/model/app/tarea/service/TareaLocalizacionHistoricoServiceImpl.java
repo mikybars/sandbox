@@ -82,7 +82,6 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     
     @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito", key = "{#idTarea, #idOrigin}")
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
             @NotNull String idOrigen) {
         return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
