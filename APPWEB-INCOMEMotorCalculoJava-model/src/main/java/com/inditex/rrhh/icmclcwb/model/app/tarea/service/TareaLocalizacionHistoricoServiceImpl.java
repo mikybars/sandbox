@@ -13,6 +13,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoGrupoEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoGrupoDato;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -79,6 +81,8 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
     
     @Override
+    @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito", key = "{#idTarea, #idOrigin}")
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
             @NotNull String idOrigen) {
         return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
