@@ -17,11 +17,20 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaCo
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 @Service
 @Validated
 public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService {
+
+    @Autowired
+    private TareaService tareaService;
+
+    @Autowired
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Autowired
     private RunTareaConsolidarByAmbitoService runTareaConsolidarByAmbitoService;
@@ -38,6 +47,8 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         final TrabajoDto trabajo = runTarea.getTrabajo();
+        tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                EstadoTareaCalculoPersonaEnum.OK.getDto());
         if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
                 || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
                 || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
@@ -49,6 +60,7 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
         } else {
             throw new IcmclcwbException("El tipo ambito no esta soportado");
         }
+        tareaService.updateEstadoFinal(runTarea.getTarea());
     }
 
 }
