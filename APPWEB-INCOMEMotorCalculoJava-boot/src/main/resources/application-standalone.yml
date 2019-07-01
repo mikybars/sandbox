@@ -145,9 +145,12 @@ amiga:
             #[BBDD][VECTOR][DES][FIN]
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
             driverType: 4
-            loginTimeout: 10
-            connectionTimeout: 10
-            commandTimeout: 5
+#            loginTimeout: 10
+#            connectionTimeout: 10
+#            commandTimeout: 5
+            loginTimeout: 300
+            connectionTimeout: 300
+            commandTimeout: 300
             interruptProcessingMode: 2
     hibernate:
       primary:
