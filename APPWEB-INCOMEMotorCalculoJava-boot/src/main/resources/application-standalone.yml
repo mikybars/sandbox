@@ -103,7 +103,7 @@ amiga:
           pubSubDomain: false
           receiveTimeout: 1000
         tarea:
-          concurrency: 1-5
+          concurrency: 2
           sessionTransacted: true
           globalTransacted: true
           pubSubDomain: false
@@ -363,13 +363,13 @@ app:
       config:
         max-attempts: 20
         credentials:
-          user: INCOME_CALC
-          password: 123
-          #user: CRISTINASOL
-          #password: 1234
+          #user: INCOME_CALC
+          #password: 123
+          user: CRISTINASOL
+          password: 1234
           language: 2
         pool:
-          size: 20
+          size: 10
           claimTimeout: 30000
           shutdownTimeout: 60000
         timeout:
