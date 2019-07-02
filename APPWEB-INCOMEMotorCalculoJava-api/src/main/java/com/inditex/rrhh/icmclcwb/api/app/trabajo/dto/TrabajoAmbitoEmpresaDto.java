@@ -4,9 +4,15 @@ import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TrabajoAmbitoEmpresaDto {
 
     @ApiModelProperty(value = "Identificador del ambito empresa del trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
