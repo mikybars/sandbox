@@ -28,8 +28,8 @@ public class SqlParamsUtils {
     }
 
     /**
-     * <b>Importante:</b> Este metodo no debe usarse para ejeuctar SQL, es para imprimir
-     * en el log las consultas.
+     * <b>Importante:</b> Este metodo no debe usarse para ejeuctar SQL, es para
+     * imprimir en el log las consultas.
      */
     public static String replaceValues(String sql, Map<String, ? extends Object> params) {
 
@@ -39,7 +39,8 @@ public class SqlParamsUtils {
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 String value = createValueCreator(params.get(key)).createValue();
-                String paramRegexp = new StringBuilder(REGEXP_GROUP_1_REGEXP).append(key).append(REGEXP_GROUP_3_REGEXP).toString();
+                String paramRegexp = new StringBuilder(REGEXP_GROUP_1_REGEXP).append(key).append(REGEXP_GROUP_3_REGEXP)
+                        .toString();
                 Pattern pattern = Pattern.compile(paramRegexp);
                 Matcher matcher = pattern.matcher(result);
                 if (matcher.find()) {
@@ -53,21 +54,17 @@ public class SqlParamsUtils {
         return result;
     }
 
-
-
-        private static ValueCreator createValueCreator(Object value) {
-            if (value == null) {
-                return new NullValueCreator();
-            } else if (value instanceof Collection) {
-                return new ListValueCreator((Collection) value);
-            } else if (value instanceof String) {
-                return new StringValueCreator((String) value);
-            } else {
-                return new DefaultValueCreator(value);
-            }
+    private static ValueCreator createValueCreator(Object value) {
+        if (value == null) {
+            return new NullValueCreator();
+        } else if (value instanceof Collection) {
+            return new ListValueCreator((Collection) value);
+        } else if (value instanceof String) {
+            return new StringValueCreator((String) value);
+        } else {
+            return new DefaultValueCreator(value);
         }
-
-
+    }
 
     private interface ValueCreator {
         String createValue();
@@ -107,8 +104,7 @@ public class SqlParamsUtils {
 
         @Override
         public String createValue() {
-            Stream<String> stream = list.stream()
-                .map(value -> createValueCreator(value).createValue());
+            Stream<String> stream = list.stream().map(value -> createValueCreator(value).createValue());
             List<String> cleanList = stream.collect(Collectors.toList());
 
             return String.join(", ", cleanList);
