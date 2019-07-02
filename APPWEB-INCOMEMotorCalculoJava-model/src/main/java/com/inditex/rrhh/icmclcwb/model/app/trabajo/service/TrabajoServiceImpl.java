@@ -17,6 +17,8 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
@@ -91,36 +93,57 @@ public class TrabajoServiceImpl implements TrabajoService {
         }
         TrabajoDto result = trabajoMapper
                 .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
-        if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
-            OrigenRequestDto request = new OrigenRequestDto();
-            request.setData(new GenericFilterDto());
-            request.setPage(new PageDto());
-            request.getData().setFechaInicio(trabajo.getFechaInicioPeriodo());
-            request.getData().setFechaFin(trabajo.getFechaFinPeriodo());
-            request.getData().setItem(new ArrayList<>());
-            request.getData().getItem().add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdSociedad()).build());
-            List<OrigenResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getOrigen(request);
-            List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream().map(e-> TrabajoAmbitoOrigenDto.builder().idOrigen(e.getIdOrigen()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
-            result.setOrigen(trabajoAmbitoOrigenService.create(trabajoAmbitoOrigen, result));
+        
+        if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
+                || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
+                || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
+            
+            if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
+                OrigenRequestDto request = new OrigenRequestDto();
+                request.setData(new GenericFilterDto());
+                request.setPage(new PageDto());
+                request.getData().setFechaInicio(trabajo.getFechaInicioPeriodo());
+                request.getData().setFechaFin(trabajo.getFechaFinPeriodo());
+                request.getData().setItem(new ArrayList<>());
+                request.getData().getItem().add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdSociedad()).build());
+                List<OrigenResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getOrigen(request);
+                List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream().map(e-> TrabajoAmbitoOrigenDto.builder().idOrigen(e.getIdOrigen()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
+                result.setOrigen(trabajoAmbitoOrigenService.create(trabajoAmbitoOrigen, result));
+            }else {
+                throw new IcmclcwbException("No se puede recuperar los origenes por SOCIEDAD/ORIGEN/EMPRESA con los datos de entrada");
+            }
+            
+            if (CollectionUtils.isNotEmpty(trabajo.getEmpresa())) {
+                EmpresaRequestDto request = new EmpresaRequestDto();
+                request.setData(new GenericFilterDto());
+                request.setPage(new PageDto());
+                request.getData().setFechaInicio(trabajo.getFechaInicioPeriodo());
+                request.getData().setFechaFin(trabajo.getFechaFinPeriodo());
+                request.getData().setItem(new ArrayList<>());
+                trabajo.getOrigen().stream().forEach(e -> request.getData().getItem().add(GenericFilterParametersDto.builder().idOrigenReg(e.getIdOrigen()).build()));
+                List<EmpresaResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getEmpresa(request);
+                List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa = origen.stream().map(e-> TrabajoAmbitoEmpresaDto.builder().idEmpresa(e.getIdEmpresa()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
+                result.setEmpresa(trabajoAmbitoEmpresaService.create(trabajoAmbitoEmpresa, result));
+            }else {
+                throw new IcmclcwbException("No se puede recuperar la empresa por SOCIEDAD/ORIGEN/EMPRESA con los datos de entrada");
+            }
+            
+        } else if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
+            if (CollectionUtils.isNotEmpty(trabajo.getLocalizacion())) {
+                result.setLocalizacion(trabajoAmbitoLocalizacionService.create(trabajo.getLocalizacion(), result));
+            }else {
+                throw new IcmclcwbException("No se puede recuperar la localizacion por LOCALIZACION con los datos de entrada");
+            }
+        } else if (TipoAmbitoEnum.PERSONA.getId().equals(trabajo.getTipoAmbito().getId())) {
+            if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
+                result.setPersona(trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
+            }else {
+                throw new IcmclcwbException("No se puede recuperar la persona por PERSONA con los datos de entrada");
+            }
+        } else {
+            throw new IcmclcwbException("El tipo ambito no esta soportado");
         }
-        if (CollectionUtils.isNotEmpty(trabajo.getEmpresa())) {
-            EmpresaRequestDto request = new EmpresaRequestDto();
-            request.setData(new GenericFilterDto());
-            request.setPage(new PageDto());
-            request.getData().setFechaInicio(trabajo.getFechaInicioPeriodo());
-            request.getData().setFechaFin(trabajo.getFechaFinPeriodo());
-            request.getData().setItem(new ArrayList<>());
-            trabajo.getOrigen().stream().forEach(e -> request.getData().getItem().add(GenericFilterParametersDto.builder().idOrigenReg(e.getIdOrigen()).build()));
-            List<EmpresaResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getEmpresa(request);
-            List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa = origen.stream().map(e-> TrabajoAmbitoEmpresaDto.builder().idEmpresa(e.getIdEmpresa()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
-            result.setEmpresa(trabajoAmbitoEmpresaService.create(trabajoAmbitoEmpresa, result));
-        }
-        if (CollectionUtils.isNotEmpty(trabajo.getLocalizacion())) {
-            result.setLocalizacion(trabajoAmbitoLocalizacionService.create(trabajo.getLocalizacion(), result));
-        }
-        if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
-            result.setPersona(trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
-        }
+
         senderTrabajo.send(result);
         return result;
     }
