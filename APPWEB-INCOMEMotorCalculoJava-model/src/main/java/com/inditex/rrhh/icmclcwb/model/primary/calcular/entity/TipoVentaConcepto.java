@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TIPO_VENTA_CONCEPTO")
@@ -20,14 +21,16 @@ public class TipoVentaConcepto {
     private Long id;
 
     @NotBlank
-    @Column(name = "DESCRIPCION")
+    @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
 
     @NotBlank
     @Column(name = "CODIGO", nullable = false)
     private String codigo;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA", nullable = false)
     private /* BigInteger */ TipoVenta tipoVenta;
+
 }

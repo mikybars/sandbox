@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoGrupoEnum;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoGrupoDato;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -43,14 +39,15 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     private TareaLocalizacionHistoricoMapper tareaLocalizacionHistoricoMapper;
 
     @Override
-    public List<TareaLocalizacionHistoricoDto> save(@Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico,
-            @Valid final TareaDto tarea) {
+    public List<TareaLocalizacionHistoricoDto> save(
+            @Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico, @Valid final TareaDto tarea) {
         List<TareaLocalizacionHistoricoDto> result = new ArrayList<>();
         List<TareaLocalizacionHistorico> data = tareaLocalizacionHistoricoMapper
-                .mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(tareaLocalizacionHistorico, tarea);
+                .mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(tareaLocalizacionHistorico,
+                        tarea);
         if (CollectionUtils.isNotEmpty(data)) {
-            result.addAll(tareaLocalizacionHistoricoMapper
-                    .tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(tareaLocalizacionHistoricoRepositoryCustom.save(data)));
+            result.addAll(tareaLocalizacionHistoricoMapper.tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(
+                    tareaLocalizacionHistoricoRepositoryCustom.save(data)));
         }
         return result;
     }
@@ -65,34 +62,37 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     @Override
     public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
             @NotNull String idOrigen) {
-        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
+        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(idTarea,
+                idOrigen);
     }
-    
+
     @Override
-    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotBlank String idOrigen, @NotNull final List<Long> idsTipoDato) {
-        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
+    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull final Long idTarea, @NotBlank String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaLocalizacionHistoricoRepositoryCustom
+                .findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
     }
-    
+
     @Override
-    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotBlank String idOrigen, @NotNull final List<Long> idsTipoDato) {
-        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull final Long idTarea, @NotBlank String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaLocalizacionHistoricoRepositoryCustom
+                .findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
     }
-    
+
     @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito", key = "{#idTarea, #idOrigin}")
-    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
-            @NotNull String idOrigen) {
-        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(
+            @NotNull final Long idTarea, @NotNull String idOrigen) {
+        return tareaLocalizacionHistoricoRepositoryCustom
+                .findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
     }
-    
+
     @Override
     public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull String idOrigen) {
         return tareaLocalizacionHistoricoRepository.findIdLocalizacionDtoByIdTareaAndIdOrigen(idTarea, idOrigen);
     }
-
 
     @Override
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,

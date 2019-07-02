@@ -2,8 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -19,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
@@ -60,7 +59,8 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 
     List<GenericTiendaResultItemDto> getFlagCalcula(FlagCalculaRequestDto request);
 
-    List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(final ConfiguracionVentaOnlineRequestDto request);
+    List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(
+            final ConfiguracionVentaOnlineRequestDto request);
 
     List<AgrupOnlineResultItemDto> getAgrupacionesOnline(AgrupOnlineRequestDto request);
 

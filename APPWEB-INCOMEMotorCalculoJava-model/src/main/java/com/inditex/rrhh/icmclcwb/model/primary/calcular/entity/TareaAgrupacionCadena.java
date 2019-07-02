@@ -31,19 +31,19 @@ public class TareaAgrupacionCadena {
     private /* BigInteger */ Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN")
+    @Column(name = "ID_ORIGEN", nullable = false)
     private String idOrigen;
 
-    @NotBlank
-    @Column(name = "ID_AGRUPACION")
+    @NotNull
+    @Column(name = "ID_AGRUPACION", nullable = false)
     private Long idAgrupacion;
 
     @NotBlank
-    @Column(name = "ID_CADENA")
+    @Column(name = "ID_CADENA", nullable = false)
     private String idCadena;
 
-    @NotBlank
-    @Column(name = "MULTIPLE")
+    @NotNull
+    @Column(name = "MULTIPLE", nullable = false)
     private Boolean multiple;
 
 }

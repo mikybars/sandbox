@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaService;
@@ -27,9 +26,9 @@ public class TareaAgrupacionPresenciaServiceImpl implements TareaAgrupacionPrese
 
     @Override
     public void save(@Valid List<PtrPresenciaTotalizadoResultItemDto> dto, @Valid TareaDto tarea,
-                                              List<TareaAgrupacionCadenasDto> agrupaciones) {
-        List<TareaAgrupacionPresencia> tareaCadenaPresencias =
-            tareaAgrupacionPresenciaMapper.presenciasTotalizadoResponseDtoToTareaAgrupacionPresencia(dto, tarea, agrupaciones);
+            List<TareaAgrupacionCadenasDto> agrupaciones) {
+        List<TareaAgrupacionPresencia> tareaCadenaPresencias = tareaAgrupacionPresenciaMapper
+                .presenciasTotalizadoResponseDtoToTareaAgrupacionPresencia(dto, tarea, agrupaciones);
         tareaAgrupacionPresenciaRepositoryCustom.save(tareaCadenaPresencias);
     }
 
@@ -37,4 +36,5 @@ public class TareaAgrupacionPresenciaServiceImpl implements TareaAgrupacionPrese
     public void updateActivo(@Valid TareaDto tarea) {
         tareaAgrupacionPresenciaRepositoryCustom.updateActivo(tarea);
     }
+
 }
