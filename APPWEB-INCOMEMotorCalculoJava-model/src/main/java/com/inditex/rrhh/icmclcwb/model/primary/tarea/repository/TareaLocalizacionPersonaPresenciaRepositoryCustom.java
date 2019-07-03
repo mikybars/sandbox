@@ -15,6 +15,4 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
     void compensar(@NotNull RunTareaDto runTareaDto);
 
-    void updateActivoTotalizado(@NotNull RunTareaDto runTareaDto);
-
 }

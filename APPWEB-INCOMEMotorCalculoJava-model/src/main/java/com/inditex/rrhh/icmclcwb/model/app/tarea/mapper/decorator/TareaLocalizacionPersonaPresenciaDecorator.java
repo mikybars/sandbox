@@ -53,7 +53,6 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
     private List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
         List<PtrSeccionPresenciasGenericType> listaSeccion, PtrPresenciaDetalleResultItemDto presenciaTotalizado, TareaDto tareaDto) {
         List<TareaLocalizacionPersonaPresencia> result = new ArrayList<>();
-        AtomicDouble minutos = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(listaSeccion)) {
             listaSeccion.forEach(x -> {
                 TareaLocalizacionPersonaPresencia presencia = delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto);
@@ -62,14 +61,7 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
                 presencia.setTipoDato(new TipoDato());
                 presencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
                 result.add(presencia);
-                minutos.getAndAdd(x.getMinutos());
             });
-            TareaLocalizacionPersonaPresencia presencia = delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto);
-            presencia.setIdSeccion(AppConstants.SECCION_4.toString());
-            presencia.setMinutos(minutos.longValue());
-            presencia.setTipoDato(new TipoDato());
-            presencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
-            result.add(presencia);
 
         }
         return result;
