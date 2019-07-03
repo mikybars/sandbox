@@ -45,7 +45,6 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                     .runProgramacionPeriodo(new ArrayList<>()).build();
             programacionService.updateEjecucion(programacion);
             programacion.getAmbito().stream().forEach(programacionAmbito -> {
-//                    // TODO Recuperar los origenes y lanzar las programaciones
                 PeriodosRequestDto request = new PeriodosRequestDto();
                 request.setPage(new PageDto());
                 request.setData(new GenericFilterDto());
@@ -54,7 +53,6 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                         .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdSociedad())
                                 .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
                                 .vigente(Boolean.TRUE.toString()).build());
-
                 List<PeriodoDto> periodos = periodoMapper
                         .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
                 periodos.stream().forEach(periodo -> {
