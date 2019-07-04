@@ -92,8 +92,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             Long idTarea = runTarea.getTarea().getId();
             String idOrigen = tareaAmbito.getIdOrigen();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea,
-                    idOrigen,
-                    Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId()));
+                    idOrigen, TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
@@ -129,8 +128,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
-                    tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoVentaConceptoEnum.ENTREGA_TIENDA.getId()));
+                    tarea.getId(), tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.ENTREGA_TIENDA.getId());
             LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
                     tareaAmbito);
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
@@ -174,8 +172,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
-                    tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoVentaConceptoEnum.SINT.getId()));
+                    tarea.getId(), tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.SINT.getId());
             LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
                     tareaAmbito);
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
@@ -219,8 +216,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
-                    tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoVentaConceptoEnum.IPOD.getId()));
+                    tarea.getId(), tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.IPOD.getId());
             LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
                     tareaAmbito);
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {

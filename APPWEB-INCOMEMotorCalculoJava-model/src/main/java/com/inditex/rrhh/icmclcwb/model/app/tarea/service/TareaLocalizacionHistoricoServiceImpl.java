@@ -81,7 +81,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
 
     @Override
-    @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito", key = "{#idTarea, #idOrigin}")
+    @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito", key = "{#idTarea, #idOrigen}")
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(
             @NotNull final Long idTarea, @NotNull String idOrigen) {
         return tareaLocalizacionHistoricoRepositoryCustom
@@ -101,9 +101,10 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato", key = "{#idTarea, #idOrigen, #idVentaConcepto}")
     public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull Long idTarea, @NotNull String idOrigen,
-            @NotNull List<Long> idsVentaConcepto) {
-        return tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, idOrigen, idsVentaConcepto);
+            @NotNull Long idVentaConcepto) {
+        return tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, idOrigen, idVentaConcepto);
     }
 
     @Override

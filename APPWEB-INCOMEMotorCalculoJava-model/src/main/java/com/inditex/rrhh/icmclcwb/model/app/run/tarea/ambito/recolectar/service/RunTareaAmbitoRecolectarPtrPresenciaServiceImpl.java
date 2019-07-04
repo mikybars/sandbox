@@ -297,8 +297,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
             for (List<IdCadenaDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
-                            tareaAmbito.getIdOrigen(),
-                        Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId())),
+                            tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter()
                             .getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
