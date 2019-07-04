@@ -306,13 +306,12 @@ app:
               endpoint: /presenciasService/getVersion
     meta4:
       config:
+        max-attempts: 20
         credentials:
           #user: INCOME_CALC
           #password: 123
           user: CRISTINASOL
           password: 1234
-        max-attempts: 20
-        credentials:
           language: 2
         pool:
           size: 10
