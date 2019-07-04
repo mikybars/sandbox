@@ -55,4 +55,5 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         }
         return StringUtils.normalizeSpace(sql);
     }
+
 }
