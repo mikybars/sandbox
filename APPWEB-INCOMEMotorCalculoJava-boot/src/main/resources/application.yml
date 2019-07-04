@@ -7,10 +7,6 @@ spring:
     atomikos:
       properties:
         max-timeout: 10m
-logging:
-  level:
-    root: WARN
-    com.inditex.rrhh.icmclcwb: INFO
 amiga:
   monitoring:
     metrics:
