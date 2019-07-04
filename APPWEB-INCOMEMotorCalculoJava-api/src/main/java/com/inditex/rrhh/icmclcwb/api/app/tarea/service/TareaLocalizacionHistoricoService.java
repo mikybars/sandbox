@@ -40,7 +40,7 @@ public interface TareaLocalizacionHistoricoService {
             @NotNull final Long idTarea, @NotBlank final String idOrigen, @NotNull final List<Long> idsTipoDato);
 
     List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen,
-            @NotNull final List<Long> idsTipoDato);
+            @NotNull final List<Long> idsVentaConcepto);
 
     List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
 

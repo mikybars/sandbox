@@ -10,10 +10,12 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -296,7 +298,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             for (List<IdCadenaDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen(),
-                        Arrays.asList(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId())),
+                        Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId())),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter()
                             .getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();

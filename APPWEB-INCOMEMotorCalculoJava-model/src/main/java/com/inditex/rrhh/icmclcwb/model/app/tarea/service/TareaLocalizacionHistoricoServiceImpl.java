@@ -102,8 +102,8 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
 
     @Override
     public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull Long idTarea, @NotNull String idOrigen,
-            @NotNull List<Long> idsTipoDato) {
-        return tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, idOrigen, idsTipoDato);
+            @NotNull List<Long> idsVentaConcepto) {
+        return tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, idOrigen, idsVentaConcepto);
     }
 
     @Override

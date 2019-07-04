@@ -1310,36 +1310,43 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
 </entry>
 
 <entry key="TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDato">
-        <![CDATA[
-        SELECT L.CCL_ID_CADENA AS ID_CADENA
-        FROM TAREA_CALCULO_PERSONA P
-        JOIN TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
-            ON P.ID_PERSONA = LP.ID_PERSONA
-            AND P.ID_ORIGEN = LP.ID_ORIGEN
-            AND P.ID_TAREA = LP.ID_TAREA
-        JOIN TAREA_LOCALIZACION_HISTORICO L
-            ON LP.ID_TAREA = L.ID_TAREA
-            AND LP.ID_LOCALIZACION = L.STD_ID_WORK_LOCAT
+    <![CDATA[
+        SELECT AMBITO.ID_CADENA
+        FROM (
+            SELECT
+                L.CCL_ID_CADENA AS ID_CADENA,
+                P.ID_TAREA,
+                P.ID_ORIGEN,
+                MAX(L.FECHA_FIN) AS FECHA_FIN,
+                MIN(L.FECHA_INICIO) AS FECHA_INICIO
+            FROM TAREA_CALCULO_PERSONA P
+            JOIN TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
+                ON P.ID_PERSONA = LP.ID_PERSONA
+                AND P.ID_ORIGEN = LP.ID_ORIGEN
+                AND P.ID_TAREA = LP.ID_TAREA
+            JOIN TAREA_LOCALIZACION_HISTORICO L
+                ON LP.ID_TAREA = L.ID_TAREA
+                AND LP.ID_LOCALIZACION = L.STD_ID_WORK_LOCAT
+            WHERE
+                P.ID_TAREA = :idTarea
+                AND P.ID_ORIGEN = :idOrigen
+            GROUP BY
+                L.CCL_ID_CADENA,
+                P.ID_TAREA,
+                P.ID_ORIGEN) AMBITO
         JOIN TAREA_AGRUPACION_CADENA AC
-            ON L.ID_TAREA = AC.ID_TAREA
-            AND L.CCL_ID_CADENA = AC.ID_CADENA
-            AND L.CCL_ID_ORIGEN = AC.ID_ORIGEN
+            ON AMBITO.ID_TAREA = AC.ID_TAREA
+            AND AMBITO.ID_CADENA = AC.ID_CADENA
+            AND AMBITO.ID_ORIGEN = AC.ID_ORIGEN
         JOIN TAREA_AGRUPACION_CONFIGURACION C
             ON AC.ID_TAREA = C.ID_TAREA
             AND AC.ID_AGRUPACION = C.ID_AGRUPACION
             AND AC.ID_ORIGEN = C.ID_ORIGEN
-            AND L.FECHA_FIN >= C.FECHA_INICIO
-            AND L.FECHA_INICIO <= C.FECHA_FIN
-        JOIN TIPO_VENTA_CONCEPTO TVC
-            ON C.ID_TIPO_VENTA_CONCEPTO = TVC.ID_TIPO_VENTA_CONCEPTO
-        JOIN TIPO_DATO TD
-            ON TVC.ID_TIPO_VENTA = TD.ID_TIPO_VENTA
-        WHERE
-            P.ID_TAREA = :idTarea
-            AND P.ID_ORIGEN = :idOrigen
             AND C.PORCENTAJE_INCLUSION > 0
-            AND TD.ID_TIPO_DATO IN (:tiposDato)
-        GROUP BY L.CCL_ID_CADENA
+            AND AMBITO.FECHA_FIN >= C.FECHA_INICIO
+            AND AMBITO.FECHA_INICIO <= C.FECHA_FIN
+        WHERE
+            C.ID_TIPO_VENTA_CONCEPTO IN (:idConcepto)
     ]]>
 </entry>
 

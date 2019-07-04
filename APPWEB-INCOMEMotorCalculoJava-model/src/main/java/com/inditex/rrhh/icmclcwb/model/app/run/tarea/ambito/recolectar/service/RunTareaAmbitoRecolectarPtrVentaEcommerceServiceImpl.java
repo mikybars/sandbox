@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
@@ -31,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
 import lombok.Getter;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -91,7 +93,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             String idOrigen = tareaAmbito.getIdOrigen();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea,
                     idOrigen,
-                    Arrays.asList(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId()));
+                    Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId()));
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
             PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
@@ -128,7 +130,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
                     tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId()));
+                    Arrays.asList(TipoVentaConceptoEnum.ENTREGA_TIENDA.getId()));
             LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
                     tareaAmbito);
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
@@ -173,7 +175,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
                     tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId()));
+                    Arrays.asList(TipoVentaConceptoEnum.SINT.getId()));
             LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
                     tareaAmbito);
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
@@ -218,7 +220,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
                     tarea.getId(), tareaAmbito.getIdOrigen(),
-                    Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
+                    Arrays.asList(TipoVentaConceptoEnum.IPOD.getId()));
             LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
                     tareaAmbito);
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {

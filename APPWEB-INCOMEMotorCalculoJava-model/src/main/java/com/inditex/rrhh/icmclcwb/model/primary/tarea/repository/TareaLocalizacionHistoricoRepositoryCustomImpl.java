@@ -147,11 +147,11 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     }
 
     @Override
-    public List<IdCadenaDto> getCadenasByTareaAndOrigen(Long idTarea, String idOrigen, List<Long> idsTipoDato) {
+    public List<IdCadenaDto> getCadenasByTareaAndOrigen(Long idTarea, String idOrigen, List<Long> idsVentaConcepto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, idsVentaConcepto);
         return namedParameterJdbcTemplate.query(sqlCadenasFiltroTipoDato, parameters, (rs, rowNum) -> IdCadenaDto.builder()
                 .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA)).build());
     }
