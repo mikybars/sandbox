@@ -1,417 +1,49 @@
-logging:
-  level:
-    root: WARN
-    com.inditex.rrhh.icmclcwb: INFO
 amiga:
-  monitoring:
-    metrics:
-      enabled: true
-      send: true
   common:
     rest:
       client:
-        defaultConnectTimeout: 1000
-        defaultReadTimeout: 1000
         ptr-venta:
-          base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDAVTIMPADWSD/service
+          base-url: https://prepru-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+          auth-method: BASIC
+          username: srvcicmclcwbpreAX
         ptr-presencia:
-          base-url: http://axpreptrapp01-vip.central.inditex.grp:10813/OFDARHPRSCAWSD/service
-  service:
-    jms:
-      trabajo-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
-      tarea-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
+          base-url: http://prepru-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+          auth-method: BASIC
+          username: srvcicmclcwbpreAX
   data:
-    jdbc:
-      configuration:
-        prop:
-          default-isolation-level: 1
-          max-pool-size: 20
-      datasource:
-        primary:
-          driverClassName: com.ibm.db2.jcc.DB2Driver
-          url: jdbc:db2://axprudb22.central.inditex.grp:50000/INDITEX:currentSchema=INCOME;
-          user: uincome
-    hibernate:
-      primary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://middleware-amq-tcp:61616
-          concurrency: 1
-          userName: usr-write
+          xaConnectionFactory:
+            brokerURL: tcp://middleware-amq-tcp:61616
+            userName: usr-write
         broker-lectura:
-          brokerURL: tcp://middleware-amq-tcp:61616
-          concurrency: 1
-          userName: usr-read
-      listener-container-factory:
-        trabajo:
-          concurrency: 1
-        tarea:
-          concurrency: 5
-      client:
-        trabajo:
-          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
-          receiveTimeout: 100
-          pubSubDomain: false
-        tarea:
-          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
-          receiveTimeout: 100
-          pubSubDomain: false
+          xaConnectionFactory:
+            brokerURL: tcp://middleware-amq-tcp:61616
+            userName: usr-read
+    jdbc:
+      datasource:
+        primary:
+          xa-properties:
+            serverName: axprudb22.central.inditex.grp
+            portNumber: 50000
+            databaseName: INDITEX
+            currentSchema: INCOME
+            user: uincome
 app:
   envars:
-    calculo:
-      cast: true
-      precision: 'DECIMAL(23,8)'
-    proceso: 
-      cast: true
-      precision: 'DECIMAL(23,8)'
-    tarea:
-      recolectar:
-        days-number: 3
-      validar:
-        enabled: true
-        logging: true
-        exception: false
-      calcular:
-        algoritmo:
-          config:
-            batch-size: 25
-    repository:
-      batch-size:
-        default: 100            
     ptr:
-      config:
-        max-attempts: 2
       venta:
         service:
-          version: 1.0.22-rc.17
-          acumuladoVentaImporte:
-            getVentaAcumDia:
-              endpoint: /acumuladoVentaImporte/getVentaAcumDia
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaAcumUTC:
-              endpoint: /acumuladoVentaImporte/getVentaAcumUTC
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            test:
-              endpoint: /acumuladoVentaImporte/test
-            getVersion:
-              endpoint: /acumuladoVentaImporte/getVersion                 
-          ventaEcommerce:
-            getVentaOnlineEntregaTienda:
-              endpoint: /ventaEcommerce/getVentaOnlineEntregaTienda
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaOnlineEntregaDomicilio:
-              endpoint: /ventaEcommerce/getVentaOnlineEntregaDomicilio
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaOnlineiPod:
-              endpoint: /ventaEcommerce/getVentaOnlineiPod
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaOnlineIpodIndividualDetalle:
-              endpoint: /ventaEcommerce/getVentaOnlineIpodIndividualDetalle
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getOrdersByCountryMinute:
-              endpoint: /ventaEcommerce/getOrdersByCountryMinute
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getOrdersByCountrySectionProductHour:
-              endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getOrdersByCountrySectionProductMinute:
-              endpoint: /ventaEcommerce/getOrdersByCountrySectionProductMinute
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaOnlinePicking:
-              endpoint: /ventaEcommerce/getVentaOnlinePicking
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getOrdersByCountryHour:
-              endpoint: /ventaEcommerce/getOrdersByCountryHour
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            test:
-              endpoint: /ventaEcommerce/test
-            getVersion:
-              endpoint: /ventaEcommerce/getVersion                                   
-          ventaEmpleado: 
-            getVentaIndividualDetalle:
-              endpoint: /ventaEmpleado/getVentaIndividualDetalle
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaIndividualDetalleByMCC:
-              endpoint: /ventaEmpleado/getVentaIndividualDetalleByMCC
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaIndividual:
-              endpoint: /ventaEmpleado/getVentaIndividual
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaIndividualByMCC:
-              endpoint: /ventaEmpleado/getVentaIndividualByMCC
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            test:
-              endpoint: /ventaEmpleado/test
-            getVersion:
-              endpoint: /ventaEmpleado/getVersion 
-          ventaGeneral:
-            getVentaTotalizado:
-              endpoint: /ventaGeneral/getVentaTotalizado
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaMensual:
-              endpoint: /ventaGeneral/getVentaMensual
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaDiaria: 
-              endpoint: /ventaGeneral/getVentaDiaria
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaTotalizadoXML: 
-              endpoint: /ventaGeneral/getVentaTotalizadoXML
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaTotalizadoByMCC: 
-              endpoint: /ventaGeneral/getVentaTotalizadoByMCC
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaPresupuestadaMensual:
-              endpoint: /ventaGeneral/getVentaPresupuestadaMensual
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            test:
-              endpoint: /ventaGeneral/test
-            getVersion:
-              endpoint: /ventaGeneral/getVersion                           
+          version: 1.0.34-rc.2
       presencia:
         service:
-          version: 1.0.5-rc.3
-          presenciasService:
-            getPresenciasTotalizado:
-              endpoint: /presenciasService/presenciasTotalizado
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getPresenciasTotalTiendaSeccion:
-              endpoint: /presenciasService/presenciasTotalTiendaSeccion
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getPresenciasTotalTienda:
-              endpoint: /presenciasService/presenciasTotalTienda
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getPresenciasDetalle:
-              endpoint: /presenciasService/presenciasDetalle
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getPresenciasDetalleComisionable:
-              endpoint: /presenciasService/presenciasDetalleComisionable
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getPresenciasTiendasEmpleado:
-              endpoint: /presenciasService/presenciasTiendasEmpleado
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getPresenciasEmpleadosTienda:
-              endpoint: /presenciasService/presenciasEmpleadosTienda
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getTiposHoras:
-              endpoint: /presenciasService/tiposHoras
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            test:
-              endpoint: /presenciasService/test
-            getVersion:
-              endpoint: /presenciasService/getVersion
+          version: 1.0.16-rc.5
     meta4:
       config:
-        max-attempts: 20
         credentials:
           user: INCOME_CALC
-          password: 123
-          language: 2
-        pool:
-          size: 20
-          claimTimeout: 30000
-          shutdownTimeout: 60000
-        timeout:
-          connectTimeout: 300000
-          receiveTimeout: 300000
       login:
         server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
         server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        service:
-          getFestivos:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getCoefJornada:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getFlagCalcula:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getPresenciaManual:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getEmpleadosPresencia:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getPeriodos:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3        
-          getTiendasEmpleado:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          searchTiendas:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getTiendas:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          searchEmpleados:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getComisionEmpleado:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getEmpleados:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getConfVentaOnline:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idagrupacion
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getAgrupOnline:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idagrupacion
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getTiendasOnline:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idagrupacion
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3

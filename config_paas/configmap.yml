@@ -1,0 +1,7 @@
+amiga:
+  monitoring:
+    metrics:
+      send: true
+  service:
+    session:
+      session-type: REMOTE

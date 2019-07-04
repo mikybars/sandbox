@@ -7,11 +7,21 @@ spring:
     atomikos:
       properties:
         max-timeout: 10m
+logging:
+  level:
+    root: WARN
+    com.inditex.rrhh.icmclcwb: INFO
 amiga:
+  monitoring:
+    metrics:
+      enabled: true
   common:
+    rest:
+      client:
+        defaultConnectTimeout: 300000
+        defaultReadTimeout: 300000
     cache:
       remote:
-        enabled: true
         cache-names: itx.icmclcwb.tipos_hora
     logging:
       file:
@@ -48,8 +58,17 @@ amiga:
         maximum-pool-size: 100
         queue-size: 200
   service:
-    session:
-      session-type: REMOTE
+    jms:
+      listener:
+        default:
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
+      trabajo-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
+      tarea-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
     core:
       mdc-filter:
         enabled: true
@@ -61,6 +80,56 @@ amiga:
       ui:
         title: '@project.name@'
         description: '@project.description@'
+  data:
+    jms:
+      connection-factory:
+        broker-escritura:
+          minPoolSize: 1
+          maxPoolSize: 10
+        broker-lectura:
+          minPoolSize: 1
+          maxPoolSize: 10
+      listener-container-factory:
+        trabajo:
+          concurrency: 1
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
+        tarea:
+          concurrency: 2
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
+      client:
+        trabajo:
+          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
+        tarea:
+          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
+    jdbc:
+      configuration:
+        prop:
+          default-isolation-level: 1
+          max-pool-size: 10
+          query-timeout: 30s
+      datasource:
+        primary:
+          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
+          xa-properties:
+            clientProgramName: ${metadata.jirakey}
+            driverType: 4
+            loginTimeout: 300
+            connectionTimeout: 300
+            commandTimeout: 300
+            interruptProcessingMode: 2
+    hibernate:
+      primary:
+        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
 app:
   id: ${spring.application.name}
   version: '@project.version@'
