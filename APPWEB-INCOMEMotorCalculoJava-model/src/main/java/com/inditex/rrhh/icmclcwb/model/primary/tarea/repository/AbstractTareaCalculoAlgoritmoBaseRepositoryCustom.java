@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom implements TareaCalculoAlgoritmoBaseRepositoryCustom {
+public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
+        implements TareaCalculoAlgoritmoBaseRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
@@ -24,7 +25,8 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom implemen
 
     protected abstract String getSqlCalcularBase();
 
-    protected abstract Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, TareaCalculoPersonaDto persona);
+    protected abstract Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea,
+            TareaCalculoPersonaDto persona);
 
     protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo) {
         return getMapValues(algoritmo, null, null);
@@ -37,12 +39,11 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom implemen
             personas.forEach(persona -> {
                 Map<String, Object> values = getMapValues(algoritmo, tarea, persona);
                 MapSqlParameterSource arg = new MapSqlParameterSource();
-                values.forEach((paramName, value) ->
-                    arg.addValue(paramName, value));
+                values.forEach((paramName, value) -> arg.addValue(paramName, value));
                 batchArgs.add(arg);
             });
             namedParameterJdbcTemplate.batchUpdate(getSqlCalcular(),
-                batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
+                    batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
         }
     }
 

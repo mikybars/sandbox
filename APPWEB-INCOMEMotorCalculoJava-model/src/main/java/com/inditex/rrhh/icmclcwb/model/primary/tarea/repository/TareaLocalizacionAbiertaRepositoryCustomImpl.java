@@ -55,7 +55,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_TRASLADADA.getId());
+                TipoDatoEnum.VENTA_ONLINE_TRASLADADA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR, 1);
         namedParameterJdbcTemplate.update(sqlTrasladarDestino, parameters);
     }
@@ -66,7 +66,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_COMPENSADA.getId());
+                TipoDatoEnum.VENTA_ONLINE_COMPENSADA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR, -1);
         namedParameterJdbcTemplate.update(sqlTrasladarActual, parameters);
     }

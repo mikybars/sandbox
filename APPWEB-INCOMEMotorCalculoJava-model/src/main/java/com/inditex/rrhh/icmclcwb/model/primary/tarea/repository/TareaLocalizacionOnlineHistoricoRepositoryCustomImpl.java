@@ -66,7 +66,7 @@ public class TareaLocalizacionOnlineHistoricoRepositoryCustomImpl
         return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
             parameters, (rs, rowNum) -> {
                 IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
                 return dto;
             });
     }

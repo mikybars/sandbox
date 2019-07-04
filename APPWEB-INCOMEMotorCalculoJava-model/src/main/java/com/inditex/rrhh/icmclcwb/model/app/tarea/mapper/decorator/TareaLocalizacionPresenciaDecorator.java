@@ -37,7 +37,7 @@ public abstract class TareaLocalizacionPresenciaDecorator extends TareaLocalizac
                 presencia.setIdSeccion(x.getSeccion().toString());
                 presencia.setMinutos(x.getMinutos());
                 presencia.setTipoDato(new TipoDato());
-                presencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId());
+                presencia.getTipoDato().setId(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId());
                 result.add(presencia);
             });
         }

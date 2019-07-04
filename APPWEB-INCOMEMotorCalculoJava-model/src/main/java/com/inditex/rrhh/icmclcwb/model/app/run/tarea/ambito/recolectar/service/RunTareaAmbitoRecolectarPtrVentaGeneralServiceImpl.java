@@ -82,7 +82,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION_SECCION.getId(), TipoDatoEnum.IMPORTE_VENTA_FISICA_LOCALIZACION.getId())),
+                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(), TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId())),
                     ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,

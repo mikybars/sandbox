@@ -79,7 +79,7 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
             GenericEmpleadoResultItemDto src) {
         tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
         tareaLocalizacionPersonaPresencia.setTipoDato(new TipoDato());
-        tareaLocalizacionPersonaPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
+        tareaLocalizacionPersonaPresencia.getTipoDato().setId(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
     }    
     
     @AfterMapping

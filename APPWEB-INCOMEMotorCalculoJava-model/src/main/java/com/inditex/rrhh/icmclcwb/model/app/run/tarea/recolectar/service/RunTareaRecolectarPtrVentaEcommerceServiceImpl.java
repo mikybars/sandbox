@@ -27,18 +27,6 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     private TareaAgrupacionVentaService tareaAgrupacionVentaService;
 
     @Override
-    public void ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlineIpodDetalleOperacionLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
-    public void ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlineIpodDetalleVendedorLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
     public void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
                 .ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
@@ -55,17 +43,11 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
                 .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
-    
+
     @Override
     public void ventaOnlineEntregaDomicilioCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
                 .ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito(runTarea, item));
-    }
-    
-    @Override
-    public void ventaOnlineIpodDetalleLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
-                .ventaOnlineIpodDetalleLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override

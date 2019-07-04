@@ -82,29 +82,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .repartoVentaEntregaDomicilioSeccion(runTarea);
             AsyncUtils.exceptionally(cfRepartoVentaOnlineEntregaDomicilioSeccion, cf);
 
-            // Suma de ventas totales por localizaciones
-            CompletableFuture<Void> cfVentasLocalizacionTienda = runTareaProcesarVentaAsyncService
-                    .ventaLocalizacionTienda(runTarea);
-            AsyncUtils.exceptionally(cfVentasLocalizacionTienda, cf);
-
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            // Suma de ventas por localizaciones y seccion
-            CompletableFuture<Void> cfVentasLocalizacionSeccion = runTareaProcesarVentaAsyncService
-                    .ventaLocalizacionSeccion(runTarea);
-            AsyncUtils.exceptionally(cfVentasLocalizacionSeccion, cf);
-
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/
-
-            /* Días abiertos */
+            // Días abiertos
             CompletableFuture<Void> cfSaveAbierto = runTareaProcesarVentaAsyncService.saveAbierto(runTarea);
             AsyncUtils.exceptionally(cfSaveAbierto, cf);
 
-            /* Días festivos */
+            // Días festivos
             CompletableFuture<Void> cfSaveCerrado = runTareaProcesarVentaAsyncService.saveCerrado(runTarea);
             AsyncUtils.exceptionally(cfSaveCerrado, cf);
 

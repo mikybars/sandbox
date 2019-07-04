@@ -41,7 +41,7 @@ public abstract class TareaAgrupacionVentaMapper {
         @MappingTarget TareaAgrupacionVenta dest, PtrVentaTotalizadoResultItemDto src, TareaDto tarea) {
         dest.setActivo(Boolean.TRUE);
         dest.setTipoDato(new TipoDato());
-        dest.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA.getId());
+        dest.getTipoDato().setId(TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId());
         dest.setIdSeccion(AppConstants.SECCION_4.toString());
     }
 
@@ -68,7 +68,7 @@ public abstract class TareaAgrupacionVentaMapper {
         @MappingTarget TareaAgrupacionVenta dest, PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea) {
         dest.setActivo(Boolean.TRUE);
         dest.setTipoDato(new TipoDato());
-        dest.getTipoDato().setId(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA.getId());
+        dest.getTipoDato().setId(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
         dest.setIdSeccion(AppConstants.SECCION_4.toString());
     }
 

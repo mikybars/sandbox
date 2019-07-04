@@ -33,17 +33,14 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
     @Override
     public void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto, Arrays.asList(
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_OPERACION_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId()
+                TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
+                TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
+                TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
+                TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
+                TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
+                TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
+                TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(),
+                TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId()
             ));
     }
 }

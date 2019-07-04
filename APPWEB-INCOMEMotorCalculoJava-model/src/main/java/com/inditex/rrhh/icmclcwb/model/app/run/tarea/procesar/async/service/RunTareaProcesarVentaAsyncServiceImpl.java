@@ -17,18 +17,6 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     private RunTareaProcesarVentaService tareaProcesarVentaService;
 
     @Override
-    public CompletableFuture<Void> ventaLocalizacionSeccion(RunTareaDto runTarea) {
-        tareaProcesarVentaService.ventaLocalizacionSeccion(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> ventaLocalizacionTienda(RunTareaDto runTarea) {
-        tareaProcesarVentaService.ventaLocalizacionTienda(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
     public CompletableFuture<Void> saveAbierto(RunTareaDto runTarea) {
         tareaProcesarVentaService.saveAbierto(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

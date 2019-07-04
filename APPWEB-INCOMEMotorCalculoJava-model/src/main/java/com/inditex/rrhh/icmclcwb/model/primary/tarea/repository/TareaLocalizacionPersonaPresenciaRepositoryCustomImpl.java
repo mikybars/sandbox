@@ -36,7 +36,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoTotalizado']}")
     private String sqlUpdateActivoTotalizado;
 
@@ -50,13 +50,10 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION,
-                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+                TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL,
-                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL,
-                TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
-
+                TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
 
@@ -67,12 +64,10 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION,
-                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+                TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL,
-                TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_MANUAL,
-                TipoDatoEnum.MINUTOS_INDIVIDUAL_MANUAL.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.MINUTOS_INDIVIDUAL.getId());
+                TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
 

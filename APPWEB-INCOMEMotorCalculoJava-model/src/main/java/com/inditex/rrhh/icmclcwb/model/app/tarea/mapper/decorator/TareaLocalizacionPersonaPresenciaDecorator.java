@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.common.util.concurrent.AtomicDouble;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -59,7 +58,7 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
                 presencia.setIdSeccion(x.getSeccion().toString());
                 presencia.setMinutos(x.getMinutos());
                 presencia.setTipoDato(new TipoDato());
-                presencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId());
+                presencia.getTipoDato().setId(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
                 result.add(presencia);
             });
 

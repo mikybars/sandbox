@@ -43,7 +43,7 @@ public abstract class TareaAgrupacionPresenciaMapper {
     void afterMapping(@MappingTarget TareaAgrupacionPresencia tareaCadenaPresencia,
         PtrPresenciaTotalizadoResultItemDto src, TareaDto tareaDto) {
         tareaCadenaPresencia.setTipoDato(new TipoDato());
-        tareaCadenaPresencia.getTipoDato().setId(TipoDatoEnum.MINUTOS_TOTALES.getId());
+        tareaCadenaPresencia.getTipoDato().setId(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
         tareaCadenaPresencia.setActivo(Boolean.TRUE);
         tareaCadenaPresencia.setIdSeccion(AppConstants.SECCION_4.toString());
     }

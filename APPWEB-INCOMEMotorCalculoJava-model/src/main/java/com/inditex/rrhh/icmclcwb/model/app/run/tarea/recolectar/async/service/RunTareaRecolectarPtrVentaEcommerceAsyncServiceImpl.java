@@ -41,24 +41,6 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
         tareaRecolectarPtrVentaEcommerceService.ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    @Override
-    public CompletableFuture<Void> ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodDetalleOperacionLocalizacionByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    @Override
-    public CompletableFuture<Void> ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodDetalleVendedorLocalizacionByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    @Override
-    public CompletableFuture<Void> ventaOnlineIpodDetalleLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodDetalleLocalizacionSeccionByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
 
     @Override
     public CompletableFuture<Void> updateActivoVentaOnlineIpodByRunTarea(RunTareaDto runTarea) {

@@ -128,8 +128,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
                             tarea.getId(), tareaAmbito.getIdOrigen(),
-                            Arrays.asList(TipoDatoEnum.MINUTOS_TOTALES_SECCION.getId(),
-                                    TipoDatoEnum.MINUTOS_TOTALES.getId())),
+                            Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId(),
+                                    TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId())),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter()
                             .getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -174,8 +174,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
                             tarea.getId(), tareaAmbito.getIdOrigen(),
-                            Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION.getId(),
-                                    TipoDatoEnum.MINUTOS_INDIVIDUAL.getId())),
+                            Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+                                    TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId())),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
@@ -296,7 +296,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             for (List<IdCadenaDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
                             tareaAmbito.getIdOrigen(),
-                        Arrays.asList(TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA.getId())),
+                        Arrays.asList(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId())),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter()
                             .getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();

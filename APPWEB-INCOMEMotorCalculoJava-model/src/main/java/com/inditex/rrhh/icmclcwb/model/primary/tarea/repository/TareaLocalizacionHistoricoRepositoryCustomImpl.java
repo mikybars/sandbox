@@ -88,7 +88,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 parameters, new RowMapper<IdLocalizacionDto>() {
                     public IdLocalizacionDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                         IdLocalizacionDto dto = new IdLocalizacionDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
                         return dto;
                     }
                 });
@@ -104,7 +104,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 new RowMapper<IdLocalizacionDto>() {
                     public IdLocalizacionDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                         IdLocalizacionDto dto = new IdLocalizacionDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
                         return dto;
                     }
                 });
@@ -121,7 +121,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 new RowMapper<IdLocalizacionLocalDto>() {
                     public IdLocalizacionLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                         IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
                         return dto;
                     }
                 });
@@ -140,7 +140,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 parameters, new RowMapper<IdLocalizacionLocalDto>() {
                     public IdLocalizacionLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                         IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
                         return dto;
                     }
                 });

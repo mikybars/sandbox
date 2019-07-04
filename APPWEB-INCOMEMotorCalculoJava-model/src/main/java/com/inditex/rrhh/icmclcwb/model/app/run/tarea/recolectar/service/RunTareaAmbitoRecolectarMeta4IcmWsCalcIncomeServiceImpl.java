@@ -258,7 +258,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.COEFICIENTE_REDUCCION_JORNADA.getId())),
+                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.PERSONA_COEFICIENTEREDUCCIONJORNADA.getId())),
                     meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getFilter().getMaxPageSize())) {
                 CoefJornadaRequestDto request = new CoefJornadaRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getPage());
@@ -339,7 +339,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionDto> iter : StreamUtils.partition(
                     tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.MINUTOS_INDIVIDUAL_SECCION_MANUAL.getId())),
+                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())),
                     meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPageSize())) {
                 PresenciaManualRequestDto request = new PresenciaManualRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getPage());

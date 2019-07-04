@@ -8,10 +8,6 @@ import java.util.concurrent.CompletableFuture;
 @Async
 public interface RunTareaProcesarVentaAsyncService {
 
-    CompletableFuture<Void> ventaLocalizacionSeccion(final RunTareaDto runTarea);
-
-    CompletableFuture<Void> ventaLocalizacionTienda(final RunTareaDto runTarea);
-
     CompletableFuture<Void> saveAbierto(RunTareaDto runTarea);
 
     CompletableFuture<Void> saveCerrado(RunTareaDto runTarea);
