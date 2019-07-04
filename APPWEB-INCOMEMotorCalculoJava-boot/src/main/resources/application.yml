@@ -16,10 +16,6 @@ amiga:
     metrics:
       enabled: true
   common:
-    rest:
-      client:
-        defaultConnectTimeout: 300000
-        defaultReadTimeout: 300000
     cache:
       remote:
         cache-names: itx.icmclcwb.tipos_hora

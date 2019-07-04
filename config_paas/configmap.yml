@@ -1,4 +1,9 @@
 amiga:
+  common:
+    rest:
+      client:
+        defaultConnectTimeout: 300000
+        defaultReadTimeout: 300000
   monitoring:
     metrics:
       send: true
