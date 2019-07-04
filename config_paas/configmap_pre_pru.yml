@@ -4,23 +4,11 @@ amiga:
       client:
         ptr-venta:
           base-url: https://prepru-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
-          auth-method: BASIC
           username: srvcicmclcwbpreAX
         ptr-presencia:
           base-url: http://prepru-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
-          auth-method: BASIC
           username: srvcicmclcwbpreAX
   data:
-    jms:
-      connection-factory:
-        broker-escritura:
-          xaConnectionFactory:
-            brokerURL: tcp://middleware-amq-tcp:61616
-            userName: usr-write
-        broker-lectura:
-          xaConnectionFactory:
-            brokerURL: tcp://middleware-amq-tcp:61616
-            userName: usr-read
     jdbc:
       datasource:
         primary:
