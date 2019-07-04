@@ -57,6 +57,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .compensarLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf);
 
+            CompletableFuture<Void> cfTotalizarPresenciaLocalizacion = runTareaProcesarPresenciaAsyncService
+                    .totalizarLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacion, cf);
+            
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
@@ -86,11 +90,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            // Días abiertos
+            /* Días abiertos */
             CompletableFuture<Void> cfSaveAbierto = runTareaProcesarVentaAsyncService.saveAbierto(runTarea);
             AsyncUtils.exceptionally(cfSaveAbierto, cf);
 
-            // Días festivos
+            /* Días festivos */
             CompletableFuture<Void> cfSaveCerrado = runTareaProcesarVentaAsyncService.saveCerrado(runTarea);
             AsyncUtils.exceptionally(cfSaveCerrado, cf);
 

@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -37,9 +38,6 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
 
-    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoTotalizado']}")
-    private String sqlUpdateActivoTotalizado;
-
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
 
@@ -47,13 +45,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     public void updateActivo(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION,
-                TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL,
-                TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
+
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
 
@@ -61,13 +55,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     public void compensar(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION,
-                TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL,
-                TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL, TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
+
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
 

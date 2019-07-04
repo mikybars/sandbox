@@ -127,10 +127,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
 
-            CompletableFuture<Void> cfPresenciasTotalLocalizacionSeccion = runTareaRecolectarPtrPresenciaAsyncService
-                    .presenciaTotalLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasTotalLocalizacionSeccion, cf, cfWait);
-
             // Persona
             CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = runTareaRecolectarPtrPresenciaAsyncService
                     .presenciaDetalleComisionablePersonaByRunTarea(runTarea);

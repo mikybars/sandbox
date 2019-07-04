@@ -42,4 +42,9 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     public void compensar(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensar(runTareaDto);
     }
+    
+    @Override
+    public void totalizar(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTareaDto);
+    }
 }

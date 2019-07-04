@@ -40,6 +40,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
 
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizar']}")
+    private String sqlTotalizar;
+    
     
     @Override
     public List<TareaLocalizacionPresencia> save(List<TareaLocalizacionPresencia> src) {
@@ -50,6 +53,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     public void updateActivo(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
 
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
@@ -59,12 +63,18 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     public void compensar(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION, TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_INDIVIDUAL_SECCION_MANUAL, TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_TOTALES, Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
+
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
+    }
+    
+    @Override
+    public void totalizar(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
+
+        namedParameterJdbcTemplate.update(sqlTotalizar, parameters);
     }
 
     @Override

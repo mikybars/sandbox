@@ -27,6 +27,12 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void compensarLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.compensar(runTarea);
     }
+    
+    @Auditoria
+    @Override
+    public void totalizarLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.totalizar(runTarea);
+    }
 
     @Auditoria
     @Override
