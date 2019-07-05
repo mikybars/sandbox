@@ -15,7 +15,7 @@ amiga:
     cache:
       remote:
         enabled: true
-        cache-names: itx.icmclcwb.tipos_hora
+        cache-names: itx.icmclcwb.tipos_hora,itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_tipo_dato_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_tipo_dato_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_cadena_by_tarea_and_id_origen,itx.icmlcwb.id_persona_by_tarea_and_id_origen,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_producto_by_id_tarea_and_id_origen
     logging:
       file:
         enabled: false

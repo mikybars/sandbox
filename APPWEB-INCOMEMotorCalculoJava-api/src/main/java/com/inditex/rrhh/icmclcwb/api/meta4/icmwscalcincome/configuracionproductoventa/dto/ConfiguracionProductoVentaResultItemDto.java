@@ -15,6 +15,6 @@ public class ConfiguracionProductoVentaResultItemDto implements Serializable {
     
     private String inout;
     private String idOrigen;
-    private String idProducto;
+    private Integer idProducto;
 
 }
