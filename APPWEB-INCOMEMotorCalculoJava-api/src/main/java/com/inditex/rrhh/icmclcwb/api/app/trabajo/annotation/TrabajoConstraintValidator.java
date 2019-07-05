@@ -63,6 +63,11 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
                 context.buildConstraintViolationWithTemplate("Ejecucion por localizacion sin localizaciones en la entrada").addConstraintViolation();
                 isValid = false;
             }     
+            
+            if (!CollectionUtils.isEmpty(trabajo.getPersona())) {
+                context.buildConstraintViolationWithTemplate("Ejecucion por localizacion con personas en la entrada").addConstraintViolation();
+                isValid = false;
+            }   
         }
             
         if (TipoAmbitoEnum.PERSONA.getId().equals(trabajo.getTipoAmbito().getId())) {
@@ -79,7 +84,12 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
             if (CollectionUtils.isEmpty(trabajo.getPersona())) {
                 context.buildConstraintViolationWithTemplate("Ejecucion por persona sin personas en la entrada").addConstraintViolation();
                 isValid = false;
-            }         
+            }   
+            
+            if (!CollectionUtils.isEmpty(trabajo.getLocalizacion())) {
+                context.buildConstraintViolationWithTemplate("Ejecucion por persona con localizaciones en la entrada").addConstraintViolation();
+                isValid = false;
+            }  
         }
         
         if(!isValid) {
