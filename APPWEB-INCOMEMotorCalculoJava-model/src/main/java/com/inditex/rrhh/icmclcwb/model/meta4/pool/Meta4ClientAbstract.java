@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
+import java.io.Serializable;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.ws.BindingProvider;
 
@@ -15,9 +17,11 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
 
-public abstract class Meta4ClientAbstract<T> {
+public abstract class Meta4ClientAbstract<T> implements Serializable {
 
-	protected String server;
+    private static final long serialVersionUID = -4381434626162543493L;
+
+    protected String server;
 
 	@Value("${app.envars.meta4.config.timeout.connectTimeout}")
 	public long connectTimeout;

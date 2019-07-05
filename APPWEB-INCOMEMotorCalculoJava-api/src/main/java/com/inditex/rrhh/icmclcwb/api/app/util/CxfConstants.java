@@ -9,7 +9,7 @@ public class CxfConstants {
 
     public static final String JSESSIONID = "JSESSIONID";
 
-    public static final String EQUALS = "=";
+    public static final String SEPARADOR = "=";
 
     public static final String COOKIE = "Cookie";
 

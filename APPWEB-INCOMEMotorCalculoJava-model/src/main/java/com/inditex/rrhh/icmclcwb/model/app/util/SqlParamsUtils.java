@@ -47,7 +47,7 @@ public class SqlParamsUtils {
                     String v = new StringBuilder(REGEXP_GROUP_1).append(value).append(REGEXP_GROUP_3).toString();
                     result = matcher.replaceAll(v);
                 }
-                result = result.replaceAll(paramRegexp, value.toString());
+                result = result.replaceAll(paramRegexp, value);
             }
         }
 
