@@ -108,6 +108,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen", key = "{#idTarea, #idOrigen}")
     public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull Long idTarea, @NotNull String idOrigen) {
         return tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, idOrigen);
     }
