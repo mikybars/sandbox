@@ -15,6 +15,7 @@ import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizacionService;
@@ -64,7 +65,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Transactional
     @Override
-    public TrabajoDto create(@Valid final TrabajoDto trabajo) {
+    public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo) {
         trabajo.setFechaCreacion(TimeUtils.nowLocalDateTime());
         if (StringUtils.isBlank(trabajo.getIdUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();

@@ -9,14 +9,31 @@ import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
-public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoValidator, RunTrabajoDto> {
+public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoValidator, Object> {
 
     @Override
-    public boolean isValid(RunTrabajoDto object, ConstraintValidatorContext context) {
+    public boolean isValid(Object object, ConstraintValidatorContext context) {
        
         boolean isValid = true;
-        final TrabajoDto trabajo = object.getTrabajo();
+       
+        if(object instanceof TrabajoDto) {
+            TrabajoDto trabajo = ((TrabajoDto) object);
+            isValid = validate(trabajo, context, isValid);
+        }
+        
+        if (object instanceof RunTrabajoDto) {
+            TrabajoDto trabajo = ((RunTrabajoDto) object).getTrabajo();
+            isValid = validate(trabajo, context, isValid);
+        }
 
+        if(!isValid) {
+            context.disableDefaultConstraintViolation();
+        }
+        
+        return isValid;
+    }
+
+    private boolean validate(TrabajoDto trabajo, ConstraintValidatorContext context, boolean isValid) {
         if(TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
             if (!CollectionUtils.isEmpty(trabajo.getOrigen())) {
                 context.buildConstraintViolationWithTemplate("Ejecucion por sociedad con origen en la entrada").addConstraintViolation();
@@ -91,11 +108,6 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
                 isValid = false;
             }  
         }
-        
-        if(!isValid) {
-            context.disableDefaultConstraintViolation();
-        }
-        
         return isValid;
     }
 

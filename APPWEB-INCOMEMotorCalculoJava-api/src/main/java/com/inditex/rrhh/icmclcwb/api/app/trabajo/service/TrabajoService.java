@@ -6,6 +6,7 @@ import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 
@@ -13,7 +14,7 @@ public interface TrabajoService {
 
     TrabajoDto find(@NotNull @Positive final Long id);
 
-    TrabajoDto create(@Valid final TrabajoDto trabajo);
+    TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo);
 
     TrabajoDto merge(@Valid @NotNull final ProgramacionDto programacion,
             @Valid @NotNull final ProgramacionAmbitoDto programacionAmbito, @Valid @NotNull final PeriodoDto periodo);
