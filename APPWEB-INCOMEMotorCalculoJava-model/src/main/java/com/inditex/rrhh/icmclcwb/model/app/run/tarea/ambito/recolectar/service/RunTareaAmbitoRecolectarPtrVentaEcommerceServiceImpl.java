@@ -90,27 +90,29 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             String idOrigen = tareaAmbito.getIdOrigen();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea,
                     idOrigen, TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
-            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-            PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = tareaMapper
+            if (CollectionUtils.isNotEmpty(cadenas)) {
+                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+                PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
-                            trabajo, tarea, tareaAmbito, recolectarProperties, cadenas);
-            paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
-            paramVentaOnlineEntregaDomicilio.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
-            paramVentaOnlineEntregaDomicilio.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
+                        trabajo, tarea, tareaAmbito, recolectarProperties, cadenas);
+                paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
+                paramVentaOnlineEntregaDomicilio.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
+                paramVentaOnlineEntregaDomicilio.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
 
-            CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
+                CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
                     .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
 
-            AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-            PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
+                PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
 
-            AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
                     .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getFilter().getMaxPersistenceSize());
-            AsyncUtils.exceptionally(tareaAgrupacionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data,
+                AsyncUtils.exceptionally(tareaAgrupacionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data,
                     tarea, agrupaciones), cf, cfPersist);
 
-            AsyncUtils.waitAllOfIsOk(cf, cf);
+                AsyncUtils.waitAllOfIsOk(cf, cf);
+            }
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
