@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
@@ -24,6 +24,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -144,11 +148,19 @@ public class TestServiceImpl implements TestService {
             String sociedad = values[0];
             String origen = values[1];
             String empresa = values[2];
-            for (long x = 0; x < 70; x++) {
+            for (long x = 0; x < /* 70 */3; x++) {
                 TrabajoDto trabajo = new TrabajoDto();
-                trabajo.setIdPeriodo("PERIODO_" + x);
-                trabajo.setFechaInicioPeriodo(TimeUtils.nowLocalDateTime().minusMonths(x + 1));
-                trabajo.setFechaFinPeriodo(TimeUtils.nowLocalDateTime().minusMonths(x));
+                LocalDateTime fechaInicio = TimeUtils.nowLocalDateTime().minusMonths(x)
+                        .with(TemporalAdjusters.firstDayOfMonth())
+                        .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
+                LocalDateTime fechaFin = TimeUtils.nowLocalDateTime().minusMonths(x)
+                        .with(TemporalAdjusters.lastDayOfMonth())
+                        .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
+                String year = String.valueOf(fechaInicio.getYear());
+                String month = String.format("%2s", String.valueOf(fechaInicio.getMonthValue())).replace(' ', '0');
+                trabajo.setIdPeriodo("ICM_" + year + month);
+                trabajo.setFechaInicioPeriodo(fechaInicio);
+                trabajo.setFechaFinPeriodo(fechaFin);
                 trabajo.setIdSociedad(sociedad);
                 TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
                 trabajoAmbitoOrigenDto.setIdOrigen(origen);
@@ -156,9 +168,7 @@ public class TestServiceImpl implements TestService {
                 TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
                 trabajoAmbitoEmpresa.setIdEmpresa(empresa);
                 trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
-                TipoAmbitoDto tipoAmbito = new TipoAmbitoDto();
-                tipoAmbito.setId(3L);
-                trabajo.setTipoAmbito(tipoAmbito);
+                trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
                 trabajoService.create(trabajo);
             }
         });
