@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.programacion.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -9,7 +10,9 @@ import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 
 @Data
-public class ProgramacionAmbitoDto {
+public class ProgramacionAmbitoDto implements Serializable {
+
+    private static final long serialVersionUID = 1849277348253846970L;
 
     @ApiModelProperty(value = "Identificador del ambito de la programación", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long id;

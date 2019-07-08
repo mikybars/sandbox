@@ -51,9 +51,29 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'autodeploy.v1hito2' of https://axinic.central.inditex.grp/bitbucket/scm/icmclcwb/main.git
 import lombok.Getter;
 
+<<<<<<< HEAD
+=======
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+>>>>>>> branch 'autodeploy.v1hito2' of https://axinic.central.inditex.grp/bitbucket/scm/icmclcwb/main.git
 @Service
 @Validated
 public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
@@ -101,6 +121,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea,
                     idOrigen, TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
             if (CollectionUtils.isNotEmpty(cadenas)) {
+<<<<<<< HEAD
        
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = tareaMapper
@@ -122,6 +143,28 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 AsyncUtils.exceptionally(tareaAgrupacionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data,
                         tarea, agrupaciones), cf, cfPersist);
     
+=======
+                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+                PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaDomicilio = tareaMapper
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
+                        trabajo, tarea, tareaAmbito, recolectarProperties, cadenas);
+                paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
+                paramVentaOnlineEntregaDomicilio.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
+                paramVentaOnlineEntregaDomicilio.setProducto(AppConstants.PRODUCTOS_COMISIONABLES);
+
+                CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
+                    .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
+
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+
+                PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
+
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaEcommerceProperties
+                    .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(tareaAgrupacionVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(data,
+                    tarea, agrupaciones), cf, cfPersist);
+
+>>>>>>> branch 'autodeploy.v1hito2' of https://axinic.central.inditex.grp/bitbucket/scm/icmclcwb/main.git
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }
         } catch (Exception e) {

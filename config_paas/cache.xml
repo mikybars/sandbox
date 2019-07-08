@@ -30,6 +30,7 @@
     <expiration max-idle="600000" />
 </replicated-cache>
 <replicated-cache name="itx.icmlcwb.id_cadena_by_tarea_and_id_origen" mode="SYNC" statistics="true">
+<<<<<<< HEAD
     <memory>
         <object size="1000" />
     </memory>
@@ -66,3 +67,10 @@
     <expiration max-idle="600000" />
 </replicated-cache>
 
+=======
+<memory>
+    <object size="1000" />
+</memory>
+<expiration max-idle="600000" />
+</replicated-cache>
+>>>>>>> branch 'autodeploy.v1hito2' of https://axinic.central.inditex.grp/bitbucket/scm/icmclcwb/main.git

@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.calcular.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -9,7 +11,9 @@ import lombok.Data;
 
 @ApiModel(description = "Modelo TipoDatoDto")
 @Data
-public class TipoDatoDto {
+public class TipoDatoDto implements Serializable {
+
+    private static final long serialVersionUID = 4954299427450653405L;
 
     @ApiModelProperty(value = "Identificador del tipo de dato", required = true)
     private String id;
@@ -25,4 +29,5 @@ public class TipoDatoDto {
     @NotNull
     @ApiModelProperty(value = "Identificador del tipo de dato", required = true)
     private Boolean procesado;
+
 }

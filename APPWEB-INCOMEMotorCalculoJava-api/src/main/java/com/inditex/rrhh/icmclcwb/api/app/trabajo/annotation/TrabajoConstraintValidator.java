@@ -39,6 +39,10 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
                 context.buildConstraintViolationWithTemplate("Ejecucion por sociedad con origen en la entrada").addConstraintViolation();
                 isValid = false;
             }
+            if (!CollectionUtils.isEmpty(trabajo.getEmpresa())) {
+                context.buildConstraintViolationWithTemplate("Ejecucion por sociedad con empresas en la entrada").addConstraintViolation();
+                isValid = false;
+            }   
         }
         
         if (TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {

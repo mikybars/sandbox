@@ -73,7 +73,7 @@ public class CxfUtils {
 
     public static Map<String, List<String>> mapJSessionID(final String jSessionID) {
         return CxfUtils.mapCookie(Collections.singletonList(
-                new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.EQUALS).append(jSessionID).toString()));
+                new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR).append(jSessionID).toString()));
     }
 
     public static Map<String, List<String>> mapCookie(final List<String> list) {
@@ -97,7 +97,7 @@ public class CxfUtils {
         Client client = ClientProxy.getClient(service);
         HTTPConduit http = (HTTPConduit) client.getConduit();
         http.getClient().setCookie(
-                new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.EQUALS).append(jSessionID).toString());
+                new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR).append(jSessionID).toString());
     }
 
     public static Map<String, Cookie> getCookies(final Object service) {
