@@ -92,7 +92,6 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
                 presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(), request);
     }
 
-    @Cacheable(value = "itx.icmclcwb.tipos_hora", key = "#request.getOrigen()")
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid final PtrPresenciaTiposHorasRequestDto request) {
