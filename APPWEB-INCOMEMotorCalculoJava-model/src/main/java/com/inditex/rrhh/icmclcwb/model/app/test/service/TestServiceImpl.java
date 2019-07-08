@@ -148,7 +148,7 @@ public class TestServiceImpl implements TestService {
             String sociedad = values[0];
             String origen = values[1];
             String empresa = values[2];
-            for (long x = 0; x < /* 70 */3; x++) {
+            for (long x = 0; x < 70; x++) {
                 TrabajoDto trabajo = new TrabajoDto();
                 LocalDateTime fechaInicio = TimeUtils.nowLocalDateTime().minusMonths(x)
                         .with(TemporalAdjusters.firstDayOfMonth())
