@@ -1,5 +1,5 @@
 app:
-  replicas: 7
+  replicas: 5
 datagrid:
   replicas: 2
 amq:
