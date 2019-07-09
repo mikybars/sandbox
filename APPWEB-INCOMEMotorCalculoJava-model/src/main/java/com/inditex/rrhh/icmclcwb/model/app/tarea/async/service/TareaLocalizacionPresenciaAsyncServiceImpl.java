@@ -25,6 +25,12 @@ public class TareaLocalizacionPresenciaAsyncServiceImpl implements TareaLocaliza
         tareaLocalizacionPresenciaService.save(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> saveEcommerce(List<PtrPresenciaTotalizadoResultItemDto> dto, TareaDto tarea) {
+        tareaLocalizacionPresenciaService.saveEcommerce(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
     
     @Override
     public CompletableFuture<Void> updateActivo(@NotNull RunTareaDto runTareaDto){

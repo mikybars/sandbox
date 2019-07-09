@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface TareaAgrupacionPresenciaService {
 
-    void save(@Valid List<PtrPresenciaTotalizadoResultItemDto> dto, @Valid TareaDto tarea,
-            List<TareaAgrupacionCadenasDto> agrupaciones);
-
     void updateActivo(@Valid TareaDto tarea);
 
+    void calcularPresenciasTotalesAgrupacion(@Valid TareaDto tarea);
 }

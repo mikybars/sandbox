@@ -79,6 +79,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         pstmt.setBoolean(9, entity.getActivo());
         pstmt.setLong(10, entity.getTipoDato().getId());
         pstmt.setLong(11, entity.getTarea().getId());
+        pstmt.setString(12, entity.getIdCadena());
     }
 
 }

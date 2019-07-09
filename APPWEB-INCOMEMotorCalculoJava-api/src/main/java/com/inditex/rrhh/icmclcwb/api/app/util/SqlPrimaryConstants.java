@@ -37,6 +37,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_SECCION = "idSeccion";
 
+    public static final String SQL_PARAM_ID_CADENA = "idCadena";
+    
     public static final String SQL_PARAM_ID_ESTADO_ACTUAL = "idEstadoActual";
 
     public static final String SQL_PARAM_ID_ESTADO_NUEVO = "idEstadoNuevo";

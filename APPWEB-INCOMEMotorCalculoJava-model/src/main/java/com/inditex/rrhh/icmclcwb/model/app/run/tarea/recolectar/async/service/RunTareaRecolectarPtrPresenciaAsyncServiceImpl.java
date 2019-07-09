@@ -42,14 +42,14 @@ public class RunTareaRecolectarPtrPresenciaAsyncServiceImpl implements RunTareaR
     }
 
     @Override
-    public CompletableFuture<Void> presenciaEmpleadoTiendaByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrPresenciaService.presenciaEmpleadoTiendaByRunTarea(runTarea);
+    public CompletableFuture<Void> presenciaTotalLocalizacionEcommerceByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrPresenciaService.presenciaTotalLocalizacionEcommerceByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> presenciaTotalCadenaByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrPresenciaService.presenciaTotalCadenaByRunTarea(runTarea);
+    public CompletableFuture<Void> presenciaEmpleadoTiendaByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarPtrPresenciaService.presenciaEmpleadoTiendaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

@@ -11,13 +11,13 @@ public interface RunTareaRecolectarPtrPresenciaService {
 
     void presenciaTotalLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void presenciaTotalLocalizacionEcommerceByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
     void presenciaDetalleComisionablePersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void presenciaDetalleComisionableLocalizacionPersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void presenciaTotalCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void updateActivoPresenciaAgrupacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 

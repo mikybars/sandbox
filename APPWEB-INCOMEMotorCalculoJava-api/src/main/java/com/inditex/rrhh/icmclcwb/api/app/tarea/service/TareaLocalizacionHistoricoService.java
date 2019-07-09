@@ -21,9 +21,6 @@ public interface TareaLocalizacionHistoricoService {
     List<TareaLocalizacionHistoricoDto> saveGenericTiendaResultItemDto(
             @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
 
-    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
-            @NotNull final String idOrigen);
-
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String idOrigen);
 

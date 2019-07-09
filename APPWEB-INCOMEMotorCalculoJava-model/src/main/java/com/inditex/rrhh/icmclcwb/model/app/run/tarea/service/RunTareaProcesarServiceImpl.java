@@ -47,6 +47,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .updateActivoLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfUpdatePresenciasActivas, cf);
             
+            //Actualizar flags de presencias totales activas incluido ecommerce
+            CompletableFuture<Void> cfUpdatePresenciasActivasEcommerce = runTareaProcesarPresenciaAsyncService
+                .updateActivoLocalizacionEcommerce(runTarea);
+            AsyncUtils.exceptionally(cfUpdatePresenciasActivasEcommerce, cf);
+
             // Compensar presencia total localizacion persona con las manuales
             CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = runTareaProcesarPresenciaAsyncService
                     .compensarLocalizacionPersonaPresencia(runTarea);
@@ -61,6 +66,20 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .totalizarLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacion, cf);
             
+            // Compensar presencia total localizacion con las manuales para incluido ecommerce
+            CompletableFuture<Void> cfCompensarPresenciaLocalizacionEcommerce = runTareaProcesarPresenciaAsyncService
+                .compensarLocalizacionEcommerce(runTarea);
+            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionEcommerce, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
+            // Presencias totales de agrupaciones
+            CompletableFuture<Void> cfCalcularPresenciasTotalesAgrupacion = runTareaProcesarPresenciaAsyncService
+                .calcularPresenciasTotalesAgrupacion(runTarea);
+            AsyncUtils.exceptionally(cfCalcularPresenciasTotalesAgrupacion, cf);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

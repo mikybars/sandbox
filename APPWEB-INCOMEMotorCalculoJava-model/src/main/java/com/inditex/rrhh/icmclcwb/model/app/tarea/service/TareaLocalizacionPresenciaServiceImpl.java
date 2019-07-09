@@ -27,24 +27,43 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     private TareaLocalizacionPresenciaRepositoryCustom tareaLocalizacionPresenciaRepositoryCustom;
 
     @Override
-    public List<TareaLocalizacionPresenciaDto> save(@Valid List<PtrPresenciaTotalizadoResultItemDto> dto, @Valid TareaDto tarea) {
+    public List<TareaLocalizacionPresenciaDto> save(@Valid List<PtrPresenciaTotalizadoResultItemDto> dto,
+            @Valid TareaDto tarea) {
         return mapper.tareaLocalizacionPresenciaToTareaLocalizacionPresenciaDto(
             tareaLocalizacionPresenciaRepositoryCustom.save(
                 mapper.presenciasTotalizadoResponseDtoToTareaLocalizacionPresencia(dto, tarea)));
+    }
+
+    @Override
+    public List<TareaLocalizacionPresenciaDto> saveEcommerce(@Valid List<PtrPresenciaTotalizadoResultItemDto> dto,
+            @Valid TareaDto tarea) {
+        return mapper.tareaLocalizacionPresenciaToTareaLocalizacionPresenciaDto(
+            tareaLocalizacionPresenciaRepositoryCustom.save(
+                mapper.presenciasTotalizadoResponseDtoToTareaLocalizacionPresenciaEcommerce(dto, tarea)));
     }
     
     @Override
     public void updateActivo(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.updateActivo(runTareaDto);
     }
-          
+
+    @Override
+    public void updateActivoEcommerce(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.updateActivoEcommerce(runTareaDto);
+    }
+    
     @Override
     public void compensar(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensar(runTareaDto);
     }
-    
+
     @Override
     public void totalizar(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTareaDto);
+    }
+
+    @Override
+    public void compensarEcommerce(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce(runTareaDto);
     }
 }

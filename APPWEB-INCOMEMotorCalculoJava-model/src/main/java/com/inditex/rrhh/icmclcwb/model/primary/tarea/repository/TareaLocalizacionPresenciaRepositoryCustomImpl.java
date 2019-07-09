@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
@@ -36,14 +37,20 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
-       
+
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivoEcommerce']}")
+    private String sqlUpdateActivoEcommerce;
+    
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
 
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
     
-    
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce']}")
+    private String sqlCompensarEcommerce;
+
+
     @Override
     public List<TareaLocalizacionPresencia> save(List<TareaLocalizacionPresencia> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
@@ -60,10 +67,23 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     }
 
     @Override
+    public void updateActivoEcommerce(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS, TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
+
+        namedParameterJdbcTemplate.update(sqlUpdateActivoEcommerce, parameters);
+    }
+
+    @Override
     public void compensar(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_TOTALES, TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
 
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
@@ -78,6 +98,17 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     }
 
     @Override
+    public void compensarEcommerce(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS_TOTALES, TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+
+        namedParameterJdbcTemplate.update(sqlCompensarEcommerce, parameters);
+    }
+
+    @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionPresencia entity) throws SQLException {
         pstmt.setObject(1, entity.getFecha());
         pstmt.setString(2, entity.getIdLocalizacion());
@@ -86,5 +117,6 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
         pstmt.setDouble(5, entity.getTipoDato().getId());
         pstmt.setBoolean(6, entity.getActivo());
         pstmt.setLong(7, entity.getTarea().getId());
+        pstmt.setString(8, entity.getIdCadena());
     }
 }

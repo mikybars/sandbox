@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
@@ -24,6 +26,11 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionHistori
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepositoryCustom;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -89,12 +96,6 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
             @NotNull final Long idTarea, @NotNull String idOrigen) {
         return tareaLocalizacionHistoricoRepositoryCustom
                 .findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
-    }
-
-    @Override
-    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
-            @NotNull String idOrigen) {
-        return tareaLocalizacionHistoricoRepository.findIdLocalizacionDtoByIdTareaAndIdOrigen(idTarea, idOrigen);
     }
 
     @Override

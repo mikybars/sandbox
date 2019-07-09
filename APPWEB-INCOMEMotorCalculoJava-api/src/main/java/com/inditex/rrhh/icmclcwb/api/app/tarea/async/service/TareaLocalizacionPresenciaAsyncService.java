@@ -15,6 +15,8 @@ public interface TareaLocalizacionPresenciaAsyncService {
 
     CompletableFuture<Void> save(List<PtrPresenciaTotalizadoResultItemDto> dto, TareaDto tarea);
 
+    CompletableFuture<Void> saveEcommerce(List<PtrPresenciaTotalizadoResultItemDto> dto, TareaDto tarea);
+
     CompletableFuture<Void> updateActivo(@NotNull RunTareaDto runTareaDto);
 
 }

@@ -38,6 +38,10 @@ public class TareaLocalizacionPersonaPresencia {
     private String idLocalizacion;
 
     @NotBlank
+    @Column(name = "ID_CADENA", nullable = false)
+    private String idCadena;
+
+    @NotBlank
     @Column(name = "ID_PERSONA", nullable = false)
     private String idPersona;
     

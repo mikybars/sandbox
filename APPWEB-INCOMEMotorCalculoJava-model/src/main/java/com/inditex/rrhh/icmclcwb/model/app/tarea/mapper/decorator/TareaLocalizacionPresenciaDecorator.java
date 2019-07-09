@@ -43,4 +43,12 @@ public abstract class TareaLocalizacionPresenciaDecorator extends TareaLocalizac
         }
         return result;
     }
+
+    @Override
+    public List<TareaLocalizacionPresencia> presenciasTotalizadoResponseDtoToTareaLocalizacionPresenciaEcommerce(
+            List<PtrPresenciaTotalizadoResultItemDto> src, TareaDto tareaDto) {
+        List<TareaLocalizacionPresencia> presencias = new ArrayList<>();
+        src.forEach(x -> presencias.add(delegate.presenciasTotalizadoResponseDtoToTareaLocalizacionPresenciaEcommerce(x, tareaDto)));
+        return presencias;
+    }
 }

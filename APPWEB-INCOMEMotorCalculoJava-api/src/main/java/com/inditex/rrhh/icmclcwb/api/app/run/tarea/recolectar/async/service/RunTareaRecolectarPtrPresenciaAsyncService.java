@@ -15,11 +15,11 @@ public interface RunTareaRecolectarPtrPresenciaAsyncService {
 
     CompletableFuture<Void> presenciaTotalLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> presenciaTotalLocalizacionEcommerceByRunTarea(final RunTareaDto runTarea);
+
     CompletableFuture<Void> presenciaEmpleadoTiendaByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> presenciaDetalleComisionableLocalizacionPersonaByRunTarea(final RunTareaDto runTarea);
-
-    CompletableFuture<Void> presenciaTotalCadenaByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> updateActivoPresenciaAgrupacionByRunTarea(final RunTareaDto runTarea);
 }

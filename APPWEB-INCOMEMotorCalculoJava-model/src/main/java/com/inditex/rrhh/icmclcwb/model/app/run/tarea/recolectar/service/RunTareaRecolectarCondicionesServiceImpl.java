@@ -101,10 +101,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .ventaOnlineEntregaDomicilioCadenaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentasEntregaDomicilioByCadena, cf, cfWait);
 
-            // Presencias cadenas
-            CompletableFuture<Void> cfPresenciasCadena = runTareaRecolectarPtrPresenciaAsyncService
-                    .presenciaTotalCadenaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasCadena, cf, cfWait);
+            // Presencias localizaciones ecommerce (entrega domicilio)
+            CompletableFuture<Void> cfPresenciasEcommerce = runTareaRecolectarPtrPresenciaAsyncService
+                .presenciaTotalLocalizacionEcommerceByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasEcommerce, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);

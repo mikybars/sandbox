@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface TareaAgrupacionPresenciaRepositoryCustom {
 
-    List<TareaAgrupacionPresencia> save(List<TareaAgrupacionPresencia> src);
-
     void updateActivo(TareaDto tarea);
+
+    void calcularPresenciasTotalesAgrupacion(TareaDto tarea);
 
 }

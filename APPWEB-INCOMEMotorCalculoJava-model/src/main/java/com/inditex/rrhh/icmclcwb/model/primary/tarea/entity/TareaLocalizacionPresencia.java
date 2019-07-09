@@ -27,6 +27,10 @@ public class TareaLocalizacionPresencia {
     private Date fecha;
 
     @NotNull
+    @Column(name = "ID_CADENA", nullable = false)
+    private String idCadena;
+
+    @NotNull
     @Column(name = "ID_LOCALIZACION", nullable = false)
     private String idLocalizacion;
 

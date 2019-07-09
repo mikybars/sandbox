@@ -1,27 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
-import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
@@ -33,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPr
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
@@ -52,6 +33,21 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -77,9 +73,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
-
-    @Autowired
-    private TareaAgrupacionPresenciaAsyncService tareaAgrupacionPresenciaAsyncService;
 
     @Autowired
     private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
@@ -113,6 +106,47 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
                         .append(tareaAmbito.getIdCatalogo()).toString());
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+    @Override
+    public void presenciaTotalLocalizacionEcommerceByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            List<IdCadenaDto> cadenas = tareaTiendaHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
+                tarea.getId(), tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId());
+                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+
+                PtrPresenciaTotalizadoRequestDto paramPresenciasTotalTiendaSeccion = tareaMapper
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaTotalizadoRequestDto(trabajo, tarea,
+                        tareaAmbito, recolectarProperties);
+                paramPresenciasTotalTiendaSeccion
+                    .setCadena(cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
+                paramPresenciasTotalTiendaSeccion.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
+                paramPresenciasTotalTiendaSeccion.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA.getValue());
+                paramPresenciasTotalTiendaSeccion.setExcluidoDenom(Boolean.FALSE);
+                paramPresenciasTotalTiendaSeccion.setIncluidoEcommerce(Boolean.TRUE);
+
+                CompletableFuture<PtrPresenciaTotalizadoResponseDto> cfData = ptrPresenciaAsyncService
+                    .presenciasTotalizado(paramPresenciasTotalTiendaSeccion);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+
+                PtrPresenciaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+                if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalizado())) {
+
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
+                        .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+                    AsyncUtils.exceptionally(
+                        tareaLocalizacionPresenciaAsyncService.saveEcommerce(data.getPresenciasTotalizado(), tarea), cf,
+                        cfPersist);
+                }
+
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
@@ -284,49 +318,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             }
         }
         AsyncUtils.waitAllOfIsOk(cf, cf);
-    }
-
-    @Override
-    public void presenciaTotalCadenaByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea,
-            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
-            final TareaDto tarea = runTarea.getTarea();
-            List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
-            for (List<IdCadenaDto> iter : StreamUtils.partition(
-                    tareaTiendaHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
-                            tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()),
-                    presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter()
-                            .getMaxPageSize())) {
-                List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
-                PtrPresenciaTotalizadoRequestDto paramPresenciaTotalCadena = tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaTotalizadoRequestDto(trabajo, tarea,
-                                tareaAmbito, recolectarProperties);
-                paramPresenciaTotalCadena
-                        .setCadena(iter.stream().map(e -> Integer.valueOf(e.getId())).collect(Collectors.toList()));
-                paramPresenciaTotalCadena.setAgruparSeccion(0);
-                paramPresenciaTotalCadena.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_ORIGEN_EMPRESA_CADENA.getValue());
-
-                CompletableFuture<PtrPresenciaTotalizadoResponseDto> cfData = ptrPresenciaAsyncService
-                        .presenciasTotalizado(paramPresenciaTotalCadena);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                PtrPresenciaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-                if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTotalizado())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                            .get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter().getMaxPersistenceSize());
-                    AsyncUtils.exceptionally(
-                            tareaAgrupacionPresenciaAsyncService.save(data.getPresenciasTotalizado(), tarea, agrupaciones), cf,
-                            cfPersist);
-                }
-
-            }
-        } catch (Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
     }
 
 }

@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import javax.validation.Valid;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,9 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     @Autowired
     private TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
 
+    @Autowired
+    private TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
+
     @Auditoria
     @Override
     public void compensarLocalizacion(@Valid RunTareaDto runTarea) {
@@ -36,10 +40,22 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
 
     @Auditoria
     @Override
+    public void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
+    }
+        
+    @Auditoria
+    @Override
     public void updateActivoLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.updateActivo(runTarea);
     }
 
+    @Auditoria
+    @Override
+    public void updateActivoLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.updateActivoEcommerce(runTarea);
+    }
+   
     @Auditoria
     @Override
     public void updateActivoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
@@ -52,4 +68,8 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         tareaLocalizacionPersonaPresenciaService.compensar(runTarea);
     }
 
+    @Override
+    public void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea) {
+        tareaAgrupacionPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea.getTarea());
+    }
 }

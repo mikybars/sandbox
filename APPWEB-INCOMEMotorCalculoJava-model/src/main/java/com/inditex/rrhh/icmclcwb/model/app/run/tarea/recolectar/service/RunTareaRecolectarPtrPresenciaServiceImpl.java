@@ -51,6 +51,12 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     }
 
     @Override
+    public void presenciaTotalLocalizacionEcommerceByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
+                .presenciaTotalLocalizacionEcommerceByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
     public void presenciaDetalleComisionablePersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
                 .presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(runTarea, item));
@@ -66,12 +72,6 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     public void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
                 .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
-    public void presenciaTotalCadenaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
-                .presenciaTotalCadenaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override

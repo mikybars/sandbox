@@ -25,4 +25,16 @@ public interface TareaLocalizacionHistoricoRepository extends BaseRepository<Tar
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen);
 
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.idLocalizacionMeta4) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen AND tth.idCadena IN (:idCadena) GROUP BY tth.idLocalizacionMeta4")
+    List<IdLocalizacionDto> findIdLocalizacionDtoByTareaAndIdOrigenAndCadenas(
+        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
+        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen,
+        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_CADENA) final List<String> idsCadena);
+
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.idLocalizacion) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen AND tth.idCadena IN (:idCadena) GROUP BY tth.idLocalizacion")
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByTareaAndIdOrigenAndCadenas(
+        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
+        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen,
+        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_CADENA) final List<String> idsCadena);
+
 }
