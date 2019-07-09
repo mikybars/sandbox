@@ -10,8 +10,11 @@ amiga:
   common:
     rest:
       client:
-        defaultConnectTimeout: 300000
-        defaultReadTimeout: 300000
+        http:
+          connect-timeout: 300000
+          ead-timeout: 300000
+        auth:
+          method: BASIC
         ptr-venta:
           auth-method: BASIC
         ptr-presencia:
