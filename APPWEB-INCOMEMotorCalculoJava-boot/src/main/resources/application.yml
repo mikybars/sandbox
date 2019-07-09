@@ -15,6 +15,11 @@ app:
 amiga:
   common:
     cache:
+      hotrod-client:
+        infinispan:
+          client:
+            hotrod:
+              protocol_version: 2.5
       remote:
         enabled: true
         cache-names: itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_tipo_dato_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_tipo_dato_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_cadena_by_tarea_and_id_origen,itx.icmlcwb.id_persona_by_tarea_and_id_origen,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_producto_by_id_tarea_and_id_origen

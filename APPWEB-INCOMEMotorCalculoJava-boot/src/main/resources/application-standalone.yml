@@ -26,6 +26,11 @@ amiga:
     core:
       is-production: false
     cache:
+      hotrod-client:
+        infinispan:
+          client:
+            hotrod:
+              protocol_version: 2.5
       remote:
         enabled: false
       embedded:
