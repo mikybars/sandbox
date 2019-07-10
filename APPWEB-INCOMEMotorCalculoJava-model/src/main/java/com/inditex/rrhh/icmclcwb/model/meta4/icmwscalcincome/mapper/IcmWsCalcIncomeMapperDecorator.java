@@ -51,6 +51,8 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     public GenericTiendaResultItemDto asGenericTiendaResultItemDto(IcmListatiendasRecord src) {
         GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(src);
         mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(src.getEscomisionable().trim()));
+        mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(src.getCalcula().trim()));
+        
         if (StringUtils.isNotEmpty(src.getFechainicio())) {
             mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
@@ -68,6 +70,8 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         for (IcmListatiendasRecord item : src) {
             GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(item);
             mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(item.getEscomisionable().trim()));
+            mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(item.getCalcula().trim()));
+
             if (StringUtils.isNotEmpty(item.getFechainicio())) {
                 mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
                         DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));

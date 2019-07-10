@@ -66,7 +66,6 @@ public class TareaCalculo {
     @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA", nullable = true)
     private /* BigInteger */ TareaLocalizacionPersonaPresencia localizacionPersonaPresencia;
 
-    // TODO Cambiar por TAREA_LOCALIZACION_VENTA
     @OneToOne
     @JoinColumn(name = "ID_TAREA_LOCALIZACION_VENTA", nullable = true)
     private /* BigInteger */ TareaLocalizacionVenta localizacionVenta;

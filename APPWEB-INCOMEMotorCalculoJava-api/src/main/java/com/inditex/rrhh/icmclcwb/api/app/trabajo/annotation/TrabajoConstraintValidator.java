@@ -17,13 +17,13 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
         boolean isValid = true;
        
         if(object instanceof TrabajoDto) {
-            TrabajoDto trabajo = ((TrabajoDto) object);
-            isValid = validate(trabajo, context, isValid);
+            TrabajoDto trabajo = (TrabajoDto) object;
+            isValid = validate(trabajo, context);
         }
         
         if (object instanceof RunTrabajoDto) {
             TrabajoDto trabajo = ((RunTrabajoDto) object).getTrabajo();
-            isValid = validate(trabajo, context, isValid);
+            isValid = validate(trabajo, context);
         }
 
         if(!isValid) {
@@ -33,7 +33,8 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
         return isValid;
     }
 
-    private boolean validate(TrabajoDto trabajo, ConstraintValidatorContext context, boolean isValid) {
+    private boolean validate(TrabajoDto trabajo, ConstraintValidatorContext context) {
+        boolean isValid = true;
         if(TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
             if (!CollectionUtils.isEmpty(trabajo.getOrigen())) {
                 context.buildConstraintViolationWithTemplate("Ejecucion por sociedad con origen en la entrada").addConstraintViolation();
