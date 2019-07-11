@@ -58,6 +58,10 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1RepositoryCus
                         TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
                         TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
                         TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, 1);
+        map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, 1);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        map.put(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO, 0);
         return map;
     }
 }

@@ -46,6 +46,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
                 TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(trabajoDto.getFechaFinPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IMPORTE, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA,
+            TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
+            TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId());
         namedParameterJdbcTemplate.update(sqlSaveAbierto, parameters);
     }
 
@@ -53,10 +59,13 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     public void trasladar(@NotNull TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO,
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.VENTA_ONLINE_TRASLADADA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CERRADO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 1);
         namedParameterJdbcTemplate.update(sqlTrasladarDestino, parameters);
     }
 
@@ -64,10 +73,13 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     public void compensar(@NotNull TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_NUEVO,
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.VENTA_ONLINE_COMPENSADA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR, -1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CERRADO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 1);
         namedParameterJdbcTemplate.update(sqlTrasladarActual, parameters);
     }
 
@@ -78,7 +90,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
                 TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(trabajoDto.getFechaFinPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, idTipoImporteVenta);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, 0);
         namedParameterJdbcTemplate.update(sqlSaveCerrado, parameters);
     }
 

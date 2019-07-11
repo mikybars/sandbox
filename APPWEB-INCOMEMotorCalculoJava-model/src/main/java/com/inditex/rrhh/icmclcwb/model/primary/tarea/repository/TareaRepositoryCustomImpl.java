@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +39,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     public void updateFechaFin(@NotNull final TareaDto tarea) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         namedParameterJdbcTemplate.update(sqlUpdateFechaFin, params);
     }
 
@@ -45,8 +47,8 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     public void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estado.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estado.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         namedParameterJdbcTemplate.update(sqlUpdateFechaInicioAndEstado, params);
     }
 
@@ -54,7 +56,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     public void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estado.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estado.getId());
         namedParameterJdbcTemplate.update(sqlUpdateEstado, params);
     }
 
@@ -62,6 +64,9 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     public void updateEstadoFinal(@NotNull final TareaDto tarea) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaEnum.EN_CURSO.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ESTADO_SIN_ERRORES, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ESTADO_CON_ERRORES, EstadoTareaEnum.FINALIZADO_CON_ERRORES.getId());
         namedParameterJdbcTemplate.update(sqlUpdateEstadoFinal, params);
     }
 

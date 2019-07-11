@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -53,15 +54,13 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     }
 
     @Override
-    public void updateActivo(TareaDto tarea, TipoDatoEnum tipoDatoVentaLocalizacion, TipoDatoEnum tipoDatoVentaSecccion,
-        TipoVentaConceptoEnum tipoVentaConceptoEnum) {
+    public void updateActivo(TareaDto tarea, TipoVentaConceptoEnum tipoVentaConceptoEnum, List<Long> idsTipoDato) {
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION,
-            tipoDatoVentaLocalizacion.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_SECCION,
-            tipoDatoVentaSecccion.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, tipoVentaConceptoEnum.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, 0);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 0);
         namedParameterJdbcTemplate.update(sqlUpdateActivo, params);
     }
 }

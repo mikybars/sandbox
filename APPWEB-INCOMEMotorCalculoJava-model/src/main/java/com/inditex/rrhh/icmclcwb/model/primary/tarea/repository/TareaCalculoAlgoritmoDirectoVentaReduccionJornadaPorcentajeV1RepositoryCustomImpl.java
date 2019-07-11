@@ -1,7 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -15,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustomImpl
@@ -31,6 +35,9 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Reposi
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
+
+    @Autowired
+    private TipoDatoService tipoDatoService;
 
     @Override
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
@@ -51,12 +58,12 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Reposi
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
                 Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId()));
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
-                Arrays.asList(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
+            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, 1);
+        map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, 1);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
 
         return map;
     }

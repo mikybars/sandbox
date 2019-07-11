@@ -152,6 +152,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, idVentaConcepto);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, 0);
         return namedParameterJdbcTemplate.query(sqlCadenasFiltroTipoDato, parameters, (rs, rowNum) -> IdCadenaDto.builder()
                 .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA)).build());
     }

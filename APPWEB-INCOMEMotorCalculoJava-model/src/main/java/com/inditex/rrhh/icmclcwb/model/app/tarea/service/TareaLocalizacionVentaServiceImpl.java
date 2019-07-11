@@ -2,10 +2,14 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +36,9 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
 
     @Autowired
     private TareaLocalizacionVentaMapper tareaLocalizacionVentaMapper;
+
+    @Autowired
+    private TipoDatoService tipoDatoService;
 
     @Override
     public List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(@Valid PtrVentaTotalizadoResponseDto dto,
@@ -106,21 +113,26 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
 
     @Override
     public void updateActivoVentaOnlineIpod(@Valid TareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION,
-                TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION, TipoVentaConceptoEnum.IPOD);
+        List<IdTipoDatoDto> tipos =
+            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId());
+        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoVentaConceptoEnum.IPOD,
+            tipos.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
     public void updateActivoVentaOnlinePicking(@Valid TareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION,
-                TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION, TipoVentaConceptoEnum.SINT);
+        List<IdTipoDatoDto> tipos =
+            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId());
+        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoVentaConceptoEnum.SINT,
+            tipos.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
     public void updateActivoVentaOnlineEntregaTienda(@Valid TareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION,
-                TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION,
-                TipoVentaConceptoEnum.ENTREGA_TIENDA);
+        List<IdTipoDatoDto> tipos =
+            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId());
+        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoVentaConceptoEnum.ENTREGA_TIENDA,
+            tipos.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
 }

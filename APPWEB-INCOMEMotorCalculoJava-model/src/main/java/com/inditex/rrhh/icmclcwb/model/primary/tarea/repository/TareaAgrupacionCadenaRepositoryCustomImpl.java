@@ -23,10 +23,6 @@ public class TareaAgrupacionCadenaRepositoryCustomImpl
     
     @Value("#{primaryQuery['TareaAgrupacionCadenaRepositoryCustom.save']}")
     private String sqlSave;
-    
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public List<TareaAgrupacionCadena> save(@NotNull List<TareaAgrupacionCadena> agrupaciones) {

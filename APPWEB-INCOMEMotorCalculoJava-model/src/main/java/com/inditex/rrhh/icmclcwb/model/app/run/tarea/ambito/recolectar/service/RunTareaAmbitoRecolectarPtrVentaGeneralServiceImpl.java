@@ -10,7 +10,10 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
@@ -70,6 +73,9 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
 
     @Autowired
     private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
+
+    @Autowired
+    private TipoDatoService tipoDatoService;
       
     @Auditoria
     @Override
@@ -80,9 +86,10 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            List<IdTipoDatoDto> idsTipoDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(), TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId())),
+                            tareaAmbito.getIdOrigen(), idsTipoDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
                     ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,

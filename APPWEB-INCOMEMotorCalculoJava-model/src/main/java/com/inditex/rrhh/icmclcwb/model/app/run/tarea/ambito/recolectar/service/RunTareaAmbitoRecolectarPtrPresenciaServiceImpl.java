@@ -1,12 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresenciaAsyncService;
@@ -16,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
@@ -76,6 +80,9 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
 
     @Autowired
     private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
+
+    @Autowired
+    private TipoDatoService tipoDatoService;
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -160,11 +167,12 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            List<IdTipoDatoDto> tiposDatoPresencia =
+                tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
                             tarea.getId(), tareaAmbito.getIdOrigen(),
-                            Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId(),
-                                    TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId())),
+                            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getFilter()
                             .getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -206,11 +214,12 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            List<IdTipoDatoDto> tiposDatoPresencia =
+                tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-                            tarea.getId(), tareaAmbito.getIdOrigen(),
-                            Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-                                    TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId())),
+                        tarea.getId(), tareaAmbito.getIdOrigen(),
+                        tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 

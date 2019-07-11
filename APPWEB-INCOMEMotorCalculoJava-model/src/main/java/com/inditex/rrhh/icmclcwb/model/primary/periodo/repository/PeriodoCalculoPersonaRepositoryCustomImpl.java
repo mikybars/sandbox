@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -50,7 +51,8 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
                 /* TODO Cambiar por un flag o definir los estados posibles */2L);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.OK.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_ACTUAL, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, 0);
         namedParameterJdbcTemplate.update(sqlMergePeriodoCalculoPersona, params);
     }
 

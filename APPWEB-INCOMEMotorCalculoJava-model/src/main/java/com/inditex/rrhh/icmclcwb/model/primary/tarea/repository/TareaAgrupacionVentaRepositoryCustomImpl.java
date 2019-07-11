@@ -44,6 +44,7 @@ public class TareaAgrupacionVentaRepositoryCustomImpl
         pstmt.setString(6, entity.getIdOrigen());
         pstmt.setDouble(7, entity.getImporte());
         pstmt.setDouble(8, entity.getImporteConImpuestos());
+        pstmt.setInt(9, 1); //Activo
     }
 
     @Override
@@ -56,6 +57,8 @@ public class TareaAgrupacionVentaRepositoryCustomImpl
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 0);
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
 }

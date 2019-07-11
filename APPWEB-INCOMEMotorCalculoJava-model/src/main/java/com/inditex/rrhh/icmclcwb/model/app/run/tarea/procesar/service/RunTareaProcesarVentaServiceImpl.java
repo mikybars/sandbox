@@ -1,9 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +33,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     @Autowired
     private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
 
+    @Autowired
+    private TipoDatoService tipoDatoService;
+
     @Override
     public void saveAbierto(@Valid RunTareaDto runTarea) {
         tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(runTarea.getTarea(), runTarea.getTrabajo());
@@ -35,41 +43,23 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void saveCerrado(@Valid RunTareaDto runTarea) {
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
-                Arrays.asList(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId()));
+                ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
     public void trasladar(@Valid RunTareaDto runTarea) {
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(),
-                Arrays.asList(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId()));
+            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
     public void compensar(@Valid RunTareaDto runTarea) {
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(),
-                Arrays.asList(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId()));
+            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override

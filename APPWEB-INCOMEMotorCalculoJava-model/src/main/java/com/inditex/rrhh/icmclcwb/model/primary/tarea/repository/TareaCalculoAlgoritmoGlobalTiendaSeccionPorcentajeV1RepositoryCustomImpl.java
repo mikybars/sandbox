@@ -1,7 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -15,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustomImpl
@@ -32,6 +36,9 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCusto
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
+    @Autowired
+    private TipoDatoService tipoDatoService;
+
     @Override
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
         return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
@@ -48,18 +55,20 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCusto
             map.put(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, persona.getOrPersona());
         }
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
+        List<IdTipoDatoDto> tiposDatoPresencia =
+            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
-                Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-                        TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
+                tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
                 Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId(),
                         TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()));
+        List<IdTipoDatoDto> tiposDatoVentaFisica = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
-                Arrays.asList(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-                        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
+            tiposDatoVentaFisica.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, 1);
+        map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, 1);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        map.put(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO, 0);
         return map;
     }
 }
