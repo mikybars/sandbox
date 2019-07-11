@@ -28,4 +28,6 @@ public interface TareaLocalizacionPresenciaService {
 
     void updateActivoEcommerce(@NotNull final RunTareaDto runTareaDto);
 
+    void updateActivoVacio(@NotNull final RunTareaDto runTareaDto);
+
 }

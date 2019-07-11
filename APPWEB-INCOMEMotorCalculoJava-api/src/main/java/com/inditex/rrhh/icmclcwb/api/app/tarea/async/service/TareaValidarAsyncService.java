@@ -24,4 +24,6 @@ public interface TareaValidarAsyncService {
 
     CompletableFuture<List<String>> validateAmbito(Long idTarea);
 
+    CompletableFuture<List<String>> checkDuplicatedTiposHora(Long idTarea);
+
 }

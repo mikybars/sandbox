@@ -34,9 +34,9 @@ public class TrabajoDto implements Serializable {
     @ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private LocalDateTime fechaCreacion;
 
-    @NotBlank
-    @ApiModelProperty(value = "Id del periodo a procesar", required = true, example = "ICM_201703")
-    private String idPeriodo;
+    @NotNull
+    @ApiModelProperty(value = "Id del periodo a procesar", required = true, example = "1")
+    private Long idPeriodo;
     
     @NotNull
     @ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true, example = "2017-03-01T00:00:00.000Z")

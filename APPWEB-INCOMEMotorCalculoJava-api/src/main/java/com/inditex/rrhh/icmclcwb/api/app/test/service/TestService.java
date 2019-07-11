@@ -17,4 +17,6 @@ public interface TestService {
 	
 	void programacionBatch();
 
+    void testBloqueos();
+
 }

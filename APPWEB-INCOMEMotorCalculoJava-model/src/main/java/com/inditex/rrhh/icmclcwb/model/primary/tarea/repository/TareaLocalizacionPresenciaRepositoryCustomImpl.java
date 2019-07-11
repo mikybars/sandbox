@@ -1,5 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -9,21 +23,6 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotNull;
 
 @Repository
 public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
@@ -41,6 +40,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
+    
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio']}")
+    private String sqlUpdateActivoVacio;
 
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivoEcommerce']}")
     private String sqlUpdateActivoEcommerce;
@@ -60,6 +62,14 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     @Override
     public List<TareaLocalizacionPresencia> save(List<TareaLocalizacionPresencia> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
+    }
+    
+    @Override
+    public void updateActivoVacio(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+
+        namedParameterJdbcTemplate.update(sqlUpdateActivoVacio, parameters);
     }
     
     @Override

@@ -317,6 +317,12 @@ MERGE INTO TAREA_LOCALIZACION_PRESENCIA AS TLP USING
     ]]>
 </entry>
 
+<entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio">
+    <![CDATA[
+    UPDATE TAREA_LOCALIZACION_PRESENCIA SET ACTIVO = 0 WHERE MINUTOS = 0 AND ID_TAREA = :idTarea
+        ]]>
+</entry>
+
 <entry key="TareaLocalizacionPresenciaRepositoryCustom.compensar">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ACTIVO, FECHA, ID_TAREA, ID_LOCALIZACION, ID_SECCION, MINUTOS, ID_TIPO_DATO, ID_CADENA)
@@ -547,6 +553,12 @@ INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ACTIVO, FECHA, ID_TAREA, ID_LOCALIZACI
         WHEN MATCHED THEN
                 UPDATE SET ACTIVO = :nuevoActivo
     ]]>
+</entry>
+
+<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio">
+    <![CDATA[
+    UPDATE TAREA_LOCALIZACION_PERSONA_PRESENCIA SET ACTIVO = 0 WHERE MINUTOS = 0 AND ID_TAREA = :idTarea
+        ]]>
 </entry>
 
 <entry key="TareaAgrupacionPresenciaRepositoryCustom.totalizar">
@@ -1460,7 +1472,7 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
         WHERE
             C.ID_TIPO_VENTA_CONCEPTO = :idConcepto
         GROUP BY
-        	AMBITO.ID_CADENA
+            AMBITO.ID_CADENA
     ]]>
 </entry>
 

@@ -31,4 +31,6 @@ public interface TareaValidarRepositoryCustom {
 
     List<TareaPersonaHistoricoDto> empleadoHistoricoEmptyFields(@NotNull @Positive Long idTarea);
 
+    List<String> checkDuplicatedTiposHora(@NotNull @Positive Long idTarea);
+
 }

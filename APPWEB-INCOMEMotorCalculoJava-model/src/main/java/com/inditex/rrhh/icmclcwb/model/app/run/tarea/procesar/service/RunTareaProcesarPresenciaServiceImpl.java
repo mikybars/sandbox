@@ -43,7 +43,13 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
     }
-        
+      
+    @Auditoria
+    @Override
+    public void updateActivoLocalizacionVacio(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.updateActivoVacio(runTarea);
+    }
+    
     @Auditoria
     @Override
     public void updateActivoLocalizacion(@Valid RunTareaDto runTarea) {
@@ -60,6 +66,12 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     @Override
     public void updateActivoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.updateActivo(runTarea);
+    }
+    
+    @Auditoria
+    @Override
+    public void updateActivoLocalizacionPersonaPresenciaVacio(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.updateActivoVacio(runTarea);
     }
 
     @Auditoria

@@ -22,4 +22,8 @@ public interface RunTareaProcesarPresenciaService {
 
     void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea);
 
+    void updateActivoLocalizacionVacio(@Valid RunTareaDto runTarea);
+
+    void updateActivoLocalizacionPersonaPresenciaVacio(@Valid RunTareaDto runTarea);
+
 }

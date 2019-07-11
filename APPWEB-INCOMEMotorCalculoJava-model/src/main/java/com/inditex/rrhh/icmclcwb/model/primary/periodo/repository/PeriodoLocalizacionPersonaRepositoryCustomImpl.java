@@ -50,7 +50,7 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImpl
     
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoLocalizacionPersona entity) throws SQLException {
-        pstmt.setString(1, entity.getPk().getIdPeriodo());
+        pstmt.setLong(1, entity.getPk().getIdPeriodo());
         pstmt.setString(2, entity.getPk().getIdOrigen());
         pstmt.setString(3, entity.getPk().getIdEmpresa());
         pstmt.setString(4, entity.getPk().getIdLocalizacion());

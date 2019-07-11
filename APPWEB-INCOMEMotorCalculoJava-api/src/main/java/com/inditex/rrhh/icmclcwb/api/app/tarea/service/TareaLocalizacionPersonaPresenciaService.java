@@ -19,4 +19,6 @@ public interface TareaLocalizacionPersonaPresenciaService {
 
     void compensar(@NotNull RunTareaDto runTareaDto);
 
+    void updateActivoVacio(@NotNull RunTareaDto runTareaDto);
+
 }

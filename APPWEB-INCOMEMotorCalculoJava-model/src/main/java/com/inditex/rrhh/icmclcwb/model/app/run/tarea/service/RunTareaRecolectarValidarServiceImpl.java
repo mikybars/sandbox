@@ -27,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.serv
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiposHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
 import com.inditex.rrhh.icmclcwb.api.app.validar.properties.dto.ValidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
@@ -40,6 +41,9 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
 
     @Autowired
     private RunTareaRecolectarValidarLocalizacionHistoricoAsyncService runTareaRecolectarValidarLocalizacionHistoricoAsyncService;
+    
+    @Autowired
+    private RunTareaRecolectarValidarTiposHoraAsyncService runTareaRecolectarValidarTiposHoraAsyncService;
 
     @Autowired
     private RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
@@ -75,6 +79,10 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                 CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionHistorico = runTareaRecolectarValidarLocalizacionHistoricoAsyncService
                         .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionHistorico, cf);
+                
+                CompletableFuture<List<RunTareaValidarDto>> cfTiposHora = runTareaRecolectarValidarTiposHoraAsyncService
+                        .run(runTarea);
+                AsyncUtils.exceptionally(cfTiposHora, cf);
 
                 CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPersonaPresencia = runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService
                         .run(runTarea);
@@ -102,6 +110,8 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                 runTareaValidar.addAll(AsyncUtils.get(cfLocalizacionPresencia));
                 runTareaValidar.addAll(AsyncUtils.get(cfLocalizacionVenta));
                 runTareaValidar.addAll(AsyncUtils.get(cfAmbito));
+                runTareaValidar.addAll(AsyncUtils.get(cfTiposHora));
+
 
                 List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream().filter(item -> {
                     // TODO Revisar NullPointerException, lo da en el item
@@ -116,7 +126,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
 
                 if (CollectionUtils.isNotEmpty(runTareaValidarDuplicated)) {
                     if (validarProperties.isLogging()) {
-                        log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
+                        log.warn("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
                                 runTareaValidarDuplicated);
                     }
                     if (validarProperties.isException()) {

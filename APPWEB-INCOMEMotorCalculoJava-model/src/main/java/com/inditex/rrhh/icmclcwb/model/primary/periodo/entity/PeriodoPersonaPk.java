@@ -16,7 +16,7 @@ public class PeriodoPersonaPk implements Serializable {
 
     @NotBlank
     @Column(name = "ID_PERIODO", nullable = false, length = 12)
-    private String idPeriodo;
+    private Long idPeriodo;
 
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false, length = 12)

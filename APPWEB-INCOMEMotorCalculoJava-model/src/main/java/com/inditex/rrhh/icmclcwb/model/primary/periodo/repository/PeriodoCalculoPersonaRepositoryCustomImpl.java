@@ -58,7 +58,7 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
 
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoCalculoPersona entity) throws SQLException {
-        pstmt.setString(1, entity.getPk().getIdPeriodo());
+        pstmt.setLong(1, entity.getPk().getIdPeriodo());
         pstmt.setString(2, entity.getPk().getIdOrigen());
         pstmt.setString(3, entity.getPk().getIdEmpresa());
         pstmt.setString(4, entity.getPk().getIdPersona());

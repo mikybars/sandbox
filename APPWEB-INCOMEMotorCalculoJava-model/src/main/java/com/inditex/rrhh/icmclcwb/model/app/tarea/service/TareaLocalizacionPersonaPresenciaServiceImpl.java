@@ -43,6 +43,11 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl
     public void updateActivo(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo(runTareaDto);
     }
+    
+    @Override
+    public void updateActivoVacio(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio(runTareaDto);
+    }
 
     @Override
     public void compensar(@NotNull final RunTareaDto runTareaDto) {

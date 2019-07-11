@@ -21,4 +21,6 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void updateActivoEcommerce(@NotNull RunTareaDto runTareaDto);
 
+    void updateActivoVacio(@NotNull RunTareaDto runTareaDto);
+
 }

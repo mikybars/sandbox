@@ -51,11 +51,21 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfUpdatePresenciasActivasEcommerce = runTareaProcesarPresenciaAsyncService
                 .updateActivoLocalizacionEcommerce(runTarea);
             AsyncUtils.exceptionally(cfUpdatePresenciasActivasEcommerce, cf);
+            
+            //Actualizar flags de presencias totales con minutos a cero
+            CompletableFuture<Void> cfUpdatePresenciasActivasVacio = runTareaProcesarPresenciaAsyncService
+                    .updateActivoLocalizacionVacio(runTarea);
+            AsyncUtils.exceptionally(cfUpdatePresenciasActivasVacio, cf);
 
             // Compensar presencia total localizacion persona con las manuales
             CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = runTareaProcesarPresenciaAsyncService
                     .compensarLocalizacionPersonaPresencia(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaPersonaLocalizacion, cf);
+            
+            //Actualizar flags de presencias localizacion persona con minutos a cero
+            CompletableFuture<Void> cfUpdateSeccionPresenciasActivasVacio = runTareaProcesarPresenciaAsyncService
+                    .updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
+            AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivasVacio, cf);
 
             // Compensar presencia total localizacion con las manuales
             CompletableFuture<Void> cfCompensarPresenciaLocalizacion = runTareaProcesarPresenciaAsyncService

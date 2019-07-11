@@ -67,7 +67,6 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
                 ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_DIARIA).getEndpoint(), request);
     }
 
-    // TODO Validar como gestiona la respuesta en xml
     @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
     public PtrVentaTotalizadoXmlResponseDto ventaTotalizadoXML(

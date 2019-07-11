@@ -89,6 +89,12 @@ public class TestController {
         testService.programacionBatch();
     }
 
+    @GetMapping("/trabajo/test")
+    @ApiOperation("Test bloqueos")
+    public void testConcurrencia() {
+        testService.testBloqueos();
+    }
+    
     @PostMapping(path = "/sql/formatter", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation("Formatea una consulta")
     public String sqlformatter(@RequestBody @NotBlank String sql) {

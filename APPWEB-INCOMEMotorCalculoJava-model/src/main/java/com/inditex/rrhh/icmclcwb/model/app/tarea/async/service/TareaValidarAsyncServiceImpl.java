@@ -20,6 +20,11 @@ public class TareaValidarAsyncServiceImpl implements TareaValidarAsyncService {
     public CompletableFuture<List<String>> checkDuplicatedTiendasHistorico(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.checkDuplicatedTiendasHistorico(idTarea));
     }
+    
+    @Override
+    public CompletableFuture<List<String>> checkDuplicatedTiposHora(Long idTarea) {
+        return CompletableFuture.completedFuture(tareaValidarService.checkDuplicatedTiposHora(idTarea));
+    }
 
     @Override
     public CompletableFuture<Integer> countEmpleadosHistorico(Long idTarea) {
