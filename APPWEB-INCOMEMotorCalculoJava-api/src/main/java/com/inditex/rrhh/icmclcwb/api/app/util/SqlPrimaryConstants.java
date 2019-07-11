@@ -83,6 +83,9 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_CALCULA = "calcula";
 
+    public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
+    
+    public static final String SQL_PARAM_ACTIVA = "activa";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 

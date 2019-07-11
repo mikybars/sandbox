@@ -1496,4 +1496,12 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
     ]]>
 </entry>
 
+<entry key="ProgramacionRepositoryCustom.reset">
+<![CDATA[UPDATE PROGRAMACION SET FECHA_SIGUIENTE_EJECUCION = :fechaSiguienteEjecucion WHERE ACTIVA = :activa]]>
+</entry>
+
+<entry key="ProgramacionRepositoryCustom.activa">
+<![CDATA[UPDATE PROGRAMACION SET ACTIVA = :activa]]>
+</entry>
+
 </properties>

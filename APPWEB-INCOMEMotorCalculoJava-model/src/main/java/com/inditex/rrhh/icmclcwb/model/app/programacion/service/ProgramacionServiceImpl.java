@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionServic
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ import javax.validation.Valid;
 @Service
 @Validated
 public class ProgramacionServiceImpl implements ProgramacionService {
+
+    @Autowired
+    private ProgramacionRepositoryCustom programacionRepositoryCustom;
 
     @Autowired
     private ProgramacionRepository programacionRepository;
@@ -90,6 +94,16 @@ public class ProgramacionServiceImpl implements ProgramacionService {
         programacion.setFechaUltimaEjecucion(TimeUtils.nowLocalDateTime());
         programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
         return modify(programacion);
+    }
+
+    @Override
+    public void reset() {
+        programacionRepositoryCustom.reset();
+    }
+
+    @Override
+    public void activa() {
+        programacionRepositoryCustom.activa();
     }
 
 }
