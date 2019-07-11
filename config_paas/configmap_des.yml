@@ -31,7 +31,7 @@ app:
     meta4:
       config:
         credentials:
-          user: INCOME_CALC
+          user: SRVCICMCLCWB
       login:
         server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
       icmwscalcincome:
