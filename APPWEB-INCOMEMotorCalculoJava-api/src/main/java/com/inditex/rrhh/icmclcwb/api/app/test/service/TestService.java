@@ -15,6 +15,6 @@ public interface TestService {
 	
 	void sesion();
 	
-	void trabajoFase1a();
+	void programacionBatch();
 
 }

@@ -1,19 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
-import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
+import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
@@ -24,12 +19,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
@@ -52,7 +42,10 @@ public class TestServiceImpl implements TestService {
     private TestExceptionAsyncService testExceptionAsyncService;
 
     @Autowired
-    private TrabajoService trabajoService;
+    private ProgramacionService programacionService;
+
+    @Autowired
+    private RunProgramacionService runProgramacionService;
 
     @Autowired
     @Qualifier("meta4ClientPool")
@@ -142,36 +135,12 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void trabajoFase1a() {
-        AppTestConstants.FASE_1A.stream().forEach(item -> {
-            String[] values = StringUtils.split(item, ",");
-            String sociedad = values[0];
-            String origen = values[1];
-            String empresa = values[2];
-            for (long x = 0; x < 70; x++) {
-                TrabajoDto trabajo = new TrabajoDto();
-                LocalDateTime fechaInicio = TimeUtils.nowLocalDateTime().minusMonths(x)
-                        .with(TemporalAdjusters.firstDayOfMonth())
-                        .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
-                LocalDateTime fechaFin = TimeUtils.nowLocalDateTime().minusMonths(x)
-                        .with(TemporalAdjusters.lastDayOfMonth())
-                        .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
-                String year = String.valueOf(fechaInicio.getYear());
-                String month = String.format("%2s", String.valueOf(fechaInicio.getMonthValue())).replace(' ', '0');
-                trabajo.setIdPeriodo("ICM_" + year + month);
-                trabajo.setFechaInicioPeriodo(fechaInicio);
-                trabajo.setFechaFinPeriodo(fechaFin);
-                trabajo.setIdSociedad(sociedad);
-                TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
-                trabajoAmbitoOrigenDto.setIdOrigen(origen);
-                trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
-                TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
-                trabajoAmbitoEmpresa.setIdEmpresa(empresa);
-                trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
-                trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
-                trabajoService.create(trabajo);
-            }
-        });
+    public void programacionBatch() {
+        programacionService.activa();
+        for (int x = 1; x <= 100; x++) {
+            programacionService.reset();
+            runProgramacionService.run();
+        }
     }
 
 }

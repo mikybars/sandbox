@@ -83,10 +83,10 @@ public class TestController {
         return ptrVentaClient.getForObject(TestUtils.decode(path), String.class);
     }
 
-    @GetMapping("/trabajo/fase1a")
-    @ApiOperation("Crea los trabajos para todos los origenes y empresas de la fase 1a")
-    public void trabajoFase1a() {
-        testService.trabajoFase1a();
+    @GetMapping("/programacion/batch")
+    @ApiOperation("Lanza todas las programaciones N veces")
+    public void programacionBatch() {
+        testService.programacionBatch();
     }
 
     @PostMapping(path = "/sql/formatter", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
