@@ -371,10 +371,8 @@ app:
       config:
         max-attempts: 20
         credentials:
-          #user: INCOME_CALC
-          #password: 123
           user: CRISTINASOL
-          password: 1234
+          password: 123
           language: 2
         pool:
           size: 10
