@@ -26,7 +26,6 @@ public class AppConstants {
     
     public static final List<String> SECCIONES_STRING = Arrays.asList("1", "2", "3");
     
-    // TODO Cambiar por servicio Meta4
     public static final List<Integer> PRODUCTOS_COMISIONABLES = Arrays.asList(1, 2, 3, 4, 5);
 
 }

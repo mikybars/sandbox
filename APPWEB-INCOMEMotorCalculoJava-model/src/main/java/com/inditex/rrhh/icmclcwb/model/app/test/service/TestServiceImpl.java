@@ -8,6 +8,8 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -160,13 +162,13 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void testBloqueos() {
+    public void testBloqueos(@NotNull final Long limit) {
         AppTestConstants.TEST.stream()
                 .collect(Collectors.collectingAndThen(Collectors.toList(), collected -> {
                     Collections.shuffle(collected);
                     return collected.stream();
                 }))
-                .limit(5)
+                .limit(limit)
                 .collect(Collectors.toList()).forEach(item -> {
             String[] values = StringUtils.split(item, ",");
             String sociedad = values[0];

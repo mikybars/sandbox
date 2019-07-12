@@ -28,7 +28,6 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
         List<TareaLocalizacionPersonaPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> {
-                //TODO: REVISAR CON LO QUE VENGA DE META4
                 if(AppConstants.SECCIONES_STRING.contains(item.getIdSeccion())) {
                     result.add(
                             delegate.genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(item, tareaDto));
