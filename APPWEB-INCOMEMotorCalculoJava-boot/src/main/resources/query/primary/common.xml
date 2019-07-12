@@ -116,54 +116,6 @@
     ]]>
 </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
-    <![CDATA[
-    SELECT TAMGLP.ID_PERSONA AS ID_PERSONA
-    FROM TAREA_CALCULO_PERSONA TCP
-    INNER JOIN TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA TAMGLP
-    ON TCP.ID_TAREA = TAMGLP.ID_TAREA
-    AND TCP.ID_PERSONA = TAMGLP.ID_PERSONA
-    INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE 
-    ON TPE.ID_PERSONA_LOCAL = TAMGLP.ID_PERSONA
-    AND TPE.ID_TAREA = TAMGLP.ID_TAREA
-    INNER JOIN ALGORITMO_TIPO_CALCULO TC
-    ON TC.ID_TIPO_CALCULO = TPE.ID_TIPO_CALCULO
-    INNER JOIN ALGORITMO_TIPO_COMISION TCO
-    ON TCO.ID_TIPO_COMISION = TPE.ID_TIPO_COMISION
-    INNER JOIN ALGORITMO_TIPO_DATO A
-    ON A.ID_ALGORITMO = TC.ID_ALGORITMO
-    AND A.ID_ALGORITMO = TCO.ID_ALGORITMO
-    WHERE TCP.ID_TAREA = :idTarea
-    AND TCP.ID_ORIGEN = :idOrigen
-    AND A.ID_TIPO_DATO IN (:tiposDato)
-    GROUP BY TAMGLP.ID_PERSONA, TAMGLP.ID_TAREA
-    ]]>
-</entry>
-
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
-    <![CDATA[
-    SELECT TPE.ID_PERSONA AS ID_PERSONA
-    FROM TAREA_CALCULO_PERSONA TCP
-    INNER JOIN TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA TAMGLP
-    ON TCP.ID_TAREA = TAMGLP.ID_TAREA
-    AND TCP.ID_PERSONA = TAMGLP.ID_PERSONA
-    INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE 
-    ON TPE.ID_PERSONA_LOCAL = TAMGLP.ID_PERSONA
-    AND TPE.ID_TAREA = TAMGLP.ID_TAREA
-    INNER JOIN ALGORITMO_TIPO_CALCULO TC
-    ON TC.ID_TIPO_CALCULO = TPE.ID_TIPO_CALCULO
-    INNER JOIN ALGORITMO_TIPO_COMISION TCO
-    ON TCO.ID_TIPO_COMISION = TPE.ID_TIPO_COMISION
-    INNER JOIN ALGORITMO_TIPO_DATO A
-    ON A.ID_ALGORITMO = TC.ID_ALGORITMO
-    AND A.ID_ALGORITMO = TCO.ID_ALGORITMO
-    WHERE TCP.ID_TAREA = :idTarea
-    AND TCP.ID_ORIGEN = :idOrigen
-    AND A.ID_TIPO_DATO IN (:tiposDato)
-    GROUP BY TPE.ID_PERSONA, TPE.ID_TAREA
-      ]]>
-</entry>
-    
 <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
     <![CDATA[
     SELECT TPH.ID_PERSONA AS ID_PERSONA, TPH.OR_PERSONA AS OR_PERSONA
@@ -638,13 +590,6 @@ INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ACTIVO, FECHA, ID_TAREA, ID_LOCALIZACI
     ]]>
 </entry>
 
-<entry key="TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.save">
-    <![CDATA[
-        INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA (ID_LOCALIZACION, ID_ORIGEN, ID_PERSONA, ID_TAREA)  
-        VALUES(?, ?, ?, ?) 
-    ]]>
-</entry>
-
 <entry key="TareaLocalizacionFestivoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_FESTIVO (ID_TAREA, ID_LOCALIZACION, FECHA )  
@@ -668,34 +613,6 @@ INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ACTIVO, FECHA, ID_TAREA, ID_LOCALIZACI
 <entry key="TareaCalculoPersonaRepositoryCustom.updateEstadoActualWithEstadoNuevo">
     <![CDATA[
         UPDATE TAREA_CALCULO_PERSONA SET ID_ESTADO = :idEstadoNuevo WHERE ID_TAREA = :idTarea AND ID_ESTADO = :idEstadoActual
-    ]]>
-</entry>
-
-<entry key="PeriodoLocalizacionPersonaRepositoryCustom.save">
-    <![CDATA[
-        INSERT INTO PERIODO_LOCALIZACION_PERSONA (ID_PERIODO, ID_ORIGEN, ID_EMPRESA, ID_LOCALIZACION, ID_PERSONA)  
-        VALUES(?, ?, ?, ?, ?) 
-    ]]>
-</entry>
-
-<entry key="PeriodoLocalizacionRepositoryCustom.save">
-    <![CDATA[
-        INSERT INTO PERIODO_LOCALIZACION (ID_PERIODO, ID_ORIGEN, ID_EMPRESA, ID_LOCALIZACION)  
-        VALUES(?, ?, ?, ?) 
-    ]]>
-</entry>
-
-<entry key="PeriodoPersonaRepositoryCustom.save">
-    <![CDATA[
-        INSERT INTO PERIODO_LOCALIZACION (ID_PERIODO, ID_ORIGEN, ID_EMPRESA, ID_PERSONA)  
-        VALUES(?, ?, ?, ?) 
-    ]]>
-</entry>
-
-<entry key="PeriodoCalculoPersonaRepositoryCustom.save">
-    <![CDATA[
-        INSERT INTO PERIODO_CALCULO_PERSONA (ID_PERIODO, ID_ORIGEN, ID_EMPRESA, ID_PERSONA, OR_PERSONA, ID_TAREA_ACTUAL, ID_TAREA_ULTIMA, ID_ESTADO, FECHA_CREACION, FECHA_ACTUALIZACION)  
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
     ]]>
 </entry>
 
@@ -767,27 +684,6 @@ VALUES (?, ?, ?, ?, ?, ?)
     <![CDATA[
 INSERT INTO TAREA_PERSONA_HISTORICO (FECHA_FIN, FECHA_INICIO, FECHA_FIN_SECCION, FECHA_INICIO_SECCION, ID_PERSONA, ID_PERSONA_LOCAL, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, OR_PERSONA, ID_EMPRESA, ID_ORIGEN, ID_SECCION, ID_TAREA)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ]]>
-</entry>
-
-<entry key="TareaAmbitoGlobalPersonaRepositoryCustom.save">
-    <![CDATA[
-INSERT INTO TAREA_AMBITO_GLOBAL_PERSONA (ID_TAREA, ID_ORIGEN, ID_PERSONA, ID_EMPRESA)
-VALUES (?, ?, ?, ?)
-    ]]>
-</entry>
-
-<entry key="TareaAmbitoGlobalLocalizacionRepositoryCustom.save">
-    <![CDATA[
-INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION (ID_TAREA, ID_ORIGEN, ID_LOCALIZACION, ID_EMPRESA)
-VALUES (?, ?, ?, ?)
-    ]]>
-</entry>
-
-<entry key="TareaCalculoPersonaRepositoryCustom.save">
-    <![CDATA[
-INSERT INTO TAREA_CALCULO_PERSONA (ID_TAREA, ID_ORIGEN, ID_PERSONA, OR_PERSONA, ID_ESTADO)
-VALUES (?, ?, ?, ?, ?)
     ]]>
 </entry>
 

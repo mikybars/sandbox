@@ -26,12 +26,6 @@ public interface TareaPersonaHistoricoService {
     
     List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
 
-    List<IdPersonaLocalDto> findIdPersonaLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotNull final String idOrigen, @NotNull final List<Long> idsTipoDato);
-
-    List<IdPersonaDto> findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotNull final String idOrigen, @NotNull final List<Long> idsTipoDato);
-
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
             @NotNull final String idOrigen, @NotNull final List<Long> idsTipoDato);
 

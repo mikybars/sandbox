@@ -27,12 +27,6 @@ public class TareaaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.tarea-ambito-global-localizacion-persona:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-
-    @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.save']}")
-    private String sqlSave;
-
     @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion']}")
     private String sqlMergePersonaLocalizacion;
 
@@ -41,11 +35,6 @@ public class TareaaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlMergePersonaLocalizacion, parameters);
-    }
-
-    @Override
-    public List<TareaAmbitoGlobalLocalizacionPersona> save(List<TareaAmbitoGlobalLocalizacionPersona> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override

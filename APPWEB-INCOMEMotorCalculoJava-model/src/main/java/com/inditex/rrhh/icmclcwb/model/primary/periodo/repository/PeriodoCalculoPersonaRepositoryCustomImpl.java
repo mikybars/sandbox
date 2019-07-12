@@ -29,19 +29,8 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.periodo-calculo-persona:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-
-    @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.save']}")
-    private String sqlSave;
-
     @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona']}")
     private String sqlMergePeriodoCalculoPersona;
-
-    @Override
-    public List<PeriodoCalculoPersona> save(List<PeriodoCalculoPersona> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
 
     @Override
     public void mergePeriodoCalculoPersona(@NotNull RunTareaDto tareaDto) {

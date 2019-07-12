@@ -18,12 +18,6 @@ public interface TareaPersonaHistoricoRepositoryCustom {
     List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
             @NotNull @Positive String idOrigen);
 
-    List<IdPersonaLocalDto> findIdPersonaLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String idOrigen, List<Long> idsTipoDato);
-
-    List<IdPersonaDto> findIdPersonaDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String idOrigen, @NotNull List<Long> idsTipoDato);
-
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive Long idTarea,
             @NotBlank String idOrigen, @NotNull List<Long> idsTipoDato);
 

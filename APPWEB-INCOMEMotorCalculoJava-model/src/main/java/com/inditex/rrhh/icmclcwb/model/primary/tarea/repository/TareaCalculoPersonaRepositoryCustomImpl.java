@@ -34,12 +34,6 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.tarea-calculo-persona:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-
-    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.save']}")
-    private String sqlSave;
-
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito']}")
     private String sqlMergePersonaCalculoByAmbito;
     
@@ -57,11 +51,6 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
 
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.updateEstadoActualWithEstadoNuevo']}")
     private String sqlUpdateEstadoActualWithEstadoNuevo;
-    
-    @Override
-    public List<TareaCalculoPersona> save(final List<TareaCalculoPersona> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
 
     @Override
     public List<TareaCalculoPersona> findByAlgoritmo(@NotNull @Positive final TareaDto tarea, @NotBlank final AlgoritmoDto algoritmo) {

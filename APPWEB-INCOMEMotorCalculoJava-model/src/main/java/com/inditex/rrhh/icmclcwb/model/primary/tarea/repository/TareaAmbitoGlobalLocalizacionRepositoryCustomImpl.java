@@ -25,21 +25,10 @@ public class TareaAmbitoGlobalLocalizacionRepositoryCustomImpl extends JdbcBatch
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
-    @Value("${app.envars.repository.batch-size.tarea-ambito-global-localizacion:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-    
-    @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionRepositoryCustom.save']}")
-    private String sqlSave;
-    
+
     @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionRepositoryCustom.mergeLocalizacion']}")
     private String sqlMergeLocalizacion;
-    
-    @Override
-    public List<TareaAmbitoGlobalLocalizacion> save(final List<TareaAmbitoGlobalLocalizacion> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-    
+
     @Override
     public void mergeLocalizacion(@NotNull RunTareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();

@@ -55,13 +55,14 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCusto
             map.put(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, persona.getOrPersona());
         }
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-        List<IdTipoDatoDto> tiposDatoPresencia =
+        List<IdTipoDatoDto> tiposDatoLocalizacionSeccionPersonaTipoHora =
             tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
-                tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+            tiposDatoLocalizacionSeccionPersonaTipoHora.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        List<IdTipoDatoDto> tiposDatoPresencia =
+            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
-                Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId(),
-                        TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()));
+            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         List<IdTipoDatoDto> tiposDatoVentaFisica = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
             tiposDatoVentaFisica.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));

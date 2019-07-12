@@ -8,8 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenc
 
 public interface TareaAmbitoGlobalLocalizacionPersonaService {
 
-    void save(@NotNull PtrPresenciaEmpleadosTiendaResponseDto src, @NotNull TareaDto tareaDto);
-
     void mergePersonaLocalizacion(@NotNull RunTareaDto runTareaDto);
 
 }

@@ -55,20 +55,4 @@ public class TareaLocalizacionOnlineHistoricoRepositoryCustomImpl
         pstmt.setObject(8, entity.getFechaInicio());
     }
 
-    @Override
-    public List<IdLocalizacionLocalDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Long> idsTipoDato) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
-
-        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
-            parameters, (rs, rowNum) -> {
-                IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
-                return dto;
-            });
-    }
-
 }

@@ -17,8 +17,6 @@ public interface TareaCalculoPersonaService {
 
     List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea);
 
-    void save(@Valid @NotNull final List<TareaCalculoPersonaDto> personas, final EstadoTareaPersonaDto estado);
-
     void updateWithEstadoAndidPersona(List<TareaCalculoPersonaDto> personas, RunTareaDto runTareaDto, final EstadoTareaPersonaDto estado);
 
     void updateWithEstado(RunTareaDto runTareaDto, final EstadoTareaPersonaDto estadoActual,

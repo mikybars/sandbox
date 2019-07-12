@@ -11,9 +11,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenc
 @Async("repositoryPrimaryExecutor")
 public interface TareaAmbitoGlobalLocalizacionPersonaAsyncService {
 
-    CompletableFuture<Void> savePtrPresenciaEmpleadosTiendaResponse(PtrPresenciaEmpleadosTiendaResponseDto dto,
-            TareaDto tarea);
-
     CompletableFuture<Void> mergePersonaLocalizacion(RunTareaDto tarea);
 
 }

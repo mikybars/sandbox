@@ -34,11 +34,6 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     private TareaCalculoPersonaRepositoryCustom tareaCalculoPersonaRepositoryCustom;
 
     @Override
-    public void save(final List<TareaCalculoPersonaDto> personas, final EstadoTareaPersonaDto estado) {
-        tareaCalculoPersonaRepositoryCustom.save(tareaCalculoPersonaMapper.tareaCalculoPersonaDtoToTareaCalculoPersona(personas, estado));
-    }
-    
-    @Override
     public void updateWithEstadoAndidPersona(final List<TareaCalculoPersonaDto> personas, RunTareaDto runTareaDto , final EstadoTareaPersonaDto estado) {
         tareaCalculoPersonaRepositoryCustom.updateWithEstadoAndidPersona(personas.stream().map(e->e.getIdPersona()).collect(Collectors.toList()), runTareaDto, estado);
     }

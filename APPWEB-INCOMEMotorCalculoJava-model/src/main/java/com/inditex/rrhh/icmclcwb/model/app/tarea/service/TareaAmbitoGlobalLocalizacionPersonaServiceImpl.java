@@ -1,17 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import javax.validation.constraints.NotNull;
-
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalLocalizacionPersonaService;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalLocalizacionPersonaService;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResponseDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoGlobalLocalizacionPersonaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom;
+import javax.validation.constraints.NotNull;
 
 @Service
 @Validated
@@ -19,16 +15,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaServiceImpl implements TareaAmb
     
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom;
-    
-    @Autowired
-    private TareaAmbitoGlobalLocalizacionPersonaMapper tareaAmbitoGlobalLocalizacionPersonaMapper;
-    
-    @Override
-    public void save(@NotNull final PtrPresenciaEmpleadosTiendaResponseDto src, @NotNull final TareaDto tareaDto) {
-        tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.save(
-                tareaAmbitoGlobalLocalizacionPersonaMapper.presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersona(src.getPresenciasTiendasEmpleado(), tareaDto));
-    }
-    
+
     @Override
     public void mergePersonaLocalizacion(@NotNull final RunTareaDto runTareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion(runTareaDto);

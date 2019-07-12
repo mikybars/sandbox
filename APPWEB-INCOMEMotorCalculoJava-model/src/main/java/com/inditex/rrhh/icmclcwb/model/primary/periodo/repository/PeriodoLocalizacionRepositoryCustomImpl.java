@@ -25,21 +25,10 @@ public class PeriodoLocalizacionRepositoryCustomImpl extends JdbcBatchPrimaryRep
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
-    @Value("${app.envars.repository.batch-size.periodo-localizacion:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-    
-    @Value("#{primaryQuery['PeriodoLocalizacionRepositoryCustom.save']}")
-    private String sqlSave;
-    
+
     @Value("#{primaryQuery['PeriodoLocalizacionRepositoryCustom.mergePeriodoLocalizacion']}")
     private String sqlMergePeriodoLocalizacion;
-    
-    @Override
-    public List<PeriodoLocalizacion> save(List<PeriodoLocalizacion> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-    
+
     @Override
     public void mergePeriodoLocalizacion(@NotNull RunTareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();

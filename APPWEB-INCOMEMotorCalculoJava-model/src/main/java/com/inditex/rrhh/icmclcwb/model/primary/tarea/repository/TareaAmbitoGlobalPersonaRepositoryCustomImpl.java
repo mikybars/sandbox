@@ -25,20 +25,9 @@ public class TareaAmbitoGlobalPersonaRepositoryCustomImpl extends JdbcBatchPrima
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
-    @Value("${app.envars.repository.batch-size.tarea-ambito-global-persona:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-    
-    @Value("#{primaryQuery['TareaAmbitoGlobalPersonaRepositoryCustom.save']}")
-    private String sqlSave;
-    
+
     @Value("#{primaryQuery['TareaAmbitoGlobalPersonaRepositoryCustom.mergePersona']}")
     private String sqlMergePersona;
-    
-    @Override
-    public List<TareaAmbitoGlobalPersona> save(final List<TareaAmbitoGlobalPersona> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
     
     @Override
     public void mergePersona(@NotNull RunTareaDto tareaDto) {

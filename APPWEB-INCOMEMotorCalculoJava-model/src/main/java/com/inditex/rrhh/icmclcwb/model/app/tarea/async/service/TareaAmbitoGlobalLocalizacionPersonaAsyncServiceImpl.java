@@ -17,13 +17,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaAsyncServiceImpl implements Tar
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaService tareaLocalizacionPersonaService;
-    
-    @Override
-    public CompletableFuture<Void> savePtrPresenciaEmpleadosTiendaResponse(final PtrPresenciaEmpleadosTiendaResponseDto dto, final TareaDto tarea)  {
-        tareaLocalizacionPersonaService.save(dto, tarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
+
     @Override
     public CompletableFuture<Void> mergePersonaLocalizacion(final RunTareaDto tarea)  {
         tareaLocalizacionPersonaService.mergePersonaLocalizacion(tarea);
