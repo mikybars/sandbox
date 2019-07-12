@@ -42,19 +42,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmParametrospaginacionBlock }
-     * 
-     */
-    public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
-        return new IcmParametrospaginacionBlock();
-    }
-
-    /**
      * Create an instance of {@link IcmParametrosentradaBlock }
      * 
      */
     public IcmParametrosentradaBlock createIcmParametrosentradaBlock() {
         return new IcmParametrosentradaBlock();
+    }
+
+    /**
+     * Create an instance of {@link IcmParametrospaginacionBlock }
+     * 
+     */
+    public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
+        return new IcmParametrospaginacionBlock();
     }
 
     /**
@@ -170,22 +170,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETFLAGCALCULAResponse }
-     * 
-     */
-    public GETFLAGCALCULAResponse createGETFLAGCALCULAResponse() {
-        return new GETFLAGCALCULAResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetflagcalculaOutput }
-     * 
-     */
-    public GetflagcalculaOutput createGetflagcalculaOutput() {
-        return new GetflagcalculaOutput();
-    }
-
-    /**
      * Create an instance of {@link GETORIGENESResponse }
      * 
      */
@@ -199,6 +183,22 @@ public class ObjectFactory {
      */
     public GetorigenesOutput createGetorigenesOutput() {
         return new GetorigenesOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETFLAGCALCULAResponse }
+     * 
+     */
+    public GETFLAGCALCULAResponse createGETFLAGCALCULAResponse() {
+        return new GETFLAGCALCULAResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetflagcalculaOutput }
+     * 
+     */
+    public GetflagcalculaOutput createGetflagcalculaOutput() {
+        return new GetflagcalculaOutput();
     }
 
     /**
@@ -538,19 +538,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETCOMISIONEMPLEADO }
-     * 
-     */
-    public GETCOMISIONEMPLEADO createGETCOMISIONEMPLEADO() {
-        return new GETCOMISIONEMPLEADO();
-    }
-
-    /**
      * Create an instance of {@link GETCONFVENTAONLINE }
      * 
      */
     public GETCONFVENTAONLINE createGETCONFVENTAONLINE() {
         return new GETCONFVENTAONLINE();
+    }
+
+    /**
+     * Create an instance of {@link GETCOMISIONEMPLEADO }
+     * 
+     */
+    public GETCOMISIONEMPLEADO createGETCOMISIONEMPLEADO() {
+        return new GETCOMISIONEMPLEADO();
     }
 
     /**
@@ -610,19 +610,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETFLAGCALCULA }
-     * 
-     */
-    public GETFLAGCALCULA createGETFLAGCALCULA() {
-        return new GETFLAGCALCULA();
-    }
-
-    /**
      * Create an instance of {@link SEARCHTIENDAS }
      * 
      */
     public SEARCHTIENDAS createSEARCHTIENDAS() {
         return new SEARCHTIENDAS();
+    }
+
+    /**
+     * Create an instance of {@link GETFLAGCALCULA }
+     * 
+     */
+    public GETFLAGCALCULA createGETFLAGCALCULA() {
+        return new GETFLAGCALCULA();
     }
 
     /**
@@ -642,19 +642,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETEMPLEADOSDESPLAZ }
-     * 
-     */
-    public GETEMPLEADOSDESPLAZ createGETEMPLEADOSDESPLAZ() {
-        return new GETEMPLEADOSDESPLAZ();
-    }
-
-    /**
      * Create an instance of {@link GETTIENDASONLINE }
      * 
      */
     public GETTIENDASONLINE createGETTIENDASONLINE() {
         return new GETTIENDASONLINE();
+    }
+
+    /**
+     * Create an instance of {@link GETEMPLEADOSDESPLAZ }
+     * 
+     */
+    public GETEMPLEADOSDESPLAZ createGETEMPLEADOSDESPLAZ() {
+        return new GETEMPLEADOSDESPLAZ();
     }
 
     /**

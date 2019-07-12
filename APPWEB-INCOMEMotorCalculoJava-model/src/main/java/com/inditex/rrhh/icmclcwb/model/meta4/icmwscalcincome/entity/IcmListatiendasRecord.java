@@ -43,6 +43,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idregion" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="nombrepais" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idpoblacion" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechacalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -78,6 +79,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idorigen",
     "idregion",
     "idempresa",
+    "nombrepais",
     "fechainicio",
     "idpoblacion",
     "fechacalculo",
@@ -118,6 +120,8 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
     protected String idregion;
     @XmlElement(required = true, nillable = true)
     protected String idempresa;
+    @XmlElement(required = true, nillable = true)
+    protected String nombrepais;
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
     @XmlElement(required = true, nillable = true)
@@ -423,6 +427,30 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
      */
     public void setIdempresa(String value) {
         this.idempresa = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad nombrepais.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNombrepais() {
+        return nombrepais;
+    }
+
+    /**
+     * Define el valor de la propiedad nombrepais.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNombrepais(String value) {
+        this.nombrepais = value;
     }
 
     /**
@@ -854,6 +882,15 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             }
         }
         {
+            String lhsNombrepais;
+            lhsNombrepais = this.getNombrepais();
+            String rhsNombrepais;
+            rhsNombrepais = that.getNombrepais();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "nombrepais", lhsNombrepais), LocatorUtils.property(thatLocator, "nombrepais", rhsNombrepais), lhsNombrepais, rhsNombrepais, (this.nombrepais!= null), (that.nombrepais!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsFechainicio;
             lhsFechainicio = this.getFechainicio();
             String rhsFechainicio;
@@ -1054,6 +1091,11 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             strategy.appendField(locator, this, "idempresa", buffer, theIdempresa, (this.idempresa!= null));
         }
         {
+            String theNombrepais;
+            theNombrepais = this.getNombrepais();
+            strategy.appendField(locator, this, "nombrepais", buffer, theNombrepais, (this.nombrepais!= null));
+        }
+        {
             String theFechainicio;
             theFechainicio = this.getFechainicio();
             strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
@@ -1182,6 +1224,11 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             String theIdempresa;
             theIdempresa = this.getIdempresa();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempresa", theIdempresa), currentHashCode, theIdempresa, (this.idempresa!= null));
+        }
+        {
+            String theNombrepais;
+            theNombrepais = this.getNombrepais();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nombrepais", theNombrepais), currentHashCode, theNombrepais, (this.nombrepais!= null));
         }
         {
             String theFechainicio;
@@ -1421,6 +1468,19 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
                 } else {
                     if (idempresaShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idempresa = null;
+                    }
+                }
+            }
+            {
+                Boolean nombrepaisShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.nombrepais!= null));
+                if (nombrepaisShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceNombrepais;
+                    sourceNombrepais = this.getNombrepais();
+                    String copyNombrepais = ((String) strategy.copy(LocatorUtils.property(locator, "nombrepais", sourceNombrepais), sourceNombrepais, (this.nombrepais!= null)));
+                    copy.setNombrepais(copyNombrepais);
+                } else {
+                    if (nombrepaisShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.nombrepais = null;
                     }
                 }
             }

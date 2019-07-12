@@ -61,8 +61,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="fechainiciopar" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainiciosec" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="nombreempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleadolocal" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechaexportacion" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="apellidosempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajomtu" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_Listasecciones" type="{http://schemas.meta4.com/}Icm_ListaseccionesBlock"/>
  *       &lt;/sequence>
@@ -105,8 +107,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "fechainiciopar",
     "fechainiciosec",
     "idlugartrabajo",
+    "nombreempleado",
     "idempleadolocal",
     "fechaexportacion",
+    "apellidosempleado",
     "idlugartrabajomtu",
     "icmListasecciones"
 })
@@ -173,9 +177,13 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajo;
     @XmlElement(required = true, nillable = true)
+    protected String nombreempleado;
+    @XmlElement(required = true, nillable = true)
     protected String idempleadolocal;
     @XmlElement(required = true, nillable = true)
     protected String fechaexportacion;
+    @XmlElement(required = true, nillable = true)
+    protected String apellidosempleado;
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajomtu;
     @XmlElement(name = "Icm_Listasecciones", required = true, nillable = true)
@@ -894,6 +902,30 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
     }
 
     /**
+     * Obtiene el valor de la propiedad nombreempleado.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNombreempleado() {
+        return nombreempleado;
+    }
+
+    /**
+     * Define el valor de la propiedad nombreempleado.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNombreempleado(String value) {
+        this.nombreempleado = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idempleadolocal.
      * 
      * @return
@@ -939,6 +971,30 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
      */
     public void setFechaexportacion(String value) {
         this.fechaexportacion = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad apellidosempleado.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getApellidosempleado() {
+        return apellidosempleado;
+    }
+
+    /**
+     * Define el valor de la propiedad apellidosempleado.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setApellidosempleado(String value) {
+        this.apellidosempleado = value;
     }
 
     /**
@@ -1268,6 +1324,15 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             }
         }
         {
+            String lhsNombreempleado;
+            lhsNombreempleado = this.getNombreempleado();
+            String rhsNombreempleado;
+            rhsNombreempleado = that.getNombreempleado();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "nombreempleado", lhsNombreempleado), LocatorUtils.property(thatLocator, "nombreempleado", rhsNombreempleado), lhsNombreempleado, rhsNombreempleado, (this.nombreempleado!= null), (that.nombreempleado!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdempleadolocal;
             lhsIdempleadolocal = this.getIdempleadolocal();
             String rhsIdempleadolocal;
@@ -1282,6 +1347,15 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String rhsFechaexportacion;
             rhsFechaexportacion = that.getFechaexportacion();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "fechaexportacion", lhsFechaexportacion), LocatorUtils.property(thatLocator, "fechaexportacion", rhsFechaexportacion), lhsFechaexportacion, rhsFechaexportacion, (this.fechaexportacion!= null), (that.fechaexportacion!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsApellidosempleado;
+            lhsApellidosempleado = this.getApellidosempleado();
+            String rhsApellidosempleado;
+            rhsApellidosempleado = that.getApellidosempleado();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "apellidosempleado", lhsApellidosempleado), LocatorUtils.property(thatLocator, "apellidosempleado", rhsApellidosempleado), lhsApellidosempleado, rhsApellidosempleado, (this.apellidosempleado!= null), (that.apellidosempleado!= null))) {
                 return false;
             }
         }
@@ -1477,6 +1551,11 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             strategy.appendField(locator, this, "idlugartrabajo", buffer, theIdlugartrabajo, (this.idlugartrabajo!= null));
         }
         {
+            String theNombreempleado;
+            theNombreempleado = this.getNombreempleado();
+            strategy.appendField(locator, this, "nombreempleado", buffer, theNombreempleado, (this.nombreempleado!= null));
+        }
+        {
             String theIdempleadolocal;
             theIdempleadolocal = this.getIdempleadolocal();
             strategy.appendField(locator, this, "idempleadolocal", buffer, theIdempleadolocal, (this.idempleadolocal!= null));
@@ -1485,6 +1564,11 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String theFechaexportacion;
             theFechaexportacion = this.getFechaexportacion();
             strategy.appendField(locator, this, "fechaexportacion", buffer, theFechaexportacion, (this.fechaexportacion!= null));
+        }
+        {
+            String theApellidosempleado;
+            theApellidosempleado = this.getApellidosempleado();
+            strategy.appendField(locator, this, "apellidosempleado", buffer, theApellidosempleado, (this.apellidosempleado!= null));
         }
         {
             String theIdlugartrabajomtu;
@@ -1652,6 +1736,11 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idlugartrabajo", theIdlugartrabajo), currentHashCode, theIdlugartrabajo, (this.idlugartrabajo!= null));
         }
         {
+            String theNombreempleado;
+            theNombreempleado = this.getNombreempleado();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nombreempleado", theNombreempleado), currentHashCode, theNombreempleado, (this.nombreempleado!= null));
+        }
+        {
             String theIdempleadolocal;
             theIdempleadolocal = this.getIdempleadolocal();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempleadolocal", theIdempleadolocal), currentHashCode, theIdempleadolocal, (this.idempleadolocal!= null));
@@ -1660,6 +1749,11 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
             String theFechaexportacion;
             theFechaexportacion = this.getFechaexportacion();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechaexportacion", theFechaexportacion), currentHashCode, theFechaexportacion, (this.fechaexportacion!= null));
+        }
+        {
+            String theApellidosempleado;
+            theApellidosempleado = this.getApellidosempleado();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "apellidosempleado", theApellidosempleado), currentHashCode, theApellidosempleado, (this.apellidosempleado!= null));
         }
         {
             String theIdlugartrabajomtu;
@@ -2082,6 +2176,19 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
                 }
             }
             {
+                Boolean nombreempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.nombreempleado!= null));
+                if (nombreempleadoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceNombreempleado;
+                    sourceNombreempleado = this.getNombreempleado();
+                    String copyNombreempleado = ((String) strategy.copy(LocatorUtils.property(locator, "nombreempleado", sourceNombreempleado), sourceNombreempleado, (this.nombreempleado!= null)));
+                    copy.setNombreempleado(copyNombreempleado);
+                } else {
+                    if (nombreempleadoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.nombreempleado = null;
+                    }
+                }
+            }
+            {
                 Boolean idempleadolocalShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idempleadolocal!= null));
                 if (idempleadolocalShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdempleadolocal;
@@ -2104,6 +2211,19 @@ public class IcmListaempleadosRecord implements Cloneable, CopyTo2, Equals2, Has
                 } else {
                     if (fechaexportacionShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.fechaexportacion = null;
+                    }
+                }
+            }
+            {
+                Boolean apellidosempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.apellidosempleado!= null));
+                if (apellidosempleadoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceApellidosempleado;
+                    sourceApellidosempleado = this.getApellidosempleado();
+                    String copyApellidosempleado = ((String) strategy.copy(LocatorUtils.property(locator, "apellidosempleado", sourceApellidosempleado), sourceApellidosempleado, (this.apellidosempleado!= null)));
+                    copy.setApellidosempleado(copyApellidosempleado);
+                } else {
+                    if (apellidosempleadoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.apellidosempleado = null;
                     }
                 }
             }
