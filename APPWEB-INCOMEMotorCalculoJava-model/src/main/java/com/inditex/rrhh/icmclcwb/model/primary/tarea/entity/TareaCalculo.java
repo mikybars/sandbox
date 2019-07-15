@@ -52,6 +52,14 @@ public class TareaCalculo {
     @NotBlank
     @Column(name = "ID_LOCALIZACION", nullable = false)
     private String idLocalizacion;
+    
+    @NotBlank
+    @Column(name = "ID_PERSONA", nullable = false)
+    private String idPersona;
+
+    @NotBlank
+    @Column(name = "OR_PERSONA", nullable = false)
+    private String orPersona;
 
     @NotNull
     @OneToOne
