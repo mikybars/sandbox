@@ -20,8 +20,6 @@ public class GenericFilterDto implements Serializable {
 	
 	private String idEmpresa;
 	
-	private String idPeriodo;
-	
 	private String idCadena;
 	
 	private List<GenericFilterParametersDto> item = new ArrayList<>();

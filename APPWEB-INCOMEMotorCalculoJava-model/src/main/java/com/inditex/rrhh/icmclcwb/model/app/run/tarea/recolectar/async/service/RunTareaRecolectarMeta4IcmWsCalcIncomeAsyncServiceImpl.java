@@ -73,20 +73,32 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     }
 
     @Override
-    public CompletableFuture<Void> configuracionVentaOnlineByRunTarea(RunTareaDto runTarea) {
+    public CompletableFuture<Void> configuracionVentaOnlineByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.configuracionVentaOnlineByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> agrupacionesCadenaByRunTarea(RunTareaDto runTarea) {
+    public CompletableFuture<Void> agrupacionesCadenaByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.agrupacionesCadenaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> localizacionesOnlineByRunTarea(RunTareaDto runTarea) {
+    public CompletableFuture<Void> localizacionesOnlineByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionesOnlineByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> estructurasDesplazamientoByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasDesplazamientoByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> estructurasPoliticasByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasPoliticasByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

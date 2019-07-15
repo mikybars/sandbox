@@ -427,6 +427,24 @@ app:
             filter:
               maxPageSize: 200
               maxPersistenceSize: 3
+          getEstructurasDesplazamiento:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getEstructurasPoliticas:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3        
           getEmpleados:
             page:
               numeroPagina: 1

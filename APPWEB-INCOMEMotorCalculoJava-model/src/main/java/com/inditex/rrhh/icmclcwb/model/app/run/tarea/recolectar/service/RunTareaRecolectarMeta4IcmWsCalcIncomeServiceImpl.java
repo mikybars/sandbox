@@ -73,21 +73,33 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void configuracionVentaOnlineByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void configuracionVentaOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .configuracionVentaOnlineByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void agrupacionesCadenaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void agrupacionesCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .agrupacionesCadenaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void localizacionesOnlineByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void localizacionesOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .localizacionesOnlineByRunTareaAndTareaAmbito(runTarea, item));
+    }
+    
+    @Override
+    public void estructurasDesplazamientoByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .estructurasDesplazamientoByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
+    public void estructurasPoliticasByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .estructurasPoliticasByRunTareaAndTareaAmbito(runTarea, item));
     }
 
 }

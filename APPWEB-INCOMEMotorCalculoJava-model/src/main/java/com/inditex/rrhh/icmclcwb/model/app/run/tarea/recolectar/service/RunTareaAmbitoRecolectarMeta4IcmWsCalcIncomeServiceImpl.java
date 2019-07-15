@@ -554,4 +554,80 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         }
 
     }
+    
+    @Override
+    public void estructurasDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            for (List<IdPersonaDto> iter : StreamUtils.partition(
+                    tareaPersonaHistoricoService.findIdPersonaByIdTareaAndIdOrigenInAmbito(tarea.getId(),
+                            tareaAmbito.getIdOrigen()),
+                    meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_DESPLAZ).getFilter().getMaxPageSize())) {
+                ComisionEmpleadoRequestDto estructurasDesplazamientoRequest = new ComisionEmpleadoRequestDto();
+                estructurasDesplazamientoRequest
+                        .setPage(meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_DESPLAZ).getPage());
+                estructurasDesplazamientoRequest.setData(tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
+                estructurasDesplazamientoRequest.getData().getItem()
+                        .addAll(iter.stream().map(
+                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).build())
+                                .collect(Collectors.toList()));
+                CompletableFuture<List<ComisionEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                        .getEstructurasDesplazamiento(estructurasDesplazamientoRequest);
+                AsyncUtils.exceptionally(cfData, cf);
+                List<ComisionEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
+                        .get(Meta4PropertiesConstants.ESTRUCTURAS_DESPLAZ).getFilter().getMaxPersistenceSize());
+                CompletableFuture<Void> cfSave = tareaPersonaEstructuraAsyncService
+                        .saveComisionEmpleadoResultItemDto(data, tarea);
+                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+    
+    @Override
+    public void estructurasPoliticasByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            for (List<IdPersonaDto> iter : StreamUtils.partition(
+                    tareaPersonaHistoricoService.findIdPersonaByIdTareaAndIdOrigenInAmbito(tarea.getId(),
+                            tareaAmbito.getIdOrigen()),
+                    meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS).getFilter().getMaxPageSize())) {
+                ComisionEmpleadoRequestDto estructurasDesplazamientoRequest = new ComisionEmpleadoRequestDto();
+                estructurasDesplazamientoRequest
+                        .setPage(meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS).getPage());
+                estructurasDesplazamientoRequest.setData(tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
+                estructurasDesplazamientoRequest.getData().getItem()
+                        .addAll(iter.stream().map(
+                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).build())
+                                .collect(Collectors.toList()));
+                CompletableFuture<List<ComisionEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                        .getEstructurasPoliticas(estructurasDesplazamientoRequest);
+                AsyncUtils.exceptionally(cfData, cf);
+                List<ComisionEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
+                        .get(Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS).getFilter().getMaxPersistenceSize());
+                CompletableFuture<Void> cfSave = tareaPersonaEstructuraAsyncService
+                        .saveComisionEmpleadoResultItemDto(data, tarea);
+                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
 }

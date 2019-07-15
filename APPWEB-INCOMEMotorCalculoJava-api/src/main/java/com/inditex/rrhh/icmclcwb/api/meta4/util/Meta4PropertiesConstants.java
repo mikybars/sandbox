@@ -24,5 +24,6 @@ public class Meta4PropertiesConstants {
     public static final String CONF_PRODUCTO_VENTA = "getConfiguracionProductoVenta";
     public static final String EMPRESA = "getEmpresa";
     public static final String ORIGEN = "getOrigen";
-
+    public static final String ESTRUCTURAS_DESPLAZ = "getEstructurasDesplazamiento";
+    public static final String ESTRUCTURAS_POLITICAS = "getEstructurasPoliticas";
 }
