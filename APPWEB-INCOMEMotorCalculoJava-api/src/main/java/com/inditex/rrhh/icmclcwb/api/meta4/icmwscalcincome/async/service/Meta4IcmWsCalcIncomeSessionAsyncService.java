@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
@@ -78,5 +79,8 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
             ComisionEmpleadoRequestDto request);
 
     CompletableFuture<List<ComisionEmpleadoResultItemDto>> getEstructurasPoliticas(ComisionEmpleadoRequestDto request);
+
+    CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleadosDesplazamiento(
+            EmpleadosDesplazamientoRequestDto request);
 
 }

@@ -467,3 +467,12 @@ app:
             filter:
               maxPageSize: 200
               maxPersistenceSize: 3
+          getEmpleadosDesplazamiento:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3                     

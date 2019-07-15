@@ -102,4 +102,9 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 .estructurasPoliticasByRunTareaAndTareaAmbito(runTarea, item));
     }
 
+    @Override
+    public void empleadosDesplazamientoByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .empleadosDesplazamientoByRunTareaAndTareaAmbito(runTarea, item));
+    }
 }

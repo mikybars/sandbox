@@ -37,4 +37,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> estructurasPoliticasByRunTarea(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> empleadosDesplazamientoByRunTarea(final RunTareaDto runTarea);
+
 }
