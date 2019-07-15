@@ -12,14 +12,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryminute.dto.PtrVentaOrdersByCountryMinuteRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryminute.dto.PtrVentaOrdersByCountryMinuteResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproducthour.dto.PtrVentaOrdersByCountrySectionProductHourRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproducthour.dto.PtrVentaOrdersByCountrySectionProductHourResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteResponseDto;
 
 public interface PtrVentaEcommerceService {
 
@@ -35,20 +27,5 @@ public interface PtrVentaEcommerceService {
             @Valid PtrVentaOnlineEntregaTiendaRequestDto request);
 
     PtrVentaOnlinePickingResponseDto ventaOnlinePicking(@Valid PtrVentaOnlinePickingRequestDto request);
-
-    PtrVentaOrdersByCountryHourResponseDto ordersByCountryHour(@Valid PtrVentaOrdersByCountryHourRequestDto request);
-
-    PtrVentaOrdersByCountrySectionProductHourResponseDto ordersByCountrySectionProductHour(
-            @Valid PtrVentaOrdersByCountrySectionProductHourRequestDto request);
-    
-    PtrVentaOrdersByCountrySectionProductMinuteResponseDto ordersByCountrySectionProductMinute(
-            @Valid PtrVentaOrdersByCountrySectionProductMinuteRequestDto request);
-
-    PtrVentaOrdersByCountryMinuteResponseDto ordersByCountryMinute(
-            @Valid PtrVentaOrdersByCountryMinuteRequestDto request);
-
-    String version();
-
-    String test();
 
 }

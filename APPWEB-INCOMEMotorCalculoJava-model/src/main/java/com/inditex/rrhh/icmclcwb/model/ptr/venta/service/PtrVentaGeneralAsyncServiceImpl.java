@@ -1,25 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.ptr.venta.service;
 
-import java.util.concurrent.CompletableFuture;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Service;
-
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaGeneralAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.diaria.dto.PtrVentaDiariaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.diaria.dto.PtrVentaDiariaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.mensual.dto.PtrVentaMensualRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.mensual.dto.PtrVentaMensualResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.presupuestadamensual.dto.PtrVentaPresupuestadaMensualRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.presupuestadamensual.dto.PtrVentaPresupuestadaMensualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaGeneralService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadobymcc.dto.PtrVentaTotalizadoByMccRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadobymcc.dto.PtrVentaTotalizadoByMccResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotalizadoXmlRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizadoxml.dto.PtrVentaTotalizadoXmlResponseDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class PtrVentaGeneralAsyncServiceImpl implements PtrVentaGeneralAsyncService {
@@ -29,53 +17,8 @@ public class PtrVentaGeneralAsyncServiceImpl implements PtrVentaGeneralAsyncServ
 
     
     @Override
-    public CompletableFuture<PtrVentaDiariaResponseDto> ventaDiaria(final PtrVentaDiariaRequestDto request) {
-        return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaDiaria(request));
-    }
-
-    
-    @Override
-    public CompletableFuture<PtrVentaMensualResponseDto> ventaMensual(final PtrVentaMensualRequestDto request) {
-        return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaMensual(request));
-    }
-
-    
-    @Override
-    public CompletableFuture<PtrVentaPresupuestadaMensualResponseDto> ventaPresupuestadaMensual(
-            final PtrVentaPresupuestadaMensualRequestDto request) {
-        return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaPresupuestadaMensual(request));
-    }
-
-    
-    @Override
     public CompletableFuture<PtrVentaTotalizadoResponseDto> ventaTotalizado(
             final PtrVentaTotalizadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizado(request));
-    }
-
-    
-    @Override
-    public CompletableFuture<PtrVentaTotalizadoByMccResponseDto> ventaTotalizadoByMcc(
-            final PtrVentaTotalizadoByMccRequestDto request) {
-        return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizadoByMcc(request));
-    }
-
-    
-    @Override
-    public CompletableFuture<PtrVentaTotalizadoXmlResponseDto> ventaTotalizadoXML(
-            final PtrVentaTotalizadoXmlRequestDto request) {
-        return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizadoXML(request));
-    }
-
-    
-    @Override
-    public CompletableFuture<String> test() {
-        return CompletableFuture.completedFuture(ptrVentaGeneralService.test());
-    }
-
-    
-    @Override
-    public CompletableFuture<String> version() {
-        return CompletableFuture.completedFuture(ptrVentaGeneralService.version());
     }
 }

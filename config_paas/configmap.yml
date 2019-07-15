@@ -150,28 +150,13 @@ app:
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
-            getOrdersByCountryMinute:
-              endpoint: /ventaEcommerce/getOrdersByCountryMinute
-              filter:
-                maxPageSize: 1000
-                maxPersistenceSize: 3
             getOrdersByCountrySectionProductHour:
               endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
-            getOrdersByCountrySectionProductMinute:
-              endpoint: /ventaEcommerce/getOrdersByCountrySectionProductMinute
-              filter:
-                maxPageSize: 1000
-                maxPersistenceSize: 3
             getVentaOnlinePicking:
               endpoint: /ventaEcommerce/getVentaOnlinePicking
-              filter:
-                maxPageSize: 1000
-                maxPersistenceSize: 3
-            getOrdersByCountryHour:
-              endpoint: /ventaEcommerce/getOrdersByCountryHour
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
@@ -185,60 +170,12 @@ app:
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
-            getVentaIndividualDetalleByMCC:
-              endpoint: /ventaEmpleado/getVentaIndividualDetalleByMCC
-              filter:
-                maxPageSize: 1000
-                maxPersistenceSize: 3
-            getVentaIndividual:
-              endpoint: /ventaEmpleado/getVentaIndividual
-              filter:
-                maxPageSize: 1000
-                maxPersistenceSize: 3
-            getVentaIndividualByMCC:
-              endpoint: /ventaEmpleado/getVentaIndividualByMCC
-              filter:
-                maxPageSize: 1000
-                maxPersistenceSize: 3
-            test:
-              endpoint: /ventaEmpleado/test
-            getVersion:
-              endpoint: /ventaEmpleado/getVersion
           ventaGeneral:
             getVentaTotalizado:
               endpoint: /ventaGeneral/getVentaTotalizado
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
-            getVentaMensual:
-              endpoint: /ventaGeneral/getVentaMensual
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaDiaria: 
-              endpoint: /ventaGeneral/getVentaDiaria
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaTotalizadoXML: 
-              endpoint: /ventaGeneral/getVentaTotalizadoXML
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaTotalizadoByMCC: 
-              endpoint: /ventaGeneral/getVentaTotalizadoByMCC
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getVentaPresupuestadaMensual:
-              endpoint: /ventaGeneral/getVentaPresupuestadaMensual
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            test:
-              endpoint: /ventaGeneral/test
-            getVersion:
-              endpoint: /ventaGeneral/getVersion
       presencia:
         service:
           presenciasService:
@@ -247,23 +184,8 @@ app:
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
-            getPresenciasTotalTiendaSeccion:
-              endpoint: /presenciasService/presenciasTotalTiendaSeccion
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getPresenciasTotalTienda:
-              endpoint: /presenciasService/presenciasTotalTienda
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
             getPresenciasDetalle:
               endpoint: /presenciasService/presenciasDetalle
-              filter:
-                maxPageSize: 200
-                maxPersistenceSize: 3
-            getPresenciasDetalleComisionable:
-              endpoint: /presenciasService/presenciasDetalleComisionable
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
@@ -282,8 +204,6 @@ app:
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
-            test:
-              endpoint: /presenciasService/test
             getVersion:
               endpoint: /presenciasService/getVersion
     meta4:

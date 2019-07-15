@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Data;
 
-@XmlRootElement(name="ventaOnlineTiendaResponse")
+@XmlRootElement(name="VentaOnlineTiendaResponse")
 @Data
 public class PtrVentaOnlinePickingResponseDto implements Serializable {
     

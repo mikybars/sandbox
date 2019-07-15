@@ -23,14 +23,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryminute.dto.PtrVentaOrdersByCountryMinuteRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryminute.dto.PtrVentaOrdersByCountryMinuteResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproducthour.dto.PtrVentaOrdersByCountrySectionProductHourRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproducthour.dto.PtrVentaOrdersByCountrySectionProductHourResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEcommerceService;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
@@ -105,72 +97,6 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
                         PtrVentaOnlinePickingResponseDto.class),
                 ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
                 request);
-    }
-    
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
-    @Override
-    public PtrVentaOrdersByCountryHourResponseDto ordersByCountryHour(
-            @Valid final PtrVentaOrdersByCountryHourRequestDto request) {
-        return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_HOUR).getEndpoint(), request,
-                        PtrVentaOrdersByCountryHourResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_HOUR).getEndpoint(),
-                request);
-    }
-    
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
-    @Override
-    public PtrVentaOrdersByCountryMinuteResponseDto ordersByCountryMinute(
-            @Valid final PtrVentaOrdersByCountryMinuteRequestDto request) {
-        return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_MINUTE).getEndpoint(), request,
-                        PtrVentaOrdersByCountryMinuteResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_MINUTE).getEndpoint(),
-                request);
-    }    
-    
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
-    @Override
-    public PtrVentaOrdersByCountrySectionProductHourResponseDto ordersByCountrySectionProductHour(
-            @Valid final PtrVentaOrdersByCountrySectionProductHourRequestDto request) {
-        return RestUtils.checkResponse( 
-                ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR).getEndpoint(), request,
-                        PtrVentaOrdersByCountrySectionProductHourResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_HOUR).getEndpoint(),
-                request);
-    }
-    
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
-    @Override
-    public PtrVentaOrdersByCountrySectionProductMinuteResponseDto ordersByCountrySectionProductMinute(
-            @Valid final PtrVentaOrdersByCountrySectionProductMinuteRequestDto request) {
-        return RestUtils.checkResponse( 
-                ptrVentaClient.postForEntity( 
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE).getEndpoint(), request,
-                        PtrVentaOrdersByCountrySectionProductMinuteResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.ORDERS_BY_COUNTRY_SECTION_PRODUCT_MINUTE).getEndpoint(),
-                request);
-    }
-    
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
-    @Override
-    public String test() {
-        return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(ventaEcommerceProperties.get(PtrPropertiesConstants.TEST).getEndpoint(),
-                        String.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.TEST).getEndpoint(), null);
-    }
-
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
-    @Override
-    public String version() {
-        return RestUtils.checkResponse(
-                ptrVentaClient.getForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), null);
     }
     
 }

@@ -17,14 +17,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryhour.dto.PtrVentaOrdersByCountryHourResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryminute.dto.PtrVentaOrdersByCountryMinuteRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountryminute.dto.PtrVentaOrdersByCountryMinuteResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproducthour.dto.PtrVentaOrdersByCountrySectionProductHourRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproducthour.dto.PtrVentaOrdersByCountrySectionProductHourResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.ordersbycountrysectionproductminute.dto.PtrVentaOrdersByCountrySectionProductMinuteResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEcommerceService;
 
 @Service
@@ -66,45 +58,5 @@ public class PtrVentaEcommerceAsyncServiceImpl implements PtrVentaEcommerceAsync
     public CompletableFuture<PtrVentaOnlinePickingResponseDto> ventaOnlinePicking(
             final PtrVentaOnlinePickingRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaEcommerceService.ventaOnlinePicking(request));
-    }
-    
-    
-    @Override
-    public CompletableFuture<PtrVentaOrdersByCountryHourResponseDto> ordersByCountryHour(
-            final PtrVentaOrdersByCountryHourRequestDto request) {
-        return CompletableFuture.completedFuture(ptrVentaEcommerceService.ordersByCountryHour(request));
-    }
-    
-    
-    @Override
-    public CompletableFuture<PtrVentaOrdersByCountryMinuteResponseDto> ordersByCountryHour(
-            final PtrVentaOrdersByCountryMinuteRequestDto request) {
-        return CompletableFuture.completedFuture(ptrVentaEcommerceService.ordersByCountryMinute(request));
-    }
-    
-    
-    @Override
-    public CompletableFuture<PtrVentaOrdersByCountrySectionProductHourResponseDto> ordersByCountrySectionProductHour(
-            final PtrVentaOrdersByCountrySectionProductHourRequestDto request) { 
-        return CompletableFuture.completedFuture(ptrVentaEcommerceService.ordersByCountrySectionProductHour(request));
-    }
-    
-    
-    @Override
-    public CompletableFuture<PtrVentaOrdersByCountrySectionProductMinuteResponseDto> ordersByCountrySectionProductMinute(
-            final PtrVentaOrdersByCountrySectionProductMinuteRequestDto request) { 
-        return CompletableFuture.completedFuture(ptrVentaEcommerceService.ordersByCountrySectionProductMinute(request));
-    }
-
-    
-    @Override 
-    public CompletableFuture<String> test() {
-        return CompletableFuture.completedFuture(ptrVentaEcommerceService.test());
-    }
-
-    
-    @Override
-    public CompletableFuture<String> getVersion() {
-        return CompletableFuture.completedFuture(ptrVentaEcommerceService.version());
     }
 }
