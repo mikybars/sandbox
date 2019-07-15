@@ -1,14 +1,34 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+import javax.validation.constraints.NotNull;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
+import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
@@ -22,17 +42,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Searchtienda
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
-
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
@@ -49,6 +58,12 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private TrabajoService trabajoService;
+    
+    @Autowired
+    private ProgramacionService programacionService;
+
+    @Autowired
+    private RunProgramacionService runProgramacionService;
 
     @Autowired
     @Qualifier("meta4ClientPool")
@@ -138,30 +153,102 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void trabajoFase1a() {
-        AppTestConstants.FASE_1A.stream().forEach(item -> {
+    public void programacionBatch() {
+        programacionService.activa();
+        for (int x = 1; x <= 100; x++) {
+            programacionService.reset();
+            runProgramacionService.run();
+        }
+    }
+
+    @Override
+    public void testBloqueos(@NotNull final Long limit) {
+        AppTestConstants.TEST.stream()
+                .collect(Collectors.collectingAndThen(Collectors.toList(), collected -> {
+                    Collections.shuffle(collected);
+                    return collected.stream();
+                }))
+                .limit(limit)
+                .collect(Collectors.toList()).forEach(item -> {
             String[] values = StringUtils.split(item, ",");
             String sociedad = values[0];
             String origen = values[1];
             String empresa = values[2];
-            for (long x = 0; x < 70; x++) {
-                TrabajoDto trabajo = new TrabajoDto();
-                trabajo.setIdPeriodo("PERIODO_" + x);
-                trabajo.setFechaInicioPeriodo(LocalDateTime.now().minusMonths(x + 1));
-                trabajo.setFechaFinPeriodo(LocalDateTime.now().minusMonths(x));
-                trabajo.setIdSociedad(sociedad);
-                TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
-                trabajoAmbitoOrigenDto.setIdOrigen(origen);
-                trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
-                TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
-                trabajoAmbitoEmpresa.setIdEmpresa(empresa);
-                trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
-                TipoAmbitoDto tipoAmbito = new TipoAmbitoDto();
-                tipoAmbito.setId(3L);
-                trabajo.setTipoAmbito(tipoAmbito);
-                trabajoService.create(trabajo);
+            String localizacion = values[3];
+            String persona = values[4];
+            String orPersona = values[5];
+            Random rand = new Random();
+            Integer tipo = rand.nextInt(5) + 1;
+            TrabajoDto trabajo = new TrabajoDto();
+            switch(tipo) {
+                case 1:
+                    testSociedad(sociedad, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.SOCIEDAD.getDto());
+                    break;
+                case 2: 
+                    testOrigen(sociedad, origen, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.ORIGEN.getDto());
+                    break;
+                case 3:
+                    testEmpresa(sociedad, origen, empresa, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
+                    break;
+                case 4:
+                    testLocalizacion(sociedad, origen, empresa, localizacion, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.LOCALIZACION.getDto());
+                    break;
+                case 5:
+                    testPersona(sociedad, origen, empresa, localizacion, persona, orPersona, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
+                    break;
+                default:
+                    break;
             }
+            
+            trabajoService.create(trabajo);
         });
     }
 
+    private void testSociedad(String sociedad, TrabajoDto trabajo) {
+        LocalDateTime fechaInicio = LocalDateTime.of(2015, 3, 1, 00, 00);
+        LocalDateTime fechaFin =  LocalDateTime.of(2015, 3, 31, 00, 00);
+        trabajo.setIdPeriodo(1L);
+        trabajo.setFechaInicioPeriodo(fechaInicio);
+        trabajo.setFechaFinPeriodo(fechaFin);
+        trabajo.setIdSociedad(sociedad);
+    }
+    
+    private void testOrigen(String sociedad, String origen, TrabajoDto trabajo) {
+        testSociedad(sociedad, trabajo);
+        TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
+        trabajoAmbitoOrigenDto.setIdOrigen(origen);
+        trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
+    }
+    
+    private void testEmpresa(String sociedad, String origen, String empresa, TrabajoDto trabajo) {
+        testOrigen(sociedad, origen, trabajo);
+        TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
+        trabajoAmbitoEmpresa.setIdEmpresa(empresa);
+        trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
+    }
+    
+    private void testLocalizacion(String sociedad, String origen, String empresa, String localizacion, TrabajoDto trabajo) {
+        testEmpresa(sociedad, origen, empresa, trabajo);
+        TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDto();
+        trabajoAmbitoLocalizacion.setIdLocalizacion(localizacion);
+        trabajoAmbitoLocalizacion.setIdEmpresa(empresa);
+        trabajoAmbitoLocalizacion.setIdOrigen(origen);
+        trabajo.setLocalizacion(Arrays.asList(trabajoAmbitoLocalizacion));
+    }
+
+    private void testPersona(String sociedad, String origen, String empresa, String localizacion, String persona, String orPersona, TrabajoDto trabajo) {
+        testEmpresa(sociedad, origen, empresa, trabajo);
+        TrabajoAmbitoPersonaDto trabajoAmbitoPersona = new TrabajoAmbitoPersonaDto();
+        trabajoAmbitoPersona.setIdPersona(persona);
+        trabajoAmbitoPersona.setOrPersona(orPersona);
+        trabajoAmbitoPersona.setIdEmpresa(empresa);
+        trabajoAmbitoPersona.setIdOrigen(origen);
+        trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
+    }
+    
 }

@@ -14,7 +14,7 @@ public interface RunTareaAmbitoRecolectarPtrPresenciaService {
     void presenciaTotalLocalizacionSeccionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void presenciaTotalLocalizacionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+    void presenciaTotalLocalizacionEcommerceByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
@@ -25,5 +25,6 @@ public interface RunTareaAmbitoRecolectarPtrPresenciaService {
 
     void presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
 
 }

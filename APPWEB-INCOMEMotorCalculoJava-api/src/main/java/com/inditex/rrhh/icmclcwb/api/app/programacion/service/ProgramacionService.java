@@ -18,5 +18,9 @@ public interface ProgramacionService {
 	List<ProgramacionDto> findPendiente();
 	
 	ProgramacionDto updateEjecucion(@Valid final ProgramacionDto programacion);
+	
+	void reset();
+	
+	void activa();
 
 }

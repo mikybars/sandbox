@@ -1,13 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
-
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ListaPorcentajesResultItemDto;
+import org.mapstruct.*;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
@@ -33,30 +30,29 @@ public abstract class TareaPersonaEstructuraMapper {
             List<TareaPersonaEstructuraDto> src);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tarea.id", source = "srcTarea.id")
-    public abstract TareaPersonaEstructura mergeTareaPersonaEstructuraDtoAndTareaDtoToTareaPersonaEstructura(
-            TareaPersonaEstructuraDto srcTareaPersonaEstructura, TareaDto srcTarea);
-
-    public List<TareaPersonaEstructura> mergeTareaPersonaEstructuraDtoAndTareaDtoToTareaPersonaEstructura(
-            List<TareaPersonaEstructuraDto> srcTareaPersonaEstructura, TareaDto srcTareaDto) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "idTarea", ignore = true)
+    @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "idPersona", source = "src.idEmpleado")
     @Mapping(target = "orPersona", source = "src.orEmpleado")
     @Mapping(target = "idPersonaLocal", source = "src.idEmpleadoLocal")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
-    @Mapping(target = "idOrigen", source = "src.idOrigen")
+    @Mapping(target = "idOrigen", defaultValue = "38")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "idTipoCalculo", source = "src.idTipoCalculo")
     @Mapping(target = "idTipoComision", source = "src.idTipoComision")
+    @Mapping(target = "valor", ignore = true)
+    @Mapping(target = "idSeccionEfectiva", ignore = true)
+    @Mapping(target = "idSeccionEstructura", ignore = true)
     public abstract TareaPersonaEstructuraDto comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(
-            final ComisionEmpleadoResultItemDto src);
+            final ComisionEmpleadoResultItemDto src, TareaDto tarea);
+
+    public List<TareaPersonaEstructuraDto> listaPorcentajesResultItemDtoToTareaPersonaEstructuraDto(
+            final List<ListaPorcentajesResultItemDto> src, final ComisionEmpleadoResultItemDto comisionEmpleado,
+            TareaDto tarea) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
 
     public List<TareaPersonaEstructuraDto> comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(
-            List<ComisionEmpleadoResultItemDto> src){
+            List<ComisionEmpleadoResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

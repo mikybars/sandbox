@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     public GenericTiendaResultItemDto asGenericTiendaResultItemDto(IcmListatiendasRecord src) {
         GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(src);
         mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(src.getEscomisionable().trim()));
+        mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(src.getCalcula().trim()));
+        
         if (StringUtils.isNotEmpty(src.getFechainicio())) {
             mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
@@ -67,6 +70,8 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         for (IcmListatiendasRecord item : src) {
             GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(item);
             mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(item.getEscomisionable().trim()));
+            mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(item.getCalcula().trim()));
+
             if (StringUtils.isNotEmpty(item.getFechainicio())) {
                 mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
                         DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
@@ -116,55 +121,80 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFecha())) {
-            mappedEntity.setFecha(LocalDateTime.parse(src.getFecha(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            mappedEntity.setFecha(
+                    LocalDateTime.parse(src.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         return mappedEntity;
     }
-    
+
     @Override
     public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtos(List<IcmListaempleadosRecord> src) {
         List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
         for (IcmListaempleadosRecord item : src) {
-            GenericEmpleadoResultItemDto mappedEntity = delegate.asGenericEmpleadoResultItemDto(item);
-            if (StringUtils.isNotEmpty(item.getFechainicio())) {
-                mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+
+            if (CollectionUtils.isNotEmpty(item.getIcmListasecciones().getIcmListaseccionesRecordSet())) {
+                item.getIcmListasecciones().getIcmListaseccionesRecordSet().forEach(x -> {
+                    GenericEmpleadoResultItemDto presencia = delegate.asGenericEmpleadoResultItemDto(item);
+                    presencia.setIdSeccion(x.getIdseccion());
+                    presencia.setMinutos(x.getMinutos());
+                    setDates(item, presencia);
+                    list.add(presencia);
+                });
+            } else {
+                GenericEmpleadoResultItemDto mappedEntity = delegate.asGenericEmpleadoResultItemDto(item);
+                setDates(item, mappedEntity);
+                list.add(mappedEntity);
             }
-            if (StringUtils.isNotEmpty(item.getFechafin())) {
-                mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
-                mappedEntity.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafinsec())) {
-                mappedEntity.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechainiciocom())) {
-                mappedEntity.setFechaInicioCom(LocalDateTime.parse(item.getFechainiciocom(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafincom())) {
-                mappedEntity.setFechaFinCom(LocalDateTime.parse(item.getFechafincom(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafinpar())) {
-                mappedEntity.setFechaFinPar(LocalDateTime.parse(item.getFechafinpar(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechainiciopar())) {
-                mappedEntity.setFechaInicioPar(LocalDateTime.parse(item.getFechainiciopar(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFecha())) {
-                mappedEntity.setFecha(LocalDateTime.parse(item.getFecha(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            list.add(mappedEntity);
         }
         return list;
     }
+
+    private void setDates(IcmListaempleadosRecord item, GenericEmpleadoResultItemDto presencia) {
+        if (StringUtils.isNotEmpty(item.getFechainicio())) {
+            presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechafin())) {
+            presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
+            presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechafinsec())) {
+            presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechainiciocom())) {
+            presencia.setFechaInicioCom(LocalDateTime.parse(item.getFechainiciocom(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechafincom())) {
+            presencia.setFechaFinCom(LocalDateTime.parse(item.getFechafincom(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechafinpar())) {
+            presencia.setFechaFinPar(LocalDateTime.parse(item.getFechafinpar(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFechainiciopar())) {
+            presencia.setFechaInicioPar(LocalDateTime.parse(item.getFechainiciopar(),
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+        if (StringUtils.isNotEmpty(item.getFecha())) {
+            presencia.setFecha(
+                    LocalDateTime.parse(item.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+        }
+    }
+
+    @Override
+    public List<TiendaOnlineResultItemDto> asTiendaOnlineResultItemDto(List<IcmListatiendasRecord> src) {
+        List<TiendaOnlineResultItemDto> tiendas = new ArrayList<>();
+        if (src != null) {
+            src.forEach(x -> tiendas.add(asTiendaOnlineResultItemDto(x)));
+        }
+        return tiendas;
+    }
+
 }

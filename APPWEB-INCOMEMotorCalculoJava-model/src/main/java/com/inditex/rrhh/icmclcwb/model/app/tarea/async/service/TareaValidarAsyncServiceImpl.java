@@ -20,6 +20,11 @@ public class TareaValidarAsyncServiceImpl implements TareaValidarAsyncService {
     public CompletableFuture<List<String>> checkDuplicatedTiendasHistorico(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.checkDuplicatedTiendasHistorico(idTarea));
     }
+    
+    @Override
+    public CompletableFuture<List<String>> checkDuplicatedTiposHora(Long idTarea) {
+        return CompletableFuture.completedFuture(tareaValidarService.checkDuplicatedTiposHora(idTarea));
+    }
 
     @Override
     public CompletableFuture<Integer> countEmpleadosHistorico(Long idTarea) {
@@ -42,12 +47,12 @@ public class TareaValidarAsyncServiceImpl implements TareaValidarAsyncService {
     }
 
     @Override
-    public CompletableFuture<Integer> countTiendaEmpleadoPresenciaSeccion(Long idTarea) {
+    public CompletableFuture<Integer> countLocalizacionPersonaPresencia(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendaEmpleadoPresenciaSeccion(idTarea));
     }
 
     @Override
-    public CompletableFuture<Integer> countTiendaVentaSeccion(Long idTarea) {
+    public CompletableFuture<Integer> countLocalizacionVenta(Long idTarea) {
         return CompletableFuture.completedFuture(tareaValidarService.countTiendaVentaSeccion(idTarea));
     }
 

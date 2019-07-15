@@ -12,9 +12,9 @@ import lombok.Data;
 @Data
 public class TareaPersonaEstructuraDto implements Serializable {
 
-    private static final long serialVersionUID = -7035758911645090409L;
+    private static final long serialVersionUID = -543194407813312935L;
 
-    @ApiModelProperty(value = "Identificador del empleado estructura", required = false)
+    @ApiModelProperty(value = "Identificador de la persona estructura", required = false)
     private String id;
 
     @NotNull
@@ -34,7 +34,7 @@ public class TareaPersonaEstructuraDto implements Serializable {
     private String orPersona;
 
     @NotBlank
-    @ApiModelProperty(value = "Id local de la ersona", required = true)
+    @ApiModelProperty(value = "Id local de la persona", required = true)
     private String idPersonaLocal;
 
     @NotNull
@@ -49,22 +49,24 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Id tipo comisión asociado a la estructura ", required = true)
     private String idTipoComision;
 
-    @ApiModelProperty(value = "Porcentaje asociado a todas las secciones ", required = false)
-    private Double porcentaje;
-
-    @ApiModelProperty(value = "Porcentaje asociado a la seccion 1", required = false)
-    private Double porcentaje1;
-
-    @ApiModelProperty(value = "Porcentaje asociado a la seccion 2", required = false)
-    private Double porcentaje2;
-
-    @ApiModelProperty(value = "Porcentaje asociado a la seccion 3", required = false)
-    private Double porcentaje3;
+    @NotNull
+    @ApiModelProperty(value = "valor asociado a la seccion", required = true)
+    private String valor;
 
     @NotNull
+    @ApiModelProperty(value = "Seccion usada en el calculo", required = true)
+    private String idSeccionEfectiva;
+
+    @NotNull
+    @ApiModelProperty(value = "Seccion usada en la estructura", required = true)
+    private String idSeccionEstructura;
+
+    @NotNull
+    @ApiModelProperty(value = "Fecha de inicio en la estructura", required = true)
     private Date fechaInicio;
 
     @NotNull
+    @ApiModelProperty(value = "Fecha de fin en la estructura", required = true)
     private Date fechaFin;
 
 }

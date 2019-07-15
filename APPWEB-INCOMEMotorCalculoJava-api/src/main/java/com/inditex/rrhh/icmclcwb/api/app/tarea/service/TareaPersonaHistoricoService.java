@@ -20,10 +20,13 @@ public interface TareaPersonaHistoricoService {
     List<TareaPersonaHistoricoDto> save(@Valid final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico,
             @Valid final TareaDto tarea);
 
-    List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
+    List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea, @NotNull final String idOrigen);
     
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
     
     List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
+
+    List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
+            @NotNull final String idOrigen, @NotNull final List<Long> idsTipoDato);
 
 }

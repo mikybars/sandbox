@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import javax.validation.Valid;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -9,60 +10,78 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaSeccionService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaSeccionPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaSeccionService;
 
 @Service
 @Validated
 public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPresenciaService {
-    
+
     @Autowired
-    private TareaLocalizacionPresenciaSeccionService tareaTiendaPresenciaSeccionService;
-    
-    @Autowired
-    private TareaLocalizacionPersonaSeccionPresenciaService tareaLocalizacionPersonaSeccionPresenciaService;
-    
-    @Autowired
-    private TareaLocalizacionPersonaPresenciaSeccionService tareaLocalizacionPersonaPresenciaSeccionService;
-    
+    private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
+
     @Autowired
     private TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
-    
-    @Auditoria
-    @Override
-    public void compensarLocalizacionSeccion(@Valid RunTareaDto runTarea) {
-        tareaTiendaPresenciaSeccionService.compensar(runTarea);
-    }
-    
+
+    @Autowired
+    private TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
+
     @Auditoria
     @Override
     public void compensarLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.compensar(runTarea);
     }
-        
+    
     @Auditoria
     @Override
-    public void updateActivoTotalizadoLocalizacion(@Valid RunTareaDto runTarea) {
+    public void totalizarLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.totalizar(runTarea);
+    }
+
+    @Auditoria
+    @Override
+    public void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
+    }
+      
+    @Auditoria
+    @Override
+    public void updateActivoLocalizacionVacio(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.updateActivoVacio(runTarea);
+    }
+    
+    @Auditoria
+    @Override
+    public void updateActivoLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.updateActivo(runTarea);
     }
-    
+
     @Auditoria
     @Override
-    public void updateActivoTotalizadoLocalizacionSeccion(@Valid RunTareaDto runTarea) {
-        tareaTiendaPresenciaSeccionService.updateActivo(runTarea);
+    public void updateActivoLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.updateActivoEcommerce(runTarea);
+    }
+   
+    @Auditoria
+    @Override
+    public void updateActivoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.updateActivo(runTarea);
     }
     
     @Auditoria
     @Override
-    public void updateActivoLocalizacionPersonaSeccionPresencia(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaSeccionPresenciaService.updateActivo(runTarea);
+    public void updateActivoLocalizacionPersonaPresenciaVacio(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.updateActivoVacio(runTarea);
     }
-    
+
     @Auditoria
     @Override
-    public void updateActivoLocalizacionPersonaPresenciaSeccion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaSeccionService.updateActivo(runTarea);
+    public void compensarLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.compensar(runTarea);
+    }
+
+    @Override
+    public void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea) {
+        tareaAgrupacionPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea.getTarea());
     }
 }

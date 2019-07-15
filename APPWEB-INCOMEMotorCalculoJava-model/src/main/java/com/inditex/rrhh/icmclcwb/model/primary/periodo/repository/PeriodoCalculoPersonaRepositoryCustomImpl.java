@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.entity.PeriodoCalculoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 
@@ -27,19 +29,8 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.periodo-calculo-persona:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-
-    @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.save']}")
-    private String sqlSave;
-
     @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona']}")
     private String sqlMergePeriodoCalculoPersona;
-
-    @Override
-    public List<PeriodoCalculoPersona> save(List<PeriodoCalculoPersona> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
 
     @Override
     public void mergePeriodoCalculoPersona(@NotNull RunTareaDto tareaDto) {
@@ -49,12 +40,14 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
                 /* TODO Cambiar por un flag o definir los estados posibles */2L);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.OK.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, 0);
         namedParameterJdbcTemplate.update(sqlMergePeriodoCalculoPersona, params);
     }
 
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoCalculoPersona entity) throws SQLException {
-        pstmt.setString(1, entity.getPk().getIdPeriodo());
+        pstmt.setLong(1, entity.getPk().getIdPeriodo());
         pstmt.setString(2, entity.getPk().getIdOrigen());
         pstmt.setString(3, entity.getPk().getIdEmpresa());
         pstmt.setString(4, entity.getPk().getIdPersona());

@@ -1,9 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -27,7 +24,5 @@ public class RunTareaDto implements Serializable {
 
     @NotNull
     private TareaDto tarea;
-
-    private final List<RunTareaValidarDto> runTareaValidar = new ArrayList<>();
 
 }

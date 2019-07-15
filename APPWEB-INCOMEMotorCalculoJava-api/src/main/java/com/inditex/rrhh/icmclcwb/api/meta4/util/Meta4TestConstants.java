@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.meta4.util;
 
 public class Meta4TestConstants {
 
-    public Meta4TestConstants() {
+    private Meta4TestConstants() {
     }
 
     public static final String FECHA_INICIO = "2017-12-01";

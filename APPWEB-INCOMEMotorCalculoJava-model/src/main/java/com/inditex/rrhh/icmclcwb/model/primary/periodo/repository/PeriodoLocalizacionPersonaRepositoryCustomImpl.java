@@ -26,21 +26,10 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImpl
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
-    @Value("${app.envars.repository.batch-size.periodo-localizacion-persona:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-    
-    @Value("#{primaryQuery['PeriodoLocalizacionPersonaRepositoryCustom.save']}")
-    private String sqlSave;
-    
+
     @Value("#{primaryQuery['PeriodoLocalizacionPersonaRepositoryCustom.mergePeriodoLocalizacionPersona']}")
     private String sqlMergePeriodoLocalizacionPersona;
-    
-    @Override
-    public List<PeriodoLocalizacionPersona> save(List<PeriodoLocalizacionPersona> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-    
+
     @Override
     public void mergePeriodoLocalizacionPersona(@NotNull RunTareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -50,7 +39,7 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImpl
     
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoLocalizacionPersona entity) throws SQLException {
-        pstmt.setString(1, entity.getPk().getIdPeriodo());
+        pstmt.setLong(1, entity.getPk().getIdPeriodo());
         pstmt.setString(2, entity.getPk().getIdOrigen());
         pstmt.setString(3, entity.getPk().getIdEmpresa());
         pstmt.setString(4, entity.getPk().getIdLocalizacion());

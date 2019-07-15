@@ -13,16 +13,10 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
 public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
-        implements RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
+    implements RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeService tareaRecolectarMeta4IcmWsCalcIncomeService;
-
-    @Override
-    public CompletableFuture<Void> localizacionHistoricoByRunTarea(RunTareaDto runTarea) {
-        tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionHistoricoByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
 
     @Override
     public CompletableFuture<Void> personaByRunTarea(final RunTareaDto runTarea) {
@@ -59,13 +53,13 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         tareaRecolectarMeta4IcmWsCalcIncomeService.empleadosPresenciaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> coefJornadaByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.coefJornadaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> festivosByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.festivosByRunTarea(runTarea);
@@ -75,6 +69,42 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     @Override
     public CompletableFuture<Void> flagCalculaByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.flagCalculaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> configuracionVentaOnlineByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.configuracionVentaOnlineByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> agrupacionesCadenaByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.agrupacionesCadenaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> localizacionesOnlineByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionesOnlineByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> estructurasDesplazamientoByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasDesplazamientoByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> estructurasPoliticasByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasPoliticasByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> empleadosDesplazamientoByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.empleadosDesplazamientoByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

@@ -18,10 +18,12 @@ public interface TareaValidarAsyncService {
 
     CompletableFuture<Integer> countTiendaPresenciaSeccion(Long idTarea);
 
-    CompletableFuture<Integer> countTiendaEmpleadoPresenciaSeccion(Long idTarea);
+    CompletableFuture<Integer> countLocalizacionPersonaPresencia(Long idTarea);
 
-    CompletableFuture<Integer> countTiendaVentaSeccion(Long idTarea);
+    CompletableFuture<Integer> countLocalizacionVenta(Long idTarea);
 
     CompletableFuture<List<String>> validateAmbito(Long idTarea);
+
+    CompletableFuture<List<String>> checkDuplicatedTiposHora(Long idTarea);
 
 }

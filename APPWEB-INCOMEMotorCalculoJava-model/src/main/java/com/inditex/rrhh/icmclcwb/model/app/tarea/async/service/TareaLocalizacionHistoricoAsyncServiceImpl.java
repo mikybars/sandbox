@@ -20,7 +20,6 @@ public class TareaLocalizacionHistoricoAsyncServiceImpl implements TareaLocaliza
     @Autowired
     private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-    
     @Override
     public CompletableFuture<Void> save(final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico,
             final TareaDto tarea) {
@@ -28,7 +27,6 @@ public class TareaLocalizacionHistoricoAsyncServiceImpl implements TareaLocaliza
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    
     @Override
     public CompletableFuture<Void> saveGenericTiendaResultItemDto(
             final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, final TareaDto tarea) {

@@ -11,8 +11,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void localizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void localizacionHistoricoByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
     void condicionPersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void tiendasComisionableByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
@@ -26,5 +24,17 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
     void coefJornadaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void flagCalculaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void configuracionVentaOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void agrupacionesCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void localizacionesOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void estructurasDesplazamientoByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void estructurasPoliticasByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void empleadosDesplazamientoByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
 }

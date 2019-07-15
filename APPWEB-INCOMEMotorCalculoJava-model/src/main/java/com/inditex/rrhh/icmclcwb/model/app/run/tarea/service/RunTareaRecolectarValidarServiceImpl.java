@@ -23,10 +23,11 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarAmbitoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarEstructurasAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaHistoricoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiendaVentaSeccionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionVentaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiposHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
 import com.inditex.rrhh.icmclcwb.api.app.validar.properties.dto.ValidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
@@ -39,16 +40,19 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     private RunTareaRecolectarValidarEstructurasAsyncService runTareaRecolectarValidarEstructurasAsyncService;
 
     @Autowired
-    private RunTareaRecolectarValidarTiendaHistoricoAsyncService runTareaRecolectarValidarTiendaHistoricoAsyncService;
+    private RunTareaRecolectarValidarLocalizacionHistoricoAsyncService runTareaRecolectarValidarLocalizacionHistoricoAsyncService;
+    
+    @Autowired
+    private RunTareaRecolectarValidarTiposHoraAsyncService runTareaRecolectarValidarTiposHoraAsyncService;
 
     @Autowired
-    private RunTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService runTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService;
+    private RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
 
     @Autowired
-    private RunTareaRecolectarValidarTiendaPresenciaSeccionAsyncService runTareaRecolectarValidarTiendaPresenciaSeccionAsyncService;
+    private RunTareaRecolectarValidarLocalizacionPresenciaAsyncService runTareaRecolectarValidarLocalizacionPresenciaAsyncService;
 
     @Autowired
-    private RunTareaRecolectarValidarTiendaVentaSeccionAsyncService runTareaRecolectarValidarTiendaVentaSeccionAsyncService;
+    private RunTareaRecolectarValidarLocalizacionVentaAsyncService runTareaRecolectarValidarLocalizacionVentaAsyncService;
 
     @Autowired
     private RunTareaRecolectarValidarAmbitoAsyncService runTareaRecolectarValidarAmbitoAsyncService;
@@ -68,39 +72,62 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             if (validarProperties.isEnabled()) {
-                CompletableFuture<Void> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService.run(runTarea);
+                CompletableFuture<List<RunTareaValidarDto>> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService
+                        .run(runTarea);
                 AsyncUtils.exceptionally(cfEstructura, cf);
 
-                CompletableFuture<Void> cfTiendaHistorico = runTareaRecolectarValidarTiendaHistoricoAsyncService
+                CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionHistorico = runTareaRecolectarValidarLocalizacionHistoricoAsyncService
                         .run(runTarea);
-                AsyncUtils.exceptionally(cfTiendaHistorico, cf);
-
-                CompletableFuture<Void> cfTiendaEmpleadoPresenciaSeccion = runTareaRecolectarValidarTiendaEmpleadoPresenciaSeccionAsyncService
+                AsyncUtils.exceptionally(cfLocalizacionHistorico, cf);
+                
+                CompletableFuture<List<RunTareaValidarDto>> cfTiposHora = runTareaRecolectarValidarTiposHoraAsyncService
                         .run(runTarea);
-                AsyncUtils.exceptionally(cfTiendaEmpleadoPresenciaSeccion, cf);
+                AsyncUtils.exceptionally(cfTiposHora, cf);
 
-                CompletableFuture<Void> cfTiendaPresenciaSeccion = runTareaRecolectarValidarTiendaPresenciaSeccionAsyncService
+                CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPersonaPresencia = runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService
                         .run(runTarea);
-                AsyncUtils.exceptionally(cfTiendaPresenciaSeccion, cf);
+                AsyncUtils.exceptionally(cfLocalizacionPersonaPresencia, cf);
 
-                CompletableFuture<Void> cfTiendaVentaSeccion = runTareaRecolectarValidarTiendaVentaSeccionAsyncService
+                CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPresencia = runTareaRecolectarValidarLocalizacionPresenciaAsyncService
                         .run(runTarea);
-                AsyncUtils.exceptionally(cfTiendaVentaSeccion, cf);
+                AsyncUtils.exceptionally(cfLocalizacionPresencia, cf);
 
-                CompletableFuture<Void> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService.run(runTarea);
+                CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionVenta = runTareaRecolectarValidarLocalizacionVentaAsyncService
+                        .run(runTarea);
+                AsyncUtils.exceptionally(cfLocalizacionVenta, cf);
+
+                CompletableFuture<List<RunTareaValidarDto>> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService
+                        .run(runTarea);
                 AsyncUtils.exceptionally(cfAmbito, cf);
 
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
+                List<RunTareaValidarDto> runTareaValidar = new ArrayList<>();
+                runTareaValidar.addAll(AsyncUtils.get(cfEstructura));
+                runTareaValidar.addAll(AsyncUtils.get(cfLocalizacionHistorico));
+                runTareaValidar.addAll(AsyncUtils.get(cfLocalizacionPersonaPresencia));
+                runTareaValidar.addAll(AsyncUtils.get(cfLocalizacionPresencia));
+                runTareaValidar.addAll(AsyncUtils.get(cfLocalizacionVenta));
+                runTareaValidar.addAll(AsyncUtils.get(cfAmbito));
+                runTareaValidar.addAll(AsyncUtils.get(cfTiposHora));
 
-                // TODO Revisar NullPointerException
-                List<RunTareaValidarDto> runTareaValidar = runTarea.getRunTareaValidar().stream()
-                        .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated())).collect(Collectors.toList());
-                if (CollectionUtils.isNotEmpty(runTareaValidar)) {
+
+                List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream().filter(item -> {
+                    // TODO Revisar NullPointerException, lo da en el item
+                    boolean result = false;
+                    if (item == null) {
+                        log.error("Nullpointer: {}", runTarea);
+                    } else {
+                        result = CollectionUtils.isNotEmpty(item.getDuplicated());
+                    }
+                    return result;
+                }).collect(Collectors.toList());
+
+                if (CollectionUtils.isNotEmpty(runTareaValidarDuplicated)) {
                     if (validarProperties.isLogging()) {
-                        log.debug("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
-                                runTareaValidar);
+                        log.warn("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
+                                runTareaValidarDuplicated);
                     }
                     if (validarProperties.isException()) {
                         throw new IcmclcwbException("Valores duplicados");

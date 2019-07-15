@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.annotation.Retryable;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+
 import stormpot.BlazePool;
 import stormpot.PoolException;
 import stormpot.Timeout;
@@ -70,7 +71,7 @@ public class Meta4ClientPoolBase {
 
 	private void uso(final Meta4ClientPoolable poolable) {
 		poolable.getSession().setUso(poolable.getSession().getUso() + 1);
-		poolable.getSession().setFechaUso(LocalDateTime.now());
+		poolable.getSession().setFechaUso(TimeUtils.nowLocalDateTime());
 	}
 
 	private void logSession(final Meta4ClientSession session) {

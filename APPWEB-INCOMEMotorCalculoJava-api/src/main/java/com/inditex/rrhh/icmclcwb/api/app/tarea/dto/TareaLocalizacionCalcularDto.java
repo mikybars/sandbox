@@ -25,6 +25,10 @@ public class TareaLocalizacionCalcularDto implements Serializable {
     private Long idLocalizacion;
     
     @NotNull
+    @ApiModelProperty(value = "Identificador de la localizacion meta4", required = true)
+    private Long idLocalizacionMeta4;
+    
+    @NotNull
     private Date fechaInicio;
     
     @NotNull

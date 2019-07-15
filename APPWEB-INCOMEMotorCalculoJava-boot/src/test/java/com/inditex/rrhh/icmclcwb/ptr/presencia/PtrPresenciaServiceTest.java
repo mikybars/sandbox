@@ -1,12 +1,20 @@
 package com.inditex.rrhh.icmclcwb.ptr.presencia;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.Map;
-
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +25,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.rrhh.icmclcwb.Application;
-import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detallecomisionable.dto.PtrPresenciaDetalleComisionableResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTotalTiendaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
-import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
@@ -65,32 +57,13 @@ public class PtrPresenciaServiceTest {
         req.setOrigen(PtrTestConstants.PAIS);
         req.setPersona(PtrTestConstants.PERSONA_LIST);
         req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
+        req.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         req.setExcluidoCalculo(Boolean.FALSE);
         ResponseEntity<PtrPresenciaDetalleResponseDto> response = ptrPresenciaClient
                 .postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), req, PtrPresenciaDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
-    @Ignore
-    @Deprecated
-    @Test
-    public void presenciasDetalleComisionable() {
-        PtrPresenciaDetalleComisionableRequestDto req = new PtrPresenciaDetalleComisionableRequestDto();
-        req.setCadena(PtrTestConstants.CADENA);
-        req.setTipo(PtrTestConstants.TIPO);
-        req.setSeccion(PtrTestConstants.SECCION);
-        req.setTienda(PtrTestConstants.ID_TIENDA_LIST);
-        req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
-        req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        req.setOrigen(PtrTestConstants.PAIS);
-        req.setPersona(PtrTestConstants.PERSONA_LIST);
-        req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
-        ResponseEntity<PtrPresenciaDetalleComisionableResponseDto> ret = ptrPresenciaClient.postForEntity(
-                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE_COMISIONABLE).getEndpoint(), req,
-                PtrPresenciaDetalleComisionableResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
-    
     @Test
     public void presenciasTotalizado() {
         PtrPresenciaTotalizadoRequestDto req = new PtrPresenciaTotalizadoRequestDto();
@@ -98,44 +71,12 @@ public class PtrPresenciaServiceTest {
         req.setOrigen(PtrTestConstants.PAIS);
         req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        req.setCadena(PtrTestConstants.CADENA);
+//        req.setCadena(PtrTestConstants.CADENA_LIST);
+        req.setEmpresa(PtrTestConstants.ID_EMPRESA);
         req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
         req.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         ResponseEntity<PtrPresenciaTotalizadoResponseDto> ret = ptrPresenciaClient.postForEntity(
                 presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(), req, PtrPresenciaTotalizadoResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
-
-    @Ignore
-    @Deprecated
-    @Test
-    public void presenciasTotalTienda() {
-        PtrPresenciaTotalTiendaRequestDto req = new PtrPresenciaTotalTiendaRequestDto();
-        req.setTienda(PtrTestConstants.ID_TIENDA_LIST);
-        req.setOrigen(PtrTestConstants.PAIS);
-        req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
-        req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        req.setTipo(PtrTestConstants.TIPO);
-        req.setCadena(PtrTestConstants.CADENA);
-        ResponseEntity<PtrPresenciaTotalTiendaResponseDto> ret = ptrPresenciaClient.postForEntity(
-                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA).getEndpoint(), req, PtrPresenciaTotalTiendaResponseDto.class);
-        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
-    }
-
-    @Ignore
-    @Deprecated
-    @Test
-    public void presenciasTotalTiendaSeccion() {
-        PtrPresenciaTotalTiendaSeccionRequestDto req = new PtrPresenciaTotalTiendaSeccionRequestDto();
-        req.setTiendaSeccion(Arrays.asList(PtrTestConstants.TIENDA_SECCION_1, PtrTestConstants.TIENDA_SECCION_2));
-        req.setOrigen(PtrTestConstants.PAIS);
-        req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
-        req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        req.setTipo(PtrTestConstants.TIPO);
-        req.setCadena(PtrTestConstants.CADENA);
-        ResponseEntity<PtrPresenciaTotalTiendaSeccionResponseDto> ret = ptrPresenciaClient.postForEntity(
-                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTAL_TIENDA_SECCION).getEndpoint(), req,
-                PtrPresenciaTotalTiendaSeccionResponseDto.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
     }
     
@@ -157,6 +98,23 @@ public class PtrPresenciaServiceTest {
     }
 
     @Test
+    public void presenciasEmpleadoTienda() {
+        PtrPresenciaEmpleadosTiendaRequestDto req = new PtrPresenciaEmpleadosTiendaRequestDto();
+        req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
+        req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
+        req.setOrigen(PtrTestConstants.ORIGEN);
+        req.setCadena(PtrTestConstants.CADENA_LIST);
+        req.setTienda(PtrTestConstants.ID_TIENDA_LIST);
+        req.setTipo(PtrTestConstants.TIPO_LIST);
+        req.setAgrupacion(PtrTestConstants.AGRUPACION);
+        req.setExcluidoCalculo(Boolean.FALSE);
+        ResponseEntity<PtrPresenciaTiendasEmpleadoResponseDto> ret = ptrPresenciaClient.postForEntity(
+            presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), req,
+            PtrPresenciaTiendasEmpleadoResponseDto.class);
+        assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+    }
+
+    @Test
     public void tiposHoras() {
         PtrPresenciaTiposHorasRequestDto req = new PtrPresenciaTiposHorasRequestDto();
         req.setOrigen(PtrTestConstants.PAIS);
@@ -164,23 +122,6 @@ public class PtrPresenciaServiceTest {
         ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = ptrPresenciaClient
                 .postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), req, PtrPresenciaTiposHorasResponseDto.class);
         assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
-    }
-    
-    @Test
-    public void test() {
-        ResponseEntity<Boolean> response = ptrPresenciaClient.getForEntity(
-                presenciasProperties.get(PtrPropertiesConstants.TEST).getEndpoint(), Boolean.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
-        assertEquals(Boolean.TRUE, response.getBody());
-    }
-    
-    @Test
-    public void version() {
-        ResponseEntity<String> response = ptrPresenciaClient.getForEntity(
-                presenciasProperties.get(PtrPropertiesConstants.VERSION).getEndpoint(), String.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
-        assertEquals(version, response.getBody());
-        
     }
 
 }

@@ -28,4 +28,6 @@ public interface TareaValidarService {
 
     List<String> validateAmbito(@NotNull @Positive Long idTarea);
 
+    List<String> checkDuplicatedTiposHora(@NotNull @Positive Long idTarea);
+
 }

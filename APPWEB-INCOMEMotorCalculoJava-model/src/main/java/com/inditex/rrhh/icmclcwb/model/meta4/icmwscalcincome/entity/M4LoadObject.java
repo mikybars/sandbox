@@ -33,7 +33,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="ICM_WS_TOOLS" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/>
+ *         &lt;element name="ICM_LISTACADENAS" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/>
  *         &lt;element name="ICM_LISTATIENDAS" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/>
+ *         &lt;element name="ICM_LISTAEMPRESAS" type="{http://schemas.meta4.com/}Icm_ListaempresasBlock"/>
+ *         &lt;element name="ICM_LISTAORIGENES" type="{http://schemas.meta4.com/}Icm_ListaorigenesBlock"/>
  *         &lt;element name="ICM_LISTAPERIODOS" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/>
  *         &lt;element name="ICM_LISTAEMPLEADOS" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/>
  *         &lt;element name="ICM_LISTAESTRUCTURAS" type="{http://schemas.meta4.com/}Icm_ListaestructurasBlock"/>
@@ -52,7 +55,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "icmwstools",
+    "icmlistacadenas",
     "icmlistatiendas",
+    "icmlistaempresas",
+    "icmlistaorigenes",
     "icmlistaperiodos",
     "icmlistaempleados",
     "icmlistaestructuras",
@@ -67,8 +73,14 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
 
     @XmlElement(name = "ICM_WS_TOOLS", required = true)
     protected IcmWsToolsBlock icmwstools;
+    @XmlElement(name = "ICM_LISTACADENAS", required = true)
+    protected IcmListacadenasBlock icmlistacadenas;
     @XmlElement(name = "ICM_LISTATIENDAS", required = true)
     protected IcmListatiendasBlock icmlistatiendas;
+    @XmlElement(name = "ICM_LISTAEMPRESAS", required = true)
+    protected IcmListaempresasBlock icmlistaempresas;
+    @XmlElement(name = "ICM_LISTAORIGENES", required = true)
+    protected IcmListaorigenesBlock icmlistaorigenes;
     @XmlElement(name = "ICM_LISTAPERIODOS", required = true)
     protected IcmListaperiodosBlock icmlistaperiodos;
     @XmlElement(name = "ICM_LISTAEMPLEADOS", required = true)
@@ -109,6 +121,30 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
     }
 
     /**
+     * Obtiene el valor de la propiedad icmlistacadenas.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListacadenasBlock }
+     *     
+     */
+    public IcmListacadenasBlock getICMLISTACADENAS() {
+        return icmlistacadenas;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistacadenas.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListacadenasBlock }
+     *     
+     */
+    public void setICMLISTACADENAS(IcmListacadenasBlock value) {
+        this.icmlistacadenas = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmlistatiendas.
      * 
      * @return
@@ -130,6 +166,54 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
      */
     public void setICMLISTATIENDAS(IcmListatiendasBlock value) {
         this.icmlistatiendas = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistaempresas.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaempresasBlock }
+     *     
+     */
+    public IcmListaempresasBlock getICMLISTAEMPRESAS() {
+        return icmlistaempresas;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaempresas.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaempresasBlock }
+     *     
+     */
+    public void setICMLISTAEMPRESAS(IcmListaempresasBlock value) {
+        this.icmlistaempresas = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistaorigenes.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaorigenesBlock }
+     *     
+     */
+    public IcmListaorigenesBlock getICMLISTAORIGENES() {
+        return icmlistaorigenes;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaorigenes.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaorigenesBlock }
+     *     
+     */
+    public void setICMLISTAORIGENES(IcmListaorigenesBlock value) {
+        this.icmlistaorigenes = value;
     }
 
     /**
@@ -318,11 +402,38 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             }
         }
         {
+            IcmListacadenasBlock lhsICMLISTACADENAS;
+            lhsICMLISTACADENAS = this.getICMLISTACADENAS();
+            IcmListacadenasBlock rhsICMLISTACADENAS;
+            rhsICMLISTACADENAS = that.getICMLISTACADENAS();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistacadenas", lhsICMLISTACADENAS), LocatorUtils.property(thatLocator, "icmlistacadenas", rhsICMLISTACADENAS), lhsICMLISTACADENAS, rhsICMLISTACADENAS, (this.icmlistacadenas!= null), (that.icmlistacadenas!= null))) {
+                return false;
+            }
+        }
+        {
             IcmListatiendasBlock lhsICMLISTATIENDAS;
             lhsICMLISTATIENDAS = this.getICMLISTATIENDAS();
             IcmListatiendasBlock rhsICMLISTATIENDAS;
             rhsICMLISTATIENDAS = that.getICMLISTATIENDAS();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistatiendas", lhsICMLISTATIENDAS), LocatorUtils.property(thatLocator, "icmlistatiendas", rhsICMLISTATIENDAS), lhsICMLISTATIENDAS, rhsICMLISTATIENDAS, (this.icmlistatiendas!= null), (that.icmlistatiendas!= null))) {
+                return false;
+            }
+        }
+        {
+            IcmListaempresasBlock lhsICMLISTAEMPRESAS;
+            lhsICMLISTAEMPRESAS = this.getICMLISTAEMPRESAS();
+            IcmListaempresasBlock rhsICMLISTAEMPRESAS;
+            rhsICMLISTAEMPRESAS = that.getICMLISTAEMPRESAS();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaempresas", lhsICMLISTAEMPRESAS), LocatorUtils.property(thatLocator, "icmlistaempresas", rhsICMLISTAEMPRESAS), lhsICMLISTAEMPRESAS, rhsICMLISTAEMPRESAS, (this.icmlistaempresas!= null), (that.icmlistaempresas!= null))) {
+                return false;
+            }
+        }
+        {
+            IcmListaorigenesBlock lhsICMLISTAORIGENES;
+            lhsICMLISTAORIGENES = this.getICMLISTAORIGENES();
+            IcmListaorigenesBlock rhsICMLISTAORIGENES;
+            rhsICMLISTAORIGENES = that.getICMLISTAORIGENES();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaorigenes", lhsICMLISTAORIGENES), LocatorUtils.property(thatLocator, "icmlistaorigenes", rhsICMLISTAORIGENES), lhsICMLISTAORIGENES, rhsICMLISTAORIGENES, (this.icmlistaorigenes!= null), (that.icmlistaorigenes!= null))) {
                 return false;
             }
         }
@@ -418,9 +529,24 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             strategy.appendField(locator, this, "icmwstools", buffer, theICMWSTOOLS, (this.icmwstools!= null));
         }
         {
+            IcmListacadenasBlock theICMLISTACADENAS;
+            theICMLISTACADENAS = this.getICMLISTACADENAS();
+            strategy.appendField(locator, this, "icmlistacadenas", buffer, theICMLISTACADENAS, (this.icmlistacadenas!= null));
+        }
+        {
             IcmListatiendasBlock theICMLISTATIENDAS;
             theICMLISTATIENDAS = this.getICMLISTATIENDAS();
             strategy.appendField(locator, this, "icmlistatiendas", buffer, theICMLISTATIENDAS, (this.icmlistatiendas!= null));
+        }
+        {
+            IcmListaempresasBlock theICMLISTAEMPRESAS;
+            theICMLISTAEMPRESAS = this.getICMLISTAEMPRESAS();
+            strategy.appendField(locator, this, "icmlistaempresas", buffer, theICMLISTAEMPRESAS, (this.icmlistaempresas!= null));
+        }
+        {
+            IcmListaorigenesBlock theICMLISTAORIGENES;
+            theICMLISTAORIGENES = this.getICMLISTAORIGENES();
+            strategy.appendField(locator, this, "icmlistaorigenes", buffer, theICMLISTAORIGENES, (this.icmlistaorigenes!= null));
         }
         {
             IcmListaperiodosBlock theICMLISTAPERIODOS;
@@ -468,9 +594,24 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmwstools", theICMWSTOOLS), currentHashCode, theICMWSTOOLS, (this.icmwstools!= null));
         }
         {
+            IcmListacadenasBlock theICMLISTACADENAS;
+            theICMLISTACADENAS = this.getICMLISTACADENAS();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistacadenas", theICMLISTACADENAS), currentHashCode, theICMLISTACADENAS, (this.icmlistacadenas!= null));
+        }
+        {
             IcmListatiendasBlock theICMLISTATIENDAS;
             theICMLISTATIENDAS = this.getICMLISTATIENDAS();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistatiendas", theICMLISTATIENDAS), currentHashCode, theICMLISTATIENDAS, (this.icmlistatiendas!= null));
+        }
+        {
+            IcmListaempresasBlock theICMLISTAEMPRESAS;
+            theICMLISTAEMPRESAS = this.getICMLISTAEMPRESAS();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaempresas", theICMLISTAEMPRESAS), currentHashCode, theICMLISTAEMPRESAS, (this.icmlistaempresas!= null));
+        }
+        {
+            IcmListaorigenesBlock theICMLISTAORIGENES;
+            theICMLISTAORIGENES = this.getICMLISTAORIGENES();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaorigenes", theICMLISTAORIGENES), currentHashCode, theICMLISTAORIGENES, (this.icmlistaorigenes!= null));
         }
         {
             IcmListaperiodosBlock theICMLISTAPERIODOS;
@@ -542,6 +683,19 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
                 }
             }
             {
+                Boolean icmlistacadenasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistacadenas!= null));
+                if (icmlistacadenasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListacadenasBlock sourceICMLISTACADENAS;
+                    sourceICMLISTACADENAS = this.getICMLISTACADENAS();
+                    IcmListacadenasBlock copyICMLISTACADENAS = ((IcmListacadenasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistacadenas", sourceICMLISTACADENAS), sourceICMLISTACADENAS, (this.icmlistacadenas!= null)));
+                    copy.setICMLISTACADENAS(copyICMLISTACADENAS);
+                } else {
+                    if (icmlistacadenasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistacadenas = null;
+                    }
+                }
+            }
+            {
                 Boolean icmlistatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistatiendas!= null));
                 if (icmlistatiendasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListatiendasBlock sourceICMLISTATIENDAS;
@@ -551,6 +705,32 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
                 } else {
                     if (icmlistatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmlistatiendas = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistaempresasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaempresas!= null));
+                if (icmlistaempresasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaempresasBlock sourceICMLISTAEMPRESAS;
+                    sourceICMLISTAEMPRESAS = this.getICMLISTAEMPRESAS();
+                    IcmListaempresasBlock copyICMLISTAEMPRESAS = ((IcmListaempresasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaempresas", sourceICMLISTAEMPRESAS), sourceICMLISTAEMPRESAS, (this.icmlistaempresas!= null)));
+                    copy.setICMLISTAEMPRESAS(copyICMLISTAEMPRESAS);
+                } else {
+                    if (icmlistaempresasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaempresas = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistaorigenesShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaorigenes!= null));
+                if (icmlistaorigenesShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaorigenesBlock sourceICMLISTAORIGENES;
+                    sourceICMLISTAORIGENES = this.getICMLISTAORIGENES();
+                    IcmListaorigenesBlock copyICMLISTAORIGENES = ((IcmListaorigenesBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaorigenes", sourceICMLISTAORIGENES), sourceICMLISTAORIGENES, (this.icmlistaorigenes!= null)));
+                    copy.setICMLISTAORIGENES(copyICMLISTAORIGENES);
+                } else {
+                    if (icmlistaorigenesShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaorigenes = null;
                     }
                 }
             }

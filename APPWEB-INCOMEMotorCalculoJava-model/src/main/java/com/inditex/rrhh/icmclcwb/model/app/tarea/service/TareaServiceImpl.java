@@ -1,9 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,6 +11,8 @@ import javax.validation.constraints.Positive;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
@@ -35,7 +34,7 @@ public class TareaServiceImpl implements TareaService {
 
     @Autowired
     private TareaRepository tareaRepository;
-    
+
     @Autowired
     private TareaRepositoryCustom tareaRepositoryCustom;
 
@@ -68,6 +67,7 @@ public class TareaServiceImpl implements TareaService {
         return tarea;
     }
 
+    @Transactional
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
         tarea.setFechaCreacion(LocalDateTime.now());
@@ -86,6 +86,7 @@ public class TareaServiceImpl implements TareaService {
         return null;
     }
 
+    @Transactional
     @Override
     public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
         List<TareaDto> result = new ArrayList<>();
@@ -95,33 +96,32 @@ public class TareaServiceImpl implements TareaService {
     }
 
     @Override
-    public int modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado) {
-        tarea.setEstado(estado);
-        return tareaRepository.setEstado(tarea.getId(), EstadoTarea.builder().id(estado.getId()).build());
+    public List<TareaDto> findByTrabajoId(@Valid final Long id) {
+        return tareaMapper.tareaToTareaDto(tareaRepository.findByTrabajoId(id));
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public int modifyFechaInicioTarea(@Valid final TareaDto tarea) {
-        tarea.setFechaInicioTarea(LocalDateTime.now());
-        return tareaRepository.setFechaInicioTarea(tarea.getId(),
-                Date.from(tarea.getFechaInicioTarea().atZone(ZoneId.systemDefault()).toInstant()));
+    public void updateFechaFin(@NotNull final TareaDto tarea) {
+        tareaRepositoryCustom.updateFechaFin(tarea);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public int modifyFechaFinTarea(@Valid final TareaDto tarea) {
-        tarea.setFechaFinTarea(LocalDateTime.now());
-        return tareaRepository.setFechaFinTarea(tarea.getId(),
-                Date.from(tarea.getFechaFinTarea().atZone(ZoneId.systemDefault()).toInstant()));
+    public void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
+        tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
-    
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
+        tareaRepositoryCustom.updateEstado(tarea, estado);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateEstadoFinal(@Valid final TareaDto tarea) {
         tareaRepositoryCustom.updateEstadoFinal(tarea);
-    }
-    
-    @Override
-    public List<TareaDto> findByTrabajoId(@Valid final Long id) {
-        return tareaMapper.tareaToTareaDto(tareaRepository.findByTrabajoId(id));
     }
 
 }

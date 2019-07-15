@@ -35,9 +35,9 @@ public class Trabajo {
     @Column(name = "FECHA_CREACION", nullable = false)
     private Date fechaCreacion;
 
-    @NotBlank
+    @NotNull
     @Column(name = "ID_PERIODO", nullable = false)
-    private String idPeriodo;
+    private Long idPeriodo;
 
     @NotNull
     @Column(name = "FECHA_INICIO_PERIODO", nullable = false)

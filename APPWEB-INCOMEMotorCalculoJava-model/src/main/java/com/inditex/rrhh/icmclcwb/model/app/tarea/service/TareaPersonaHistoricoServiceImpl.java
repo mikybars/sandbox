@@ -2,11 +2,13 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -56,9 +58,17 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     }
 
     @Override
-    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigen(@NotNull final Long idTarea,
+    @Cacheable(value = "itx.icmlcwb.id_persona_by_tarea_and_id_origen", key = "{#idTarea, #idOrigen}")
+    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
             @NotNull final String idOrigen) {
-        return tareaPersonaHistoricoRepository.findIdPersonaByIdTareaAndIdOrigen(idTarea, idOrigen);
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
+    }
+
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato", key = "{#idTarea, #idOrigen, #idsTipoDato}")
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
+            @NotNull final String idOrigen, @NotNull final List<Long> idsTipoDato) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, idsTipoDato);
     }
 
     @Override

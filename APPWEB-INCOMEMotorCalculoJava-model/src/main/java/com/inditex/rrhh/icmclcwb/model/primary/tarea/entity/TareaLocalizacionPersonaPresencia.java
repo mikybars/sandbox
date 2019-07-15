@@ -23,12 +23,11 @@ import lombok.Data;
 @Data
 public class TareaLocalizacionPersonaPresencia {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA")
     private /* BigInteger */ Long id;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
@@ -37,15 +36,15 @@ public class TareaLocalizacionPersonaPresencia {
     @NotBlank
     @Column(name = "ID_LOCALIZACION", nullable = false)
     private String idLocalizacion;
-    
-    @NotNull
-    @Column(name = "FECHA", nullable = false)
-    private Date fecha;
-    
+
+    @NotBlank
+    @Column(name = "ID_CADENA", nullable = false)
+    private String idCadena;
+
     @NotBlank
     @Column(name = "ID_PERSONA", nullable = false)
     private String idPersona;
-
+    
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)
     private String idOrigen;
@@ -54,22 +53,28 @@ public class TareaLocalizacionPersonaPresencia {
     @Column(name = "ID_EMPRESA", nullable = false)
     private String idEmpresa;
     
+    @NotBlank
+    @Column(name = "ID_SECCION", nullable = false)
+    private String idSeccion;
+    
+    @NotNull
+    @Column(name = "FECHA", nullable = false)
+    private Date fecha;
+    
     @NotNull
     @Column(name = "MINUTOS", nullable = false)
     private /* BigInteger */ Long minutos;
+    
+    @NotNull
+    @Column(name = "ID_TIPO_HORA", nullable = false)
+    private /* BigInteger */ String idTipoHora;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
     
     @NotNull
-    @Column(name = "ID_TIPO_HORA", nullable = false)
-    private /* BigInteger */ String idTipoHora;
-    
-    @NotNull
     @Column(name = "ACTIVO", nullable = false)
     private Boolean activo;
-
-    
     
 }

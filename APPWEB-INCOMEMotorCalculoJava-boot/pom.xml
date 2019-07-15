@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.data</groupId>
-            <artifactId>data-framework-starter-jdbc</artifactId>
+            <artifactId>data-framework-starter-jdbc-template</artifactId>
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.common</groupId>
@@ -46,11 +46,16 @@
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.common</groupId>
-            <artifactId>common-framework-starter-graylog-hub</artifactId>
+            <artifactId>common-framework-starter-executor</artifactId>
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.common</groupId>
-            <artifactId>common-framework-starter-executor</artifactId>
+            <artifactId>common-framework-starter-cache-datagrid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- CLIENT DEPENDENCIES -->

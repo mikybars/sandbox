@@ -1,20 +1,27 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
@@ -27,26 +34,39 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.tarea-calculo-persona:${app.envars.repository.batch-size.default}}")
-    private int batchSize;
-
-    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.save']}")
-    private String sqlSave;
-
-    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.mergePersonaCalculo']}")
-    private String sqlMergePersonaCalculo;
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito']}")
+    private String sqlMergePersonaCalculoByAmbito;
+    
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoLocalizacion']}")
+    private String sqlMergePersonaCalculoByAmbitoLocalizacion;
+    
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoPersona']}")
+    private String sqlMergePersonaCalculoByAmbitoPersona;
     
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.updateWithEstado']}")
     private String sqlUpdateWithEstado;
+    
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.findByAlgoritmo']}")
+    private String sqlFindByAlgoritmo;
 
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.updateEstadoActualWithEstadoNuevo']}")
     private String sqlUpdateEstadoActualWithEstadoNuevo;
-    
-    @Override
-    public List<TareaCalculoPersona> save(final List<TareaCalculoPersona> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
 
+    @Override
+    public List<TareaCalculoPersona> findByAlgoritmo(@NotNull @Positive final TareaDto tarea, @NotBlank final AlgoritmoDto algoritmo) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
+        return namedParameterJdbcTemplate.query(sqlFindByAlgoritmo, parameters, new RowMapper<TareaCalculoPersona>() {
+            public TareaCalculoPersona mapRow(ResultSet rs, int rowNum) throws SQLException {
+                TareaCalculoPersona dto = new TareaCalculoPersona();
+                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA));
+                dto.setOrPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+                return dto;
+            }
+        });
+    }
+    
     @Override
     public void updateWithEstadoAndidPersona(final List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -66,11 +86,27 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     }
 
     @Override
-    public void mergePersonaCalculo(@NotNull RunTareaDto tareaDto) {
+    public void mergePersonaCalculoByAmbito(@NotNull RunTareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA, EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
-        namedParameterJdbcTemplate.update(sqlMergePersonaCalculo, params);
+        namedParameterJdbcTemplate.update(sqlMergePersonaCalculoByAmbito, params);
+    }
+    
+    @Override
+    public void mergePersonaCalculoByAmbitoLocalizacion(@NotNull RunTareaDto tareaDto) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA, EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
+        namedParameterJdbcTemplate.update(sqlMergePersonaCalculoByAmbitoLocalizacion, params);
+    }
+    
+    @Override
+    public void mergePersonaCalculoByAmbitoPersona(@NotNull RunTareaDto tareaDto) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA, EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
+        namedParameterJdbcTemplate.update(sqlMergePersonaCalculoByAmbitoPersona, params);
     }
 
     @Override

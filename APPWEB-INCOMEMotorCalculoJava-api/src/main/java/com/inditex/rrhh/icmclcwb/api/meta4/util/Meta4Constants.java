@@ -7,6 +7,6 @@ public class Meta4Constants {
 
 	public static final String META4_DATE_FULL = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 	
-	public static final String TRUE = "S";
+	public static final String TRUE = "1";
 
 }

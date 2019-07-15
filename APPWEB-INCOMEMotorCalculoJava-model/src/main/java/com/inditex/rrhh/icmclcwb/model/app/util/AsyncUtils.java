@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.exception.AsyncIcmclcwbException;
@@ -59,21 +60,33 @@ public class AsyncUtils {
     }
 
     public static void waitAnyOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
+        if (CollectionUtils.isNotEmpty(cfList) && ArrayUtils.isEmpty(cfWait)) {
+            throw new AsyncIcmclcwbException("Error al esperar por llamadas asincronas");
+        }
         CompletableFuture.anyOf(cfWait).join();
         AsyncUtils.isOk(cfList);
     }
 
     public static void waitAnyOfIsOk(final List<CompletableFuture<?>> cfList, final List<CompletableFuture<?>> cfWait) {
+        if (CollectionUtils.isNotEmpty(cfList) && CollectionUtils.isEmpty(cfWait)) {
+            throw new AsyncIcmclcwbException("Error al esperar por llamadas asincronas");
+        }
         AsyncUtils.waitAnyOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfWait.size()]));
         AsyncUtils.isOk(cfWait);
     }
 
     public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final CompletableFuture<?>... cfWait) {
+        if (CollectionUtils.isNotEmpty(cfList) && ArrayUtils.isEmpty(cfWait)) {
+            throw new AsyncIcmclcwbException("Error al esperar por llamadas asincronas");
+        }
         CompletableFuture.allOf(cfWait).join();
         AsyncUtils.isOk(cfList);
     }
 
     public static void waitAllOfIsOk(final List<CompletableFuture<?>> cfList, final List<CompletableFuture<?>> cfWait) {
+        if (CollectionUtils.isNotEmpty(cfList) && CollectionUtils.isEmpty(cfWait)) {
+            throw new AsyncIcmclcwbException("Error al esperar por llamadas asincronas");
+        }
         AsyncUtils.waitAllOfIsOk(cfList, cfWait.toArray(new CompletableFuture[cfWait.size()]));
         AsyncUtils.isOk(cfWait);
     }

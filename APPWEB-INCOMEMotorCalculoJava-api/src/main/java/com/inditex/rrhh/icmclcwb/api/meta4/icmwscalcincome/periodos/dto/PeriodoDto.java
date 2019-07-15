@@ -16,7 +16,7 @@ public class PeriodoDto implements Serializable {
 	private static final long serialVersionUID = -5607507260079003307L;
 
 	@ApiModelProperty(value = "Identificador del periodo", required = false)
-	private String id;
+	private Long id;
 	
 	@NotNull
 	@ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true)

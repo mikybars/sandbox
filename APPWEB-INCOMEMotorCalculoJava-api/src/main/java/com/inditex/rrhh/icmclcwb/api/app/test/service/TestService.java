@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.test.service;
 
+import javax.validation.constraints.NotNull;
+
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 
@@ -15,6 +17,8 @@ public interface TestService {
 	
 	void sesion();
 	
-	void trabajoFase1a();
+	void programacionBatch();
+
+    void testBloqueos(@NotNull final Long limit);
 
 }

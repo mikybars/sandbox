@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
@@ -33,11 +34,6 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     private TareaCalculoPersonaRepositoryCustom tareaCalculoPersonaRepositoryCustom;
 
     @Override
-    public void save(final List<TareaCalculoPersonaDto> personas, final EstadoTareaPersonaDto estado) {
-        tareaCalculoPersonaRepositoryCustom.save(tareaCalculoPersonaMapper.tareaCalculoPersonaDtoToTareaCalculoPersona(personas, estado));
-    }
-    
-    @Override
     public void updateWithEstadoAndidPersona(final List<TareaCalculoPersonaDto> personas, RunTareaDto runTareaDto , final EstadoTareaPersonaDto estado) {
         tareaCalculoPersonaRepositoryCustom.updateWithEstadoAndidPersona(personas.stream().map(e->e.getIdPersona()).collect(Collectors.toList()), runTareaDto, estado);
     }
@@ -48,14 +44,30 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     }
     
     @Override
-    public void mergePersonaCalculo(RunTareaDto runTareaDto) {
-        tareaCalculoPersonaRepositoryCustom.mergePersonaCalculo(runTareaDto);
+    public void mergePersonaCalculoByAmbito(RunTareaDto runTareaDto) {
+        tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito(runTareaDto);
+    }
+    
+    @Override
+    public void mergePersonaCalculoByAmbitoLocalizacion(final RunTareaDto runTareaDto) {
+        tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoLocalizacion(runTareaDto);
+    }
+    
+    @Override
+    public void mergePersonaCalculoByAmbitoPersona(final RunTareaDto runTareaDto) {
+        tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoPersona(runTareaDto);
     }
 
     @Override
     public List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
         return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
                 tareaCalculoPersonaRepository.findByTareaId(tarea.getId()));
+    }
+    
+    @Override
+    public List<TareaCalculoPersonaDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final AlgoritmoDto algoritmo) {
+        return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
+                tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(tarea, algoritmo));
     }
 
 }

@@ -14,24 +14,22 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 
 @Service
-public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstructuraAsyncService {
+public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstructuraAsyncService{
 
     @Autowired
     private TareaPersonaEstructuraService tareaPersonaEstructuraService;
-
     
     @Override
-    public CompletableFuture<Void> save(final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
-           final TareaDto tarea) {
-        tareaPersonaEstructuraService.save(tareaPersonaEstructura, tarea);
+    public CompletableFuture<Void> save(List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+            TareaDto tareaDto) {
+        tareaPersonaEstructuraService.save(tareaPersonaEstructura, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    
     @Override
     public CompletableFuture<Void> saveComisionEmpleadoResultItemDto(
-            final List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto,final TareaDto tarea) {
-        tareaPersonaEstructuraService.saveComisionEmpleadoResultItemDto(comisionEmpleadoResultItemDto, tarea);
+            List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto, TareaDto tareaDto) {
+        tareaPersonaEstructuraService.saveComisionEmpleadoResultItemDto(comisionEmpleadoResultItemDto, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

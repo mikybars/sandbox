@@ -1,28 +1,31 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoGrupoEnum;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaSeccionRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryProcesarCustom;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaSeccionRespositoryProcesarCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRespositoryProcesarCustom;
 
 @Service
 @Validated
 public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaService {
 
     @Autowired
-    private TareaLocalizacionVentaSeccionRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
+    private TareaLocalizacionVentaRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
 
     @Autowired
     private TareaLocalizacionVentaRepositoryProcesarCustom tareaTiendaVentaRepository;
@@ -31,53 +34,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
 
     @Autowired
-    private TareaAgrupacionCadenaRepositoryCustom tareaAgrupacionCadenaRepository;
-
-    @Autowired
-    private TareaAgrupacionCadenaSeccionRepositoryCustom tareaAgrupacionCadenaSeccionRepository;
-
-    @Auditoria
-    @Override
-    public void ventaOnlineEntregaTiendaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA);
-    }
-
-    @Auditoria
-    @Override
-    public void ventaOnlineEntregaTiendaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_CADENA_SECCION,
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_AGRUPACION_CADENA_SECCION);
-    }
-
-    @Auditoria
-    @Override
-    public void ventaFisicaAgrupacionCadena(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaRepository.procesar(runTarea.getTarea(), TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA,
-                TipoDatoEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA);
-    }
-
-    @Auditoria
-    @Override
-    public void ventaFisicaAgrupacionCadenaSeccion(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionCadenaSeccionRepository.procesar(runTarea.getTarea(),
-                TipoDatoEnum.IMPORTE_VENTA_FISICA_CADENA_SECCION,
-                TipoDatoEnum.IMPORTE_VENTA_FISICA_AGRUPACION_CADENA_SECCION);
-    }
-
-    @Auditoria
-    @Override
-    public void ventaLocalizacionSeccion(@Valid RunTareaDto runTarea) {
-        tareaTiendaVentaSeccionRepository.procesar(runTarea.getTarea(),
-                TipoDatoGrupoEnum.VENTA_LOCALIZACION_SECCION.getValue());
-    }
-
-    @Override
-    public void ventaLocalizacionTienda(@Valid RunTareaDto runTarea) {
-        tareaTiendaVentaRepository.procesar(runTarea.getTarea(), TipoDatoGrupoEnum.VENTA_LOCALIZACION.getValue());
-    }
+    private TipoDatoService tipoDatoService;
 
     @Override
     public void saveAbierto(@Valid RunTareaDto runTarea) {
@@ -86,32 +43,38 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void saveCerrado(@Valid RunTareaDto runTarea) {
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
-                TipoDatoGrupoEnum.VENTA_ONLINE.getValue());
+                ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
     public void trasladar(@Valid RunTareaDto runTarea) {
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(),
-                TipoDatoGrupoEnum.VENTA_ONLINE.getValue());
+            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
     public void compensar(@Valid RunTareaDto runTarea) {
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(),
-                TipoDatoGrupoEnum.VENTA_ONLINE.getValue());
+            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
-    @Auditoria
     @Override
     public void repartoVentaEntregaDomicilioAgrupaciones(@Valid RunTareaDto runTarea) {
         tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioAgrupaciones(runTarea.getTarea());
     }
 
-    @Auditoria
     @Override
-    public void repartoVentaEntregaDomicilioCadenas(@Valid RunTareaDto runTarea) {
-        tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioCadenas(runTarea.getTarea());
+    public void repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(@Valid RunTareaDto runTarea) {
+        tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(runTarea.getTarea());
+    }
+
+    @Override
+    public void repartoVentaEntregaDomicilioSeccion(@Valid RunTareaDto runTarea) {
+        tareaTiendaVentaSeccionRepository.procesarRepartoEntregaDomicilio(runTarea.getTarea());
     }
 
 }

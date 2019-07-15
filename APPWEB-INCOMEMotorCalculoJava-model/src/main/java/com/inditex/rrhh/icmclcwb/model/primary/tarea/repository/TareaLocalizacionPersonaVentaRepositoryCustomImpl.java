@@ -17,7 +17,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
     @Value("${app.envars.repository.batch-size.tarea-localizacion-persona-venta:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.save']}")
     private String sqlSave;
 
@@ -36,5 +36,5 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
         pstmt.setDouble(6, entity.getTipoDato().getId());
         pstmt.setLong(7, entity.getTarea().getId());
     }
-    
+
 }

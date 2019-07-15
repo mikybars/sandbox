@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,13 +16,10 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDt
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
-import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 
 @Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class })
-@DecoratedWith(value = TrabajoMapperDecorator.class)
 public abstract class TrabajoMapper {
 
     @Mapping(target = "idProgramacion", expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ? src.getProgramacion().getId() : null)")
@@ -37,7 +33,7 @@ public abstract class TrabajoMapper {
     public abstract List<Trabajo> trabajoDtoToTrabajo(List<TrabajoDto> src);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "fechaCreacion", ignore = true /* expression = "java(java.time.LocalDateTime.now())" */)
+    @Mapping(target = "fechaCreacion", ignore = true)
     @Mapping(target = "idProgramacion", source = "srcProgramacion.id")
     @Mapping(target = "tipoAmbito", source = "srcProgramacion.tipoAmbito")
     @Mapping(target = "idUsuario", source = "srcProgramacion.idUsuario")
@@ -47,11 +43,6 @@ public abstract class TrabajoMapper {
     @Mapping(target = "idSociedad", source = "srcProgramacionAmbito.idSociedad")
     public abstract TrabajoDto mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
             ProgramacionAmbitoDto srcProgramacionAmbito, ProgramacionDto srcProgramacion, PeriodoDto srcPeriodo);
-
-    public List<TrabajoDto> mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
-            List<ProgramacionAmbitoDto> srcProgramacionAmbito, ProgramacionDto srcProgramacion, PeriodoDto srcPeriodo) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTrabajo", ignore = true)

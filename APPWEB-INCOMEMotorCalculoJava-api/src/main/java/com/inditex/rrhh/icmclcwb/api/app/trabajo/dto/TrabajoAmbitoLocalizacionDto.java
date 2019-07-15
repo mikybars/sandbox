@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.trabajo.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -7,7 +9,9 @@ import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 
 @Data
-public class TrabajoAmbitoLocalizacionDto {
+public class TrabajoAmbitoLocalizacionDto implements Serializable {
+
+    private static final long serialVersionUID = -3060137115571011963L;
 
     @ApiModelProperty(value = "Identificador del ambito localizacion del trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long id;

@@ -17,39 +17,62 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
     private RunTareaProcesarPresenciaService runTareaProcesarPresenciaService;
     
     @Override
-    public CompletableFuture<Void> compensarLocalizacionSeccion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.compensarLocalizacionSeccion(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    @Override
     public CompletableFuture<Void> compensarLocalizacion(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.compensarLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> compensarLocalizacionEcommerce(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.compensarLocalizacionEcommerce(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
     
     @Override
-    public CompletableFuture<Void> updateActivoLocalizacionPersonaSeccionPresencia(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaSeccionPresencia(runTarea);
+    public CompletableFuture<Void> totalizarLocalizacion(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.totalizarLocalizacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> updateActivoLocalizacionPersonaPresencia(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresencia(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> updateActivoLocalizacionPersonaPresenciaVacio(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> compensarLocalizacionPersonaPresencia(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.compensarLocalizacionPersonaPresencia(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> updateActivoLocalizacion(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.updateActivoLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoLocalizacionPersonaPresenciaSeccion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresenciaSeccion(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    @Override
-    public CompletableFuture<Void> updateActivoTotalizadoLocalizacion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.updateActivoTotalizadoLocalizacion(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    @Override
-    public CompletableFuture<Void> updateActivoTotalizadoLocalizacionSeccion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.updateActivoTotalizadoLocalizacionSeccion(runTarea);
+    public CompletableFuture<Void> updateActivoLocalizacionVacio(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.updateActivoLocalizacionVacio(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> updateActivoLocalizacionEcommerce(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.updateActivoLocalizacionEcommerce(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> calcularPresenciasTotalesAgrupacion(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

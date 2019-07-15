@@ -18,5 +18,15 @@ public class Meta4PropertiesConstants {
     public static final String FESTIVOS = "getFestivos";
     public static final String COEF_JORNADA = "getCoefJornada";
     public static final String FLAG_CALCULA = "getFlagCalcula";
+    public static final String CONF_VENTA_ONLINE = "getConfVentaOnline";
+    public static final String AGRUPACION_ONLINE = "getAgrupOnline";
+    public static final String TIENDAS_ONLINE = "getTiendasOnline";
+    public static final String CONF_PRODUCTO_VENTA = "getConfiguracionProductoVenta";
+    public static final String EMPRESA = "getEmpresa";
+    public static final String ORIGEN = "getOrigen";
+    public static final String ESTRUCTURAS_DESPLAZ = "getEstructurasDesplazamiento";
+    public static final String ESTRUCTURAS_POLITICAS = "getEstructurasPoliticas";
+    public static final String EMPLEADOS_DESPLAZAMIENTO = "getEmpleadosDesplazamiento";
 
+    
 }

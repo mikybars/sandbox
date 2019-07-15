@@ -7,8 +7,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 
 public class ComisionEmpleadoRequestDto extends PageableDto<GenericFilterDto>
-		implements Pageable<GenericFilterDto>, Serializable {
+        implements Pageable<GenericFilterDto>, Serializable {
 
-	private static final long serialVersionUID = -3120142266766920162L;
+    private static final long serialVersionUID = -3120142266766920162L;
 
 }

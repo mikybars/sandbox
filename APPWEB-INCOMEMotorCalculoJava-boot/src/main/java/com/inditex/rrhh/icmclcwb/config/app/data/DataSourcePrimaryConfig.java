@@ -30,7 +30,7 @@ public class DataSourcePrimaryConfig {
     @Primary
     @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.primary")
     public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
-        return dataSourceBuilder.build(DataSourceType.NONXA);
+        return dataSourceBuilder.build(DataSourceType.XA);
     }
 
     @Bean(name = "primaryJpaProperties")

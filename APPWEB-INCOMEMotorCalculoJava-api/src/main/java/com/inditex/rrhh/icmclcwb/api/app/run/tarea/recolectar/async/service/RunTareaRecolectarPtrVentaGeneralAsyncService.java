@@ -11,6 +11,6 @@ public interface RunTareaRecolectarPtrVentaGeneralAsyncService {
 
     CompletableFuture<Void> ventaFisicaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
 
-    CompletableFuture<Void> ventaFisicaLocalizacionByRunTarea(final RunTareaDto runTarea);
+    CompletableFuture<Void> ventaFisicaCadenaByRunTarea(final RunTareaDto runTarea);
 
 }

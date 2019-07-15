@@ -1,9 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +29,9 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
     
     @Autowired
     TareaLocalizacionAbiertaMapper tareaLocalizacionAbiertaMapper;
+
+    @Autowired
+    TipoDatoService tipoDatoService;
     
     @Override
     public void saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
@@ -32,18 +40,8 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
     
     @Override
     public void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
-        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto, Arrays.asList(
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_DOMICILIO_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_ENTREGA_TIENDA_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_PERSONA.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_INDIVIDUAL_OPERACION_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION.getId(),
-                TipoDatoEnum.IMPORTE_VENTA_ONLINE_PICKING_LOCALIZACION_SECCION.getId()
-            ));
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto,
+            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 }

@@ -31,8 +31,8 @@ public class PtrPresenciaTotalizadoRequestDto implements Serializable {
     @ApiModelProperty(value = "Id tipo", required = false, example = "1")
     private Integer tipo;
 
-	@ApiModelProperty(value = "Id cadena", required = false, example = " 4 ")
-	private Integer cadena;
+	@ApiModelProperty(value = "Id cadena", required = false, example = "4")
+	private List<Integer> cadena;
 	
 	@NotNull
 	@ApiModelProperty(value = "Id origen", required = true, example = "11")

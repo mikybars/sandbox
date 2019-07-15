@@ -28,6 +28,9 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     @Value("#{primaryQuery['RunTareaValidarService.checkDuplicatedTiendasHistorico']}")
     private String sqlCheckDuplicatedTiendasHistorico;
     
+    @Value("#{primaryQuery['RunTareaValidarService.checkDuplicatedTiposHora']}")
+    private String sqlCheckDuplicatedTiposHora;
+    
     @Value("#{primaryQuery['RunTareaValidarService.countEmpleadosHistorico']}")
     private String sqlCountEmpleadosHistorico;
     
@@ -43,6 +46,7 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     @Value("#{primaryQuery['RunTareaValidarService.countTiendaEmpleadoPresenciaSeccion']}")
     private String sqlCountTiendaEmpleadoPresenciaSeccion;
 
+    //TODO REVISAR LA QUERY
     @Value("#{primaryQuery['RunTareaValidarService.countTiendaVentaSeccion']}")
     private String sqlCountTiendaVentaSeccion;
     
@@ -96,6 +100,17 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.query(sqlCheckDuplicatedTiendasHistorico, parameters, new RowMapper<String>() {
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                  return rs.getString(1);
+            }
+        });
+    }
+    
+    @Override
+    public List<String> checkDuplicatedTiposHora(@NotNull @Positive final Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        return namedParameterJdbcTemplate.query(sqlCheckDuplicatedTiposHora, parameters, new RowMapper<String>() {
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                   return rs.getString(1);
             }

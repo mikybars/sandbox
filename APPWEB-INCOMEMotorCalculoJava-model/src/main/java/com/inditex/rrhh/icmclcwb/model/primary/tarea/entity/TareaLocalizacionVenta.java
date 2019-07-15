@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
@@ -44,16 +45,24 @@ public class TareaLocalizacionVenta {
     @Column(name = "ID_CADENA", nullable = false)
     private String idCadena;
     
+    @NotBlank
+    @Column(name = "ID_SECCION", nullable = false)
+    private String idSeccion;
+    
     @NotNull
-    @Column(name = "IMPORTE", nullable = false)
+    @Column(name = "IMPORTE_SECCION", nullable = false)
     private /* BigInteger */ Double importe;
     
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
+    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION", nullable = false)
     private /* BigInteger */ Double importeConImpuestos;
-
+    
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
 
+    @NotNull
+    @Column(name = "ACTIVO", nullable = false)
+    private Boolean activo;
+    
 }

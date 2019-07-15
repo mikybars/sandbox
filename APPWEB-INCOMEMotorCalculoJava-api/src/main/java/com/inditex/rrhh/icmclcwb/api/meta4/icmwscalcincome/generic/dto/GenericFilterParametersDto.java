@@ -27,11 +27,58 @@ public class GenericFilterParametersDto implements Serializable {
     
     private String activo;
     
+    private String ambito;
+
+    private String idPais;
+
     private String abierto;
+    
+    private String vigente;
     
     private String idTipoHora;
 
     private String idEmpleadoLocal;
     
     private String idLugarTrabajoMtu;
+
+    private String idCadena;
+    
+    private String idOrigenReg;
+    
+    private String idSociedadReg;
+    
+    private String idEstado;
+    
+    private String idRegion;
+    
+    private String idPeriodo;
+    
+    private String idUsuario;
+    
+    private String resultado;
+    
+    private String fechaDesde;
+    
+    private String fechaHasta;
+    
+    private String idCadenaReg;
+    
+    private String idPoblacion;
+    
+    private String idTipoProceso;
+    
+    private String nombreEmpleado;
+    
+    private String fechaFinCalculo;
+    
+    private String apellidoEmpleado;
+    
+    private String fechaInicioCalculo;
+    
+    private String idManualProgramado;
+    
+    private String fechaFinExportacion;
+    
+    private String fechaInicioExportacion;
+
 }

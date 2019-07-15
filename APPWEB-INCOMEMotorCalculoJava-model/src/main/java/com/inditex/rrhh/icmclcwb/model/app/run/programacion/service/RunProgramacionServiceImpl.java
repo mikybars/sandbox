@@ -2,9 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.app.run.programacion.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
@@ -12,7 +12,13 @@ import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionPeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 
 @Service
 @Validated
@@ -22,22 +28,40 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     private ProgramacionService programacionService;
 
     @Autowired
+    private PeriodoMapper periodoMapper;
+
+    @Autowired
     private TrabajoService trabajoService;
 
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
+    @Transactional
     @Override
     public List<RunProgramacionDto> run() {
         List<RunProgramacionDto> result = new ArrayList<>();
         programacionService.findPendiente().stream().forEach(programacion -> {
-            programacionService.updateEjecucion(programacion);
             RunProgramacionDto runProgramacion = RunProgramacionDto.builder().programacion(programacion)
                     .runProgramacionPeriodo(new ArrayList<>()).build();
-            meta4IcmWsCalcIncomeSessionService.periodo().stream().forEach(periodo -> {
-                RunProgramacionPeriodoDto runProgramacionPeriodo = RunProgramacionPeriodoDto.builder().periodo(periodo)
-                        .trabajo(trabajoService.create(programacion, periodo)).build();
-                runProgramacion.getRunProgramacionPeriodo().add(runProgramacionPeriodo);
+            programacionService.updateEjecucion(programacion);
+            programacion.getAmbito().stream().forEach(programacionAmbito -> {
+                PeriodosRequestDto request = new PeriodosRequestDto();
+                request.setPage(new PageDto());
+                request.setData(new GenericFilterDto());
+                request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+                request.getData().getItem()
+                        .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdSociedad())
+                                .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
+                                .vigente(Boolean.TRUE.toString()).build());
+                List<PeriodoDto> periodos = periodoMapper
+                        .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
+                periodos.stream().forEach(periodo -> {
+                    RunProgramacionPeriodoDto runProgramacionPeriodo = RunProgramacionPeriodoDto.builder()
+                            .periodo(periodo).programacionAmbito(programacionAmbito).trabajo(trabajoService
+                                    .create(trabajoService.merge(programacion, programacionAmbito, periodo)))
+                            .build();
+                    runProgramacion.getRunProgramacionPeriodo().add(runProgramacionPeriodo);
+                });
             });
             result.add(runProgramacion);
         });

@@ -4,6 +4,7 @@
 *.war
 *.ear
 *.class
+MANIFEST.MF
 
 # yarn
 yarn.lock

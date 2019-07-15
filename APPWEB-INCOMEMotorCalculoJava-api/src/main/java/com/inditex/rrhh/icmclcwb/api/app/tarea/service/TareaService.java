@@ -20,13 +20,13 @@ public interface TareaService {
 
     List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo);
 
-    int modifyEstadoTarea(@Valid final TareaDto tarea, @Valid final EstadoTareaDto estado);
-
-    int modifyFechaInicioTarea(@Valid final TareaDto tarea);
-
-    int modifyFechaFinTarea(@Valid final TareaDto tarea);
-
     List<TareaDto> findByTrabajoId(@Valid Long id);
+
+    void updateFechaFin(@NotNull final TareaDto tarea);
+    
+    void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
+
+    void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
 
     void updateEstadoFinal(@Valid final TareaDto tarea);
 

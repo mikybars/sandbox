@@ -10,7 +10,7 @@ public interface TareaCalculoAlgoritmoBaseRepositoryCustom {
 
     List<TareaCalculoPersonaDto> ids(final AlgoritmoDto algoritmo, final TareaDto tarea);
 
-    void calcular(final AlgoritmoDto algoritmo, final TareaDto tarea, final List<TareaCalculoPersonaDto> persona);
+    void calcular(final AlgoritmoDto algoritmo, final TareaDto tarea, final List<TareaCalculoPersonaDto> personas);
     
     String getSqlCalcular(final AlgoritmoDto algoritmo);
 
