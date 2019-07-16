@@ -626,9 +626,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 List<ComisionEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
                         .get(Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaPersonaEstructuraAsyncService
-                        .saveComisionEmpleadoResultItemDto(data, tarea);
-                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+//                TODO: Persistir
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
