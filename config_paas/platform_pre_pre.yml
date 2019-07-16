@@ -1,5 +1,5 @@
 app:
-  replicas: 5
+  replicas: 4
   instrumented:
     replicas: 1
 datagrid:
