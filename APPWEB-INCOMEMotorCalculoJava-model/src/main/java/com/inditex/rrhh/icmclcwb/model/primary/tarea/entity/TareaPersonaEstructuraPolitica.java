@@ -1,0 +1,69 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
+import lombok.Builder;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
+@Entity
+@Table(name = "TAREA_PERSONA_ESTRUCTURA_POLITICA")
+@Data
+public class TareaPersonaEstructuraPolitica {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA")
+    private Long id;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TAREA", nullable = false)
+    private /* BigInteger */ Tarea tarea;
+
+    @NotBlank
+    @Column(name = "ID_ORIGEN", nullable = false)
+    private String idOrigen;
+
+    @NotBlank
+    @Column(name = "ID_PERSONA", nullable = false)
+    private String idPersona;
+
+    @NotBlank
+    @Column(name = "OR_PERSONA", nullable = false)
+    private String orPersona;
+
+    @NotBlank
+    @Column(name = "ID_PERSONA_LOCAL", nullable = false)
+    private String idPersonaLocal;
+
+    @NotBlank
+    @Column(name = "ID_ESTRUCTURA_POLITICA", nullable = false)
+    private String idEstructuraPolitica;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_POLITICA")
+    private TipoPolitica tipoPolitica;
+
+    @NotNull
+    @Column(name = "FECHA_INICIO", nullable = false)
+    private Date fechaInicio;
+
+    @NotNull
+    @Column(name = "FECHA_FIN", nullable = false)
+    private Date fechaFin;
+
+    @Column(name = "EXCLUIDO_DENOMINADOR", nullable = false)
+    private Boolean excluidoDenominador;
+}

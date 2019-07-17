@@ -729,6 +729,13 @@ VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ]]>
 </entry>
 
+    <entry key="TareaPersonaEstructuraPoliticaRepositoryCustom.save">
+        <![CDATA[
+INSERT INTO TAREA_PERSONA_ESTRUCTURA_POLITICA (FECHA_FIN, FECHA_INICIO, ID_PERSONA, ID_PERSONA_LOCAL, ID_ESTRUCTURA_POLITICA, ID_TIPO_POLITICA, OR_PERSONA, ID_TAREA, ID_ORIGEN, EXCLUIDO_DENOMINADOR)
+VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ]]>
+    </entry>
+
 <entry key="RunTareaCalcularService.customFindAlgoritmosIdsByTarea">
     <![CDATA[
     SELECT A.ID_ALGORITMO FROM ALGORITMO A 
@@ -976,7 +983,8 @@ MERGE INTO TAREA_LOCALIZACION_VENTA  USING
         AND VTF.ID_LOCALIZACION = TP.ID_LOCALIZACION
         AND VTF.ID_SECCION = TP.ID_SECCION
         AND VTF.ID_TAREA = TP.ID_TAREA
-        AND TP.ID_TIPO_DATO = :idTipoPresencia
+        AND TP.ID_TIPO_DATO IN (:tiposDato)
+        AND TP.ACTIVO = :activo
     JOIN TAREA_LOCALIZACION_HISTORICO H
         ON VTF.ID_LOCALIZACION = H.CCL_ID_COD_ORIGEN
         AND VTF.FECHA <= H.FECHA_FIN

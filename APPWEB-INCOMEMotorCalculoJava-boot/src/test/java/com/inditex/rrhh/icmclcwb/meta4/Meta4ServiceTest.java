@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrpoliticasOutput;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Ignore;
@@ -338,6 +339,20 @@ public class Meta4ServiceTest {
         param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
         GetempleadosOutput getEmpleadosOutput = meta4ClientPool.getempleados(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getEmpleadosOutput.getReturn()));
+    }
+
+    @Test
+    public void getPoliticas() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdempleado("AT1010154");
+        record.setOrempleado("1");
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setIdorigen("38");
+        param1.setFechainicio("2015-01-01");
+        param1.setFechafin("2015-08-31");
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        GetestrpoliticasOutput getestrpoliticas = meta4ClientPool.getestrpoliticas(param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getestrpoliticas.getReturn()));
     }
 
 }
