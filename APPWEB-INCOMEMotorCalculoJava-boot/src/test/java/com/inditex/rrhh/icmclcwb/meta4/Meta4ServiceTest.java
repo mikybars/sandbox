@@ -262,6 +262,7 @@ public class Meta4ServiceTest {
     public void getComisionEmpleado() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
         record.setIdempleado(Meta4TestConstants.ID_PERSONA);
+        record.setOrempleado(Meta4TestConstants.OR_PERSONA);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
@@ -298,6 +299,7 @@ public class Meta4ServiceTest {
             List<IcmParametrosentradaRecord> entradas2 = emprec.stream().map(obj -> {
                 final IcmParametrosentradaRecord obj2 = new IcmParametrosentradaRecord();
                 obj2.setIdempleado(obj.getIdempleado());
+                obj2.setOrempleado(obj.getOrempleado());
                 return obj2;
             }).collect(Collectors.toList());
             param1.getIcmParametrosentradaRecordSet().addAll(entradas2);
