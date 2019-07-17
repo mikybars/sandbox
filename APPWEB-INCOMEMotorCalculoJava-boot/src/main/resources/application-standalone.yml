@@ -66,6 +66,18 @@ amiga:
 #          username: srvcicmclcwbpreAX
 #          password: xynEJHKK4bu)
         #[PTR][PRE][INICIO]
+    resilience:
+      backends:
+        trabajo:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
+        tarea:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
   service:
     jms:
       listener:
