@@ -33,6 +33,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="accion" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ambito" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idcadena" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -49,6 +51,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParametrosentradaBlock", propOrder = {
+    "accion",
+    "ambito",
     "fechafin",
     "idcadena",
     "idorigen",
@@ -59,6 +63,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    @XmlElement(required = true, nillable = true)
+    protected String accion;
+    @XmlElement(required = true, nillable = true)
+    protected String ambito;
     @XmlElement(required = true, nillable = true)
     protected String fechafin;
     @XmlElement(required = true, nillable = true)
@@ -71,6 +79,54 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
     protected String fechainicio;
     @XmlElement(name = "Icm_ParametrosentradaRecordSet", nillable = true)
     protected List<IcmParametrosentradaRecord> icmParametrosentradaRecordSet;
+
+    /**
+     * Obtiene el valor de la propiedad accion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAccion() {
+        return accion;
+    }
+
+    /**
+     * Define el valor de la propiedad accion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAccion(String value) {
+        this.accion = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad ambito.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAmbito() {
+        return ambito;
+    }
+
+    /**
+     * Define el valor de la propiedad ambito.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAmbito(String value) {
+        this.ambito = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad fechafin.
@@ -230,6 +286,24 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
         }
         final IcmParametrosentradaBlock that = ((IcmParametrosentradaBlock) object);
         {
+            String lhsAccion;
+            lhsAccion = this.getAccion();
+            String rhsAccion;
+            rhsAccion = that.getAccion();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "accion", lhsAccion), LocatorUtils.property(thatLocator, "accion", rhsAccion), lhsAccion, rhsAccion, (this.accion!= null), (that.accion!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsAmbito;
+            lhsAmbito = this.getAmbito();
+            String rhsAmbito;
+            rhsAmbito = that.getAmbito();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "ambito", lhsAmbito), LocatorUtils.property(thatLocator, "ambito", rhsAmbito), lhsAmbito, rhsAmbito, (this.ambito!= null), (that.ambito!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsFechafin;
             lhsFechafin = this.getFechafin();
             String rhsFechafin;
@@ -307,6 +381,16 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
+            String theAccion;
+            theAccion = this.getAccion();
+            strategy.appendField(locator, this, "accion", buffer, theAccion, (this.accion!= null));
+        }
+        {
+            String theAmbito;
+            theAmbito = this.getAmbito();
+            strategy.appendField(locator, this, "ambito", buffer, theAmbito, (this.ambito!= null));
+        }
+        {
             String theFechafin;
             theFechafin = this.getFechafin();
             strategy.appendField(locator, this, "fechafin", buffer, theFechafin, (this.fechafin!= null));
@@ -341,6 +425,16 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
 
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
+        {
+            String theAccion;
+            theAccion = this.getAccion();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "accion", theAccion), currentHashCode, theAccion, (this.accion!= null));
+        }
+        {
+            String theAmbito;
+            theAmbito = this.getAmbito();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "ambito", theAmbito), currentHashCode, theAmbito, (this.ambito!= null));
+        }
         {
             String theFechafin;
             theFechafin = this.getFechafin();
@@ -392,6 +486,32 @@ public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, H
         final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmParametrosentradaBlock) {
             final IcmParametrosentradaBlock copy = ((IcmParametrosentradaBlock) draftCopy);
+            {
+                Boolean accionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.accion!= null));
+                if (accionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceAccion;
+                    sourceAccion = this.getAccion();
+                    String copyAccion = ((String) strategy.copy(LocatorUtils.property(locator, "accion", sourceAccion), sourceAccion, (this.accion!= null)));
+                    copy.setAccion(copyAccion);
+                } else {
+                    if (accionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.accion = null;
+                    }
+                }
+            }
+            {
+                Boolean ambitoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.ambito!= null));
+                if (ambitoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceAmbito;
+                    sourceAmbito = this.getAmbito();
+                    String copyAmbito = ((String) strategy.copy(LocatorUtils.property(locator, "ambito", sourceAmbito), sourceAmbito, (this.ambito!= null)));
+                    copy.setAmbito(copyAmbito);
+                } else {
+                    if (ambitoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.ambito = null;
+                    }
+                }
+            }
             {
                 Boolean fechafinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafin!= null));
                 if (fechafinShouldBeCopiedAndSet == Boolean.TRUE) {
