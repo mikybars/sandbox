@@ -1,0 +1,63 @@
+package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
+
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraPoliticaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPersonaEstructuraPoliticaMapper {
+
+    @Autowired
+    private TareaPersonaEstructuraPoliticaMapper delegate;
+
+    @Override
+    public TareaPersonaEstructuraPolitica tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(TareaPersonaEstructuraPoliticaDto src) {
+        TareaPersonaEstructuraPolitica result = delegate.tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(src);
+        result.setTipoPolitica(new TipoPolitica());
+        result.getTipoPolitica().setId(TipoPoliticaEnum.fromIdMeta4(src.getIdTipoPolitica()).getId());
+        return result;
+    }
+
+    @Override
+    public List<TareaPersonaEstructuraPolitica> tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(List<TareaPersonaEstructuraPoliticaDto> src) {
+        List<TareaPersonaEstructuraPolitica> result = new ArrayList<>();
+        src.forEach(x -> result.add(tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(x)));
+        return result;
+    }
+
+    @Override
+    public TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(TareaPersonaEstructuraPolitica src) {
+        TareaPersonaEstructuraPoliticaDto  result = delegate.tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(src);
+        result.setIdTipoPolitica(TipoPoliticaEnum.fromId(src.getTipoPolitica().getId()).getIdMeta4());
+        return result;
+    }
+
+    @Override
+    public List<TareaPersonaEstructuraPoliticaDto> tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(List<TareaPersonaEstructuraPolitica> src) {
+        List<TareaPersonaEstructuraPoliticaDto> result = new ArrayList<>();
+        src.forEach(x -> result.add(tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(x)));
+        return result;
+    }
+
+    @Override
+    public TareaPersonaEstructuraPolitica comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(ComisionEmpleadoResultItemDto src, TareaDto tarea) {
+        TareaPersonaEstructuraPolitica result = delegate.comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(src, tarea);
+        result.setTipoPolitica(new TipoPolitica());
+        result.getTipoPolitica().setId(TipoPoliticaEnum.fromIdMeta4(src.getIdTipoPolitica()).getId());
+        return result;
+    }
+
+    @Override
+    public List<TareaPersonaEstructuraPolitica> comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(List<ComisionEmpleadoResultItemDto> src, TareaDto tarea) {
+        List<TareaPersonaEstructuraPolitica> result = new ArrayList<>();
+        src.forEach(x -> result.add(comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(x, tarea)));
+        return result;
+    }
+}

@@ -95,7 +95,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             Long idTarea = runTarea.getTarea().getId();
             String idOrigen = tareaAmbito.getIdOrigen();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea,
-                    idOrigen, TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
+                    idOrigen);
             if (CollectionUtils.isNotEmpty(cadenas)) {
        
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();

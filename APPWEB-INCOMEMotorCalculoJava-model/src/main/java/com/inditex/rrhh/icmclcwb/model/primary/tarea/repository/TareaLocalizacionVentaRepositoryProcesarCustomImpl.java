@@ -3,6 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +18,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
+import java.util.stream.Collectors;
+
 @Repository
 public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         implements TareaLocalizacionVentaRepositoryProcesarCustom {
@@ -24,6 +29,9 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPresenciaAgrupaciones']}")
     private String sqlProcesarEntregaDomicilioPresenciaAgrupaciones;
+
+    @Autowired
+    private TipoDatoService tipoDatoService;
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
@@ -61,7 +69,11 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION,
                 TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
+                TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId())
+                .stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
                 TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId());
