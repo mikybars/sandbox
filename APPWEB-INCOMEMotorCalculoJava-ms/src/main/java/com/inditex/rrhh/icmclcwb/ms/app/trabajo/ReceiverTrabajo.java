@@ -9,12 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @Component
 public class ReceiverTrabajo {
 
     @Autowired
     private RunService runService;
 
+    @CircuitBreaker(name = "trabajo")
     @Transactional
     @JmsListener(id = "trabajoListener", destination = "${amiga.service.jms.trabajo-queue.destination-fqdn}", containerFactory = "trabajoContainerFactoryListener")
     public void onMessageTrabajoListener(
