@@ -36,6 +36,8 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA,
                 EstadoPeriodoCalculoPersonaEnum.CALCULADO.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR,
+                EstadoPeriodoCalculoPersonaEnum.CALCULADO_ERROR.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.OK.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());

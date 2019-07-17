@@ -27,11 +27,11 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto implements Se
     @ApiModelProperty(value = "Identificador de la persona", required = true)
     private Long idPersona;
     
-//    @NotNull
+    @NotNull
     @ApiModelProperty(value = "Identificador del origen", required = true)
     private Long idOrigen;
     
-//    @NotNull
+    @NotNull
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
     private Long idEmpresa;
 }

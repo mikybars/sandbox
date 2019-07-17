@@ -43,7 +43,9 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
-    
+   
+    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
+    private String sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen;
     
     @Override
     public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
@@ -76,6 +78,21 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
             public IdPersonaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdPersonaDto dto = new IdPersonaDto();
                 dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA));
+                return dto;
+            }
+        });
+    }
+    
+    @Override
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaHistoricoDto>() {
+            public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
+                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA));
+                dto.setOrPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                 return dto;
             }
         });

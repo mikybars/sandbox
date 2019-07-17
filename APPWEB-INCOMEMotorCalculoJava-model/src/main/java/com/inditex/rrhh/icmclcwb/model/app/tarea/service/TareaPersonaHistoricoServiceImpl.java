@@ -63,6 +63,13 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
             @NotNull final String idOrigen) {
         return tareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
     }
+    
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen", key = "{#idTarea, #idOrigen}")
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
+            @NotNull final String idOrigen) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
+    }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato", key = "{#idTarea, #idOrigen, #idsTipoDato}")
