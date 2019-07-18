@@ -6,6 +6,7 @@ logging:
     com.inditex.rrhh.icmclcwb: INFO
     com.atomikos: INFO
     org.apache.activemq: INFO
+    org.apache.cxf: WARN
 metadata:
   domain: core
   environment: local
