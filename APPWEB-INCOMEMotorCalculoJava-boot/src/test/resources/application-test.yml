@@ -5,6 +5,11 @@ spring:
   profiles:
     active: test
 amiga:
+  common:
+    rest:
+      client:
+        health:
+          ping-enabled: false
   service:
     aaa:
       local:
