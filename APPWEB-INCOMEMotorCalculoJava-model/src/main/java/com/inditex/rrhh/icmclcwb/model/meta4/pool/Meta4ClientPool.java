@@ -40,10 +40,6 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     private static final Logger log = LoggerFactory.getLogger(Meta4ClientPool.class);
 
-    private static final String ERROR_MESSAGE_LOG = "Error en la llamada a Meta4";
-
-    private static final String ERROR_MESSAGE_EXCEPTION = "Session caducada (Pool) (Exception)";
-
     private final Meta4ClientFactory meta4ClientFactory;
 
     private final BlazePool<Meta4ClientPoolable> pool;
@@ -75,9 +71,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getestrpoliticas(param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -89,9 +84,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getestrdesplaz(param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -104,9 +98,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getempleadosdesplaz(param2, param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -119,9 +112,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getorigenes(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -134,9 +126,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getempresas(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -150,9 +141,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getcadena(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -165,9 +155,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getconfprodventa(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -180,9 +169,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getconfventaonline(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -194,9 +182,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getagruponline(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -208,9 +195,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getflagcalcula(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -222,9 +208,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getcoefjornada(param2, param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -236,9 +221,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getfestivos(param2, param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -251,9 +235,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getpresenciamanual(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -266,9 +249,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getempleadospresencia(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -280,9 +262,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getperiodos(param2, param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -294,9 +275,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getempleados(param2, param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -308,9 +288,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getcomisionempleado(param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -323,9 +302,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().gettiendasempleado(param2, param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -337,9 +315,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -352,9 +329,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().gettiendasincome(param2, param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -367,9 +343,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().gettiendasonline(param1, param2);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }
@@ -382,9 +357,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().searchempleados(param2, param1);
         } catch (Exception e) {
-            log.warn(ERROR_MESSAGE_LOG, e);
-            expire(client);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            catchException(e, client);
+            throw new Meta4Exception(e.getMessage(), e);
         } finally {
             release(client);
         }

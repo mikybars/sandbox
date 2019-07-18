@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.ws.soap.SOAPFaultException;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,16 +20,24 @@ import stormpot.Timeout;
 
 public class Meta4ClientPoolBase {
 
-	@Value("${app.envars.meta4.config.pool.claimTimeout}")
-	public long claimTimeout;
+    @Autowired
+    private Logger log;
 
-	@Autowired
-	private Logger log;
+    @Value("${app.envars.meta4.config.pool.claimTimeout}")
+    public long claimTimeout;
 
-	@Retryable
-	protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) {
-		log.debug("Inicio :: Meta4ClientPoolBase :: pool.claim()");
-		Meta4ClientPoolable poolable;
+    private static final String EXPIRE_SESSION_MESSAGE_LOG = "Session caducada (Pool)";
+
+    private static final String ERROR_MESSAGE_LOG = "Error en la llamada a Meta4";
+
+    private static final String EXPIRE_SESSION_MESSAGE_EXCEPTION = "Session caducada (Pool) (Exception)";
+    
+    private static final String ERROR_MESSAGE_EXCEPTION = "Error en la llamada a Meta4 (Exception)";
+
+    @Retryable
+    protected Meta4ClientPoolable claim(final BlazePool<Meta4ClientPoolable> pool) {
+        log.debug("Inicio :: Meta4ClientPoolBase :: pool.claim()");
+        Meta4ClientPoolable poolable;
         try {
             Instant start = Instant.now();
             poolable = pool.claim(new Timeout(claimTimeout, TimeUnit.MILLISECONDS));
@@ -46,36 +56,47 @@ public class Meta4ClientPoolBase {
             throw new Meta4Exception(msg, e);
         }
         log.debug("Fin :: Meta4ClientPoolBase :: pool.claim()");
-		return poolable;
-	}
+        return poolable;
+    }
 
-	protected void expire(final Meta4ClientPoolable poolable) {
-		log.warn("Inicio :: Meta4ClientPoolBase :: expire()");
-		if (poolable != null) {
-			log.warn("Inicio :: Meta4ClientPoolBase :: poolable.expire() :: {}", poolable.getSession());
-			poolable.expire();
-			log.warn("Fin :: Meta4ClientPoolBase :: poolable.expire() :: {}", poolable.getSession());
-		}
-		log.warn("Fin :: Meta4ClientPoolBase :: expire()");
-	}
+    protected void catchException(final Exception e, final Meta4ClientPoolable client) {
+        if (e.getClass().equals(SOAPFaultException.class) && e.getLocalizedMessage().contains("RET_ERROR_COMM")) {
+            log.warn(EXPIRE_SESSION_MESSAGE_LOG, e);
+            expire(client);
+            throw new Meta4Exception(EXPIRE_SESSION_MESSAGE_EXCEPTION, e);
+        } else {
+            log.error(ERROR_MESSAGE_LOG, e);
+            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+        }
+    }
 
-	protected void release(final Meta4ClientPoolable poolable) {
-		log.debug("Inicio :: Meta4ClientPoolBase :: release()");
-		if (poolable != null) {
-			log.debug("Inicio :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
-			poolable.release();
-			log.debug("Fin :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
-		}
-		log.debug("Fin :: Meta4ClientPoolBase :: release()");
-	}
+    protected void expire(final Meta4ClientPoolable poolable) {
+        log.warn("Inicio :: Meta4ClientPoolBase :: expire()");
+        if (poolable != null) {
+            log.warn("Inicio :: Meta4ClientPoolBase :: poolable.expire() :: {}", poolable.getSession());
+            poolable.expire();
+            log.warn("Fin :: Meta4ClientPoolBase :: poolable.expire() :: {}", poolable.getSession());
+        }
+        log.warn("Fin :: Meta4ClientPoolBase :: expire()");
+    }
 
-	private void uso(final Meta4ClientPoolable poolable) {
-		poolable.getSession().setUso(poolable.getSession().getUso() + 1);
-		poolable.getSession().setFechaUso(TimeUtils.nowLocalDateTime());
-	}
+    protected void release(final Meta4ClientPoolable poolable) {
+        log.debug("Inicio :: Meta4ClientPoolBase :: release()");
+        if (poolable != null) {
+            log.debug("Inicio :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
+            poolable.release();
+            log.debug("Fin :: Meta4ClientPoolBase :: poolable.release() :: {}", poolable.getSession());
+        }
+        log.debug("Fin :: Meta4ClientPoolBase :: release()");
+    }
 
-	private void logSession(final Meta4ClientSession session) {
-		log.debug("Meta4ClientPoolBase :: logSession() :: {}", session);
-	}
+    private void uso(final Meta4ClientPoolable poolable) {
+        poolable.getSession().setUso(poolable.getSession().getUso() + 1);
+        poolable.getSession().setFechaUso(TimeUtils.nowLocalDateTime());
+    }
+
+    private void logSession(final Meta4ClientSession session) {
+        log.debug("Meta4ClientPoolBase :: logSession() :: {}", session);
+    }
 
 }
