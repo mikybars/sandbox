@@ -66,12 +66,10 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION,
                 TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION,
-                TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
-                TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+                TipoDatoEnum.PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId())
+            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId())
                 .stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
