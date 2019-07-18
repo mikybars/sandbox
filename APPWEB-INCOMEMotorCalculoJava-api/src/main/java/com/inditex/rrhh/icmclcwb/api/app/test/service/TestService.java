@@ -21,4 +21,6 @@ public interface TestService {
 
     void testBloqueos(@NotNull final Long limit);
 
+    void trabajoFase1a();
+    
 }
