@@ -40,7 +40,7 @@ amiga:
       client:
         http:
           connect-timeout: 300000
-          ead-timeout: 300000
+          read-timeout: 300000
         auth:
           method: BASIC
         #[PTR][DES][INICIO]
