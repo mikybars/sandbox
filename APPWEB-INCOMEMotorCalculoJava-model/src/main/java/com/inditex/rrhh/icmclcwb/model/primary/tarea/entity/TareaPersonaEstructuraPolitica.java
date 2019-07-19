@@ -23,7 +23,7 @@ public class TareaPersonaEstructuraPolitica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA")
+    @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA_POLITICA")
     private Long id;
 
     @NotNull

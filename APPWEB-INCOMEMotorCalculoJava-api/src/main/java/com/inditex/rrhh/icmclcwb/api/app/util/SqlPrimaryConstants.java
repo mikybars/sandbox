@@ -45,6 +45,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
 
+    public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
+
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA = "idTipoImporteVenta";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION = "idTipoImporteVentaFisicaLocalizacion";

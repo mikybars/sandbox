@@ -26,7 +26,7 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "idEstructuraPolitica", source = "idEstructuraPolitica")
     @Mapping(target = "fechaInicio", source = "fechaInicio")
     @Mapping(target = "fechaFin", source = "fechaFin")
-    @Mapping(target = "excluidoDenominador", source = "excluidoDenominador")
+    @Mapping(target = "excluidoDenominador", ignore = true)
     @Mapping(target = "tipoPolitica", ignore = true)
     public abstract TareaPersonaEstructuraPolitica tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
         TareaPersonaEstructuraPoliticaDto src);
@@ -54,7 +54,7 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "idEstructuraPolitica", source = "src.idEstructura")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
-    @Mapping(target = "excluidoDenominador", source = "src.excDenominador")
+    @Mapping(target = "excluidoDenominador", ignore = true)
     @Mapping(target = "tipoPolitica", ignore = true)
     public abstract TareaPersonaEstructuraPolitica comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(
         ComisionEmpleadoResultItemDto src, TareaDto tarea);
