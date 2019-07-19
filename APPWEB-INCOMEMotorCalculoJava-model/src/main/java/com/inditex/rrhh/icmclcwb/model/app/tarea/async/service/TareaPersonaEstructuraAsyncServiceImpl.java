@@ -29,7 +29,7 @@ public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstru
     @Override
     public CompletableFuture<Void> saveComisionEmpleadoResultItemDto(
             List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto, TareaDto tareaDto) {
-        tareaPersonaEstructuraService.saveComisionEmpleadoResultItemDto(comisionEmpleadoResultItemDto, tareaDto);
+        tareaPersonaEstructuraService.save(tareaPersonaEstructuraService.merge(comisionEmpleadoResultItemDto, tareaDto), tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
