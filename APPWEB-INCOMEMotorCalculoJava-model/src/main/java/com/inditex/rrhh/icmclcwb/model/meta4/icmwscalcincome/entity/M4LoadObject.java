@@ -39,6 +39,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="ICM_LISTAORIGENES" type="{http://schemas.meta4.com/}Icm_ListaorigenesBlock"/>
  *         &lt;element name="ICM_LISTAPERIODOS" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/>
  *         &lt;element name="ICM_LISTAEMPLEADOS" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/>
+ *         &lt;element name="ICM_LISTAVALIDACION" type="{http://schemas.meta4.com/}Icm_ListavalidacionBlock"/>
  *         &lt;element name="ICM_LISTAESTRUCTURAS" type="{http://schemas.meta4.com/}Icm_ListaestructurasBlock"/>
  *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/>
  *         &lt;element name="ICM_LISTACONFIGURACION" type="{http://schemas.meta4.com/}Icm_ListaconfiguracionBlock"/>
@@ -61,6 +62,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmlistaorigenes",
     "icmlistaperiodos",
     "icmlistaempleados",
+    "icmlistavalidacion",
     "icmlistaestructuras",
     "icmparametrosentrada",
     "icmlistaconfiguracion",
@@ -85,6 +87,8 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
     protected IcmListaperiodosBlock icmlistaperiodos;
     @XmlElement(name = "ICM_LISTAEMPLEADOS", required = true)
     protected IcmListaempleadosBlock icmlistaempleados;
+    @XmlElement(name = "ICM_LISTAVALIDACION", required = true)
+    protected IcmListavalidacionBlock icmlistavalidacion;
     @XmlElement(name = "ICM_LISTAESTRUCTURAS", required = true)
     protected IcmListaestructurasBlock icmlistaestructuras;
     @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
@@ -262,6 +266,30 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
      */
     public void setICMLISTAEMPLEADOS(IcmListaempleadosBlock value) {
         this.icmlistaempleados = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistavalidacion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListavalidacionBlock }
+     *     
+     */
+    public IcmListavalidacionBlock getICMLISTAVALIDACION() {
+        return icmlistavalidacion;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistavalidacion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListavalidacionBlock }
+     *     
+     */
+    public void setICMLISTAVALIDACION(IcmListavalidacionBlock value) {
+        this.icmlistavalidacion = value;
     }
 
     /**
@@ -456,6 +484,15 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             }
         }
         {
+            IcmListavalidacionBlock lhsICMLISTAVALIDACION;
+            lhsICMLISTAVALIDACION = this.getICMLISTAVALIDACION();
+            IcmListavalidacionBlock rhsICMLISTAVALIDACION;
+            rhsICMLISTAVALIDACION = that.getICMLISTAVALIDACION();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistavalidacion", lhsICMLISTAVALIDACION), LocatorUtils.property(thatLocator, "icmlistavalidacion", rhsICMLISTAVALIDACION), lhsICMLISTAVALIDACION, rhsICMLISTAVALIDACION, (this.icmlistavalidacion!= null), (that.icmlistavalidacion!= null))) {
+                return false;
+            }
+        }
+        {
             IcmListaestructurasBlock lhsICMLISTAESTRUCTURAS;
             lhsICMLISTAESTRUCTURAS = this.getICMLISTAESTRUCTURAS();
             IcmListaestructurasBlock rhsICMLISTAESTRUCTURAS;
@@ -559,6 +596,11 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             strategy.appendField(locator, this, "icmlistaempleados", buffer, theICMLISTAEMPLEADOS, (this.icmlistaempleados!= null));
         }
         {
+            IcmListavalidacionBlock theICMLISTAVALIDACION;
+            theICMLISTAVALIDACION = this.getICMLISTAVALIDACION();
+            strategy.appendField(locator, this, "icmlistavalidacion", buffer, theICMLISTAVALIDACION, (this.icmlistavalidacion!= null));
+        }
+        {
             IcmListaestructurasBlock theICMLISTAESTRUCTURAS;
             theICMLISTAESTRUCTURAS = this.getICMLISTAESTRUCTURAS();
             strategy.appendField(locator, this, "icmlistaestructuras", buffer, theICMLISTAESTRUCTURAS, (this.icmlistaestructuras!= null));
@@ -622,6 +664,11 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             IcmListaempleadosBlock theICMLISTAEMPLEADOS;
             theICMLISTAEMPLEADOS = this.getICMLISTAEMPLEADOS();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaempleados", theICMLISTAEMPLEADOS), currentHashCode, theICMLISTAEMPLEADOS, (this.icmlistaempleados!= null));
+        }
+        {
+            IcmListavalidacionBlock theICMLISTAVALIDACION;
+            theICMLISTAVALIDACION = this.getICMLISTAVALIDACION();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistavalidacion", theICMLISTAVALIDACION), currentHashCode, theICMLISTAVALIDACION, (this.icmlistavalidacion!= null));
         }
         {
             IcmListaestructurasBlock theICMLISTAESTRUCTURAS;
@@ -757,6 +804,19 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
                 } else {
                     if (icmlistaempleadosShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmlistaempleados = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistavalidacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistavalidacion!= null));
+                if (icmlistavalidacionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListavalidacionBlock sourceICMLISTAVALIDACION;
+                    sourceICMLISTAVALIDACION = this.getICMLISTAVALIDACION();
+                    IcmListavalidacionBlock copyICMLISTAVALIDACION = ((IcmListavalidacionBlock) strategy.copy(LocatorUtils.property(locator, "icmlistavalidacion", sourceICMLISTAVALIDACION), sourceICMLISTAVALIDACION, (this.icmlistavalidacion!= null)));
+                    copy.setICMLISTAVALIDACION(copyICMLISTAVALIDACION);
+                } else {
+                    if (icmlistavalidacionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistavalidacion = null;
                     }
                 }
             }
