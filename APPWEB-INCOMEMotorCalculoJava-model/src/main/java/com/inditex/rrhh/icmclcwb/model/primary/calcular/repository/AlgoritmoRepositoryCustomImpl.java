@@ -32,13 +32,13 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
     private String sqlCheckDuplicatedActives;
 
     @Override
-    public List<Long> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea) {
+    public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return namedParameterJdbcTemplate.query(sqlCustomFindAlgoritmosIdsByTarea, parameters, new RowMapper<Long>() {
+        return namedParameterJdbcTemplate.query(sqlCustomFindAlgoritmosIdsByTarea, parameters, new RowMapper<Integer>() {
             @Override
-            public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO);
+            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO);
             }
         });
     }

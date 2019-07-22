@@ -31,7 +31,7 @@ public class RunAlgoritmoServiceImpl implements RunAlgoritmoService {
     private RunAlgoritmoFactory runAlgoritmoFactory;
 
     @Override
-    public RunAlgoritmoDto findById(@NotNull @Positive final Long id) {
+    public RunAlgoritmoDto findById(@NotNull @Positive final Integer id) {
         RunAlgoritmoDto result = new RunAlgoritmoDto();
         AlgoritmoDto algoritmo = algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findById(id).get());
         String sqlCalcular = runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).getSqlCalcular(algoritmo);
