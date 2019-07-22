@@ -11,15 +11,11 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     List<TareaLocalizacionPresencia> save(List<TareaLocalizacionPresencia> src);
 
-    void updateActivo(@NotNull RunTareaDto runTareaDto);
-
     void compensar(@NotNull RunTareaDto runTareaDto);
 
     void totalizar(@NotNull RunTareaDto runTareaDto);
 
     void compensarEcommerce(@NotNull RunTareaDto runTareaDto);
-
-    void updateActivoEcommerce(@NotNull RunTareaDto runTareaDto);
 
     void updateActivoVacio(@NotNull RunTareaDto runTareaDto);
 

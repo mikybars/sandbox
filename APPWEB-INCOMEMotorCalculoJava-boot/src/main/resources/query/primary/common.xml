@@ -223,87 +223,6 @@
     ]]>
 </entry>
 
-
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivo">
-    <![CDATA[
-MERGE INTO TAREA_LOCALIZACION_PRESENCIA AS TLP USING
-        (
-               SELECT ID_TAREA, ID_LOCALIZACION, ID_SECCION, FECHA FROM ( SELECT
-                 ROW_NUMBER() OVER (PARTITION BY
-                        PRESENCIA.ID_TAREA,
-                        PRESENCIA.ID_LOCALIZACION,
-                        PRESENCIA.ID_SECCION,
-                        PRESENCIA.ID_PERSONA,
-                        PRESENCIA.FECHA,
-                        PRESENCIA.ID_TIPO_HORA
-                ORDER BY TIPO_PRESENCIA.PESO DESC) AS ROW,
-                 PRESENCIA.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA,
-                 PRESENCIA.ID_TAREA,
-                 PRESENCIA.ID_LOCALIZACION,
-                 PRESENCIA.ID_SECCION,
-                 PRESENCIA.ID_PERSONA,
-                 PRESENCIA.FECHA,
-                 PRESENCIA.ID_TIPO_HORA,
-                 PRESENCIA.MINUTOS
-                FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA PRESENCIA
-                INNER JOIN TAREA_TIPO_HORA TIPO_HORA
-                 ON PRESENCIA.ID_TAREA = TIPO_HORA.ID_TAREA
-                 AND PRESENCIA.ID_TIPO_HORA = TIPO_HORA.ID_TIPO_HORA
-                AND TIPO_HORA.EXCLUIDO_DENOMINADOR = :excluidoDenominador
-                INNER JOIN TIPO_DATO TIPO_DATO
-                 ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
-                INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
-                 ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
-                WHERE 1 = 1
-                AND TIPO_DATO.ID_TIPO_DATO IN (:tiposDato)
-                AND PRESENCIA.ID_TAREA = :idTarea )
-                WHERE ROW > 1
-                GROUP BY ID_TAREA, ID_LOCALIZACION, ID_SECCION, FECHA
-        )AS S ON (S.ID_TAREA = TLP.ID_TAREA AND S.ID_LOCALIZACION = TLP.ID_LOCALIZACION AND S.FECHA = TLP.FECHA AND TLP.ID_SECCION = S.ID_SECCION)
-        WHEN MATCHED AND TLP.ID_TIPO_DATO = :idTipoPresencia THEN
-                UPDATE SET ACTIVO = :inactivo
-    ]]>
-</entry>
-
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoEcommerce">
-    <![CDATA[
-        MERGE INTO TAREA_LOCALIZACION_PRESENCIA AS TLP USING
-            (
-                   SELECT ID_TAREA, ID_LOCALIZACION, FECHA FROM ( SELECT
-                     ROW_NUMBER() OVER (PARTITION BY
-                            PRESENCIA.ID_TAREA,
-                            PRESENCIA.ID_LOCALIZACION,
-                            PRESENCIA.ID_PERSONA,
-                            PRESENCIA.FECHA,
-                            PRESENCIA.ID_TIPO_HORA
-                    ORDER BY TIPO_PRESENCIA.PESO DESC) AS ROW,
-                     PRESENCIA.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA,
-                     PRESENCIA.ID_TAREA,
-                     PRESENCIA.ID_LOCALIZACION,
-                     PRESENCIA.ID_PERSONA,
-                     PRESENCIA.FECHA,
-                     PRESENCIA.ID_TIPO_HORA,
-                     PRESENCIA.MINUTOS
-                    FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA PRESENCIA
-                    INNER JOIN TAREA_TIPO_HORA TIPO_HORA
-                     ON PRESENCIA.ID_TAREA = TIPO_HORA.ID_TAREA
-                     AND PRESENCIA.ID_TIPO_HORA = TIPO_HORA.ID_TIPO_HORA
-                    AND TIPO_HORA.INCLUIDO_ECOMMERCE = :incluidoEcommerce
-                    INNER JOIN TIPO_DATO TIPO_DATO
-                     ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
-                    INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
-                     ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
-                    WHERE 1 = 1
-                    AND TIPO_DATO.ID_TIPO_DATO IN (:tiposDato)
-                    AND PRESENCIA.ID_TAREA = :idTarea )
-                    WHERE ROW = 1
-                    GROUP BY ID_TAREA, ID_LOCALIZACION, FECHA
-            )AS S ON (S.ID_TAREA = TLP.ID_TAREA AND S.ID_LOCALIZACION = TLP.ID_LOCALIZACION AND S.FECHA = TLP.FECHA)
-            WHEN MATCHED AND TLP.ID_TIPO_DATO = :idTipoPresencia AND TLP.ID_SECCION = :idSeccion THEN
-                    UPDATE SET ACTIVO = :inactivo
-    ]]>
-</entry>
-
 <entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio">
     <![CDATA[
     UPDATE TAREA_LOCALIZACION_PRESENCIA SET ACTIVO = 0 WHERE MINUTOS = 0 AND ID_TAREA = :idTarea
@@ -593,7 +512,7 @@ INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ACTIVO, FECHA, ID_TAREA, ID_LOCALIZACI
         WHERE LP.ID_TAREA = :idTarea
         AND LP.ACTIVO = :activo
         AND LP.ID_SECCION = :idSeccion
-        AND LP.ID_TIPO_DATO IN (:tiposDato)
+        AND LP.ID_TIPO_DATO = :idTipoPresencia
         GROUP BY LP.FECHA, AC.ID_AGRUPACION, AC.ID_ORIGEN, LP.ID_SECCION, LP.ID_TAREA
     ) AS S ON (1 = 0)
     WHEN NOT MATCHED THEN
@@ -1001,7 +920,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA  USING
         AND VTF.ID_LOCALIZACION = TP.ID_LOCALIZACION
         AND VTF.ID_SECCION = TP.ID_SECCION
         AND VTF.ID_TAREA = TP.ID_TAREA
-        AND TP.ID_TIPO_DATO IN (:tiposDato)
+        AND TP.ID_TIPO_DATO = :idTipoPresenciaLocalizacion
         AND TP.ACTIVO = :activo
     JOIN TAREA_LOCALIZACION_HISTORICO H
         ON VTF.ID_LOCALIZACION = H.CCL_ID_COD_ORIGEN
@@ -1016,7 +935,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA  USING
         ON AP.ID_AGRUPACION = AC.ID_AGRUPACION
         AND AP.ID_TAREA = VTF.ID_TAREA
         AND AP.ID_ORIGEN = H.CCL_ID_ORIGEN
-        AND AP.ID_TIPO_DATO = :idTipoPresencia
+        AND AP.ID_TIPO_DATO = :idTipoPresenciaAgrupacion
         AND AP.FECHA = VTF.FECHA
     JOIN TAREA_AGRUPACION_VENTA ACVED
         ON ACVED.ID_TAREA = VTF.ID_TAREA
@@ -1043,7 +962,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA  USING
     AND C.PORCENTAJE_INCLUSION > :porcentajeInclusion) AS S ON (1 = 0)
     WHEN NOT MATCHED THEN
         INSERT (FECHA, ID_LOCALIZACION, ID_CADENA, IMPORTE_SECCION, IMPORTE_CON_IMPUESTOS_SECCION, ID_TAREA, ID_TIPO_DATO, ACTIVO, ID_SECCION)
-        VALUES (S.FECHA, S.ID_LOCALIZACION, S.ID_CADENA, S.IMPORTE, S.IMPORTE_CON_IMPUESTOS, S.ID_TAREA, S.ID_TIPO_DATO, S.ACTIVO, :idSeccion)
+        VALUES (S.FECHA, S.ID_LOCALIZACION, S.ID_CADENA, S.IMPORTE, S.IMPORTE_CON_IMPUESTOS, S.ID_TAREA, S.ID_TIPO_DATO, S.ACTIVO, :nuevoIdSeccion)
     ]]>
 </entry>
 

@@ -39,14 +39,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.save']}")
     private String sqlSave;
     
-    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivo']}")
-    private String sqlUpdateActivo;
-    
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio']}")
     private String sqlUpdateActivoVacio;
-
-    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateActivoEcommerce']}")
-    private String sqlUpdateActivoEcommerce;
     
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
@@ -71,36 +65,6 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
 
         namedParameterJdbcTemplate.update(sqlUpdateActivoVacio, parameters);
-    }
-    
-    @Override
-    public void updateActivo(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        List<IdTipoDatoDto> tipos = tipoDatoService
-            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-            tipos.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS, TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId());
-
-        namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
-    }
-
-    @Override
-    public void updateActivoEcommerce(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS, TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
-        List<IdTipoDatoDto> tiposDatoPresencia =
-            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE, 1);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-        namedParameterJdbcTemplate.update(sqlUpdateActivoEcommerce, parameters);
     }
 
     @Override

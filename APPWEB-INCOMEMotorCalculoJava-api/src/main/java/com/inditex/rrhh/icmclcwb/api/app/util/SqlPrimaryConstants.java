@@ -61,6 +61,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_MINUTOS = "idTipoPresencia";
 
+    public static final String SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION = "idTipoPresenciaLocalizacion";
+
+    public static final String SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE = "idTipoPresenciaAgrupacion";
+
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";

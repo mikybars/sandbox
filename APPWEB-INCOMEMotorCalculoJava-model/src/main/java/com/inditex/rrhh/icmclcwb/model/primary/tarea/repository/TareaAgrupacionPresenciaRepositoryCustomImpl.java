@@ -1,10 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -16,8 +13,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class TareaAgrupacionPresenciaRepositoryCustomImpl
@@ -32,9 +27,6 @@ public class TareaAgrupacionPresenciaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaAgrupacionPresenciaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
-
-    @Autowired
-    private TipoDatoService tipoDatoService;
 
     @Override
     public void updateActivo(TareaDto tarea) {
@@ -54,13 +46,11 @@ public class TareaAgrupacionPresenciaRepositoryCustomImpl
         //FILTROS
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        List<IdTipoDatoDto> tiposDatoPresencia =
-            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
             Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
+            TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
 
         //VALORES ESTABLECIDOS
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 1);

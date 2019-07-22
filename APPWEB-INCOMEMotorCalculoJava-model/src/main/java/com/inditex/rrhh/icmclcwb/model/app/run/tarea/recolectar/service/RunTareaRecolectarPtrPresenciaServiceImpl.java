@@ -21,18 +21,6 @@ import java.util.Map;
 public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecolectarPtrPresenciaService {
 
     @Autowired
-    @Qualifier("meta4Properties")
-    private Map<String, Meta4PropertiesDto> meta4Properties;
-
-    @Autowired
-    @Qualifier("presenciasProperties")
-    private Map<String, PtrPropertiesDto> presenciasProperties;
-
-    @Autowired
-    @Qualifier(value = "recolectarProperties")
-    private RecolectarPropertiesDto recolectarProperties;
-
-    @Autowired
     private TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
 
     @Autowired
@@ -42,18 +30,6 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     public void tiposHorasByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(
                 item -> runTareaAmbitoRecolectarPtrPresenciaService.tiposHorasByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
-    public void presenciaTotalLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
-                .presenciaTotalLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
-    public void presenciaTotalLocalizacionEcommerceByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
-                .presenciaTotalLocalizacionEcommerceByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override

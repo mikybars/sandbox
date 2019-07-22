@@ -8,8 +8,6 @@ public interface RunTareaProcesarPresenciaService {
 
     void updateActivoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea);
 
-    void updateActivoLocalizacion(@Valid RunTareaDto runTarea);
-
     void compensarLocalizacion(@Valid RunTareaDto runTarea);
 
     void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea);
@@ -17,8 +15,6 @@ public interface RunTareaProcesarPresenciaService {
     void compensarLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea);
 
     void totalizarLocalizacion(@Valid RunTareaDto runTarea);
-
-    void updateActivoLocalizacionEcommerce(@Valid RunTareaDto runTarea);
 
     void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea);
 
