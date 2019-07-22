@@ -689,6 +689,7 @@ VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON TCP.ID_PERSONA = PEE.ID_PERSONA_LOCAL
     AND TCP.ID_TAREA = PEE.ID_TAREA
     WHERE PEE.ID_TAREA = :idTarea
+    AND A.ACTIVO = :activo
     GROUP BY A.ID_ALGORITMO
     ]]>
 </entry>
@@ -1390,11 +1391,11 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
 </entry>
 
 <entry key="ProgramacionRepositoryCustom.reset">
-<![CDATA[UPDATE PROGRAMACION SET FECHA_SIGUIENTE_EJECUCION = :fechaSiguienteEjecucion WHERE ACTIVA = :activa]]>
+<![CDATA[UPDATE PROGRAMACION SET FECHA_SIGUIENTE_EJECUCION = :fechaSiguienteEjecucion WHERE ACTIVO = :activo]]>
 </entry>
 
 <entry key="ProgramacionRepositoryCustom.activa">
-<![CDATA[UPDATE PROGRAMACION SET ACTIVA = :activa]]>
+<![CDATA[UPDATE PROGRAMACION SET ACTIVO = :activo]]>
 </entry>
 
 </properties>

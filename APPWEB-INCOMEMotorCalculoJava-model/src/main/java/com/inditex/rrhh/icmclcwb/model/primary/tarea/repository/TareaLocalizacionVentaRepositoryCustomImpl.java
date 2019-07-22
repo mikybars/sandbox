@@ -57,8 +57,8 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         params.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, tipoVentaConceptoEnum.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, 0);
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 0);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         namedParameterJdbcTemplate.update(sqlUpdateActivo, params);
     }
 }

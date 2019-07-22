@@ -32,7 +32,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_SECCION = "idSeccion";
 
     public static final String SQL_PARAM_ID_CADENA = "idCadena";
-    
+
     public static final String SQL_PARAM_ID_ESTADO_ACTUAL = "idEstadoActual";
 
     public static final String SQL_PARAM_ID_ESTADO_NUEVO = "idEstadoNuevo";
@@ -40,7 +40,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ESTADO_TAREA_PERSONA = "idEstadoTareaPersona";
 
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA = "idEstadoPeriodoPersona";
-    
+
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR = "idEstadoPeriodoPersonaCalculadoError";
 
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
@@ -86,14 +86,12 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_PORCENTAJE_INCLUSION = "porcentajeInclusion";
 
     public static final String SQL_PARAM_BLOQUEADO = "bloqueado";
-    
+
     public static final String SQL_PARAM_COMISIONABLE = "comisionable";
 
     public static final String SQL_PARAM_CALCULA = "calcula";
 
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
-    
-    public static final String SQL_PARAM_ACTIVA = "activa";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
@@ -115,6 +113,17 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_NUEVA_FECHA = "nuevaFecha";
 
+    public static final Boolean SQL_VALUE_BOOLEAN_TRUE = Boolean.TRUE;
+
+    public static final Boolean SQL_VALUE_BOOLEAN_FALSE = Boolean.TRUE;
+    
+    public static final Integer SQL_VALUE_IMPORTE_CERO = 0;
+    
+    public static final Integer SQL_VALUE_PORCENTAJE_CERO = 0;
+    
+    public static final Integer SQL_VALUE_MULTIPLICADOR_POSITIVO = 1;
+
+    public static final Integer SQL_VALUE_MULTIPLICADOR_NEGATIVO = -1;
 
     // RESULTADOS DE CONSULTAS
 

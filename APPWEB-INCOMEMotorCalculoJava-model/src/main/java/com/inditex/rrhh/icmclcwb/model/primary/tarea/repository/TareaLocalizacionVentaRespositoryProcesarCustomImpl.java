@@ -41,7 +41,7 @@ public class TareaLocalizacionVentaRespositoryProcesarCustomImpl
                 TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilio, params);
     }
 }

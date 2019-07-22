@@ -108,7 +108,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl extends
             tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE, 1);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
         namedParameterJdbcTemplate.update(sqlCompensarEcommerce, parameters);
     }

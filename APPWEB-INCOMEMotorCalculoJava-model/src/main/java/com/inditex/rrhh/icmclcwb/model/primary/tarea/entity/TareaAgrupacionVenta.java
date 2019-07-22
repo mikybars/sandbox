@@ -58,7 +58,7 @@ public class TareaAgrupacionVenta {
 
     @NotNull
     @Column(name = "ACTIVO", nullable = false)
-    private boolean activo;
+    private Boolean activo;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)

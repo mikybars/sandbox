@@ -35,6 +35,7 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
     public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         return namedParameterJdbcTemplate.query(sqlCustomFindAlgoritmosIdsByTarea, parameters, new RowMapper<Integer>() {
             @Override
             public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {

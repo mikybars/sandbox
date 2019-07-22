@@ -3,9 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,8 +14,6 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-
-import java.util.stream.Collectors;
 
 @Repository
 public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
@@ -49,37 +44,34 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
                 TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 1);
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, 0);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
         namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioAgrupaciones, params);
     }
 
     @Override
     public void procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(@NotNull TareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
-
-        //Parametros para filtrar
+        // Parametros para filtrar
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION,
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION,
                 TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE,
                 TipoDatoEnum.PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
                 TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, 0);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION,
-            TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
-
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
         // Parametros para establecer valores
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 1);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
-
         namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilioPresenciaAgrupaciones, params);
     }
 
