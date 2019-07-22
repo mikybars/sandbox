@@ -15,10 +15,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 
 public interface TareaLocalizacionHistoricoService {
 
-    List<TareaLocalizacionHistoricoDto> save(@Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico,
-            @Valid final TareaDto tarea);
+    List<TareaLocalizacionHistoricoDto> save(@Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico);
 
-    List<TareaLocalizacionHistoricoDto> saveGenericTiendaResultItemDto(
+    List<TareaLocalizacionHistoricoDto> merge(
             @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,

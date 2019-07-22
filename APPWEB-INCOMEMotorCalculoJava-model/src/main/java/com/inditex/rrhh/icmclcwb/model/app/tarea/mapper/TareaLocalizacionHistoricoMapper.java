@@ -31,30 +31,21 @@ public abstract class TareaLocalizacionHistoricoMapper {
             List<TareaLocalizacionHistoricoDto> src);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tarea.id", source = "srcTarea.id")
-    @Mapping(target = "idPaisOrigen", source = "srcTareaLocalizacionHistorico.idPaisOrigen")
-    @Mapping(target = "idEmpresa", source = "srcTareaLocalizacionHistorico.idEmpresa")
-    public abstract TareaLocalizacionHistorico mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(
-            TareaLocalizacionHistoricoDto srcTareaLocalizacionHistorico, TareaDto srcTarea);
+    @Mapping(target = "idPais", source = "src.idOrigen")
+    @Mapping(target = "idPaisOrigen", source = "src.idOrigen")
+    @Mapping(target = "idEmpresa", source = "src.idEmpresa")
+    @Mapping(target = "idCadena", source = "src.idCadena")
+    @Mapping(target = "idLocalizacion", source = "src.idLugarTrabajoMtu")
+    @Mapping(target = "idLocalizacionMeta4", source = "src.idLugarTrabajo")
+    @Mapping(target = "fechaInicio", source = "src.fechaInicio")
+    @Mapping(target = "fechaFin", source = "src.fechaFin")
+    @Mapping(target = "idTarea", source = "srcTarea.id")
+    public abstract TareaLocalizacionHistoricoDto genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
+            GenericTiendaResultItemDto src, TareaDto srcTarea);
 
-    public List<TareaLocalizacionHistorico> mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(
-            List<TareaLocalizacionHistoricoDto> srcTareaLocalizacionHistorico, TareaDto srcTareaDto) {
+    public List<TareaLocalizacionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
+            List<GenericTiendaResultItemDto> src, TareaDto srcTarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "idPais", source = "idOrigen")
-    @Mapping(target = "idPaisOrigen", source = "idOrigen")
-    @Mapping(target = "idEmpresa", source = "idEmpresa")
-    @Mapping(target = "idCadena", source = "idCadena")
-    @Mapping(target = "idLocalizacion", source = "idLugarTrabajoMtu")
-    @Mapping(target = "idLocalizacionMeta4", source = "idLugarTrabajo")
-    @Mapping(target = "fechaInicio", source = "fechaInicio")
-    @Mapping(target = "fechaFin", source = "fechaFin")
-    public abstract TareaLocalizacionHistoricoDto genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
-            GenericTiendaResultItemDto src);
-
-    public abstract List<TareaLocalizacionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
-            List<GenericTiendaResultItemDto> src);
 
 }

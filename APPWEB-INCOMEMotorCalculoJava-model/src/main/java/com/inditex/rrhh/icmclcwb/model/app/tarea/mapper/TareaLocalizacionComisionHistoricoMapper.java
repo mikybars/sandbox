@@ -33,24 +33,17 @@ public abstract class TareaLocalizacionComisionHistoricoMapper {
     public abstract List<TareaLocalizacionComisionHistorico> tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
             List<TareaLocalizacionComisionHistoricoDto> src);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tarea.id", source = "srcTarea.id")
-    public abstract TareaLocalizacionComisionHistorico mergeTareaLocalizacionComisionHistoricoDtoAndTareaDtoToTareaLocalizacionComisionHistorico(
-            TareaLocalizacionComisionHistoricoDto srcTareaLocalizacionComisionHistorico, TareaDto srcTarea);
-
-    public List<TareaLocalizacionComisionHistorico> mergeTareaLocalizacionComisionHistoricoDtoAndTareaDtoToTareaLocalizacionComisionHistorico(
-            List<TareaLocalizacionComisionHistoricoDto> srcTareaLocalizacionComisionHistorico, TareaDto srcTareaDto) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
-
     @Mapping(target = "idLocalizacion", source = "src.idLugarTrabajoMtu")
     @Mapping(target = "idLocalizacionMeta4", source = "src.idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "comisionable", source = "src.esComisionable")
+    @Mapping(target = "idTarea", source = "srcTarea.id")
     public abstract TareaLocalizacionComisionHistoricoDto genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(
-            GenericTiendaResultItemDto src);
+            GenericTiendaResultItemDto src, TareaDto srcTarea);
 
-    public abstract List<TareaLocalizacionComisionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(
-            List<GenericTiendaResultItemDto> src);
+    public List<TareaLocalizacionComisionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(
+            List<GenericTiendaResultItemDto> src, TareaDto srcTarea){
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    };
 }

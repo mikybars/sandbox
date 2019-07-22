@@ -1,19 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionAbiertaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -25,13 +23,13 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbiertaService {
 
     @Autowired
-    TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
+    private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
     
     @Autowired
-    TareaLocalizacionAbiertaMapper tareaLocalizacionAbiertaMapper;
+    private TareaLocalizacionAbiertaMapper tareaLocalizacionAbiertaMapper;
 
     @Autowired
-    TipoDatoService tipoDatoService;
+    private TipoDatoService tipoDatoService;
     
     @Override
     public void saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {

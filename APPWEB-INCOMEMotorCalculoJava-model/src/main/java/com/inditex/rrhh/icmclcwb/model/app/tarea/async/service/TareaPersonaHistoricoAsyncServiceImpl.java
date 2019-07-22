@@ -25,15 +25,15 @@ public class TareaPersonaHistoricoAsyncServiceImpl implements TareaPersonaHistor
     @Override
     public CompletableFuture<Void> save(final List<TareaPersonaHistoricoDto> tareaPersonaHistorico,
            final TareaDto tarea) {
-        tareaPersonaHistoricoService.save(tareaPersonaHistorico, tarea);
+        tareaPersonaHistoricoService.save(tareaPersonaHistorico);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     
     @Override
     public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(
-            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto,final TareaDto tarea) {
-        tareaPersonaHistoricoService.saveGenericEmpleadoResultItemDto(genericEmpleadoResultItemDto, tarea);
+            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, final TareaDto tarea) {
+        tareaPersonaHistoricoService.save(tareaPersonaHistoricoService.merge(genericEmpleadoResultItemDto, tarea));
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

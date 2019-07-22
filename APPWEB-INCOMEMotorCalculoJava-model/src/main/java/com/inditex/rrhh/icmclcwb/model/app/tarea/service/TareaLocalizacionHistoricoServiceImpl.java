@@ -47,23 +47,16 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
 
     @Override
     public List<TareaLocalizacionHistoricoDto> save(
-            @Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico, @Valid final TareaDto tarea) {
-        List<TareaLocalizacionHistoricoDto> result = new ArrayList<>();
-        List<TareaLocalizacionHistorico> data = tareaLocalizacionHistoricoMapper
-                .mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(tareaLocalizacionHistorico,
-                        tarea);
-        if (CollectionUtils.isNotEmpty(data)) {
-            result.addAll(tareaLocalizacionHistoricoMapper.tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(
-                    tareaLocalizacionHistoricoRepositoryCustom.save(data)));
-        }
-        return result;
+            @Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico) {
+        return tareaLocalizacionHistoricoMapper.tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(
+                    tareaLocalizacionHistoricoRepositoryCustom.save(tareaLocalizacionHistoricoMapper.tareaLocalizacionHistoricoDtoToTareaLocalizacionHistorico(tareaLocalizacionHistorico)));
     }
 
     @Override
-    public List<TareaLocalizacionHistoricoDto> saveGenericTiendaResultItemDto(
+    public List<TareaLocalizacionHistoricoDto> merge(
             @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea) {
-        return save(tareaLocalizacionHistoricoMapper
-                .genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(genericTiendaResultItemDto), tarea);
+        return tareaLocalizacionHistoricoMapper
+                .genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(genericTiendaResultItemDto, tarea);
     }
 
     @Override

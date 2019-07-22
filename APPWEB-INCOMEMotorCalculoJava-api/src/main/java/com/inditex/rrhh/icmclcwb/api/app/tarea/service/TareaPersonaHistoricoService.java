@@ -14,11 +14,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 
 public interface TareaPersonaHistoricoService {
 
-    List<TareaPersonaHistoricoDto> saveGenericEmpleadoResultItemDto(
+    List<TareaPersonaHistoricoDto> merge(
             @Valid final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea);
 
-    List<TareaPersonaHistoricoDto> save(@Valid final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico,
-            @Valid final TareaDto tarea);
+    List<TareaPersonaHistoricoDto> save(@Valid final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico);
 
     List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea, @NotNull final String idOrigen);
     
