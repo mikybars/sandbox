@@ -24,7 +24,6 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
         TareaPersonaEstructuraPolitica result = delegate.tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(src);
         result.setTipoPolitica(new TipoPolitica());
         result.getTipoPolitica().setId(TipoPoliticaEnum.fromIdMeta4(src.getIdTipoPolitica()).getId());
-        result.setExcluidoDenominador(Meta4Constants.TRUE.equals(src.getExcluidoDenominador()));
         return result;
     }
 
