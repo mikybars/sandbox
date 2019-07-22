@@ -25,7 +25,7 @@ public class Trabajo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TRABAJO")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotBlank
     @Column(name = "ID_USUARIO", nullable = false)
@@ -54,7 +54,7 @@ public class Trabajo {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
-    private /* BigInteger */ TipoAmbito tipoAmbito;
+    private TipoAmbito tipoAmbito;
     
     @ManyToOne
     @JoinColumn(name = "ID_PROGRAMACION")

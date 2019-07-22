@@ -82,6 +82,7 @@ public class SqlParamsUtils {
         public String createValue() {
             return new StringBuilder(SIMPLE_QUOTE).append(value).append(SIMPLE_QUOTE).toString();
         }
+
     }
 
     @Data
@@ -94,6 +95,7 @@ public class SqlParamsUtils {
         public String createValue() {
             return value.toString();
         }
+
     }
 
     @Data
@@ -106,16 +108,18 @@ public class SqlParamsUtils {
         public String createValue() {
             Stream<String> stream = list.stream().map(value -> createValueCreator(value).createValue());
             List<String> cleanList = stream.collect(Collectors.toList());
-
             return String.join(", ", cleanList);
         }
+
     }
 
     private static class NullValueCreator implements ValueCreator {
+
         @Override
         public String createValue() {
             return "null";
         }
+
     }
 
 }

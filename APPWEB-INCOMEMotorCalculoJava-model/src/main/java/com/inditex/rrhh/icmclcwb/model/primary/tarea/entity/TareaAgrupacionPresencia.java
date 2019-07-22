@@ -48,7 +48,7 @@ public class TareaAgrupacionPresencia {
 
     @NotNull
     @Column(name = "MINUTOS", nullable = false)
-    private /* BigInteger */ Long minutos;
+    private Long minutos;
 
     @NotNull
     @Column(name = "ACTIVO", nullable = false)

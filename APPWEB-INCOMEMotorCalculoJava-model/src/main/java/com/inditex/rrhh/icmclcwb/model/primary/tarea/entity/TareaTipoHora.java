@@ -20,7 +20,7 @@ public class TareaTipoHora {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_TAREA_TIPO_HORA")
-	private /* BigInteger */ Long id;
+	private Long id;
 
 	@NotNull
 	@Column(name = "ID_TIPO_HORA", nullable = false)
@@ -44,6 +44,6 @@ public class TareaTipoHora {
 	@NotNull
 	@OneToOne
 	@JoinColumn(name = "ID_TAREA", nullable = false)
-	private /* BigInteger */ Tarea tarea;
+	private Tarea tarea;
 
 }

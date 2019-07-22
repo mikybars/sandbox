@@ -28,7 +28,7 @@ public class TareaAgrupacionConfiguracion {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)

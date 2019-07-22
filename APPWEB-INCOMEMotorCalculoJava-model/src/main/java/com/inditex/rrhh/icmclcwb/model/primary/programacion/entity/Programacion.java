@@ -30,7 +30,7 @@ public class Programacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PROGRAMACION")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @Column(name = "HORA_PROGRAMACION", nullable = false)
@@ -62,6 +62,6 @@ public class Programacion {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
-    private /* BigInteger */ TipoAmbito tipoAmbito;
+    private TipoAmbito tipoAmbito;
 
 }

@@ -9,6 +9,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientAbstract;
 @Configuration
 public class Meta4LoginClientConfig extends Meta4ClientAbstract<LoginService> {
 
+    private static final long serialVersionUID = 5821761493879121844L;
+
     @Value("${app.envars.meta4.login.server}")
     @Override
     protected void setServer(String server) {

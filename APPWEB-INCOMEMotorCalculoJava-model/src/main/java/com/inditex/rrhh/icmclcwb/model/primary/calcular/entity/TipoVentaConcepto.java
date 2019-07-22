@@ -31,6 +31,6 @@ public class TipoVentaConcepto {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA", nullable = false)
-    private /* BigInteger */ TipoVenta tipoVenta;
+    private TipoVenta tipoVenta;
 
 }

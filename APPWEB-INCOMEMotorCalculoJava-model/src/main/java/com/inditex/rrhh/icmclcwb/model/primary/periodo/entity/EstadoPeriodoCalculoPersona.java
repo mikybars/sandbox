@@ -24,7 +24,7 @@ public class EstadoPeriodoCalculoPersona {
 
     @Id
     @Column(name = "ID_ESTADO_PERIODO_CALCULO_PERSONA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotBlank
     @Column(name = "NOMBRE", nullable = false)
@@ -32,6 +32,6 @@ public class EstadoPeriodoCalculoPersona {
     
     @NotNull
     @Column(name = "PESO", nullable = false)
-    private /* BigInteger */ Long peso;
+    private Long peso;
     
 }

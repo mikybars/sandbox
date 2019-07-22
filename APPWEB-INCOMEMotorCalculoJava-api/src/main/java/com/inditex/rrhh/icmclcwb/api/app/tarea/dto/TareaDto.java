@@ -22,7 +22,7 @@ public class TareaDto implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "Estado actual de la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private /* BigInteger */ EstadoTareaDto estado;
+    private EstadoTareaDto estado;
 
     @NotNull
     @ApiModelProperty(value = "Trabajo asociado", required = true, accessMode = AccessMode.READ_ONLY, hidden = true)

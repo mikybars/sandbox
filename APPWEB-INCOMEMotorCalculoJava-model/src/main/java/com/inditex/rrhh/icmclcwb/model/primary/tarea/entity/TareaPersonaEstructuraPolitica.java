@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -29,7 +28,7 @@ public class TareaPersonaEstructuraPolitica {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)

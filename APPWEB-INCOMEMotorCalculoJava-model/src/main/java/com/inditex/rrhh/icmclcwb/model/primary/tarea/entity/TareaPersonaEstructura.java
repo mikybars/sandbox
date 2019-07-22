@@ -28,7 +28,7 @@ public class TareaPersonaEstructura {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)
@@ -56,19 +56,19 @@ public class TareaPersonaEstructura {
 
     @NotBlank
     @Column(name = "ID_ESTRUCTURA", nullable = false)
-    private /* BigInteger */ String idEstructura;
+    private String idEstructura;
 
     @NotBlank
     @Column(name = "ID_TIPO_CALCULO", nullable = false)
-    private /* BigInteger */ String idTipoCalculo;
+    private String idTipoCalculo;
 
     @NotBlank
     @Column(name = "ID_TIPO_COMISION", nullable = false)
-    private /* BigInteger */ String idTipoComision;
+    private String idTipoComision;
 
     @NotNull
     @Column(name = "VALOR", nullable = false)
-    private /* BigInteger */ Double valor;
+    private Double valor;
     
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)

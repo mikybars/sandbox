@@ -20,7 +20,7 @@ public class TipoGrupoDato {
 
     @Id
     @Column(name = "ID_TIPO_GRUPO_DATO")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotBlank
     @Column(name = "NOMBRE", nullable = false)

@@ -25,11 +25,11 @@ public class Tarea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "ID_ESTADO_TAREA", nullable = false)
-    private /* BigInteger */ EstadoTarea estado;
+    private EstadoTarea estado;
 
     @NotNull
     @Column(name = "FECHA_CREACION", nullable = false)

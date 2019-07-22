@@ -21,12 +21,12 @@ public class ProgramacionAmbitoOrigen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PROGRAMACION_AMBITO_ORIGEN")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_PROGRAMACION_AMBITO", nullable = false)
-    private /* BigInteger */ ProgramacionAmbito programacionAmbito;
+    private ProgramacionAmbito programacionAmbito;
 
     @NotBlank
     @Column(name = "ID_ORIGEN", nullable = false)

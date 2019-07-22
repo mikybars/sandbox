@@ -27,7 +27,7 @@ public class TareaLocalizacionOnlineHistorico {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false)

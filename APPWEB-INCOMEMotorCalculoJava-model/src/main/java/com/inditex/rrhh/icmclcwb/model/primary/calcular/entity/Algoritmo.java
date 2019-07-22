@@ -22,7 +22,7 @@ public class Algoritmo {
 
     @Id
     @Column(name = "ID_ALGORITMO")
-    private /* BigInteger */ Long id;
+    private Integer id;
 
     @NotNull
     @Column(name = "ACTIVO", nullable = false)

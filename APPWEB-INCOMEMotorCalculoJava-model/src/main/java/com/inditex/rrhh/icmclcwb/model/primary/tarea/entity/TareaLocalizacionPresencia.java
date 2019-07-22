@@ -15,12 +15,12 @@ public class TareaLocalizacionPresencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_PRESENCIA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotNull
     @Column(name = "FECHA", nullable = false)
@@ -40,7 +40,7 @@ public class TareaLocalizacionPresencia {
 
     @NotNull
     @Column(name = "MINUTOS", nullable = false)
-    private /* BigInteger */ Long minutos;
+    private Long minutos;
 
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)

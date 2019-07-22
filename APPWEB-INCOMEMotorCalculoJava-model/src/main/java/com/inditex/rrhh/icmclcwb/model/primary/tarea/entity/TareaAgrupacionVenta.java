@@ -50,11 +50,11 @@ public class TareaAgrupacionVenta {
     
     @NotNull
     @Column(name = "IMPORTE", nullable = false)
-    private /* BigInteger */ Double importe;
+    private Double importe;
     
     @NotNull
     @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
-    private /* BigInteger */ Double importeConImpuestos;
+    private Double importeConImpuestos;
 
     @NotNull
     @Column(name = "ACTIVO", nullable = false)

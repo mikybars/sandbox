@@ -21,6 +21,6 @@ public class TipoAmbitoDto implements Serializable {
 	private static final long serialVersionUID = 690542159104929423L;
 
 	@ApiModelProperty(value = "Identificador del tipo ambito", required = true, example = "1")
-	private /* BigInteger */ Long id;
+	private Long id;
 
 }

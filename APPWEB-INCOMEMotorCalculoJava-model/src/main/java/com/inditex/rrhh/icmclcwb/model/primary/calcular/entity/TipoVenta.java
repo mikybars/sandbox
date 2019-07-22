@@ -16,7 +16,7 @@ public class TipoVenta {
 
     @Id
     @Column(name = "ID_TIPO_VENTA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotBlank
     @Column(name = "NOMBRE", nullable = false)
@@ -28,7 +28,7 @@ public class TipoVenta {
 
     @NotNull
     @Column(name = "PESO", nullable = false)
-    private /* BigInteger */ Long peso;
+    private Long peso;
     
     @NotNull
     @Column(name = "ONLINE", nullable = false)

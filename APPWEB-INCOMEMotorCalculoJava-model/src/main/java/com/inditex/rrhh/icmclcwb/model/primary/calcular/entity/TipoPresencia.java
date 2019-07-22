@@ -16,7 +16,7 @@ public class TipoPresencia {
 
     @Id
     @Column(name = "ID_TIPO_PRESENCIA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotBlank
     @Column(name = "NOMBRE", nullable = false)
@@ -28,6 +28,6 @@ public class TipoPresencia {
 
     @NotNull
     @Column(name = "PESO", nullable = false)
-    private /* BigInteger */ Long peso;
+    private Long peso;
 
 }

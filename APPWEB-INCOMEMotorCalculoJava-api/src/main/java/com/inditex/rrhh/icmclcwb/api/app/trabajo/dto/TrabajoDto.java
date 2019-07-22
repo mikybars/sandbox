@@ -52,7 +52,7 @@ public class TrabajoDto implements Serializable {
     
     @NotNull
     @ApiModelProperty(value = "Tipo Ambito", required = true, example = "1")
-    private /* BigInteger */ TipoAmbitoDto tipoAmbito;
+    private TipoAmbitoDto tipoAmbito;
     
     @ApiModelProperty(value = "Ambito origen del trabajo", required = false)
     private List<TrabajoAmbitoOrigenDto> origen;

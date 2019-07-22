@@ -26,12 +26,12 @@ public class TareaLocalizacionVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_VENTA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
     
     @NotNull
     @Column(name = "FECHA", nullable = false)
@@ -51,11 +51,11 @@ public class TareaLocalizacionVenta {
     
     @NotNull
     @Column(name = "IMPORTE_SECCION", nullable = false)
-    private /* BigInteger */ Double importe;
+    private Double importe;
     
     @NotNull
     @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION", nullable = false)
-    private /* BigInteger */ Double importeConImpuestos;
+    private Double importeConImpuestos;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)

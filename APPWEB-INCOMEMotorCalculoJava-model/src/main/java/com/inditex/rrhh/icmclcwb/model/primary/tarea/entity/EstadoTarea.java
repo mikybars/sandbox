@@ -23,7 +23,7 @@ public class EstadoTarea {
 
 	@Id
 	@Column(name = "ID_ESTADO_TAREA")
-	private /* BigInteger */ Long id;
+	private Long id;
 
 	@NotBlank
 	@Column(name = "NOMBRE", nullable = false)

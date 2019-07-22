@@ -58,7 +58,7 @@ public class ProgramacionDto implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Tipo Ambito", required = true, example = "1")
-    private /* BigInteger */ TipoAmbitoDto tipoAmbito;
+    private TipoAmbitoDto tipoAmbito;
     
     @NotNull
     @NotEmpty

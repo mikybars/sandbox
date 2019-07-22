@@ -14,7 +14,7 @@ public class EstadoTareaPersona {
 
 	@Id
 	@Column(name = "ID_ESTADO_TAREA_PERSONA")
-	private /* BigInteger */ Long id;
+	private Long id;
 
 	@NotBlank
 	@Column(name = "NOMBRE", nullable = false)

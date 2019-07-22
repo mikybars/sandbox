@@ -16,7 +16,7 @@ public class TipoDato {
 
     @Id
     @Column(name = "ID_TIPO_DATO")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotBlank
     @Column(name = "NOMBRE", nullable = false)
@@ -32,10 +32,10 @@ public class TipoDato {
 
     @OneToOne
     @JoinColumn(name = "ID_TIPO_PRESENCIA", nullable = true)
-    private /* BigInteger */ TipoPresencia tipoPresencia;
+    private TipoPresencia tipoPresencia;
 
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA", nullable = true)
-    private /* BigInteger */ TipoVenta tipoVenta;
+    private TipoVenta tipoVenta;
 
 }

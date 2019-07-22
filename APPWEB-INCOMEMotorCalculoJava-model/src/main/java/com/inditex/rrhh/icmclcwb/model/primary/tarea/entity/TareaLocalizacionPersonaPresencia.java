@@ -26,12 +26,12 @@ public class TareaLocalizacionPersonaPresencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
     
     @NotBlank
     @Column(name = "ID_LOCALIZACION", nullable = false)
@@ -63,11 +63,11 @@ public class TareaLocalizacionPersonaPresencia {
     
     @NotNull
     @Column(name = "MINUTOS", nullable = false)
-    private /* BigInteger */ Long minutos;
+    private Long minutos;
     
     @NotNull
     @Column(name = "ID_TIPO_HORA", nullable = false)
-    private /* BigInteger */ String idTipoHora;
+    private String idTipoHora;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)

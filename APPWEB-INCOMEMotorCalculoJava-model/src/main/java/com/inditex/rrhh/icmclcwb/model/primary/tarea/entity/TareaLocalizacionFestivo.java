@@ -23,7 +23,7 @@ public class TareaLocalizacionFestivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_FESTIVO")
-    private /* BigInteger */ Long id;
+    private Long id;
     
     @NotBlank
     @Column(name = "ID_LOCALIZACION", nullable = false)
@@ -36,6 +36,6 @@ public class TareaLocalizacionFestivo {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
     
 }

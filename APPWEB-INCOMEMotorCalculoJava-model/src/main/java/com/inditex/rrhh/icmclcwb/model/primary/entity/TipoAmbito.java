@@ -14,7 +14,7 @@ public class TipoAmbito {
 
 	@Id
 	@Column(name = "ID_TIPO_AMBITO")
-	private /* BigInteger */ Long id;
+	private Long id;
 
 	@NotBlank
 	@Column(name = "NOMBRE", nullable = false)

@@ -25,12 +25,12 @@ public class PeriodoCalculoPersona {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA_ACTUAL", nullable = false)
-    private /* BigInteger */ Tarea tareaActual;
+    private Tarea tareaActual;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA_ULTIMA", nullable = false)
-    private /* BigInteger */ Tarea tareaUltima;
+    private Tarea tareaUltima;
 
     @NotNull
     @Column(name = "FECHA_CREACION", nullable = false)

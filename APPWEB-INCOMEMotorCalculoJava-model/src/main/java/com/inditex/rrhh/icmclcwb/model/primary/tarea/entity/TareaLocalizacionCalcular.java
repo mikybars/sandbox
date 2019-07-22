@@ -23,12 +23,12 @@ public class TareaLocalizacionCalcular {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_CALCULAR")
-    private /* BigInteger */ Long id;
+    private Long id;
     
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false)

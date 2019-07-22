@@ -21,12 +21,12 @@ public class TrabajoAmbitoEmpresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TRABAJO_AMBITO_EMPRESA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TRABAJO", nullable = false)
-    private /* BigInteger */ Trabajo trabajo;
+    private Trabajo trabajo;
 
     @NotBlank
     @Column(name = "ID_EMPRESA", nullable = false)
