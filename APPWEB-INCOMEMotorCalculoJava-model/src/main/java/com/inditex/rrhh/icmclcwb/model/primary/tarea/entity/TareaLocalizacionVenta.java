@@ -50,11 +50,11 @@ public class TareaLocalizacionVenta {
     private String idSeccion;
     
     @NotNull
-    @Column(name = "IMPORTE_SECCION", nullable = false)
-    private Double importe;
+    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
+    private Double importeSinImpuestos;
     
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION", nullable = false)
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
     private Double importeConImpuestos;
     
     @ManyToOne
@@ -62,7 +62,7 @@ public class TareaLocalizacionVenta {
     private TipoDato tipoDato;
 
     @NotNull
-    @Column(name = "ACTIVO", nullable = false)
+    @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
     
 }

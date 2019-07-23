@@ -46,8 +46,8 @@ public class TareaLocalizacionPersonaVenta {
     private String idPersona;
     
     @NotNull
-    @Column(name = "IMPORTE", nullable = false)
-    private Double importe;
+    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
+    private Double importeSinImpuestos;
     
     @NotNull
     @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)

@@ -42,7 +42,7 @@ public abstract class TareaLocalizacionVentaMapper {
     @Mapping(source = "cadena", target = "idCadena")
     @Mapping(source = "fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "idSeccion", target = "idSeccion")
-    @Mapping(source = "importeSinIVA", target = "importe")
+    @Mapping(source = "importeSinIVA", target = "importeSinImpuestos")
     @Mapping(source = "importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "idTipoDato", target = "tipoDato.id")
     @Mapping(constant = "true", target = "activo")

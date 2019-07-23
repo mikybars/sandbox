@@ -79,7 +79,7 @@ public abstract class TareaLocalizacionVentaDecorator extends TareaLocalizacionV
                         fecha, tarea, item.getImporteSinIVA().doubleValue(), item.getImporteConIVA().doubleValue(),
                         item.getSeccion(), tipoDatoLocalizacionSeccion);
                 dtoList.add(venta);
-                importeSinIva.getAndAdd(venta.getImporte());
+                importeSinIva.getAndAdd(venta.getImporteSinImpuestos());
                 importeConIva.getAndAdd(venta.getImporteConImpuestos());
             });
             dtoList.add(delegate.responseItemDtoToTareaLocalizacionVenta(tienda, cadena, fecha, tarea, importeSinIva.doubleValue(), importeConIva.doubleValue(), AppConstants.SECCION_4, tipoDatoLocalizacion));

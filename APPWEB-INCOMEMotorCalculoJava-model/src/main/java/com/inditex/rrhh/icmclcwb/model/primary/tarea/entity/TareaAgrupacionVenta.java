@@ -49,15 +49,15 @@ public class TareaAgrupacionVenta {
     private String idOrigen;
     
     @NotNull
-    @Column(name = "IMPORTE", nullable = false)
-    private Double importe;
+    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
+    private Double importeSinImpuestos;
     
     @NotNull
     @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
     private Double importeConImpuestos;
 
     @NotNull
-    @Column(name = "ACTIVO", nullable = false)
+    @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
     
     @ManyToOne

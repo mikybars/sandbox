@@ -44,7 +44,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         pstmt.setString(2, entity.getIdCadena());
         pstmt.setString(3, entity.getIdLocalizacion());
         pstmt.setString(4, entity.getIdSeccion());
-        pstmt.setDouble(5, entity.getImporte());
+        pstmt.setDouble(5, entity.getImporteSinImpuestos());
         pstmt.setDouble(6, entity.getImporteConImpuestos());
         pstmt.setDouble(7, entity.getTipoDato().getId());
         pstmt.setObject(8, entity.getActivo());

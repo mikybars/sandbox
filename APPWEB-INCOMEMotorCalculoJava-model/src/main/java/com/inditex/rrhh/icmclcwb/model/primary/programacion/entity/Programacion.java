@@ -41,8 +41,8 @@ public class Programacion {
     private String huso;
 
     @NotNull
-    @Column(name = "ACTIVA", nullable = false)
-    private Boolean activa;
+    @Column(name = "ES_ACTIVO", nullable = false)
+    private Boolean activo;
 
     @NotBlank
     @Column(name = "ID_USUARIO", nullable = false)

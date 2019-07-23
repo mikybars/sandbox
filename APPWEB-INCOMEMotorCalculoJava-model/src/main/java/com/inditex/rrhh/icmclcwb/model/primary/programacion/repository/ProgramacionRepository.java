@@ -8,6 +8,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface ProgramacionRepository extends BaseRepository<Programacion, Long> {
 
-    List<Programacion> findByFechaSiguienteEjecucionBeforeAndActivaTrue(Date fechaSiguienteEjecucion);
+    List<Programacion> findByFechaSiguienteEjecucionBeforeAndActivoTrue(Date fechaSiguienteEjecucion);
 
 }

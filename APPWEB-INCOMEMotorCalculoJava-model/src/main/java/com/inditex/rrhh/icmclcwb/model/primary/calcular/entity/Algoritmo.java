@@ -25,7 +25,7 @@ public class Algoritmo {
     private Integer id;
 
     @NotNull
-    @Column(name = "ACTIVO", nullable = false)
+    @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
 
     @NotBlank

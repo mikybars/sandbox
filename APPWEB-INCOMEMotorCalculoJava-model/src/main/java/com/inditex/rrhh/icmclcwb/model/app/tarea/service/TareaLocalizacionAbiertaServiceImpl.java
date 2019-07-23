@@ -24,22 +24,24 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
 
     @Autowired
     private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
-    
+
     @Autowired
     private TareaLocalizacionAbiertaMapper tareaLocalizacionAbiertaMapper;
 
     @Autowired
     private TipoDatoService tipoDatoService;
-    
+
     @Override
     public void saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
         tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tareaDto, trabajoDto);
     }
-    
+
     @Override
     public void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
-        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+        List<IdTipoDatoDto> ids = tipoDatoService
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto,
-            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+                ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
+
 }

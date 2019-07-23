@@ -62,7 +62,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.VENTA_ONLINE_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR, SqlPrimaryConstants.SQL_VALUE_MULTIPLICADOR_POSITIVO);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR,
+                SqlPrimaryConstants.SQL_VALUE_MULTIPLICADOR_POSITIVO);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CERRADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -76,7 +77,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.VENTA_ONLINE_COMPENSADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR, SqlPrimaryConstants.SQL_VALUE_MULTIPLICADOR_NEGATIVO);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MULTIPLICADOR,
+                SqlPrimaryConstants.SQL_VALUE_MULTIPLICADOR_NEGATIVO);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CERRADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -91,7 +93,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(trabajoDto.getFechaFinPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         namedParameterJdbcTemplate.update(sqlSaveCerrado, parameters);
     }
 

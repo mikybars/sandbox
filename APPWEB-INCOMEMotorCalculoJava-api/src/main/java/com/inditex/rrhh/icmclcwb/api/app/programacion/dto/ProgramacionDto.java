@@ -42,7 +42,7 @@ public class ProgramacionDto implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true, example = "true")
-    private Boolean activa;
+    private Boolean activo;
 
     @ApiModelProperty(value = "Id del usuario que planificó la ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
     private String idUsuario;

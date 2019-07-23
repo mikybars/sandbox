@@ -11,6 +11,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_INACTIVO = "inactivo";
 
+    public static final String SQL_PARAM_MINUTOS = "minutos";
+    
     public static final String SQL_PARAM_ACTIVO = "activo";
 
     public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA = "tipoDatoLocalizacionPersonaPresencia";
@@ -116,6 +118,8 @@ public class SqlPrimaryConstants {
     public static final Boolean SQL_VALUE_BOOLEAN_TRUE = Boolean.TRUE;
 
     public static final Boolean SQL_VALUE_BOOLEAN_FALSE = Boolean.TRUE;
+    
+    public static final Integer SQL_VALUE_MINUTOS_CERO = 0;
     
     public static final Integer SQL_VALUE_IMPORTE_CERO = 0;
     

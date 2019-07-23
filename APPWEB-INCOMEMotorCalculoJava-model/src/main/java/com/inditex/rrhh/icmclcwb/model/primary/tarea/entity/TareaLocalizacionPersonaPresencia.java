@@ -74,7 +74,7 @@ public class TareaLocalizacionPersonaPresencia {
     private TipoDato tipoDato;
     
     @NotNull
-    @Column(name = "ACTIVO", nullable = false)
+    @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
     
 }

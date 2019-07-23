@@ -32,11 +32,11 @@ public class TareaLocalizacionVentaDto implements Serializable {
     private String idSeccion;
     
     @NotNull
-    @ApiModelProperty(value = "Importe sin iva de la venta en la seccion 1", required = true)
-    private Double importe;
+    @ApiModelProperty(value = "Importe sin impuestos", required = true)
+    private Double importeSinImpuestos;
     
     @NotNull
-    @ApiModelProperty(value = "Importe con iva de la venta en la seccion 1", required = true)
+    @ApiModelProperty(value = "Importe con impuestos", required = true)
     private Double importeConImpuestos;
     
     @ApiModelProperty(value = "Tipo importe venta", required = true)

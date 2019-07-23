@@ -59,7 +59,7 @@ public class TareaAgrupacionVentaMapperTest {
         assertNotNull(presencias);
         assertEquals(1, presencias.size());
         assertEquals(40000D, presencias.get(0).getImporteConImpuestos().doubleValue(), 0.001);
-        assertEquals(34900D, presencias.get(0).getImporte().doubleValue(), 0.001);
+        assertEquals(34900D, presencias.get(0).getImporteSinImpuestos().doubleValue(), 0.001);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class TareaAgrupacionVentaMapperTest {
         assertNotNull(presencias);
         assertEquals(1, presencias.size());
         assertEquals(40000D, presencias.get(0).getImporteConImpuestos().doubleValue(), 0.001);
-        assertEquals(34900D, presencias.get(0).getImporte().doubleValue(), 0.001);
+        assertEquals(34900D, presencias.get(0).getImporteSinImpuestos().doubleValue(), 0.001);
     }
 
     @Test
@@ -154,7 +154,7 @@ public class TareaAgrupacionVentaMapperTest {
         assertNotNull(presencias);
         assertEquals(1, presencias.size());
         assertEquals(40000D, presencias.get(0).getImporteConImpuestos().doubleValue(), 0.001);
-        assertEquals(34900D, presencias.get(0).getImporte().doubleValue(), 0.001);
+        assertEquals(34900D, presencias.get(0).getImporteSinImpuestos().doubleValue(), 0.001);
     }
 
     @Test
@@ -201,7 +201,7 @@ public class TareaAgrupacionVentaMapperTest {
         assertNotNull(presencias);
         assertEquals(1, presencias.size());
         assertEquals(40000D, presencias.get(0).getImporteConImpuestos().doubleValue(), 0.001);
-        assertEquals(34900D, presencias.get(0).getImporte().doubleValue(), 0.001);
+        assertEquals(34900D, presencias.get(0).getImporteSinImpuestos().doubleValue(), 0.001);
     }
 
     @Test

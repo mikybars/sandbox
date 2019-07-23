@@ -36,21 +36,25 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        return namedParameterJdbcTemplate.query(sqlCustomFindAlgoritmosIdsByTarea, parameters, new RowMapper<Integer>() {
-            @Override
-            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO);
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlCustomFindAlgoritmosIdsByTarea, parameters,
+                new RowMapper<Integer>() {
+                    @Override
+                    public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO);
+                    }
+                });
     }
 
     @Override
     public Boolean checkDuplicatedActives() {
-        List<Integer> value = namedParameterJdbcTemplate.query(sqlCheckDuplicatedActives, new RowMapper<Integer>() {
-            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getInt(1);
-            }
-        });
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        List<Integer> value = namedParameterJdbcTemplate.query(sqlCheckDuplicatedActives, parameters,
+                new RowMapper<Integer>() {
+                    public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return rs.getInt(1);
+                    }
+                });
         if (CollectionUtils.isNotEmpty(value)) {
             return Boolean.TRUE;
         }

@@ -1,14 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresenciaDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResultItemDto;
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import java.util.List;
 
 public interface TareaLocalizacionPresenciaService {
 
