@@ -294,11 +294,11 @@ app:
           connectTimeout: 300000
           receiveTimeout: 300000
       login:
-      	server: https://error-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        server: https://error-icmclcws.axdesocp1.central.inditex.grp/services/Login
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
-      	server: https://error-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://error-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
