@@ -19,6 +19,9 @@ public class AlgoritmoDto implements Serializable {
 
     @ApiModelProperty(value = "Si el algoritmo está [activo|inactivo]", required = true, example = "true")
     private Boolean activo;
+    
+    @ApiModelProperty(value = "Desplazamiento", required = true, example = "true")
+    private Boolean desplazamiento;
 
     @ApiModelProperty(value = "Nombre del algoritmo", required = true, example = "true")
     private String nombre;

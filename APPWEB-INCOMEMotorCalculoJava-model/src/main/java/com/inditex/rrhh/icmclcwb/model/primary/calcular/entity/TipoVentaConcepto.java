@@ -21,11 +21,15 @@ public class TipoVentaConcepto {
     private Long id;
 
     @NotBlank
-    @Column(name = "DESCRIPCION", length = /*TAMANO_DESC*/ 255, nullable = false)
-    private String descripcion;
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    private String nombre;
 
     @NotBlank
-    @Column(name = "CODIGO", length = 8, nullable = false)
+    @Column(name = "DESCRIPCION", length = /*TAMANO_DESC*/ 255, nullable = false)
+    private String descripcion;
+    
+    @NotBlank
+    @Column(name = "ICM_ID_CONCEPTO_VENTA", length = 8, nullable = false)
     private String codigo;
 
     @NotNull
