@@ -29,7 +29,7 @@ public class ProgramacionAmbitoEmpresa {
     private ProgramacionAmbito programacionAmbito;
 
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", length = 48, nullable = false)
     private String idEmpresa;
 
 }

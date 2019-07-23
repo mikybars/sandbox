@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.programacion.entity;
 
+import java.time.LocalTime;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,10 +36,10 @@ public class Programacion {
 
     @NotNull
     @Column(name = "HORA_PROGRAMACION", nullable = false)
-    private String hora;
+    private LocalTime hora;
 
     @NotNull
-    @Column(name = "HORA_PROGRAMACION_HUSO", nullable = false)
+    @Column(name = "PROGRAMACION_HUSO", length = 12, nullable = false)
     private String huso;
 
     @NotNull
@@ -52,7 +54,7 @@ public class Programacion {
     @Column(name = "FECHA_CREACION", nullable = false)
     private Date fechaCreacion;
 
-    @Column(name = "FECHA_ULTIMA_EJECUCION", nullable = true)
+    @Column(name = "FECHA_HORA_ULTIMA_EJECUCION", nullable = true)
     private Date fechaUltimaEjecucion;
 
     @NotNull

@@ -16,18 +16,18 @@ public class TipoDato {
 
     @Id
     @Column(name = "ID_TIPO_DATO")
-    private Long id;
+    private Integer id;
 
     @NotBlank
-    @Column(name = "NOMBRE", nullable = false)
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
     private String nombre;
 
     @NotBlank
-    @Column(name = "DESCRIPCION", nullable = false)
+    @Column(name = "DESCRIPCION", length = /*TAMANO_DESC*/ 255, nullable = false)
     private String descripcion;
 
     @NotBlank
-    @Column(name = "PROCESADO", nullable = false)
+    @Column(name = "ES_PROCESADO", nullable = false)
     private Boolean procesado;
 
     @OneToOne

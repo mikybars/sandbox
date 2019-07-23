@@ -29,7 +29,7 @@ public class ProgramacionAmbitoOrigen {
     private ProgramacionAmbito programacionAmbito;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", length = 48, nullable = false)
     private String idOrigen;
 
 }

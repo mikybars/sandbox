@@ -33,11 +33,11 @@ public class PeriodoCalculoPersona {
     private Tarea tareaUltima;
 
     @NotNull
-    @Column(name = "FECHA_CREACION", nullable = false)
+    @Column(name = "FECHA_HORA_CREACION", nullable = false)
     private Date fechaCreacion;
 
     @NotNull
-    @Column(name = "FECHA_ACTUALIZACION", nullable = false)
+    @Column(name = "FECHA_HORA_ACTUALIZACION", nullable = false)
     private Date fechaActualizacion;
 
     @OneToOne
@@ -45,7 +45,7 @@ public class PeriodoCalculoPersona {
     private EstadoPeriodoCalculoPersona estado;
 
     @NotNull
-    @Column(name = "BLOQUEADO", nullable = false)
+    @Column(name = "ES_BLOQUEADO", nullable = false)
     private Boolean bloqueado;
 
 }

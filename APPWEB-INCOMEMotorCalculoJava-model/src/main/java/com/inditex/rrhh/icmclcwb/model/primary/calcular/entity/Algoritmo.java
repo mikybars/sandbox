@@ -29,7 +29,7 @@ public class Algoritmo {
     private Boolean activo;
 
     @NotBlank
-    @Column(name = "NOMBRE", nullable = false)
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
     private String nombre;
 
     @ManyToMany(fetch = FetchType.EAGER)

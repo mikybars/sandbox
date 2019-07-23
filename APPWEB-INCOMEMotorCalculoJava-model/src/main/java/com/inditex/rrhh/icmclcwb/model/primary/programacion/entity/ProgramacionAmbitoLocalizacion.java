@@ -29,15 +29,15 @@ public class ProgramacionAmbitoLocalizacion {
     private ProgramacionAmbito programacionAmbito;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", length = 48, nullable = false)
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", length = 48, nullable = false)
     private String idEmpresa;
 
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "STD_ID_WORK_LOCAT", length = 48, nullable = false)
     private String idLocalizacion;
 
 }

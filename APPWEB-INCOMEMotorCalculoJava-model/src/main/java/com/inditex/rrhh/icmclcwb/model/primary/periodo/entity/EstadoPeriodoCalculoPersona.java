@@ -24,14 +24,14 @@ public class EstadoPeriodoCalculoPersona {
 
     @Id
     @Column(name = "ID_ESTADO_PERIODO_CALCULO_PERSONA")
-    private Long id;
+    private Integer id;
 
     @NotBlank
-    @Column(name = "NOMBRE", nullable = false)
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
     private String nombre;
     
     @NotNull
     @Column(name = "PESO", nullable = false)
-    private Long peso;
+    private Integer peso;
     
 }

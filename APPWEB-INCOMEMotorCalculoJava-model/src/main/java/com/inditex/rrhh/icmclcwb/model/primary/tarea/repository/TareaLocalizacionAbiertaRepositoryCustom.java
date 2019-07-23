@@ -11,10 +11,11 @@ public interface TareaLocalizacionAbiertaRepositoryCustom {
 
     void saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto);
 
-    void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto, @NotNull List<Long> idTipoImporteVenta);
+    void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto, @NotNull List<Integer> idTipoImporteVenta);
 
-    void trasladar(@NotNull final TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta);
+    void trasladar(@NotNull final TareaDto tareaDto, @NotNull List<Integer> idTipoImporteVenta);
 
-    void compensar(@NotNull final TareaDto tareaDto, @NotNull List<Long> idTipoImporteVenta);
+    void compensar(@NotNull final TareaDto tareaDto, @NotNull List<Integer> idTipoImporteVenta);
+
 
 }

@@ -23,10 +23,10 @@ public class EstadoTarea {
 
 	@Id
 	@Column(name = "ID_ESTADO_TAREA")
-	private Long id;
+	private Integer id;
 
 	@NotBlank
-	@Column(name = "NOMBRE", nullable = false)
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
 	private String nombre;
 
 }

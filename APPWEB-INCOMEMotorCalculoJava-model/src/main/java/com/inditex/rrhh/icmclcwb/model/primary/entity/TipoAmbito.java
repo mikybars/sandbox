@@ -14,10 +14,10 @@ public class TipoAmbito {
 
 	@Id
 	@Column(name = "ID_TIPO_AMBITO")
-	private Long id;
+	private Integer id;
 
 	@NotBlank
-	@Column(name = "NOMBRE", nullable = false)
+	@Column(name = "NOMBRE", length = 32, nullable = false)
 	private String nombre;
 
 }

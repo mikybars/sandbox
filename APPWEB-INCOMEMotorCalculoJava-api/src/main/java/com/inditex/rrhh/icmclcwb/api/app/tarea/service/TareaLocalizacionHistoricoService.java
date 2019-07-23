@@ -30,10 +30,10 @@ public interface TareaLocalizacionHistoricoService {
             @NotNull final String idOrigen);
 
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotBlank final String idOrigen, @NotNull final List<Long> idsTipoDato);
+            @NotBlank final String idOrigen, @NotNull final List<Integer> idsTipoDato);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull final Long idTarea, @NotBlank final String idOrigen, @NotNull final List<Long> idsTipoDato);
+            @NotNull final Long idTarea, @NotBlank final String idOrigen, @NotNull final List<Integer> idsTipoDato);
 
     List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen,
             @NotNull final Long idVentaConcepto);

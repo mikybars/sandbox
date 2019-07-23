@@ -10,6 +10,6 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
     List<TareaLocalizacionVenta> save(List<TareaLocalizacionVenta> src);
 
-    void updateActivo(TareaDto tarea, TipoVentaConceptoEnum tipoVentaConceptoEnum, List<Long> idsTipoDato);
+    void updateActivo(TareaDto tarea, TipoVentaConceptoEnum tipoVentaConceptoEnum, List<Integer> idsTipoDato);
 
 }

@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.programacion.dto;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;

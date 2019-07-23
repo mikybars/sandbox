@@ -21,11 +21,11 @@ public class TipoVentaConcepto {
     private Long id;
 
     @NotBlank
-    @Column(name = "DESCRIPCION", nullable = false)
+    @Column(name = "DESCRIPCION", length = /*TAMANO_DESC*/ 255, nullable = false)
     private String descripcion;
 
     @NotBlank
-    @Column(name = "CODIGO", nullable = false)
+    @Column(name = "CODIGO", length = 8, nullable = false)
     private String codigo;
 
     @NotNull

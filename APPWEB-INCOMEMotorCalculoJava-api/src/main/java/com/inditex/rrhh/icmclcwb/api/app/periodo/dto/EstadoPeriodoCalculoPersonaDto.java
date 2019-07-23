@@ -21,6 +21,6 @@ public class EstadoPeriodoCalculoPersonaDto implements Serializable {
 	private static final long serialVersionUID = 690542159104929423L;
 
 	@ApiModelProperty(value = "Identificador del estado", required = true)
-	private Long id;
+	private Integer id;
 
 }
