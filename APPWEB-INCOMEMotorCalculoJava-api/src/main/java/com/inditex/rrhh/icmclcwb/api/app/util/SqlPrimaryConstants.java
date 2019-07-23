@@ -115,9 +115,9 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_NUEVA_FECHA = "nuevaFecha";
 
-    public static final Boolean SQL_VALUE_BOOLEAN_TRUE = Boolean.TRUE;
+    public static final Integer SQL_VALUE_BOOLEAN_TRUE = 1;
 
-    public static final Boolean SQL_VALUE_BOOLEAN_FALSE = Boolean.TRUE;
+    public static final Integer SQL_VALUE_BOOLEAN_FALSE = 0;
     
     public static final Integer SQL_VALUE_MINUTOS_CERO = 0;
     
