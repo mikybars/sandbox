@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -31,35 +33,37 @@ public class TareaLocalizacionHistorico {
 	private Tarea tarea;
 
 	@NotBlank
-	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
+	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
 	private String idLocalizacion;
 
 	@NotBlank
-	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
+	@Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
 	private String idLocalizacionMeta4;
 
 	 @NotBlank
-	@Column(name = "STD_ID_COUNTRY", nullable = false)
+	@Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
 	private String idPais;
 
 	 @NotBlank
-	@Column(name = "CCL_ID_ORIGEN", nullable = false)
+	@Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
 	private String idPaisOrigen;
 
 	 @NotBlank
-	@Column(name = "STD_ID_LEG_ENT", nullable = false)
+	@Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
 	private String idEmpresa;
 
     @NotBlank
-	@Column(name = "CCL_ID_CADENA", nullable = false)
+	@Column(name = "CCL_ID_CADENA", nullable = false, length = 24)
 	private String idCadena;
 
 	@NotNull
 	@Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
 	private Date fechaInicio;
 
 	@NotNull
 	@Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
 	private Date fechaFin;
 
 }

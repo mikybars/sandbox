@@ -133,12 +133,16 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_RESULT_ID_ALGORITMO = "ID_ALGORITMO";
 
-    public static final String SQL_RESULT_ID_PERSONA = "ID_PERSONA";
+    public static final String SQL_RESULT_ID_PERSONA_LOCAL = "CCL_ID_PERSON";
 
-    public static final String SQL_RESULT_OR_PERSONA = "OR_PERSONA";
+    public static final String SQL_RESULT_ID_PERSONA_META4 = "STD_ID_HR";
 
-    public static final String SQL_RESULT_ID_LOCALIZACION = "ID_LOCALIZACION";
+    public static final String SQL_RESULT_OR_PERSONA = "STD_OR_HR_PERIOD";
 
-    public static final String SQL_RESULT_ID_CADENA = "ID_CADENA";
+    public static final String SQL_RESULT_ID_LOCALIZACION_LOCAL = "CCL_ID_COD_ORIGEN";
+
+    public static final String SQL_RESULT_ID_LOCALIZACION_META4 = "STD_ID_WORK_LOCAT";
+
+    public static final String SQL_RESULT_ID_CADENA = "CCL_ID_CADENA";
 
 }

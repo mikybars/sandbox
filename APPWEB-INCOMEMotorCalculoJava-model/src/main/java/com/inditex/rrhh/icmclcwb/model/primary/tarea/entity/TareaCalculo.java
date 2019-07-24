@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -34,6 +36,7 @@ public class TareaCalculo {
 
     @NotNull
     @Column(name = "FECHA", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fecha;
 
     @NotNull
@@ -42,23 +45,23 @@ public class TareaCalculo {
     private Algoritmo algoritmo;
 
     @NotNull
-    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
+    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, length = 23, precision = 8)
     private Double importeSinImpuestos;
 
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, length = 23, precision = 8)
     private Double importeConImpuestos;
 
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "STR_ID_WORK_LOCAT", nullable = false, length = 48)
     private String idLocalizacion;
     
     @NotBlank
-    @Column(name = "ID_PERSONA", nullable = false)
+    @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String idPersona;
 
     @NotBlank
-    @Column(name = "OR_PERSONA", nullable = false)
+    @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
     private String orPersona;
 
     @NotNull

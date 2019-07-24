@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -34,39 +36,40 @@ public class TareaLocalizacionPersonaPresencia {
     private Tarea tarea;
     
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String idLocalizacion;
 
     @NotBlank
-    @Column(name = "ID_CADENA", nullable = false)
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String idCadena;
 
     @NotBlank
-    @Column(name = "ID_PERSONA", nullable = false)
+    @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String idPersona;
     
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
     
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String idEmpresa;
     
     @NotBlank
-    @Column(name = "ID_SECCION", nullable = false)
+    @Column(name = "CCL_ID_SECCION", nullable = false, length = 4)
     private String idSeccion;
     
     @NotNull
     @Column(name = "FECHA", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fecha;
     
     @NotNull
     @Column(name = "MINUTOS", nullable = false)
-    private Long minutos;
+    private Integer minutos;
     
     @NotNull
-    @Column(name = "ID_TIPO_HORA", nullable = false)
+    @Column(name = "ICM_ID_TP_HORA", nullable = false, length = 48)
     private String idTipoHora;
     
     @ManyToOne

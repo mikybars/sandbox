@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -31,23 +33,25 @@ public class TareaLocalizacionCalcular {
     private Tarea tarea;
 
     @NotBlank
-    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String idLocalizacion;
     
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
     private String idLocalizacionMeta4;
     
     @NotNull
-    @Column(name = "CALCULA", nullable = false)
+    @Column(name = "ES_CALCULA", nullable = false)
     private Boolean calcula;
     
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     
     @NotNull
     @Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaFin;
     
 

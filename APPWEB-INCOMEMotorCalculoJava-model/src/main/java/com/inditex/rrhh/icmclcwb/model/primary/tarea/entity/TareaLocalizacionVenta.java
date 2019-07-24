@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -35,18 +37,19 @@ public class TareaLocalizacionVenta {
     
     @NotNull
     @Column(name = "FECHA", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fecha;
     
     @NotNull
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String idLocalizacion;
     
     @NotNull
-    @Column(name = "ID_CADENA", nullable = false)
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String idCadena;
     
     @NotBlank
-    @Column(name = "ID_SECCION", nullable = false)
+    @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
     private String idSeccion;
     
     @NotNull

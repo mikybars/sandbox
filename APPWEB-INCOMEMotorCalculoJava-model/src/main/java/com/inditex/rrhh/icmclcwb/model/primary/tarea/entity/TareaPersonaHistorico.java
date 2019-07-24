@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -31,15 +33,15 @@ public class TareaPersonaHistorico {
 	private Tarea tarea;
 
 	@NotBlank
-	@Column(name = "ID_PERSONA", nullable = false)
+	@Column(name = "STD_ID_HR", nullable = false)
 	private String idPersona;
 
 	@NotBlank
-	@Column(name = "OR_PERSONA", nullable = false)
+	@Column(name = "STD_OR_HR_PERIOD", nullable = false)
 	private String orPersona;
 
 	@NotBlank
-	@Column(name = "ID_PERSONA_LOCAL", nullable = false)
+	@Column(name = "CCL_ID_PERSON", nullable = false)
 	private String idPersonaLocal;
 
 	@NotBlank
@@ -51,32 +53,35 @@ public class TareaPersonaHistorico {
 	private String idLocalizacionMeta4;
 	
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false)
     private String idOrigen;
     
     @NotBlank
-    @Column(name = "ID_SECCION", nullable = false)
+    @Column(name = "CCL_ID_SECCION", nullable = false)
     private String idSeccion;
 
 	@NotNull
 	@Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
 	private Date fechaInicio;
 
 	@NotNull
 	@Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
 	private Date fechaFin;
 	
     @NotNull
     @Column(name = "FECHA_INICIO_SECCION", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaInicioSeccion;
 
     @NotNull
     @Column(name = "FECHA_FIN_SECCION", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaFinSeccion;
-	     
-	 
+
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", nullable = false)
     private String idEmpresa;
 
 }

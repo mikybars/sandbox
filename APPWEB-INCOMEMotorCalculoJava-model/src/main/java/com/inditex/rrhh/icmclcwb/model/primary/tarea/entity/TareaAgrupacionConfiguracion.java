@@ -42,7 +42,7 @@ public class TareaAgrupacionConfiguracion {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO")
+    @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO", nullable = false)
     private TipoVentaConcepto tipoVentaConcepto;
 
     @NotNull
