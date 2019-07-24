@@ -19,6 +19,6 @@ public class PtrSeccionPresenciasGenericType implements Serializable {
 
     private Integer seccion;
 
-    private Long minutos;
+    private Integer minutos;
 
 }
