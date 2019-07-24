@@ -51,8 +51,6 @@ public interface Meta4IcmWsCalcIncomeService {
 
 	SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request);
 
-	ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request);
-
 	EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request);
 
     PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request);
@@ -81,10 +79,10 @@ public interface Meta4IcmWsCalcIncomeService {
 
     OrigenResponseDto getOrigen(OrigenRequestDto request);
 
-    ComisionEmpleadoResponseDto getEstructurasDesplazamiento(ComisionEmpleadoRequestDto request);
-
     ComisionEmpleadoResponseDto getEstructurasPoliticas(ComisionEmpleadoRequestDto request);
 
     EmpleadosDesplazamientoResponseDto getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
+
+    ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request);
 	
 }
