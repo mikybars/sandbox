@@ -24,12 +24,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para GetcomisionempleadoOutput complex type.
+ * <p>Clase Java para GetestrcomisionOutput complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="GetcomisionempleadoOutput">
+ * &lt;complexType name="GetestrcomisionOutput">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -45,12 +45,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetcomisionempleadoOutput", propOrder = {
+@XmlType(name = "GetestrcomisionOutput", propOrder = {
     "_return",
     "logMessage",
     "icmListaestructuras"
 })
-public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class GetestrcomisionOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     @XmlElement(name = "return")
@@ -136,7 +136,7 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
         if (this == object) {
             return true;
         }
-        final GetcomisionempleadoOutput that = ((GetcomisionempleadoOutput) object);
+        final GetestrcomisionOutput that = ((GetestrcomisionOutput) object);
         {
             double lhsReturn;
             lhsReturn = this.getReturn();
@@ -241,8 +241,8 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GetcomisionempleadoOutput) {
-            final GetcomisionempleadoOutput copy = ((GetcomisionempleadoOutput) draftCopy);
+        if (draftCopy instanceof GetestrcomisionOutput) {
+            final GetestrcomisionOutput copy = ((GetestrcomisionOutput) draftCopy);
             {
                 Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -291,7 +291,7 @@ public class GetcomisionempleadoOutput implements Cloneable, CopyTo2, Equals2, H
     }
 
     public Object createNewInstance() {
-        return new GetcomisionempleadoOutput();
+        return new GetestrcomisionOutput();
     }
 
 }

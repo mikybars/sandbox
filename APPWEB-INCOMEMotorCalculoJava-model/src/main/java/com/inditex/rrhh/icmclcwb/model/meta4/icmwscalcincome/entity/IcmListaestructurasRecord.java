@@ -40,7 +40,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="dias" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="diav" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="diax" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="tipo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="inout" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="importe" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -52,24 +51,18 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="importemin" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="orempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="horasorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="horasdestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idestructura" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idmotivobaja" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idmotivodesp" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipocalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idtipoopccalc" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="nummesesmedia" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="desplazamiento" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="excdenominador" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipocomision" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipopolitica" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleadolocal" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idpuestodestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idsecciondestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajomtu" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idtiporeqcomision" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idlugartrabajodestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Icm_Listaestrdespl" type="{http://schemas.meta4.com/}Icm_ListaestrdesplBlock"/>
  *         &lt;element name="Icm_Listaporcentajes" type="{http://schemas.meta4.com/}Icm_ListaporcentajesBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -90,7 +83,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "dias",
     "diav",
     "diax",
-    "tipo",
     "inout",
     "importe",
     "fechafin",
@@ -102,24 +94,18 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "importemin",
     "orempleado",
     "fechainicio",
-    "horasorigen",
-    "horasdestino",
     "idestructura",
     "idmotivobaja",
-    "idmotivodesp",
     "idtipocalculo",
-    "idtipoopccalc",
     "nummesesmedia",
+    "desplazamiento",
     "excdenominador",
     "idlugartrabajo",
     "idtipocomision",
     "idtipopolitica",
     "idempleadolocal",
-    "idpuestodestino",
-    "idsecciondestino",
     "idlugartrabajomtu",
-    "idtiporeqcomision",
-    "idlugartrabajodestino",
+    "icmListaestrdespl",
     "icmListaporcentajes"
 })
 public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
@@ -143,8 +129,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     @XmlElement(required = true, nillable = true)
     protected String diax;
     @XmlElement(required = true, nillable = true)
-    protected String tipo;
-    @XmlElement(required = true, nillable = true)
     protected String inout;
     @XmlElement(required = true, nillable = true)
     protected String importe;
@@ -167,21 +151,15 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
     @XmlElement(required = true, nillable = true)
-    protected String horasorigen;
-    @XmlElement(required = true, nillable = true)
-    protected String horasdestino;
-    @XmlElement(required = true, nillable = true)
     protected String idestructura;
     @XmlElement(required = true, nillable = true)
     protected String idmotivobaja;
     @XmlElement(required = true, nillable = true)
-    protected String idmotivodesp;
-    @XmlElement(required = true, nillable = true)
     protected String idtipocalculo;
     @XmlElement(required = true, nillable = true)
-    protected String idtipoopccalc;
-    @XmlElement(required = true, nillable = true)
     protected String nummesesmedia;
+    @XmlElement(required = true, type = Double.class, nillable = true)
+    protected Double desplazamiento;
     @XmlElement(required = true, nillable = true)
     protected String excdenominador;
     @XmlElement(required = true, nillable = true)
@@ -193,15 +171,9 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     @XmlElement(required = true, nillable = true)
     protected String idempleadolocal;
     @XmlElement(required = true, nillable = true)
-    protected String idpuestodestino;
-    @XmlElement(required = true, nillable = true)
-    protected String idsecciondestino;
-    @XmlElement(required = true, nillable = true)
     protected String idlugartrabajomtu;
-    @XmlElement(required = true, nillable = true)
-    protected String idtiporeqcomision;
-    @XmlElement(required = true, nillable = true)
-    protected String idlugartrabajodestino;
+    @XmlElement(name = "Icm_Listaestrdespl", required = true, nillable = true)
+    protected IcmListaestrdesplBlock icmListaestrdespl;
     @XmlElement(name = "Icm_Listaporcentajes", required = true, nillable = true)
     protected IcmListaporcentajesBlock icmListaporcentajes;
 
@@ -411,30 +383,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
      */
     public void setDiax(String value) {
         this.diax = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad tipo.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * Define el valor de la propiedad tipo.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setTipo(String value) {
-        this.tipo = value;
     }
 
     /**
@@ -702,54 +650,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad horasorigen.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getHorasorigen() {
-        return horasorigen;
-    }
-
-    /**
-     * Define el valor de la propiedad horasorigen.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setHorasorigen(String value) {
-        this.horasorigen = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad horasdestino.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getHorasdestino() {
-        return horasdestino;
-    }
-
-    /**
-     * Define el valor de la propiedad horasdestino.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setHorasdestino(String value) {
-        this.horasdestino = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad idestructura.
      * 
      * @return
@@ -798,30 +698,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad idmotivodesp.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdmotivodesp() {
-        return idmotivodesp;
-    }
-
-    /**
-     * Define el valor de la propiedad idmotivodesp.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdmotivodesp(String value) {
-        this.idmotivodesp = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad idtipocalculo.
      * 
      * @return
@@ -846,30 +722,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad idtipoopccalc.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdtipoopccalc() {
-        return idtipoopccalc;
-    }
-
-    /**
-     * Define el valor de la propiedad idtipoopccalc.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdtipoopccalc(String value) {
-        this.idtipoopccalc = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad nummesesmedia.
      * 
      * @return
@@ -891,6 +743,30 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
      */
     public void setNummesesmedia(String value) {
         this.nummesesmedia = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad desplazamiento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public Double getDesplazamiento() {
+        return desplazamiento;
+    }
+
+    /**
+     * Define el valor de la propiedad desplazamiento.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setDesplazamiento(Double value) {
+        this.desplazamiento = value;
     }
 
     /**
@@ -1014,54 +890,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad idpuestodestino.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdpuestodestino() {
-        return idpuestodestino;
-    }
-
-    /**
-     * Define el valor de la propiedad idpuestodestino.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdpuestodestino(String value) {
-        this.idpuestodestino = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad idsecciondestino.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdsecciondestino() {
-        return idsecciondestino;
-    }
-
-    /**
-     * Define el valor de la propiedad idsecciondestino.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdsecciondestino(String value) {
-        this.idsecciondestino = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad idlugartrabajomtu.
      * 
      * @return
@@ -1086,51 +914,27 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     /**
-     * Obtiene el valor de la propiedad idtiporeqcomision.
+     * Obtiene el valor de la propiedad icmListaestrdespl.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link IcmListaestrdesplBlock }
      *     
      */
-    public String getIdtiporeqcomision() {
-        return idtiporeqcomision;
+    public IcmListaestrdesplBlock getIcmListaestrdespl() {
+        return icmListaestrdespl;
     }
 
     /**
-     * Define el valor de la propiedad idtiporeqcomision.
+     * Define el valor de la propiedad icmListaestrdespl.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link IcmListaestrdesplBlock }
      *     
      */
-    public void setIdtiporeqcomision(String value) {
-        this.idtiporeqcomision = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad idlugartrabajodestino.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdlugartrabajodestino() {
-        return idlugartrabajodestino;
-    }
-
-    /**
-     * Define el valor de la propiedad idlugartrabajodestino.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdlugartrabajodestino(String value) {
-        this.idlugartrabajodestino = value;
+    public void setIcmListaestrdespl(IcmListaestrdesplBlock value) {
+        this.icmListaestrdespl = value;
     }
 
     /**
@@ -1247,15 +1051,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsTipo;
-            lhsTipo = this.getTipo();
-            String rhsTipo;
-            rhsTipo = that.getTipo();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "tipo", lhsTipo), LocatorUtils.property(thatLocator, "tipo", rhsTipo), lhsTipo, rhsTipo, (this.tipo!= null), (that.tipo!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsInout;
             lhsInout = this.getInout();
             String rhsInout;
@@ -1355,24 +1150,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsHorasorigen;
-            lhsHorasorigen = this.getHorasorigen();
-            String rhsHorasorigen;
-            rhsHorasorigen = that.getHorasorigen();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "horasorigen", lhsHorasorigen), LocatorUtils.property(thatLocator, "horasorigen", rhsHorasorigen), lhsHorasorigen, rhsHorasorigen, (this.horasorigen!= null), (that.horasorigen!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsHorasdestino;
-            lhsHorasdestino = this.getHorasdestino();
-            String rhsHorasdestino;
-            rhsHorasdestino = that.getHorasdestino();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "horasdestino", lhsHorasdestino), LocatorUtils.property(thatLocator, "horasdestino", rhsHorasdestino), lhsHorasdestino, rhsHorasdestino, (this.horasdestino!= null), (that.horasdestino!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsIdestructura;
             lhsIdestructura = this.getIdestructura();
             String rhsIdestructura;
@@ -1391,15 +1168,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsIdmotivodesp;
-            lhsIdmotivodesp = this.getIdmotivodesp();
-            String rhsIdmotivodesp;
-            rhsIdmotivodesp = that.getIdmotivodesp();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idmotivodesp", lhsIdmotivodesp), LocatorUtils.property(thatLocator, "idmotivodesp", rhsIdmotivodesp), lhsIdmotivodesp, rhsIdmotivodesp, (this.idmotivodesp!= null), (that.idmotivodesp!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsIdtipocalculo;
             lhsIdtipocalculo = this.getIdtipocalculo();
             String rhsIdtipocalculo;
@@ -1409,20 +1177,20 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsIdtipoopccalc;
-            lhsIdtipoopccalc = this.getIdtipoopccalc();
-            String rhsIdtipoopccalc;
-            rhsIdtipoopccalc = that.getIdtipoopccalc();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idtipoopccalc", lhsIdtipoopccalc), LocatorUtils.property(thatLocator, "idtipoopccalc", rhsIdtipoopccalc), lhsIdtipoopccalc, rhsIdtipoopccalc, (this.idtipoopccalc!= null), (that.idtipoopccalc!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsNummesesmedia;
             lhsNummesesmedia = this.getNummesesmedia();
             String rhsNummesesmedia;
             rhsNummesesmedia = that.getNummesesmedia();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "nummesesmedia", lhsNummesesmedia), LocatorUtils.property(thatLocator, "nummesesmedia", rhsNummesesmedia), lhsNummesesmedia, rhsNummesesmedia, (this.nummesesmedia!= null), (that.nummesesmedia!= null))) {
+                return false;
+            }
+        }
+        {
+            Double lhsDesplazamiento;
+            lhsDesplazamiento = this.getDesplazamiento();
+            Double rhsDesplazamiento;
+            rhsDesplazamiento = that.getDesplazamiento();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "desplazamiento", lhsDesplazamiento), LocatorUtils.property(thatLocator, "desplazamiento", rhsDesplazamiento), lhsDesplazamiento, rhsDesplazamiento, (this.desplazamiento!= null), (that.desplazamiento!= null))) {
                 return false;
             }
         }
@@ -1472,24 +1240,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsIdpuestodestino;
-            lhsIdpuestodestino = this.getIdpuestodestino();
-            String rhsIdpuestodestino;
-            rhsIdpuestodestino = that.getIdpuestodestino();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idpuestodestino", lhsIdpuestodestino), LocatorUtils.property(thatLocator, "idpuestodestino", rhsIdpuestodestino), lhsIdpuestodestino, rhsIdpuestodestino, (this.idpuestodestino!= null), (that.idpuestodestino!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsIdsecciondestino;
-            lhsIdsecciondestino = this.getIdsecciondestino();
-            String rhsIdsecciondestino;
-            rhsIdsecciondestino = that.getIdsecciondestino();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idsecciondestino", lhsIdsecciondestino), LocatorUtils.property(thatLocator, "idsecciondestino", rhsIdsecciondestino), lhsIdsecciondestino, rhsIdsecciondestino, (this.idsecciondestino!= null), (that.idsecciondestino!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsIdlugartrabajomtu;
             lhsIdlugartrabajomtu = this.getIdlugartrabajomtu();
             String rhsIdlugartrabajomtu;
@@ -1499,20 +1249,11 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            String lhsIdtiporeqcomision;
-            lhsIdtiporeqcomision = this.getIdtiporeqcomision();
-            String rhsIdtiporeqcomision;
-            rhsIdtiporeqcomision = that.getIdtiporeqcomision();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idtiporeqcomision", lhsIdtiporeqcomision), LocatorUtils.property(thatLocator, "idtiporeqcomision", rhsIdtiporeqcomision), lhsIdtiporeqcomision, rhsIdtiporeqcomision, (this.idtiporeqcomision!= null), (that.idtiporeqcomision!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsIdlugartrabajodestino;
-            lhsIdlugartrabajodestino = this.getIdlugartrabajodestino();
-            String rhsIdlugartrabajodestino;
-            rhsIdlugartrabajodestino = that.getIdlugartrabajodestino();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idlugartrabajodestino", lhsIdlugartrabajodestino), LocatorUtils.property(thatLocator, "idlugartrabajodestino", rhsIdlugartrabajodestino), lhsIdlugartrabajodestino, rhsIdlugartrabajodestino, (this.idlugartrabajodestino!= null), (that.idlugartrabajodestino!= null))) {
+            IcmListaestrdesplBlock lhsIcmListaestrdespl;
+            lhsIcmListaestrdespl = this.getIcmListaestrdespl();
+            IcmListaestrdesplBlock rhsIcmListaestrdespl;
+            rhsIcmListaestrdespl = that.getIcmListaestrdespl();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaestrdespl", lhsIcmListaestrdespl), LocatorUtils.property(thatLocator, "icmListaestrdespl", rhsIcmListaestrdespl), lhsIcmListaestrdespl, rhsIcmListaestrdespl, (this.icmListaestrdespl!= null), (that.icmListaestrdespl!= null))) {
                 return false;
             }
         }
@@ -1594,11 +1335,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "diax", buffer, theDiax, (this.diax!= null));
         }
         {
-            String theTipo;
-            theTipo = this.getTipo();
-            strategy.appendField(locator, this, "tipo", buffer, theTipo, (this.tipo!= null));
-        }
-        {
             String theInout;
             theInout = this.getInout();
             strategy.appendField(locator, this, "inout", buffer, theInout, (this.inout!= null));
@@ -1654,16 +1390,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
         }
         {
-            String theHorasorigen;
-            theHorasorigen = this.getHorasorigen();
-            strategy.appendField(locator, this, "horasorigen", buffer, theHorasorigen, (this.horasorigen!= null));
-        }
-        {
-            String theHorasdestino;
-            theHorasdestino = this.getHorasdestino();
-            strategy.appendField(locator, this, "horasdestino", buffer, theHorasdestino, (this.horasdestino!= null));
-        }
-        {
             String theIdestructura;
             theIdestructura = this.getIdestructura();
             strategy.appendField(locator, this, "idestructura", buffer, theIdestructura, (this.idestructura!= null));
@@ -1674,24 +1400,19 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "idmotivobaja", buffer, theIdmotivobaja, (this.idmotivobaja!= null));
         }
         {
-            String theIdmotivodesp;
-            theIdmotivodesp = this.getIdmotivodesp();
-            strategy.appendField(locator, this, "idmotivodesp", buffer, theIdmotivodesp, (this.idmotivodesp!= null));
-        }
-        {
             String theIdtipocalculo;
             theIdtipocalculo = this.getIdtipocalculo();
             strategy.appendField(locator, this, "idtipocalculo", buffer, theIdtipocalculo, (this.idtipocalculo!= null));
         }
         {
-            String theIdtipoopccalc;
-            theIdtipoopccalc = this.getIdtipoopccalc();
-            strategy.appendField(locator, this, "idtipoopccalc", buffer, theIdtipoopccalc, (this.idtipoopccalc!= null));
-        }
-        {
             String theNummesesmedia;
             theNummesesmedia = this.getNummesesmedia();
             strategy.appendField(locator, this, "nummesesmedia", buffer, theNummesesmedia, (this.nummesesmedia!= null));
+        }
+        {
+            Double theDesplazamiento;
+            theDesplazamiento = this.getDesplazamiento();
+            strategy.appendField(locator, this, "desplazamiento", buffer, theDesplazamiento, (this.desplazamiento!= null));
         }
         {
             String theExcdenominador;
@@ -1719,29 +1440,14 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "idempleadolocal", buffer, theIdempleadolocal, (this.idempleadolocal!= null));
         }
         {
-            String theIdpuestodestino;
-            theIdpuestodestino = this.getIdpuestodestino();
-            strategy.appendField(locator, this, "idpuestodestino", buffer, theIdpuestodestino, (this.idpuestodestino!= null));
-        }
-        {
-            String theIdsecciondestino;
-            theIdsecciondestino = this.getIdsecciondestino();
-            strategy.appendField(locator, this, "idsecciondestino", buffer, theIdsecciondestino, (this.idsecciondestino!= null));
-        }
-        {
             String theIdlugartrabajomtu;
             theIdlugartrabajomtu = this.getIdlugartrabajomtu();
             strategy.appendField(locator, this, "idlugartrabajomtu", buffer, theIdlugartrabajomtu, (this.idlugartrabajomtu!= null));
         }
         {
-            String theIdtiporeqcomision;
-            theIdtiporeqcomision = this.getIdtiporeqcomision();
-            strategy.appendField(locator, this, "idtiporeqcomision", buffer, theIdtiporeqcomision, (this.idtiporeqcomision!= null));
-        }
-        {
-            String theIdlugartrabajodestino;
-            theIdlugartrabajodestino = this.getIdlugartrabajodestino();
-            strategy.appendField(locator, this, "idlugartrabajodestino", buffer, theIdlugartrabajodestino, (this.idlugartrabajodestino!= null));
+            IcmListaestrdesplBlock theIcmListaestrdespl;
+            theIcmListaestrdespl = this.getIcmListaestrdespl();
+            strategy.appendField(locator, this, "icmListaestrdespl", buffer, theIcmListaestrdespl, (this.icmListaestrdespl!= null));
         }
         {
             IcmListaporcentajesBlock theIcmListaporcentajes;
@@ -1799,11 +1505,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "diax", theDiax), currentHashCode, theDiax, (this.diax!= null));
         }
         {
-            String theTipo;
-            theTipo = this.getTipo();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "tipo", theTipo), currentHashCode, theTipo, (this.tipo!= null));
-        }
-        {
             String theInout;
             theInout = this.getInout();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "inout", theInout), currentHashCode, theInout, (this.inout!= null));
@@ -1859,16 +1560,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
         }
         {
-            String theHorasorigen;
-            theHorasorigen = this.getHorasorigen();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "horasorigen", theHorasorigen), currentHashCode, theHorasorigen, (this.horasorigen!= null));
-        }
-        {
-            String theHorasdestino;
-            theHorasdestino = this.getHorasdestino();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "horasdestino", theHorasdestino), currentHashCode, theHorasdestino, (this.horasdestino!= null));
-        }
-        {
             String theIdestructura;
             theIdestructura = this.getIdestructura();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura), currentHashCode, theIdestructura, (this.idestructura!= null));
@@ -1879,24 +1570,19 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idmotivobaja", theIdmotivobaja), currentHashCode, theIdmotivobaja, (this.idmotivobaja!= null));
         }
         {
-            String theIdmotivodesp;
-            theIdmotivodesp = this.getIdmotivodesp();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idmotivodesp", theIdmotivodesp), currentHashCode, theIdmotivodesp, (this.idmotivodesp!= null));
-        }
-        {
             String theIdtipocalculo;
             theIdtipocalculo = this.getIdtipocalculo();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtipocalculo", theIdtipocalculo), currentHashCode, theIdtipocalculo, (this.idtipocalculo!= null));
         }
         {
-            String theIdtipoopccalc;
-            theIdtipoopccalc = this.getIdtipoopccalc();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtipoopccalc", theIdtipoopccalc), currentHashCode, theIdtipoopccalc, (this.idtipoopccalc!= null));
-        }
-        {
             String theNummesesmedia;
             theNummesesmedia = this.getNummesesmedia();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nummesesmedia", theNummesesmedia), currentHashCode, theNummesesmedia, (this.nummesesmedia!= null));
+        }
+        {
+            Double theDesplazamiento;
+            theDesplazamiento = this.getDesplazamiento();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "desplazamiento", theDesplazamiento), currentHashCode, theDesplazamiento, (this.desplazamiento!= null));
         }
         {
             String theExcdenominador;
@@ -1924,29 +1610,14 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempleadolocal", theIdempleadolocal), currentHashCode, theIdempleadolocal, (this.idempleadolocal!= null));
         }
         {
-            String theIdpuestodestino;
-            theIdpuestodestino = this.getIdpuestodestino();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idpuestodestino", theIdpuestodestino), currentHashCode, theIdpuestodestino, (this.idpuestodestino!= null));
-        }
-        {
-            String theIdsecciondestino;
-            theIdsecciondestino = this.getIdsecciondestino();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idsecciondestino", theIdsecciondestino), currentHashCode, theIdsecciondestino, (this.idsecciondestino!= null));
-        }
-        {
             String theIdlugartrabajomtu;
             theIdlugartrabajomtu = this.getIdlugartrabajomtu();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idlugartrabajomtu", theIdlugartrabajomtu), currentHashCode, theIdlugartrabajomtu, (this.idlugartrabajomtu!= null));
         }
         {
-            String theIdtiporeqcomision;
-            theIdtiporeqcomision = this.getIdtiporeqcomision();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtiporeqcomision", theIdtiporeqcomision), currentHashCode, theIdtiporeqcomision, (this.idtiporeqcomision!= null));
-        }
-        {
-            String theIdlugartrabajodestino;
-            theIdlugartrabajodestino = this.getIdlugartrabajodestino();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idlugartrabajodestino", theIdlugartrabajodestino), currentHashCode, theIdlugartrabajodestino, (this.idlugartrabajodestino!= null));
+            IcmListaestrdesplBlock theIcmListaestrdespl;
+            theIcmListaestrdespl = this.getIcmListaestrdespl();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaestrdespl", theIcmListaestrdespl), currentHashCode, theIcmListaestrdespl, (this.icmListaestrdespl!= null));
         }
         {
             IcmListaporcentajesBlock theIcmListaporcentajes;
@@ -2087,19 +1758,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 } else {
                     if (diaxShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.diax = null;
-                    }
-                }
-            }
-            {
-                Boolean tipoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.tipo!= null));
-                if (tipoShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceTipo;
-                    sourceTipo = this.getTipo();
-                    String copyTipo = ((String) strategy.copy(LocatorUtils.property(locator, "tipo", sourceTipo), sourceTipo, (this.tipo!= null)));
-                    copy.setTipo(copyTipo);
-                } else {
-                    if (tipoShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.tipo = null;
                     }
                 }
             }
@@ -2247,32 +1905,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean horasorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.horasorigen!= null));
-                if (horasorigenShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceHorasorigen;
-                    sourceHorasorigen = this.getHorasorigen();
-                    String copyHorasorigen = ((String) strategy.copy(LocatorUtils.property(locator, "horasorigen", sourceHorasorigen), sourceHorasorigen, (this.horasorigen!= null)));
-                    copy.setHorasorigen(copyHorasorigen);
-                } else {
-                    if (horasorigenShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.horasorigen = null;
-                    }
-                }
-            }
-            {
-                Boolean horasdestinoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.horasdestino!= null));
-                if (horasdestinoShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceHorasdestino;
-                    sourceHorasdestino = this.getHorasdestino();
-                    String copyHorasdestino = ((String) strategy.copy(LocatorUtils.property(locator, "horasdestino", sourceHorasdestino), sourceHorasdestino, (this.horasdestino!= null)));
-                    copy.setHorasdestino(copyHorasdestino);
-                } else {
-                    if (horasdestinoShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.horasdestino = null;
-                    }
-                }
-            }
-            {
                 Boolean idestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idestructura!= null));
                 if (idestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdestructura;
@@ -2299,19 +1931,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean idmotivodespShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idmotivodesp!= null));
-                if (idmotivodespShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdmotivodesp;
-                    sourceIdmotivodesp = this.getIdmotivodesp();
-                    String copyIdmotivodesp = ((String) strategy.copy(LocatorUtils.property(locator, "idmotivodesp", sourceIdmotivodesp), sourceIdmotivodesp, (this.idmotivodesp!= null)));
-                    copy.setIdmotivodesp(copyIdmotivodesp);
-                } else {
-                    if (idmotivodespShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idmotivodesp = null;
-                    }
-                }
-            }
-            {
                 Boolean idtipocalculoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtipocalculo!= null));
                 if (idtipocalculoShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdtipocalculo;
@@ -2325,19 +1944,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean idtipoopccalcShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtipoopccalc!= null));
-                if (idtipoopccalcShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdtipoopccalc;
-                    sourceIdtipoopccalc = this.getIdtipoopccalc();
-                    String copyIdtipoopccalc = ((String) strategy.copy(LocatorUtils.property(locator, "idtipoopccalc", sourceIdtipoopccalc), sourceIdtipoopccalc, (this.idtipoopccalc!= null)));
-                    copy.setIdtipoopccalc(copyIdtipoopccalc);
-                } else {
-                    if (idtipoopccalcShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idtipoopccalc = null;
-                    }
-                }
-            }
-            {
                 Boolean nummesesmediaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.nummesesmedia!= null));
                 if (nummesesmediaShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceNummesesmedia;
@@ -2347,6 +1953,19 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 } else {
                     if (nummesesmediaShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.nummesesmedia = null;
+                    }
+                }
+            }
+            {
+                Boolean desplazamientoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.desplazamiento!= null));
+                if (desplazamientoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    Double sourceDesplazamiento;
+                    sourceDesplazamiento = this.getDesplazamiento();
+                    Double copyDesplazamiento = ((Double) strategy.copy(LocatorUtils.property(locator, "desplazamiento", sourceDesplazamiento), sourceDesplazamiento, (this.desplazamiento!= null)));
+                    copy.setDesplazamiento(copyDesplazamiento);
+                } else {
+                    if (desplazamientoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.desplazamiento = null;
                     }
                 }
             }
@@ -2416,32 +2035,6 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean idpuestodestinoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idpuestodestino!= null));
-                if (idpuestodestinoShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdpuestodestino;
-                    sourceIdpuestodestino = this.getIdpuestodestino();
-                    String copyIdpuestodestino = ((String) strategy.copy(LocatorUtils.property(locator, "idpuestodestino", sourceIdpuestodestino), sourceIdpuestodestino, (this.idpuestodestino!= null)));
-                    copy.setIdpuestodestino(copyIdpuestodestino);
-                } else {
-                    if (idpuestodestinoShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idpuestodestino = null;
-                    }
-                }
-            }
-            {
-                Boolean idsecciondestinoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idsecciondestino!= null));
-                if (idsecciondestinoShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdsecciondestino;
-                    sourceIdsecciondestino = this.getIdsecciondestino();
-                    String copyIdsecciondestino = ((String) strategy.copy(LocatorUtils.property(locator, "idsecciondestino", sourceIdsecciondestino), sourceIdsecciondestino, (this.idsecciondestino!= null)));
-                    copy.setIdsecciondestino(copyIdsecciondestino);
-                } else {
-                    if (idsecciondestinoShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idsecciondestino = null;
-                    }
-                }
-            }
-            {
                 Boolean idlugartrabajomtuShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idlugartrabajomtu!= null));
                 if (idlugartrabajomtuShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdlugartrabajomtu;
@@ -2455,28 +2048,15 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean idtiporeqcomisionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtiporeqcomision!= null));
-                if (idtiporeqcomisionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdtiporeqcomision;
-                    sourceIdtiporeqcomision = this.getIdtiporeqcomision();
-                    String copyIdtiporeqcomision = ((String) strategy.copy(LocatorUtils.property(locator, "idtiporeqcomision", sourceIdtiporeqcomision), sourceIdtiporeqcomision, (this.idtiporeqcomision!= null)));
-                    copy.setIdtiporeqcomision(copyIdtiporeqcomision);
+                Boolean icmListaestrdesplShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaestrdespl!= null));
+                if (icmListaestrdesplShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaestrdesplBlock sourceIcmListaestrdespl;
+                    sourceIcmListaestrdespl = this.getIcmListaestrdespl();
+                    IcmListaestrdesplBlock copyIcmListaestrdespl = ((IcmListaestrdesplBlock) strategy.copy(LocatorUtils.property(locator, "icmListaestrdespl", sourceIcmListaestrdespl), sourceIcmListaestrdespl, (this.icmListaestrdespl!= null)));
+                    copy.setIcmListaestrdespl(copyIcmListaestrdespl);
                 } else {
-                    if (idtiporeqcomisionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idtiporeqcomision = null;
-                    }
-                }
-            }
-            {
-                Boolean idlugartrabajodestinoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idlugartrabajodestino!= null));
-                if (idlugartrabajodestinoShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdlugartrabajodestino;
-                    sourceIdlugartrabajodestino = this.getIdlugartrabajodestino();
-                    String copyIdlugartrabajodestino = ((String) strategy.copy(LocatorUtils.property(locator, "idlugartrabajodestino", sourceIdlugartrabajodestino), sourceIdlugartrabajodestino, (this.idlugartrabajodestino!= null)));
-                    copy.setIdlugartrabajodestino(copyIdlugartrabajodestino);
-                } else {
-                    if (idlugartrabajodestinoShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idlugartrabajodestino = null;
+                    if (icmListaestrdesplShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaestrdespl = null;
                     }
                 }
             }
