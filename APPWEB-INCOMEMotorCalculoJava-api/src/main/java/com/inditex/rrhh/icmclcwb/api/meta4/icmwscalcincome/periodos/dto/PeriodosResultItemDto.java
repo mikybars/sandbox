@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -28,9 +28,9 @@ public class PeriodosResultItemDto implements Serializable {
     
     private String idPeriodo;
     
-    private LocalDateTime fechaInicio;
+    private LocalDate fechaInicio;
     
-    private LocalDateTime fechaFin;
+    private LocalDate fechaFin;
 
     private String nombrePeriodo;
 }

@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -98,23 +100,38 @@ public abstract class TareaMapper {
     }
 
     @Mapping(target = "item", ignore = true)
-    @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
-    @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
+    @Mapping(target = "fechaInicio", ignore = true)
+    @Mapping(target = "fechaFin", ignore = true)
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
     @Mapping(target = "idEmpresa", source = "srcTarea.idEmpresa")
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             List<TareaAmbitoLocalizacionDto> srcTareaAmbitoLocalizacion,
             List<TareaAmbitoPersonaDto> srcTareaAmbitoPersona);
-
+    
+    @AfterMapping
+    protected void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndTareaAmbitoLocalizacionDtoAndTareaAmbitoPersonaDtoToGenericFilterDto(
+            TrabajoDto srcTrabajo, @MappingTarget GenericFilterDto filter) {
+        filter.setFechaInicio(LocalDateTime.of(srcTrabajo.getFechaInicioPeriodo(), LocalTime.MIDNIGHT));
+        filter.setFechaFin(LocalDateTime.of(srcTrabajo.getFechaFinPeriodo(), LocalTime.MIDNIGHT));
+    }
+    
+    
     @Mapping(target = "item", ignore = true)
-    @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
-    @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
+    @Mapping(target = "fechaInicio", ignore = true)
+    @Mapping(target = "fechaFin", ignore = true)
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
     @Mapping(target = "idEmpresa", source = "srcTarea.idEmpresa")
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdPersonaDtoToGenericFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, List<IdPersonaDto> srcIdsPersona);
 
+    @AfterMapping
+    protected void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdPersonaDtoToGenericFilterDto(
+            TrabajoDto srcTrabajo, @MappingTarget GenericFilterDto filter) {
+        filter.setFechaInicio(LocalDateTime.of(srcTrabajo.getFechaInicioPeriodo(), LocalTime.MIDNIGHT));
+        filter.setFechaFin(LocalDateTime.of(srcTrabajo.getFechaFinPeriodo(), LocalTime.MIDNIGHT));
+    }
+    
     @AfterMapping
     public void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdPersonaDtoToGenericFilterDto(TrabajoDto srcTrabajo,
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, List<IdPersonaDto> srcIdsPersona,
@@ -128,12 +145,19 @@ public abstract class TareaMapper {
     }
 
     @Mapping(target = "item", ignore = true)
-    @Mapping(target = "fechaInicio", source = "srcTrabajo.fechaInicioPeriodo")
-    @Mapping(target = "fechaFin", source = "srcTrabajo.fechaFinPeriodo")
+    @Mapping(target = "fechaInicio", ignore = true)
+    @Mapping(target = "fechaFin", ignore = true)
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.idCatalogo")
     @Mapping(target = "idEmpresa", source = "srcTarea.idEmpresa")
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @AfterMapping
+    protected void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
+            TrabajoDto srcTrabajo, @MappingTarget GenericFilterDto filter) {
+        filter.setFechaInicio(LocalDateTime.of(srcTrabajo.getFechaInicioPeriodo(), LocalTime.MIDNIGHT));
+        filter.setFechaFin(LocalDateTime.of(srcTrabajo.getFechaFinPeriodo(), LocalTime.MIDNIGHT));
+    }
 
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)

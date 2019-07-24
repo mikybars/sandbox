@@ -21,7 +21,7 @@ public class TipoDatoServiceImpl implements TipoDatoService {
 
     @Override
     @Cacheable(value = "itx.icmlcwb.id_tipo_dato_by_id_tipo_grupo_dato", key = "{#idTipoGrupoDato}")
-    public List<IdTipoDatoDto> findTipoDatoByTipoGrupoDato(Long idTipoGrupoDato) {
+    public List<IdTipoDatoDto> findTipoDatoByTipoGrupoDato(Integer idTipoGrupoDato) {
         List<TipoDato> tiposDato = tipoDatoRepository.findTipoDatoByTipoGrupoDato(idTipoGrupoDato);
         return tiposDato.stream()
             .map(tipoDato -> IdTipoDatoDto.builder().id(tipoDato.getId()).build())

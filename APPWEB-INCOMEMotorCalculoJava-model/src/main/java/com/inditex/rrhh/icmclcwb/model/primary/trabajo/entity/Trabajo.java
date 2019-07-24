@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoAmbito;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
+
 import lombok.Data;
 
 @Entity
@@ -28,27 +31,27 @@ public class Trabajo {
     private Long id;
 
     @NotBlank
-    @Column(name = "ID_USUARIO", nullable = false)
+    @Column(name = "NOMBRE_USUARIO", nullable = false, length = 12)
     private String idUsuario;
 
     @NotNull
-    @Column(name = "FECHA_CREACION", nullable = false)
-    private Date fechaCreacion;
+    @Column(name = "FECHA_HORA_CREACION", nullable = false)
+    private LocalDateTime fechaCreacion;
 
     @NotNull
-    @Column(name = "ID_PERIODO", nullable = false)
+    @Column(name = "ICM_ID_PERIODO", nullable = false)
     private Long idPeriodo;
 
     @NotNull
     @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
-    private Date fechaInicioPeriodo;
+    private LocalDate fechaInicioPeriodo;
 
     @NotNull
     @Column(name = "FECHA_FIN_PERIODO", nullable = false)
-    private Date fechaFinPeriodo;
+    private LocalDate fechaFinPeriodo;
 
     @NotBlank
-    @Column(name = "ID_SOCIEDAD", nullable = false)
+    @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)
     private String idSociedad;
 
     @NotNull

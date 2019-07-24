@@ -29,19 +29,19 @@ public class TrabajoAmbitoPersona {
     private Trabajo trabajo;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 24)
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 24)
     private String idEmpresa;
 
     @NotBlank
-    @Column(name = "ID_PERSONA", nullable = false)
+    @Column(name = "CCL_ID_PERSON", nullable = false, length = 24)
     private String idPersona;
 
     @NotBlank
-    @Column(name = "OR_PERSONA", nullable = false)
+    @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
     private String orPersona;
 
 }

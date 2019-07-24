@@ -83,7 +83,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public List<ProgramacionDto> findPendiente() {
         List<ProgramacionDto> result = programacionMapper.programacionToProgramacionDto(
-                programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowDate()));
+                programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
         result.forEach(item -> item.setAmbito(programacionAmbitoService.findByProgramacion(item)));
         return result;
     }

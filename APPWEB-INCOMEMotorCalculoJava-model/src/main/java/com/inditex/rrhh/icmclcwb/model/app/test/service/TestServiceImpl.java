@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
@@ -174,10 +175,10 @@ public class TestServiceImpl implements TestService {
             String empresa = values[2];
             for (int x = 0; x < 70; x++) {
                 TrabajoDto trabajo = new TrabajoDto();
-                LocalDateTime fechaInicio = TimeUtils.nowLocalDateTime().minusMonths(x)
+                LocalDate fechaInicio = TimeUtils.nowLocalDate().minusMonths(x)
                         .with(TemporalAdjusters.firstDayOfMonth())
                         .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
-                LocalDateTime fechaFin = TimeUtils.nowLocalDateTime().minusMonths(x)
+                LocalDate fechaFin = TimeUtils.nowLocalDate().minusMonths(x)
                         .with(TemporalAdjusters.lastDayOfMonth())
                         .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
                 trabajo.setIdPeriodo(0L);
@@ -242,8 +243,8 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testSociedad(String sociedad, TrabajoDto trabajo) {
-        LocalDateTime fechaInicio = LocalDateTime.of(2015, 3, 1, 00, 00);
-        LocalDateTime fechaFin = LocalDateTime.of(2015, 3, 31, 00, 00);
+        LocalDate fechaInicio = LocalDate.of(2015, 3, 1);
+        LocalDate fechaFin = LocalDate.of(2015, 3, 31);
         trabajo.setIdPeriodo(1L);
         trabajo.setFechaInicioPeriodo(fechaInicio);
         trabajo.setFechaFinPeriodo(fechaFin);
