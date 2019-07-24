@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -31,11 +33,11 @@ public class TareaAgrupacionConfiguracion {
     private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
 
     @NotNull
-    @Column(name = "ID_AGRUPACION", nullable = false)
+    @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
     private Long idAgrupacion;
 
     @NotNull
@@ -45,13 +47,15 @@ public class TareaAgrupacionConfiguracion {
 
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
 
     @NotNull
     @Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
     @NotNull
-    @Column(name = "PORCENTAJE_INCLUSION", nullable = false)
+    @Column(name = "PORCENTAJE_INCLUSION", nullable = false, length = 10, precision = 4)
     private Double porcentajeInclusion;
 }

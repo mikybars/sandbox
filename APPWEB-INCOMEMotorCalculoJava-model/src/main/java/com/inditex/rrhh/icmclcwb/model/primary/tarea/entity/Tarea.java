@@ -32,21 +32,21 @@ public class Tarea {
     private EstadoTarea estado;
 
     @NotNull
-    @Column(name = "FECHA_CREACION", nullable = false)
+    @Column(name = "FECHA_HORA_CREACION", nullable = false)
     private Date fechaCreacion;
 
-    @Column(name = "FECHA_INICIO_TAREA", nullable = true)
+    @Column(name = "FECHA_HORA_INICIO_TAREA", nullable = true)
     private Date fechaInicioTarea;
 
-    @Column(name = "FECHA_FIN_TAREA", nullable = true)
+    @Column(name = "FECHA_HORA_FIN_TAREA", nullable = true)
     private Date fechaFinTarea;
 
     @NotBlank
-    @Column(name = "ID_SOCIEDAD", nullable = false)
+    @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)
     private String idSociedad;
 
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String idEmpresa;
 
     @NotNull

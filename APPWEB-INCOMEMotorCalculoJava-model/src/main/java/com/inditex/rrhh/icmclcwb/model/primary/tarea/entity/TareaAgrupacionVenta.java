@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
@@ -34,26 +36,27 @@ public class TareaAgrupacionVenta {
     
     @NotNull
     @Column(name = "FECHA", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fecha;
     
     @NotNull
-    @Column(name = "ID_AGRUPACION", nullable = false)
+    @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
     private Long idAgrupacion;
 
     @NotNull
-    @Column(name = "ID_SECCION", nullable = false)
+    @Column(name = "CCL_ID_SECCION", nullable = false, length = 4)
     private String idSeccion;
 
     @NotNull
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
     
     @NotNull
-    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
+    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, length = 23, precision = 8)
     private Double importeSinImpuestos;
     
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, length = 23, precision = 8)
     private Double importeConImpuestos;
 
     @NotNull

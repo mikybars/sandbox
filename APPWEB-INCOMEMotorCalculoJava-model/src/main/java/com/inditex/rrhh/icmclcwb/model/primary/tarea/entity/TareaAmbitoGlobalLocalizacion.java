@@ -29,15 +29,15 @@ public class TareaAmbitoGlobalLocalizacion {
     private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
     private String idLocalizacion;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
     
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String idEmpresa;
     
 }

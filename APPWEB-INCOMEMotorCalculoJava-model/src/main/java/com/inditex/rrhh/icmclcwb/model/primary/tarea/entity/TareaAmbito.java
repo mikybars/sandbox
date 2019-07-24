@@ -29,7 +29,7 @@ public class TareaAmbito {
     private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 24)
     private String idOrigen;
 
     @NotBlank

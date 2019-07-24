@@ -29,11 +29,11 @@ public class TareaAmbitoLocalizacion {
     private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false)
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = false)
     private String idLocalizacion;
 
 }
