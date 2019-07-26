@@ -225,6 +225,7 @@ app:
           user: INCOME_CALC
           language: 2
         pool:
+          pre-login: false
           size: 10
           claimTimeout: 30000
           shutdownTimeout: 60000

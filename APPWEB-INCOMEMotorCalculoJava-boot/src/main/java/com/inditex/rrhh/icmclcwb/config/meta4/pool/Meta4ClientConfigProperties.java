@@ -7,8 +7,9 @@ import lombok.Data;
 
 @Data
 public class Meta4ClientConfigProperties {
-    
+
     private Meta4ClientCredentials credentials;
+
     private Meta4ClientProperties pool;
 
 }

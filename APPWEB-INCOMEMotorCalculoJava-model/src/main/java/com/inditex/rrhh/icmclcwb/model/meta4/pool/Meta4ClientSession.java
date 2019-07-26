@@ -22,5 +22,7 @@ public class Meta4ClientSession implements Serializable {
 	private LocalDateTime fechaUso;
 	
 	private long uso;
+	
+	private boolean login;
 
 }

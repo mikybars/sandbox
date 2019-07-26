@@ -287,6 +287,7 @@ app:
           password: 123
           language: 2
         pool:
+          pre-login: false
           size: 5
           claimTimeout: 30000
           shutdownTimeout: 60000
