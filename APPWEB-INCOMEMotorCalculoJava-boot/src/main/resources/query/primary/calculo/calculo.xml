@@ -112,6 +112,7 @@ INNER JOIN TAREA_LOCALIZACION_VENTA LOCALIZACION_SECCION_VENTA
 </entry>
 
 <entry key="TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Repository.calcular">
+    <!-- TODO: consulta TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Repository.calcular -->
 </entry>
 
 <entry key="TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1Repository.calcular">
@@ -264,7 +265,7 @@ INNER JOIN TAREA_LOCALIZACION_VENTA LOCALIZACION_SECCION_VENTA
     ]]>
 </entry>
 
-<entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeV1Repository.calcular">
+<entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Repository.calcular">
     <!-- TODO: consulta TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamiento -->
 </entry>
 
