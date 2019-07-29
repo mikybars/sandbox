@@ -111,6 +111,9 @@ INNER JOIN TAREA_LOCALIZACION_VENTA LOCALIZACION_SECCION_VENTA
     ]]>
 </entry>
 
+<entry key="TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Repository.calcular">
+</entry>
+
 <entry key="TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1Repository.calcular">
     <![CDATA[
 SELECT
@@ -189,6 +192,10 @@ INNER JOIN TAREA_LOCALIZACION_VENTA LOCALIZACION_SECCION_VENTA
     ]]>
 </entry>
 
+<entry key="TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Repository.calcular">
+    <!-- TODO: consulta TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Repository.calcular -->
+</entry>
+
 <entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeV1Repository.calcular">
     <![CDATA[
     SELECT
@@ -255,6 +262,10 @@ INNER JOIN TAREA_LOCALIZACION_VENTA LOCALIZACION_SECCION_VENTA
      AND LOCALIZACION_CALCULAR.FECHA_HORA_INICIO_TAREA <= LOCALIZACION_SECCION_VENTA.FECHA
      AND LOCALIZACION_CALCULAR.FECHA_HORA_FIN_TAREA >= LOCALIZACION_SECCION_VENTA.FECHA
     ]]>
+</entry>
+
+<entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeV1Repository.calcular">
+    <!-- TODO: consulta TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamiento -->
 </entry>
 
 <entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1Repository.calcular">
@@ -351,6 +362,10 @@ INNER JOIN TAREA_LOCALIZACION_VENTA LOCALIZACION_SECCION_VENTA
     ]]>
 </entry>
 
+<entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1Repository.calcular">
+    <!-- TODO: consulta TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1Repository -->
+</entry>
+
 <entry key="TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Repository.calcular">
     <![CDATA[
     SELECT
@@ -425,6 +440,9 @@ INNER JOIN TAREA_LOCALIZACION_VENTA LOCALIZACION_SECCION_VENTA
     ]]>
 </entry>
 
+<entry key="TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular">
+    <!-- TODO: consulta TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository -->
+</entry>
 
 <entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeV1Repository.calcular">
     <![CDATA[
@@ -524,6 +542,10 @@ INNER JOIN TAREA_LOCALIZACION_VENTA LOCALIZACION_SECCION_VENTA
     AND LOCALIZACION_SECCION_VENTA.CCL_ID_SECCION = INDICADOR.CCL_ID_SECCION
     AND INDICADOR.ROW = 1
     ]]>
+</entry>
+
+<entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular">
+    <!-- TODO consulta TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeV1Repository.calcular -->
 </entry>
 
 </properties>

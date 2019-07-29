@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component("porVentaSimplicadoAjusteManualDesplazamientoV1")
-public class PorVentaSimplicadoAjusteManualDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
+@Component("porVentaSimplificadoAjusteManualDesplazamientoV1")
+public class PorVentaSimplificadoAjusteManualDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired
     private Logger log;
