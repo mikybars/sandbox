@@ -32,8 +32,5 @@ public class TareaAmbito {
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
 
-    @NotBlank
-    @Column(name = "ID_CATALOGO", nullable = true, length = 48)
-    private String idCatalogo;
 
 }

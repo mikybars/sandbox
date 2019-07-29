@@ -28,9 +28,5 @@ public class TareaAmbitoDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Id del origen", required = true, example = "11")
     private String idOrigen;
-    
-    @NotBlank
-    @ApiModelProperty(value = "Id del catalogo", required = true, example = "11")
-    private String idCatalogo;
 
 }

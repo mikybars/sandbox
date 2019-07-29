@@ -125,7 +125,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
 
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionPresencia entity) throws SQLException {
-        pstmt.setObject(1, entity.getFecha());
+        pstmt.setObject(1, entity.getPk().getFecha());
         pstmt.setString(2, entity.getIdLocalizacion());
         pstmt.setString(3, entity.getIdSeccion());
         pstmt.setDouble(4, entity.getMinutos());

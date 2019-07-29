@@ -44,11 +44,11 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(source = "src.idSeccion", target = "idSeccion")
     @Mapping(source = "src.idEmpresa", target = "idEmpresa")
     @Mapping(source = "src.idCadena", target = "idCadena")
-    @Mapping(source = "src.fecha", target = "fecha")
+    @Mapping(source = "src.fecha", target = "pk.fecha")
     @Mapping(source = "src.minutos", target = "minutos")
     @Mapping(source = "src.idTipoHora", target = "idTipoHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "pk.id", ignore = true)
     public abstract TareaLocalizacionPersonaPresencia genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia( 
             GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
@@ -63,11 +63,11 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(source = "src.seccion", target = "idSeccion")
     @Mapping(source = "src.empresa", target = "idEmpresa")
     @Mapping(source = "src.cadena", target = "idCadena")
-    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(source = "src.fecha", target = "pk.fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.minutos", target = "minutos")
     @Mapping(source = "src.tipo", target = "idTipoHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "pk.id", ignore = true)
     public abstract TareaLocalizacionPersonaPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia( 
             PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto);
 

@@ -37,11 +37,11 @@ public class TareaPersonaEstructura {
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_SECCION_ESTRUCTURA", nullable = false, length = 4)
+    @Column(name = "CCL_ID_SECCION_ESTRUCTURA", nullable = false, length = 4)
     private String idSeccionEstructura;
 
     @NotBlank
-    @Column(name = "ID_SECCION_EFECTIVA", nullable = false, length = 4)
+    @Column(name = "CCL_ID_SECCION_EFECTIVA", nullable = false, length = 4)
     private String idSeccionEfectiva;
 
     @NotBlank

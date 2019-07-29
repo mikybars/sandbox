@@ -104,7 +104,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         pstmt.setString(3, entity.getIdPersona());
         pstmt.setString(4, entity.getIdEmpresa());
         pstmt.setString(5, entity.getIdSeccion());
-        pstmt.setObject(6, entity.getFecha());
+        pstmt.setObject(6, entity.getPk().getFecha());
         pstmt.setLong(7, entity.getMinutos());
         pstmt.setString(8, entity.getIdTipoHora());
         pstmt.setBoolean(9, entity.getActivo());

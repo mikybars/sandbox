@@ -88,14 +88,14 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             final TareaDto tarea = runTarea.getTarea();
             CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
                     .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
-                            .origen(Integer.parseInt(tareaAmbito.getIdCatalogo())).build());
+                            .origen(Integer.parseInt(tareaAmbito.getIdOrigen())).build());
             AsyncUtils.exceptionally(cfData, cf);
             PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
             if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
                 AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
             } else {
                 log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
-                        .append(tareaAmbito.getIdCatalogo()).toString());
+                        .append(tareaAmbito.getIdOrigen()).toString());
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {

@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.programacion.entity;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -36,11 +36,11 @@ public abstract class TareaLocalizacionVentaMapper {
     public abstract List<TareaLocalizacionVentaDto> tareaLocalizacionVentaToTareaLocalizacionVentaDto(
             List<TareaLocalizacionVenta> src);
     
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "pk.id", ignore = true)
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(source = "tienda", target = "idLocalizacion")
     @Mapping(source = "cadena", target = "idCadena")
-    @Mapping(source = "fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(source = "fecha", target = "pk.fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "idSeccion", target = "idSeccion")
     @Mapping(source = "importeSinIVA", target = "importeSinImpuestos")
     @Mapping(source = "importeConIVA", target = "importeConImpuestos")

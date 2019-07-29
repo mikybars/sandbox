@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,11 +36,6 @@ public class TareaCalculo {
     private Tarea tarea;
 
     @NotNull
-    @Column(name = "FECHA", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-
-    @NotNull
     @OneToOne
     @JoinColumn(name = "ID_ALGORITMO", nullable = false)
     private Algoritmo algoritmo;
@@ -53,7 +49,7 @@ public class TareaCalculo {
     private Double importeConImpuestos;
 
     @NotBlank
-    @Column(name = "STR_ID_WORK_LOCAT", nullable = false, length = 48)
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
     private String idLocalizacion;
     
     @NotBlank
@@ -70,19 +66,48 @@ public class TareaCalculo {
     private TareaPersonaEstructura personaEstructura;
 
     @OneToOne
-    @JoinColumn(name = "ID_TAREA_LOCALIZACION_PRESENCIA", nullable = true)
+    @JoinColumns( {
+        @JoinColumn(name = "ID_TAREA_LOCALIZACION_PRESENCIA", referencedColumnName = "ID_TAREA_LOCALIZACION_PRESENCIA", insertable = false, updatable = false),
+        @JoinColumn(name = "FECHA", referencedColumnName = "FECHA", insertable = false, updatable = false)
+    })
     private TareaLocalizacionPresencia localizacionPresencia;
 
     @OneToOne
-    @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA", nullable = true)
+    @JoinColumns( {
+        @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA" , referencedColumnName = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA", insertable = false, updatable = false),
+        @JoinColumn(name = "FECHA", referencedColumnName = "FECHA", insertable = false, updatable = false)
+    })
     private TareaLocalizacionPersonaPresencia localizacionPersonaPresencia;
 
     @OneToOne
-    @JoinColumn(name = "ID_TAREA_LOCALIZACION_VENTA", nullable = true)
+    @JoinColumns( {
+        @JoinColumn(name = "ID_TAREA_LOCALIZACION_VENTA" , referencedColumnName = "ID_TAREA_LOCALIZACION_VENTA", insertable = false, updatable = false),
+        @JoinColumn(name = "FECHA", referencedColumnName = "FECHA", insertable = false, updatable = false)
+    })
     private TareaLocalizacionVenta localizacionVenta;
 
     @OneToOne
-    @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_VENTA", nullable = true)
+    @JoinColumns( {
+        @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_VENTA", referencedColumnName = "ID_TAREA_LOCALIZACION_PERSONA_VENTA" , insertable = false, updatable = false),
+        @JoinColumn(name = "FECHA", referencedColumnName = "FECHA", insertable = false, updatable = false)
+    })
     private TareaLocalizacionPersonaVenta localizacionPersonaVenta;
+    
+    @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_VENTA", nullable = true)
+    private Long idTareaLocalizacionPersonaVenta;
+    
+    @Column(name = "ID_TAREA_LOCALIZACION_VENTA", nullable = true)
+    private Long idTareaLocalizacionVenta;
+    
+    @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA", nullable = true)
+    private Long idTareaLocalizacionPersonaPresencia;
+    
+    @Column(name = "ID_TAREA_LOCALIZACION_PRESENCIA", nullable = true)
+    private Long idTareaLocalizacionPresencia;
+    
+    @NotNull
+    @Column(name = "FECHA", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
 
 }
