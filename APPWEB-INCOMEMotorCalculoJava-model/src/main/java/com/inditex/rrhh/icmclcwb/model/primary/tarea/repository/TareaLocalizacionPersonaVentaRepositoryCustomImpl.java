@@ -31,8 +31,8 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
         pstmt.setObject(1, entity.getPk().getFecha());
         pstmt.setString(2, entity.getIdLocalizacion());
         pstmt.setString(3, entity.getIdPersona());
-        pstmt.setDouble(4, entity.getImporteSinImpuestos());
-        pstmt.setDouble(5, entity.getImporteConImpuestos());
+        pstmt.setBigDecimal(4, entity.getImporteSinImpuestos());
+        pstmt.setBigDecimal(5, entity.getImporteConImpuestos());
         pstmt.setDouble(6, entity.getTipoDato().getId());
         pstmt.setLong(7, entity.getTarea().getId());
     }

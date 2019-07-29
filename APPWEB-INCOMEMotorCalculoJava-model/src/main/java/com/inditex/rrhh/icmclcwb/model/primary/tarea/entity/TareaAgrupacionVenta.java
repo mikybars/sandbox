@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -52,12 +53,12 @@ public class TareaAgrupacionVenta {
     private String idOrigen;
     
     @NotNull
-    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, length = 23, precision = 8)
-    private Double importeSinImpuestos;
+    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, precision = 23,  scale = 8)
+    private BigDecimal importeSinImpuestos;
     
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, length = 23, precision = 8)
-    private Double importeConImpuestos;
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, precision = 23,  scale = 8)
+    private BigDecimal importeConImpuestos;
 
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)

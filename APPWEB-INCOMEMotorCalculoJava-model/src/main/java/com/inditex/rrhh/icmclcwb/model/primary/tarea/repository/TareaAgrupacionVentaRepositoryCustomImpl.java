@@ -41,8 +41,8 @@ public class TareaAgrupacionVentaRepositoryCustomImpl extends JdbcBatchPrimaryRe
         pstmt.setLong(4, entity.getTipoDato().getId());
         pstmt.setString(5, entity.getIdSeccion());
         pstmt.setString(6, entity.getIdOrigen());
-        pstmt.setDouble(7, entity.getImporteSinImpuestos());
-        pstmt.setDouble(8, entity.getImporteConImpuestos());
+        pstmt.setBigDecimal(7, entity.getImporteSinImpuestos());
+        pstmt.setBigDecimal(8, entity.getImporteConImpuestos());
         pstmt.setBoolean(9, entity.getActivo());
     }
 

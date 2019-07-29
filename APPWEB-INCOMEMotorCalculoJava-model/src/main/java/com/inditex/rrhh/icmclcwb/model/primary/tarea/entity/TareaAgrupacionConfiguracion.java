@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -56,6 +58,6 @@ public class TareaAgrupacionConfiguracion {
     private Date fechaFin;
 
     @NotNull
-    @Column(name = "PORCENTAJE_INCLUSION", nullable = false, length = 10, precision = 4)
-    private Double porcentajeInclusion;
+    @Column(name = "PORCENTAJE_INCLUSION", nullable = false, precision = 23, scale = 8)
+    private BigDecimal porcentajeInclusion;
 }

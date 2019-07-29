@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -69,8 +70,8 @@ public class TareaPersonaEstructura {
     private String idTipoComision;
 
     @NotNull
-    @Column(name = "VALOR", nullable = false, length = 23, precision = 8)
-    private Double valor;
+    @Column(name = "VALOR", nullable = false, precision = 23,  scale = 8)
+    private BigDecimal valor;
     
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
