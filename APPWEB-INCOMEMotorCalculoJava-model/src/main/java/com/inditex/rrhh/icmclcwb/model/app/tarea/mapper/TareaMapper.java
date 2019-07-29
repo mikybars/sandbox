@@ -75,7 +75,7 @@ public abstract class TareaMapper {
             TrabajoDto srcTrabajo, @MappingTarget TareaDto tarea) {
         List<TareaAmbitoDto> ambito = new ArrayList<>();
         srcTrabajo.getOrigen().forEach(item -> ambito.add(TareaAmbitoDto.builder().idOrigen(item.getIdOrigen())
-                .idOrigen(/* TODO Cambiar por valor de Meta4 */item.getIdOrigen()).build()));
+                .build()));
         tarea.setAmbito(ambito);
 
         List<TareaAmbitoLocalizacionDto> localizacion = new ArrayList<>();
