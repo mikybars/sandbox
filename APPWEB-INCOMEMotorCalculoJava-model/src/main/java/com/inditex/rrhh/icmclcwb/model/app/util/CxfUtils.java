@@ -88,38 +88,42 @@ public class CxfUtils {
     }
 
     public static void putCookies(final Object service, final Map<String, Cookie> cookies) {
-        Client client = ClientProxy.getClient(service);
+        Client client = CxfUtils.getClient(service);
         HTTPConduit http = (HTTPConduit) client.getConduit();
         http.getCookies().putAll(cookies);
     }
 
     public static void putCookie(final Object service, final String jSessionID) {
-        Client client = ClientProxy.getClient(service);
+        Client client = CxfUtils.getClient(service);
         HTTPConduit http = (HTTPConduit) client.getConduit();
         http.getClient().setCookie(
                 new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR).append(jSessionID).toString());
     }
 
     public static Map<String, Cookie> getCookies(final Object service) {
-        Client client = ClientProxy.getClient(service);
+        Client client = CxfUtils.getClient(service);
         HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
         return httpConduit.getCookies();
     }
 
     public static void setCookies(final Object service, Map<String, Cookie> cookies) {
-        Client client = ClientProxy.getClient(service);
+        Client client = CxfUtils.getClient(service);
         HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
         httpConduit.getCookies().clear();
         httpConduit.getCookies().putAll(cookies);
     }
 
     public static void cloneHeaders(final Object serviceLogin, final Object service) {
-        Client clientLogin = ClientProxy.getClient(serviceLogin);
-        Client clientService = ClientProxy.getClient(service);
+        Client clientLogin = CxfUtils.getClient(serviceLogin);
+        Client clientService = CxfUtils.getClient(service);
         HTTPConduit httpConduitLogin = (HTTPConduit) clientLogin.getConduit();
         HTTPConduit httpConduitService = (HTTPConduit) clientService.getConduit();
         httpConduitService.getCookies().clear();
         httpConduitService.getCookies().putAll(httpConduitLogin.getCookies());
+    }
+    
+    public static Client getClient(final Object o) {
+        return ClientProxy.getClient(o);
     }
 
 }

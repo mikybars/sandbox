@@ -16,6 +16,7 @@ import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
 
 public abstract class Meta4ClientAbstract<T> implements Serializable {
 
@@ -47,7 +48,7 @@ public abstract class Meta4ClientAbstract<T> implements Serializable {
 		((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
 		((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
 
-		Client client = ClientProxy.getClient(result);
+		Client client = CxfUtils.getClient(result);
 
 		HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
 
