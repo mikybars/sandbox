@@ -15,10 +15,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 
 public interface TareaLocalizacionHistoricoService {
 
-    List<TareaLocalizacionHistoricoDto> save(@Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico,
-            @Valid final TareaDto tarea);
+    List<TareaLocalizacionHistoricoDto> save(@Valid final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico);
 
-    List<TareaLocalizacionHistoricoDto> saveGenericTiendaResultItemDto(
+    List<TareaLocalizacionHistoricoDto> merge(
             @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
@@ -31,10 +30,10 @@ public interface TareaLocalizacionHistoricoService {
             @NotNull final String idOrigen);
 
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotBlank final String idOrigen, @NotNull final List<Long> idsTipoDato);
+            @NotBlank final String idOrigen, @NotNull final List<Integer> idsTipoDato);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull final Long idTarea, @NotBlank final String idOrigen, @NotNull final List<Long> idsTipoDato);
+            @NotNull final Long idTarea, @NotBlank final String idOrigen, @NotNull final List<Integer> idsTipoDato);
 
     List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen,
             @NotNull final Long idVentaConcepto);

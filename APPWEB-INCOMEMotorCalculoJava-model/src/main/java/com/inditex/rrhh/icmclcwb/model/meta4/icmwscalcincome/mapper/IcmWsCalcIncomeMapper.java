@@ -182,7 +182,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "diaS", source = "dias")
     @Mapping(target = "diaV", source = "diav")
     @Mapping(target = "diaX", source = "diax")
-    @Mapping(target = "tipo", source = "tipo")
     @Mapping(target = "inOut", source = "inout")
     @Mapping(target = "importe", source = "importe")
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)

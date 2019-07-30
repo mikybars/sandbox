@@ -12,13 +12,25 @@ amiga:
       client:
         http:
           connect-timeout: 300000
-          ead-timeout: 300000
+          read-timeout: 300000
         auth:
           method: BASIC
         ptr-venta:
           auth-method: BASIC
         ptr-presencia:
           auth-method: BASIC
+    resilience:
+      backends:
+        trabajo:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
+        tarea:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
   service:
     jms:
       listener:
@@ -213,6 +225,7 @@ app:
           user: INCOME_CALC
           language: 2
         pool:
+          pre-login: false
           size: 10
           claimTimeout: 30000
           shutdownTimeout: 60000

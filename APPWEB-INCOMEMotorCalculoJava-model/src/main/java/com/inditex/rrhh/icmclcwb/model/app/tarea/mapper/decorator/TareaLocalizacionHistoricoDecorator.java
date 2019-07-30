@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionHistoricoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
 public abstract class TareaLocalizacionHistoricoDecorator extends TareaLocalizacionHistoricoMapper {
 
@@ -17,13 +17,13 @@ public abstract class TareaLocalizacionHistoricoDecorator extends TareaLocalizac
 	private TareaLocalizacionHistoricoMapper delegate;
 
 	@Override
-	public List<TareaLocalizacionHistorico> mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(
-			List<TareaLocalizacionHistoricoDto> srcTareaTiendaHistorico, TareaDto srcTarea) {
-		List<TareaLocalizacionHistorico> result = new ArrayList<>();
-		if (CollectionUtils.isNotEmpty(srcTareaTiendaHistorico)) {
-			srcTareaTiendaHistorico.forEach(item -> 
+	public  List<TareaLocalizacionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
+            List<GenericTiendaResultItemDto> src, TareaDto srcTarea) {
+		List<TareaLocalizacionHistoricoDto> result = new ArrayList<>();
+		if (CollectionUtils.isNotEmpty(src)) {
+		    src.forEach(item -> 
 				result.add(
-						delegate.mergeTareaLocalizacionHistoricoDtoAndTareaDtoToTareaLocalizacionHistorico(item, srcTarea))
+						delegate.genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(item, srcTarea))
 			);
 		}
 		return result;

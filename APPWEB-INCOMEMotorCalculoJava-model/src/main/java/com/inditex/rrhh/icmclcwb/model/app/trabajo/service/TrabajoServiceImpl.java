@@ -66,11 +66,11 @@ public class TrabajoServiceImpl implements TrabajoService {
     @Transactional
     @Override
     public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo) {
-        trabajo.setFechaCreacion(TimeUtils.nowLocalDateTime());
-        if (StringUtils.isBlank(trabajo.getIdUsuario())) {
+        trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
+        if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUser())) {
-                trabajo.setIdUsuario(userSSO.getUser());
+                trabajo.setNombreUsuario(userSSO.getUser());
             }
         }
         TrabajoDto result = trabajoMapper

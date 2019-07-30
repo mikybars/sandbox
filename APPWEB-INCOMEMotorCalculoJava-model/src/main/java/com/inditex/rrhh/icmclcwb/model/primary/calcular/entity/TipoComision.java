@@ -18,11 +18,11 @@ import lombok.Data;
 public class TipoComision {
 
     @Id
-    @Column(name = "ID_TIPO_COMISION")
+    @Column(name = "ID_TIPO_COMISION", length = 24)
     private String id;
 
     @NotBlank
-    @Column(name = "NOMBRE", nullable = false)
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
     private String nombre;
     
     @ManyToMany(mappedBy = "tipoComision")

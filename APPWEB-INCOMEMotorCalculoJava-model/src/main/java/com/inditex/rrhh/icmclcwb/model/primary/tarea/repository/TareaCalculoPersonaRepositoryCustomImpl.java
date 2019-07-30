@@ -60,7 +60,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
         return namedParameterJdbcTemplate.query(sqlFindByAlgoritmo, parameters, new RowMapper<TareaCalculoPersona>() {
             public TareaCalculoPersona mapRow(ResultSet rs, int rowNum) throws SQLException {
                 TareaCalculoPersona dto = new TareaCalculoPersona();
-                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA));
+                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
                 dto.setOrPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                 return dto;
             }

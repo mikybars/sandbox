@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -23,23 +25,24 @@ public class TareaLocalizacionAbierta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_ABIERTA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
     
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String idLocalizacion;
     
     @NotNull
     @Column(name = "FECHA", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fecha;
     
     @NotNull
-    @Column(name = "ABIERTO", nullable = false)
+    @Column(name = "ES_ABIERTO", nullable = false)
     private Boolean abierto;
     
 }

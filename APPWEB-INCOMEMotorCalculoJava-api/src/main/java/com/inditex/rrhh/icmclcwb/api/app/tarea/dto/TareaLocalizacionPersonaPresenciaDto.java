@@ -54,6 +54,6 @@ public class TareaLocalizacionPersonaPresenciaDto implements Serializable {
     @ApiModelProperty(value = "Identificador del tipo de hora", required = true)
     private String idTipoHora;
     
-    @ApiModelProperty(value = "Flag activa", required = true)
+    @ApiModelProperty(value = "Flag activo", required = true)
     private Boolean activo;
 }

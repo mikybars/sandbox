@@ -47,7 +47,6 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Reposi
     @Override
     protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, TareaCalculoPersonaDto persona) {
         Map<String, Object> map = new HashMap<>();
-
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
@@ -58,13 +57,13 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Reposi
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
                 Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId()));
-        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+        List<IdTipoDatoDto> ids = tipoDatoService
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
-            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, 1);
-        map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, 1);
-        map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, 1);
-
+                ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         return map;
     }
 

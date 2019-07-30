@@ -25,28 +25,28 @@ public class Tarea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "ID_ESTADO_TAREA", nullable = false)
-    private /* BigInteger */ EstadoTarea estado;
+    private EstadoTarea estado;
 
     @NotNull
-    @Column(name = "FECHA_CREACION", nullable = false)
+    @Column(name = "FECHA_HORA_CREACION", nullable = false)
     private Date fechaCreacion;
 
-    @Column(name = "FECHA_INICIO_TAREA", nullable = true)
+    @Column(name = "FECHA_HORA_INICIO_TAREA", nullable = true)
     private Date fechaInicioTarea;
 
-    @Column(name = "FECHA_FIN_TAREA", nullable = true)
+    @Column(name = "FECHA_HORA_FIN_TAREA", nullable = true)
     private Date fechaFinTarea;
 
     @NotBlank
-    @Column(name = "ID_SOCIEDAD", nullable = false)
+    @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)
     private String idSociedad;
 
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String idEmpresa;
 
     @NotNull

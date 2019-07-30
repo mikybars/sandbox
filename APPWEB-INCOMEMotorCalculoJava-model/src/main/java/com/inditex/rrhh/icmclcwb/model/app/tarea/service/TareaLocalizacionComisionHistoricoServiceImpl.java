@@ -1,11 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionComisionHist
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionComisionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionComisionHistoricoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionComisionHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionComisionHistoricoRepositoryCustom;
 
 @Service
@@ -30,22 +27,16 @@ public class TareaLocalizacionComisionHistoricoServiceImpl implements TareaLocal
  
     
     @Override
-    public List<TareaLocalizacionComisionHistoricoDto> save(@Valid final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico,
-            @Valid final TareaDto tarea) {
-        List<TareaLocalizacionComisionHistoricoDto> result = new ArrayList<>();
-        List<TareaLocalizacionComisionHistorico> data = mapper
-                .mergeTareaLocalizacionComisionHistoricoDtoAndTareaDtoToTareaLocalizacionComisionHistorico(tareaLocalizacionHistorico, tarea);
-        if (CollectionUtils.isNotEmpty(data)) {
-            result.addAll(mapper
-                    .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(tareaLocalizacionComisionHistoricoRepositoryCustom.save(data)));
-        }
-        return result;
+    public List<TareaLocalizacionComisionHistoricoDto> save(@Valid final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico) {
+        return mapper
+                    .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
+                            tareaLocalizacionComisionHistoricoRepositoryCustom.save(mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(tareaLocalizacionHistorico)));
     }
 
     @Override
-    public List<TareaLocalizacionComisionHistoricoDto> saveGenericTiendaResultItemDto(
+    public List<TareaLocalizacionComisionHistoricoDto> merge(
             @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea) {
-        return save(mapper
-                .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(genericTiendaResultItemDto), tarea);
+        return mapper
+                .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(genericTiendaResultItemDto, tarea);
     }
 }

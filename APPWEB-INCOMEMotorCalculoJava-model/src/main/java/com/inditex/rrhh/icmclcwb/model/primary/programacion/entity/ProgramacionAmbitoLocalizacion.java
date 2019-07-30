@@ -21,23 +21,23 @@ public class ProgramacionAmbitoLocalizacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PROGRAMACION_AMBITO_LOCALIZACION")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_PROGRAMACION_AMBITO", nullable = false)
-    private /* BigInteger */ ProgramacionAmbito programacionAmbito;
+    private ProgramacionAmbito programacionAmbito;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", length = 48, nullable = false)
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", length = 48, nullable = false)
     private String idEmpresa;
 
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "STD_ID_WORK_LOCAT", length = 48, nullable = false)
     private String idLocalizacion;
 
 }

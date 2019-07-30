@@ -28,22 +28,22 @@ public class TareaAgrupacionCadena {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
 
     @NotNull
-    @Column(name = "ID_AGRUPACION", nullable = false)
+    @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
     private Long idAgrupacion;
 
     @NotBlank
-    @Column(name = "ID_CADENA", nullable = false)
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String idCadena;
 
     @NotNull
-    @Column(name = "MULTIPLE", nullable = false)
+    @Column(name = "ES_MULTIPLE", nullable = false)
     private Boolean multiple;
 
 }

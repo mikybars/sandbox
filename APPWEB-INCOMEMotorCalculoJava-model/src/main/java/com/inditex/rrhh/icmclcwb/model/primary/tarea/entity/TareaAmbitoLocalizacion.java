@@ -21,19 +21,19 @@ public class TareaAmbitoLocalizacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_AMBITO_LOCALIZACION")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false)
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = false)
     private String idLocalizacion;
 
 }

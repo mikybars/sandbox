@@ -1,17 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @Service
 @Validated
@@ -24,7 +26,7 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
     private TareaPersonaEstructuraMapper tareaPersonaEstructuraMapper;
 
     @Override
-    public List<TareaPersonaEstructuraDto> save(List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+    public List<TareaPersonaEstructuraDto> save(@Valid List<@Valid TareaPersonaEstructuraDto> tareaPersonaEstructura,
             @Valid TareaDto tarea) {
         return tareaPersonaEstructuraMapper.tareaPersonaEstructuraToTareaPersonaEstructuraDto(
                 tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
@@ -32,10 +34,10 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
     }
 
     @Override
-    public List<TareaPersonaEstructuraDto> saveComisionEmpleadoResultItemDto(
+    public List<TareaPersonaEstructuraDto> merge(
             @Valid List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto, @Valid TareaDto tarea) {
-        return save(tareaPersonaEstructuraMapper
-                .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(comisionEmpleadoResultItemDto, tarea), tarea);
+        return tareaPersonaEstructuraMapper
+                .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(comisionEmpleadoResultItemDto, tarea);
     }
 
 }

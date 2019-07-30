@@ -22,14 +22,18 @@ public class Algoritmo {
 
     @Id
     @Column(name = "ID_ALGORITMO")
-    private /* BigInteger */ Long id;
+    private Integer id;
 
     @NotNull
-    @Column(name = "ACTIVO", nullable = false)
+    @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
 
+    @NotNull
+    @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
+    private Boolean desplazamiento;
+
     @NotBlank
-    @Column(name = "NOMBRE", nullable = false)
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
     private String nombre;
 
     @ManyToMany(fetch = FetchType.EAGER)

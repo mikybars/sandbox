@@ -62,15 +62,15 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
                 if (!ventas.containsKey(agrupacion)) {
                     TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);
                     tareaAgrupacionVenta.setIdAgrupacion(idAgrupacion);
-                    tareaAgrupacionVenta.setImporte(0D);
-                    tareaAgrupacionVenta.setImporteConImpuestos(0D);
+                    tareaAgrupacionVenta.setImporteSinImpuestos(new BigDecimal(0));
+                    tareaAgrupacionVenta.setImporteConImpuestos(new BigDecimal(0));
                     ventas.put(agrupacion, tareaAgrupacionVenta);
                 }
                 TareaAgrupacionVenta tareaAgrupacionVenta = ventas.get(agrupacion);
-                tareaAgrupacionVenta.setImporte(
-                    BigDecimal.valueOf(tareaAgrupacionVenta.getImporte()).add(item.getImporteSinIVA()).doubleValue());
+                tareaAgrupacionVenta.setImporteSinImpuestos(
+                    tareaAgrupacionVenta.getImporteSinImpuestos().add(item.getImporteSinIVA()));
                 tareaAgrupacionVenta.setImporteConImpuestos(
-                    BigDecimal.valueOf(tareaAgrupacionVenta.getImporteConImpuestos()).add(item.getImporteConIVA()).doubleValue());
+                    tareaAgrupacionVenta.getImporteConImpuestos().add(item.getImporteConIVA()));
             });
             result.addAll(ventas.values());
         }

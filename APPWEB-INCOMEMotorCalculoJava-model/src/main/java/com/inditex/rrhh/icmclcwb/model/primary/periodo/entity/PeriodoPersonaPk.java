@@ -15,19 +15,19 @@ public class PeriodoPersonaPk implements Serializable {
     private static final long serialVersionUID = -3551259312147219294L;
 
     @NotBlank
-    @Column(name = "ID_PERIODO", nullable = false, length = 12)
+    @Column(name = "ICM_ID_PERIODO", nullable = false, length = 19)
     private Long idPeriodo;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false, length = 12)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false, length = 12)
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String idEmpresa;
 
     @NotBlank
-    @Column(name = "ID_PERSONA", nullable = false, length = 12)
+    @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String idPersona;
 
 }

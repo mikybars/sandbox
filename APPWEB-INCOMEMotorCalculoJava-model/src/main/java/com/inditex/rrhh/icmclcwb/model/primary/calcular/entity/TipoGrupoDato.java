@@ -20,14 +20,14 @@ public class TipoGrupoDato {
 
     @Id
     @Column(name = "ID_TIPO_GRUPO_DATO")
-    private /* BigInteger */ Long id;
+    private Integer id;
 
     @NotBlank
-    @Column(name = "NOMBRE", nullable = false)
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
     private String nombre;
 
     @NotBlank
-    @Column(name = "DESCRIPCION", nullable = false)
+    @Column(name = "DESCRIPCION", length = /*TAMANO_DESC*/ 255, nullable = false)
     private String descripcion;
     
     @ManyToMany(fetch = FetchType.EAGER)

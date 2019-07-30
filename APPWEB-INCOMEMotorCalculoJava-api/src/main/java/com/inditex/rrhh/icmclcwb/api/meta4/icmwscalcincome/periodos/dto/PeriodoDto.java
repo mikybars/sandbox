@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,10 +20,10 @@ public class PeriodoDto implements Serializable {
 	
 	@NotNull
 	@ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true)
-	private LocalDateTime fechaInicioPeriodo;
+	private LocalDate fechaInicioPeriodo;
 
 	@NotNull
 	@ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
-	private LocalDateTime fechaFinPeriodo;
+	private LocalDate fechaFinPeriodo;
 
 }

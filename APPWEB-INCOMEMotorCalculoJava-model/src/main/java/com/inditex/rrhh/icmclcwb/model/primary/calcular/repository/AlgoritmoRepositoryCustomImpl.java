@@ -32,24 +32,29 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
     private String sqlCheckDuplicatedActives;
 
     @Override
-    public List<Long> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea) {
+    public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return namedParameterJdbcTemplate.query(sqlCustomFindAlgoritmosIdsByTarea, parameters, new RowMapper<Long>() {
-            @Override
-            public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO);
-            }
-        });
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        return namedParameterJdbcTemplate.query(sqlCustomFindAlgoritmosIdsByTarea, parameters,
+                new RowMapper<Integer>() {
+                    @Override
+                    public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO);
+                    }
+                });
     }
 
     @Override
     public Boolean checkDuplicatedActives() {
-        List<Integer> value = namedParameterJdbcTemplate.query(sqlCheckDuplicatedActives, new RowMapper<Integer>() {
-            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getInt(1);
-            }
-        });
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        List<Integer> value = namedParameterJdbcTemplate.query(sqlCheckDuplicatedActives, parameters,
+                new RowMapper<Integer>() {
+                    public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return rs.getInt(1);
+                    }
+                });
         if (CollectionUtils.isNotEmpty(value)) {
             return Boolean.TRUE;
         }

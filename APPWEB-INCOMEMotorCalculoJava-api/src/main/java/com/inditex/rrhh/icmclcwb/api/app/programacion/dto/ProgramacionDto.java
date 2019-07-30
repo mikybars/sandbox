@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.programacion.dto;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ProgramacionDto implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true, example = "true")
-    private Boolean activa;
+    private Boolean activo;
 
     @ApiModelProperty(value = "Id del usuario que planificó la ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
     private String idUsuario;
@@ -58,7 +59,7 @@ public class ProgramacionDto implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Tipo Ambito", required = true, example = "1")
-    private /* BigInteger */ TipoAmbitoDto tipoAmbito;
+    private TipoAmbitoDto tipoAmbito;
     
     @NotNull
     @NotEmpty

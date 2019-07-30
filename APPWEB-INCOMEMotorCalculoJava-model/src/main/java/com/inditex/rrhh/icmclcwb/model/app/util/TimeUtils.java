@@ -73,12 +73,20 @@ public class TimeUtils {
         return ZoneId.systemDefault().getId();
     }
 
+    public static Instant toInstant(LocalDate localDate) {
+        return localDate.atStartOfDay(ZoneOffset.UTC).toInstant();
+    }
+    
     public static Instant toInstant(LocalDateTime localDateTime) {
         return localDateTime.toInstant(ZoneOffset.UTC);
     }
 
     public static Date toDate(LocalDateTime localDateTime) {
         return TimeUtils.toDate(TimeUtils.toInstant(localDateTime));
+    }
+    
+    public static Date toDate(LocalDate localDate) {
+        return TimeUtils.toDate(TimeUtils.toInstant(localDate));
     }
 
     public static Date toDate(Instant instant) {

@@ -1,6 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
@@ -58,7 +63,7 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private TrabajoService trabajoService;
-    
+
     @Autowired
     private ProgramacionService programacionService;
 
@@ -162,14 +167,42 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    public void trabajoFase1a() {
+        AppTestConstants.FASE_1A.stream().forEach(item -> {
+            String[] values = StringUtils.split(item, ",");
+            String sociedad = values[0];
+            String origen = values[1];
+            String empresa = values[2];
+            for (int x = 0; x < 70; x++) {
+                TrabajoDto trabajo = new TrabajoDto();
+                LocalDate fechaInicio = TimeUtils.nowLocalDate().minusMonths(x)
+                        .with(TemporalAdjusters.firstDayOfMonth())
+                        .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
+                LocalDate fechaFin = TimeUtils.nowLocalDate().minusMonths(x)
+                        .with(TemporalAdjusters.lastDayOfMonth())
+                        .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
+                trabajo.setIcmIdPeriodo(0L);
+                trabajo.setFechaInicioPeriodo(fechaInicio);
+                trabajo.setFechaFinPeriodo(fechaFin);
+                trabajo.setIdOrganization(sociedad);
+                TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
+                trabajoAmbitoOrigenDto.setIdOrigen(origen);
+                trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
+                TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
+                trabajoAmbitoEmpresa.setIdEmpresa(empresa);
+                trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
+                trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
+                trabajoService.create(trabajo);
+            }
+        });
+    }
+
+    @Override
     public void testBloqueos(@NotNull final Long limit) {
-        AppTestConstants.TEST.stream()
-                .collect(Collectors.collectingAndThen(Collectors.toList(), collected -> {
-                    Collections.shuffle(collected);
-                    return collected.stream();
-                }))
-                .limit(limit)
-                .collect(Collectors.toList()).forEach(item -> {
+        AppTestConstants.TEST.stream().collect(Collectors.collectingAndThen(Collectors.toList(), collected -> {
+            Collections.shuffle(collected);
+            return collected.stream();
+        })).limit(limit).collect(Collectors.toList()).forEach(item -> {
             String[] values = StringUtils.split(item, ",");
             String sociedad = values[0];
             String origen = values[1];
@@ -180,59 +213,60 @@ public class TestServiceImpl implements TestService {
             Random rand = new Random();
             Integer tipo = rand.nextInt(5) + 1;
             TrabajoDto trabajo = new TrabajoDto();
-            switch(tipo) {
-                case 1:
-                    testSociedad(sociedad, trabajo);
-                    trabajo.setTipoAmbito(TipoAmbitoEnum.SOCIEDAD.getDto());
-                    break;
-                case 2: 
-                    testOrigen(sociedad, origen, trabajo);
-                    trabajo.setTipoAmbito(TipoAmbitoEnum.ORIGEN.getDto());
-                    break;
-                case 3:
-                    testEmpresa(sociedad, origen, empresa, trabajo);
-                    trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
-                    break;
-                case 4:
-                    testLocalizacion(sociedad, origen, empresa, localizacion, trabajo);
-                    trabajo.setTipoAmbito(TipoAmbitoEnum.LOCALIZACION.getDto());
-                    break;
-                case 5:
-                    testPersona(sociedad, origen, empresa, localizacion, persona, orPersona, trabajo);
-                    trabajo.setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
-                    break;
-                default:
-                    break;
+            switch (tipo) {
+            case 1:
+                testSociedad(sociedad, trabajo);
+                trabajo.setTipoAmbito(TipoAmbitoEnum.SOCIEDAD.getDto());
+                break;
+            case 2:
+                testOrigen(sociedad, origen, trabajo);
+                trabajo.setTipoAmbito(TipoAmbitoEnum.ORIGEN.getDto());
+                break;
+            case 3:
+                testEmpresa(sociedad, origen, empresa, trabajo);
+                trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
+                break;
+            case 4:
+                testLocalizacion(sociedad, origen, empresa, localizacion, trabajo);
+                trabajo.setTipoAmbito(TipoAmbitoEnum.LOCALIZACION.getDto());
+                break;
+            case 5:
+                testPersona(sociedad, origen, empresa, localizacion, persona, orPersona, trabajo);
+                trabajo.setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
+                break;
+            default:
+                break;
             }
-            
+
             trabajoService.create(trabajo);
         });
     }
 
     private void testSociedad(String sociedad, TrabajoDto trabajo) {
-        LocalDateTime fechaInicio = LocalDateTime.of(2015, 3, 1, 00, 00);
-        LocalDateTime fechaFin =  LocalDateTime.of(2015, 3, 31, 00, 00);
-        trabajo.setIdPeriodo(1L);
+        LocalDate fechaInicio = LocalDate.of(2015, 3, 1);
+        LocalDate fechaFin = LocalDate.of(2015, 3, 31);
+        trabajo.setIcmIdPeriodo(1L);
         trabajo.setFechaInicioPeriodo(fechaInicio);
         trabajo.setFechaFinPeriodo(fechaFin);
-        trabajo.setIdSociedad(sociedad);
+        trabajo.setIdOrganization(sociedad);
     }
-    
+
     private void testOrigen(String sociedad, String origen, TrabajoDto trabajo) {
         testSociedad(sociedad, trabajo);
         TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
         trabajoAmbitoOrigenDto.setIdOrigen(origen);
         trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
     }
-    
+
     private void testEmpresa(String sociedad, String origen, String empresa, TrabajoDto trabajo) {
         testOrigen(sociedad, origen, trabajo);
         TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
         trabajoAmbitoEmpresa.setIdEmpresa(empresa);
         trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
     }
-    
-    private void testLocalizacion(String sociedad, String origen, String empresa, String localizacion, TrabajoDto trabajo) {
+
+    private void testLocalizacion(String sociedad, String origen, String empresa, String localizacion,
+            TrabajoDto trabajo) {
         testEmpresa(sociedad, origen, empresa, trabajo);
         TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDto();
         trabajoAmbitoLocalizacion.setIdLocalizacion(localizacion);
@@ -241,7 +275,8 @@ public class TestServiceImpl implements TestService {
         trabajo.setLocalizacion(Arrays.asList(trabajoAmbitoLocalizacion));
     }
 
-    private void testPersona(String sociedad, String origen, String empresa, String localizacion, String persona, String orPersona, TrabajoDto trabajo) {
+    private void testPersona(String sociedad, String origen, String empresa, String localizacion, String persona,
+            String orPersona, TrabajoDto trabajo) {
         testEmpresa(sociedad, origen, empresa, trabajo);
         TrabajoAmbitoPersonaDto trabajoAmbitoPersona = new TrabajoAmbitoPersonaDto();
         trabajoAmbitoPersona.setIdPersona(persona);
@@ -250,5 +285,5 @@ public class TestServiceImpl implements TestService {
         trabajoAmbitoPersona.setIdOrigen(origen);
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
     }
-    
+
 }

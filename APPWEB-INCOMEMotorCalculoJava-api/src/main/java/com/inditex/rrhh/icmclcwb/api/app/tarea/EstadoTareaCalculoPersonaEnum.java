@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EstadoTareaCalculoPersonaEnum {
 
-    PENDIENTE(1L, new EstadoTareaPersonaDto(1L)), OK(2L, new EstadoTareaPersonaDto(2L)),
-    KO(3L, new EstadoTareaPersonaDto(3L));
+    PENDIENTE(1, new EstadoTareaPersonaDto(1)), OK(2, new EstadoTareaPersonaDto(2)),
+    KO(3, new EstadoTareaPersonaDto(3));
 
-    private final Long id;
+    private final Integer id;
 
     private final EstadoTareaPersonaDto dto;
 

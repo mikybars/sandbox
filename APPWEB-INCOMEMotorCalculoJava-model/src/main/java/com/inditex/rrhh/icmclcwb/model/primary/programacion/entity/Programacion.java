@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.programacion.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,38 +32,38 @@ public class Programacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PROGRAMACION")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @Column(name = "HORA_PROGRAMACION", nullable = false)
-    private String hora;
+    private LocalTime hora;
 
     @NotNull
-    @Column(name = "HORA_PROGRAMACION_HUSO", nullable = false)
+    @Column(name = "PROGRAMACION_HUSO", length = 12, nullable = false)
     private String huso;
 
     @NotNull
-    @Column(name = "ACTIVA", nullable = false)
-    private Boolean activa;
+    @Column(name = "ES_ACTIVO", nullable = false)
+    private Boolean activo;
 
     @NotBlank
-    @Column(name = "ID_USUARIO", nullable = false)
+    @Column(name = "NOMBRE_USUARIO", length = 12, nullable = false)
     private String idUsuario;
 
     @NotNull
-    @Column(name = "FECHA_CREACION", nullable = false)
-    private Date fechaCreacion;
+    @Column(name = "FECHA_HORA_CREACION", nullable = false)
+    private LocalDateTime fechaCreacion;
 
-    @Column(name = "FECHA_ULTIMA_EJECUCION", nullable = true)
-    private Date fechaUltimaEjecucion;
+    @Column(name = "FECHA_HORA_ULTIMA_EJECUCION", nullable = true)
+    private LocalDateTime fechaUltimaEjecucion;
 
     @NotNull
-    @Column(name = "FECHA_SIGUIENTE_EJECUCION", nullable = false)
-    private Date fechaSiguienteEjecucion;
+    @Column(name = "FECHA_HORA_SIGUIENTE_EJECUCION", nullable = false)
+    private LocalDateTime fechaSiguienteEjecucion;
     
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
-    private /* BigInteger */ TipoAmbito tipoAmbito;
+    private TipoAmbito tipoAmbito;
 
 }

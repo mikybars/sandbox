@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.trabajo.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,31 +29,31 @@ public class TrabajoDto implements Serializable {
     @ApiModelProperty(value = "Programación asociada", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idProgramacion;
     
-    @ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
-    private String idUsuario;
+    @ApiModelProperty(value = "Nombre del usuario que solicito el trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
+    private String nombreUsuario;
 
     @ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     @NotNull
     @ApiModelProperty(value = "Id del periodo a procesar", required = true, example = "1")
-    private Long idPeriodo;
+    private Long icmIdPeriodo;
     
     @NotNull
-    @ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true, example = "2017-03-01T00:00:00.000Z")
-    private LocalDateTime fechaInicioPeriodo;
+    @ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true, example = "2017-03-01")
+    private LocalDate fechaInicioPeriodo;
 
     @NotNull
-    @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true, example = "2017-03-31T00:00:00.000Z")
-    private LocalDateTime fechaFinPeriodo;
+    @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true, example = "2017-03-31")
+    private LocalDate fechaFinPeriodo;
     
     @NotBlank
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "0001")
-    private String idSociedad;
+    private String idOrganization;
     
     @NotNull
     @ApiModelProperty(value = "Tipo Ambito", required = true, example = "1")
-    private /* BigInteger */ TipoAmbitoDto tipoAmbito;
+    private TipoAmbitoDto tipoAmbito;
     
     @ApiModelProperty(value = "Ambito origen del trabajo", required = false)
     private List<TrabajoAmbitoOrigenDto> origen;

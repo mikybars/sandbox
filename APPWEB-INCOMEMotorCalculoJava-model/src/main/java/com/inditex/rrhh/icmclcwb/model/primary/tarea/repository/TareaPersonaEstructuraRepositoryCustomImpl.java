@@ -36,7 +36,7 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         pstmt.setString(8, entity.getIdTipoCalculo());
         pstmt.setString(9, entity.getIdTipoComision());
         pstmt.setString(10, entity.getOrPersona());
-        pstmt.setDouble(11, entity.getValor());
+        pstmt.setBigDecimal(11, entity.getValor());
         pstmt.setLong(12, entity.getTarea().getId());
         pstmt.setString(13, entity.getIdOrigen());
     }

@@ -32,32 +32,25 @@ public abstract class TareaPersonaHistoricoMapper {
     public abstract List<TareaPersonaHistorico> tareaPersonaHistoricoDtoToTareaPersonaHistorico(
             List<TareaPersonaHistoricoDto> src);
 
-    @Mapping(target = "tarea.id", source = "srcTarea.id")
-    @Mapping(target = "idEmpresa", source = "srcTareaPersonaHistorico.idEmpresa")
-    @Mapping(target = "id", ignore = true)
-    public abstract TareaPersonaHistorico mergeTareaPersonaHistoricoDtoAndTareaDtoToTareaPersonaHistorico(
-            TareaPersonaHistoricoDto srcTareaPersonaHistorico, TareaDto srcTarea);
+    @Mapping(target = "idPersona", source = "src.idEmpleado")
+    @Mapping(target = "orPersona", source = "src.orEmpleado")
+    @Mapping(target = "idPersonaLocal", source = "src.idEmpleadoLocal")
+    @Mapping(target = "idLocalizacion", source = "src.idLugarTrabajoMtu")
+    @Mapping(target = "idLocalizacionMeta4", source = "src.idLugarTrabajo")
+    @Mapping(target = "fechaInicio", source = "src.fechaInicio")
+    @Mapping(target = "fechaFin", source = "src.fechaFin")
+    @Mapping(target = "fechaInicioSeccion", source = "src.fechaInicioSec")
+    @Mapping(target = "fechaFinSeccion", source = "src.fechaFinSec")
+    @Mapping(target = "idEmpresa", source = "src.idEmpresa")
+    @Mapping(target = "idOrigen", source = "src.idOrigen")
+    @Mapping(target = "idSeccion", source = "src.idSeccion")
+    @Mapping(target = "idTarea", source = "tarea.id")
+    public abstract TareaPersonaHistoricoDto genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
+            GenericEmpleadoResultItemDto src, TareaDto tarea);
 
-    public List<TareaPersonaHistorico> mergeTareaPersonaHistoricoDtoAndTareaDtoToTareaPersonaHistorico(
-            List<TareaPersonaHistoricoDto> srcTareaPersonaHistorico, TareaDto srcTareaDto) {
+    public List<TareaPersonaHistoricoDto> genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
+            List<GenericEmpleadoResultItemDto> src, TareaDto tarea){
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @Mapping(target = "idPersona", source = "idEmpleado")
-    @Mapping(target = "orPersona", source = "orEmpleado")
-    @Mapping(target = "idPersonaLocal", source = "idEmpleadoLocal")
-    @Mapping(target = "idLocalizacion", source = "idLugarTrabajoMtu")
-    @Mapping(target = "idLocalizacionMeta4", source = "idLugarTrabajo")
-    @Mapping(target = "fechaInicio", source = "fechaInicio")
-    @Mapping(target = "fechaFin", source = "fechaFin")
-    @Mapping(target = "fechaInicioSeccion", source = "fechaInicioSec")
-    @Mapping(target = "fechaFinSeccion", source = "fechaFinSec")
-    @Mapping(target = "idEmpresa", source = "idEmpresa")
-    @Mapping(target = "idOrigen", source = "idOrigen")
-    @Mapping(target = "idSeccion", source = "idSeccion")
-    public abstract TareaPersonaHistoricoDto genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
-            GenericEmpleadoResultItemDto src);
-
-    public abstract List<TareaPersonaHistoricoDto> genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
-            List<GenericEmpleadoResultItemDto> src);
 }

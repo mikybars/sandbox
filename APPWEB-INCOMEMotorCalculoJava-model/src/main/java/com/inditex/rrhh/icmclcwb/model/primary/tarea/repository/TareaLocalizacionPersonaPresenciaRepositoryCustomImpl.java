@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
@@ -41,7 +42,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo']}")
     private String sqlUpdateActivo;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio']}")
     private String sqlUpdateActivoVacio;
 
@@ -55,20 +56,21 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     public void updateActivoVacio(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS, SqlPrimaryConstants.SQL_VALUE_MINUTOS_CERO);
         namedParameterJdbcTemplate.update(sqlUpdateActivoVacio, parameters);
     }
-    
+
     @Override
     public void updateActivo(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR, 0);
-        List<IdTipoDatoDto> tiposDatoPresencia =
-            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 0);
-
+                tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
 
@@ -76,14 +78,16 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     public void compensar(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR, 0);
-        List<IdTipoDatoDto> tiposDatoPresencia =
-            tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+                tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-            TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
+                TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
 
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
@@ -100,7 +104,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         pstmt.setString(3, entity.getIdPersona());
         pstmt.setString(4, entity.getIdEmpresa());
         pstmt.setString(5, entity.getIdSeccion());
-        pstmt.setObject(6, entity.getFecha());
+        pstmt.setObject(6, entity.getPk().getFecha());
         pstmt.setLong(7, entity.getMinutos());
         pstmt.setString(8, entity.getIdTipoHora());
         pstmt.setBoolean(9, entity.getActivo());

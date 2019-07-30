@@ -20,30 +20,30 @@ public class TareaTipoHora {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_TAREA_TIPO_HORA")
-	private /* BigInteger */ Long id;
+	private Long id;
 
 	@NotNull
 	@Column(name = "ID_TIPO_HORA", nullable = false)
 	private Long idTipoHora;
 	
-	@Column(name = "EXCLUIDO_CALCULO", nullable = false)
+	@Column(name = "ES_EXCLUIDO_CALCULO", nullable = false)
 	private Boolean excluidoCalculo;
 	
-	@Column(name = "EXCLUIDO_DENOMINADOR", nullable = false)
+	@Column(name = "ES_EXCLUIDO_DENOMINADOR", nullable = false)
     private Boolean excluidoDenominador;
 	
-	@Column(name = "INCLUIDO_VENTA", nullable = false)
+	@Column(name = "ES_INCLUIDO_VENTA", nullable = false)
 	private Boolean incluidoVenta;
         
-	@Column(name = "INCLUIDO_CHALLENGE", nullable = false)
+	@Column(name = "ES_INCLUIDO_CHALLENGE", nullable = false)
 	private Boolean incluidoChallenge;
         
-    @Column(name = "INCLUIDO_ECOMMERCE", nullable = false)
+    @Column(name = "ES_INCLUIDO_ECOMMERCE", nullable = false)
     private Boolean incluidoEcommerce;
 	    
 	@NotNull
 	@OneToOne
 	@JoinColumn(name = "ID_TAREA", nullable = false)
-	private /* BigInteger */ Tarea tarea;
+	private Tarea tarea;
 
 }

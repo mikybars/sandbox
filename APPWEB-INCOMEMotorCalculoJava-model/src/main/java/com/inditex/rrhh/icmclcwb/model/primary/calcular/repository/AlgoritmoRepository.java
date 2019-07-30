@@ -5,7 +5,7 @@ import java.util.Set;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
-public interface AlgoritmoRepository extends BaseRepository<Algoritmo, Long> {
+public interface AlgoritmoRepository extends BaseRepository<Algoritmo, Integer> {
 
     Algoritmo findByTipoCalculoId(Long id);
     

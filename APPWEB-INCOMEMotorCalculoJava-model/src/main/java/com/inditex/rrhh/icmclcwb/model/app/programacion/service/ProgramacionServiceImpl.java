@@ -18,7 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -84,7 +83,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public List<ProgramacionDto> findPendiente() {
         List<ProgramacionDto> result = programacionMapper.programacionToProgramacionDto(
-                programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivaTrue(new Date()));
+                programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
         result.forEach(item -> item.setAmbito(programacionAmbitoService.findByProgramacion(item)));
         return result;
     }

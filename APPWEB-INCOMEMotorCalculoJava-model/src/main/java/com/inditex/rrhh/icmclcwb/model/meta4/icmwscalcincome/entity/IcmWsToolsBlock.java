@@ -45,6 +45,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="icm_Prp_Load_Type" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="icm_Prp_Last_Level" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="icm_Prp_Load_Depth" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="icm_Have_Validation" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="icm_Have_Idexecution" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="Icm_Ws_ToolsRecordSet" type="{http://schemas.meta4.com/}Icm_Ws_ToolsRecord" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
@@ -69,6 +70,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmPrpLoadType",
     "icmPrpLastLevel",
     "icmPrpLoadDepth",
+    "icmHaveValidation",
     "icmHaveIdexecution",
     "icmWsToolsRecordSet"
 })
@@ -99,6 +101,8 @@ public class IcmWsToolsBlock implements Cloneable, CopyTo2, Equals2, HashCode2, 
     protected Double icmPrpLastLevel;
     @XmlElement(name = "icm_Prp_Load_Depth", required = true, type = Double.class, nillable = true)
     protected Double icmPrpLoadDepth;
+    @XmlElement(name = "icm_Have_Validation", required = true, type = Double.class, nillable = true)
+    protected Double icmHaveValidation;
     @XmlElement(name = "icm_Have_Idexecution", required = true, type = Double.class, nillable = true)
     protected Double icmHaveIdexecution;
     @XmlElement(name = "Icm_Ws_ToolsRecordSet", nillable = true)
@@ -393,6 +397,30 @@ public class IcmWsToolsBlock implements Cloneable, CopyTo2, Equals2, HashCode2, 
     }
 
     /**
+     * Obtiene el valor de la propiedad icmHaveValidation.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public Double getIcmHaveValidation() {
+        return icmHaveValidation;
+    }
+
+    /**
+     * Define el valor de la propiedad icmHaveValidation.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setIcmHaveValidation(Double value) {
+        this.icmHaveValidation = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmHaveIdexecution.
      * 
      * @return
@@ -562,6 +590,15 @@ public class IcmWsToolsBlock implements Cloneable, CopyTo2, Equals2, HashCode2, 
             }
         }
         {
+            Double lhsIcmHaveValidation;
+            lhsIcmHaveValidation = this.getIcmHaveValidation();
+            Double rhsIcmHaveValidation;
+            rhsIcmHaveValidation = that.getIcmHaveValidation();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmHaveValidation", lhsIcmHaveValidation), LocatorUtils.property(thatLocator, "icmHaveValidation", rhsIcmHaveValidation), lhsIcmHaveValidation, rhsIcmHaveValidation, (this.icmHaveValidation!= null), (that.icmHaveValidation!= null))) {
+                return false;
+            }
+        }
+        {
             Double lhsIcmHaveIdexecution;
             lhsIcmHaveIdexecution = this.getIcmHaveIdexecution();
             Double rhsIcmHaveIdexecution;
@@ -663,6 +700,11 @@ public class IcmWsToolsBlock implements Cloneable, CopyTo2, Equals2, HashCode2, 
             strategy.appendField(locator, this, "icmPrpLoadDepth", buffer, theIcmPrpLoadDepth, (this.icmPrpLoadDepth!= null));
         }
         {
+            Double theIcmHaveValidation;
+            theIcmHaveValidation = this.getIcmHaveValidation();
+            strategy.appendField(locator, this, "icmHaveValidation", buffer, theIcmHaveValidation, (this.icmHaveValidation!= null));
+        }
+        {
             Double theIcmHaveIdexecution;
             theIcmHaveIdexecution = this.getIcmHaveIdexecution();
             strategy.appendField(locator, this, "icmHaveIdexecution", buffer, theIcmHaveIdexecution, (this.icmHaveIdexecution!= null));
@@ -736,6 +778,11 @@ public class IcmWsToolsBlock implements Cloneable, CopyTo2, Equals2, HashCode2, 
             Double theIcmPrpLoadDepth;
             theIcmPrpLoadDepth = this.getIcmPrpLoadDepth();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpLoadDepth", theIcmPrpLoadDepth), currentHashCode, theIcmPrpLoadDepth, (this.icmPrpLoadDepth!= null));
+        }
+        {
+            Double theIcmHaveValidation;
+            theIcmHaveValidation = this.getIcmHaveValidation();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmHaveValidation", theIcmHaveValidation), currentHashCode, theIcmHaveValidation, (this.icmHaveValidation!= null));
         }
         {
             Double theIcmHaveIdexecution;
@@ -921,6 +968,19 @@ public class IcmWsToolsBlock implements Cloneable, CopyTo2, Equals2, HashCode2, 
                 } else {
                     if (icmPrpLoadDepthShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmPrpLoadDepth = null;
+                    }
+                }
+            }
+            {
+                Boolean icmHaveValidationShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmHaveValidation!= null));
+                if (icmHaveValidationShouldBeCopiedAndSet == Boolean.TRUE) {
+                    Double sourceIcmHaveValidation;
+                    sourceIcmHaveValidation = this.getIcmHaveValidation();
+                    Double copyIcmHaveValidation = ((Double) strategy.copy(LocatorUtils.property(locator, "icmHaveValidation", sourceIcmHaveValidation), sourceIcmHaveValidation, (this.icmHaveValidation!= null)));
+                    copy.setIcmHaveValidation(copyIcmHaveValidation);
+                } else {
+                    if (icmHaveValidationShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmHaveValidation = null;
                     }
                 }
             }

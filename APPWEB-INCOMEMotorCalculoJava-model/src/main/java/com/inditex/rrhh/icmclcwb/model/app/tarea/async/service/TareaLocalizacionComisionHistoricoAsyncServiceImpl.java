@@ -24,15 +24,15 @@ public class TareaLocalizacionComisionHistoricoAsyncServiceImpl implements Tarea
 
     
     @Override
-    public CompletableFuture<Void> save(final List<TareaLocalizacionComisionHistoricoDto> tareaTiendaComisionHistoricoDto,TareaDto tarea) {
-        tareaTiendaComisionHistoricoService.save(tareaTiendaComisionHistoricoDto, tarea);
+    public CompletableFuture<Void> save(final List<TareaLocalizacionComisionHistoricoDto> tareaTiendaComisionHistoricoDto, TareaDto tarea) {
+        tareaTiendaComisionHistoricoService.save(tareaTiendaComisionHistoricoDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     
     @Override
-    public CompletableFuture<Void> saveGenericTiendaResultItemDto(final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,TareaDto tarea) {
-        tareaTiendaComisionHistoricoService.saveGenericTiendaResultItemDto(genericTiendaResultItemDto, tarea);
+    public CompletableFuture<Void> saveGenericTiendaResultItemDto(final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, TareaDto tarea) {
+        tareaTiendaComisionHistoricoService.save(tareaTiendaComisionHistoricoService.merge(genericTiendaResultItemDto, tarea));
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

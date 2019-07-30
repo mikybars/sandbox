@@ -19,13 +19,13 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
             @NotBlank String idOrigen);
 
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Long> idsTipoDato);
+            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
             @NotBlank String idOrigen);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Long> idsTipoDato);
+            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
 
     List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen, Long idsVentaConcepto);
 

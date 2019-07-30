@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -28,54 +31,56 @@ public class TareaPersonaEstructura {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_SECCION_ESTRUCTURA", nullable = false)
+    @Column(name = "CCL_ID_SECCION_ESTRUCTURA", nullable = false, length = 4)
     private String idSeccionEstructura;
 
     @NotBlank
-    @Column(name = "ID_SECCION_EFECTIVA", nullable = false)
+    @Column(name = "CCL_ID_SECCION_EFECTIVA", nullable = false, length = 4)
     private String idSeccionEfectiva;
 
     @NotBlank
-    @Column(name = "ID_PERSONA", nullable = false)
+    @Column(name = "STD_ID_HR", nullable = false, length = 18)
     private String idPersona;
 
     @NotBlank
-    @Column(name = "OR_PERSONA", nullable = false)
+    @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
     private String orPersona;
 
     @NotBlank
-    @Column(name = "ID_PERSONA_LOCAL", nullable = false)
+    @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String idPersonaLocal;
 
     @NotBlank
-    @Column(name = "ID_ESTRUCTURA", nullable = false)
-    private /* BigInteger */ String idEstructura;
+    @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
+    private String idEstructura;
 
     @NotBlank
-    @Column(name = "ID_TIPO_CALCULO", nullable = false)
-    private /* BigInteger */ String idTipoCalculo;
+    @Column(name = "ICM_ID_TP_CALCULO", nullable = false, length = 48)
+    private String idTipoCalculo;
 
     @NotBlank
-    @Column(name = "ID_TIPO_COMISION", nullable = false)
-    private /* BigInteger */ String idTipoComision;
+    @Column(name = "ICM_ID_TP_COMISION", nullable = false, length = 48)
+    private String idTipoComision;
 
     @NotNull
-    @Column(name = "VALOR", nullable = false)
-    private /* BigInteger */ Double valor;
+    @Column(name = "VALOR", nullable = false, precision = 23,  scale = 8)
+    private BigDecimal valor;
     
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
 
     @NotNull
     @Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaFin;
     
 }

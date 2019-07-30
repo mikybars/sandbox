@@ -1,12 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -23,46 +19,40 @@ import lombok.Data;
 @Data
 public class TareaLocalizacionVenta {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_LOCALIZACION_VENTA")
-    private /* BigInteger */ Long id;
-
+    @EmbeddedId
+    private TareaLocalizacionVentaPk pk;
+    
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
     
     @NotNull
-    @Column(name = "FECHA", nullable = false)
-    private Date fecha;
-    
-    @NotNull
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String idLocalizacion;
     
     @NotNull
-    @Column(name = "ID_CADENA", nullable = false)
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String idCadena;
     
     @NotBlank
-    @Column(name = "ID_SECCION", nullable = false)
+    @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
     private String idSeccion;
     
     @NotNull
-    @Column(name = "IMPORTE_SECCION", nullable = false)
-    private /* BigInteger */ Double importe;
+    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
+    private Double importeSinImpuestos;
     
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS_SECCION", nullable = false)
-    private /* BigInteger */ Double importeConImpuestos;
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
+    private Double importeConImpuestos;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
 
     @NotNull
-    @Column(name = "ACTIVO", nullable = false)
+    @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
     
 }

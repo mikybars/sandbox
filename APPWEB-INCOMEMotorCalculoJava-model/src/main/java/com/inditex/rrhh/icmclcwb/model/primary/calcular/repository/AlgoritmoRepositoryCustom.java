@@ -7,7 +7,7 @@ import javax.validation.constraints.Positive;
 
 public interface AlgoritmoRepositoryCustom {
 
-    public List<Long> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea);
+    public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea);
 
     Boolean checkDuplicatedActives();
 

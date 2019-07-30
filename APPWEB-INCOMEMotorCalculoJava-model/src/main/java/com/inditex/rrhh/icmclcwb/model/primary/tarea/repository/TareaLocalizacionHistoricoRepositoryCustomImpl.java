@@ -78,7 +78,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Override
     public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
             @NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
-            @NotNull final List<Long> idsTipoDato) {
+            @NotNull final List<Integer> idsTipoDato) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
@@ -88,7 +88,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 parameters, new RowMapper<IdLocalizacionDto>() {
                     public IdLocalizacionDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                         IdLocalizacionDto dto = new IdLocalizacionDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
                         return dto;
                     }
                 });
@@ -104,7 +104,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 new RowMapper<IdLocalizacionDto>() {
                     public IdLocalizacionDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                         IdLocalizacionDto dto = new IdLocalizacionDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
                         return dto;
                     }
                 });
@@ -121,7 +121,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 new RowMapper<IdLocalizacionLocalDto>() {
                     public IdLocalizacionLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                         IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
                         return dto;
                     }
                 });
@@ -130,7 +130,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Override
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
             @NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
-            @NotNull final List<Long> idsTipoDato) {
+            @NotNull final List<Integer> idsTipoDato) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
@@ -140,7 +140,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 parameters, new RowMapper<IdLocalizacionLocalDto>() {
                     public IdLocalizacionLocalDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                         IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION));
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
                         return dto;
                     }
                 });
@@ -152,7 +152,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, idVentaConcepto);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
         return namedParameterJdbcTemplate.query(sqlCadenasFiltroTipoDato, parameters, (rs, rowNum) -> IdCadenaDto.builder()
                 .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA)).build());
     }

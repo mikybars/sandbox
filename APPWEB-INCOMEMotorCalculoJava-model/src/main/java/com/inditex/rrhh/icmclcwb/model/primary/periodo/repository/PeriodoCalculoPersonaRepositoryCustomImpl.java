@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.periodo.dto.EstadoPeriodoCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -37,11 +35,13 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA,
-                /* TODO Cambiar por un flag o definir los estados posibles */2L);
+                EstadoPeriodoCalculoPersonaEnum.CALCULADO.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR,
+                EstadoPeriodoCalculoPersonaEnum.CALCULADO_ERROR.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.OK.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, 0);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         namedParameterJdbcTemplate.update(sqlMergePeriodoCalculoPersona, params);
     }
 

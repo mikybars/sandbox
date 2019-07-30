@@ -32,7 +32,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="GETESTRDESPLAZReturn" type="{http://schemas.meta4.com/}GetestrdesplazOutput"/>
+ *         &lt;element name="GETESTRCOMISIONReturn" type="{http://schemas.meta4.com/}GetestrcomisionOutput"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,37 +43,37 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getestrdesplazReturn"
+    "getestrcomisionReturn"
 })
-@XmlRootElement(name = "GETESTRDESPLAZResponse")
-public class GETESTRDESPLAZResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETESTRCOMISIONResponse")
+public class GETESTRCOMISIONResponse implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(name = "GETESTRDESPLAZReturn", required = true)
-    protected GetestrdesplazOutput getestrdesplazReturn;
+    @XmlElement(name = "GETESTRCOMISIONReturn", required = true)
+    protected GetestrcomisionOutput getestrcomisionReturn;
 
     /**
-     * Obtiene el valor de la propiedad getestrdesplazReturn.
+     * Obtiene el valor de la propiedad getestrcomisionReturn.
      * 
      * @return
      *     possible object is
-     *     {@link GetestrdesplazOutput }
+     *     {@link GetestrcomisionOutput }
      *     
      */
-    public GetestrdesplazOutput getGETESTRDESPLAZReturn() {
-        return getestrdesplazReturn;
+    public GetestrcomisionOutput getGETESTRCOMISIONReturn() {
+        return getestrcomisionReturn;
     }
 
     /**
-     * Define el valor de la propiedad getestrdesplazReturn.
+     * Define el valor de la propiedad getestrcomisionReturn.
      * 
      * @param value
      *     allowed object is
-     *     {@link GetestrdesplazOutput }
+     *     {@link GetestrcomisionOutput }
      *     
      */
-    public void setGETESTRDESPLAZReturn(GetestrdesplazOutput value) {
-        this.getestrdesplazReturn = value;
+    public void setGETESTRCOMISIONReturn(GetestrcomisionOutput value) {
+        this.getestrcomisionReturn = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -83,13 +83,13 @@ public class GETESTRDESPLAZResponse implements Cloneable, CopyTo2, Equals2, Hash
         if (this == object) {
             return true;
         }
-        final GETESTRDESPLAZResponse that = ((GETESTRDESPLAZResponse) object);
+        final GETESTRCOMISIONResponse that = ((GETESTRCOMISIONResponse) object);
         {
-            GetestrdesplazOutput lhsGETESTRDESPLAZReturn;
-            lhsGETESTRDESPLAZReturn = this.getGETESTRDESPLAZReturn();
-            GetestrdesplazOutput rhsGETESTRDESPLAZReturn;
-            rhsGETESTRDESPLAZReturn = that.getGETESTRDESPLAZReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getestrdesplazReturn", lhsGETESTRDESPLAZReturn), LocatorUtils.property(thatLocator, "getestrdesplazReturn", rhsGETESTRDESPLAZReturn), lhsGETESTRDESPLAZReturn, rhsGETESTRDESPLAZReturn, (this.getestrdesplazReturn!= null), (that.getestrdesplazReturn!= null))) {
+            GetestrcomisionOutput lhsGETESTRCOMISIONReturn;
+            lhsGETESTRCOMISIONReturn = this.getGETESTRCOMISIONReturn();
+            GetestrcomisionOutput rhsGETESTRCOMISIONReturn;
+            rhsGETESTRCOMISIONReturn = that.getGETESTRCOMISIONReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getestrcomisionReturn", lhsGETESTRCOMISIONReturn), LocatorUtils.property(thatLocator, "getestrcomisionReturn", rhsGETESTRCOMISIONReturn), lhsGETESTRCOMISIONReturn, rhsGETESTRCOMISIONReturn, (this.getestrcomisionReturn!= null), (that.getestrcomisionReturn!= null))) {
                 return false;
             }
         }
@@ -117,9 +117,9 @@ public class GETESTRDESPLAZResponse implements Cloneable, CopyTo2, Equals2, Hash
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            GetestrdesplazOutput theGETESTRDESPLAZReturn;
-            theGETESTRDESPLAZReturn = this.getGETESTRDESPLAZReturn();
-            strategy.appendField(locator, this, "getestrdesplazReturn", buffer, theGETESTRDESPLAZReturn, (this.getestrdesplazReturn!= null));
+            GetestrcomisionOutput theGETESTRCOMISIONReturn;
+            theGETESTRCOMISIONReturn = this.getGETESTRCOMISIONReturn();
+            strategy.appendField(locator, this, "getestrcomisionReturn", buffer, theGETESTRCOMISIONReturn, (this.getestrcomisionReturn!= null));
         }
         return buffer;
     }
@@ -127,9 +127,9 @@ public class GETESTRDESPLAZResponse implements Cloneable, CopyTo2, Equals2, Hash
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            GetestrdesplazOutput theGETESTRDESPLAZReturn;
-            theGETESTRDESPLAZReturn = this.getGETESTRDESPLAZReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getestrdesplazReturn", theGETESTRDESPLAZReturn), currentHashCode, theGETESTRDESPLAZReturn, (this.getestrdesplazReturn!= null));
+            GetestrcomisionOutput theGETESTRCOMISIONReturn;
+            theGETESTRCOMISIONReturn = this.getGETESTRCOMISIONReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getestrcomisionReturn", theGETESTRCOMISIONReturn), currentHashCode, theGETESTRCOMISIONReturn, (this.getestrcomisionReturn!= null));
         }
         return currentHashCode;
     }
@@ -150,18 +150,18 @@ public class GETESTRDESPLAZResponse implements Cloneable, CopyTo2, Equals2, Hash
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETESTRDESPLAZResponse) {
-            final GETESTRDESPLAZResponse copy = ((GETESTRDESPLAZResponse) draftCopy);
+        if (draftCopy instanceof GETESTRCOMISIONResponse) {
+            final GETESTRCOMISIONResponse copy = ((GETESTRCOMISIONResponse) draftCopy);
             {
-                Boolean getestrdesplazReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getestrdesplazReturn!= null));
-                if (getestrdesplazReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    GetestrdesplazOutput sourceGETESTRDESPLAZReturn;
-                    sourceGETESTRDESPLAZReturn = this.getGETESTRDESPLAZReturn();
-                    GetestrdesplazOutput copyGETESTRDESPLAZReturn = ((GetestrdesplazOutput) strategy.copy(LocatorUtils.property(locator, "getestrdesplazReturn", sourceGETESTRDESPLAZReturn), sourceGETESTRDESPLAZReturn, (this.getestrdesplazReturn!= null)));
-                    copy.setGETESTRDESPLAZReturn(copyGETESTRDESPLAZReturn);
+                Boolean getestrcomisionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getestrcomisionReturn!= null));
+                if (getestrcomisionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetestrcomisionOutput sourceGETESTRCOMISIONReturn;
+                    sourceGETESTRCOMISIONReturn = this.getGETESTRCOMISIONReturn();
+                    GetestrcomisionOutput copyGETESTRCOMISIONReturn = ((GetestrcomisionOutput) strategy.copy(LocatorUtils.property(locator, "getestrcomisionReturn", sourceGETESTRCOMISIONReturn), sourceGETESTRCOMISIONReturn, (this.getestrcomisionReturn!= null)));
+                    copy.setGETESTRCOMISIONReturn(copyGETESTRCOMISIONReturn);
                 } else {
-                    if (getestrdesplazReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.getestrdesplazReturn = null;
+                    if (getestrcomisionReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getestrcomisionReturn = null;
                     }
                 }
             }
@@ -170,7 +170,7 @@ public class GETESTRDESPLAZResponse implements Cloneable, CopyTo2, Equals2, Hash
     }
 
     public Object createNewInstance() {
-        return new GETESTRDESPLAZResponse();
+        return new GETESTRCOMISIONResponse();
     }
 
 }

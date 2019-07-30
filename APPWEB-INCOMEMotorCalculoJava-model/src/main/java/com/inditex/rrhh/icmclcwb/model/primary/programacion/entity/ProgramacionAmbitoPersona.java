@@ -21,27 +21,27 @@ public class ProgramacionAmbitoPersona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PROGRAMACION_AMBITO_PERSONA")
-    private /* BigInteger */ Long id;
+    private Long id;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_PROGRAMACION_AMBITO", nullable = false)
-    private /* BigInteger */ ProgramacionAmbito programacionAmbito;
+    private ProgramacionAmbito programacionAmbito;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", length = 48, nullable = false)
     private String idOrigen;
 
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", length = 48, nullable = false)
     private String idEmpresa;
     
     @NotBlank
-    @Column(name = "ID_PERSONA", nullable = false)
+    @Column(name = "CCL_ID_PERSON", length = 48, nullable = false)
     private String idPersona;
     
     @NotBlank
-    @Column(name = "OR_PERSONA", nullable = false)
+    @Column(name = "STD_OR_HR_PERIOD", length = 48, nullable = false)
     private String orPersona;
 
 }

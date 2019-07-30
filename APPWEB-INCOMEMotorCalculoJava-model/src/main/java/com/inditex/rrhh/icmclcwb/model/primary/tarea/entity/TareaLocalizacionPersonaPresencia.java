@@ -1,12 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -21,60 +17,54 @@ import lombok.Data;
 @Entity
 @Table(name = "TAREA_LOCALIZACION_PERSONA_PRESENCIA")
 @Data
-public class TareaLocalizacionPersonaPresencia {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA")
-    private /* BigInteger */ Long id;
-
+public class TareaLocalizacionPersonaPresencia  {
+ 
+    @EmbeddedId
+    private TareaLocalizacionPersonaPresenciaPk pk;
+   
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
     
     @NotBlank
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String idLocalizacion;
 
     @NotBlank
-    @Column(name = "ID_CADENA", nullable = false)
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String idCadena;
 
     @NotBlank
-    @Column(name = "ID_PERSONA", nullable = false)
+    @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String idPersona;
     
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
     
     @NotBlank
-    @Column(name = "ID_EMPRESA", nullable = false)
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String idEmpresa;
     
     @NotBlank
-    @Column(name = "ID_SECCION", nullable = false)
+    @Column(name = "CCL_ID_SECCION", nullable = false, length = 4)
     private String idSeccion;
-    
-    @NotNull
-    @Column(name = "FECHA", nullable = false)
-    private Date fecha;
-    
+
     @NotNull
     @Column(name = "MINUTOS", nullable = false)
-    private /* BigInteger */ Long minutos;
+    private Integer minutos;
     
     @NotNull
-    @Column(name = "ID_TIPO_HORA", nullable = false)
-    private /* BigInteger */ String idTipoHora;
+    @Column(name = "ICM_ID_TP_HORA", nullable = false, length = 48)
+    private String idTipoHora;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
     
     @NotNull
-    @Column(name = "ACTIVO", nullable = false)
+    @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
     
 }

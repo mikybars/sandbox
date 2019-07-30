@@ -28,11 +28,11 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionPersonaVenta entity) throws SQLException {
-        pstmt.setObject(1, entity.getFecha());
+        pstmt.setObject(1, entity.getPk().getFecha());
         pstmt.setString(2, entity.getIdLocalizacion());
         pstmt.setString(3, entity.getIdPersona());
-        pstmt.setDouble(4, entity.getImporte());
-        pstmt.setDouble(5, entity.getImporteConImpuestos());
+        pstmt.setBigDecimal(4, entity.getImporteSinImpuestos());
+        pstmt.setBigDecimal(5, entity.getImporteConImpuestos());
         pstmt.setDouble(6, entity.getTipoDato().getId());
         pstmt.setLong(7, entity.getTarea().getId());
     }

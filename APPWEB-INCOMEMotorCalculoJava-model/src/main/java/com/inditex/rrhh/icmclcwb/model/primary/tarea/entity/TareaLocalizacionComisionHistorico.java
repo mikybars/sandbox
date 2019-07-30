@@ -23,19 +23,19 @@ public class TareaLocalizacionComisionHistorico {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_TAREA_LOCALIZACION_COMISION_HISTORICO")
-	private /* BigInteger */ Long id;
+	private Long id;
 
 	@NotNull
 	@OneToOne
 	@JoinColumn(name = "ID_TAREA", nullable = false)
-	private /* BigInteger */ Tarea tarea;
+	private Tarea tarea;
 
 	@NotBlank
-	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
+	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
 	private String idLocalizacion;
 
 	@NotBlank
-	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
+	@Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
 	private String idLocalizacionMeta4;
 
 	@NotNull
@@ -47,7 +47,7 @@ public class TareaLocalizacionComisionHistorico {
 	private Date fechaFin;
 
 	@NotNull
-	@Column(name = "COMISIONABLE", nullable = false)
+	@Column(name = "ES_COMISIONABLE", nullable = false)
 	private Boolean comisionable;
 
 }

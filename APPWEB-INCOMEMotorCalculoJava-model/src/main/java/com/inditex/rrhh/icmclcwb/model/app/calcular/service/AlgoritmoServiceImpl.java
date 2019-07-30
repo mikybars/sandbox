@@ -29,7 +29,7 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
     private AlgoritmoMapper algoritmoMapper;
 
     @Override
-    public List<Long> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id) {
+    public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id) {
         return algoritmoRepositoryCustom.customFindAlgoritmosIdsByTarea(id);
     }
 
@@ -46,7 +46,7 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
     }
 
     @Override
-    public AlgoritmoDto findById(@NotNull @Positive final Long id) {
+    public AlgoritmoDto findById(@NotNull @Positive final Integer id) {
         return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findById(id).get());
     }
 

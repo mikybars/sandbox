@@ -43,7 +43,7 @@ public class AlgoritmoController {
 
     @GetMapping("/{id}")
     @ApiOperation("Obtiene un algoritmo")
-    public @Valid AlgoritmoDto findById(@PathVariable @Valid @NotNull @Positive final Long id) {
+    public @Valid AlgoritmoDto findById(@PathVariable @Valid @NotNull @Positive final Integer id) {
         return algoritmoService.findById(id);
     }
 

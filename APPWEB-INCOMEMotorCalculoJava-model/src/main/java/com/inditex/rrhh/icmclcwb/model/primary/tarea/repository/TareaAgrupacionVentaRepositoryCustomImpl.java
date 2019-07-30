@@ -17,9 +17,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class TareaAgrupacionVentaRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionVenta>
-    implements TareaAgrupacionVentaRepositoryCustom{
+public class TareaAgrupacionVentaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionVenta>
+        implements TareaAgrupacionVentaRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
@@ -42,9 +41,9 @@ public class TareaAgrupacionVentaRepositoryCustomImpl
         pstmt.setLong(4, entity.getTipoDato().getId());
         pstmt.setString(5, entity.getIdSeccion());
         pstmt.setString(6, entity.getIdOrigen());
-        pstmt.setDouble(7, entity.getImporte());
-        pstmt.setDouble(8, entity.getImporteConImpuestos());
-        pstmt.setInt(9, 1); //Activo
+        pstmt.setBigDecimal(7, entity.getImporteSinImpuestos());
+        pstmt.setBigDecimal(8, entity.getImporteConImpuestos());
+        pstmt.setBoolean(9, entity.getActivo());
     }
 
     @Override
@@ -55,10 +54,13 @@ public class TareaAgrupacionVentaRepositoryCustomImpl
     @Override
     public void updateActivo(TareaDto tarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA,
+                TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, 0);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, 0);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
+                SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
     }
+
 }

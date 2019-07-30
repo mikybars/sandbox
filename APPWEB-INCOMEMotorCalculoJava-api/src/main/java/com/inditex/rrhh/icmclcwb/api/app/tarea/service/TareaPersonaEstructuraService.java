@@ -9,11 +9,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 
 public interface TareaPersonaEstructuraService {
-    
-    List<TareaPersonaEstructuraDto> save(final List<TareaPersonaEstructuraDto> tareaEmpleadoSeccionEstructura,
-            @Valid final TareaDto tarea);
-    
-    List<TareaPersonaEstructuraDto> saveComisionEmpleadoResultItemDto(
-            @Valid final List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto, @Valid final TareaDto tarea);
+   
+    List<TareaPersonaEstructuraDto> merge(@Valid List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto,
+            @Valid TareaDto tarea);
+
+    List<TareaPersonaEstructuraDto> save(@Valid List<@Valid TareaPersonaEstructuraDto> tareaPersonaEstructura,
+            @Valid TareaDto tarea);
 
 }

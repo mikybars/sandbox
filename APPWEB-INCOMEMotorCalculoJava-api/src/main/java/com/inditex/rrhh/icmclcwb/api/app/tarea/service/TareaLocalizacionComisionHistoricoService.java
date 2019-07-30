@@ -10,10 +10,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 
 public interface TareaLocalizacionComisionHistoricoService {
 
-    List<TareaLocalizacionComisionHistoricoDto> saveGenericTiendaResultItemDto(
+    List<TareaLocalizacionComisionHistoricoDto> merge(
             @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
 
-    List<TareaLocalizacionComisionHistoricoDto> save(@Valid final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionComisionHistorico,
-            @Valid final TareaDto tarea);
+    List<TareaLocalizacionComisionHistoricoDto> save(@Valid final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionComisionHistorico);
 
 }

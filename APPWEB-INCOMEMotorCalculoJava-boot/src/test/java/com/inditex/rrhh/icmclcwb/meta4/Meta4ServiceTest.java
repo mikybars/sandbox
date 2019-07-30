@@ -22,11 +22,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4TestConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcomisionempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrcomisionOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrpoliticasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
@@ -262,12 +263,13 @@ public class Meta4ServiceTest {
     public void getComisionEmpleado() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
         record.setIdempleado(Meta4TestConstants.ID_PERSONA);
+        record.setOrempleado(Meta4TestConstants.OR_PERSONA);
         IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
         param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
         param1.getIcmParametrosentradaRecordSet().add(record);
-        GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1);
+        GetestrcomisionOutput getComisionEmpleadoOutput = meta4ClientPool.getestrcomision(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getComisionEmpleadoOutput.getReturn()));
     }
 
@@ -298,11 +300,12 @@ public class Meta4ServiceTest {
             List<IcmParametrosentradaRecord> entradas2 = emprec.stream().map(obj -> {
                 final IcmParametrosentradaRecord obj2 = new IcmParametrosentradaRecord();
                 obj2.setIdempleado(obj.getIdempleado());
+                obj2.setOrempleado(obj.getOrempleado());
                 return obj2;
             }).collect(Collectors.toList());
             param1.getIcmParametrosentradaRecordSet().addAll(entradas2);
             if (emprec.size() > 0) {
-                GetcomisionempleadoOutput getComisionEmpleadoOutput = meta4ClientPool.getcomisionempleado(param1);
+                GetestrcomisionOutput getComisionEmpleadoOutput = meta4ClientPool.getestrcomision(param1);
                 List<IcmListaestructurasRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructuras()
                         .getIcmListaestructurasRecordSet();
                 for (IcmListaestructurasRecord record2 : recordset) {
@@ -336,6 +339,20 @@ public class Meta4ServiceTest {
         param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
         GetempleadosOutput getEmpleadosOutput = meta4ClientPool.getempleados(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getEmpleadosOutput.getReturn()));
+    }
+
+    @Test
+    public void getPoliticas() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdempleado("AT1010154");
+        record.setOrempleado("1");
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setIdorigen("38");
+        param1.setFechainicio("2015-01-01");
+        param1.setFechafin("2015-08-31");
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        GetestrpoliticasOutput getestrpoliticas = meta4ClientPool.getestrpoliticas(param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getestrpoliticas.getReturn()));
     }
 
 }

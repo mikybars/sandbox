@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

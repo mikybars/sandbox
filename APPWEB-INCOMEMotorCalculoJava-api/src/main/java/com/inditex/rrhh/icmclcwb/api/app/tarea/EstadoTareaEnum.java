@@ -9,11 +9,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EstadoTareaEnum {
 
-    PENDIENTE(1L, new EstadoTareaDto(1L)), EN_CURSO(2L, new EstadoTareaDto(2L)),
-    FINALIZADO_SIN_ERRORES(3L, new EstadoTareaDto(3L)), FINALIZADO_CON_ERRORES(4L, new EstadoTareaDto(4L)),
-    ERROR(5L, new EstadoTareaDto(5L));
+    PENDIENTE(1, new EstadoTareaDto(1)), EN_CURSO(2, new EstadoTareaDto(2)),
+    FINALIZADO_SIN_ERRORES(3, new EstadoTareaDto(3)), FINALIZADO_CON_ERRORES(4, new EstadoTareaDto(4)),
+    ERROR(5, new EstadoTareaDto(5));
 
-    private final Long id;
+    private final Integer id;
 
     private final EstadoTareaDto dto;
 

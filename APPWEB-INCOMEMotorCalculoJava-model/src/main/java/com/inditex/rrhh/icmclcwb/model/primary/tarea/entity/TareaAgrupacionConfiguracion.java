@@ -11,8 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -28,30 +32,32 @@ public class TareaAgrupacionConfiguracion {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORIGEN", nullable = false)
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String idOrigen;
 
     @NotNull
-    @Column(name = "ID_AGRUPACION", nullable = false)
+    @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
     private Long idAgrupacion;
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO")
+    @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO", nullable = false)
     private TipoVentaConcepto tipoVentaConcepto;
 
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
 
     @NotNull
     @Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
     @NotNull
-    @Column(name = "PORCENTAJE_INCLUSION", nullable = false)
-    private Double porcentajeInclusion;
+    @Column(name = "PORCENTAJE_INCLUSION", nullable = false, precision = 23, scale = 8)
+    private BigDecimal porcentajeInclusion;
 }

@@ -1,53 +1,53 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-import lombok.Data;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_PRESENCIA")
 @Data
 public class TareaLocalizacionPresencia {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_LOCALIZACION_PRESENCIA")
-    private /* BigInteger */ Long id;
-
+    @EmbeddedId
+    private TareaLocalizacionPresenciaPk pk;
+    
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
-    private /* BigInteger */ Tarea tarea;
+    private Tarea tarea;
 
     @NotNull
-    @Column(name = "FECHA", nullable = false)
-    private Date fecha;
-
-    @NotNull
-    @Column(name = "ID_CADENA", nullable = false)
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String idCadena;
 
     @NotNull
-    @Column(name = "ID_LOCALIZACION", nullable = false)
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String idLocalizacion;
 
     @NotNull
-    @Column(name = "ID_SECCION", nullable = false)
+    @Column(name = "CCL_ID_SECCION", nullable = false, length = 4)
     private String idSeccion;
 
     @NotNull
     @Column(name = "MINUTOS", nullable = false)
-    private /* BigInteger */ Long minutos;
+    private Long minutos;
 
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
 
     @NotNull
-    @Column(name = "ACTIVO", nullable = false)
+    @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
 
 

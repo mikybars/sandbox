@@ -23,14 +23,14 @@ public class TareaLocalizacionHistoricoAsyncServiceImpl implements TareaLocaliza
     @Override
     public CompletableFuture<Void> save(final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico,
             final TareaDto tarea) {
-        tareaLocalizacionHistoricoService.save(tareaLocalizacionHistorico, tarea);
+        tareaLocalizacionHistoricoService.save(tareaLocalizacionHistorico);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
     public CompletableFuture<Void> saveGenericTiendaResultItemDto(
             final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, final TareaDto tarea) {
-        tareaLocalizacionHistoricoService.saveGenericTiendaResultItemDto(genericTiendaResultItemDto, tarea);
+        tareaLocalizacionHistoricoService.save(tareaLocalizacionHistoricoService.merge(genericTiendaResultItemDto, tarea));
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

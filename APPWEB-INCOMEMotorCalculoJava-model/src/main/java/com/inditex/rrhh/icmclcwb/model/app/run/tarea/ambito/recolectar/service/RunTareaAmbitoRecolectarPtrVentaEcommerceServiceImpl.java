@@ -30,7 +30,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
@@ -95,7 +94,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             Long idTarea = runTarea.getTarea().getId();
             String idOrigen = tareaAmbito.getIdOrigen();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea,
-                    idOrigen, TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
+                    idOrigen);
             if (CollectionUtils.isNotEmpty(cadenas)) {
        
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -104,7 +103,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                                 trabajo, tarea, tareaAmbito, recolectarProperties, cadenas);
                 paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
                 paramVentaOnlineEntregaDomicilio.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
-                paramVentaOnlineEntregaDomicilio.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdCatalogo()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                paramVentaOnlineEntregaDomicilio.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
     
                 CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
@@ -148,7 +147,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineEntregaTienda.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineEntregaTienda.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdCatalogo()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                paramVentaOnlineEntregaTienda.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setTienda(localizaciones.getLocalizaciones());
 
                 CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = ptrVentaEcommerceAsyncService
@@ -193,7 +192,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlinePicking.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdCatalogo()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                paramVentaOnlinePicking.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setTienda(localizaciones.getLocalizaciones());
 
                 CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = ptrVentaEcommerceAsyncService
@@ -236,7 +235,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineIpod.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdCatalogo()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                paramVentaOnlineIpod.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setTienda(localizaciones.getLocalizaciones());
 
                 CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = ptrVentaEcommerceAsyncService

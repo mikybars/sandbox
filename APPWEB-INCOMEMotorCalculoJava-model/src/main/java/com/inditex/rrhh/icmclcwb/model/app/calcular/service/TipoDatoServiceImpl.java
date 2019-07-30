@@ -4,7 +4,6 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoDatoRepository;
-import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class TipoDatoServiceImpl implements TipoDatoService {
 
     @Override
     @Cacheable(value = "itx.icmlcwb.id_tipo_dato_by_id_tipo_grupo_dato", key = "{#idTipoGrupoDato}")
-    public List<IdTipoDatoDto> findTipoDatoByTipoGrupoDato(Long idTipoGrupoDato) {
+    public List<IdTipoDatoDto> findTipoDatoByTipoGrupoDato(Integer idTipoGrupoDato) {
         List<TipoDato> tiposDato = tipoDatoRepository.findTipoDatoByTipoGrupoDato(idTipoGrupoDato);
         return tiposDato.stream()
             .map(tipoDato -> IdTipoDatoDto.builder().id(tipoDato.getId()).build())

@@ -11,6 +11,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_INACTIVO = "inactivo";
 
+    public static final String SQL_PARAM_MINUTOS = "minutos";
+    
     public static final String SQL_PARAM_ACTIVO = "activo";
 
     public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA = "tipoDatoLocalizacionPersonaPresencia";
@@ -32,7 +34,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_SECCION = "idSeccion";
 
     public static final String SQL_PARAM_ID_CADENA = "idCadena";
-    
+
     public static final String SQL_PARAM_ID_ESTADO_ACTUAL = "idEstadoActual";
 
     public static final String SQL_PARAM_ID_ESTADO_NUEVO = "idEstadoNuevo";
@@ -41,7 +43,11 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA = "idEstadoPeriodoPersona";
 
+    public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR = "idEstadoPeriodoPersonaCalculadoError";
+
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
+
+    public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA = "idTipoImporteVenta";
 
@@ -56,6 +62,10 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION = "idTipoImporteVentaEntregaDomicilioAgrupacion";
 
     public static final String SQL_PARAM_ID_TIPO_MINUTOS = "idTipoPresencia";
+
+    public static final String SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION = "idTipoPresenciaLocalizacion";
+
+    public static final String SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE = "idTipoPresenciaAgrupacion";
 
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
@@ -84,8 +94,6 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_CALCULA = "calcula";
 
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
-    
-    public static final String SQL_PARAM_ACTIVA = "activa";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
@@ -107,17 +115,34 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_NUEVA_FECHA = "nuevaFecha";
 
+    public static final Integer SQL_VALUE_BOOLEAN_TRUE = 1;
+
+    public static final Integer SQL_VALUE_BOOLEAN_FALSE = 0;
+    
+    public static final Integer SQL_VALUE_MINUTOS_CERO = 0;
+    
+    public static final Integer SQL_VALUE_IMPORTE_CERO = 0;
+    
+    public static final Integer SQL_VALUE_PORCENTAJE_CERO = 0;
+    
+    public static final Integer SQL_VALUE_MULTIPLICADOR_POSITIVO = 1;
+
+    public static final Integer SQL_VALUE_MULTIPLICADOR_NEGATIVO = -1;
 
     // RESULTADOS DE CONSULTAS
 
     public static final String SQL_RESULT_ID_ALGORITMO = "ID_ALGORITMO";
 
-    public static final String SQL_RESULT_ID_PERSONA = "ID_PERSONA";
+    public static final String SQL_RESULT_ID_PERSONA_LOCAL = "CCL_ID_PERSON";
 
-    public static final String SQL_RESULT_OR_PERSONA = "OR_PERSONA";
+    public static final String SQL_RESULT_ID_PERSONA_META4 = "STD_ID_HR";
 
-    public static final String SQL_RESULT_ID_LOCALIZACION = "ID_LOCALIZACION";
+    public static final String SQL_RESULT_OR_PERSONA = "STD_OR_HR_PERIOD";
 
-    public static final String SQL_RESULT_ID_CADENA = "ID_CADENA";
+    public static final String SQL_RESULT_ID_LOCALIZACION_LOCAL = "CCL_ID_COD_ORIGEN";
+
+    public static final String SQL_RESULT_ID_LOCALIZACION_META4 = "STD_ID_WORK_LOCAT";
+
+    public static final String SQL_RESULT_ID_CADENA = "CCL_ID_CADENA";
 
 }

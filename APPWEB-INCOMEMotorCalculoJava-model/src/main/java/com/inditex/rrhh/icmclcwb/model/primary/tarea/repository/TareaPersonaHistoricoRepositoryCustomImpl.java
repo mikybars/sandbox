@@ -19,7 +19,6 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
@@ -43,7 +42,9 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
-    
+   
+    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
+    private String sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen;
     
     @Override
     public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
@@ -75,7 +76,22 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         return namedParameterJdbcTemplate.query(sqlFindIdPersonaByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaDto>() {
             public IdPersonaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdPersonaDto dto = new IdPersonaDto();
-                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA));
+                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+                return dto;
+            }
+        });
+    }
+    
+    @Override
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaHistoricoDto>() {
+            public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
+                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+                dto.setOrPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                 return dto;
             }
         });
@@ -83,7 +99,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     
     @Override
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
-            @NotNull final List<Long> idsTipoDato) {
+            @NotNull final List<Integer> idsTipoDato) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
@@ -92,7 +108,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito, parameters, new RowMapper<IdPersonaHistoricoDto>() {
             public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
-                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA));
+                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
                 dto.setOrPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                 return dto;
             }

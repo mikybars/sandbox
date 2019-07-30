@@ -5,32 +5,24 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "TIPO_PRESENCIA_CONCEPTO")
+@Table(name = "TIPO_POLITICA")
 @Data
-public class TipoPresenciaConcepto {
+public class TipoPolitica {
 
     @Id
-    @Column(name = "ID_TIPO_PRESENCIA_CONCEPTO")
+    @Column(name = "ID_TIPO_POLITICA")
     private Long id;
 
     @NotBlank
-    @Column(name = "DESCRIPCION", nullable = false)
+    @Column(name = "DESCRIPCION", length = /*TAMANO_DESC*/ 255, nullable = false)
     private String descripcion;
 
     @NotBlank
     @Column(name = "CODIGO", nullable = false)
     private String codigo;
-
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_TIPO_PRESENCIA", nullable = false)
-    private TipoPresencia tipoVenta;
 
 }

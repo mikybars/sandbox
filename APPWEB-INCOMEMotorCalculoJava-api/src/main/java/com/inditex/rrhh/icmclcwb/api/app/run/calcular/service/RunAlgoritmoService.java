@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.calcular.dto.RunAlgoritmoDto;
 
 public interface RunAlgoritmoService {
 
-    RunAlgoritmoDto findById(@NotNull @Positive Long id);
+    RunAlgoritmoDto findById(@NotNull @Positive Integer id);
 
     List<RunAlgoritmoDto> findAll();
 

@@ -14,11 +14,11 @@ public interface AlgoritmoService {
     AlgoritmoDto findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive Long idTipoCalculo,
             @NotNull @Positive Long idTipoComision);
 
-    AlgoritmoDto findById(@NotNull @Positive Long id);
+    AlgoritmoDto findById(@NotNull @Positive Integer id);
 
     List<AlgoritmoDto> findAll();
 
-    List<Long> customFindAlgoritmosIdsByTarea(@NotNull @Positive Long id);
+    List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive Long id);
 
     Boolean checkDuplicatedActives();
 

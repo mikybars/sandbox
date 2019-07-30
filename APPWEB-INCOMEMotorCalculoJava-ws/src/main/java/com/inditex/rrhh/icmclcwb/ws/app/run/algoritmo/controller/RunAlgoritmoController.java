@@ -31,7 +31,7 @@ public class RunAlgoritmoController {
 
     @GetMapping("/{id}")
     @ApiOperation("Obtiene un run algoritmo")
-    public @Valid RunAlgoritmoDto findById(@PathVariable @Valid @NotNull @Positive final Long id) {
+    public @Valid RunAlgoritmoDto findById(@PathVariable @Valid @NotNull @Positive final Integer id) {
         return runAlgoritmoService.findById(id);
     }
 

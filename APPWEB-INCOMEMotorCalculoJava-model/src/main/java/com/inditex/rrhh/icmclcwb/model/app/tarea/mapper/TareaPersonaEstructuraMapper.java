@@ -35,7 +35,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "orPersona", source = "src.orEmpleado")
     @Mapping(target = "idPersonaLocal", source = "src.idEmpleadoLocal")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
-    @Mapping(target = "idOrigen", defaultValue = "38")
+    @Mapping(target = "idOrigen", source = "src.idOrigen")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "idTipoCalculo", source = "src.idTipoCalculo")
     @Mapping(target = "idTipoComision", source = "src.idTipoComision")

@@ -33,14 +33,14 @@ public class ProgramacionRepositoryCustomImpl implements ProgramacionRepositoryC
         MapSqlParameterSource arg = new MapSqlParameterSource();
         arg.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_SIGUIENTE_EJECUCION, TimeUtils
                 .toDate(TimeUtils.toInstant(LocalDateTime.of(LocalDate.of(1800, Month.JANUARY, 1), LocalTime.MIN))));
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVA, Boolean.TRUE);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         namedParameterJdbcTemplate.update(sqlCustomReset, arg);
     }
 
     @Override
     public void activa() {
         MapSqlParameterSource arg = new MapSqlParameterSource();
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVA, Boolean.TRUE);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         namedParameterJdbcTemplate.update(sqlCheckActiva, arg);
     }
 

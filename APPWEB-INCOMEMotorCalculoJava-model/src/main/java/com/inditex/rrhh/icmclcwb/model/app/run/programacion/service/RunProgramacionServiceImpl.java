@@ -53,14 +53,12 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                         .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdSociedad())
                                 .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
                                 .vigente(Boolean.TRUE.toString()).build());
-                List<PeriodoDto> periodos = periodoMapper
-                        .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
-                periodos.stream().forEach(periodo -> {
-                    RunProgramacionPeriodoDto runProgramacionPeriodo = RunProgramacionPeriodoDto.builder()
+                periodoMapper
+                .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request)).stream().forEach(periodo -> {
+                    runProgramacion.getRunProgramacionPeriodo().add(RunProgramacionPeriodoDto.builder()
                             .periodo(periodo).programacionAmbito(programacionAmbito).trabajo(trabajoService
                                     .create(trabajoService.merge(programacion, programacionAmbito, periodo)))
-                            .build();
-                    runProgramacion.getRunProgramacionPeriodo().add(runProgramacionPeriodo);
+                            .build());
                 });
             });
             result.add(runProgramacion);

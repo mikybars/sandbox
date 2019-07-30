@@ -28,47 +28,47 @@ public abstract class TareaLocalizacionVentaDecorator extends TareaLocalizacionV
 
     @Override
     public List<TareaLocalizacionVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, Long tipoDatoLocalizacionSeccion, Long tipoDatoLocalizacion) {
+            List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion) {
             return src.stream().flatMap(e -> genericMapper(tarea, tipoDatoLocalizacionSeccion, tipoDatoLocalizacion, e.getTienda(), e.getCadena(), e.getFecha(), e.getListaSeccion()).stream()).collect(Collectors.toList());
     }
 
 
     @Override
     public List<TareaLocalizacionVenta> ventaOnlineIpodResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlineIpodResultItemDto> src, TareaDto tarea, Long tipoDatoLocalizacionSeccion, Long tipoDatoLocalizacion) {
+            List<PtrVentaOnlineIpodResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion) {
             return src.stream().flatMap(e -> genericMapper(tarea, tipoDatoLocalizacionSeccion, tipoDatoLocalizacion, e.getTienda(), e.getCadena(), e.getFecha(), e.getListaSeccion()).stream()).collect(Collectors.toList());
     }
 
     @Override
     public List<TareaLocalizacionVenta> ventaOnlineIpodIndividualDetalleResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tarea, Long tipoDatoLocalizacionSeccion, Long tipoDatoLocalizacion) {
+            List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion) {
             return src.stream().flatMap(e -> genericMapper(tarea, tipoDatoLocalizacionSeccion, tipoDatoLocalizacion, e.getTienda(), e.getCadena(), e.getFecha(), e.getListaSeccion()).stream()).collect(Collectors.toList());
     }
 
     @Override
     public List<TareaLocalizacionVenta> ventaOnlinePickingResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlinePickingResultItemDto> src, TareaDto tarea, Long tipoDatoLocalizacionSeccion, Long tipoDatoLocalizacion) {
+            List<PtrVentaOnlinePickingResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion) {
             return src.stream().flatMap(e -> genericMapper(tarea, tipoDatoLocalizacionSeccion, tipoDatoLocalizacion, e.getTienda(), e.getCadena(), e.getFecha(), e.getListaSeccion()).stream()).collect(Collectors.toList());
     }
 
     @Override
     public List<TareaLocalizacionVenta> ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, TareaDto tarea, Long tipoDatoLocalizacionSeccion, Long tipoDatoLocalizacion) {
+            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion) {
             return src.stream().flatMap(e -> genericMapper(tarea, tipoDatoLocalizacionSeccion, tipoDatoLocalizacion, e.getTienda(), e.getCadena(), e.getFecha(), e.getListaSeccion()).stream()).collect(Collectors.toList());
     }
 
     @Override
     public List<TareaLocalizacionVenta> ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea, Long tipoDatoLocalizacionSeccion, Long tipoDatoLocalizacion) {
+            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion) {
             return src.stream().flatMap(e -> genericMapper(tarea, tipoDatoLocalizacionSeccion, tipoDatoLocalizacion, e.getTienda(), e.getCadena(), e.getFecha(), e.getListaSeccion()).stream()).collect(Collectors.toList());
     }
 
     @Override
-    public List<TareaLocalizacionVenta> ventaIndividualDetalleReponseItemsDtoToTareaLocalizacionVenta(List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tarea, Long tipoDatoLocalizacionSeccion, Long tipoDatoLocalizacion){
+    public List<TareaLocalizacionVenta> ventaIndividualDetalleReponseItemsDtoToTareaLocalizacionVenta(List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion){
             return src.stream().flatMap(e -> genericMapper(tarea, tipoDatoLocalizacionSeccion, tipoDatoLocalizacion, e.getTienda(), e.getCadena(), e.getFecha(), e.getListaSeccion()).stream()).collect(Collectors.toList());
 
     }
-    private List<TareaLocalizacionVenta> genericMapper(TareaDto tarea, Long tipoDatoLocalizacionSeccion, Long tipoDatoLocalizacion,
+    private List<TareaLocalizacionVenta> genericMapper(TareaDto tarea, Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion,
              Integer tienda, Integer cadena, String fecha, List<PtrSeccionVentaOnlineGenericType> listaSeccion) {
         List<TareaLocalizacionVenta> dtoList = new ArrayList<>();
         AtomicDouble importeSinIva = new AtomicDouble(0);
@@ -79,7 +79,7 @@ public abstract class TareaLocalizacionVentaDecorator extends TareaLocalizacionV
                         fecha, tarea, item.getImporteSinIVA().doubleValue(), item.getImporteConIVA().doubleValue(),
                         item.getSeccion(), tipoDatoLocalizacionSeccion);
                 dtoList.add(venta);
-                importeSinIva.getAndAdd(venta.getImporte());
+                importeSinIva.getAndAdd(venta.getImporteSinImpuestos());
                 importeConIva.getAndAdd(venta.getImporteConImpuestos());
             });
             dtoList.add(delegate.responseItemDtoToTareaLocalizacionVenta(tienda, cadena, fecha, tarea, importeSinIva.doubleValue(), importeConIva.doubleValue(), AppConstants.SECCION_4, tipoDatoLocalizacion));

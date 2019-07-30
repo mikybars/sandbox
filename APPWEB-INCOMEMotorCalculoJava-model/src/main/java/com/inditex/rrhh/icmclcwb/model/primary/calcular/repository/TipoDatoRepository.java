@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface TipoDatoRepository extends BaseRepository<TipoGrupoDato, Long> {
+public interface TipoDatoRepository extends BaseRepository<TipoGrupoDato, Integer> {
 
     @Query("SELECT tgd.tipoDato FROM TipoGrupoDato tgd WHERE tgd.id = :idTipoGrupoDato")
-    List<TipoDato> findTipoDatoByTipoGrupoDato(Long idTipoGrupoDato);
+    List<TipoDato> findTipoDatoByTipoGrupoDato(Integer idTipoGrupoDato);
 
 }
