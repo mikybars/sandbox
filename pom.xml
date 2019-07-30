@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.inditex.aqsw.framework.amiga</groupId>
         <artifactId>amiga-framework</artifactId>
-        <version>1.18.2</version>
+        <version>2.7.0</version>
     </parent>
 
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
@@ -17,7 +17,7 @@
     <name>${project.groupId}:${project.artifactId}</name>
 
     <properties>
-        <app.cxf.version>3.1.12</app.cxf.version>
+        <app.cxf.version>3.2.7</app.cxf.version>
         <app.jaxws.maven.plugin.version>1.12</app.jaxws.maven.plugin.version>
         <app.github.chrisvest.version>2.4.1</app.github.chrisvest.version>
     </properties>

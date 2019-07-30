@@ -1,16 +1,18 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.cxf.transport.http.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
-import com.inditex.rrhh.icmclcwb.model.meta4.icm_ws_calc_income.entity.IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 import stormpot.Reallocator;
 import stormpot.Slot;
@@ -21,6 +23,8 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 
     private final Meta4ClientFactory meta4ClientFactory;
 
+    private static final AtomicLong count = new AtomicLong(0);
+
     public Meta4ClientReallocator(Meta4ClientFactory meta4ClientFactory) {
         this.meta4ClientFactory = meta4ClientFactory;
     }
@@ -28,45 +32,54 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
     @Override
     public Meta4ClientPoolable allocate(Slot slot) throws Exception {
         log.info("Inicio :: Meta4ClientReallocator :: allocate()");
-        LoginService loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
-        IcmWsCalcIncomeService icmWsCalcIncomeService = meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
-                .build(IcmWsCalcIncomeService.class);
-
+        Long effectiveCount = meta4ClientFactory.getMeta4ClientProperties().isPreLogin() ? count.incrementAndGet()
+                : count.incrementAndGet() - meta4ClientFactory.getMeta4ClientProperties().getSize();
         String id = StringUtils.EMPTY;
         Map<String, Cookie> cookies = new HashMap<>();
-        try {
-            id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
-                    meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
-                    meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
-//          List<String> setCookie = CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
-//          String jSessionID = CxfUtils.getJSessionID(setCookie);
-//          CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapJSessionID(jSessionID));
-//          CxfUtils.putRequestHeaders(icmWsCalcIncomeService, CxfUtils.mapCookie(setCookie));
-//          CxfUtils.putCookies(icmWsCalcIncomeService, CxfUtils.cookieJSessionID(jSessionID));
-//          CxfUtils.putCookie(icmWsCalcIncomeService, jSessionID);
-//          CxfUtils.cloneHeaders(loginService, icmWsCalcIncomeService);
-            cookies = CxfUtils.getCookies(loginService);
-            CxfUtils.setCookies(icmWsCalcIncomeService, cookies);
-            icmWsCalcIncomeService.retrieveM4Session(id);
-        } catch (Exception e) {
-            log.error("Error :: Meta4ClientReallocator :: allocate()", e);
+        LoginService loginService = null;
+        IcmWsCalcIncomeService icmWsCalcIncomeService = null;
+        boolean login = false;
+        if (effectiveCount.compareTo(NumberUtils.LONG_ZERO) > 0) {
+            login = true;
+            loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
+            icmWsCalcIncomeService = meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
+                    .build(IcmWsCalcIncomeService.class);
+            try {
+                id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
+                        meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
+                        meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
+                // TODO
+                // List<String> setCookie =
+                // CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
+                // String jSessionID = CxfUtils.getJSessionID(setCookie);
+                // CxfUtils.putRequestHeaders(icmWsCalcIncomeService,
+                // CxfUtils.mapJSessionID(jSessionID));
+                // CxfUtils.putRequestHeaders(icmWsCalcIncomeService,
+                // CxfUtils.mapCookie(setCookie));
+                // CxfUtils.putCookies(icmWsCalcIncomeService,
+                // CxfUtils.cookieJSessionID(jSessionID));
+                // CxfUtils.putCookie(icmWsCalcIncomeService, jSessionID);
+                // CxfUtils.cloneHeaders(loginService, icmWsCalcIncomeService);
+                cookies = CxfUtils.getCookies(loginService);
+                CxfUtils.setCookies(icmWsCalcIncomeService, cookies);
+                icmWsCalcIncomeService.retrieveM4Session(id);
+            } catch (Exception e) {
+                log.error("Error :: Meta4ClientReallocator :: allocate({})", effectiveCount, e);
+            }
         }
-
         Meta4Client client = new Meta4Client();
-
         Meta4ClientSession session = new Meta4ClientSession();
         session.setId(id);
         session.setCookies(cookies);
-        session.setFechaCreacion(LocalDateTime.now());
+        session.setFechaCreacion(TimeUtils.nowLocalDateTime());
+        session.setLogin(login);
         client.setSession(session);
-
         client.setCredentials(meta4ClientFactory.getMeta4ClientCredentials());
-
         Meta4ClientService service = new Meta4ClientService();
         service.setLoginService(loginService);
         service.setIcmWsCalcIncomeService(icmWsCalcIncomeService);
         client.setService(service);
-        log.info("Fin :: Meta4ClientReallocator :: allocate() :: {}", id);
+        log.info("Fin :: Meta4ClientReallocator :: allocate({}) :: {}", effectiveCount, id);
         return new Meta4ClientPoolable(slot, client);
     }
 

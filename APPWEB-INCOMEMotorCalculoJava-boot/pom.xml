@@ -30,11 +30,11 @@
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.data</groupId>
-            <artifactId>data-framework-starter-hibernate</artifactId>
+            <artifactId>data-framework-starter-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.data</groupId>
-            <artifactId>data-framework-starter-jdbc</artifactId>
+            <artifactId>data-framework-starter-jdbc-template</artifactId>
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.common</groupId>
@@ -46,19 +46,30 @@
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.common</groupId>
-            <artifactId>common-framework-starter-graylog-hub</artifactId>
+            <artifactId>common-framework-starter-executor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.inditex.aqsw.framework.common</groupId>
+            <artifactId>common-framework-starter-cache-datagrid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.inditex.aqsw.framework.common</groupId>
+            <artifactId>common-framework-starter-resilience</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- CLIENT DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <!-- <version>${app.cxf.version}</version> -->
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
-            <!-- <version>${app.cxf.version}</version> -->
         </dependency>
         <dependency>
             <groupId>com.github.chrisvest</groupId>
@@ -68,22 +79,10 @@
 
         <!-- BBDD DEPENDENCIES -->
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>com.ibm.db2</groupId>
             <artifactId>db2jcc</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- TODO PENDIENTE ELIMINAR H2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
 
         <!-- OTHER DEPENDENCIES -->
         <dependency>

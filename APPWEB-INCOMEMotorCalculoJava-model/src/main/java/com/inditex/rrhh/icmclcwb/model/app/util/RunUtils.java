@@ -1,34 +1,26 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
-
-import com.inditex.rrhh.icmclcwb.api.app.dto.TipoTrabajoTiendaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 
 @Component
 public class RunUtils {
 
     private RunUtils() {
     }
-
-    public static boolean isPresenciaTienda(final TrabajoDto trabajo) {
-        return CollectionUtils.isNotEmpty(trabajo.getTiendas()) || CollectionUtils.isNotEmpty(trabajo.getEmpleados());
-    }
-
-    public static boolean isTipoTrabajoTiendaPresencia(final List<TipoTrabajoTiendaDto> tipoTrabajoTienda) {
-        return tipoTrabajoTienda.contains(AppConstants.TipoTrabajoTiendaEnum.PRESENCIA.getDto());
-    }
-
-    public static boolean isPivot(final TrabajoDto trabajo, final List<TipoTrabajoTiendaDto> tipoTrabajoTienda) {
-        return !RunUtils.isPresenciaTienda(trabajo) || RunUtils.isTipoTrabajoTiendaPresencia(tipoTrabajoTienda);
+    
+    public static String addDays(final LocalDateTime ldt, int number, String datePattern) {
+        LocalDateTime date = LocalDateTime.of(ldt.getYear(),
+                ldt.getMonthValue(), ldt.getDayOfMonth(), ldt.getHour(), ldt.getMinute(), ldt.getSecond());
+        return date.plusDays(number).format(DateTimeFormatter.ofPattern(datePattern));
     }
     
-    public static boolean isPivot(final TrabajoDto trabajo) {
-        return !RunUtils.isPresenciaTienda(trabajo);
+    public static String addDays(final LocalDate ldt, int number, String datePattern) {
+        LocalDate date = LocalDate.of(ldt.getYear(),
+                ldt.getMonthValue(), ldt.getDayOfMonth());
+        return date.plusDays(number).format(DateTimeFormatter.ofPattern(datePattern));
     }
 
 

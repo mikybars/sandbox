@@ -1,0 +1,49 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+
+@Entity
+@Table(name = "TAREA_TIPO_HORA")
+@Data
+public class TareaTipoHora {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_TAREA_TIPO_HORA")
+	private Long id;
+
+	@NotNull
+	@Column(name = "ID_TIPO_HORA", nullable = false)
+	private Long idTipoHora;
+	
+	@Column(name = "ES_EXCLUIDO_CALCULO", nullable = false)
+	private Boolean excluidoCalculo;
+	
+	@Column(name = "ES_EXCLUIDO_DENOMINADOR", nullable = false)
+    private Boolean excluidoDenominador;
+	
+	@Column(name = "ES_INCLUIDO_VENTA", nullable = false)
+	private Boolean incluidoVenta;
+        
+	@Column(name = "ES_INCLUIDO_CHALLENGE", nullable = false)
+	private Boolean incluidoChallenge;
+        
+    @Column(name = "ES_INCLUIDO_ECOMMERCE", nullable = false)
+    private Boolean incluidoEcommerce;
+	    
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "ID_TAREA", nullable = false)
+	private Tarea tarea;
+
+}

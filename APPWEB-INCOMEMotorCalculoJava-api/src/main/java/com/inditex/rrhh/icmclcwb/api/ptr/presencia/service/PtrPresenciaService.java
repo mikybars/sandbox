@@ -1,21 +1,30 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.presencia.service;
 
-import javax.validation.Valid;
-
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
+
+import javax.validation.Valid;
 
 public interface PtrPresenciaService {
 
-	PtrPresenciaTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
-            @Valid PtrPresenciaTotalTiendaSeccionRequestDto request) throws Exception;
+    PtrPresenciaDetalleResponseDto presenciasDetalle(@Valid final PtrPresenciaDetalleRequestDto request);
 
-    PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(@Valid PtrPresenciaDetalleRequestDto request) throws Exception;
+    PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid final PtrPresenciaTiposHorasRequestDto request);
+
+    PtrPresenciaTiendasEmpleadoResponseDto presenciasTiendasEmpleado(
+            @Valid final PtrPresenciaTiendasEmpleadoRequestDto request);
+
+    PtrPresenciaTotalizadoResponseDto presenciasTotalizado(@Valid final PtrPresenciaTotalizadoRequestDto request);
     
-    PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid PtrPresenciaTiposHorasRequestDto request) throws Exception;
+    PtrPresenciaEmpleadosTiendaResponseDto presenciasEmpleadosTienda(
+            @Valid final PtrPresenciaEmpleadosTiendaRequestDto request);
 
 }

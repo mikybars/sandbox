@@ -22,7 +22,7 @@ public class PtrPresenciaDetalleRequestDto implements Serializable {
 	private static final long serialVersionUID = 2089515262512038387L;
 
 	@ApiModelProperty(value = "Id tienda", required = false, example = "160")
-	private Integer tienda;
+	private List<Integer> tienda;
 
 	@ApiModelProperty(value = "Id seccion", required = false, example = "1")
 	private Integer seccion;
@@ -42,7 +42,31 @@ public class PtrPresenciaDetalleRequestDto implements Serializable {
 	@ApiModelProperty(value = "Id cadena", required = true, example = "1")
 	private Integer cadena;
 	
+    @ApiModelProperty(value = "Id empresa", required = true, example = "1")
+	private Integer empresa;
+	
 	@NotNull
 	@ApiModelProperty(value = "Id Origen", required = false, example = "11")
 	private Integer origen;
+	
+    @ApiModelProperty(value = "Flag incluido venta", required = false, example = "true")
+    private Boolean incluidoVenta;
+    
+    @ApiModelProperty(value = "Flag incluido challenge", required = false, example = "true")
+    private Boolean incluidoChallenge;
+    
+    @ApiModelProperty(value = "Flag incluido ecommerce", required = false, example = "true")
+    private Boolean incluidoEcommerce;
+    
+    @ApiModelProperty(value = "Flag excluído denominador", required = false, example = "true")
+	private Boolean excluidoDenom;
+	
+    @ApiModelProperty(value = "Flag excluído calculo", required = false, example = "true")
+	private Boolean excluidoCalculo;
+	
+	@ApiModelProperty(value = "Agrupacion", required = false, example = "FECHA_TIENDA")
+	private String agrupacion;
+	
+    @ApiModelProperty(value = "Pivotado seccion (1/0)", required = true, example = "1")
+    private Integer agruparSeccion;
 }

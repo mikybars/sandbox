@@ -10,8 +10,10 @@ app:
         tls:
           enabled: true
           insecure_termination_policy: Redirect
-        #timeout: 600
+    http_private:
+      enabled: true
 datagrid:
+  force: false
   application_cache:
     enabled: true
   session:

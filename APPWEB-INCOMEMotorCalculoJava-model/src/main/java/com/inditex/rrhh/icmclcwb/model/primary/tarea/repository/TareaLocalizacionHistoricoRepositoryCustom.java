@@ -1,0 +1,34 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
+
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
+
+public interface TareaLocalizacionHistoricoRepositoryCustom {
+
+    List<TareaLocalizacionHistorico> save(List<TareaLocalizacionHistorico> src);
+
+    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
+            @NotBlank String idOrigen);
+
+    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
+            @NotBlank String idOrigen);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
+
+    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen, Long idsVentaConcepto);
+
+    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen);
+
+}

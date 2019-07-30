@@ -10,8 +10,8 @@ import com.inditex.aqsw.framework.common.rest.client.builder.RestClientBuilder;
 public class PtrVentaClientConfig {
 
 	@Bean(name = "ptrVentaClient")
-	@ConfigurationProperties(prefix = "amiga.common.rest.client.ptrVentaClient")
-	public RestClient testRestClient(final RestClientBuilder builder) {
+	@ConfigurationProperties(prefix = "amiga.common.rest.client.ptr-venta")
+	public RestClient ptrVentaClient(final RestClientBuilder builder) {
 		return builder.build();
 	}
 

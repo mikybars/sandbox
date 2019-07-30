@@ -1,24 +1,30 @@
 package com.inditex.rrhh.icmclcwb.model.ptr.presencia.service;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
-import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.rrhh.icmclcwb.api.app.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltiendaseccion.dto.PtrPresenciaTotalTiendaSeccionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
 @Service
 @Validated
@@ -29,67 +35,65 @@ public class PtrPresenciaServiceImpl implements PtrPresenciaService {
     private RestClient ptrPresenciaClient;
 
     @Autowired
-    @Qualifier("presenciasTotalTiendaSeccionDto")
-    private PtrPropertiesDto presenciasTotalTiendaSeccionDto;
+    @Qualifier("presenciasProperties")
+    private Map<String, PtrPropertiesDto> presenciasProperties;
 
-    @Autowired
-    @Qualifier("presenciasDetalleDto")
-    private PtrPropertiesDto presenciasDetalleDto;
-    
-    @Autowired
-    @Qualifier("tiposHorasDto")
-    private PtrPropertiesDto presenciasTiposHorasDto;
-
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
-    public PtrPresenciaTotalTiendaSeccionResponseDto getPresenciasTotalTiendaSeccionDto(
-            @Valid final PtrPresenciaTotalTiendaSeccionRequestDto getPresenciasTotalTiendaSeccionRequestDto)
-            throws Exception {
-    	PtrPresenciaTotalTiendaSeccionResponseDto result = null;
-        ResponseEntity<PtrPresenciaTotalTiendaSeccionResponseDto> response = ptrPresenciaClient.postForEntity(
-                presenciasTotalTiendaSeccionDto.getEndpoint(), getPresenciasTotalTiendaSeccionRequestDto,
-                PtrPresenciaTotalTiendaSeccionResponseDto.class);
-        if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-            result = response.getBody();
-        } else {
-            throw new ApplicationException(new StringBuilder(
-                    "La llamada al PTR de Presencia ha fallado :: getPresenciasTotalTiendaSeccionDto() :: ")
-                            .append(response.getStatusCode().value()).toString());
-        }
-        return result;
+    public PtrPresenciaTotalizadoResponseDto presenciasTotalizado(
+            @Valid final PtrPresenciaTotalizadoRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(), request,
+                        PtrPresenciaTotalizadoResponseDto.class),
+                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(),
+                request);
     }
 
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
     @Override
-    public PtrPresenciaDetalleResponseDto getPresenciasDetalleDto(
-            @Valid final PtrPresenciaDetalleRequestDto getPresenciasDetalleRequestDto) throws Exception {
-    	PtrPresenciaDetalleResponseDto result = null;
-        ResponseEntity<PtrPresenciaDetalleResponseDto> response = ptrPresenciaClient.postForEntity(
-                presenciasDetalleDto.getEndpoint(), getPresenciasDetalleRequestDto,
-                PtrPresenciaDetalleResponseDto.class);
-        if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-            result = response.getBody();
-        } else {
-            throw new ApplicationException(
-                    new StringBuilder("La llamada al PTR de Presencia ha fallado :: getPresenciasDetalleDto() :: ")
-                            .append(response.getStatusCode().value()).toString());
-        }
-        return result;
+    public PtrPresenciaDetalleResponseDto presenciasDetalle(@Valid final PtrPresenciaDetalleRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), request,
+                        PtrPresenciaDetalleResponseDto.class),
+                ptrPresenciaClient, presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(),
+                request);
     }
 
-	@Override
-	public PtrPresenciaTiposHorasResponseDto getTiposHorasDto(@Valid PtrPresenciaTiposHorasRequestDto request)
-			throws Exception {
-		PtrPresenciaTiposHorasResponseDto result = null;
-        ResponseEntity<PtrPresenciaTiposHorasResponseDto> response = ptrPresenciaClient.postForEntity(
-        		presenciasTiposHorasDto.getEndpoint(), request,
-                PtrPresenciaTiposHorasResponseDto.class);
-        if (response.getStatusCode().value() == HttpStatus.SC_OK) {
-            result = response.getBody();
-        } else {
-            throw new ApplicationException(
-                    new StringBuilder("La llamada al PTR de Presencia ha fallado :: getTiposHorasDto() :: ")
-                            .append(response.getStatusCode().value()).toString());
-        }
-        return result;
-	}
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Override
+    public PtrPresenciaTiposHorasResponseDto tiposHoras(@Valid final PtrPresenciaTiposHorasRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request,
+                        PtrPresenciaTiposHorasResponseDto.class),
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), request);
+    }
+
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Override
+    public PtrPresenciaTiendasEmpleadoResponseDto presenciasTiendasEmpleado(
+            @Valid final PtrPresenciaTiendasEmpleadoRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(),
+                        request, PtrPresenciaTiendasEmpleadoResponseDto.class),
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), request);
+    }
+
+    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Override
+    public PtrPresenciaEmpleadosTiendaResponseDto presenciasEmpleadosTienda(
+            @Valid final PtrPresenciaEmpleadosTiendaRequestDto request) {
+        return RestUtils.checkResponse(
+                ptrPresenciaClient.postForEntity(
+                        presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getEndpoint(),
+                        request, PtrPresenciaEmpleadosTiendaResponseDto.class),
+                ptrPresenciaClient,
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getEndpoint(), request);
+    }
 
 }

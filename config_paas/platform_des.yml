@@ -1,8 +1,6 @@
 app:
-  #replicas: 4
-  replicas: 1
+  replicas: 2
 datagrid:
-  #replicas: 2
-  replicas: 1
+  replicas: 2
 amq:
   force: false

@@ -1,0 +1,46 @@
+package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+@Data
+public class TareaPersonaCoeficienteDto implements Serializable {
+    
+    private static final long serialVersionUID = 2150494287535837812L;
+
+    @ApiModelProperty(value = "Identificador de la entidad", required = false)
+    private String id;
+
+    @NotNull
+    @ApiModelProperty(value = "Identificador del tarea", required = true)
+    private Long idTarea;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Identificador de la persona local", required = true)
+    private String idPersonaLocal;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Identificador de la persona", required = true)
+    private String idPersona;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Ordinal de la persona", required = true)
+    private String orPersona;
+    
+    @NotNull
+    private Date fechaInicio;
+    
+    @NotNull
+    private Date fechaFin;
+    
+    @NotNull
+    @ApiModelProperty(value = "Coeficiente jornada", required = true)
+    private Long coeficiente;
+
+}

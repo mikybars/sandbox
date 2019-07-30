@@ -1,27 +1,62 @@
 spring:
+  main:
+    allow-bean-definition-overriding: false
   application:
     name: ICMCLCWB
   profiles:
     active: standalone
+  jta:
+    atomikos:
+      properties:
+        max-timeout: 10m
 app:
   id: ${spring.application.name}
   version: '@project.version@'
 amiga:
   common:
     cache:
+      hotrod-client:
+        infinispan:
+          client:
+            hotrod:
+              protocol_version: 2.5
       remote:
         enabled: true
+        cache-names: itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_tipo_dato_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_tipo_dato_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_cadena_by_tarea_and_id_origen,itx.icmlcwb.id_persona_by_tarea_and_id_origen,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_producto_by_id_tarea_and_id_origen,itx.icmlcwb.id_tipo_dato_by_id_tipo_grupo_dato,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen
     logging:
-      includeFullMDC: true
       file:
         enabled: false
-      graylog:
-        enabled: false
+    reactor:
+      scheduler:
+        elastic:
+          core-pool-size: 10
+          maximum-pool-size: 100
     async:
       default-executor:
-        core-pool-size: 20
-        max-pool-size: 150
-        keep-alive: 10
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 200
+    executor:
+      meta4-executor:
+        name: async-meta4-executor
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 200
+      ptr-venta-executor:
+        name: async-ptr-venta-executor
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 200
+      ptr-presencia-executor:
+        name: async-ptr-presencia-executor
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 200
+      repository-primary-executor:
+        name: async-repository-primary-executor
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 200
   service:
     session:
       session-type: REMOTE
@@ -29,11 +64,9 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
-      local:
-        enable-local-test: true
       classic:
         sso:
-          applicationSSO: AppJoinFashionIntegracion
+          applicationSSO: AppINCOMEMotorCalculoJava
     rest-swagger:
       ui:
         title: '@project.name@'
