@@ -27,10 +27,6 @@ public class PeriodoCalculoPersonaPk implements Serializable {
     private String stdIdLegEnt;
 
     @NotBlank
-    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-    private String stdIdWorkLocat;
-    
-    @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
     
