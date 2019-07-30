@@ -34,7 +34,7 @@ public class TareaLocalizacionAbierta {
     
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-    private String idLocalizacion;
+    private String cclIdCodOrigen;
     
     @NotNull
     @Column(name = "FECHA", nullable = false)

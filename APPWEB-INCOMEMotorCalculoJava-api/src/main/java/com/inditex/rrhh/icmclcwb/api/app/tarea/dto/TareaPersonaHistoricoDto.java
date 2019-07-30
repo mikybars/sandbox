@@ -23,25 +23,25 @@ public class TareaPersonaHistoricoDto implements Serializable {
 
 	@NotBlank
 	@ApiModelProperty(value = "Id de la persona", required = true)
-	private String idPersona;
+	private String stdIdHr;
 
 	@NotBlank
-	private String orPersona;
+	private String stdOrHrPeriod;
 
 	@NotBlank
-	private String idPersonaLocal;
+	private String cclIdPerson;
 
 	@NotBlank
-	private String idLocalizacion;
+	private String cclIdCodOrigen;
 
 	@NotBlank
-	private String idLocalizacionMeta4;
+	private String stdIdWorkLocat;
 	
 	@NotBlank
-	private String idOrigen;
+	private String cclIdOrigen;
 	
 	@NotBlank
-    private String idSeccion;
+    private String cclIdSeccion;
 
 	@NotNull
 	private Date fechaInicio;
@@ -57,5 +57,5 @@ public class TareaPersonaHistoricoDto implements Serializable {
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
-    private Long idEmpresa;
+    private Long stdIdLegEnt;
 }

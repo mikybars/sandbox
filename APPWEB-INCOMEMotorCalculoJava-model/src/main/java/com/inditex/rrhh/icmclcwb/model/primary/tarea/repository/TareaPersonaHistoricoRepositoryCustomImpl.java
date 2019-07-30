@@ -57,14 +57,14 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setObject(2, entity.getFechaInicio());
         pstmt.setObject(3, entity.getFechaFinSeccion());
         pstmt.setObject(4, entity.getFechaInicioSeccion());
-        pstmt.setString(5, entity.getIdPersona());
-        pstmt.setString(6, entity.getIdPersonaLocal());
-        pstmt.setString(7, entity.getIdLocalizacion());
-        pstmt.setString(8, entity.getIdLocalizacionMeta4());
-        pstmt.setString(9, entity.getOrPersona());
-        pstmt.setString(10, entity.getIdEmpresa());
-        pstmt.setString(11, entity.getIdOrigen());
-        pstmt.setString(12, entity.getIdSeccion());
+        pstmt.setString(5, entity.getStdIdHr());
+        pstmt.setString(6, entity.getCclIdPerson());
+        pstmt.setString(7, entity.getCclIdCodOrigen());
+        pstmt.setString(8, entity.getStdIdWorkLocat());
+        pstmt.setString(9, entity.getStdOrHrPeriod());
+        pstmt.setString(10, entity.getStdIdLegEnt());
+        pstmt.setString(11, entity.getCclIdOrigen());
+        pstmt.setString(12, entity.getCclIdSeccion());
         pstmt.setLong(13, entity.getTarea().getId());        
     }
     

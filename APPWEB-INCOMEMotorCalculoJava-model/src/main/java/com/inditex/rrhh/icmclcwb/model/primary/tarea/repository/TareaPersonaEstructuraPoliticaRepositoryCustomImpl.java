@@ -29,13 +29,13 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
     public void setParameters(PreparedStatement pstmt, TareaPersonaEstructuraPolitica entity) throws SQLException {
         pstmt.setObject(1, entity.getFechaFin());
         pstmt.setObject(2, entity.getFechaInicio());
-        pstmt.setString(3, entity.getIdPersona());
-        pstmt.setString(4, entity.getIdPersonaLocal());
+        pstmt.setString(3, entity.getStdIdHr());
+        pstmt.setString(4, entity.getCclIdPerson());
         pstmt.setString(5, entity.getIdEstructuraPolitica());
         pstmt.setLong(6, entity.getTipoPolitica().getId());
-        pstmt.setString(7, entity.getOrPersona());
+        pstmt.setString(7, entity.getStdOrHrPeriod());
         pstmt.setLong(8, entity.getTarea().getId());
-        pstmt.setString(9, entity.getIdOrigen());
+        pstmt.setString(9, entity.getCclIdOrigen());
         pstmt.setBoolean(10, entity.getExcluidoDenominador());
     }
 

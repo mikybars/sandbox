@@ -35,39 +35,39 @@ public class TareaPersonaEstructura {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @Column(name = "CCL_ID_SECCION_ESTRUCTURA", nullable = false, length = 4)
-    private String idSeccionEstructura;
+    private String cclIdSeccionEstructura;
 
     @NotBlank
     @Column(name = "CCL_ID_SECCION_EFECTIVA", nullable = false, length = 4)
-    private String idSeccionEfectiva;
+    private String cclIdSeccionEfectiva;
 
     @NotBlank
     @Column(name = "STD_ID_HR", nullable = false, length = 18)
-    private String idPersona;
+    private String stdIdHr;
 
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
-    private String orPersona;
+    private String stdOrHrPeriod;
 
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-    private String idPersonaLocal;
+    private String cclIdPerson;
 
     @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
-    private String idEstructura;
+    private String icmIdEstrComision;
 
     @NotBlank
     @Column(name = "ICM_ID_TP_CALCULO", nullable = false, length = 48)
-    private String idTipoCalculo;
+    private String icmIdTpCalculo;
 
     @NotBlank
     @Column(name = "ICM_ID_TP_COMISION", nullable = false, length = 48)
-    private String idTipoComision;
+    private String icmIdTpComision;
 
     @NotNull
     @Column(name = "VALOR", nullable = false, precision = 23,  scale = 8)

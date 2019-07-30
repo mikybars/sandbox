@@ -22,15 +22,15 @@ public class TareaCalculoPersonaDto implements Serializable {
 
 	@NotBlank
     @ApiModelProperty(value = "Identificador de la persona", required = true)
-	private String idPersona;
+	private String cclIdPerson;
 	
     @NotBlank
     @ApiModelProperty(value = "Ordinal del empleado", required = true)
-    private String orPersona;
+    private String stdOrHrPeriod;
 	    
     @NotBlank
     @ApiModelProperty(value = "Identificador del origen", required = true)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotNull
     @ApiModelProperty(value = "Estado de la tarea", required = true)

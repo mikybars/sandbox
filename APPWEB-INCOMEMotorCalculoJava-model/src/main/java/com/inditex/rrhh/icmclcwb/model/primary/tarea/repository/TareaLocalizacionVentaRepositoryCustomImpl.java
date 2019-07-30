@@ -41,9 +41,9 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionVenta entity) throws SQLException {
         pstmt.setObject(1, entity.getPk().getFecha());
-        pstmt.setString(2, entity.getIdCadena());
-        pstmt.setString(3, entity.getIdLocalizacion());
-        pstmt.setString(4, entity.getIdSeccion());
+        pstmt.setString(2, entity.getCclIdCadena());
+        pstmt.setString(3, entity.getCclIdCodOrigen());
+        pstmt.setString(4, entity.getCclIdSeccion());
         pstmt.setDouble(5, entity.getImporteSinImpuestos());
         pstmt.setDouble(6, entity.getImporteConImpuestos());
         pstmt.setDouble(7, entity.getTipoDato().getId());

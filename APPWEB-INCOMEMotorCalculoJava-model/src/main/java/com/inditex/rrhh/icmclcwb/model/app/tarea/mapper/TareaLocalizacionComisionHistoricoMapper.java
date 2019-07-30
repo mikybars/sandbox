@@ -33,8 +33,8 @@ public abstract class TareaLocalizacionComisionHistoricoMapper {
     public abstract List<TareaLocalizacionComisionHistorico> tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
             List<TareaLocalizacionComisionHistoricoDto> src);
 
-    @Mapping(target = "idLocalizacion", source = "src.idLugarTrabajoMtu")
-    @Mapping(target = "idLocalizacionMeta4", source = "src.idLugarTrabajo")
+    @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajoMtu")
+    @Mapping(target = "stdIdWorkLocat", source = "src.idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "comisionable", source = "src.esComisionable")

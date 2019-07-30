@@ -34,19 +34,19 @@ public class TareaPersonaEstructuraPolitica {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @Column(name = "STD_ID_HR", nullable = false, length = 18)
-    private String idPersona;
+    private String stdIdHr;
 
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
-    private String orPersona;
+    private String stdOrHrPeriod;
 
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-    private String idPersonaLocal;
+    private String cclIdPerson;
 
     //TODO: normalizar el nombre de esta columna (¿ICM_ID_ESTR_POLITICA?)
     @NotBlank

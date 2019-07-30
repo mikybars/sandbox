@@ -34,27 +34,27 @@ public class TareaLocalizacionHistorico {
 
 	@NotBlank
 	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-	private String idLocalizacion;
+	private String cclIdCodOrigen;
 
 	@NotBlank
 	@Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-	private String idLocalizacionMeta4;
+	private String stdIdWorkLocat;
 
 	 @NotBlank
 	@Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
-	private String idPais;
+	private String stdIdCountry;
 
 	 @NotBlank
 	@Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-	private String idPaisOrigen;
+	private String cclIdOrigen;
 
 	 @NotBlank
 	@Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
-	private String idEmpresa;
+	private String stdIdLegEnt;
 
     @NotBlank
 	@Column(name = "CCL_ID_CADENA", nullable = false, length = 24)
-	private String idCadena;
+	private String cclIdCadena;
 
 	@NotNull
 	@Column(name = "FECHA_INICIO", nullable = false)

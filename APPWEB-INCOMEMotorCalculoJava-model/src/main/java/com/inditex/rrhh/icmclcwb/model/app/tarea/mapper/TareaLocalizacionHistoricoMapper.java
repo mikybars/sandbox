@@ -31,12 +31,12 @@ public abstract class TareaLocalizacionHistoricoMapper {
             List<TareaLocalizacionHistoricoDto> src);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "idPais", source = "src.idOrigen")
-    @Mapping(target = "idPaisOrigen", source = "src.idOrigen")
-    @Mapping(target = "idEmpresa", source = "src.idEmpresa")
-    @Mapping(target = "idCadena", source = "src.idCadena")
-    @Mapping(target = "idLocalizacion", source = "src.idLugarTrabajoMtu")
-    @Mapping(target = "idLocalizacionMeta4", source = "src.idLugarTrabajo")
+    @Mapping(target = "stdIdCountry", source = "src.idOrigen")
+    @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
+    @Mapping(target = "stdIdLegEnt", source = "src.idEmpresa")
+    @Mapping(target = "cclIdCadena", source = "src.idCadena")
+    @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajoMtu")
+    @Mapping(target = "stdIdWorkLocat", source = "src.idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "idTarea", source = "srcTarea.id")
