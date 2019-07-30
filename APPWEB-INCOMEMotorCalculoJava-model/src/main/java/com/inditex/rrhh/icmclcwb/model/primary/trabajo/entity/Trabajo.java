@@ -32,15 +32,15 @@ public class Trabajo {
 
     @NotBlank
     @Column(name = "NOMBRE_USUARIO", nullable = false, length = 12)
-    private String idUsuario;
+    private String nombreUsuario;
 
     @NotNull
     @Column(name = "FECHA_HORA_CREACION", nullable = false)
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     @NotNull
     @Column(name = "ICM_ID_PERIODO", nullable = false)
-    private Long idPeriodo;
+    private Long icmIdPeriodo;
 
     @NotNull
     @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
@@ -52,7 +52,7 @@ public class Trabajo {
 
     @NotBlank
     @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)
-    private String idSociedad;
+    private String idOrganization;
 
     @NotNull
     @OneToOne

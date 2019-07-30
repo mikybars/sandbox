@@ -64,7 +64,7 @@ public abstract class TareaMapper {
     @Mapping(target = "ambito", ignore = true)
     @Mapping(target = "persona", ignore = true)
     @Mapping(target = "localizacion", ignore = true)
-    @Mapping(target = "idSociedad", source = "srcTrabajo.idSociedad")
+    @Mapping(target = "idSociedad", source = "srcTrabajo.idOrganization")
     @Mapping(target = "idEmpresa", source = "srcTrabajoAmbitoEmpresa.idEmpresa")
     @Mapping(target = "idTrabajo", source = "srcTrabajo.id")
     public abstract TareaDto mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(

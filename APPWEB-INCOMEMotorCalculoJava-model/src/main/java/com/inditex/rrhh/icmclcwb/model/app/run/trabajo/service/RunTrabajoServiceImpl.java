@@ -58,7 +58,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                 request.getData().setFechaInicio(LocalDateTime.from(trabajo.getFechaInicioPeriodo()));
                 request.getData().setFechaFin(LocalDateTime.from(trabajo.getFechaFinPeriodo()));
                 request.getData().setItem(new ArrayList<>());
-                request.getData().getItem().add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdSociedad()).build());
+                request.getData().getItem().add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization()).build());
                 List<OrigenResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getOrigen(request);
                 List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream().map(e-> TrabajoAmbitoOrigenDto.builder().idOrigen(e.getIdOrigen()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
                 runTrabajo.getTrabajo().setOrigen(trabajoAmbitoOrigen);

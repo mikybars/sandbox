@@ -29,15 +29,15 @@ public class TrabajoDto implements Serializable {
     @ApiModelProperty(value = "Programación asociada", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idProgramacion;
     
-    @ApiModelProperty(value = "Id del usuario que solicito el trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
-    private String idUsuario;
+    @ApiModelProperty(value = "Nombre del usuario que solicito el trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
+    private String nombreUsuario;
 
     @ApiModelProperty(value = "Fecha en la que se creo el trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     @NotNull
     @ApiModelProperty(value = "Id del periodo a procesar", required = true, example = "1")
-    private Long idPeriodo;
+    private Long icmIdPeriodo;
     
     @NotNull
     @ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true, example = "2017-03-01")
@@ -49,7 +49,7 @@ public class TrabajoDto implements Serializable {
     
     @NotBlank
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "0001")
-    private String idSociedad;
+    private String idOrganization;
     
     @NotNull
     @ApiModelProperty(value = "Tipo Ambito", required = true, example = "1")

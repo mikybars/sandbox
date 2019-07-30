@@ -181,10 +181,10 @@ public class TestServiceImpl implements TestService {
                 LocalDate fechaFin = TimeUtils.nowLocalDate().minusMonths(x)
                         .with(TemporalAdjusters.lastDayOfMonth())
                         .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
-                trabajo.setIdPeriodo(0L);
+                trabajo.setIcmIdPeriodo(0L);
                 trabajo.setFechaInicioPeriodo(fechaInicio);
                 trabajo.setFechaFinPeriodo(fechaFin);
-                trabajo.setIdSociedad(sociedad);
+                trabajo.setIdOrganization(sociedad);
                 TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
                 trabajoAmbitoOrigenDto.setIdOrigen(origen);
                 trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
@@ -245,10 +245,10 @@ public class TestServiceImpl implements TestService {
     private void testSociedad(String sociedad, TrabajoDto trabajo) {
         LocalDate fechaInicio = LocalDate.of(2015, 3, 1);
         LocalDate fechaFin = LocalDate.of(2015, 3, 31);
-        trabajo.setIdPeriodo(1L);
+        trabajo.setIcmIdPeriodo(1L);
         trabajo.setFechaInicioPeriodo(fechaInicio);
         trabajo.setFechaFinPeriodo(fechaFin);
-        trabajo.setIdSociedad(sociedad);
+        trabajo.setIdOrganization(sociedad);
     }
 
     private void testOrigen(String sociedad, String origen, TrabajoDto trabajo) {
