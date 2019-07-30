@@ -32,11 +32,11 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
     public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresencia> tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
             List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> src);
     
-    @Mapping(source = "src.origen", target = "idOrigen")
-    @Mapping(source = "src.tienda", target = "idLocalizacion")
-    @Mapping(source = "src.empresa", target = "idEmpresa")
+    @Mapping(source = "src.origen", target = "cclIdOrigen")
+    @Mapping(source = "src.tienda", target = "stdIdWorkLocat")
+    @Mapping(source = "src.empresa", target = "stdIdLegEnt")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
-    @Mapping(source = "personas", target = "idPersona")
+    @Mapping(source = "personas", target = "cclIdPerson")
     @Mapping(target = "id", ignore = true)
     public abstract TareaAmbitoGlobalLocalizacionPersonaPresencia presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia( 
             Integer personas, PtrPresenciaEmpleadosTiendaResultItemDto src, TareaDto tareaDto);
