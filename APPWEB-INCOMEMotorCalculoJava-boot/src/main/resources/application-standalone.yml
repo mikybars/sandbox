@@ -149,20 +149,20 @@ amiga:
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
             #[BBDD][ITX][DES][INICIO]
-#            serverName: axdesdb22.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: DESARROLLO_RRHH
-#            user: oincome
-#            password: aMJLp8ahF09w
-            #[BBDD][ITX][DES][FIN]
-            #[BBDD][VECTOR][DES][INICIO]
-            serverName: 10.202.10.178
+            serverName: axdesdb22.central.inditex.grp
             portNumber: 50000
             databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: db2inst1
-            password: vector.hc
+            currentSchema: DESARROLLO_RRHH
+            user: oincome
+            password: aMJLp8ahF09w
+            #[BBDD][ITX][DES][FIN]
+            #[BBDD][VECTOR][DES][INICIO]
+#            serverName: 10.202.10.178
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: GESTION_COMISION
+#            user: db2inst1
+#            password: vector.hc
             #[BBDD][VECTOR][DES][FIN]
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
             driverType: 4
@@ -295,12 +295,10 @@ app:
           connectTimeout: 300000
           receiveTimeout: 300000
       login:
-        server: https://error-icmclcws.axdesocp1.central.inditex.grp/services/Login
-        #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
-        server: https://error-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getEmpresa:
@@ -491,4 +489,4 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxPersistenceSize: 3                     
+              maxPersistenceSize: 3
