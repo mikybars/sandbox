@@ -17,11 +17,11 @@ import java.util.List;
 public abstract class TareaLocalizacionOnlineHistoricoMapper {
 
     @Mapping(source = "tarea.id", target = "tarea.id")
-    @Mapping(source = "src.idOrigen", target = "idPais")
-    @Mapping(source = "src.idLocalizacion", target = "idLocalizacion")
-    @Mapping(source = "src.idLocalizacionMeta4", target = "idLocalizacionMeta4")
-    @Mapping(source = "src.idEmpresa", target = "idEmpresa")
-    @Mapping(source = "src.idCadena", target = "idCadena")
+    @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
+    @Mapping(source = "src.idLocalizacion", target = "cclIdCodOrigen")
+    @Mapping(source = "src.idLocalizacionMeta4", target = "stdIdWorkLocat")
+    @Mapping(source = "src.idEmpresa", target = "stdIdLegEnt")
+    @Mapping(source = "src.idCadena", target = "cclIdCadena")
     @Mapping(source = "src.fechaInicio", target = "fechaInicio")
     @Mapping(source = "src.fechaFin", target = "fechaFin")
     public abstract TareaLocalizacionOnlineHistorico getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(
@@ -32,7 +32,7 @@ public abstract class TareaLocalizacionOnlineHistoricoMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @Mapping(target = "id", source = "idLocalizacion")
+    @Mapping(target = "id", source = "cclIdCodOrigen")
     public abstract LocalizacionOnlineDto getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
         TareaLocalizacionOnlineHistorico src);
 

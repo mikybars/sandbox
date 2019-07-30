@@ -31,17 +31,18 @@ public abstract class TareaPersonaEstructuraMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
-    @Mapping(target = "idPersona", source = "src.idEmpleado")
-    @Mapping(target = "orPersona", source = "src.orEmpleado")
-    @Mapping(target = "idPersonaLocal", source = "src.idEmpleadoLocal")
+    @Mapping(target = "stdIdHr", source = "src.idEmpleado")
+    @Mapping(target = "stdOrHrPeriod", source = "src.orEmpleado")
+    @Mapping(target = "cclIdPerson", source = "src.idEmpleadoLocal")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
-    @Mapping(target = "idOrigen", source = "src.idOrigen")
+    @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
-    @Mapping(target = "idTipoCalculo", source = "src.idTipoCalculo")
-    @Mapping(target = "idTipoComision", source = "src.idTipoComision")
+    @Mapping(target = "icmIdTpCalculo", source = "src.idTipoCalculo")
+    @Mapping(target = "icmIdTpComision", source = "src.idTipoComision")
+    @Mapping(target = "icmIdEstrComision", source = "src.idEstructura")
     @Mapping(target = "valor", ignore = true)
-    @Mapping(target = "idSeccionEfectiva", ignore = true)
-    @Mapping(target = "idSeccionEstructura", ignore = true)
+    @Mapping(target = "cclIdSeccionEfectiva", ignore = true)
+    @Mapping(target = "cclIdSeccionEstructura", ignore = true)
     public abstract TareaPersonaEstructuraDto comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(
             final ComisionEmpleadoResultItemDto src, TareaDto tarea);
 

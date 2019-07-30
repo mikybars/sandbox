@@ -29,15 +29,15 @@ public class TareaLocalizacionVenta {
     
     @NotNull
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-    private String idLocalizacion;
+    private String cclIdCodOrigen;
     
     @NotNull
     @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
-    private String idCadena;
+    private String cclIdCadena;
     
     @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
-    private String idSeccion;
+    private String cclIdSeccion;
     
     @NotNull
     @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)

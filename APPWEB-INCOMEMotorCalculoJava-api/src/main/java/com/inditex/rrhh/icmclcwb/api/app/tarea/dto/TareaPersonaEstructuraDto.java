@@ -23,31 +23,31 @@ public class TareaPersonaEstructuraDto implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "Id origen", required = true)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la persona", required = true)
-    private String idPersona;
+    private String stdIdHr;
 
     @NotBlank
     @ApiModelProperty(value = "Ordinal de la persona", required = true)
-    private String orPersona;
+    private String stdOrHrPeriod;
 
     @NotBlank
     @ApiModelProperty(value = "Id local de la persona", required = true)
-    private String idPersonaLocal;
+    private String cclIdPerson;
 
     @NotNull
     @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
-    private String idEstructura;
+    private String icmIdEstrComision;
 
     @NotNull
     @ApiModelProperty(value = "Id tipo calculo asociado a la estructura", required = true)
-    private String idTipoCalculo;
+    private String icmIdTpCalculo;
 
     @NotNull
     @ApiModelProperty(value = "Id tipo comisión asociado a la estructura ", required = true)
-    private String idTipoComision;
+    private String icmIdTpComision;
 
     @NotNull
     @ApiModelProperty(value = "valor asociado a la seccion", required = true)
@@ -55,11 +55,11 @@ public class TareaPersonaEstructuraDto implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Seccion usada en el calculo", required = true)
-    private String idSeccionEfectiva;
+    private String cclIdSeccionEfectiva;
 
     @NotNull
     @ApiModelProperty(value = "Seccion usada en la estructura", required = true)
-    private String idSeccionEstructura;
+    private String cclIdSeccionEstructura;
 
     @NotNull
     @ApiModelProperty(value = "Fecha de inicio en la estructura", required = true)

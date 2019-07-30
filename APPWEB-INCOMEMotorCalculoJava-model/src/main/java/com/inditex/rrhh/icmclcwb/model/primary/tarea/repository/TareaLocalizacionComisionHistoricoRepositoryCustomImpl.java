@@ -30,8 +30,8 @@ public class TareaLocalizacionComisionHistoricoRepositoryCustomImpl extends
         pstmt.setObject(1, entity.getFechaFin());
         pstmt.setObject(2, entity.getFechaInicio());
         pstmt.setBoolean(3, entity.getComisionable());
-        pstmt.setString(4, entity.getIdLocalizacion());
-        pstmt.setString(5, entity.getIdLocalizacionMeta4());
+        pstmt.setString(4, entity.getCclIdCodOrigen());
+        pstmt.setString(5, entity.getStdIdWorkLocat());
         pstmt.setLong(6, entity.getTarea().getId());
     }
 

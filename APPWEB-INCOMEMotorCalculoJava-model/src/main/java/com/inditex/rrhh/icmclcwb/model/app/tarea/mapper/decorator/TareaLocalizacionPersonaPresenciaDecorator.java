@@ -54,7 +54,7 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
         if (CollectionUtils.isNotEmpty(listaSeccion)) {
             listaSeccion.forEach(x -> {
                 TareaLocalizacionPersonaPresencia presencia = delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto);
-                presencia.setIdSeccion(x.getSeccion().toString());
+                presencia.setCclIdSeccion(x.getSeccion().toString());
                 presencia.setMinutos(x.getMinutos());
                 presencia.setTipoDato(new TipoDato());
                 presencia.getTipoDato().setId(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());

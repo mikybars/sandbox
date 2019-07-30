@@ -22,27 +22,23 @@ public class TareaLocalizacionPersonaPresenciaDto implements Serializable {
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la tienda", required = true)
-    private Long idLocalizacion;
+    private Long cclIdCodOrigen;
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la persona", required = true)
-    private Long idPersona;
-    
-    @NotNull
-    @ApiModelProperty(value = "Ordinal de la persona", required = true)
-    private String orPersona;
+    private Long cclIdPerson;
     
     @NotNull
     @ApiModelProperty(value = "Identificador del origen", required = true)
-    private Long idOrigen;
+    private Long cclIdOrigen;
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
-    private Long idEmpresa;
+    private Long stdIdLegEnt;
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la seccion", required = true)
-    private Long idSeccion;
+    private Long cclIdSeccion;
     
     @NotNull
     private Date fecha;
@@ -52,7 +48,7 @@ public class TareaLocalizacionPersonaPresenciaDto implements Serializable {
     private Long minutos;
     
     @ApiModelProperty(value = "Identificador del tipo de hora", required = true)
-    private String idTipoHora;
+    private String icmIdTpHora;
     
     @ApiModelProperty(value = "Flag activo", required = true)
     private Boolean activo;

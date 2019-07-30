@@ -32,18 +32,18 @@ public abstract class TareaPersonaHistoricoMapper {
     public abstract List<TareaPersonaHistorico> tareaPersonaHistoricoDtoToTareaPersonaHistorico(
             List<TareaPersonaHistoricoDto> src);
 
-    @Mapping(target = "idPersona", source = "src.idEmpleado")
-    @Mapping(target = "orPersona", source = "src.orEmpleado")
-    @Mapping(target = "idPersonaLocal", source = "src.idEmpleadoLocal")
-    @Mapping(target = "idLocalizacion", source = "src.idLugarTrabajoMtu")
-    @Mapping(target = "idLocalizacionMeta4", source = "src.idLugarTrabajo")
+    @Mapping(target = "stdIdHr", source = "src.idEmpleado")
+    @Mapping(target = "stdOrHrPeriod", source = "src.orEmpleado")
+    @Mapping(target = "cclIdPerson", source = "src.idEmpleadoLocal")
+    @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajoMtu")
+    @Mapping(target = "stdIdWorkLocat", source = "src.idLugarTrabajo")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "fechaInicioSeccion", source = "src.fechaInicioSec")
     @Mapping(target = "fechaFinSeccion", source = "src.fechaFinSec")
-    @Mapping(target = "idEmpresa", source = "src.idEmpresa")
-    @Mapping(target = "idOrigen", source = "src.idOrigen")
-    @Mapping(target = "idSeccion", source = "src.idSeccion")
+    @Mapping(target = "stdIdLegEnt", source = "src.idEmpresa")
+    @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
+    @Mapping(target = "cclIdSeccion", source = "src.idSeccion")
     @Mapping(target = "idTarea", source = "tarea.id")
     public abstract TareaPersonaHistoricoDto genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
             GenericEmpleadoResultItemDto src, TareaDto tarea);

@@ -28,7 +28,7 @@ implements TareaLocalizacionFestivoRepositoryCustom {
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionFestivo entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getIdLocalizacion());
+        pstmt.setString(2, entity.getStdIdWorkLocat());
         pstmt.setObject(3, entity.getFecha());
     }
 }

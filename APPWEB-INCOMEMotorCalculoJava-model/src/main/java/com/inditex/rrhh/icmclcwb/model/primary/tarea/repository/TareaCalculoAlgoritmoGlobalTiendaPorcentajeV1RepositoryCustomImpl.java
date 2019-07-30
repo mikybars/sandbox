@@ -52,8 +52,8 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
         if (persona != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, persona.getIdPersona());
-            map.put(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, persona.getOrPersona());
+            map.put(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, persona.getCclIdPerson());
+            map.put(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, persona.getStdOrHrPeriod());
         }
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,

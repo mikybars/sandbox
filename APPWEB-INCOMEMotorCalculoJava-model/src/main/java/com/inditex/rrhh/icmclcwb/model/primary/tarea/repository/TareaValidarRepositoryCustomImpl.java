@@ -125,12 +125,12 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
             public TareaPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 TareaPersonaHistoricoDto dto = new TareaPersonaHistoricoDto();
                 dto.setId(rs.getString("ID_TAREA_PERSONA_HISTORICO"));
-                dto.setIdPersona(rs.getString("ID_PERSONA"));
-                dto.setIdPersonaLocal(rs.getString("ID_PERSONA_LOCAL"));
-                dto.setOrPersona(rs.getString("OR_PERSONA"));
+                dto.setStdIdHr(rs.getString("STD_ID_HR"));
+                dto.setCclIdPerson(rs.getString("CCL_ID_PERSON"));
+                dto.setStdOrHrPeriod(rs.getString("STD_OR_HR_PERIOD"));
                 dto.setIdTarea(rs.getLong("ID_TAREA"));
-                dto.setIdLocalizacion(rs.getString("CCL_ID_COD_ORIGEN"));
-                dto.setIdLocalizacionMeta4(rs.getString("STD_ID_WORK_LOCAT"));
+                dto.setCclIdCodOrigen(rs.getString("CCL_ID_COD_ORIGEN"));
+                dto.setStdIdWorkLocat(rs.getString("STD_ID_WORK_LOCAT"));
                 dto.setFechaFin(rs.getDate("FECHA_FIN"));
                 dto.setFechaInicio(rs.getDate("FECHA_INICIO"));
                 return dto;

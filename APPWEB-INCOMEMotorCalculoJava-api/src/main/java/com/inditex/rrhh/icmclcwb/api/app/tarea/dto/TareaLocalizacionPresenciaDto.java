@@ -20,11 +20,11 @@ public class TareaLocalizacionPresenciaDto {
 
     @NotBlank
     @ApiModelProperty(value = "Id de la localizacion", required = true)
-    private String idLocalizacion;
+    private String cclIdCodOrigen;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la seccion", required = true)
-    private String idSeccion;
+    private String cclIdSeccion;
 
     @NotNull
     @ApiModelProperty(value = "Tiempo seccion", required = false, accessMode = ApiModelProperty.AccessMode.READ_ONLY)

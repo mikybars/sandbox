@@ -29,27 +29,27 @@ public class TareaLocalizacionPersonaPresencia  {
     
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-    private String idLocalizacion;
+    private String cclIdCodOrigen;
 
     @NotBlank
     @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
-    private String idCadena;
+    private String cclIdCadena;
 
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-    private String idPersona;
+    private String cclIdPerson;
     
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
     
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
-    private String idEmpresa;
+    private String stdIdLegEnt;
     
     @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 4)
-    private String idSeccion;
+    private String cclIdSeccion;
 
     @NotNull
     @Column(name = "MINUTOS", nullable = false)
@@ -57,7 +57,7 @@ public class TareaLocalizacionPersonaPresencia  {
     
     @NotNull
     @Column(name = "ICM_ID_TP_HORA", nullable = false, length = 48)
-    private String idTipoHora;
+    private String icmIdTpHora;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
