@@ -26,11 +26,11 @@ public abstract class TareaAgrupacionVentaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(source = "src.pais", target = "idOrigen")
+    @Mapping(source = "src.pais", target = "cclIdOrigen")
     @Mapping(target = "importeSinImpuestos", ignore = true)
     @Mapping(target = "importeConImpuestos", ignore = true)
-    @Mapping(target = "idAgrupacion", ignore = true)
-    @Mapping(target = "idSeccion", ignore = true)
+    @Mapping(target = "icmIdAgrupacionOnline", ignore = true)
+    @Mapping(target = "cclIdSeccion", ignore = true)
     @Mapping(target = "activo", ignore = true)
     @Mapping(target = "tipoDato", ignore = true)
     public abstract TareaAgrupacionVenta ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
@@ -42,7 +42,7 @@ public abstract class TareaAgrupacionVentaMapper {
         dest.setActivo(Boolean.TRUE);
         dest.setTipoDato(new TipoDato());
         dest.getTipoDato().setId(TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId());
-        dest.setIdSeccion(AppConstants.SECCION_4.toString());
+        dest.setCclIdSeccion(AppConstants.SECCION_4.toString());
     }
 
     public List<TareaAgrupacionVenta> ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
@@ -53,11 +53,11 @@ public abstract class TareaAgrupacionVentaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "tarea.id", target = "tarea.id")
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(source = "src.pais", target = "idOrigen")
+    @Mapping(source = "src.pais", target = "cclIdOrigen")
     @Mapping(target = "importeSinImpuestos", ignore = true)
     @Mapping(target = "importeConImpuestos", ignore = true)
-    @Mapping(target = "idAgrupacion", ignore = true)
-    @Mapping(target = "idSeccion", ignore = true)
+    @Mapping(target = "icmIdAgrupacionOnline", ignore = true)
+    @Mapping(target = "cclIdSeccion", ignore = true)
     @Mapping(target = "activo", ignore = true)
     @Mapping(target = "tipoDato", ignore = true)
     public abstract TareaAgrupacionVenta ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
@@ -69,7 +69,7 @@ public abstract class TareaAgrupacionVentaMapper {
         dest.setActivo(Boolean.TRUE);
         dest.setTipoDato(new TipoDato());
         dest.getTipoDato().setId(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
-        dest.setIdSeccion(AppConstants.SECCION_4.toString());
+        dest.setCclIdSeccion(AppConstants.SECCION_4.toString());
     }
 
     public List<TareaAgrupacionVenta> ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(

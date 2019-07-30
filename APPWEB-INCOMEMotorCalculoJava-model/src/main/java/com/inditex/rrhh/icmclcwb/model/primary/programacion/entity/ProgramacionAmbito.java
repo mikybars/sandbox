@@ -30,6 +30,6 @@ public class ProgramacionAmbito {
 
     @NotBlank
     @Column(name = "ID_ORGANIZATION", length = 48, nullable = false)
-    private String idSociedad;
+    private String idOrgenization;
 
 }

@@ -36,10 +36,10 @@ public class PeriodoLocalizacionRepositoryCustomImpl extends JdbcBatchPrimaryRep
     
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoLocalizacion entity) throws SQLException {
-        pstmt.setLong(1, entity.getPk().getIdPeriodo());
-        pstmt.setString(2, entity.getPk().getIdOrigen());
-        pstmt.setString(3, entity.getPk().getIdEmpresa());
-        pstmt.setString(4, entity.getPk().getIdLocalizacion());
+        pstmt.setLong(1, entity.getPk().getIcmIdPeriodo());
+        pstmt.setString(2, entity.getPk().getCclIdOrigen());
+        pstmt.setString(3, entity.getPk().getStdIdLegEnt());
+        pstmt.setString(4, entity.getPk().getStdIdWorkLocat());
     }
 
 }

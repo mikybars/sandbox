@@ -18,6 +18,9 @@ import java.util.List;
 public abstract class TareaAgrupacionCadenaMapper {
 
     @Mapping(source = "tarea.id", target = "tarea.id")
+    @Mapping(source = "src.idAgrupacion", target = "icmIdAgrupacionOnline")
+    @Mapping(source = "src.idCadena", target = "cclIdCadena")
+    @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "multiple", ignore = true)
     public abstract TareaAgrupacionCadena getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(

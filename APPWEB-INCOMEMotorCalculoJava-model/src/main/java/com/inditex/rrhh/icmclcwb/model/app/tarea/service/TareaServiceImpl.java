@@ -70,7 +70,7 @@ public class TareaServiceImpl implements TareaService {
     @Transactional
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
-        tarea.setFechaCreacion(LocalDateTime.now());
+        tarea.setFechaHoraCreacion(LocalDateTime.now());
         tarea.setEstado(EstadoTareaEnum.PENDIENTE.getDto());
         TareaDto result = save(tarea);
         if (CollectionUtils.isNotEmpty(tarea.getAmbito())) {

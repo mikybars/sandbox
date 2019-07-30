@@ -30,6 +30,6 @@ public class TrabajoAmbitoOrigen {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 24)
-    private String idOrigen;
+    private String cclIdOrigen;
 
 }

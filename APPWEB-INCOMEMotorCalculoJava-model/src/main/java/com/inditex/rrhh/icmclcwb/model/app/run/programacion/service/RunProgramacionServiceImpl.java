@@ -50,7 +50,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                 request.setData(new GenericFilterDto());
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
                 request.getData().getItem()
-                        .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdSociedad())
+                        .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdOrgenization())
                                 .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
                                 .vigente(Boolean.TRUE.toString()).build());
                 periodoMapper

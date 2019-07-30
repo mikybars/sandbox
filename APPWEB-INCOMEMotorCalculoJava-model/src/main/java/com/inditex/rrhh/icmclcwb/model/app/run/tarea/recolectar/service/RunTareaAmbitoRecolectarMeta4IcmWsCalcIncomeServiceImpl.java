@@ -266,7 +266,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.PERSONA_COEFICIENTEREDUCCIONJORNADA.getId())),
+                            tareaAmbito.getCclIdOrigen(), Arrays.asList(TipoDatoEnum.PERSONA_COEFICIENTEREDUCCIONJORNADA.getId())),
                     meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getFilter().getMaxPageSize())) {
                 CoefJornadaRequestDto request = new CoefJornadaRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getPage());
@@ -306,7 +306,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionDto> iter : StreamUtils.partition(
                     tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                            tareaAmbito.getCclIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getFilter().getMaxPageSize())) {
                 FlagCalculaRequestDto request = new FlagCalculaRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getPage());
@@ -347,7 +347,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionDto> iter : StreamUtils.partition(
                     tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen(), Arrays.asList(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())),
+                            tareaAmbito.getCclIdOrigen(), Arrays.asList(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())),
                     meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPageSize())) {
                 PresenciaManualRequestDto request = new PresenciaManualRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getPage());
@@ -389,7 +389,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                            tareaAmbito.getCclIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
                 comisionEmpleadoRequest
@@ -423,7 +423,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(runTarea.getTarea().getId(),
-                tareaAmbito.getIdOrigen());
+                tareaAmbito.getCclIdOrigen());
             ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
             request.setData(tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(runTarea.getTrabajo(), runTarea.getTarea(), tareaAmbito));
@@ -461,7 +461,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionDto> iter : StreamUtils.partition(
                     tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                            tareaAmbito.getCclIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getFilter().getMaxPageSize())) {
                 TiendasRequestDto tiendasRequest = new TiendasRequestDto();
                 tiendasRequest.setPage(meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getPage());
@@ -530,7 +530,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             for (List<IdCadenaDto> cadenas : StreamUtils.partition(
                 tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(runTarea.getTarea().getId(),
-                    tareaAmbito.getIdOrigen()),
+                    tareaAmbito.getCclIdOrigen()),
                 meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getFilter().getMaxPageSize())) {
 
                 TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
@@ -570,7 +570,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                            tareaAmbito.getCclIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_DESPLAZ).getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto estructurasDesplazamientoRequest = new ComisionEmpleadoRequestDto();
                 estructurasDesplazamientoRequest
@@ -608,7 +608,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
                     tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                            tareaAmbito.getCclIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS).getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto estructurasDesplazamientoRequest = new ComisionEmpleadoRequestDto();
                 estructurasDesplazamientoRequest

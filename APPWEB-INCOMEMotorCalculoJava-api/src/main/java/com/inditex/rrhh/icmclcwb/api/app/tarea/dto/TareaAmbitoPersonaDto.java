@@ -27,14 +27,14 @@ public class TareaAmbitoPersonaDto implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "Id del origen", required = true, example = "11")
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la persona", required = true, example = "1000")
-    private String idPersona;
+    private String cclIdPerson;
 
     @NotBlank
     @ApiModelProperty(value = "Ordinal de la persona", required = true, example = "1")
-    private String orPersona;
+    private String stdOrHrPeriod;
 
 }

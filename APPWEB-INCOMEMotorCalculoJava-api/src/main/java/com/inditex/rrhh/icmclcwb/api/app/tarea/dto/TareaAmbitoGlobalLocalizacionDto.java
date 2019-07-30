@@ -22,13 +22,13 @@ public class TareaAmbitoGlobalLocalizacionDto implements Serializable {
 
 	@NotBlank
     @ApiModelProperty(value = "Identificador de la localizacion", required = true)
-	private String idLocalizacion;
+	private String stdIdWorkLocat;
 	
     @NotBlank
     @ApiModelProperty(value = "Identificador del origen", required = true)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotNull
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
-    private Long idEmpresa;
+    private Long stdIdLegEnt;
 }

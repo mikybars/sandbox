@@ -30,6 +30,6 @@ public class ProgramacionAmbitoOrigen {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", length = 48, nullable = false)
-    private String idOrigen;
+    private String cclIdOrigen;
 
 }

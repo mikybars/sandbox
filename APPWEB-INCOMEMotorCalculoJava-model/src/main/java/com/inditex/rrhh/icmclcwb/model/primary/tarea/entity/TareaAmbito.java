@@ -30,7 +30,7 @@ public class TareaAmbito {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
 
 
 }

@@ -36,11 +36,11 @@ public abstract class TrabajoMapper {
     @Mapping(target = "fechaHoraCreacion", ignore = true)
     @Mapping(target = "idProgramacion", source = "srcProgramacion.id")
     @Mapping(target = "tipoAmbito", source = "srcProgramacion.tipoAmbito")
-    @Mapping(target = "nombreUsuario", source = "srcProgramacion.idUsuario")
+    @Mapping(target = "nombreUsuario", source = "srcProgramacion.nombreUsuario")
     @Mapping(target = "icmIdPeriodo", source = "srcPeriodo.id")
     @Mapping(target = "fechaInicioPeriodo", source = "srcPeriodo.fechaInicioPeriodo")
     @Mapping(target = "fechaFinPeriodo", source = "srcPeriodo.fechaFinPeriodo")
-    @Mapping(target = "idOrganization", source = "srcProgramacionAmbito.idSociedad")
+    @Mapping(target = "idOrganization", source = "srcProgramacionAmbito.idOrgenization")
     public abstract TrabajoDto mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
             ProgramacionAmbitoDto srcProgramacionAmbito, ProgramacionDto srcProgramacion, PeriodoDto srcPeriodo);
 

@@ -30,14 +30,14 @@ public class ProgramacionAmbitoLocalizacion {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", length = 48, nullable = false)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", length = 48, nullable = false)
-    private String idEmpresa;
+    private String stdIdLegEnt;
 
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", length = 48, nullable = false)
-    private String idLocalizacion;
+    private String stdIdWorkLocat;
 
 }

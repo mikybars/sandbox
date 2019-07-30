@@ -10,19 +10,22 @@ import lombok.Data;
 public class PeriodoCalculoPersonaDto {
 
     @ApiModelProperty(value = "Identificador del periodo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idPeriodo;
+    private Long icmIdPeriodo;
 
     @ApiModelProperty(value = "Identificador del origen", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idOrigen;
+    private Long cclIdOrigen;
 
     @ApiModelProperty(value = "Identificador de la empresa", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idEmpresa;
+    private Long stdIdLegEnt;
 
+    @ApiModelProperty(value = "Identificador de la localizacion", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    private Long stdIdWorkLocat;
+    
     @ApiModelProperty(value = "Identificador de la persona", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idPersona;
+    private Long cclIdPerson;
     
     @ApiModelProperty(value = "Ordinal de la persona", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long orPersona;
+    private Long stdOrHrPeriod;
     
     @ApiModelProperty(value = "Tarea actual", required = true)
     private Long idTareaActual;
@@ -34,8 +37,8 @@ public class PeriodoCalculoPersonaDto {
     private Long idEstado;
     
     @ApiModelProperty(value = "Fecha en la que se crea la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     @ApiModelProperty(value = "Fecha de ultima actualización de la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaActualizacion;
+    private LocalDateTime fechaHoraActualizacion;
 }

@@ -28,8 +28,8 @@ public class TareaAgrupacionConfiguracionRepositoryCustomImpl
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAgrupacionConfiguracion entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getIdOrigen());
-        pstmt.setLong(3, entity.getIdAgrupacion());
+        pstmt.setString(2, entity.getCclIdOrigen());
+        pstmt.setLong(3, entity.getIcmIdAgrupacionOnline());
         pstmt.setObject(4, entity.getFechaInicio());
         pstmt.setObject(5, entity.getFechaFin());
         pstmt.setBigDecimal(6, entity.getPorcentajeInclusion());
