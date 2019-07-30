@@ -13,7 +13,7 @@ public interface TareaPersonaEstructuraService {
     List<TareaPersonaEstructuraDto> merge(@Valid List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto,
             @Valid TareaDto tarea);
 
-    List<TareaPersonaEstructuraDto> save(@Valid List<@Valid TareaPersonaEstructuraDto> tareaPersonaEstructura,
+    List<TareaPersonaEstructuraDto> save(@Valid List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
             @Valid TareaDto tarea);
 
 }

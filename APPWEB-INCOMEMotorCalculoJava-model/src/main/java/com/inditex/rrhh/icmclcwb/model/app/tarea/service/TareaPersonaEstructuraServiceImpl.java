@@ -26,7 +26,7 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
     private TareaPersonaEstructuraMapper tareaPersonaEstructuraMapper;
 
     @Override
-    public List<TareaPersonaEstructuraDto> save(@Valid List<@Valid TareaPersonaEstructuraDto> tareaPersonaEstructura,
+    public List<TareaPersonaEstructuraDto> save(@Valid List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
             @Valid TareaDto tarea) {
         return tareaPersonaEstructuraMapper.tareaPersonaEstructuraToTareaPersonaEstructuraDto(
                 tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
