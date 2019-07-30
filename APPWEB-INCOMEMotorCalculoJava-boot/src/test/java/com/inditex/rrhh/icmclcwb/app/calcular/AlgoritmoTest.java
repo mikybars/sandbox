@@ -23,7 +23,7 @@ public class AlgoritmoTest {
     @Autowired
     private AlgoritmoService algoritmoService;
 
-    // TODO Dejar de ignorar cuando se regenere el modelo de BBDD
+    // TODO Dejar de ignorar cuando se regenere el modelo de bbdd
     @Ignore
     @Test
     public void checkDuplicatedActives() {
