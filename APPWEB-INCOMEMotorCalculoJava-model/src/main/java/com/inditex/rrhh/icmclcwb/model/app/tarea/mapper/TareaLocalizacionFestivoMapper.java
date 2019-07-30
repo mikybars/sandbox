@@ -32,7 +32,7 @@ public abstract class TareaLocalizacionFestivoMapper {
     public abstract List<TareaLocalizacionFestivo> tareaLocalizacionFestivoDtoToLocalizacionFestivo(
             List<TareaLocalizacionFestivoDto> src);
     
-    @Mapping(source = "src.idLugarTrabajo", target = "idLocalizacion")
+    @Mapping(source = "src.idLugarTrabajo", target = "stdIdWorkLocat")
     @Mapping(source = "src.fechaFestivo", target = "fecha")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)

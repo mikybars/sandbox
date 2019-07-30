@@ -33,9 +33,9 @@ public abstract class TareaCalculoPersonaMapper {
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "src.idTarea")
-    @Mapping(target = "idPersona", source = "src.idPersona")
-    @Mapping(target = "orPersona", source = "src.orPersona")
-    @Mapping(target = "idOrigen", source = "src.idOrigen")
+    @Mapping(target = "cclIdPerson", source = "src.cclIdPerson")
+    @Mapping(target = "stdOrHrPeriod", source = "src.stdOrHrPeriod")
+    @Mapping(target = "cclIdOrigen", source = "src.cclIdOrigen")
     @Mapping(target = "estado.id", source = "estado.id")
     public abstract TareaCalculoPersona tareaCalculoPersonaDtoToTareaCalculoPersona(
             TareaCalculoPersonaDto src, EstadoTareaPersonaDto estado);

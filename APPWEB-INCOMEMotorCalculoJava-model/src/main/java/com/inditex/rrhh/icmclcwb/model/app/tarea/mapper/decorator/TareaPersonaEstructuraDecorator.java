@@ -57,8 +57,8 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
             final TareaDto tarea) {
         TareaPersonaEstructuraDto result = delegate
                 .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(comisionEmpleado, tarea);
-        result.setIdSeccionEfectiva(idSeccionEfectiva);
-        result.setIdSeccionEstructura(idSeccionEstructura);
+        result.setCclIdSeccionEfectiva(idSeccionEfectiva);
+        result.setCclIdSeccionEstructura(idSeccionEstructura);
         result.setValor(valor);
         return result;
     }

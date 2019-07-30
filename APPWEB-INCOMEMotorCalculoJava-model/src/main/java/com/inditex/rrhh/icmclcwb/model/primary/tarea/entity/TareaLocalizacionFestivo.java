@@ -29,7 +29,7 @@ public class TareaLocalizacionFestivo {
     
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-    private String idLocalizacion;
+    private String stdIdWorkLocat;
     
     @NotNull
     @Column(name = "FECHA", nullable = false)

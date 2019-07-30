@@ -15,23 +15,23 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TareaLocalizacionHistoricoRepository extends BaseRepository<TareaLocalizacionHistorico, Long> {
 
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.idLocalizacionMeta4) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen GROUP BY tth.idLocalizacionMeta4")
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.stdIdWorkLocat) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:idOrigen GROUP BY tth.stdIdWorkLocat")
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigen(
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen);
     
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.idLocalizacion) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen GROUP BY tth.idLocalizacion")
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.cclIdCodOrigen) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:idOrigen GROUP BY tth.cclIdCodOrigen")
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen);
 
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.idLocalizacionMeta4) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen AND tth.idCadena IN (:idCadena) GROUP BY tth.idLocalizacionMeta4")
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.stdIdWorkLocat) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:idOrigen AND tth.cclIdCadena IN (:idCadena) GROUP BY tth.stdIdWorkLocat")
     List<IdLocalizacionDto> findIdLocalizacionDtoByTareaAndIdOrigenAndCadenas(
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen,
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_CADENA) final List<String> idsCadena);
 
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.idLocalizacion) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen AND tth.idCadena IN (:idCadena) GROUP BY tth.idLocalizacion")
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.cclIdCodOrigen) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:idOrigen AND tth.cclIdCadena IN (:idCadena) GROUP BY tth.cclIdCodOrigen")
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByTareaAndIdOrigenAndCadenas(
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen,

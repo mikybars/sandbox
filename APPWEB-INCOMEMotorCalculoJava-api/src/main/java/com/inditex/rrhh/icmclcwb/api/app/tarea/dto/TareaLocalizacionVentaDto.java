@@ -25,11 +25,11 @@ public class TareaLocalizacionVentaDto implements Serializable {
     
     @NotBlank
     @ApiModelProperty(value = "Id de la localizacion", required = true)
-    private String idLocalizacion;
+    private String cclIdCodOrigen;
     
     @NotBlank
     @ApiModelProperty(value = "Id de la seccion", required = true)
-    private String idSeccion;
+    private String cclIdSeccion;
     
     @NotNull
     @ApiModelProperty(value = "Importe sin impuestos", required = true)

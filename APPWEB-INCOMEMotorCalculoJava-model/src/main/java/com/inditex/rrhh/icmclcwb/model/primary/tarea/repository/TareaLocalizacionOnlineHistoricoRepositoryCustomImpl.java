@@ -39,11 +39,11 @@ public class TareaLocalizacionOnlineHistoricoRepositoryCustomImpl
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionOnlineHistorico entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getIdLocalizacion());
-        pstmt.setString(3, entity.getIdLocalizacionMeta4());
-        pstmt.setString(4, entity.getIdPais());
-        pstmt.setString(5, entity.getIdEmpresa());
-        pstmt.setString(6, entity.getIdCadena());
+        pstmt.setString(2, entity.getCclIdCodOrigen());
+        pstmt.setString(3, entity.getStdIdWorkLocat());
+        pstmt.setString(4, entity.getCclIdOrigen());
+        pstmt.setString(5, entity.getStdIdLegEnt());
+        pstmt.setString(6, entity.getCclIdCadena());
         pstmt.setObject(7, entity.getFechaInicio());
         pstmt.setObject(8, entity.getFechaInicio());
     }

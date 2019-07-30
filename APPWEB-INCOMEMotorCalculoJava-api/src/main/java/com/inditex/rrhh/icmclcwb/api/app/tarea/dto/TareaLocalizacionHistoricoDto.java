@@ -23,22 +23,22 @@ public class TareaLocalizacionHistoricoDto implements Serializable {
 
 	@NotBlank
 	@ApiModelProperty(value = "Id de la localizacion", required = true)
-	private String idLocalizacion;
+	private String cclIdCodOrigen;
 
 	@NotBlank
-	private String idLocalizacionMeta4;
+	private String stdIdWorkLocat;
 
 	@NotBlank
-	private String idPais;
+	private String stdIdCountry;
 
 	@NotBlank
-	private String idPaisOrigen;
+	private String cclIdOrigen;
 
 	@NotBlank
-	private String idEmpresa;
+	private String stdIdLegEnt;
 
 	@NotBlank
-	private String idCadena;
+	private String cclIdCadena;
 	
 	@NotNull
     private LocalDateTime fechaInicio;

@@ -66,12 +66,12 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionHistorico entity) throws SQLException {
         pstmt.setObject(1, entity.getFechaFin());
         pstmt.setObject(2, entity.getFechaInicio());
-        pstmt.setString(3, entity.getIdCadena());
-        pstmt.setString(4, entity.getIdEmpresa());
-        pstmt.setString(5, entity.getIdPais());
-        pstmt.setString(6, entity.getIdPaisOrigen());
-        pstmt.setString(7, entity.getIdLocalizacion());
-        pstmt.setString(8, entity.getIdLocalizacionMeta4());
+        pstmt.setString(3, entity.getCclIdCadena());
+        pstmt.setString(4, entity.getStdIdLegEnt());
+        pstmt.setString(5, entity.getStdIdCountry());
+        pstmt.setString(6, entity.getCclIdOrigen());
+        pstmt.setString(7, entity.getCclIdCodOrigen());
+        pstmt.setString(8, entity.getStdIdWorkLocat());
         pstmt.setLong(9, entity.getTarea().getId());
     }
 

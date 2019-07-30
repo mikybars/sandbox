@@ -28,9 +28,9 @@ public class TareaPersonaCoeficienteRepositoryCustomImpl extends
     @Override
     public void setParameters(PreparedStatement pstmt, TareaPersonaCoeficiente entity) throws SQLException {
         pstmt.setObject(1, entity.getCoeficiente());
-        pstmt.setString(2, entity.getIdPersona());
-        pstmt.setString(3, entity.getIdPersonaLocal());
-        pstmt.setString(4, entity.getOrPersona());
+        pstmt.setString(2, entity.getStdIdHr());
+        pstmt.setString(3, entity.getCclIdPerson());
+        pstmt.setString(4, entity.getStdOrHrPeriod());
         pstmt.setObject(5, entity.getFechaInicio());
         pstmt.setObject(6, entity.getFechaFin());
         pstmt.setLong(7, entity.getTarea().getId());        

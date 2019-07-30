@@ -25,11 +25,11 @@ public class TareaLocalizacionPersonaVentaDto implements Serializable {
     
     @NotBlank
     @ApiModelProperty(value = "Id de la localizacion", required = true)
-    private String idLocalizacion;
+    private String cclIdCodOrigen;
     
 //    @NotBlank// TODO: HABILITAR CUANDO AGRUPE CORRECTAMENTE
     @ApiModelProperty(value = "Id de la persona", required = true)
-    private String idPersona;
+    private String cclIdPerson;
        
     @NotNull
     @ApiModelProperty(value = "Importe sin impuestos", required = true)

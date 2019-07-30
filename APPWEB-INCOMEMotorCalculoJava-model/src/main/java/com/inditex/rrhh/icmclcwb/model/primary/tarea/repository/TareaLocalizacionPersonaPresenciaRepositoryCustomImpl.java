@@ -99,18 +99,18 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
 
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionPersonaPresencia entity) throws SQLException {
-        pstmt.setString(1, entity.getIdLocalizacion());
-        pstmt.setString(2, entity.getIdOrigen());
-        pstmt.setString(3, entity.getIdPersona());
-        pstmt.setString(4, entity.getIdEmpresa());
-        pstmt.setString(5, entity.getIdSeccion());
+        pstmt.setString(1, entity.getCclIdCodOrigen());
+        pstmt.setString(2, entity.getCclIdOrigen());
+        pstmt.setString(3, entity.getCclIdPerson());
+        pstmt.setString(4, entity.getStdIdLegEnt());
+        pstmt.setString(5, entity.getCclIdSeccion());
         pstmt.setObject(6, entity.getPk().getFecha());
         pstmt.setLong(7, entity.getMinutos());
-        pstmt.setString(8, entity.getIdTipoHora());
+        pstmt.setString(8, entity.getIcmIdTpHora());
         pstmt.setBoolean(9, entity.getActivo());
         pstmt.setLong(10, entity.getTipoDato().getId());
         pstmt.setLong(11, entity.getTarea().getId());
-        pstmt.setString(12, entity.getIdCadena());
+        pstmt.setString(12, entity.getCclIdCadena());
     }
 
 }

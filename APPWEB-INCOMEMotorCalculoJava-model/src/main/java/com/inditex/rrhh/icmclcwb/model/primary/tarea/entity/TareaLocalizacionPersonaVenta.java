@@ -31,11 +31,11 @@ public class TareaLocalizacionPersonaVenta {
     
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-    private String idLocalizacion;
+    private String cclIdCodOrigen;
     
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-    private String idPersona;
+    private String cclIdPerson;
     
     @NotNull
     @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, precision = 23,  scale = 8)

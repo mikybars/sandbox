@@ -34,31 +34,31 @@ public class TareaPersonaHistorico {
 
 	@NotBlank
 	@Column(name = "STD_ID_HR", nullable = false)
-	private String idPersona;
+	private String stdIdHr;
 
 	@NotBlank
 	@Column(name = "STD_OR_HR_PERIOD", nullable = false)
-	private String orPersona;
+	private String stdOrHrPeriod;
 
 	@NotBlank
 	@Column(name = "CCL_ID_PERSON", nullable = false)
-	private String idPersonaLocal;
+	private String cclIdPerson;
 
 	@NotBlank
 	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false)
-	private String idLocalizacion;
+	private String cclIdCodOrigen;
 
 	@NotBlank
 	@Column(name = "STD_ID_WORK_LOCAT", nullable = false)
-	private String idLocalizacionMeta4;
+	private String stdIdWorkLocat;
 	
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false)
-    private String idOrigen;
+    private String cclIdOrigen;
     
     @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false)
-    private String idSeccion;
+    private String cclIdSeccion;
 
 	@NotNull
 	@Column(name = "FECHA_INICIO", nullable = false)
@@ -82,6 +82,6 @@ public class TareaPersonaHistorico {
 
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false)
-    private String idEmpresa;
+    private String stdIdLegEnt;
 
 }

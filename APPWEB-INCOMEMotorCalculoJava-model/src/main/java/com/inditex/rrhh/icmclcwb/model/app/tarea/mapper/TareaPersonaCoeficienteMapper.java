@@ -32,9 +32,9 @@ public abstract class TareaPersonaCoeficienteMapper {
     public abstract List<TareaPersonaCoeficiente> tareaPersonaCoeficienteDtoToPersonaCoeficiente(
             List<TareaPersonaCoeficienteDto> src);
     
-    @Mapping(source = "src.idEmpleado", target = "idPersona")
-    @Mapping(source = "src.orEmpleado", target = "orPersona")
-    @Mapping(source = "src.idEmpleadoLocal", target = "idPersonaLocal")
+    @Mapping(source = "src.idEmpleado", target = "stdIdHr")
+    @Mapping(source = "src.orEmpleado", target = "stdOrHrPeriod")
+    @Mapping(source = "src.idEmpleadoLocal", target = "cclIdPerson")
 //    @Mapping(source = "src.fechaInicioCom", target = "fechaInicio")
 //    @Mapping(source = "src.fechaFinCom", target = "fechaFin")
     //TODO: Meter esto cuando se pueda
