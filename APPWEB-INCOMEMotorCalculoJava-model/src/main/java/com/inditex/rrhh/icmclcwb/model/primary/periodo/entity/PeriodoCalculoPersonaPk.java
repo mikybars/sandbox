@@ -1,0 +1,37 @@
+package com.inditex.rrhh.icmclcwb.model.primary.periodo.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
+
+import lombok.Data;
+
+@Embeddable
+@Data
+public class PeriodoCalculoPersonaPk implements Serializable {
+
+    private static final long serialVersionUID = 2842083574794060608L;
+
+    @NotBlank
+    @Column(name = "ICM_ID_PERIODO", nullable = false, length = 19)
+    private Long idPeriodo;
+
+    @NotBlank
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
+    private String idOrigen;
+
+    @NotBlank
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
+    private String idEmpresa;
+
+    @NotBlank
+    @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
+    private String idPersona;
+
+    @NotBlank
+    @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
+    private String orPersona;
+
+}

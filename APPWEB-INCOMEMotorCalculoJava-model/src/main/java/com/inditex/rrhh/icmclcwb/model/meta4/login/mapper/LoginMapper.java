@@ -10,14 +10,14 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface LoginMapper {
 
-    @Mapping(source = "in0", target = "username")
-    @Mapping(source = "in1", target = "password")
-    @Mapping(source = "in2", target = "language")
+    @Mapping(source = "aiSUser", target = "username")
+    @Mapping(source = "aiSPassword", target = "password")
+    @Mapping(source = "aiSLanguage", target = "language")
     LoginRequestDto loginToLoginRequestDto(Login src);
 
-    @Mapping(source = "username", target = "in0")
-    @Mapping(source = "password", target = "in1")
-    @Mapping(source = "language", target = "in2")
+    @Mapping(source = "username", target = "aiSUser")
+    @Mapping(source = "password", target = "aiSPassword")
+    @Mapping(source = "language", target = "aiSLanguage")
     Login loginRequestDtoToLogin(LoginRequestDto src);
 
     LoginResponseDto m4LoginOutputToLoginResponseDto(M4LoginOutput src);

@@ -1,0 +1,11 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
+
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
+
+public interface TareaLocalizacionPersonaVentaRepositoryCustom {
+
+    List<TareaLocalizacionPersonaVenta> save(List<TareaLocalizacionPersonaVenta> src);
+
+}

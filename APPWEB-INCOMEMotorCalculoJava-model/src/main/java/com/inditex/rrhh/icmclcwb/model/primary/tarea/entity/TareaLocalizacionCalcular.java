@@ -1,0 +1,58 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+
+@Entity
+@Table(name = "TAREA_LOCALIZACION_CALCULAR")
+@Data
+public class TareaLocalizacionCalcular {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREA_LOCALIZACION_CALCULAR")
+    private Long id;
+    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TAREA", nullable = false)
+    private Tarea tarea;
+
+    @NotBlank
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
+    private String idLocalizacion;
+    
+    @NotBlank
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
+    private String idLocalizacionMeta4;
+    
+    @NotNull
+    @Column(name = "ES_CALCULA", nullable = false)
+    private Boolean calcula;
+    
+    @NotNull
+    @Column(name = "FECHA_HORA_INICIO_TAREA", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaInicio;
+    
+    @NotNull
+    @Column(name = "FECHA_HORA_FIN_TAREA", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaFin;
+    
+
+}

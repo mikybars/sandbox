@@ -1,14 +1,33 @@
 spring:
+  activemq:
+    broker-url: vm://embedded?broker.persistent=false,useShutdownHook=false
+    in-memory: true
   profiles:
     active: test
 amiga:
   common:
-    cache:
-      embedded:
-        enabled: true
+    rest:
+      client:
+        health:
+          ping-enabled: false
   service:
     aaa:
       local:
         enable-local-test: true
     session:
       session-type: EMBEDDED
+  data:
+    jms:
+      connection-factory:
+        broker-escritura:
+          xaConnectionFactory:
+            brokerURL: vm://embedded
+        broker-lectura:
+          xaConnectionFactory:
+            brokerURL: vm://embedded
+app:
+  envars:
+    meta4:
+      config:
+        pool:
+          size: 1

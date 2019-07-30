@@ -1,0 +1,28 @@
+package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionFestivoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionFestivoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+
+@Service
+public class TareaLocalizacionFestivoAsyncServiceImpl implements TareaLocalizacionFestivoAsyncService {
+
+    @Autowired
+    private TareaLocalizacionFestivoService tareaLocalizacionFestivoService;
+    
+    @Override
+    public CompletableFuture<Void> save(@NotNull List<GenericTiendaResultItemDto> src, @NotNull TareaDto tareaDto){
+        tareaLocalizacionFestivoService.save(src, tareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+}

@@ -1,0 +1,61 @@
+package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+@Data
+public class TareaPersonaHistoricoDto implements Serializable {
+
+	private static final long serialVersionUID = 1168987218682802281L;
+
+	@ApiModelProperty(value = "Identificador del empleado", required = false)
+	private String id;
+
+	@NotNull
+	@ApiModelProperty(value = "Identificador del tarea", required = true)
+	private Long idTarea;
+
+	@NotBlank
+	@ApiModelProperty(value = "Id de la persona", required = true)
+	private String idPersona;
+
+	@NotBlank
+	private String orPersona;
+
+	@NotBlank
+	private String idPersonaLocal;
+
+	@NotBlank
+	private String idLocalizacion;
+
+	@NotBlank
+	private String idLocalizacionMeta4;
+	
+	@NotBlank
+	private String idOrigen;
+	
+	@NotBlank
+    private String idSeccion;
+
+	@NotNull
+	private Date fechaInicio;
+
+	@NotNull
+	private Date fechaFin;
+	
+	@NotNull
+    private Date fechaInicioSeccion;
+
+    @NotNull
+    private Date fechaFinSeccion;
+    
+    @NotNull
+    @ApiModelProperty(value = "Identificador de la empresa", required = true)
+    private Long idEmpresa;
+}

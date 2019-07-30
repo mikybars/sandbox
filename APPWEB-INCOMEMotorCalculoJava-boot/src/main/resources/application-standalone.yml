@@ -1,17 +1,23 @@
+server:
+  port: 8080
 logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: INFO
+    com.atomikos: INFO
+    org.apache.activemq: INFO
+    org.apache.cxf: WARN
 metadata:
-  tenant: global
   domain: core
+  environment: local
+  jiracategory: sistemas-financiero-y-rrhh-core-rrhh
+  jirakey: ICMCLCWB
+  jiraprojectname: APPWEB-INCOMEMotorCalculoJava
   openshiftproject: icmclcwb
+  platform: Openshift-Intranet Arteixo
   slot: develop
-spring:
-  jta:
-    atomikos:
-      properties:
-        enable-logging: false
+  tenant: global
+  version: 1.0.0
 amiga:
   monitoring:
     metrics:
@@ -21,23 +27,70 @@ amiga:
     core:
       is-production: false
     cache:
+      hotrod-client:
+        infinispan:
+          client:
+            hotrod:
+              protocol_version: 2.5
       remote:
         enabled: false
       embedded:
         enabled: true
     rest:
       client:
-        defaultConnectTimeout: 300000
-        defaultReadTimeout: 300000
-        ptrVentaClient:
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDAVTIMPADWSD/service
-        ptrPresenciaClient:
-          base-url: http://axdesptrapp01-vip.central.inditex.grp:33813/OFDARHPRSCAWSD/service
+        http:
+          connect-timeout: 300000
+          read-timeout: 300000
+        auth:
+          method: BASIC
+        #[PTR][DES][INICIO]
+        ptr-venta:
+          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
+          auth-method: BASIC
+          username: srvcicmclcwbdes
+          password: q2ZB)XKFWdeA
+        ptr-presencia:
+          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
+          auth-method: BASIC
+          username: srvcicmclcwbdes
+          password: q2ZB)XKFWdeA
+        #[PTR][DES][FIN]
+        #[PTR][PRE][INICIO]
+#        ptr-venta:
+#          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+#          auth-method: BASIC
+#          username: srvcicmclcwbpreAX
+#          password: xynEJHKK4bu)
+#        ptr-presencia:
+#          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+#          auth-method: BASIC
+#          username: srvcicmclcwbpreAX
+#          password: xynEJHKK4bu)
+        #[PTR][PRE][INICIO]
+    resilience:
+      backends:
+        trabajo:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
+        tarea:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
   service:
     jms:
+      listener:
+        default:
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
       trabajo-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
-        concurrency: 10-20
+      tarea-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
     session:
       session-type: EMBEDDED
     aaa:
@@ -48,110 +101,289 @@ amiga:
         is-production: false
   data:
     jms:
-      connectionFactory:
-        brokerEscritura:
-          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-          userName: root
-          password: V3ct0r1nd1t3x
-        brokerLectura:
-          brokerURL: tcp://10.202.10.178:61616?jms.redeliveryPolicy.maximumRedeliveries=10
-          userName: root
-          password: V3ct0r1nd1t3x
-      client:
-        trabajoJmsClient:
-          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
-          receiveTimeout: 100
+      connection-factory:
+        broker-escritura:
+          minPoolSize: 1
+          maxPoolSize: 10
+          xaConnectionFactory:
+            brokerURL: tcp://10.202.10.178:61616
+            userName: root
+            password: V3ct0r1nd1t3x
+        broker-lectura:
+          minPoolSize: 1
+          maxPoolSize: 10
+          xaConnectionFactory:
+            brokerURL: tcp://10.202.10.178:61616
+            userName: root
+            password: V3ct0r1nd1t3x
+      listener-container-factory:
+        trabajo:
+          concurrency: 1
+          sessionTransacted: true
+          globalTransacted: true
           pubSubDomain: false
+          receiveTimeout: 1000
+        tarea:
+          concurrency: 2
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
+      client:
+        trabajo:
+          destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
+        tarea:
+          destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
     jdbc:
       configuration:
         prop:
           default-isolation-level: 1
-          max-pool-size: 20
+          max-pool-size: 10
+          query-timeout: 60s
       datasource:
         primary:
-          driverClassName: com.ibm.db2.jcc.DB2Driver
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
-          user: oincome
-          password: aMJLp8ahF09w
-        secondary:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://axdessql2.central.inditex.grp:11433;databaseName=PeopleNet
-          user: People7
-          password: people7
+          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
+          xa-properties:
+            #[BBDD][ITX][DES][INICIO]
+#            serverName: axdesdb22.central.inditex.grp
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: DESARROLLO_RRHH
+#            user: oincome
+#            password: aMJLp8ahF09w
+            #[BBDD][ITX][DES][FIN]
+            #[BBDD][VECTOR][DES][INICIO]
+            serverName: 10.202.10.178
+            portNumber: 50000
+            databaseName: INDITEX
+            currentSchema: GESTION_COMISION
+            user: db2inst1
+            password: vector.hc
+            #[BBDD][VECTOR][DES][FIN]
+            clientProgramName: ${metadata.jirakey}-${metadata.slot}
+            driverType: 4
+#            loginTimeout: 10
+#            connectionTimeout: 10
+#            commandTimeout: 5
+            loginTimeout: 300
+            connectionTimeout: 300
+            commandTimeout: 300
+            interruptProcessingMode: 2
     hibernate:
       primary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
-      secondary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.secondary.dialect.SQLServerNativeDialect''}'
+        #properties: '{''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
+        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
+        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
+        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
 app:
   envars:
     calculo:
-      service:
-        getGTAlgoritmoProperties:
-          numBlock: 1000
+      cast: true
+      precision: 'DECIMAL(23,8)'
+    proceso: 
+      cast: true
+      precision: 'DECIMAL(23,8)'
+    tarea:
+      recolectar:
+        days-number: 3
+      validar:
+        enabled: true
+        logging: true
+        exception: false
+      calcular:
+        algoritmo:
+          config:
+            batch-size: 25
+    repository:
+      batch-size:
+        default: 100
     ptr:
+      config:
+        max-attempts: 2
       venta:
         service:
-          getVentaTotalizado:
-            endpoint: /ventaGeneral/getVentaTotalizado
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
-          getVentaIndividualDetalle:
-            endpoint: /ventaEmpleado/getVentaIndividualDetalle
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
+          version: 1.0.34-rc.2
+          ventaEcommerce:
+            getVentaOnlineEntregaTienda:
+              endpoint: /ventaEcommerce/getVentaOnlineEntregaTienda
+              filter:
+                maxPageSize: 1000
+                maxPersistenceSize: 3
+            getVentaOnlineEntregaDomicilio:
+              endpoint: /ventaEcommerce/getVentaOnlineEntregaDomicilio
+              filter:
+                maxPageSize: 1000
+                maxPersistenceSize: 3
+            getVentaOnlineiPod:
+              endpoint: /ventaEcommerce/getVentaOnlineiPod
+              filter:
+                maxPageSize: 1000
+                maxPersistenceSize: 3
+            getVentaOnlineIpodIndividualDetalle:
+              endpoint: /ventaEcommerce/getVentaOnlineIpodIndividualDetalle
+              filter:
+                maxPageSize: 1000
+                maxPersistenceSize: 3
+            getOrdersByCountrySectionProductHour:
+              endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
+              filter:
+                maxPageSize: 1000
+                maxPersistenceSize: 3
+            getVentaOnlinePicking:
+              endpoint: /ventaEcommerce/getVentaOnlinePicking
+              filter:
+                maxPageSize: 1000
+                maxPersistenceSize: 3
+          ventaEmpleado:
+            getVentaIndividualDetalle:
+              endpoint: /ventaEmpleado/getVentaIndividualDetalle
+              filter:
+                maxPageSize: 1000
+                maxPersistenceSize: 3
+          ventaGeneral:
+            getVentaTotalizado:
+              endpoint: /ventaGeneral/getVentaTotalizado
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
       presencia:
         service:
-          getPresenciasTotalTiendaSeccion:
-            endpoint: /presenciasService/presenciasTotalTiendaSeccion
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
-          getPresenciasDetalle:
-            endpoint: /presenciasService/presenciasDetalle
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
-          getTiposHoras:
-            endpoint: /presenciasService/tiposHoras
-            filter:
-              maxPageSize: 200
-              maxQuerySize: 3
-              maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
+          version: 1.0.16-rc.5
+          presenciasService:
+            getPresenciasTotalizado:
+              endpoint: /presenciasService/presenciasTotalizado
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+            getPresenciasDetalle:
+              endpoint: /presenciasService/presenciasDetalle
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+            getPresenciasTiendasEmpleado:
+              endpoint: /presenciasService/presenciasTiendasEmpleado
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+            getPresenciasEmpleadosTienda:
+              endpoint: /presenciasService/presenciasEmpleadosTienda
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
+            getTiposHoras:
+              endpoint: /presenciasService/tiposHoras
+              filter:
+                maxPageSize: 200
+                maxPersistenceSize: 3
     meta4:
       config:
+        max-attempts: 20
         credentials:
           user: INCOME_CALC
           password: 123
           language: 2
         pool:
-          size: 20
+          pre-login: false
+          size: 5
           claimTimeout: 30000
           shutdownTimeout: 60000
         timeout:
           connectTimeout: 300000
           receiveTimeout: 300000
       login:
-        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-      icm-ws-calc-income:
-        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://error-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
+      icmwscalcincome:
+        server: https://error-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
+          getEmpresa:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getOrigen:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getConfiguracionProductoVenta:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getFestivos:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getCoefJornada:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getFlagCalcula:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getPresenciaManual:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getEmpleadosPresencia:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getPeriodos:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
           getTiendasEmpleado:
             page:
               numeroPagina: 1
@@ -160,10 +392,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
           searchTiendas:
             page:
               numeroPagina: 1
@@ -172,10 +401,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
           getTiendas:
             page:
               numeroPagina: 1
@@ -184,10 +410,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
           searchEmpleados:
             page:
               numeroPagina: 1
@@ -196,10 +419,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
           getComisionEmpleado:
             page:
               numeroPagina: 1
@@ -208,10 +428,25 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
+          getEstructurasDesplazamiento:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getEstructurasPoliticas:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3              
           getEmpleados:
             page:
               numeroPagina: 1
@@ -220,7 +455,40 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxQuerySize: 3
               maxPersistenceSize: 3
-              maxBatchSize: 100
-              retryAttempts: 2
+          getConfVentaOnline:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idagrupacion
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getAgrupOnline:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idagrupacion
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getTiendasOnline:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idagrupacion
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3
+          getEmpleadosDesplazamiento:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3                     

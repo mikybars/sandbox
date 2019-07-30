@@ -32,8 +32,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="in0" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="in1" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ai_sCertificate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ai_sSessionContex" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -44,64 +44,64 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "in0",
-    "in1"
+    "aiSCertificate",
+    "aiSSessionContex"
 })
 @XmlRootElement(name = "loginWithCertificate")
 public class LoginWithCertificate implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(required = true)
-    protected String in0;
-    @XmlElement(required = true)
-    protected String in1;
+    @XmlElement(name = "ai_sCertificate", required = true)
+    protected String aiSCertificate;
+    @XmlElement(name = "ai_sSessionContex", required = true)
+    protected String aiSSessionContex;
 
     /**
-     * Obtiene el valor de la propiedad in0.
+     * Obtiene el valor de la propiedad aiSCertificate.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getIn0() {
-        return in0;
+    public String getAiSCertificate() {
+        return aiSCertificate;
     }
 
     /**
-     * Define el valor de la propiedad in0.
+     * Define el valor de la propiedad aiSCertificate.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setIn0(String value) {
-        this.in0 = value;
+    public void setAiSCertificate(String value) {
+        this.aiSCertificate = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad in1.
+     * Obtiene el valor de la propiedad aiSSessionContex.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getIn1() {
-        return in1;
+    public String getAiSSessionContex() {
+        return aiSSessionContex;
     }
 
     /**
-     * Define el valor de la propiedad in1.
+     * Define el valor de la propiedad aiSSessionContex.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setIn1(String value) {
-        this.in1 = value;
+    public void setAiSSessionContex(String value) {
+        this.aiSSessionContex = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -113,20 +113,20 @@ public class LoginWithCertificate implements Cloneable, CopyTo2, Equals2, HashCo
         }
         final LoginWithCertificate that = ((LoginWithCertificate) object);
         {
-            String lhsIn0;
-            lhsIn0 = this.getIn0();
-            String rhsIn0;
-            rhsIn0 = that.getIn0();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "in0", lhsIn0), LocatorUtils.property(thatLocator, "in0", rhsIn0), lhsIn0, rhsIn0, (this.in0 != null), (that.in0 != null))) {
+            String lhsAiSCertificate;
+            lhsAiSCertificate = this.getAiSCertificate();
+            String rhsAiSCertificate;
+            rhsAiSCertificate = that.getAiSCertificate();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSCertificate", lhsAiSCertificate), LocatorUtils.property(thatLocator, "aiSCertificate", rhsAiSCertificate), lhsAiSCertificate, rhsAiSCertificate, (this.aiSCertificate!= null), (that.aiSCertificate!= null))) {
                 return false;
             }
         }
         {
-            String lhsIn1;
-            lhsIn1 = this.getIn1();
-            String rhsIn1;
-            rhsIn1 = that.getIn1();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "in1", lhsIn1), LocatorUtils.property(thatLocator, "in1", rhsIn1), lhsIn1, rhsIn1, (this.in1 != null), (that.in1 != null))) {
+            String lhsAiSSessionContex;
+            lhsAiSSessionContex = this.getAiSSessionContex();
+            String rhsAiSSessionContex;
+            rhsAiSSessionContex = that.getAiSSessionContex();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSSessionContex", lhsAiSSessionContex), LocatorUtils.property(thatLocator, "aiSSessionContex", rhsAiSSessionContex), lhsAiSSessionContex, rhsAiSSessionContex, (this.aiSSessionContex!= null), (that.aiSSessionContex!= null))) {
                 return false;
             }
         }
@@ -154,14 +154,14 @@ public class LoginWithCertificate implements Cloneable, CopyTo2, Equals2, HashCo
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            String theIn0;
-            theIn0 = this.getIn0();
-            strategy.appendField(locator, this, "in0", buffer, theIn0, (this.in0 != null));
+            String theAiSCertificate;
+            theAiSCertificate = this.getAiSCertificate();
+            strategy.appendField(locator, this, "aiSCertificate", buffer, theAiSCertificate, (this.aiSCertificate!= null));
         }
         {
-            String theIn1;
-            theIn1 = this.getIn1();
-            strategy.appendField(locator, this, "in1", buffer, theIn1, (this.in1 != null));
+            String theAiSSessionContex;
+            theAiSSessionContex = this.getAiSSessionContex();
+            strategy.appendField(locator, this, "aiSSessionContex", buffer, theAiSSessionContex, (this.aiSSessionContex!= null));
         }
         return buffer;
     }
@@ -169,14 +169,14 @@ public class LoginWithCertificate implements Cloneable, CopyTo2, Equals2, HashCo
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            String theIn0;
-            theIn0 = this.getIn0();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "in0", theIn0), currentHashCode, theIn0, (this.in0 != null));
+            String theAiSCertificate;
+            theAiSCertificate = this.getAiSCertificate();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSCertificate", theAiSCertificate), currentHashCode, theAiSCertificate, (this.aiSCertificate!= null));
         }
         {
-            String theIn1;
-            theIn1 = this.getIn1();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "in1", theIn1), currentHashCode, theIn1, (this.in1 != null));
+            String theAiSSessionContex;
+            theAiSSessionContex = this.getAiSSessionContex();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSSessionContex", theAiSSessionContex), currentHashCode, theAiSSessionContex, (this.aiSSessionContex!= null));
         }
         return currentHashCode;
     }
@@ -200,28 +200,28 @@ public class LoginWithCertificate implements Cloneable, CopyTo2, Equals2, HashCo
         if (draftCopy instanceof LoginWithCertificate) {
             final LoginWithCertificate copy = ((LoginWithCertificate) draftCopy);
             {
-                Boolean in0ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.in0 != null));
-                if (in0ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIn0;
-                    sourceIn0 = this.getIn0();
-                    String copyIn0 = ((String) strategy.copy(LocatorUtils.property(locator, "in0", sourceIn0), sourceIn0, (this.in0 != null)));
-                    copy.setIn0(copyIn0);
+                Boolean aiSCertificateShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSCertificate!= null));
+                if (aiSCertificateShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceAiSCertificate;
+                    sourceAiSCertificate = this.getAiSCertificate();
+                    String copyAiSCertificate = ((String) strategy.copy(LocatorUtils.property(locator, "aiSCertificate", sourceAiSCertificate), sourceAiSCertificate, (this.aiSCertificate!= null)));
+                    copy.setAiSCertificate(copyAiSCertificate);
                 } else {
-                    if (in0ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.in0 = null;
+                    if (aiSCertificateShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.aiSCertificate = null;
                     }
                 }
             }
             {
-                Boolean in1ShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.in1 != null));
-                if (in1ShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIn1;
-                    sourceIn1 = this.getIn1();
-                    String copyIn1 = ((String) strategy.copy(LocatorUtils.property(locator, "in1", sourceIn1), sourceIn1, (this.in1 != null)));
-                    copy.setIn1(copyIn1);
+                Boolean aiSSessionContexShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSSessionContex!= null));
+                if (aiSSessionContexShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceAiSSessionContex;
+                    sourceAiSSessionContex = this.getAiSSessionContex();
+                    String copyAiSSessionContex = ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex), sourceAiSSessionContex, (this.aiSSessionContex!= null)));
+                    copy.setAiSSessionContex(copyAiSSessionContex);
                 } else {
-                    if (in1ShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.in1 = null;
+                    if (aiSSessionContexShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.aiSSessionContex = null;
                     }
                 }
             }

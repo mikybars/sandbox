@@ -12,13 +12,15 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
     private static final Logger log = LoggerFactory.getLogger(Meta4ClientExpiration.class);
 
     @Override
-    public boolean hasExpired(SlotInfo<? extends Meta4ClientPoolable> info) throws Exception {
+    public boolean hasExpired(SlotInfo<? extends Meta4ClientPoolable> info) {
         boolean expired = true;
+        boolean login = false;
         String session = StringUtils.EMPTY;
         try {
             // TODO Podriamos verificar solo cada cierto tiempo
             Meta4ClientPoolable poolable = info.getPoolable();
             session = poolable.getSession().getId();
+            login = poolable.getSession().isLogin();
             if (StringUtils.isNotBlank(session)) {
                 int retrieveM4SessionLogin = poolable.getLoginService().retrieveM4Session(session);
                 int retrieveM4SessionIcmWsCalcIncome = poolable.getIcmWsCalcIncomeService().retrieveM4Session(session);
@@ -29,10 +31,12 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
         } catch (Exception e) {
             log.error("Meta4ClientExpiration :: Error no controlado :: hasExpired(): ", e);
         }
-        if (expired) {
-            log.warn("Meta4ClientExpiration :: La session '{}' ha caducado", session);
-        } else {
-            log.debug("Meta4ClientExpiration :: La session '{}' sigue activa", session);
+        if (login) {
+            if (expired) {
+                log.warn("Meta4ClientExpiration :: La session '{}' ha caducado", session);
+            } else {
+                log.debug("Meta4ClientExpiration :: La session '{}' sigue activa", session);
+            }
         }
         return expired;
     }

@@ -1,14 +1,52 @@
-**/target/
-**/target/**
-.project
-.classpath
-.jasper
-.settings/
-/.project
-/.classpath
-/settings/
-*/.project
-*/.classpath
-*/settings/
+*target*
+*node_modules*
+*.jar
+*.war
+*.ear
+*.class
+MANIFEST.MF
 
-/bin/
+# yarn
+yarn.lock
+
+# eclipse specific git ignore
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.factorypath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# STS (Spring Tool Suite)
+.springBeans
+
+#Clover
+.clover/
+
+# IntelliJ
+.idea
+*.iml
+
+# yarn specific
+**/src/main/frontend/dist/**
+
+# Maven revision
+.flattened-pom.xml
+
+# Apache ActiveMQ Embedded
+*/activemq-data/embedded/*

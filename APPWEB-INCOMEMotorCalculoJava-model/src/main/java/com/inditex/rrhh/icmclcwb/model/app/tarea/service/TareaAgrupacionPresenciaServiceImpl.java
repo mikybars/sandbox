@@ -1,0 +1,28 @@
+package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaService;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionPresenciaRepositoryCustom;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+
+@Service
+@Validated
+public class TareaAgrupacionPresenciaServiceImpl implements TareaAgrupacionPresenciaService {
+
+    @Autowired
+    private TareaAgrupacionPresenciaRepositoryCustom tareaAgrupacionPresenciaRepositoryCustom;
+
+    @Override
+    public void updateActivo(@Valid TareaDto tarea) {
+        tareaAgrupacionPresenciaRepositoryCustom.updateActivo(tarea);
+    }
+
+    @Override
+    public void calcularPresenciasTotalesAgrupacion(@Valid TareaDto tarea) {
+        tareaAgrupacionPresenciaRepositoryCustom.calcularPresenciasTotalesAgrupacion(tarea);
+    }
+}

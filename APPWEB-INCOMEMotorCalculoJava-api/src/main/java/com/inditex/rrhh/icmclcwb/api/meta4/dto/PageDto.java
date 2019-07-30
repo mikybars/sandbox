@@ -1,15 +1,16 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.dto;
 
+import java.io.Serializable;
+
+import org.apache.commons.lang3.math.NumberUtils;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.io.Serializable;
-import java.util.NoSuchElementException;
-
-import org.apache.commons.lang3.math.NumberUtils;
 
 @Data
 @AllArgsConstructor
@@ -50,7 +51,7 @@ public class PageDto implements Serializable {
         if (hasNext()) {
             setNumeroPagina(Integer.valueOf(numeroPagina.intValue() + 1));
         } else {
-            throw new NoSuchElementException();
+            throw new Meta4Exception("Error en la paginacion");
         }
         return this;
     }
