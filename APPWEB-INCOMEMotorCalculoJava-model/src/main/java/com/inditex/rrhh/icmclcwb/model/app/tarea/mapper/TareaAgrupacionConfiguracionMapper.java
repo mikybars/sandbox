@@ -22,9 +22,9 @@ public abstract class TareaAgrupacionConfiguracionMapper {
 
     @Mapping(source = "src.fechaInicio", target = "fechaInicio")
     @Mapping(source = "src.fechaFin", target = "fechaFin")
-    @Mapping(source = "src.idOrigen", target = "idOrigen")
+    @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
     @Mapping(source = "src.porcentaje", target = "porcentajeInclusion")
-    @Mapping(source = "src.idAgrupacion", target = "idAgrupacion")
+    @Mapping(source = "src.idAgrupacion", target = "icmIdAgrupacionOnline")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tipoVentaConcepto", ignore = true)

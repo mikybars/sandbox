@@ -61,7 +61,7 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
                     .build();
                 if (!ventas.containsKey(agrupacion)) {
                     TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);
-                    tareaAgrupacionVenta.setIdAgrupacion(idAgrupacion);
+                    tareaAgrupacionVenta.setIcmIdAgrupacionOnline(idAgrupacion);
                     tareaAgrupacionVenta.setImporteSinImpuestos(new BigDecimal(0));
                     tareaAgrupacionVenta.setImporteConImpuestos(new BigDecimal(0));
                     ventas.put(agrupacion, tareaAgrupacionVenta);

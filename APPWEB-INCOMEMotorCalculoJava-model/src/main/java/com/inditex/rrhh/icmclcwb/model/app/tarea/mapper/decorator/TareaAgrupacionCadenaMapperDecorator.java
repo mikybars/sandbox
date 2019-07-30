@@ -46,10 +46,10 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
         Map<Long, List<String>> cadenas = new HashMap<>();
         if (src != null) {
             src.forEach(x -> {
-                if (!cadenas.containsKey(x.getIdAgrupacion())) {
-                    cadenas.put(x.getIdAgrupacion(), new ArrayList<>());
+                if (!cadenas.containsKey(x.getIcmIdAgrupacionOnline())) {
+                    cadenas.put(x.getIcmIdAgrupacionOnline(), new ArrayList<>());
                 }
-                cadenas.get(x.getIdAgrupacion()).add(x.getIdCadena());
+                cadenas.get(x.getIcmIdAgrupacionOnline()).add(x.getCclIdCadena());
             });
         }
 

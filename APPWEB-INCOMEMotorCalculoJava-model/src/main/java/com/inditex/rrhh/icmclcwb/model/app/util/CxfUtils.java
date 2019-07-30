@@ -72,8 +72,8 @@ public class CxfUtils {
     }
 
     public static Map<String, List<String>> mapJSessionID(final String jSessionID) {
-        return CxfUtils.mapCookie(Collections.singletonList(
-                new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR).append(jSessionID).toString()));
+        return CxfUtils.mapCookie(Collections.singletonList(new StringBuilder(CxfConstants.JSESSIONID)
+                .append(CxfConstants.SEPARADOR).append(jSessionID).toString()));
     }
 
     public static Map<String, List<String>> mapCookie(final List<String> list) {
@@ -88,38 +88,44 @@ public class CxfUtils {
     }
 
     public static void putCookies(final Object service, final Map<String, Cookie> cookies) {
-        Client client = ClientProxy.getClient(service);
-        HTTPConduit http = (HTTPConduit) client.getConduit();
+        HTTPConduit http = CxfUtils.getHTTPConduit(service);
         http.getCookies().putAll(cookies);
     }
 
     public static void putCookie(final Object service, final String jSessionID) {
-        Client client = ClientProxy.getClient(service);
-        HTTPConduit http = (HTTPConduit) client.getConduit();
-        http.getClient().setCookie(
-                new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR).append(jSessionID).toString());
+        HTTPConduit http = CxfUtils.getHTTPConduit(service);
+        http.getClient().setCookie(new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR)
+                .append(jSessionID).toString());
     }
 
     public static Map<String, Cookie> getCookies(final Object service) {
-        Client client = ClientProxy.getClient(service);
-        HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
+        HTTPConduit httpConduit = CxfUtils.getHTTPConduit(service);
         return httpConduit.getCookies();
     }
 
     public static void setCookies(final Object service, Map<String, Cookie> cookies) {
-        Client client = ClientProxy.getClient(service);
-        HTTPConduit httpConduit = (HTTPConduit) client.getConduit();
+        HTTPConduit httpConduit = CxfUtils.getHTTPConduit(service);
         httpConduit.getCookies().clear();
         httpConduit.getCookies().putAll(cookies);
     }
 
     public static void cloneHeaders(final Object serviceLogin, final Object service) {
-        Client clientLogin = ClientProxy.getClient(serviceLogin);
-        Client clientService = ClientProxy.getClient(service);
-        HTTPConduit httpConduitLogin = (HTTPConduit) clientLogin.getConduit();
-        HTTPConduit httpConduitService = (HTTPConduit) clientService.getConduit();
+        HTTPConduit httpConduitLogin = CxfUtils.getHTTPConduit(serviceLogin);
+        HTTPConduit httpConduitService = CxfUtils.getHTTPConduit(service);
         httpConduitService.getCookies().clear();
         httpConduitService.getCookies().putAll(httpConduitLogin.getCookies());
+    }
+
+    public static Client getClient(final Object o) {
+        return ClientProxy.getClient(o);
+    }
+
+    public static HTTPConduit getHTTPConduit(final Client client) {
+        return (HTTPConduit) client.getConduit();
+    }
+
+    public static HTTPConduit getHTTPConduit(final Object o) {
+        return CxfUtils.getHTTPConduit(CxfUtils.getClient(o));
     }
 
 }

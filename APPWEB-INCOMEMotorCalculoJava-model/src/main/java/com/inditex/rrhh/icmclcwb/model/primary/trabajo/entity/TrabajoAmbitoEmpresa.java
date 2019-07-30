@@ -30,6 +30,6 @@ public class TrabajoAmbitoEmpresa {
 
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 24)
-    private String idEmpresa;
+    private String stdIdLegEnt;
 
 }

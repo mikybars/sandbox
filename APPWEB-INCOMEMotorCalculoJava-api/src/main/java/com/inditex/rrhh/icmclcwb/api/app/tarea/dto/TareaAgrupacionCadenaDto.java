@@ -20,13 +20,13 @@ public class TareaAgrupacionCadenaDto implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "Id origen", required = true)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la agrupacion", required = true)
-    private String idAgrupacion;
+    private String icmIdAgrupacionOnline;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la cadena", required = true)
-    private String idCadena;
+    private String cclIdCadena;
 }

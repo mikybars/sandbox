@@ -15,6 +15,6 @@ public class IdTipoDatoDto implements Serializable {
 
     private static final long serialVersionUID = 3630643129878733468L;
 
-    public Integer id;
+    private Integer id;
 
 }

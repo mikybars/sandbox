@@ -49,8 +49,8 @@ public abstract class TareaMapperDecorator extends TareaMapper {
         if (TipoAmbitoEnum.LOCALIZACION.getId().equals(srcTrabajo.getTipoAmbito().getId())) {
             if (CollectionUtils.isNotEmpty(srcTareaAmbitoLocalizacion)) {
                 List<GenericFilterParametersDto> resultItem = srcTareaAmbitoLocalizacion.stream()
-                        .filter(item -> srcTareaAmbito.getIdOrigen().equals(item.getIdOrigen()))
-                        .map(item -> GenericFilterParametersDto.builder().idLugarTrabajo(item.getIdLocalizacion())
+                        .filter(item -> srcTareaAmbito.getCclIdOrigen().equals(item.getCclIdOrigen()))
+                        .map(item -> GenericFilterParametersDto.builder().idLugarTrabajo(item.getStdIdWorkLocat())
                                 .build())
                         .collect(Collectors.toList());
                 if (CollectionUtils.isNotEmpty(resultItem)) {
@@ -58,7 +58,7 @@ public abstract class TareaMapperDecorator extends TareaMapper {
                 } else {
                     throw new IcmclcwbException(new StringBuilder(
                             "Parametrizacion por tipo ambito localizacion sin localizaciones para el origen: ")
-                                    .append(srcTareaAmbito.getIdOrigen()).toString());
+                                    .append(srcTareaAmbito.getCclIdOrigen()).toString());
                 }
             } else {
                 throw new IcmclcwbException("Parametrizacion por tipo ambito localizacion sin localizaciones");
@@ -67,15 +67,15 @@ public abstract class TareaMapperDecorator extends TareaMapper {
         if (TipoAmbitoEnum.PERSONA.getId().equals(srcTrabajo.getTipoAmbito().getId())) {
             if (CollectionUtils.isNotEmpty(srcTareaAmbitoPersona)) {
                 List<GenericFilterParametersDto> resultItem = srcTareaAmbitoPersona.stream()
-                        .filter(item -> srcTareaAmbito.getIdOrigen().equals(item.getIdOrigen()))
-                        .map(item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).build())
+                        .filter(item -> srcTareaAmbito.getCclIdOrigen().equals(item.getCclIdOrigen()))
+                        .map(item -> GenericFilterParametersDto.builder().idEmpleado(item.getCclIdPerson()).build())
                         .collect(Collectors.toList());
                 if (CollectionUtils.isNotEmpty(resultItem)) {
                     result.getItem().addAll(resultItem);
                 } else {
                     throw new IcmclcwbException(
                             new StringBuilder("Parametrizacion por persona sin personas para el origen: ")
-                                    .append(srcTareaAmbito.getIdOrigen()).toString());
+                                    .append(srcTareaAmbito.getCclIdOrigen()).toString());
                 }
             } else {
                 throw new IcmclcwbException("Parametrizacion por tipo ambito persona sin personas");

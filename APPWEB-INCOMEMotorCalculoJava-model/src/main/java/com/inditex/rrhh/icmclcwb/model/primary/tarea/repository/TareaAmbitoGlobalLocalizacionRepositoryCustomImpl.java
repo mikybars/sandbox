@@ -37,9 +37,9 @@ public class TareaAmbitoGlobalLocalizacionRepositoryCustomImpl extends JdbcBatch
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacion entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());        
-        pstmt.setString(2, entity.getIdOrigen());
-        pstmt.setString(3, entity.getIdLocalizacion());
-        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setString(2, entity.getCclIdOrigen());
+        pstmt.setString(3, entity.getStdIdWorkLocat());
+        pstmt.setString(4, entity.getStdIdLegEnt());
     }
 
 }

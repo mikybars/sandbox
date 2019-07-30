@@ -30,14 +30,14 @@ public class TareaAmbitoPersona {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-    private String idPersona;
+    private String cclIdPerson;
 
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
-    private String orPersona;
+    private String stdOrHrPeriod;
 
 }

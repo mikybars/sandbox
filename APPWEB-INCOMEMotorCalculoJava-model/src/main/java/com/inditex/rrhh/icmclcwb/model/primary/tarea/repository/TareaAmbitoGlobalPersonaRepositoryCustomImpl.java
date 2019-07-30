@@ -37,9 +37,9 @@ public class TareaAmbitoGlobalPersonaRepositoryCustomImpl extends JdbcBatchPrima
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalPersona entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());        
-        pstmt.setString(2, entity.getIdOrigen());
-        pstmt.setString(3, entity.getIdPersona());
-        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setString(2, entity.getCclIdOrigen());
+        pstmt.setString(3, entity.getCclIdPerson());
+        pstmt.setString(4, entity.getStdIdLegEnt());
     }
 
 }
