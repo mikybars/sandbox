@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.CadenaVentaResultItemDto;
@@ -46,7 +47,7 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
                     Optional<TareaAgrupacionCadenasDto> optionalAgrupacion = agrupaciones.stream().filter(x -> x.getCadenas().stream().anyMatch(
                         y -> y.equals(item.getCadena().toString()))).findFirst();
                     if (!optionalAgrupacion.isPresent()) {
-                        throw new RuntimeException("No hay agrupacion para la cadena " + item.getCadena());
+                        throw new IcmclcwbException("No hay agrupacion para la cadena " + item.getCadena());
                     }
                     idAgrupaciones.put(item.getCadena(), optionalAgrupacion.get().getId());
                 }

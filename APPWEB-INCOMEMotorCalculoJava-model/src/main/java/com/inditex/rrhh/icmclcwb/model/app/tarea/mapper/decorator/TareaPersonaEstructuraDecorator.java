@@ -45,10 +45,8 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
     public List<TareaPersonaEstructuraDto> comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(
             List<ComisionEmpleadoResultItemDto> src, TareaDto tarea) {
         List<TareaPersonaEstructuraDto> result = new ArrayList<>();
-        src.forEach(x -> {
-            result.addAll(
-                    listaPorcentajesResultItemDtoToTareaPersonaEstructuraDto(x.getIcmListaPorcentajes(), x, tarea));
-        });
+        src.forEach(x -> result.addAll(
+                listaPorcentajesResultItemDtoToTareaPersonaEstructuraDto(x.getIcmListaPorcentajes(), x, tarea)));
         return result;
     }
 

@@ -12,19 +12,15 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaHistoricoMap
 
 public abstract class TareaPersonaHistoricoDecorator extends TareaPersonaHistoricoMapper {
 
-	@Autowired
-	private TareaPersonaHistoricoMapper delegate;
+    @Autowired
+    private TareaPersonaHistoricoMapper delegate;
 
     @Override
     public List<TareaPersonaHistoricoDto> genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
             List<GenericEmpleadoResultItemDto> src, TareaDto tarea) {
         List<TareaPersonaHistoricoDto> result = new ArrayList<>();
-        src.forEach(x -> {
-            result.add(
-                    delegate.genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(x, tarea));
-        });
+        src.forEach(x -> result.add(delegate.genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(x, tarea)));
         return result;
     }
-
 
 }
