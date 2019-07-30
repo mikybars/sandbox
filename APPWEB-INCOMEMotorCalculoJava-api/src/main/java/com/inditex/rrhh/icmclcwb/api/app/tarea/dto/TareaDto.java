@@ -29,21 +29,21 @@ public class TareaDto implements Serializable {
     private Long idTrabajo;
 
     @ApiModelProperty(value = "Fecha en la que se creo el tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     @ApiModelProperty(value = "Fecha en la que se empieza a procesar la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaInicioTarea;
+    private LocalDateTime fechaHoraInicioTarea;
 
     @ApiModelProperty(value = "Fecha en la que se termina de procesar la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaFinTarea;
+    private LocalDateTime fechaHoraFinTarea;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "0001")
-    private String idSociedad;
+    private String idOrganization;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la empresa", required = true, example = "8")
-    private String idEmpresa;
+    private String stdIdLegEnt;
 
     @ApiModelProperty(value = "Ambito de la tarea", required = false)
     private List<TareaAmbitoDto> ambito;

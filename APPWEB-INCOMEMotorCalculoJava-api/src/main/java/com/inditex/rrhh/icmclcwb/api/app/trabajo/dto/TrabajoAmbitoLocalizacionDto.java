@@ -21,14 +21,14 @@ public class TrabajoAmbitoLocalizacionDto implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "11")
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la empresa", required = true, example = "8")
-    private String idEmpresa;
+    private String stdIdLegEnt;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la localizacion", required = true, example = "T57")
-    private String idLocalizacion;
+    private String stdIdWorkLocat;
 
 }

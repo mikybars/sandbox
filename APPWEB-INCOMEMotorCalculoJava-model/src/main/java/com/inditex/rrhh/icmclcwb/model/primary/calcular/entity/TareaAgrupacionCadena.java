@@ -32,15 +32,15 @@ public class TareaAgrupacionCadena {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotNull
     @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
-    private Long idAgrupacion;
+    private Long icmIdAgrupacionOnline;
 
     @NotBlank
     @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
-    private String idCadena;
+    private String cclIdCadena;
 
     @NotNull
     @Column(name = "ES_MULTIPLE", nullable = false)

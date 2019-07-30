@@ -8,18 +8,18 @@ import lombok.Data;
 public class PeriodoLocalizacionPersonaDto {
 
     @ApiModelProperty(value = "Identificador del periodo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idPeriodo;
+    private Long icmIdPeriodo;
 
     @ApiModelProperty(value = "Identificador del origen", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idOrigen;
+    private Long cclIdOrigen;
 
     @ApiModelProperty(value = "Identificador de la empresa", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idEmpresa;
+    private Long stdIdLegEnt;
 
     @ApiModelProperty(value = "Identificador de la localizacion", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idLocalizacion;
+    private Long stdIdWorkLocat;
     
     @ApiModelProperty(value = "Identificador de la persona", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long idPersona;
+    private Long cclIdPerson;
     
 }

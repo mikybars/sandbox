@@ -37,10 +37,10 @@ public class TareaaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl
 
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacionPersona entity) throws SQLException {
-        pstmt.setString(1, entity.getIdLocalizacion());
-        pstmt.setString(2, entity.getIdOrigen());
-        pstmt.setString(3, entity.getIdPersona());
-        pstmt.setString(4, entity.getIdEmpresa());
+        pstmt.setString(1, entity.getStdIdWorkLocat());
+        pstmt.setString(2, entity.getCclIdOrigen());
+        pstmt.setString(3, entity.getCclIdPerson());
+        pstmt.setString(4, entity.getStdIdLegEnt());
         pstmt.setLong(5, entity.getTarea().getId());
     }
 

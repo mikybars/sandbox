@@ -36,11 +36,11 @@ public class Programacion {
 
     @NotNull
     @Column(name = "HORA_PROGRAMACION", nullable = false)
-    private LocalTime hora;
+    private LocalTime horaProgramacion;
 
     @NotNull
     @Column(name = "PROGRAMACION_HUSO", length = 12, nullable = false)
-    private String huso;
+    private String programacionHuso;
 
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
@@ -48,18 +48,18 @@ public class Programacion {
 
     @NotBlank
     @Column(name = "NOMBRE_USUARIO", length = 12, nullable = false)
-    private String idUsuario;
+    private String nombreUsuario;
 
     @NotNull
     @Column(name = "FECHA_HORA_CREACION", nullable = false)
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     @Column(name = "FECHA_HORA_ULTIMA_EJECUCION", nullable = true)
-    private LocalDateTime fechaUltimaEjecucion;
+    private LocalDateTime fechaHoraUltimaEjecucion;
 
     @NotNull
     @Column(name = "FECHA_HORA_SIGUIENTE_EJECUCION", nullable = false)
-    private LocalDateTime fechaSiguienteEjecucion;
+    private LocalDateTime fechaHoraSiguienteEjecucion;
     
     @NotNull
     @OneToOne

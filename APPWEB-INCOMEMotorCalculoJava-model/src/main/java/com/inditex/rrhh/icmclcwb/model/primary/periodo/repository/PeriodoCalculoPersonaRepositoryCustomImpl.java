@@ -47,16 +47,16 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
 
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoCalculoPersona entity) throws SQLException {
-        pstmt.setLong(1, entity.getPk().getIdPeriodo());
-        pstmt.setString(2, entity.getPk().getIdOrigen());
-        pstmt.setString(3, entity.getPk().getIdEmpresa());
-        pstmt.setString(4, entity.getPk().getIdPersona());
-        pstmt.setString(5, entity.getPk().getOrPersona());
+        pstmt.setLong(1, entity.getPk().getIcmIdPeriodo());
+        pstmt.setString(2, entity.getPk().getCclIdOrigen());
+        pstmt.setString(3, entity.getPk().getStdIdLegEnt());
+        pstmt.setString(4, entity.getPk().getCclIdPerson());
+        pstmt.setString(5, entity.getPk().getStdOrHrPeriod());
         pstmt.setLong(6, entity.getTareaActual().getId());
         pstmt.setLong(7, entity.getTareaUltima().getId());
         pstmt.setLong(8, entity.getEstado().getId());
-        pstmt.setObject(9, entity.getFechaCreacion());
-        pstmt.setObject(10, entity.getFechaActualizacion());
+        pstmt.setObject(9, entity.getFechaHoraCreacion());
+        pstmt.setObject(10, entity.getFechaHoraActualizacion());
     }
 
 }

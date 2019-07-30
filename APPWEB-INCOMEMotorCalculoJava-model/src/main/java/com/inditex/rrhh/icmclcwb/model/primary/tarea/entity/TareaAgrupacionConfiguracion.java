@@ -36,11 +36,11 @@ public class TareaAgrupacionConfiguracion {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotNull
     @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
-    private Long idAgrupacion;
+    private Long icmIdAgrupacionOnline;
 
     @NotNull
     @OneToOne

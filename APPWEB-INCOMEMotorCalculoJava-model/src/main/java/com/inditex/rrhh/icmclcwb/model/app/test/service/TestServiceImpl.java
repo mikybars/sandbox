@@ -186,10 +186,10 @@ public class TestServiceImpl implements TestService {
                 trabajo.setFechaFinPeriodo(fechaFin);
                 trabajo.setIdOrganization(sociedad);
                 TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
-                trabajoAmbitoOrigenDto.setIdOrigen(origen);
+                trabajoAmbitoOrigenDto.setCclIdOrigen(origen);
                 trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
                 TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
-                trabajoAmbitoEmpresa.setIdEmpresa(empresa);
+                trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
                 trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
                 trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
                 trabajoService.create(trabajo);
@@ -254,14 +254,14 @@ public class TestServiceImpl implements TestService {
     private void testOrigen(String sociedad, String origen, TrabajoDto trabajo) {
         testSociedad(sociedad, trabajo);
         TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
-        trabajoAmbitoOrigenDto.setIdOrigen(origen);
+        trabajoAmbitoOrigenDto.setCclIdOrigen(origen);
         trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
     }
 
     private void testEmpresa(String sociedad, String origen, String empresa, TrabajoDto trabajo) {
         testOrigen(sociedad, origen, trabajo);
         TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
-        trabajoAmbitoEmpresa.setIdEmpresa(empresa);
+        trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
         trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
     }
 
@@ -269,9 +269,9 @@ public class TestServiceImpl implements TestService {
             TrabajoDto trabajo) {
         testEmpresa(sociedad, origen, empresa, trabajo);
         TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDto();
-        trabajoAmbitoLocalizacion.setIdLocalizacion(localizacion);
-        trabajoAmbitoLocalizacion.setIdEmpresa(empresa);
-        trabajoAmbitoLocalizacion.setIdOrigen(origen);
+        trabajoAmbitoLocalizacion.setStdIdWorkLocat(localizacion);
+        trabajoAmbitoLocalizacion.setStdIdLegEnt(empresa);
+        trabajoAmbitoLocalizacion.setCclIdOrigen(origen);
         trabajo.setLocalizacion(Arrays.asList(trabajoAmbitoLocalizacion));
     }
 
@@ -279,10 +279,10 @@ public class TestServiceImpl implements TestService {
             String orPersona, TrabajoDto trabajo) {
         testEmpresa(sociedad, origen, empresa, trabajo);
         TrabajoAmbitoPersonaDto trabajoAmbitoPersona = new TrabajoAmbitoPersonaDto();
-        trabajoAmbitoPersona.setIdPersona(persona);
-        trabajoAmbitoPersona.setOrPersona(orPersona);
-        trabajoAmbitoPersona.setIdEmpresa(empresa);
-        trabajoAmbitoPersona.setIdOrigen(origen);
+        trabajoAmbitoPersona.setCclIdPerson(persona);
+        trabajoAmbitoPersona.setStdOrHrPeriod(orPersona);
+        trabajoAmbitoPersona.setStdIdLegEnt(empresa);
+        trabajoAmbitoPersona.setCclIdOrigen(origen);
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
     }
 

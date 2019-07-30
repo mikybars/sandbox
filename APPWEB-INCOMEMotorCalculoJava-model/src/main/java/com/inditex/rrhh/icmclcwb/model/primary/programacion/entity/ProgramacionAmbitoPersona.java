@@ -30,18 +30,18 @@ public class ProgramacionAmbitoPersona {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", length = 48, nullable = false)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", length = 48, nullable = false)
-    private String idEmpresa;
+    private String stdIdLegEnt;
     
     @NotBlank
     @Column(name = "CCL_ID_PERSON", length = 48, nullable = false)
-    private String idPersona;
+    private String cclIdPerson;
     
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", length = 48, nullable = false)
-    private String orPersona;
+    private String stdOrHrPeriod;
 
 }

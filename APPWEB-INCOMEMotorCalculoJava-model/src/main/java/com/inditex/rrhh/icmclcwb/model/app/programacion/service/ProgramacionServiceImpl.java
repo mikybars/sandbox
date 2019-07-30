@@ -40,17 +40,17 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public ProgramacionDto create(@Valid final ProgramacionDto programacion) {
-        programacion.setFechaCreacion(TimeUtils.nowLocalDateTime());
-        if (StringUtils.isBlank(programacion.getHuso())) {
-            programacion.setHuso(TimeUtils.ofZoneId());
+        programacion.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
+        if (StringUtils.isBlank(programacion.getProgramacionHuso())) {
+            programacion.setProgramacionHuso(TimeUtils.ofZoneId());
         }
-        if (StringUtils.isBlank(programacion.getIdUsuario())) {
+        if (StringUtils.isBlank(programacion.getNombreUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUsername())) {
-                programacion.setIdUsuario(userSSO.getUsername());
+                programacion.setNombreUsuario(userSSO.getUsername());
             }
         }
-        programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
+        programacion.setFechaHoraSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
         ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
                 programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
         result.setAmbito(programacionAmbitoService.create(programacion.getAmbito(), result));
@@ -69,8 +69,8 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     public LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion) {
         LocalDateTime result = TimeUtils.nowLocalDateTime();
         ZoneId zoneDefaultHuso = TimeUtils.ofZone();
-        ZoneId zoneProgramacionHuso = TimeUtils.ofZone(programacion.getHuso());
-        ZonedDateTime zonedDateTimeProgramacionHuso = TimeUtils.ofZonedDateTime(programacion.getHora(),
+        ZoneId zoneProgramacionHuso = TimeUtils.ofZone(programacion.getProgramacionHuso());
+        ZonedDateTime zonedDateTimeProgramacionHuso = TimeUtils.ofZonedDateTime(programacion.getHoraProgramacion(),
                 zoneProgramacionHuso);
         ZonedDateTime nowZonedDateTimeProgramacionHuso = TimeUtils.nowZonedDateTime(zoneProgramacionHuso);
         if (nowZonedDateTimeProgramacionHuso.isAfter(zonedDateTimeProgramacionHuso)) {
@@ -83,15 +83,15 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public List<ProgramacionDto> findPendiente() {
         List<ProgramacionDto> result = programacionMapper.programacionToProgramacionDto(
-                programacionRepository.findByFechaSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
+                programacionRepository.findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
         result.forEach(item -> item.setAmbito(programacionAmbitoService.findByProgramacion(item)));
         return result;
     }
 
     @Override
     public ProgramacionDto updateEjecucion(@Valid ProgramacionDto programacion) {
-        programacion.setFechaUltimaEjecucion(TimeUtils.nowLocalDateTime());
-        programacion.setFechaSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
+        programacion.setFechaHoraUltimaEjecucion(TimeUtils.nowLocalDateTime());
+        programacion.setFechaHoraSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
         return modify(programacion);
     }
 

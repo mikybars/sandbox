@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.app.calcular;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,6 @@ public class AlgoritmoTest {
     @Autowired
     private AlgoritmoService algoritmoService;
 
-    // TODO Dejar de ignorar cuando se regenere el modelo de bbdd
-    @Ignore
     @Test
     public void checkDuplicatedActives() {
         assertEquals(Boolean.FALSE, algoritmoService.checkDuplicatedActives());

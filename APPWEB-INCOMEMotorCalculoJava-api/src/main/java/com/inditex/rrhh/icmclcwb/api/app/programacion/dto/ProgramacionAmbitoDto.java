@@ -22,7 +22,7 @@ public class ProgramacionAmbitoDto implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "0001")
-    private String idSociedad;
+    private String idOrgenization;
 
     @ApiModelProperty(value = "Ambito origen de la programacion", required = false)
     private List<ProgramacionAmbitoOrigenDto> origen;
