@@ -17,10 +17,7 @@ public class PeriodoCalculoPersonaDto {
 
     @ApiModelProperty(value = "Identificador de la empresa", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long stdIdLegEnt;
-
-    @ApiModelProperty(value = "Identificador de la localizacion", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private Long stdIdWorkLocat;
-    
+   
     @ApiModelProperty(value = "Identificador de la persona", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long cclIdPerson;
     
