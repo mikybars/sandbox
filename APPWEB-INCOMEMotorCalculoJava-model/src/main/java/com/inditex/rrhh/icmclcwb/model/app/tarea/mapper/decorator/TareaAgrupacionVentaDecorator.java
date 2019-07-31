@@ -8,6 +8,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVen
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionVenta;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -24,42 +26,39 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
 
     @Override
     public List<TareaAgrupacionVenta> ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
-        List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {
-        return crearAgrupaciones(src, tarea, agrupaciones,
-            x -> delegate.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta((PtrVentaTotalizadoResultItemDto)x, tarea));
+            List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {
+        return crearAgrupaciones(src, tarea, agrupaciones, x -> delegate
+                .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta((PtrVentaTotalizadoResultItemDto) x, tarea));
     }
 
     @Override
     public List<TareaAgrupacionVenta> ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {
+            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea,
+            List<TareaAgrupacionCadenasDto> agrupaciones) {
         return crearAgrupaciones(src, tarea, agrupaciones,
-            x -> delegate.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta((PtrVentaOnlineEntregaDomicilioResultItemDto) x, tarea));
+                x -> delegate.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
+                        (PtrVentaOnlineEntregaDomicilioResultItemDto) x, tarea));
     }
 
     private List<TareaAgrupacionVenta> crearAgrupaciones(List<? extends CadenaVentaResultItemDto> src, TareaDto tarea,
             List<TareaAgrupacionCadenasDto> agrupaciones, Transform transform) {
         List<TareaAgrupacionVenta> result = new ArrayList<>();
-        if (src != null) {
+        if (CollectionUtils.isNotEmpty(src)) {
             Map<TareaAgrupacion, TareaAgrupacionVenta> ventas = new HashMap<>();
             Map<Integer, Long> idAgrupaciones = new HashMap<>();
-            src.forEach(item -> {
+            for (CadenaVentaResultItemDto item : src) {
                 if (!idAgrupaciones.containsKey(item.getCadena())) {
-                    Optional<TareaAgrupacionCadenasDto> optionalAgrupacion = agrupaciones.stream().filter(x -> x.getCadenas().stream().anyMatch(
-                        y -> y.equals(item.getCadena().toString()))).findFirst();
+                    Optional<TareaAgrupacionCadenasDto> optionalAgrupacion = agrupaciones.stream()
+                            .filter(x -> x.getCadenas().stream().anyMatch(y -> y.equals(item.getCadena().toString())))
+                            .findFirst();
                     if (!optionalAgrupacion.isPresent()) {
                         throw new IcmclcwbException("No hay agrupacion para la cadena " + item.getCadena());
                     }
                     idAgrupaciones.put(item.getCadena(), optionalAgrupacion.get().getId());
                 }
                 Long idAgrupacion = idAgrupaciones.get(item.getCadena());
-                TareaAgrupacion agrupacion = TareaAgrupacion
-                    .builder()
-                    .fecha(item.getFecha())
-                    .idAgrupacion(idAgrupacion)
-                    .idSeccion(item.getSeccion())
-                    .idTarea(tarea.getId())
-                    .idPais(item.getPais())
-                    .build();
+                TareaAgrupacion agrupacion = TareaAgrupacion.builder().fecha(item.getFecha()).idAgrupacion(idAgrupacion)
+                        .idSeccion(item.getSeccion()).idTarea(tarea.getId()).idPais(item.getPais()).build();
                 if (!ventas.containsKey(agrupacion)) {
                     TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);
                     tareaAgrupacionVenta.setIcmIdAgrupacionOnline(idAgrupacion);
@@ -69,10 +68,10 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
                 }
                 TareaAgrupacionVenta tareaAgrupacionVenta = ventas.get(agrupacion);
                 tareaAgrupacionVenta.setImporteSinImpuestos(
-                    tareaAgrupacionVenta.getImporteSinImpuestos().add(item.getImporteSinIVA()));
+                        tareaAgrupacionVenta.getImporteSinImpuestos().add(item.getImporteSinIVA()));
                 tareaAgrupacionVenta.setImporteConImpuestos(
-                    tareaAgrupacionVenta.getImporteConImpuestos().add(item.getImporteConIVA()));
-            });
+                        tareaAgrupacionVenta.getImporteConImpuestos().add(item.getImporteConIVA()));
+            }
             result.addAll(ventas.values());
         }
         return result;
@@ -81,4 +80,5 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
     private interface Transform {
         TareaAgrupacionVenta transform(CadenaVentaResultItemDto origen);
     }
+
 }
