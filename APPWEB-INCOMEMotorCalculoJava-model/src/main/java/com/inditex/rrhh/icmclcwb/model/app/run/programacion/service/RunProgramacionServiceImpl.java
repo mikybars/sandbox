@@ -15,7 +15,6 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
@@ -53,13 +52,14 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                         .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdOrgenization())
                                 .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
                                 .vigente(Boolean.TRUE.toString()).build());
-                periodoMapper
-                .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request)).stream().forEach(periodo -> {
-                    runProgramacion.getRunProgramacionPeriodo().add(RunProgramacionPeriodoDto.builder()
-                            .periodo(periodo).programacionAmbito(programacionAmbito).trabajo(trabajoService
-                                    .create(trabajoService.merge(programacion, programacionAmbito, periodo)))
-                            .build());
-                });
+                periodoMapper.periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request))
+                        .stream()
+                        .forEach(periodo -> runProgramacion.getRunProgramacionPeriodo()
+                                .add(RunProgramacionPeriodoDto.builder().periodo(periodo)
+                                        .programacionAmbito(programacionAmbito)
+                                        .trabajo(trabajoService.create(
+                                                trabajoService.merge(programacion, programacionAmbito, periodo)))
+                                        .build()));
             });
             result.add(runProgramacion);
         });

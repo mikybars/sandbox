@@ -18,7 +18,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
     </dependency>
-    
+
     <!-- FRAMEWORK DEPENDENCIES -->
     <dependency>
       <groupId>com.inditex.aqsw.framework.common</groupId>
@@ -32,7 +32,7 @@
       <groupId>com.inditex.aqsw.framework.service</groupId>
       <artifactId>service-framework-starter-aaa</artifactId>
     </dependency>
-    
+
     <!-- OTHER DEPENDENCIES -->
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
@@ -45,7 +45,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-    </dependency>        
-    
+    </dependency>
+
   </dependencies>
 </project>
