@@ -1,60 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.inditex.aqsw.framework.amiga</groupId>
-        <artifactId>amiga-framework</artifactId>
-        <version>2.7.0</version>
-    </parent>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.inditex.aqsw.framework.amiga</groupId>
+    <artifactId>amiga-framework</artifactId>
+    <version>2.7.0</version>
+  </parent>
+  <groupId>com.inditex.rrhh.icmclcwb</groupId>
+  <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
+  <name>${project.groupId}:${project.artifactId}</name>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
 
-    <groupId>com.inditex.rrhh.icmclcwb</groupId>
-    <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>1.0.0</version>
-    <packaging>pom</packaging>
+  <properties>
+    <app.cxf.version>3.2.7</app.cxf.version>
+    <app.jaxws.maven.plugin.version>1.12</app.jaxws.maven.plugin.version>
+    <app.github.chrisvest.version>2.4.1</app.github.chrisvest.version>
+  </properties>
 
-    <name>${project.groupId}:${project.artifactId}</name>
+  <dependencyManagement>
+    <dependencies>
 
-    <properties>
-        <app.cxf.version>3.2.7</app.cxf.version>
-        <app.jaxws.maven.plugin.version>1.12</app.jaxws.maven.plugin.version>
-        <app.github.chrisvest.version>2.4.1</app.github.chrisvest.version>
-    </properties>
+      <!-- PROJECT DEPENDENCIES -->
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
+        <version>1.0.0</version>
+      </dependency>
 
-    <dependencyManagement>
-        <dependencies>
+    </dependencies>
+  </dependencyManagement>
 
-            <!-- PROJECT DEPENDENCIES -->
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
-
-    <modules>
-        <module>APPWEB-INCOMEMotorCalculoJava-api</module>
-        <module>APPWEB-INCOMEMotorCalculoJava-model</module>
-        <module>APPWEB-INCOMEMotorCalculoJava-ws</module>
-        <module>APPWEB-INCOMEMotorCalculoJava-ms</module>
-        <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
-    </modules>
+  <modules>
+    <module>APPWEB-INCOMEMotorCalculoJava-api</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-model</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-ws</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-ms</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
+  </modules>
 </project>

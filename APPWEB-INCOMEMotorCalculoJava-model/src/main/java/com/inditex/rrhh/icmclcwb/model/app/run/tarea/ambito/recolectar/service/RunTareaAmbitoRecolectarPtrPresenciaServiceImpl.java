@@ -114,7 +114,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             List<IdTipoDatoDto> tiposDatoPresencia =
                 tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
                         tarea.getId(), tareaAmbito.getCclIdOrigen(),
                         tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
@@ -161,7 +161,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
+                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(tarea.getId(),
                             tareaAmbito.getCclIdOrigen()),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -200,7 +200,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
         final TrabajoDto trabajo = runTarea.getTrabajo();
         final TareaDto tarea = runTarea.getTarea();
         for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
+                tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(tarea.getId(),
                         tareaAmbito.getCclIdOrigen()),
                 presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getFilter()
                         .getMaxPageSize())) {

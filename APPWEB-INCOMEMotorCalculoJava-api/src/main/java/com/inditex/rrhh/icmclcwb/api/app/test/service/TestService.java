@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.test.service;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
@@ -22,5 +23,9 @@ public interface TestService {
     void testBloqueos(@NotNull final Long limit);
 
     void trabajoFase1a();
+
+    String sqlFormatter(@NotBlank String sql);
+
+    boolean testUrl(@NotBlank String sql);
     
 }

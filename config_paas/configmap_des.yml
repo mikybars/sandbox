@@ -17,6 +17,7 @@ amiga:
             portNumber: 50000
             databaseName: INDITEX
             currentSchema: DESARROLLO_RRHH
+            #currentSchema: GESTION_COMISION
             #user: uincome
             user: oincome
 app:

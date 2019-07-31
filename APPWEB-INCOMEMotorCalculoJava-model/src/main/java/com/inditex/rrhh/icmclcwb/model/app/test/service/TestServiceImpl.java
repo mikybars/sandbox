@@ -1,7 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
@@ -12,14 +13,22 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.apache.http.HttpStatus;
+import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
@@ -69,6 +78,10 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private RunProgramacionService runProgramacionService;
+
+    @Autowired
+    @Qualifier("ptrVentaClient")
+    private RestClient ptrVentaClient;
 
     @Autowired
     @Qualifier("meta4ClientPool")
@@ -165,6 +178,37 @@ public class TestServiceImpl implements TestService {
             runProgramacionService.run();
         }
     }
+    
+    @Override
+    public boolean testUrl(@NotBlank String url) {
+        int code = 200;
+        try {
+            URL siteURL = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
+            connection.setRequestMethod(HttpMethod.POST.name());
+            connection.setConnectTimeout(30000);
+            connection.connect();
+            code = connection.getResponseCode();
+            
+            switch (code) {
+                case HttpStatus.SC_REQUEST_TIMEOUT:
+                case HttpStatus.SC_GATEWAY_TIMEOUT:
+                case 598:
+                case 524:
+                    log.error(url + ": timeout KO");
+                    return false;
+            default:
+                break;
+            }
+            
+        } catch (Exception e) {
+            log.error(url + ": KO, exception: " + e);
+            return false;
+        }
+        
+        log.info(url + ": OK, code: " + code);
+        return true;
+    }
 
     @Override
     public void trabajoFase1a() {
@@ -240,6 +284,11 @@ public class TestServiceImpl implements TestService {
 
             trabajoService.create(trabajo);
         });
+    }
+    
+    @Override
+    public String sqlFormatter(@NotBlank String sql) {
+        return new BasicFormatterImpl().format(StringUtils.normalizeSpace(StringUtils.trim(sql)));
     }
 
     private void testSociedad(String sociedad, TrabajoDto trabajo) {
