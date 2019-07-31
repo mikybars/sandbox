@@ -139,7 +139,7 @@ public abstract class TareaMapper {
         if (genericFilter != null && srcIdsPersona != null) {
             genericFilter.getItem()
                     .addAll(srcIdsPersona.stream()
-                            .map(x -> GenericFilterParametersDto.builder().idEmpleado(x.getIdPersona()).build())
+                            .map(x -> GenericFilterParametersDto.builder().idEmpleado(x.getStdIdHr()).build())
                             .collect(Collectors.toList()));
         }
     }
