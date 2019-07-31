@@ -51,8 +51,8 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Reposi
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
         if (persona != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, persona.getCclIdPerson());
-            map.put(SqlPrimaryConstants.SQL_PARAM_OR_PERSONA, persona.getStdOrHrPeriod());
+            map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getCclIdPerson());
+            map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
         }
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,

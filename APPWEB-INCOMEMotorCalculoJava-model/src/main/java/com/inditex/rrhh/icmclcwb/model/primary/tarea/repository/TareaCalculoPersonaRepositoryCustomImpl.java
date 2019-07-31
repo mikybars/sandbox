@@ -68,10 +68,10 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     }
     
     @Override
-    public void updateWithEstadoAndidPersona(final List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado) {
+    public void updateWithEstadoAndidPersona(final List<String> cclIdPerson, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estado.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, cclIdPerson);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlUpdateWithEstado, parameters);
     }

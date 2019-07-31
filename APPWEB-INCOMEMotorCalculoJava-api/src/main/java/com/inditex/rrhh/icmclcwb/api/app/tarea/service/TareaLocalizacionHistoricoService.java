@@ -20,24 +20,24 @@ public interface TareaLocalizacionHistoricoService {
     List<TareaLocalizacionHistoricoDto> merge(
             @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea);
 
-    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
-            @NotNull final String idOrigen);
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea,
+            @NotNull final String cclIdOrigen);
 
-    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
-            @NotNull final String idOrigen);
+    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull final Long idTarea,
+            @NotNull final String cclIdOrigen);
 
-    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
-            @NotNull final String idOrigen);
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull final Long idTarea,
+            @NotNull final String cclIdOrigen);
 
-    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotBlank final String idOrigen, @NotNull final List<Integer> idsTipoDato);
+    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
+            @NotBlank final String cclIdOrigen, @NotNull final List<Integer> idsTipoDato);
 
-    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull final Long idTarea, @NotBlank final String idOrigen, @NotNull final List<Integer> idsTipoDato);
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
+            @NotNull final Long idTarea, @NotBlank final String cclIdOrigen, @NotNull final List<Integer> idsTipoDato);
 
-    List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen,
+    List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea, @NotNull final String cclIdOrigen,
             @NotNull final Long idVentaConcepto);
 
-    List<IdCadenaDto> findIdCadenaDtoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
+    List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea, @NotNull final String cclIdOrigen);
 
 }

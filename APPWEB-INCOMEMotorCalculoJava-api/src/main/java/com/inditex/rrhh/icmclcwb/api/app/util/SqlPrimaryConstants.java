@@ -21,13 +21,13 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION = "tipoDatoLocalizacionVentaSeccion";
 
-    public static final String SQL_PARAM_ID_PERSONA = "idPersona";
+    public static final String SQL_PARAM_CCL_ID_PERSON = "cclIdPerson";
 
-    public static final String SQL_PARAM_OR_PERSONA = "orPersona";
+    public static final String SQL_PARAM_STD_OR_HR_PERIOD = "stdOrHrPeriod";
 
     public static final String SQL_PARAM_ID_TAREA = "idTarea";
 
-    public static final String SQL_PARAM_ID_ORIGEN = "idOrigen";
+    public static final String SQL_PARAM_CCL_ID_ORIGEN = "cclIdOrigen";
 
     public static final String SQL_PARAM_ID_ESTADO = "idEstado";
 

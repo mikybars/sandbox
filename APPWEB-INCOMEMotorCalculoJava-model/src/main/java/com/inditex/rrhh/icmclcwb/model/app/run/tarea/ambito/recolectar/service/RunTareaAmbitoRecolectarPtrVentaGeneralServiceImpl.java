@@ -86,7 +86,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
             final TareaDto tarea = runTarea.getTarea();
             List<IdTipoDatoDto> idsTipoDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
+                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(tarea.getId(),
                             tareaAmbito.getCclIdOrigen(), idsTipoDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
                     ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
@@ -122,7 +122,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
                 tareaAmbito.getCclIdOrigen());
             PtrVentaTotalizadoRequestDto request = tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,

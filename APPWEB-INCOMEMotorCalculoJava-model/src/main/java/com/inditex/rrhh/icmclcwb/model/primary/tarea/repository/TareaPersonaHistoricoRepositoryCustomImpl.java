@@ -69,10 +69,10 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     }
     
     @Override
-    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
+    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         return namedParameterJdbcTemplate.query(sqlFindIdPersonaByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaDto>() {
             public IdPersonaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdPersonaDto dto = new IdPersonaDto();
@@ -83,10 +83,10 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     }
     
     @Override
-    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaHistoricoDto>() {
             public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
@@ -98,11 +98,11 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     }
     
     @Override
-    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
             @NotNull final List<Integer> idsTipoDato) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
         return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito, parameters, new RowMapper<IdPersonaHistoricoDto>() {
