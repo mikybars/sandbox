@@ -5,10 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
-import com.inditex.rrhh.icmclcwb.model.app.util.TestUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,14 +31,6 @@ public class TestController {
 
     @Autowired
     private TestService testService;
-
-    @Autowired
-    @Qualifier("ptrVentaClient")
-    private RestClient ptrVentaClient;
-
-    @Autowired
-    @Qualifier("ptrPresenciaClient")
-    private RestClient ptrPresenciaClient;
 
     @GetMapping("/reloj/")
     @ApiOperation("Transformaciones de fechas")
@@ -75,18 +62,6 @@ public class TestController {
         testService.sesion();
     }
 
-    @GetMapping("/ptr/presencia/path")
-    @ApiOperation("Conectividad con ptr de presencia")
-    public String testPathPTRPresecnias(@Valid @NotBlank String path) {
-        return ptrPresenciaClient.getForObject(TestUtils.decode(path), String.class);
-    }
-
-    @GetMapping("/ptr/venta/path")
-    @ApiOperation("Conectividad con ptr de venta")
-    public String testPathPTRVentas(@Valid @NotBlank String path) {
-        return ptrVentaClient.getForObject(TestUtils.decode(path), String.class);
-    }
-
     @GetMapping("/programacion/batch")
     @ApiOperation("Lanza todas las programaciones N veces")
     public void programacionBatch() {
@@ -99,6 +74,12 @@ public class TestController {
         testService.testBloqueos(limit);
     }
     
+    @PostMapping(path = "/test/url")
+    @ApiOperation("Test urls")
+    public boolean testUrl(@RequestBody @NotBlank String url) {
+        return testService.testUrl(url);
+    }
+    
     @GetMapping("/trabajo/fase1a")
     @ApiOperation("Crea los trabajos para todos los origenes y empresas de la fase 1a")
     public void trabajoFase1a() {
@@ -108,7 +89,7 @@ public class TestController {
     @PostMapping(path = "/sql/formatter", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation("Formatea una consulta")
     public String sqlformatter(@RequestBody @NotBlank String sql) {
-        return new BasicFormatterImpl().format(StringUtils.normalizeSpace(StringUtils.trim(sql)));
+        return testService.sqlFormatter(sql);
     }
 
 }
