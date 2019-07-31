@@ -90,9 +90,9 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
             Long idTarea = runTarea.getTarea().getId();
-            String idOrigen = tareaAmbito.getCclIdOrigen();
+            String cclIdOrigen = tareaAmbito.getCclIdOrigen();
             List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(idTarea,
-                    idOrigen);
+                    cclIdOrigen);
             if (CollectionUtils.isNotEmpty(cadenas)) {
        
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();

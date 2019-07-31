@@ -16,19 +16,19 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
     List<TareaLocalizacionHistorico> save(List<TareaLocalizacionHistorico> src);
 
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String idOrigen);
+            @NotBlank String cclIdOrigen);
 
     List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
-            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
+            @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String idOrigen);
+            @NotBlank String cclIdOrigen);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
-            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
+            @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
 
-    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen, Long idsVentaConcepto);
+    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen, Long idsVentaConcepto);
 
-    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen);
+    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen);
 
 }

@@ -19,16 +19,16 @@ public interface TareaPersonaHistoricoService {
 
     List<TareaPersonaHistoricoDto> save(@Valid final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico);
 
-    List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea, @NotNull final String idOrigen);
+    List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea, @NotNull final String cclIdOrigen);
     
-    List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
+    List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String cclIdOrigen);
     
-    List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String idOrigen);
+    List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea, @NotNull final String cclIdOrigen);
 
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull final Long idTarea,
-            @NotNull final String idOrigen, @NotNull final List<Integer> idsTipoDato);
+            @NotNull final String cclIdOrigen, @NotNull final List<Integer> idsTipoDato);
 
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
-            @NotNull final String idOrigen);
+            @NotNull final String cclIdOrigen);
 
 }
