@@ -762,6 +762,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IcmListaporcentajesdespBlock }
+     * 
+     */
+    public IcmListaporcentajesdespBlock createIcmListaporcentajesdespBlock() {
+        return new IcmListaporcentajesdespBlock();
+    }
+
+    /**
      * Create an instance of {@link IcmListaseccionesRecord }
      * 
      */
@@ -799,6 +807,14 @@ public class ObjectFactory {
      */
     public IcmParametrospaginacionRecord createIcmParametrospaginacionRecord() {
         return new IcmParametrospaginacionRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmListaporcentajesdespRecord }
+     * 
+     */
+    public IcmListaporcentajesdespRecord createIcmListaporcentajesdespRecord() {
+        return new IcmListaporcentajesdespRecord();
     }
 
     /**
