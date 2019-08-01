@@ -302,11 +302,9 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testSociedad(String sociedad, TrabajoDto trabajo) {
-        LocalDate fechaInicio = LocalDate.of(2015, 3, 1);
-        LocalDate fechaFin = LocalDate.of(2015, 3, 31);
         trabajo.setIcmIdPeriodo(1L);
-        trabajo.setFechaInicioPeriodo(fechaInicio);
-        trabajo.setFechaFinPeriodo(fechaFin);
+        trabajo.setFechaInicioPeriodo(LocalDate.of(2015, 3, 1));
+        trabajo.setFechaFinPeriodo(LocalDate.of(2015, 3, 31));
         trabajo.setIdOrganization(sociedad);
     }
 
