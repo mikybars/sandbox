@@ -26,6 +26,6 @@ public interface TestService {
 
     String sqlFormatter(@NotBlank String sql);
 
-    boolean testUrl(@NotBlank String sql);
+    Boolean testUrl(@NotBlank String sql);
     
 }

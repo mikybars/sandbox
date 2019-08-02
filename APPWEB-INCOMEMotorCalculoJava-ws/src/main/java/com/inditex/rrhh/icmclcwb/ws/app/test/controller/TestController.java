@@ -76,7 +76,7 @@ public class TestController {
     
     @PostMapping(path = "/test/url")
     @ApiOperation("Test urls")
-    public boolean testUrl(@RequestBody @NotBlank String url) {
+    public Boolean testUrl(@RequestBody @NotBlank String url) {
         return testService.testUrl(url);
     }
     

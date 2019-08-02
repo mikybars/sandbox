@@ -34,7 +34,6 @@ public class RunTareaConsolidarByAmbitoLocalizacionServiceImpl
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            // TODO Revisar la consolidacion con tipo de ambito
             CompletableFuture<Void> cfPeriodo = runTareaConsolidarPeriodoAsyncService.mergePeriodoPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodo, cf);
 

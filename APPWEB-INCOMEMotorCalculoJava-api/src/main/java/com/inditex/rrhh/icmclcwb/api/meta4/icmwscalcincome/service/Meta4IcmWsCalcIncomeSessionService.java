@@ -72,7 +72,7 @@ public interface Meta4IcmWsCalcIncomeSessionService {
     List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(
             ConfiguracionProductoVentaRequestDto request);
 
-    List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String idOrigen);
+    List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen);
 
     List<ComisionEmpleadoResultItemDto> getEstructurasDesplazamiento(ComisionEmpleadoRequestDto request);
 

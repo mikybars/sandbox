@@ -15,9 +15,12 @@
   <packaging>pom</packaging>
 
   <properties>
-    <app.cxf.version>3.2.7</app.cxf.version>
-    <app.jaxws.maven.plugin.version>1.12</app.jaxws.maven.plugin.version>
     <app.github.chrisvest.version>2.4.1</app.github.chrisvest.version>
+    <app.org.apache.cxf.version>3.2.7</app.org.apache.cxf.version>
+    <app.org.jvnet.jaxb2_commons.version>0.12.0</app.org.jvnet.jaxb2_commons.version>
+    <app.org.codehaus.mojo.jaxws-maven-plugin.version>2.5</app.org.codehaus.mojo.jaxws-maven-plugin.version>
+    <app.org.codehaus.mojo.wagon-maven-plugin.version>2.0.0</app.org.codehaus.mojo.wagon-maven-plugin.version>
+    <app.org.slf4j.version>1.7.26</app.org.slf4j.version>
   </properties>
 
   <dependencyManagement>

@@ -55,7 +55,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idmotivobaja" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipocalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="nummesesmedia" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="desplazamiento" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="desplazamiento" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="excdenominador" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipocomision" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -158,8 +158,8 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     protected String idtipocalculo;
     @XmlElement(required = true, nillable = true)
     protected String nummesesmedia;
-    @XmlElement(required = true, type = Double.class, nillable = true)
-    protected Double desplazamiento;
+    @XmlElement(required = true, nillable = true)
+    protected String desplazamiento;
     @XmlElement(required = true, nillable = true)
     protected String excdenominador;
     @XmlElement(required = true, nillable = true)
@@ -750,10 +750,10 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
      * 
      * @return
      *     possible object is
-     *     {@link Double }
+     *     {@link String }
      *     
      */
-    public Double getDesplazamiento() {
+    public String getDesplazamiento() {
         return desplazamiento;
     }
 
@@ -762,10 +762,10 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
      * 
      * @param value
      *     allowed object is
-     *     {@link Double }
+     *     {@link String }
      *     
      */
-    public void setDesplazamiento(Double value) {
+    public void setDesplazamiento(String value) {
         this.desplazamiento = value;
     }
 
@@ -1186,9 +1186,9 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             }
         }
         {
-            Double lhsDesplazamiento;
+            String lhsDesplazamiento;
             lhsDesplazamiento = this.getDesplazamiento();
-            Double rhsDesplazamiento;
+            String rhsDesplazamiento;
             rhsDesplazamiento = that.getDesplazamiento();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "desplazamiento", lhsDesplazamiento), LocatorUtils.property(thatLocator, "desplazamiento", rhsDesplazamiento), lhsDesplazamiento, rhsDesplazamiento, (this.desplazamiento!= null), (that.desplazamiento!= null))) {
                 return false;
@@ -1270,12 +1270,12 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE;
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
         return equals(null, null, object, strategy);
     }
 
     public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE;
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
         final StringBuilder buffer = new StringBuilder();
         append(null, buffer, strategy);
         return buffer.toString();
@@ -1410,7 +1410,7 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             strategy.appendField(locator, this, "nummesesmedia", buffer, theNummesesmedia, (this.nummesesmedia!= null));
         }
         {
-            Double theDesplazamiento;
+            String theDesplazamiento;
             theDesplazamiento = this.getDesplazamiento();
             strategy.appendField(locator, this, "desplazamiento", buffer, theDesplazamiento, (this.desplazamiento!= null));
         }
@@ -1580,7 +1580,7 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nummesesmedia", theNummesesmedia), currentHashCode, theNummesesmedia, (this.nummesesmedia!= null));
         }
         {
-            Double theDesplazamiento;
+            String theDesplazamiento;
             theDesplazamiento = this.getDesplazamiento();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "desplazamiento", theDesplazamiento), currentHashCode, theDesplazamiento, (this.desplazamiento!= null));
         }
@@ -1628,7 +1628,7 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE;
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
         return this.hashCode(null, strategy);
     }
 
@@ -1637,7 +1637,7 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
     }
 
     public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE;
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
         return copyTo(null, target, strategy);
     }
 
@@ -1959,9 +1959,9 @@ public class IcmListaestructurasRecord implements Cloneable, CopyTo2, Equals2, H
             {
                 Boolean desplazamientoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.desplazamiento!= null));
                 if (desplazamientoShouldBeCopiedAndSet == Boolean.TRUE) {
-                    Double sourceDesplazamiento;
+                    String sourceDesplazamiento;
                     sourceDesplazamiento = this.getDesplazamiento();
-                    Double copyDesplazamiento = ((Double) strategy.copy(LocatorUtils.property(locator, "desplazamiento", sourceDesplazamiento), sourceDesplazamiento, (this.desplazamiento!= null)));
+                    String copyDesplazamiento = ((String) strategy.copy(LocatorUtils.property(locator, "desplazamiento", sourceDesplazamiento), sourceDesplazamiento, (this.desplazamiento!= null)));
                     copy.setDesplazamiento(copyDesplazamiento);
                 } else {
                     if (desplazamientoShouldBeCopiedAndSet == Boolean.FALSE) {
