@@ -21,10 +21,7 @@ import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -60,6 +57,12 @@ import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 @Service
 @Validated
 public class TestServiceImpl implements TestService {
+
+    private static final String CONTROLLED_TIMEOUT = "Controlled timeout";
+    private static final String CODE = "Code";
+    private static final String EXCEPTION = "Exception";
+    private static final String OK = "OK";
+    private static final String KO = "KO";
 
     @Autowired
     private Logger log;
@@ -180,8 +183,8 @@ public class TestServiceImpl implements TestService {
     }
     
     @Override
-    public boolean testUrl(@NotBlank String url) {
-        int code = 200;
+    public Boolean testUrl(@NotBlank String url) {
+        int code = HttpStatus.SC_OK;
         try {
             URL siteURL = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
@@ -195,19 +198,26 @@ public class TestServiceImpl implements TestService {
                 case HttpStatus.SC_GATEWAY_TIMEOUT:
                 case 598:
                 case 524:
-                    log.error(url + ": timeout KO");
-                    return false;
+                    log.error(new StringBuilder(url).append(": ")
+                            .append(KO).append(", ")
+                            .append(CONTROLLED_TIMEOUT).append(", ")
+                            .append(CODE).append(": ").append(code).toString());
+                    return Boolean.FALSE;
             default:
                 break;
             }
             
         } catch (Exception e) {
-            log.error(url + ": KO, exception: " + e);
-            return false;
+            log.error(new StringBuilder(url).append(": ")
+                    .append(KO).append(", ")
+                    .append(EXCEPTION).append(": ").append(e).toString());
+            return Boolean.FALSE;
         }
         
-        log.info(url + ": OK, code: " + code);
-        return true;
+        log.info(new StringBuilder(url).append(": ")
+                .append(OK).append(", ")
+                .append(CODE).append(": ").append(code).toString());
+        return Boolean.TRUE;
     }
 
     @Override
@@ -292,11 +302,9 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testSociedad(String sociedad, TrabajoDto trabajo) {
-        LocalDate fechaInicio = LocalDate.of(2015, 3, 1);
-        LocalDate fechaFin = LocalDate.of(2015, 3, 31);
         trabajo.setIcmIdPeriodo(1L);
-        trabajo.setFechaInicioPeriodo(fechaInicio);
-        trabajo.setFechaFinPeriodo(fechaFin);
+        trabajo.setFechaInicioPeriodo(LocalDate.of(2015, 3, 1));
+        trabajo.setFechaFinPeriodo(LocalDate.of(2015, 3, 31));
         trabajo.setIdOrganization(sociedad);
     }
 

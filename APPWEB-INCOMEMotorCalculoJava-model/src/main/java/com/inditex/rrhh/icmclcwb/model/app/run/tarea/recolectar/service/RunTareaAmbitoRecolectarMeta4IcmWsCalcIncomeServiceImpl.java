@@ -274,8 +274,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
                                 trabajo, tarea, tareaAmbito));
                 request.getData().setItem(
-                        iter.stream().map(e -> GenericFilterParametersDto.builder().idEmpleado(e.getIdPersona())
-                                .orEmpleado(e.getOrPersona()).build()).collect(Collectors.toList()));
+                        iter.stream().map(e -> GenericFilterParametersDto.builder().idEmpleado(e.getStdIdHr())
+                                .orEmpleado(e.getStdOrHrPeriod()).build()).collect(Collectors.toList()));
                 boolean hasNext = false;
                 do {
                     CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -398,7 +398,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
                 comisionEmpleadoRequest.getData().getItem()
                         .addAll(iter.stream().map(
-                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).orEmpleado(item.getOrPersona()).build())
+                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getStdIdHr()).orEmpleado(item.getStdOrHrPeriod()).build())
                                 .collect(Collectors.toList()));
                 CompletableFuture<List<ComisionEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                         .getComisionEmpleado(comisionEmpleadoRequest);
@@ -579,7 +579,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
                 estructurasDesplazamientoRequest.getData().getItem()
                         .addAll(iter.stream().map(
-                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).orEmpleado(item.getOrPersona()).build())
+                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getStdIdHr()).orEmpleado(item.getStdOrHrPeriod()).build())
                                 .collect(Collectors.toList()));
                 CompletableFuture<List<ComisionEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                         .getEstructurasDesplazamiento(estructurasDesplazamientoRequest);
@@ -617,7 +617,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
                 estructurasDesplazamientoRequest.getData().getItem()
                         .addAll(iter.stream().map(
-                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getIdPersona()).orEmpleado(item.getOrPersona()).build())
+                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getStdIdHr()).orEmpleado(item.getStdOrHrPeriod()).build())
                                 .collect(Collectors.toList()));
                 CompletableFuture<List<ComisionEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                         .getEstructurasPoliticas(estructurasDesplazamientoRequest);
