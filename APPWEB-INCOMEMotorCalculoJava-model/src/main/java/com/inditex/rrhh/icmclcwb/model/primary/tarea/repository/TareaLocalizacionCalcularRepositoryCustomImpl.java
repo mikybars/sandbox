@@ -29,8 +29,8 @@ public class TareaLocalizacionCalcularRepositoryCustomImpl
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionCalcular entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getIdLocalizacionMeta4());
-        pstmt.setString(3, entity.getIdLocalizacion());
+        pstmt.setString(2, entity.getStdIdWorkLocat());
+        pstmt.setString(3, entity.getCclIdCodOrigen());
         pstmt.setObject(4, entity.getCalcula());
         pstmt.setObject(5, entity.getFechaInicio());
         pstmt.setObject(6, entity.getFechaFin());

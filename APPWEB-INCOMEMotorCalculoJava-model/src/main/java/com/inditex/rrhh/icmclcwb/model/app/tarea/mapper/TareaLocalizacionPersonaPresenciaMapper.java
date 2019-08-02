@@ -38,15 +38,15 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     public abstract List<TareaLocalizacionPersonaPresencia> tareaLocalizacionPersonaPresenciaDtoToLocalizacionPersonaPresencia(
             List<TareaLocalizacionPersonaPresenciaDto> src);
     
-    @Mapping(source = "src.idLugarTrabajoMtu", target = "idLocalizacion")
-    @Mapping(source = "src.idOrigen", target = "idOrigen")
-    @Mapping(source = "src.idEmpleadoLocal", target = "idPersona")
-    @Mapping(source = "src.idSeccion", target = "idSeccion")
-    @Mapping(source = "src.idEmpresa", target = "idEmpresa")
-    @Mapping(source = "src.idCadena", target = "idCadena")
+    @Mapping(source = "src.idLugarTrabajoMtu", target = "cclIdCodOrigen")
+    @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
+    @Mapping(source = "src.idEmpleadoLocal", target = "cclIdPerson")
+    @Mapping(source = "src.idSeccion", target = "cclIdSeccion")
+    @Mapping(source = "src.idEmpresa", target = "stdIdLegEnt")
+    @Mapping(source = "src.idCadena", target = "cclIdCadena")
     @Mapping(source = "src.fecha", target = "pk.fecha")
     @Mapping(source = "src.minutos", target = "minutos")
-    @Mapping(source = "src.idTipoHora", target = "idTipoHora")
+    @Mapping(source = "src.idTipoHora", target = "icmIdTpHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "pk.id", ignore = true)
     public abstract TareaLocalizacionPersonaPresencia genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia( 
@@ -57,15 +57,15 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
-    @Mapping(source = "src.tienda", target = "idLocalizacion")
-    @Mapping(source = "src.origen", target = "idOrigen")
-    @Mapping(source = "src.persona", target = "idPersona")
-    @Mapping(source = "src.seccion", target = "idSeccion")
-    @Mapping(source = "src.empresa", target = "idEmpresa")
-    @Mapping(source = "src.cadena", target = "idCadena")
+    @Mapping(source = "src.tienda", target = "cclIdCodOrigen")
+    @Mapping(source = "src.origen", target = "cclIdOrigen")
+    @Mapping(source = "src.persona", target = "cclIdPerson")
+    @Mapping(source = "src.seccion", target = "cclIdSeccion")
+    @Mapping(source = "src.empresa", target = "stdIdLegEnt")
+    @Mapping(source = "src.cadena", target = "cclIdCadena")
     @Mapping(source = "src.fecha", target = "pk.fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.minutos", target = "minutos")
-    @Mapping(source = "src.tipo", target = "idTipoHora")
+    @Mapping(source = "src.tipo", target = "icmIdTpHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "pk.id", ignore = true)
     public abstract TareaLocalizacionPersonaPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia( 

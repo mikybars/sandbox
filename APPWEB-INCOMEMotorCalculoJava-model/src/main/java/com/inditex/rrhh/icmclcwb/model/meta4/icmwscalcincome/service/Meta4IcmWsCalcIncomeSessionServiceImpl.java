@@ -168,11 +168,11 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     }
     
     @Override
-    @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea, #idOrigen}")
-    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String idOrigen) {
+    @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
+    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen) {
         
         GenericFilterDto filter = new GenericFilterDto();
-        filter.setIdOrigen(idOrigen);
+        filter.setIdOrigen(cclIdOrigen);
         ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
         productoRequest.setData(filter);
         productoRequest.setPage(new PageDto());

@@ -51,15 +51,15 @@ public class TareaCalculo {
 
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-    private String idLocalizacion;
+    private String stdIdWorkLocat;
     
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-    private String idPersona;
+    private String cclIdPerson;
 
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
-    private String orPersona;
+    private String stdOrHrPeriod;
 
     @NotNull
     @OneToOne

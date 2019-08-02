@@ -21,18 +21,18 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaDto implements Seriali
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la tienda", required = true)
-    private Long idLocalizacion;
+    private Long stdIdWorkLocat;
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la persona", required = true)
-    private Long idPersona;
+    private Long cclIdPerson;
     
     @NotNull
     @ApiModelProperty(value = "Identificador del origen", required = true)
-    private Long idOrigen;
+    private Long cclIdOrigen;
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
-    private Long idEmpresa;
+    private Long stdIdLegEnt;
     
 }

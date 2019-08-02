@@ -21,6 +21,6 @@ public class ProgramacionAmbitoEmpresaDto implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "Id de la empresa", required = true, example = "8")
-    private String idEmpresa;
+    private String stdIdLegEnt;
 
 }

@@ -15,12 +15,12 @@ public interface TareaPersonaHistoricoRepositoryCustom {
     List<TareaPersonaHistorico> save(List<TareaPersonaHistorico> src);
 
     List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
-            @NotNull @Positive String idOrigen);
+            @NotNull @Positive String cclIdOrigen);
 
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
+            @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
 
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String idOrigen);
+            @NotBlank String cclIdOrigen);
 
 }

@@ -88,14 +88,14 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             final TareaDto tarea = runTarea.getTarea();
             CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
                     .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
-                            .origen(Integer.parseInt(tareaAmbito.getIdOrigen())).build());
+                            .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen())).build());
             AsyncUtils.exceptionally(cfData, cf);
             PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
             if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
                 AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
             } else {
                 log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
-                        .append(tareaAmbito.getIdOrigen()).toString());
+                        .append(tareaAmbito.getCclIdOrigen()).toString());
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
@@ -114,8 +114,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             List<IdTipoDatoDto> tiposDatoPresencia =
                 tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-                        tarea.getId(), tareaAmbito.getIdOrigen(),
+                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
+                        tarea.getId(), tareaAmbito.getCclIdOrigen(),
                         tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -161,8 +161,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
-                            tareaAmbito.getIdOrigen()),
+                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(tarea.getId(),
+                            tareaAmbito.getCclIdOrigen()),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
@@ -200,8 +200,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
         final TrabajoDto trabajo = runTarea.getTrabajo();
         final TareaDto tarea = runTarea.getTarea();
         for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(tarea.getId(),
-                        tareaAmbito.getIdOrigen()),
+                tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(tarea.getId(),
+                        tareaAmbito.getCclIdOrigen()),
                 presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getFilter()
                         .getMaxPageSize())) {
             List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -210,7 +210,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(trabajo, tarea,
                             tareaAmbito, iter);
 
-            request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getIdEmpresa())));
+            request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
             request.setAgrupacion(PtrGroupTypeEnum.PERSONA_TIENDA.getValue());
             CompletableFuture<PtrPresenciaEmpleadosTiendaResponseDto> cfData = ptrPresenciaAsyncService
                     .presenciasEmpleadosTienda(request);

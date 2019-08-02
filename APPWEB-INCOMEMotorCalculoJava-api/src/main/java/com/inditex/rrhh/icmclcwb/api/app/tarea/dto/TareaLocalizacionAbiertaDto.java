@@ -22,7 +22,7 @@ public class TareaLocalizacionAbiertaDto implements Serializable {
     
     @NotNull
     @ApiModelProperty(value = "Identificador de la localizacion", required = true)
-    private Long idLocalizacion;
+    private Long cclIdCodOrigen;
     
     @NotNull
     private Date fecha;

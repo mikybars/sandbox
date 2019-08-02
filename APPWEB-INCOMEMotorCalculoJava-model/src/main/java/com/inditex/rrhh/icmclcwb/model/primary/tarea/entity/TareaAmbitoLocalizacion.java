@@ -30,10 +30,10 @@ public class TareaAmbitoLocalizacion {
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false)
-    private String idLocalizacion;
+    private String stdIdWorkLocat;
 
 }

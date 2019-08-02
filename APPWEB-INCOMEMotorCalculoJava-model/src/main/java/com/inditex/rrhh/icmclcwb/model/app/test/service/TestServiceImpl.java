@@ -1,7 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
@@ -12,14 +13,19 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.apache.http.HttpStatus;
+import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
@@ -52,6 +58,12 @@ import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 @Validated
 public class TestServiceImpl implements TestService {
 
+    private static final String CONTROLLED_TIMEOUT = "Controlled timeout";
+    private static final String CODE = "Code";
+    private static final String EXCEPTION = "Exception";
+    private static final String OK = "OK";
+    private static final String KO = "KO";
+
     @Autowired
     private Logger log;
 
@@ -69,6 +81,10 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private RunProgramacionService runProgramacionService;
+
+    @Autowired
+    @Qualifier("ptrVentaClient")
+    private RestClient ptrVentaClient;
 
     @Autowired
     @Qualifier("meta4ClientPool")
@@ -165,6 +181,44 @@ public class TestServiceImpl implements TestService {
             runProgramacionService.run();
         }
     }
+    
+    @Override
+    public Boolean testUrl(@NotBlank String url) {
+        int code = HttpStatus.SC_OK;
+        try {
+            URL siteURL = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
+            connection.setRequestMethod(HttpMethod.POST.name());
+            connection.setConnectTimeout(30000);
+            connection.connect();
+            code = connection.getResponseCode();
+            
+            switch (code) {
+                case HttpStatus.SC_REQUEST_TIMEOUT:
+                case HttpStatus.SC_GATEWAY_TIMEOUT:
+                case 598:
+                case 524:
+                    log.error(new StringBuilder(url).append(": ")
+                            .append(KO).append(", ")
+                            .append(CONTROLLED_TIMEOUT).append(", ")
+                            .append(CODE).append(": ").append(code).toString());
+                    return Boolean.FALSE;
+            default:
+                break;
+            }
+            
+        } catch (Exception e) {
+            log.error(new StringBuilder(url).append(": ")
+                    .append(KO).append(", ")
+                    .append(EXCEPTION).append(": ").append(e).toString());
+            return Boolean.FALSE;
+        }
+        
+        log.info(new StringBuilder(url).append(": ")
+                .append(OK).append(", ")
+                .append(CODE).append(": ").append(code).toString());
+        return Boolean.TRUE;
+    }
 
     @Override
     public void trabajoFase1a() {
@@ -186,10 +240,10 @@ public class TestServiceImpl implements TestService {
                 trabajo.setFechaFinPeriodo(fechaFin);
                 trabajo.setIdOrganization(sociedad);
                 TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
-                trabajoAmbitoOrigenDto.setIdOrigen(origen);
+                trabajoAmbitoOrigenDto.setCclIdOrigen(origen);
                 trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
                 TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
-                trabajoAmbitoEmpresa.setIdEmpresa(empresa);
+                trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
                 trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
                 trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
                 trabajoService.create(trabajo);
@@ -241,27 +295,30 @@ public class TestServiceImpl implements TestService {
             trabajoService.create(trabajo);
         });
     }
+    
+    @Override
+    public String sqlFormatter(@NotBlank String sql) {
+        return new BasicFormatterImpl().format(StringUtils.normalizeSpace(StringUtils.trim(sql)));
+    }
 
     private void testSociedad(String sociedad, TrabajoDto trabajo) {
-        LocalDate fechaInicio = LocalDate.of(2015, 3, 1);
-        LocalDate fechaFin = LocalDate.of(2015, 3, 31);
         trabajo.setIcmIdPeriodo(1L);
-        trabajo.setFechaInicioPeriodo(fechaInicio);
-        trabajo.setFechaFinPeriodo(fechaFin);
+        trabajo.setFechaInicioPeriodo(LocalDate.of(2015, 3, 1));
+        trabajo.setFechaFinPeriodo(LocalDate.of(2015, 3, 31));
         trabajo.setIdOrganization(sociedad);
     }
 
     private void testOrigen(String sociedad, String origen, TrabajoDto trabajo) {
         testSociedad(sociedad, trabajo);
         TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
-        trabajoAmbitoOrigenDto.setIdOrigen(origen);
+        trabajoAmbitoOrigenDto.setCclIdOrigen(origen);
         trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
     }
 
     private void testEmpresa(String sociedad, String origen, String empresa, TrabajoDto trabajo) {
         testOrigen(sociedad, origen, trabajo);
         TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
-        trabajoAmbitoEmpresa.setIdEmpresa(empresa);
+        trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
         trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
     }
 
@@ -269,9 +326,9 @@ public class TestServiceImpl implements TestService {
             TrabajoDto trabajo) {
         testEmpresa(sociedad, origen, empresa, trabajo);
         TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDto();
-        trabajoAmbitoLocalizacion.setIdLocalizacion(localizacion);
-        trabajoAmbitoLocalizacion.setIdEmpresa(empresa);
-        trabajoAmbitoLocalizacion.setIdOrigen(origen);
+        trabajoAmbitoLocalizacion.setStdIdWorkLocat(localizacion);
+        trabajoAmbitoLocalizacion.setStdIdLegEnt(empresa);
+        trabajoAmbitoLocalizacion.setCclIdOrigen(origen);
         trabajo.setLocalizacion(Arrays.asList(trabajoAmbitoLocalizacion));
     }
 
@@ -279,10 +336,10 @@ public class TestServiceImpl implements TestService {
             String orPersona, TrabajoDto trabajo) {
         testEmpresa(sociedad, origen, empresa, trabajo);
         TrabajoAmbitoPersonaDto trabajoAmbitoPersona = new TrabajoAmbitoPersonaDto();
-        trabajoAmbitoPersona.setIdPersona(persona);
-        trabajoAmbitoPersona.setOrPersona(orPersona);
-        trabajoAmbitoPersona.setIdEmpresa(empresa);
-        trabajoAmbitoPersona.setIdOrigen(origen);
+        trabajoAmbitoPersona.setCclIdPerson(persona);
+        trabajoAmbitoPersona.setStdOrHrPeriod(orPersona);
+        trabajoAmbitoPersona.setStdIdLegEnt(empresa);
+        trabajoAmbitoPersona.setCclIdOrigen(origen);
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
     }
 

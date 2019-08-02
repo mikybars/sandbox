@@ -23,15 +23,15 @@ public class TareaPersonaCoeficienteDto implements Serializable {
     
     @NotBlank
     @ApiModelProperty(value = "Identificador de la persona local", required = true)
-    private String idPersonaLocal;
+    private String cclIdPerson;
     
     @NotBlank
     @ApiModelProperty(value = "Identificador de la persona", required = true)
-    private String idPersona;
+    private String stdIdHr;
     
     @NotBlank
     @ApiModelProperty(value = "Ordinal de la persona", required = true)
-    private String orPersona;
+    private String stdOrHrPeriod;
     
     @NotNull
     private Date fechaInicio;

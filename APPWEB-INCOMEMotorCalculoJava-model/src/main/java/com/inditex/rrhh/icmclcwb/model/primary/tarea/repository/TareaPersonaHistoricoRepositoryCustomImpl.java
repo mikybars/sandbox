@@ -57,59 +57,59 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setObject(2, entity.getFechaInicio());
         pstmt.setObject(3, entity.getFechaFinSeccion());
         pstmt.setObject(4, entity.getFechaInicioSeccion());
-        pstmt.setString(5, entity.getIdPersona());
-        pstmt.setString(6, entity.getIdPersonaLocal());
-        pstmt.setString(7, entity.getIdLocalizacion());
-        pstmt.setString(8, entity.getIdLocalizacionMeta4());
-        pstmt.setString(9, entity.getOrPersona());
-        pstmt.setString(10, entity.getIdEmpresa());
-        pstmt.setString(11, entity.getIdOrigen());
-        pstmt.setString(12, entity.getIdSeccion());
+        pstmt.setString(5, entity.getStdIdHr());
+        pstmt.setString(6, entity.getCclIdPerson());
+        pstmt.setString(7, entity.getCclIdCodOrigen());
+        pstmt.setString(8, entity.getStdIdWorkLocat());
+        pstmt.setString(9, entity.getStdOrHrPeriod());
+        pstmt.setString(10, entity.getStdIdLegEnt());
+        pstmt.setString(11, entity.getCclIdOrigen());
+        pstmt.setString(12, entity.getCclIdSeccion());
         pstmt.setLong(13, entity.getTarea().getId());        
     }
     
     @Override
-    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
+    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         return namedParameterJdbcTemplate.query(sqlFindIdPersonaByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaDto>() {
             public IdPersonaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdPersonaDto dto = new IdPersonaDto();
-                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+                dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
                 return dto;
             }
         });
     }
     
     @Override
-    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen) {
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaHistoricoDto>() {
             public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
-                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
-                dto.setOrPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+                dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+                dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                 return dto;
             }
         });
     }
     
     @Override
-    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String idOrigen,
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
             @NotNull final List<Integer> idsTipoDato) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN, idOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
         return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito, parameters, new RowMapper<IdPersonaHistoricoDto>() {
             public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
-                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
-                dto.setOrPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+                dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+                dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                 return dto;
             }
         });

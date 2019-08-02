@@ -15,20 +15,20 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
 
     List<TareaLocalizacionHistorico> save(List<TareaLocalizacionHistorico> src);
 
-    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String idOrigen);
+    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull @Positive Long idTarea,
+            @NotBlank String cclIdOrigen);
 
-    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
+    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
 
-    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String idOrigen);
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull @Positive Long idTarea,
+            @NotBlank String cclIdOrigen);
 
-    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull @Positive Long idTarea, @NotBlank String idOrigen, @NotNull List<Integer> idsTipoDato);
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
 
-    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen, Long idsVentaConcepto);
+    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen, Long idsVentaConcepto);
 
-    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String idOrigen);
+    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen);
 
 }

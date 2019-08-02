@@ -28,19 +28,20 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresencia {
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
     
+    //TODO: Modificar nombre columna a CCL_ID_COD_ORIGEN
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-    private String idLocalizacion;
+    private String stdIdWorkLocat;
 
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-    private String idPersona;
+    private String cclIdPerson;
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
     
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
-    private String idEmpresa;
+    private String stdIdLegEnt;
 }

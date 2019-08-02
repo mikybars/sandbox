@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.trabajo.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,12 +54,10 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                 OrigenRequestDto request = new OrigenRequestDto();
                 request.setData(new GenericFilterDto());
                 request.setPage(new PageDto());
-                request.getData().setFechaInicio(LocalDateTime.from(trabajo.getFechaInicioPeriodo()));
-                request.getData().setFechaFin(LocalDateTime.from(trabajo.getFechaFinPeriodo()));
                 request.getData().setItem(new ArrayList<>());
                 request.getData().getItem().add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization()).build());
                 List<OrigenResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getOrigen(request);
-                List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream().map(e-> TrabajoAmbitoOrigenDto.builder().idOrigen(e.getIdOrigen()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
+                List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream().map(e-> TrabajoAmbitoOrigenDto.builder().cclIdOrigen(e.getIdOrigen()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
                 runTrabajo.getTrabajo().setOrigen(trabajoAmbitoOrigen);
             }
             
@@ -68,12 +65,10 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                 EmpresaRequestDto request = new EmpresaRequestDto();
                 request.setData(new GenericFilterDto());
                 request.setPage(new PageDto());
-                request.getData().setFechaInicio(LocalDateTime.from(trabajo.getFechaInicioPeriodo()));
-                request.getData().setFechaFin(LocalDateTime.from(trabajo.getFechaFinPeriodo()));
                 request.getData().setItem(new ArrayList<>());
-                trabajo.getOrigen().stream().forEach(e -> request.getData().getItem().add(GenericFilterParametersDto.builder().idOrigenReg(e.getIdOrigen()).build()));
+                trabajo.getOrigen().stream().forEach(e -> request.getData().getItem().add(GenericFilterParametersDto.builder().idOrigenReg(e.getCclIdOrigen()).build()));
                 List<EmpresaResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getEmpresa(request);
-                List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa = origen.stream().map(e-> TrabajoAmbitoEmpresaDto.builder().idEmpresa(e.getIdEmpresa()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
+                List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa = origen.stream().map(e-> TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(e.getIdEmpresa()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
                 runTrabajo.getTrabajo().setEmpresa(trabajoAmbitoEmpresa);
             }
     

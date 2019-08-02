@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.programacion.dto;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -36,26 +35,26 @@ public class ProgramacionDto implements Serializable {
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppConstants.LOCAL_TIME_JSON)
     @ApiModelProperty(value = "Hora planificada de ejecución", required = true, dataType = "java.lang.String", example = "10:00")
-    private LocalTime hora;
+    private LocalTime horaProgramacion;
 
     @ApiModelProperty(value = "Huso horario de la hora planificada de ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "UTC")
-    private String huso;
+    private String programacionHuso;
 
     @NotNull
     @ApiModelProperty(value = "Si la planificación está [activada|desactivada]", required = true, example = "true")
     private Boolean activo;
 
     @ApiModelProperty(value = "Id del usuario que planificó la ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
-    private String idUsuario;
+    private String nombreUsuario;
 
     @ApiModelProperty(value = "Fecha en la que se creo la planificación", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     @ApiModelProperty(value = "Fecha de la ultima ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaUltimaEjecucion;
+    private LocalDateTime fechaHoraUltimaEjecucion;
 
     @ApiModelProperty(value = "Fecha de la siguiente ejecución", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaSiguienteEjecucion;
+    private LocalDateTime fechaHoraSiguienteEjecucion;
 
     @NotNull
     @ApiModelProperty(value = "Tipo Ambito", required = true, example = "1")

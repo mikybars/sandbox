@@ -18,6 +18,6 @@ public class IdPersonaDto implements Serializable {
     private static final long serialVersionUID = -2999803240189313755L;
 
     @NotBlank
-    private String idPersona;
+    private String stdIdHr;
 
 }

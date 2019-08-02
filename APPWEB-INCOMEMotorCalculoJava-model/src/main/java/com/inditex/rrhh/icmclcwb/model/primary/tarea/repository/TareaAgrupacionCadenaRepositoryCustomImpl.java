@@ -29,9 +29,9 @@ public class TareaAgrupacionCadenaRepositoryCustomImpl
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAgrupacionCadena entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setLong(2, entity.getIdAgrupacion());
-        pstmt.setString(3, entity.getIdCadena());
+        pstmt.setLong(2, entity.getIcmIdAgrupacionOnline());
+        pstmt.setString(3, entity.getCclIdCadena());
         pstmt.setBoolean(4, entity.getMultiple());
-        pstmt.setString(5, entity.getIdOrigen());
+        pstmt.setString(5, entity.getCclIdOrigen());
     }
 }

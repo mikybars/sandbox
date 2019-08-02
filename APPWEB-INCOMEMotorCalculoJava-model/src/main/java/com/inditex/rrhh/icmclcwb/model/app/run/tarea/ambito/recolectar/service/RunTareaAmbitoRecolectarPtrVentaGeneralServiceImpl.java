@@ -86,14 +86,14 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
             final TareaDto tarea = runTarea.getTarea();
             List<IdTipoDatoDto> idsTipoDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getIdOrigen(), idsTipoDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
+                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(tarea.getId(),
+                            tareaAmbito.getCclIdOrigen(), idsTipoDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
                     ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
                                 tareaAmbito, recolectarProperties);
                 request.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
-                request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
+                request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
@@ -122,12 +122,12 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(tarea.getId(),
-                tareaAmbito.getIdOrigen());
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
+                tareaAmbito.getCclIdOrigen());
             PtrVentaTotalizadoRequestDto request = tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
                     tareaAmbito, recolectarProperties, cadenas);
-            request.setEmpresa(Integer.valueOf(tarea.getIdEmpresa()));
+            request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
             CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService

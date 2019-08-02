@@ -22,19 +22,19 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "Id origen", required = true)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotBlank
     @ApiModelProperty(value = "Id de la persona", required = true)
-    private String idPersona;
+    private String stdIdHr;
 
     @NotBlank
     @ApiModelProperty(value = "Ordinal de la persona", required = true)
-    private String orPersona;
+    private String stdOrHrPeriod;
 
     @NotBlank
     @ApiModelProperty(value = "Id local de la persona", required = true)
-    private String idPersonaLocal;
+    private String cclIdPerson;
 
     @NotNull
     @ApiModelProperty(value = "Id estructura asociada a la politica", required = true)

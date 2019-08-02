@@ -34,11 +34,11 @@ public class PeriodoCalculoPersona {
 
     @NotNull
     @Column(name = "FECHA_HORA_CREACION", nullable = false)
-    private Date fechaCreacion;
+    private Date fechaHoraCreacion;
 
     @NotNull
     @Column(name = "FECHA_HORA_ACTUALIZACION", nullable = false)
-    private Date fechaActualizacion;
+    private Date fechaHoraActualizacion;
 
     @OneToOne
     @JoinColumn(name = "ID_ESTADO", nullable = false)

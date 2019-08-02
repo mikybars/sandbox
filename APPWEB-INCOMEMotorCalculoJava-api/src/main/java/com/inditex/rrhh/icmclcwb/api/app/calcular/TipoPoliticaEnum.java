@@ -26,7 +26,7 @@ public enum TipoPoliticaEnum {
 
     public static TipoPoliticaEnum fromId(Long id) {
         for (TipoPoliticaEnum tipo : TipoPoliticaEnum.values()) {
-            if (tipo.id == id) {
+            if (tipo.id.equals(id)) {
                 return tipo;
             }
         }

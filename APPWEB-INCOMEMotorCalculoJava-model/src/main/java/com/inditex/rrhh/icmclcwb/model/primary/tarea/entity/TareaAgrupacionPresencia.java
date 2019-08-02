@@ -39,15 +39,15 @@ public class TareaAgrupacionPresencia {
 
     @NotNull
     @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable  = false)
-    private Long idAgrupacion;
+    private Long icmIdAgrupacionOnline;
 
     @NotNull
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 4)
-    private String idSeccion;
+    private String cclIdSeccion;
 
     @NotNull
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
 
     @NotNull
     @Column(name = "MINUTOS", nullable = false)

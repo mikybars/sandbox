@@ -38,10 +38,10 @@ public abstract class TareaLocalizacionVentaMapper {
     
     @Mapping(target = "pk.id", ignore = true)
     @Mapping(source = "tarea.id", target = "tarea.id")
-    @Mapping(source = "tienda", target = "idLocalizacion")
-    @Mapping(source = "cadena", target = "idCadena")
+    @Mapping(source = "tienda", target = "cclIdCodOrigen")
+    @Mapping(source = "cadena", target = "cclIdCadena")
     @Mapping(source = "fecha", target = "pk.fecha", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(source = "idSeccion", target = "idSeccion")
+    @Mapping(source = "idSeccion", target = "cclIdSeccion")
     @Mapping(source = "importeSinIVA", target = "importeSinImpuestos")
     @Mapping(source = "importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "idTipoDato", target = "tipoDato.id")

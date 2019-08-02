@@ -60,18 +60,18 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
         return namedParameterJdbcTemplate.query(sqlFindByAlgoritmo, parameters, new RowMapper<TareaCalculoPersona>() {
             public TareaCalculoPersona mapRow(ResultSet rs, int rowNum) throws SQLException {
                 TareaCalculoPersona dto = new TareaCalculoPersona();
-                dto.setIdPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
-                dto.setOrPersona(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+                dto.setCclIdPerson(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
+                dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                 return dto;
             }
         });
     }
     
     @Override
-    public void updateWithEstadoAndidPersona(final List<String> idPersona, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado) {
+    public void updateWithEstadoAndidPersona(final List<String> cclIdPerson, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estado.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PERSONA, idPersona);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, cclIdPerson);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlUpdateWithEstado, parameters);
     }
@@ -112,9 +112,9 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     @Override
     public void setParameters(PreparedStatement pstmt, TareaCalculoPersona entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getIdOrigen());
-        pstmt.setString(3, entity.getIdPersona());
-        pstmt.setString(4, entity.getOrPersona());
+        pstmt.setString(2, entity.getCclIdOrigen());
+        pstmt.setString(3, entity.getCclIdPerson());
+        pstmt.setString(4, entity.getStdOrHrPeriod());
         pstmt.setLong(5, entity.getEstado().getId());
     }
 

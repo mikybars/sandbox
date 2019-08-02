@@ -30,7 +30,7 @@ public class TipoVentaConcepto {
     
     @NotBlank
     @Column(name = "ICM_ID_CONCEPTO_VENTA", length = 8, nullable = false)
-    private String codigo;
+    private String icmIdConceptoVenta;
 
     @NotNull
     @OneToOne

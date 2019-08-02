@@ -18,7 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.LocalizacionesAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEcommerceService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -46,8 +46,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-
-import lombok.Getter;
 
 @Service
 @Validated
@@ -92,9 +90,9 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
             Long idTarea = runTarea.getTarea().getId();
-            String idOrigen = tareaAmbito.getIdOrigen();
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(idTarea,
-                    idOrigen);
+            String cclIdOrigen = tareaAmbito.getCclIdOrigen();
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(idTarea,
+                    cclIdOrigen);
             if (CollectionUtils.isNotEmpty(cadenas)) {
        
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
@@ -103,7 +101,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                                 trabajo, tarea, tareaAmbito, recolectarProperties, cadenas);
                 paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
                 paramVentaOnlineEntregaDomicilio.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
-                paramVentaOnlineEntregaDomicilio.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                paramVentaOnlineEntregaDomicilio.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
     
                 CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
@@ -132,11 +130,17 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
-                    tarea.getId(), tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.ENTREGA_TIENDA.getId());
-            LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
-                    tareaAmbito);
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(
+                    tarea.getId(), tareaAmbito.getCclIdOrigen(), TipoVentaConceptoEnum.ENTREGA_TIENDA.getId());
+
+            LocalizacionesAmbitoDto localizaciones = new LocalizacionesAmbitoDto(runTarea.getTrabajo().getTipoAmbito().getId());
             
+            if(TipoAmbitoEnum.PERSONA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                      || TipoAmbitoEnum.LOCALIZACION.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
+                localizaciones.setLocalizaciones(tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
+                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen()));
+            }
+                        
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTienda = tareaMapper
@@ -147,7 +151,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineEntregaTienda.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineEntregaTienda.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                paramVentaOnlineEntregaTienda.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setTienda(localizaciones.getLocalizaciones());
 
                 CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = ptrVentaEcommerceAsyncService
@@ -178,11 +182,17 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
-                    tarea.getId(), tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.SINT.getId());
-            LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
-                    tareaAmbito);
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(
+                    tarea.getId(), tareaAmbito.getCclIdOrigen(), TipoVentaConceptoEnum.SINT.getId());
 
+            LocalizacionesAmbitoDto localizaciones = new LocalizacionesAmbitoDto(runTarea.getTrabajo().getTipoAmbito().getId());
+            
+            if(TipoAmbitoEnum.PERSONA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                      || TipoAmbitoEnum.LOCALIZACION.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
+                localizaciones.setLocalizaciones(tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
+                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen()));
+            }
+            
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = tareaMapper
@@ -192,7 +202,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlinePicking.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                paramVentaOnlinePicking.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setTienda(localizaciones.getLocalizaciones());
 
                 CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = ptrVentaEcommerceAsyncService
@@ -223,10 +233,15 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndIdOrigen(
-                    tarea.getId(), tareaAmbito.getIdOrigen(), TipoVentaConceptoEnum.IPOD.getId());
-            LocalizacionesAmbito localizaciones = findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(runTarea,
-                    tareaAmbito);
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(
+                    tarea.getId(), tareaAmbito.getCclIdOrigen(), TipoVentaConceptoEnum.IPOD.getId());
+            LocalizacionesAmbitoDto localizaciones = new LocalizacionesAmbitoDto(runTarea.getTrabajo().getTipoAmbito().getId());
+            
+            if(TipoAmbitoEnum.PERSONA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                      || TipoAmbitoEnum.LOCALIZACION.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
+                localizaciones.setLocalizaciones(tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
+                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen()));
+            }
             if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
                 PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea,
@@ -235,7 +250,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineIpod.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                paramVentaOnlineIpod.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setTienda(localizaciones.getLocalizaciones());
 
                 CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = ptrVentaEcommerceAsyncService
@@ -254,46 +269,6 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-    }
-
-    private LocalizacionesAmbito findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(RunTareaDto runTarea,
-            TareaAmbitoDto tareaAmbito) {
-        LocalizacionesAmbito result = new LocalizacionesAmbito(runTarea.getTrabajo().getTipoAmbito().getId());
-        if (result.obtenerLocalizaciones()) {
-            result.setLocalizaciones(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito(
-                            runTarea.getTarea().getId(), tareaAmbito.getIdOrigen()));
-        }
-        return result;
-    }
-
-    private class LocalizacionesAmbito {
-
-        @Getter
-        List<Integer> localizaciones = null;
-
-        Long idAmbito;
-
-        public LocalizacionesAmbito(Long idAmbito) {
-            this.idAmbito = idAmbito;
-        }
-
-        public void setLocalizaciones(List<IdLocalizacionLocalDto> ids) {
-            if (ids != null) {
-                localizaciones = ids.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf)
-                        .collect(Collectors.toList());
-            }
-        }
-
-        public boolean obtenerLocalizaciones() {
-            return TipoAmbitoEnum.PERSONA.getId().equals(idAmbito)
-                    || TipoAmbitoEnum.LOCALIZACION.getId().equals(idAmbito);
-        }
-
-        public boolean hasData() {
-            return !obtenerLocalizaciones() || CollectionUtils.isNotEmpty(localizaciones);
-        }
-
     }
 
 }

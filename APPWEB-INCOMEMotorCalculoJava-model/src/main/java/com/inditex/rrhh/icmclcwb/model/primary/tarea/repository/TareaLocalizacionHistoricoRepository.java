@@ -15,26 +15,26 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TareaLocalizacionHistoricoRepository extends BaseRepository<TareaLocalizacionHistorico, Long> {
 
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.idLocalizacionMeta4) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen GROUP BY tth.idLocalizacionMeta4")
-    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndIdOrigen(
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.stdIdWorkLocat) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:cclIdOrigen GROUP BY tth.stdIdWorkLocat")
+    List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigen(
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
-            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen);
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN) final String cclIdOrigen);
     
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.idLocalizacion) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen GROUP BY tth.idLocalizacion")
-    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigen(
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.cclIdCodOrigen) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:cclIdOrigen GROUP BY tth.cclIdCodOrigen")
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
-            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen);
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN) final String cclIdOrigen);
 
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.idLocalizacionMeta4) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen AND tth.idCadena IN (:idCadena) GROUP BY tth.idLocalizacionMeta4")
-    List<IdLocalizacionDto> findIdLocalizacionDtoByTareaAndIdOrigenAndCadenas(
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.stdIdWorkLocat) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:cclIdOrigen AND tth.cclIdCadena IN (:idCadena) GROUP BY tth.stdIdWorkLocat")
+    List<IdLocalizacionDto> findIdLocalizacionDtoByTareaAndCclIdOrigenAndCadenas(
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
-        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen,
+        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN) final String cclIdOrigen,
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_CADENA) final List<String> idsCadena);
 
-    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.idLocalizacion) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.idPaisOrigen=:idOrigen AND tth.idCadena IN (:idCadena) GROUP BY tth.idLocalizacion")
-    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByTareaAndIdOrigenAndCadenas(
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.cclIdCodOrigen) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:cclIdOrigen AND tth.cclIdCadena IN (:idCadena) GROUP BY tth.cclIdCodOrigen")
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByTareaAndCclIdOrigenAndCadenas(
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
-        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_ORIGEN) final String idOrigen,
+        @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN) final String cclIdOrigen,
         @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_CADENA) final List<String> idsCadena);
 
 }

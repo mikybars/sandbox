@@ -28,16 +28,16 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
     public void setParameters(PreparedStatement pstmt, TareaPersonaEstructura entity) throws SQLException {
         pstmt.setObject(1, entity.getFechaFin());
         pstmt.setObject(2, entity.getFechaInicio());
-        pstmt.setString(3, entity.getIdSeccionEfectiva());
-        pstmt.setString(4, entity.getIdSeccionEstructura());
-        pstmt.setString(5, entity.getIdPersona());
-        pstmt.setString(6, entity.getIdPersonaLocal());
-        pstmt.setString(7, entity.getIdEstructura());
-        pstmt.setString(8, entity.getIdTipoCalculo());
-        pstmt.setString(9, entity.getIdTipoComision());
-        pstmt.setString(10, entity.getOrPersona());
+        pstmt.setString(3, entity.getCclIdSeccionEfectiva());
+        pstmt.setString(4, entity.getCclIdSeccionEstructura());
+        pstmt.setString(5, entity.getStdIdHr());
+        pstmt.setString(6, entity.getCclIdPerson());
+        pstmt.setString(7, entity.getIcmIdEstrComision());
+        pstmt.setString(8, entity.getIcmIdTpCalculo());
+        pstmt.setString(9, entity.getIcmIdTpComision());
+        pstmt.setString(10, entity.getStdOrHrPeriod());
         pstmt.setBigDecimal(11, entity.getValor());
         pstmt.setLong(12, entity.getTarea().getId());
-        pstmt.setString(13, entity.getIdOrigen());
+        pstmt.setString(13, entity.getCclIdOrigen());
     }
 }

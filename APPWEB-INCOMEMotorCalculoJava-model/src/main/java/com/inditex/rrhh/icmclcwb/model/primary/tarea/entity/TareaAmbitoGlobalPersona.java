@@ -30,14 +30,14 @@ public class TareaAmbitoGlobalPersona {
 
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-    private String idPersona;
+    private String cclIdPerson;
 
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String idOrigen;
+    private String cclIdOrigen;
     
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
-    private String idEmpresa;
+    private String stdIdLegEnt;
     
 }
