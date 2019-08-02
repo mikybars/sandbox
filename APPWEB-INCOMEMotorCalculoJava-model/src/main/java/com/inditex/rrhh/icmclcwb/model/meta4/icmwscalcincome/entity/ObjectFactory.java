@@ -66,22 +66,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETEMPLEADOSResponse }
-     * 
-     */
-    public GETEMPLEADOSResponse createGETEMPLEADOSResponse() {
-        return new GETEMPLEADOSResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetempleadosOutput }
-     * 
-     */
-    public GetempleadosOutput createGetempleadosOutput() {
-        return new GetempleadosOutput();
-    }
-
-    /**
      * Create an instance of {@link GETTIENDASEMPLEADOResponse }
      * 
      */
@@ -95,6 +79,22 @@ public class ObjectFactory {
      */
     public GettiendasempleadoOutput createGettiendasempleadoOutput() {
         return new GettiendasempleadoOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETEMPLEADOSResponse }
+     * 
+     */
+    public GETEMPLEADOSResponse createGETEMPLEADOSResponse() {
+        return new GETEMPLEADOSResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetempleadosOutput }
+     * 
+     */
+    public GetempleadosOutput createGetempleadosOutput() {
+        return new GetempleadosOutput();
     }
 
     /**
@@ -186,19 +186,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASEMPLEADO }
-     * 
-     */
-    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
-        return new GETTIENDASEMPLEADO();
-    }
-
-    /**
      * Create an instance of {@link GETTIENDASINCOME }
      * 
      */
     public GETTIENDASINCOME createGETTIENDASINCOME() {
         return new GETTIENDASINCOME();
+    }
+
+    /**
+     * Create an instance of {@link GETTIENDASEMPLEADO }
+     * 
+     */
+    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
+        return new GETTIENDASEMPLEADO();
     }
 
     /**
@@ -234,22 +234,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SEARCHTIENDASResponse }
-     * 
-     */
-    public SEARCHTIENDASResponse createSEARCHTIENDASResponse() {
-        return new SEARCHTIENDASResponse();
-    }
-
-    /**
-     * Create an instance of {@link SearchtiendasOutput }
-     * 
-     */
-    public SearchtiendasOutput createSearchtiendasOutput() {
-        return new SearchtiendasOutput();
-    }
-
-    /**
      * Create an instance of {@link GETEMPLEADOSDESPLAZResponse }
      * 
      */
@@ -263,6 +247,22 @@ public class ObjectFactory {
      */
     public GetempleadosdesplazOutput createGetempleadosdesplazOutput() {
         return new GetempleadosdesplazOutput();
+    }
+
+    /**
+     * Create an instance of {@link SEARCHTIENDASResponse }
+     * 
+     */
+    public SEARCHTIENDASResponse createSEARCHTIENDASResponse() {
+        return new SEARCHTIENDASResponse();
+    }
+
+    /**
+     * Create an instance of {@link SearchtiendasOutput }
+     * 
+     */
+    public SearchtiendasOutput createSearchtiendasOutput() {
+        return new SearchtiendasOutput();
     }
 
     /**
@@ -770,19 +770,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmListaseccionesRecord }
-     * 
-     */
-    public IcmListaseccionesRecord createIcmListaseccionesRecord() {
-        return new IcmListaseccionesRecord();
-    }
-
-    /**
      * Create an instance of {@link IcmListaestrdesplRecord }
      * 
      */
     public IcmListaestrdesplRecord createIcmListaestrdesplRecord() {
         return new IcmListaestrdesplRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmListaseccionesRecord }
+     * 
+     */
+    public IcmListaseccionesRecord createIcmListaseccionesRecord() {
+        return new IcmListaseccionesRecord();
     }
 
     /**
