@@ -66,30 +66,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETEMPRESAS }
-     * 
-     */
-    public GETEMPRESAS createGETEMPRESAS() {
-        return new GETEMPRESAS();
-    }
-
-    /**
-     * Create an instance of {@link IcmParametrosentradaBlock }
-     * 
-     */
-    public IcmParametrosentradaBlock createIcmParametrosentradaBlock() {
-        return new IcmParametrosentradaBlock();
-    }
-
-    /**
-     * Create an instance of {@link IcmParametrospaginacionBlock }
-     * 
-     */
-    public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
-        return new IcmParametrospaginacionBlock();
-    }
-
-    /**
      * Create an instance of {@link GETEMPLEADOSResponse }
      * 
      */
@@ -119,6 +95,30 @@ public class ObjectFactory {
      */
     public GettiendasempleadoOutput createGettiendasempleadoOutput() {
         return new GettiendasempleadoOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETEMPRESAS }
+     * 
+     */
+    public GETEMPRESAS createGETEMPRESAS() {
+        return new GETEMPRESAS();
+    }
+
+    /**
+     * Create an instance of {@link IcmParametrosentradaBlock }
+     * 
+     */
+    public IcmParametrosentradaBlock createIcmParametrosentradaBlock() {
+        return new IcmParametrosentradaBlock();
+    }
+
+    /**
+     * Create an instance of {@link IcmParametrospaginacionBlock }
+     * 
+     */
+    public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
+        return new IcmParametrospaginacionBlock();
     }
 
     /**
@@ -186,19 +186,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASINCOME }
-     * 
-     */
-    public GETTIENDASINCOME createGETTIENDASINCOME() {
-        return new GETTIENDASINCOME();
-    }
-
-    /**
      * Create an instance of {@link GETTIENDASEMPLEADO }
      * 
      */
     public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
         return new GETTIENDASEMPLEADO();
+    }
+
+    /**
+     * Create an instance of {@link GETTIENDASINCOME }
+     * 
+     */
+    public GETTIENDASINCOME createGETTIENDASINCOME() {
+        return new GETTIENDASINCOME();
     }
 
     /**
@@ -234,14 +234,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETFESTIVOS }
-     * 
-     */
-    public GETFESTIVOS createGETFESTIVOS() {
-        return new GETFESTIVOS();
-    }
-
-    /**
      * Create an instance of {@link SEARCHTIENDASResponse }
      * 
      */
@@ -271,6 +263,14 @@ public class ObjectFactory {
      */
     public GetempleadosdesplazOutput createGetempleadosdesplazOutput() {
         return new GetempleadosdesplazOutput();
+    }
+
+    /**
+     * Create an instance of {@link GETFESTIVOS }
+     * 
+     */
+    public GETFESTIVOS createGETFESTIVOS() {
+        return new GETFESTIVOS();
     }
 
     /**
@@ -322,19 +322,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETORIGENESResponse }
+     * Create an instance of {@link GETCONFVENTAONLINE }
      * 
      */
-    public GETORIGENESResponse createGETORIGENESResponse() {
-        return new GETORIGENESResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetorigenesOutput }
-     * 
-     */
-    public GetorigenesOutput createGetorigenesOutput() {
-        return new GetorigenesOutput();
+    public GETCONFVENTAONLINE createGETCONFVENTAONLINE() {
+        return new GETCONFVENTAONLINE();
     }
 
     /**
@@ -354,11 +346,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETCONFVENTAONLINE }
+     * Create an instance of {@link GETORIGENESResponse }
      * 
      */
-    public GETCONFVENTAONLINE createGETCONFVENTAONLINE() {
-        return new GETCONFVENTAONLINE();
+    public GETORIGENESResponse createGETORIGENESResponse() {
+        return new GETORIGENESResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetorigenesOutput }
+     * 
+     */
+    public GetorigenesOutput createGetorigenesOutput() {
+        return new GetorigenesOutput();
     }
 
     /**
@@ -386,6 +386,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETEMPLEADOSPRESENCIA }
+     * 
+     */
+    public GETEMPLEADOSPRESENCIA createGETEMPLEADOSPRESENCIA() {
+        return new GETEMPLEADOSPRESENCIA();
+    }
+
+    /**
      * Create an instance of {@link GETESTRCOMISION }
      * 
      */
@@ -399,14 +407,6 @@ public class ObjectFactory {
      */
     public GETCONFPRODVENTA createGETCONFPRODVENTA() {
         return new GETCONFPRODVENTA();
-    }
-
-    /**
-     * Create an instance of {@link GETEMPLEADOSPRESENCIA }
-     * 
-     */
-    public GETEMPLEADOSPRESENCIA createGETEMPLEADOSPRESENCIA() {
-        return new GETEMPLEADOSPRESENCIA();
     }
 
     /**
