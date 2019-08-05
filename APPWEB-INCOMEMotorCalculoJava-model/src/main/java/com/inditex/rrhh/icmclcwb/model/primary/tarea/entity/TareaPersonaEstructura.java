@@ -27,7 +27,7 @@ public class TareaPersonaEstructura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA")
     private Long id;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
@@ -61,6 +61,10 @@ public class TareaPersonaEstructura {
     @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
     private String icmIdEstrComision;
 
+    //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
+//    @Column(name = "ORDINAL_ESTRUCTURA", nullable = true)
+    private Integer ordinalEstructura;
+
     @NotBlank
     @Column(name = "ICM_ID_TP_CALCULO", nullable = false, length = 48)
     private String icmIdTpCalculo;
@@ -82,5 +86,10 @@ public class TareaPersonaEstructura {
     @Column(name = "FECHA_FIN", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    
+
+    //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
+//    @NotNull
+//    @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
+    private Boolean desplazamiento;
+
 }

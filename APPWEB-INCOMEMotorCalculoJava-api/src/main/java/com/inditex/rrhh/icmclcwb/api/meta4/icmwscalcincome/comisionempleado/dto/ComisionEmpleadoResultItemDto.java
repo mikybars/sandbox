@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class ComisionEmpleadoResultItemDto implements Serializable {
 	
 	private static final long serialVersionUID = 3274625917501166727L;
@@ -43,6 +45,7 @@ public class ComisionEmpleadoResultItemDto implements Serializable {
     private String idEmpleadoLocal;
     private String idLugarTrabajoMtu;
     private String idOrigen;
+    private String desplazamiento;
     private List<ListaPorcentajesResultItemDto> icmListaPorcentajes;
-
+    private List<ListaEstructuraDesplazamientosResultItemDto> icmListaEstrDespl;
 }
