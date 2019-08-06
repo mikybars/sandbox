@@ -35,5 +35,6 @@ public class ListaEstructuraDesplazamientosResultItemDto implements Serializable
     private String idSeccionDestino;
     private String idTipoReqComision;
     private String idLugarTrabajoDestino;
+    private String idLugarTrabajoDestinoMtu;
     private List<ListaPorcentajesResultItemDto> listaPorcentajes;
 }

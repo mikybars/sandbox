@@ -70,7 +70,8 @@ public abstract class TareaPersonaEstructuraMapper {
 
     @Mapping(target = "idTipoOpcionCalculoEstructura", ignore = true)
     @Mapping(target = "idTipoOpcionCalculoEfectiva", ignore = true)
-    @Mapping(target = "cclIdCodOrigenDestino", source = "idLugarTrabajoDestino")
+    @Mapping(target = "stdIdWorkLocatDestino", source = "idLugarTrabajoDestino")
+    @Mapping(target = "cclIdCodOrigenDestino", source = "idLugarTrabajoDestinoMtu")
     @Mapping(target = "cclIdPuestoDestino", source = "idPuestoDestino")
     @Mapping(target = "cclIdSeccionDestino", source = "idSeccionDestino")
     @Mapping(target = "icmIdTpCalculo", source = "idTipoCalculo")
@@ -92,6 +93,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "cclIdPuestoDestino", source = "src.estructuraDesplazamiento.cclIdPuestoDestino")
     @Mapping(target = "cclIdSeccionDestino", source = "src.estructuraDesplazamiento.cclIdSeccionDestino")
     @Mapping(target = "cclIdCodOrigenDestino", source = "src.estructuraDesplazamiento.cclIdCodOrigenDestino")
+    @Mapping(target = "stdIdWorkLocatDestino", source = "src.estructuraDesplazamiento.stdIdWorkLocatDestino")
     @Mapping(target = "valor", source = "src.estructuraDesplazamiento.valor")
     @Mapping(target = "cclIdSeccionEfectiva", source = "src.estructuraDesplazamiento.cclIdSeccionEfectiva")
     @Mapping(target = "cclIdSeccionEstructura", source = "src.estructuraDesplazamiento.cclIdSeccionEstructura")

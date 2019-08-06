@@ -53,6 +53,10 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     private String cclIdCodOrigenDestino;
 
     @NotNull
+    @ApiModelProperty(value = "Lugar de trabajo del desitno del desplazamiento", required = true)
+    private String stdIdWorkLocatDestino;
+
+    @NotNull
     @ApiModelProperty(value = "valor asociado a la seccion", required = true)
     private String valor;
 

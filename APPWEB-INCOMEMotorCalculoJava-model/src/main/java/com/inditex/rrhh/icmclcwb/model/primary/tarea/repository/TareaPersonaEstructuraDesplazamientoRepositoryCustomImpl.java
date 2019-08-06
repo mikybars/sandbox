@@ -41,5 +41,6 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImpl
         pstmt.setBigDecimal(12, entity.getValor());
         pstmt.setString(13, entity.getCclIdSeccionEfectiva());
         pstmt.setString(14, entity.getCclIdSeccionEstructura());
+        pstmt.setString(15, entity.getStdIdWorkLocatDestino());
     }
 }

@@ -248,6 +248,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idSeccionDestino", source = "idsecciondestino")
     @Mapping(target = "idTipoReqComision", source = "idtiporeqcomision")
     @Mapping(target = "idLugarTrabajoDestino", source = "idlugartrabajodestino")
+    @Mapping(target = "idLugarTrabajoDestinoMtu", source = "idlugartrabajodestinomtu")
     @Mapping(target = "listaPorcentajes", source = "icmListaporcentajesdesp.icmListaporcentajesdespRecordSet")
     ListaEstructuraDesplazamientosResultItemDto asListaEstructuraDesplazamientosResultItemDto(IcmListaestrdesplRecord src);
 

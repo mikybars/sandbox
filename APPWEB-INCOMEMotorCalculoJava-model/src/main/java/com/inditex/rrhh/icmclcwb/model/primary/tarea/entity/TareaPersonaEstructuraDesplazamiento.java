@@ -80,6 +80,10 @@ public class TareaPersonaEstructuraDesplazamiento {
     @Column(name = "CCL_ID_COD_ORIGEN_DESTINO", nullable = false)
     private String cclIdCodOrigenDestino;
 
+    @NotBlank
+    @Column(name = "STD_ID_WORK_LOCAT_DESTINO", nullable = false, length = 48)
+    private String stdIdWorkLocatDestino;
+
     @NotNull
     @Column(name = "VALOR", nullable = false)
     private BigDecimal valor;
