@@ -190,6 +190,8 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         result.setCclIdSeccionEfectiva(seccionEfectiva.toString());
         result.setCclIdSeccionEstructura(seccion.toString());
         result.setValor(valor);
+        result.setHorasDestino(Meta4Constants.TRUE.equals(resultItemDto.getHorasDestino()));
+        result.setHorasOrigen(Meta4Constants.TRUE.equals(resultItemDto.getHorasOrigen()));
         return result;
     }
 

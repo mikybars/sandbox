@@ -63,7 +63,7 @@ public class TareaPersonaEstructura {
 
     //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
 //    @Column(name = "ORDINAL_ESTRUCTURA", nullable = true)
-    private Integer ordinalEstructura;
+//    private Integer ordinalEstructura;
 
     @NotBlank
     @Column(name = "ICM_ID_TP_CALCULO", nullable = false, length = 48)
@@ -90,6 +90,6 @@ public class TareaPersonaEstructura {
     //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
 //    @NotNull
 //    @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
-    private Boolean desplazamiento;
+//    private Boolean desplazamiento;
 
 }

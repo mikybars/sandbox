@@ -70,6 +70,8 @@ public abstract class TareaPersonaEstructuraMapper {
 
     @Mapping(target = "idTipoOpcionCalculoEstructura", ignore = true)
     @Mapping(target = "idTipoOpcionCalculoEfectiva", ignore = true)
+    @Mapping(target = "horasDestino", ignore = true)
+    @Mapping(target = "horasOrigen", ignore = true)
     @Mapping(target = "stdIdWorkLocatDestino", source = "idLugarTrabajoDestino")
     @Mapping(target = "cclIdCodOrigenDestino", source = "idLugarTrabajoDestinoMtu")
     @Mapping(target = "cclIdPuestoDestino", source = "idPuestoDestino")
@@ -97,6 +99,8 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "valor", source = "src.estructuraDesplazamiento.valor")
     @Mapping(target = "cclIdSeccionEfectiva", source = "src.estructuraDesplazamiento.cclIdSeccionEfectiva")
     @Mapping(target = "cclIdSeccionEstructura", source = "src.estructuraDesplazamiento.cclIdSeccionEstructura")
+    @Mapping(target = "horasOrigen", source = "src.estructuraDesplazamiento.horasOrigen")
+    @Mapping(target = "horasDestino", source = "src.estructuraDesplazamiento.horasDestino")
     public abstract TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(
         TareaPersonaEstructuraDto src);
 

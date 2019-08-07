@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,7 +22,7 @@ import java.util.Date;
 //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
 //@Entity
 //@Table(name = "TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
-@Data
+//@Data
 public class TareaPersonaEstructuraDesplazamiento {
 
     @Id
@@ -95,5 +94,13 @@ public class TareaPersonaEstructuraDesplazamiento {
     @NotNull
     @Column(name = "CCL_ID_SECCION_ESTRUCTURA", nullable = false)
     private String cclIdSeccionEstructura;
+
+    @NotNull
+    @Column(name = "ES_HORAS_ORIGEN", nullable = false)
+    private Boolean horasOrigen;
+
+    @NotNull
+    @Column(name = "ES_HORAS_DESTINO", nullable = false)
+    private Boolean horasDestino;
 
 }

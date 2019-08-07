@@ -67,4 +67,12 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Seccion de la estructura", required = true)
     private String cclIdSeccionEstructura;
+
+    @NotNull
+    @ApiModelProperty(value = "Incluir horas en origen", required = true)
+    private Boolean horasOrigen;
+
+    @NotNull
+    @ApiModelProperty(value = "Incluir horas en destino", required = true)
+    private Boolean horasDestino;
 }
