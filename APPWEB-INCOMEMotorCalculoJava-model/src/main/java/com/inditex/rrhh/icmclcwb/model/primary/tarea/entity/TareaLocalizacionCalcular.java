@@ -45,13 +45,13 @@ public class TareaLocalizacionCalcular {
     private Boolean calcula;
     
     @NotNull
-    @Column(name = "FECHA_HORA_INICIO_TAREA", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     
     @NotNull
-    @Column(name = "FECHA_HORA_FIN_TAREA", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaFin;
     
 
