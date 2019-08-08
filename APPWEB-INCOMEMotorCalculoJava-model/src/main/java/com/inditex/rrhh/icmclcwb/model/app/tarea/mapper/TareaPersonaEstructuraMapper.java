@@ -76,6 +76,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "cclIdCodOrigenDestino", source = "idLugarTrabajoDestinoMtu")
     @Mapping(target = "cclIdPuestoDestino", source = "idPuestoDestino")
     @Mapping(target = "cclIdSeccionDestino", source = "idSeccionDestino")
+    @Mapping(target = "icmIdTpReqCom", source = "idTipoReqComision")
     @Mapping(target = "icmIdTpCalculo", source = "idTipoCalculo")
     public abstract TareaPersonaEstructuraDesplazamientoDto listaEstructuraDesplazamientosResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(
         ListaEstructuraDesplazamientosResultItemDto src);
@@ -99,6 +100,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "valor", source = "src.estructuraDesplazamiento.valor")
     @Mapping(target = "cclIdSeccionEfectiva", source = "src.estructuraDesplazamiento.cclIdSeccionEfectiva")
     @Mapping(target = "cclIdSeccionEstructura", source = "src.estructuraDesplazamiento.cclIdSeccionEstructura")
+    @Mapping(target = "icmIdTpReqCom", source = "src.estructuraDesplazamiento.icmIdTpReqCom")
     @Mapping(target = "horasOrigen", source = "src.estructuraDesplazamiento.horasOrigen")
     @Mapping(target = "horasDestino", source = "src.estructuraDesplazamiento.horasDestino")
     public abstract TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(

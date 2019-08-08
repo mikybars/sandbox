@@ -44,5 +44,6 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImpl
         pstmt.setString(15, entity.getStdIdWorkLocatDestino());
         pstmt.setBoolean(16, entity.getHorasOrigen());
         pstmt.setBoolean(17, entity.getHorasDestino());
+        pstmt.setString(18, entity.getIcmIdTpReqCom());
     }
 }

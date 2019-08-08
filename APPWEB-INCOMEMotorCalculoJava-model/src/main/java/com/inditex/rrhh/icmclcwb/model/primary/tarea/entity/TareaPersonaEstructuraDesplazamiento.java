@@ -96,6 +96,10 @@ public class TareaPersonaEstructuraDesplazamiento {
     private String cclIdSeccionEstructura;
 
     @NotNull
+    @Column(name = "ICM_ID_TP_REQ_COM")
+    private String icmIdTpReqCom;
+
+    @NotNull
     @Column(name = "ES_HORAS_ORIGEN", nullable = false)
     private Boolean horasOrigen;
 

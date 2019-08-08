@@ -69,6 +69,10 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     private String cclIdSeccionEstructura;
 
     @NotNull
+    @ApiModelProperty(value = "Condiciones de la comision", required = true)
+    private String icmIdTpReqCom;
+
+    @NotNull
     @ApiModelProperty(value = "Incluir horas en origen", required = true)
     private Boolean horasOrigen;
 
