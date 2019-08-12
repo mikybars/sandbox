@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
 //@Entity
 //@Table(name = "TIPO_OPCION_CALCULO")
-//@Data
+@Data
 public class TipoOpcionCalculo {
 
     @Id

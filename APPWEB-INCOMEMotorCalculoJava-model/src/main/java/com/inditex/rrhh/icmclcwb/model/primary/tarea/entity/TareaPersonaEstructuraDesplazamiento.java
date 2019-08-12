@@ -22,7 +22,7 @@ import java.util.Date;
 //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
 //@Entity
 //@Table(name = "TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
-//@Data
+@Data
 public class TareaPersonaEstructuraDesplazamiento {
 
     @Id
