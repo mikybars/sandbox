@@ -24,6 +24,8 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     @Override
     public void compensar(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensar(runTareaDto);
+        tareaLocalizacionPresenciaRepositoryCustom.incluirMinutosDesplazamientoDestino(runTareaDto);
+        tareaLocalizacionPresenciaRepositoryCustom.incluirMinutosDesplazamientoOrigen(runTareaDto);
     }
 
     @Override
@@ -34,5 +36,7 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     @Override
     public void compensarEcommerce(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce(runTareaDto);
+        tareaLocalizacionPresenciaRepositoryCustom.incluirMinutosEcommerceDesplazamientoDestino(runTareaDto);
+        tareaLocalizacionPresenciaRepositoryCustom.incluirMinutosEcommerceDesplazamientoOrigen(runTareaDto);
     }
 }

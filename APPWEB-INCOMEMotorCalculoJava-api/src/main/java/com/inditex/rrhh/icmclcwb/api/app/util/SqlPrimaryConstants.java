@@ -15,6 +15,12 @@ public class SqlPrimaryConstants {
     
     public static final String SQL_PARAM_ACTIVO = "activo";
 
+    public static final String SQL_PARAM_HORAS_ORIGEN = "horasOrigen";
+
+    public static final String SQL_PARAM_HORAS_DESTINO = "horasDestino";
+
+    public static final String SQL_PARAM_DESPLAZAMIENTO = "desplazamiento";
+
     public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA = "tipoDatoLocalizacionPersonaPresencia";
 
     public static final String SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA = "tipoDatoPersonaPresencia";
