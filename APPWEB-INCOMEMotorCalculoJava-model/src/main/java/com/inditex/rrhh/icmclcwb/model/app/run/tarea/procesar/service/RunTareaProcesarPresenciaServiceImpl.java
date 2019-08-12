@@ -68,8 +68,33 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         tareaLocalizacionPersonaPresenciaService.compensar(runTarea);
     }
 
+    @Auditoria
     @Override
     public void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea) {
         tareaAgrupacionPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea.getTarea());
+    }
+
+    @Auditoria
+    @Override
+    public void incluirPresenciasDesplazamientoDestinoLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoDestino(runTarea);
+    }
+
+    @Auditoria
+    @Override
+    public void incluirPresenciasDesplazamientoOrigenLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoOrigen(runTarea);
+    }
+
+    @Auditoria
+    @Override
+    public void incluirPresenciasDesplazamientoDestinoLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoDestinoEcommerce(runTarea);
+    }
+
+    @Auditoria
+    @Override
+    public void incluirPresenciasDesplazamientoOrigenLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoOrigenEcommerce(runTarea);
     }
 }

@@ -64,7 +64,29 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-            
+
+            // incluir en la compensacion las horas de origen de desplazamiento (denominador y ecommerce)
+            CompletableFuture<Void> cfIncluirDestino = runTareaProcesarPresenciaAsyncService.incluirPresenciasDestinoDesplazamientoLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfIncluirDestino, cf);
+
+            CompletableFuture<Void> cfIncluirDestinoEcommerce = runTareaProcesarPresenciaAsyncService.incluirPresenciasDestinoDesplazamientoLocalizacionEcommerce(runTarea);
+            AsyncUtils.exceptionally(cfIncluirDestinoEcommerce, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
+            // incluir en la compensacion las horas de origen de desplazamiento (denominador y ecommerce)
+            CompletableFuture<Void> cfIncluirOrigen = runTareaProcesarPresenciaAsyncService.incluirPresenciasOrigenDesplazamientoLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfIncluirOrigen, cf);
+
+            CompletableFuture<Void> cfIncluirOrigenEcommerce = runTareaProcesarPresenciaAsyncService.incluirPresenciasOrigenDesplazamientoLocalizacionEcommerce(runTarea);
+            AsyncUtils.exceptionally(cfIncluirOrigenEcommerce, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
             //Actualizar flags de presencias totales con minutos a cero
             CompletableFuture<Void> cfUpdatePresenciasActivasVacio = runTareaProcesarPresenciaAsyncService
                     .updateActivoLocalizacionVacio(runTarea);

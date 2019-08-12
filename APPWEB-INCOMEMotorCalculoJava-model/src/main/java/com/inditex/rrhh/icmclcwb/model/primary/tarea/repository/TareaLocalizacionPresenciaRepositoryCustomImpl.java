@@ -46,11 +46,11 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
 
-    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.incluirMinutosDesplazamientoOrigen']}")
-    private String sqlIncluirMinutosDesplazamientoOrigen;
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.incluirPresenciasDesplazamientoOrigen']}")
+    private String sqlIncluirPresenciasDesplazamientoOrigen;
 
-    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.incluirMinutosDesplazamientoDestino']}")
-    private String sqlIncluirMinutosDesplazamientoDestino;
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.incluirPresenciasDesplazamientoDestino']}")
+    private String sqlIncluirPresenciasDesplazamientoDestino;
 
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
@@ -58,10 +58,10 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce']}")
     private String sqlCompensarEcommerce;
 
-    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.incluirMinutosEcommerceDesplazamientoOrigen']}")
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.incluirPresenciaDesplazamientoOrigenEcommerce']}")
     private String sqlIncluirMinutosEcommerceDesplazamientoOrigen;
 
-    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.incluirMinutosEcommerceDesplazamientoDestino']}")
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.incluirPresenciaDesplazamientoDestinoEcommerce']}")
     private String sqlIncluirMinutosEcommerceDesplazamientoDestino;
 
     @Autowired
@@ -112,25 +112,25 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     }
 
     @Override
-    public void incluirMinutosDesplazamientoOrigen(@NotNull RunTareaDto runTareaDto) {
+    public void incluirPresenciasDesplazamientoOrigen(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = getParametersCompensarExcluidoDenominador(runTareaDto);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        namedParameterJdbcTemplate.update(sqlIncluirMinutosDesplazamientoOrigen, parameters);
+        namedParameterJdbcTemplate.update(sqlIncluirPresenciasDesplazamientoOrigen, parameters);
     }
 
     @Override
-    public void incluirMinutosDesplazamientoDestino(@NotNull RunTareaDto runTareaDto) {
+    public void incluirPresenciasDesplazamientoDestino(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = getParametersCompensarExcluidoDenominador(runTareaDto);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        namedParameterJdbcTemplate.update(sqlIncluirMinutosDesplazamientoDestino, parameters);
+        namedParameterJdbcTemplate.update(sqlIncluirPresenciasDesplazamientoDestino, parameters);
     }
 
     @Override
-    public void incluirMinutosEcommerceDesplazamientoOrigen(@NotNull RunTareaDto runTareaDto) {
+    public void incluirPresenciaDesplazamientoOrigenEcommerce(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = getParametersCompensarIncluidoEcommerce(runTareaDto);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -139,7 +139,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     }
 
     @Override
-    public void incluirMinutosEcommerceDesplazamientoDestino(@NotNull RunTareaDto runTareaDto) {
+    public void incluirPresenciaDesplazamientoDestinoEcommerce(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = getParametersCompensarIncluidoEcommerce(runTareaDto);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

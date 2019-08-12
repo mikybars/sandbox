@@ -22,4 +22,12 @@ public interface RunTareaProcesarPresenciaService {
 
     void updateActivoLocalizacionPersonaPresenciaVacio(@Valid RunTareaDto runTarea);
 
+    void incluirPresenciasDesplazamientoDestinoLocalizacion(@Valid RunTareaDto runTarea);
+
+    void incluirPresenciasDesplazamientoOrigenLocalizacion(@Valid RunTareaDto runTarea);
+
+    void incluirPresenciasDesplazamientoDestinoLocalizacionEcommerce(@Valid RunTareaDto runTarea);
+
+    void incluirPresenciasDesplazamientoOrigenLocalizacionEcommerce(@Valid RunTareaDto runTarea);
+
 }

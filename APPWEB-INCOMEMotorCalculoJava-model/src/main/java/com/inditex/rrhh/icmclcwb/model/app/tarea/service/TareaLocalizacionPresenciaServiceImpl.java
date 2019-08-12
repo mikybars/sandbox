@@ -24,8 +24,16 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     @Override
     public void compensar(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensar(runTareaDto);
-        tareaLocalizacionPresenciaRepositoryCustom.incluirMinutosDesplazamientoDestino(runTareaDto);
-        tareaLocalizacionPresenciaRepositoryCustom.incluirMinutosDesplazamientoOrigen(runTareaDto);
+    }
+
+    @Override
+    public void incluirPresenciasDesplazamientoDestino(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciasDesplazamientoDestino(runTareaDto);
+    }
+
+    @Override
+    public void incluirPresenciasDesplazamientoOrigen(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciasDesplazamientoOrigen(runTareaDto);
     }
 
     @Override
@@ -36,7 +44,15 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     @Override
     public void compensarEcommerce(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce(runTareaDto);
-        tareaLocalizacionPresenciaRepositoryCustom.incluirMinutosEcommerceDesplazamientoDestino(runTareaDto);
-        tareaLocalizacionPresenciaRepositoryCustom.incluirMinutosEcommerceDesplazamientoOrigen(runTareaDto);
+    }
+
+    @Override
+    public void incluirPresenciasDesplazamientoDestinoEcommerce(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciaDesplazamientoDestinoEcommerce(runTareaDto);
+    }
+
+    @Override
+    public void incluirPresenciasDesplazamientoOrigenEcommerce(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciaDesplazamientoOrigenEcommerce(runTareaDto);
     }
 }
