@@ -34,7 +34,7 @@ app:
           #user: INCOME_CALC
           user: SRVCICMCLCWSPREAX
       login:
-        server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
+        server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
-        server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         
