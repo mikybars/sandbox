@@ -5,4 +5,4 @@ app:
 datagrid:
   replicas: 1
 amq:
-  force: true
+  force: false
