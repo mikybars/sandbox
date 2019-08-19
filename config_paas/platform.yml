@@ -13,7 +13,7 @@ app:
     http_private:
       enabled: true
 datagrid:
-  force: false
+  force: true
   application_cache:
     enabled: true
   session:
