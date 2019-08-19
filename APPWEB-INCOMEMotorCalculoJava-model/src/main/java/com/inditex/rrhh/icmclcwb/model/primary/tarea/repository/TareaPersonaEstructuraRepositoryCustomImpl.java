@@ -42,10 +42,11 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         pstmt.setString(13, entity.getCclIdOrigen());
         //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
 //        pstmt.setBoolean(14, entity.getDesplazamiento());
+//        pstmt.setBoolean(15, entity.getDesplazamientoBase());
 //        if (entity.getOrdinalEstructura() != null) {
-//            pstmt.setInt(15, entity.getOrdinalEstructura());
+//            pstmt.setInt(16, entity.getOrdinalEstructura());
 //        } else {
-//            pstmt.setNull(15, Types.INTEGER);
+//            pstmt.setNull(16, Types.INTEGER);
 //        }
     }
 

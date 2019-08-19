@@ -91,5 +91,9 @@ public class TareaPersonaEstructura {
 //    @NotNull
 //    @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
 //    private Boolean desplazamiento;
+//
+//    @NotNull
+//    @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
+//    private Boolean desplazamientoBase;
 
 }

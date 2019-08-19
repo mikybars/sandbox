@@ -79,6 +79,10 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Flag que indica si hay desplazamientos para el empleado", required = true)
     private Boolean desplazamiento;
 
+    @NotNull
+    @ApiModelProperty(value = "Flag que indica si es una estructura de desplazamiento, pero es la base", required = true)
+    private Boolean desplazamientoBase;
+
     @ApiModelProperty(value = "Estructura de desplazamiento", required = false)
     private TareaPersonaEstructuraDesplazamientoDto estructuraDesplazamiento;
 

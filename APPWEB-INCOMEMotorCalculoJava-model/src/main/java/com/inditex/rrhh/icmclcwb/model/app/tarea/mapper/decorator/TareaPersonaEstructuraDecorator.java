@@ -67,6 +67,7 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
                 result.addAll(createTareaEmpleadoSeccionEstructuraDtoList(comisionEmpleado, tarea, x));
                 if (CollectionUtils.isNotEmpty(desplazamientos)) {
                     result.addAll(createTareaEmpleadoSeccionEstructuraDtoList(comisionEmpleado, tarea, x, desplazamientos));
+                    result.forEach(item -> item.setDesplazamientoBase(item.getEstructuraDesplazamiento() == null));
                 }
             });
         }
@@ -135,6 +136,7 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         result.setCclIdSeccionEstructura(idSeccionEstructura);
         result.setValor(valor);
         result.setDesplazamiento(Meta4Constants.TRUE.equals(comisionEmpleado.getDesplazamiento()));
+        result.setDesplazamientoBase(false);
         return result;
     }
 

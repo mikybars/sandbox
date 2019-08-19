@@ -53,6 +53,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "cclIdSeccionEfectiva", ignore = true)
     @Mapping(target = "cclIdSeccionEstructura", ignore = true)
     @Mapping(target = "desplazamiento", ignore = true)
+    @Mapping(target = "desplazamientoBase", ignore = true)
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
     public abstract TareaPersonaEstructuraDto comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(
             final ComisionEmpleadoResultItemDto src, TareaDto tarea);
