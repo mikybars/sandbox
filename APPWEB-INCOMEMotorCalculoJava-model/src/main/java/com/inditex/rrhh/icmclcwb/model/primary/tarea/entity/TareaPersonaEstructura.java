@@ -61,9 +61,8 @@ public class TareaPersonaEstructura {
     @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
     private String icmIdEstrComision;
 
-    //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
-//    @Column(name = "ORDINAL_ESTRUCTURA", nullable = true)
-//    private Integer ordinalEstructura;
+    @Column(name = "ORDINAL_ESTRUCTURA", nullable = true)
+    private Integer ordinalEstructura;
 
     @NotBlank
     @Column(name = "ICM_ID_TP_CALCULO", nullable = false, length = 48)
@@ -87,13 +86,12 @@ public class TareaPersonaEstructura {
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
-    //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
-//    @NotNull
-//    @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
-//    private Boolean desplazamiento;
-//
-//    @NotNull
-//    @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
-//    private Boolean desplazamientoBase;
+    @NotNull
+    @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
+    private Boolean desplazamiento;
+
+    @NotNull
+    @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
+    private Boolean desplazamientoBase;
 
 }

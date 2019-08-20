@@ -33,31 +33,26 @@ public class DirectoVentaPresenciaPorcentajeDesplazamientoV1RunAlgoritmo impleme
 
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
-        log.warn("El algoritmo {} no está implementado", algoritmo);
-        // TODO COMENTARIO_DESPLAZAMIENTOS_ALGORITMOS descomentar este bloque para habilitar el algoritmo
-//        Flux.fromIterable(StreamUtils.partition(
-//            tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-//            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-//                log.info("Inicio :: DirectoVentaPresenciaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
-//                try {
-//                    tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
-//                        runTarea.getTarea(), personas);
-//                } catch (Exception e) {
-//                    log.error("DirectoVentaPresenciaPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-//                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-//                        EstadoTareaCalculoPersonaEnum.KO.getDto());
-//                }
-//                log.info("Fin :: DirectoVentaPresenciaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
-//                return Flux.empty();
-//        }).sequential().collectList().block();
+        Flux.fromIterable(StreamUtils.partition(
+            tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
+                log.info("Inicio :: DirectoVentaPresenciaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
+                        runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("DirectoVentaPresenciaPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                        EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: DirectoVentaPresenciaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                return Flux.empty();
+        }).sequential().collectList().block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        log.warn("El algoritmo {} no está implementado", algoritmo);
-        return "SIN IMPLEMENTAR";
-        // TODO COMENTARIO_DESPLAZAMIENTOS_ALGORITMOS descomentar este bloque para habilitar el algoritmo
-//        return tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }

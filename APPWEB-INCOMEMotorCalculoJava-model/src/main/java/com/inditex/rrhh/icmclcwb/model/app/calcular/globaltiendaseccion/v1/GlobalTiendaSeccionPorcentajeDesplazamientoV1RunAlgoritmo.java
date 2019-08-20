@@ -33,30 +33,25 @@ public class GlobalTiendaSeccionPorcentajeDesplazamientoV1RunAlgoritmo implement
 
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
-        log.warn("El algoritmo {} no está implementado", algoritmo);
-        // TODO COMENTARIO_DESPLAZAMIENTOS_ALGORITMOS descomentar este bloque para habilitar el algoritmo
-//        Flux.fromIterable(StreamUtils.partition(
-//            tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-//            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-//                log.info("Inicio :: GlobalTiendaSeccionPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
-//                try {
-//                    tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
-//                        runTarea.getTarea(), personas);
-//                } catch (Exception e) {
-//                    log.error("GlobalTiendaSeccionPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-//                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
-//                }
-//                log.info("Fin :: GlobalTiendaSeccionPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
-//                return Flux.empty();
-//        }).sequential().collectList().block();
+        Flux.fromIterable(StreamUtils.partition(
+            tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
+                log.info("Inicio :: GlobalTiendaSeccionPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
+                        runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("GlobalTiendaSeccionPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: GlobalTiendaSeccionPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                return Flux.empty();
+        }).sequential().collectList().block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        log.warn("El algoritmo {} no está implementado", algoritmo);
-        return "SIN IMPLEMENTAR";
-        // TODO COMENTARIO_DESPLAZAMIENTOS_ALGORITMOS descomentar este bloque para habilitar el algoritmo
-//        return tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }

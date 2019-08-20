@@ -35,9 +35,8 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
             tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
                 .tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructura)));
         // Guardado de desplazamientos
-        //TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
-//        tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(tareaPersonaEstructuraMapper
-//                .tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(tareaPersonaEstructura));
+        tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(tareaPersonaEstructuraMapper
+                .tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(tareaPersonaEstructura));
         return result;
     }
 

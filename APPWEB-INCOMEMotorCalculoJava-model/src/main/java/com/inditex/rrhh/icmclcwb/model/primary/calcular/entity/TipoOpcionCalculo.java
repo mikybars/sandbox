@@ -8,9 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-//TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
-//@Entity
-//@Table(name = "TIPO_OPCION_CALCULO")
+@Entity
+@Table(name = "TIPO_OPCION_CALCULO")
 @Data
 public class TipoOpcionCalculo {
 

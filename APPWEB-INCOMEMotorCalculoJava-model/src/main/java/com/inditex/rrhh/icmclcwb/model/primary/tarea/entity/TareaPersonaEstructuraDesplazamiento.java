@@ -19,9 +19,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 
-//TODO COMENTARIO_DESPLAZAMIENTO descomentar para continuar el desarrollo de desplazamientos
-//@Entity
-//@Table(name = "TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
+@Entity
+@Table(name = "TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
 @Data
 public class TareaPersonaEstructuraDesplazamiento {
 
