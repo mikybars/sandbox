@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaService;
@@ -26,75 +25,64 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     @Autowired
     private TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
 
-    @Auditoria
     @Override
     public void compensarLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.compensar(runTarea);
     }
-    
-    @Auditoria
+
     @Override
     public void totalizarLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.totalizar(runTarea);
     }
 
-    @Auditoria
     @Override
     public void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
     }
-      
-    @Auditoria
+
     @Override
     public void updateActivoLocalizacionVacio(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.updateActivoVacio(runTarea);
     }
-   
-    @Auditoria
+
     @Override
     public void updateActivoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.updateActivo(runTarea);
     }
-    
-    @Auditoria
+
     @Override
     public void updateActivoLocalizacionPersonaPresenciaVacio(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.updateActivoVacio(runTarea);
     }
 
-    @Auditoria
     @Override
     public void compensarLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.compensar(runTarea);
     }
 
-    @Auditoria
     @Override
     public void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea) {
         tareaAgrupacionPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea.getTarea());
     }
 
-    @Auditoria
     @Override
     public void incluirPresenciasDesplazamientoDestinoLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoDestino(runTarea);
     }
 
-    @Auditoria
     @Override
     public void incluirPresenciasDesplazamientoOrigenLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoOrigen(runTarea);
     }
 
-    @Auditoria
     @Override
     public void incluirPresenciasDesplazamientoDestinoLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoDestinoEcommerce(runTarea);
     }
 
-    @Auditoria
     @Override
     public void incluirPresenciasDesplazamientoOrigenLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoOrigenEcommerce(runTarea);
     }
+
 }
