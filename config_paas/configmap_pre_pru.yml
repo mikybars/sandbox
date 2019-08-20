@@ -13,7 +13,8 @@ amiga:
       datasource:
         primary:
           xa-properties:
-            serverName: axprudb22.central.inditex.grp
+            #serverName: axprudb22.central.inditex.grp
+            serverName: axdesdb22.central.inditex.grp
             portNumber: 50000
             databaseName: INDITEX
             currentSchema: GESTION_COMISION
