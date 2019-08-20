@@ -6,7 +6,7 @@ amiga:
           base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
           username: srvcicmclcwbpreAX
         ptr-presencia:
-          base-url: http://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
           username: srvcicmclcwbpreAX
   data:
     jdbc:
