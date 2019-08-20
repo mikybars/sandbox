@@ -4,11 +4,9 @@ amiga:
       client:
         ptr-venta:
           base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
-          #base-url: https://prepru-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
           username: srvcicmclcwbpreAX
         ptr-presencia:
           base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
-          #base-url: https://prepru-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
           username: srvcicmclcwbpreAX
   data:
     jdbc:
@@ -18,8 +16,7 @@ amiga:
             serverName: axprudb22.central.inditex.grp
             portNumber: 50000
             databaseName: INDITEX
-            currentSchema: INCOME
-            #currentSchema: GESTION_COMISION
+            currentSchema: GESTION_COMISION
             user: uincome
 app:
   envars:
@@ -33,8 +30,7 @@ app:
     meta4:
       config:
         credentials:
-          user: INCOME_CALC
-          #user: SRVCICMCLCWSPREAX
+          user: SRVCICMCLCWSPREAX
       login:
         server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:

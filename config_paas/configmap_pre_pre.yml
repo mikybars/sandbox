@@ -16,8 +16,7 @@ amiga:
             serverName: axpredb22.central.inditex.grp
             portNumber: 50000
             databaseName: INDITEX
-            currentSchema: INCOME
-            #currentSchema: GESTION_COMISION
+            currentSchema: GESTION_COMISION
             user: uincome
 app:
   envars:
@@ -31,8 +30,7 @@ app:
     meta4:
       config:
         credentials:
-          user: INCOME_CALC
-          #user: SRVCICMCLCWSPREAX
+          user: SRVCICMCLCWSPREAX
       login:
         server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
