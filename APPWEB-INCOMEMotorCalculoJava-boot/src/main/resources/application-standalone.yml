@@ -4,8 +4,8 @@ logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: INFO
-    com.atomikos: INFO
-    org.apache.activemq: INFO
+    com.atomikos: WARN
+    org.apache.activemq: WARN
     org.apache.cxf: WARN
 metadata:
   domain: core
@@ -27,11 +27,6 @@ amiga:
     core:
       is-production: false
     cache:
-      hotrod-client:
-        infinispan:
-          client:
-            hotrod:
-              protocol_version: 2.5
       remote:
         enabled: false
       embedded:
@@ -143,19 +138,28 @@ amiga:
         prop:
           default-isolation-level: 1
           max-pool-size: 10
-          query-timeout: 60s
+          query-timeout: 90s
+          borrow-connection-timeout: 300
       datasource:
         primary:
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
-            #[BBDD][ITX][DES][INICIO]
+            #[BBDD][ITX][DES][GESTION_COMISION][INICIO]
             serverName: axdesdb22.central.inditex.grp
             portNumber: 50000
             databaseName: INDITEX
-            currentSchema: DESARROLLO_RRHH
-            user: oincome
-            password: aMJLp8ahF09w
-            #[BBDD][ITX][DES][FIN]
+            currentSchema: GESTION_COMISION
+            user: uincome
+            password: pzuUKBm1ppMGzzOn
+            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
+            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
+#            serverName: axdesdb22.central.inditex.grp
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: DESARROLLO_RRHH
+#            user: oincome
+#            password: aMJLp8ahF09w
+            #[BBDD][ITX][DES][DESARROLLO_RRHH][FIN]
             #[BBDD][VECTOR][DES][INICIO]
 #            serverName: 10.202.10.178
 #            portNumber: 50000
