@@ -85,7 +85,8 @@ amiga:
         prop:
           default-isolation-level: 1
           max-pool-size: 10
-          query-timeout: 60s
+          query-timeout: 90s
+          borrow-connection-timeout: 300
       datasource:
         primary:
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
