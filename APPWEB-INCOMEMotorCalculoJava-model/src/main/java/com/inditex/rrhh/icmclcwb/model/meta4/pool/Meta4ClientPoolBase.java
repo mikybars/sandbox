@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.annotation.Retryable;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
+import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import stormpot.BlazePool;
@@ -48,12 +48,12 @@ public class Meta4ClientPoolBase {
                 logSession(poolable.getSession());
             } else {
                 log.error("Error :: Meta4ClientPoolBase :: pool.claim() :: null");
-                throw new Meta4Exception("Session caducada (Pool)");
+                throw new Meta4IcmclcwbException("Session caducada (Pool)");
             }
         } catch (PoolException | InterruptedException e) {
             String msg = "Error :: Meta4ClientPoolBase :: pool.claim()";
             log.error(msg);
-            throw new Meta4Exception(msg, e);
+            throw new Meta4IcmclcwbException(msg, e);
         }
         log.debug("Fin :: Meta4ClientPoolBase :: pool.claim()");
         return poolable;
@@ -63,10 +63,10 @@ public class Meta4ClientPoolBase {
         if (e.getClass().equals(SOAPFaultException.class) && e.getLocalizedMessage().contains("RET_ERROR_COMM")) {
             log.warn(EXPIRE_SESSION_MESSAGE_LOG, e);
             expire(client);
-            throw new Meta4Exception(EXPIRE_SESSION_MESSAGE_EXCEPTION, e);
+            throw new Meta4IcmclcwbException(EXPIRE_SESSION_MESSAGE_EXCEPTION, e);
         } else {
             log.error(ERROR_MESSAGE_LOG, e);
-            throw new Meta4Exception(ERROR_MESSAGE_EXCEPTION, e);
+            throw new Meta4IcmclcwbException(ERROR_MESSAGE_EXCEPTION, e);
         }
     }
 
