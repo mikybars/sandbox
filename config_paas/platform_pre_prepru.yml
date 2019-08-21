@@ -1,6 +1,6 @@
 app:
-  replicas: 1
+  replicas: 2
   instrumented:
     replicas: 0
 datagrid:
-  replicas: 1
+  replicas: 2
