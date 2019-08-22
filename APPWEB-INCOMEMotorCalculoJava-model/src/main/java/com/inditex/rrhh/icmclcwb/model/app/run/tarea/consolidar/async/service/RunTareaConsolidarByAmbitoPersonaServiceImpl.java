@@ -40,10 +40,6 @@ public class RunTareaConsolidarByAmbitoPersonaServiceImpl implements RunTareaCon
                     .mergePeriodoCalculoPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodoCalculoPersona, cf);
 
-            CompletableFuture<Void> cfPeriodoLocalizacion = runTareaConsolidarPeriodoAsyncService
-                    .mergePeriodoLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfPeriodoLocalizacion, cf);
-
             CompletableFuture<Void> cfPeriodoLocalizacionPersona = runTareaConsolidarPeriodoAsyncService
                     .mergePeriodoLocalizacionPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodoLocalizacionPersona, cf);
