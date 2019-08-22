@@ -22,7 +22,7 @@ public class TipoPolitica {
     private String nombre;
 
     @NotBlank
-    @Column(name = "ICM_ID_TP_POLITICA", nullable = false)
+    @Column(name = "ICM_ID_TP_POLITICAS", length = 24, nullable = false)
     private String icmIdTpPolitica;
 
 }
