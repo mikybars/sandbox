@@ -44,7 +44,7 @@ public class RunTareaServiceImpl implements RunTareaService {
     private RunTareaRecolectarValidarService runTareaRecolectarValidarService;
     
     @Autowired
-    private RunTareaRegularizarService runTareaPostProcesarService;
+    private RunTareaRegularizarService runTareaRegularizarService;
 
     @Auditoria
     @CounterMetric
@@ -57,7 +57,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             runTareaRecolectarValidarService.run(runTarea);
             runTareaProcesarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
-            runTareaPostProcesarService.run(runTarea);
+            runTareaRegularizarService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {
             tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
