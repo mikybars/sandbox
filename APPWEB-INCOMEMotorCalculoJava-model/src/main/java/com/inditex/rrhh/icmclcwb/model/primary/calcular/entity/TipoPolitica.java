@@ -18,11 +18,11 @@ public class TipoPolitica {
     private Long id;
 
     @NotBlank
-    @Column(name = "DESCRIPCION", length = /*TAMANO_DESC*/ 255, nullable = false)
-    private String descripcion;
+    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    private String nombre;
 
     @NotBlank
-    @Column(name = "CODIGO", nullable = false)
-    private String codigo;
+    @Column(name = "ICM_ID_TP_POLITICA", nullable = false)
+    private String icmIdTpPolitica;
 
 }
