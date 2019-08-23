@@ -25,7 +25,7 @@ public class PrimaryController {
     @Autowired
     private PrimaryService primaryService;
 
-    @GetMapping("/load/dml")
+    @GetMapping("/load/dml/{path}")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Carga el script DML")
     public @Valid Boolean loadDML(@PathVariable @Valid @NotBlank final String path) {
