@@ -131,11 +131,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .presenciaDetalleComisionablePersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
 
-            // Localizacion Persona
-            CompletableFuture<Void> cfPresenciasDetalleComisionableLocalizacionPersona = runTareaRecolectarPtrPresenciaAsyncService
-                    .presenciaDetalleComisionableLocalizacionPersonaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasDetalleComisionableLocalizacionPersona, cf, cfWait);
-
             // Coeficiente de reduccion de jornada
             CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .coefJornadaByRunTarea(runTarea);

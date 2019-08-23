@@ -29,13 +29,6 @@ public class RunTareaRecolectarPtrPresenciaAsyncServiceImpl implements RunTareaR
     }
 
     @Override
-    public CompletableFuture<Void> presenciaDetalleComisionableLocalizacionPersonaByRunTarea(
-            final RunTareaDto runTarea) {
-        tareaRecolectarPtrPresenciaService.presenciaDetalleComisionableLocalizacionPersonaByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
     public CompletableFuture<Void> presenciaEmpleadoTiendaByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarPtrPresenciaService.presenciaEmpleadoTiendaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
