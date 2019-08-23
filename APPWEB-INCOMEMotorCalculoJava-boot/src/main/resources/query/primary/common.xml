@@ -1371,7 +1371,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA  USING
 </entry>
 
 
-<entry key="TareaCalculoRepositoryRegularizarCustom.regularizarMejorOpcion">
+<entry key="TareaCalculoRepositoryCustom.regularizarMejorOpcion">
   <![CDATA[
   DELETE FROM TAREA_CALCULO WHERE ID_TAREA_CALCULO IN (
         SELECT TC.ID_TAREA_CALCULO FROM (

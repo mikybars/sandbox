@@ -13,13 +13,13 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
-public class TareaCalculoRepositoryRegularizarCustomImpl implements TareaCalculoRepositoryRegularizarCustom{
+public class TareaCalculoRepositoryCustomImpl implements TareaCalculoRepositoryCustom{
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['TareaCalculoRepositoryRegularizarCustom.regularizarMejorOpcion']}")
+    @Value("#{primaryQuery['TareaCalculoRepositoryCustom.regularizarMejorOpcion']}")
     private String sqlRegularizarMejorOpcion;
     
     @Override

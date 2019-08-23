@@ -8,17 +8,17 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.service.RunTareaRegularizarCalculoService;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryRegularizarCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
 @Service
 @Validated
 public class RunTareaRegularizarCalculoServiceImpl implements RunTareaRegularizarCalculoService {
 
     @Autowired
-    private TareaCalculoRepositoryRegularizarCustom tareaCalculoRepositoryRegularizarCustom;
+    private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
     
     @Override
     public void regularizarCalculoMejorOpcion(@Valid RunTareaDto runTarea) {
-        tareaCalculoRepositoryRegularizarCustom.regularizarMejorOpcion(runTarea.getTarea());
+        tareaCalculoRepositoryCustom.regularizarMejorOpcion(runTarea.getTarea());
     }
 }
