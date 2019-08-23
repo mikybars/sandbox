@@ -59,6 +59,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
             Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId()));
+        //TODO usar tiposDatoService en lugar del tipo dato a machete?
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
             Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
         List<IdTipoDatoDto> ids = tipoDatoService
