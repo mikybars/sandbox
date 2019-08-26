@@ -48,6 +48,8 @@ amiga:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
+      limpieza-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.limpieza-queue-${metadata.slot}
   data:
     jms:
       connection-factory:
