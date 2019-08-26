@@ -31,6 +31,11 @@ amiga:
           failureRateThreshold: 50
           ringBufferSizeInHalfOpenState: 10
           ringBufferSizeInClosedState: 100
+        limpieza:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
   service:
     jms:
       listener:
@@ -71,6 +76,12 @@ amiga:
           globalTransacted: true
           pubSubDomain: false
           receiveTimeout: 1000
+        limpieza:
+          concurrency: 1
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
@@ -78,6 +89,10 @@ amiga:
           sessionTransacted: true
         tarea:
           destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
+        limpieza:
+          destinationName: ${amiga.service.jms.limpieza-queue.destination-fqdn}
           pubSubDomain: false
           sessionTransacted: true
     jdbc:

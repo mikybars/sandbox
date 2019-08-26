@@ -931,6 +931,22 @@ MERGE INTO TAREA_LOCALIZACION_PRESENCIA AS TLP USING
     ]]>
 </entry>
 
+<entry key="TareaRepositoryCustom.sqlFindLimpieza">
+    <![CDATA[
+SELECT
+        T.ID_TAREA
+FROM TAREA T
+LEFT JOIN TAREA_CALCULO_PERSONA TCP
+ ON TCP.ID_TAREA = T.ID_TAREA
+-- Falta tabla donde tengamos las limpiezas ejecutadas
+-- para ignorar las tareas ya borradas
+WHERE TCP.ID_TAREA_CALCULO_PERSONA IS NULL
+AND T.ID_ESTADO_TAREA NOT IN (:idEstado)
+AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL
+AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
+    ]]>
+</entry>
+
 <entry key="TareaRepositoryCustom.updateEstadoFinal">
     <![CDATA[
    UPDATE TAREA SET ID_ESTADO_TAREA = (

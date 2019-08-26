@@ -1,11 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import javax.validation.constraints.NotNull;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -33,6 +39,9 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
 
     @Value("#{primaryQuery['TareaRepositoryCustom.updateEstadoFinal']}")
     private String sqlUpdateEstadoFinal;
+
+    @Value("#{primaryQuery['TareaRepositoryCustom.sqlFindLimpieza']}")
+    private String sqlFindLimpieza;
 
     @Override
     public void updateFechaFin(@NotNull final TareaDto tarea) {
@@ -64,9 +73,25 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaEnum.EN_CURSO.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ESTADO_SIN_ERRORES, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ESTADO_CON_ERRORES, EstadoTareaEnum.FINALIZADO_CON_ERRORES.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ESTADO_SIN_ERRORES,
+                EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ESTADO_CON_ERRORES,
+                EstadoTareaEnum.FINALIZADO_CON_ERRORES.getId());
         namedParameterJdbcTemplate.update(sqlUpdateEstadoFinal, params);
+    }
+
+    @Override
+    public List<IdTareaDto> findLimpieza() {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
+                Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
+        return namedParameterJdbcTemplate.query(sqlFindLimpieza, parameters, new RowMapper<IdTareaDto>() {
+            public IdTareaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                IdTareaDto dto = new IdTareaDto();
+                dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
+                return dto;
+            }
+        });
     }
 
 }

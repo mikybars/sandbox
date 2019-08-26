@@ -1,17 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.primary.limpieza.repository;
 
-import java.util.Arrays;
-import java.util.List;
-
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Repository
 public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
@@ -20,43 +17,12 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['LimpiezaRepositoryCustom.findMinId']}")
-    private String sqlCustomFindMinId;
+    @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tarea']}")
+    private String sqlLimpiezaTarea;
 
-    @Value("#{primaryQuery['LimpiezaRepositoryCustom.findIds']}")
-    private String sqlCheckFindIds;
 
     @Override
-    public Long findMinId() {
-        // TODO Tarea mínima que esté pendiente o en curso
-/*
--- Tarea mínima que esté pendiente o en curso
-SELECT MIN(T.ID_TAREA) FROM TAREA T WHERE T.ID_ESTADO_TAREA IN (1, 2) OR T.FECHA_HORA_INICIO_TAREA IS NULL OR T.FECHA_HORA_FIN_TAREA IS NULL;
--- Tarea máxima que no esté pendiente o en curso
-SELECT MAX(T.ID_TAREA) FROM TAREA T WHERE T.ID_ESTADO_TAREA NOT IN (1, 2) AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL AND T.FECHA_HORA_FIN_TAREA IS NOT NULL;
- */
-        return NumberUtils.LONG_ZERO;
-    }
-
-    @Override
-    public List<Long> findIds(@Positive @NotNull final Long id) {
-        // TODO Tarea que no tenga datos consolidados
-/*
--- Tarea que no tenga datos consolidados
-SELECT
-        T.ID_TAREA
-FROM TAREA T
-LEFT JOIN TAREA_CALCULO_PERSONA TCP
- ON TCP.ID_TAREA = T.ID_TAREA
--- Falta tabla donde tengamos las limpiezas ejecutadas
--- para ignorar las tareas ya borradas
-WHERE TCP.ID_TAREA_CALCULO_PERSONA IS NULL
- */
-        return Arrays.asList(NumberUtils.LONG_ZERO);
-    }
-
-    @Override
-    public void limpieza(@Positive @NotNull final Long id) {
+    public void limpieza(@NotNull @Valid final TareaDto tarea) {
         // TODO Se eliminan los datos intermedios de toda la tarea
 /*
 -- Se eliminan los datos intermedios de toda la tarea
@@ -91,8 +57,8 @@ DELETE FROM TAREA_TIPO_HORA WHERE ID_TAREA IN (4);
     }
 
     @Override
-    public void consolidar(@Positive @NotNull final Long id) {
-        // TODO Una vez se borre todo correctamente, se registra que la tarea ya ha sido limpiada y cuando TAREA_LIMPIEZA
+    public void consolidar(@NotNull @Valid final TareaDto tarea) {
+        // TODO Una vez se borre todo correctamente, se registra que la tarea ya ha sido limpiada
     }
 
 }
