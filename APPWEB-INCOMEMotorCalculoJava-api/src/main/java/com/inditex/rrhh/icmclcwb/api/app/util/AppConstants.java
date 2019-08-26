@@ -1,8 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.app.util;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoOpcionCalculoEnum;
-
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

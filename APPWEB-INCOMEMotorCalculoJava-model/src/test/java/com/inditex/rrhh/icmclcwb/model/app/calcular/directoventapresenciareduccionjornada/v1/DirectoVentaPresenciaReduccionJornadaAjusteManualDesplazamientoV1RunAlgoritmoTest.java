@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventapresenciareducc
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.directoventapresencia.v1.DirectoVentaPresenciaAjusteManualDesplazamientoV1RunAlgoritmo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

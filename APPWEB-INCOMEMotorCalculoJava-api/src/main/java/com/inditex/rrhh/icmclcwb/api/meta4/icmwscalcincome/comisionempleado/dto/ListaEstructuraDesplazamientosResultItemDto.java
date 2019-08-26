@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.programacion.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Before;
