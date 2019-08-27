@@ -40,7 +40,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Value("#{primaryQuery['TareaRepositoryCustom.updateEstadoFinal']}")
     private String sqlUpdateEstadoFinal;
 
-    @Value("#{primaryQuery['TareaRepositoryCustom.sqlFindLimpieza']}")
+    @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']}")
     private String sqlFindLimpieza;
 
     @Override
