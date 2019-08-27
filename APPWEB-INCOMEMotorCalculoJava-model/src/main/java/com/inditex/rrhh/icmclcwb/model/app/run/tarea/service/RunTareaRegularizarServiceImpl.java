@@ -33,9 +33,8 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            
-//            CompletableFuture<Void> cfPostProcesarCalculo = runTareaPostProcesarCalculoAsyncService.postProcesarCalculoMejorOpcion(runTarea);
-//            AsyncUtils.exceptionally(cfPostProcesarCalculo, cf);
+            CompletableFuture<Void> cfPostProcesarCalculo = runTareaRegularizarAsyncService.regularizarCalculoMejorOpcion(runTarea);
+            AsyncUtils.exceptionally(cfPostProcesarCalculo, cf);
             
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -87,4 +87,16 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoOrigenLocalizacionEcommerce(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Override
+    public CompletableFuture<Void> indicadorPresencia(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.indicadorPresencia(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> indicadorPresenciaDesplazamiento(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

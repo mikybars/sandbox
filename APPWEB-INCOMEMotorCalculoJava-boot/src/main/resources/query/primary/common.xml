@@ -1836,6 +1836,98 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
     ]]>
 </entry>
 
+<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia">
+    <![CDATA[
+        INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, ICM_ID_TP_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA)
+        SELECT INDICADOR.CCL_ID_COD_ORIGEN,
+                INDICADOR.CCL_ID_ORIGEN,
+                INDICADOR.CCL_ID_PERSON, 
+                INDICADOR.STD_ID_LEG_ENT,
+                INDICADOR.CCL_ID_SECCION,                               
+                INDICADOR.FECHA,
+                INDICADOR.MINUTOS,
+                INDICADOR.ICM_ID_TP_HORA,
+                :activo AS ES_ACTIVO,
+                :idTipoDatoIndicadorPresencia AS ID_TIPO_DATO,
+                INDICADOR.ID_TAREA,
+                INDICADOR.CCL_ID_CADENA FROM
+                  (
+                          SELECT  TLPP.CCL_ID_COD_ORIGEN,
+                                  TLPP.CCL_ID_ORIGEN,
+                                  TLPP.CCL_ID_PERSON, 
+                                  TLPP.STD_ID_LEG_ENT,
+                                  TLPP.CCL_ID_SECCION,                               
+                                  TLPP.FECHA,
+                                  TLPP.MINUTOS,
+                                  TLPP.ICM_ID_TP_HORA,
+                                  TLPP.ID_TAREA,
+                                  TLPP.CCL_ID_CADENA,
+                                  ROW_NUMBER() OVER (PARTITION BY 
+                                          TLPP.CCL_ID_PERSON,
+                                          TLPP.CCL_ID_COD_ORIGEN, 
+                                          TLPP.FECHA,
+                                          TLPP.CCL_ID_SECCION
+                                  ORDER BY TLPP.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA DESC ) AS ROW 
+                          FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA TLPP
+                          INNER JOIN TAREA_TIPO_HORA TTH
+                          ON TTH.ID_TAREA = TLPP.ID_TAREA
+                          AND TTH.ID_TIPO_HORA = TLPP.ICM_ID_TP_HORA
+                          WHERE TTH.ES_EXCLUIDO_CALCULO = :excluidoCalculo
+                          AND TLPP.ID_TAREA = :idTarea
+                  ) AS INDICADOR       
+          WHERE INDICADOR.ROW = 1
+    ]]>
+</entry>
+
+<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento">
+    <![CDATA[
+          INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, ICM_ID_TP_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA)
+          SELECT INDICADOR.CCL_ID_COD_ORIGEN,
+                  INDICADOR.CCL_ID_ORIGEN,
+                  INDICADOR.CCL_ID_PERSON, 
+                  INDICADOR.STD_ID_LEG_ENT,
+                  INDICADOR.CCL_ID_SECCION,                               
+                  INDICADOR.FECHA,
+                  INDICADOR.MINUTOS,
+                  INDICADOR.ICM_ID_TP_HORA,
+                  :activo AS ES_ACTIVO,
+                  :idTipoDatoIndicadorPresencia AS ID_TIPO_DATO,
+                  INDICADOR.ID_TAREA,
+                  INDICADOR.CCL_ID_CADENA FROM
+                    (
+                  SELECT  TLPP.CCL_ID_COD_ORIGEN,
+                          TLPP.CCL_ID_ORIGEN,
+                          TLPP.CCL_ID_PERSON, 
+                          TLPP.STD_ID_LEG_ENT,
+                          TLPP.CCL_ID_SECCION,   
+                          TLPP.FECHA,
+                          TLPP.MINUTOS,
+                          TLPP.ICM_ID_TP_HORA,   
+                          TLPP.ID_TAREA,
+                          TLPP.CCL_ID_CADENA,
+                          ROW_NUMBER() OVER (PARTITION BY 
+                                  TLPP.CCL_ID_PERSON,
+                                  TLPP.CCL_ID_COD_ORIGEN, 
+                                  TLPP.FECHA,
+                                  TLPP.CCL_ID_SECCION
+                          ORDER BY TLPP.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA DESC ) AS ROW 
+                  FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA TLPP
+                  INNER JOIN TAREA_TIPO_HORA TTH
+                  ON TTH.ID_TAREA = TLPP.ID_TAREA
+                  AND TTH.ID_TIPO_HORA = TLPP.ICM_ID_TP_HORA
+                  INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO TPED
+                  ON TPED.ID_TAREA = TLPP.ID_TAREA
+                  AND TPED.CCL_ID_COD_ORIGEN_DESTINO = TLPP.CCL_ID_COD_ORIGEN
+                  AND TLPP.FECHA >= TPED.FECHA_INICIO
+                  AND TLPP.FECHA <= TPED.FECHA_FIN
+                  WHERE TTH.ES_EXCLUIDO_CALCULO = :excluidoCalculo
+                  AND TLPP.ID_TAREA = :idTarea
+                    ) AS INDICADOR       
+          WHERE INDICADOR.ROW = 1    
+    ]]>
+</entry>
+
+
 <entry key="ProgramacionRepositoryCustom.reset">
 <![CDATA[UPDATE PROGRAMACION SET FECHA_HORA_SIGUIENTE_EJECUCION = :fechaSiguienteEjecucion WHERE ES_ACTIVO = :activo]]>
 </entry>

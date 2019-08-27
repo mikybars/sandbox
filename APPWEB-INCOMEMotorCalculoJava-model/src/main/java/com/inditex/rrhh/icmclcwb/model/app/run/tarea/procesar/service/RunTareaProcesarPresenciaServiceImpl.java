@@ -85,4 +85,14 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoOrigenEcommerce(runTarea);
     }
 
+    @Override
+    public void indicadorPresencia(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.indicadorPresencia(runTarea);
+    }
+    
+    @Override
+    public void indicadorPresenciaDesplazamiento(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
+    }
+    
 }

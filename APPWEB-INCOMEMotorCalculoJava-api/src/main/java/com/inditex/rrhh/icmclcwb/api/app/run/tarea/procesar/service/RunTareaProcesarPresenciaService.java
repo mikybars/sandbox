@@ -30,4 +30,8 @@ public interface RunTareaProcesarPresenciaService {
 
     void incluirPresenciasDesplazamientoOrigenLocalizacionEcommerce(@Valid RunTareaDto runTarea);
 
+    void indicadorPresencia(@Valid RunTareaDto runTarea);
+
+    void indicadorPresenciaDesplazamiento(@Valid RunTareaDto runTarea);
+
 }

@@ -50,9 +50,10 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     public void incluirPresenciasDesplazamientoDestinoEcommerce(@NotNull RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciaDesplazamientoDestinoEcommerce(runTareaDto);
     }
-
+ 
     @Override
     public void incluirPresenciasDesplazamientoOrigenEcommerce(@NotNull RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciaDesplazamientoOrigenEcommerce(runTareaDto);
     }
+
 }
