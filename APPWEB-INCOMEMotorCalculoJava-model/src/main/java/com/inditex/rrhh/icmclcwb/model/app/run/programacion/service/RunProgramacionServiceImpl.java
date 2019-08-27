@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
+import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionPeriodoDto;
@@ -43,6 +46,9 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Transactional
+    @Auditoria
+    @CounterMetric
+    @TimerMetric
     @Override
     public List<RunProgramacionDto> run() {
         List<RunProgramacionDto> result = new ArrayList<>();
