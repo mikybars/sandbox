@@ -24,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFi
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 
 @Service
@@ -63,8 +64,8 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
                 request.getData().getItem()
                         .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdOrgenization())
-                                .abierto(Boolean.TRUE.toString()).activo(Boolean.TRUE.toString())
-                                .vigente(Boolean.TRUE.toString()).build());
+                                .abierto(Meta4Constants.TRUE).activo(Meta4Constants.TRUE)
+                                .vigente(Meta4Constants.TRUE).build());
                 List<PeriodoDto> periodos = periodoMapper
                         .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
                 if (CollectionUtils.isNotEmpty(periodos)) {
