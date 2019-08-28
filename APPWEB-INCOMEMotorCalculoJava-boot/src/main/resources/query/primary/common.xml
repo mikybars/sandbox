@@ -1845,7 +1845,7 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
                 INDICADOR.STD_ID_LEG_ENT,
                 INDICADOR.CCL_ID_SECCION,                               
                 INDICADOR.FECHA,
-                INDICADOR.MINUTOS,
+                1 as MINUTOS,
                 INDICADOR.ICM_ID_TP_HORA,
                 :activo AS ES_ACTIVO,
                 :idTipoDatoIndicadorPresencia AS ID_TIPO_DATO,
@@ -1858,7 +1858,6 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
                                   TLPP.STD_ID_LEG_ENT,
                                   TLPP.CCL_ID_SECCION,                               
                                   TLPP.FECHA,
-                                  TLPP.MINUTOS,
                                   TLPP.ICM_ID_TP_HORA,
                                   TLPP.ID_TAREA,
                                   TLPP.CCL_ID_CADENA,
@@ -1872,6 +1871,13 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
                           INNER JOIN TAREA_TIPO_HORA TTH
                           ON TTH.ID_TAREA = TLPP.ID_TAREA
                           AND TTH.ID_TIPO_HORA = TLPP.ICM_ID_TP_HORA
+                          INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
+                          ON TPE.ID_TAREA = TLPP.ID_TAREA
+                          AND TPE.CCL_ID_PERSON = TLPP.CCL_ID_PERSON
+                          AND TPE.FECHA_INICIO <= TLPP.FECHA
+                          AND TPE.FECHA_FIN >= TLPP.FECHA                          
+                          AND TPE.CCL_ID_SECCION_EFECTIVA = TLPP.CCL_ID_SECCION
+                          AND TPE.ICM_ID_TP_CALCULO IN (:tiposCalculo)
                           WHERE TTH.ES_EXCLUIDO_CALCULO = :excluidoCalculo
                           AND TLPP.ID_TAREA = :idTarea
                   ) AS INDICADOR       
@@ -1888,7 +1894,7 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
                   INDICADOR.STD_ID_LEG_ENT,
                   INDICADOR.CCL_ID_SECCION,                               
                   INDICADOR.FECHA,
-                  INDICADOR.MINUTOS,
+                  1 as MINUTOS,
                   INDICADOR.ICM_ID_TP_HORA,
                   :activo AS ES_ACTIVO,
                   :idTipoDatoIndicadorPresencia AS ID_TIPO_DATO,
@@ -1901,7 +1907,6 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
                           TLPP.STD_ID_LEG_ENT,
                           TLPP.CCL_ID_SECCION,   
                           TLPP.FECHA,
-                          TLPP.MINUTOS,
                           TLPP.ICM_ID_TP_HORA,   
                           TLPP.ID_TAREA,
                           TLPP.CCL_ID_CADENA,
