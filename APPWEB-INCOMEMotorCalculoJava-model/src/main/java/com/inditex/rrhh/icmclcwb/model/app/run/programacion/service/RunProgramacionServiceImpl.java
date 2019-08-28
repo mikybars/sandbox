@@ -2,10 +2,12 @@ package com.inditex.rrhh.icmclcwb.model.app.run.programacion.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionPeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
@@ -25,6 +28,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoD
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 
 @Service
@@ -45,6 +49,10 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
 
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+    
+    @Autowired
+    @Qualifier("meta4Properties")
+    private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Transactional
     @Auditoria
@@ -62,6 +70,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                 request.setPage(new PageDto());
                 request.setData(new GenericFilterDto());
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+                request.setPage(meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
                 request.getData().getItem()
                         .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdOrgenization())
                                 .abierto(Meta4Constants.TRUE).activo(Meta4Constants.TRUE)
