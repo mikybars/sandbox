@@ -95,7 +95,7 @@ public class TareaPersonaEstructuraDesplazamiento {
     private String cclIdSeccionEstructura;
 
     @NotNull
-    @Column(name = "ICM_ID_TP_REQ_COM")
+    @Column(name = "ICM_ID_TP_REQ_COMISION")
     private String icmIdTpReqCom;
 
     @NotNull
