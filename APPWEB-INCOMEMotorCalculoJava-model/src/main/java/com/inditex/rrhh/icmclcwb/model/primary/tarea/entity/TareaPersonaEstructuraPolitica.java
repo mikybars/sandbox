@@ -48,7 +48,6 @@ public class TareaPersonaEstructuraPolitica {
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
 
-    //TODO: normalizar el nombre de esta columna (¿ICM_ID_ESTR_POLITICA?)
     @NotBlank
     @Column(name = "ICM_ID_ESTR_POLITICAS", nullable = false)
     private String idEstructuraPolitica;

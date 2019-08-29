@@ -135,7 +135,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
     @Override
     public void consolidar(@NotNull @Valid final TareaDto tarea) {
-        // TODO Una vez se borre todo correctamente, se registra que la tarea ya ha sido limpiada
+        // TODO [COMUN] Una vez se borre todo correctamente, se registra que la tarea ya ha sido limpiada
     }
 
 }

@@ -167,7 +167,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .updateActivoVentaOnlineEntregaDomicilioByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdateEntregaDomicilio, cf, cfWait);
 
-            // También de presencias TODO ¿agrupaciones?
+            // TODO [JESTEVEZ] También de presencias ¿agrupaciones?
             CompletableFuture<Void> cfUpdatePresencias = runTareaRecolectarPtrPresenciaAsyncService
                     .updateActivoPresenciaAgrupacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdatePresencias, cf, cfWait);

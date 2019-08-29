@@ -46,7 +46,6 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV
 
     @Override
     protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, TareaCalculoPersonaDto persona) {
-        //TODO: revisar parámetros de la consulta
         Map<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());

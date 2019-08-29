@@ -142,7 +142,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
             meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE).getFilter().getMaxPageSize());
     }
 
-    // TODO PoC
     @Override
     public List<TiendaOnlineResultItemDto> tiendaOnline(TiendaOnlineRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.TIENDAS_ONLINE,

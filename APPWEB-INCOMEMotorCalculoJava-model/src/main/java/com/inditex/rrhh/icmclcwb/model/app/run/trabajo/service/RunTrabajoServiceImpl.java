@@ -47,9 +47,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
     @Override
     public RunTrabajoDto run(@NotNull @Valid @TrabajoValidator final RunTrabajoDto runTrabajo) {
         try {
-
             final TrabajoDto trabajo = runTrabajo.getTrabajo();
-
             if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
                 OrigenRequestDto request = new OrigenRequestDto();
                 request.setData(new GenericFilterDto());
@@ -63,7 +61,6 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                         .collect(Collectors.toList());
                 runTrabajo.getTrabajo().setOrigen(trabajoAmbitoOrigen);
             }
-
             if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
                     || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
                 EmpresaRequestDto request = new EmpresaRequestDto();
@@ -78,13 +75,12 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                         .collect(Collectors.toList());
                 runTrabajo.getTrabajo().setEmpresa(trabajoAmbitoEmpresa);
             }
-
             runTrabajo.setTarea(tareaService.create(runTrabajo.getTrabajo()));
         } catch (Exception e) {
-            // TODO ESTADO
+            // TODO [COMUN] AGREGAR EL ESTADO EN EL TRABAJO
             throw e;
         } finally {
-            // TODO fecha fin
+            // TODO [COMUN] MODIFICAR LA FECHA DE FIN DEL TRABAJO
         }
         return runTrabajo;
     }

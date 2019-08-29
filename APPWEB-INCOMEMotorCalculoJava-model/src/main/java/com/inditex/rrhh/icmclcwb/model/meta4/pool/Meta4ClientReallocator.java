@@ -50,7 +50,7 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
                         meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
                         meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
                 if (StringUtils.isNotBlank(id)) {
-                    // TODO
+                    // TODO [DAVIDTSO] NO BORRAR
                     // List<String> setCookie =
                     // CxfUtils.getSetCookie(CxfUtils.getResponseHeaders(loginService));
                     // String jSessionID = CxfUtils.getJSessionID(setCookie);

@@ -37,7 +37,7 @@ public class Meta4ClientPoolable implements Poolable {
     }
 
     public LoginService getLoginService() {
-        // TODO
+        // TODO [DAVIDTSO] NO BORRAR
 //		CxfUtils.putRequestHeaders(session.getService().getLoginService(),
 //				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
 //		CxfUtils.putRequestHeaders(session.getService().getLoginService(),
@@ -48,7 +48,7 @@ public class Meta4ClientPoolable implements Poolable {
     }
 
     public IcmWsCalcIncomeService getIcmWsCalcIncomeService() {
-        // TODO
+        // TODO [DAVIDTSO] NO BORRAR
 //		CxfUtils.putRequestHeaders(session.getService().getIcmWsCalcIncomeService(),
 //				CxfUtils.mapJSessionID(session.getSession().getJSessionID()));
 //		CxfUtils.putRequestHeaders(session.getService().getIcmWsCalcIncomeService(),
