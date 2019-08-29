@@ -32,4 +32,18 @@ public class PrimaryController {
         return primaryService.loadDML(path);
     }
 
+    @GetMapping("/changelog/dml")
+    @PreAuthorize("hasAuthority('admin')")
+    @ApiOperation("Muestra el registro de cambios del dml")
+    public @Valid void changelogDML() {
+        // TODO
+    }
+
+    @GetMapping("/changelog/ddl")
+    @PreAuthorize("hasAuthority('admin')")
+    @ApiOperation("Muestra el registro de cambios del ddl")
+    public @Valid void changelogDDL() {
+        // TODO
+    }
+
 }
