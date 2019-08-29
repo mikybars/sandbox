@@ -79,8 +79,9 @@ public class TareaPersonaEstructuraDesplazamiento {
     @Column(name = "CCL_ID_COD_ORIGEN_DESTINO", nullable = false)
     private String cclIdCodOrigenDestino;
 
+    // TODO DBM ICM_ID_WLOC_DESTINO -> STD_ID_WORK_LOCAT_DESTINO (STD_WORK_LOCATION.STD_ID_WORK_LOCAT)
     @NotBlank
-    @Column(name = "STD_ID_WORK_LOCAT_DESTINO", nullable = false, length = 48)
+    @Column(name = "ICM_ID_WLOC_DESTINO", nullable = false, length = 48)
     private String stdIdWorkLocatDestino;
 
     @NotNull
