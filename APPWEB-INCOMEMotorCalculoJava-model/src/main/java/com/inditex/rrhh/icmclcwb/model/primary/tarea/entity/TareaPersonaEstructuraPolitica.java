@@ -50,10 +50,9 @@ public class TareaPersonaEstructuraPolitica {
 
     //TODO: normalizar el nombre de esta columna (¿ICM_ID_ESTR_POLITICA?)
     @NotBlank
-    @Column(name = "ID_ESTRUCTURA_POLITICA", nullable = false)
+    @Column(name = "ICM_ID_ESTR_POLITICAS", nullable = false)
     private String idEstructuraPolitica;
 
-    //TODO: normalizar el nombre de esta columna (¿ICM_ID_TP_POLITICA?)
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_POLITICA")
