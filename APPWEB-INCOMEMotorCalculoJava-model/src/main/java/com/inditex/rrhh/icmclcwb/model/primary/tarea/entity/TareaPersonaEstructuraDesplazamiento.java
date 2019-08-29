@@ -66,8 +66,9 @@ public class TareaPersonaEstructuraDesplazamiento {
     @Column(name = "ICM_ID_TP_CALCULO", nullable = false)
     private String icmIdTpCalculo;
 
+    // TODO DBM ICM_ID_PUESTO_DESTINO -> CCL_ID_PUESTO_DESTINO (STD_JOB.STD_ID_JOB_CODE)
     @NotNull
-    @Column(name = "CCL_ID_PUESTO_DESTINO", nullable = false)
+    @Column(name = "ICM_ID_PUESTO_DESTINO", nullable = false)
     private String cclIdPuestoDestino;
 
     @NotNull
