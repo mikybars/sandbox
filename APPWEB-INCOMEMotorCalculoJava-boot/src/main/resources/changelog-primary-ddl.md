@@ -1,14 +1,15 @@
 # Changelog changelog-primary-ddl.md
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+## [v1][2019-08-29]
 
-## [Unreleased]
-
-## [v1] - 2019-08-29
 ### Added
- - [DTENREIRO] CAMBIO
+
 ### Changed
+
+- [DAVIDTSO] TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO Nomenclatura campos
+> ICM_ID_WLOC_DESTINO → STD_ID_WORK_LOCAT_DESTINO (META4: STD_WORK_LOCATION.STD_ID_WORK_LOCAT)
+
+- [DAVIDTSO] TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO Nomenclatura campos
+> ICM_ID_PUESTO_DESTINO → CCL_ID_PUESTO_DESTINO (STD_JOB.STD_ID_JOB_CODE)
 
 ### Removed
