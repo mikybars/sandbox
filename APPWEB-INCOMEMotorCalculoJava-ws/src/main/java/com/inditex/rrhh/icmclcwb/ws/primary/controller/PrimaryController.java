@@ -2,7 +2,10 @@ package com.inditex.rrhh.icmclcwb.ws.primary.controller;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,15 +38,15 @@ public class PrimaryController {
     @GetMapping("/changelog/dml")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Muestra el registro de cambios del dml")
-    public @Valid void changelogDML() {
-        // TODO
+    public @NotNull Resource changelogDML() {
+        return primaryService.changelogDML();
     }
 
     @GetMapping("/changelog/ddl")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Muestra el registro de cambios del ddl")
-    public @Valid void changelogDDL() {
-        // TODO
+    public @NotNull Resource changelogDDL() {
+        return primaryService.changelogDDL();
     }
 
 }
