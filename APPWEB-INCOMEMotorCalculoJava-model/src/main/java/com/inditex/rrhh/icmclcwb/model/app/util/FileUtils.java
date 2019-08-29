@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
+import java.io.IOException;
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternUtils;
@@ -17,6 +19,15 @@ public class FileUtils {
         Resource resource = ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
                 .getResource("classpath:" + path);
         if (!resource.exists()) {
+            throw new IcmclcwbException("No existe el path " + path);
+        }
+        return resource;
+    }
+
+    public static Resource[] getResources(ResourceLoader resourceLoader, String path) throws IOException {
+        Resource[] resource = ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
+                .getResources("classpath:" + path);
+        if (resource.length == 0) {
             throw new IcmclcwbException("No existe el path " + path);
         }
         return resource;

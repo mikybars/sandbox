@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +16,9 @@ public class PrimaryRepositoryCustomImpl implements PrimaryRepositoryCustom {
     private DataSource dataSource;
 
     @Override
-    public Boolean load(List<Resource> resource) {
+    public Boolean load(Resource... resource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-        resource.forEach(item -> resourceDatabasePopulator.addScripts(item));
+        resourceDatabasePopulator.addScripts(resource);
         resourceDatabasePopulator.execute(dataSource);
         return Boolean.TRUE;
     }

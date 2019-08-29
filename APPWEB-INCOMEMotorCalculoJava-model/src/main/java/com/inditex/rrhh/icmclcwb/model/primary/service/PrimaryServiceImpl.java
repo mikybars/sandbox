@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.service;
 
-import java.util.Arrays;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -37,7 +35,7 @@ public class PrimaryServiceImpl implements PrimaryService {
         Resource resource = FileUtils.getResource(resourceLoader, path);
         log.info("Fin carga path {}", path);
         log.info("Inicio load path {}", path);
-        result = primaryRepositoryCustom.load(Arrays.asList(resource));
+        result = primaryRepositoryCustom.load(resource);
         log.info("Fin load path {} con resultado {}", path, result);
         return result;
     }
