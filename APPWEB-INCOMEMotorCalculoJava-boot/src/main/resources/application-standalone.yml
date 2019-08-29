@@ -4,8 +4,8 @@ logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: INFO
-    com.atomikos: INFO
-    org.apache.activemq: INFO
+    com.atomikos: WARN
+    org.apache.activemq: WARN
     org.apache.cxf: WARN
 metadata:
   domain: core
@@ -27,11 +27,6 @@ amiga:
     core:
       is-production: false
     cache:
-      hotrod-client:
-        infinispan:
-          client:
-            hotrod:
-              protocol_version: 2.5
       remote:
         enabled: false
       embedded:
@@ -79,6 +74,11 @@ amiga:
           failureRateThreshold: 50
           ringBufferSizeInHalfOpenState: 10
           ringBufferSizeInClosedState: 100
+        limpieza:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
   service:
     jms:
       listener:
@@ -91,6 +91,8 @@ amiga:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
+      limpieza-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.limpieza-queue-${metadata.slot}
     session:
       session-type: EMBEDDED
     aaa:
@@ -129,6 +131,12 @@ amiga:
           globalTransacted: true
           pubSubDomain: false
           receiveTimeout: 1000
+        limpieza:
+          concurrency: 1
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
@@ -138,24 +146,37 @@ amiga:
           destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
           pubSubDomain: false
           sessionTransacted: true
+        limpieza:
+          destinationName: ${amiga.service.jms.limpieza-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
     jdbc:
       configuration:
         prop:
           default-isolation-level: 1
           max-pool-size: 10
-          query-timeout: 60s
+          query-timeout: 90s
+          borrow-connection-timeout: 300
       datasource:
         primary:
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
-            #[BBDD][ITX][DES][INICIO]
+            #[BBDD][ITX][DES][GESTION_COMISION][INICIO]
+#            serverName: axdesdb22.central.inditex.grp
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: GESTION_COMISION
+#            user: uincome
+#            password: pzuUKBm1ppMGzzOn
+            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
+            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
             serverName: axdesdb22.central.inditex.grp
             portNumber: 50000
             databaseName: INDITEX
             currentSchema: DESARROLLO_RRHH
             user: oincome
             password: aMJLp8ahF09w
-            #[BBDD][ITX][DES][FIN]
+            #[BBDD][ITX][DES][DESARROLLO_RRHH][FIN]
             #[BBDD][VECTOR][DES][INICIO]
 #            serverName: 10.202.10.178
 #            portNumber: 50000

@@ -1,0 +1,24 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.regularizar.async.service;
+
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.async.service.RunTareaRegularizarCalculoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.service.RunTareaRegularizarCalculoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+
+@Service
+public class RunTareaRegularizarCalculoAsyncServiceImpl implements RunTareaRegularizarCalculoAsyncService {
+
+    @Autowired
+    private RunTareaRegularizarCalculoService runTareaRegularizarService;
+    
+    @Override
+    public CompletableFuture<Void> regularizarCalculoMejorOpcion(RunTareaDto runTarea) {
+        runTareaRegularizarService.regularizarCalculoMejorOpcion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+}

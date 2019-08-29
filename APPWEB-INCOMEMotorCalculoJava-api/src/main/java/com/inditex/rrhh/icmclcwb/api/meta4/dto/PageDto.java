@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
+import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,7 +51,7 @@ public class PageDto implements Serializable {
         if (hasNext()) {
             setNumeroPagina(Integer.valueOf(numeroPagina.intValue() + 1));
         } else {
-            throw new Meta4Exception("Error en la paginacion");
+            throw new Meta4IcmclcwbException("Error en la paginacion");
         }
         return this;
     }

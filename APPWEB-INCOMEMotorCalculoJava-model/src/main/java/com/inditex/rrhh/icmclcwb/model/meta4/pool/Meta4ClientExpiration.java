@@ -3,6 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
+
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import stormpot.Expiration;
 import stormpot.SlotInfo;
@@ -17,13 +20,14 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
         boolean login = false;
         String session = StringUtils.EMPTY;
         try {
-            // TODO Podriamos verificar solo cada cierto tiempo
             Meta4ClientPoolable poolable = info.getPoolable();
             session = poolable.getSession().getId();
             login = poolable.getSession().isLogin();
-            if (StringUtils.isNotBlank(session)) {
-                int retrieveM4SessionLogin = poolable.getLoginService().retrieveM4Session(session);
-                int retrieveM4SessionIcmWsCalcIncome = poolable.getIcmWsCalcIncomeService().retrieveM4Session(session);
+            LoginService loginService = poolable.getLoginService();
+            IcmWsCalcIncomeService icmWsCalcIncomeService = poolable.getIcmWsCalcIncomeService();
+            if (login && StringUtils.isNotBlank(session) && loginService != null && icmWsCalcIncomeService != null) {
+                int retrieveM4SessionLogin = loginService.retrieveM4Session(session);
+                int retrieveM4SessionIcmWsCalcIncome = icmWsCalcIncomeService.retrieveM4Session(session);
                 if (retrieveM4SessionLogin == 0 && retrieveM4SessionIcmWsCalcIncome == 0) {
                     expired = false;
                 }

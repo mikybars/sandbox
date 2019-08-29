@@ -1,8 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.exception;
 
-import com.inditex.aqsw.framework.common.core.exception.ApplicationException;
-
-public class ReflectionIcmclcwbException extends ApplicationException {
+public class ReflectionIcmclcwbException extends IcmclcwbException {
 
     private static final long serialVersionUID = 2713608924411606103L;
 

@@ -4,5 +4,3 @@ app:
     replicas: 1
 datagrid:
   replicas: 2
-amq:
-  force: true

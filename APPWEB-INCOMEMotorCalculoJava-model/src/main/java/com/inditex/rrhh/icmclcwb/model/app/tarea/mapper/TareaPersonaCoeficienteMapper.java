@@ -31,19 +31,19 @@ public abstract class TareaPersonaCoeficienteMapper {
 
     public abstract List<TareaPersonaCoeficiente> tareaPersonaCoeficienteDtoToPersonaCoeficiente(
             List<TareaPersonaCoeficienteDto> src);
-    
+
     @Mapping(source = "src.idEmpleado", target = "stdIdHr")
     @Mapping(source = "src.orEmpleado", target = "stdOrHrPeriod")
     @Mapping(source = "src.idEmpleadoLocal", target = "cclIdPerson")
+    // TODO [MDELRIO] Meter esto cuando se pueda
 //    @Mapping(source = "src.fechaInicioCom", target = "fechaInicio")
 //    @Mapping(source = "src.fechaFinCom", target = "fechaFin")
-    //TODO: Meter esto cuando se pueda
     @Mapping(source = "src.fechaInicioPar", target = "fechaInicio")
     @Mapping(source = "src.fechaFinPar", target = "fechaFin")
     @Mapping(source = "src.coefJornada", target = "coeficiente")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    public abstract TareaPersonaCoeficiente genericEmpleadoResultItemDtoToTareaPersonaCoeficiente( 
+    public abstract TareaPersonaCoeficiente genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(
             GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
     public List<TareaPersonaCoeficiente> genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(

@@ -21,4 +21,8 @@ public interface TareaLocalizacionPersonaPresenciaService {
 
     void updateActivoVacio(@NotNull RunTareaDto runTareaDto);
 
+    void indicadorPresencia(@NotNull RunTareaDto runTareaDto);
+
+    void indicadorPresenciaDesplazamiento(@NotNull RunTareaDto runTareaDto);
+
 }

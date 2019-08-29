@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -122,6 +123,11 @@ public class TareaServiceImpl implements TareaService {
     @Override
     public void updateEstadoFinal(@Valid final TareaDto tarea) {
         tareaRepositoryCustom.updateEstadoFinal(tarea);
+    }
+
+    @Override
+    public List<IdTareaDto> findLimpieza() {
+        return tareaRepositoryCustom.findLimpieza();
     }
 
 }

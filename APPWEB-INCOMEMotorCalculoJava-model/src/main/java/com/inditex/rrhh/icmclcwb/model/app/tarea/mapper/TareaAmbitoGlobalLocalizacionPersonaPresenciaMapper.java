@@ -33,7 +33,7 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
             List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> src);
     
     @Mapping(source = "src.origen", target = "cclIdOrigen")
-    @Mapping(source = "src.tienda", target = "stdIdWorkLocat")
+    @Mapping(source = "src.tienda", target = "cclIdCodOrigen")
     @Mapping(source = "src.empresa", target = "stdIdLegEnt")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(source = "personas", target = "cclIdPerson")

@@ -31,6 +31,11 @@ amiga:
           failureRateThreshold: 50
           ringBufferSizeInHalfOpenState: 10
           ringBufferSizeInClosedState: 100
+        limpieza:
+          waitInterval: 60
+          failureRateThreshold: 50
+          ringBufferSizeInHalfOpenState: 10
+          ringBufferSizeInClosedState: 100
   service:
     jms:
       listener:
@@ -43,6 +48,8 @@ amiga:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
       tarea-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
+      limpieza-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.limpieza-queue-${metadata.slot}
   data:
     jms:
       connection-factory:
@@ -71,6 +78,12 @@ amiga:
           globalTransacted: true
           pubSubDomain: false
           receiveTimeout: 1000
+        limpieza:
+          concurrency: 1
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
@@ -80,12 +93,17 @@ amiga:
           destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
           pubSubDomain: false
           sessionTransacted: true
+        limpieza:
+          destinationName: ${amiga.service.jms.limpieza-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
     jdbc:
       configuration:
         prop:
           default-isolation-level: 1
           max-pool-size: 10
-          query-timeout: 60s
+          query-timeout: 90s
+          borrow-connection-timeout: 300
       datasource:
         primary:
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource

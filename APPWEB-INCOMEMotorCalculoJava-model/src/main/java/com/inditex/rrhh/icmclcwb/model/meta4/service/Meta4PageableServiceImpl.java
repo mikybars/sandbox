@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4Exception;
+import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4PageableService;
 
 @Service
@@ -41,7 +41,7 @@ public class Meta4PageableServiceImpl<U extends PageableListDto> implements Meta
             } while (hasNext);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
                 | SecurityException e) {
-            throw new Meta4Exception(e.getMessage(), e);
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
         }
         return result;
     }
