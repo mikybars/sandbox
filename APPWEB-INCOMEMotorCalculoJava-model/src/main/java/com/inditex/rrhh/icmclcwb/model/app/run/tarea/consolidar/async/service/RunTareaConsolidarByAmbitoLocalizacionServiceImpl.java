@@ -37,6 +37,10 @@ public class RunTareaConsolidarByAmbitoLocalizacionServiceImpl
             CompletableFuture<Void> cfPeriodo = runTareaConsolidarPeriodoAsyncService.mergePeriodoPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodo, cf);
 
+            CompletableFuture<Void> cfPeriodoCalculoPersona = runTareaConsolidarPeriodoAsyncService
+                    .mergePeriodoCalculoPersona(runTarea);
+            AsyncUtils.exceptionally(cfPeriodoCalculoPersona, cf);
+            
             CompletableFuture<Void> cfPeriodoLocalizacion = runTareaConsolidarPeriodoAsyncService
                     .mergePeriodoLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfPeriodoLocalizacion, cf);
