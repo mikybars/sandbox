@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,16 +36,16 @@ public class PrimaryController {
         return primaryService.loadDML(path);
     }
 
-    @GetMapping("/changelog/dml")
+    @GetMapping(value = "/changelog/dml", produces = MediaType.TEXT_MARKDOWN_VALUE)
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation("Muestra el registro de cambios del dml")
+    @ApiOperation(value = "Muestra el registro de cambios del dml", produces = MediaType.TEXT_MARKDOWN_VALUE)
     public @NotNull Resource changelogDML() {
         return primaryService.changelogDML();
     }
 
-    @GetMapping("/changelog/ddl")
+    @GetMapping(value = "/changelog/ddl", produces = MediaType.TEXT_MARKDOWN_VALUE)
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation("Muestra el registro de cambios del ddl")
+    @ApiOperation(value = "Muestra el registro de cambios del ddl", produces = MediaType.TEXT_MARKDOWN_VALUE)
     public @NotNull Resource changelogDDL() {
         return primaryService.changelogDDL();
     }
