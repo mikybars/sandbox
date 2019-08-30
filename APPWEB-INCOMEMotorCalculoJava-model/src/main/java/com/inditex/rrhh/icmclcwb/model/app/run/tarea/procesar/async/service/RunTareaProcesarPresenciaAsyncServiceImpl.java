@@ -63,4 +63,40 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         runTareaProcesarPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> incluirPresenciasDestinoDesplazamientoLocalizacion(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoDestinoLocalizacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> incluirPresenciasOrigenDesplazamientoLocalizacion(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoOrigenLocalizacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> incluirPresenciasDestinoDesplazamientoLocalizacionEcommerce(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoDestinoLocalizacionEcommerce(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> incluirPresenciasOrigenDesplazamientoLocalizacionEcommerce(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoOrigenLocalizacionEcommerce(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> indicadorPresencia(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.indicadorPresencia(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> indicadorPresenciaDesplazamiento(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

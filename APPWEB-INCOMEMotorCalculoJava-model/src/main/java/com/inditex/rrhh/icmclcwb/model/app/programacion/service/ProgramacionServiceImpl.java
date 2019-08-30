@@ -67,7 +67,6 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion) {
-        LocalDateTime result = TimeUtils.nowLocalDateTime();
         ZoneId zoneDefaultHuso = TimeUtils.ofZone();
         ZoneId zoneProgramacionHuso = TimeUtils.ofZone(programacion.getProgramacionHuso());
         ZonedDateTime zonedDateTimeProgramacionHuso = TimeUtils.ofZonedDateTime(programacion.getHoraProgramacion(),
@@ -76,8 +75,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
         if (nowZonedDateTimeProgramacionHuso.isAfter(zonedDateTimeProgramacionHuso)) {
             zonedDateTimeProgramacionHuso = zonedDateTimeProgramacionHuso.plusDays(1);
         }
-        result = zonedDateTimeProgramacionHuso.withZoneSameInstant(zoneDefaultHuso).toLocalDateTime();
-        return result;
+        return zonedDateTimeProgramacionHuso.withZoneSameInstant(zoneDefaultHuso).toLocalDateTime();
     }
 
     @Override

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.service.RunLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
@@ -33,6 +35,9 @@ public class RunServiceImpl implements RunService {
     @Autowired
     private TareaService tareaService;
 
+    @Autowired
+    private RunLimpiezaService runLimpiezaService;
+
     @Transactional
     @Override
     public void runTrabajo(@NotNull @Positive final Long id) {
@@ -45,6 +50,12 @@ public class RunServiceImpl implements RunService {
         TareaDto tarea = tareaService.find(id);
         runTareaService
                 .run(RunTareaDto.builder().trabajo(trabajoService.find(tarea.getIdTrabajo())).tarea(tarea).build());
+    }
+
+    @Transactional
+    @Override
+    public void runLimpieza(@NotNull @Positive final Long id) {
+        runLimpiezaService.run(RunLimpiezaDto.builder().tarea(tareaService.find(id)).build());
     }
 
 }

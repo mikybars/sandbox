@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 @Repository
@@ -39,5 +40,13 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         pstmt.setBigDecimal(11, entity.getValor());
         pstmt.setLong(12, entity.getTarea().getId());
         pstmt.setString(13, entity.getCclIdOrigen());
+        pstmt.setBoolean(14, entity.getDesplazamiento());
+        pstmt.setBoolean(15, entity.getDesplazamientoBase());
+        if (entity.getOrdinalEstructura() != null) {
+            pstmt.setInt(16, entity.getOrdinalEstructura());
+        } else {
+            pstmt.setNull(16, Types.INTEGER);
+        }
     }
+
 }

@@ -57,9 +57,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .condicionPersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfCondicionPersona, cf, cfWait);
 
-           // CompletableFuture<Void> cfEstructurasPoliticas = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-           //         .estructurasPoliticasByRunTarea(runTarea);
-           // AsyncUtils.exceptionally(cfEstructurasPoliticas, cf, cfWait);
+            CompletableFuture<Void> cfEstructurasPoliticas = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .estructurasPoliticasByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEstructurasPoliticas, cf, cfWait);
 
             // Tipos hora para los origenes
             CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService
@@ -131,11 +131,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .presenciaDetalleComisionablePersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
 
-            // Localizacion Persona
-            CompletableFuture<Void> cfPresenciasDetalleComisionableLocalizacionPersona = runTareaRecolectarPtrPresenciaAsyncService
-                    .presenciaDetalleComisionableLocalizacionPersonaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfPresenciasDetalleComisionableLocalizacionPersona, cf, cfWait);
-
             // Coeficiente de reduccion de jornada
             CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .coefJornadaByRunTarea(runTarea);
@@ -172,7 +167,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .updateActivoVentaOnlineEntregaDomicilioByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdateEntregaDomicilio, cf, cfWait);
 
-            // También de presencias TODO ¿agrupaciones?
+            // TODO [JESTEVEZ] También de presencias ¿agrupaciones?
             CompletableFuture<Void> cfUpdatePresencias = runTareaRecolectarPtrPresenciaAsyncService
                     .updateActivoPresenciaAgrupacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdatePresencias, cf, cfWait);

@@ -46,7 +46,6 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
 
     @Override
     protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, TareaCalculoPersonaDto persona) {
-        //TODO: revisar estos parámetros
         Map<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -65,6 +64,9 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO, TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
+
         return map;
     }
 

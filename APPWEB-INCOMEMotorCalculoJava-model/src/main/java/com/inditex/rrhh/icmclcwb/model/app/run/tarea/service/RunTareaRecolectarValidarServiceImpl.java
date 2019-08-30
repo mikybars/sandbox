@@ -112,9 +112,8 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                 runTareaValidar.addAll(AsyncUtils.get(cfAmbito));
                 runTareaValidar.addAll(AsyncUtils.get(cfTiposHora));
 
-
                 List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream().filter(item -> {
-                    // TODO Revisar NullPointerException, lo da en el item
+                    // TODO [DAVIDTSO] Revisar NullPointerException, lo da en el item
                     boolean result = false;
                     if (item == null) {
                         log.error("Nullpointer: {}", runTarea);

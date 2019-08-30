@@ -1,13 +1,11 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
 public class TareaPersonaEstructuraDto implements Serializable {
@@ -16,6 +14,9 @@ public class TareaPersonaEstructuraDto implements Serializable {
 
     @ApiModelProperty(value = "Identificador de la persona estructura", required = false)
     private String id;
+
+    @ApiModelProperty(value = "Oridnal de la estructura")
+    private Integer ordinalEstructura;
 
     @NotNull
     @ApiModelProperty(value = "Identificador del tarea", required = true)
@@ -68,5 +69,16 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Fecha de fin en la estructura", required = true)
     private Date fechaFin;
+
+    @NotNull
+    @ApiModelProperty(value = "Flag que indica si hay desplazamientos para el empleado", required = true)
+    private Boolean desplazamiento;
+
+    @NotNull
+    @ApiModelProperty(value = "Flag que indica si es una estructura de desplazamiento, pero es la base", required = true)
+    private Boolean desplazamientoBase;
+
+    @ApiModelProperty(value = "Estructura de desplazamiento", required = false)
+    private TareaPersonaEstructuraDesplazamientoDto estructuraDesplazamiento;
 
 }

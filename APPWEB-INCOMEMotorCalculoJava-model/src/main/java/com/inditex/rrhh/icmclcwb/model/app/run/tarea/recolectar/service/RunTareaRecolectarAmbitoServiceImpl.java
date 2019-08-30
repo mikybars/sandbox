@@ -93,9 +93,9 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
 
             // Relacion de personas con localizaciones en desplazamientos
             // asociadas al origen y empresa
-            //CompletableFuture<Void> cfEmpleadosDesplazamiento = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-            //        .empleadosDesplazamientoByRunTarea(runTarea);
-            //AsyncUtils.exceptionally(cfEmpleadosDesplazamiento, cf);
+            CompletableFuture<Void> cfEmpleadosDesplazamiento = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .empleadosDesplazamientoByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEmpleadosDesplazamiento, cf);
             
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -393,22 +393,24 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
                 comisionEmpleadoRequest
-                        .setPage(meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getPage());
+                    .setPage(meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getPage());
                 comisionEmpleadoRequest.setData(tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
                 comisionEmpleadoRequest.getData().getItem()
-                        .addAll(iter.stream().map(
-                                item -> GenericFilterParametersDto.builder().idEmpleado(item.getStdIdHr()).orEmpleado(item.getStdOrHrPeriod()).build())
-                                .collect(Collectors.toList()));
+                    .addAll(iter.stream().map(
+                        item -> GenericFilterParametersDto.builder().idEmpleado(item.getStdIdHr()).orEmpleado(item.getStdOrHrPeriod()).build())
+                        .collect(Collectors.toList()));
                 CompletableFuture<List<ComisionEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                        .getComisionEmpleado(comisionEmpleadoRequest);
+                    .getComisionEmpleado(comisionEmpleadoRequest);
                 AsyncUtils.exceptionally(cfData, cf);
                 List<ComisionEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
+                if (CollectionUtils.isNotEmpty(data)) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
                         .get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaPersonaEstructuraAsyncService
+                    CompletableFuture<Void> cfSave = tareaPersonaEstructuraAsyncService
                         .saveComisionEmpleadoResultItemDto(data, tarea);
-                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                }
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
