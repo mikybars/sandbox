@@ -12,8 +12,14 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_INACTIVO = "inactivo";
 
     public static final String SQL_PARAM_MINUTOS = "minutos";
-    
+
     public static final String SQL_PARAM_ACTIVO = "activo";
+
+    public static final String SQL_PARAM_HORAS_ORIGEN = "horasOrigen";
+
+    public static final String SQL_PARAM_HORAS_DESTINO = "horasDestino";
+
+    public static final String SQL_PARAM_DESPLAZAMIENTO = "desplazamiento";
 
     public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA = "tipoDatoLocalizacionPersonaPresencia";
 
@@ -54,6 +60,10 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION = "idTipoImporteVentaFisicaLocalizacion";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION = "idTipoImporteVentaFisicaLocalizacionSeccion";
+    
+    public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA = "idTipoDatoIndicadorPresencia";
+    
+    public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "idTipoDatoIndicadorPresenciaDesplazamiento";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoImporteVentaEntregaDomicilioLocalizacion";
 
@@ -94,6 +104,9 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_CALCULA = "calcula";
 
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
+    
+    public static final String SQL_PARAM_IDS_TIPOS_CALCULO = "tiposCalculo";
+
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
@@ -118,13 +131,13 @@ public class SqlPrimaryConstants {
     public static final Integer SQL_VALUE_BOOLEAN_TRUE = 1;
 
     public static final Integer SQL_VALUE_BOOLEAN_FALSE = 0;
-    
+
     public static final Integer SQL_VALUE_MINUTOS_CERO = 0;
-    
+
     public static final Integer SQL_VALUE_IMPORTE_CERO = 0;
-    
+
     public static final Integer SQL_VALUE_PORCENTAJE_CERO = 0;
-    
+
     public static final Integer SQL_VALUE_MULTIPLICADOR_POSITIVO = 1;
 
     public static final Integer SQL_VALUE_MULTIPLICADOR_NEGATIVO = -1;
@@ -144,5 +157,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ID_LOCALIZACION_META4 = "STD_ID_WORK_LOCAT";
 
     public static final String SQL_RESULT_ID_CADENA = "CCL_ID_CADENA";
+
+    public static final String SQL_RESULT_ID_TAREA = "ID_TAREA";
 
 }

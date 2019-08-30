@@ -120,6 +120,16 @@ public class CxfUtils {
         return ClientProxy.getClient(o);
     }
 
+    public static void close(final Object o) {
+        try {
+            if (o != null) {
+                Client client = CxfUtils.getClient(o);
+                client.close();
+            }
+        } catch (Exception e) {
+        }
+    }
+
     public static HTTPConduit getHTTPConduit(final Client client) {
         return (HTTPConduit) client.getConduit();
     }

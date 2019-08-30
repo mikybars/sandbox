@@ -29,6 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 
@@ -107,6 +108,10 @@ public class LoggingAspect {
             } else if (TareaDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Trabajo[").append(((TareaDto) obj).getIdTrabajo()).append("]").append("Tarea[")
                         .append(((TareaDto) obj).getId()).append("] :: ").toString();
+                break;
+            } else if (RunLimpiezaDto.class.isAssignableFrom(objClass)) {
+                id = new StringBuilder("Limpieza[]Tarea[").append(((RunLimpiezaDto) obj).getTarea().getId()).append("] :: ")
+                        .toString();
                 break;
             }
         }

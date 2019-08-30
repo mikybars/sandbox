@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaGeneralService;
@@ -44,7 +43,8 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 @Service
 @Validated
-public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTareaAmbitoRecolectarPtrVentaGeneralService {
+public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
+        implements RunTareaAmbitoRecolectarPtrVentaGeneralService {
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -52,7 +52,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
     @Autowired
     @Qualifier("ventaGeneralProperties")
     protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
-    
+
     @Autowired
     @Qualifier("recolectarProperties")
     private RecolectarPropertiesDto recolectarProperties;
@@ -74,8 +74,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
 
     @Autowired
     private TipoDatoService tipoDatoService;
-      
-    @Auditoria
+
     @Override
     public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito) {
@@ -84,15 +83,19 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<IdTipoDatoDto> idsTipoDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
+            List<IdTipoDatoDto> idsTipoDato = tipoDatoService
+                    .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getCclIdOrigen(), idsTipoDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
+                    tareaLocalizacionHistoricoService
+                            .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(tarea.getId(),
+                                    tareaAmbito.getCclIdOrigen(),
+                                    idsTipoDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
                     ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
                                 tareaAmbito, recolectarProperties);
-                request.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
+                request.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf)
+                        .collect(Collectors.toList()));
                 request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
@@ -100,10 +103,10 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
                 PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea), cf, cfPersist);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties
+                        .get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+                AsyncUtils.exceptionally(tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea),
+                        cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
@@ -122,23 +125,23 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl implements RunTa
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
-                tareaAmbito.getCclIdOrigen());
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService
+                    .findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(), tareaAmbito.getCclIdOrigen());
             PtrVentaTotalizadoRequestDto request = tareaMapper
-                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
-                    tareaAmbito, recolectarProperties, cadenas);
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(trabajo,
+                            tarea, tareaAmbito, recolectarProperties, cadenas);
             request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
             CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
-                .ventaTotalizado(request);
+                    .ventaTotalizado(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);
             PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
+            AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties
+                    .get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
             AsyncUtils.exceptionally(
-                tareaAgrupacionVentaAsyncService
-                    .savePtrVentaTotalizadoResponse(data, tarea, agrupaciones), cf, cfPersist);
+                    tareaAgrupacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea, agrupaciones), cf,
+                    cfPersist);
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
         } catch (Exception e) {

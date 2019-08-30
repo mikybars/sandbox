@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventa.v1;
 
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,13 +23,13 @@ public class DirectoVentaAjusteManualV1RunAlgoritmo implements RunAlgoritmo {
 
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
-        log.warn("El algoritmo {} no está implementado", algoritmo);
+        log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        log.warn("El algoritmo {} no está implementado", algoritmo);
-        return "SIN IMPLEMENTAR";
+        log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+        return ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT;
     }
 
 }

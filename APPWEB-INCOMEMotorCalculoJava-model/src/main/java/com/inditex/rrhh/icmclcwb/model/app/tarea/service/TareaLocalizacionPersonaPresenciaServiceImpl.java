@@ -53,4 +53,14 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl
     public void compensar(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.compensar(runTareaDto);
     }
+    
+    @Override
+    public void indicadorPresencia(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia(runTareaDto);
+    }
+    
+    @Override
+    public void indicadorPresenciaDesplazamiento(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento(runTareaDto);
+    }
 }

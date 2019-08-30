@@ -24,19 +24,19 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("#{primaryQuery['RunTareaValidarService.checkDuplicatedTiendasHistorico']}")
     private String sqlCheckDuplicatedTiendasHistorico;
-    
+
     @Value("#{primaryQuery['RunTareaValidarService.checkDuplicatedTiposHora']}")
     private String sqlCheckDuplicatedTiposHora;
-    
+
     @Value("#{primaryQuery['RunTareaValidarService.countEmpleadosHistorico']}")
     private String sqlCountEmpleadosHistorico;
-    
+
     @Value("#{primaryQuery['RunTareaValidarService.countTiendasHistorico']}")
     private String sqlCountTiendasHistorico;
-    
+
     @Value("#{primaryQuery['RunTareaValidarService.countEstructuras']}")
     private String sqlCountEstructuras;
 
@@ -46,119 +46,121 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     @Value("#{primaryQuery['RunTareaValidarService.countTiendaEmpleadoPresenciaSeccion']}")
     private String sqlCountTiendaEmpleadoPresenciaSeccion;
 
-    //TODO REVISAR LA QUERY
+    // TODO [MDELRIO] REVISAR LA QUERY
     @Value("#{primaryQuery['RunTareaValidarService.countTiendaVentaSeccion']}")
     private String sqlCountTiendaVentaSeccion;
-    
+
     @Value("#{primaryQuery['RunTareaValidarService.EmpleadoHistoricoEmptyFields']}")
     private String sqlEmpleadoHistoricoEmptyFields;
-    //---
+    // ---
     @Value("#{primaryQuery['RunTareaValidarService.AmbitoLocalizacion']}")
     private String sqlValidacionAmbitoLocalizacion;
-    
+
     @Value("#{primaryQuery['RunTareaValidarService.AmbitoPersona']}")
     private String sqlValidacionAmbitoPersona;
-    
+
     @Value("#{primaryQuery['RunTareaValidarService.AmbitoEmpresa']}")
     private String sqlValidacionAmbitoEmpresa;
-   
+
     @Override
     public List<String> validateAmbitoEmpresa(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.query(sqlValidacionAmbitoEmpresa, parameters, new RowMapper<String>() {
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                  return rs.getString(1);
+                return rs.getString(1);
             }
         });
     }
-    
+
     @Override
     public List<String> validateAmbitoPersona(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.query(sqlValidacionAmbitoPersona, parameters, new RowMapper<String>() {
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                  return rs.getString(1);
+                return rs.getString(1);
             }
         });
     }
-    
+
     @Override
     public List<String> validateAmbitoLocalizacion(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.query(sqlValidacionAmbitoLocalizacion, parameters, new RowMapper<String>() {
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                  return rs.getString(1);
+                return rs.getString(1);
             }
         });
     }
-    
+
     @Override
     public List<String> checkDuplicatedTiendasHistorico(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return namedParameterJdbcTemplate.query(sqlCheckDuplicatedTiendasHistorico, parameters, new RowMapper<String>() {
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                  return rs.getString(1);
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlCheckDuplicatedTiendasHistorico, parameters,
+                new RowMapper<String>() {
+                    public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return rs.getString(1);
+                    }
+                });
     }
-    
+
     @Override
     public List<String> checkDuplicatedTiposHora(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.query(sqlCheckDuplicatedTiposHora, parameters, new RowMapper<String>() {
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                  return rs.getString(1);
+                return rs.getString(1);
             }
         });
     }
-    
+
     @Override
     public List<TareaPersonaHistoricoDto> empleadoHistoricoEmptyFields(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return namedParameterJdbcTemplate.query(sqlEmpleadoHistoricoEmptyFields, parameters, new RowMapper<TareaPersonaHistoricoDto>() {
-            public TareaPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                TareaPersonaHistoricoDto dto = new TareaPersonaHistoricoDto();
-                dto.setId(rs.getString("ID_TAREA_PERSONA_HISTORICO"));
-                dto.setStdIdHr(rs.getString("STD_ID_HR"));
-                dto.setCclIdPerson(rs.getString("CCL_ID_PERSON"));
-                dto.setStdOrHrPeriod(rs.getString("STD_OR_HR_PERIOD"));
-                dto.setIdTarea(rs.getLong("ID_TAREA"));
-                dto.setCclIdCodOrigen(rs.getString("CCL_ID_COD_ORIGEN"));
-                dto.setStdIdWorkLocat(rs.getString("STD_ID_WORK_LOCAT"));
-                dto.setFechaFin(rs.getDate("FECHA_FIN"));
-                dto.setFechaInicio(rs.getDate("FECHA_INICIO"));
-                return dto;
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlEmpleadoHistoricoEmptyFields, parameters,
+                new RowMapper<TareaPersonaHistoricoDto>() {
+                    public TareaPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        TareaPersonaHistoricoDto dto = new TareaPersonaHistoricoDto();
+                        dto.setId(rs.getString("ID_TAREA_PERSONA_HISTORICO"));
+                        dto.setStdIdHr(rs.getString("STD_ID_HR"));
+                        dto.setCclIdPerson(rs.getString("CCL_ID_PERSON"));
+                        dto.setStdOrHrPeriod(rs.getString("STD_OR_HR_PERIOD"));
+                        dto.setIdTarea(rs.getLong("ID_TAREA"));
+                        dto.setCclIdCodOrigen(rs.getString("CCL_ID_COD_ORIGEN"));
+                        dto.setStdIdWorkLocat(rs.getString("STD_ID_WORK_LOCAT"));
+                        dto.setFechaFin(rs.getDate("FECHA_FIN"));
+                        dto.setFechaInicio(rs.getDate("FECHA_INICIO"));
+                        return dto;
+                    }
+                });
     }
-    
+
     @Override
     public Integer countEmpleadosHistorico(@NotNull @Positive Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.queryForObject(sqlCountEmpleadosHistorico, parameters, Integer.class);
     }
-    
+
     @Override
     public Integer countTiendasHistorico(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.queryForObject(sqlCountTiendasHistorico, parameters, Integer.class);
     }
-    
+
     @Override
     public Integer countEstructuras(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.queryForObject(sqlCountEstructuras, parameters, Integer.class);
     }
-    
+
     @Override
     public Integer countTiendaPresenciaSeccion(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -170,7 +172,8 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     public Integer countTiendaEmpleadoPresenciaSeccion(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return namedParameterJdbcTemplate.queryForObject(sqlCountTiendaEmpleadoPresenciaSeccion, parameters, Integer.class);
+        return namedParameterJdbcTemplate.queryForObject(sqlCountTiendaEmpleadoPresenciaSeccion, parameters,
+                Integer.class);
     }
 
     @Override
@@ -179,5 +182,5 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         return namedParameterJdbcTemplate.queryForObject(sqlCountTiendaVentaSeccion, parameters, Integer.class);
     }
-    
+
 }

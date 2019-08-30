@@ -37,47 +37,50 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
 
     @Autowired
     private TareaService tareaService;
-    
+
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
-    
+
     @Auditoria
     @CounterMetric
-    @TimerMetric 
+    @TimerMetric
     @Override
     public RunTrabajoDto run(@NotNull @Valid @TrabajoValidator final RunTrabajoDto runTrabajo) {
         try {
-
             final TrabajoDto trabajo = runTrabajo.getTrabajo();
-            
-            if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())){
+            if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
                 OrigenRequestDto request = new OrigenRequestDto();
                 request.setData(new GenericFilterDto());
                 request.setPage(new PageDto());
                 request.getData().setItem(new ArrayList<>());
-                request.getData().getItem().add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization()).build());
+                request.getData().getItem()
+                        .add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization()).build());
                 List<OrigenResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getOrigen(request);
-                List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream().map(e-> TrabajoAmbitoOrigenDto.builder().cclIdOrigen(e.getIdOrigen()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
+                List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream().map(e -> TrabajoAmbitoOrigenDto
+                        .builder().cclIdOrigen(e.getIdOrigen()).idTrabajo(trabajo.getId()).build())
+                        .collect(Collectors.toList());
                 runTrabajo.getTrabajo().setOrigen(trabajoAmbitoOrigen);
             }
-            
-            if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId()) || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
+            if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
+                    || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
                 EmpresaRequestDto request = new EmpresaRequestDto();
                 request.setData(new GenericFilterDto());
                 request.setPage(new PageDto());
                 request.getData().setItem(new ArrayList<>());
-                trabajo.getOrigen().stream().forEach(e -> request.getData().getItem().add(GenericFilterParametersDto.builder().idOrigenReg(e.getCclIdOrigen()).build()));
+                trabajo.getOrigen().stream().forEach(e -> request.getData().getItem()
+                        .add(GenericFilterParametersDto.builder().idOrigenReg(e.getCclIdOrigen()).build()));
                 List<EmpresaResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getEmpresa(request);
-                List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa = origen.stream().map(e-> TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(e.getIdEmpresa()).idTrabajo(trabajo.getId()).build()).collect(Collectors.toList());
+                List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa = origen.stream().map(e -> TrabajoAmbitoEmpresaDto
+                        .builder().stdIdLegEnt(e.getIdEmpresa()).idTrabajo(trabajo.getId()).build())
+                        .collect(Collectors.toList());
                 runTrabajo.getTrabajo().setEmpresa(trabajoAmbitoEmpresa);
             }
-    
             runTrabajo.setTarea(tareaService.create(runTrabajo.getTrabajo()));
         } catch (Exception e) {
-            //TODO ESTADO
+            // TODO [COMUN] AGREGAR EL ESTADO EN EL TRABAJO
             throw e;
         } finally {
-            //TODO fecha fin
+            // TODO [COMUN] MODIFICAR LA FECHA DE FIN DEL TRABAJO
         }
         return runTrabajo;
     }

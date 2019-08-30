@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -29,5 +30,7 @@ public interface TareaService {
     void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
 
     void updateEstadoFinal(@Valid final TareaDto tarea);
+    
+    List<IdTareaDto> findLimpieza();
 
 }

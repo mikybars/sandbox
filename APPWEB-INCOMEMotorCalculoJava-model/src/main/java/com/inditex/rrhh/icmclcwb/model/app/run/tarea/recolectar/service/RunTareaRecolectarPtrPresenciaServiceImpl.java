@@ -30,13 +30,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     @Override
     public void presenciaDetalleComisionablePersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
-                .presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
-    public void presenciaDetalleComisionableLocalizacionPersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
-                .presenciaDetalleComisionableLocalizacionPersonaByRunTareaAndTareaAmbito(runTarea, item));
+                .presenciaDetallePersonaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override

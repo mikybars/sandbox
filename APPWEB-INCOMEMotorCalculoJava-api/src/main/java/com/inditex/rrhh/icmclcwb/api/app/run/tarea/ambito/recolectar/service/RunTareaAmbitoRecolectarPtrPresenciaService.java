@@ -11,14 +11,10 @@ public interface RunTareaAmbitoRecolectarPtrPresenciaService {
     void tiposHorasByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+    void presenciaDetallePersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
-    void presenciaDetalleComisionableLocalizacionPersonaByRunTareaAndTareaAmbito(
-            @NotNull @Valid final RunTareaDto runTarea, @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
 
 }

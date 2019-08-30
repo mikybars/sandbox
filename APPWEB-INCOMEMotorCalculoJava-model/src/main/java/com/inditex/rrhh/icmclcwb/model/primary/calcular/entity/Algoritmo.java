@@ -32,6 +32,10 @@ public class Algoritmo {
     @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
     private Boolean desplazamiento;
 
+    @NotNull
+    @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
+    private Boolean desplazamientoBase;
+
     @NotBlank
     @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
     private String nombre;

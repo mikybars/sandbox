@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarTiposHoraService;
@@ -28,10 +25,7 @@ public class RunTareaRecolectarValidarTiposHoraServiceImpl implements RunTareaRe
 
     @Autowired
     private TareaValidarAsyncService tareaValidarAsyncService;
-    
-    @Auditoria
-    @CounterMetric
-    @TimerMetric
+
     @Override
     public List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea) {
         List<RunTareaValidarDto> result = new ArrayList<>();
@@ -50,4 +44,5 @@ public class RunTareaRecolectarValidarTiposHoraServiceImpl implements RunTareaRe
         }
         return result;
     }
+
 }

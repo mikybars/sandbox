@@ -9,4 +9,6 @@ public class Meta4Constants {
 	
 	public static final String TRUE = "1";
 
+    public static final String FALSE = "0";
+
 }
