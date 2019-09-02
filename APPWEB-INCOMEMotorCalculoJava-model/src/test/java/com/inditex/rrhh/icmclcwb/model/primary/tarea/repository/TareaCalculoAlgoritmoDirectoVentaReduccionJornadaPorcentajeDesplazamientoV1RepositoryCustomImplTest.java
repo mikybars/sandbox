@@ -8,8 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,13 +50,16 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
     private ArgumentCaptor<MapSqlParameterSource[]> params;
 
     @InjectMocks
-    private TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustomImpl
-        tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom;
+    private TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustomImpl tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom;
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
-        FieldUtils.writeField(tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
+        FieldUtils.writeField(
+                tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom,
+                "sqlCalcular", SQL_CALCULAR, true);
+        FieldUtils.writeField(
+                tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom,
+                "sqlCalcularBase", SQL_BASE, true);
     }
 
     @Test
@@ -68,13 +69,13 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         TareaCalculoPersonaDto persona2 = mock(TareaCalculoPersonaDto.class);
         List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
         when(tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
-            .thenReturn(personas);
+                .thenReturn(personas);
 
         TareaDto tarea = mock(TareaDto.class);
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 
-        List<TareaCalculoPersonaDto> ids =
-            tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo, tarea);
+        List<TareaCalculoPersonaDto> ids = tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom
+                .ids(algoritmo, tarea);
 
         assertEquals(2, ids.size());
         assertEquals(personas, ids);
@@ -84,7 +85,7 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
     public void getMapValuesTest() {
 
         when(tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
-            .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
+                .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
         TareaDto tarea = mock(TareaDto.class);
@@ -93,9 +94,11 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom
+                .getMapValues(algoritmo, tarea, persona1);
 
-        // Parámetros de la consulta: activo, tipoDatoLocalizacionVentaSeccion, excluido calculo
+        // Parámetros de la consulta: activo, tipoDatoLocalizacionVentaSeccion, excluido
+        // calculo
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
         assertEquals(11, result.size());
@@ -128,15 +131,16 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_EXCLUIDO_CALCULO));
         // indicador desplazamiento
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
-        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
-        
+        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(),
+                result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
+
     }
 
     @Test
     public void calcularTest() {
 
         when(tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
-            .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
+                .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
@@ -150,15 +154,18 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         when(persona2.getStdOrHrPeriod()).thenReturn("02");
         List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
 
-        tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo, tarea, personas);
+        tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
+                tarea, personas);
 
-        //parametros de la consulta: activo, tipoDatoLocalizacionVentaSeccion, excluido calculo
+        // parametros de la consulta: activo, tipoDatoLocalizacionVentaSeccion, excluido
+        // calculo
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
-        verify(tipoDatoService, times(2)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+        verify(tipoDatoService, times(2))
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
         verify(namedParameterJdbcTemplate).batchUpdate(any(String.class), params.capture());
         MapSqlParameterSource[] values = params.getValue();
         assertEquals(2, values.length);
-        for (int i = 0; i<values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             MapSqlParameterSource value = values[i];
             assertEquals(11, value.getValues().size());
             // activo
@@ -189,20 +196,16 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
 
         // cclIdPerson, stdOrHrPeriod - valores del parámetro
         assertEquals(1,
-            Arrays.stream(values)
-                .filter(value ->
-                    persona1.getCclIdPerson().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
-                        && persona1.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
-                .toArray()
-                .length);
+                Arrays.stream(values)
+                        .filter(value -> persona1.getCclIdPerson().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                                && persona1.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
+                        .toArray().length);
         assertEquals(1,
-            Arrays.stream(values)
-                .filter(value ->
-                    persona2.getCclIdPerson().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
-                        && persona2.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
+                Arrays.stream(values)
+                        .filter(value -> persona2.getCclIdPerson().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                                && persona2.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
 
-                .toArray()
-                .length);
+                        .toArray().length);
     }
 
     @Test
@@ -212,7 +215,7 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         when(algoritmo.getId()).thenReturn(21);
 
         String result = tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom
-            .getSqlCalcular(algoritmo);
+                .getSqlCalcular(algoritmo);
         assertEquals(SQL_BASE, result);
 
     }
