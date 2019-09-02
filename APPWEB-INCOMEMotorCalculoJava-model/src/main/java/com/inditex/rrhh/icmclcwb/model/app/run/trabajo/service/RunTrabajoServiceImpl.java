@@ -2,12 +2,14 @@ package com.inditex.rrhh.icmclcwb.model.app.run.trabajo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -22,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
@@ -30,11 +33,16 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFi
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 
 @Service
 @Validated
 public class RunTrabajoServiceImpl implements RunTrabajoService {
 
+    @Autowired
+    @Qualifier("meta4Properties")
+    private Map<String, Meta4PropertiesDto> meta4Properties;
+    
     @Autowired
     private TareaService tareaService;
 
@@ -52,6 +60,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                 OrigenRequestDto request = new OrigenRequestDto();
                 request.setData(new GenericFilterDto());
                 request.setPage(new PageDto());
+                request.setPage(meta4Properties.get(Meta4PropertiesConstants.ORIGEN).getPage());
                 request.getData().setItem(new ArrayList<>());
                 request.getData().getItem()
                         .add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization()).build());
@@ -66,6 +75,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                 EmpresaRequestDto request = new EmpresaRequestDto();
                 request.setData(new GenericFilterDto());
                 request.setPage(new PageDto());
+                request.setPage(meta4Properties.get(Meta4PropertiesConstants.EMPRESA).getPage());
                 request.getData().setItem(new ArrayList<>());
                 trabajo.getOrigen().stream().forEach(e -> request.getData().getItem()
                         .add(GenericFilterParametersDto.builder().idOrigenReg(e.getCclIdOrigen()).build()));
