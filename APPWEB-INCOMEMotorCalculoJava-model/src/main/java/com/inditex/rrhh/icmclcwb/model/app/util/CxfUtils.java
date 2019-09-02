@@ -18,6 +18,8 @@ import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.transport.http.Cookie;
 import org.apache.cxf.transport.http.HTTPConduit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
@@ -25,6 +27,8 @@ import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
 @Component
 public class CxfUtils {
 
+    private static final Logger log = LoggerFactory.getLogger(CxfUtils.class);
+    
     private CxfUtils() {
     }
 
@@ -127,6 +131,7 @@ public class CxfUtils {
                 client.close();
             }
         } catch (Exception e) {
+            log.error("Error cerrando el cliente cxf", e);
         }
     }
 
