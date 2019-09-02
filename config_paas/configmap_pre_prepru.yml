@@ -33,6 +33,8 @@ app:
         credentials:
           user: SRVCICMCLCWSPREAX
       login:
-        server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
+        server: https://prepru-openshift.axpreocp1.central.inditex.grp/icmclcws/services/Login
+        #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
-        server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://prepru-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
