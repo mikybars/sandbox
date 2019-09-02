@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -21,6 +22,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 @Service
 @Validated
 public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaService {
+
+    @Autowired
+    private Logger log;
 
     @Autowired
     private TareaLocalizacionVentaRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
@@ -41,6 +45,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void saveCerrado(@Valid RunTareaDto runTarea) {
+        log.info("PRUEBA CACHE (FUERA): RunTareaProcesarVentaServiceImpl.saveCerrado::{}", TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
@@ -48,6 +53,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void trasladar(@Valid RunTareaDto runTarea) {
+        log.info("PRUEBA CACHE (FUERA): RunTareaProcesarVentaServiceImpl.trasladar::{}", TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(),
             ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
@@ -55,6 +61,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void compensar(@Valid RunTareaDto runTarea) {
+        log.info("PRUEBA CACHE (FUERA): RunTareaProcesarVentaServiceImpl.compenar::{}", TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(),
             ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
