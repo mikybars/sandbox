@@ -69,5 +69,5 @@
     <memory>
         <object size="1000" />
     </memory>
-    <expiration max-idle="240000" />
+    <expiration max-idle="3600000" />
 </replicated-cache>

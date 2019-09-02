@@ -111,7 +111,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            log.info("PRUEBA CACHE (FUERA): RunTareaAmbitoRecolectarPtrPresenciaServiceImpl.presenciaDetallePersonaByRunTareaAndTareaAmbito::{}", TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
             List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
                     .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
