@@ -10,6 +10,7 @@ public enum TipoOpcionCalculoEnum {
     ORIGEN(1, "01"), DESTINO(2, "02"), MEJOR_OPCION(3, "03");
 
     private final Integer id;
+
     private final String idMeta4;
 
     public static TipoOpcionCalculoEnum fromIdMeta4(String idMeta4) {
@@ -23,10 +24,11 @@ public enum TipoOpcionCalculoEnum {
 
     public static TipoOpcionCalculoEnum fromId(Integer id) {
         for (TipoOpcionCalculoEnum tipo : TipoOpcionCalculoEnum.values()) {
-            if (tipo.id == id) {
+            if (tipo.id.equals(id)) {
                 return tipo;
             }
         }
         return null;
     }
+
 }
