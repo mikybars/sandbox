@@ -45,7 +45,7 @@ public class TareaLocalizacionOnlineHistoricoRepositoryCustomImpl
         pstmt.setString(5, entity.getStdIdLegEnt());
         pstmt.setString(6, entity.getCclIdCadena());
         pstmt.setObject(7, entity.getFechaInicio());
-        pstmt.setObject(8, entity.getFechaInicio());
+        pstmt.setObject(8, entity.getFechaFin());
     }
 
 }
