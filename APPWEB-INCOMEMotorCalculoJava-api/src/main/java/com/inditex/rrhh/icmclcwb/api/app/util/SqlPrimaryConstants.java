@@ -33,6 +33,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TAREA = "idTarea";
 
+    public static final String SQL_PARAM_ID_PROGRAMACION = "idProgramacion";
+
     public static final String SQL_PARAM_CCL_ID_ORIGEN = "cclIdOrigen";
 
     public static final String SQL_PARAM_ID_ESTADO = "idEstado";
@@ -60,9 +62,9 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION = "idTipoImporteVentaFisicaLocalizacion";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION = "idTipoImporteVentaFisicaLocalizacionSeccion";
-    
+
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA = "idTipoDatoIndicadorPresencia";
-    
+
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "idTipoDatoIndicadorPresenciaDesplazamiento";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoImporteVentaEntregaDomicilioLocalizacion";
@@ -104,9 +106,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_CALCULA = "calcula";
 
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
-    
-    public static final String SQL_PARAM_IDS_TIPOS_CALCULO = "tiposCalculo";
 
+    public static final String SQL_PARAM_IDS_TIPOS_CALCULO = "tiposCalculo";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 

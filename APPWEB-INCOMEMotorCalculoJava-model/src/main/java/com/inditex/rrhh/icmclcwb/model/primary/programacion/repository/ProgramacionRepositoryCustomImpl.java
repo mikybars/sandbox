@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +31,9 @@ public class ProgramacionRepositoryCustomImpl implements ProgramacionRepositoryC
     @Value("#{primaryQuery['ProgramacionRepositoryCustom.activa']}")
     private String sqlCheckActiva;
 
+    @Value("#{primaryQuery['ProgramacionRepositoryCustom.activaById']}")
+    private String sqlCheckActivaById;
+
     @Override
     public void reset() {
         MapSqlParameterSource arg = new MapSqlParameterSource();
@@ -42,6 +48,29 @@ public class ProgramacionRepositoryCustomImpl implements ProgramacionRepositoryC
         MapSqlParameterSource arg = new MapSqlParameterSource();
         arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         namedParameterJdbcTemplate.update(sqlCheckActiva, arg);
+    }
+
+    @Override
+    public void activa(@Positive @NotNull final Long id) {
+        MapSqlParameterSource arg = new MapSqlParameterSource();
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROGRAMACION, id);
+        namedParameterJdbcTemplate.update(sqlCheckActivaById, arg);
+    }
+
+    @Override
+    public void desactiva() {
+        MapSqlParameterSource arg = new MapSqlParameterSource();
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        namedParameterJdbcTemplate.update(sqlCheckActiva, arg);
+    }
+
+    @Override
+    public void desactiva(@Positive @NotNull final Long id) {
+        MapSqlParameterSource arg = new MapSqlParameterSource();
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROGRAMACION, id);
+        namedParameterJdbcTemplate.update(sqlCheckActivaById, arg);
     }
 
 }
