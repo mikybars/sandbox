@@ -1940,6 +1940,9 @@ MERGE INTO TAREA_AGRUPACION_VENTA AS TAV USING
 <entry key="ProgramacionRepositoryCustom.activa">
 <![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo]]>
 </entry>
+<entry key="ProgramacionRepositoryCustom.activaById">
+<![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo WHERE ID_PROGRAMACION = :idProgramacion]]>
+</entry>
 
 <entry key="LimpiezaRepositoryCustom.limpieza.tarea">
 <![CDATA[DELETE FROM TAREA_CALCULO WHERE ID_TAREA = :idTarea]]>
