@@ -54,21 +54,21 @@ public class ProgramacionController {
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Activa la programacion")
     public void activa(@PathVariable @Positive @NotNull final Long id) {
-        programacionService.activa();
+        programacionService.activa(id);
     }
 
     @GetMapping("/desactiva")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Desactiva las programaciones")
     public void desactiva() {
-        programacionService.activa();
+        programacionService.desactiva();
     }
 
     @GetMapping("/desactiva/{id}")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Desactiva la programacion")
     public void desactiva(@PathVariable @Positive @NotNull final Long id) {
-        programacionService.activa();
+        programacionService.desactiva(id);
     }
 
 }
