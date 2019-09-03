@@ -2,6 +2,11 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +105,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public AgrupOnlineResponseDto getAgrupOnline(AgrupOnlineRequestDto request) {
         AgrupOnlineResponseDto result = new AgrupOnlineResponseDto();
-        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParamcalorigenBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
         GetagruponlineOutput getAgrupOnlineOutput = meta4ClientPool.getagruponline(param1, param2);
         if (getAgrupOnlineOutput != null
@@ -234,7 +239,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public PeriodosResponseDto getPeriodos(PeriodosRequestDto request) {
         PeriodosResponseDto result = new PeriodosResponseDto();
-        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParamcalperiodoBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalperiodoBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
         GetperiodosOutput getperiodosOutput = meta4ClientPool.getperiodos(param1, param2);
         if (getperiodosOutput != null && Double.compare(NumberUtils.DOUBLE_ZERO, getperiodosOutput.getReturn()) == 0) {
@@ -349,7 +354,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request) {
         ComisionEmpleadoResponseDto result = new ComisionEmpleadoResponseDto();
-        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParamcalestructuraBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(request.getData());
         GetestrcomisionOutput getComisionEmpleadoOutput = meta4ClientPool.getestrcomision(param1);
         if (getComisionEmpleadoOutput != null
                 && Double.compare(NumberUtils.DOUBLE_ZERO, getComisionEmpleadoOutput.getReturn()) == 0) {
@@ -478,7 +483,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public EmpresaResponseDto getEmpresa(EmpresaRequestDto request) {
         EmpresaResponseDto result = new EmpresaResponseDto();
-        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParamcalorigenBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
         GetempresasOutput getempresasoutput = meta4ClientPool.getempresas(param1, param2);
         if (getempresasoutput != null) {
@@ -499,7 +504,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public OrigenResponseDto getOrigen(OrigenRequestDto request) {
         OrigenResponseDto result = new OrigenResponseDto();
-        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParamcalsociedadBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalsociedadBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
         GetorigenesOutput getorigenesoutput = meta4ClientPool.getorigenes(param1, param2);
         if (getorigenesoutput != null) {
@@ -520,7 +525,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public ComisionEmpleadoResponseDto getEstructurasPoliticas(ComisionEmpleadoRequestDto request) {
         ComisionEmpleadoResponseDto result = new ComisionEmpleadoResponseDto();
-        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParamcalestructuraBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(request.getData());
         GetestrpoliticasOutput getestrpoliticas = meta4ClientPool.getestrpoliticas(param1);
         if (getestrpoliticas != null && getestrpoliticas.getIcmListaestructuras() != null && CollectionUtils
                 .isNotEmpty(getestrpoliticas.getIcmListaestructuras().getIcmListaestructurasRecordSet())) {

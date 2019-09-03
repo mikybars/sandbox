@@ -32,7 +32,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="ICM_PARAMCALESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ParamcalestructuraBlock"/>
+ *         &lt;element name="ICM_PARAMCALPROCESO" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,37 +43,37 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparamcalestructura"
+    "icmparamcalproceso"
 })
-@XmlRootElement(name = "GETESTRPOLITICAS")
-public class GETESTRPOLITICAS implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "SAVEPROCESO")
+public class SAVEPROCESO implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(name = "ICM_PARAMCALESTRUCTURA", required = true)
-    protected IcmParamcalestructuraBlock icmparamcalestructura;
+    @XmlElement(name = "ICM_PARAMCALPROCESO", required = true)
+    protected IcmParamcalprocesoBlock icmparamcalproceso;
 
     /**
-     * Obtiene el valor de la propiedad icmparamcalestructura.
+     * Obtiene el valor de la propiedad icmparamcalproceso.
      * 
      * @return
      *     possible object is
-     *     {@link IcmParamcalestructuraBlock }
+     *     {@link IcmParamcalprocesoBlock }
      *     
      */
-    public IcmParamcalestructuraBlock getICMPARAMCALESTRUCTURA() {
-        return icmparamcalestructura;
+    public IcmParamcalprocesoBlock getICMPARAMCALPROCESO() {
+        return icmparamcalproceso;
     }
 
     /**
-     * Define el valor de la propiedad icmparamcalestructura.
+     * Define el valor de la propiedad icmparamcalproceso.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmParamcalestructuraBlock }
+     *     {@link IcmParamcalprocesoBlock }
      *     
      */
-    public void setICMPARAMCALESTRUCTURA(IcmParamcalestructuraBlock value) {
-        this.icmparamcalestructura = value;
+    public void setICMPARAMCALPROCESO(IcmParamcalprocesoBlock value) {
+        this.icmparamcalproceso = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -83,13 +83,13 @@ public class GETESTRPOLITICAS implements Cloneable, CopyTo2, Equals2, HashCode2,
         if (this == object) {
             return true;
         }
-        final GETESTRPOLITICAS that = ((GETESTRPOLITICAS) object);
+        final SAVEPROCESO that = ((SAVEPROCESO) object);
         {
-            IcmParamcalestructuraBlock lhsICMPARAMCALESTRUCTURA;
-            lhsICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-            IcmParamcalestructuraBlock rhsICMPARAMCALESTRUCTURA;
-            rhsICMPARAMCALESTRUCTURA = that.getICMPARAMCALESTRUCTURA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalestructura", lhsICMPARAMCALESTRUCTURA), LocatorUtils.property(thatLocator, "icmparamcalestructura", rhsICMPARAMCALESTRUCTURA), lhsICMPARAMCALESTRUCTURA, rhsICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null), (that.icmparamcalestructura!= null))) {
+            IcmParamcalprocesoBlock lhsICMPARAMCALPROCESO;
+            lhsICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
+            IcmParamcalprocesoBlock rhsICMPARAMCALPROCESO;
+            rhsICMPARAMCALPROCESO = that.getICMPARAMCALPROCESO();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalproceso", lhsICMPARAMCALPROCESO), LocatorUtils.property(thatLocator, "icmparamcalproceso", rhsICMPARAMCALPROCESO), lhsICMPARAMCALPROCESO, rhsICMPARAMCALPROCESO, (this.icmparamcalproceso!= null), (that.icmparamcalproceso!= null))) {
                 return false;
             }
         }
@@ -117,9 +117,9 @@ public class GETESTRPOLITICAS implements Cloneable, CopyTo2, Equals2, HashCode2,
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
-            theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-            strategy.appendField(locator, this, "icmparamcalestructura", buffer, theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null));
+            IcmParamcalprocesoBlock theICMPARAMCALPROCESO;
+            theICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
+            strategy.appendField(locator, this, "icmparamcalproceso", buffer, theICMPARAMCALPROCESO, (this.icmparamcalproceso!= null));
         }
         return buffer;
     }
@@ -127,9 +127,9 @@ public class GETESTRPOLITICAS implements Cloneable, CopyTo2, Equals2, HashCode2,
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
-            theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalestructura", theICMPARAMCALESTRUCTURA), currentHashCode, theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null));
+            IcmParamcalprocesoBlock theICMPARAMCALPROCESO;
+            theICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalproceso", theICMPARAMCALPROCESO), currentHashCode, theICMPARAMCALPROCESO, (this.icmparamcalproceso!= null));
         }
         return currentHashCode;
     }
@@ -150,18 +150,18 @@ public class GETESTRPOLITICAS implements Cloneable, CopyTo2, Equals2, HashCode2,
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETESTRPOLITICAS) {
-            final GETESTRPOLITICAS copy = ((GETESTRPOLITICAS) draftCopy);
+        if (draftCopy instanceof SAVEPROCESO) {
+            final SAVEPROCESO copy = ((SAVEPROCESO) draftCopy);
             {
-                Boolean icmparamcalestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalestructura!= null));
-                if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParamcalestructuraBlock sourceICMPARAMCALESTRUCTURA;
-                    sourceICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-                    IcmParamcalestructuraBlock copyICMPARAMCALESTRUCTURA = ((IcmParamcalestructuraBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalestructura", sourceICMPARAMCALESTRUCTURA), sourceICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null)));
-                    copy.setICMPARAMCALESTRUCTURA(copyICMPARAMCALESTRUCTURA);
+                Boolean icmparamcalprocesoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalproceso!= null));
+                if (icmparamcalprocesoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalprocesoBlock sourceICMPARAMCALPROCESO;
+                    sourceICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
+                    IcmParamcalprocesoBlock copyICMPARAMCALPROCESO = ((IcmParamcalprocesoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalproceso", sourceICMPARAMCALPROCESO), sourceICMPARAMCALPROCESO, (this.icmparamcalproceso!= null)));
+                    copy.setICMPARAMCALPROCESO(copyICMPARAMCALPROCESO);
                 } else {
-                    if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparamcalestructura = null;
+                    if (icmparamcalprocesoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalproceso = null;
                     }
                 }
             }
@@ -170,7 +170,7 @@ public class GETESTRPOLITICAS implements Cloneable, CopyTo2, Equals2, HashCode2,
     }
 
     public Object createNewInstance() {
-        return new GETESTRPOLITICAS();
+        return new SAVEPROCESO();
     }
 
 }

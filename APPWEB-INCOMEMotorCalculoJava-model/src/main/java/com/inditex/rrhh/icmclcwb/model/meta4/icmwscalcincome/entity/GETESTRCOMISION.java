@@ -32,7 +32,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/>
+ *         &lt;element name="ICM_PARAMCALESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ParamcalestructuraBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,37 +43,37 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparametrosentrada"
+    "icmparamcalestructura"
 })
 @XmlRootElement(name = "GETESTRCOMISION")
 public class GETESTRCOMISION implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
-    @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
-    protected IcmParametrosentradaBlock icmparametrosentrada;
+    @XmlElement(name = "ICM_PARAMCALESTRUCTURA", required = true)
+    protected IcmParamcalestructuraBlock icmparamcalestructura;
 
     /**
-     * Obtiene el valor de la propiedad icmparametrosentrada.
+     * Obtiene el valor de la propiedad icmparamcalestructura.
      * 
      * @return
      *     possible object is
-     *     {@link IcmParametrosentradaBlock }
+     *     {@link IcmParamcalestructuraBlock }
      *     
      */
-    public IcmParametrosentradaBlock getICMPARAMETROSENTRADA() {
-        return icmparametrosentrada;
+    public IcmParamcalestructuraBlock getICMPARAMCALESTRUCTURA() {
+        return icmparamcalestructura;
     }
 
     /**
-     * Define el valor de la propiedad icmparametrosentrada.
+     * Define el valor de la propiedad icmparamcalestructura.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmParametrosentradaBlock }
+     *     {@link IcmParamcalestructuraBlock }
      *     
      */
-    public void setICMPARAMETROSENTRADA(IcmParametrosentradaBlock value) {
-        this.icmparametrosentrada = value;
+    public void setICMPARAMCALESTRUCTURA(IcmParamcalestructuraBlock value) {
+        this.icmparamcalestructura = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -85,11 +85,11 @@ public class GETESTRCOMISION implements Cloneable, CopyTo2, Equals2, HashCode2, 
         }
         final GETESTRCOMISION that = ((GETESTRCOMISION) object);
         {
-            IcmParametrosentradaBlock lhsICMPARAMETROSENTRADA;
-            lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            IcmParametrosentradaBlock rhsICMPARAMETROSENTRADA;
-            rhsICMPARAMETROSENTRADA = that.getICMPARAMETROSENTRADA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrosentrada", lhsICMPARAMETROSENTRADA), LocatorUtils.property(thatLocator, "icmparametrosentrada", rhsICMPARAMETROSENTRADA), lhsICMPARAMETROSENTRADA, rhsICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null), (that.icmparametrosentrada!= null))) {
+            IcmParamcalestructuraBlock lhsICMPARAMCALESTRUCTURA;
+            lhsICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
+            IcmParamcalestructuraBlock rhsICMPARAMCALESTRUCTURA;
+            rhsICMPARAMCALESTRUCTURA = that.getICMPARAMCALESTRUCTURA();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalestructura", lhsICMPARAMCALESTRUCTURA), LocatorUtils.property(thatLocator, "icmparamcalestructura", rhsICMPARAMCALESTRUCTURA), lhsICMPARAMCALESTRUCTURA, rhsICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null), (that.icmparamcalestructura!= null))) {
                 return false;
             }
         }
@@ -117,9 +117,9 @@ public class GETESTRCOMISION implements Cloneable, CopyTo2, Equals2, HashCode2, 
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            strategy.appendField(locator, this, "icmparametrosentrada", buffer, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
+            theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
+            strategy.appendField(locator, this, "icmparamcalestructura", buffer, theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null));
         }
         return buffer;
     }
@@ -127,9 +127,9 @@ public class GETESTRCOMISION implements Cloneable, CopyTo2, Equals2, HashCode2, 
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrosentrada", theICMPARAMETROSENTRADA), currentHashCode, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
+            theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalestructura", theICMPARAMCALESTRUCTURA), currentHashCode, theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null));
         }
         return currentHashCode;
     }
@@ -153,15 +153,15 @@ public class GETESTRCOMISION implements Cloneable, CopyTo2, Equals2, HashCode2, 
         if (draftCopy instanceof GETESTRCOMISION) {
             final GETESTRCOMISION copy = ((GETESTRCOMISION) draftCopy);
             {
-                Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrosentrada!= null));
-                if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrosentradaBlock sourceICMPARAMETROSENTRADA;
-                    sourceICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-                    IcmParametrosentradaBlock copyICMPARAMETROSENTRADA = ((IcmParametrosentradaBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrosentrada", sourceICMPARAMETROSENTRADA), sourceICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null)));
-                    copy.setICMPARAMETROSENTRADA(copyICMPARAMETROSENTRADA);
+                Boolean icmparamcalestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalestructura!= null));
+                if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalestructuraBlock sourceICMPARAMCALESTRUCTURA;
+                    sourceICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
+                    IcmParamcalestructuraBlock copyICMPARAMCALESTRUCTURA = ((IcmParamcalestructuraBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalestructura", sourceICMPARAMCALESTRUCTURA), sourceICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null)));
+                    copy.setICMPARAMCALESTRUCTURA(copyICMPARAMCALESTRUCTURA);
                 } else {
-                    if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparametrosentrada = null;
+                    if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalestructura = null;
                     }
                 }
             }

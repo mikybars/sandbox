@@ -151,13 +151,6 @@ public abstract class TareaMapper {
     @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
-    
-    @AfterMapping
-    protected void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
-            TrabajoDto srcTrabajo, @MappingTarget GenericFilterDto filter) {
-        filter.setFechaInicio(LocalDateTime.of(srcTrabajo.getFechaInicioPeriodo(), LocalTime.MIDNIGHT));
-        filter.setFechaFin(LocalDateTime.of(srcTrabajo.getFechaFinPeriodo(), LocalTime.MIDNIGHT));
-    }
 
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
