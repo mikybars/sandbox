@@ -21,6 +21,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Service
 @Validated
@@ -80,8 +82,8 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public List<ProgramacionDto> findPendiente() {
-        List<ProgramacionDto> result = programacionMapper.programacionToProgramacionDto(
-                programacionRepository.findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
+        List<ProgramacionDto> result = programacionMapper.programacionToProgramacionDto(programacionRepository
+                .findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
         result.forEach(item -> item.setAmbito(programacionAmbitoService.findByProgramacion(item)));
         return result;
     }
@@ -101,6 +103,21 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public void activa() {
         programacionRepositoryCustom.activa();
+    }
+
+    @Override
+    public void activa(@Positive @NotNull Long id) {
+        programacionRepositoryCustom.activa(id);
+    }
+
+    @Override
+    public void desactiva() {
+        programacionRepositoryCustom.desactiva();
+    }
+
+    @Override
+    public void desactiva(@Positive @NotNull Long id) {
+        programacionRepositoryCustom.desactiva(id);
     }
 
 }
