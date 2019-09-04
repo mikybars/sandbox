@@ -5,6 +5,14 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ListaEstructuraDesplazamientosResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestrdesplRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaporcentajesdespRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -68,6 +76,59 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idEmpresa", source = "idempresa")
     @Mapping(target = "item", source = "icmParametrosentradaRecordSet")
     GenericFilterDto asGenericFilterDto(IcmParametrosentradaBlock src);
+
+    @InheritInverseConfiguration
+    IcmParamcalestructuraBlock asIcmParamcalestructuraBlock(GenericFilterDto src);
+
+    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
+    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
+    @Mapping(target = "idOrigen", source = "idorigen")
+    @Mapping(target = "item", source = "icmParamcalestructuraRecordSet")
+    GenericFilterDto asGenericFilterDto(IcmParamcalestructuraBlock src);
+
+    @InheritInverseConfiguration
+    IcmParamcalestructuraRecord asIcmParamcalestructuraRecord(GenericFilterParametersDto src);
+
+    @Mapping(target = "idEmpleado", source = "idempleado")
+    @Mapping(target = "orEmpleado", source = "orempleado")
+    GenericFilterParametersDto asGenericFilterParametersDto(IcmParamcalestructuraRecord src);
+
+    @InheritInverseConfiguration
+    IcmParamcalsociedadBlock asIcmParamcalsociedadBlock(GenericFilterDto src);
+
+    @Mapping(target = "item", source = "icmParamcalsociedadRecordSet")
+    GenericFilterDto asGenericFilterDto(IcmParamcalsociedadBlock src);
+
+    @InheritInverseConfiguration
+    IcmParamcalsociedadRecord asIcmParamcalsociedadRecord(GenericFilterParametersDto src);
+
+    @Mapping(target = "idSociedadReg", source = "idsociedad")
+    GenericFilterParametersDto asGenericFilterParametersDto(IcmParamcalsociedadRecord src);
+
+    @InheritInverseConfiguration
+    IcmParamcalorigenBlock asIcmParamcalorigenBlock(GenericFilterDto src);
+
+    @Mapping(target = "item", source = "icmParamcalorigenRecordSet")
+    GenericFilterDto asGenericFilterDto(IcmParamcalorigenBlock src);
+
+    @InheritInverseConfiguration
+    IcmParamcalorigenRecord asIcmParamcalorigenRecord(GenericFilterParametersDto src);
+
+    @Mapping(target = "idOrigenReg", source = "idorigen")
+    GenericFilterParametersDto asGenericFilterParametersDto(IcmParamcalorigenRecord src);
+
+    @InheritInverseConfiguration
+    IcmParamcalperiodoBlock asIcmParamcalperiodoBlock(GenericFilterDto src);
+
+    @Mapping(target = "item", source = "icmParamcalperiodoRecordSet")
+    GenericFilterDto asGenericFilterDto(IcmParamcalperiodoBlock src);
+
+    @InheritInverseConfiguration
+    IcmParamcalperiodoRecord asIcmParamcalperiodoRecord(GenericFilterParametersDto src);
+
+    @Mapping(target = "idSociedadReg", source = "idsociedad")
+    @Mapping(target = "idPeriodo", source = "idperiodo")
+    GenericFilterParametersDto asGenericFilterParametersDto(IcmParamcalperiodoRecord src);
 
     @InheritInverseConfiguration
     IcmParametrosentradaRecord asIcmParametrosentradaRecord(GenericFilterParametersDto src);
