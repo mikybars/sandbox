@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -196,5 +199,16 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     public List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(final EmpleadosDesplazamientoRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO,
                 meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO).getFilter().getMaxPageSize());
+    }
+
+    @Override
+    public void saveProceso(SaveProcesoDto request) {
+        SaveResultDto saveResult = meta4IcmWsCalcIncomeService.saveProceso(request);
+        if (saveResult.getResultadoError() || !saveResult.getResultadoOk()) {
+            StringBuilder sb = new StringBuilder("Error al guardar el proceso: \n");
+            saveResult.getData().forEach(x ->
+                sb.append(x.getLiteral()).append(" ").append(x.getRegistroAfectado()).append('\n'));
+            throw new IcmclcwbException(sb.toString());
+        }
     }
 }

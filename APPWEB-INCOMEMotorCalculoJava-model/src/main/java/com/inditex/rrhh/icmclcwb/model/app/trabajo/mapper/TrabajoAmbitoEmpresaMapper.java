@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoParametersDto;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -39,4 +40,10 @@ public abstract class TrabajoAmbitoEmpresaMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
+    @Mapping(target = "idEmpresa", source = "stdIdLegEnt")
+    public abstract SaveProcesoParametersDto trabajoAmbitoEmpresaDtoToSaveProcesoParametersDto(
+        TrabajoAmbitoEmpresaDto src);
+
+    public abstract List<SaveProcesoParametersDto> trabajoAmbitoEmpresaDtoToSaveProcesoParametersDto(
+        List<TrabajoAmbitoEmpresaDto> src);
 }
