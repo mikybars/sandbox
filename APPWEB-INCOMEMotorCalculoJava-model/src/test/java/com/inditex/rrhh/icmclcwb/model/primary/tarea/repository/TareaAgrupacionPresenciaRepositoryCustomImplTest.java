@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +18,15 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.util.Arrays;
 
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaAgrupacionPresenciaRepositoryCustomImplTest {
+
+    private final static String SQL_TOTALIZAR = "SQL TOTALIZAR";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -32,39 +35,56 @@ public class TareaAgrupacionPresenciaRepositoryCustomImplTest {
     private TareaAgrupacionPresenciaRepositoryCustomImpl tareaAgrupacionPresenciaRepositoryCustom;
 
     @Captor
-    private ArgumentCaptor<MapSqlParameterSource> params;
+    private ArgumentCaptor<String> sqlCaptor;
+
+    @Captor
+    private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaAgrupacionPresenciaRepositoryCustom, "sqlUpdateActivo", "", true);
-        FieldUtils.writeField(tareaAgrupacionPresenciaRepositoryCustom, "sqlTotalizar", "", true);
+        FieldUtils.writeField(tareaAgrupacionPresenciaRepositoryCustom, "sqlTotalizar", SQL_TOTALIZAR, true);
     }
 
     @Test
-    public void updateActivoTest() {
+    public void calcularPresenciasTotalesAgrupacionTest() {
 
         TareaDto tarea = mock(TareaDto.class);
-        when(tarea.getId()).thenReturn(345089L);
+        when(tarea.getId()).thenReturn(890L);
+        tareaAgrupacionPresenciaRepositoryCustom.calcularPresenciasTotalesAgrupacion(tarea);
 
-        tareaAgrupacionPresenciaRepositoryCustom.updateActivo(tarea);
-        // parametros de la consulta: idTarea, idTipoPresencia, idConcepto, porcentajeInclusion, nuevoActivo
-        verify(namedParameterJdbcTemplate, times(1)).update(any(String.class), params.capture());
-        assertEquals(5, params.getValue().getValues().size());
-        // idTarea
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        // idTipoPresencia
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS));
-        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS));
-        // idConcepto
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO));
-        assertEquals(Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()), params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO));
-        // porcentajeInclusion
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO, params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION));
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
+        assertEquals(SQL_TOTALIZAR, sqlCaptor.getValue());
+        MapSqlParameterSource params = paramsCaptor.getValue();
+        // Parámetros de la consulta: nuevoActivo, nuevoIdTipoDato, idConcepto, porcentajeInclusion, idTarea,
+        // activo, idSeccion, idTipoPresencia
+        assertEquals(8, params.getValues().size());
         // nuevoActivo
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
+        // nuevoIdTipoDato
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE.getId(),
+            params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        // idConcepto
+        assertTrue(params.hasValue(SQL_PARAM_ID_CONCEPTO));
+        assertEquals(Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()),
+            params.getValue(SQL_PARAM_ID_CONCEPTO));
+        // porcentajeInclusion
+        assertTrue(params.hasValue(SQL_PARAM_PORCENTAJE_INCLUSION));
+        assertEquals(SQL_VALUE_PORCENTAJE_CERO, params.getValue(SQL_PARAM_PORCENTAJE_INCLUSION));
+        // idTarea
+        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+        // activo
+        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+        // idSeccion
+        assertTrue(params.hasValue(SQL_PARAM_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_ID_SECCION));
+        // idTipoPresencia
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId(),
+            params.getValue(SQL_PARAM_ID_TIPO_MINUTOS));
     }
 
 

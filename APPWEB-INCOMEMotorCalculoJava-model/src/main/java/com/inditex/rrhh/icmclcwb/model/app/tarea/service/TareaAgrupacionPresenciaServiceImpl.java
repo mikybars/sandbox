@@ -17,11 +17,6 @@ public class TareaAgrupacionPresenciaServiceImpl implements TareaAgrupacionPrese
     private TareaAgrupacionPresenciaRepositoryCustom tareaAgrupacionPresenciaRepositoryCustom;
 
     @Override
-    public void updateActivo(@Valid TareaDto tarea) {
-        tareaAgrupacionPresenciaRepositoryCustom.updateActivo(tarea);
-    }
-
-    @Override
     public void calcularPresenciasTotalesAgrupacion(@Valid TareaDto tarea) {
         tareaAgrupacionPresenciaRepositoryCustom.calcularPresenciasTotalesAgrupacion(tarea);
     }
