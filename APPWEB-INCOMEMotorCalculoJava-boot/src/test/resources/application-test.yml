@@ -24,10 +24,12 @@ amiga:
       connection-factory:
         broker-escritura:
           xaConnectionFactory:
+            #brokerURL: failover:(vm://embedded)
             brokerURL: vm://embedded
             #brokerURL: tcp://localhost:61616
         broker-lectura:
           xaConnectionFactory:
+            #brokerURL: failover:(vm://embedded)
             brokerURL: vm://embedded
             #brokerURL: tcp://localhost:61616
 app:
