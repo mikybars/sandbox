@@ -1,10 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
-import java.util.List;
-
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoLocalizacionDto;
@@ -17,9 +12,17 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import java.util.List;
 
 @Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class })
+@DecoratedWith(value = TrabajoMapperDecorator.class)
 public abstract class TrabajoMapper {
 
     @Mapping(target = "idProgramacion", expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ? src.getProgramacion().getId() : null)")
@@ -63,5 +66,12 @@ public abstract class TrabajoMapper {
     @Mapping(target = "idTrabajo", ignore = true)
     public abstract TrabajoAmbitoPersonaDto programacionAmbitoPersonaDtoToTrabajoAmbitoPersonaDto(
             ProgramacionAmbitoPersonaDto src);
+
+    @Mapping(target = "idAmbito", ignore = true)
+    @Mapping(target = "nombreUsuario", source = "nombreUsuario")
+    @Mapping(target = "idEstadoEjecucion", ignore = true)
+    @Mapping(target = "idOrganization", source = "idOrganization")
+    @Mapping(target = "item", ignore = true)
+    public abstract SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo);
 
 }

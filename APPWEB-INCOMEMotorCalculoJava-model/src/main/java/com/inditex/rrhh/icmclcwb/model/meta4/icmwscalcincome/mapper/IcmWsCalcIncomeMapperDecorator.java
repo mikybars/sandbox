@@ -5,7 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,4 +199,17 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         return tiendas;
     }
 
+    @Override
+    public SaveResultDto asSaveResultDto(IcmResultadoguardadoBlock src) {
+        SaveResultDto result = delegate.asSaveResultDto(src);
+        result.setResultadoOk(
+            !src.getIcmResultadoguardadoRecordSet()
+                .stream()
+                .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmAvisosguardado().getResultado())));
+        result.setResultadoError(
+            src.getIcmResultadoguardadoRecordSet()
+                .stream()
+                .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
+        return result;
+    }
 }

@@ -5,7 +5,9 @@ import java.util.concurrent.TimeUnit;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.retry.annotation.Retryable;
@@ -347,6 +349,19 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().searchempleados(param2, param1);
+        } catch (Exception e) {
+            catchException(e, client);
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            release(client);
+        }
+    }
+
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public SaveprocesoOutput saveproceso(IcmParamcalprocesoBlock param) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().saveproceso(param);
         } catch (Exception e) {
             catchException(e, client);
             throw new Meta4IcmclcwbException(e.getMessage(), e);

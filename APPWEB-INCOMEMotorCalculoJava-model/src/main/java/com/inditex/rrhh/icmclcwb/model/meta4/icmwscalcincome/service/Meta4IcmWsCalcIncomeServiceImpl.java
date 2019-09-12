@@ -2,11 +2,13 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -557,4 +559,9 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         return result;
     }
 
+    @Override
+    public SaveResultDto saveProceso(SaveProcesoDto request) {
+        SaveprocesoOutput saveProcesoOutput = meta4ClientPool.saveproceso(icmWsCalcIncomeMapper.asIcmParamcalprocesoBlock(request));
+        return icmWsCalcIncomeMapper.asSaveResultDto(saveProcesoOutput.getIcmResultadoguardado());
+    }
 }

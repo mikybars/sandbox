@@ -314,6 +314,10 @@ app:
         credentials:
           user: INCOME_CALC
           password: 123
+#          user: SRVCICMCLCWSDESAX
+#          password: kUZaIucw>WVIO9x
+#          user: SRVCICMCLCWSPREAX
+#          password: rbqOxKz4cm)fI
           language: 2
         pool:
           pre-login: false

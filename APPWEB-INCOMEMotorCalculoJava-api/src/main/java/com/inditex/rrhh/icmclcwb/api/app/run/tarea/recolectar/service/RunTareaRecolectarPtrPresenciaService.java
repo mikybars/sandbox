@@ -13,6 +13,4 @@ public interface RunTareaRecolectarPtrPresenciaService {
 
     void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void updateActivoPresenciaAgrupacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
 }

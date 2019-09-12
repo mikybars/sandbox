@@ -22,22 +22,8 @@ public class TareaAgrupacionPresenciaRepositoryCustomImpl
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['TareaAgrupacionPresenciaRepositoryCustom.updateActivo']}")
-    private String sqlUpdateActivo;
-
     @Value("#{primaryQuery['TareaAgrupacionPresenciaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
-
-    @Override
-    public void updateActivo(TareaDto tarea) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS, TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION, SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
-    }
 
     @Override
     public void calcularPresenciasTotalesAgrupacion(TareaDto tarea) {
@@ -51,6 +37,8 @@ public class TareaAgrupacionPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
             TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
+            SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
 
         //VALORES ESTABLECIDOS
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

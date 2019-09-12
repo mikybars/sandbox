@@ -1,17 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
-import java.util.List;
-
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoParametersDto;
+import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoAmbitoOrigenMapperDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoAmbitoOrigen;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoAmbitoOrigenMapperDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoAmbitoOrigen;
+import java.util.List;
 
 @Mapper
 @DecoratedWith(value = TrabajoAmbitoOrigenMapperDecorator.class)
@@ -38,5 +38,12 @@ public abstract class TrabajoAmbitoOrigenMapper {
             List<TrabajoAmbitoOrigenDto> srcTrabajoAmbitoOrigen, TrabajoDto srcTrabajo) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
+    @Mapping(target = "idOrigenReg", source = "cclIdOrigen")
+    public abstract SaveProcesoParametersDto trabajoAmbitoOrigenDtoToSaveProcesoParametersDto(
+            TrabajoAmbitoOrigenDto src);
+
+    public abstract List<SaveProcesoParametersDto> trabajoAmbitoOrigenDtoToSaveProcesoParametersDto(
+        List<TrabajoAmbitoOrigenDto> src);
 
 }

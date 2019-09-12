@@ -16,9 +16,6 @@ import javax.validation.constraints.NotNull;
 public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecolectarPtrPresenciaService {
 
     @Autowired
-    private TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
-
-    @Autowired
     private RunTareaAmbitoRecolectarPtrPresenciaService runTareaAmbitoRecolectarPtrPresenciaService;
 
     @Override
@@ -37,10 +34,5 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
     public void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
                 .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
-    public void updateActivoPresenciaAgrupacionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-        tareaAgrupacionPresenciaService.updateActivo(runTarea.getTarea());
     }
 }

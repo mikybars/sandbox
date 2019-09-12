@@ -23,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -79,5 +80,7 @@ public interface Meta4IcmWsCalcIncomeSessionService {
     List<ComisionEmpleadoResultItemDto> getEstructurasPoliticas(ComisionEmpleadoRequestDto request);
 
     List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
+
+    void saveProceso(SaveProcesoDto request);
 
 }
