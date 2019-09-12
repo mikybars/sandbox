@@ -6,6 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRespositoryProcesarCustom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Autowired
     private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
+
+    @Autowired
+    private TareaLocalizacionVentaRepositoryCustom tareaLocalizacionVentaRepositoryCustom;
 
     @Autowired
     private TipoDatoService tipoDatoService;
@@ -73,4 +77,8 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
         tareaTiendaVentaSeccionRepository.procesarRepartoEntregaDomicilio(runTarea.getTarea());
     }
 
+    @Override
+    public void updateActivoTrasladadas(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas(runTarea.getTarea());
+    }
 }

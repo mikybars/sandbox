@@ -20,4 +20,6 @@ public interface RunTareaProcesarVentaService {
 
     void repartoVentaEntregaDomicilioSeccion(@Valid RunTareaDto runTarea);
 
+    void updateActivoTrasladadas(@Valid RunTareaDto runTarea);
+
 }

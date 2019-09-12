@@ -30,8 +30,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
     private static final String SQL_SAVE_ABIERTO = "SQL SAVE ABIERTO TEST";
     private static final String SQL_SAVE_CERRADO = "SQL SAVE CERRADO TEST";
-    private static final String SQL_TRASLADAR_ACTUAL = "SQL TRASLADAR ACTUAL TEST";
-    private static final String SQL_TRASLADAR_DESTINO = "SQL TRASLADAR DESTINO TEST";
+    private static final String SQL_TRASLADAR = "SQL TRALADAR TEST";
+    private static final String SQL_COMPENSARL = "SQL COMPENSAR TEST";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -49,8 +49,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlSaveAbierto", SQL_SAVE_ABIERTO, true);
         FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlSaveCerrado", SQL_SAVE_CERRADO, true);
-        FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlTrasladarActual", SQL_TRASLADAR_ACTUAL, true);
-        FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlTrasladarDestino", SQL_TRASLADAR_DESTINO, true);
+        FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlCompensar", SQL_COMPENSARL, true);
+        FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlTrasladar", SQL_TRASLADAR, true);
     }
 
     public void saveAbiertoTest() {
@@ -97,10 +97,17 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
         tareaLocalizacionAbiertaRepositoryCustom.trasladar(tarea, idTipoImporteVentas);
         verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
-        assertEquals(SQL_TRASLADAR_DESTINO, sql.getValue());
-        // parametros de la consulta: tiposDato, idTarea, cerrado, nuevoIdTipoDato, abierto
-        // multiplicador, nuevoActivo
-        assertEquals(7, params.getValue().getValues().size());
+        assertEquals(SQL_TRASLADAR, sql.getValue());
+        // parametros de la consulta: tiposDato, idTarea, cerrado, abierto, nuevoActivo, activo
+        // idTipoDatoVentaIpodLocalizacion, idTipoDatoVentaIpodLocalizacionTrasladada
+        // idTipoDatoVentaIpodLocalizacionSeccion, idTipoDatoVentaIpodLocalizacionSeccionTrasladada
+        // idTipoDatoVentaSINTLocalizacion, idTipoDatoVentaSINTLocalizacionTrasladada
+        // idTipoDatoVentaSINTLocalizacionSeccion, idTipoDatoVentaSINTLocalizacionSeccionTrasladada
+        // idTipoDatoVentaEntregaTiendaLocalizacion, idTipoDatoVentaEntregaTiendaLocalizacionTrasladada
+        // idTipoDatoVentaEntregaTiendaLocalizacionSeccion, idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada
+        // idTipoDatoVentaEntregaDomicilioLocalizacion, idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada
+        // idTipoDatoVentaEntregaDomicilioLocalizacionSeccion, idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada
+        assertEquals(22, params.getValue().getValues().size());
         // tiposDato
         assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
         assertEquals(idTipoImporteVentas, params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
@@ -110,18 +117,63 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // cerrado
         assertTrue(params.getValue().hasValue(SQL_PARAM_CERRADO));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_CERRADO));
-        // nuevoIdTipoDato
-        assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_TRASLADADA.getId(), params.getValue().getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // abierto
         assertTrue(params.getValue().hasValue(SQL_PARAM_ABIERTO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ABIERTO));
-        // multiplicador
-        assertTrue(params.getValue().hasValue(SQL_PARAM_MULTIPLICADOR));
-        assertEquals(SQL_VALUE_MULTIPLICADOR_POSITIVO, params.getValue().getValue(SQL_PARAM_MULTIPLICADOR));
         // nuevoActivo
         assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_NUEVO_ACTIVO));
+        // activo
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
+        // idTipoDatoVentaIpodLocalizacion
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaIpodLocalizacion"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(), params.getValue().getValue("idTipoDatoVentaIpodLocalizacion"));
+        // idTipoDatoVentaIpodLocalizacionSeccion
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionSeccion"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(), params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccion"));
+        // idTipoDatoVentaSINTLocalizacion
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaSINTLocalizacion"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(), params.getValue().getValue("idTipoDatoVentaSINTLocalizacion"));
+        // idTipoDatoVentaSINTLocalizacionSeccion
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionSeccion"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(), params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccion"));
+        // idTipoDatoVentaEntregaTiendaLocalizacion
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(), params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
+        // idTipoDatoVentaEntregaTiendaLocalizacionSeccion
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(), params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
+        // idTipoDatoVentaEntregaDomicilioLocalizacion
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(), params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
+        // idTipoDatoVentaEntregaDomicilioLocalizacionSeccion
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(), params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
+        // idTipoDatoVentaIpodLocalizacionTrasladada
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA.getId(), params.getValue().getValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
+        // idTipoDatoVentaIpodLocalizacionSeccionTrasladada
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA.getId(), params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
+        // idTipoDatoVentaSINTLocalizacionTrasladada
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA.getId(), params.getValue().getValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
+        // idTipoDatoVentaSINTLocalizacionSeccionTrasladada
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA.getId(), params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
+        // idTipoDatoVentaEntregaTiendaLocalizacionTrasladada
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA.getId(), params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
+        // idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA.getId(), params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
+        // idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA.getId(), params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
+        // idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada
+        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA.getId(), params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
     }
 
     @Test
@@ -133,10 +185,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
         tareaLocalizacionAbiertaRepositoryCustom.compensar(tarea, idTipoImporteVentas);
         verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
-        assertEquals(SQL_TRASLADAR_ACTUAL, sql.getValue());
-        // parametros de la consulta: tiposDato, idTarea, cerrado, nuevoIdTipoDato, abierto
-        // multiplicador, nuevoActivo
-        assertEquals(7, params.getValue().getValues().size());
+        assertEquals(SQL_COMPENSARL, sql.getValue());
+        // parametros de la consulta: tiposDato, idTarea, cerrado, nuevoActivo
+        assertEquals(4, params.getValue().getValues().size());
         // tiposDato
         assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
         assertEquals(idTipoImporteVentas, params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
@@ -146,18 +197,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // cerrado
         assertTrue(params.getValue().hasValue(SQL_PARAM_CERRADO));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_CERRADO));
-        // nuevoIdTipoDato
-        assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_COMPENSADA.getId(), params.getValue().getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        // abierto
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ABIERTO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ABIERTO));
-        // multiplicador
-        assertTrue(params.getValue().hasValue(SQL_PARAM_MULTIPLICADOR));
-        assertEquals(SQL_VALUE_MULTIPLICADOR_NEGATIVO, params.getValue().getValue(SQL_PARAM_MULTIPLICADOR));
         // nuevoActivo
         assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_NUEVO_ACTIVO));
     }
 
     @Test
