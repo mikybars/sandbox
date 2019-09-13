@@ -12,4 +12,6 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
     void updateActivo(TareaDto tarea, TipoVentaConceptoEnum tipoVentaConceptoEnum, List<Integer> idsTipoDato);
 
+    void updateActivoTrasladadas(TareaDto tarea);
+
 }
