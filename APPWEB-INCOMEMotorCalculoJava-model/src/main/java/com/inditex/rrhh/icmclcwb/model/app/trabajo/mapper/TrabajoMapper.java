@@ -68,9 +68,12 @@ public abstract class TrabajoMapper {
             ProgramacionAmbitoPersonaDto src);
 
     @Mapping(target = "idAmbito", ignore = true)
+    @Mapping(target = "idTipoEjecucionCalculo", ignore = true)
+    @Mapping(target = "idTrabajo", source = "id")
     @Mapping(target = "nombreUsuario", source = "nombreUsuario")
-    @Mapping(target = "idEstadoEjecucion", ignore = true)
     @Mapping(target = "idOrganization", source = "idOrganization")
+    @Mapping(target = "idPeriodo", source = "icmIdPeriodo")
+    @Mapping(target = "idOrigen", ignore = true)
     @Mapping(target = "item", ignore = true)
     public abstract SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo);
 

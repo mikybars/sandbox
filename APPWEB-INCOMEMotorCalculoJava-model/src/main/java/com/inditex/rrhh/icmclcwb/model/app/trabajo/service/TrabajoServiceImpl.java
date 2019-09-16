@@ -90,8 +90,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
             result.setPersona(trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
         }
-        // Guardado del trabajo en Meta4 - TODO [JESTEVEZ] Comentado, pendiente de que se resuelvan cosillas en el sistema de notificaciones de Meta4
-//        meta4IcmWsCalcIncomeSessionService.saveProceso(trabajoMapper.trabajoDtoToSaveProcesoDto(trabajo));
+        meta4IcmWsCalcIncomeSessionService.saveProceso(trabajoMapper.trabajoDtoToSaveProcesoDto(trabajo));
         // Envío del trabajo a la cola
         senderTrabajo.send(result);
         return result;

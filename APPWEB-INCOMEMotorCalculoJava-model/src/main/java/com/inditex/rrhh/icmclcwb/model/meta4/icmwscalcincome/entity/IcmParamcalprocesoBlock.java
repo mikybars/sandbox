@@ -35,9 +35,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence>
  *         &lt;element name="idambito" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idperiodo" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idtrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idusuario" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idestadoejec" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorganization" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idtpejeccalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_ParamcalprocesoRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoRecord" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -51,9 +53,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "Icm_ParamcalprocesoBlock", propOrder = {
     "idambito",
     "idorigen",
+    "idperiodo",
+    "idtrabajo",
     "idusuario",
-    "idestadoejec",
     "idorganization",
+    "idtpejeccalculo",
     "icmParamcalprocesoRecordSet"
 })
 public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
@@ -64,11 +68,15 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
     @XmlElement(required = true, nillable = true)
     protected String idorigen;
     @XmlElement(required = true, nillable = true)
+    protected String idperiodo;
+    @XmlElement(required = true, nillable = true)
+    protected String idtrabajo;
+    @XmlElement(required = true, nillable = true)
     protected String idusuario;
     @XmlElement(required = true, nillable = true)
-    protected String idestadoejec;
-    @XmlElement(required = true, nillable = true)
     protected String idorganization;
+    @XmlElement(required = true, nillable = true)
+    protected String idtpejeccalculo;
     @XmlElement(name = "Icm_ParamcalprocesoRecordSet", nillable = true)
     protected List<IcmParamcalprocesoRecord> icmParamcalprocesoRecordSet;
 
@@ -121,6 +129,54 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
     }
 
     /**
+     * Obtiene el valor de la propiedad idperiodo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdperiodo() {
+        return idperiodo;
+    }
+
+    /**
+     * Define el valor de la propiedad idperiodo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdperiodo(String value) {
+        this.idperiodo = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad idtrabajo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdtrabajo() {
+        return idtrabajo;
+    }
+
+    /**
+     * Define el valor de la propiedad idtrabajo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdtrabajo(String value) {
+        this.idtrabajo = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idusuario.
      * 
      * @return
@@ -145,30 +201,6 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
     }
 
     /**
-     * Obtiene el valor de la propiedad idestadoejec.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdestadoejec() {
-        return idestadoejec;
-    }
-
-    /**
-     * Define el valor de la propiedad idestadoejec.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdestadoejec(String value) {
-        this.idestadoejec = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad idorganization.
      * 
      * @return
@@ -190,6 +222,30 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
      */
     public void setIdorganization(String value) {
         this.idorganization = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad idtpejeccalculo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdtpejeccalculo() {
+        return idtpejeccalculo;
+    }
+
+    /**
+     * Define el valor de la propiedad idtpejeccalculo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdtpejeccalculo(String value) {
+        this.idtpejeccalculo = value;
     }
 
     /**
@@ -248,6 +304,24 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
             }
         }
         {
+            String lhsIdperiodo;
+            lhsIdperiodo = this.getIdperiodo();
+            String rhsIdperiodo;
+            rhsIdperiodo = that.getIdperiodo();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idperiodo", lhsIdperiodo), LocatorUtils.property(thatLocator, "idperiodo", rhsIdperiodo), lhsIdperiodo, rhsIdperiodo, (this.idperiodo!= null), (that.idperiodo!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsIdtrabajo;
+            lhsIdtrabajo = this.getIdtrabajo();
+            String rhsIdtrabajo;
+            rhsIdtrabajo = that.getIdtrabajo();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idtrabajo", lhsIdtrabajo), LocatorUtils.property(thatLocator, "idtrabajo", rhsIdtrabajo), lhsIdtrabajo, rhsIdtrabajo, (this.idtrabajo!= null), (that.idtrabajo!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdusuario;
             lhsIdusuario = this.getIdusuario();
             String rhsIdusuario;
@@ -257,20 +331,20 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
             }
         }
         {
-            String lhsIdestadoejec;
-            lhsIdestadoejec = this.getIdestadoejec();
-            String rhsIdestadoejec;
-            rhsIdestadoejec = that.getIdestadoejec();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idestadoejec", lhsIdestadoejec), LocatorUtils.property(thatLocator, "idestadoejec", rhsIdestadoejec), lhsIdestadoejec, rhsIdestadoejec, (this.idestadoejec!= null), (that.idestadoejec!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsIdorganization;
             lhsIdorganization = this.getIdorganization();
             String rhsIdorganization;
             rhsIdorganization = that.getIdorganization();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "idorganization", lhsIdorganization), LocatorUtils.property(thatLocator, "idorganization", rhsIdorganization), lhsIdorganization, rhsIdorganization, (this.idorganization!= null), (that.idorganization!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsIdtpejeccalculo;
+            lhsIdtpejeccalculo = this.getIdtpejeccalculo();
+            String rhsIdtpejeccalculo;
+            rhsIdtpejeccalculo = that.getIdtpejeccalculo();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idtpejeccalculo", lhsIdtpejeccalculo), LocatorUtils.property(thatLocator, "idtpejeccalculo", rhsIdtpejeccalculo), lhsIdtpejeccalculo, rhsIdtpejeccalculo, (this.idtpejeccalculo!= null), (that.idtpejeccalculo!= null))) {
                 return false;
             }
         }
@@ -317,19 +391,29 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
             strategy.appendField(locator, this, "idorigen", buffer, theIdorigen, (this.idorigen!= null));
         }
         {
+            String theIdperiodo;
+            theIdperiodo = this.getIdperiodo();
+            strategy.appendField(locator, this, "idperiodo", buffer, theIdperiodo, (this.idperiodo!= null));
+        }
+        {
+            String theIdtrabajo;
+            theIdtrabajo = this.getIdtrabajo();
+            strategy.appendField(locator, this, "idtrabajo", buffer, theIdtrabajo, (this.idtrabajo!= null));
+        }
+        {
             String theIdusuario;
             theIdusuario = this.getIdusuario();
             strategy.appendField(locator, this, "idusuario", buffer, theIdusuario, (this.idusuario!= null));
         }
         {
-            String theIdestadoejec;
-            theIdestadoejec = this.getIdestadoejec();
-            strategy.appendField(locator, this, "idestadoejec", buffer, theIdestadoejec, (this.idestadoejec!= null));
-        }
-        {
             String theIdorganization;
             theIdorganization = this.getIdorganization();
             strategy.appendField(locator, this, "idorganization", buffer, theIdorganization, (this.idorganization!= null));
+        }
+        {
+            String theIdtpejeccalculo;
+            theIdtpejeccalculo = this.getIdtpejeccalculo();
+            strategy.appendField(locator, this, "idtpejeccalculo", buffer, theIdtpejeccalculo, (this.idtpejeccalculo!= null));
         }
         {
             List<IcmParamcalprocesoRecord> theIcmParamcalprocesoRecordSet;
@@ -352,19 +436,29 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen), currentHashCode, theIdorigen, (this.idorigen!= null));
         }
         {
+            String theIdperiodo;
+            theIdperiodo = this.getIdperiodo();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idperiodo", theIdperiodo), currentHashCode, theIdperiodo, (this.idperiodo!= null));
+        }
+        {
+            String theIdtrabajo;
+            theIdtrabajo = this.getIdtrabajo();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtrabajo", theIdtrabajo), currentHashCode, theIdtrabajo, (this.idtrabajo!= null));
+        }
+        {
             String theIdusuario;
             theIdusuario = this.getIdusuario();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idusuario", theIdusuario), currentHashCode, theIdusuario, (this.idusuario!= null));
         }
         {
-            String theIdestadoejec;
-            theIdestadoejec = this.getIdestadoejec();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestadoejec", theIdestadoejec), currentHashCode, theIdestadoejec, (this.idestadoejec!= null));
-        }
-        {
             String theIdorganization;
             theIdorganization = this.getIdorganization();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorganization", theIdorganization), currentHashCode, theIdorganization, (this.idorganization!= null));
+        }
+        {
+            String theIdtpejeccalculo;
+            theIdtpejeccalculo = this.getIdtpejeccalculo();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtpejeccalculo", theIdtpejeccalculo), currentHashCode, theIdtpejeccalculo, (this.idtpejeccalculo!= null));
         }
         {
             List<IcmParamcalprocesoRecord> theIcmParamcalprocesoRecordSet;
@@ -419,6 +513,32 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
                 }
             }
             {
+                Boolean idperiodoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idperiodo!= null));
+                if (idperiodoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdperiodo;
+                    sourceIdperiodo = this.getIdperiodo();
+                    String copyIdperiodo = ((String) strategy.copy(LocatorUtils.property(locator, "idperiodo", sourceIdperiodo), sourceIdperiodo, (this.idperiodo!= null)));
+                    copy.setIdperiodo(copyIdperiodo);
+                } else {
+                    if (idperiodoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idperiodo = null;
+                    }
+                }
+            }
+            {
+                Boolean idtrabajoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtrabajo!= null));
+                if (idtrabajoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdtrabajo;
+                    sourceIdtrabajo = this.getIdtrabajo();
+                    String copyIdtrabajo = ((String) strategy.copy(LocatorUtils.property(locator, "idtrabajo", sourceIdtrabajo), sourceIdtrabajo, (this.idtrabajo!= null)));
+                    copy.setIdtrabajo(copyIdtrabajo);
+                } else {
+                    if (idtrabajoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idtrabajo = null;
+                    }
+                }
+            }
+            {
                 Boolean idusuarioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idusuario!= null));
                 if (idusuarioShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdusuario;
@@ -432,19 +552,6 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
                 }
             }
             {
-                Boolean idestadoejecShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idestadoejec!= null));
-                if (idestadoejecShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdestadoejec;
-                    sourceIdestadoejec = this.getIdestadoejec();
-                    String copyIdestadoejec = ((String) strategy.copy(LocatorUtils.property(locator, "idestadoejec", sourceIdestadoejec), sourceIdestadoejec, (this.idestadoejec!= null)));
-                    copy.setIdestadoejec(copyIdestadoejec);
-                } else {
-                    if (idestadoejecShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idestadoejec = null;
-                    }
-                }
-            }
-            {
                 Boolean idorganizationShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idorganization!= null));
                 if (idorganizationShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdorganization;
@@ -454,6 +561,19 @@ public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, Has
                 } else {
                     if (idorganizationShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idorganization = null;
+                    }
+                }
+            }
+            {
+                Boolean idtpejeccalculoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtpejeccalculo!= null));
+                if (idtpejeccalculoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdtpejeccalculo;
+                    sourceIdtpejeccalculo = this.getIdtpejeccalculo();
+                    String copyIdtpejeccalculo = ((String) strategy.copy(LocatorUtils.property(locator, "idtpejeccalculo", sourceIdtpejeccalculo), sourceIdtpejeccalculo, (this.idtpejeccalculo!= null)));
+                    copy.setIdtpejeccalculo(copyIdtpejeccalculo);
+                } else {
+                    if (idtpejeccalculoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idtpejeccalculo = null;
                     }
                 }
             }

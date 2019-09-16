@@ -12,12 +12,18 @@ public class SaveProcesoDto implements Serializable {
 
     private String idAmbito;
 
+    //TODO [JESTEVEZ] Retirar este id origen, deberia estar en el listado
+    private String idOrigen;
+
     private String nombreUsuario;
 
-    //TODO [JESTEVEZ] eliminar este campo si al final no se usa en el servicio SAVEPROCESO
-    private String idEstadoEjecucion;
-
     private String idOrganization;
+
+    private Long idPeriodo;
+
+    private Long idTrabajo;
+
+    private String idTipoEjecucionCalculo;
 
     private List<SaveProcesoParametersDto> item;
 
