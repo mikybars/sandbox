@@ -90,7 +90,8 @@ public class TrabajoServiceImpl implements TrabajoService {
         if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
             result.setPersona(trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
         }
-        meta4IcmWsCalcIncomeSessionService.saveProceso(trabajoMapper.trabajoDtoToSaveProcesoDto(trabajo));
+        //TODO[JESTEVEZ] Está fallando el servicio, por lo que se desactiva de momento
+        //meta4IcmWsCalcIncomeSessionService.saveProceso(trabajoMapper.trabajoDtoToSaveProcesoDto(trabajo));
         // Envío del trabajo a la cola
         senderTrabajo.send(result);
         return result;
