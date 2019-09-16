@@ -2,8 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.periodo.dto.EstadoPeriodoCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.entity.PeriodoCalculoPersona;
@@ -39,11 +38,10 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
                 EstadoPeriodoCalculoPersonaEnum.CALCULADO.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR,
                 EstadoPeriodoCalculoPersonaEnum.CALCULADO_ERROR.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_NO_CALCULADO,
-                Arrays.asList(EstadoPeriodoCalculoPersonaEnum.SIN_CALCULAR.getId(), 
-                    EstadoPeriodoCalculoPersonaEnum.CALCULADO_ERROR.getId(), EstadoPeriodoCalculoPersonaEnum.CONFIRMADO.getId(),
-                    EstadoPeriodoCalculoPersonaEnum.EXPORTADO.getId(), EstadoPeriodoCalculoPersonaEnum.PAGADO.getId(),
-                    EstadoPeriodoCalculoPersonaEnum.RECUPERADO.getId()));
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
+                EstadoTareaCalculoPersonaEnum.OK.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO,
+                EstadoTareaCalculoPersonaEnum.KO.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
