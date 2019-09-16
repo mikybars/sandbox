@@ -50,6 +50,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ESTADO_TAREA_PERSONA = "idEstadoTareaPersona";
 
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA = "idEstadoPeriodoPersona";
+    
+    public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_NO_CALCULADO = "idEstadoPeriodoPersonaNoCalculado";
 
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR = "idEstadoPeriodoPersonaCalculadoError";
 
@@ -114,6 +116,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_PORCENTAJE_INCLUSION = "porcentajeInclusion";
 
     public static final String SQL_PARAM_BLOQUEADO = "bloqueado";
+    
+    public static final String SQL_PARAM_DESBLOQUEADO = "desbloqueado";
 
     public static final String SQL_PARAM_COMISIONABLE = "comisionable";
 
