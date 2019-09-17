@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.TipoEjecucionCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoEmpresaMapper;
@@ -9,7 +8,6 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoLocalizac
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoOrigenMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -52,6 +50,8 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
                     break;
                 case SOCIEDAD:
                     result.setIdOrganization(trabajo.getIdOrganization());
+                    result.setItem(new ArrayList<>());
+                    break;
                 default:
                     result.setItem(new ArrayList<>());
             }
