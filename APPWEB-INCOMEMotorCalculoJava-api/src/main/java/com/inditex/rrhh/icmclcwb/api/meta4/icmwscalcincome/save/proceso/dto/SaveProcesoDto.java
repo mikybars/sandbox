@@ -12,7 +12,6 @@ public class SaveProcesoDto implements Serializable {
 
     private String idAmbito;
 
-    //TODO [JESTEVEZ] Retirar este id origen, deberia estar en el listado
     private String idOrigen;
 
     private String nombreUsuario;

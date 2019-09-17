@@ -34,22 +34,10 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
     @Override
     public SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo) {
         SaveProcesoDto result = delegate.trabajoDtoToSaveProcesoDto(trabajo);
-        result.setIdTipoEjecucionCalculo(trabajo.getIdProgramacion() != null ?
-            TipoEjecucionCalculoEnum.PROGRAMADO.getId() :
-            TipoEjecucionCalculoEnum.MANUAL.getId());
         TipoAmbitoEnum ambito = TipoAmbitoEnum.fromId(trabajo.getTipoAmbito().getId());
-        //TODO [JESTEVEZ] Retirar esto cuando tengamos el origen múltiple
-        if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
-            result.setIdOrigen(trabajo.getOrigen().get(0).getCclIdOrigen());
-        }
         if (ambito != null) {
             result.setIdAmbito(ambito.getIcmIdAmbitoEjec());
             switch (ambito) {
-                    //TODO [JESTEVEZ] Activar esto cuando tengamos el origen múltiple
-//                case ORIGEN :
-//                    result.setItem(
-//                        trabajoAmbitoOrigenMapper.trabajoAmbitoOrigenDtoToSaveProcesoParametersDto(trabajo.getOrigen()));
-//                    break;
                 case EMPRESA:
                     result.setItem(
                         trabajoAmbitoEmpresaMapper.trabajoAmbitoEmpresaDtoToSaveProcesoParametersDto(trabajo.getEmpresa()));
@@ -62,6 +50,8 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
                     result.setItem(
                         trabajoAmbitoPersonaMapper.trabajoAmbitoPersonaDtoToSaveProcesoParametersDto(trabajo.getPersona()));
                     break;
+                case SOCIEDAD:
+                    result.setIdOrganization(trabajo.getIdOrganization());
                 default:
                     result.setItem(new ArrayList<>());
             }
