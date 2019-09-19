@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoEjecucionCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoLocalizacionDto;
@@ -21,7 +22,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class })
+@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class, TipoEjecucionCalculoEnum.class})
 @DecoratedWith(value = TrabajoMapperDecorator.class)
 public abstract class TrabajoMapper {
 
@@ -68,9 +69,12 @@ public abstract class TrabajoMapper {
             ProgramacionAmbitoPersonaDto src);
 
     @Mapping(target = "idAmbito", ignore = true)
+    @Mapping(target = "idTipoEjecucionCalculo", expression = "java( trabajo.getIdProgramacion() != null ? TipoEjecucionCalculoEnum.PROGRAMADO.getId() : TipoEjecucionCalculoEnum.MANUAL.getId())")
+    @Mapping(target = "idTrabajo", source = "id")
     @Mapping(target = "nombreUsuario", source = "nombreUsuario")
-    @Mapping(target = "idEstadoEjecucion", ignore = true)
-    @Mapping(target = "idOrganization", source = "idOrganization")
+    @Mapping(target = "idOrganization", ignore = true)
+    @Mapping(target = "idPeriodo", source = "icmIdPeriodo")
+    @Mapping(target = "idOrigen", expression = "java(trabajo.getOrigen() != null && !trabajo.getOrigen().isEmpty() ? trabajo.getOrigen().get(0).getCclIdOrigen() : null)")
     @Mapping(target = "item", ignore = true)
     public abstract SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo);
 

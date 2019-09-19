@@ -10,6 +10,8 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoPersonaMa
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+
 public abstract class TrabajoMapperDecorator extends TrabajoMapper {
 
     @Autowired
@@ -30,18 +32,10 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
     @Override
     public SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo) {
         SaveProcesoDto result = delegate.trabajoDtoToSaveProcesoDto(trabajo);
-        //TODO [COMUN] Eliminar esta linea o arreglarla cuando se decida si se envía o no el estado de ejecución
-        //1 = Pendiente, si se mantiene hay que usar el enumerado
-        result.setIdEstadoEjecucion("1");
-
         TipoAmbitoEnum ambito = TipoAmbitoEnum.fromId(trabajo.getTipoAmbito().getId());
         if (ambito != null) {
             result.setIdAmbito(ambito.getIcmIdAmbitoEjec());
             switch (ambito) {
-                case ORIGEN:
-                    result.setItem(
-                        trabajoAmbitoOrigenMapper.trabajoAmbitoOrigenDtoToSaveProcesoParametersDto(trabajo.getOrigen()));
-                    break;
                 case EMPRESA:
                     result.setItem(
                         trabajoAmbitoEmpresaMapper.trabajoAmbitoEmpresaDtoToSaveProcesoParametersDto(trabajo.getEmpresa()));
@@ -54,7 +48,12 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
                     result.setItem(
                         trabajoAmbitoPersonaMapper.trabajoAmbitoPersonaDtoToSaveProcesoParametersDto(trabajo.getPersona()));
                     break;
+                case SOCIEDAD:
+                    result.setIdOrganization(trabajo.getIdOrganization());
+                    result.setItem(new ArrayList<>());
+                    break;
                 default:
+                    result.setItem(new ArrayList<>());
             }
         }
         return result;

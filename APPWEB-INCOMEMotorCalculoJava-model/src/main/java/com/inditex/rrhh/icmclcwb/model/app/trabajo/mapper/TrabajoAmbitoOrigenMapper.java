@@ -41,7 +41,7 @@ public abstract class TrabajoAmbitoOrigenMapper {
 
     @Mapping(target = "idOrigenReg", source = "cclIdOrigen")
     public abstract SaveProcesoParametersDto trabajoAmbitoOrigenDtoToSaveProcesoParametersDto(
-            TrabajoAmbitoOrigenDto src);
+        TrabajoAmbitoOrigenDto src);
 
     public abstract List<SaveProcesoParametersDto> trabajoAmbitoOrigenDtoToSaveProcesoParametersDto(
         List<TrabajoAmbitoOrigenDto> src);

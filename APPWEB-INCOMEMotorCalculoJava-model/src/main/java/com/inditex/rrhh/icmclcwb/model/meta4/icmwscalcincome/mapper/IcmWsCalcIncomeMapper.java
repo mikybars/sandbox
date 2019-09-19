@@ -401,9 +401,11 @@ public interface IcmWsCalcIncomeMapper {
 
     @Mapping(target = "idAmbito", source = "idambito")
     @Mapping(target = "nombreUsuario", source = "idusuario")
-    //TODO [JESTEVEZ] eliminar este campo si al final no se usa en el servicio SAVEPROCESO
-    @Mapping(target = "idEstadoEjecucion", source = "idestadoejec")
     @Mapping(target = "idOrganization", source = "idorganization")
+    @Mapping(target = "idPeriodo", source = "idperiodo")
+    @Mapping(target = "idTrabajo", source = "idtrabajo")
+    @Mapping(target = "idTipoEjecucionCalculo", source = "idtpejeccalculo")
+    @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "item", source = "icmParamcalprocesoRecordSet")
     SaveProcesoDto asSaveProcesoDto(IcmParamcalprocesoBlock src);
 
@@ -415,6 +417,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idEmpresa", source = "idempresa")
     @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
     @Mapping(target = "idEmpleado", source = "idempleadolocal")
+    @Mapping(target = "orEmpleado", source = "orempleado")
     SaveProcesoParametersDto asSaveProcesoParametersDto(IcmParamcalprocesoRecord src);
 
     @Mapping(target = "resultadoOk", ignore = true)
