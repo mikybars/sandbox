@@ -1,10 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
-import java.util.List;
-
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
+import com.inditex.rrhh.icmclcwb.api.app.TipoEjecucionCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoLocalizacionDto;
@@ -17,9 +13,17 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class })
+import java.util.List;
+
+@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class, TipoEjecucionCalculoEnum.class})
+@DecoratedWith(value = TrabajoMapperDecorator.class)
 public abstract class TrabajoMapper {
 
     @Mapping(target = "idProgramacion", expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ? src.getProgramacion().getId() : null)")
@@ -63,5 +67,15 @@ public abstract class TrabajoMapper {
     @Mapping(target = "idTrabajo", ignore = true)
     public abstract TrabajoAmbitoPersonaDto programacionAmbitoPersonaDtoToTrabajoAmbitoPersonaDto(
             ProgramacionAmbitoPersonaDto src);
+
+    @Mapping(target = "idAmbito", ignore = true)
+    @Mapping(target = "idTipoEjecucionCalculo", expression = "java( trabajo.getIdProgramacion() != null ? TipoEjecucionCalculoEnum.PROGRAMADO.getId() : TipoEjecucionCalculoEnum.MANUAL.getId())")
+    @Mapping(target = "idTrabajo", source = "id")
+    @Mapping(target = "nombreUsuario", source = "nombreUsuario")
+    @Mapping(target = "idOrganization", ignore = true)
+    @Mapping(target = "idPeriodo", source = "icmIdPeriodo")
+    @Mapping(target = "idOrigen", expression = "java(trabajo.getOrigen() != null && !trabajo.getOrigen().isEmpty() ? trabajo.getOrigen().get(0).getCclIdOrigen() : null)")
+    @Mapping(target = "item", ignore = true)
+    public abstract SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo);
 
 }

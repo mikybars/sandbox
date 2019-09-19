@@ -40,8 +40,11 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
                 EstadoPeriodoCalculoPersonaEnum.CALCULADO_ERROR.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.OK.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO,
+                EstadoTareaCalculoPersonaEnum.KO.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         namedParameterJdbcTemplate.update(sqlMergePeriodoCalculoPersona, params);
     }
 

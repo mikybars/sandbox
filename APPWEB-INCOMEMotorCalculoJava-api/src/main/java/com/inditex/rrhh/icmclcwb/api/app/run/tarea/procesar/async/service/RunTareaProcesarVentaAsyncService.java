@@ -22,4 +22,6 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> compensar(RunTareaDto runTarea);
 
+    CompletableFuture<Void> updateActivoTrasladadas(RunTareaDto runTarea);
+
 }

@@ -5,7 +5,5 @@ import javax.validation.Valid;
 
 public interface TareaAgrupacionPresenciaService {
 
-    void updateActivo(@Valid TareaDto tarea);
-
     void calcularPresenciasTotalesAgrupacion(@Valid TareaDto tarea);
 }

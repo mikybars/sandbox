@@ -1,16 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
@@ -23,10 +12,21 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoOrigenServ
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Service
 @Validated
@@ -49,6 +49,9 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private TrabajoAmbitoPersonaService trabajoAmbitoPersonaService;
+
+    @Autowired
+    private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Autowired
     private SenderTrabajo senderTrabajo;
@@ -87,6 +90,9 @@ public class TrabajoServiceImpl implements TrabajoService {
         if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
             result.setPersona(trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
         }
+        // Guardado del trabajo en Meta4
+        meta4IcmWsCalcIncomeSessionService.saveProceso(trabajoMapper.trabajoDtoToSaveProcesoDto(result));
+        // Envío del trabajo a la cola
         senderTrabajo.send(result);
         return result;
     }

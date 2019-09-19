@@ -58,4 +58,9 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> updateActivoTrasladadas(RunTareaDto runTarea) {
+        tareaProcesarVentaService.updateActivoTrasladadas(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

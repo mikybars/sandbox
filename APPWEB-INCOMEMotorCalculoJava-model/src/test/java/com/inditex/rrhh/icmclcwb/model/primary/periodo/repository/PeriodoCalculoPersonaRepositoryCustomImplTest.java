@@ -58,15 +58,18 @@ public class PeriodoCalculoPersonaRepositoryCustomImplTest {
 
         verify(namedParameterJdbcTemplate, times(1)).update(any(String.class), params.capture());
 
-        // Parametros del SQL: idTarea, bloqueado, idEstadoTareaPersona, nuevaFecha, idEstadoPeriodoPersona, idEstadoPeriodoPersonaCalculadoError
-        assertEquals(6, params.getValue().getValues().size());
+        // Parametros del SQL: idTarea, bloqueado, desbloqueado, idEstadoTareaPersona, idEstadoTareaPersonaKo, nuevaFecha, idEstadoPeriodoPersona, idEstadoPeriodoPersonaCalculadoError
+        assertEquals(8, params.getValue().getValues().size());
         // idTarea
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(idTarea, params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        // bloqueado
+        // bloqueado + desbloqueado
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO));
+        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
-            params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO));
+            params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO));
         // idEstadoTareaPersona
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
         assertEquals(EstadoTareaCalculoPersonaEnum.OK.getId(),

@@ -48,8 +48,12 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ESTADO_NUEVO = "idEstadoNuevo";
 
     public static final String SQL_PARAM_ID_ESTADO_TAREA_PERSONA = "idEstadoTareaPersona";
-
+    
+    public static final String SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO = "idEstadoTareaPersonaKo";
+    
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA = "idEstadoPeriodoPersona";
+    
+    public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_NO_CALCULADO = "idEstadoPeriodoPersonaNoCalculado";
 
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR = "idEstadoPeriodoPersonaCalculadoError";
 
@@ -67,7 +71,21 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "idTipoDatoIndicadorPresenciaDesplazamiento";
 
-    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoImporteVentaEntregaDomicilioLocalizacion";
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoDatoVentaEntregaDomicilioLocalizacion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION = "idTipoDatoVentaEntregaDomicilioLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION = "idTipoDatoVentaSINTLocalizacion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION = "idTipoDatoVentaSINTLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION = "idTipoDatoVentaIpodLocalizacion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION = "idTipoDatoVentaIpodLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION = "idTipoDatoVentaEntregaTiendaLocalizacion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION = "idTipoDatoVentaEntregaTiendaLocalizacionSeccion";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION = "idTipoImporteVentaFisicaAgrupacion";
 
@@ -100,6 +118,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_PORCENTAJE_INCLUSION = "porcentajeInclusion";
 
     public static final String SQL_PARAM_BLOQUEADO = "bloqueado";
+    
+    public static final String SQL_PARAM_DESBLOQUEADO = "desbloqueado";
 
     public static final String SQL_PARAM_COMISIONABLE = "comisionable";
 
@@ -125,9 +145,23 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ESTADO_CON_ERRORES = "idEstadoConErrores";
 
-    public static final String SQL_PARAM_MULTIPLICADOR = "multiplicador";
-
     public static final String SQL_PARAM_NUEVA_FECHA = "nuevaFecha";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA = "idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA = "idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_TRASLADADA = "idTipoDatoVentaSINTLocalizacionTrasladada";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION_TRASLADADA = "idTipoDatoVentaSINTLocalizacionSeccionTrasladada";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_TRASLADADA = "idTipoDatoVentaIpodLocalizacionTrasladada";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION_TRASLADADA = "idTipoDatoVentaIpodLocalizacionSeccionTrasladada";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_TRASLADADA = "idTipoDatoVentaEntregaTiendaLocalizacionTrasladada";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA = "idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada";
 
     public static final Integer SQL_VALUE_BOOLEAN_TRUE = 1;
 
@@ -138,10 +172,6 @@ public class SqlPrimaryConstants {
     public static final Integer SQL_VALUE_IMPORTE_CERO = 0;
 
     public static final Integer SQL_VALUE_PORCENTAJE_CERO = 0;
-
-    public static final Integer SQL_VALUE_MULTIPLICADOR_POSITIVO = 1;
-
-    public static final Integer SQL_VALUE_MULTIPLICADOR_NEGATIVO = -1;
 
     // RESULTADOS DE CONSULTAS
 

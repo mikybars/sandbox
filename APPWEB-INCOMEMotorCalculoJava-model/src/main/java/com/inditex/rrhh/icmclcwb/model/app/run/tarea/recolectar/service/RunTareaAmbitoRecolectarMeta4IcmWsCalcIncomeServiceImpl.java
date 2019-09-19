@@ -504,6 +504,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
             request.setData(tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(runTarea.getTrabajo(), runTarea.getTarea(), tareaAmbito));
+            request.getData().getItem().add(GenericFilterParametersDto.builder().idOrigenReg(tareaAmbito.getCclIdOrigen()).build());
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE).getPage());
             boolean hasNext = false;
             do {

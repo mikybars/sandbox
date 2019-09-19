@@ -108,14 +108,16 @@ amiga:
           minPoolSize: 1
           maxPoolSize: 10
           xaConnectionFactory:
-            brokerURL: tcp://10.202.10.178:61616
+            brokerURL: failover:(tcp://10.202.10.178:61616)
+            #brokerURL: tcp://10.202.10.178:61616
             userName: root
             password: V3ct0r1nd1t3x
         broker-lectura:
           minPoolSize: 1
           maxPoolSize: 10
           xaConnectionFactory:
-            brokerURL: tcp://10.202.10.178:61616
+            brokerURL: failover:(tcp://10.202.10.178:61616)
+            #brokerURL: tcp://10.202.10.178:61616
             userName: root
             password: V3ct0r1nd1t3x
       listener-container-factory:
@@ -314,6 +316,10 @@ app:
         credentials:
           user: INCOME_CALC
           password: 123
+#          user: SRVCICMCLCWSDESAX
+#          password: kUZaIucw>WVIO9x
+#          user: SRVCICMCLCWSPREAX
+#          password: rbqOxKz4cm)fI
           language: 2
         pool:
           pre-login: false
@@ -326,10 +332,12 @@ app:
       login:
         server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
         #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+        #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
         server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+        #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getEmpresa:
