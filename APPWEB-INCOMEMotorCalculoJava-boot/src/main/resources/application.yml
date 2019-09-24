@@ -24,9 +24,11 @@ amiga:
         enabled: false
     reactor:
       scheduler:
-        elastic:
+        elastic: 
+          name-format: async-reactor-executor-%d
           core-pool-size: 10
           maximum-pool-size: 100
+          queue-size: 200
     async:
       default-executor:
         core-pool-size: 10
@@ -35,21 +37,25 @@ amiga:
     executor:
       meta4-executor:
         name: async-meta4-executor
+        name-format: async-meta4-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 200
       ptr-venta-executor:
         name: async-ptr-venta-executor
+        name-format: async-ptr-venta-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 200
       ptr-presencia-executor:
         name: async-ptr-presencia-executor
+        name-format: async-ptr-presencia-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 200
       repository-primary-executor:
         name: async-repository-primary-executor
+        name-format: async-repository-primary-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 200
