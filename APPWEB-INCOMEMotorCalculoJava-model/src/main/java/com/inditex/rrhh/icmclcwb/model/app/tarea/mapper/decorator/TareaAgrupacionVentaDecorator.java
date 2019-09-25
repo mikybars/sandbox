@@ -58,23 +58,23 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
                         log.warn("No hay agrupacion para la cadena: {}", item.getCadena());
                     }else {
                         idAgrupaciones.put(item.getCadena(), optionalAgrupacion.get().getId());    
-                        Long idAgrupacion = idAgrupaciones.get(item.getCadena());
-                        TareaAgrupacion agrupacion = TareaAgrupacion.builder().fecha(item.getFecha()).idAgrupacion(idAgrupacion)
-                                .idSeccion(item.getSeccion()).idTarea(tarea.getId()).idPais(item.getPais()).build();
-                        if (!ventas.containsKey(agrupacion)) {
-                            TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);
-                            tareaAgrupacionVenta.setIcmIdAgrupacionOnline(idAgrupacion);
-                            tareaAgrupacionVenta.setImporteSinImpuestos(new BigDecimal(0));
-                            tareaAgrupacionVenta.setImporteConImpuestos(new BigDecimal(0));
-                            ventas.put(agrupacion, tareaAgrupacionVenta);
-                        }
-                        TareaAgrupacionVenta tareaAgrupacionVenta = ventas.get(agrupacion);
-                        tareaAgrupacionVenta.setImporteSinImpuestos(
-                                tareaAgrupacionVenta.getImporteSinImpuestos().add(item.getImporteSinIVA()));
-                        tareaAgrupacionVenta.setImporteConImpuestos(
-                                tareaAgrupacionVenta.getImporteConImpuestos().add(item.getImporteConIVA()));
                     }
                 }
+                Long idAgrupacion = idAgrupaciones.get(item.getCadena());
+                TareaAgrupacion agrupacion = TareaAgrupacion.builder().fecha(item.getFecha()).idAgrupacion(idAgrupacion)
+                        .idSeccion(item.getSeccion()).idTarea(tarea.getId()).idPais(item.getPais()).build();
+                if (!ventas.containsKey(agrupacion)) {
+                    TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);
+                    tareaAgrupacionVenta.setIcmIdAgrupacionOnline(idAgrupacion);
+                    tareaAgrupacionVenta.setImporteSinImpuestos(new BigDecimal(0));
+                    tareaAgrupacionVenta.setImporteConImpuestos(new BigDecimal(0));
+                    ventas.put(agrupacion, tareaAgrupacionVenta);
+                }
+                TareaAgrupacionVenta tareaAgrupacionVenta = ventas.get(agrupacion);
+                tareaAgrupacionVenta.setImporteSinImpuestos(
+                        tareaAgrupacionVenta.getImporteSinImpuestos().add(item.getImporteSinIVA()));
+                tareaAgrupacionVenta.setImporteConImpuestos(
+                        tareaAgrupacionVenta.getImporteConImpuestos().add(item.getImporteConIVA()));
             }
             result.addAll(ventas.values());
         }
