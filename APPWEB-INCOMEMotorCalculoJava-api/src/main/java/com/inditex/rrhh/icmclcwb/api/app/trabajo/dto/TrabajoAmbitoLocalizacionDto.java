@@ -6,8 +6,10 @@ import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class TrabajoAmbitoLocalizacionDto implements Serializable {
 
