@@ -60,21 +60,23 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
                         idAgrupaciones.put(item.getCadena(), optionalAgrupacion.get().getId());    
                     }
                 }
-                Long idAgrupacion = idAgrupaciones.get(item.getCadena());
-                TareaAgrupacion agrupacion = TareaAgrupacion.builder().fecha(item.getFecha()).idAgrupacion(idAgrupacion)
-                        .idSeccion(item.getSeccion()).idTarea(tarea.getId()).idPais(item.getPais()).build();
-                if (!ventas.containsKey(agrupacion)) {
-                    TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);
-                    tareaAgrupacionVenta.setIcmIdAgrupacionOnline(idAgrupacion);
-                    tareaAgrupacionVenta.setImporteSinImpuestos(new BigDecimal(0));
-                    tareaAgrupacionVenta.setImporteConImpuestos(new BigDecimal(0));
-                    ventas.put(agrupacion, tareaAgrupacionVenta);
+                if (idAgrupaciones.containsKey(item.getCadena())) {
+                    Long idAgrupacion = idAgrupaciones.get(item.getCadena());
+                    TareaAgrupacion agrupacion = TareaAgrupacion.builder().fecha(item.getFecha()).idAgrupacion(idAgrupacion)
+                            .idSeccion(item.getSeccion()).idTarea(tarea.getId()).idPais(item.getPais()).build();
+                    if (!ventas.containsKey(agrupacion)) {
+                        TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);
+                        tareaAgrupacionVenta.setIcmIdAgrupacionOnline(idAgrupacion);
+                        tareaAgrupacionVenta.setImporteSinImpuestos(new BigDecimal(0));
+                        tareaAgrupacionVenta.setImporteConImpuestos(new BigDecimal(0));
+                        ventas.put(agrupacion, tareaAgrupacionVenta);
+                    }
+                    TareaAgrupacionVenta tareaAgrupacionVenta = ventas.get(agrupacion);
+                    tareaAgrupacionVenta.setImporteSinImpuestos(
+                            tareaAgrupacionVenta.getImporteSinImpuestos().add(item.getImporteSinIVA()));
+                    tareaAgrupacionVenta.setImporteConImpuestos(
+                            tareaAgrupacionVenta.getImporteConImpuestos().add(item.getImporteConIVA()));
                 }
-                TareaAgrupacionVenta tareaAgrupacionVenta = ventas.get(agrupacion);
-                tareaAgrupacionVenta.setImporteSinImpuestos(
-                        tareaAgrupacionVenta.getImporteSinImpuestos().add(item.getImporteSinIVA()));
-                tareaAgrupacionVenta.setImporteConImpuestos(
-                        tareaAgrupacionVenta.getImporteConImpuestos().add(item.getImporteConIVA()));
             }
             result.addAll(ventas.values());
         }
