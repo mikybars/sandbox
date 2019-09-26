@@ -41,7 +41,7 @@ public class DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements R
                     tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
                         runTarea.getTarea(), personas);
                 } catch (Exception e) {
-                    log.info("DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                    log.error("DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                     tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
                 log.info("Fin :: DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
