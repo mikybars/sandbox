@@ -30,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
@@ -75,6 +76,9 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
     @Autowired
     private TipoDatoService tipoDatoService;
 
+    @Autowired
+    private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+
     @Override
     public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito) {
@@ -99,6 +103,9 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                request.setProducto(meta4IcmWsCalcIncomeSessionService
+                        .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream()
+                        .map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -133,6 +140,9 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
             request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
+            request.setProducto(meta4IcmWsCalcIncomeSessionService
+                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream()
+                    .map(e -> e.getIdProducto()).collect(Collectors.toList()));
             CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);

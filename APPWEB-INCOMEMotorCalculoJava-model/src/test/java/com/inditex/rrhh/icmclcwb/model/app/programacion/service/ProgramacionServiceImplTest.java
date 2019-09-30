@@ -1,5 +1,34 @@
 package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.time.DateUtils;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
@@ -8,23 +37,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
-import org.apache.commons.lang3.time.DateUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProgramacionServiceImplTest {
@@ -43,8 +55,7 @@ public class ProgramacionServiceImplTest {
 
     @InjectMocks
     private ProgramacionServiceImpl programacionService;
-
-
+    
     @Test
     public void createTest() {
 
@@ -71,6 +82,38 @@ public class ProgramacionServiceImplTest {
         // Solo se comprueba si existe fecha, la comprobacion de la fecha correcta se hace en otro test de esta clase
         assertNotNull(result.getFechaHoraSiguienteEjecucion());
     }
+    
+    @Test
+    public void createTestSso() {
+        Authentication authentication = Mockito.mock(Authentication.class);
+        Mockito.when(authentication.getPrincipal()).thenReturn(new UserSSO(null, "name", "url", Arrays.asList()));
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+        
+        ProgramacionDto programacion = new ProgramacionDto();
+        programacion.setProgramacionHuso(TimeUtils.ofZoneId());
+        programacion.setAmbito(new ArrayList<>());
+        programacion.getAmbito().add(new ProgramacionAmbitoDto());
+        programacion.setHoraProgramacion(LocalTime.of(0, 0));
+
+        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class))).thenReturn(new Programacion());
+        when(programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
+        when(programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
+        when(programacionAmbitoService.create(any(List.class), any(ProgramacionDto.class))).thenReturn(new ArrayList<>());
+
+        ProgramacionDto result = programacionService.create(programacion);
+        assertNotNull(result);
+        assertNotNull(result.getFechaHoraCreacion());
+        assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
+            DateUtils.truncate(Date.from(result.getFechaHoraCreacion().atZone(TimeUtils.ofZone()).toInstant()), Calendar.SECOND));
+        assertEquals(programacion.getProgramacionHuso(), result.getProgramacionHuso());
+        assertEquals(programacion.getNombreUsuario(), result.getNombreUsuario());
+        assertEquals(programacion.getAmbito(), result.getAmbito());
+        // Solo se comprueba si existe fecha, la comprobacion de la fecha correcta se hace en otro test de esta clase
+        assertNotNull(result.getFechaHoraSiguienteEjecucion());
+    }
+
 
     @Test
     public void createSinProgramacionHusoTest() {
@@ -175,5 +218,24 @@ public class ProgramacionServiceImplTest {
         programacionService.activa();
         verify(programacionRepositoryCustom, times(1)).activa();
     }
+    
+    @Test
+    public void activaIdTest() {
+        Long id = 1L;
+        programacionService.activa(id);
+        verify(programacionRepositoryCustom, times(1)).activa(id);
+    }
+    
+    @Test
+    public void desactivaTest() {
+        programacionService.desactiva();
+        verify(programacionRepositoryCustom, times(1)).desactiva();
+    }
 
+    @Test
+    public void desactivaIdTest() {
+        Long id = 1L;
+        programacionService.desactiva(id);
+        verify(programacionRepositoryCustom, times(1)).desactiva(id);
+    }
 }
