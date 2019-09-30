@@ -44,7 +44,7 @@ public class GlobalTiendaPorcentajeDesplazamientoV1RunAlgoritmo implements RunAl
                     log.error("GlobalTiendaPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                     tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
-                log.info("Fun :: GlobalTiendaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                log.info("Fin :: GlobalTiendaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
                 return Flux.empty();
         }).sequential().collectList().block();
     }

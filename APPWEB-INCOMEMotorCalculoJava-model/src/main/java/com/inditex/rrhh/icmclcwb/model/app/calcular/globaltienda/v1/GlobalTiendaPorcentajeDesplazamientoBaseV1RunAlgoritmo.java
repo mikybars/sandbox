@@ -44,7 +44,7 @@ public class GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements R
                     log.error("GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                     tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
-                log.info("Fun :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+                log.info("Fin :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
                 return Flux.empty();
         }).sequential().collectList().block();
     }

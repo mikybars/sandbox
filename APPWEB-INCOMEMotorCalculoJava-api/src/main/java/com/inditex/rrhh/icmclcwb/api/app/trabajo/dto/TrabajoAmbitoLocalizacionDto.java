@@ -6,9 +6,15 @@ import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TrabajoAmbitoLocalizacionDto implements Serializable {
 
     private static final long serialVersionUID = -3060137115571011963L;
