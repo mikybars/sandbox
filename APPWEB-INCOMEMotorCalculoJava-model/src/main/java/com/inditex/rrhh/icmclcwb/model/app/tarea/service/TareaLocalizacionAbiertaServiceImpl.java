@@ -15,7 +15,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionAbiertaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionAbiertaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 
 @Service
@@ -24,9 +23,6 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
 
     @Autowired
     private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
-
-    @Autowired
-    private TareaLocalizacionAbiertaMapper tareaLocalizacionAbiertaMapper;
 
     @Autowired
     private TipoDatoService tipoDatoService;
