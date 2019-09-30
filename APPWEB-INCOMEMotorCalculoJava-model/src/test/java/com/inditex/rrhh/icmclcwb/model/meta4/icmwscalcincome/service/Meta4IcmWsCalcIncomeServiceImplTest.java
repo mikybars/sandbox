@@ -61,6 +61,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
@@ -170,9 +172,9 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     
     @Test
     public void getPeriodos() {
-        IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock(); 
+        IcmParamcalperiodoBlock entrada = new IcmParamcalperiodoBlock(); 
         IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(icmWsCalcIncomeMapper.asIcmParamcalperiodoBlock(any(GenericFilterDto.class))).thenReturn(entrada);
         when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(meta4ClientPool.getperiodos(any(IcmParamcalperiodoBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(new GetperiodosOutput());
 
@@ -246,10 +248,8 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
 
     @Test
     public void getComisionEmpleado() {
-        IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+        IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
+        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
         when(meta4ClientPool.getestrcomision(any(IcmParamcalestructuraBlock.class))).thenReturn(new GetestrcomisionOutput());
 
         ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
@@ -367,12 +367,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     @Test
     public void getEstructurasPoliticas() {
         IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
         when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(meta4ClientPool.getestrpoliticas(any(IcmParamcalestructuraBlock.class))).thenReturn(new GetestrpoliticasOutput());
 
-        ComisionEmpleadoRequestDto request = mock(ComisionEmpleadoRequestDto.class);
+        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
+        request.setData(new GenericFilterDto());
+        request.setPage(new PageDto());
         meta4IcmWsCalcIncomeServiceImpl.getEstructurasPoliticas(request);
         verify(meta4ClientPool, times(1)).getestrpoliticas(any(IcmParamcalestructuraBlock.class));
     }
@@ -385,13 +385,21 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(meta4ClientPool.getempleadosdesplaz(any(IcmParametrospaginacionBlock.class), any(IcmParametrosentradaBlock.class))).thenReturn(new GetempleadosdesplazOutput());
 
-        EmpleadosDesplazamientoRequestDto request = mock(EmpleadosDesplazamientoRequestDto.class);
+        EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
+        request.setData(new GenericFilterDto());
+        request.setPage(new PageDto());
         meta4IcmWsCalcIncomeServiceImpl.getEmpleadosDesplazamiento(request);
         verify(meta4ClientPool, times(1)).getempleadosdesplaz(any(IcmParametrospaginacionBlock.class), any(IcmParametrosentradaBlock.class));
     }
 
     @Test
     public void saveProceso() {
+        IcmParamcalprocesoBlock entrada = new IcmParamcalprocesoBlock();
+        SaveprocesoOutput output = new SaveprocesoOutput();
+        output.setIcmResultadoguardado(new IcmResultadoguardadoBlock());
+        when(icmWsCalcIncomeMapper.asIcmParamcalprocesoBlock(any(SaveProcesoDto.class))).thenReturn(entrada);
+        when(meta4ClientPool.saveproceso(any(IcmParamcalprocesoBlock.class))).thenReturn(output);
+
         SaveProcesoDto dto = mock(SaveProcesoDto.class);
         meta4IcmWsCalcIncomeServiceImpl.saveProceso(dto);
         verify(meta4ClientPool, times(1)).saveproceso(any(IcmParamcalprocesoBlock.class));
