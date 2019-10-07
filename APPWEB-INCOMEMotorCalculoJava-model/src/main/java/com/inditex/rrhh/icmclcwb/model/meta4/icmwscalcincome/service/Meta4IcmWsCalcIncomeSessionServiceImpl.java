@@ -183,6 +183,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
             meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
     }
     
+    //TODO: Eliminar
     @Override
     public List<ComisionEmpleadoResultItemDto> getEstructurasDesplazamiento(final ComisionEmpleadoRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_DESPLAZ,
