@@ -182,14 +182,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         return getResultItem(productoRequest, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
             meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
     }
-    
-    //TODO: Eliminar
-    @Override
-    public List<ComisionEmpleadoResultItemDto> getEstructurasDesplazamiento(final ComisionEmpleadoRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_DESPLAZ,
-                meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_DESPLAZ).getFilter().getMaxPageSize());
-    }
-    
+       
     @Override
     public List<ComisionEmpleadoResultItemDto> getEstructurasPoliticas(final ComisionEmpleadoRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS,
