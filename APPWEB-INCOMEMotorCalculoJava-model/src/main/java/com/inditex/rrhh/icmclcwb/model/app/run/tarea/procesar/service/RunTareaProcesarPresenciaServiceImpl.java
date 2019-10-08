@@ -34,6 +34,11 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void totalizarLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.totalizar(runTarea);
     }
+    
+    @Override
+    public void totalizarEcommerceLocalizacion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.totalizarEcommerce(runTarea);
+    }
 
     @Override
     public void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
@@ -63,26 +68,6 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     @Override
     public void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea) {
         tareaAgrupacionPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea.getTarea());
-    }
-
-    @Override
-    public void incluirPresenciasDesplazamientoDestinoLocalizacion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoDestino(runTarea);
-    }
-
-    @Override
-    public void incluirPresenciasDesplazamientoOrigenLocalizacion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoOrigen(runTarea);
-    }
-
-    @Override
-    public void incluirPresenciasDesplazamientoDestinoLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoDestinoEcommerce(runTarea);
-    }
-
-    @Override
-    public void incluirPresenciasDesplazamientoOrigenLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.incluirPresenciasDesplazamientoOrigenEcommerce(runTarea);
     }
 
     @Override

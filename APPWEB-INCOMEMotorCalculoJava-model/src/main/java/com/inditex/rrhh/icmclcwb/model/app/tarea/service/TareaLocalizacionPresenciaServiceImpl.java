@@ -27,33 +27,18 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     }
 
     @Override
-    public void incluirPresenciasDesplazamientoDestino(@NotNull RunTareaDto runTareaDto) {
-        tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciasDesplazamientoDestino(runTareaDto);
-    }
-
-    @Override
-    public void incluirPresenciasDesplazamientoOrigen(@NotNull RunTareaDto runTareaDto) {
-        tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciasDesplazamientoOrigen(runTareaDto);
-    }
-
-    @Override
     public void totalizar(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTareaDto);
+    }
+    
+    @Override
+    public void totalizarEcommerce(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerce(runTareaDto);
     }
 
     @Override
     public void compensarEcommerce(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce(runTareaDto);
-    }
-
-    @Override
-    public void incluirPresenciasDesplazamientoDestinoEcommerce(@NotNull RunTareaDto runTareaDto) {
-        tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciaDesplazamientoDestinoEcommerce(runTareaDto);
-    }
- 
-    @Override
-    public void incluirPresenciasDesplazamientoOrigenEcommerce(@NotNull RunTareaDto runTareaDto) {
-        tareaLocalizacionPresenciaRepositoryCustom.incluirPresenciaDesplazamientoOrigenEcommerce(runTareaDto);
     }
 
 }

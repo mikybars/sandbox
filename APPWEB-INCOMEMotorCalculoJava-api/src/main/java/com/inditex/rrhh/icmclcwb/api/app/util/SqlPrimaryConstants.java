@@ -8,6 +8,8 @@ public class SqlPrimaryConstants {
     // PARAMETROS DE FILTROS
 
     public static final String SQL_PARAM_IDS_TIPOS_DATO = "tiposDato";
+    
+    public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO = "idTipoGrupoDato";
 
     public static final String SQL_PARAM_INACTIVO = "inactivo";
 
@@ -36,6 +38,10 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_PROGRAMACION = "idProgramacion";
 
     public static final String SQL_PARAM_CCL_ID_ORIGEN = "cclIdOrigen";
+    
+    public static final String SQL_PARAM_CCL_ID_COD_ORIGEN = "cclIdCodOrigen";
+    
+    public static final String SQL_PARAM_STD_ID_WORK_LOCAT = "stdIdWorkLocat";
 
     public static final String SQL_PARAM_ID_ESTADO = "idEstado";
 
@@ -100,6 +106,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
+    
+    public static final String SQL_PARAM_FECHA_HORA_LIMPIEZA = "fechaHoraLimpieza";
 
     public static final String SQL_PARAM_ID_CONCEPTO = "idConcepto";
 
@@ -128,6 +136,9 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
 
     public static final String SQL_PARAM_IDS_TIPOS_CALCULO = "tiposCalculo";
+    
+    public static final String SQL_PARAM_NOMBRE_USUARIO = "nombreUsuario";
+
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
