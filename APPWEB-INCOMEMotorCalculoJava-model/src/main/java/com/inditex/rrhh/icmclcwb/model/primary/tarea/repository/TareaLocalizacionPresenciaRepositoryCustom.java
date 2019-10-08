@@ -13,18 +13,12 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void compensar(@NotNull RunTareaDto runTareaDto);
 
-    void incluirPresenciasDesplazamientoOrigen(@NotNull RunTareaDto runTareaDto);
-
-    void incluirPresenciasDesplazamientoDestino(@NotNull RunTareaDto runTareaDto);
-
     void totalizar(@NotNull RunTareaDto runTareaDto);
 
     void compensarEcommerce(@NotNull RunTareaDto runTareaDto);
 
-    void incluirPresenciaDesplazamientoOrigenEcommerce(@NotNull RunTareaDto runTareaDto);
-
-    void incluirPresenciaDesplazamientoDestinoEcommerce(@NotNull RunTareaDto runTareaDto);
-
     void updateActivoVacio(@NotNull RunTareaDto runTareaDto);
+
+    void totalizarEcommerce(@NotNull RunTareaDto runTareaDto);
 
 }

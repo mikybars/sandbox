@@ -98,9 +98,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1Repo
         // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
         assertEquals(12, result.size());
-        // idSeccion
-        assertTrue(result.containsKey(SQL_PARAM_ID_SECCION));
-        assertEquals(AppConstants.SECCION_4, result.get(SQL_PARAM_ID_SECCION));
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -162,9 +159,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1Repo
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
             assertEquals(12, value.getValues().size());
-            // idSeccion
-            assertTrue(value.hasValue(SQL_PARAM_ID_SECCION));
-            assertEquals(AppConstants.SECCION_4, value.getValue(SQL_PARAM_ID_SECCION));
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));

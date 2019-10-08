@@ -96,7 +96,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeV1RepositoryCustomImplTe
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService, times(1))
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        assertEquals(9, result.size());
+        assertEquals(8, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -153,7 +153,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeV1RepositoryCustomImplTe
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(9, value.getValues().size());
+            assertEquals(8, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));

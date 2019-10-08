@@ -95,7 +95,7 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         // Parámetros de la consulta: activo, tipoDatoLocalizacionVentaSeccion, excluido calculo
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        assertEquals(10, result.size());
+        assertEquals(8, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -120,9 +120,7 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         // calcula
         assertTrue(result.containsKey(SQL_PARAM_CALCULA));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
-        // excluido calculo
-        assertTrue(result.containsKey(SQL_PARAM_EXCLUIDO_CALCULO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_EXCLUIDO_CALCULO));
+
     }
 
     @Test
@@ -153,7 +151,7 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(10, value.getValues().size());
+            assertEquals(8, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -172,9 +170,6 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
             // calcula
             assertTrue(value.hasValue(SQL_PARAM_CALCULA));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
-            // excluido calculo
-            assertTrue(value.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
-            assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));

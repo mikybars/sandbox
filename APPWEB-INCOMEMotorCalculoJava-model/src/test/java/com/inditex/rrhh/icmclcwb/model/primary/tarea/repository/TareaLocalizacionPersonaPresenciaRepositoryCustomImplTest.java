@@ -100,7 +100,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_INDICADOR_PRESENCIA, sqlCaptor.getValue());
         // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia, tiposCalculo, excluidoCalculo
         MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(5, params.getValues().size());
+        assertEquals(6, params.getValues().size());
         // id tarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
@@ -138,7 +138,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia, excluidoCalculo
-        assertEquals(4, params.getValues().size());
+        assertEquals(5, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));

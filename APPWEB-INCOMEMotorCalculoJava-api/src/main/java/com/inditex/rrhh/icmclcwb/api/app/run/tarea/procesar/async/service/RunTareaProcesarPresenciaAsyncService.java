@@ -25,16 +25,10 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
     CompletableFuture<Void> updateActivoLocalizacionPersonaPresenciaVacio(RunTareaDto runTarea);
 
-    CompletableFuture<Void> incluirPresenciasDestinoDesplazamientoLocalizacion(RunTareaDto runTarea);
-
-    CompletableFuture<Void> incluirPresenciasOrigenDesplazamientoLocalizacion(RunTareaDto runTarea);
-
-    CompletableFuture<Void> incluirPresenciasDestinoDesplazamientoLocalizacionEcommerce(RunTareaDto runTarea);
-
-    CompletableFuture<Void> incluirPresenciasOrigenDesplazamientoLocalizacionEcommerce(RunTareaDto runTarea);
-
     CompletableFuture<Void> indicadorPresencia(RunTareaDto runTarea);
 
     CompletableFuture<Void> indicadorPresenciaDesplazamiento(RunTareaDto runTarea);
+
+    CompletableFuture<Void> totalizarEcommerceLocalizacion(RunTareaDto runTarea);
 
 }

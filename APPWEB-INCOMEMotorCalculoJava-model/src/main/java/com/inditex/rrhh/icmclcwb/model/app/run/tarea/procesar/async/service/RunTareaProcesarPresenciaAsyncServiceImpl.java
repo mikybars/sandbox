@@ -35,6 +35,12 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
     }
     
     @Override
+    public CompletableFuture<Void> totalizarEcommerceLocalizacion(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.totalizarEcommerceLocalizacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
     public CompletableFuture<Void> updateActivoLocalizacionPersonaPresencia(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresencia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
@@ -63,31 +69,7 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         runTareaProcesarPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-
-    @Override
-    public CompletableFuture<Void> incluirPresenciasDestinoDesplazamientoLocalizacion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoDestinoLocalizacion(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> incluirPresenciasOrigenDesplazamientoLocalizacion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoOrigenLocalizacion(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> incluirPresenciasDestinoDesplazamientoLocalizacionEcommerce(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoDestinoLocalizacionEcommerce(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> incluirPresenciasOrigenDesplazamientoLocalizacionEcommerce(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.incluirPresenciasDesplazamientoOrigenLocalizacionEcommerce(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
+   
     @Override
     public CompletableFuture<Void> indicadorPresencia(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.indicadorPresencia(runTarea);

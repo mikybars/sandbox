@@ -95,16 +95,13 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Reposito
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService, times(1))
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        assertEquals(11, result.size());
+        assertEquals(9, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
         // tipoDatoLocalizacionVentaSeccion
         assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
         assertEquals(Arrays.asList(101), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-        // excluidoCalculo
-        assertTrue(result.containsKey(SQL_PARAM_EXCLUIDO_CALCULO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_EXCLUIDO_CALCULO));
         // idAlgoritmo
         assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
         assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
@@ -157,16 +154,13 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Reposito
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(11, value.getValues().size());
+            assertEquals(9, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
             // tipoDatoLocalizacionVentaSeccion
             assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
             assertEquals(Arrays.asList(101), value.getValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-            // excluidoCalculo
-            assertTrue(value.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
-            assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
             // idAlgoritmo
             assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
