@@ -95,7 +95,7 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Reposi
         // Parámetros de la consulta: activo, tipoDatoLocalizacionVentaSeccion
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        assertEquals(9, result.size());
+        assertEquals(8, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -150,7 +150,7 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Reposi
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(9, value.getValues().size());
+            assertEquals(8, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));

@@ -97,7 +97,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV
         // Parámetros de la consulta: activo, tipoDatoLocalizacionVentaSeccion, excluidoCalculo
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        assertEquals(11, result.size());
+        assertEquals(9, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -122,9 +122,6 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV
         // calcula
         assertTrue(result.containsKey(SQL_PARAM_CALCULA));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
-        // excluido calculo
-        assertTrue(result.containsKey(SQL_PARAM_EXCLUIDO_CALCULO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_EXCLUIDO_CALCULO));
         // indicador desplazamiento
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
         assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
@@ -160,7 +157,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(11, value.getValues().size());
+            assertEquals(9, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -179,9 +176,6 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV
             // calcula
             assertTrue(value.hasValue(SQL_PARAM_CALCULA));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
-            // excluido calculo
-            assertTrue(value.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
-            assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));

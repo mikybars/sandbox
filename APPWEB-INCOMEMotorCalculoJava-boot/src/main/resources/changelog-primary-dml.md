@@ -11,3 +11,16 @@ algoritmos de cálculo.
 ### Changed
 
 ### Removed
+
+
+## [v4][2019-10-08]
+
+### Added
+
+-[MARCELORF] Añadidos datos actualizados en la tabla que relaciona los algoritmos con los tipos de dato
+
+### Changed
+
+### Removed
+
+-[MARCELORF] Eliminados datos de la tabla que relaciona los algoritmos con los tipos de dato

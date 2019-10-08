@@ -392,8 +392,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             tareaAmbito.getCclIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getFilter().getMaxPageSize())) {
                 ComisionEmpleadoRequestDto comisionEmpleadoRequest = new ComisionEmpleadoRequestDto();
-                comisionEmpleadoRequest
-                    .setPage(meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO).getPage());
                 comisionEmpleadoRequest.setData(tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
                 comisionEmpleadoRequest.getData().getItem()
@@ -563,6 +561,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     }
     
+    //TODO: Revisar si no se usa borrar
     @Override
     public void estructurasDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {

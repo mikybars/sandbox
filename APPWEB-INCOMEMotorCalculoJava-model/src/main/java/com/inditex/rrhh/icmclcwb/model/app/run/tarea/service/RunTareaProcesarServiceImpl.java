@@ -56,6 +56,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .totalizarLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacion, cf);
             
+            CompletableFuture<Void> cfTotalizarPresenciaEcommerceLocalizacion = runTareaProcesarPresenciaAsyncService
+                    .totalizarEcommerceLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarPresenciaEcommerceLocalizacion, cf);
+            
             // Compensar presencia total localizacion con las manuales para incluido ecommerce
             CompletableFuture<Void> cfCompensarPresenciaLocalizacionEcommerce = runTareaProcesarPresenciaAsyncService
                 .compensarLocalizacionEcommerce(runTarea);
@@ -70,28 +74,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfIndicadorPresenciaDesplazamiento = runTareaProcesarPresenciaAsyncService
                     .indicadorPresenciaDesplazamiento(runTarea);
             AsyncUtils.exceptionally(cfIndicadorPresenciaDesplazamiento, cf);
-
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/
-
-            // incluir en la compensacion las horas de origen de desplazamiento (denominador y ecommerce)
-            CompletableFuture<Void> cfIncluirDestino = runTareaProcesarPresenciaAsyncService.incluirPresenciasDestinoDesplazamientoLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfIncluirDestino, cf);
-
-            CompletableFuture<Void> cfIncluirDestinoEcommerce = runTareaProcesarPresenciaAsyncService.incluirPresenciasDestinoDesplazamientoLocalizacionEcommerce(runTarea);
-            AsyncUtils.exceptionally(cfIncluirDestinoEcommerce, cf);
-
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/
-
-            // incluir en la compensacion las horas de origen de desplazamiento (denominador y ecommerce)
-            CompletableFuture<Void> cfIncluirOrigen = runTareaProcesarPresenciaAsyncService.incluirPresenciasOrigenDesplazamientoLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfIncluirOrigen, cf);
-
-            CompletableFuture<Void> cfIncluirOrigenEcommerce = runTareaProcesarPresenciaAsyncService.incluirPresenciasOrigenDesplazamientoLocalizacionEcommerce(runTarea);
-            AsyncUtils.exceptionally(cfIncluirOrigenEcommerce, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

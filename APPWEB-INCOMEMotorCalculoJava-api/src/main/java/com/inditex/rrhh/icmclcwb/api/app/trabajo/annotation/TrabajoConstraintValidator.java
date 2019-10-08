@@ -67,7 +67,17 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
             if (CollectionUtils.isEmpty(trabajo.getEmpresa())) {
                 context.buildConstraintViolationWithTemplate("Ejecucion por empresa sin empresas en la entrada").addConstraintViolation();
                 isValid = false;
-            }          
+            }     
+            
+            if (!CollectionUtils.isEmpty(trabajo.getLocalizacion())) {
+                context.buildConstraintViolationWithTemplate("Ejecucion por empresa con localizaciones en la entrada").addConstraintViolation();
+                isValid = false;
+            }  
+            
+            if (!CollectionUtils.isEmpty(trabajo.getPersona())) {
+                context.buildConstraintViolationWithTemplate("Ejecucion por empresa con personas en la entrada").addConstraintViolation();
+                isValid = false;
+            }  
         }
         
         if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
