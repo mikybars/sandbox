@@ -54,15 +54,15 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          minPoolSize: 1
-          maxPoolSize: 10
+          minPoolSize: 10
+          maxPoolSize: 20
           xaConnectionFactory:
             #brokerURL: tcp://middleware-amq-tcp:61616
             brokerURL: failover:(tcp://middleware-amq-tcp:61616)
             userName: usr-write
         broker-lectura:
-          minPoolSize: 1
-          maxPoolSize: 10
+          minPoolSize: 10
+          maxPoolSize: 20
           xaConnectionFactory:
             #brokerURL: tcp://middleware-amq-tcp:61616
             brokerURL: failover:(tcp://middleware-amq-tcp:61616)
