@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.ws.soap.SOAPFaultException;
@@ -28,7 +29,7 @@ public class Meta4ClientPoolBase {
 
     private static final String EXPIRE_SESSION_MESSAGE_LOG = "Session caducada (Pool)";
 
-    private static final String ERROR_MESSAGE_LOG = "Error en la llamada a Meta4";
+    private static final String ERROR_MESSAGE_LOG = "Error en la llamada a Meta4 con los parametros {}";
 
     private static final String EXPIRE_SESSION_MESSAGE_EXCEPTION = "Session caducada (Pool) (Exception)";
     
@@ -59,13 +60,13 @@ public class Meta4ClientPoolBase {
         return poolable;
     }
 
-    protected void catchException(final Exception e, final Meta4ClientPoolable client) {
+    protected void catchException(final Exception e, final Meta4ClientPoolable client, final List<Object> params) {
         if (e.getClass().equals(SOAPFaultException.class) && e.getLocalizedMessage().contains("RET_ERROR_COMM")) {
             log.warn(EXPIRE_SESSION_MESSAGE_LOG, e);
             expire(client);
             throw new Meta4IcmclcwbException(EXPIRE_SESSION_MESSAGE_EXCEPTION, e);
         } else {
-            log.error(ERROR_MESSAGE_LOG, e);
+            log.error(ERROR_MESSAGE_LOG, params, e);
             throw new Meta4IcmclcwbException(ERROR_MESSAGE_EXCEPTION, e);
         }
     }
