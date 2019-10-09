@@ -105,16 +105,16 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          minPoolSize: 1
-          maxPoolSize: 10
+          minPoolSize: 10
+          maxPoolSize: 20
           xaConnectionFactory:
             brokerURL: failover:(tcp://10.202.10.178:61616)
             #brokerURL: tcp://10.202.10.178:61616
             userName: root
             password: V3ct0r1nd1t3x
         broker-lectura:
-          minPoolSize: 1
-          maxPoolSize: 10
+          minPoolSize: 10
+          maxPoolSize: 20
           xaConnectionFactory:
             brokerURL: failover:(tcp://10.202.10.178:61616)
             #brokerURL: tcp://10.202.10.178:61616
