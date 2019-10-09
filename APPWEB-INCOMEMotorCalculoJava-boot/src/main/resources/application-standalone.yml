@@ -451,38 +451,29 @@ app:
           searchEmpleados:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 200
+              numeroRegistrosPagina: 100
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 200
+              maxPageSize: 100
               maxPersistenceSize: 3
           getComisionEmpleado:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 200
+              numeroRegistrosPagina: 100
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
-          getEstructurasDesplazamiento:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
+              maxPageSize: 100
               maxPersistenceSize: 3
           getEstructurasPoliticas:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 200
+              numeroRegistrosPagina: 100
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 200
+              maxPageSize: 100
               maxPersistenceSize: 3              
           getEmpleados:
             page:
