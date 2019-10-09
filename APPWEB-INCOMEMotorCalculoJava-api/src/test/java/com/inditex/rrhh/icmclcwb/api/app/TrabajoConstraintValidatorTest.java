@@ -144,7 +144,7 @@ public class TrabajoConstraintValidatorTest {
     }
     
     @Test
-    public void testTrabajoEmpresaOrigenEmpresa() {
+    public void testTrabajoEmpresaOrigenEmpresaEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
         trabajo.setTipoAmbito(TipoAmbitoDto.builder().id(TipoAmbitoEnum.EMPRESA.getId()).build());
         trabajo.setIdOrganization(ID_ORGANIZATION);
@@ -152,6 +152,30 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setEmpresa(Arrays.asList());
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
+    
+    @Test
+    public void testTrabajoEmpresaLocalizacionNotEmpty() {
+        TrabajoDto trabajo = new TrabajoDto();
+        trabajo.setTipoAmbito(TipoAmbitoDto.builder().id(TipoAmbitoEnum.EMPRESA.getId()).build());
+        trabajo.setIdOrganization(ID_ORGANIZATION);
+        trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
+        trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
+        trabajo.setLocalizacion(Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
+        assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
+    }
+    
+    @Test
+    public void testTrabajoEmpresaPersonaNotEmpty() {
+        TrabajoDto trabajo = new TrabajoDto();
+        trabajo.setTipoAmbito(TipoAmbitoDto.builder().id(TipoAmbitoEnum.EMPRESA.getId()).build());
+        trabajo.setIdOrganization(ID_ORGANIZATION);
+        trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
+        trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
+        trabajo.setPersona(Arrays.asList(TrabajoAmbitoPersonaDto.builder().cclIdPerson(CCL_ID_PERSON).build()));
+        assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
+    }
+    
+    
     
     @Test
     public void testTrabajoLocalizacion() {

@@ -44,9 +44,6 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
     void localizacionesOnlineByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
                                                       @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void estructurasDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
     void estructurasPoliticasByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 

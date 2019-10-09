@@ -292,19 +292,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
     }
     
     @Test
-    public void getEstructurasDesplazamiento() {
-        when(meta4IcmWsCalcIncomeSessionService.getEstructurasDesplazamiento(any(ComisionEmpleadoRequestDto.class))).thenReturn(new ArrayList<ComisionEmpleadoResultItemDto>());
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasDesplazamiento(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEstructurasDesplazamiento(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
-
-    }
-    
-    @Test
     public void getEstructurasPoliticas() {
         when(meta4IcmWsCalcIncomeSessionService.getEstructurasPoliticas(any(ComisionEmpleadoRequestDto.class))).thenReturn(new ArrayList<ComisionEmpleadoResultItemDto>());
 

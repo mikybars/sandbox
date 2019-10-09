@@ -27,13 +27,19 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCadenaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaPresenciaManualAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionCalcularAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionComisionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionFestivoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionOnlineHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaCoeficienteAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraPoliticaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -95,12 +101,30 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
     
     @Mock
     private TareaLocalizacionHistoricoAsyncService tareaLocalizacionHistoricoAsyncService;
+
+    @Mock
+    private TareaPersonaEstructuraPoliticaAsyncService tareaPersonaEstructuraPoliticaAsyncService;
     
     @Mock
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualAsyncService tareaAmbitoGlobalLocalizacionPersonaPresenciaManualAsyncService;
     
     @Mock
+    private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService tareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService;
+    
+    @Mock
+    private TareaLocalizacionOnlineHistoricoAsyncService tareaLocalizacionOnlineHistoricoAsyncService;
+    
+    @Mock
+    private TareaAgrupacionConfiguracionAsyncService tareaAgrupacionConfiguracionAsyncService;
+    
+    @Mock
     private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaSeccionPresenciaAsyncService;    
+    
+    @Mock
+    private TareaLocalizacionComisionHistoricoAsyncService tareaLocalizacionComisionHistoricoAsyncService;
+    
+    @Mock
+    private TareaAgrupacionCadenaAsyncService tareaAgrupacionCadenaAsyncService;
     
     @Mock
     private TareaLocalizacionCalcularAsyncService tareaLocalizacionCalcularAsyncService;
@@ -117,6 +141,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
     @InjectMocks
     private RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl;
 
+    @Test(expected = Exception.class)
+    public void personaByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.personaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
+    }
+    
     @Test
     public void personaByRunTareaAndTareaAmbito() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
         RunTareaDto runTarea = new RunTareaDto();
@@ -146,6 +179,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.personaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
 
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
+    }
+    
+    @Test(expected = Exception.class)
+    public void localizacionByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.localizacionByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).searchTiendas(ArgumentMatchers.any(SearchTiendasRequestDto.class));
     }
     
     @Test
@@ -210,6 +251,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
 
     }
     
+    @Test(expected = Exception.class)
+    public void festivosByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.festivosByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getFestivos(ArgumentMatchers.any(FestivosRequestDto.class));
+    }
+    
     @Test
     public void festivosByRunTareaAndTareaAmbito() {
         RunTareaDto runTarea = new RunTareaDto();
@@ -239,6 +288,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.festivosByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getFestivos(ArgumentMatchers.any(FestivosRequestDto.class));
 
+    }
+    
+    @Test(expected = Exception.class)
+    public void coefJornadaByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.coefJornadaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getCoefJornada(ArgumentMatchers.any(CoefJornadaRequestDto.class));
     }
     
     @Test
@@ -274,8 +331,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
          
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.coefJornadaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getCoefJornada(ArgumentMatchers.any(CoefJornadaRequestDto.class));
-
     }
+    
+    @Test(expected = Exception.class)
+    public void flagCalculaByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.flagCalculaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
+   }
     
     @Test
     public void flagCalculaByRunTareaAndTareaAmbito() {
@@ -314,6 +378,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
 
     }
     
+    @Test(expected = Exception.class)
+    public void presenciaManualByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.presenciaManualByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getPresenciaManual(ArgumentMatchers.any(PresenciaManualRequestDto.class));
+    }
+    
+    
     @Test
     public void presenciaManualByRunTareaAndTareaAmbito() {
         RunTareaDto runTarea = new RunTareaDto();
@@ -336,7 +409,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
             return new ArrayList<>();
         });
         
-         CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
             return null;
         });
          
@@ -349,6 +422,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.presenciaManualByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getPresenciaManual(ArgumentMatchers.any(PresenciaManualRequestDto.class));
 
+    }
+    
+    @Test(expected = Exception.class)
+    public void condicionPersonaByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.condicionPersonaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getComisionEmpleado(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
     }
     
     @Test
@@ -369,17 +450,32 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         properties.setPage(page);
 
         CompletableFuture<List<ComisionEmpleadoResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
+            List<ComisionEmpleadoResultItemDto> comision = new ArrayList<>();
+            comision.add(ComisionEmpleadoResultItemDto.builder().build());
+            return comision;
+        });
+        
+        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
+            return null;
         });
          
         when(meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO)).thenReturn(properties);
         when(tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class))).thenReturn(new ArrayList<>(Arrays.asList(new IdPersonaHistoricoDto("1", "1"))));
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getComisionEmpleado(any(ComisionEmpleadoRequestDto.class))).thenReturn(cf);
-         
+        when(tareaPersonaEstructuraAsyncService.saveComisionEmpleadoResultItemDto(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
+
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.condicionPersonaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getComisionEmpleado(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
 
+    }
+    
+    @Test(expected = Exception.class)
+    public void configuracionVentaOnlineByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.configuracionVentaOnlineByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getConfiguracionVentaOnline(ArgumentMatchers.any(ConfiguracionVentaOnlineRequestDto.class));
     }
     
     @Test
@@ -397,16 +493,31 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         properties.setPage(page);
 
         CompletableFuture<List<ConfiguracionVentaOnlineResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
+            List<ConfiguracionVentaOnlineResultItemDto> conf = new ArrayList<>();
+            conf.add(new ConfiguracionVentaOnlineResultItemDto());
+            return conf;
+        });
+        
+        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
+            return null;
         });
          
         when(meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE)).thenReturn(properties);
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getConfiguracionVentaOnline(any(ConfiguracionVentaOnlineRequestDto.class))).thenReturn(cf);
+        when(tareaAgrupacionConfiguracionAsyncService.saveAgrupacionConfiguracionDto(any(List.class), any(RunTareaDto.class))).thenReturn(cfNull);
 
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.configuracionVentaOnlineByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getConfiguracionVentaOnline(ArgumentMatchers.any(ConfiguracionVentaOnlineRequestDto.class));
 
+    }
+    
+    @Test(expected = Exception.class)
+    public void tiendasComisionableByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.tiendasComisionableByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getTiendas(ArgumentMatchers.any(TiendasRequestDto.class));
     }
 
     @Test
@@ -427,20 +538,36 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         properties.setPage(page);
 
         List<IdLocalizacionDto> localizacion = new ArrayList<>(Arrays.asList(new IdLocalizacionDto("1")));
+        
         CompletableFuture<List<GenericTiendaResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
+            List<GenericTiendaResultItemDto> tienda = new ArrayList<>();
+            tienda.add(new GenericTiendaResultItemDto());
+            return tienda;
+        });
+        
+        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
+            return null;
         });
 
         when(meta4Properties.get(Meta4PropertiesConstants.TIENDAS)).thenReturn(properties);
         when(tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(any(Long.class), any(String.class))).thenReturn(localizacion);
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getTiendas(any(TiendasRequestDto.class))).thenReturn(cf);
-         
+        when(tareaLocalizacionComisionHistoricoAsyncService.saveGenericTiendaResultItemDto(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
+        
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.tiendasComisionableByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getTiendas(ArgumentMatchers.any(TiendasRequestDto.class));
 
     }
 
+    @Test(expected = Exception.class)
+    public void agrupacionesCadenaByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.agrupacionesCadenaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getAgrupacionesOnline(ArgumentMatchers.any(AgrupOnlineRequestDto.class));
+   }
+    
     @Test
     public void agrupacionesCadenaByRunTareaAndTareaAmbito() {
         RunTareaDto runTarea = new RunTareaDto();
@@ -456,16 +583,31 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         properties.setPage(page);
 
         CompletableFuture<List<AgrupOnlineResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
+            List<AgrupOnlineResultItemDto> agrup = new ArrayList<>();
+            agrup.add(new AgrupOnlineResultItemDto());
+            return agrup;
+        });
+        
+        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
+            return null;
         });
         
         when(meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)).thenReturn(properties);
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getAgrupacionesOnline(any(AgrupOnlineRequestDto.class))).thenReturn(cf);
- 
+        when(tareaAgrupacionCadenaAsyncService.save(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
+        
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.agrupacionesCadenaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getAgrupacionesOnline(ArgumentMatchers.any(AgrupOnlineRequestDto.class));
 
+    }
+    
+    @Test(expected = Exception.class)
+    public void localizacionesOnlineByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.localizacionesOnlineByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getTiendasOnline(ArgumentMatchers.any(TiendaOnlineRequestDto.class));
     }
     
     @Test
@@ -486,55 +628,35 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         properties.setPage(page);
 
         CompletableFuture<List<TiendaOnlineResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
+            List<TiendaOnlineResultItemDto> tienda = new ArrayList<>();
+            tienda.add(new TiendaOnlineResultItemDto());
+            return tienda;
+        });
+        
+        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
+            return null;
         });
 
         when(meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE)).thenReturn(properties);
         when(tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(any(Long.class), any(String.class))).thenReturn(new ArrayList<>(Arrays.asList(new IdCadenaDto("1"))));
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getTiendasOnline(any(TiendaOnlineRequestDto.class))).thenReturn(cf);
- 
+        when(tareaLocalizacionOnlineHistoricoAsyncService.save(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
+
+        
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.localizacionesOnlineByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getTiendasOnline(ArgumentMatchers.any(TiendaOnlineRequestDto.class));
 
     }
-    
-    @Test
-    public void estructurasDesplazamientoByRunTareaAndTareaAmbito() {
+
+    @Test(expected = Exception.class)
+    public void estructurasPoliticasByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
         RunTareaDto runTarea = new RunTareaDto();
-        TareaDto tarea = new TareaDto();
-        tarea.setId(1L);
-        runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
-        tareaAmbito.setCclIdOrigen("38");
-        Meta4PropertiesDto properties = new Meta4PropertiesDto();
-        Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-        filter.setMaxPageSize(1);
-        filter.setMaxPersistenceSize(1);
-        properties.setFilter(filter);
-        properties.setPage(page);
-
-        CompletableFuture<List<ComisionEmpleadoResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
-        });
-        
-         CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
-            return null;
-        });
-
-        when(meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_DESPLAZ)).thenReturn(properties);
-        when(tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class))).thenReturn(new ArrayList<>(Arrays.asList(new IdPersonaHistoricoDto("1", "1"))));
-        when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
-        when(meta4IcmWsCalcIncomeSessionAsyncService.getEstructurasDesplazamiento(any(ComisionEmpleadoRequestDto.class))).thenReturn(cf);
-        when(tareaPersonaEstructuraAsyncService.saveComisionEmpleadoResultItemDto(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
-
-         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.estructurasDesplazamientoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
-        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getEstructurasDesplazamiento(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
-
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.estructurasPoliticasByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getEstructurasPoliticas(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
     }
-
+    
     @Test
     public void estructurasPoliticasByRunTareaAndTareaAmbito() {
         RunTareaDto runTarea = new RunTareaDto();
@@ -551,21 +673,36 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         filter.setMaxPersistenceSize(1);
         properties.setFilter(filter);
         properties.setPage(page);
-
+        
         CompletableFuture<List<ComisionEmpleadoResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
+            List<ComisionEmpleadoResultItemDto> comis = new ArrayList<>();
+            comis.add(ComisionEmpleadoResultItemDto.builder().build());
+            return comis;
+        });
+        
+        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
+            return null;
         });
 
         when(meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS)).thenReturn(properties);
         when(tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class))).thenReturn(new ArrayList<>(Arrays.asList(new IdPersonaHistoricoDto("1", "1"))));
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getEstructurasPoliticas(any(ComisionEmpleadoRequestDto.class))).thenReturn(cf);
-
+        when(tareaPersonaEstructuraPoliticaAsyncService.save(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
+        
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.estructurasPoliticasByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getEstructurasPoliticas(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
 
     }
-
+    
+    @Test(expected = Exception.class)
+    public void empleadosDesplazamientoByRunTareaAndTareaAmbitoException() throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        RunTareaDto runTarea = new RunTareaDto();
+        TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.empleadosDesplazamientoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
+    }
+    
     @Test
     public void empleadosDesplazamientoByRunTareaAndTareaAmbito() {
         RunTareaDto runTarea = new RunTareaDto();
@@ -580,14 +717,22 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         properties.setFilter(filter);
         properties.setPage(page);
 
+        
         CompletableFuture<List<GenericEmpleadoResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
+            List<GenericEmpleadoResultItemDto> emp = new ArrayList<>();
+            emp.add(new GenericEmpleadoResultItemDto());
+            return emp;
+        });
+        
+        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
+            return null;
         });
 
         when(meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO)).thenReturn(properties);
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class))).thenReturn(cf);
-
+        when(tareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService.saveGenericEmpleadoResultItemDto(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
+        
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.empleadosDesplazamientoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
 
