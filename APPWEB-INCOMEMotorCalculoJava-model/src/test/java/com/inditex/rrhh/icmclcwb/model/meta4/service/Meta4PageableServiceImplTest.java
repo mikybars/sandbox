@@ -1,23 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.service;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.GenericFilter;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
@@ -26,13 +24,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
@@ -83,16 +78,17 @@ public class Meta4PageableServiceImplTest {
         IcmParametrospaginacionBlock block = new IcmParametrospaginacionBlock();
         block.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
         output.setIcmParametrospaginacion(block);
-
+        List<GenericTiendaResultItemDto> tienda = new ArrayList<GenericTiendaResultItemDto>();
+        tienda.add(new GenericTiendaResultItemDto());
         when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(new IcmParametrosentradaBlock());
         when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(new IcmParametrospaginacionBlock());
         when(meta4ClientPool.getflagcalcula(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(output);
-        when(icmWsCalcIncomeMapper.asPageDto(any(IcmParametrospaginacionBlock.class))).thenReturn(new PageDto());
-        when(icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(any(List.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());
+        when(icmWsCalcIncomeMapper.asPageDto(any(IcmParametrospaginacionBlock.class))).thenReturn(PageDto.builder().numeroPagina(1).numeroTotalPaginas(2).build());
+        when(icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(any(List.class))).thenReturn(tienda);
 
         meta4PageableServiceImpl.getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FLAG_CALCULA, maxPageSize);
 
-        verify(meta4ClientPool, timeout(1000).times(1)).getflagcalcula(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class));
+        verify(meta4ClientPool, timeout(1000).times(2)).getflagcalcula(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class));
 
     }
     

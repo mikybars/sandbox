@@ -89,12 +89,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea().getAmbito().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .localizacionesOnlineByRunTareaAndTareaAmbito(runTarea, item));
     }
-    
-    @Override
-    public void estructurasDesplazamientoByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .estructurasDesplazamientoByRunTareaAndTareaAmbito(runTarea, item));
-    }
 
     @Override
     public void estructurasPoliticasByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {

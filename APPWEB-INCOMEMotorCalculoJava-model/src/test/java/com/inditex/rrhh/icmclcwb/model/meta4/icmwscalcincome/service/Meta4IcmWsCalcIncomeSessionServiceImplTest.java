@@ -5,6 +5,7 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4FilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
@@ -47,6 +49,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultErrorDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
@@ -388,6 +391,23 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
     }
     
     @Test
+    public void getConfiguracionProductoVentaIdTareaCclIdOrigen() {
+        Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        properties.setFilter(filter);
+        when(meta4IcmWsCalcIncomeService.getConfiguracionProductoVenta(any(ConfiguracionProductoVentaRequestDto.class))).thenReturn(new ConfiguracionProductoVentaResponseDto());
+        when(meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA)).thenReturn(properties);
+
+        Long idTarea = 1L;
+        String cclIdOrigen = "38";
+        
+        meta4IcmWsCalcIncomeSessionServiceImpl.getConfiguracionProductoVenta(idTarea, cclIdOrigen);
+
+        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getConfiguracionProductoVenta(ArgumentMatchers.any(ConfiguracionProductoVentaRequestDto.class));
+    }
+       
+    @Test
     public void getEstructurasPoliticas() {
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -426,6 +446,21 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         SaveResultDto result = new SaveResultDto();
         result.setResultadoOk(Boolean.TRUE);
         result.setResultadoError(Boolean.FALSE);
+
+        when(meta4IcmWsCalcIncomeService.saveProceso(any(SaveProcesoDto.class))).thenReturn(result);
+
+        meta4IcmWsCalcIncomeSessionServiceImpl.saveProceso(dto);
+        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).saveProceso(ArgumentMatchers.any(SaveProcesoDto.class));
+    }
+    
+    @Test(expected = IcmclcwbException.class)
+    public void saveProcesoException() {
+        SaveProcesoDto dto = new SaveProcesoDto();
+        SaveResultDto result = new SaveResultDto();
+        result.setData(new ArrayList<>());
+        result.getData().add(new SaveResultErrorDto());
+        result.setResultadoOk(Boolean.FALSE);
+        result.setResultadoError(Boolean.TRUE);
 
         when(meta4IcmWsCalcIncomeService.saveProceso(any(SaveProcesoDto.class))).thenReturn(result);
 

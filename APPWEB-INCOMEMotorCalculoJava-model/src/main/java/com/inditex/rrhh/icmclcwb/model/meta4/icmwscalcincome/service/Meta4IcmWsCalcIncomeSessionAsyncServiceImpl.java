@@ -136,12 +136,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     }
     
     @Override
-    public CompletableFuture<List<ComisionEmpleadoResultItemDto>> getEstructurasDesplazamiento(
-            ComisionEmpleadoRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEstructurasDesplazamiento(request));
-    }
-    
-    @Override
     public CompletableFuture<List<ComisionEmpleadoResultItemDto>> getEstructurasPoliticas(
             ComisionEmpleadoRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEstructurasPoliticas(request));

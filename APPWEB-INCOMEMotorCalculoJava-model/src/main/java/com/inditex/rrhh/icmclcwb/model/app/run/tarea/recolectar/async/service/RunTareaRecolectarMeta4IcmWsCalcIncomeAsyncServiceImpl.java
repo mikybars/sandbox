@@ -91,12 +91,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     }
     
     @Override
-    public CompletableFuture<Void> estructurasDesplazamientoByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasDesplazamientoByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    @Override
     public CompletableFuture<Void> estructurasPoliticasByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasPoliticasByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
