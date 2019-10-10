@@ -105,7 +105,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         namedParameterJdbcTemplate.update(sqlTotalizar, parameters);
     }
