@@ -54,6 +54,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
+    
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerce']}")
+    private String sqlTotalizarEcommerce;
 
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce']}")
     private String sqlCompensarEcommerce;
@@ -83,7 +86,24 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
 
     @Override
     public void compensar(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = getParametersCompensarExcluidoDenominador(runTareaDto);
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+                tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
+                TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
 
@@ -123,20 +143,35 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
-                TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        namedParameterJdbcTemplate.update(sqlTotalizar, parameters);
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        namedParameterJdbcTemplate.update(sqlTotalizarEcommerce, parameters);
     }
 
     @Override
     public void compensarEcommerce(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = getParametersCompensarIncluidoEcommerce(runTareaDto);
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+                tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         namedParameterJdbcTemplate.update(sqlCompensarEcommerce, parameters);
     }
 
@@ -166,23 +201,4 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         return parameters;
     }
 
-    private MapSqlParameterSource getParametersCompensarExcluidoDenominador(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = getParametersCompensar(runTareaDto);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-            TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
-            SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
-            TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
-        return parameters;
-    }
-
-    private MapSqlParameterSource getParametersCompensarIncluidoEcommerce(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = getParametersCompensar(runTareaDto);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-            TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE,
-            SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        return parameters;
-    }
 }
