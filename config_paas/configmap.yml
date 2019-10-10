@@ -365,11 +365,11 @@ app:
           searchEmpleados:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 100
+              numeroRegistrosPagina: 50
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 100
+              maxPageSize: 50
               maxPersistenceSize: 3
           getComisionEmpleado:
             page:
@@ -383,11 +383,11 @@ app:
           getEstructurasPoliticas:
             page:
               numeroPagina: 1
-              numeroRegistrosPagina: 100
+              numeroRegistrosPagina: 50
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 100
+              maxPageSize: 50
               maxPersistenceSize: 3        
           getEmpleados:
             page:
