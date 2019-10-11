@@ -71,7 +71,7 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
                             "No se puede programar por tipo ambito localizacion y no definir localizaciones");
                 }
             }
-            if (TipoAmbitoEnum.LOCALIZACION.getId().equals(programacion.getTipoAmbito().getId())) {
+            if (TipoAmbitoEnum.PERSONA.getId().equals(programacion.getTipoAmbito().getId())) {
                 if (CollectionUtils.isNotEmpty(item.getPersona())) {
                     programacionAmbitoResult.setPersona(
                             programacionAmbitoPersonaService.create(item.getPersona(), programacionAmbitoResult));
