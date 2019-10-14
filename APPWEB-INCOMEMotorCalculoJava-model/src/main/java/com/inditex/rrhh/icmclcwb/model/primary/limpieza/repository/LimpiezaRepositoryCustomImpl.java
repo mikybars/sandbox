@@ -19,8 +19,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tarea']}")
-    private String sqlLimpiezaTarea;
+    @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculo']}")
+    private String sqlLimpiezaTareaCalculo;
     
     @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaAgrupacionCadena']}")
     private String sqlLimpiezaTareaAgrupacionCadena;
@@ -104,7 +104,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     public void limpieza(@NotNull @Valid final TareaDto tarea) {
         MapSqlParameterSource arg = new MapSqlParameterSource();
         arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        namedParameterJdbcTemplate.update(sqlLimpiezaTarea, arg);
+        namedParameterJdbcTemplate.update(sqlLimpiezaTareaCalculo, arg);
         namedParameterJdbcTemplate.update(sqlLimpiezaTareaAgrupacionCadena, arg);
         namedParameterJdbcTemplate.update(sqlLimpiezaTareaAgrupacionConfiguracion, arg);
         namedParameterJdbcTemplate.update(sqlLimpiezaTareaAgrupacionPresencia, arg);
