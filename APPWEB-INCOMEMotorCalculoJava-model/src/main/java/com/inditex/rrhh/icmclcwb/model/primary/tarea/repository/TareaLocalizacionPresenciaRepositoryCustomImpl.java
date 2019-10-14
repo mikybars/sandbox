@@ -187,18 +187,4 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         pstmt.setString(8, entity.getCclIdCadena());
     }
 
-
-    private MapSqlParameterSource getParametersCompensar(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
-            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_DESPLAZAMIENTO,
-            SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        return parameters;
-    }
-
 }

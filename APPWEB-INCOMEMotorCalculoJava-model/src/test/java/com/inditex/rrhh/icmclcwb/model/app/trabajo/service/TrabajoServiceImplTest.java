@@ -1,0 +1,105 @@
+package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
+
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizacionService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoOrigenService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
+import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
+
+@RunWith(MockitoJUnitRunner.class)
+public class TrabajoServiceImplTest {
+    
+    @Mock
+    private SenderTrabajo senderTrabajo;
+
+    @Mock
+    private TrabajoMapper trabajoMapper;
+    
+    @Mock
+    private TrabajoRepository trabajoRepository;
+    
+    @Mock
+    private TrabajoAmbitoOrigenService trabajoAmbitoOrigenService;
+
+    @Mock
+    private TrabajoAmbitoEmpresaService trabajoAmbitoEmpresaService;
+
+    @Mock
+    private TrabajoAmbitoLocalizacionService trabajoAmbitoLocalizacionService;
+
+    @Mock
+    private TrabajoAmbitoPersonaService trabajoAmbitoPersonaService;
+    
+    @Mock
+    private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+    
+    @InjectMocks
+    private TrabajoServiceImpl trabajoServiceImpl;
+
+    @Test
+    public void find() {
+        when(trabajoRepository.findById(any(Long.class))).thenReturn(Optional.of(new Trabajo()));
+        when(trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDto());
+        trabajoServiceImpl.find(1L);
+        verify(trabajoAmbitoOrigenService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDto.class));
+        verify(trabajoAmbitoEmpresaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDto.class));
+        verify(trabajoAmbitoLocalizacionService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDto.class));
+        verify(trabajoAmbitoPersonaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDto.class));
+    }
+    
+    @Test
+    public void create() {
+        TrabajoDto trabajo = new TrabajoDto();
+        trabajo.setNombreUsuario("test");
+        trabajo.setIcmIdPeriodo(1L);
+        trabajo.setFechaInicioPeriodo(LocalDate.of(2017, 01, 01));
+        trabajo.setFechaFinPeriodo(LocalDate.of(2017, 01, 01));
+        trabajo.setIdOrganization("test");
+        trabajo.setTipoAmbito(new TipoAmbitoDto());
+        
+        when(trabajoMapper.trabajoDtoToTrabajo(any(TrabajoDto.class))).thenReturn(new Trabajo());
+        when(trabajoRepository.save(any(Trabajo.class))).thenReturn(new Trabajo());
+        when(trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDto());
+        when(trabajoMapper.trabajoDtoToSaveProcesoDto(any(TrabajoDto.class))).thenReturn(new SaveProcesoDto());
+
+        trabajoServiceImpl.create(trabajo);
+        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).saveProceso(any(SaveProcesoDto.class));
+    }
+    
+    @Test
+    public void merge() {
+        ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
+        ProgramacionDto programacion = new ProgramacionDto();
+        PeriodoDto periodo = new PeriodoDto();
+        when(trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
+                any(ProgramacionAmbitoDto.class), any(ProgramacionDto.class), any(PeriodoDto.class))).thenReturn(new TrabajoDto());
+
+        assertNotNull(trabajoServiceImpl.merge(programacion, ambito, periodo));
+    }
+
+}
