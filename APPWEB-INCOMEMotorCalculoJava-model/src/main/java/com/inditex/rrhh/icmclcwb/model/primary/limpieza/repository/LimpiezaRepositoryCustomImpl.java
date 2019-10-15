@@ -182,14 +182,13 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionFestivo,
                 iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
-        for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
-            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionHistorico,
-                iter.toArray(new MapSqlParameterSource[iter.size()]));
-        }
-        for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
-            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionOnlineHistorico,
-                iter.toArray(new MapSqlParameterSource[iter.size()]));
-        }
+        
+        namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionHistorico,
+                idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
+        namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionOnlineHistorico,
+                idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+            
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodOrigenBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionPersonaPresencia,
                     iter.toArray(new MapSqlParameterSource[iter.size()]));
@@ -229,7 +228,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     }
     
     private List<MapSqlParameterSource> getParametersLocal(final TareaDto tarea, TareaAmbitoDto ambito) {
-        List<String> tiendas = tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(tarea.getId(), ambito.getCclIdOrigen()).stream().map(e -> e.getId()).collect(Collectors.toList());
+        List<String> tiendas = tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(tarea.getId(), ambito.getCclIdOrigen()).stream().map(e -> e.getId()).collect(Collectors.toList());
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
         
         tiendas.forEach(tienda -> {
@@ -246,7 +245,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     }
     
     private List<MapSqlParameterSource> getParametersMeta4(final TareaDto tarea, TareaAmbitoDto ambito) {
-        List<String> tiendas = tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(tarea.getId(), ambito.getCclIdOrigen()).stream().map(e -> e.getId()).collect(Collectors.toList());
+        List<String> tiendas = tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(tarea.getId(), ambito.getCclIdOrigen()).stream().map(e -> e.getId()).collect(Collectors.toList());
         List<MapSqlParameterSource> batchArgs = new ArrayList<>();
         
         tiendas.forEach(tienda -> {

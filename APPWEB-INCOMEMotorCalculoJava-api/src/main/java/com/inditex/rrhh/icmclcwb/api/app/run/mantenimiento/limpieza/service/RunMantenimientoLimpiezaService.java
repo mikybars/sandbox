@@ -8,6 +8,6 @@ public interface RunMantenimientoLimpiezaService {
 
     RunMantenimientoLimpiezaDto run();
 
-    RunMantenimientoLimpiezaDto runIdTarea(@NotNull Long id);
+    RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id);
 
 }

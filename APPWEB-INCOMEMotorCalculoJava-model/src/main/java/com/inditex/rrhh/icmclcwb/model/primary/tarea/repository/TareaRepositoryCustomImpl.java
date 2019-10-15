@@ -42,7 +42,11 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
 
     @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']}")
     private String sqlFindLimpieza;
-
+    
+    @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.byIdTarea']}")
+    private String sqlFindLimpiezaByIdTarea;
+    
+    
     @Override
     public void updateFechaFin(@NotNull final TareaDto tarea) {
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -93,5 +97,21 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
             }
         });
     }
+    
+    @Override
+    public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
+                Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
+        return namedParameterJdbcTemplate.query(sqlFindLimpiezaByIdTarea, parameters, new RowMapper<IdTareaDto>() {
+            public IdTareaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                IdTareaDto dto = new IdTareaDto();
+                dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
+                return dto;
+            }
+        });
+    }
+
 
 }

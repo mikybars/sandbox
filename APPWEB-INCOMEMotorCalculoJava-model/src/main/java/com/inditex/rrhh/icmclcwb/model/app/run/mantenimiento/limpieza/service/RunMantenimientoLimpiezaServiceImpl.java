@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -36,8 +35,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     
     @Transactional
     @Override
-    public RunMantenimientoLimpiezaDto runIdTarea(@NotNull Long id) {
-        List<IdTareaDto> idTarea = Arrays.asList(new IdTareaDto(id));
+    public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
+        List<IdTareaDto> idTarea = tareaService.findLimpiezaByIdTarea(id);
         idTarea.stream().forEach(senderLimpieza::send);
         return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
     }
