@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.service;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -25,5 +27,14 @@ public class RunMantenimientoServiceImpl implements RunMantenimientoService {
     public RunMantenimientoDto run() {
         return RunMantenimientoDto.builder().runMantenimientoLimpieza(runMantenimientoLimpiezaService.run()).build();
     }
+    
+    @Auditoria
+    @CounterMetric
+    @TimerMetric
+    @Override
+    public RunMantenimientoDto runIdTarea(@NotNull Long id) {
+        return RunMantenimientoDto.builder().runMantenimientoLimpieza(runMantenimientoLimpiezaService.runIdTarea(id)).build();
+    }
+
 
 }
