@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
+//import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepositoryCustom;
 
 @Repository
@@ -31,8 +31,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
-    @Autowired
-    private TareaLimpiezaRepositoryCustom tareaLimpiezaRepositoryCustom;
+//    @Autowired
+//    private TareaLimpiezaRepositoryCustom tareaLimpiezaRepositoryCustom;
     
     @Autowired
     private TareaLocalizacionHistoricoRepositoryCustom tareaLocalizacionHistoricoRepositoryCustom;
