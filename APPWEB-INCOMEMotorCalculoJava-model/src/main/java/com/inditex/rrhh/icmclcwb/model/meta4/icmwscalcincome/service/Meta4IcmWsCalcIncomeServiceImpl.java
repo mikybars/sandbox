@@ -42,6 +42,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dt
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
@@ -79,6 +85,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getempleados
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrcomisionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrpoliticasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
@@ -364,6 +372,42 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
                     .isNotEmpty(getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet())) {
                 List<ComisionEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asComisionEmpleadoResultItemDtos(
                         getComisionEmpleadoOutput.getIcmListaestructuras().getIcmListaestructurasRecordSet());
+                result.setData(items);
+            }
+        }
+
+        return result;
+    }
+    
+    @Override
+    public EstructurasComResponseDto getEstructurasCom(EstructurasComRequestDto request) {
+        EstructurasComResponseDto result = new EstructurasComResponseDto();
+        IcmParamcalestructuraBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(request.getData());
+        GetestructurascomOutput getEstructurasComOutput = meta4ClientPool.getestructurascom(param1);
+        if (getEstructurasComOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasComOutput.getReturn()) == 0) {
+            if (getEstructurasComOutput.getIcmListaestructura() != null && CollectionUtils
+                    .isNotEmpty(getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet())) {
+                List<EstructurasComResultItemDto> items = icmWsCalcIncomeMapper.asEstructurasComResultItemDtos(
+                        getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet());
+                result.setData(items);
+            }
+        }
+
+        return result;
+    }
+    
+    @Override
+    public EstructurasPolResponseDto getEstructurasPol(EstructurasPolRequestDto request) {
+        EstructurasPolResponseDto result = new EstructurasPolResponseDto();
+        IcmParamcalestructuraBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(request.getData());
+        GetestructuraspolOutput getEstructurasPolOutput = meta4ClientPool.getestructuraspol(param1);
+        if (getEstructurasPolOutput != null
+                && Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasPolOutput.getReturn()) == 0) {
+            if (getEstructurasPolOutput.getIcmListapoliticas() != null && CollectionUtils
+                    .isNotEmpty(getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet())) {
+                List<EstructurasPolResultItemDto> items = icmWsCalcIncomeMapper.asEstructurasPolResultItemDto(
+                        getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet());
                 result.setData(items);
             }
         }

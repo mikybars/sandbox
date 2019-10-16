@@ -30,6 +30,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamien
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
@@ -197,6 +201,32 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getComisionEmpleado(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getComisionEmpleado(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
+
+    }
+    
+    @Test
+    public void getEstructurasCom() {
+        when(meta4IcmWsCalcIncomeSessionService.getEstructurasCom(any(EstructurasComRequestDto.class))).thenReturn(new ArrayList<EstructurasComResultItemDto>());
+
+        EstructurasComRequestDto request = new EstructurasComRequestDto();
+        request.setData(new GenericFilterDto());
+        request.setPage(new PageDto());
+        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasCom(request));
+
+        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEstructurasCom(ArgumentMatchers.any(EstructurasComRequestDto.class));
+
+    }
+    
+    @Test
+    public void getEstructurasPol() {
+        when(meta4IcmWsCalcIncomeSessionService.getEstructurasPol(any(EstructurasPolRequestDto.class))).thenReturn(new ArrayList<EstructurasPolResultItemDto>());
+
+        EstructurasPolRequestDto request = new EstructurasPolRequestDto();
+        request.setData(new GenericFilterDto());
+        request.setPage(new PageDto());
+        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasPol(request));
+
+        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEstructurasPol(ArgumentMatchers.any(EstructurasPolRequestDto.class));
 
     }
     

@@ -20,6 +20,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dt
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
@@ -88,5 +92,9 @@ public interface Meta4IcmWsCalcIncomeService {
     ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request);
 
     SaveResultDto saveProceso(SaveProcesoDto request);
+
+    EstructurasComResponseDto getEstructurasCom(EstructurasComRequestDto request);
+
+    EstructurasPolResponseDto getEstructurasPol(EstructurasPolRequestDto request);
 	
 }
