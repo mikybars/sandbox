@@ -8,9 +8,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import java.time.LocalDate;
 
-import javax.validation.Validation;
-import javax.validation.ValidatorFactory;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -28,9 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
-import com.inditex.aqsw.framework.common.validation.constraints.SpelExpression;
-import com.inditex.aqsw.framework.common.validation.constraints.impl.SpelExpressionValidator;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
@@ -66,7 +60,7 @@ public class TrabajoControllerTest {
         trabajo.setFechaFinPeriodo(LocalDate.parse("2017-03-31"));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JSR310Module());
+        mapper.registerModule(new JavaTimeModule());
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
   
         mapper.setSerializationInclusion(Include.NON_NULL);

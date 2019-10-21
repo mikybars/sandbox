@@ -555,10 +555,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         CompletableFuture<List<ConfiguracionVentaOnlineResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
             return new ArrayList<>();
         });
-        
-        CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
-            return null;
-        });
          
         when(meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE)).thenReturn(properties);
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
@@ -566,7 +562,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
 
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.configuracionVentaOnlineByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getConfiguracionVentaOnline(ArgumentMatchers.any(ConfiguracionVentaOnlineRequestDto.class));
-
     }
     
     @Test(expected = Exception.class)

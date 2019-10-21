@@ -86,7 +86,7 @@ public class ProgramacionServiceImplTest {
     @Test
     public void createTestSso() {
         Authentication authentication = Mockito.mock(Authentication.class);
-        //TODO: Buscar manera de replicar este test con el nombre en blanco para cubrir test
+        //TODO [MDELRIO] Buscar manera de replicar este test con el nombre en blanco para cubrir test
         Mockito.when(authentication.getPrincipal()).thenReturn(new UserSSO(null, "name", "url", Arrays.asList()));
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);

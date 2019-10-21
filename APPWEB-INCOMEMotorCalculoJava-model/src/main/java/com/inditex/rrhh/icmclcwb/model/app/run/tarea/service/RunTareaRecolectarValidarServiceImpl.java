@@ -41,7 +41,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
 
     @Autowired
     private RunTareaRecolectarValidarLocalizacionHistoricoAsyncService runTareaRecolectarValidarLocalizacionHistoricoAsyncService;
-    
+
     @Autowired
     private RunTareaRecolectarValidarTiposHoraAsyncService runTareaRecolectarValidarTiposHoraAsyncService;
 
@@ -79,7 +79,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                 CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionHistorico = runTareaRecolectarValidarLocalizacionHistoricoAsyncService
                         .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionHistorico, cf);
-                
+
                 CompletableFuture<List<RunTareaValidarDto>> cfTiposHora = runTareaRecolectarValidarTiposHoraAsyncService
                         .run(runTarea);
                 AsyncUtils.exceptionally(cfTiposHora, cf);
@@ -112,16 +112,8 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                 runTareaValidar.addAll(AsyncUtils.get(cfAmbito));
                 runTareaValidar.addAll(AsyncUtils.get(cfTiposHora));
 
-                List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream().filter(item -> {
-                    // TODO [DAVIDTSO] Revisar NullPointerException, lo da en el item
-                    boolean result = false;
-                    if (item == null) {
-                        log.error("Nullpointer: {}", runTarea);
-                    } else {
-                        result = CollectionUtils.isNotEmpty(item.getDuplicated());
-                    }
-                    return result;
-                }).collect(Collectors.toList());
+                List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream()
+                        .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated())).collect(Collectors.toList());
 
                 if (CollectionUtils.isNotEmpty(runTareaValidarDuplicated)) {
                     if (validarProperties.isLogging()) {
