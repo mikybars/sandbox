@@ -16,6 +16,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
@@ -47,6 +50,9 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
         implements RunTareaAmbitoRecolectarPtrVentaGeneralService {
 
+    @Autowired
+    private Logger log;
+    
     @Autowired
     private TareaMapper tareaMapper;
 
@@ -103,9 +109,17 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                request.setProducto(meta4IcmWsCalcIncomeSessionService
-                        .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream()
-                        .map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                
+                // TODO [DAVIDTSO] Eliminar log y simplificar llamada
+                log.info("Inicio :: ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+                List<ConfiguracionProductoVentaResultItemDto> configuracionProductoVenta = meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen());
+                log.info("ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Meta4 :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), configuracionProductoVenta);
+                List<Integer> producto = configuracionProductoVenta.stream().map(e -> e.getIdProducto()).collect(Collectors.toList());
+                log.info("ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: List :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), producto);
+                request.setProducto(producto);
+                log.info("ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Request :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), request);
+                log.info("Fin :: ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+                
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -140,9 +154,17 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
             request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
-            request.setProducto(meta4IcmWsCalcIncomeSessionService
-                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream()
-                    .map(e -> e.getIdProducto()).collect(Collectors.toList()));
+            
+            // TODO [DAVIDTSO] Eliminar log y simplificar llamada
+            log.info("Inicio :: ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+            List<ConfiguracionProductoVentaResultItemDto> configuracionProductoVenta = meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen());
+            log.info("ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {} :: Meta4 :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), configuracionProductoVenta);
+            List<Integer> producto = configuracionProductoVenta.stream().map(e -> e.getIdProducto()).collect(Collectors.toList());
+            log.info("ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {} :: List :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), producto);
+            request.setProducto(producto);
+            log.info("ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {} :: Request :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), request);
+            log.info("Fin :: ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+            
             CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);

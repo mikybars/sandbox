@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
@@ -52,6 +54,9 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         implements RunTareaAmbitoRecolectarPtrVentaEcommerceService {
 
+    @Autowired
+    private Logger log;
+    
     @Autowired
     private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
@@ -101,7 +106,16 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                                 trabajo, tarea, tareaAmbito, recolectarProperties, cadenas);
                 paramVentaOnlineEntregaDomicilio.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
                 paramVentaOnlineEntregaDomicilio.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
-                paramVentaOnlineEntregaDomicilio.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
+                
+                // TODO [DAVIDTSO] Eliminar log y simplificar llamada
+                log.info("Inicio :: ConfiguracionProductoVenta :: ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+                List<ConfiguracionProductoVentaResultItemDto> configuracionProductoVenta = meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen());
+                log.info("ConfiguracionProductoVenta :: ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito :: {} :: {} :: Meta4 :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), configuracionProductoVenta);
+                List<Integer> producto = configuracionProductoVenta.stream().map(e -> e.getIdProducto()).collect(Collectors.toList());
+                log.info("ConfiguracionProductoVenta :: ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito :: {} :: {} :: List :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), producto);
+                paramVentaOnlineEntregaDomicilio.setProducto(producto);
+                log.info("ConfiguracionProductoVenta :: ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito :: {} :: {} :: Request :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), paramVentaOnlineEntregaDomicilio);
+                log.info("Fin :: ConfiguracionProductoVenta :: ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
     
                 CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaDomicilio);
@@ -151,8 +165,17 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineEntregaTienda.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineEntregaTienda.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlineEntregaTienda.setTienda(localizaciones.getLocalizaciones());
+                
+                // TODO [DAVIDTSO] Eliminar log y simplificar llamada
+                log.info("Inicio :: ConfiguracionProductoVenta :: ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+                List<ConfiguracionProductoVentaResultItemDto> configuracionProductoVenta = meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen());
+                log.info("ConfiguracionProductoVenta :: ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Meta4 :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), configuracionProductoVenta);
+                List<Integer> producto = configuracionProductoVenta.stream().map(e -> e.getIdProducto()).collect(Collectors.toList());
+                log.info("ConfiguracionProductoVenta :: ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: List :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), producto);
+                paramVentaOnlineEntregaTienda.setProducto(producto);
+                log.info("ConfiguracionProductoVenta :: ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Request :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), paramVentaOnlineEntregaTienda);
+                log.info("Fin :: ConfiguracionProductoVenta :: ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
 
                 CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineEntregaTienda(paramVentaOnlineEntregaTienda);
@@ -202,8 +225,17 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlinePicking.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlinePicking.setTienda(localizaciones.getLocalizaciones());
+                
+                // TODO [DAVIDTSO] Eliminar log y simplificar llamada
+                log.info("Inicio :: ConfiguracionProductoVenta :: ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+                List<ConfiguracionProductoVentaResultItemDto> configuracionProductoVenta = meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen());
+                log.info("ConfiguracionProductoVenta :: ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Meta4 :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), configuracionProductoVenta);
+                List<Integer> producto = configuracionProductoVenta.stream().map(e -> e.getIdProducto()).collect(Collectors.toList());
+                log.info("ConfiguracionProductoVenta :: ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: List :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), producto);
+                paramVentaOnlinePicking.setProducto(producto);
+                log.info("ConfiguracionProductoVenta :: ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Request :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), paramVentaOnlinePicking);
+                log.info("Fin :: ConfiguracionProductoVenta :: ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
 
                 CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlinePicking(paramVentaOnlinePicking);
@@ -250,8 +282,17 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineIpod.setProducto(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream().map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setTienda(localizaciones.getLocalizaciones());
+                
+                // TODO [DAVIDTSO] Eliminar log y simplificar llamada
+                log.info("Inicio :: ConfiguracionProductoVenta :: ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+                List<ConfiguracionProductoVentaResultItemDto> configuracionProductoVenta = meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen());
+                log.info("ConfiguracionProductoVenta :: ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Meta4 :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), configuracionProductoVenta);
+                List<Integer> producto = configuracionProductoVenta.stream().map(e -> e.getIdProducto()).collect(Collectors.toList());
+                log.info("ConfiguracionProductoVenta :: ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: List :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), producto);
+                paramVentaOnlineIpod.setProducto(producto);
+                log.info("ConfiguracionProductoVenta :: ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Request :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), paramVentaOnlineIpod);
+                log.info("Fin :: ConfiguracionProductoVenta :: ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
 
                 CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = ptrVentaEcommerceAsyncService
                         .ventaOnlineiPod(paramVentaOnlineIpod);
