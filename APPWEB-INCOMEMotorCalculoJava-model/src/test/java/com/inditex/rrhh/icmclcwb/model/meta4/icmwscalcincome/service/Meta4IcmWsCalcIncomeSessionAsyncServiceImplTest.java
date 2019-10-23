@@ -63,7 +63,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         FlagCalculaRequestDto request = new FlagCalculaRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getFlagCalcula(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
@@ -76,7 +76,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         CoefJornadaRequestDto request = new CoefJornadaRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getCoefJornada(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getCoefJornada(ArgumentMatchers.any(CoefJornadaRequestDto.class));
@@ -89,7 +89,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         FestivosRequestDto request = new FestivosRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getFestivos(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getFestivos(ArgumentMatchers.any(FestivosRequestDto.class));
@@ -102,7 +102,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         PresenciaManualRequestDto request = new PresenciaManualRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresenciaManual(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getPresenciaManual(ArgumentMatchers.any(PresenciaManualRequestDto.class));
@@ -115,7 +115,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleadosPresencia(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpleadosPresencia(ArgumentMatchers.any(EmpleadosPresenciaRequestDto.class));
@@ -128,7 +128,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         PeriodosRequestDto request = new PeriodosRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPeriodos(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getPeriodos(ArgumentMatchers.any(PeriodosRequestDto.class));
@@ -141,7 +141,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         TiendasEmpleadoRequestDto request = new TiendasEmpleadoRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendasEmpleado(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getTiendasEmpleado(ArgumentMatchers.any(TiendasEmpleadoRequestDto.class));
@@ -154,7 +154,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         SearchTiendasRequestDto request = new SearchTiendasRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.searchTiendas(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).searchTiendas(ArgumentMatchers.any(SearchTiendasRequestDto.class));
@@ -167,7 +167,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         TiendasRequestDto request = new TiendasRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendas(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getTiendas(ArgumentMatchers.any(TiendasRequestDto.class));
@@ -180,7 +180,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.searchEmpleados(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
@@ -193,7 +193,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getComisionEmpleado(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getComisionEmpleado(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
@@ -206,7 +206,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         EmpleadosRequestDto request = new EmpleadosRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleados(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpleados(ArgumentMatchers.any(EmpleadosRequestDto.class));
@@ -219,7 +219,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfiguracionVentaOnline(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getConfiguracionVentaOnline(ArgumentMatchers.any(ConfiguracionVentaOnlineRequestDto.class));
@@ -232,7 +232,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getAgrupacionesOnline(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getAgrupacionesOnline(ArgumentMatchers.any(AgrupOnlineRequestDto.class));
@@ -245,7 +245,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendasOnline(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).tiendaOnline(ArgumentMatchers.any(TiendaOnlineRequestDto.class));
@@ -258,7 +258,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         EmpresaRequestDto request = new EmpresaRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpresa(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpresa(ArgumentMatchers.any(EmpresaRequestDto.class));
@@ -271,7 +271,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         OrigenRequestDto request = new OrigenRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getOrigen(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getOrigen(ArgumentMatchers.any(OrigenRequestDto.class));
@@ -284,7 +284,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfiguracionProductoVenta(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getConfiguracionProductoVenta(ArgumentMatchers.any(ConfiguracionProductoVentaRequestDto.class));
@@ -297,7 +297,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasPoliticas(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEstructurasPoliticas(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
@@ -310,7 +310,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleadosDesplazamiento(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));

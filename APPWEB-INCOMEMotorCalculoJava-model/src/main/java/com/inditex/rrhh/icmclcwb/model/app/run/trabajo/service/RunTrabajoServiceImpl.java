@@ -59,7 +59,6 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
             if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
                 OrigenRequestDto request = new OrigenRequestDto();
                 request.setData(new GenericFilterDto());
-                request.setPage(new PageDto());
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.ORIGEN).getPage());
                 request.getData().setItem(new ArrayList<>());
                 request.getData().getItem()
@@ -74,7 +73,6 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                     || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
                 EmpresaRequestDto request = new EmpresaRequestDto();
                 request.setData(new GenericFilterDto());
-                request.setPage(new PageDto());
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.EMPRESA).getPage());
                 request.getData().setItem(new ArrayList<>());
                 trabajo.getOrigen().stream().forEach(e -> request.getData().getItem()

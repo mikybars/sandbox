@@ -9,12 +9,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Builder
 @ToString
 public class PageDto implements Serializable {
@@ -27,10 +28,12 @@ public class PageDto implements Serializable {
 
     private String idBusqueda;
 
+    @NonNull
     private Integer numeroPagina;
 
     private Integer numeroTotalPaginas;
 
+    @NonNull
     private Integer numeroRegistrosPagina;
 
     private Integer numeroTotalResultados;

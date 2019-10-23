@@ -67,7 +67,6 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
             programacionService.updateEjecucion(programacion);
             programacion.getAmbito().stream().forEach(programacionAmbito -> {
                 PeriodosRequestDto request = new PeriodosRequestDto();
-                request.setPage(new PageDto());
                 request.setData(new GenericFilterDto());
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());

@@ -150,7 +150,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -189,7 +189,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -220,7 +220,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -259,7 +259,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -300,7 +300,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -343,7 +343,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -389,7 +389,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -434,7 +434,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -472,7 +472,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -509,7 +509,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -543,7 +543,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -584,7 +584,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -624,7 +624,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -663,7 +663,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -697,7 +697,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -734,7 +734,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -773,7 +773,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -813,7 +813,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -851,7 +851,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         tarea.setId(1L);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -887,7 +887,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
@@ -921,7 +921,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         runTarea.setTrabajo(new TrabajoDto());
-        PageDto page = new PageDto();
+        PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         Meta4PropertiesDto properties = new Meta4PropertiesDto();
         Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
