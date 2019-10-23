@@ -83,7 +83,7 @@ public class Meta4PageableServiceImplTest {
         when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(new IcmParametrosentradaBlock());
         when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(new IcmParametrospaginacionBlock());
         when(meta4ClientPool.getflagcalcula(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(output);
-        when(icmWsCalcIncomeMapper.asPageDto(any(IcmParametrospaginacionBlock.class))).thenReturn(PageDto.builder().numeroPagina(1).numeroTotalPaginas(2).build());
+        when(icmWsCalcIncomeMapper.asPageDto(any(IcmParametrospaginacionBlock.class))).thenReturn(PageDto.builder().numeroPagina(1).numeroRegistrosPagina(100).numeroTotalPaginas(2).build());
         when(icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(any(List.class))).thenReturn(tienda);
 
         meta4PageableServiceImpl.getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FLAG_CALCULA, maxPageSize);
