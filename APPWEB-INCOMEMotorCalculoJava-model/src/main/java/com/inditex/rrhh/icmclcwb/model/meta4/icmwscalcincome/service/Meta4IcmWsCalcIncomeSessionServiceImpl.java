@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -55,6 +56,9 @@ import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableServiceImpl<PageableListDto<Serializable>>
         implements Meta4IcmWsCalcIncomeSessionService {
 
+    @Autowired
+    private Logger log;
+    
     @Autowired
     private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
@@ -170,7 +174,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
             meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
     }
     
-    @Auditoria
     @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
     @Override
     public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen) {
@@ -179,8 +182,14 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
         productoRequest.setData(filter);
         productoRequest.setPage(new PageDto());
-        return getResultItem(productoRequest, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
+        
+        // TODO [DAVIDTSO] Eliminar log y simplificar llamada
+        log.info("ConfiguracionProductoVenta :: getConfiguracionProductoVenta :: {} :: {} :: filter :: {}", idTarea, cclIdOrigen, filter);
+        List<ConfiguracionProductoVentaResultItemDto> result = getResultItem(productoRequest, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
             meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
+        log.info("ConfiguracionProductoVenta :: getConfiguracionProductoVenta :: {} :: {} :: result :: {}", idTarea, cclIdOrigen, result);
+        return result;
+        
     }
        
     @Override
