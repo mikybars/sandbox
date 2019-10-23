@@ -65,10 +65,10 @@ public class Meta4PageableServiceImplTest {
     public void getResultItem() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         FlagCalculaRequestDto request = new FlagCalculaRequestDto();
         request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
+        request.setPage(new PageDto(1, 100));
         PageableListDto<Serializable> response = new PageableListDto<>();
         response.setData(new ArrayList<>());
-        response.setPage(new PageDto());
+        response.setPage(new PageDto(1, 100));
         Integer maxPageSize = 10;
         GetflagcalculaOutput output = new GetflagcalculaOutput();
         IcmListatiendasBlock tiendas = new IcmListatiendasBlock();

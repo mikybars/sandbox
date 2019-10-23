@@ -181,7 +181,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         filter.setIdOrigen(cclIdOrigen);
         ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
         productoRequest.setData(filter);
-        productoRequest.setPage(new PageDto());
+        productoRequest.setPage(meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
         
         // TODO [DAVIDTSO] Eliminar log y simplificar llamada
         log.info("ConfiguracionProductoVenta :: getConfiguracionProductoVenta :: {} :: {} :: filter :: {}", idTarea, cclIdOrigen, filter);
