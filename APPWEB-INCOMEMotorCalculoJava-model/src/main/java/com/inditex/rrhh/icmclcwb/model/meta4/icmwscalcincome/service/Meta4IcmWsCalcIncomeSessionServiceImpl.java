@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
@@ -169,16 +170,15 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
             meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
     }
     
-    @Override
+    @Auditoria
     @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
+    @Override
     public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen) {
-        
         GenericFilterDto filter = new GenericFilterDto();
         filter.setIdOrigen(cclIdOrigen);
         ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
         productoRequest.setData(filter);
         productoRequest.setPage(new PageDto());
-      
         return getResultItem(productoRequest, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
             meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
     }
