@@ -8,14 +8,12 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
@@ -55,9 +53,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 @Service
 public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableServiceImpl<PageableListDto<Serializable>>
         implements Meta4IcmWsCalcIncomeSessionService {
-
-    @Autowired
-    private Logger log;
     
     @Autowired
     private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
@@ -182,13 +177,8 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
         productoRequest.setData(filter);
         productoRequest.setPage(meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
-        
-        // TODO [DAVIDTSO] Eliminar log y simplificar llamada
-        log.info("ConfiguracionProductoVenta :: getConfiguracionProductoVenta :: {} :: {} :: filter :: {}", idTarea, cclIdOrigen, filter);
-        List<ConfiguracionProductoVentaResultItemDto> result = getResultItem(productoRequest, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
-            meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
-        log.info("ConfiguracionProductoVenta :: getConfiguracionProductoVenta :: {} :: {} :: result :: {}", idTarea, cclIdOrigen, result);
-        return result;
+        return getResultItem(productoRequest, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
+                meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
         
     }
        

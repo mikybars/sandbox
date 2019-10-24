@@ -109,16 +109,9 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                
-                // TODO [DAVIDTSO] Eliminar log y simplificar llamada
-                log.info("Inicio :: ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
-                List<ConfiguracionProductoVentaResultItemDto> configuracionProductoVenta = meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen());
-                log.info("ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Meta4 :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), configuracionProductoVenta);
-                List<Integer> producto = configuracionProductoVenta.stream().map(e -> e.getIdProducto()).collect(Collectors.toList());
-                log.info("ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: List :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), producto);
-                request.setProducto(producto);
-                log.info("ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {} :: Request :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), request);
-                log.info("Fin :: ConfiguracionProductoVenta :: ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+                request.setProducto(meta4IcmWsCalcIncomeSessionService
+                        .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream()
+                        .map(e -> e.getIdProducto()).collect(Collectors.toList()));
                 
                 CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                         .ventaTotalizado(request);
@@ -154,16 +147,9 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
             request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
-            
-            // TODO [DAVIDTSO] Eliminar log y simplificar llamada
-            log.info("Inicio :: ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
-            List<ConfiguracionProductoVentaResultItemDto> configuracionProductoVenta = meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen());
-            log.info("ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {} :: Meta4 :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), configuracionProductoVenta);
-            List<Integer> producto = configuracionProductoVenta.stream().map(e -> e.getIdProducto()).collect(Collectors.toList());
-            log.info("ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {} :: List :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), producto);
-            request.setProducto(producto);
-            log.info("ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {} :: Request :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen(), request);
-            log.info("Fin :: ConfiguracionProductoVenta :: ventaFisicaCadenaByRunTareaAndTareaAmbito :: {} :: {}", tarea.getId(), tareaAmbito.getCclIdOrigen());
+            request.setProducto(meta4IcmWsCalcIncomeSessionService
+                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream()
+                    .map(e -> e.getIdProducto()).collect(Collectors.toList()));
             
             CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);
