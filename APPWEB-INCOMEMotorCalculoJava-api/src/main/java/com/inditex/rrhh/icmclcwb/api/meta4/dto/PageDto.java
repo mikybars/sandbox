@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -16,6 +17,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Builder
 @ToString
 public class PageDto implements Serializable {
