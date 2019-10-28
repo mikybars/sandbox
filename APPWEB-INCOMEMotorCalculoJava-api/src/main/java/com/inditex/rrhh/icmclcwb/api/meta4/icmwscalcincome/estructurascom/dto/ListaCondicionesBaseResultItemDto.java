@@ -22,7 +22,8 @@ public class ListaCondicionesBaseResultItemDto implements Serializable {
     private String diaX;
     private String idTipoCalculo;
     private String idTipoComision;
-    
+    private String idEstructuraBase;
+
     private List<ListaValoresBaseResultItemDto> icmListaValoresBase;
 
 }

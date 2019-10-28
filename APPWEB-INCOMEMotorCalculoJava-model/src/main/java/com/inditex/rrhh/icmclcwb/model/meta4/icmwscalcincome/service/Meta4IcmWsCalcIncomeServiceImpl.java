@@ -1,14 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +36,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dt
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
@@ -62,6 +57,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -95,8 +92,14 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getpresencia
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
@@ -339,7 +342,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request) {
         SearchEmpleadosResponseDto result = new SearchEmpleadosResponseDto();
-        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
+        IcmParamcalempleadoBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
         SearchempleadosOutput searchEmpleadosOutput = meta4ClientPool.searchempleados(param2, param1);
         if (searchEmpleadosOutput != null
@@ -348,12 +351,12 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
                 PageDto page = icmWsCalcIncomeMapper.asPageDto(searchEmpleadosOutput.getIcmParametrospaginacion());
                 result.setPage(page);
             }
-            if (searchEmpleadosOutput.getIcmListaempleados() != null
-                    && searchEmpleadosOutput.getIcmListaempleados().getIcmListaempleadosRecordSet() != null
+            if (searchEmpleadosOutput.getIcmListaempleado() != null
+                    && searchEmpleadosOutput.getIcmListaempleado().getIcmListaempleadoRecordSet() != null
                     && CollectionUtils
-                            .isNotEmpty(searchEmpleadosOutput.getIcmListaempleados().getIcmListaempleadosRecordSet())) {
-                List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtos(
-                        searchEmpleadosOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
+                            .isNotEmpty(searchEmpleadosOutput.getIcmListaempleado().getIcmListaempleadoRecordSet())) {
+                List<GenericEmpleadoResultItemDto> items = icmWsCalcIncomeMapper.asGenericEmpleadoResultItemDtosSearchEmpleados(
+                        searchEmpleadosOutput.getIcmListaempleado().getIcmListaempleadoRecordSet());
                 result.setData(items);
             }
         }
@@ -381,6 +384,10 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     
     @Override
     public EstructurasComResponseDto getEstructurasCom(EstructurasComRequestDto request) {
+
+        request.getData().setItem(null);
+        request.getData().setItem(Arrays.asList(EstructurasComFilterParametersDto.builder().idEmpleado("108109").orEmpleado("2").build()));
+ 
         EstructurasComResponseDto result = new EstructurasComResponseDto();
         IcmParamcalestructuraBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(request.getData());
         GetestructurascomOutput getEstructurasComOutput = meta4ClientPool.getestructurascom(param1);
