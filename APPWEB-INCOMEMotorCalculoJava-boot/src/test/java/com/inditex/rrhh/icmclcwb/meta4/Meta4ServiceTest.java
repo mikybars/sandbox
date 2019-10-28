@@ -46,6 +46,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Gettiendasin
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructurasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaporcentajesRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
@@ -249,13 +251,13 @@ public class Meta4ServiceTest {
 
     @Test
     public void searchEmpleados() {
-        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        IcmParamcalempleadoRecord record = new IcmParamcalempleadoRecord();
         record.setIdempleado(Meta4TestConstants.ID_PERSONA);
-        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        IcmParamcalempleadoBlock param1 = new IcmParamcalempleadoBlock();
         param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
         param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
-        param1.getIcmParametrosentradaRecordSet().add(record);
+        param1.getIcmParamcalempleadoRecordSet().add(record);
         IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
         param2.setNumeroregistrospagina(Meta4TestConstants.NUM_REGISTROS_PAGINA);
         param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
