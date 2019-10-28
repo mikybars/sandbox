@@ -21,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
 //import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepositoryCustom;
 
@@ -31,8 +32,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
-//    @Autowired
-//    private TareaLimpiezaRepositoryCustom tareaLimpiezaRepositoryCustom;
+    @Autowired
+    private TareaLimpiezaRepositoryCustom tareaLimpiezaRepositoryCustom;
     
     @Autowired
     private TareaLocalizacionHistoricoRepositoryCustom tareaLocalizacionHistoricoRepositoryCustom;
@@ -224,7 +225,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
     @Override
     public void consolidar(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TrabajoDto trabajo) {
-//        tareaLimpiezaRepositoryCustom.mergeLimpieza(tarea, trabajo);
+        tareaLimpiezaRepositoryCustom.mergeLimpieza(tarea, trabajo);
     }
     
     private List<MapSqlParameterSource> getParametersLocal(final TareaDto tarea, TareaAmbitoDto ambito) {
