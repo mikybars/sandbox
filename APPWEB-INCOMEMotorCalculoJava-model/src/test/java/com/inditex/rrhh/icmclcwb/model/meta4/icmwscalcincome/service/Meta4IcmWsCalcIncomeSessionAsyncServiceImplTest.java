@@ -30,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamien
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
@@ -209,7 +210,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
         when(meta4IcmWsCalcIncomeSessionService.getEstructurasCom(any(EstructurasComRequestDto.class))).thenReturn(new ArrayList<EstructurasComResultItemDto>());
 
         EstructurasComRequestDto request = new EstructurasComRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new EstructurasComFilterDto());
         request.setPage(new PageDto());
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasCom(request));
 
