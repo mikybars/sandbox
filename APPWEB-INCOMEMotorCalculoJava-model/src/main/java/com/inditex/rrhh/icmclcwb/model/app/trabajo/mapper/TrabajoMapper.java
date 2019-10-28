@@ -30,6 +30,7 @@ public abstract class TrabajoMapper {
     public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
     @Mapping(target = "programacion", expression = "java(src != null && src.getIdProgramacion() != null ? Programacion.builder().id(src.getIdProgramacion()).build() : null)")
+    @Mapping(target = "estado", ignore = true)
     public abstract Trabajo trabajoDtoToTrabajo(TrabajoDto src);
 
     public abstract List<TrabajoDto> trabajoToTrabajoDto(List<Trabajo> src);

@@ -28,6 +28,9 @@ public class TrabajoDto implements Serializable {
 
     @ApiModelProperty(value = "Programación asociada", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idProgramacion;
+
+    @ApiModelProperty(value = "Estado actual del trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    private EstadoTrabajoDto estado;
     
     @ApiModelProperty(value = "Nombre del usuario que solicito el trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
     private String nombreUsuario;

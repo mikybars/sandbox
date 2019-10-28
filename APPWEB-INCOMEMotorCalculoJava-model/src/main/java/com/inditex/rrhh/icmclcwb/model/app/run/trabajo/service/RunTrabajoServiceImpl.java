@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,9 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
     private TareaService tareaService;
 
     @Autowired
+    private TrabajoService trabajoService;
+
+    @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Auditoria
@@ -54,8 +59,9 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
     @TimerMetric
     @Override
     public RunTrabajoDto run(@NotNull @Valid @TrabajoValidator final RunTrabajoDto runTrabajo) {
+        final TrabajoDto trabajo = runTrabajo.getTrabajo();
         try {
-            final TrabajoDto trabajo = runTrabajo.getTrabajo();
+            trabajoService.updateEstado(trabajo, EstadoTrabajoEnum.EN_CURSO.getDto());
             if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
                 OrigenRequestDto request = new OrigenRequestDto();
                 request.setData(new GenericFilterDto());
@@ -86,8 +92,9 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                 runTrabajo.getTrabajo().setEmpresa(trabajoAmbitoEmpresa);
             }
             runTrabajo.setTarea(tareaService.create(runTrabajo.getTrabajo()));
+            trabajoService.updateEstado(trabajo, EstadoTrabajoEnum.OK.getDto());
         } catch (Exception e) {
-            // TODO [COMUN] AGREGAR EL ESTADO EN EL TRABAJO
+            trabajoService.updateEstado(trabajo, EstadoTrabajoEnum.KO.getDto());
             throw e;
         } finally {
             // TODO [COMUN] MODIFICAR LA FECHA DE FIN DEL TRABAJO
