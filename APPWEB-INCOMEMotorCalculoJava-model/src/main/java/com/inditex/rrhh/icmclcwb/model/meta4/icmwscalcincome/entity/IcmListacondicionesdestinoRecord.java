@@ -49,6 +49,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idpuestodestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idsecciondestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtiporeqcomision" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idestructuraambito" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idestructuradestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajodestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_Listavaloresdestino" type="{http://schemas.meta4.com/}Icm_ListavaloresdestinoBlock"/>
@@ -80,6 +81,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idpuestodestino",
     "idsecciondestino",
     "idtiporeqcomision",
+    "idestructuraambito",
     "idestructuradestino",
     "idlugartrabajodestino",
     "icmListavaloresdestino"
@@ -122,6 +124,8 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
     protected String idsecciondestino;
     @XmlElement(required = true, nillable = true)
     protected String idtiporeqcomision;
+    @XmlElement(required = true, nillable = true)
+    protected String idestructuraambito;
     @XmlElement(required = true, nillable = true)
     protected String idestructuradestino;
     @XmlElement(required = true, nillable = true)
@@ -554,6 +558,30 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
     }
 
     /**
+     * Obtiene el valor de la propiedad idestructuraambito.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdestructuraambito() {
+        return idestructuraambito;
+    }
+
+    /**
+     * Define el valor de la propiedad idestructuraambito.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdestructuraambito(String value) {
+        this.idestructuraambito = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idestructuradestino.
      * 
      * @return
@@ -796,6 +824,15 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
             }
         }
         {
+            String lhsIdestructuraambito;
+            lhsIdestructuraambito = this.getIdestructuraambito();
+            String rhsIdestructuraambito;
+            rhsIdestructuraambito = that.getIdestructuraambito();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idestructuraambito", lhsIdestructuraambito), LocatorUtils.property(thatLocator, "idestructuraambito", rhsIdestructuraambito), lhsIdestructuraambito, rhsIdestructuraambito, (this.idestructuraambito!= null), (that.idestructuraambito!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdestructuradestino;
             lhsIdestructuradestino = this.getIdestructuradestino();
             String rhsIdestructuradestino;
@@ -936,6 +973,11 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
             strategy.appendField(locator, this, "idtiporeqcomision", buffer, theIdtiporeqcomision, (this.idtiporeqcomision!= null));
         }
         {
+            String theIdestructuraambito;
+            theIdestructuraambito = this.getIdestructuraambito();
+            strategy.appendField(locator, this, "idestructuraambito", buffer, theIdestructuraambito, (this.idestructuraambito!= null));
+        }
+        {
             String theIdestructuradestino;
             theIdestructuradestino = this.getIdestructuradestino();
             strategy.appendField(locator, this, "idestructuradestino", buffer, theIdestructuradestino, (this.idestructuradestino!= null));
@@ -1044,6 +1086,11 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
             String theIdtiporeqcomision;
             theIdtiporeqcomision = this.getIdtiporeqcomision();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtiporeqcomision", theIdtiporeqcomision), currentHashCode, theIdtiporeqcomision, (this.idtiporeqcomision!= null));
+        }
+        {
+            String theIdestructuraambito;
+            theIdestructuraambito = this.getIdestructuraambito();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructuraambito", theIdestructuraambito), currentHashCode, theIdestructuraambito, (this.idestructuraambito!= null));
         }
         {
             String theIdestructuradestino;
@@ -1311,6 +1358,19 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
                 } else {
                     if (idtiporeqcomisionShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idtiporeqcomision = null;
+                    }
+                }
+            }
+            {
+                Boolean idestructuraambitoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idestructuraambito!= null));
+                if (idestructuraambitoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdestructuraambito;
+                    sourceIdestructuraambito = this.getIdestructuraambito();
+                    String copyIdestructuraambito = ((String) strategy.copy(LocatorUtils.property(locator, "idestructuraambito", sourceIdestructuraambito), sourceIdestructuraambito, (this.idestructuraambito!= null)));
+                    copy.setIdestructuraambito(copyIdestructuraambito);
+                } else {
+                    if (idestructuraambitoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idestructuraambito = null;
                     }
                 }
             }
