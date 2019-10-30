@@ -36,11 +36,11 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
     @ApiModelProperty(value = "Id local de la persona", required = true)
     private String cclIdPerson;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id estructura asociada a la politica", required = true)
     private String idEstructuraPolitica;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id tipo politica", required = true)
     private String idTipoPolitica;
 
@@ -55,4 +55,20 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Excluido deonminador", required = true)
     private Boolean excluidoDenominador;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Id unidad tiempo", required = true)
+    private String icmIdUnidadTiempo;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Numero de unidades de tiempo", required = true)
+    private String numeroUnidades;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Valor", required = true)
+    private String valor;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Tramo", required = true)
+    private String tramo;
 }

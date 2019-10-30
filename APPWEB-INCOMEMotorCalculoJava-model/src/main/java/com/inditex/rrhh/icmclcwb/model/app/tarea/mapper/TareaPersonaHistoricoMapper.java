@@ -41,6 +41,8 @@ public abstract class TareaPersonaHistoricoMapper {
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "fechaInicioSeccion", source = "src.fechaInicioSec")
     @Mapping(target = "fechaFinSeccion", source = "src.fechaFinSec")
+    @Mapping(target = "fechaInicioLocalizacion", source = "src.fechaInicioLoc")
+    @Mapping(target = "fechaFinLocalizacion", source = "src.fechaFinLoc")
     @Mapping(target = "stdIdLegEnt", source = "src.idEmpresa")
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     @Mapping(target = "cclIdSeccion", source = "src.idSeccion")

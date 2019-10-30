@@ -69,4 +69,20 @@ public class TareaPersonaEstructuraPolitica {
 
     @Column(name = "ES_EXCLUIDO_DENOMINADOR", nullable = false)
     private Boolean excluidoDenominador;
+    
+    @NotBlank
+    @Column(name = "ICM_ID_UNIDAD_TIEMPO", nullable = false)
+    private String icmIdUnidadTiempo;
+    
+    @NotBlank
+    @Column(name = "NUMERO_UNIDADES", nullable = false)
+    private String numeroUnidades;
+    
+    @NotBlank
+    @Column(name = "VALOR", nullable = false)
+    private String valor;
+    
+    @NotBlank
+    @Column(name = "TRAMO", nullable = false)
+    private String tramo;
 }

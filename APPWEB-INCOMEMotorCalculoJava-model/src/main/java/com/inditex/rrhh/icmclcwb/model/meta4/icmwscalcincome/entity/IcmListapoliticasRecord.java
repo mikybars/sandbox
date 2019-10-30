@@ -40,6 +40,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="orempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idestructura" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idtpestructura" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleadolocal" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_Listacondicionespolitica" type="{http://schemas.meta4.com/}Icm_ListacondicionespoliticaBlock"/>
  *       &lt;/sequence>
@@ -61,6 +62,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "orempleado",
     "fechainicio",
     "idestructura",
+    "idtpestructura",
     "idempleadolocal",
     "icmListacondicionespolitica"
 })
@@ -84,6 +86,8 @@ public class IcmListapoliticasRecord implements Cloneable, CopyTo2, Equals2, Has
     protected String fechainicio;
     @XmlElement(required = true, nillable = true)
     protected String idestructura;
+    @XmlElement(required = true, nillable = true)
+    protected String idtpestructura;
     @XmlElement(required = true, nillable = true)
     protected String idempleadolocal;
     @XmlElement(name = "Icm_Listacondicionespolitica", required = true, nillable = true)
@@ -298,6 +302,30 @@ public class IcmListapoliticasRecord implements Cloneable, CopyTo2, Equals2, Has
     }
 
     /**
+     * Obtiene el valor de la propiedad idtpestructura.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdtpestructura() {
+        return idtpestructura;
+    }
+
+    /**
+     * Define el valor de la propiedad idtpestructura.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdtpestructura(String value) {
+        this.idtpestructura = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idempleadolocal.
      * 
      * @return
@@ -435,6 +463,15 @@ public class IcmListapoliticasRecord implements Cloneable, CopyTo2, Equals2, Has
             }
         }
         {
+            String lhsIdtpestructura;
+            lhsIdtpestructura = this.getIdtpestructura();
+            String rhsIdtpestructura;
+            rhsIdtpestructura = that.getIdtpestructura();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idtpestructura", lhsIdtpestructura), LocatorUtils.property(thatLocator, "idtpestructura", rhsIdtpestructura), lhsIdtpestructura, rhsIdtpestructura, (this.idtpestructura!= null), (that.idtpestructura!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdempleadolocal;
             lhsIdempleadolocal = this.getIdempleadolocal();
             String rhsIdempleadolocal;
@@ -521,6 +558,11 @@ public class IcmListapoliticasRecord implements Cloneable, CopyTo2, Equals2, Has
             strategy.appendField(locator, this, "idestructura", buffer, theIdestructura, (this.idestructura!= null));
         }
         {
+            String theIdtpestructura;
+            theIdtpestructura = this.getIdtpestructura();
+            strategy.appendField(locator, this, "idtpestructura", buffer, theIdtpestructura, (this.idtpestructura!= null));
+        }
+        {
             String theIdempleadolocal;
             theIdempleadolocal = this.getIdempleadolocal();
             strategy.appendField(locator, this, "idempleadolocal", buffer, theIdempleadolocal, (this.idempleadolocal!= null));
@@ -579,6 +621,11 @@ public class IcmListapoliticasRecord implements Cloneable, CopyTo2, Equals2, Has
             String theIdestructura;
             theIdestructura = this.getIdestructura();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura), currentHashCode, theIdestructura, (this.idestructura!= null));
+        }
+        {
+            String theIdtpestructura;
+            theIdtpestructura = this.getIdtpestructura();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtpestructura", theIdtpestructura), currentHashCode, theIdtpestructura, (this.idtpestructura!= null));
         }
         {
             String theIdempleadolocal;
@@ -724,6 +771,19 @@ public class IcmListapoliticasRecord implements Cloneable, CopyTo2, Equals2, Has
                 } else {
                     if (idestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idestructura = null;
+                    }
+                }
+            }
+            {
+                Boolean idtpestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtpestructura!= null));
+                if (idtpestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdtpestructura;
+                    sourceIdtpestructura = this.getIdtpestructura();
+                    String copyIdtpestructura = ((String) strategy.copy(LocatorUtils.property(locator, "idtpestructura", sourceIdtpestructura), sourceIdtpestructura, (this.idtpestructura!= null)));
+                    copy.setIdtpestructura(copyIdtpestructura);
+                } else {
+                    if (idtpestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idtpestructura = null;
                     }
                 }
             }

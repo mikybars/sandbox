@@ -253,23 +253,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
 
         verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
     }
-   
-    @Test
-    public void getComisionEmpleado() {
-        Meta4PropertiesDto properties = new Meta4PropertiesDto();
-        Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-        filter.setMaxPageSize(1);
-        properties.setFilter(filter);
-        when(meta4IcmWsCalcIncomeService.getComisionEmpleado(any(ComisionEmpleadoRequestDto.class))).thenReturn(new ComisionEmpleadoResponseDto());
-        when(meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO)).thenReturn(properties);
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        meta4IcmWsCalcIncomeSessionServiceImpl.getComisionEmpleado(request);
-
-        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getComisionEmpleado(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
-    }
     
     @Test
     public void getEmpleados() {
@@ -406,24 +389,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
 
         verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getConfiguracionProductoVenta(ArgumentMatchers.any(ConfiguracionProductoVentaRequestDto.class));
     }
-       
-    @Test
-    public void getEstructurasPoliticas() {
-        Meta4PropertiesDto properties = new Meta4PropertiesDto();
-        Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-        filter.setMaxPageSize(1);
-        properties.setFilter(filter);
-        when(meta4IcmWsCalcIncomeService.getEstructurasPoliticas(any(ComisionEmpleadoRequestDto.class))).thenReturn(new ComisionEmpleadoResponseDto());
-        when(meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS)).thenReturn(properties);
 
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        meta4IcmWsCalcIncomeSessionServiceImpl.getEstructurasPoliticas(request);
-
-        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getEstructurasPoliticas(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
-    }
-    
     @Test
     public void getEmpleadosDesplazamiento() {
         Meta4PropertiesDto properties = new Meta4PropertiesDto();

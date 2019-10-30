@@ -218,7 +218,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         assertEquals(tarea.getId(), params.getValue("idTarea"));
         // nuevoActivo
         assertTrue(params.hasValue("nuevoActivo"));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue("nuevoActivo"));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, params.getValue("nuevoActivo"));
 
     }
 

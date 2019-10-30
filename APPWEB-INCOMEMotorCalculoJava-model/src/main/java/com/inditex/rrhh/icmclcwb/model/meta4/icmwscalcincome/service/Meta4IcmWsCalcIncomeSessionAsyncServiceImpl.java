@@ -10,8 +10,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.Agrup
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -97,12 +95,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     public CompletableFuture<List<GenericEmpleadoResultItemDto>> searchEmpleados(SearchEmpleadosRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.searchEmpleados(request));
     }
-
-    @Override
-    public CompletableFuture<List<ComisionEmpleadoResultItemDto>> getComisionEmpleado(
-            ComisionEmpleadoRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getComisionEmpleado(request));
-    }
     
     @Override
     public CompletableFuture<List<EstructurasComResultItemDto>> getEstructurasCom(
@@ -149,12 +141,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     @Override
     public CompletableFuture<List<ConfiguracionProductoVentaResultItemDto>> getConfiguracionProductoVenta(ConfiguracionProductoVentaRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(request));
-    }
-    
-    @Override
-    public CompletableFuture<List<ComisionEmpleadoResultItemDto>> getEstructurasPoliticas(
-            ComisionEmpleadoRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEstructurasPoliticas(request));
     }
     
     @Override

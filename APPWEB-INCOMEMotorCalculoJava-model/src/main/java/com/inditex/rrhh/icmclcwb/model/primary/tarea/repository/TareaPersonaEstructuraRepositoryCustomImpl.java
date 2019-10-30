@@ -34,19 +34,33 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         pstmt.setString(5, entity.getStdIdHr());
         pstmt.setString(6, entity.getCclIdPerson());
         pstmt.setString(7, entity.getIcmIdEstrComision());
-        pstmt.setString(8, entity.getIcmIdTpCalculo());
-        pstmt.setString(9, entity.getIcmIdTpComision());
-        pstmt.setString(10, entity.getStdOrHrPeriod());
-        pstmt.setBigDecimal(11, entity.getValor());
-        pstmt.setLong(12, entity.getTarea().getId());
-        pstmt.setString(13, entity.getCclIdOrigen());
-        pstmt.setBoolean(14, entity.getDesplazamiento());
-        pstmt.setBoolean(15, entity.getDesplazamientoBase());
+        pstmt.setString(8, entity.getIcmIdEstrComisionBase());
+        pstmt.setString(9, entity.getIcmIdTpCalculo());
+        pstmt.setString(10, entity.getIcmIdTpComision());
+        pstmt.setString(11, entity.getStdOrHrPeriod());
+        pstmt.setBigDecimal(12, entity.getValor());
+        pstmt.setLong(13, entity.getTarea().getId());
+        pstmt.setBoolean(14, entity.getActivo());
+        pstmt.setString(15, entity.getCclIdOrigen());
+        pstmt.setBoolean(16, entity.getDesplazamiento());
+        pstmt.setBoolean(17, entity.getDesplazamientoBase());
         if (entity.getOrdinalEstructura() != null) {
-            pstmt.setInt(16, entity.getOrdinalEstructura());
+            pstmt.setInt(18, entity.getOrdinalEstructura());
         } else {
-            pstmt.setNull(16, Types.INTEGER);
+            pstmt.setNull(18, Types.INTEGER);
         }
+        pstmt.setString(19, entity.getIdTipoVenta());
+        pstmt.setString(20, entity.getTope());
+        pstmt.setBoolean(21, entity.getDiaD());
+        pstmt.setBoolean(22, entity.getDiaJ());
+        pstmt.setBoolean(23, entity.getDiaL());
+        pstmt.setBoolean(24, entity.getDiaM());
+        pstmt.setBoolean(25, entity.getDiaS());
+        pstmt.setBoolean(26, entity.getDiaV());
+        pstmt.setBoolean(27, entity.getDiaX());
+        pstmt.setString(28, entity.getIcmIdTpEstructura());
+        pstmt.setString(29, entity.getIcmIdEstrComisionPadre());
+
     }
 
 }

@@ -29,10 +29,16 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-
+    
     @Override
-    public CompletableFuture<Void> condicionPersonaByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarMeta4IcmWsCalcIncomeService.condicionPersonaByRunTarea(runTarea);
+    public CompletableFuture<Void> estructurasComByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasComByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> estructurasPolByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasPolByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
@@ -87,12 +93,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     @Override
     public CompletableFuture<Void> localizacionesOnlineByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionesOnlineByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-    
-    @Override
-    public CompletableFuture<Void> estructurasPoliticasByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasPoliticasByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

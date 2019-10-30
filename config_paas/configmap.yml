@@ -371,15 +371,6 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getComisionEmpleado:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 50
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 50
-              maxPersistenceSize: 3
           getEstructurasCom:
             page:
               numeroPagina: 1
@@ -398,15 +389,6 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3              
-          getEstructurasPoliticas:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 50
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 50
-              maxPersistenceSize: 3        
           getEmpleados:
             page:
               numeroPagina: 1

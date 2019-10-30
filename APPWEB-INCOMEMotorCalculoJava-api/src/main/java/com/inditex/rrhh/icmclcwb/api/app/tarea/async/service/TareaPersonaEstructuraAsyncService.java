@@ -7,13 +7,13 @@ import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 
 @Async("repositoryPrimaryExecutor")
 public interface TareaPersonaEstructuraAsyncService {
 
     CompletableFuture<Void> save(final List<TareaPersonaEstructuraDto> tareaPersonaEstructura, final TareaDto tareaDto);
     
-    CompletableFuture<Void> saveComisionEmpleadoResultItemDto(
-            final List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto, final TareaDto tareaDto);
+    CompletableFuture<Void> saveEstructurasComResultItemDto(
+            final List<EstructurasComResultItemDto> estructurasComResultItemDto, final TareaDto tareaDto);
 }
