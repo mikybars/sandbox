@@ -53,13 +53,13 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
              */
             /*-----------------------------------------------------------------*/
             // Estructuras (Tramado estructuras (ApV) Detalle comision (Meta4))
-            CompletableFuture<Void> cfCondicionPersona = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .condicionPersonaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfCondicionPersona, cf, cfWait);
-
-            CompletableFuture<Void> cfEstructurasPoliticas = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .estructurasPoliticasByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfEstructurasPoliticas, cf, cfWait);
+            CompletableFuture<Void> cfEstructurasCom = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .estructurasComByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEstructurasCom, cf, cfWait);
+            
+            CompletableFuture<Void> cfEstructurasPol = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .estructurasPolByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEstructurasPol, cf, cfWait);
 
             // Tipos hora para los origenes
             CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService

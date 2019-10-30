@@ -18,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
@@ -49,8 +48,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getempleados
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosdesplazOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrcomisionOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrpoliticasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
@@ -73,8 +70,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempr
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructurasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructurasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaperiodosBlock;
@@ -84,7 +79,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapoli
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
@@ -767,56 +761,6 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         
         verify(meta4ClientPool, times(1)).searchempleados(any(IcmParametrospaginacionBlock.class), any(IcmParamcalempleadoBlock.class));
     }
-
-    @Test
-    public void getComisionEmpleado() {
-        IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
-        IcmListaestructurasBlock block = new IcmListaestructurasBlock(); 
-        GetestrcomisionOutput output = new GetestrcomisionOutput();
-        block.getIcmListaestructurasRecordSet().add(new IcmListaestructurasRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaestructuras(block);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getestrcomision(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        meta4IcmWsCalcIncomeServiceImpl.getComisionEmpleado(request);
-        verify(meta4ClientPool, times(1)).getestrcomision(any(IcmParamcalestructuraBlock.class));
-    }
-    
-    @Test
-    public void getComisionEmpleadoNullOutput() {
-        IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getestrcomision(any(IcmParamcalestructuraBlock.class))).thenReturn(null);
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        meta4IcmWsCalcIncomeServiceImpl.getComisionEmpleado(request);
-        verify(meta4ClientPool, times(1)).getestrcomision(any(IcmParamcalestructuraBlock.class));
-    }
-    
-    @Test
-    public void getComisionEmpleadoNullData() {
-        IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
-        GetestrcomisionOutput output = new GetestrcomisionOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaestructuras(null);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getestrcomision(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        meta4IcmWsCalcIncomeServiceImpl.getComisionEmpleado(request);
-        verify(meta4ClientPool, times(1)).getestrcomision(any(IcmParamcalestructuraBlock.class));
-    }
     
     @Ignore
     @Test
@@ -1325,56 +1269,6 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         request.setPage(new PageDto());
         meta4IcmWsCalcIncomeServiceImpl.getOrigen(request);
         verify(meta4ClientPool, times(1)).getorigenes(any(IcmParamcalsociedadBlock.class), any(IcmParametrospaginacionBlock.class));
-    }
-    
-    @Test
-    public void getEstructurasPoliticas() {
-        IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
-        GetestrpoliticasOutput output = new GetestrpoliticasOutput();
-        IcmListaestructurasBlock block = new IcmListaestructurasBlock(); 
-        block.getIcmListaestructurasRecordSet().add(new IcmListaestructurasRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaestructuras(block);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getestrpoliticas(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        meta4IcmWsCalcIncomeServiceImpl.getEstructurasPoliticas(request);
-        verify(meta4ClientPool, times(1)).getestrpoliticas(any(IcmParamcalestructuraBlock.class));
-    }
-    
-    @Test
-    public void getEstructurasPoliticasNullOutput() {
-        IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
-
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getestrpoliticas(any(IcmParamcalestructuraBlock.class))).thenReturn(null);
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        meta4IcmWsCalcIncomeServiceImpl.getEstructurasPoliticas(request);
-        verify(meta4ClientPool, times(1)).getestrpoliticas(any(IcmParamcalestructuraBlock.class));
-    }
-    
-    @Test
-    public void getEstructurasPoliticasNullData() {
-        IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
-        GetestrpoliticasOutput output = new GetestrpoliticasOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaestructuras(null);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getestrpoliticas(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        meta4IcmWsCalcIncomeServiceImpl.getEstructurasPoliticas(request);
-        verify(meta4ClientPool, times(1)).getestrpoliticas(any(IcmParamcalestructuraBlock.class));
     }
     
     @Test

@@ -13,8 +13,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> localizacionByRunTarea(final RunTareaDto runTarea);
 
-    CompletableFuture<Void> condicionPersonaByRunTarea(final RunTareaDto runTarea);
-
     CompletableFuture<Void> tiendasComisionableByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> presenciaManualByRunTarea(final RunTareaDto runTarea);
@@ -33,8 +31,10 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> localizacionesOnlineByRunTarea(final RunTareaDto runTarea);
 
-    CompletableFuture<Void> estructurasPoliticasByRunTarea(final RunTareaDto runTarea);
-
     CompletableFuture<Void> empleadosDesplazamientoByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> estructurasComByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> estructurasPolByRunTarea(final RunTareaDto runTarea);
 
 }

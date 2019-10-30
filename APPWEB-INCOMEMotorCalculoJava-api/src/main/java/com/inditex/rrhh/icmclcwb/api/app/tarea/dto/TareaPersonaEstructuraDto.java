@@ -80,5 +80,50 @@ public class TareaPersonaEstructuraDto implements Serializable {
 
     @ApiModelProperty(value = "Estructura de desplazamiento", required = false)
     private TareaPersonaEstructuraDesplazamientoDto estructuraDesplazamiento;
+    
+    @NotNull
+    @ApiModelProperty(value = "Flag activo/inactivo", required = true)
+    private Boolean activo;
 
+    @ApiModelProperty(value = "Flag dia / lunes", required = false)
+    private Boolean diaL;
+
+    @ApiModelProperty(value = "Flag dia / martes", required = false)
+    private Boolean diaM;
+    
+    @ApiModelProperty(value = "Flag dia / miercoles", required = false)
+    private Boolean diaX;
+    
+    @ApiModelProperty(value = "Flag dia / jueves", required = false)
+    private Boolean diaJ;
+    
+    @ApiModelProperty(value = "Flag dia / viernes", required = false)
+    private Boolean diaV;
+    
+    @ApiModelProperty(value = "Flag dia / sabado", required = false)
+    private Boolean diaS;
+    
+    @ApiModelProperty(value = "Flag dia / domingo", required = false)
+    private Boolean diaD;
+    
+    @NotNull
+    @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
+    private String icmIdEstrComisionBase;
+    
+    @NotNull
+    @ApiModelProperty(value = "Id estructura padre", required = true)
+    private String icmIdEstrComisionPadre;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Tope", required = true)
+    private String tope;
+    
+    @NotNull
+    @ApiModelProperty(value = "Id tipo venta ", required = true)
+    private String idTipoVenta;
+    
+    @NotNull
+    @ApiModelProperty(value = "Id tipo estructura ", required = true)
+    private String icmIdTpEstructura;
+    
 }

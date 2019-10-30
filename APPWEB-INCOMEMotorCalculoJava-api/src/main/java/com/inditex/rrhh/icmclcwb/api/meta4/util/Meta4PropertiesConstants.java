@@ -10,7 +10,6 @@ public class Meta4PropertiesConstants {
     public static final String SEARCH_TIENDAS = "searchTiendas";
     public static final String TIENDAS = "getTiendas";
     public static final String SEARCH_EMPLEADOS = "searchEmpleados";
-    public static final String COMISION_EMPLEADO = "getComisionEmpleado";
     public static final String EMPLEADOS = "getEmpleados";
     public static final String PERIODOS = "getPeriodos";
     public static final String EMPLEADOS_PRESENCIA = "getEmpleadosPresencia";
@@ -25,7 +24,6 @@ public class Meta4PropertiesConstants {
     public static final String EMPRESA = "getEmpresa";
     public static final String ORIGEN = "getOrigen";
     public static final String ESTRUCTURAS_DESPLAZ = "getEstructurasDesplazamiento";
-    public static final String ESTRUCTURAS_POLITICAS = "getEstructurasPoliticas";
     public static final String EMPLEADOS_DESPLAZAMIENTO = "getEmpleadosDesplazamiento";
     public static final String ESTRUCTURAS_COM = "getEstructurasCom";
     public static final String ESTRUCTURAS_POL = "getEstructurasPol";

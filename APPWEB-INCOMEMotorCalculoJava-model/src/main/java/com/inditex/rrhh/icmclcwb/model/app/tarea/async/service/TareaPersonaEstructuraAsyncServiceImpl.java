@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 
 @Service
 public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstructuraAsyncService{
@@ -27,9 +27,9 @@ public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstru
     }
 
     @Override
-    public CompletableFuture<Void> saveComisionEmpleadoResultItemDto(
-            List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDto, TareaDto tareaDto) {
-        tareaPersonaEstructuraService.save(tareaPersonaEstructuraService.merge(comisionEmpleadoResultItemDto, tareaDto), tareaDto);
+    public CompletableFuture<Void> saveEstructurasComResultItemDto(
+            List<EstructurasComResultItemDto> estructurasComResultItemDto, TareaDto tareaDto) {
+        tareaPersonaEstructuraService.save(tareaPersonaEstructuraService.mergeEstructurasComResultItemDto(estructurasComResultItemDto, tareaDto), tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

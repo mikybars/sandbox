@@ -85,11 +85,7 @@ public interface Meta4IcmWsCalcIncomeService {
 
     OrigenResponseDto getOrigen(OrigenRequestDto request);
 
-    ComisionEmpleadoResponseDto getEstructurasPoliticas(ComisionEmpleadoRequestDto request);
-
     EmpleadosDesplazamientoResponseDto getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
-
-    ComisionEmpleadoResponseDto getComisionEmpleado(ComisionEmpleadoRequestDto request);
 
     SaveResultDto saveProceso(SaveProcesoDto request);
 

@@ -52,6 +52,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idestructuraambito" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idestructuradestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajodestino" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idlugartrabajodestinomtu" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_Listavaloresdestino" type="{http://schemas.meta4.com/}Icm_ListavaloresdestinoBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -84,6 +85,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idestructuraambito",
     "idestructuradestino",
     "idlugartrabajodestino",
+    "idlugartrabajodestinomtu",
     "icmListavaloresdestino"
 })
 public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
@@ -130,6 +132,8 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
     protected String idestructuradestino;
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajodestino;
+    @XmlElement(required = true, nillable = true)
+    protected String idlugartrabajodestinomtu;
     @XmlElement(name = "Icm_Listavaloresdestino", required = true, nillable = true)
     protected IcmListavaloresdestinoBlock icmListavaloresdestino;
 
@@ -630,6 +634,30 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
     }
 
     /**
+     * Obtiene el valor de la propiedad idlugartrabajodestinomtu.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdlugartrabajodestinomtu() {
+        return idlugartrabajodestinomtu;
+    }
+
+    /**
+     * Define el valor de la propiedad idlugartrabajodestinomtu.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdlugartrabajodestinomtu(String value) {
+        this.idlugartrabajodestinomtu = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmListavaloresdestino.
      * 
      * @return
@@ -851,6 +879,15 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
             }
         }
         {
+            String lhsIdlugartrabajodestinomtu;
+            lhsIdlugartrabajodestinomtu = this.getIdlugartrabajodestinomtu();
+            String rhsIdlugartrabajodestinomtu;
+            rhsIdlugartrabajodestinomtu = that.getIdlugartrabajodestinomtu();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idlugartrabajodestinomtu", lhsIdlugartrabajodestinomtu), LocatorUtils.property(thatLocator, "idlugartrabajodestinomtu", rhsIdlugartrabajodestinomtu), lhsIdlugartrabajodestinomtu, rhsIdlugartrabajodestinomtu, (this.idlugartrabajodestinomtu!= null), (that.idlugartrabajodestinomtu!= null))) {
+                return false;
+            }
+        }
+        {
             IcmListavaloresdestinoBlock lhsIcmListavaloresdestino;
             lhsIcmListavaloresdestino = this.getIcmListavaloresdestino();
             IcmListavaloresdestinoBlock rhsIcmListavaloresdestino;
@@ -988,6 +1025,11 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
             strategy.appendField(locator, this, "idlugartrabajodestino", buffer, theIdlugartrabajodestino, (this.idlugartrabajodestino!= null));
         }
         {
+            String theIdlugartrabajodestinomtu;
+            theIdlugartrabajodestinomtu = this.getIdlugartrabajodestinomtu();
+            strategy.appendField(locator, this, "idlugartrabajodestinomtu", buffer, theIdlugartrabajodestinomtu, (this.idlugartrabajodestinomtu!= null));
+        }
+        {
             IcmListavaloresdestinoBlock theIcmListavaloresdestino;
             theIcmListavaloresdestino = this.getIcmListavaloresdestino();
             strategy.appendField(locator, this, "icmListavaloresdestino", buffer, theIcmListavaloresdestino, (this.icmListavaloresdestino!= null));
@@ -1101,6 +1143,11 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
             String theIdlugartrabajodestino;
             theIdlugartrabajodestino = this.getIdlugartrabajodestino();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idlugartrabajodestino", theIdlugartrabajodestino), currentHashCode, theIdlugartrabajodestino, (this.idlugartrabajodestino!= null));
+        }
+        {
+            String theIdlugartrabajodestinomtu;
+            theIdlugartrabajodestinomtu = this.getIdlugartrabajodestinomtu();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idlugartrabajodestinomtu", theIdlugartrabajodestinomtu), currentHashCode, theIdlugartrabajodestinomtu, (this.idlugartrabajodestinomtu!= null));
         }
         {
             IcmListavaloresdestinoBlock theIcmListavaloresdestino;
@@ -1397,6 +1444,19 @@ public class IcmListacondicionesdestinoRecord implements Cloneable, CopyTo2, Equ
                 } else {
                     if (idlugartrabajodestinoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idlugartrabajodestino = null;
+                    }
+                }
+            }
+            {
+                Boolean idlugartrabajodestinomtuShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idlugartrabajodestinomtu!= null));
+                if (idlugartrabajodestinomtuShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdlugartrabajodestinomtu;
+                    sourceIdlugartrabajodestinomtu = this.getIdlugartrabajodestinomtu();
+                    String copyIdlugartrabajodestinomtu = ((String) strategy.copy(LocatorUtils.property(locator, "idlugartrabajodestinomtu", sourceIdlugartrabajodestinomtu), sourceIdlugartrabajodestinomtu, (this.idlugartrabajodestinomtu!= null)));
+                    copy.setIdlugartrabajodestinomtu(copyIdlugartrabajodestinomtu);
+                } else {
+                    if (idlugartrabajodestinomtuShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idlugartrabajodestinomtu = null;
                     }
                 }
             }

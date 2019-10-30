@@ -30,6 +30,7 @@ public class ListaCondicionesDestinoResultItemDto implements Serializable {
     private String idSeccionDestino;
     private String idTipoReqComision;
     private String idLugarTrabajoDestino;
+    private String idLugarTrabajoDestinoMtu;
     private String idEstructuraDestino;
     private String idEstructuraAmbito;
     private List<ListaValoresDestinoResultItemDto> icmListaValoresDestino;

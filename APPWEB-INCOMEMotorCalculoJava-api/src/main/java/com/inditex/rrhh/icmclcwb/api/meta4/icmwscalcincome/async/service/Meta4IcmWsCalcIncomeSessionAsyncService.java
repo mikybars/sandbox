@@ -50,8 +50,6 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 
     CompletableFuture<List<GenericEmpleadoResultItemDto>> searchEmpleados(SearchEmpleadosRequestDto request);
 
-    CompletableFuture<List<ComisionEmpleadoResultItemDto>> getComisionEmpleado(ComisionEmpleadoRequestDto request);
-
     CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleados(EmpleadosRequestDto request);
 
     CompletableFuture<List<PeriodosResultItemDto>> getPeriodos(PeriodosRequestDto request);
@@ -78,8 +76,6 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 
     CompletableFuture<List<ConfiguracionProductoVentaResultItemDto>> getConfiguracionProductoVenta(
             ConfiguracionProductoVentaRequestDto request);
-
-    CompletableFuture<List<ComisionEmpleadoResultItemDto>> getEstructurasPoliticas(ComisionEmpleadoRequestDto request);
 
     CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleadosDesplazamiento(
             EmpleadosDesplazamientoRequestDto request);

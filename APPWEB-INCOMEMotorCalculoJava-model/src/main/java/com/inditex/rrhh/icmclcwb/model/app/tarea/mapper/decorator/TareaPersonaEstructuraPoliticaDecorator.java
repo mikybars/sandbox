@@ -4,6 +4,9 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.ListaCondicionesPoliticasResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.ListaValoresPoliticasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraPoliticaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
@@ -73,6 +76,36 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
                 result.add(comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(x, tarea));
             }
         });
+        return result;
+    }
+    
+    @Override
+    public List<TareaPersonaEstructuraPolitica> estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
+            List<EstructurasPolResultItemDto> src, TareaDto tarea) {
+        List<TareaPersonaEstructuraPolitica> result = new ArrayList<>();
+        src.forEach(x -> {
+               x.getIcmListaCondicionesPolitica().forEach(y -> {
+                   if(y.getExcDenominador().equals(Meta4Constants.TRUE) || !TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getIdMeta4().equals(y.getIdTipoPolitica())) {
+                       y.getIcmListaValoresPoliticas().forEach(z -> {
+                           result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, z, tarea));
+                       });
+                   }
+               }); 
+        });
+        return result;
+    }
+    
+    @Override
+    public TareaPersonaEstructuraPolitica estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
+            EstructurasPolResultItemDto src, ListaCondicionesPoliticasResultItemDto condiciones, ListaValoresPoliticasResultItemDto valores, TareaDto tarea) {
+        TareaPersonaEstructuraPolitica result = delegate.estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(src, tarea);
+        result.setTipoPolitica(new TipoPolitica());
+        result.getTipoPolitica().setId(TipoPoliticaEnum.fromIdMeta4(condiciones.getIdTipoPolitica()).getId());
+        result.setExcluidoDenominador(Meta4Constants.TRUE.equals(condiciones.getExcDenominador()));
+        result.setIcmIdUnidadTiempo(valores.getIdUnidadTiempo());
+        result.setNumeroUnidades(valores.getNumeroUnidades());
+        result.setValor(valores.getValor());
+        result.setTramo(valores.getTramo());
         return result;
     }
 }

@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -35,8 +35,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.T
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 
-import java.util.List;
-
 public interface Meta4IcmWsCalcIncomeSessionService {
 
     List<GenericTiendaResultItemDto> getTiendasEmpleado(TiendasEmpleadoRequestDto request);
@@ -46,8 +44,6 @@ public interface Meta4IcmWsCalcIncomeSessionService {
     List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request);
 
     List<GenericEmpleadoResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request);
-
-    List<ComisionEmpleadoResultItemDto> getComisionEmpleado(ComisionEmpleadoRequestDto request);
 
     List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request);
 
@@ -78,8 +74,6 @@ public interface Meta4IcmWsCalcIncomeSessionService {
             ConfiguracionProductoVentaRequestDto request);
 
     List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen);
-
-    List<ComisionEmpleadoResultItemDto> getEstructurasPoliticas(ComisionEmpleadoRequestDto request);
 
     List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
 

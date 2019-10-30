@@ -34,16 +34,20 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImpl
         pstmt.setObject(5, entity.getFechaFin());
         pstmt.setInt(6, entity.getTipoOpcionCalculoEstructura().getId());
         pstmt.setInt(7, entity.getTipoOpcionCalculoEfectiva().getId());
-        pstmt.setString(8, entity.getIcmIdTpCalculo());
-        pstmt.setString(9, entity.getCclIdPuestoDestino());
-        pstmt.setString(10, entity.getCclIdSeccionDestino());
-        pstmt.setString(11, entity.getCclIdCodOrigenDestino());
-        pstmt.setBigDecimal(12, entity.getValor());
-        pstmt.setString(13, entity.getCclIdSeccionEfectiva());
-        pstmt.setString(14, entity.getCclIdSeccionEstructura());
-        pstmt.setString(15, entity.getStdIdWorkLocatDestino());
-        pstmt.setBoolean(16, entity.getHorasOrigen());
-        pstmt.setBoolean(17, entity.getHorasDestino());
-        pstmt.setString(18, entity.getIcmIdTpReqCom());
+        pstmt.setString(8, entity.getCclIdPuestoDestino());
+        pstmt.setString(9, entity.getCclIdSeccionDestino());
+        pstmt.setString(10, entity.getCclIdCodOrigenDestino());
+        pstmt.setString(11, entity.getStdIdWorkLocatDestino());
+        pstmt.setBoolean(12, entity.getHorasOrigen());
+        pstmt.setBoolean(13, entity.getHorasDestino());
+        pstmt.setString(14, entity.getIcmIdTpReqCom());
+        pstmt.setBoolean(15, entity.getActivo());
+        pstmt.setString(16, entity.getCclIdOrigen());
+        pstmt.setString(17, entity.getCclIdPerson());
+        pstmt.setString(18, entity.getIcmIdEstrComisionPadre());
+        pstmt.setString(19, entity.getIcmIdEstrComisionBase());
+        pstmt.setString(20, entity.getStdIdHr());
+        pstmt.setString(21, entity.getStdOrHrPeriod());
+        pstmt.setString(22, entity.getIcmIdEstructuraAmbito());
     }
 }

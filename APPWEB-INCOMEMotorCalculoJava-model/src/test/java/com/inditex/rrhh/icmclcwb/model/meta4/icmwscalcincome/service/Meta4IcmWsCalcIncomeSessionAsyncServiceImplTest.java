@@ -193,19 +193,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
     }
     
     @Test
-    public void getComisionEmpleado() {
-        when(meta4IcmWsCalcIncomeSessionService.getComisionEmpleado(any(ComisionEmpleadoRequestDto.class))).thenReturn(new ArrayList<ComisionEmpleadoResultItemDto>());
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getComisionEmpleado(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getComisionEmpleado(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
-
-    }
-    
-    @Test
     public void getEstructurasCom() {
         when(meta4IcmWsCalcIncomeSessionService.getEstructurasCom(any(EstructurasComRequestDto.class))).thenReturn(new ArrayList<EstructurasComResultItemDto>());
 
@@ -319,19 +306,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
         CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfiguracionProductoVenta(request));
 
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getConfiguracionProductoVenta(ArgumentMatchers.any(ConfiguracionProductoVentaRequestDto.class));
-
-    }
-    
-    @Test
-    public void getEstructurasPoliticas() {
-        when(meta4IcmWsCalcIncomeSessionService.getEstructurasPoliticas(any(ComisionEmpleadoRequestDto.class))).thenReturn(new ArrayList<ComisionEmpleadoResultItemDto>());
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto());
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasPoliticas(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEstructurasPoliticas(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
 
     }
     
