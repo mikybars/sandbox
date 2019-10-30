@@ -7,6 +7,8 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoEmpresaMa
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoLocalizacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTrabajo;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -24,6 +26,14 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
 
     @Autowired
     private TrabajoAmbitoPersonaMapper trabajoAmbitoPersonaMapper;
+
+    @Override
+    public Trabajo trabajoDtoToTrabajo(TrabajoDto src) {
+        Trabajo result = delegate.trabajoDtoToTrabajo(src);
+        result.setEstado(new EstadoTrabajo());
+        result.getEstado().setId(src.getEstado().getId());
+        return result;
+    }
 
     @Override
     public SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo) {

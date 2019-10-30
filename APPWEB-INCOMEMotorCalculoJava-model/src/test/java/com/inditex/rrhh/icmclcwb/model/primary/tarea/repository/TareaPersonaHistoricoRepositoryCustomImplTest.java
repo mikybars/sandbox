@@ -100,16 +100,17 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
         verify(pstmt, times(1)).setObject(2, entity.getFechaInicio());
         verify(pstmt, times(1)).setObject(3, entity.getFechaFinSeccion());
         verify(pstmt, times(1)).setObject(4, entity.getFechaInicioSeccion());
-        verify(pstmt, times(1)).setString(5, entity.getStdIdHr());
-        verify(pstmt, times(1)).setString(6, entity.getCclIdPerson());
-        verify(pstmt, times(1)).setString(7, entity.getCclIdCodOrigen());
-        verify(pstmt, times(1)).setString(8, entity.getStdIdWorkLocat());
-        verify(pstmt, times(1)).setString(9, entity.getStdOrHrPeriod());
-        verify(pstmt, times(1)).setString(10, entity.getStdIdLegEnt());
-        verify(pstmt, times(1)).setString(11, entity.getCclIdOrigen());
-        verify(pstmt, times(1)).setString(12, entity.getCclIdSeccion());
-        verify(pstmt, times(1)).setLong(13, tarea.getId());
-
+        verify(pstmt, times(1)).setObject(5, entity.getFechaFinLocalizacion());
+        verify(pstmt, times(1)).setObject(6, entity.getFechaInicioLocalizacion());
+        verify(pstmt, times(1)).setString(7, entity.getStdIdHr());
+        verify(pstmt, times(1)).setString(8, entity.getCclIdPerson());
+        verify(pstmt, times(1)).setString(9, entity.getCclIdCodOrigen());
+        verify(pstmt, times(1)).setString(10, entity.getStdIdWorkLocat());
+        verify(pstmt, times(1)).setString(11, entity.getStdOrHrPeriod());
+        verify(pstmt, times(1)).setString(12, entity.getStdIdLegEnt());
+        verify(pstmt, times(1)).setString(13, entity.getCclIdOrigen());
+        verify(pstmt, times(1)).setString(14, entity.getCclIdSeccion());
+        verify(pstmt, times(1)).setLong(15, tarea.getId());
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @ApiModelProperty(value = "Fecha de fin en la estructura", required = true)
     private LocalDateTime fechaFin;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Motivo del desplazamiento", required = true)
     private String idMotivoDesplazamiento;
 
@@ -35,39 +36,23 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @ApiModelProperty(value = "Tipo de opción de cálculo usada en el propio cálculo", required = true)
     private Integer idTipoOpcionCalculoEfectiva;
 
-    @NotNull
-    @ApiModelProperty(value = "Tipo de cálculo", required = true)
-    private String icmIdTpCalculo;
-
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Puesto del destino del desplazamiento", required = true)
     private String cclIdPuestoDestino;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Sección del destino del desplazamiento", required = true)
     private String cclIdSeccionDestino;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Lugar de trabajo del desitno del desplazamiento", required = true)
     private String cclIdCodOrigenDestino;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Lugar de trabajo del desitno del desplazamiento", required = true)
     private String stdIdWorkLocatDestino;
 
-    @NotNull
-    @ApiModelProperty(value = "valor asociado a la seccion", required = true)
-    private String valor;
-
-    @NotNull
-    @ApiModelProperty(value = "Seccion usada en el calculo", required = true)
-    private String cclIdSeccionEfectiva;
-
-    @NotNull
-    @ApiModelProperty(value = "Seccion de la estructura", required = true)
-    private String cclIdSeccionEstructura;
-
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Condiciones de la comision", required = true)
     private String icmIdTpReqCom;
 
@@ -78,4 +63,45 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Incluir horas en destino", required = true)
     private Boolean horasDestino;
+    
+    @NotNull
+    @ApiModelProperty(value = "Flag activo/inactivo", required = true)
+    private Boolean activo;
+
+    @NotBlank
+    @ApiModelProperty(value = "Id origen", required = true)
+    private String cclIdOrigen;
+
+    @NotBlank
+    @ApiModelProperty(value = "Id de la persona", required = true)
+    private String stdIdHr;
+
+    @NotBlank
+    @ApiModelProperty(value = "Ordinal de la persona", required = true)
+    private String stdOrHrPeriod;
+
+    @NotBlank
+    @ApiModelProperty(value = "Id local de la persona", required = true)
+    private String cclIdPerson;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
+    private String icmIdEstrComisionBase;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Id estructura destino", required = true)
+    private String icmIdEstrComision;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Id estructura padre", required = true)
+    private String icmIdEstrComisionPadre;
+
+    @NotNull
+    @ApiModelProperty(value = "Oridnal de la estructura")
+    private Integer ordinalEstructura;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Id estructura del ambito", required = true)
+    private String icmIdEstructuraAmbito;
+    
 }

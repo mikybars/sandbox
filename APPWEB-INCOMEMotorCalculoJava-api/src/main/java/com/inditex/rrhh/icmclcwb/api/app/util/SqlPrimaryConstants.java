@@ -35,6 +35,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TAREA = "idTarea";
 
+    public static final String SQL_PARAM_ID_TRABAJO = "idTrabajo";
+
     public static final String SQL_PARAM_ID_PROGRAMACION = "idProgramacion";
 
     public static final String SQL_PARAM_CCL_ID_ORIGEN = "cclIdOrigen";

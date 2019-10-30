@@ -4,6 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraPoliticaService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraPoliticaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraPoliticaRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,13 @@ public class TareaPersonaEstructuraPoliticaServiceImpl implements TareaPersonaEs
         return tareaPersonaEstructuraPoliticaMapper.tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
             tareaPersonaEstructuraPoliticaRepositoryCustom.save(tareaPersonaEstructuraPoliticaMapper
                 .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(tareaEmpleadoEstructuraPolitica, tarea)));
+    }
+    
+    @Override
+    public List<TareaPersonaEstructuraPoliticaDto> saveEstructurasPolResultItemDto(List<EstructurasPolResultItemDto> estructurasPolResultItemDto, @Valid TareaDto tarea) {
+        return tareaPersonaEstructuraPoliticaMapper.tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
+            tareaPersonaEstructuraPoliticaRepositoryCustom.save(tareaPersonaEstructuraPoliticaMapper
+                .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(estructurasPolResultItemDto, tarea)));
     }
 
 }

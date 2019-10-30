@@ -59,11 +59,17 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .presenciaManualByRunTareaAndTareaAmbito(runTarea, item));
     }
-
+   
     @Override
-    public void condicionPersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+    public void estructurasComByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .condicionPersonaByRunTareaAndTareaAmbito(runTarea, item));
+                .estructurasComByRunTareaAndTareaAmbito(runTarea, item));
+    }
+    
+    @Override
+    public void estructurasPolByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .estructurasPolByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
@@ -88,12 +94,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     public void localizacionesOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .localizacionesOnlineByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
-    public void estructurasPoliticasByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .estructurasPoliticasByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override

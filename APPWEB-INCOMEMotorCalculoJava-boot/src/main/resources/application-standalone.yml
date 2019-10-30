@@ -164,20 +164,20 @@ amiga:
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
             #[BBDD][ITX][DES][GESTION_COMISION][INICIO]
-            serverName: axdesdb22.central.inditex.grp
-            portNumber: 50000
-            databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: uincome
-            password: pzuUKBm1ppMGzzOn
-            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
-            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
 #            serverName: axdesdb22.central.inditex.grp
 #            portNumber: 50000
 #            databaseName: INDITEX
-#            currentSchema: DESARROLLO_RRHH
-#            user: oincome
-#            password: aMJLp8ahF09w
+#            currentSchema: GESTION_COMISION
+#            user: uincome
+#            password: pzuUKBm1ppMGzzOn
+            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
+            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
+            serverName: axdesdb22.central.inditex.grp
+            portNumber: 50000
+            databaseName: INDITEX
+            currentSchema: DESARROLLO_RRHH
+            user: oincome
+            password: aMJLp8ahF09w
             #[BBDD][ITX][DES][DESARROLLO_RRHH][FIN]
             #[BBDD][VECTOR][DES][INICIO]
 #            serverName: 10.202.10.178
@@ -230,6 +230,9 @@ app:
           config:
             batch-size: 25
     repository:
+      batch-size:
+        default: 100
+    limpieza:
       batch-size:
         default: 100
     ptr:
@@ -457,7 +460,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getComisionEmpleado:
+          getEstructurasCom:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -466,7 +469,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getEstructurasPoliticas:
+          getEstructurasPol:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -474,7 +477,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3              
+              maxPersistenceSize: 3    
           getEmpleados:
             page:
               numeroPagina: 1

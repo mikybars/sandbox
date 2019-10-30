@@ -33,4 +33,6 @@ public interface TareaService {
     
     List<IdTareaDto> findLimpieza();
 
+    List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea);
+
 }

@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,14 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto run() {
         List<IdTareaDto> idTarea = tareaService.findLimpieza();
+        idTarea.stream().forEach(senderLimpieza::send);
+        return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
+    }
+    
+    @Transactional
+    @Override
+    public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
+        List<IdTareaDto> idTarea = tareaService.findLimpiezaByIdTarea(id);
         idTarea.stream().forEach(senderLimpieza::send);
         return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
     }

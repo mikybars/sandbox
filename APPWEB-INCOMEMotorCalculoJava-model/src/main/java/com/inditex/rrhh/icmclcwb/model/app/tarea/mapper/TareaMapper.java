@@ -24,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
@@ -143,6 +144,13 @@ public abstract class TareaMapper {
                             .collect(Collectors.toList()));
         }
     }
+    
+    @AfterMapping
+    protected void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToEstructurasComFilterDto(
+            TrabajoDto srcTrabajo,  TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, @MappingTarget EstructurasComFilterDto filter) {
+        filter.setFechaInicio(LocalDateTime.of(srcTrabajo.getFechaInicioPeriodo(), LocalTime.MIDNIGHT));
+        filter.setFechaFin(LocalDateTime.of(srcTrabajo.getFechaFinPeriodo(), LocalTime.MIDNIGHT));
+    }
 
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "fechaInicio", ignore = true)
@@ -150,6 +158,13 @@ public abstract class TareaMapper {
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
     @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", ignore = true)
+    @Mapping(target = "fechaFin", ignore = true)
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    public abstract EstructurasComFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToEstructurasComFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
     @Mapping(target = "tienda", ignore = true)

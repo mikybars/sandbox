@@ -35,7 +35,7 @@ public abstract class TareaPersonaCoeficienteMapper {
     @Mapping(source = "src.idEmpleado", target = "stdIdHr")
     @Mapping(source = "src.orEmpleado", target = "stdOrHrPeriod")
     @Mapping(source = "src.idEmpleadoLocal", target = "cclIdPerson")
-    // TODO [MDELRIO] Meter esto cuando se pueda
+    // TODO [MDELRIO] AÑADIR CUANDO SE PUEDA
 //    @Mapping(source = "src.fechaInicioCom", target = "fechaInicio")
 //    @Mapping(source = "src.fechaFinCom", target = "fechaFin")
     @Mapping(source = "src.fechaInicioPar", target = "fechaInicio")
