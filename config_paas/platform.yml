@@ -1,7 +1,4 @@
 app:
-  jvm:
-    chaosmonkey:
-      enabled: true
   context_path_builder:
     enabled: true
   readiness_probe:
