@@ -109,7 +109,6 @@ amiga:
           maxPoolSize: 20
           xaConnectionFactory:
             brokerURL: failover:(tcp://10.202.10.178:61616)
-            #brokerURL: tcp://10.202.10.178:61616
             userName: root
             password: V3ct0r1nd1t3x
         broker-lectura:
@@ -117,7 +116,6 @@ amiga:
           maxPoolSize: 20
           xaConnectionFactory:
             brokerURL: failover:(tcp://10.202.10.178:61616)
-            #brokerURL: tcp://10.202.10.178:61616
             userName: root
             password: V3ct0r1nd1t3x
       listener-container-factory:
