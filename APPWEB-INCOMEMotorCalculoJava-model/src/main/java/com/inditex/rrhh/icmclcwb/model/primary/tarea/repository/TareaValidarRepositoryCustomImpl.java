@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 @Repository
@@ -46,7 +47,6 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     @Value("#{primaryQuery['RunTareaValidarService.countTiendaEmpleadoPresenciaSeccion']}")
     private String sqlCountTiendaEmpleadoPresenciaSeccion;
 
-    // TODO [MDELRIO] REVISAR LA QUERY
     @Value("#{primaryQuery['RunTareaValidarService.countTiendaVentaSeccion']}")
     private String sqlCountTiendaVentaSeccion;
 
@@ -165,6 +165,7 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     public Integer countTiendaPresenciaSeccion(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         return namedParameterJdbcTemplate.queryForObject(sqlCountTiendaPresenciaSeccion, parameters, Integer.class);
     }
 
@@ -172,6 +173,7 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     public Integer countTiendaEmpleadoPresenciaSeccion(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         return namedParameterJdbcTemplate.queryForObject(sqlCountTiendaEmpleadoPresenciaSeccion, parameters,
                 Integer.class);
     }
@@ -180,6 +182,7 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
     public Integer countTiendaVentaSeccion(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         return namedParameterJdbcTemplate.queryForObject(sqlCountTiendaVentaSeccion, parameters, Integer.class);
     }
 

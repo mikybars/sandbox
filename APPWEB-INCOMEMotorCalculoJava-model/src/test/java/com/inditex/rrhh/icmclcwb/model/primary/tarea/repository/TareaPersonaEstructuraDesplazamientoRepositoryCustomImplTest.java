@@ -49,7 +49,6 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImplTest {
     }
 
     @Test
-    @Ignore
     public void setParametersTest() throws SQLException {
 
         PreparedStatement pstmt = mock(PreparedStatement.class);
@@ -97,7 +96,6 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImplTest {
 
     }
     
-    @Ignore
     @Test
     public void saveTest() {
         List<TareaPersonaEstructuraDesplazamiento> items = Arrays.asList(mock(TareaPersonaEstructuraDesplazamiento.class));

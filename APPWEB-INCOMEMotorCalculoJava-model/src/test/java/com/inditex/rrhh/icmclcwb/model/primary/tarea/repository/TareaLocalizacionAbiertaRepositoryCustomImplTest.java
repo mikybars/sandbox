@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
@@ -14,6 +16,8 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -37,8 +41,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Mock
+    private RecolectarPropertiesDto recolectarProperties;
+    
     @InjectMocks
     private TareaLocalizacionAbiertaRepositoryCustomImpl tareaLocalizacionAbiertaRepositoryCustom;
+    
 
     @Captor
     private ArgumentCaptor<String> sql;
@@ -203,11 +211,10 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_NUEVO_ACTIVO));
     }
 
-    // TODO [COMUN] REVISAR
-    @Ignore("Está fallando la instancia de recolectarProperties")
     @Test
     public void saveCerrado() {
 
+        when(recolectarProperties.getDaysNumber()).thenReturn(1);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(6789L);
         TrabajoDto trabajo = mock(TrabajoDto.class);
@@ -229,7 +236,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
             params.getValue().getValue(SQL_PARAM_FECHA_INICIO));
         // fechaFin
         assertTrue(params.getValue().hasValue(SQL_PARAM_FECHA_FIN));
-        assertEquals(TimeUtils.toDate(trabajo.getFechaFinPeriodo()),
+        assertEquals(RunUtils.addDays(trabajo.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"),
             params.getValue().getValue(SQL_PARAM_FECHA_FIN));
         // idTarea
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
