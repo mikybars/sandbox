@@ -129,5 +129,10 @@ public class TareaServiceImpl implements TareaService {
     public List<IdTareaDto> findLimpieza() {
         return tareaRepositoryCustom.findLimpieza();
     }
+    
+    @Override
+    public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea) {
+        return tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
+    }
 
 }

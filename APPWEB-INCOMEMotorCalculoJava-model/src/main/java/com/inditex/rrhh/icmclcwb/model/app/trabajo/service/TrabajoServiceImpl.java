@@ -4,6 +4,8 @@ import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
@@ -16,11 +18,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -34,6 +38,9 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private TrabajoRepository trabajoRepository;
+
+    @Autowired
+    private TrabajoRepositoryCustom trabajoRepositoryCustom;
 
     @Autowired
     private TrabajoMapper trabajoMapper;
@@ -70,6 +77,7 @@ public class TrabajoServiceImpl implements TrabajoService {
     @Override
     public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo) {
         trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
+        trabajo.setEstado(EstadoTrabajoEnum.PENDIENTE.getDto());
         if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUser())) {
@@ -104,4 +112,16 @@ public class TrabajoServiceImpl implements TrabajoService {
                 programacion, periodo);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateFechaFin(@NotNull TrabajoDto trabajo) {
+
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateEstado(@NotNull TrabajoDto trabajo, @NotNull EstadoTrabajoDto estado) {
+        trabajo.setEstado(estado);
+        trabajoRepositoryCustom.updateEstado(trabajo, estado);
+    }
 }

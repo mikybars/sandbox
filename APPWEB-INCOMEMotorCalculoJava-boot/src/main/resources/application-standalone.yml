@@ -109,7 +109,6 @@ amiga:
           maxPoolSize: 20
           xaConnectionFactory:
             brokerURL: failover:(tcp://10.202.10.178:61616)
-            #brokerURL: tcp://10.202.10.178:61616
             userName: root
             password: V3ct0r1nd1t3x
         broker-lectura:
@@ -117,7 +116,6 @@ amiga:
           maxPoolSize: 20
           xaConnectionFactory:
             brokerURL: failover:(tcp://10.202.10.178:61616)
-            #brokerURL: tcp://10.202.10.178:61616
             userName: root
             password: V3ct0r1nd1t3x
       listener-container-factory:
@@ -230,6 +228,9 @@ app:
           config:
             batch-size: 25
     repository:
+      batch-size:
+        default: 100
+    limpieza:
       batch-size:
         default: 100
     ptr:
@@ -457,7 +458,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getComisionEmpleado:
+          getEstructurasCom:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -466,7 +467,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getEstructurasPoliticas:
+          getEstructurasPol:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -474,7 +475,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3              
+              maxPersistenceSize: 3    
           getEmpleados:
             page:
               numeroPagina: 1

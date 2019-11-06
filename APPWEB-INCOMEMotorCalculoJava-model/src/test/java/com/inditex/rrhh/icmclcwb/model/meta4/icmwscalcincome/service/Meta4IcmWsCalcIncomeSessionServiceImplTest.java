@@ -23,8 +23,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.Agrup
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -253,23 +251,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
 
         verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
     }
-   
-    @Test
-    public void getComisionEmpleado() {
-        Meta4PropertiesDto properties = new Meta4PropertiesDto();
-        Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-        filter.setMaxPageSize(1);
-        properties.setFilter(filter);
-        when(meta4IcmWsCalcIncomeService.getComisionEmpleado(any(ComisionEmpleadoRequestDto.class))).thenReturn(new ComisionEmpleadoResponseDto());
-        when(meta4Properties.get(Meta4PropertiesConstants.COMISION_EMPLEADO)).thenReturn(properties);
-
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeSessionServiceImpl.getComisionEmpleado(request);
-
-        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getComisionEmpleado(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
-    }
     
     @Test
     public void getEmpleados() {
@@ -406,24 +387,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
 
         verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getConfiguracionProductoVenta(ArgumentMatchers.any(ConfiguracionProductoVentaRequestDto.class));
     }
-       
-    @Test
-    public void getEstructurasPoliticas() {
-        Meta4PropertiesDto properties = new Meta4PropertiesDto();
-        Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-        filter.setMaxPageSize(1);
-        properties.setFilter(filter);
-        when(meta4IcmWsCalcIncomeService.getEstructurasPoliticas(any(ComisionEmpleadoRequestDto.class))).thenReturn(new ComisionEmpleadoResponseDto());
-        when(meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POLITICAS)).thenReturn(properties);
 
-        ComisionEmpleadoRequestDto request = new ComisionEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeSessionServiceImpl.getEstructurasPoliticas(request);
-
-        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getEstructurasPoliticas(ArgumentMatchers.any(ComisionEmpleadoRequestDto.class));
-    }
-    
     @Test
     public void getEmpleadosDesplazamiento() {
         Meta4PropertiesDto properties = new Meta4PropertiesDto();

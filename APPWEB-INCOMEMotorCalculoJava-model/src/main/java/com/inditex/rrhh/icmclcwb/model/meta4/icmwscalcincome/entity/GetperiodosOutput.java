@@ -35,8 +35,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence>
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Icm_Listaperiodos" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/>
  *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
+ *         &lt;element name="Icm_Listaperiodos" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -49,8 +49,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "GetperiodosOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmListaperiodos",
-    "icmParametrospaginacion"
+    "icmParametrospaginacion",
+    "icmListaperiodos"
 })
 public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
@@ -59,10 +59,10 @@ public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
     protected double _return;
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
-    @XmlElement(name = "Icm_Listaperiodos", required = true, nillable = true)
-    protected IcmListaperiodosBlock icmListaperiodos;
     @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
     protected IcmParametrospaginacionBlock icmParametrospaginacion;
+    @XmlElement(name = "Icm_Listaperiodos", required = true, nillable = true)
+    protected IcmListaperiodosBlock icmListaperiodos;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -110,30 +110,6 @@ public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
     }
 
     /**
-     * Obtiene el valor de la propiedad icmListaperiodos.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaperiodosBlock }
-     *     
-     */
-    public IcmListaperiodosBlock getIcmListaperiodos() {
-        return icmListaperiodos;
-    }
-
-    /**
-     * Define el valor de la propiedad icmListaperiodos.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaperiodosBlock }
-     *     
-     */
-    public void setIcmListaperiodos(IcmListaperiodosBlock value) {
-        this.icmListaperiodos = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad icmParametrospaginacion.
      * 
      * @return
@@ -155,6 +131,30 @@ public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
      */
     public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
         this.icmParametrospaginacion = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmListaperiodos.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaperiodosBlock }
+     *     
+     */
+    public IcmListaperiodosBlock getIcmListaperiodos() {
+        return icmListaperiodos;
+    }
+
+    /**
+     * Define el valor de la propiedad icmListaperiodos.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaperiodosBlock }
+     *     
+     */
+    public void setIcmListaperiodos(IcmListaperiodosBlock value) {
+        this.icmListaperiodos = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -184,20 +184,20 @@ public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
             }
         }
         {
-            IcmListaperiodosBlock lhsIcmListaperiodos;
-            lhsIcmListaperiodos = this.getIcmListaperiodos();
-            IcmListaperiodosBlock rhsIcmListaperiodos;
-            rhsIcmListaperiodos = that.getIcmListaperiodos();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaperiodos", lhsIcmListaperiodos), LocatorUtils.property(thatLocator, "icmListaperiodos", rhsIcmListaperiodos), lhsIcmListaperiodos, rhsIcmListaperiodos, (this.icmListaperiodos!= null), (that.icmListaperiodos!= null))) {
-                return false;
-            }
-        }
-        {
             IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
             lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
             IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
             rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
+                return false;
+            }
+        }
+        {
+            IcmListaperiodosBlock lhsIcmListaperiodos;
+            lhsIcmListaperiodos = this.getIcmListaperiodos();
+            IcmListaperiodosBlock rhsIcmListaperiodos;
+            rhsIcmListaperiodos = that.getIcmListaperiodos();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaperiodos", lhsIcmListaperiodos), LocatorUtils.property(thatLocator, "icmListaperiodos", rhsIcmListaperiodos), lhsIcmListaperiodos, rhsIcmListaperiodos, (this.icmListaperiodos!= null), (that.icmListaperiodos!= null))) {
                 return false;
             }
         }
@@ -235,14 +235,14 @@ public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmListaperiodosBlock theIcmListaperiodos;
-            theIcmListaperiodos = this.getIcmListaperiodos();
-            strategy.appendField(locator, this, "icmListaperiodos", buffer, theIcmListaperiodos, (this.icmListaperiodos!= null));
-        }
-        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
+        }
+        {
+            IcmListaperiodosBlock theIcmListaperiodos;
+            theIcmListaperiodos = this.getIcmListaperiodos();
+            strategy.appendField(locator, this, "icmListaperiodos", buffer, theIcmListaperiodos, (this.icmListaperiodos!= null));
         }
         return buffer;
     }
@@ -260,14 +260,14 @@ public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmListaperiodosBlock theIcmListaperiodos;
-            theIcmListaperiodos = this.getIcmListaperiodos();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaperiodos", theIcmListaperiodos), currentHashCode, theIcmListaperiodos, (this.icmListaperiodos!= null));
-        }
-        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
+        }
+        {
+            IcmListaperiodosBlock theIcmListaperiodos;
+            theIcmListaperiodos = this.getIcmListaperiodos();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaperiodos", theIcmListaperiodos), currentHashCode, theIcmListaperiodos, (this.icmListaperiodos!= null));
         }
         return currentHashCode;
     }
@@ -321,19 +321,6 @@ public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
                 }
             }
             {
-                Boolean icmListaperiodosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaperiodos!= null));
-                if (icmListaperiodosShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListaperiodosBlock sourceIcmListaperiodos;
-                    sourceIcmListaperiodos = this.getIcmListaperiodos();
-                    IcmListaperiodosBlock copyIcmListaperiodos = ((IcmListaperiodosBlock) strategy.copy(LocatorUtils.property(locator, "icmListaperiodos", sourceIcmListaperiodos), sourceIcmListaperiodos, (this.icmListaperiodos!= null)));
-                    copy.setIcmListaperiodos(copyIcmListaperiodos);
-                } else {
-                    if (icmListaperiodosShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListaperiodos = null;
-                    }
-                }
-            }
-            {
                 Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
                 if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
@@ -343,6 +330,19 @@ public class GetperiodosOutput implements Cloneable, CopyTo2, Equals2, HashCode2
                 } else {
                     if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmParametrospaginacion = null;
+                    }
+                }
+            }
+            {
+                Boolean icmListaperiodosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaperiodos!= null));
+                if (icmListaperiodosShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaperiodosBlock sourceIcmListaperiodos;
+                    sourceIcmListaperiodos = this.getIcmListaperiodos();
+                    IcmListaperiodosBlock copyIcmListaperiodos = ((IcmListaperiodosBlock) strategy.copy(LocatorUtils.property(locator, "icmListaperiodos", sourceIcmListaperiodos), sourceIcmListaperiodos, (this.icmListaperiodos!= null)));
+                    copy.setIcmListaperiodos(copyIcmListaperiodos);
+                } else {
+                    if (icmListaperiodosShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaperiodos = null;
                     }
                 }
             }

@@ -21,8 +21,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
@@ -39,6 +42,15 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         IcmParametrosentradaBlock result = delegate.asIcmParametrosentradaBlock(src);
         if (CollectionUtils.isEmpty(result.getIcmParametrosentradaRecordSet())) {
             result.getIcmParametrosentradaRecordSet().add(new IcmParametrosentradaRecord());
+        }
+        return result;
+    }
+    
+    @Override
+    public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(GenericFilterDto src) {
+        IcmParamcalempleadoBlock result = delegate.asIcmParamcalempleadoBlock(src);
+        if (CollectionUtils.isEmpty(result.getIcmParamcalempleadoRecordSet())) {
+            result.getIcmParamcalempleadoRecordSet().add(new IcmParamcalempleadoRecord());
         }
         return result;
     }
@@ -153,6 +165,41 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return list;
     }
+    
+    @Override
+    public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(List<IcmListaempleadoRecord> src){
+        List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
+        for (IcmListaempleadoRecord item : src) {
+            GenericEmpleadoResultItemDto presencia = delegate.asGenericEmpleadoResultItemDtosSearchEmpleados(item);
+            if (StringUtils.isNotEmpty(item.getFechainicio())) {
+                presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechafin())) {
+                presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
+                presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechafinsec())) {
+                presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechainicioloc())) {
+                presencia.setFechaInicioLoc(LocalDateTime.parse(item.getFechainicioloc(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechafinloc())) {
+                presencia.setFechaFinLoc(LocalDateTime.parse(item.getFechafinloc(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            list.add(presencia);
+        }
+        return list;
+    }
+
 
     private void setDates(IcmListaempleadosRecord item, GenericEmpleadoResultItemDto presencia) {
         if (StringUtils.isNotEmpty(item.getFechainicio())) {

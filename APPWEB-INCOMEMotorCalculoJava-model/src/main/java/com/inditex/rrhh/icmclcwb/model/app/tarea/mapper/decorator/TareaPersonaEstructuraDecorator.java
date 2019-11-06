@@ -1,34 +1,34 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoOpcionCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ListaEstructuraDesplazamientosResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ListaPorcentajesResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesBaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesDestinoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaValoresBaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaValoresDestinoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoOpcionCalculo;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamiento;
-import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstructuraMapper {
 
     @Autowired
     private TareaPersonaEstructuraMapper delegate;
-
-    @Autowired
-    private Logger log;
 
     @Override
     public TareaPersonaEstructura tareaPersonaEstructuraDtoToTareaPersonaEstructura(
@@ -49,133 +49,242 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         return result;
     }
 
+    
     @Override
-    public List<TareaPersonaEstructuraDto> listaPorcentajesResultItemDtoToTareaPersonaEstructuraDto(
-            List<ListaPorcentajesResultItemDto> src, ComisionEmpleadoResultItemDto comisionEmpleado, TareaDto tarea) {
+    public List<TareaPersonaEstructuraDto> listaCondicionesBaseResultItemDtoToTareaPersonaEstructuraDto(
+            final EstructurasComResultItemDto estructuraComision,
+            TareaDto tarea) {
         List<TareaPersonaEstructuraDto> result = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(src)) {
+        ListaCondicionesBaseResultItemDto base = estructuraComision.getIcmListaCondicionesBase().get(0);
+        if (CollectionUtils.isNotEmpty(estructuraComision.getIcmListaCondicionesDestino())) {
             List<TareaPersonaEstructuraDesplazamientoDto> desplazamientos =
-                listaEstructuraDesplazamientosResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(comisionEmpleado.getIcmListaEstrDespl());
-            if (CollectionUtils.isNotEmpty(desplazamientos) && !Meta4Constants.TRUE.equals(comisionEmpleado.getDesplazamiento())) {
-                log.warn("Datos inconsistentes sobre desplazamientos, la estructura base {} indica no tener desplazamientos, pero los tiene", comisionEmpleado.getIdEstructura());
-            }
-            if (CollectionUtils.isEmpty(desplazamientos) && Meta4Constants.TRUE.equals(comisionEmpleado.getDesplazamiento())) {
-                log.warn("Datos inconsistentes sobre desplazamientos, la estructura base {} indica tener desplazamientos, pero no los tiene", comisionEmpleado.getIdEstructura());
-            }
-            src.forEach(x -> {
-                // Se crea una estructura para la base sin desplazamientos y otra con los desplazamientos
-                result.addAll(createTareaEmpleadoSeccionEstructuraDtoList(comisionEmpleado, tarea, x));
-                if (CollectionUtils.isNotEmpty(desplazamientos)) {
-                    result.addAll(createTareaEmpleadoSeccionEstructuraDtoList(comisionEmpleado, tarea, x, desplazamientos));
-                    result.forEach(item -> item.setDesplazamientoBase(item.getEstructuraDesplazamiento() == null));
-                }
-            });
-        }
-        return result;
-    }
+                    listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(estructuraComision);
+            desplazamientos.forEach(item -> item.setIcmIdEstrComisionBase(base.getIdEstructuraBase()));
+            if (CollectionUtils.isNotEmpty(desplazamientos)) {
+                AtomicInteger counter = new AtomicInteger(1);
+                desplazamientos.stream().forEach(x -> {
+                    x.setOrdinalEstructura(counter.get());
+                    
+                    List<TareaPersonaEstructuraDto> desplazamientoBase = createTareaEmpleadoSeccionEstructuraDtoList(estructuraComision, tarea, base, null);
+                    desplazamientoBase.forEach(item -> item.setDesplazamientoBase(true));
+                    desplazamientoBase.forEach(item -> item.setDesplazamiento(true));
+                    result.addAll(desplazamientoBase);
 
-    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraDtoList(ComisionEmpleadoResultItemDto comisionEmpleado,
-        TareaDto tarea, ListaPorcentajesResultItemDto porcentaje) {
-        List<TareaPersonaEstructuraDto> result = new ArrayList<>();
-
-        // Si la seccion es la 4 quiere decir que las tres secciones tienen el mismo
-        // porcentaje, por lo que se crean las tres secciones por separado (se guarda el
-        // original en id_seccion_estructura)
-        Integer seccion = Integer.valueOf(porcentaje.getIdSeccion());
-        if (AppConstants.SECCION_4.equals(seccion)) {
-            for (Integer idSeccionEfectiva : AppConstants.SECCIONES) {
-                result.add(createTareaEmpleadoSeccionEstructuraDto(idSeccionEfectiva.toString(),
-                    porcentaje.getIdSeccion(), porcentaje.getPorcentaje(), comisionEmpleado, tarea));
-            }
-        } else {
-            result.add(createTareaEmpleadoSeccionEstructuraDto(porcentaje.getIdSeccion(), porcentaje.getIdSeccion(),
-                porcentaje.getPorcentaje(), comisionEmpleado, tarea));
-        }
-        return result;
-    }
-
-    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraDtoList(ComisionEmpleadoResultItemDto comisionEmpleado,
-            TareaDto tarea, ListaPorcentajesResultItemDto porcentaje, List<TareaPersonaEstructuraDesplazamientoDto> desplazamientos) {
-
-        List<TareaPersonaEstructuraDto> result = new ArrayList<>();
-        List<TareaPersonaEstructuraDto> secciones = createTareaEmpleadoSeccionEstructuraDtoList(comisionEmpleado, tarea, porcentaje);
-
-        if (CollectionUtils.isNotEmpty(desplazamientos)) {
-            // Para cada desplazamiento se genera una base y un desplazamiento
-            for (int i = 0; i < desplazamientos.size(); i ++) {
-                final int ordinal = i + 1;
-                TareaPersonaEstructuraDesplazamientoDto desplazamiento = desplazamientos.get(i);
-                    secciones.stream().filter(seccion -> seccion.getCclIdSeccionEfectiva().equals(desplazamiento.getCclIdSeccionEfectiva())).forEach(seccion -> {
-                    TareaPersonaEstructuraDto clon = new TareaPersonaEstructuraDto();
-                    BeanUtils.copyProperties(seccion, clon);
-                    clon.setOrdinalEstructura(ordinal);
-                    clon.setEstructuraDesplazamiento(desplazamiento);
-                    result.add(clon);
+                    ListaCondicionesDestinoResultItemDto destino = estructuraComision.getIcmListaCondicionesDestino().stream().filter(y -> y.getIdEstructuraDestino().equals(x.getIcmIdEstrComision())).findAny().orElse(null);
+                    List<TareaPersonaEstructuraDto> desplazamientoDestino = createTareaEmpleadoSeccionEstructuraDtoList(estructuraComision, tarea, destino, base, x);
+                    desplazamientoDestino.forEach(item -> item.setOrdinalEstructura(counter.get()));
+                    result.addAll(desplazamientoDestino);   
+                    
+                    counter.incrementAndGet();
                 });
             }
-        }
-
+        }else {
+            result.addAll(createTareaEmpleadoSeccionEstructuraDtoList(estructuraComision, tarea, base, null));
+        }   
         return result;
     }
+    
+    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraDtoList(EstructurasComResultItemDto comisionEmpleado,
+            TareaDto tarea, ListaCondicionesBaseResultItemDto condiciones, ListaCondicionesDestinoResultItemDto destino) {
+        List<TareaPersonaEstructuraDto> result = new ArrayList<>();
 
+        condiciones.getIcmListaValoresBase().forEach(x -> {
+            Integer seccion = Integer.valueOf(x.getIdSeccion());
+            if (AppConstants.SECCION_4.equals(seccion)) {
+                for (Integer idSeccionEfectiva : AppConstants.SECCIONES) {
+                    result.add(createTareaEmpleadoSeccionEstructuraDto(idSeccionEfectiva.toString(),
+                        comisionEmpleado, condiciones, destino, x, tarea));
+                }
+            } else {
+                result.add(createTareaEmpleadoSeccionEstructuraDto(comisionEmpleado, condiciones, destino, x, tarea));
+            }
+        });
+        
+        return result;    
+    }
+    
+    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraDtoList(EstructurasComResultItemDto comisionEmpleado,
+            TareaDto tarea, ListaCondicionesDestinoResultItemDto condiciones, ListaCondicionesBaseResultItemDto base) {
+        List<TareaPersonaEstructuraDto> result = new ArrayList<>();
+
+        condiciones.getIcmListaValoresDestino().forEach(x -> {
+            Integer seccion = Integer.valueOf(x.getIdSeccion());
+            if (AppConstants.SECCION_4.equals(seccion)) {
+                for (Integer idSeccionEfectiva : AppConstants.SECCIONES) {
+                    result.add(createTareaEmpleadoSeccionEstructuraDto(idSeccionEfectiva.toString(),
+                        comisionEmpleado, condiciones, base, x, tarea));
+                }
+            } else {
+                result.add(createTareaEmpleadoSeccionEstructuraDto(comisionEmpleado, condiciones, base, x, tarea));
+            }
+        });
+        
+        return result;    
+    }
+
+
+    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraDtoList(EstructurasComResultItemDto comisionEmpleado,
+            TareaDto tarea, ListaCondicionesDestinoResultItemDto destino, ListaCondicionesBaseResultItemDto base, TareaPersonaEstructuraDesplazamientoDto desplazamiento) {
+        List<TareaPersonaEstructuraDto> result = new ArrayList<>();
+        List<TareaPersonaEstructuraDto> secciones = createTareaEmpleadoSeccionEstructuraDtoList(comisionEmpleado, tarea, destino, base);
+        secciones.stream().forEach(seccion -> {
+            TareaPersonaEstructuraDto clon = new TareaPersonaEstructuraDto();
+            BeanUtils.copyProperties(seccion, clon);
+            clon.setEstructuraDesplazamiento(desplazamiento);
+            result.add(clon);
+        });
+        return result;
+    }
+    
     @Override
-    public List<TareaPersonaEstructuraDto> comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(
-            List<ComisionEmpleadoResultItemDto> src, TareaDto tarea) {
+    public List<TareaPersonaEstructuraDto> estructurasComResultItemDtoToTareaPersonaEstructuraDto(
+            List<EstructurasComResultItemDto> src, TareaDto tarea) {
         List<TareaPersonaEstructuraDto> result = new ArrayList<>();
         src.forEach(x -> result.addAll(
-                listaPorcentajesResultItemDtoToTareaPersonaEstructuraDto(x.getIcmListaPorcentajes(), x, tarea)));
+                listaCondicionesBaseResultItemDtoToTareaPersonaEstructuraDto(x, tarea)));
+        return result;
+    }
+    
+    private TareaPersonaEstructuraDto createTareaEmpleadoSeccionEstructuraDto(final String idSeccionEfectiva,
+            final EstructurasComResultItemDto estructura,
+            final ListaCondicionesBaseResultItemDto condiciones, final ListaCondicionesDestinoResultItemDto destino, ListaValoresBaseResultItemDto valores, final TareaDto tarea) {
+        TareaPersonaEstructuraDto result = delegate
+                .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructura, tarea);
+        result.setCclIdSeccionEfectiva(idSeccionEfectiva);
+        result.setCclIdSeccionEstructura(valores.getIdSeccion());
+        result.setValor(valores.getValor());
+        result.setTope(valores.getTope());
+        result.setIdTipoVenta(valores.getIdTipoVenta());
+        result.setDesplazamiento(!estructura.getIcmListaCondicionesDestino().isEmpty());
+        result.setDesplazamientoBase(false);
+        result.setDiaL(Meta4Constants.TRUE.equals(condiciones.getDiaL()));
+        result.setDiaM(Meta4Constants.TRUE.equals(condiciones.getDiaM()));
+        result.setDiaX(Meta4Constants.TRUE.equals(condiciones.getDiaX()));
+        result.setDiaJ(Meta4Constants.TRUE.equals(condiciones.getDiaJ()));
+        result.setDiaV(Meta4Constants.TRUE.equals(condiciones.getDiaV()));
+        result.setDiaS(Meta4Constants.TRUE.equals(condiciones.getDiaS()));
+        result.setDiaD(Meta4Constants.TRUE.equals(condiciones.getDiaD()));
+        result.setIcmIdTpComision(condiciones.getIdTipoComision());
+        result.setIcmIdTpCalculo(condiciones.getIdTipoCalculo());
+        result.setIcmIdEstrComisionBase(condiciones.getIdEstructuraBase());
+        result.setIcmIdEstrComision(destino != null ? destino.getIdEstructuraDestino() : condiciones.getIdEstructuraBase());
+        result.setActivo(Boolean.TRUE);
+
+        return result;
+    }
+    
+    private TareaPersonaEstructuraDto createTareaEmpleadoSeccionEstructuraDto(
+            final EstructurasComResultItemDto estructura,
+            final ListaCondicionesBaseResultItemDto condiciones, final ListaCondicionesDestinoResultItemDto destino, ListaValoresBaseResultItemDto valores, final TareaDto tarea) {
+        TareaPersonaEstructuraDto result = delegate
+                .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructura, tarea);
+        result.setCclIdSeccionEfectiva(valores.getIdSeccion());
+        result.setCclIdSeccionEstructura(valores.getIdSeccion());
+        result.setValor(valores.getValor());
+        result.setTope(valores.getTope());
+        result.setIdTipoVenta(valores.getIdTipoVenta());
+        result.setDesplazamiento(!estructura.getIcmListaCondicionesDestino().isEmpty());
+        result.setDesplazamientoBase(false);
+        result.setDiaL(Meta4Constants.TRUE.equals(condiciones.getDiaL()));
+        result.setDiaM(Meta4Constants.TRUE.equals(condiciones.getDiaM()));
+        result.setDiaX(Meta4Constants.TRUE.equals(condiciones.getDiaX()));
+        result.setDiaJ(Meta4Constants.TRUE.equals(condiciones.getDiaJ()));
+        result.setDiaV(Meta4Constants.TRUE.equals(condiciones.getDiaV()));
+        result.setDiaS(Meta4Constants.TRUE.equals(condiciones.getDiaS()));
+        result.setDiaD(Meta4Constants.TRUE.equals(condiciones.getDiaD()));
+        result.setIcmIdTpComision(condiciones.getIdTipoComision());
+        result.setIcmIdTpCalculo(condiciones.getIdTipoCalculo());
+        result.setIcmIdEstrComisionBase(condiciones.getIdEstructuraBase());
+        result.setIcmIdEstrComision(destino != null ? destino.getIdEstructuraDestino() : condiciones.getIdEstructuraBase());
+        result.setActivo(Boolean.TRUE);
+
+        return result;
+    }
+    private TareaPersonaEstructuraDto createTareaEmpleadoSeccionEstructuraDto(final EstructurasComResultItemDto estructura,
+            final ListaCondicionesDestinoResultItemDto condiciones, ListaCondicionesBaseResultItemDto base, ListaValoresDestinoResultItemDto valores, final TareaDto tarea) {
+        TareaPersonaEstructuraDto result = delegate
+                .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructura, tarea);
+        result.setCclIdSeccionEfectiva(valores.getIdSeccion());
+        result.setCclIdSeccionEstructura(valores.getIdSeccion());
+        result.setValor(valores.getValor());
+        result.setTope(valores.getTope());
+        result.setIdTipoVenta(valores.getIdTipoVenta());
+        result.setDesplazamiento(!estructura.getIcmListaCondicionesDestino().isEmpty());
+        result.setDesplazamientoBase(false);
+        result.setDiaL(Meta4Constants.TRUE.equals(condiciones.getDiaL()));
+        result.setDiaM(Meta4Constants.TRUE.equals(condiciones.getDiaM()));
+        result.setDiaX(Meta4Constants.TRUE.equals(condiciones.getDiaX()));
+        result.setDiaJ(Meta4Constants.TRUE.equals(condiciones.getDiaJ()));
+        result.setDiaV(Meta4Constants.TRUE.equals(condiciones.getDiaV()));
+        result.setDiaS(Meta4Constants.TRUE.equals(condiciones.getDiaS()));
+        result.setDiaD(Meta4Constants.TRUE.equals(condiciones.getDiaD()));
+        result.setIcmIdTpComision(condiciones.getIdTipoComision());
+        result.setIcmIdTpCalculo(condiciones.getIdTipoCalculo());
+        result.setIcmIdEstrComisionBase(estructura.getIcmListaCondicionesBase().get(0).getIdEstructuraBase());
+        result.setIcmIdEstrComision(condiciones != null ? condiciones.getIdEstructuraDestino() : base.getIdEstructuraBase());
+        result.setActivo(Boolean.TRUE);
+        return result;
+    }
+    
+    private TareaPersonaEstructuraDto createTareaEmpleadoSeccionEstructuraDto(String idSeccionEfectiva, final EstructurasComResultItemDto estructura,
+            final ListaCondicionesDestinoResultItemDto condiciones, ListaCondicionesBaseResultItemDto base, ListaValoresDestinoResultItemDto valores, final TareaDto tarea) {
+        TareaPersonaEstructuraDto result = delegate
+                .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructura, tarea);
+        result.setCclIdSeccionEfectiva(idSeccionEfectiva);
+        result.setCclIdSeccionEstructura(valores.getIdSeccion());
+        result.setValor(valores.getValor());
+        result.setTope(valores.getTope());
+        result.setIdTipoVenta(valores.getIdTipoVenta());
+        result.setDesplazamiento(!estructura.getIcmListaCondicionesDestino().isEmpty());
+        result.setDesplazamientoBase(false);
+        result.setDiaL(Meta4Constants.TRUE.equals(condiciones.getDiaL()));
+        result.setDiaM(Meta4Constants.TRUE.equals(condiciones.getDiaM()));
+        result.setDiaX(Meta4Constants.TRUE.equals(condiciones.getDiaX()));
+        result.setDiaJ(Meta4Constants.TRUE.equals(condiciones.getDiaJ()));
+        result.setDiaV(Meta4Constants.TRUE.equals(condiciones.getDiaV()));
+        result.setDiaS(Meta4Constants.TRUE.equals(condiciones.getDiaS()));
+        result.setDiaD(Meta4Constants.TRUE.equals(condiciones.getDiaD()));
+        result.setIcmIdTpComision(condiciones.getIdTipoComision());
+        result.setIcmIdTpCalculo(condiciones.getIdTipoCalculo());
+        result.setIcmIdEstrComisionBase(estructura.getIcmListaCondicionesBase().get(0).getIdEstructuraBase());
+        result.setIcmIdEstrComision(condiciones != null ? condiciones.getIdEstructuraDestino() : base.getIdEstructuraBase());
+        result.setActivo(Boolean.TRUE);
         return result;
     }
 
-    private TareaPersonaEstructuraDto createTareaEmpleadoSeccionEstructuraDto(final String idSeccionEfectiva,
-            final String idSeccionEstructura, final String valor, final ComisionEmpleadoResultItemDto comisionEmpleado,
-            final TareaDto tarea) {
-        TareaPersonaEstructuraDto result = delegate
-                .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraDto(comisionEmpleado, tarea);
-        result.setCclIdSeccionEfectiva(idSeccionEfectiva);
-        result.setCclIdSeccionEstructura(idSeccionEstructura);
-        result.setValor(valor);
-        result.setDesplazamiento(Meta4Constants.TRUE.equals(comisionEmpleado.getDesplazamiento()));
-        result.setDesplazamientoBase(false);
-        return result;
-    }
 
     @Override
-    public List<TareaPersonaEstructuraDesplazamientoDto> listaEstructuraDesplazamientosResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(
-            List<ListaEstructuraDesplazamientosResultItemDto> src) {
+    public List<TareaPersonaEstructuraDesplazamientoDto> listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(EstructurasComResultItemDto src) {
         List<TareaPersonaEstructuraDesplazamientoDto> result = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(x -> {
+        if (CollectionUtils.isNotEmpty(src.getIcmListaCondicionesDestino())) {
+            src.getIcmListaCondicionesDestino().forEach(x -> {
                 TipoOpcionCalculoEnum opcion = TipoOpcionCalculoEnum.fromIdMeta4(x.getIdTipoOpCalculo());
                 if (TipoOpcionCalculoEnum.MEJOR_OPCION.equals(opcion)) {
-                    result.addAll(createTareaEmpleadoEstructuraDesplazamientoDto(TipoOpcionCalculoEnum.ORIGEN, opcion, x));
-                    result.addAll(createTareaEmpleadoEstructuraDesplazamientoDto(TipoOpcionCalculoEnum.DESTINO, opcion, x));
+                    result.addAll(createTareaEmpleadoEstructuraDesplazamientoDto(TipoOpcionCalculoEnum.ORIGEN, opcion, x, src));
+                    result.addAll(createTareaEmpleadoEstructuraDesplazamientoDto(TipoOpcionCalculoEnum.DESTINO, opcion, x, src));
                 } else {
-                    result.addAll(createTareaEmpleadoEstructuraDesplazamientoDto(opcion, opcion, x));
+                    result.addAll(createTareaEmpleadoEstructuraDesplazamientoDto(opcion, opcion, x, src));
                 }
             });
         }
         return result;
     }
-
+    
     private List<TareaPersonaEstructuraDesplazamientoDto> createTareaEmpleadoEstructuraDesplazamientoDto(
             final TipoOpcionCalculoEnum opcionCalculoEfectiva, final TipoOpcionCalculoEnum opcionCalculo,
-            final ListaEstructuraDesplazamientosResultItemDto resultItemDto) {
+            final ListaCondicionesDestinoResultItemDto resultItemDto, final EstructurasComResultItemDto estructura) {
         List<TareaPersonaEstructuraDesplazamientoDto> result = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(resultItemDto.getListaPorcentajes())) {
-            resultItemDto.getListaPorcentajes().forEach(porcentaje -> {
-                // Si la seccion es la 4 quiere decir que las tres secciones tienen el mismo
-                // porcentaje, por lo que se crean las tres secciones por separado (se guarda el
-                // original en id_seccion_estructura)
-                Integer seccion = Integer.valueOf(porcentaje.getIdSeccion());
+        if (CollectionUtils.isNotEmpty(resultItemDto.getIcmListaValoresDestino())) {
+            resultItemDto.getIcmListaValoresDestino().forEach(valores -> {
+                Integer seccion = Integer.valueOf(valores.getIdSeccion());
                 if (AppConstants.SECCION_4.equals(seccion)) {
                     for (Integer idSeccionEfectiva : AppConstants.SECCIONES) {
                         result.add(createTareaPersonaEstructuraDesplazamientoDto(opcionCalculoEfectiva, opcionCalculo, resultItemDto,
-                            seccion, idSeccionEfectiva, porcentaje.getPorcentaje()));
+                            idSeccionEfectiva, estructura));
                     }
                 } else {
                     result.add(createTareaPersonaEstructuraDesplazamientoDto(opcionCalculoEfectiva, opcionCalculo, resultItemDto,
-                        seccion, seccion, porcentaje.getPorcentaje()));
+                        seccion, estructura));
                 }
             });
         }
@@ -184,16 +293,20 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
 
     private TareaPersonaEstructuraDesplazamientoDto createTareaPersonaEstructuraDesplazamientoDto(
             TipoOpcionCalculoEnum opcionCalculoEfectiva, TipoOpcionCalculoEnum opcionCalculo,
-            ListaEstructuraDesplazamientosResultItemDto resultItemDto, Integer seccion, Integer seccionEfectiva, String valor) {
+            ListaCondicionesDestinoResultItemDto resultItemDto, Integer seccion, EstructurasComResultItemDto estructura) {
         TareaPersonaEstructuraDesplazamientoDto result = delegate
-            .listaEstructuraDesplazamientosResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(resultItemDto);
+            .listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(resultItemDto);
         result.setIdTipoOpcionCalculoEstructura(opcionCalculo.getId());
         result.setIdTipoOpcionCalculoEfectiva(opcionCalculoEfectiva.getId());
-        result.setCclIdSeccionEfectiva(seccionEfectiva.toString());
-        result.setCclIdSeccionEstructura(seccion.toString());
-        result.setValor(valor);
+        result.setCclIdSeccionDestino(seccion.toString());
         result.setHorasDestino(Meta4Constants.TRUE.equals(resultItemDto.getHorasDestino()));
         result.setHorasOrigen(Meta4Constants.TRUE.equals(resultItemDto.getHorasOrigen()));
+        result.setStdIdHr(estructura.getIdEmpleado());
+        result.setStdOrHrPeriod(estructura.getOrEmpleado());
+        result.setCclIdPerson(estructura.getIdEmpleadoLocal());
+        result.setFechaFin(estructura.getFechaFin());
+        result.setFechaInicio(estructura.getFechaInicio());
+        result.setIcmIdEstrComisionPadre(estructura.getIdEstructura());
         return result;
     }
 
@@ -208,6 +321,8 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
             result.getTipoOpcionCalculoEstructura().setId(src.getEstructuraDesplazamiento().getIdTipoOpcionCalculoEstructura());
             result.setTipoOpcionCalculoEfectiva(new TipoOpcionCalculo());
             result.getTipoOpcionCalculoEfectiva().setId(src.getEstructuraDesplazamiento().getIdTipoOpcionCalculoEfectiva());
+            result.setIcmIdEstrComision(src.getEstructuraDesplazamiento().getIcmIdEstrComision());
+            result.setIcmIdEstructuraAmbito(src.getEstructuraDesplazamiento().getIcmIdEstructuraAmbito());
         }
         return result;
     }

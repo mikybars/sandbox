@@ -29,9 +29,6 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
     void presenciaManualByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void condicionPersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
     void tiendasComisionableByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
@@ -44,9 +41,12 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
     void localizacionesOnlineByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
                                                       @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void estructurasPoliticasByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+    void empleadosDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void empleadosDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+    void estructurasComByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
+    void estructurasPolByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 }

@@ -20,11 +20,11 @@ app:
     http_private:
       enabled: true
 datagrid:
-  force: false
+  force: true
   application_cache:
     enabled: true
   session:
     enabled: true
 amq:
-  force: false
+  force: true
   enabled: true

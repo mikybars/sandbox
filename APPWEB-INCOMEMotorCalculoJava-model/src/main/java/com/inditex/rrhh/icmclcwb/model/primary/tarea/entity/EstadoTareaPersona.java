@@ -20,4 +20,7 @@ public class EstadoTareaPersona {
     @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
 	private String nombre;
 
+    @Column(name = "PESO", nullable = true)
+    private Integer peso;
+
 }

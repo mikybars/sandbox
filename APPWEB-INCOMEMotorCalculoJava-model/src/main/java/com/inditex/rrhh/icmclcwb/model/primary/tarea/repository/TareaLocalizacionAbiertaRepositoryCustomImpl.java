@@ -11,10 +11,12 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 @Repository
@@ -35,13 +37,17 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
 
     @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.compensar']}")
     private String sqlCompensar;
+    
+    @Autowired
+    @Qualifier(value = "recolectarProperties")
+    private RecolectarPropertiesDto recolectarProperties;
 
     @Override
     public void saveAbierto(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
                 TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(trabajoDto.getFechaFinPeriodo()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IMPORTE, SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO);
@@ -97,7 +103,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
                 TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(trabajoDto.getFechaFinPeriodo()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);

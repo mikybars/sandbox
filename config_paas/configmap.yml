@@ -371,7 +371,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getComisionEmpleado:
+          getEstructurasCom:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -380,7 +380,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getEstructurasPoliticas:
+          getEstructurasPol:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -388,7 +388,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3        
+              maxPersistenceSize: 3              
           getEmpleados:
             page:
               numeroPagina: 1

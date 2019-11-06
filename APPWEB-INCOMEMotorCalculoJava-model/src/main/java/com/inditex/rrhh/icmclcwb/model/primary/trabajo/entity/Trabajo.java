@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoAmbito;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
 
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTrabajo;
 import lombok.Data;
 
 @Entity
@@ -62,5 +63,9 @@ public class Trabajo {
     @ManyToOne
     @JoinColumn(name = "ID_PROGRAMACION")
     private Programacion programacion;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ESTADO_TRABAJO")
+    private EstadoTrabajo estado;
 
 }

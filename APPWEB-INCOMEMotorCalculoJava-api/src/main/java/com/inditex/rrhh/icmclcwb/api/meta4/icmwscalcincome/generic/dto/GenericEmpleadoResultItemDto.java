@@ -21,6 +21,8 @@ public class GenericEmpleadoResultItemDto implements Serializable {
     private LocalDateTime fechaInicioSec;
     private LocalDateTime fechaFinCom;
     private LocalDateTime fechaFinPar;
+    private LocalDateTime fechaInicioLoc;
+    private LocalDateTime fechaFinLoc;
     private LocalDateTime fechaInicioCom;
     private LocalDateTime fechaInicioPar;
 

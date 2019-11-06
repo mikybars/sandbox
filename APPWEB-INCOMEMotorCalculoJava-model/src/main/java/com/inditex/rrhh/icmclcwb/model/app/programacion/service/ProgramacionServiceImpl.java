@@ -48,8 +48,8 @@ public class ProgramacionServiceImpl implements ProgramacionService {
         }
         if (StringUtils.isBlank(programacion.getNombreUsuario())) {
             UserSSO userSSO = SsoUtils.getUserSSO();
-            if (StringUtils.isNotBlank(userSSO.getUsername())) {
-                programacion.setNombreUsuario(userSSO.getUsername());
+            if (StringUtils.isNotBlank(userSSO.getUser())) {
+                programacion.setNombreUsuario(userSSO.getUser());
             }
         }
         programacion.setFechaHoraSiguienteEjecucion(fechaSiguienteEjecucion(programacion));

@@ -73,7 +73,7 @@ public class TareaPersonaEstructura {
     private String icmIdTpComision;
 
     @NotNull
-    @Column(name = "VALOR", nullable = false, precision = 23,  scale = 8)
+    @Column(name = "ICM_VALOR", nullable = false, precision = 23,  scale = 8)
     private BigDecimal valor;
     
     @NotNull
@@ -93,5 +93,50 @@ public class TareaPersonaEstructura {
     @NotNull
     @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
     private Boolean desplazamientoBase;
+    
+    @NotNull
+    @Column(name = "ES_ACTIVO", nullable = false)
+    private Boolean activo;
+    
+    @Column(name = "ES_DIA_L", nullable = true)
+    private Boolean diaL;
+
+    @Column(name = "ES_DIA_M", nullable = true)
+    private Boolean diaM;
+
+    @Column(name = "ES_DIA_X", nullable = true)
+    private Boolean diaX;
+
+    @Column(name = "ES_DIA_J", nullable = true)
+    private Boolean diaJ;
+
+    @Column(name = "ES_DIA_V", nullable = true)
+    private Boolean diaV;
+
+    @Column(name = "ES_DIA_S", nullable = true)
+    private Boolean diaS;
+
+    @Column(name = "ES_DIA_D", nullable = true)
+    private Boolean diaD;
+    
+    @NotBlank
+    @Column(name = "ICM_ID_ESTR_COMISION_PADRE", nullable = false, length = 48)
+    private String icmIdEstrComisionPadre;
+    
+    @NotBlank
+    @Column(name = "ICM_ID_ESTR_COMISION_BASE", nullable = false, length = 48)
+    private String icmIdEstrComisionBase;
+    
+    @NotBlank
+    @Column(name = "ICM_ORD_TOPE", nullable = false, length = 48)
+    private String tope;
+    
+    @NotBlank
+    @Column(name = "ICM_ID_TP_VENTA", length = 8, nullable = false)
+    private String idTipoVenta;
+    
+    @NotBlank
+    @Column(name = "ICM_ID_TP_ESTRUCTURA", nullable = false, length = 48)
+    private String icmIdTpEstructura;
 
 }
