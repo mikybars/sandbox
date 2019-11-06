@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,9 +29,6 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
 
     @Autowired
     private TareaPersonaEstructuraMapper delegate;
-
-    @Autowired
-    private Logger log;
 
     @Override
     public TareaPersonaEstructura tareaPersonaEstructuraDtoToTareaPersonaEstructura(
