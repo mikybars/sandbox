@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +105,7 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
         result.setExcluidoDenominador(Meta4Constants.TRUE.equals(condiciones.getExcDenominador()));
         result.setIcmIdUnidadTiempo(valores.getIdUnidadTiempo());
         result.setNumeroUnidades(valores.getNumeroUnidades());
-        result.setValor(valores.getValor());
+        result.setValor(new BigDecimal(valores.getValor()));
         result.setTramo(valores.getTramo());
         return result;
     }
