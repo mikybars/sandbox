@@ -51,6 +51,7 @@ WHERE ID_TAREA = :idTarea
 SELECT COUNT(*) 
 FROM TAREA_LOCALIZACION_PRESENCIA 
 WHERE ID_TAREA = :idTarea 
+AND CCL_ID_SECCION != :idSeccion
     ]]>
 </entry>
 
@@ -59,6 +60,7 @@ WHERE ID_TAREA = :idTarea
 SELECT COUNT(*) 
 FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA
 WHERE ID_TAREA = :idTarea 
+AND CCL_ID_SECCION != :idSeccion
     ]]>
 </entry>
 
@@ -66,7 +68,8 @@ WHERE ID_TAREA = :idTarea
     <![CDATA[
 SELECT COUNT(*) 
 FROM TAREA_LOCALIZACION_VENTA
-WHERE ID_TAREA = :idTarea 
+WHERE ID_TAREA = :idTarea
+AND CCL_ID_SECCION != :idSeccion
     ]]>
 </entry>
 
