@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import lombok.Data;
 
 import javax.persistence.Column;

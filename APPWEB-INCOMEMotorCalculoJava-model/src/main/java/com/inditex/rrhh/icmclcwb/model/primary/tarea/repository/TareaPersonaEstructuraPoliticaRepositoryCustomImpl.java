@@ -39,7 +39,7 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
         pstmt.setBoolean(10, entity.getExcluidoDenominador());
         pstmt.setString(11, entity.getIcmIdUnidadTiempo());
         pstmt.setString(12, entity.getNumeroUnidades());
-        pstmt.setString(13, entity.getValor());
+        pstmt.setBigDecimal(13, entity.getValor());
         pstmt.setString(14, entity.getTramo());
     }
 

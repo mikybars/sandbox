@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -75,14 +77,14 @@ public class TareaPersonaEstructuraPolitica {
     private String icmIdUnidadTiempo;
     
     @NotBlank
-    @Column(name = "NUMERO_UNIDADES", nullable = false)
+    @Column(name = "ICM_NUM_UNIDADES", nullable = false)
     private String numeroUnidades;
     
-    @NotBlank
-    @Column(name = "VALOR", nullable = false)
-    private String valor;
+    @NotNull
+    @Column(name = "ICM_VALOR", nullable = false, precision = 23,  scale = 8)
+    private BigDecimal valor;
     
     @NotBlank
-    @Column(name = "TRAMO", nullable = false)
+    @Column(name = "ICM_TRAMO", nullable = false)
     private String tramo;
 }

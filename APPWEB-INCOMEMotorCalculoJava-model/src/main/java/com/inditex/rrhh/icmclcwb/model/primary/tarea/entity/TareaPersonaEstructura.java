@@ -73,7 +73,7 @@ public class TareaPersonaEstructura {
     private String icmIdTpComision;
 
     @NotNull
-    @Column(name = "VALOR", nullable = false, precision = 23,  scale = 8)
+    @Column(name = "ICM_VALOR", nullable = false, precision = 23,  scale = 8)
     private BigDecimal valor;
     
     @NotNull
@@ -128,11 +128,11 @@ public class TareaPersonaEstructura {
     private String icmIdEstrComisionBase;
     
     @NotBlank
-    @Column(name = "TOPE", nullable = false, length = 48)
+    @Column(name = "ICM_ORD_TOPE", nullable = false, length = 48)
     private String tope;
     
     @NotBlank
-    @Column(name = "ID_TIPO_VENTA", length = 8, nullable = false)
+    @Column(name = "ICM_ID_TP_VENTA", length = 8, nullable = false)
     private String idTipoVenta;
     
     @NotBlank

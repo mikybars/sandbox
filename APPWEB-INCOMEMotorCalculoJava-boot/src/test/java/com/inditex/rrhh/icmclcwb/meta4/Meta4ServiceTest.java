@@ -36,6 +36,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getempleados
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrcomisionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrpoliticasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
@@ -44,6 +46,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getpresencia
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructurasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaporcentajesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
@@ -318,19 +321,13 @@ public class Meta4ServiceTest {
             }).collect(Collectors.toList());
             paramEstructura.getIcmParamcalestructuraRecordSet().addAll(entradas2);
             if (emprec.size() > 0) {
-                GetestrcomisionOutput getComisionEmpleadoOutput = meta4ClientPool.getestrcomision(paramEstructura);
-                List<IcmListaestructurasRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructuras()
-                        .getIcmListaestructurasRecordSet();
-                for (IcmListaestructurasRecord record2 : recordset) {
+                GetestructurascomOutput getComisionEmpleadoOutput = meta4ClientPool.getestructurascom(paramEstructura);
+                List<IcmListaestructuraRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructura()
+                        .getIcmListaestructuraRecordSet();
+                for (IcmListaestructuraRecord record2 : recordset) {
                     System.out.println("tienda:" + tienda + " idempleado: " + record2.getIdempleado()
                             + " idempleadolocal: " + record2.getIdempleadolocal() + " estructura: "
-                            + record2.getIdestructura() + " tipo comision: " + record2.getIdtipocomision()
-                            + " tipo calculo: " + record2.getIdtipocalculo() + " percentageall: ");
-                    for (IcmListaporcentajesRecord record3 : record2.getIcmListaporcentajes()
-                            .getIcmListaporcentajesRecordSet()) {
-                        System.out.println(
-                                "-- seccion: " + record3.getIdseccion() + " porcentaje " + record3.getPorcentaje());
-                    }
+                            + record2.getIdestructura());
                 }
             }
         }
@@ -364,7 +361,7 @@ public class Meta4ServiceTest {
         param1.setFechainicio("2015-01-01");
         param1.setFechafin("2015-08-31");
         param1.getIcmParamcalestructuraRecordSet().add(record);
-        GetestrpoliticasOutput getestrpoliticas = meta4ClientPool.getestrpoliticas(param1);
+        GetestructuraspolOutput getestrpoliticas = meta4ClientPool.getestructuraspol(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getestrpoliticas.getReturn()));
     }
 

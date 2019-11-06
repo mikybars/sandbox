@@ -762,7 +762,6 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         verify(meta4ClientPool, times(1)).searchempleados(any(IcmParametrospaginacionBlock.class), any(IcmParamcalempleadoBlock.class));
     }
     
-    @Ignore
     @Test
     public void getEstructurasCom() {
         IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
@@ -772,7 +771,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         output.setReturn(NumberUtils.DOUBLE_ZERO);
         output.setIcmListaestructura(block);
         
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class))).thenReturn(entrada);
         when(meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
 
         EstructurasComRequestDto request = new EstructurasComRequestDto();
@@ -782,12 +781,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         verify(meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
     }
     
-    @Ignore
+    
     @Test
     public void getEstructurasComNullOutput() {
         IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
         
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class))).thenReturn(entrada);
         when(meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(null);
 
         EstructurasComRequestDto request = new EstructurasComRequestDto();
@@ -797,7 +796,6 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         verify(meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
     }
     
-    @Ignore
     @Test
     public void getEstructurasComNullData() {
         IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock(); 
@@ -805,7 +803,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         output.setReturn(NumberUtils.DOUBLE_ZERO);
         output.setIcmListaestructura(null);
         
-        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class))).thenReturn(entrada);
         when(meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
 
         EstructurasComRequestDto request = new EstructurasComRequestDto();
