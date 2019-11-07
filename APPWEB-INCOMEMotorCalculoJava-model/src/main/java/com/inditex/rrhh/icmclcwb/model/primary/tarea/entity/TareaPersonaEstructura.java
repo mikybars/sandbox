@@ -98,25 +98,25 @@ public class TareaPersonaEstructura {
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
     
-    @Column(name = "ES_DIA_L", nullable = true)
+    @Column(name = "ICM_DIA_L", nullable = false)
     private Boolean diaL;
 
-    @Column(name = "ES_DIA_M", nullable = true)
+    @Column(name = "ICM_DIA_M", nullable = false)
     private Boolean diaM;
 
-    @Column(name = "ES_DIA_X", nullable = true)
+    @Column(name = "ICM_DIA_X", nullable = false)
     private Boolean diaX;
 
-    @Column(name = "ES_DIA_J", nullable = true)
+    @Column(name = "ICM_DIA_J", nullable = false)
     private Boolean diaJ;
 
-    @Column(name = "ES_DIA_V", nullable = true)
+    @Column(name = "ICM_DIA_V", nullable = false)
     private Boolean diaV;
 
-    @Column(name = "ES_DIA_S", nullable = true)
+    @Column(name = "ICM_DIA_S", nullable = false)
     private Boolean diaS;
 
-    @Column(name = "ES_DIA_D", nullable = true)
+    @Column(name = "ICM_DIA_D", nullable = false)
     private Boolean diaD;
     
     @NotBlank
