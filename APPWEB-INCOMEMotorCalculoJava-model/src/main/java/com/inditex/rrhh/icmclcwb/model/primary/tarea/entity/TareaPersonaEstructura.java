@@ -98,25 +98,25 @@ public class TareaPersonaEstructura {
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
     
-    @Column(name = "ICM_DIA_L", nullable = false)
+    @Column(name = "ES_DIA_LUNES", nullable = false)
     private Boolean diaL;
 
-    @Column(name = "ICM_DIA_M", nullable = false)
+    @Column(name = "ES_DIA_MARTES", nullable = false)
     private Boolean diaM;
 
-    @Column(name = "ICM_DIA_X", nullable = false)
+    @Column(name = "ES_DIA_MIERCOLES", nullable = false)
     private Boolean diaX;
 
-    @Column(name = "ICM_DIA_J", nullable = false)
+    @Column(name = "ES_DIA_JUEVES", nullable = false)
     private Boolean diaJ;
 
-    @Column(name = "ICM_DIA_V", nullable = false)
+    @Column(name = "ES_DIA_VIERNES", nullable = false)
     private Boolean diaV;
 
-    @Column(name = "ICM_DIA_S", nullable = false)
+    @Column(name = "ES_DIA_SABADO", nullable = false)
     private Boolean diaS;
 
-    @Column(name = "ICM_DIA_D", nullable = false)
+    @Column(name = "ES_DIA_DOMINGO", nullable = false)
     private Boolean diaD;
     
     @NotBlank
