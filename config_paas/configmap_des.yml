@@ -34,6 +34,6 @@ app:
         credentials:
           user: SRVCICMCLCWSDESAX
       login:
-        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
       icmwscalcincome:
-        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
