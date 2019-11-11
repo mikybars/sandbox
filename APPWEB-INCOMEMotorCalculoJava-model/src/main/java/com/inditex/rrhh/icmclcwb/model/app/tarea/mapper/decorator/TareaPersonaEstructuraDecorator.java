@@ -65,13 +65,13 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
                 desplazamientos.stream().forEach(x -> {
                     x.setOrdinalEstructura(counter.get());
                     
-                    List<TareaPersonaEstructuraDto> desplazamientoBase = createTareaEmpleadoSeccionEstructuraDtoList(estructuraComision, tarea, base, null);
+                    List<TareaPersonaEstructuraDto> desplazamientoBase = createTareaEmpleadoSeccionEstructuraSimpleDtoList(estructuraComision, tarea, base, null, x);
                     desplazamientoBase.forEach(item -> item.setDesplazamientoBase(true));
                     desplazamientoBase.forEach(item -> item.setDesplazamiento(true));
                     result.addAll(desplazamientoBase);
 
                     ListaCondicionesDestinoResultItemDto destino = estructuraComision.getIcmListaCondicionesDestino().stream().filter(y -> y.getIdEstructuraDestino().equals(x.getIcmIdEstrComision())).findAny().orElse(null);
-                    List<TareaPersonaEstructuraDto> desplazamientoDestino = createTareaEmpleadoSeccionEstructuraDtoList(estructuraComision, tarea, destino, base, x);
+                    List<TareaPersonaEstructuraDto> desplazamientoDestino = createTareaEmpleadoSeccionEstructuraSimpleDtoList(estructuraComision, tarea, destino, base, x);
                     desplazamientoDestino.forEach(item -> item.setOrdinalEstructura(counter.get()));
                     result.addAll(desplazamientoDestino);   
                     
@@ -82,6 +82,17 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
             result.addAll(createTareaEmpleadoSeccionEstructuraDtoList(estructuraComision, tarea, base, null));
         }   
         return result;
+    }
+    
+    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraSimpleDtoList(EstructurasComResultItemDto comisionEmpleado,
+            TareaDto tarea, ListaCondicionesBaseResultItemDto condiciones, ListaCondicionesDestinoResultItemDto destino, TareaPersonaEstructuraDesplazamientoDto desplazamiento) {
+        List<TareaPersonaEstructuraDto> result = new ArrayList<>();
+
+        condiciones.getIcmListaValoresBase().forEach(x -> {
+            result.add(createTareaEmpleadoSeccionEstructuraDto(comisionEmpleado, condiciones, destino, x, tarea, desplazamiento));
+        });
+        
+        return result;    
     }
     
     private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraDtoList(EstructurasComResultItemDto comisionEmpleado,
@@ -103,30 +114,17 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         return result;    
     }
     
-    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraDtoList(EstructurasComResultItemDto comisionEmpleado,
-            TareaDto tarea, ListaCondicionesDestinoResultItemDto condiciones, ListaCondicionesBaseResultItemDto base) {
-        List<TareaPersonaEstructuraDto> result = new ArrayList<>();
 
-        condiciones.getIcmListaValoresDestino().forEach(x -> {
-            Integer seccion = Integer.valueOf(x.getIdSeccion());
-            if (AppConstants.SECCION_4.equals(seccion)) {
-                for (Integer idSeccionEfectiva : AppConstants.SECCIONES) {
-                    result.add(createTareaEmpleadoSeccionEstructuraDto(idSeccionEfectiva.toString(),
-                        comisionEmpleado, condiciones, base, x, tarea));
-                }
-            } else {
-                result.add(createTareaEmpleadoSeccionEstructuraDto(comisionEmpleado, condiciones, base, x, tarea));
-            }
-        });
-        
-        return result;    
-    }
-
-
-    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraDtoList(EstructurasComResultItemDto comisionEmpleado,
+    private List<TareaPersonaEstructuraDto> createTareaEmpleadoSeccionEstructuraSimpleDtoList(EstructurasComResultItemDto estructura,
             TareaDto tarea, ListaCondicionesDestinoResultItemDto destino, ListaCondicionesBaseResultItemDto base, TareaPersonaEstructuraDesplazamientoDto desplazamiento) {
         List<TareaPersonaEstructuraDto> result = new ArrayList<>();
-        List<TareaPersonaEstructuraDto> secciones = createTareaEmpleadoSeccionEstructuraDtoList(comisionEmpleado, tarea, destino, base);
+        List<TareaPersonaEstructuraDto> secciones = new ArrayList<>();
+        
+        destino.getIcmListaValoresDestino().stream().filter(x -> (x.getIdSeccion().equals(desplazamiento.getCclIdCodOrigenDestino()) 
+                || x.getIdSeccion().equals(AppConstants.SECCION_4.toString()))).forEach(x -> {
+            secciones.add(createTareaEmpleadoSeccionEstructuraDto(estructura, destino, base, x, tarea, desplazamiento));
+        });
+        
         secciones.stream().forEach(seccion -> {
             TareaPersonaEstructuraDto clon = new TareaPersonaEstructuraDto();
             BeanUtils.copyProperties(seccion, clon);
@@ -135,7 +133,8 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         });
         return result;
     }
-    
+
+
     @Override
     public List<TareaPersonaEstructuraDto> estructurasComResultItemDtoToTareaPersonaEstructuraDto(
             List<EstructurasComResultItemDto> src, TareaDto tarea) {
@@ -151,6 +150,34 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         TareaPersonaEstructuraDto result = delegate
                 .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructura, tarea);
         result.setCclIdSeccionEfectiva(idSeccionEfectiva);
+        result.setCclIdSeccionEstructura(valores.getIdSeccion());
+        result.setValor(valores.getValor());
+        result.setTope(valores.getTope());
+        result.setIdTipoVenta(valores.getIdTipoVenta());
+        result.setDesplazamiento(!estructura.getIcmListaCondicionesDestino().isEmpty());
+        result.setDesplazamientoBase(false);
+        result.setDiaL(Meta4Constants.TRUE.equals(condiciones.getDiaL()));
+        result.setDiaM(Meta4Constants.TRUE.equals(condiciones.getDiaM()));
+        result.setDiaX(Meta4Constants.TRUE.equals(condiciones.getDiaX()));
+        result.setDiaJ(Meta4Constants.TRUE.equals(condiciones.getDiaJ()));
+        result.setDiaV(Meta4Constants.TRUE.equals(condiciones.getDiaV()));
+        result.setDiaS(Meta4Constants.TRUE.equals(condiciones.getDiaS()));
+        result.setDiaD(Meta4Constants.TRUE.equals(condiciones.getDiaD()));
+        result.setIcmIdTpComision(condiciones.getIdTipoComision());
+        result.setIcmIdTpCalculo(condiciones.getIdTipoCalculo());
+        result.setIcmIdEstrComisionBase(condiciones.getIdEstructuraBase());
+        result.setIcmIdEstrComision(destino != null ? destino.getIdEstructuraDestino() : condiciones.getIdEstructuraBase());
+        result.setActivo(Boolean.TRUE);
+
+        return result;
+    }
+    
+    private TareaPersonaEstructuraDto createTareaEmpleadoSeccionEstructuraDto(
+            final EstructurasComResultItemDto estructura,
+            final ListaCondicionesBaseResultItemDto condiciones, final ListaCondicionesDestinoResultItemDto destino, ListaValoresBaseResultItemDto valores, final TareaDto tarea, TareaPersonaEstructuraDesplazamientoDto desplazamiento) {
+        TareaPersonaEstructuraDto result = delegate
+                .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructura, tarea);
+        result.setCclIdSeccionEfectiva(desplazamiento.getCclIdSeccionDestino());
         result.setCclIdSeccionEstructura(valores.getIdSeccion());
         result.setValor(valores.getValor());
         result.setTope(valores.getTope());
@@ -200,11 +227,12 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
 
         return result;
     }
+    
     private TareaPersonaEstructuraDto createTareaEmpleadoSeccionEstructuraDto(final EstructurasComResultItemDto estructura,
-            final ListaCondicionesDestinoResultItemDto condiciones, ListaCondicionesBaseResultItemDto base, ListaValoresDestinoResultItemDto valores, final TareaDto tarea) {
+            final ListaCondicionesDestinoResultItemDto condiciones, ListaCondicionesBaseResultItemDto base, ListaValoresDestinoResultItemDto valores, final TareaDto tarea, TareaPersonaEstructuraDesplazamientoDto desplazamiento) {
         TareaPersonaEstructuraDto result = delegate
                 .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructura, tarea);
-        result.setCclIdSeccionEfectiva(valores.getIdSeccion());
+        result.setCclIdSeccionEfectiva(desplazamiento.getCclIdSeccionDestino());
         result.setCclIdSeccionEstructura(valores.getIdSeccion());
         result.setValor(valores.getValor());
         result.setTope(valores.getTope());
@@ -226,33 +254,6 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         return result;
     }
     
-    private TareaPersonaEstructuraDto createTareaEmpleadoSeccionEstructuraDto(String idSeccionEfectiva, final EstructurasComResultItemDto estructura,
-            final ListaCondicionesDestinoResultItemDto condiciones, ListaCondicionesBaseResultItemDto base, ListaValoresDestinoResultItemDto valores, final TareaDto tarea) {
-        TareaPersonaEstructuraDto result = delegate
-                .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructura, tarea);
-        result.setCclIdSeccionEfectiva(idSeccionEfectiva);
-        result.setCclIdSeccionEstructura(valores.getIdSeccion());
-        result.setValor(valores.getValor());
-        result.setTope(valores.getTope());
-        result.setIdTipoVenta(valores.getIdTipoVenta());
-        result.setDesplazamiento(!estructura.getIcmListaCondicionesDestino().isEmpty());
-        result.setDesplazamientoBase(false);
-        result.setDiaL(Meta4Constants.TRUE.equals(condiciones.getDiaL()));
-        result.setDiaM(Meta4Constants.TRUE.equals(condiciones.getDiaM()));
-        result.setDiaX(Meta4Constants.TRUE.equals(condiciones.getDiaX()));
-        result.setDiaJ(Meta4Constants.TRUE.equals(condiciones.getDiaJ()));
-        result.setDiaV(Meta4Constants.TRUE.equals(condiciones.getDiaV()));
-        result.setDiaS(Meta4Constants.TRUE.equals(condiciones.getDiaS()));
-        result.setDiaD(Meta4Constants.TRUE.equals(condiciones.getDiaD()));
-        result.setIcmIdTpComision(condiciones.getIdTipoComision());
-        result.setIcmIdTpCalculo(condiciones.getIdTipoCalculo());
-        result.setIcmIdEstrComisionBase(estructura.getIcmListaCondicionesBase().get(0).getIdEstructuraBase());
-        result.setIcmIdEstrComision(condiciones != null ? condiciones.getIdEstructuraDestino() : base.getIdEstructuraBase());
-        result.setActivo(Boolean.TRUE);
-        return result;
-    }
-
-
     @Override
     public List<TareaPersonaEstructuraDesplazamientoDto> listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(EstructurasComResultItemDto src) {
         List<TareaPersonaEstructuraDesplazamientoDto> result = new ArrayList<>();
