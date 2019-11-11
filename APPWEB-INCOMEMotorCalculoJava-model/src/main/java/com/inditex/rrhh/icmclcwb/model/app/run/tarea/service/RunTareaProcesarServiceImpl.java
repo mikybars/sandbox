@@ -126,6 +126,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /* Días abiertos */
             CompletableFuture<Void> cfSaveAbierto = runTareaProcesarVentaAsyncService.saveAbierto(runTarea);
             AsyncUtils.exceptionally(cfSaveAbierto, cf);
+            
+            CompletableFuture<Void> cfSaveAbiertoSeccion = runTareaProcesarVentaAsyncService.saveAbiertoSeccion(runTarea);
+            AsyncUtils.exceptionally(cfSaveAbiertoSeccion, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -134,6 +137,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /* Días festivos */
             CompletableFuture<Void> cfSaveCerrado = runTareaProcesarVentaAsyncService.saveCerrado(runTarea);
             AsyncUtils.exceptionally(cfSaveCerrado, cf);
+            
+            CompletableFuture<Void> cfSaveCerradoSeccion = runTareaProcesarVentaAsyncService.saveCerradoSeccion(runTarea);
+            AsyncUtils.exceptionally(cfSaveCerradoSeccion, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

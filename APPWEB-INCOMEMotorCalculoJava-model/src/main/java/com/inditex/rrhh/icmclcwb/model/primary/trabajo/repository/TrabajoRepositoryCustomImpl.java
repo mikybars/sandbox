@@ -22,14 +22,26 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("#{primaryQuery['TrabajoRepositoryCustom.updateFechaInicioAndEstado']}")
-    private String sqlUpdateEstado;
+    private String sqlUpdateFechaInicioAndEstado;
 
+    @Value("#{primaryQuery['TrabajoRepositoryCustom.updateFechaFin']}")
+    private String sqlUpdateFechaFin;
+
+    
     @Override
     public void updateEstado(@NotNull TrabajoDto trabajo, @NotNull EstadoTrabajoDto estado) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TRABAJO, trabajo.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estado.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
-        namedParameterJdbcTemplate.update(sqlUpdateEstado, parameters);
+        namedParameterJdbcTemplate.update(sqlUpdateFechaInicioAndEstado, parameters);
+    }
+    
+    @Override
+    public void updateFechaFin(@NotNull TrabajoDto trabajo) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TRABAJO, trabajo.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
+        namedParameterJdbcTemplate.update(sqlUpdateFechaFin, parameters);
     }
 }

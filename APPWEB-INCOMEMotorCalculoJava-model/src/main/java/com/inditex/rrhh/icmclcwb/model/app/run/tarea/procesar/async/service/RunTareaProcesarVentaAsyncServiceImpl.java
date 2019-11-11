@@ -21,10 +21,22 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
         tareaProcesarVentaService.saveAbierto(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Override
+    public CompletableFuture<Void> saveAbiertoSeccion(RunTareaDto runTarea) {
+        tareaProcesarVentaService.saveAbiertoSeccion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 
     @Override
     public CompletableFuture<Void> saveCerrado(RunTareaDto runTarea) {
         tareaProcesarVentaService.saveCerrado(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> saveCerradoSeccion(RunTareaDto runTarea) {
+        tareaProcesarVentaService.saveCerradoSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

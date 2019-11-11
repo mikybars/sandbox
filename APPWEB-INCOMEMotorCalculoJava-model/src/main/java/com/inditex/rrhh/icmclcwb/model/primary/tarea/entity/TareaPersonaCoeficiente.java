@@ -47,12 +47,23 @@ public class TareaPersonaCoeficiente {
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+    private Date fechaInicioPar;
 
     @NotNull
     @Column(name = "FECHA_FIN", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+    private Date fechaFinPar;
+    
+    @NotNull
+    @Column(name = "FECHA_INICIO_COMPLETA", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaInicioCom;
+
+    @NotNull
+    @Column(name = "FECHA_FIN_COMPLETA", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaFinCom;
+
 
     @NotNull
     @Column(name = "COEFICIENTE", nullable = false)

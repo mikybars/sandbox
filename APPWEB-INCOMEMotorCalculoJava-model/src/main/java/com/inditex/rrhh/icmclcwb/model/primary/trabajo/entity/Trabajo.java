@@ -70,8 +70,9 @@ public class Trabajo {
     @JoinColumn(name = "ID_PROGRAMACION")
     private Programacion programacion;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "ID_ESTADO_TRABAJO")
+    @JoinColumn(name = "ID_ESTADO_TRABAJO", nullable = false)
     private EstadoTrabajo estado;
 
 }
