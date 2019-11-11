@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +21,7 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['TrabajoRepositoryCustom.updateEstado']}")
+    @Value("#{primaryQuery['TrabajoRepositoryCustom.updateFechaInicioAndEstado']}")
     private String sqlUpdateEstado;
 
     @Override
@@ -27,6 +29,7 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TRABAJO, trabajo.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estado.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         namedParameterJdbcTemplate.update(sqlUpdateEstado, parameters);
     }
 }

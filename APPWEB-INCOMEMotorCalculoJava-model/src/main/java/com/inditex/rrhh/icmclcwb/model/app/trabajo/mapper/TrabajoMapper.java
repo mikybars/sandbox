@@ -39,6 +39,8 @@ public abstract class TrabajoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "fechaHoraCreacion", ignore = true)
+    @Mapping(target = "fechaHoraInicioTrabajo", ignore = true)
+    @Mapping(target = "fechaHoraFinTrabajo", ignore = true)
     @Mapping(target = "idProgramacion", source = "srcProgramacion.id")
     @Mapping(target = "tipoAmbito", source = "srcProgramacion.tipoAmbito")
     @Mapping(target = "nombreUsuario", source = "srcProgramacion.nombreUsuario")

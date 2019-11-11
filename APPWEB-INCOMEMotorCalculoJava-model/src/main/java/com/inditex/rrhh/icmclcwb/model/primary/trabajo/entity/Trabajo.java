@@ -50,6 +50,12 @@ public class Trabajo {
     @NotNull
     @Column(name = "FECHA_FIN_PERIODO", nullable = false)
     private LocalDate fechaFinPeriodo;
+    
+    @Column(name = "FECHA_HORA_INICIO_TRABAJO", nullable = true)
+    private LocalDate fechaHoraInicioTrabajo;
+    
+    @Column(name = "FECHA_HORA_FIN_TRABAJO", nullable = true)
+    private LocalDate fechaHoraFinTrabajo;
 
     @NotBlank
     @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)

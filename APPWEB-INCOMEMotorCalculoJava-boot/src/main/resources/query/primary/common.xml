@@ -1313,9 +1313,9 @@ GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESE
     ]]>
 </entry>
 
-<entry key="TrabajoRepositoryCustom.updateEstado">
+<entry key="TrabajoRepositoryCustom.updateFechaInicioAndEstado">
     <![CDATA[
-      UPDATE TRABAJO SET ID_ESTADO_TRABAJO = :nuevoIdEstado WHERE ID_TRABAJO = :idTrabajo
+      UPDATE TRABAJO SET FECHA_HORA_INICIO_TRABAJO = :nuevaFecha, ID_ESTADO_TRABAJO = :nuevoIdEstado WHERE ID_TRABAJO = :idTrabajo
     ]]>
 </entry>
 
