@@ -37,7 +37,7 @@ public class TrabajoRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(trabajoRepositoryCustom, "sqlUpdateEstado", SQL_UPDATE_ESTADO, true);
+        FieldUtils.writeField(trabajoRepositoryCustom, "sqlUpdateFechaInicioAndEstado", SQL_UPDATE_ESTADO, true);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class TrabajoRepositoryCustomImplTest {
         MapSqlParameterSource params = parametersCaptor.getValue();
 
         // Parámetros de la consulta: idTrabajo, nuevoIdEstado
-        assertEquals(2, params.getValues().size());
+        assertEquals(3, params.getValues().size());
         // idTrabajo
         assertTrue(params.hasValue("idTrabajo"));
         assertEquals(trabajo.getId(), params.getValue("idTrabajo"));
