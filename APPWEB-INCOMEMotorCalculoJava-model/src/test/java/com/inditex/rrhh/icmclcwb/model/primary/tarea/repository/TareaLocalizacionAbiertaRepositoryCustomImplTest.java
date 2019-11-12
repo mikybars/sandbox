@@ -4,6 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPro
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -62,6 +63,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlTrasladar", SQL_TRASLADAR, true);
     }
 
+    @Test
     public void saveAbiertoTest() {
 
         TareaDto tarea = mock(TareaDto.class);
@@ -74,7 +76,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
         assertEquals(SQL_SAVE_ABIERTO, sql.getValue());
         // parametros de la consulta: idTipoImporteVenta, idTipoPresencia, fechaInicio, fechaFin, idTarea, importe
-        assertEquals(6, params.getValue().getValues().size());
+        assertEquals(8, params.getValue().getValues().size());
         // idTipoImporteVenta
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(),
@@ -85,16 +87,24 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
             params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
         // fechaInicio
         assertTrue(params.getValue().hasValue(SQL_PARAM_FECHA_INICIO));
-        assertEquals(trabajo.getFechaInicioPeriodo(), params.getValue().getValue(SQL_PARAM_FECHA_INICIO));
+        assertEquals(TimeUtils.toDate(trabajo.getFechaInicioPeriodo()),
+            params.getValue().getValue(SQL_PARAM_FECHA_INICIO));
         // fechaFin
         assertTrue(params.getValue().hasValue(SQL_PARAM_FECHA_FIN));
-        assertEquals(trabajo.getFechaFinPeriodo(), params.getValue().getValue(SQL_PARAM_FECHA_FIN));
+        assertEquals(RunUtils.addDays(trabajo.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"),
+            params.getValue().getValue(SQL_PARAM_FECHA_FIN));
+        // nuevoAbierto
+        assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
         // idTarea
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
         // importe
         assertTrue(params.getValue().hasValue(SQL_PARAM_IMPORTE));
         assertEquals(SQL_VALUE_IMPORTE_CERO, params.getValue().getValue(SQL_PARAM_IMPORTE));
+        // idSeccion
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, params.getValue().getValue(SQL_PARAM_ID_SECCION));
     }
 
     @Test
@@ -225,8 +235,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tarea, trabajo, idTipoImporteVenta);
         verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
         assertEquals(SQL_SAVE_CERRADO, sql.getValue());
-        // parametros de la consulta: tiposDato, fechaInicio, fechaFin, idTarea, nuevoAbierto
-        assertEquals(5, params.getValue().getValues().size());
+        // parametros de la consulta: tiposDato, fechaInicio, fechaFin, idTarea, nuevoAbierto, idSeccion
+        assertEquals(6, params.getValue().getValues().size());
         // tiposDato
         assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
         assertEquals(idTipoImporteVenta, params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
@@ -244,6 +254,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // nuevoAbierto
         assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
+        // idSeccion
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, params.getValue().getValue(SQL_PARAM_ID_SECCION));
     }
 
 }
