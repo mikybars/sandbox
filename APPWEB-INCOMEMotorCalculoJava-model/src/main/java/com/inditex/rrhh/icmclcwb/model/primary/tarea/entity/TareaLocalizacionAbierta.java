@@ -41,6 +41,10 @@ public class TareaLocalizacionAbierta {
     @Temporal(TemporalType.DATE)
     private Date fecha;
     
+    @NotBlank
+    @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
+    private String cclIdSeccion;
+    
     @NotNull
     @Column(name = "ES_ABIERTO", nullable = false)
     private Boolean abierto;

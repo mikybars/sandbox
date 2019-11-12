@@ -31,9 +31,11 @@ public class TareaPersonaCoeficienteRepositoryCustomImpl extends
         pstmt.setString(2, entity.getStdIdHr());
         pstmt.setString(3, entity.getCclIdPerson());
         pstmt.setString(4, entity.getStdOrHrPeriod());
-        pstmt.setObject(5, entity.getFechaInicio());
-        pstmt.setObject(6, entity.getFechaFin());
-        pstmt.setLong(7, entity.getTarea().getId());        
+        pstmt.setObject(5, entity.getFechaInicioPar());
+        pstmt.setObject(6, entity.getFechaFinPar());
+        pstmt.setObject(7, entity.getFechaInicioCom());
+        pstmt.setObject(8, entity.getFechaFinCom());
+        pstmt.setLong(9, entity.getTarea().getId());        
     }
 
 }

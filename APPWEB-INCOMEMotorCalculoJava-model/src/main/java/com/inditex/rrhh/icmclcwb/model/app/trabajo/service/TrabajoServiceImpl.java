@@ -115,7 +115,7 @@ public class TrabajoServiceImpl implements TrabajoService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaFin(@NotNull TrabajoDto trabajo) {
-
+        trabajoRepositoryCustom.updateFechaFin(trabajo);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

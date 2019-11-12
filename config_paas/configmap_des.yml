@@ -16,10 +16,10 @@ amiga:
             serverName: axdesdb22.central.inditex.grp
             portNumber: 50000
             databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: uincome
-            #currentSchema: DESARROLLO_RRHH
-            #user: oincome
+#            currentSchema: GESTION_COMISION
+#            user: uincome
+            currentSchema: DESARROLLO_RRHH
+            user: oincome
 app:
   envars:
     ptr:

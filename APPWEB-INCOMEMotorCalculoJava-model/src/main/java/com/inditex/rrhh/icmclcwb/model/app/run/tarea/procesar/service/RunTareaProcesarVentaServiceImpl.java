@@ -42,11 +42,24 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
 
     @Override
+    public void saveAbiertoSeccion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionAbiertaRepositoryCustom.saveAbiertoSeccion(runTarea.getTarea(), runTarea.getTrabajo());
+    }
+    
+    @Override
     public void saveCerrado(@Valid RunTareaDto runTarea) {
         List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
+    
+    @Override
+    public void saveCerradoSeccion(@Valid RunTareaDto runTarea) {
+        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+        tareaLocalizacionAbiertaRepositoryCustom.saveCerradoSeccion(runTarea.getTarea(), runTarea.getTrabajo(),
+                ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+    }
+
 
     @Override
     public void trasladar(@Valid RunTareaDto runTarea) {
