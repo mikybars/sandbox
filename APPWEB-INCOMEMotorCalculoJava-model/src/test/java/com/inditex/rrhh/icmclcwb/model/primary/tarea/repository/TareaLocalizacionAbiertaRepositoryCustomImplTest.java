@@ -95,7 +95,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
             params.getValue().getValue(SQL_PARAM_FECHA_FIN));
         // nuevoAbierto
         assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
         // idTarea
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
