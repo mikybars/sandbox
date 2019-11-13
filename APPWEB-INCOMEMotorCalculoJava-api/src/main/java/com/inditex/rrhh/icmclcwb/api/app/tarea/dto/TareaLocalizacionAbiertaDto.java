@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -23,6 +24,10 @@ public class TareaLocalizacionAbiertaDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Identificador de la localizacion", required = true)
     private Long cclIdCodOrigen;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Id de la seccion", required = true)
+    private String cclIdSeccion;
     
     @NotNull
     private Date fecha;

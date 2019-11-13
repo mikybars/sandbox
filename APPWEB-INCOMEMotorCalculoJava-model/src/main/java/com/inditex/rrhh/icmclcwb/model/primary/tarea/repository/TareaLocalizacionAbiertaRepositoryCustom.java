@@ -17,5 +17,10 @@ public interface TareaLocalizacionAbiertaRepositoryCustom {
 
     void compensar(@NotNull final TareaDto tareaDto, @NotNull List<Integer> idTipoImporteVenta);
 
+    void saveAbiertoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto);
+
+    void saveCerradoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto,
+            @NotNull List<Integer> idTipoImporteVenta);
+
 
 }

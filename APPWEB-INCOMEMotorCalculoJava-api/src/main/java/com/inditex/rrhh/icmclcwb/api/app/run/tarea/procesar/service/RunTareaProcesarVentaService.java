@@ -22,4 +22,8 @@ public interface RunTareaProcesarVentaService {
 
     void updateActivoTrasladadas(@Valid RunTareaDto runTarea);
 
+    void saveAbiertoSeccion(@Valid RunTareaDto runTarea);
+
+    void saveCerradoSeccion(@Valid RunTareaDto runTarea);
+
 }

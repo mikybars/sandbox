@@ -9,4 +9,6 @@ public interface TrabajoRepositoryCustom {
 
     void updateEstado(@NotNull final TrabajoDto trabajo, @NotNull final EstadoTrabajoDto estado);
 
+    void updateFechaFin(@NotNull final TrabajoDto trabajo);
+
 }

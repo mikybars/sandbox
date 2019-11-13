@@ -24,4 +24,8 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> updateActivoTrasladadas(RunTareaDto runTarea);
 
+    CompletableFuture<Void> saveAbiertoSeccion(RunTareaDto runTarea);
+
+    CompletableFuture<Void> saveCerradoSeccion(RunTareaDto runTarea);
+
 }

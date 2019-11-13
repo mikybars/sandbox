@@ -34,11 +34,16 @@ public class TareaPersonaCoeficienteDto implements Serializable {
     private String stdOrHrPeriod;
     
     @NotNull
-    private Date fechaInicio;
+    private Date fechaInicioPar;
     
     @NotNull
-    private Date fechaFin;
+    private Date fechaFinPar;
     
+    @NotNull
+    private Date fechaInicioCom;
+    
+    @NotNull
+    private Date fechaFinCom;
     @NotNull
     @ApiModelProperty(value = "Coeficiente jornada", required = true)
     private Long coeficiente;

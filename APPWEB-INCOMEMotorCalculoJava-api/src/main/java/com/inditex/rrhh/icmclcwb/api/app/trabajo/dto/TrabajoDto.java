@@ -50,6 +50,12 @@ public class TrabajoDto implements Serializable {
     @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true, example = "2017-03-31")
     private LocalDate fechaFinPeriodo;
     
+    @ApiModelProperty(value = "Fecha inicio del trabajo", required = false, example = "2017-03-01")
+    private LocalDate fechaHoraInicioTrabajo;
+
+    @ApiModelProperty(value = "Fecha fin del trabajo", required = false, example = "2017-03-31")
+    private LocalDate fechaHoraFinTrabajo;
+    
     @NotBlank
     @ApiModelProperty(value = "Id de la sociedad", required = true, example = "0001")
     private String idOrganization;

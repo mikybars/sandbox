@@ -18,8 +18,8 @@ amiga:
             databaseName: INDITEX
             currentSchema: GESTION_COMISION
             user: uincome
-            #currentSchema: DESARROLLO_RRHH
-            #user: oincome
+#            currentSchema: DESARROLLO_RRHH
+#            user: oincome
 app:
   envars:
     ptr:

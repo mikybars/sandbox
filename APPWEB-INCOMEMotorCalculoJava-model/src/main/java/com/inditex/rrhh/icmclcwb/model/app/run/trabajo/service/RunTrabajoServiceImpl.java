@@ -95,7 +95,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
             trabajoService.updateEstado(trabajo, EstadoTrabajoEnum.KO.getDto());
             throw e;
         } finally {
-            // TODO [COMUN] MODIFICAR LA FECHA DE FIN DEL TRABAJO
+            trabajoService.updateFechaFin(trabajo);
         }
         return runTrabajo;
     }
