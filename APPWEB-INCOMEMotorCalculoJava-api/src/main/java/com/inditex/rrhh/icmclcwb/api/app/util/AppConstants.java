@@ -21,6 +21,12 @@ public class AppConstants {
     public static final Integer SECCION_3 = 3;
     
     public static final Integer SECCION_4 = 4;
+    
+    public static final String VALOR_DEFAULT = "0";
+    
+    public static final String ID_TIPO_VENTA_DEFAULT = "01";
+    
+    public static final String TOPE_DEFAULT = "0";
 
     public static final Integer[] SECCIONES = { SECCION_1, SECCION_2, SECCION_3 };
     

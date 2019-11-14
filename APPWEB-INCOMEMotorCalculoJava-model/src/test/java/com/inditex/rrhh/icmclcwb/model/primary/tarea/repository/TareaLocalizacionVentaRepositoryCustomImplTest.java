@@ -1,14 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVentaPk;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,16 +28,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVentaPk;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionVentaRepositoryCustomImplTest {
@@ -77,7 +80,9 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         TareaLocalizacionVentaPk pk = mock(TareaLocalizacionVentaPk.class);
         TipoDato td = mock(TipoDato.class);
         when(td.getId()).thenReturn(911);
-        when(pk.getFecha()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
+        // TODO [COMUN] PARTICIONADO
+        // when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015,
+        // 1, 1)));
         when(entity.getPk()).thenReturn(pk);
         when(entity.getCclIdCadena()).thenReturn("ID CADENA");
         when(entity.getCclIdCodOrigen()).thenReturn("ID LOCALIZACIÓN");
@@ -93,7 +98,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         tareaLocalizacionVentaRepositoryCustom.setParameters(pstmt, entity);
         // Parámetros de la consulta: fecha, cclIdCadena, cclIdCodOrigen, cclIdSeccion, importeSinImpuestos, importeConImpuestos,
         // idTipoDato, activo, idTarea
-        verify(pstmt, times(1)).setObject(1, pk.getFecha());
+        verify(pstmt, times(1)).setObject(1, entity.getFecha());
         verify(pstmt, times(1)).setString(2, entity.getCclIdCadena());
         verify(pstmt, times(1)).setString(3, entity.getCclIdCodOrigen());
         verify(pstmt, times(1)).setString(4, entity.getCclIdSeccion());
@@ -102,6 +107,8 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setDouble(7, td.getId());
         verify(pstmt, times(1)).setObject(8, entity.getActivo());
         verify(pstmt, times(1)).setLong(9, tarea.getId());
+        // TODO [COMUN] PARTICIONADO
+        // verify(pstmt, times(1)).setLong(10, pk.getFechaInicioPeriodo());
     }
 
     @Test

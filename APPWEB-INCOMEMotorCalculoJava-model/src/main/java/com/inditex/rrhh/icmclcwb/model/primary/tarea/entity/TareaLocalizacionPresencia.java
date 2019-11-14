@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -7,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
@@ -20,7 +24,7 @@ public class TareaLocalizacionPresencia {
 
     @EmbeddedId
     private TareaLocalizacionPresenciaPk pk;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
@@ -50,5 +54,9 @@ public class TareaLocalizacionPresencia {
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
 
+    @NotNull
+    @Column(name = "FECHA", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
 
 }

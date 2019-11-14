@@ -1,10 +1,18 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVentaPk;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,15 +25,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVentaPk;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
@@ -43,10 +46,8 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaLocalizacionPersonaVentaRepositoryCustom,
-            "sqlSave", SQL_SAVE, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaVentaRepositoryCustom,
-            "batchSize", 100, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaVentaRepositoryCustom, "sqlSave", SQL_SAVE, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaVentaRepositoryCustom, "batchSize", 100, true);
     }
 
     @Test
@@ -57,7 +58,9 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
         when(td.getId()).thenReturn(89);
         Tarea tarea = mock(Tarea.class);
         TareaLocalizacionPersonaVentaPk pk = mock(TareaLocalizacionPersonaVentaPk.class);
-        when(pk.getFecha()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
+        // TODO [COMUN] PARTICIONADO
+        // when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015,
+        // 1, 1)));
         TareaLocalizacionPersonaVenta entity = mock(TareaLocalizacionPersonaVenta.class);
         when(entity.getTarea()).thenReturn(tarea);
         when(entity.getPk()).thenReturn(pk);
@@ -69,16 +72,19 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
 
         tareaLocalizacionPersonaVentaRepositoryCustom.setParameters(pstmt, entity);
 
-        // Parámetros de la consulta: fecha, cclIdCodOrigen, cclidPerson, importeSinImpuestos, importeConImpuestos,
+        // Parámetros de la consulta: fecha, cclIdCodOrigen, cclidPerson,
+        // importeSinImpuestos, importeConImpuestos,
         // idTipoDato, idTarea
 
-        verify(pstmt, times(1)).setObject(1, pk.getFecha());
+        verify(pstmt, times(1)).setObject(1, entity.getFecha());
         verify(pstmt, times(1)).setString(2, entity.getCclIdCodOrigen());
         verify(pstmt, times(1)).setString(3, entity.getCclIdPerson());
         verify(pstmt, times(1)).setBigDecimal(4, entity.getImporteSinImpuestos());
         verify(pstmt, times(1)).setBigDecimal(5, entity.getImporteConImpuestos());
         verify(pstmt, times(1)).setDouble(6, td.getId());
         verify(pstmt, times(1)).setLong(7, tarea.getId());
+        // TODO [COMUN] PARTICIONADO
+        // verify(pstmt, times(1)).setLong(10, pk.getFechaInicioPeriodo());
     }
 
     @Test

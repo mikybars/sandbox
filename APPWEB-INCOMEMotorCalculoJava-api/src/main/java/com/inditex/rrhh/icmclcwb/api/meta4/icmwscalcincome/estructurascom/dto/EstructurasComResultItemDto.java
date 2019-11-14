@@ -23,7 +23,6 @@ public class EstructurasComResultItemDto implements Serializable {
     private String idOrigen;
     private String idEmpleado;
     private String orEmpleado;
-    private String importe;
     private String idEstructura;
     private String idEmpleadoLocal;
     private String idTpEstructura;

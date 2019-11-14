@@ -1,5 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.util.List;
+
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -9,18 +16,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.Li
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.ListaValoresPoliticasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaEstructuraPoliticaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper
 @DecoratedWith(value = TareaPersonaEstructuraPoliticaDecorator.class)
 public abstract class TareaPersonaEstructuraPoliticaMapper {
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "idTarea")
     @Mapping(target = "cclIdOrigen", source = "cclIdOrigen")
     @Mapping(target = "stdIdHr", source = "stdIdHr")
@@ -35,12 +35,15 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "tramo", source = "tramo")
     @Mapping(target = "tipoPolitica", ignore = true)
+    @Mapping(target = "pk.id", ignore = true)
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraPolitica tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
-        TareaPersonaEstructuraPoliticaDto src);
+            TareaPersonaEstructuraPoliticaDto src);
 
     @InheritInverseConfiguration
     public abstract TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
-        TareaPersonaEstructuraPolitica src);
+            TareaPersonaEstructuraPolitica src);
 
     public List<TareaPersonaEstructuraPolitica> tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
             List<TareaPersonaEstructuraPoliticaDto> src) {
@@ -52,7 +55,6 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     @Mapping(target = "stdIdHr", source = "src.idEmpleado")
@@ -63,15 +65,17 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "excluidoDenominador", ignore = true)
     @Mapping(target = "tipoPolitica", ignore = true)
+    @Mapping(target = "pk.id", ignore = true)
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraPolitica comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(
-        ComisionEmpleadoResultItemDto src, TareaDto tarea);
+            ComisionEmpleadoResultItemDto src, TareaDto tarea);
 
     public List<TareaPersonaEstructuraPolitica> comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(
-        List<ComisionEmpleadoResultItemDto> src, TareaDto tarea) {
+            List<ComisionEmpleadoResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
-    @Mapping(target = "id", ignore = true)
+
     @Mapping(target = "tarea.id", source = "tarea.id")
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     @Mapping(target = "stdIdHr", source = "src.idEmpleado")
@@ -82,9 +86,12 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "excluidoDenominador", ignore = true)
     @Mapping(target = "tipoPolitica", ignore = true)
+    @Mapping(target = "pk.id", ignore = true)
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraPolitica estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
-        EstructurasPolResultItemDto src, TareaDto tarea);
-    
+            EstructurasPolResultItemDto src, TareaDto tarea);
+
     public List<TareaPersonaEstructuraPolitica> estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
             List<EstructurasPolResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);

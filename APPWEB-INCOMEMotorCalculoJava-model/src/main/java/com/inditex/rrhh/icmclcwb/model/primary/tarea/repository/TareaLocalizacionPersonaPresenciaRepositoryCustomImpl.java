@@ -8,12 +8,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +15,14 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
@@ -138,13 +138,15 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         pstmt.setString(3, entity.getCclIdPerson());
         pstmt.setString(4, entity.getStdIdLegEnt());
         pstmt.setString(5, entity.getCclIdSeccion());
-        pstmt.setObject(6, entity.getPk().getFecha());
+        pstmt.setObject(6, entity.getFecha());
         pstmt.setLong(7, entity.getMinutos());
         pstmt.setString(8, entity.getIcmIdTpHora());
         pstmt.setBoolean(9, entity.getActivo());
         pstmt.setLong(10, entity.getTipoDato().getId());
         pstmt.setLong(11, entity.getTarea().getId());
         pstmt.setString(12, entity.getCclIdCadena());
+        // TODO [COMUN] PARTICIONADO
+        // pstmt.setObject(13, entity.getPk().getFechaInicioPeriodo());
     }
 
 }

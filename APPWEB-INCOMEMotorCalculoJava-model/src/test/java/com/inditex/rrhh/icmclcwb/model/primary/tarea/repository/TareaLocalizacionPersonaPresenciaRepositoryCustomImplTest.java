@@ -1,19 +1,34 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresenciaPk;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_MINUTOS;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_MINUTOS_CERO;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,16 +43,20 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresenciaPk;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
@@ -69,20 +88,17 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
-            "sqlSave", SQL_SAVE, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
-            "sqlUpdateActivo", SQL_UPDATE_ACTIVO, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
-            "sqlUpdateActivoVacio", SQL_UPDATE_ACTIVO_VACIO, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
-            "sqlCompensar", SQL_COMPENSAR, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
-            "sqlIndicadorPresencia", SQL_INDICADOR_PRESENCIA, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
-            "sqlIndicadorPresenciaDesplazamiento", SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
-            "batchSize", 100, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlSave", SQL_SAVE, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlUpdateActivo", SQL_UPDATE_ACTIVO,
+                true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlUpdateActivoVacio",
+                SQL_UPDATE_ACTIVO_VACIO, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlCompensar", SQL_COMPENSAR, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPresencia",
+                SQL_INDICADOR_PRESENCIA, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPresenciaDesplazamiento",
+                SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
     }
 
     @Test
@@ -95,10 +111,10 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia(runTarea);
 
-        verify(namedParameterJdbcTemplate, times(1))
-            .update(sqlCaptor.capture(), paramsCaptor.capture());
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_INDICADOR_PRESENCIA, sqlCaptor.getValue());
-        // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia, tiposCalculo, excluidoCalculo
+        // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia,
+        // tiposCalculo, excluidoCalculo
         MapSqlParameterSource params = this.paramsCaptor.getValue();
         assertEquals(6, params.getValues().size());
         // id tarea
@@ -110,14 +126,15 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         // idTipoDatoIndicadorPresencia
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
         assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId(),
-            params.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+                params.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
         // tiposCalculo
         assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
-        assertEquals(Arrays.asList(
-            TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId(), TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA.getId(),
-            TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA_Y_REDUCCION_DE_JORNADA.getId(),
-            TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId()),
-            params.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(
+                Arrays.asList(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA_Y_REDUCCION_DE_JORNADA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId()),
+                params.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
         // excluidoCalculo
         assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
@@ -133,11 +150,11 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento(runTarea);
 
-        verify(namedParameterJdbcTemplate, times(1))
-            .update(sqlCaptor.capture(), paramsCaptor.capture());
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
-        // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia, excluidoCalculo
+        // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia,
+        // excluidoCalculo
         assertEquals(5, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
@@ -148,7 +165,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         // idTipoDatoIndicadorPresencia
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
         assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(),
-            params.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+                params.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
         // excluidoCalculo
         assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
@@ -163,8 +180,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(runTarea.getTarea()).thenReturn(tarea);
 
         tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio(runTarea);
-        verify(namedParameterJdbcTemplate, times(1))
-            .update(sqlCaptor.capture(), paramsCaptor.capture());
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_UPDATE_ACTIVO_VACIO, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, activo, minutos
@@ -188,23 +204,23 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(tarea.getId()).thenReturn(199L);
         when(runTarea.getTarea()).thenReturn(tarea);
 
-        when(tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
+        when(tipoDatoService
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
+                        .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
 
         tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo(runTarea);
-        verify(namedParameterJdbcTemplate, times(1))
-            .update(sqlCaptor.capture(), paramsCaptor.capture());
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_UPDATE_ACTIVO, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
-        // Parámetros de la consulta: idTarea, excluidoDenominador, tiposDato, nuevoActivo
+        // Parámetros de la consulta: idTarea, excluidoDenominador, tiposDato,
+        // nuevoActivo
         assertEquals(4, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
         // idTiposDato
         assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(Arrays.asList(12,89),
-            params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertEquals(Arrays.asList(12, 89), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
         // excluidoDenominador
         assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_DENOMINADOR));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_DENOMINADOR));
@@ -222,14 +238,15 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(tarea.getId()).thenReturn(199L);
         when(runTarea.getTarea()).thenReturn(tarea);
 
-        when(tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
+        when(tipoDatoService
+                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
+                        .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
         tareaLocalizacionPersonaPresenciaRepositoryCustom.compensar(runTarea);
-        verify(namedParameterJdbcTemplate, times(1))
-            .update(sqlCaptor.capture(), paramsCaptor.capture());
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_COMPENSAR, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
-        // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato, excluidoDenominador, idTipoPolitica, tiposDato
+        // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato,
+        // excluidoDenominador, idTipoPolitica, tiposDato
         assertEquals(6, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
@@ -240,17 +257,16 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId(),
-            params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // excluidoDenominador
         assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_DENOMINADOR));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_DENOMINADOR));
         // idTipoPolitica
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_POLITICA));
-        assertEquals(TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId(),
-            params.getValue(SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId(), params.getValue(SQL_PARAM_ID_TIPO_POLITICA));
         // tiposDato
         assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(Arrays.asList(12,89), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertEquals(Arrays.asList(12, 89), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
     }
 
     @Test
@@ -258,7 +274,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
         PreparedStatement pstmt = mock(PreparedStatement.class);
         TareaLocalizacionPersonaPresenciaPk pk = mock(TareaLocalizacionPersonaPresenciaPk.class);
-        when(pk.getFecha()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
+        // TODO [COMUN] PARTICIONADO
+        // when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015,
+        // 1, 1)));
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(789L);
         TipoDato td = mock(TipoDato.class);
@@ -276,23 +294,27 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(entity.getMinutos()).thenReturn(123);
         when(entity.getTarea()).thenReturn(tarea);
         when(entity.getTipoDato()).thenReturn(td);
+        when(entity.getFecha()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
 
         tareaLocalizacionPersonaPresenciaRepositoryCustom.setParameters(pstmt, entity);
 
-        // Parámetros de la consulta: CclIdCodOrigen, CclIdOrigen, CclIdPerson, StdIdLegEnt, CclIdSeccion,
+        // Parámetros de la consulta: CclIdCodOrigen, CclIdOrigen, CclIdPerson,
+        // StdIdLegEnt, CclIdSeccion,
         // fecha, minutos, IcmIdTpHora, activo, tipo dato, id tarea, CclIdCadena
         verify(pstmt, times(1)).setString(1, entity.getCclIdCodOrigen());
         verify(pstmt, times(1)).setString(2, entity.getCclIdOrigen());
         verify(pstmt, times(1)).setString(3, entity.getCclIdPerson());
         verify(pstmt, times(1)).setString(4, entity.getStdIdLegEnt());
         verify(pstmt, times(1)).setString(5, entity.getCclIdSeccion());
-        verify(pstmt, times(1)).setObject(6, pk.getFecha());
+        verify(pstmt, times(1)).setObject(6, entity.getFecha());
         verify(pstmt, times(1)).setLong(7, entity.getMinutos());
         verify(pstmt, times(1)).setString(8, entity.getIcmIdTpHora());
         verify(pstmt, times(1)).setBoolean(9, entity.getActivo());
         verify(pstmt, times(1)).setLong(10, td.getId());
         verify(pstmt, times(1)).setLong(11, tarea.getId());
         verify(pstmt, times(1)).setString(12, entity.getCclIdCadena());
+        // TODO [COMUN] PARTICIONADO
+        // verify(pstmt, times(1)).setLong(10, pk.getFechaInicioPeriodo());
     }
 
     @Test

@@ -46,10 +46,10 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "stdOrHrPeriod", source = "src.orEmpleado")
     @Mapping(target = "icmIdEstrComisionPadre", source = "src.idEstructura")
     @Mapping(target = "cclIdPerson", source = "src.idEmpleadoLocal")
-    @Mapping(target = "valor", source = "src.importe")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "icmIdTpEstructura", source = "src.idTpEstructura")
+    @Mapping(target = "idTipoVenta", ignore = true, defaultValue = "01")
     @Mapping(target = "icmIdEstrComisionBase", ignore = true)
     @Mapping(target = "icmIdEstrComision", ignore = true)
     @Mapping(target = "icmIdTpCalculo", ignore = true)
@@ -59,6 +59,8 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "desplazamiento", ignore = true)
     @Mapping(target = "desplazamientoBase", ignore = true)
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoToTareaPersonaEstructuraDto(
             final EstructurasComResultItemDto src, TareaDto tarea);
     
@@ -98,7 +100,6 @@ public abstract class TareaPersonaEstructuraMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea", ignore = true)
     @Mapping(target = "tipoOpcionCalculoEstructura", ignore = true)
     @Mapping(target = "tipoOpcionCalculoEfectiva", ignore = true)
@@ -112,6 +113,9 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "horasOrigen", source = "src.estructuraDesplazamiento.horasOrigen")
     @Mapping(target = "horasDestino", source = "src.estructuraDesplazamiento.horasDestino")
     @Mapping(target = "ordinalEstructura", source = "src.estructuraDesplazamiento.ordinalEstructura")
+    @Mapping(target = "pk.id", ignore = true)
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(
         TareaPersonaEstructuraDto src);
 
