@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -54,7 +54,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerce']}")
     private String sqlTotalizarEcommerce;
 
@@ -92,17 +92,16 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
                 .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
                 TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         namedParameterJdbcTemplate.update(sqlCompensar, parameters);
     }
@@ -115,21 +114,20 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
                 .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
                 TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         namedParameterJdbcTemplate.update(sqlTotalizar, parameters);
     }
-    
+
     @Override
     public void totalizarEcommerce(@NotNull RunTareaDto runTareaDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -138,17 +136,16 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
                 .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         namedParameterJdbcTemplate.update(sqlTotalizarEcommerce, parameters);
     }
 
@@ -160,24 +157,23 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
                 .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO,
-                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         namedParameterJdbcTemplate.update(sqlCompensarEcommerce, parameters);
     }
 
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionPresencia entity) throws SQLException {
-        pstmt.setObject(1, entity.getPk().getFecha());
+        pstmt.setObject(1, entity.getFecha());
         pstmt.setString(2, entity.getCclIdCodOrigen());
         pstmt.setString(3, entity.getCclIdSeccion());
         pstmt.setDouble(4, entity.getMinutos());
@@ -185,6 +181,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         pstmt.setBoolean(6, entity.getActivo());
         pstmt.setLong(7, entity.getTarea().getId());
         pstmt.setString(8, entity.getCclIdCadena());
+        // TODO [COMUN] PARTICIONADO
+        // pstmt.setObject(9, entity.getPk().getFechaInicioPeriodo());
     }
 
 }
