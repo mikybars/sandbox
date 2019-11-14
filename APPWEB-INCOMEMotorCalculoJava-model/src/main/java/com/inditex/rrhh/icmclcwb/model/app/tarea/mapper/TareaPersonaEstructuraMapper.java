@@ -38,8 +38,7 @@ public abstract class TareaPersonaEstructuraMapper {
             List<TareaPersonaEstructuraDto> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-   
-    @Mapping(target = "id", ignore = true)
+
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     @Mapping(target = "stdIdHr", source = "src.idEmpleado")
@@ -59,15 +58,17 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "desplazamiento", ignore = true)
     @Mapping(target = "desplazamientoBase", ignore = true)
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
+    @Mapping(target = "pk.id", ignore = true)
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoToTareaPersonaEstructuraDto(
             final EstructurasComResultItemDto src, TareaDto tarea);
-    
+
     public List<TareaPersonaEstructuraDto> listaCondicionesBaseResultItemDtoToTareaPersonaEstructuraDto(
-            final EstructurasComResultItemDto comisionEmpleado,
-            TareaDto tarea) {
+            final EstructurasComResultItemDto comisionEmpleado, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
     public List<TareaPersonaEstructuraDto> estructurasComResultItemDtoToTareaPersonaEstructuraDto(
             List<EstructurasComResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
@@ -86,19 +87,18 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "horasOrigen", source = "horasOrigen")
     @Mapping(target = "icmIdEstructuraAmbito", source = "idEstructuraAmbito")
     public abstract TareaPersonaEstructuraDesplazamientoDto listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(
-        ListaCondicionesDestinoResultItemDto src);
+            ListaCondicionesDestinoResultItemDto src);
 
     public List<TareaPersonaEstructuraDesplazamientoDto> listaEstructuraDesplazamientosResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(
-        List<ListaEstructuraDesplazamientosResultItemDto> src) {
+            List<ListaEstructuraDesplazamientosResultItemDto> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaPersonaEstructuraDesplazamientoDto> listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(
-        EstructurasComResultItemDto src) {
+            EstructurasComResultItemDto src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea", ignore = true)
     @Mapping(target = "tipoOpcionCalculoEstructura", ignore = true)
     @Mapping(target = "tipoOpcionCalculoEfectiva", ignore = true)
@@ -112,10 +112,13 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "horasOrigen", source = "src.estructuraDesplazamiento.horasOrigen")
     @Mapping(target = "horasDestino", source = "src.estructuraDesplazamiento.horasDestino")
     @Mapping(target = "ordinalEstructura", source = "src.estructuraDesplazamiento.ordinalEstructura")
+    @Mapping(target = "pk.id", ignore = true)
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(
-        TareaPersonaEstructuraDto src);
+            TareaPersonaEstructuraDto src);
 
     public abstract List<TareaPersonaEstructuraDesplazamiento> tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(
-        List<TareaPersonaEstructuraDto> src);
+            List<TareaPersonaEstructuraDto> src);
 
 }
