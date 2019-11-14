@@ -3,10 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,10 +23,8 @@ import lombok.Data;
 @Data
 public class TareaPersonaEstructuraDesplazamiento {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
-    private Long id;
+    @EmbeddedId
+    private TareaPersonaEstructuraDesplazamientoPk pk;
 
     @NotNull
     @OneToOne
