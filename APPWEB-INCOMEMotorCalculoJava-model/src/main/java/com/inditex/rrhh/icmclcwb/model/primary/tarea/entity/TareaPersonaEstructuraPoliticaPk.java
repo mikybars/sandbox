@@ -9,11 +9,11 @@ import lombok.Data;
 
 @Embeddable
 @Data
-public class TareaLocalizacionVentaPk implements Serializable {
+public class TareaPersonaEstructuraPoliticaPk implements Serializable {
 
-    private static final long serialVersionUID = -7968593613690419682L;
+    private static final long serialVersionUID = 8454270610096980039L;
 
-    @Column(name = "ID_TAREA_LOCALIZACION_VENTA")
+    @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA_POLITICA")
     private Long id;
 
     // TODO [COMUN] PARTICIONADO

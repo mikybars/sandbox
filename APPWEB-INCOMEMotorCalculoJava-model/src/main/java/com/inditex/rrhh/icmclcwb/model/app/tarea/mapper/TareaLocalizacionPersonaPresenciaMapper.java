@@ -37,57 +37,62 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
 
     public abstract List<TareaLocalizacionPersonaPresencia> tareaLocalizacionPersonaPresenciaDtoToLocalizacionPersonaPresencia(
             List<TareaLocalizacionPersonaPresenciaDto> src);
-    
+
     @Mapping(source = "src.idLugarTrabajoMtu", target = "cclIdCodOrigen")
     @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
     @Mapping(source = "src.idEmpleadoLocal", target = "cclIdPerson")
     @Mapping(source = "src.idSeccion", target = "cclIdSeccion")
     @Mapping(source = "src.idEmpresa", target = "stdIdLegEnt")
     @Mapping(source = "src.idCadena", target = "cclIdCadena")
-    @Mapping(source = "src.fecha", target = "pk.fecha")
+    @Mapping(source = "src.fecha", target = "fecha")
     @Mapping(source = "src.minutos", target = "minutos")
     @Mapping(source = "src.idTipoHora", target = "icmIdTpHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "pk.id", ignore = true)
-    public abstract TareaLocalizacionPersonaPresencia genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia( 
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    public abstract TareaLocalizacionPersonaPresencia genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
             GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionPersonaPresencia> genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
             List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
     @Mapping(source = "src.tienda", target = "cclIdCodOrigen")
     @Mapping(source = "src.origen", target = "cclIdOrigen")
     @Mapping(source = "src.persona", target = "cclIdPerson")
     @Mapping(source = "src.seccion", target = "cclIdSeccion")
     @Mapping(source = "src.empresa", target = "stdIdLegEnt")
     @Mapping(source = "src.cadena", target = "cclIdCadena")
-    @Mapping(source = "src.fecha", target = "pk.fecha", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.minutos", target = "minutos")
     @Mapping(source = "src.tipo", target = "icmIdTpHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "pk.id", ignore = true)
-    public abstract TareaLocalizacionPersonaPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia( 
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    public abstract TareaLocalizacionPersonaPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
             PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
             List<PtrPresenciaDetalleResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
     @AfterMapping
     void afterMapping(@MappingTarget TareaLocalizacionPersonaPresencia tareaLocalizacionPersonaPresencia,
             GenericEmpleadoResultItemDto src) {
         tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
         tareaLocalizacionPersonaPresencia.setTipoDato(new TipoDato());
-        tareaLocalizacionPersonaPresencia.getTipoDato().setId(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-    }    
-    
+        tareaLocalizacionPersonaPresencia.getTipoDato()
+                .setId(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+    }
+
     @AfterMapping
     void afterMapping(@MappingTarget TareaLocalizacionPersonaPresencia tareaLocalizacionPersonaPresencia,
             PtrPresenciaDetalleResultItemDto src) {
         tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
-    }   
-    
+    }
+
 }

@@ -1,13 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -16,15 +12,14 @@ import lombok.Data;
 public class TareaLocalizacionPersonaPresenciaPk implements Serializable {
 
     private static final long serialVersionUID = -5662063113384761734L;
-    
-//  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA")
-  private Long id;
-  
-  @NotNull
-  @Column(name = "FECHA", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fecha;
-  
-    
+
+    @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA")
+    private Long id;
+
+    // TODO [COMUN] PARTICIONADO
+//    @NotNull
+//    @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
+//    @Temporal(TemporalType.DATE)
+//    private Date fechaInicioPeriodo;
+
 }

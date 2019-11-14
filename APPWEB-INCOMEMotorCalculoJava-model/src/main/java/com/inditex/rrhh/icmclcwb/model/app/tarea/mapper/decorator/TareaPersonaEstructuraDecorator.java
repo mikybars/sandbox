@@ -88,9 +88,18 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
             TareaDto tarea, ListaCondicionesBaseResultItemDto condiciones, ListaCondicionesDestinoResultItemDto destino, TareaPersonaEstructuraDesplazamientoDto desplazamiento) {
         List<TareaPersonaEstructuraDto> result = new ArrayList<>();
 
-        condiciones.getIcmListaValoresBase().forEach(x -> {
-            result.add(createTareaEmpleadoSeccionEstructuraDto(comisionEmpleado, condiciones, destino, x, tarea, desplazamiento));
-        });
+        if (CollectionUtils.isNotEmpty(condiciones.getIcmListaValoresBase())) {
+            condiciones.getIcmListaValoresBase().forEach(x -> {
+                result.add(createTareaEmpleadoSeccionEstructuraDto(comisionEmpleado, condiciones, destino, x, tarea, desplazamiento));
+            });
+        }else {
+            ListaValoresBaseResultItemDto base = new ListaValoresBaseResultItemDto();
+            base.setIdSeccion(AppConstants.SECCION_0.toString());
+            base.setValor(AppConstants.VALOR_DEFAULT);
+            base.setIdTipoVenta(AppConstants.ID_TIPO_VENTA_DEFAULT);
+            base.setTope(AppConstants.TOPE_DEFAULT);
+            result.add(createTareaEmpleadoSeccionEstructuraDto(comisionEmpleado, condiciones, destino, base, tarea, desplazamiento));
+        }
         
         return result;    
     }
@@ -120,10 +129,19 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         List<TareaPersonaEstructuraDto> result = new ArrayList<>();
         List<TareaPersonaEstructuraDto> secciones = new ArrayList<>();
         
-        destino.getIcmListaValoresDestino().stream().filter(x -> (x.getIdSeccion().equals(desplazamiento.getCclIdCodOrigenDestino()) 
-                || x.getIdSeccion().equals(AppConstants.SECCION_4.toString()))).forEach(x -> {
-            secciones.add(createTareaEmpleadoSeccionEstructuraDto(estructura, destino, base, x, tarea, desplazamiento));
-        });
+        if (CollectionUtils.isNotEmpty(destino.getIcmListaValoresDestino())) {
+            destino.getIcmListaValoresDestino().stream().filter(x -> (x.getIdSeccion().equals(desplazamiento.getCclIdCodOrigenDestino()) 
+                    || x.getIdSeccion().equals(AppConstants.SECCION_4.toString()))).forEach(x -> {
+                secciones.add(createTareaEmpleadoSeccionEstructuraDto(estructura, destino, base, x, tarea, desplazamiento));
+            });
+        }else {
+            ListaValoresDestinoResultItemDto valores = new ListaValoresDestinoResultItemDto();
+            valores.setIdSeccion(AppConstants.SECCION_0.toString());
+            valores.setValor(AppConstants.VALOR_DEFAULT);
+            valores.setIdTipoVenta(AppConstants.ID_TIPO_VENTA_DEFAULT);
+            valores.setTope(AppConstants.TOPE_DEFAULT);
+            secciones.add(createTareaEmpleadoSeccionEstructuraDto(estructura, destino, base, valores, tarea, desplazamiento));
+        }
         
         secciones.stream().forEach(seccion -> {
             TareaPersonaEstructuraDto clon = new TareaPersonaEstructuraDto();
@@ -258,7 +276,7 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
     public List<TareaPersonaEstructuraDesplazamientoDto> listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(EstructurasComResultItemDto src) {
         List<TareaPersonaEstructuraDesplazamientoDto> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src.getIcmListaCondicionesDestino())) {
-            src.getIcmListaCondicionesDestino().forEach(x -> {
+            src.getIcmListaCondicionesDestino().stream().forEach(x -> {
                 TipoOpcionCalculoEnum opcion = TipoOpcionCalculoEnum.fromIdMeta4(x.getIdTipoOpCalculo());
                 if (TipoOpcionCalculoEnum.MEJOR_OPCION.equals(opcion)) {
                     result.addAll(createTareaEmpleadoEstructuraDesplazamientoDto(TipoOpcionCalculoEnum.ORIGEN, opcion, x, src));
@@ -288,6 +306,9 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
                         seccion, estructura));
                 }
             });
+        }else {
+            result.add(createTareaPersonaEstructuraDesplazamientoDto(opcionCalculoEfectiva, opcionCalculo, resultItemDto,
+                    AppConstants.SECCION_0, estructura));
         }
         return result;
     }
