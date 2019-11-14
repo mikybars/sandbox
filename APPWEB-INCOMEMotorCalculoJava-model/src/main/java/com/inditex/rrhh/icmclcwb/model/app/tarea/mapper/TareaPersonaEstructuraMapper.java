@@ -58,7 +58,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "desplazamiento", ignore = true)
     @Mapping(target = "desplazamientoBase", ignore = true)
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
-    @Mapping(target = "pk.id", ignore = true)
+    @Mapping(target = "id", ignore = true)
     // TODO [COMUN] PARTICIONADO
     // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoToTareaPersonaEstructuraDto(
