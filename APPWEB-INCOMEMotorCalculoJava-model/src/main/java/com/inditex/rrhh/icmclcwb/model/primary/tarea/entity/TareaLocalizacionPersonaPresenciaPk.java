@@ -16,15 +16,13 @@ import lombok.Data;
 public class TareaLocalizacionPersonaPresenciaPk implements Serializable {
 
     private static final long serialVersionUID = -5662063113384761734L;
-    
-//  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA")
-  private Long id;
-  
-  @NotNull
-  @Column(name = "FECHA", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fecha;
-  
-    
+
+    @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA")
+    private Long id;
+
+    @NotNull
+    @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaInicioPeriodo;
+
 }

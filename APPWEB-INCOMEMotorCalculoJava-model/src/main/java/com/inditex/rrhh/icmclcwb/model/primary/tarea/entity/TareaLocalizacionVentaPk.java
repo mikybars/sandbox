@@ -17,13 +17,12 @@ public class TareaLocalizacionVentaPk implements Serializable {
 
     private static final long serialVersionUID = -7968593613690419682L;
 
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_VENTA")
     private Long id;
     
     @NotNull
-    @Column(name = "FECHA", nullable = false)
+    @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private Date fechaInicioPeriodo;
     
 }

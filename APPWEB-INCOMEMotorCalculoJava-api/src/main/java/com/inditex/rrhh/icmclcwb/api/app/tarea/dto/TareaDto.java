@@ -45,6 +45,16 @@ public class TareaDto implements Serializable {
     @ApiModelProperty(value = "Id de la empresa", required = true, example = "8")
     private String stdIdLegEnt;
 
+    // TODO [COMUN] PARTICIONADO
+//    @NotNull
+//    @ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true, example = "2017-03-01")
+//    private LocalDate fechaInicioPeriodo;
+
+    // TODO [COMUN] PARTICIONADO
+//    @NotNull
+//    @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true, example = "2017-03-31")
+//    private LocalDate fechaFinPeriodo;
+
     @ApiModelProperty(value = "Ambito de la tarea", required = false)
     private List<TareaAmbitoDto> ambito;
 

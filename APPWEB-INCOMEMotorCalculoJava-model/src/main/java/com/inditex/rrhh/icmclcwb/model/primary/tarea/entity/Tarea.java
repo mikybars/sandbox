@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,6 +49,16 @@ public class Tarea {
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String stdIdLegEnt;
+
+    // TODO [COMUN] PARTICIONADO
+//    @NotNull
+//    @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
+//    private LocalDate fechaInicioPeriodo;
+
+    // TODO [COMUN] PARTICIONADO
+//    @NotNull
+//    @Column(name = "FECHA_FIN_PERIODO", nullable = false)
+//    private LocalDate fechaFinPeriodo;
 
     @NotNull
     @ManyToOne(optional = false)

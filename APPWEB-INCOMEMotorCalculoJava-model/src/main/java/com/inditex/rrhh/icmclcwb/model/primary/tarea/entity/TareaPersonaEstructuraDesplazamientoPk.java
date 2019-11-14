@@ -13,17 +13,16 @@ import lombok.Data;
 
 @Embeddable
 @Data
-public class TareaLocalizacionPresenciaPk implements Serializable {
+public class TareaPersonaEstructuraDesplazamientoPk implements Serializable {
 
-    private static final long serialVersionUID = 1552322741633436428L;
+    private static final long serialVersionUID = 8454270610096980039L;
 
-    @Column(name = "ID_TAREA_LOCALIZACION_PRESENCIA")
+    @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
     private Long id;
-    
+
     @NotNull
     @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaInicioPeriodo;
-    
-    
+
 }
