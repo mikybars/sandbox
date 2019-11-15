@@ -29,6 +29,12 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     }
 
     @Override
+    public CompletableFuture<Void> compensarOnlineSeccionCerrada(RunTareaDto runTarea) {
+        tareaProcesarVentaService.compensarOnlineSeccionCerrada(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
     public CompletableFuture<Void> saveCerrado(RunTareaDto runTarea) {
         tareaProcesarVentaService.saveCerrado(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
@@ -73,6 +79,12 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     @Override
     public CompletableFuture<Void> updateActivoTrasladadas(RunTareaDto runTarea) {
         tareaProcesarVentaService.updateActivoTrasladadas(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> updateActivoTrasladadasSeccion(RunTareaDto runTarea) {
+        tareaProcesarVentaService.updateActivoTrasladadasSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

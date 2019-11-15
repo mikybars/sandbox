@@ -83,7 +83,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         // TODO [COMUN] PARTICIONADO
         // when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015,
         // 1, 1)));
-        when(entity.getPk()).thenReturn(pk);
+//        when(entity.getPk()).thenReturn(pk);
         when(entity.getCclIdCadena()).thenReturn("ID CADENA");
         when(entity.getCclIdCodOrigen()).thenReturn("ID LOCALIZACIÓN");
         when(entity.getCclIdSeccion()).thenReturn("ID SECCIÓN");

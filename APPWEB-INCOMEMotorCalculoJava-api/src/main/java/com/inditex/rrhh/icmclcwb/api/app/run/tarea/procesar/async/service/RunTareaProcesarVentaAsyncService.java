@@ -28,4 +28,8 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> saveCerradoSeccion(RunTareaDto runTarea);
 
+    CompletableFuture<Void> compensarOnlineSeccionCerrada(RunTareaDto runTarea);
+
+    CompletableFuture<Void> updateActivoTrasladadasSeccion(RunTareaDto runTarea);
+
 }

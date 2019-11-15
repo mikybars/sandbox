@@ -26,4 +26,8 @@ public interface RunTareaProcesarVentaService {
 
     void saveCerradoSeccion(@Valid RunTareaDto runTarea);
 
+    void compensarOnlineSeccionCerrada(@Valid RunTareaDto runTarea);
+
+    void updateActivoTrasladadasSeccion(@Valid RunTareaDto runTarea);
+
 }
