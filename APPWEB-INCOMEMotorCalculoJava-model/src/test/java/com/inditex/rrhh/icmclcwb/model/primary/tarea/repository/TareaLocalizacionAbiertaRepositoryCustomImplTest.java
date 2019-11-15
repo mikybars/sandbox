@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -83,7 +84,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
             params.getValue().getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         // idTipoPresencia
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
-        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId(),
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId(),
             params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
         // fechaInicio
         assertTrue(params.getValue().hasValue(SQL_PARAM_FECHA_INICIO));
@@ -230,7 +231,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         TrabajoDto trabajo = mock(TrabajoDto.class);
         when(trabajo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 1, 1));
         when(trabajo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2015, 12, 1));
-        List<Integer> idTipoImporteVenta = Arrays.asList(9001, 9002);
+        List<Integer> idTipoImporteVenta = Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(), 
+                TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(), TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
+                TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId());
 
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tarea, trabajo, idTipoImporteVenta);
         verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());

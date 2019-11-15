@@ -290,7 +290,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(entity.getCclIdPerson()).thenReturn("Id persona");
         when(entity.getCclIdSeccion()).thenReturn("Id seccion");
         when(entity.getIcmIdTpHora()).thenReturn("Id tipo hora");
-        when(entity.getPk()).thenReturn(pk);
+//        when(entity.getPk()).thenReturn(pk);
         when(entity.getMinutos()).thenReturn(123);
         when(entity.getTarea()).thenReturn(tarea);
         when(entity.getTipoDato()).thenReturn(td);

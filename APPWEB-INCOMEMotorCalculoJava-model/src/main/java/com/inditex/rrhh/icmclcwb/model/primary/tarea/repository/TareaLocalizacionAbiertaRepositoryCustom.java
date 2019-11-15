@@ -22,5 +22,9 @@ public interface TareaLocalizacionAbiertaRepositoryCustom {
     void saveCerradoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto,
             @NotNull List<Integer> idTipoImporteVenta);
 
+    void compensarOnlineSeccionCerrada(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto);
+
+    void updateActivoTrasladadasSeccion(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto);
+
 
 }

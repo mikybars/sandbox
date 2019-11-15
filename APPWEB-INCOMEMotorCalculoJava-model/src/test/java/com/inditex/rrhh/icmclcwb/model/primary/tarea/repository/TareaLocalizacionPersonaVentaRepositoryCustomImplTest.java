@@ -63,7 +63,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
         // 1, 1)));
         TareaLocalizacionPersonaVenta entity = mock(TareaLocalizacionPersonaVenta.class);
         when(entity.getTarea()).thenReturn(tarea);
-        when(entity.getPk()).thenReturn(pk);
+//        when(entity.getPk()).thenReturn(pk);
         when(entity.getTipoDato()).thenReturn(td);
         when(entity.getCclIdCodOrigen()).thenReturn("Id localización");
         when(entity.getCclIdPerson()).thenReturn("Id persona");

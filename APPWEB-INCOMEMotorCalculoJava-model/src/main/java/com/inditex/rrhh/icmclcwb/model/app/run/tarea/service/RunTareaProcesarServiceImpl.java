@@ -144,6 +144,20 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfCompensarOnlineSeccionCerrada = runTareaProcesarVentaAsyncService.compensarOnlineSeccionCerrada(runTarea);
+            AsyncUtils.exceptionally(cfCompensarOnlineSeccionCerrada, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfUpdateActivoTrasladadasSeccion = runTareaProcesarVentaAsyncService.updateActivoTrasladadasSeccion(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoTrasladadasSeccion, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
 
             // TODO [JESTEVEZ] Comentar las llamadas a trasladar, compensar y updateActivoTrasladadas (las tres siguientes) si provocan problemas
             CompletableFuture<Void> cfTrasladar = runTareaProcesarVentaAsyncService.trasladar(runTarea);
