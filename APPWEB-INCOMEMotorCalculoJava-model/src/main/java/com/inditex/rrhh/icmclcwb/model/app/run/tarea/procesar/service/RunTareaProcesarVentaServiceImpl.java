@@ -47,6 +47,11 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
     
     @Override
+    public void compensarOnlineSeccionCerrada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada(runTarea.getTarea(), runTarea.getTrabajo());
+    }
+    
+    @Override
     public void saveCerrado(@Valid RunTareaDto runTarea) {
         List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
@@ -94,4 +99,11 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void updateActivoTrasladadas(@Valid RunTareaDto runTarea) {
         tareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas(runTarea.getTarea());
     }
+    
+    @Override
+    public void updateActivoTrasladadasSeccion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(runTarea.getTarea(), runTarea.getTrabajo());
+    }
+    
+
 }

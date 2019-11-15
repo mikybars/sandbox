@@ -308,7 +308,7 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
             });
         }else {
             result.add(createTareaPersonaEstructuraDesplazamientoDto(opcionCalculoEfectiva, opcionCalculo, resultItemDto,
-                    AppConstants.SECCION_0, estructura));
+                    Integer.valueOf(resultItemDto.getIdSeccionDestino()), estructura));
         }
         return result;
     }
