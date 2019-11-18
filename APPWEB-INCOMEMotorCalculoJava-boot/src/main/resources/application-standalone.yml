@@ -65,17 +65,17 @@ amiga:
     resilience:
       backends:
         trabajo:
-          waitInterval: 60
+          waitDurationInOpenState: PT60S
           failureRateThreshold: 50
           ringBufferSizeInHalfOpenState: 10
           ringBufferSizeInClosedState: 100
         tarea:
-          waitInterval: 60
+          waitDurationInOpenState: PT60S
           failureRateThreshold: 50
           ringBufferSizeInHalfOpenState: 10
           ringBufferSizeInClosedState: 100
         limpieza:
-          waitInterval: 60
+          waitDurationInOpenState: PT60S
           failureRateThreshold: 50
           ringBufferSizeInHalfOpenState: 10
           ringBufferSizeInClosedState: 100
