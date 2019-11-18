@@ -240,9 +240,12 @@ public abstract class TareaPersonaEstructuraDecorator extends TareaPersonaEstruc
         result.setIcmIdTpComision(condiciones.getIdTipoComision());
         result.setIcmIdTpCalculo(condiciones.getIdTipoCalculo());
         result.setIcmIdEstrComisionBase(condiciones.getIdEstructuraBase());
-        result.setIcmIdEstrComision(destino != null ? destino.getIdEstructuraDestino() : condiciones.getIdEstructuraBase());
+        if (destino != null) {
+            result.setIcmIdEstrComision(destino.getIdEstructuraDestino());
+        } else {
+            result.setIcmIdEstrComision(condiciones.getIdEstructuraBase());
+        }
         result.setActivo(Boolean.TRUE);
-
         return result;
     }
     
