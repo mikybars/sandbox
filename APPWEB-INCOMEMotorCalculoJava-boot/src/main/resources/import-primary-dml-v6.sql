@@ -1,0 +1,2 @@
+-- El grupo de datos 3002 aplica sobre datos totalizados por [localización] y el tipo de dato 4002 aplica a [localizacion|seccion]
+DELETE FROM TIPO_GRUPO_DATO_TIPO_DATO WHERE ID_TIPO_GRUPO_DATO = 3002 AND ID_TIPO_DATO = 4002;
