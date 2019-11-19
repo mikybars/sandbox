@@ -135,6 +135,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
     private Map<String, Meta4PropertiesDto> meta4Properties;
     
     @Mock
+    private RecolectarPropertiesDto recolectarProperties;
+    
+    @Mock
     private TareaMapper tareaMapper;
     
     @InjectMocks
