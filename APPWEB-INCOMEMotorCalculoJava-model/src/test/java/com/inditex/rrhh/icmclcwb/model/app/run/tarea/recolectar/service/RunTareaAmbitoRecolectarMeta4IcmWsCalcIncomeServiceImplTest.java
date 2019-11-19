@@ -435,7 +435,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
     }
     
     @Test
-    public void estructurasComByRunTareaAndTareaAmbito() {
+    public void estructurasComByRunTareaAndTareaAmbitoTest() {
         RunTareaDto runTarea = new RunTareaDto();
         TareaDto tarea = new TareaDto();
         tarea.setId(1L);
