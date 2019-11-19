@@ -22,6 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCadenaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
@@ -604,9 +605,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
             return null;
         });
-         
+        
         when(meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE)).thenReturn(properties);
-        when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
+        when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDtoWithDates(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class), any(RecolectarPropertiesDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getConfiguracionVentaOnline(any(ConfiguracionVentaOnlineRequestDto.class))).thenReturn(cf);
         when(tareaAgrupacionConfiguracionAsyncService.saveAgrupacionConfiguracionDto(any(List.class), any(RunTareaDto.class))).thenReturn(cfNull);
 
@@ -632,9 +633,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         CompletableFuture<List<ConfiguracionVentaOnlineResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
             return new ArrayList<>();
         });
-         
+        
         when(meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE)).thenReturn(properties);
-        when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new GenericFilterDto());
+        when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDtoWithDates(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class), any(RecolectarPropertiesDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getConfiguracionVentaOnline(any(ConfiguracionVentaOnlineRequestDto.class))).thenReturn(cf);
 
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.configuracionVentaOnlineByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
