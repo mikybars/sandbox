@@ -1,16 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -18,12 +14,9 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,9 +35,6 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Mock
-    private RecolectarPropertiesDto recolectarProperties;
     
     @InjectMocks
     private TareaLocalizacionAbiertaRepositoryCustomImpl tareaLocalizacionAbiertaRepositoryCustom;
@@ -66,17 +56,15 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
     @Test
     public void saveAbiertoTest() {
-
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(900L);
         TrabajoDto trabajo = mock(TrabajoDto.class);
-        when(trabajo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 1, 1));
-        when(trabajo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2015, 12, 1));
 
         tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tarea, trabajo);
         verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
         assertEquals(SQL_SAVE_ABIERTO, sql.getValue());
-        // parametros de la consulta: idTipoImporteVenta, idTipoPresencia, fechaInicio, fechaFin, idTarea, importe
+        // Parametros de la consulta:
+        // idTipoImporteVenta, idTipoPresencia, idTarea, importe, excluidoCalculo, activo, nuevoAbierto, idSeccion
         assertEquals(8, params.getValue().getValues().size());
         // idTipoImporteVenta
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
@@ -86,14 +74,6 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
         assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId(),
             params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
-        // fechaInicio
-        assertTrue(params.getValue().hasValue(SQL_PARAM_FECHA_INICIO));
-        assertEquals(TimeUtils.toDate(trabajo.getFechaInicioPeriodo()),
-            params.getValue().getValue(SQL_PARAM_FECHA_INICIO));
-        // fechaFin
-        assertTrue(params.getValue().hasValue(SQL_PARAM_FECHA_FIN));
-        assertEquals(RunUtils.addDays(trabajo.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"),
-            params.getValue().getValue(SQL_PARAM_FECHA_FIN));
         // nuevoAbierto
         assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
@@ -106,6 +86,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // idSeccion
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_SECCION));
         assertEquals(AppConstants.SECCION_4, params.getValue().getValue(SQL_PARAM_ID_SECCION));
+        // excluidoCalculo
+        assertTrue(params.getValue().hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_EXCLUIDO_CALCULO));
+        // activo
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
     }
 
     @Test
@@ -223,34 +209,21 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
     }
 
     @Test
-    public void saveCerrado() {
-
-        when(recolectarProperties.getDaysNumber()).thenReturn(1);
+    public void saveCerradoTest() {
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(6789L);
         TrabajoDto trabajo = mock(TrabajoDto.class);
-        when(trabajo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 1, 1));
-        when(trabajo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2015, 12, 1));
         List<Integer> idTipoImporteVenta = Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(), 
                 TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(), TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId());
-
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tarea, trabajo, idTipoImporteVenta);
         verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
         assertEquals(SQL_SAVE_CERRADO, sql.getValue());
-        // parametros de la consulta: tiposDato, fechaInicio, fechaFin, idTarea, nuevoAbierto, idSeccion
+        // parametros de la consulta: tiposDato, idTarea, nuevoAbierto, idSeccion, activo, abierto
         assertEquals(6, params.getValue().getValues().size());
         // tiposDato
         assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
         assertEquals(idTipoImporteVenta, params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
-        // fechaInicio
-        assertTrue(params.getValue().hasValue(SQL_PARAM_FECHA_INICIO));
-        assertEquals(TimeUtils.toDate(trabajo.getFechaInicioPeriodo()),
-            params.getValue().getValue(SQL_PARAM_FECHA_INICIO));
-        // fechaFin
-        assertTrue(params.getValue().hasValue(SQL_PARAM_FECHA_FIN));
-        assertEquals(RunUtils.addDays(trabajo.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"),
-            params.getValue().getValue(SQL_PARAM_FECHA_FIN));
         // idTarea
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
@@ -260,6 +233,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // idSeccion
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_SECCION));
         assertEquals(AppConstants.SECCION_4, params.getValue().getValue(SQL_PARAM_ID_SECCION));
+        // activo
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
+        // abierto
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ABIERTO));
     }
 
 }

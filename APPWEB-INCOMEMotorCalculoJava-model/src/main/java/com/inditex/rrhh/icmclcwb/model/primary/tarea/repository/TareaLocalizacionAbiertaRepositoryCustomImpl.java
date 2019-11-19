@@ -61,9 +61,6 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     @Override
     public void saveAbierto(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
-                TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IMPORTE, SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO);
@@ -71,6 +68,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
                 TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
                 TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         namedParameterJdbcTemplate.update(sqlSaveAbierto, parameters);
     }
@@ -78,9 +78,6 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     @Override
     public void saveAbiertoSeccion(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
-                TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IMPORTE, SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO);
@@ -88,6 +85,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
                 TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
                 TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         namedParameterJdbcTemplate.update(sqlSaveAbiertoSeccion, parameters);
     }
     
@@ -172,14 +172,13 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     @Override
     public void saveCerrado(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto, @NotNull List<Integer> idTipoImporteVenta) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
-                TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(), 
                 TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(), TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         namedParameterJdbcTemplate.update(sqlSaveCerrado, parameters);
     }
@@ -187,14 +186,13 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     @Override
     public void saveCerradoSeccion(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto, @NotNull List<Integer> idTipoImporteVenta) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
-                TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(), 
                 TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(), TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         namedParameterJdbcTemplate.update(sqlSaveCerradoSeccion, parameters);
     }
     
