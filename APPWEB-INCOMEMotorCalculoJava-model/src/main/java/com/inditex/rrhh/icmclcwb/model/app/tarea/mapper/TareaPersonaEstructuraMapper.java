@@ -8,12 +8,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ListaEstructuraDesplazamientosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesBaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesDestinoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaValoresBaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaValoresDestinoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaEstructuraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamiento;
@@ -33,72 +34,227 @@ public abstract class TareaPersonaEstructuraMapper {
 
     public abstract List<TareaPersonaEstructuraDto> tareaPersonaEstructuraToTareaPersonaEstructuraDto(
             List<TareaPersonaEstructura> src);
-
+    
     public List<TareaPersonaEstructura> tareaPersonaEstructuraDtoToTareaPersonaEstructura(
             List<TareaPersonaEstructuraDto> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
    
+    public List<TareaPersonaEstructuraDto> estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(
+            final List<EstructurasComResultItemDto> estructurasComResultItem, final TareaDto tarea) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+    
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
-    @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
-    @Mapping(target = "stdIdHr", source = "src.idEmpleado")
-    @Mapping(target = "stdOrHrPeriod", source = "src.orEmpleado")
-    @Mapping(target = "icmIdEstrComisionPadre", source = "src.idEstructura")
-    @Mapping(target = "cclIdPerson", source = "src.idEmpleadoLocal")
-    @Mapping(target = "fechaInicio", source = "src.fechaInicio")
-    @Mapping(target = "fechaFin", source = "src.fechaFin")
-    @Mapping(target = "icmIdTpEstructura", source = "src.idTpEstructura")
-    @Mapping(target = "idTipoVenta", ignore = true, defaultValue = "01")
-    @Mapping(target = "icmIdEstrComisionBase", ignore = true)
-    @Mapping(target = "icmIdEstrComision", ignore = true)
-    @Mapping(target = "icmIdTpCalculo", ignore = true)
-    @Mapping(target = "icmIdTpComision", ignore = true)
-    @Mapping(target = "cclIdSeccionEfectiva", ignore = true)
-    @Mapping(target = "cclIdSeccionEstructura", ignore = true)
-    @Mapping(target = "desplazamiento", ignore = true)
-    @Mapping(target = "desplazamientoBase", ignore = true)
+    @Mapping(target = "activo", constant = "true")
+    // Desplazamiento
+    @Mapping(target = "desplazamiento", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
+    @Mapping(target = "desplazamientoBase", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
+    // Datos padre
+    @Mapping(target = "cclIdOrigen", source = "estructurasComResultItem.idOrigen")
+    @Mapping(target = "stdIdHr", source = "estructurasComResultItem.idEmpleado")
+    @Mapping(target = "stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
+    @Mapping(target = "cclIdPerson", source = "estructurasComResultItem.idEmpleadoLocal")
+    @Mapping(target = "fechaInicio", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "fechaFin", source = "estructurasComResultItem.fechaFin")
+    @Mapping(target = "icmIdTpEstructura", source = "estructurasComResultItem.idTpEstructura")
+    @Mapping(target = "icmIdEstrComisionPadre", source = "estructurasComResultItem.idEstructura")
+    @Mapping(target = "ordinalEstructura", ignore = true)
+    // Valores
+    @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "icmIdEstrComision", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesBaseResultItem.idTipoCalculo")
+    @Mapping(target = "icmIdTpComision", source = "listaCondicionesBaseResultItem.idTipoComision")
+    @Mapping(target = "diaL", source = "listaCondicionesBaseResultItem.diaL", defaultValue = "true")
+    @Mapping(target = "diaM", source = "listaCondicionesBaseResultItem.diaM", defaultValue = "true")
+    @Mapping(target = "diaX", source = "listaCondicionesBaseResultItem.diaX", defaultValue = "true")
+    @Mapping(target = "diaJ", source = "listaCondicionesBaseResultItem.diaJ", defaultValue = "true")
+    @Mapping(target = "diaV", source = "listaCondicionesBaseResultItem.diaV", defaultValue = "true")
+    @Mapping(target = "diaS", source = "listaCondicionesBaseResultItem.diaS", defaultValue = "true")
+    @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
+    // Valores por seccion
+    @Mapping(target = "valor", constant = "0")
+    @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
+    @Mapping(target = "cclIdSeccionEstructura", constant = "0")
+    @Mapping(target = "idTipoVenta", constant = "01")
+    @Mapping(target = "tope", constant = "0")
+    // Datos del desplazamiento
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
+    public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
+            final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, final TareaDto tarea);
+    
     // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
-    public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoToTareaPersonaEstructuraDto(
-            final EstructurasComResultItemDto src, TareaDto tarea);
+    // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idTarea", source = "tarea.id")
+    @Mapping(target = "activo", constant = "true")
+    // Desplazamiento
+    @Mapping(target = "desplazamiento", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
+    @Mapping(target = "desplazamientoBase", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
+    // Datos padre
+    @Mapping(target = "cclIdOrigen", source = "estructurasComResultItem.idOrigen")
+    @Mapping(target = "stdIdHr", source = "estructurasComResultItem.idEmpleado")
+    @Mapping(target = "stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
+    @Mapping(target = "cclIdPerson", source = "estructurasComResultItem.idEmpleadoLocal")
+    @Mapping(target = "fechaInicio", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "fechaFin", source = "estructurasComResultItem.fechaFin")
+    @Mapping(target = "icmIdTpEstructura", source = "estructurasComResultItem.idTpEstructura")
+    @Mapping(target = "icmIdEstrComisionPadre", source = "estructurasComResultItem.idEstructura")
+    @Mapping(target = "ordinalEstructura", ignore = true)
+    // Valores
+    @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "icmIdEstrComision", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesBaseResultItem.idTipoCalculo")
+    @Mapping(target = "icmIdTpComision", source = "listaCondicionesBaseResultItem.idTipoComision")
+    @Mapping(target = "diaL", source = "listaCondicionesBaseResultItem.diaL", defaultValue = "true")
+    @Mapping(target = "diaM", source = "listaCondicionesBaseResultItem.diaM", defaultValue = "true")
+    @Mapping(target = "diaX", source = "listaCondicionesBaseResultItem.diaX", defaultValue = "true")
+    @Mapping(target = "diaJ", source = "listaCondicionesBaseResultItem.diaJ", defaultValue = "true")
+    @Mapping(target = "diaV", source = "listaCondicionesBaseResultItem.diaV", defaultValue = "true")
+    @Mapping(target = "diaS", source = "listaCondicionesBaseResultItem.diaS", defaultValue = "true")
+    @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
+    // Valores por seccion
+    @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
+    @Mapping(target = "valor", source = "listaValoresBaseResultItem.valor", defaultValue = "0")
+    @Mapping(target = "cclIdSeccionEstructura", source = "listaValoresBaseResultItem.idSeccion", defaultValue = "0")
+    @Mapping(target = "idTipoVenta", source = "listaValoresBaseResultItem.idTipoVenta", defaultValue = "01")
+    @Mapping(target = "tope", source = "listaValoresBaseResultItem.tope", defaultValue = "0")
+    // Datos del desplazamiento
+    @Mapping(target = "estructuraDesplazamiento", ignore = true)
+    public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(
+            final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem,
+            final ListaValoresBaseResultItemDto listaValoresBaseResultItem, final Integer idSeccion, final TareaDto tarea);
     
-    public List<TareaPersonaEstructuraDto> listaCondicionesBaseResultItemDtoToTareaPersonaEstructuraDto(
-            final EstructurasComResultItemDto comisionEmpleado,
-            TareaDto tarea) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idTarea", source = "tarea.id")
+    @Mapping(target = "activo", constant = "true")
+    // Desplazamiento
+    @Mapping(target = "desplazamiento", constant = "true")
+    @Mapping(target = "desplazamientoBase", constant = "false")
+    // Datos padre
+    @Mapping(target = "cclIdOrigen", source = "estructurasComResultItem.idOrigen")
+    @Mapping(target = "stdIdHr", source = "estructurasComResultItem.idEmpleado")
+    @Mapping(target = "stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
+    @Mapping(target = "cclIdPerson", source = "estructurasComResultItem.idEmpleadoLocal")
+    @Mapping(target = "fechaInicio", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "fechaFin", source = "estructurasComResultItem.fechaFin")
+    @Mapping(target = "icmIdTpEstructura", source = "estructurasComResultItem.idTpEstructura")
+    @Mapping(target = "icmIdEstrComisionPadre", source = "estructurasComResultItem.idEstructura")
+    @Mapping(target = "ordinalEstructura", source = "ordinalEstructura")
+    // Valores
+    @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo")
+    @Mapping(target = "icmIdTpComision", source = "listaCondicionesDestinoResultItem.idTipoComision")
+    @Mapping(target = "diaL", source = "listaCondicionesDestinoResultItem.diaL", defaultValue = "true")
+    @Mapping(target = "diaM", source = "listaCondicionesDestinoResultItem.diaM", defaultValue = "true")
+    @Mapping(target = "diaX", source = "listaCondicionesDestinoResultItem.diaX", defaultValue = "true")
+    @Mapping(target = "diaJ", source = "listaCondicionesDestinoResultItem.diaJ", defaultValue = "true")
+    @Mapping(target = "diaV", source = "listaCondicionesDestinoResultItem.diaV", defaultValue = "true")
+    @Mapping(target = "diaS", source = "listaCondicionesDestinoResultItem.diaS", defaultValue = "true")
+    @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
+    // Valores por seccion
+    @Mapping(target = "valor", constant = "0")
+    @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
+    @Mapping(target = "cclIdSeccionEstructura", constant = "0")
+    @Mapping(target = "idTipoVenta", constant = "01")
+    @Mapping(target = "tope", constant = "0")
+    // Datos del desplazamiento
+    @Mapping(target = "estructuraDesplazamiento.activo", constant = "true")
+    @Mapping(target = "estructuraDesplazamiento.ordinalEstructura", source = "ordinalEstructura")
+    @Mapping(target = "estructuraDesplazamiento.fechaInicio", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "estructuraDesplazamiento.fechaFin", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "estructuraDesplazamiento.cclIdOrigen", source = "estructurasComResultItem.idOrigen")
+    @Mapping(target = "estructuraDesplazamiento.stdIdHr", source = "estructurasComResultItem.idEmpleado")
+    @Mapping(target = "estructuraDesplazamiento.stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
+    @Mapping(target = "estructuraDesplazamiento.cclIdPerson", source = "estructurasComResultItem.idEmpleadoLocal")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionPadre", source = "estructurasComResultItem.idEstructura")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEfectiva", source = "idTipoOpcionCalculoEfectiva")
+    @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEstructura", source = "idTipoOpcionCalculoEstructura")
+    @Mapping(target = "estructuraDesplazamiento.stdIdWorkLocatDestino", source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestino")
+    @Mapping(target = "estructuraDesplazamiento.cclIdCodOrigenDestino", source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestinoMtu")
+    @Mapping(target = "estructuraDesplazamiento.idMotivoDesplazamiento", source = "listaCondicionesDestinoResultItem.idMotivoDesplazamiento")
+    @Mapping(target = "estructuraDesplazamiento.cclIdPuestoDestino", source = "listaCondicionesDestinoResultItem.idPuestoDestino")
+    @Mapping(target = "estructuraDesplazamiento.cclIdSeccionDestino", source = "listaCondicionesDestinoResultItem.idSeccionDestino")
+    @Mapping(target = "estructuraDesplazamiento.icmIdTpReqCom", source = "listaCondicionesDestinoResultItem.idTipoReqComision")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
+    @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "listaCondicionesDestinoResultItem.horasDestino")
+    @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "listaCondicionesDestinoResultItem.horasOrigen")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito", source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
+    public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraToTareaPersonaEstructuraDto(
+            final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
+            final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final TareaDto tarea, final Integer ordinalEstructura,
+            final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura);
     
-    public List<TareaPersonaEstructuraDto> estructurasComResultItemDtoToTareaPersonaEstructuraDto(
-            List<EstructurasComResultItemDto> src, TareaDto tarea) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
-
-    @Mapping(target = "idTipoOpcionCalculoEstructura", ignore = true)
-    @Mapping(target = "idTipoOpcionCalculoEfectiva", ignore = true)
-    @Mapping(target = "stdIdWorkLocatDestino", source = "idLugarTrabajoDestino")
-    @Mapping(target = "cclIdCodOrigenDestino", source = "idLugarTrabajoDestinoMtu")
-    @Mapping(target = "idMotivoDesplazamiento", source = "idMotivoDesplazamiento")
-    @Mapping(target = "cclIdPuestoDestino", source = "idPuestoDestino")
-    @Mapping(target = "cclIdSeccionDestino", source = "idSeccionDestino")
-    @Mapping(target = "icmIdTpReqCom", source = "idTipoReqComision")
-    @Mapping(target = "icmIdEstrComision", source = "idEstructuraDestino")
-    @Mapping(target = "horasDestino", source = "horasDestino")
-    @Mapping(target = "horasOrigen", source = "horasOrigen")
-    @Mapping(target = "icmIdEstructuraAmbito", source = "idEstructuraAmbito")
-    public abstract TareaPersonaEstructuraDesplazamientoDto listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(
-        ListaCondicionesDestinoResultItemDto src);
-
-    public List<TareaPersonaEstructuraDesplazamientoDto> listaEstructuraDesplazamientosResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(
-        List<ListaEstructuraDesplazamientosResultItemDto> src) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
-
-    public List<TareaPersonaEstructuraDesplazamientoDto> listaCondicionesDestinoResultItemDtoToTareaPersonaEstructuraDesplazamientoDto(
-        EstructurasComResultItemDto src) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
+    // TODO [COMUN] PARTICIONADO
+    // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idTarea", source = "tarea.id")
+    @Mapping(target = "activo", constant = "true")
+    // Desplazamiento
+    @Mapping(target = "desplazamiento", constant = "true")
+    @Mapping(target = "desplazamientoBase", constant = "false")
+    // Datos padre
+    @Mapping(target = "cclIdOrigen", source = "estructurasComResultItem.idOrigen")
+    @Mapping(target = "stdIdHr", source = "estructurasComResultItem.idEmpleado")
+    @Mapping(target = "stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
+    @Mapping(target = "cclIdPerson", source = "estructurasComResultItem.idEmpleadoLocal")
+    @Mapping(target = "fechaInicio", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "fechaFin", source = "estructurasComResultItem.fechaFin")
+    @Mapping(target = "icmIdTpEstructura", source = "estructurasComResultItem.idTpEstructura")
+    @Mapping(target = "icmIdEstrComisionPadre", source = "estructurasComResultItem.idEstructura")
+    @Mapping(target = "ordinalEstructura", source = "ordinalEstructura")
+    // Valores
+    @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo")
+    @Mapping(target = "icmIdTpComision", source = "listaCondicionesDestinoResultItem.idTipoComision")
+    @Mapping(target = "diaL", source = "listaCondicionesDestinoResultItem.diaL", defaultValue = "true")
+    @Mapping(target = "diaM", source = "listaCondicionesDestinoResultItem.diaM", defaultValue = "true")
+    @Mapping(target = "diaX", source = "listaCondicionesDestinoResultItem.diaX", defaultValue = "true")
+    @Mapping(target = "diaJ", source = "listaCondicionesDestinoResultItem.diaJ", defaultValue = "true")
+    @Mapping(target = "diaV", source = "listaCondicionesDestinoResultItem.diaV", defaultValue = "true")
+    @Mapping(target = "diaS", source = "listaCondicionesDestinoResultItem.diaS", defaultValue = "true")
+    @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
+    // Valores por seccion
+    @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
+    @Mapping(target = "valor", source = "listaValoresDestinoResultItem.valor", defaultValue = "0")
+    @Mapping(target = "cclIdSeccionEstructura", source = "listaValoresDestinoResultItem.idSeccion", defaultValue = "0")
+    @Mapping(target = "idTipoVenta", source = "listaValoresDestinoResultItem.idTipoVenta", defaultValue = "01")
+    @Mapping(target = "tope", source = "listaValoresDestinoResultItem.tope", defaultValue = "0")
+    // Datos del desplazamiento
+    @Mapping(target = "estructuraDesplazamiento.activo", constant = "true")
+    @Mapping(target = "estructuraDesplazamiento.ordinalEstructura", source = "ordinalEstructura")
+    @Mapping(target = "estructuraDesplazamiento.fechaInicio", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "estructuraDesplazamiento.fechaFin", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "estructuraDesplazamiento.cclIdOrigen", source = "estructurasComResultItem.idOrigen")
+    @Mapping(target = "estructuraDesplazamiento.stdIdHr", source = "estructurasComResultItem.idEmpleado")
+    @Mapping(target = "estructuraDesplazamiento.stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
+    @Mapping(target = "estructuraDesplazamiento.cclIdPerson", source = "estructurasComResultItem.idEmpleadoLocal")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionPadre", source = "estructurasComResultItem.idEstructura")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEfectiva", source = "idTipoOpcionCalculoEfectiva")
+    @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEstructura", source = "idTipoOpcionCalculoEstructura")
+    @Mapping(target = "estructuraDesplazamiento.stdIdWorkLocatDestino", source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestino")
+    @Mapping(target = "estructuraDesplazamiento.cclIdCodOrigenDestino", source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestinoMtu")
+    @Mapping(target = "estructuraDesplazamiento.idMotivoDesplazamiento", source = "listaCondicionesDestinoResultItem.idMotivoDesplazamiento")
+    @Mapping(target = "estructuraDesplazamiento.cclIdPuestoDestino", source = "listaCondicionesDestinoResultItem.idPuestoDestino")
+    @Mapping(target = "estructuraDesplazamiento.cclIdSeccionDestino", source = "listaCondicionesDestinoResultItem.idSeccionDestino")
+    @Mapping(target = "estructuraDesplazamiento.icmIdTpReqCom", source = "listaCondicionesDestinoResultItem.idTipoReqComision")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
+    @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "listaCondicionesDestinoResultItem.horasDestino")
+    @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "listaCondicionesDestinoResultItem.horasOrigen")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito", source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
+    public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
+            final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final ListaValoresDestinoResultItemDto listaValoresDestinoResultItem, 
+            final TareaDto tarea, final Integer ordinalEstructura, final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura, final Integer idSeccion);
 
     @Mapping(target = "tarea", ignore = true)
     @Mapping(target = "tipoOpcionCalculoEstructura", ignore = true)
@@ -116,10 +272,10 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "pk.id", ignore = true)
     // TODO [COMUN] PARTICIONADO
     // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
-    public abstract TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(
+    public abstract TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(
         TareaPersonaEstructuraDto src);
 
-    public abstract List<TareaPersonaEstructuraDesplazamiento> tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(
+    public abstract List<TareaPersonaEstructuraDesplazamiento> tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(
         List<TareaPersonaEstructuraDto> src);
 
 }

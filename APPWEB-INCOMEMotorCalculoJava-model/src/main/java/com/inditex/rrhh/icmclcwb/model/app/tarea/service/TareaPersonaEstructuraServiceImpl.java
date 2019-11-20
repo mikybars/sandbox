@@ -38,16 +38,16 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
                 .tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructura)));
         // Guardado de desplazamientos
         tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(tareaPersonaEstructuraMapper
-                .tareaPersonaEstructuraDtoToTareapersonaDesplazamiento(tareaPersonaEstructura));
+                .tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(tareaPersonaEstructura));
         return result;
     }
 
     
     @Override
     public List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
-            @Valid List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid TareaDto tarea) {
+            @Valid final List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid final TareaDto tarea) {
         return tareaPersonaEstructuraMapper
-                .estructurasComResultItemDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
+                .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
     }
 
 }

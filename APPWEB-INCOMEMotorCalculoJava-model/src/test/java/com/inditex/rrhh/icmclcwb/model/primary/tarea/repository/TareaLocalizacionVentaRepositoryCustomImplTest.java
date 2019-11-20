@@ -105,7 +105,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setDouble(5, entity.getImporteSinImpuestos());
         verify(pstmt, times(1)).setDouble(6, entity.getImporteConImpuestos());
         verify(pstmt, times(1)).setDouble(7, td.getId());
-        verify(pstmt, times(1)).setObject(8, entity.getActivo());
+        verify(pstmt, times(1)).setBoolean(8, entity.getActivo());
         verify(pstmt, times(1)).setLong(9, tarea.getId());
         // TODO [COMUN] PARTICIONADO
         // verify(pstmt, times(1)).setLong(10, pk.getFechaInicioPeriodo());
