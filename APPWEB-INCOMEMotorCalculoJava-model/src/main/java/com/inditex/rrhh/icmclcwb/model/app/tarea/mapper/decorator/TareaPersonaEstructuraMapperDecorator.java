@@ -15,10 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Es
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesBaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoOpcionCalculo;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamiento;
 
 public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersonaEstructuraMapper {
 
@@ -110,36 +108,36 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
         });
         return result;
     }
-
-    @Override
-    public TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(TareaPersonaEstructuraDto src) {
-        TareaPersonaEstructuraDesplazamiento result = null;
-        if (src.getEstructuraDesplazamiento() != null) {
-            result = delegate.tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(src);
-            result.setTarea(new Tarea());
-            result.getTarea().setId(src.getIdTarea());
-            result.setTipoOpcionCalculoEstructura(new TipoOpcionCalculo());
-            result.getTipoOpcionCalculoEstructura().setId(src.getEstructuraDesplazamiento().getIdTipoOpcionCalculoEstructura());
-            result.setTipoOpcionCalculoEfectiva(new TipoOpcionCalculo());
-            result.getTipoOpcionCalculoEfectiva().setId(src.getEstructuraDesplazamiento().getIdTipoOpcionCalculoEfectiva());
-            result.setIcmIdEstrComision(src.getEstructuraDesplazamiento().getIcmIdEstrComision());
-            result.setIcmIdEstructuraAmbito(src.getEstructuraDesplazamiento().getIcmIdEstructuraAmbito());
-        }
-        return result;
-    }
-
-    @Override
-    public List<TareaPersonaEstructuraDesplazamiento> tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(List<TareaPersonaEstructuraDto> src) {
-        List<TareaPersonaEstructuraDesplazamiento> result = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(estructura -> {
-                TareaPersonaEstructuraDesplazamiento desplazamiento = tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(estructura);
-                if (desplazamiento != null) {
-                    result.add(desplazamiento);
-                }
-            });
-        }
-        return result;
-    }
+//
+//    @Override
+//    public TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(TareaPersonaEstructuraDto src) {
+//        TareaPersonaEstructuraDesplazamiento result = null;
+//        if (src.getEstructuraDesplazamiento() != null) {
+//            result = delegate.tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(src);
+//            result.setTarea(new Tarea());
+//            result.getTarea().setId(src.getIdTarea());
+//            result.setTipoOpcionCalculoEstructura(new TipoOpcionCalculo());
+//            result.getTipoOpcionCalculoEstructura().setId(src.getEstructuraDesplazamiento().getIdTipoOpcionCalculoEstructura());
+//            result.setTipoOpcionCalculoEfectiva(new TipoOpcionCalculo());
+//            result.getTipoOpcionCalculoEfectiva().setId(src.getEstructuraDesplazamiento().getIdTipoOpcionCalculoEfectiva());
+//            result.setIcmIdEstrComision(src.getEstructuraDesplazamiento().getIcmIdEstrComision());
+//            result.setIcmIdEstructuraAmbito(src.getEstructuraDesplazamiento().getIcmIdEstructuraAmbito());
+//        }
+//        return result;
+//    }
+//
+//    @Override
+//    public List<TareaPersonaEstructuraDesplazamiento> tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(List<TareaPersonaEstructuraDto> src) {
+//        List<TareaPersonaEstructuraDesplazamiento> result = new ArrayList<>();
+//        if (CollectionUtils.isNotEmpty(src)) {
+//            src.forEach(estructura -> {
+//                TareaPersonaEstructuraDesplazamiento desplazamiento = tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(estructura);
+//                if (desplazamiento != null) {
+//                    result.add(desplazamiento);
+//                }
+//            });
+//        }
+//        return result;
+//    }
     
 }
