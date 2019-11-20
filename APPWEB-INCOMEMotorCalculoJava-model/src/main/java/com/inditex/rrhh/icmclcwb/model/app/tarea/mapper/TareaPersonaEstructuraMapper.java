@@ -15,12 +15,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Li
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesDestinoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaValoresBaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaValoresDestinoResultItemDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaEstructuraDecorator;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaEstructuraMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamiento;
 
-@Mapper(imports = org.apache.commons.lang3.StringUtils.class)
-@DecoratedWith(value = TareaPersonaEstructuraDecorator.class)
+@Mapper(imports = {org.apache.commons.lang3.StringUtils.class, com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants.class})
+@DecoratedWith(value = TareaPersonaEstructuraMapperDecorator.class)
 public abstract class TareaPersonaEstructuraMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
@@ -184,13 +184,13 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "estructuraDesplazamiento.cclIdSeccionDestino", source = "listaCondicionesDestinoResultItem.idSeccionDestino")
     @Mapping(target = "estructuraDesplazamiento.icmIdTpReqCom", source = "listaCondicionesDestinoResultItem.idTipoReqComision")
     @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
-    @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "listaCondicionesDestinoResultItem.horasDestino")
-    @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "listaCondicionesDestinoResultItem.horasOrigen")
+    @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
+    @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
     @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito", source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraToTareaPersonaEstructuraDto(
             final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
             final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final TareaDto tarea, final Integer ordinalEstructura,
-            final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura);
+            final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura, final Boolean horasOrigen, final Boolean horasDestino);
     
     // TODO [COMUN] PARTICIONADO
     // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
@@ -248,13 +248,13 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "estructuraDesplazamiento.cclIdSeccionDestino", source = "listaCondicionesDestinoResultItem.idSeccionDestino")
     @Mapping(target = "estructuraDesplazamiento.icmIdTpReqCom", source = "listaCondicionesDestinoResultItem.idTipoReqComision")
     @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
-    @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "listaCondicionesDestinoResultItem.horasDestino")
-    @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "listaCondicionesDestinoResultItem.horasOrigen")
+    @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
+    @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
     @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito", source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
             final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final ListaValoresDestinoResultItemDto listaValoresDestinoResultItem, 
-            final TareaDto tarea, final Integer ordinalEstructura, final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura, final Integer idSeccion);
+            final TareaDto tarea, final Integer ordinalEstructura, final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura, final Integer idSeccion, final Boolean horasOrigen, final Boolean horasDestino);
 
     @Mapping(target = "tarea", ignore = true)
     @Mapping(target = "tipoOpcionCalculoEstructura", ignore = true)
