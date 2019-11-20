@@ -14,6 +14,6 @@ public interface TareaPersonaEstructuraService {
             @Valid TareaDto tarea);
 
     List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
-            @Valid List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid TareaDto tarea);
+            @Valid final List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid final TareaDto tarea);
 
 }
