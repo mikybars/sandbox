@@ -36,6 +36,10 @@ public class TimeUtils {
     public static LocalDate nowLocalDate(ZoneId zone) {
         return ZonedDateTime.now(zone).toLocalDate();
     }
+    
+    public static LocalDateTime toLocalDateTime(LocalDate localDate) {
+        return LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
+    }
 
     public static LocalDate nowLocalDate() {
         return TimeUtils.nowLocalDate(ZoneId.systemDefault());

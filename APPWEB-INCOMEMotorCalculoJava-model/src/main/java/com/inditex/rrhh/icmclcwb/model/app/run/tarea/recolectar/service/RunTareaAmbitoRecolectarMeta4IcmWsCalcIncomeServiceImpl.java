@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -75,6 +76,10 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 @Validated
 public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         implements RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
+
+    @Autowired
+    @Qualifier(value = "recolectarProperties")
+    private RecolectarPropertiesDto recolectarProperties;
 
     @Autowired
     @Qualifier("meta4Properties")
@@ -467,7 +472,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 tareaAmbito.getCclIdOrigen());
             ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
             request.setData(tareaMapper
-                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(runTarea.getTrabajo(), runTarea.getTarea(), tareaAmbito));
+                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDtoWithDates(runTarea.getTrabajo(), runTarea.getTarea(), tareaAmbito, recolectarProperties));
             request.getData().setItem(cadenas.stream().map(x -> GenericFilterParametersDto.builder().idCadena(x.getId()).build()).collect(Collectors.toList()));
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE).getPage());
 
