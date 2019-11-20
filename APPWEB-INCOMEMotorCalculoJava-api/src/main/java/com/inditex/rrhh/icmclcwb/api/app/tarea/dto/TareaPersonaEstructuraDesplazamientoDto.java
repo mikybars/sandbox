@@ -17,6 +17,10 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     private String id;
 
     @NotNull
+    @ApiModelProperty(value = "Identificador del tarea", required = true)
+    private Long idTarea;
+    
+    @NotNull
     @ApiModelProperty(value = "Fecha de inicio en la estructura", required = true)
     private LocalDateTime fechaInicio;
 

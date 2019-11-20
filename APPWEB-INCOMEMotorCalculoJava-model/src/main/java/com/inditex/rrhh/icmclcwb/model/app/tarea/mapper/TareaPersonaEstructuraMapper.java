@@ -165,10 +165,11 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "idTipoVenta", constant = "01")
     @Mapping(target = "tope", constant = "0")
     // Datos del desplazamiento
+    @Mapping(target = "estructuraDesplazamiento.idTarea", source = "tarea.id")
     @Mapping(target = "estructuraDesplazamiento.activo", constant = "true")
     @Mapping(target = "estructuraDesplazamiento.ordinalEstructura", source = "ordinalEstructura")
     @Mapping(target = "estructuraDesplazamiento.fechaInicio", source = "estructurasComResultItem.fechaInicio")
-    @Mapping(target = "estructuraDesplazamiento.fechaFin", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "estructuraDesplazamiento.fechaFin", source = "estructurasComResultItem.fechaFin")
     @Mapping(target = "estructuraDesplazamiento.cclIdOrigen", source = "estructurasComResultItem.idOrigen")
     @Mapping(target = "estructuraDesplazamiento.stdIdHr", source = "estructurasComResultItem.idEmpleado")
     @Mapping(target = "estructuraDesplazamiento.stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
@@ -229,10 +230,11 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "idTipoVenta", source = "listaValoresDestinoResultItem.idTipoVenta", defaultValue = "01")
     @Mapping(target = "tope", source = "listaValoresDestinoResultItem.tope", defaultValue = "0")
     // Datos del desplazamiento
+    @Mapping(target = "estructuraDesplazamiento.idTarea", source = "tarea.id")
     @Mapping(target = "estructuraDesplazamiento.activo", constant = "true")
     @Mapping(target = "estructuraDesplazamiento.ordinalEstructura", source = "ordinalEstructura")
     @Mapping(target = "estructuraDesplazamiento.fechaInicio", source = "estructurasComResultItem.fechaInicio")
-    @Mapping(target = "estructuraDesplazamiento.fechaFin", source = "estructurasComResultItem.fechaInicio")
+    @Mapping(target = "estructuraDesplazamiento.fechaFin", source = "estructurasComResultItem.fechaFin")
     @Mapping(target = "estructuraDesplazamiento.cclIdOrigen", source = "estructurasComResultItem.idOrigen")
     @Mapping(target = "estructuraDesplazamiento.stdIdHr", source = "estructurasComResultItem.idEmpleado")
     @Mapping(target = "estructuraDesplazamiento.stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
@@ -255,27 +257,5 @@ public abstract class TareaPersonaEstructuraMapper {
             final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
             final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final ListaValoresDestinoResultItemDto listaValoresDestinoResultItem, 
             final TareaDto tarea, final Integer ordinalEstructura, final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura, final Integer idSeccion, final Boolean horasOrigen, final Boolean horasDestino);
-
-    @Mapping(target = "tarea", ignore = true)
-    @Mapping(target = "tipoOpcionCalculoEstructura", ignore = true)
-    @Mapping(target = "tipoOpcionCalculoEfectiva", ignore = true)
-    @Mapping(target = "fechaInicio", source = "src.estructuraDesplazamiento.fechaInicio")
-    @Mapping(target = "fechaFin", source = "src.estructuraDesplazamiento.fechaFin")
-    @Mapping(target = "cclIdPuestoDestino", source = "src.estructuraDesplazamiento.cclIdPuestoDestino")
-    @Mapping(target = "cclIdSeccionDestino", source = "src.estructuraDesplazamiento.cclIdSeccionDestino")
-    @Mapping(target = "cclIdCodOrigenDestino", source = "src.estructuraDesplazamiento.cclIdCodOrigenDestino")
-    @Mapping(target = "stdIdWorkLocatDestino", source = "src.estructuraDesplazamiento.stdIdWorkLocatDestino")
-    @Mapping(target = "icmIdTpReqCom", source = "src.estructuraDesplazamiento.icmIdTpReqCom")
-    @Mapping(target = "horasOrigen", source = "src.estructuraDesplazamiento.horasOrigen")
-    @Mapping(target = "horasDestino", source = "src.estructuraDesplazamiento.horasDestino")
-    @Mapping(target = "ordinalEstructura", source = "src.estructuraDesplazamiento.ordinalEstructura")
-    @Mapping(target = "pk.id", ignore = true)
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
-    public abstract TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(
-        TareaPersonaEstructuraDto src);
-
-    public abstract List<TareaPersonaEstructuraDesplazamiento> tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(
-        List<TareaPersonaEstructuraDto> src);
 
 }

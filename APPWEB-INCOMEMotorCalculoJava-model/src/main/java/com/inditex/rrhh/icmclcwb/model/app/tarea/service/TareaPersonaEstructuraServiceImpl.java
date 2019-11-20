@@ -1,18 +1,23 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraDesplazamientoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamiento;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraDesplazamientoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
 
@@ -28,6 +33,9 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
 
     @Autowired
     private TareaPersonaEstructuraMapper tareaPersonaEstructuraMapper;
+    
+    @Autowired
+    private TareaPersonaEstructuraDesplazamientoMapper tareaPersonaEstructuraDesplazamientoMapper;
 
     @Override
     public List<TareaPersonaEstructuraDto> save(@Valid List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
@@ -37,8 +45,15 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
             tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
                 .tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructura)));
         // Guardado de desplazamientos
-        tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(tareaPersonaEstructuraMapper
-                .tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(tareaPersonaEstructura));
+        List<TareaPersonaEstructuraDesplazamiento> desplazamientos = new ArrayList<TareaPersonaEstructuraDesplazamiento>();
+        tareaPersonaEstructura.stream().forEach(item -> {
+            if (item.getEstructuraDesplazamiento() != null) {
+                desplazamientos.add(tareaPersonaEstructuraDesplazamientoMapper.tareaPersonaEstructuraDesplazamientoDtoToTareaPersonaEstructuraDesplazamiento(item.getEstructuraDesplazamiento()));
+            }
+        });
+        if (CollectionUtils.isNotEmpty(desplazamientos)) { 
+            tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(desplazamientos);
+        }
         return result;
     }
 
