@@ -7,6 +7,8 @@ logging:
     com.atomikos: WARN
     org.apache.activemq: WARN
     org.apache.cxf: WARN
+    org.springframework.jdbc.core: WARN
+    org.springframework.jdbc.core.StatementCreatorUtils: WARN
 metadata:
   domain: core
   environment: local

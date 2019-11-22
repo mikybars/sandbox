@@ -96,7 +96,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentaj
         // Parámetros de la consulta: activo, tipoDatoLocalizacionVentaSeccion, excluido calculo
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        assertEquals(9, result.size());
+        assertEquals(10, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -121,10 +121,12 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentaj
         // calcula
         assertTrue(result.containsKey(SQL_PARAM_CALCULA));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
-        // indicador desplazamiento
+        // Indicador presencia
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+        // Indicador presencia desplazamiento
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
         assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
-       
     }
 
     @Test
@@ -155,7 +157,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentaj
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(9, value.getValues().size());
+            assertEquals(10, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -174,6 +176,12 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentaj
             // calcula
             assertTrue(value.hasValue(SQL_PARAM_CALCULA));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
+            // Indicador presencia
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+            assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+            // Indicador presencia desplazamiento
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
+            assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
