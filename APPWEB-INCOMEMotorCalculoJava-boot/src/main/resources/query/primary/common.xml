@@ -246,11 +246,17 @@
     ]]>
 </entry>
 
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio">
-    <![CDATA[
-    UPDATE TAREA_LOCALIZACION_PRESENCIA SET ES_ACTIVO = :activo WHERE MINUTOS = :minutos AND ID_TAREA = :idTarea
-        ]]>
-</entry>
+<entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio"><![CDATA[
+UPDATE TAREA_LOCALIZACION_PRESENCIA
+SET ES_ACTIVO = :activo
+WHERE ID_TAREA = :idTarea 
+AND MINUTOS = :minutos
+AND ID_TIPO_DATO IN (
+  SELECT ID_TIPO_DATO
+  FROM TIPO_GRUPO_DATO_TIPO_DATO
+  WHERE ID_TIPO_GRUPO_DATO = :idTipoGrupoDato
+)
+]]></entry>
 
 <entry key="TareaLocalizacionPresenciaRepositoryCustom.compensar">
     <![CDATA[

@@ -15,6 +15,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_MINUTOS_CERO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -52,6 +53,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
@@ -190,7 +192,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_UPDATE_ACTIVO_VACIO, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, activo, minutos
-        assertEquals(3, params.getValues().size());
+        assertEquals(4, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
@@ -200,6 +202,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         // minutos
         assertTrue(params.hasValue(SQL_PARAM_MINUTOS));
         assertEquals(SQL_VALUE_MINUTOS_CERO, params.getValue(SQL_PARAM_MINUTOS));
+        // Grupo dato
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_PERSONA_TIPOHORA.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
     }
 
     @Test
