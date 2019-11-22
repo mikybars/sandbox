@@ -34,7 +34,7 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void totalizarLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.totalizar(runTarea);
     }
-    
+
     @Override
     public void totalizarEcommerceLocalizacion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.totalizarEcommerce(runTarea);
@@ -74,10 +74,15 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void indicadorPresencia(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.indicadorPresencia(runTarea);
     }
-    
+
     @Override
     public void indicadorPresenciaDesplazamiento(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
     }
-    
+
+    @Override
+    public void indicadorPresenciaDesplazamientoBase(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
+    }
+
 }

@@ -18,32 +18,32 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 @Service
 @Validated
-public class TareaLocalizacionPersonaPresenciaServiceImpl
-        implements TareaLocalizacionPersonaPresenciaService {
-    
+public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocalizacionPersonaPresenciaService {
+
     @Autowired
     private TareaLocalizacionPersonaPresenciaRepositoryCustom tareaLocalizacionPersonaPresenciaRepositoryCustom;
 
     @Autowired
     private TareaLocalizacionPersonaPresenciaMapper tareaLocalizacionPersonaPresenciaMapper;
-    
+
     @Override
     public void save(@NotNull final List<GenericEmpleadoResultItemDto> src, @NotNull final TareaDto tareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.save(tareaLocalizacionPersonaPresenciaMapper
                 .genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
     }
-    
+
     @Override
-    public void savePtrPresenciaDetalle(@NotNull final List<PtrPresenciaDetalleResultItemDto> src, @NotNull final TareaDto tareaDto) {
+    public void savePtrPresenciaDetalle(@NotNull final List<PtrPresenciaDetalleResultItemDto> src,
+            @NotNull final TareaDto tareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.save(tareaLocalizacionPersonaPresenciaMapper
                 .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
     }
-    
+
     @Override
     public void updateActivo(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo(runTareaDto);
     }
-    
+
     @Override
     public void updateActivoVacio(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio(runTareaDto);
@@ -53,14 +53,20 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl
     public void compensar(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.compensar(runTareaDto);
     }
-    
+
     @Override
     public void indicadorPresencia(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia(runTareaDto);
     }
-    
+
     @Override
     public void indicadorPresenciaDesplazamiento(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento(runTareaDto);
     }
+
+    @Override
+    public void indicadorPresenciaDesplazamientoBase(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase(runTareaDto);
+    }
+
 }

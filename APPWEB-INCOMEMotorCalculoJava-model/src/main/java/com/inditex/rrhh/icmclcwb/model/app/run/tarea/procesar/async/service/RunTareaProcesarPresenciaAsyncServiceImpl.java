@@ -15,7 +15,7 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
 
     @Autowired
     private RunTareaProcesarPresenciaService runTareaProcesarPresenciaService;
-    
+
     @Override
     public CompletableFuture<Void> compensarLocalizacion(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.compensarLocalizacion(runTarea);
@@ -27,31 +27,31 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         runTareaProcesarPresenciaService.compensarLocalizacionEcommerce(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> totalizarLocalizacion(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.totalizarLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> totalizarEcommerceLocalizacion(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.totalizarEcommerceLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> updateActivoLocalizacionPersonaPresencia(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresencia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> updateActivoLocalizacionPersonaPresenciaVacio(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> compensarLocalizacionPersonaPresencia(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.compensarLocalizacionPersonaPresencia(runTarea);
@@ -69,16 +69,23 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         runTareaProcesarPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-   
+
     @Override
     public CompletableFuture<Void> indicadorPresencia(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.indicadorPresencia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> indicadorPresenciaDesplazamiento(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> indicadorPresenciaDesplazamientoBase(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

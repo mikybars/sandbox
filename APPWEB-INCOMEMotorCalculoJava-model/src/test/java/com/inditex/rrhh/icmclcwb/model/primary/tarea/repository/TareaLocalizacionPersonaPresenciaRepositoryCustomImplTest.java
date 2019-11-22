@@ -130,10 +130,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         // tiposCalculo
         assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
         assertEquals(
-                Arrays.asList(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId(),
-                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA.getId(),
-                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA_Y_REDUCCION_DE_JORNADA.getId(),
-                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId()),
+                Arrays.asList(TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA_Y_REDUCCION_DE_JORNADA.getId()),
                 params.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
         // excluidoCalculo
         assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
@@ -141,7 +139,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     }
 
     @Test
-    public void indicadorPresenciaDesplazamiento() {
+    public void indicadorPresenciaDesplazamientoTest() {
 
         RunTareaDto runTarea = mock(RunTareaDto.class);
         TareaDto tarea = mock(TareaDto.class);
@@ -155,7 +153,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         MapSqlParameterSource params = paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia,
         // excluidoCalculo
-        assertEquals(5, params.getValues().size());
+        assertEquals(6, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
@@ -166,6 +164,14 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
         assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(),
                 params.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+        // tiposCalculo
+        assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(
+                Arrays.asList(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA_Y_REDUCCION_DE_JORNADA.getId()),
+                params.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
         // excluidoCalculo
         assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
