@@ -22,5 +22,7 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
     void indicadorPresenciaDesplazamiento(@NotNull RunTareaDto runTareaDto);
     
     void indicadorPresenciaDesplazamientoBase(@NotNull RunTareaDto runTareaDto);
+    
+    void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@NotNull RunTareaDto runTareaDto);
 
 }
