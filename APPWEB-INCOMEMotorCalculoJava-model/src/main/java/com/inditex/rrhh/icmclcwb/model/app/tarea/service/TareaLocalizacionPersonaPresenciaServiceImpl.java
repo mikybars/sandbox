@@ -68,5 +68,10 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
     public void indicadorPresenciaDesplazamientoBase(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase(runTareaDto);
     }
+    
+    @Override
+    public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTareaDto);
+    }
 
 }
