@@ -1,6 +1,6 @@
 -- Nuevo indicador para controlar en la tienda base si tiene presencias en alguna tienda de los desplazamientos siendo la misma tienda que la base
 INSERT INTO TIPO_DATO (ID_TIPO_DATO, NOMBRE, DESCRIPCION, ES_PROCESADO, ID_TIPO_PRESENCIA, ID_TIPO_VENTA) VALUES (5009, 'INDICADOR_PRESENCIA_LOCALIZACION-PERSONA-TIPOHORA-DESPLAZAMIENTO-BASE-DESPLAZAMIENTO-MISMA-LOCALIZACION', 'Indicador de presencia [localizacion|persona|tipo hora|desplazamiento base desplazamiento misma localizacion]', 1, NULL, NULL);
--- El indicador 5008 tiene que estar asociado a todos los tipos de cálculo base
+-- El indicador 5009 tiene que estar asociado a todos los tipos de cálculo base
 INSERT INTO ALGORITMO_TIPO_DATO (ID_ALGORITMO, ID_TIPO_DATO) VALUES (1011, 5009);
 INSERT INTO ALGORITMO_TIPO_DATO (ID_ALGORITMO, ID_TIPO_DATO) VALUES (1012, 5009);
 INSERT INTO ALGORITMO_TIPO_DATO (ID_ALGORITMO, ID_TIPO_DATO) VALUES (1013, 5009);
