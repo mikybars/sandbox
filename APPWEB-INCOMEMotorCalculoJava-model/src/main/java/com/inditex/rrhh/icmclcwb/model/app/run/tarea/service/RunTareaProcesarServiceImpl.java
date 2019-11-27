@@ -157,6 +157,17 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
             
+            // TODO [JESTEVEZ] Comentar las llamadas a trasladar, compensar y updateActivoTrasladadas (las tres siguientes) si provocan problemas
+            CompletableFuture<Void> cfTrasladar = runTareaProcesarVentaAsyncService.trasladar(runTarea);
+            AsyncUtils.exceptionally(cfTrasladar, cf);
+
+            CompletableFuture<Void> cfCompensar = runTareaProcesarVentaAsyncService.compensar(runTarea);
+            AsyncUtils.exceptionally(cfCompensar, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            
             CompletableFuture<Void> cfCompensarOnlineSeccionCerrada = runTareaProcesarVentaAsyncService.compensarOnlineSeccionCerrada(runTarea);
             AsyncUtils.exceptionally(cfCompensarOnlineSeccionCerrada, cf);
 
@@ -170,22 +181,17 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-
-            // TODO [JESTEVEZ] Comentar las llamadas a trasladar, compensar y updateActivoTrasladadas (las tres siguientes) si provocan problemas
-            CompletableFuture<Void> cfTrasladar = runTareaProcesarVentaAsyncService.trasladar(runTarea);
-            AsyncUtils.exceptionally(cfTrasladar, cf);
-
-            CompletableFuture<Void> cfCompensar = runTareaProcesarVentaAsyncService.compensar(runTarea);
-            AsyncUtils.exceptionally(cfCompensar, cf);
-
+            
+            CompletableFuture<Void> cfAgruparOnlineSeccionDia = runTareaProcesarVentaAsyncService.agruparOnlineSeccionDia(runTarea);
+            AsyncUtils.exceptionally(cfAgruparOnlineSeccionDia, cf);
+            
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-
-            // Desactivar las ventas originales para días en los que se hayan trasladado ventas de festivos
-            CompletableFuture<Void> cfUpdateActivo = runTareaProcesarVentaAsyncService.updateActivoTrasladadas(runTarea);
-            AsyncUtils.exceptionally(cfUpdateActivo, cf);
-
+            
+            CompletableFuture<Void> cfUpdateActivoTrasladadasTotalizado = runTareaProcesarVentaAsyncService.updateActivoTrasladadasTotalizado(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoTrasladadasTotalizado, cf);
+            
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

@@ -32,4 +32,8 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> updateActivoTrasladadasSeccion(RunTareaDto runTarea);
 
+    CompletableFuture<Void> agruparOnlineSeccionDia(RunTareaDto runTarea);
+
+    CompletableFuture<Void> updateActivoTrasladadasTotalizado(RunTareaDto runTarea);
+
 }

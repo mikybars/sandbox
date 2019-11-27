@@ -87,4 +87,16 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
         tareaProcesarVentaService.updateActivoTrasladadasSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Override
+    public CompletableFuture<Void> agruparOnlineSeccionDia(RunTareaDto runTarea) {
+        tareaProcesarVentaService.agruparOnlineSeccionDia(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> updateActivoTrasladadasTotalizado(RunTareaDto runTarea) {
+        tareaProcesarVentaService.updateActivoTrasladadasTotalizado(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

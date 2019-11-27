@@ -47,6 +47,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.compensar']}")
     private String sqlCompensar;
     
+    @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.agruparOnlineSeccionDia']}")
+    private String sqlAgruparOnlineSeccionDia;
+    
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadasTotalizado']}")
+    private String sqlUpdateActivoTrasladadasTotalizado;
+    
     @Value("#{primaryQuery['TareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada']}")
     private String sqlCompensarOnlineSeccionCerrada;
     
@@ -101,10 +107,13 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(), 
                 TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(), TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, Arrays.asList(AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION, TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION, TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
+        
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION, TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION, TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId());
@@ -116,16 +125,15 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId());
         // valores a establecer
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
       
-        
         namedParameterJdbcTemplate.update(sqlCompensarOnlineSeccionCerrada, parameters);
     }
 
@@ -148,14 +156,14 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
 
         // valores a establecer
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_DIA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_DIA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_DIA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_DIA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA, TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId());
         namedParameterJdbcTemplate.update(sqlTrasladar, parameters);
     }
 
@@ -205,10 +213,36 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
           parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
           parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
           parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+          parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, Arrays.asList(AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3));
           parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(), 
                   TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(), TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
                   TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
         namedParameterJdbcTemplate.update(sqlUpdateActivoTrasladadasSeccion, parameters);
+    }
+    
+    @Override
+    public void agruparOnlineSeccionDia(@NotNull TareaDto tarea, @NotNull TrabajoDto trabajoDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS, Arrays.asList(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA.getId(), 
+                TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA.getId(), TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA.getId(),
+                TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA.getId(), 
+                TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA.getId(), TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA.getId(),
+                TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA.getId(), TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS_TOTALIZADOS, Arrays.asList(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA.getId(), 
+                TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA.getId(), TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA.getId(),
+                TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA.getId(), TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_TOTALIZADA.getId(),
+                TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_TOTALIZADA.getId(),
+                TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_TOTALIZADA.getId(), TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_TOTALIZADA.getId()));
+        namedParameterJdbcTemplate.update(sqlAgruparOnlineSeccionDia, parameters);
+    }
+    
+    @Override
+    public void updateActivoTrasladadasTotalizado(@NotNull TareaDto tarea, @NotNull TrabajoDto trabajoDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        namedParameterJdbcTemplate.update(sqlUpdateActivoTrasladadasTotalizado, parameters);
     }
 
 }
