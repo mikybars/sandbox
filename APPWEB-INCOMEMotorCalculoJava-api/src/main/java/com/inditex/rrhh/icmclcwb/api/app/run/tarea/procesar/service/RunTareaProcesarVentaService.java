@@ -30,4 +30,8 @@ public interface RunTareaProcesarVentaService {
 
     void updateActivoTrasladadasSeccion(@Valid RunTareaDto runTarea);
 
+    void agruparOnlineSeccionDia(@Valid RunTareaDto runTarea);
+
+    void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea);
+
 }

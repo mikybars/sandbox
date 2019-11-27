@@ -26,5 +26,8 @@ public interface TareaLocalizacionAbiertaRepositoryCustom {
 
     void updateActivoTrasladadasSeccion(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto);
 
+    void agruparOnlineSeccionDia(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto);
+
+    void updateActivoTrasladadasTotalizado(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto);
 
 }

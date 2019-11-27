@@ -198,28 +198,28 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(), params.getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
         // idTipoDatoVentaIpodLocalizacionTrasladada
         assertTrue(params.hasValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA.getId(), params.getValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_DIA.getId(), params.getValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
         // idTipoDatoVentaIpodLocalizacionSeccionTrasladada
         assertTrue(params.hasValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA.getId(), params.getValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(), params.getValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaSINTLocalizacionTrasladada
         assertTrue(params.hasValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA.getId(), params.getValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_DIA.getId(), params.getValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
         // idTipoDatoVentaSINTLocalizacionSeccionTrasladada
         assertTrue(params.hasValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA.getId(), params.getValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(), params.getValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaEntregaTiendaLocalizacionTrasladada
         assertTrue(params.hasValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA.getId(), params.getValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_DIA.getId(), params.getValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
         // idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada
         assertTrue(params.hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA.getId(), params.getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(), params.getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada
         assertTrue(params.hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA.getId(), params.getValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_DIA.getId(), params.getValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada
         assertTrue(params.hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA.getId(), params.getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(), params.getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
         // idTarea
         assertTrue(params.hasValue("idTarea"));
         assertEquals(tarea.getId(), params.getValue("idTarea"));
