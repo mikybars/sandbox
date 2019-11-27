@@ -105,5 +105,13 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
         tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(runTarea.getTarea(), runTarea.getTrabajo());
     }
     
-
+    @Override
+    public void agruparOnlineSeccionDia(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionAbiertaRepositoryCustom.agruparOnlineSeccionDia(runTarea.getTarea(), runTarea.getTrabajo());
+    }
+    
+    @Override
+    public void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasTotalizado(runTarea.getTarea(), runTarea.getTrabajo());
+    }
 }
