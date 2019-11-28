@@ -111,12 +111,9 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
-                    .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
-                            tarea.getId(), tareaAmbito.getCclIdOrigen(),
-                            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
+                    tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
+                            tarea.getId(), tareaAmbito.getCclIdOrigen()),
                     presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
 
