@@ -93,13 +93,10 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<IdTipoDatoDto> idsTipoDato = tipoDatoService
-                    .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaLocalizacionHistoricoService
-                            .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                                    tareaAmbito.getCclIdOrigen(),
-                                    idsTipoDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList())),
+                            .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(tarea.getId(),
+                                    tareaAmbito.getCclIdOrigen()),
                     ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
                 PtrVentaTotalizadoRequestDto request = tareaMapper
                         .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(trabajo, tarea,
