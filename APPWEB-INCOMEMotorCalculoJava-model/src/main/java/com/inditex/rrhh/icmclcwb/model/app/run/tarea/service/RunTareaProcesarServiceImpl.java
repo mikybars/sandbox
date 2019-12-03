@@ -84,10 +84,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .indicadorPresenciaDesplazamientoBase(runTarea);
             AsyncUtils.exceptionally(cfIndicadorPresenciaDesplazamientoBase, cf);
             
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/
-            
             // Indicadores de presencia con desplazamiento base sobre desplazamiento misma localizacion
             CompletableFuture<Void> cfIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion = runTareaProcesarPresenciaAsyncService
                     .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
