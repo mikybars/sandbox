@@ -5,8 +5,7 @@
 <entry key="TareaCalculoAlgoritmoBaseRepository.calcular.insert">
     <![CDATA[
   INSERT INTO TAREA_CALCULO (
-   -- TODO [COMUN] PARTICIONADO
-   --FECHA_INICIO_PERIODO,
+   FECHA_INICIO_PERIODO,
    ID_TAREA,
    FECHA,
    ID_ALGORITMO,
@@ -44,8 +43,7 @@
 <entry key="TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular">
     <![CDATA[
     SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_PERSONA_PRESENCIA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -143,8 +141,7 @@
 <entry key="TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1Repository.calcular">
 <![CDATA[
   SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_PERSONA_PRESENCIA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -251,8 +248,7 @@
 <entry key="TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Repository.calcular">
 <![CDATA[
  SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_PERSONA_PRESENCIA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -371,8 +367,7 @@
 <entry key="TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1Repository.calcular">
     <![CDATA[
  SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_PERSONA_PRESENCIA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -471,8 +466,7 @@
 <entry key="TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1Repository.calcular">
   <![CDATA[
  SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_PERSONA_PRESENCIA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -580,8 +574,7 @@
 <entry key="TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Repository.calcular">
     <![CDATA[
   SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_PERSONA_PRESENCIA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -701,8 +694,7 @@
 <entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeV1Repository.calcular">
     <![CDATA[
  SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -788,8 +780,7 @@
 <entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1Repository.calcular">
   <![CDATA[
   SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -883,8 +874,7 @@
 <entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Repository.calcular">
     <![CDATA[
     SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -993,8 +983,7 @@
 <entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1Repository.calcular">
     <![CDATA[
 SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -1088,8 +1077,7 @@ SELECT
 <entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoBaseV1Repository.calcular">
   <![CDATA[
 SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -1191,8 +1179,7 @@ SELECT
 <entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1Repository.calcular">
   <![CDATA[
     SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -1318,8 +1305,7 @@ SELECT
 <entry key="TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeV1Repository.calcular">
     <![CDATA[
 SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -1414,8 +1400,7 @@ SELECT
 <entry key="TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1Repository.calcular">
   <![CDATA[
  SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -1518,8 +1503,7 @@ SELECT
 <entry key="TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular">
   <![CDATA[
  SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -1645,8 +1629,7 @@ SELECT
 <entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeV1Repository.calcular">
     <![CDATA[
     SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -1749,8 +1732,7 @@ SELECT
 <entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1Repository.calcular">
   <![CDATA[
 SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,
@@ -1861,8 +1843,7 @@ SELECT
 <entry key="TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular">
     <![CDATA[
  SELECT
-        -- TODO [COMUN] PARTICIONADO
-        --TAREA.FECHA_INICIO_PERIODO,
+        TAREA.FECHA_INICIO_PERIODO,
         TAREA.ID_TAREA AS ID_TAREA,
         LOCALIZACION_SECCION_VENTA.FECHA AS FECHA,
         ALGORITMO.ID_ALGORITMO AS ID_ALGORITMO,

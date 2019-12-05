@@ -285,9 +285,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
         PreparedStatement pstmt = mock(PreparedStatement.class);
         TareaLocalizacionPersonaPresenciaPk pk = mock(TareaLocalizacionPersonaPresenciaPk.class);
-        // TODO [COMUN] PARTICIONADO
-        // when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015,
-        // 1, 1)));
+        when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(789L);
         TipoDato td = mock(TipoDato.class);
@@ -324,8 +322,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setLong(10, td.getId());
         verify(pstmt, times(1)).setLong(11, tarea.getId());
         verify(pstmt, times(1)).setString(12, entity.getCclIdCadena());
-        // TODO [COMUN] PARTICIONADO
-        // verify(pstmt, times(1)).setLong(10, pk.getFechaInicioPeriodo());
+        verify(pstmt, times(1)).setObject(10, pk.getFechaInicioPeriodo());
     }
 
     @Test

@@ -60,7 +60,7 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         pstmt.setBoolean(27, entity.getDiaX());
         pstmt.setString(28, entity.getIcmIdTpEstructura());
         pstmt.setString(29, entity.getIcmIdEstrComisionPadre());
-
+        pstmt.setObject(30, entity.getPk().getFechaInicioPeriodo());
     }
 
 }

@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistoric
 public abstract class TareaPersonaHistoricoMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
+    @Mapping(target = "fechaInicioPeriodo", source = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaHistoricoDto tareaPersonaHistoricoToTareaPersonaHistoricoDto(
             TareaPersonaHistorico src);
 
@@ -47,6 +48,7 @@ public abstract class TareaPersonaHistoricoMapper {
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     @Mapping(target = "cclIdSeccion", source = "src.idSeccion")
     @Mapping(target = "idTarea", source = "tarea.id")
+    @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     public abstract TareaPersonaHistoricoDto genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
             GenericEmpleadoResultItemDto src, TareaDto tarea);
 

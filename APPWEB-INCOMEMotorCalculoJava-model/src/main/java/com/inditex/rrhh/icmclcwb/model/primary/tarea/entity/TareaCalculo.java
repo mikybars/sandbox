@@ -60,37 +60,32 @@ public class TareaCalculo {
     @NotNull
     @OneToOne
     @JoinColumns({
-        @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA", referencedColumnName = "ID_TAREA_PERSONA_ESTRUCTURA", insertable = false, updatable = false)
-        /* TODO [COMUN] PARTICIONADO */
-        /*,@JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false)*/ })
+        @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA", referencedColumnName = "ID_TAREA_PERSONA_ESTRUCTURA", insertable = false, updatable = false),
+        @JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false) })
     private TareaPersonaEstructura personaEstructura;
 
     @OneToOne
     @JoinColumns({
-            @JoinColumn(name = "ID_TAREA_LOCALIZACION_PRESENCIA", referencedColumnName = "ID_TAREA_LOCALIZACION_PRESENCIA", insertable = false, updatable = false)
-            /* TODO [COMUN] PARTICIONADO */
-            /*,@JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false)*/ })
+            @JoinColumn(name = "ID_TAREA_LOCALIZACION_PRESENCIA", referencedColumnName = "ID_TAREA_LOCALIZACION_PRESENCIA", insertable = false, updatable = false),
+            @JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false) })
     private TareaLocalizacionPresencia localizacionPresencia;
 
     @OneToOne
     @JoinColumns({
-            @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA", referencedColumnName = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA", insertable = false, updatable = false)
-            /* TODO [COMUN] PARTICIONADO */
-            /*,@JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false)*/ })
+            @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA", referencedColumnName = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA", insertable = false, updatable = false),
+            @JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false) })
     private TareaLocalizacionPersonaPresencia localizacionPersonaPresencia;
 
     @OneToOne
     @JoinColumns({
-            @JoinColumn(name = "ID_TAREA_LOCALIZACION_VENTA", referencedColumnName = "ID_TAREA_LOCALIZACION_VENTA", insertable = false, updatable = false)
-            /* TODO [COMUN] PARTICIONADO */
-            /*,@JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false)*/ })
+            @JoinColumn(name = "ID_TAREA_LOCALIZACION_VENTA", referencedColumnName = "ID_TAREA_LOCALIZACION_VENTA", insertable = false, updatable = false),
+            @JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false) })
     private TareaLocalizacionVenta localizacionVenta;
 
     @OneToOne
     @JoinColumns({
-            @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_VENTA", referencedColumnName = "ID_TAREA_LOCALIZACION_PERSONA_VENTA", insertable = false, updatable = false)
-            /* TODO [COMUN] PARTICIONADO */
-            /*,@JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false)*/ })
+            @JoinColumn(name = "ID_TAREA_LOCALIZACION_PERSONA_VENTA", referencedColumnName = "ID_TAREA_LOCALIZACION_PERSONA_VENTA", insertable = false, updatable = false),
+            @JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false) })
     private TareaLocalizacionPersonaVenta localizacionPersonaVenta;
 
     @NotNull

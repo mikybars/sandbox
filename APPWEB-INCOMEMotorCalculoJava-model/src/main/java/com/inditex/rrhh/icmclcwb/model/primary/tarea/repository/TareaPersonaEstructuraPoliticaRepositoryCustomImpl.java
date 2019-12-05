@@ -41,6 +41,7 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
         pstmt.setString(12, entity.getNumeroUnidades());
         pstmt.setBigDecimal(13, entity.getValor());
         pstmt.setString(14, entity.getTramo());
+        pstmt.setObject(15, entity.getPk().getFechaInicioPeriodo());
     }
 
 }

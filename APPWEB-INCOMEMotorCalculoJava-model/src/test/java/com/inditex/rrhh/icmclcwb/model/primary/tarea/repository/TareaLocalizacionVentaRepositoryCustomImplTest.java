@@ -10,10 +10,12 @@ import static org.mockito.Mockito.when;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,10 +82,8 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         TareaLocalizacionVentaPk pk = mock(TareaLocalizacionVentaPk.class);
         TipoDato td = mock(TipoDato.class);
         when(td.getId()).thenReturn(911);
-        // TODO [COMUN] PARTICIONADO
-        // when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015,
-        // 1, 1)));
-//        when(entity.getPk()).thenReturn(pk);
+        when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
+        when(entity.getPk()).thenReturn(pk);
         when(entity.getCclIdCadena()).thenReturn("ID CADENA");
         when(entity.getCclIdCodOrigen()).thenReturn("ID LOCALIZACIÓN");
         when(entity.getCclIdSeccion()).thenReturn("ID SECCIÓN");
@@ -107,8 +107,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setDouble(7, td.getId());
         verify(pstmt, times(1)).setBoolean(8, entity.getActivo());
         verify(pstmt, times(1)).setLong(9, tarea.getId());
-        // TODO [COMUN] PARTICIONADO
-        // verify(pstmt, times(1)).setLong(10, pk.getFechaInicioPeriodo());
+        verify(pstmt, times(1)).setObject(10, pk.getFechaInicioPeriodo());
     }
 
     @Test

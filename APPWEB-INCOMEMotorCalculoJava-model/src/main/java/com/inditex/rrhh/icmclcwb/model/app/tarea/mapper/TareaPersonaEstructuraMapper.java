@@ -24,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructu
 public abstract class TareaPersonaEstructuraMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
+    @Mapping(target = "fechaInicioPeriodo", source = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto tareaPersonaEstructuraToTareaPersonaEstructuraDto(
             TareaPersonaEstructura src);
 
@@ -45,11 +46,10 @@ public abstract class TareaPersonaEstructuraMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     // Desplazamiento
     @Mapping(target = "desplazamiento", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
     @Mapping(target = "desplazamientoBase", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
@@ -86,11 +86,10 @@ public abstract class TareaPersonaEstructuraMapper {
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
             final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, final TareaDto tarea);
     
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     // Desplazamiento
     @Mapping(target = "desplazamiento", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
     @Mapping(target = "desplazamientoBase", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
@@ -128,11 +127,10 @@ public abstract class TareaPersonaEstructuraMapper {
             final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem,
             final ListaValoresBaseResultItemDto listaValoresBaseResultItem, final Integer idSeccion, final TareaDto tarea);
     
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     // Desplazamiento
     @Mapping(target = "desplazamiento", constant = "true")
     @Mapping(target = "desplazamientoBase", constant = "false")
@@ -188,16 +186,16 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
     @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
     @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito", source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
+    @Mapping(target = "estructuraDesplazamiento.fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraToTareaPersonaEstructuraDto(
             final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
             final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final TareaDto tarea, final Integer ordinalEstructura,
             final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura, final Boolean horasOrigen, final Boolean horasDestino);
     
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "activo", constant = "true")
+    @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     // Desplazamiento
     @Mapping(target = "desplazamiento", constant = "true")
     @Mapping(target = "desplazamientoBase", constant = "false")
@@ -253,6 +251,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
     @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
     @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito", source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
+    @Mapping(target = "estructuraDesplazamiento.fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
             final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final ListaValoresDestinoResultItemDto listaValoresDestinoResultItem, 

@@ -176,8 +176,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         pstmt.setLong(10, entity.getTipoDato().getId());
         pstmt.setLong(11, entity.getTarea().getId());
         pstmt.setString(12, entity.getCclIdCadena());
-        // TODO [COMUN] PARTICIONADO
-        // pstmt.setObject(13, entity.getPk().getFechaInicioPeriodo());
+        pstmt.setObject(13, entity.getPk().getFechaInicioPeriodo());
     }
 
 }
