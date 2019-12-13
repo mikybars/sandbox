@@ -54,7 +54,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="escomisionable" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="nombrepoblacion" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fechaexportacion" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="fechaexportacion" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajomtu" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="nombrelugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
@@ -142,8 +142,8 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
     protected String idlugartrabajo;
     @XmlElement(required = true, nillable = true)
     protected String nombrepoblacion;
-    @XmlElement(required = true, type = Double.class, nillable = true)
-    protected Double fechaexportacion;
+    @XmlElement(required = true, nillable = true)
+    protected String fechaexportacion;
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajomtu;
     @XmlElement(required = true, nillable = true)
@@ -698,10 +698,10 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
      * 
      * @return
      *     possible object is
-     *     {@link Double }
+     *     {@link String }
      *     
      */
-    public Double getFechaexportacion() {
+    public String getFechaexportacion() {
         return fechaexportacion;
     }
 
@@ -710,10 +710,10 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
      * 
      * @param value
      *     allowed object is
-     *     {@link Double }
+     *     {@link String }
      *     
      */
-    public void setFechaexportacion(Double value) {
+    public void setFechaexportacion(String value) {
         this.fechaexportacion = value;
     }
 
@@ -981,9 +981,9 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             }
         }
         {
-            Double lhsFechaexportacion;
+            String lhsFechaexportacion;
             lhsFechaexportacion = this.getFechaexportacion();
-            Double rhsFechaexportacion;
+            String rhsFechaexportacion;
             rhsFechaexportacion = that.getFechaexportacion();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "fechaexportacion", lhsFechaexportacion), LocatorUtils.property(thatLocator, "fechaexportacion", rhsFechaexportacion), lhsFechaexportacion, rhsFechaexportacion, (this.fechaexportacion!= null), (that.fechaexportacion!= null))) {
                 return false;
@@ -1146,7 +1146,7 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             strategy.appendField(locator, this, "nombrepoblacion", buffer, theNombrepoblacion, (this.nombrepoblacion!= null));
         }
         {
-            Double theFechaexportacion;
+            String theFechaexportacion;
             theFechaexportacion = this.getFechaexportacion();
             strategy.appendField(locator, this, "fechaexportacion", buffer, theFechaexportacion, (this.fechaexportacion!= null));
         }
@@ -1281,7 +1281,7 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nombrepoblacion", theNombrepoblacion), currentHashCode, theNombrepoblacion, (this.nombrepoblacion!= null));
         }
         {
-            Double theFechaexportacion;
+            String theFechaexportacion;
             theFechaexportacion = this.getFechaexportacion();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechaexportacion", theFechaexportacion), currentHashCode, theFechaexportacion, (this.fechaexportacion!= null));
         }
@@ -1617,9 +1617,9 @@ public class IcmListatiendasRecord implements Cloneable, CopyTo2, Equals2, HashC
             {
                 Boolean fechaexportacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechaexportacion!= null));
                 if (fechaexportacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    Double sourceFechaexportacion;
+                    String sourceFechaexportacion;
                     sourceFechaexportacion = this.getFechaexportacion();
-                    Double copyFechaexportacion = ((Double) strategy.copy(LocatorUtils.property(locator, "fechaexportacion", sourceFechaexportacion), sourceFechaexportacion, (this.fechaexportacion!= null)));
+                    String copyFechaexportacion = ((String) strategy.copy(LocatorUtils.property(locator, "fechaexportacion", sourceFechaexportacion), sourceFechaexportacion, (this.fechaexportacion!= null)));
                     copy.setFechaexportacion(copyFechaexportacion);
                 } else {
                     if (fechaexportacionShouldBeCopiedAndSet == Boolean.FALSE) {
