@@ -19,7 +19,7 @@ metadata:
   platform: Openshift-Intranet Arteixo
   slot: develop
   tenant: global
-  version: 1.0.3
+  version: 1.0.5
 amiga:
   monitoring:
     metrics:
@@ -69,18 +69,21 @@ amiga:
         trabajo:
           waitDurationInOpenState: PT60S
           failureRateThreshold: 50
-          ringBufferSizeInHalfOpenState: 10
-          ringBufferSizeInClosedState: 100
+          permittedNumberOfCallsInHalfOpenState: 10
+          slidingWindowSize: 100
+          slidingWindowType: COUNT_BASED
         tarea:
           waitDurationInOpenState: PT60S
           failureRateThreshold: 50
-          ringBufferSizeInHalfOpenState: 10
-          ringBufferSizeInClosedState: 100
+          permittedNumberOfCallsInHalfOpenState: 10
+          slidingWindowSize: 100
+          slidingWindowType: COUNT_BASED
         limpieza:
           waitDurationInOpenState: PT60S
           failureRateThreshold: 50
-          ringBufferSizeInHalfOpenState: 10
-          ringBufferSizeInClosedState: 100
+          permittedNumberOfCallsInHalfOpenState: 10
+          slidingWindowSize: 100
+          slidingWindowType: COUNT_BASED
   service:
     jms:
       listener:
@@ -100,6 +103,8 @@ amiga:
     aaa:
       local:
         enable-local-test: true
+      paths:
+        app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
     rest:
       logging:
         is-production: false
@@ -323,7 +328,7 @@ app:
 #          password: kUZaIucw>WVIO9x
 #          user: SRVCICMCLCWSPREAX
 #          password: rbqOxKz4cm)fI
-          language: 2
+           language: 2
         pool:
           pre-login: false
           size: 5
@@ -342,7 +347,7 @@ app:
         #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        service:
+         service:
           getEmpresa:
             page:
               numeroPagina: 1
