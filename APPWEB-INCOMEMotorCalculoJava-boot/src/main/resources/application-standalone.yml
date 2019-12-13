@@ -322,8 +322,8 @@ app:
       config:
         max-attempts: 20
         credentials:
-          user: INCOME_CALC
-          password: 123
+           user: INCOME_CALC
+           password: 123
 #          user: SRVCICMCLCWSDESAX
 #          password: kUZaIucw>WVIO9x
 #          user: SRVCICMCLCWSPREAX
@@ -347,7 +347,7 @@ app:
         #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-         service:
+      service:
           getEmpresa:
             page:
               numeroPagina: 1
