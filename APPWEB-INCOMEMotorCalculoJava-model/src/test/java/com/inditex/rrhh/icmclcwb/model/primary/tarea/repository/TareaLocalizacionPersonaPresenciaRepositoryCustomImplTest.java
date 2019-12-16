@@ -299,7 +299,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(entity.getCclIdPerson()).thenReturn("Id persona");
         when(entity.getCclIdSeccion()).thenReturn("Id seccion");
         when(entity.getIcmIdTpHora()).thenReturn("Id tipo hora");
-//        when(entity.getPk()).thenReturn(pk);
+        when(entity.getPk()).thenReturn(pk);
         when(entity.getMinutos()).thenReturn(123);
         when(entity.getTarea()).thenReturn(tarea);
         when(entity.getTipoDato()).thenReturn(td);
@@ -322,7 +322,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setLong(10, td.getId());
         verify(pstmt, times(1)).setLong(11, tarea.getId());
         verify(pstmt, times(1)).setString(12, entity.getCclIdCadena());
-        verify(pstmt, times(1)).setObject(10, pk.getFechaInicioPeriodo());
+        verify(pstmt, times(1)).setObject(13, pk.getFechaInicioPeriodo());
     }
 
     @Test

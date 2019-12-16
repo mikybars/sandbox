@@ -63,7 +63,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
          when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         TareaLocalizacionPersonaVenta entity = mock(TareaLocalizacionPersonaVenta.class);
         when(entity.getTarea()).thenReturn(tarea);
-//        when(entity.getPk()).thenReturn(pk);
+        when(entity.getPk()).thenReturn(pk);
         when(entity.getTipoDato()).thenReturn(td);
         when(entity.getCclIdCodOrigen()).thenReturn("Id localización");
         when(entity.getCclIdPerson()).thenReturn("Id persona");
@@ -83,7 +83,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setBigDecimal(5, entity.getImporteConImpuestos());
         verify(pstmt, times(1)).setDouble(6, td.getId());
         verify(pstmt, times(1)).setLong(7, tarea.getId());
-        verify(pstmt, times(1)).setObject(10, pk.getFechaInicioPeriodo());
+        verify(pstmt, times(1)).setObject(8, pk.getFechaInicioPeriodo());
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistoricoPk;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,6 +80,9 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(900L);
         TareaPersonaHistorico entity = mock(TareaPersonaHistorico.class);
+        TareaPersonaHistoricoPk pk = mock(TareaPersonaHistoricoPk.class);
+        when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
+        when(entity.getPk()).thenReturn(pk);
         when(entity.getFechaInicio()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         when(entity.getFechaFin()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 12, 1)));
         when(entity.getFechaInicioSeccion()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 2)));
