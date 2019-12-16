@@ -271,20 +271,6 @@ public class Meta4ServiceTest {
     }
 
     @Test
-    public void getComisionEmpleado() {
-        IcmParamcalestructuraRecord record = new IcmParamcalestructuraRecord();
-        record.setIdempleado("AT1010154");
-        record.setOrempleado("1");
-        IcmParamcalestructuraBlock param1 = new IcmParamcalestructuraBlock();
-        param1.setIdorigen("38");
-        param1.setFechainicio("2015-01-01");
-        param1.setFechafin("2015-08-31");
-        param1.getIcmParamcalestructuraRecordSet().add(record);
-        GetestrcomisionOutput getComisionEmpleadoOutput = meta4ClientPool.getestrcomision(param1);
-        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getComisionEmpleadoOutput.getReturn()));
-    }
-
-    @Test
 //    @Ignore("Sirve para buscar e imprimir en consola estructuras a partir de localizacion / origen")
     public void comprobarEstructurasTiendasOrigen() {
 
