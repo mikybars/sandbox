@@ -35,8 +35,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence>
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
  *         &lt;element name="Icm_Listatiendas" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/>
+ *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -49,8 +49,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "GettiendasonlineOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmParametrospaginacion",
-    "icmListatiendas"
+    "icmListatiendas",
+    "icmParametrospaginacion"
 })
 public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
@@ -59,10 +59,10 @@ public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, Hash
     protected double _return;
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
-    @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
-    protected IcmParametrospaginacionBlock icmParametrospaginacion;
     @XmlElement(name = "Icm_Listatiendas", required = true, nillable = true)
     protected IcmListatiendasBlock icmListatiendas;
+    @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
+    protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -110,30 +110,6 @@ public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, Hash
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrospaginacion.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParametrospaginacionBlock }
-     *     
-     */
-    public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
-        return icmParametrospaginacion;
-    }
-
-    /**
-     * Define el valor de la propiedad icmParametrospaginacion.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParametrospaginacionBlock }
-     *     
-     */
-    public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
-        this.icmParametrospaginacion = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad icmListatiendas.
      * 
      * @return
@@ -155,6 +131,30 @@ public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, Hash
      */
     public void setIcmListatiendas(IcmListatiendasBlock value) {
         this.icmListatiendas = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmParametrospaginacion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParametrospaginacionBlock }
+     *     
+     */
+    public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
+        return icmParametrospaginacion;
+    }
+
+    /**
+     * Define el valor de la propiedad icmParametrospaginacion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParametrospaginacionBlock }
+     *     
+     */
+    public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
+        this.icmParametrospaginacion = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -184,20 +184,20 @@ public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, Hash
             }
         }
         {
-            IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
-            lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
-            rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
-                return false;
-            }
-        }
-        {
             IcmListatiendasBlock lhsIcmListatiendas;
             lhsIcmListatiendas = this.getIcmListatiendas();
             IcmListatiendasBlock rhsIcmListatiendas;
             rhsIcmListatiendas = that.getIcmListatiendas();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListatiendas", lhsIcmListatiendas), LocatorUtils.property(thatLocator, "icmListatiendas", rhsIcmListatiendas), lhsIcmListatiendas, rhsIcmListatiendas, (this.icmListatiendas!= null), (that.icmListatiendas!= null))) {
+                return false;
+            }
+        }
+        {
+            IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
+            lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
+            IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
+            rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
                 return false;
             }
         }
@@ -235,14 +235,14 @@ public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, Hash
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
-        {
             IcmListatiendasBlock theIcmListatiendas;
             theIcmListatiendas = this.getIcmListatiendas();
             strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas, (this.icmListatiendas!= null));
+        }
+        {
+            IcmParametrospaginacionBlock theIcmParametrospaginacion;
+            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
+            strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
         }
         return buffer;
     }
@@ -260,14 +260,14 @@ public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, Hash
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
-        {
             IcmListatiendasBlock theIcmListatiendas;
             theIcmListatiendas = this.getIcmListatiendas();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListatiendas", theIcmListatiendas), currentHashCode, theIcmListatiendas, (this.icmListatiendas!= null));
+        }
+        {
+            IcmParametrospaginacionBlock theIcmParametrospaginacion;
+            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
         }
         return currentHashCode;
     }
@@ -321,19 +321,6 @@ public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, Hash
                 }
             }
             {
-                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
-                if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
-                    sourceIcmParametrospaginacion = this.getIcmParametrospaginacion();
-                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion), sourceIcmParametrospaginacion, (this.icmParametrospaginacion!= null)));
-                    copy.setIcmParametrospaginacion(copyIcmParametrospaginacion);
-                } else {
-                    if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmParametrospaginacion = null;
-                    }
-                }
-            }
-            {
                 Boolean icmListatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListatiendas!= null));
                 if (icmListatiendasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListatiendasBlock sourceIcmListatiendas;
@@ -343,6 +330,19 @@ public class GettiendasonlineOutput implements Cloneable, CopyTo2, Equals2, Hash
                 } else {
                     if (icmListatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmListatiendas = null;
+                    }
+                }
+            }
+            {
+                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
+                if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
+                    sourceIcmParametrospaginacion = this.getIcmParametrospaginacion();
+                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion), sourceIcmParametrospaginacion, (this.icmParametrospaginacion!= null)));
+                    copy.setIcmParametrospaginacion(copyIcmParametrospaginacion);
+                } else {
+                    if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmParametrospaginacion = null;
                     }
                 }
             }

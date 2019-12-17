@@ -45,7 +45,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="ICM_LISTAESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ListaestructuraBlock"/>
  *         &lt;element name="ICM_PARAMCALPERIODO" type="{http://schemas.meta4.com/}Icm_ParamcalperiodoBlock"/>
  *         &lt;element name="ICM_PARAMCALPROCESO" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoBlock"/>
- *         &lt;element name="ICM_LISTAESTRUCTURAS" type="{http://schemas.meta4.com/}Icm_ListaestructurasBlock"/>
  *         &lt;element name="ICM_PARAMCALEMPLEADO" type="{http://schemas.meta4.com/}Icm_ParamcalempleadoBlock"/>
  *         &lt;element name="ICM_PARAMCALSOCIEDAD" type="{http://schemas.meta4.com/}Icm_ParamcalsociedadBlock"/>
  *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/>
@@ -77,7 +76,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmlistaestructura",
     "icmparamcalperiodo",
     "icmparamcalproceso",
-    "icmlistaestructuras",
     "icmparamcalempleado",
     "icmparamcalsociedad",
     "icmparametrosentrada",
@@ -117,8 +115,6 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
     protected IcmParamcalperiodoBlock icmparamcalperiodo;
     @XmlElement(name = "ICM_PARAMCALPROCESO", required = true)
     protected IcmParamcalprocesoBlock icmparamcalproceso;
-    @XmlElement(name = "ICM_LISTAESTRUCTURAS", required = true)
-    protected IcmListaestructurasBlock icmlistaestructuras;
     @XmlElement(name = "ICM_PARAMCALEMPLEADO", required = true)
     protected IcmParamcalempleadoBlock icmparamcalempleado;
     @XmlElement(name = "ICM_PARAMCALSOCIEDAD", required = true)
@@ -449,30 +445,6 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
     }
 
     /**
-     * Obtiene el valor de la propiedad icmlistaestructuras.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaestructurasBlock }
-     *     
-     */
-    public IcmListaestructurasBlock getICMLISTAESTRUCTURAS() {
-        return icmlistaestructuras;
-    }
-
-    /**
-     * Define el valor de la propiedad icmlistaestructuras.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaestructurasBlock }
-     *     
-     */
-    public void setICMLISTAESTRUCTURAS(IcmListaestructurasBlock value) {
-        this.icmlistaestructuras = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad icmparamcalempleado.
      * 
      * @return
@@ -790,15 +762,6 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             }
         }
         {
-            IcmListaestructurasBlock lhsICMLISTAESTRUCTURAS;
-            lhsICMLISTAESTRUCTURAS = this.getICMLISTAESTRUCTURAS();
-            IcmListaestructurasBlock rhsICMLISTAESTRUCTURAS;
-            rhsICMLISTAESTRUCTURAS = that.getICMLISTAESTRUCTURAS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaestructuras", lhsICMLISTAESTRUCTURAS), LocatorUtils.property(thatLocator, "icmlistaestructuras", rhsICMLISTAESTRUCTURAS), lhsICMLISTAESTRUCTURAS, rhsICMLISTAESTRUCTURAS, (this.icmlistaestructuras!= null), (that.icmlistaestructuras!= null))) {
-                return false;
-            }
-        }
-        {
             IcmParamcalempleadoBlock lhsICMPARAMCALEMPLEADO;
             lhsICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
             IcmParamcalempleadoBlock rhsICMPARAMCALEMPLEADO;
@@ -959,11 +922,6 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             strategy.appendField(locator, this, "icmparamcalproceso", buffer, theICMPARAMCALPROCESO, (this.icmparamcalproceso!= null));
         }
         {
-            IcmListaestructurasBlock theICMLISTAESTRUCTURAS;
-            theICMLISTAESTRUCTURAS = this.getICMLISTAESTRUCTURAS();
-            strategy.appendField(locator, this, "icmlistaestructuras", buffer, theICMLISTAESTRUCTURAS, (this.icmlistaestructuras!= null));
-        }
-        {
             IcmParamcalempleadoBlock theICMPARAMCALEMPLEADO;
             theICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
             strategy.appendField(locator, this, "icmparamcalempleado", buffer, theICMPARAMCALEMPLEADO, (this.icmparamcalempleado!= null));
@@ -1072,11 +1030,6 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             IcmParamcalprocesoBlock theICMPARAMCALPROCESO;
             theICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalproceso", theICMPARAMCALPROCESO), currentHashCode, theICMPARAMCALPROCESO, (this.icmparamcalproceso!= null));
-        }
-        {
-            IcmListaestructurasBlock theICMLISTAESTRUCTURAS;
-            theICMLISTAESTRUCTURAS = this.getICMLISTAESTRUCTURAS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaestructuras", theICMLISTAESTRUCTURAS), currentHashCode, theICMLISTAESTRUCTURAS, (this.icmlistaestructuras!= null));
         }
         {
             IcmParamcalempleadoBlock theICMPARAMCALEMPLEADO;
@@ -1305,19 +1258,6 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
                 } else {
                     if (icmparamcalprocesoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmparamcalproceso = null;
-                    }
-                }
-            }
-            {
-                Boolean icmlistaestructurasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaestructuras!= null));
-                if (icmlistaestructurasShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListaestructurasBlock sourceICMLISTAESTRUCTURAS;
-                    sourceICMLISTAESTRUCTURAS = this.getICMLISTAESTRUCTURAS();
-                    IcmListaestructurasBlock copyICMLISTAESTRUCTURAS = ((IcmListaestructurasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaestructuras", sourceICMLISTAESTRUCTURAS), sourceICMLISTAESTRUCTURAS, (this.icmlistaestructuras!= null)));
-                    copy.setICMLISTAESTRUCTURAS(copyICMLISTAESTRUCTURAS);
-                } else {
-                    if (icmlistaestructurasShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmlistaestructuras = null;
                     }
                 }
             }
