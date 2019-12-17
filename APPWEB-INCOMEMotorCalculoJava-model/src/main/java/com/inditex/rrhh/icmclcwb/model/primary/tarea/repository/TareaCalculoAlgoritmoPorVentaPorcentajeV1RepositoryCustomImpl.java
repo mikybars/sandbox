@@ -14,19 +14,19 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class TareaCalculoAlgoritmoPorVentaPorcentajePorcentajeBaseV1RepositoryCustomImpl
+public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImpl
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
-    implements TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1RepositoryCustom {
+    implements TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom {
 
     //TODO [Comun] Substituir las consultas de las anotaciones @Value
 
-//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1Repository.calcular']}")
+//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeV1Repository.calcular']}")
     @Getter
     private String sqlCalcular;
 
-//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1Repository.calcular.where']}")
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1Repository.calcular']}")
+//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1Repository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeV1Repository.calcular']}")
     @Getter
     private String sqlCalcularBase;
 

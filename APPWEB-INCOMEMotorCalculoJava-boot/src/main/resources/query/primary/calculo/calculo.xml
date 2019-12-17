@@ -1981,7 +1981,7 @@ SELECT
     ]]>
 </entry>
 
-<entry key="TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1Repository.calcular">
+<entry key="TareaCalculoAlgoritmoPorVentaPorcentajeV1Repository.calcular">
   <![CDATA[
   --TODO [COMUN] Definir la consulta del cálculo PorVenta
 SELECT * FROM

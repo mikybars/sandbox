@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1RepositoryCustomImplTest {
+public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
 
@@ -44,7 +44,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1RepositoryCustomImplTe
     private ArgumentCaptor<String> sqlCaptor;
 
     @InjectMocks
-    private TareaCalculoAlgoritmoPorVentaPorcentajePorcentajeBaseV1RepositoryCustomImpl
+    private TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImpl
         tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom;
 
     @Before
