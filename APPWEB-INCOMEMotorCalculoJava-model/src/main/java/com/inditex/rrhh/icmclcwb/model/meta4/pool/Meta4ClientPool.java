@@ -17,8 +17,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getempleados
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosdesplazOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrcomisionOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestrpoliticasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
@@ -73,21 +71,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
         log.info("Fin :: Meta4ClientPool :: close()");
     }
-    
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetestrpoliticasOutput getestrpoliticas(IcmParamcalestructuraBlock param1) {
-        Meta4ClientPoolable client = claim(pool);
-        try {
-            return client.getIcmWsCalcIncomeService().getestrpoliticas(param1);
-        } catch (Exception e) {
-            catchException(e, client, Arrays.asList(param1));
-            throw new Meta4IcmclcwbException(e.getMessage(), e);
-        } finally {
-            release(client);
-        }
-    }
-
-   
+      
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetempleadosdesplazOutput getempleadosdesplaz(IcmParametrospaginacionBlock param1,
             IcmParametrosentradaBlock param2) {
@@ -121,7 +105,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getempresas(param2, param1);
+            return client.getIcmWsCalcIncomeService().getempresas(param1, param2);
         } catch (Exception e) {
             catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -230,7 +214,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getpresenciamanual(param2, param1);
+            return client.getIcmWsCalcIncomeService().getpresenciamanual(param1, param2);
         } catch (Exception e) {
             catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -244,7 +228,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getempleadospresencia(param2, param1);
+            return client.getIcmWsCalcIncomeService().getempleadospresencia(param1, param2);
         } catch (Exception e) {
             catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -257,7 +241,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public GetperiodosOutput getperiodos(IcmParamcalperiodoBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getperiodos(param1, param2);
+            return client.getIcmWsCalcIncomeService().getperiodos(param2, param1);
         } catch (Exception e) {
             catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -270,22 +254,9 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public GetempleadosOutput getempleados(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().getempleados(param2, param1);
+            return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
         } catch (Exception e) {
             catchException(e, client, Arrays.asList(param1, param2));
-            throw new Meta4IcmclcwbException(e.getMessage(), e);
-        } finally {
-            release(client);
-        }
-    }
-
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GetestrcomisionOutput getestrcomision(IcmParamcalestructuraBlock param1) {
-        Meta4ClientPoolable client = claim(pool);
-        try {
-            return client.getIcmWsCalcIncomeService().getestrcomision(param1);
-        } catch (Exception e) {
-            catchException(e, client, Arrays.asList(param1));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
         } finally {
             release(client);
@@ -350,7 +321,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             IcmParametrosentradaBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
+            return client.getIcmWsCalcIncomeService().gettiendasincome(param2, param1);
         } catch (Exception e) {
             catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -364,7 +335,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
                                                    IcmParametrosentradaBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
-            return client.getIcmWsCalcIncomeService().gettiendasonline(param1, param2);
+            return client.getIcmWsCalcIncomeService().gettiendasonline(param2, param1);
         } catch (Exception e) {
             catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
