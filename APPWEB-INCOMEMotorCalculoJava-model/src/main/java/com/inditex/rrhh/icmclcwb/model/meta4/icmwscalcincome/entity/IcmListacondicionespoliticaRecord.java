@@ -40,6 +40,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="excdenominador" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idtipopolitica" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="nombremotivobaja" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="nummesescalcmedia" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="nombretipopolitica" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_Listavalorespolitica" type="{http://schemas.meta4.com/}Icm_ListavalorespoliticaBlock"/>
  *       &lt;/sequence>
@@ -61,6 +62,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "excdenominador",
     "idtipopolitica",
     "nombremotivobaja",
+    "nummesescalcmedia",
     "nombretipopolitica",
     "icmListavalorespolitica"
 })
@@ -84,6 +86,8 @@ public class IcmListacondicionespoliticaRecord implements Cloneable, CopyTo2, Eq
     protected String idtipopolitica;
     @XmlElement(required = true, nillable = true)
     protected String nombremotivobaja;
+    @XmlElement(required = true, nillable = true)
+    protected String nummesescalcmedia;
     @XmlElement(required = true, nillable = true)
     protected String nombretipopolitica;
     @XmlElement(name = "Icm_Listavalorespolitica", required = true, nillable = true)
@@ -298,6 +302,30 @@ public class IcmListacondicionespoliticaRecord implements Cloneable, CopyTo2, Eq
     }
 
     /**
+     * Obtiene el valor de la propiedad nummesescalcmedia.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNummesescalcmedia() {
+        return nummesescalcmedia;
+    }
+
+    /**
+     * Define el valor de la propiedad nummesescalcmedia.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNummesescalcmedia(String value) {
+        this.nummesescalcmedia = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad nombretipopolitica.
      * 
      * @return
@@ -435,6 +463,15 @@ public class IcmListacondicionespoliticaRecord implements Cloneable, CopyTo2, Eq
             }
         }
         {
+            String lhsNummesescalcmedia;
+            lhsNummesescalcmedia = this.getNummesescalcmedia();
+            String rhsNummesescalcmedia;
+            rhsNummesescalcmedia = that.getNummesescalcmedia();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "nummesescalcmedia", lhsNummesescalcmedia), LocatorUtils.property(thatLocator, "nummesescalcmedia", rhsNummesescalcmedia), lhsNummesescalcmedia, rhsNummesescalcmedia, (this.nummesescalcmedia!= null), (that.nummesescalcmedia!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsNombretipopolitica;
             lhsNombretipopolitica = this.getNombretipopolitica();
             String rhsNombretipopolitica;
@@ -521,6 +558,11 @@ public class IcmListacondicionespoliticaRecord implements Cloneable, CopyTo2, Eq
             strategy.appendField(locator, this, "nombremotivobaja", buffer, theNombremotivobaja, (this.nombremotivobaja!= null));
         }
         {
+            String theNummesescalcmedia;
+            theNummesescalcmedia = this.getNummesescalcmedia();
+            strategy.appendField(locator, this, "nummesescalcmedia", buffer, theNummesescalcmedia, (this.nummesescalcmedia!= null));
+        }
+        {
             String theNombretipopolitica;
             theNombretipopolitica = this.getNombretipopolitica();
             strategy.appendField(locator, this, "nombretipopolitica", buffer, theNombretipopolitica, (this.nombretipopolitica!= null));
@@ -579,6 +621,11 @@ public class IcmListacondicionespoliticaRecord implements Cloneable, CopyTo2, Eq
             String theNombremotivobaja;
             theNombremotivobaja = this.getNombremotivobaja();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nombremotivobaja", theNombremotivobaja), currentHashCode, theNombremotivobaja, (this.nombremotivobaja!= null));
+        }
+        {
+            String theNummesescalcmedia;
+            theNummesescalcmedia = this.getNummesescalcmedia();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nummesescalcmedia", theNummesescalcmedia), currentHashCode, theNummesescalcmedia, (this.nummesescalcmedia!= null));
         }
         {
             String theNombretipopolitica;
@@ -724,6 +771,19 @@ public class IcmListacondicionespoliticaRecord implements Cloneable, CopyTo2, Eq
                 } else {
                     if (nombremotivobajaShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.nombremotivobaja = null;
+                    }
+                }
+            }
+            {
+                Boolean nummesescalcmediaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.nummesescalcmedia!= null));
+                if (nummesescalcmediaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceNummesescalcmedia;
+                    sourceNummesescalcmedia = this.getNummesescalcmedia();
+                    String copyNummesescalcmedia = ((String) strategy.copy(LocatorUtils.property(locator, "nummesescalcmedia", sourceNummesescalcmedia), sourceNummesescalcmedia, (this.nummesescalcmedia!= null)));
+                    copy.setNummesescalcmedia(copyNummesescalcmedia);
+                } else {
+                    if (nummesescalcmediaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.nummesescalcmedia = null;
                     }
                 }
             }

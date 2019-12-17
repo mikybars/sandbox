@@ -34,6 +34,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETEMPRESAS }
+     * 
+     */
+    public GETEMPRESAS createGETEMPRESAS() {
+        return new GETEMPRESAS();
+    }
+
+    /**
+     * Create an instance of {@link IcmParamcalorigenBlock }
+     * 
+     */
+    public IcmParamcalorigenBlock createIcmParamcalorigenBlock() {
+        return new IcmParamcalorigenBlock();
+    }
+
+    /**
+     * Create an instance of {@link IcmParametrospaginacionBlock }
+     * 
+     */
+    public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
+        return new IcmParametrospaginacionBlock();
+    }
+
+    /**
      * Create an instance of {@link GETEMPLEADOSResponse }
      * 
      */
@@ -47,30 +71,6 @@ public class ObjectFactory {
      */
     public GetempleadosOutput createGetempleadosOutput() {
         return new GetempleadosOutput();
-    }
-
-    /**
-     * Create an instance of {@link GETEMPRESAS }
-     * 
-     */
-    public GETEMPRESAS createGETEMPRESAS() {
-        return new GETEMPRESAS();
-    }
-
-    /**
-     * Create an instance of {@link IcmParametrospaginacionBlock }
-     * 
-     */
-    public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
-        return new IcmParametrospaginacionBlock();
-    }
-
-    /**
-     * Create an instance of {@link IcmParamcalorigenBlock }
-     * 
-     */
-    public IcmParamcalorigenBlock createIcmParamcalorigenBlock() {
-        return new IcmParamcalorigenBlock();
     }
 
     /**
@@ -122,11 +122,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASEMPLEADO }
+     * Create an instance of {@link GETTIENDASINCOME }
      * 
      */
-    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
-        return new GETTIENDASEMPLEADO();
+    public GETTIENDASINCOME createGETTIENDASINCOME() {
+        return new GETTIENDASINCOME();
     }
 
     /**
@@ -138,11 +138,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASINCOME }
+     * Create an instance of {@link GETTIENDASEMPLEADO }
      * 
      */
-    public GETTIENDASINCOME createGETTIENDASINCOME() {
-        return new GETTIENDASINCOME();
+    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
+        return new GETTIENDASEMPLEADO();
     }
 
     /**
@@ -210,22 +210,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETFLAGCALCULAResponse }
-     * 
-     */
-    public GETFLAGCALCULAResponse createGETFLAGCALCULAResponse() {
-        return new GETFLAGCALCULAResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetflagcalculaOutput }
-     * 
-     */
-    public GetflagcalculaOutput createGetflagcalculaOutput() {
-        return new GetflagcalculaOutput();
-    }
-
-    /**
      * Create an instance of {@link GETORIGENESResponse }
      * 
      */
@@ -242,19 +226,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETFLAGCALCULAResponse }
+     * 
+     */
+    public GETFLAGCALCULAResponse createGETFLAGCALCULAResponse() {
+        return new GETFLAGCALCULAResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetflagcalculaOutput }
+     * 
+     */
+    public GetflagcalculaOutput createGetflagcalculaOutput() {
+        return new GetflagcalculaOutput();
+    }
+
+    /**
      * Create an instance of {@link GETPRESENCIAMANUAL }
      * 
      */
     public GETPRESENCIAMANUAL createGETPRESENCIAMANUAL() {
         return new GETPRESENCIAMANUAL();
-    }
-
-    /**
-     * Create an instance of {@link GETESTRPOLITICAS }
-     * 
-     */
-    public GETESTRPOLITICAS createGETESTRPOLITICAS() {
-        return new GETESTRPOLITICAS();
     }
 
     /**
@@ -266,27 +258,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETEMPLEADOSPRESENCIA }
-     * 
-     */
-    public GETEMPLEADOSPRESENCIA createGETEMPLEADOSPRESENCIA() {
-        return new GETEMPLEADOSPRESENCIA();
-    }
-
-    /**
-     * Create an instance of {@link GETESTRCOMISION }
-     * 
-     */
-    public GETESTRCOMISION createGETESTRCOMISION() {
-        return new GETESTRCOMISION();
-    }
-
-    /**
      * Create an instance of {@link GETCONFPRODVENTA }
      * 
      */
     public GETCONFPRODVENTA createGETCONFPRODVENTA() {
         return new GETCONFPRODVENTA();
+    }
+
+    /**
+     * Create an instance of {@link GETEMPLEADOSPRESENCIA }
+     * 
+     */
+    public GETEMPLEADOSPRESENCIA createGETEMPLEADOSPRESENCIA() {
+        return new GETEMPLEADOSPRESENCIA();
     }
 
     /**
@@ -402,14 +386,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmListaestructurasBlock }
-     * 
-     */
-    public IcmListaestructurasBlock createIcmListaestructurasBlock() {
-        return new IcmListaestructurasBlock();
-    }
-
-    /**
      * Create an instance of {@link IcmResultadoguardadoBlock }
      * 
      */
@@ -471,22 +447,6 @@ public class ObjectFactory {
      */
     public GetagruponlineOutput createGetagruponlineOutput() {
         return new GetagruponlineOutput();
-    }
-
-    /**
-     * Create an instance of {@link GETESTRPOLITICASResponse }
-     * 
-     */
-    public GETESTRPOLITICASResponse createGETESTRPOLITICASResponse() {
-        return new GETESTRPOLITICASResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetestrpoliticasOutput }
-     * 
-     */
-    public GetestrpoliticasOutput createGetestrpoliticasOutput() {
-        return new GetestrpoliticasOutput();
     }
 
     /**
@@ -794,22 +754,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETESTRCOMISIONResponse }
-     * 
-     */
-    public GETESTRCOMISIONResponse createGETESTRCOMISIONResponse() {
-        return new GETESTRCOMISIONResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetestrcomisionOutput }
-     * 
-     */
-    public GetestrcomisionOutput createGetestrcomisionOutput() {
-        return new GetestrcomisionOutput();
-    }
-
-    /**
      * Create an instance of {@link SAVEPROCESO }
      * 
      */
@@ -962,27 +906,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmListaporcentajesBlock }
-     * 
-     */
-    public IcmListaporcentajesBlock createIcmListaporcentajesBlock() {
-        return new IcmListaporcentajesBlock();
-    }
-
-    /**
      * Create an instance of {@link IcmResultadoguardadoRecord }
      * 
      */
     public IcmResultadoguardadoRecord createIcmResultadoguardadoRecord() {
         return new IcmResultadoguardadoRecord();
-    }
-
-    /**
-     * Create an instance of {@link IcmListaestructurasRecord }
-     * 
-     */
-    public IcmListaestructurasRecord createIcmListaestructurasRecord() {
-        return new IcmListaestructurasRecord();
     }
 
     /**
@@ -1026,14 +954,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmListaestrdesplBlock }
-     * 
-     */
-    public IcmListaestrdesplBlock createIcmListaestrdesplBlock() {
-        return new IcmListaestrdesplBlock();
-    }
-
-    /**
      * Create an instance of {@link IcmAvisosguardadoRecord }
      * 
      */
@@ -1066,27 +986,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmListaporcentajesdespBlock }
-     * 
-     */
-    public IcmListaporcentajesdespBlock createIcmListaporcentajesdespBlock() {
-        return new IcmListaporcentajesdespBlock();
-    }
-
-    /**
      * Create an instance of {@link IcmListaseccionesRecord }
      * 
      */
     public IcmListaseccionesRecord createIcmListaseccionesRecord() {
         return new IcmListaseccionesRecord();
-    }
-
-    /**
-     * Create an instance of {@link IcmListaestrdesplRecord }
-     * 
-     */
-    public IcmListaestrdesplRecord createIcmListaestrdesplRecord() {
-        return new IcmListaestrdesplRecord();
     }
 
     /**
@@ -1127,14 +1031,6 @@ public class ObjectFactory {
      */
     public IcmParamcalprocesoRecord createIcmParamcalprocesoRecord() {
         return new IcmParamcalprocesoRecord();
-    }
-
-    /**
-     * Create an instance of {@link IcmListaporcentajesdespRecord }
-     * 
-     */
-    public IcmListaporcentajesdespRecord createIcmListaporcentajesdespRecord() {
-        return new IcmListaporcentajesdespRecord();
     }
 
     /**
@@ -1183,14 +1079,6 @@ public class ObjectFactory {
      */
     public IcmListavaloresdestinoRecord createIcmListavaloresdestinoRecord() {
         return new IcmListavaloresdestinoRecord();
-    }
-
-    /**
-     * Create an instance of {@link IcmListaporcentajesRecord }
-     * 
-     */
-    public IcmListaporcentajesRecord createIcmListaporcentajesRecord() {
-        return new IcmListaporcentajesRecord();
     }
 
     /**
