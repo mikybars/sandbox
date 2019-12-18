@@ -2002,6 +2002,27 @@ WHERE 1 = 0
   ]]>
 </entry>
 
+<entry key="TareaCalculoAlgoritmoPorVentaPorcentajeDiariaV1Repository.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentaje
+SELECT * FROM
+	(VALUES (1)) t1 (ID_TAREA),
+	(VALUES ('2019-01-01')) t2 (FECHA),
+	(VALUES (7001)) T3 (ID_ALGORITMO),
+	(VALUES (0)) t1 (IMPORTE_SIN_IMPUESTOS),
+	(VALUES (0)) t1 (IMPORTE_CON_IMPUESTOS),
+	(VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+	(VALUES (1)) t1 (CCL_ID_PERSON),
+	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA)
+WHERE 1 = 0
+  ]]>
+</entry>
+
 <entry key="TareaCalculoAlgoritmoPorVentaTopesV1Repository.calcular">
     <![CDATA[
   --TODO [COMUN] Definir la consulta del cálculo PorVentaTopes
