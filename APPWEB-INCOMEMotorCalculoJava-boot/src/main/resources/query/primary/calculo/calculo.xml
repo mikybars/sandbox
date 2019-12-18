@@ -2151,7 +2151,7 @@ WHERE 1 = 0
 
 <entry key="TareaCalculoAlgoritmoPorVentaPorcentajeDiariaDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentajeDiariaDesplazamiento
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentajeDiariaDesplazamientoBase
 SELECT * FROM
 	(VALUES (1)) t1 (ID_TAREA),
 	(VALUES ('2019-01-01')) t2 (FECHA),
@@ -2172,7 +2172,7 @@ WHERE 1 = 0
 
 <entry key="TareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamiento
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentajeDesplazamientoBase
 SELECT * FROM
 	(VALUES (1)) t1 (ID_TAREA),
 	(VALUES ('2019-01-01')) t2 (FECHA),
@@ -2193,7 +2193,7 @@ WHERE 1 = 0
 
 <entry key="TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaManualDesplazamiento
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamiento
 SELECT * FROM
 	(VALUES (1)) t1 (ID_TAREA),
 	(VALUES ('2019-01-01')) t2 (FECHA),
@@ -2214,7 +2214,7 @@ WHERE 1 = 0
 
 <entry key="TareaCalculoAlgoritmoPorVentaTopesDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaManualDesplazamiento
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamientoBase
 SELECT * FROM
 	(VALUES (1)) t1 (ID_TAREA),
 	(VALUES ('2019-01-01')) t2 (FECHA),
@@ -2235,7 +2235,7 @@ WHERE 1 = 0
 
 <entry key="TareaCalculoAlgoritmoPorVentaManualDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaManualDesplazamiento
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaManualDesplazamientoBase
 SELECT * FROM
 	(VALUES (1)) t1 (ID_TAREA),
 	(VALUES ('2019-01-01')) t2 (FECHA),
@@ -2256,7 +2256,7 @@ WHERE 1 = 0
 
 <entry key="TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaManualDesplazamiento
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamientoBase
 SELECT * FROM
 	(VALUES (1)) t1 (ID_TAREA),
 	(VALUES ('2019-01-01')) t2 (FECHA),

@@ -20,12 +20,12 @@ public class TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository
 
     //TODO [Comun] Substituir las consultas de las anotaciones @Value
 
-    //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository.calcular']}")
     @Getter
     private String sqlCalcular;
 
-    //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaTopesV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository.calcular.where']}")
+    //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository.calcular']}")
     @Getter
     private String sqlCalcularBase;
@@ -35,7 +35,7 @@ public class TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository
 
     @Override
     protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, TareaCalculoPersonaDto persona) {
-        //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVentaTopes
+        //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVentaAjusteManualDesplazamiento
         return new HashMap<>();
     }
 

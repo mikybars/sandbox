@@ -25,7 +25,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImpl
     @Getter
     private String sqlCalcular;
 
-//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1Repository.calcular.where']}")
+//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeV1Repository.calcular']}")
     @Getter
     private String sqlCalcularBase;
@@ -35,7 +35,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImpl
 
     @Override
     protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, TareaCalculoPersonaDto persona) {
-        //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVenta
+        //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVentaPorcentaje
         return new HashMap<>();
     }
 

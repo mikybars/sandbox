@@ -25,7 +25,7 @@ public class TareaCalculoAlgoritmoPorVentaTopesV1RepositoryCustomImpl
     @Getter
     private String sqlCalcular;
 
-    //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaTopesV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaPorcentajeBaseV1Repository.calcular.where']}")
+    //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaTopesV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaTopesV1Repository.calcular']}")
     @Getter
     private String sqlCalcularBase;
