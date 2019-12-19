@@ -1,5 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 public interface TareaCalculoAlgoritmoPorVentaSimplificadoAjusteManualDesplazamientoBaseV1RepositoryCustom
-    extends TareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoV1RepositoryCustom{
+    extends TareaCalculoAlgoritmoBaseRepositoryCustom {
 }
