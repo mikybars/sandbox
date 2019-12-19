@@ -45,12 +45,12 @@ public class TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1Reposi
 
     @InjectMocks
     private TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1RepositoryCustomImpl
-        tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom;
+        tareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1RepositoryCustom;
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1Reposi
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 
         List<TareaCalculoPersonaDto> ids =
-            tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom.ids(algoritmo, tarea);
+            tareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, tarea);
 
         assertEquals(2, ids.size());
         assertEquals(personas, ids);
@@ -83,7 +83,7 @@ public class TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1Reposi
 //        when(persona1.getCclIdPerson()).thenReturn("AT1001");
 //        when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
 
         //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVenta
         assertEquals(0, result.size());
@@ -105,7 +105,7 @@ public class TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1Reposi
 //        when(persona2.getStdOrHrPeriod()).thenReturn("02");
         List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
 
-        tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom.calcular(algoritmo, tarea, personas);
+        tareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo, tarea, personas);
 
         verify(namedParameterJdbcTemplate).batchUpdate(sqlCaptor.capture(), paramsCaptor.capture());
         //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVenta
@@ -126,7 +126,7 @@ public class TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1Reposi
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 //        when(algoritmo.getId()).thenReturn(21);
 
-        String result = tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom
+        String result = tareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1RepositoryCustom
             .getSqlCalcular(algoritmo);
         assertEquals(SQL_BASE, result);
 
