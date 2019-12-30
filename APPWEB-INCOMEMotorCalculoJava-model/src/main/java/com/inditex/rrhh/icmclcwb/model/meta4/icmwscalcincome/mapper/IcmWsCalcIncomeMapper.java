@@ -1,11 +1,16 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
+import java.util.List;
+
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ListaEstructuraDesplazamientosResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ListaPorcentajesResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
@@ -32,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.Save
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresguardadoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesdestinoRecord;
@@ -40,14 +46,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconf
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestrdesplRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructurasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaperiodosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapoliticasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaporcentajesRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaporcentajesdespRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresdestinoRecord;
@@ -68,12 +70,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper
 @DecoratedWith(IcmWsCalcIncomeMapperDecorator.class)
@@ -281,6 +277,20 @@ public interface IcmWsCalcIncomeMapper {
 
     List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtos(List<IcmListaempleadosRecord> src);
     
+    @Mapping(target = "inOut", source = "inout")
+    @Mapping(target = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL, ignore = true)
+    @Mapping(target = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL, ignore = true)
+    @Mapping(target = "idEmpleado", source = "idempleado")
+    @Mapping(target = "orEmpleado", source = "orempleado")
+    @Mapping(target = "tipo", source = "tipo")
+    AusenciasResultItemDto asAusenciasResultItemDto(IcmListaausenciasRecord src);
+    
+    @InheritInverseConfiguration
+    IcmListaausenciasRecord asIcmListaausenciasRecord(AusenciasResultItemDto src);
+    
+    List<AusenciasResultItemDto> asAusenciasResultItemDtos(List<IcmListaausenciasRecord> src);
+
+    
     @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
     @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
     @Mapping(target = "fecha", dateFormat = Meta4Constants.META4_DATE_FULL, ignore = true)
@@ -327,45 +337,6 @@ public interface IcmWsCalcIncomeMapper {
     IcmListaperiodosRecord asIcmListatiendasRecord(PeriodosResultItemDto src);
 
     List<PeriodosResultItemDto> asPeriodosResultItemDtos(List<IcmListaperiodosRecord> src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "diaD", source = "diad")
-    @Mapping(target = "diaJ", source = "diaj")
-    @Mapping(target = "diaL", source = "dial")
-    @Mapping(target = "diaM", source = "diam")
-    @Mapping(target = "diaS", source = "dias")
-    @Mapping(target = "diaV", source = "diav")
-    @Mapping(target = "diaX", source = "diax")
-    @Mapping(target = "inOut", source = "inout")
-    @Mapping(target = "importe", source = "importe")
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "numHoras", source = "numhoras")
-    @Mapping(target = "idEmpleado", source = "idempleado")
-    @Mapping(target = "importeMax", source = "importemax")
-    @Mapping(target = "importeMin", source = "importemin")
-    @Mapping(target = "orEmpleado", source = "orempleado")
-    @Mapping(target = "idEstructura", source = "idestructura")
-    @Mapping(target = "idMotivoBaja", source = "idmotivobaja")
-    @Mapping(target = "idTipoCalculo", source = "idtipocalculo")
-    @Mapping(target = "numMesesMedia", source = "nummesesmedia")
-    @Mapping(target = "excDenominador", source = "excdenominador")
-    @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
-    @Mapping(target = "idTipoComision", source = "idtipocomision")
-    @Mapping(target = "idTipoPolitica", source = "idtipopolitica")
-    @Mapping(target = "idEmpleadoLocal", source = "idempleadolocal")
-    @Mapping(target = "idLugarTrabajoMtu", source = "idlugartrabajomtu")
-    @Mapping(target = "desplazamiento", source = "desplazamiento")
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "icmListaPorcentajes", source = "icmListaporcentajes.icmListaporcentajesRecordSet")
-    @Mapping(target = "icmListaEstrDespl", source = "icmListaestrdespl.icmListaestrdesplRecordSet")
-    ComisionEmpleadoResultItemDto asComisionEmpleadoResultItemDto(IcmListaestructurasRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaestructurasRecord asIcmListaestructurasRecord(ComisionEmpleadoResultItemDto src);
-
-    List<ComisionEmpleadoResultItemDto> asComisionEmpleadoResultItemDtos(List<IcmListaestructurasRecord> src);
     
     @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
     @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
@@ -485,6 +456,11 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
     @Mapping(target = "excDenominador", source = "excdenominador")
     @Mapping(target = "idTipoPolitica", source = "idtipopolitica")
+    @Mapping(target = "numMesesCalcMedia", source = "nummesescalcmedia")
+    @Mapping(target = "numHoras", source = "numhoras")
+    @Mapping(target = "importeMax", source = "importemax")
+    @Mapping(target = "importeMin", source = "importemin")
+    @Mapping(target = "idMotivoBaja", source = "idmotivobaja")
     @Mapping(target = "icmListaValoresPoliticas", source = "icmListavalorespolitica.icmListavalorespoliticaRecordSet")
     ListaCondicionesPoliticasResultItemDto asListaCondicionesPoliticasResultItemDto(IcmListacondicionespoliticaRecord src);
 
@@ -506,56 +482,6 @@ public interface IcmWsCalcIncomeMapper {
 
     List<ListaValoresPoliticasResultItemDto> asListaValoresPoliticasResultItemDto(List<IcmListavalorespoliticaRecord> src);
     
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "idSeccion", source = "idseccion")
-    @Mapping(target = "porcentaje", source = "porcentaje")
-    ListaPorcentajesResultItemDto asListaPorcentajesResultItemDto(IcmListaporcentajesRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaporcentajesRecord asIcmListaporcentajesRecord(ListaPorcentajesResultItemDto src);
-
-    List<ListaPorcentajesResultItemDto> asListaPorcentajesResultItemDto(List<IcmListaporcentajesRecord> src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "diaD", source = "diad")
-    @Mapping(target = "diaJ", source = "diaj")
-    @Mapping(target = "diaL", source = "dial")
-    @Mapping(target = "diaM", source = "diam")
-    @Mapping(target = "diaS", source = "dias")
-    @Mapping(target = "diaV", source = "diav")
-    @Mapping(target = "diaX", source = "diax")
-    @Mapping(target = "inOut", source = "inout")
-    @Mapping(target = "importe", source = "importe")
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "horasOrigen", source = "horasorigen")
-    @Mapping(target = "horasDestino", source = "horasdestino")
-    @Mapping(target = "idMotivoDesplazamiento", source = "idmotivodesp")
-    @Mapping(target = "idTipoCalculo", source = "idtipocalculo")
-    @Mapping(target = "idTipoOpCalculo", source = "idtipoopccalc")
-    @Mapping(target = "idPuestoDestino", source = "idpuestodestino")
-    @Mapping(target = "idSeccionDestino", source = "idsecciondestino")
-    @Mapping(target = "idTipoReqComision", source = "idtiporeqcomision")
-    @Mapping(target = "idLugarTrabajoDestino", source = "idlugartrabajodestino")
-    @Mapping(target = "idLugarTrabajoDestinoMtu", source = "idlugartrabajodestinomtu")
-    @Mapping(target = "listaPorcentajes", source = "icmListaporcentajesdesp.icmListaporcentajesdespRecordSet")
-    ListaEstructuraDesplazamientosResultItemDto asListaEstructuraDesplazamientosResultItemDto(IcmListaestrdesplRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaestrdesplRecord asIcmListaestrdesplRecord(ListaEstructuraDesplazamientosResultItemDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "idSeccion", source = "idseccion")
-    @Mapping(target = "porcentaje", source = "porcentaje")
-    ListaPorcentajesResultItemDto asListaPorcentajesResultItemDtoDesplazamiento(IcmListaporcentajesdespRecord src);
-
-    List<ListaPorcentajesResultItemDto> asListaPorcentajesResultItemDtoDesplazamiento(List<IcmListaporcentajesdespRecord> src);
-
-    List<ListaEstructuraDesplazamientosResultItemDto> asListaEstructuraDesplazamientosResultItemDto(List<IcmListaestrdesplRecord> src);
-
     @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
     @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
     @Mapping(target = "inout", source = "inout")

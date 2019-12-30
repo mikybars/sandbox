@@ -80,8 +80,21 @@ public class TareaPersonaEstructuraPolitica {
     @NotNull
     @Column(name = "ICM_VALOR", nullable = false, precision = 23,  scale = 8)
     private BigDecimal valor;
-    
+
     @NotBlank
     @Column(name = "ICM_TRAMO", nullable = false)
     private String tramo;
+    
+    @Column(name = "ICM_IMPORTE", nullable = true, precision = 23,  scale = 8)
+    private BigDecimal importe;
+    
+    @Column(name = "ICM_NUM_MESES_CALC_MEDIA", nullable = true)
+    private String numMesesCalcMedia;
+    
+    @Column(name = "ICM_NUM_HORAS", nullable = true)
+    private String numHoras;
+    
+    @Column(name = "ICM_ID_MOTIVO_BAJA", nullable = true)
+    private String idMotivoBaja;
+
 }

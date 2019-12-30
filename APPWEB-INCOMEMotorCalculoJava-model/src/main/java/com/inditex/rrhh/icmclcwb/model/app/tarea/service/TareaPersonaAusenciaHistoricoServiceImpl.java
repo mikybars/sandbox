@@ -1,0 +1,41 @@
+package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaAusenciaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaAusenciaHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaAusenciaHistoricoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaAusenciaHistoricoRepositoryCustom;
+
+@Service
+@Validated
+public class TareaPersonaAusenciaHistoricoServiceImpl implements TareaPersonaAusenciaHistoricoService {
+
+    @Autowired
+    private TareaPersonaAusenciaHistoricoRepositoryCustom tareaPersonaAusenciaHistoricoRepositoryCustom;
+
+    @Autowired
+    private TareaPersonaAusenciaHistoricoMapper tareaPersonaAusenciaHistoricoMapper;
+    
+    @Override
+    public List<TareaPersonaAusenciaHistoricoDto> save(
+            @Valid final List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusenciaHistorico) {
+        return tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
+                tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(tareaPersonaAusenciaHistorico)));
+    }
+    
+    @Override
+    public List<TareaPersonaAusenciaHistoricoDto> saveAusenciaResultItemDto(
+            @Valid final List<AusenciasResultItemDto> src, @Valid final TareaDto tarea) {
+        return tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
+                tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper.ausenciasResultItemDtoToTareaPersonaAusenciaHistorico(src, tarea)));
+    }
+}

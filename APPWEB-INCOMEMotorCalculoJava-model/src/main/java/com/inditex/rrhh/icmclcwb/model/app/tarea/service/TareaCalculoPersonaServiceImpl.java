@@ -69,5 +69,12 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
         return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
                 tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(tarea, algoritmo));
     }
+    
+    @Override
+    public List<TareaCalculoPersonaDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
+             @Valid @NotNull final String idTipoPolitica) {
+        return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
+                tareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, idTipoPolitica));
+    }
 
 }

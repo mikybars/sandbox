@@ -101,4 +101,10 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         tareaRecolectarMeta4IcmWsCalcIncomeService.empleadosDesplazamientoByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+    
+    @Override
+    public CompletableFuture<Void> ausenciasByRunTarea(final RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.ausenciasByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

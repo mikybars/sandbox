@@ -5,6 +5,8 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -81,5 +83,7 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
     CompletableFuture<List<EstructurasComResultItemDto>> getEstructurasCom(EstructurasComRequestDto request);
 
     CompletableFuture<List<EstructurasPolResultItemDto>> getEstructurasPol(EstructurasPolRequestDto request);
+
+    CompletableFuture<List<AusenciasResultItemDto>> getAusencias(AusenciasRequestDto request);
 
 }

@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbito
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
 
@@ -118,6 +119,21 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public void desactiva(@Positive @NotNull Long id) {
         programacionRepositoryCustom.desactiva(id);
+    }
+    
+    @Override
+    public ProgramacionDto findById(@Positive @NotNull final Long id) {
+        ProgramacionDto programacionDto = programacionMapper.programacionToProgramacionDto(programacionRepository.findById(id).get());
+        programacionDto.setAmbito(programacionAmbitoService.findByProgramacion(programacionDto));
+        return programacionDto;
+    }
+    
+    @Override
+    public ProgramacionDto findPendienteById(@Positive @NotNull final Long id) {
+        ProgramacionDto programacionDto = programacionMapper.programacionToProgramacionDto(programacionRepository
+                .findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(id, TimeUtils.nowLocalDateTime()));
+        programacionDto.setAmbito(programacionAmbitoService.findByProgramacion(programacionDto));
+        return programacionDto;
     }
 
 }

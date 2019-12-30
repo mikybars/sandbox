@@ -17,6 +17,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
@@ -171,6 +173,12 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     public List<OrigenResultItemDto> getOrigen(OrigenRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ORIGEN,
             meta4Properties.get(Meta4PropertiesConstants.ORIGEN).getFilter().getMaxPageSize());
+    }
+    
+    @Override
+    public List<AusenciasResultItemDto> getAusencias(AusenciasRequestDto request) {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.AUSENCIAS,
+            meta4Properties.get(Meta4PropertiesConstants.AUSENCIAS).getFilter().getMaxPageSize());
     }
     
     @Override

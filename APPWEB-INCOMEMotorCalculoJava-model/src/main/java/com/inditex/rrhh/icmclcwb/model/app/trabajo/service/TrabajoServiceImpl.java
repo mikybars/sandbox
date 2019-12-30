@@ -13,8 +13,15 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizaci
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoOrigenService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
+import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
@@ -23,10 +30,15 @@ import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -44,6 +56,9 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private TrabajoMapper trabajoMapper;
+    
+    @Autowired
+    private PeriodoMapper periodoMapper;
 
     @Autowired
     private TrabajoAmbitoOrigenService trabajoAmbitoOrigenService;
@@ -62,7 +77,11 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private SenderTrabajo senderTrabajo;
-
+    
+    @Autowired
+    @Qualifier("meta4Properties")
+    private Map<String, Meta4PropertiesDto> meta4Properties;
+    
     @Override
     public TrabajoDto find(@NotNull @Positive final Long id) {
         TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findById(id).get());
@@ -75,7 +94,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Transactional
     @Override
-    public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo) {
+    public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo){
         trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
         trabajo.setEstado(EstadoTrabajoEnum.PENDIENTE.getDto());
         if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
@@ -83,6 +102,22 @@ public class TrabajoServiceImpl implements TrabajoService {
             if (StringUtils.isNotBlank(userSSO.getUser())) {
                 trabajo.setNombreUsuario(userSSO.getUser());
             }
+        }
+        
+        PeriodosRequestDto request = new PeriodosRequestDto();
+        request.setData(new GenericFilterDto());
+        request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+        request.setPage(meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
+        request.getData().getItem()
+                .add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization())
+                        .abierto(Meta4Constants.TRUE).activo(Meta4Constants.TRUE)
+                        .vigente(Meta4Constants.TRUE).idPeriodo(trabajo.getIcmIdPeriodo().toString()).build());
+        
+        List<PeriodoDto> periodos = periodoMapper
+                .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
+        if (CollectionUtils.isNotEmpty(periodos)) {
+            trabajo.setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo());
+            trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo());
         }
         TrabajoDto result = trabajoMapper
                 .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
