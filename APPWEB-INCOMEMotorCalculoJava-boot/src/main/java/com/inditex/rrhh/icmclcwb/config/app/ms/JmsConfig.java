@@ -59,6 +59,16 @@ public class JmsConfig {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
                 .connectionFactory(cf).sessionTransacted(true).build();
     }
+    
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.programacion")
+    public JmsListenerContainerFactory programacionContainerFactoryListener(
+            @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
+            final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
+        return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
+                .connectionFactory(cf).sessionTransacted(true).build();
+    }
+
 
     @Bean
     @Qualifier("trabajoJmsClient")
@@ -84,6 +94,16 @@ public class JmsConfig {
     @Qualifier("limpiezaJmsClient")
     @ConfigurationProperties(prefix = "amiga.data.jms.client.limpieza")
     public JmsClient limpiezaJmsClient(final JmsClientBuilder builder,
+            @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
+        JmsClient jmsClient = builder.additionalCustomizers(new JmsClientCustom()).build();
+        jmsClient.setConnectionFactory(cf);
+        return jmsClient;
+    }
+    
+    @Bean
+    @Qualifier("programacionJmsClient")
+    @ConfigurationProperties(prefix = "amiga.data.jms.client.programacion")
+    public JmsClient programacionJmsClient(final JmsClientBuilder builder,
             @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
         JmsClient jmsClient = builder.additionalCustomizers(new JmsClientCustom()).build();
         jmsClient.setConnectionFactory(cf);

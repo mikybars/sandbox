@@ -39,6 +39,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="ICM_LISTAEMPRESAS" type="{http://schemas.meta4.com/}Icm_ListaempresasBlock"/>
  *         &lt;element name="ICM_LISTAORIGENES" type="{http://schemas.meta4.com/}Icm_ListaorigenesBlock"/>
  *         &lt;element name="ICM_LISTAPERIODOS" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/>
+ *         &lt;element name="ICM_LISTAAUSENCIAS" type="{http://schemas.meta4.com/}Icm_ListaausenciasBlock"/>
  *         &lt;element name="ICM_LISTAEMPLEADOS" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/>
  *         &lt;element name="ICM_LISTAPOLITICAS" type="{http://schemas.meta4.com/}Icm_ListapoliticasBlock"/>
  *         &lt;element name="ICM_PARAMCALORIGEN" type="{http://schemas.meta4.com/}Icm_ParamcalorigenBlock"/>
@@ -70,6 +71,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmlistaempresas",
     "icmlistaorigenes",
     "icmlistaperiodos",
+    "icmlistaausencias",
     "icmlistaempleados",
     "icmlistapoliticas",
     "icmparamcalorigen",
@@ -103,6 +105,8 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
     protected IcmListaorigenesBlock icmlistaorigenes;
     @XmlElement(name = "ICM_LISTAPERIODOS", required = true)
     protected IcmListaperiodosBlock icmlistaperiodos;
+    @XmlElement(name = "ICM_LISTAAUSENCIAS", required = true)
+    protected IcmListaausenciasBlock icmlistaausencias;
     @XmlElement(name = "ICM_LISTAEMPLEADOS", required = true)
     protected IcmListaempleadosBlock icmlistaempleados;
     @XmlElement(name = "ICM_LISTAPOLITICAS", required = true)
@@ -298,6 +302,30 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
      */
     public void setICMLISTAPERIODOS(IcmListaperiodosBlock value) {
         this.icmlistaperiodos = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistaausencias.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaausenciasBlock }
+     *     
+     */
+    public IcmListaausenciasBlock getICMLISTAAUSENCIAS() {
+        return icmlistaausencias;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaausencias.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaausenciasBlock }
+     *     
+     */
+    public void setICMLISTAAUSENCIAS(IcmListaausenciasBlock value) {
+        this.icmlistaausencias = value;
     }
 
     /**
@@ -708,6 +736,15 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             }
         }
         {
+            IcmListaausenciasBlock lhsICMLISTAAUSENCIAS;
+            lhsICMLISTAAUSENCIAS = this.getICMLISTAAUSENCIAS();
+            IcmListaausenciasBlock rhsICMLISTAAUSENCIAS;
+            rhsICMLISTAAUSENCIAS = that.getICMLISTAAUSENCIAS();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaausencias", lhsICMLISTAAUSENCIAS), LocatorUtils.property(thatLocator, "icmlistaausencias", rhsICMLISTAAUSENCIAS), lhsICMLISTAAUSENCIAS, rhsICMLISTAAUSENCIAS, (this.icmlistaausencias!= null), (that.icmlistaausencias!= null))) {
+                return false;
+            }
+        }
+        {
             IcmListaempleadosBlock lhsICMLISTAEMPLEADOS;
             lhsICMLISTAEMPLEADOS = this.getICMLISTAEMPLEADOS();
             IcmListaempleadosBlock rhsICMLISTAEMPLEADOS;
@@ -892,6 +929,11 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             strategy.appendField(locator, this, "icmlistaperiodos", buffer, theICMLISTAPERIODOS, (this.icmlistaperiodos!= null));
         }
         {
+            IcmListaausenciasBlock theICMLISTAAUSENCIAS;
+            theICMLISTAAUSENCIAS = this.getICMLISTAAUSENCIAS();
+            strategy.appendField(locator, this, "icmlistaausencias", buffer, theICMLISTAAUSENCIAS, (this.icmlistaausencias!= null));
+        }
+        {
             IcmListaempleadosBlock theICMLISTAEMPLEADOS;
             theICMLISTAEMPLEADOS = this.getICMLISTAEMPLEADOS();
             strategy.appendField(locator, this, "icmlistaempleados", buffer, theICMLISTAEMPLEADOS, (this.icmlistaempleados!= null));
@@ -1000,6 +1042,11 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             IcmListaperiodosBlock theICMLISTAPERIODOS;
             theICMLISTAPERIODOS = this.getICMLISTAPERIODOS();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaperiodos", theICMLISTAPERIODOS), currentHashCode, theICMLISTAPERIODOS, (this.icmlistaperiodos!= null));
+        }
+        {
+            IcmListaausenciasBlock theICMLISTAAUSENCIAS;
+            theICMLISTAAUSENCIAS = this.getICMLISTAAUSENCIAS();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaausencias", theICMLISTAAUSENCIAS), currentHashCode, theICMLISTAAUSENCIAS, (this.icmlistaausencias!= null));
         }
         {
             IcmListaempleadosBlock theICMLISTAEMPLEADOS;
@@ -1180,6 +1227,19 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
                 } else {
                     if (icmlistaperiodosShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmlistaperiodos = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistaausenciasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaausencias!= null));
+                if (icmlistaausenciasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaausenciasBlock sourceICMLISTAAUSENCIAS;
+                    sourceICMLISTAAUSENCIAS = this.getICMLISTAAUSENCIAS();
+                    IcmListaausenciasBlock copyICMLISTAAUSENCIAS = ((IcmListaausenciasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaausencias", sourceICMLISTAAUSENCIAS), sourceICMLISTAAUSENCIAS, (this.icmlistaausencias!= null)));
+                    copy.setICMLISTAAUSENCIAS(copyICMLISTAAUSENCIAS);
+                } else {
+                    if (icmlistaausenciasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaausencias = null;
                     }
                 }
             }

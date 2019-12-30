@@ -13,11 +13,12 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPostProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 
@@ -45,6 +46,9 @@ public class RunTareaServiceImpl implements RunTareaService {
     
     @Autowired
     private RunTareaRegularizarService runTareaRegularizarService;
+    
+    @Autowired
+    private RunTareaPostProcesarService runTareaPostProcesarService;
 
     @Auditoria
     @CounterMetric
@@ -58,6 +62,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             runTareaProcesarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
             runTareaRegularizarService.run(runTarea);
+            runTareaPostProcesarService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {
             tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());

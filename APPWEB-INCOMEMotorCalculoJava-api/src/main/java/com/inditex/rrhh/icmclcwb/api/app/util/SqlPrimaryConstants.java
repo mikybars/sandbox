@@ -72,6 +72,14 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
 
     public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
+    
+    public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS = "idTipoUnidadTiempoAnos";
+    
+    public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES = "idTipoUnidadTiempoMeses";
+    
+    public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS = "idTipoUnidadTiempoSemanas";
+    
+    public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS= "idTipoUnidadTiempoDias";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA = "idTipoImporteVenta";
 

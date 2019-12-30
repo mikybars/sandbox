@@ -42,12 +42,10 @@ public class TrabajoDto implements Serializable {
     @ApiModelProperty(value = "Id del periodo a procesar", required = true, example = "1")
     private Long icmIdPeriodo;
     
-    @NotNull
-    @ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true, example = "2017-03-01")
+    @ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private LocalDate fechaInicioPeriodo;
 
-    @NotNull
-    @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true, example = "2017-03-31")
+    @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
     private LocalDate fechaFinPeriodo;
     
     @ApiModelProperty(value = "Fecha inicio del trabajo", required = false, example = "2017-03-01")

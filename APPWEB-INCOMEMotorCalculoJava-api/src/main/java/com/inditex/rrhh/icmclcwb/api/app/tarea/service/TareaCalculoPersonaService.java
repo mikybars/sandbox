@@ -29,4 +29,7 @@ public interface TareaCalculoPersonaService {
     List<TareaCalculoPersonaDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
             @Valid @NotNull final AlgoritmoDto idAlgoritmo);
 
+    List<TareaCalculoPersonaDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
+            @Valid @NotNull final String idTipoPolitica);
+
 }

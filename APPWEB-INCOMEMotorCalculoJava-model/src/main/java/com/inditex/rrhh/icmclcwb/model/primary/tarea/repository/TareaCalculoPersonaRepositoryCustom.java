@@ -25,6 +25,8 @@ public interface TareaCalculoPersonaRepositoryCustom {
 
     void mergePersonaCalculoByAmbitoPersona(@NotNull RunTareaDto tareaDto);
 
-    List<TareaCalculoPersona> findByAlgoritmo(@NotNull @Positive final TareaDto tarea, @NotBlank final AlgoritmoDto algoritmo);
+    List<TareaCalculoPersona> findByAlgoritmo(@NotNull final TareaDto tarea, @NotBlank final AlgoritmoDto algoritmo);
+
+    List<TareaCalculoPersona> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea, @NotNull @Positive String idTipoPolitica);
 
 }
