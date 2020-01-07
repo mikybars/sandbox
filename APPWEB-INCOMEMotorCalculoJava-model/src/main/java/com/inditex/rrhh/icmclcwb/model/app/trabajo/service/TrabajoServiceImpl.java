@@ -111,8 +111,6 @@ public class TrabajoServiceImpl implements TrabajoService {
         request.getData().getItem()
                 .add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization())
                         .abierto(Meta4Constants.TRUE)
-                        //TODO [COMUN] Pendiente revisión funcional
-                        //.activo(Meta4Constants.TRUE)
                         .vigente(Meta4Constants.TRUE).idPeriodo(trabajo.getIcmIdPeriodo().toString()).build());
         
         List<PeriodoDto> periodos = periodoMapper

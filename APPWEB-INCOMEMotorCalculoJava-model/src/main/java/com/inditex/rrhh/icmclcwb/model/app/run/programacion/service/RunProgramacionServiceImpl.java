@@ -80,8 +80,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
             request.getData().getItem()
                     .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdOrgenization())
                             .abierto(Meta4Constants.TRUE)
-                            //TODO [COMUN] Pendiente revisión funcional
-                            //.activo(Meta4Constants.TRUE)
+                            .activo(Meta4Constants.TRUE)
                             .vigente(Meta4Constants.TRUE).build());
             List<PeriodoDto> periodos = periodoMapper
                     .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
