@@ -35,4 +35,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void estructurasComByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void ausenciasByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }

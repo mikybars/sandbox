@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -107,5 +108,11 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Id estructura del ambito", required = true)
     private String icmIdEstructuraAmbito;
+
+    @NotNull
+    @ApiModelProperty(value = "Fecha inicio periodo", required = true)
+    private LocalDate fechaInicioPeriodo;
+
+
     
 }

@@ -11,4 +11,6 @@ public interface RunService {
     
     void runLimpieza(@NotNull @Positive final Long id);
 
+    void runProgramacion(@NotNull @Positive final Long id);
+
 }

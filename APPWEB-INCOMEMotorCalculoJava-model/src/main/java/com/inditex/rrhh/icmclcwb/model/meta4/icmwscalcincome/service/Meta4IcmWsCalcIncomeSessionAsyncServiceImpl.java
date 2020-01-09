@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
@@ -136,6 +138,11 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     @Override
     public CompletableFuture<List<OrigenResultItemDto>> getOrigen(OrigenRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getOrigen(request));
+    }
+    
+    @Override
+    public CompletableFuture<List<AusenciasResultItemDto>> getAusencias(AusenciasRequestDto request) {
+        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getAusencias(request));
     }
     
     @Override

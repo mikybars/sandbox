@@ -33,6 +33,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionFe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionOnlineHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaAusenciaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaCoeficienteAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraPoliticaAsyncService;
@@ -46,6 +47,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
@@ -138,6 +141,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaPersonaEstructuraPoliticaAsyncService tareaPersonaEstructuraPoliticaAsyncService;
+    
+    @Autowired
+    private TareaPersonaAusenciaHistoricoAsyncService tareaPersonaAusenciaHistoricoAsyncService;
 
     @Override
     public void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
@@ -635,6 +641,41 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 }
             } while (hasNext);
             AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+    
+    @Override
+    public void ausenciasByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {   
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            AusenciasRequestDto request = new AusenciasRequestDto();
+            request.setPage(meta4Properties.get(Meta4PropertiesConstants.AUSENCIAS).getPage());
+            request.setData(tareaMapper
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
+            boolean hasNext = false;
+            do {
+                CompletableFuture<List<AusenciasResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                        .getAusencias(request);
+                AsyncUtils.exceptionally(cfData, cf);
+                List<AusenciasResultItemDto> data = AsyncUtils.get(cfData);
+                if (CollectionUtils.isNotEmpty(data)) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
+                            .get(Meta4PropertiesConstants.AUSENCIAS).getFilter().getMaxPersistenceSize());
+                    CompletableFuture<Void> cfSave = tareaPersonaAusenciaHistoricoAsyncService
+                            .saveAusenciaResultItemDto(data, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    hasNext = request.nextPage();
+                }
+            } while (hasNext);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

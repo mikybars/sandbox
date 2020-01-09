@@ -67,7 +67,8 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setString(12, entity.getStdIdLegEnt());
         pstmt.setString(13, entity.getCclIdOrigen());
         pstmt.setString(14, entity.getCclIdSeccion());
-        pstmt.setLong(15, entity.getTarea().getId());        
+        pstmt.setLong(15, entity.getTarea().getId());
+        pstmt.setObject(16, entity.getPk().getFechaInicioPeriodo());
     }
     
     @Override

@@ -13,7 +13,8 @@ public abstract class TareaPersonaEstructuraDesplazamientoMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "idTipoOpcionCalculoEfectiva", source = "tipoOpcionCalculoEfectiva.id")
-    @Mapping(target = "idTipoOpcionCalculoEstructura", source = "tipoOpcionCalculoEstructura.id")    
+    @Mapping(target = "idTipoOpcionCalculoEstructura", source = "tipoOpcionCalculoEstructura.id")
+    @Mapping(target = "fechaInicioPeriodo", source = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDesplazamientoDto tareaPersonaEstructuraDesplazamientoToTareaPersonaEstructuraDesplazamientoDto(
             TareaPersonaEstructuraDesplazamiento src);
 

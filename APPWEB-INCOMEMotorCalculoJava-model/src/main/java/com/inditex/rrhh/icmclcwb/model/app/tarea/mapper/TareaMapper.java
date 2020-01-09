@@ -60,6 +60,8 @@ public abstract class TareaMapper {
     @Mapping(target = "idOrganization", source = "srcTrabajo.idOrganization")
     @Mapping(target = "stdIdLegEnt", source = "srcTrabajoAmbitoEmpresa.stdIdLegEnt")
     @Mapping(target = "idTrabajo", source = "srcTrabajo.id")
+    @Mapping(target = "fechaInicioPeriodo", source = "srcTrabajo.fechaInicioPeriodo")
+    @Mapping(target = "fechaFinPeriodo", source = "srcTrabajo.fechaFinPeriodo")
     public abstract TareaDto mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(
             TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa, TrabajoDto srcTrabajo);
 

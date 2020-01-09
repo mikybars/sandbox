@@ -149,7 +149,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId());
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
                 TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
@@ -176,8 +176,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         pstmt.setLong(10, entity.getTipoDato().getId());
         pstmt.setLong(11, entity.getTarea().getId());
         pstmt.setString(12, entity.getCclIdCadena());
-        // TODO [COMUN] PARTICIONADO
-        // pstmt.setObject(13, entity.getPk().getFechaInicioPeriodo());
+        pstmt.setObject(13, entity.getPk().getFechaInicioPeriodo());
     }
 
 }

@@ -51,9 +51,29 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
 
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.updateEstadoActualWithEstadoNuevo']}")
     private String sqlUpdateEstadoActualWithEstadoNuevo;
+    
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstado']}")
+    private String sqlFindByTareaAndIdEstado;
+    
 
     @Override
-    public List<TareaCalculoPersona> findByAlgoritmo(@NotNull @Positive final TareaDto tarea, @NotBlank final AlgoritmoDto algoritmo) {
+    public List<TareaCalculoPersona> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea, @NotNull @Positive String idTipoPolitica) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO, EstadoTareaCalculoPersonaEnum.KO.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, idTipoPolitica);
+        return namedParameterJdbcTemplate.query(sqlFindByTareaAndIdEstado, parameters, new RowMapper<TareaCalculoPersona>() {
+            public TareaCalculoPersona mapRow(ResultSet rs, int rowNum) throws SQLException {
+                TareaCalculoPersona dto = new TareaCalculoPersona();
+                dto.setCclIdPerson(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
+                dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+                return dto;
+            }
+        });
+    }
+    
+    @Override
+    public List<TareaCalculoPersona> findByAlgoritmo(@NotNull final TareaDto tarea, @NotBlank final AlgoritmoDto algoritmo) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());

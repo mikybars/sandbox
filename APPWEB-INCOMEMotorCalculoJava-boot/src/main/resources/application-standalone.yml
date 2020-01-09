@@ -84,6 +84,12 @@ amiga:
           permittedNumberOfCallsInHalfOpenState: 10
           slidingWindowSize: 100
           slidingWindowType: COUNT_BASED
+        programacion:
+          waitDurationInOpenState: PT60S
+          failureRateThreshold: 50
+          permittedNumberOfCallsInHalfOpenState: 10
+          slidingWindowSize: 100
+          slidingWindowType: COUNT_BASED          
   service:
     jms:
       listener:
@@ -98,6 +104,8 @@ amiga:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
       limpieza-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.limpieza-queue-${metadata.slot}
+      programacion-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.programacion-queue-${metadata.slot}
     session:
       session-type: EMBEDDED
     aaa:
@@ -144,6 +152,12 @@ amiga:
           globalTransacted: true
           pubSubDomain: false
           receiveTimeout: 1000
+        programacion:
+          concurrency: 1
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
@@ -155,6 +169,10 @@ amiga:
           sessionTransacted: true
         limpieza:
           destinationName: ${amiga.service.jms.limpieza-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true
+        programacion:
+          destinationName: ${amiga.service.jms.programacion-queue.destination-fqdn}
           pubSubDomain: false
           sessionTransacted: true
     jdbc:
@@ -234,6 +252,9 @@ app:
         algoritmo:
           config:
             batch-size: 25
+      post-procesar:
+        config:
+          batch-size: 25
     repository:
       batch-size:
         default: 100
@@ -347,7 +368,7 @@ app:
         #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-      service:
+        service:
           getEmpresa:
             page:
               numeroPagina: 1
@@ -528,3 +549,12 @@ app:
             filter:
               maxPageSize: 200
               maxPersistenceSize: 3
+          getAusencias:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 200
+              tipoOrden: DESC
+              campoOrden: idempleado
+            filter:
+              maxPageSize: 200
+              maxPersistenceSize: 3              

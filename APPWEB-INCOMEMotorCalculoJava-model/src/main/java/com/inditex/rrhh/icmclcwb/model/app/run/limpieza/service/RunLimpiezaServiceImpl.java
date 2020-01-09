@@ -20,7 +20,7 @@ public class RunLimpiezaServiceImpl implements RunLimpiezaService {
     private LimpiezaService limpiezaService;
 
     @Auditoria
-    @CounterMetric
+    @CounterMetric 
     @TimerMetric
     @Override
     public void run(@NotNull @Valid final RunLimpiezaDto runLimpieza) {

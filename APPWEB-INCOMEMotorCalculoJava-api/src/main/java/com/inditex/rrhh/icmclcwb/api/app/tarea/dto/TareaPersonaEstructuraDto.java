@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -125,5 +127,9 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Id tipo estructura ", required = true)
     private String icmIdTpEstructura;
+
+    @NotNull
+    @ApiModelProperty(value = "Fecha inicio periodo", required = true)
+    private LocalDate fechaInicioPeriodo;
     
 }

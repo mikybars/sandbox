@@ -108,36 +108,5 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
         });
         return result;
     }
-//
-//    @Override
-//    public TareaPersonaEstructuraDesplazamiento tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(TareaPersonaEstructuraDto src) {
-//        TareaPersonaEstructuraDesplazamiento result = null;
-//        if (src.getEstructuraDesplazamiento() != null) {
-//            result = delegate.tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(src);
-//            result.setTarea(new Tarea());
-//            result.getTarea().setId(src.getIdTarea());
-//            result.setTipoOpcionCalculoEstructura(new TipoOpcionCalculo());
-//            result.getTipoOpcionCalculoEstructura().setId(src.getEstructuraDesplazamiento().getIdTipoOpcionCalculoEstructura());
-//            result.setTipoOpcionCalculoEfectiva(new TipoOpcionCalculo());
-//            result.getTipoOpcionCalculoEfectiva().setId(src.getEstructuraDesplazamiento().getIdTipoOpcionCalculoEfectiva());
-//            result.setIcmIdEstrComision(src.getEstructuraDesplazamiento().getIcmIdEstrComision());
-//            result.setIcmIdEstructuraAmbito(src.getEstructuraDesplazamiento().getIcmIdEstructuraAmbito());
-//        }
-//        return result;
-//    }
-//
-//    @Override
-//    public List<TareaPersonaEstructuraDesplazamiento> tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(List<TareaPersonaEstructuraDto> src) {
-//        List<TareaPersonaEstructuraDesplazamiento> result = new ArrayList<>();
-//        if (CollectionUtils.isNotEmpty(src)) {
-//            src.forEach(estructura -> {
-//                TareaPersonaEstructuraDesplazamiento desplazamiento = tareaPersonaEstructuraDtoToTareaPersonaEstructuraDesplazamiento(estructura);
-//                if (desplazamiento != null) {
-//                    result.add(desplazamiento);
-//                }
-//            });
-//        }
-//        return result;
-//    }
     
 }

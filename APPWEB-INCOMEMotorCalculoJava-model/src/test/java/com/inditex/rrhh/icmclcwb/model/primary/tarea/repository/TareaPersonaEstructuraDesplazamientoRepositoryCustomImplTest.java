@@ -4,6 +4,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoOpcionCalculo;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamiento;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamientoPk;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -58,7 +59,10 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImplTest {
         when(opcionEstructura.getId()).thenReturn(101);
         TipoOpcionCalculo opcionEfectiva = mock(TipoOpcionCalculo.class);
         when(opcionEfectiva.getId()).thenReturn(120);
+        TareaPersonaEstructuraDesplazamientoPk pk = mock(TareaPersonaEstructuraDesplazamientoPk.class);
+        when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         TareaPersonaEstructuraDesplazamiento entity = mock(TareaPersonaEstructuraDesplazamiento.class);
+        when(entity.getPk()).thenReturn(pk);
         when(entity.getTarea()).thenReturn(tarea);
         when(entity.getIcmIdEstrComision()).thenReturn("ICM_ID_ESTR_COMISION");
         when(entity.getOrdinalEstructura()).thenReturn(1919);

@@ -72,7 +72,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
             params.getValue().getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         // idTipoPresencia
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
-        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId(),
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
             params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
         // nuevoAbierto
         assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));

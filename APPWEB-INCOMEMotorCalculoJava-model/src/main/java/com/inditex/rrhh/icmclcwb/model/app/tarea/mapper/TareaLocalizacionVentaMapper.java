@@ -46,8 +46,7 @@ public abstract class TareaLocalizacionVentaMapper {
     @Mapping(source = "importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "idTipoDato", target = "tipoDato.id")
     @Mapping(constant = "true", target = "activo")
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionVenta responseItemDtoToTareaLocalizacionVenta(Integer tienda, Integer cadena,
             String fecha, TareaDto tarea, Double importeSinIVA, Double importeConIVA, Integer idSeccion,
             Integer idTipoDato);
