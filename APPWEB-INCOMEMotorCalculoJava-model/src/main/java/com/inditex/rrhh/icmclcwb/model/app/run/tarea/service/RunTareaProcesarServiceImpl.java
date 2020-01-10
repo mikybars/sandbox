@@ -95,7 +95,19 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfSaveCerradoSeccion = runTareaProcesarVentaAsyncService.saveCerradoSeccion(runTarea);
             AsyncUtils.exceptionally(cfSaveCerradoSeccion, cf);
 
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
             //TODO [JAVIEREV] Horas fijas va aquí (después de abierto/cerrado, no a la vez)
+
+            // Generar presencias horas fijas en desplazamientos
+
+            // Generar presencias horas fijas en la localizacion de la persona
+            CompletableFuture<Void> cfPresenciasHorasFijas = runTareaProcesarPresenciaAsyncService.presenciasHorasFijas(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasHorasFijas, cf);
+
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

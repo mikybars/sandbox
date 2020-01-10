@@ -32,4 +32,8 @@ public interface RunTareaProcesarPresenciaService {
 
     void totalizarEcommerceLocalizacion(@Valid RunTareaDto runTarea);
 
+    void presenciasHorasFijas(@Valid RunTareaDto runTarea);
+
+    void presenciasHorasFijasDesplazamientos(@Valid RunTareaDto runTarea);
+
 }
