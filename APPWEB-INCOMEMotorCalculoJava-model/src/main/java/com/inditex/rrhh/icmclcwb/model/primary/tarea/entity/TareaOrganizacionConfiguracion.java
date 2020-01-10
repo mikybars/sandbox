@@ -1,0 +1,60 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
+@Entity
+@Table(name = "TAREA_ORGANIZACION_CONFIGURACION")
+@Data
+public class TareaOrganizacionConfiguracion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREA_SOCIEDAD_CONFIGURACION")
+    private Long id;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TAREA", nullable = false)
+    private Tarea tarea;
+
+    @NotBlank
+    @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)
+    private String idOrganization;
+
+    @NotBlank
+    @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
+    private String icmIdEstrComision;
+
+    @NotNull
+    @Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaInicio;
+
+    @NotNull
+    @Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaFin;
+
+    @NotNull
+    @Column(name = "ID_TIPO_HORA", nullable = false)
+    private Long idTipoHora;
+
+    @NotNull
+    @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)
+    private Boolean icmCkVentaImpuestos;
+
+}
