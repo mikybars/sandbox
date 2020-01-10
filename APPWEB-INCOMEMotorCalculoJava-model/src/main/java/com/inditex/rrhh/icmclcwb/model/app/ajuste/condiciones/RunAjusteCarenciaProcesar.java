@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.postprocesar.condiciones;
+package com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

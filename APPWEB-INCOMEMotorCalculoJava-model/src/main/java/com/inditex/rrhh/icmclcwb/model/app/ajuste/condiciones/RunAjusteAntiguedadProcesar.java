@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.postprocesar.condiciones;
+package com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,12 @@ import com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto.RunAjustePr
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPostProcesarAntiguedadRepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
-@Component("minimoGarantizadoV1")
-public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
+@Component("antiguedadV1")
+public class RunAjusteAntiguedadProcesar implements RunAjuste {
 
     @Autowired
     private Logger log;
@@ -25,27 +25,27 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom tareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom;
+    private TareaCalculoPostProcesarAntiguedadRepositoryCustom tareaCalculoPostProcesarAntiguedadRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
+                tareaCalculoPostProcesarAntiguedadRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
+                    log.info("Inicio :: RunAjusteAntiguedadProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
+                        tareaCalculoPostProcesarAntiguedadRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+                        log.error("RunAjusteAntiguedadProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
-                    log.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
+                    log.info("Fin :: RunAjusteAntiguedadProcesar :: Personas: {}", personas.size());
                     return Flux.empty();
                 }).sequential().collectList().block();   
     }
 
     @Override
     public String getSqlCalcular() {
-        return tareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom.getSqlPostProcesar();
+        return tareaCalculoPostProcesarAntiguedadRepositoryCustom.getSqlPostProcesar();
     }
 
 }

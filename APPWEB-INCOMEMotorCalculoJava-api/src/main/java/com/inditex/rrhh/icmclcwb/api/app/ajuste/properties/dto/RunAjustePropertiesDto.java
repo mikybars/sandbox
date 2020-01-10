@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto;
+package com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto;
 
 import lombok.Data;
 
