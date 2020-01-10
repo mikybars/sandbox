@@ -100,9 +100,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            //TODO [JAVIEREV] Horas fijas va aquí (después de abierto/cerrado, no a la vez)
-
             // Generar presencias horas fijas en desplazamientos
+            CompletableFuture<Void> cfPresenciasHorasFijasDesplazamientos = runTareaProcesarPresenciaAsyncService.presenciasHorasFijasDesplazamientos(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasHorasFijasDesplazamientos, cf);
 
             // Generar presencias horas fijas en la localizacion de la persona
             CompletableFuture<Void> cfPresenciasHorasFijas = runTareaProcesarPresenciaAsyncService.presenciasHorasFijas(runTarea);
