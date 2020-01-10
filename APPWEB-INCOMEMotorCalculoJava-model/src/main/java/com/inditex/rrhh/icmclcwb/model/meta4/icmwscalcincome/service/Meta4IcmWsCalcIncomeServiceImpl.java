@@ -601,7 +601,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     }
 
     @Override
-    public ConfiguracionesOrganizacionResponseDto getConfiguracionesOrganizacion(ConfiguracionesOrganizacionRequestDto request) {
+    public ConfiguracionesOrganizacionResponseDto getConfiguracion(ConfiguracionesOrganizacionRequestDto request) {
         //TODO [JAVIEREV] Obtener y guardar las configuraciones de las sociedades
         return null;
     }

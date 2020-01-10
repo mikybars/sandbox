@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionOrganizacionItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesOrganizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 
@@ -215,5 +217,11 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
                 sb.append(x.getLiteral()).append(" ").append(x.getRegistroAfectado()).append('\n'));
             throw new IcmclcwbException(sb.toString());
         }
+    }
+
+    @Override
+    public List<ConfiguracionOrganizacionItemDto> getConfiguracionesOrganizacion(ConfiguracionesOrganizacionRequestDto request) {
+        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_ORGANIZACION,
+            meta4Properties.get(Meta4PropertiesConstants.CONF_ORGANIZACION).getFilter().getMaxPageSize());
     }
 }

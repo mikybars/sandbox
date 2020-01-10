@@ -85,6 +85,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                     .configuracionVentaOnlineByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfConfiguracionVentaOnline, cf, cfWait);
 
+            CompletableFuture<Void> cfConfiguracionesOrganizacion = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .configuracionesOrganizacionByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfConfiguracionesOrganizacion, cf, cfWait);
+
             // Agrupaciones de cadenas
             CompletableFuture<Void> cfAgrupacionesCadena = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .agrupacionesCadenaByRunTarea(runTarea);

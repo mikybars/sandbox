@@ -97,6 +97,6 @@ public interface Meta4IcmWsCalcIncomeService {
 
     AusenciasResponseDto getAusencias(AusenciasRequestDto request);
 
-    ConfiguracionesOrganizacionResponseDto getConfiguracionesOrganizacion(ConfiguracionesOrganizacionRequestDto request);
+    ConfiguracionesOrganizacionResponseDto getConfiguracion(ConfiguracionesOrganizacionRequestDto request);
 	
 }
