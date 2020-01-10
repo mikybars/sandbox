@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config.app.postprocesar;
+package com.inditex.rrhh.icmclcwb.config.app.ajuste;
 
 import org.springframework.beans.factory.config.ServiceLocatorFactoryBean;
 import org.springframework.context.annotation.Bean;

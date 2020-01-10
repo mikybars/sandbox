@@ -1,10 +1,10 @@
-package com.inditex.rrhh.icmclcwb.config.app.postprocesar;
+package com.inditex.rrhh.icmclcwb.config.app.ajuste;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto.RunAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 
 import lombok.Data;
 
