@@ -14,7 +14,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoAusencia;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoUnidadTiempo;
 
 import lombok.Data;
 
@@ -69,32 +71,37 @@ public class TareaPersonaEstructuraPolitica {
     @Column(name = "ES_EXCLUIDO_DENOMINADOR", nullable = false)
     private Boolean excluidoDenominador;
     
-    @NotBlank
-    @Column(name = "ICM_ID_UNIDAD_TIEMPO", nullable = false)
-    private String icmIdUnidadTiempo;
-    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_UNIDAD_TIEMPO")
+    private TipoUnidadTiempo tipoUnidadTiempo;
+       
     @NotBlank
     @Column(name = "ICM_NUM_UNIDADES", nullable = false)
     private String numeroUnidades;
     
     @NotNull
-    @Column(name = "ICM_VALOR", nullable = false, precision = 23,  scale = 8)
+    @Column(name = "ICM_PORCENTAJE", nullable = false, precision = 23,  scale = 8)
     private BigDecimal valor;
 
     @NotBlank
     @Column(name = "ICM_TRAMO", nullable = false)
     private String tramo;
     
+    @NotNull
     @Column(name = "ICM_IMPORTE", nullable = true, precision = 23,  scale = 8)
     private BigDecimal importe;
     
-    @Column(name = "ICM_NUM_MESES_CALC_MEDIA", nullable = true)
+    @NotBlank
+    @Column(name = "ICM_NUM_MESES_CALC_MEDIA", nullable = false)
     private String numMesesCalcMedia;
     
-    @Column(name = "ICM_NUM_HORAS", nullable = true)
+    @NotBlank
+    @Column(name = "ICM_NUM_HORAS", nullable = false)
     private String numHoras;
     
-    @Column(name = "ICM_ID_MOTIVO_BAJA", nullable = true)
+    @NotBlank
+    @Column(name = "ICM_ID_MOTIVO_BAJA", nullable = false)
     private String idMotivoBaja;
 
 }

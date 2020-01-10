@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
-public interface RunTareaPostProcesarService {
+public interface RunTareaAjustarService {
 
     void run(@NotNull @Valid RunTareaDto runTarea);
 

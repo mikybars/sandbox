@@ -110,7 +110,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         request.setPage(meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
         request.getData().getItem()
                 .add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization())
-                        .abierto(Meta4Constants.TRUE)
+                        .abierto(Meta4Constants.FALSE)
                         .vigente(Meta4Constants.TRUE).idPeriodo(trabajo.getIcmIdPeriodo().toString()).build());
         
         List<PeriodoDto> periodos = periodoMapper

@@ -11,9 +11,9 @@ import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetri
 import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPostProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
@@ -48,7 +48,7 @@ public class RunTareaServiceImpl implements RunTareaService {
     private RunTareaRegularizarService runTareaRegularizarService;
     
     @Autowired
-    private RunTareaPostProcesarService runTareaPostProcesarService;
+    private RunTareaAjustarService runTareaAjustarService;
 
     @Auditoria
     @CounterMetric
@@ -62,7 +62,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             runTareaProcesarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
             runTareaRegularizarService.run(runTarea);
-            runTareaPostProcesarService.run(runTarea);
+            runTareaAjustarService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {
             tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());

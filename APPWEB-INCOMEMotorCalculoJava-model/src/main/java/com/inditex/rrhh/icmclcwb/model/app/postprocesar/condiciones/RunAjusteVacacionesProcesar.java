@@ -6,23 +6,23 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-import com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto.RunPostProcesarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.model.app.postprocesar.RunPostCondicion;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPostProcesarVacacionesRepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
-@Component
-public class VacacionesRunPostProcesar implements RunPostCondicion {
+@Component("vacacionesV1")
+public class RunAjusteVacacionesProcesar implements RunAjuste {
 
     @Autowired
     private Logger log;
 
     @Autowired
-    @Qualifier("runPostProcesarProperties")
-    private RunPostProcesarPropertiesDto runPostProcesarProperties;
+    @Qualifier("runAjusteProperties")
+    private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
     private TareaCalculoPostProcesarVacacionesRepositoryCustom tareaCalculoPostProcesarVacacionesRepositoryCustom;
@@ -31,14 +31,14 @@ public class VacacionesRunPostProcesar implements RunPostCondicion {
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoPostProcesarVacacionesRepositoryCustom.ids(runTarea.getTarea()),
-                runPostProcesarProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: VacacionesRunPostProcesar :: Personas: {}", personas.size());
+                runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
+                    log.info("Inicio :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
                     try {
                         tareaCalculoPostProcesarVacacionesRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        log.error("VacacionesRunPostProcesar :: KO :: Personas: {}", personas.size(), e);
+                        log.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
-                    log.info("Fin :: VacacionesRunPostProcesar :: Personas: {}", personas.size());
+                    log.info("Fin :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
                     return Flux.empty();
                 }).sequential().collectList().block();   
     }

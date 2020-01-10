@@ -36,6 +36,7 @@ public class TareaPersonaAusenciaHistoricoServiceImpl implements TareaPersonaAus
     public List<TareaPersonaAusenciaHistoricoDto> saveAusenciaResultItemDto(
             @Valid final List<AusenciasResultItemDto> src, @Valid final TareaDto tarea) {
         return tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
-                tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper.ausenciasResultItemDtoToTareaPersonaAusenciaHistorico(src, tarea)));
+                tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(
+                        tareaPersonaAusenciaHistoricoMapper.ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(src, tarea))));
     }
 }

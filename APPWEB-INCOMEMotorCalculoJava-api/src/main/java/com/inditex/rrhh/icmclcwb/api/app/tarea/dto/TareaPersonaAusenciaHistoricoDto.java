@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -36,6 +37,10 @@ public class TareaPersonaAusenciaHistoricoDto implements Serializable {
     private Date fechaFin;
     
     @ApiModelProperty(value = "Id tipo ausencia", required = false)
-    private String icmTpAbsence;
+    private Integer idTipoAusencia;
+    
+    @NotNull
+    @ApiModelProperty(value = "Fecha inicio periodo", required = true)
+    private LocalDate fechaInicioPeriodo;
 
 }

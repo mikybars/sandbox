@@ -58,7 +58,7 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
     
     @NotBlank
     @ApiModelProperty(value = "Id unidad tiempo", required = true)
-    private String icmIdUnidadTiempo;
+    private String idTipoUnidadTiempo;
     
     @NotBlank
     @ApiModelProperty(value = "Numero de unidades de tiempo", required = true)

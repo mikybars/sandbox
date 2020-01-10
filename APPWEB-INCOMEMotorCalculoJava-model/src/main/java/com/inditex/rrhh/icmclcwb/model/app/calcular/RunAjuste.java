@@ -1,8 +1,8 @@
-package com.inditex.rrhh.icmclcwb.model.app.postprocesar;
+package com.inditex.rrhh.icmclcwb.model.app.calcular;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
-public interface RunPostCondicion {
+public interface RunAjuste {
 
     void execute(RunTareaDto runTarea);
     

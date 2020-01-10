@@ -92,5 +92,9 @@ public class TareaCalculo {
     @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    
+    @NotNull
+    @Column(name = "ES_MANUAL", nullable = false)
+    private Boolean manual;
 
 }

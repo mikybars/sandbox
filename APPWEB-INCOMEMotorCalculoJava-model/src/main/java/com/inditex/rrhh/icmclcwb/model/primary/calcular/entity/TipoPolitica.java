@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TIPO_POLITICA")
@@ -25,4 +26,7 @@ public class TipoPolitica {
     @Column(name = "ICM_ID_TP_POLITICAS", length = 24, nullable = false)
     private String icmIdTpPolitica;
 
+    @NotNull
+    @Column(name = "PESO", nullable = false)
+    private Long peso;
 }

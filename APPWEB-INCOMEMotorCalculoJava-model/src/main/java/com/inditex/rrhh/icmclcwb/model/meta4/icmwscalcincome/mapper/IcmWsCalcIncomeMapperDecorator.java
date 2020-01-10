@@ -17,10 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
@@ -167,6 +169,24 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
     
     @Override
+    public List<AusenciasResultItemDto> asAusenciasResultItemDtos(List<IcmListaausenciasRecord> src){
+        List<AusenciasResultItemDto> list = new ArrayList<>();
+        for (IcmListaausenciasRecord item : src) {
+            AusenciasResultItemDto mappedEntity = delegate.asAusenciasResultItemDto(item);
+            if (StringUtils.isNotEmpty(item.getFechainicio())) {
+                mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechafin())) {
+                mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            list.add(mappedEntity);
+        }
+        return list;
+    }
+    
+    @Override
     public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(List<IcmListaempleadoRecord> src){
         List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
         for (IcmListaempleadoRecord item : src) {
@@ -193,6 +213,10 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             }
             if (StringUtils.isNotEmpty(item.getFechafinloc())) {
                 presencia.setFechaFinLoc(LocalDateTime.parse(item.getFechafinloc(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechaantiguedad())) {
+                presencia.setFechaAntiguedad(LocalDateTime.parse(item.getFechaantiguedad(),
                         DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             list.add(presencia);

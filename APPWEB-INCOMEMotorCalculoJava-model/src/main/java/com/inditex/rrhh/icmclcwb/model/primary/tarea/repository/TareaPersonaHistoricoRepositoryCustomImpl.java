@@ -69,6 +69,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setString(14, entity.getCclIdSeccion());
         pstmt.setLong(15, entity.getTarea().getId());
         pstmt.setObject(16, entity.getPk().getFechaInicioPeriodo());
+        pstmt.setObject(17, entity.getFechaAntiguedad());
     }
     
     @Override

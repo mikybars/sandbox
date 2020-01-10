@@ -7,11 +7,28 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TipoUnidadTiempoEnum {
 
-    ANOS(1L, "01"), MESES(2L, "02"), SEMANAS(3L, "03"),
-    DIAS(4L, "04");
+    ANOS(1, "01"), MESES(2, "02"), SEMANAS(3, "03"),
+    DIAS(4, "04"), NINGUNO(5,"05");
     
-    private final Long id;
+    private final Integer id;
 
     private final String idMeta4;
     
+    public static TipoUnidadTiempoEnum fromIdMeta4(String idMeta4) {
+        for (TipoUnidadTiempoEnum tipo : TipoUnidadTiempoEnum.values()) {
+            if (tipo.idMeta4.equals(idMeta4)) {
+                return tipo;
+            }
+        }
+        return TipoUnidadTiempoEnum.NINGUNO;
+    }
+
+    public static TipoUnidadTiempoEnum fromId(Long id) {
+        for (TipoUnidadTiempoEnum tipo : TipoUnidadTiempoEnum.values()) {
+            if (tipo.id.equals(id)) {
+                return tipo;
+            }
+        }
+        return TipoUnidadTiempoEnum.NINGUNO;
+    }
 }

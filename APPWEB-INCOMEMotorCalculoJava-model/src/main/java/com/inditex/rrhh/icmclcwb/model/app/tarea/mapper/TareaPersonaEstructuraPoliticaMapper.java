@@ -30,7 +30,7 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "fechaInicio", source = "fechaInicio")
     @Mapping(target = "fechaFin", source = "fechaFin")
     @Mapping(target = "excluidoDenominador", source = "excluidoDenominador")
-    @Mapping(target = "icmIdUnidadTiempo", source = "icmIdUnidadTiempo")
+    @Mapping(target = "tipoUnidadTiempo.id", source = "idTipoUnidadTiempo")
     @Mapping(target = "numeroUnidades", source = "numeroUnidades")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "importe", source = "importe")

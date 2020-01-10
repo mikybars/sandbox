@@ -73,6 +73,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
     
+    public static final String SQL_PARAM_ID_TIPO_POLITICA_AJUSTE = "idTipoPoliticaAjuste";
+    
+    public static final String SQL_PARAM_ID_TIPO_AUSENCIA = "idTipoAusencia";
+    
     public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS = "idTipoUnidadTiempoAnos";
     
     public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES = "idTipoUnidadTiempoMeses";
@@ -219,5 +223,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ID_CADENA = "CCL_ID_CADENA";
 
     public static final String SQL_RESULT_ID_TAREA = "ID_TAREA";
+
+    public static final String SQL_RESULT_ID_ALGORITMO_AJUSTE = "ID_ALGORITMO_AJUSTE";
 
 }

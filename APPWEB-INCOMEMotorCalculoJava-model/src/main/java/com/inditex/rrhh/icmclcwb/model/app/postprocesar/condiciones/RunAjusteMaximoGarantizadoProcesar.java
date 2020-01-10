@@ -6,23 +6,23 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-import com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto.RunPostProcesarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.model.app.postprocesar.RunPostCondicion;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
-@Component
-public class MaximoGarantizadoRunPostProcesar implements RunPostCondicion {
+@Component("maximoGarantizadoV1")
+public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
 
     @Autowired
     private Logger log;
 
     @Autowired
-    @Qualifier("runPostProcesarProperties")
-    private RunPostProcesarPropertiesDto runPostProcesarProperties;
+    @Qualifier("runAjusteProperties")
+    private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
     private TareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom;
@@ -31,14 +31,14 @@ public class MaximoGarantizadoRunPostProcesar implements RunPostCondicion {
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
-                runPostProcesarProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: MaximoGarantizadoRunPostProcesar :: Personas: {}", personas.size());
+                runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
+                    log.info("Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
                     try {
                         tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        log.error("MaximoGarantizadoRunPostProcesar :: KO :: Personas: {}", personas.size(), e);
+                        log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
-                    log.info("Fin :: MaximoGarantizadoRunPostProcesar :: Personas: {}", personas.size());
+                    log.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
                     return Flux.empty();
                 }).sequential().collectList().block();   
     }

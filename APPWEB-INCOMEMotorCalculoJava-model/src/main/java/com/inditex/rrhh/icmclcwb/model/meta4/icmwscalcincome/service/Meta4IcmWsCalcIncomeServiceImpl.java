@@ -576,16 +576,16 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         AusenciasResponseDto result = new AusenciasResponseDto();
         IcmParamcalempleadoBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(request.getData());
         IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        GetausenciasOutput getempldesplaz = meta4ClientPool.getausencias(param2, param1);
-        if (getempldesplaz != null) {
-            if (getempldesplaz.getIcmParametrospaginacion() != null) {
-                PageDto page = icmWsCalcIncomeMapper.asPageDto(getempldesplaz.getIcmParametrospaginacion());
+        GetausenciasOutput getausencias = meta4ClientPool.getausencias(param2, param1);
+        if (getausencias != null) {
+            if (getausencias.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getausencias.getIcmParametrospaginacion());
                 result.setPage(page);
             }
-            if (getempldesplaz.getIcmListaausencias() != null && CollectionUtils
-                    .isNotEmpty(getempldesplaz.getIcmListaausencias().getIcmListaausenciasRecordSet())) {
+            if (getausencias.getIcmListaausencias() != null && CollectionUtils
+                    .isNotEmpty(getausencias.getIcmListaausencias().getIcmListaausenciasRecordSet())) {
                 List<AusenciasResultItemDto> items = icmWsCalcIncomeMapper.asAusenciasResultItemDtos(
-                        getempldesplaz.getIcmListaausencias().getIcmListaausenciasRecordSet());
+                        getausencias.getIcmListaausencias().getIcmListaausenciasRecordSet());
                 result.setData(items);
             }
         }

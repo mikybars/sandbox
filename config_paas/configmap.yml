@@ -159,7 +159,7 @@ app:
         algoritmo:
           config:
             batch-size: 25
-      post-procesar:
+      ajuste:
         config:
           batch-size: 25            
     repository:

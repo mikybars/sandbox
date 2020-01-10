@@ -6,23 +6,23 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-import com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto.RunPostProcesarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.postprocesar.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.model.app.postprocesar.RunPostCondicion;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPostProcesarCarenciaRepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
-@Component
-public class CarenciaRunPostProcesar implements RunPostCondicion {
+@Component("carenciaV1")
+public class RunAjusteCarenciaProcesar implements RunAjuste {
 
     @Autowired
     private Logger log;
 
     @Autowired
-    @Qualifier("runPostProcesarProperties")
-    private RunPostProcesarPropertiesDto runPostProcesarProperties;
+    @Qualifier("runAjusteProperties")
+    private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
     private TareaCalculoPostProcesarCarenciaRepositoryCustom tareaCalculoPostProcesarCarenciaRepositoryCustom;
@@ -31,14 +31,14 @@ public class CarenciaRunPostProcesar implements RunPostCondicion {
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoPostProcesarCarenciaRepositoryCustom.ids(runTarea.getTarea()),
-                runPostProcesarProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: CarenciaRunPostProcesar :: Personas: {}", personas.size());
+                runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
+                    log.info("Inicio :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
                     try {
                         tareaCalculoPostProcesarCarenciaRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        log.error("CarenciaRunPostProcesar :: KO :: Personas: {}", personas.size(), e);
+                        log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
-                    log.info("Fin :: CarenciaRunPostProcesar :: Personas: {}", personas.size());
+                    log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
                     return Flux.empty();
                 }).sequential().collectList().block();   
     }
