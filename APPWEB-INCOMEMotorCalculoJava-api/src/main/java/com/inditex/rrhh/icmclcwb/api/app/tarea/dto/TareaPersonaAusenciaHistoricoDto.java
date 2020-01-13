@@ -1,0 +1,41 @@
+package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+@Data
+public class TareaPersonaAusenciaHistoricoDto implements Serializable {
+
+    @ApiModelProperty(value = "Identificador de la persona estructura politica", required = false)
+    private Long id;
+
+    @NotNull
+    @ApiModelProperty(value = "Identificador del tarea", required = true)
+    private Long idTarea;
+
+    @NotBlank
+    @ApiModelProperty(value = "Ordinal de la persona", required = true)
+    private String stdOrHrPeriod;
+
+    @NotBlank
+    @ApiModelProperty(value = "Id local de la persona", required = true)
+    private String cclIdPerson;
+
+    @NotNull
+    @ApiModelProperty(value = "Fecha de inicio de la ausencia", required = true)
+    private Date fechaInicio;
+
+    @NotNull
+    @ApiModelProperty(value = "Fecha de fin de la ausencia", required = true)
+    private Date fechaFin;
+    
+    @ApiModelProperty(value = "Id tipo ausencia", required = false)
+    private String icmTpAbsence;
+
+}

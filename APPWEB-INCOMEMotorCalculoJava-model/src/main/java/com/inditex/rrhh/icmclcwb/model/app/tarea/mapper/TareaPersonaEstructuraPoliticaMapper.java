@@ -33,11 +33,14 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "icmIdUnidadTiempo", source = "icmIdUnidadTiempo")
     @Mapping(target = "numeroUnidades", source = "numeroUnidades")
     @Mapping(target = "valor", source = "valor")
+    @Mapping(target = "importe", source = "importe")
+    @Mapping(target = "numMesesCalcMedia", source = "numMesesCalcMedia")
+    @Mapping(target = "numHoras", source = "numHoras")
+    @Mapping(target = "idMotivoBaja", source = "idMotivoBaja")
     @Mapping(target = "tramo", source = "tramo")
     @Mapping(target = "tipoPolitica", ignore = true)
     @Mapping(target = "pk.id", ignore = true)
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(source = "src.fechaInicio", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraPolitica tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
             TareaPersonaEstructuraPoliticaDto src);
 
@@ -66,8 +69,7 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "excluidoDenominador", ignore = true)
     @Mapping(target = "tipoPolitica", ignore = true)
     @Mapping(target = "pk.id", ignore = true)
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(source = "src.fechaInicio", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraPolitica comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(
             ComisionEmpleadoResultItemDto src, TareaDto tarea);
 
@@ -87,8 +89,7 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "excluidoDenominador", ignore = true)
     @Mapping(target = "tipoPolitica", ignore = true)
     @Mapping(target = "pk.id", ignore = true)
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraPolitica estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
             EstructurasPolResultItemDto src, TareaDto tarea);
 

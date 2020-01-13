@@ -4,6 +4,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPoliticaPk;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +56,10 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImplTest {
         when(tarea.getId()).thenReturn(900L);
         TareaPersonaEstructuraPolitica entity = mock(TareaPersonaEstructuraPolitica.class);
         TipoPolitica tipoPolitica = mock(TipoPolitica.class);
+        TareaPersonaEstructuraPoliticaPk pk = mock(TareaPersonaEstructuraPoliticaPk.class);
+        when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         when(tipoPolitica.getId()).thenReturn(8934893L);
+        when(entity.getPk()).thenReturn(pk);
         when(entity.getFechaInicio()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         when(entity.getFechaFin()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 12, 1)));
         when(entity.getStdIdHr()).thenReturn("STD_ID_HR");

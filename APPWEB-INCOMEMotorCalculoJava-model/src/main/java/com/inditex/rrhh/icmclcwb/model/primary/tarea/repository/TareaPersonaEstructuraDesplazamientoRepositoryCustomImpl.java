@@ -49,5 +49,6 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImpl
         pstmt.setString(20, entity.getStdIdHr());
         pstmt.setString(21, entity.getStdOrHrPeriod());
         pstmt.setString(22, entity.getIcmIdEstructuraAmbito());
+        pstmt.setObject(23, entity.getPk().getFechaInicioPeriodo());
     }
 }

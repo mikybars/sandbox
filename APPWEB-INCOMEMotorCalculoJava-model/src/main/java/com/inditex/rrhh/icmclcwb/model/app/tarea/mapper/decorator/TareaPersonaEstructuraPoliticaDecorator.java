@@ -86,10 +86,15 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
         List<TareaPersonaEstructuraPolitica> result = new ArrayList<>();
         src.forEach(x -> {
                x.getIcmListaCondicionesPolitica().forEach(y -> {
-                   if(y.getExcDenominador().equals(Meta4Constants.TRUE) || !TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getIdMeta4().equals(y.getIdTipoPolitica())) {
+                   if(!TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getIdMeta4().equals(y.getIdTipoPolitica()) || y.getExcDenominador().equals(Meta4Constants.TRUE)) {
                        y.getIcmListaValoresPoliticas().forEach(z -> {
                            result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, z, tarea));
                        });
+                       if(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica()) 
+                               || TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica())
+                               || TipoPoliticaEnum.HORAS_FIJAS.getIdMeta4().equals(y.getIdTipoPolitica())){
+                           result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, null, tarea));
+                       }
                    }
                }); 
         });
@@ -103,10 +108,19 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
         result.setTipoPolitica(new TipoPolitica());
         result.getTipoPolitica().setId(TipoPoliticaEnum.fromIdMeta4(condiciones.getIdTipoPolitica()).getId());
         result.setExcluidoDenominador(Meta4Constants.TRUE.equals(condiciones.getExcDenominador()));
-        result.setIcmIdUnidadTiempo(valores.getIdUnidadTiempo());
-        result.setNumeroUnidades(valores.getNumeroUnidades());
-        result.setValor(new BigDecimal(valores.getValor()));
-        result.setTramo(valores.getTramo());
+        if (TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(condiciones.getIdTipoPolitica())) {
+            result.setImporte(new BigDecimal(condiciones.getImporteMax()));
+        }
+        if (TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4().equals(condiciones.getIdTipoPolitica())) {
+            result.setImporte(new BigDecimal(condiciones.getImporteMin()));
+        }
+        result.setIdMotivoBaja(condiciones.getIdMotivoBaja());
+        result.setNumMesesCalcMedia(condiciones.getNumMesesCalcMedia());
+        result.setNumHoras(condiciones.getNumHoras());
+        result.setIcmIdUnidadTiempo(valores != null && valores.getIdUnidadTiempo() != null ? valores.getIdUnidadTiempo() : "0");
+        result.setNumeroUnidades(valores != null && valores.getNumeroUnidades() != null ? valores.getNumeroUnidades() : "0");
+        result.setValor(valores != null && valores.getValor() != null ? new BigDecimal(valores.getValor()) : new BigDecimal(0));
+        result.setTramo(valores != null && valores.getTramo() != null ? valores.getTramo() : "0");
         return result;
     }
 }

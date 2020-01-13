@@ -56,8 +56,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         pstmt.setDouble(7, entity.getTipoDato().getId());
         pstmt.setBoolean(8, entity.getActivo());
         pstmt.setLong(9, entity.getTarea().getId());
-        // TODO [COMUN] PARTICIONADO
-        // pstmt.setObject(10, entity.getPk().getFechaInicioPeriodo());
+        pstmt.setObject(10, entity.getPk().getFechaInicioPeriodo());
     }
 
     @Override

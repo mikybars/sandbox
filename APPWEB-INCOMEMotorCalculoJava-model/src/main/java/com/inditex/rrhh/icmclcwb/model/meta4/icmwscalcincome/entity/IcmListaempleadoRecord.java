@@ -47,6 +47,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="fechainicioloc" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="fechainiciosec" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechaantiguedad" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idempleadolocal" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idlugartrabajomtu" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
@@ -75,6 +76,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "fechainicioloc",
     "fechainiciosec",
     "idlugartrabajo",
+    "fechaantiguedad",
     "idempleadolocal",
     "idlugartrabajomtu"
 })
@@ -112,6 +114,8 @@ public class IcmListaempleadoRecord implements Cloneable, CopyTo2, Equals2, Hash
     protected String fechainiciosec;
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajo;
+    @XmlElement(required = true, nillable = true)
+    protected String fechaantiguedad;
     @XmlElement(required = true, nillable = true)
     protected String idempleadolocal;
     @XmlElement(required = true, nillable = true)
@@ -494,6 +498,30 @@ public class IcmListaempleadoRecord implements Cloneable, CopyTo2, Equals2, Hash
     }
 
     /**
+     * Obtiene el valor de la propiedad fechaantiguedad.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechaantiguedad() {
+        return fechaantiguedad;
+    }
+
+    /**
+     * Define el valor de la propiedad fechaantiguedad.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechaantiguedad(String value) {
+        this.fechaantiguedad = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idempleadolocal.
      * 
      * @return
@@ -694,6 +722,15 @@ public class IcmListaempleadoRecord implements Cloneable, CopyTo2, Equals2, Hash
             }
         }
         {
+            String lhsFechaantiguedad;
+            lhsFechaantiguedad = this.getFechaantiguedad();
+            String rhsFechaantiguedad;
+            rhsFechaantiguedad = that.getFechaantiguedad();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechaantiguedad", lhsFechaantiguedad), LocatorUtils.property(thatLocator, "fechaantiguedad", rhsFechaantiguedad), lhsFechaantiguedad, rhsFechaantiguedad, (this.fechaantiguedad!= null), (that.fechaantiguedad!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdempleadolocal;
             lhsIdempleadolocal = this.getIdempleadolocal();
             String rhsIdempleadolocal;
@@ -815,6 +852,11 @@ public class IcmListaempleadoRecord implements Cloneable, CopyTo2, Equals2, Hash
             strategy.appendField(locator, this, "idlugartrabajo", buffer, theIdlugartrabajo, (this.idlugartrabajo!= null));
         }
         {
+            String theFechaantiguedad;
+            theFechaantiguedad = this.getFechaantiguedad();
+            strategy.appendField(locator, this, "fechaantiguedad", buffer, theFechaantiguedad, (this.fechaantiguedad!= null));
+        }
+        {
             String theIdempleadolocal;
             theIdempleadolocal = this.getIdempleadolocal();
             strategy.appendField(locator, this, "idempleadolocal", buffer, theIdempleadolocal, (this.idempleadolocal!= null));
@@ -908,6 +950,11 @@ public class IcmListaempleadoRecord implements Cloneable, CopyTo2, Equals2, Hash
             String theIdlugartrabajo;
             theIdlugartrabajo = this.getIdlugartrabajo();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idlugartrabajo", theIdlugartrabajo), currentHashCode, theIdlugartrabajo, (this.idlugartrabajo!= null));
+        }
+        {
+            String theFechaantiguedad;
+            theFechaantiguedad = this.getFechaantiguedad();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechaantiguedad", theFechaantiguedad), currentHashCode, theFechaantiguedad, (this.fechaantiguedad!= null));
         }
         {
             String theIdempleadolocal;
@@ -1144,6 +1191,19 @@ public class IcmListaempleadoRecord implements Cloneable, CopyTo2, Equals2, Hash
                 } else {
                     if (idlugartrabajoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idlugartrabajo = null;
+                    }
+                }
+            }
+            {
+                Boolean fechaantiguedadShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechaantiguedad!= null));
+                if (fechaantiguedadShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFechaantiguedad;
+                    sourceFechaantiguedad = this.getFechaantiguedad();
+                    String copyFechaantiguedad = ((String) strategy.copy(LocatorUtils.property(locator, "fechaantiguedad", sourceFechaantiguedad), sourceFechaantiguedad, (this.fechaantiguedad!= null)));
+                    copy.setFechaantiguedad(copyFechaantiguedad);
+                } else {
+                    if (fechaantiguedadShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.fechaantiguedad = null;
                     }
                 }
             }

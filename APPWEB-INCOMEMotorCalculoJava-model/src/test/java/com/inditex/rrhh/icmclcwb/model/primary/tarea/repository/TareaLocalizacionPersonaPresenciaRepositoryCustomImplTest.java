@@ -267,7 +267,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA.getId(),
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId(),
                 params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // excluidoDenominador
         assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_DENOMINADOR));
@@ -285,9 +285,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
         PreparedStatement pstmt = mock(PreparedStatement.class);
         TareaLocalizacionPersonaPresenciaPk pk = mock(TareaLocalizacionPersonaPresenciaPk.class);
-        // TODO [COMUN] PARTICIONADO
-        // when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015,
-        // 1, 1)));
+        when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(789L);
         TipoDato td = mock(TipoDato.class);
@@ -301,7 +299,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(entity.getCclIdPerson()).thenReturn("Id persona");
         when(entity.getCclIdSeccion()).thenReturn("Id seccion");
         when(entity.getIcmIdTpHora()).thenReturn("Id tipo hora");
-//        when(entity.getPk()).thenReturn(pk);
+        when(entity.getPk()).thenReturn(pk);
         when(entity.getMinutos()).thenReturn(123);
         when(entity.getTarea()).thenReturn(tarea);
         when(entity.getTipoDato()).thenReturn(td);
@@ -324,8 +322,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setLong(10, td.getId());
         verify(pstmt, times(1)).setLong(11, tarea.getId());
         verify(pstmt, times(1)).setString(12, entity.getCclIdCadena());
-        // TODO [COMUN] PARTICIONADO
-        // verify(pstmt, times(1)).setLong(10, pk.getFechaInicioPeriodo());
+        verify(pstmt, times(1)).setObject(13, pk.getFechaInicioPeriodo());
     }
 
     @Test

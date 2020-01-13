@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
@@ -90,5 +92,7 @@ public interface Meta4IcmWsCalcIncomeService {
     EstructurasComResponseDto getEstructurasCom(EstructurasComRequestDto request);
 
     EstructurasPolResponseDto getEstructurasPol(EstructurasPolRequestDto request);
+
+    AusenciasResponseDto getAusencias(AusenciasRequestDto request);
 	
 }

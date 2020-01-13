@@ -60,6 +60,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfEstructurasPol = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .estructurasPolByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEstructurasPol, cf, cfWait);
+            
+            CompletableFuture<Void> cfAusencias = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                    .ausenciasByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfAusencias, cf, cfWait);
 
             // Tipos hora para los origenes
             CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService

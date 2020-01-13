@@ -49,8 +49,7 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(source = "src.idTipoHora", target = "icmIdTpHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "pk.id", ignore = true)
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionPersonaPresencia genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
             GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
@@ -70,8 +69,7 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(source = "src.tipo", target = "icmIdTpHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "pk.id", ignore = true)
-    // TODO [COMUN] PARTICIONADO
-    // @Mapping(source = "src.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionPersonaPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
             PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto);
 

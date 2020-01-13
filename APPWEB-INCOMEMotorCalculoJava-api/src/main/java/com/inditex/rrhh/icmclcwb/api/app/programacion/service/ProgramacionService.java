@@ -31,4 +31,8 @@ public interface ProgramacionService {
 
     void desactiva(@Positive @NotNull final Long id);
 
+    ProgramacionDto findById(@Positive @NotNull final Long id);
+
+    ProgramacionDto findPendienteById(@Positive @NotNull Long id);
+
 }

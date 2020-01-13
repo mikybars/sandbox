@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
@@ -82,5 +84,7 @@ public interface Meta4IcmWsCalcIncomeSessionService {
     List<EstructurasComResultItemDto> getEstructurasCom(EstructurasComRequestDto request);
 
     List<EstructurasPolResultItemDto> getEstructurasPol(EstructurasPolRequestDto request);
+
+    List<AusenciasResultItemDto> getAusencias(AusenciasRequestDto request);
 
 }

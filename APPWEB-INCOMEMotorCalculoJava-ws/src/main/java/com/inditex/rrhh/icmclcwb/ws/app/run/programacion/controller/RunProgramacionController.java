@@ -27,8 +27,8 @@ public class RunProgramacionController {
 	@GetMapping
 	@PreAuthorize("hasAuthority('admin')")
 	@ApiOperation("Revisa si hay programaciones pendientes de lanzar y en caso afirmativo genera las acciones necesarias")
-	public List<RunProgramacionDto> run() {
-		return runProgramacionService.run();
+	public List<RunProgramacionDto> create() {
+		return runProgramacionService.create();
 	}
 
 }

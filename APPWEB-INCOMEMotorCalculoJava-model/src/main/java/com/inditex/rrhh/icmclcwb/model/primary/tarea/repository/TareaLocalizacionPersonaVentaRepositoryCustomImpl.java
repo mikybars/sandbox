@@ -35,8 +35,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
         pstmt.setBigDecimal(5, entity.getImporteConImpuestos());
         pstmt.setDouble(6, entity.getTipoDato().getId());
         pstmt.setLong(7, entity.getTarea().getId());
-        // TODO [COMUN] PARTICIONADO
-        // pstmt.setObject(8, entity.getPk().getFechaInicioPeriodo());
+        pstmt.setObject(8, entity.getPk().getFechaInicioPeriodo());
     }
 
 }
