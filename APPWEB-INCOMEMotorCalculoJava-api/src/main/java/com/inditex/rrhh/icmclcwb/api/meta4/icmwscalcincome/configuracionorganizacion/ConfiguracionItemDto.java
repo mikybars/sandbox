@@ -20,7 +20,7 @@ public class ConfiguracionItemDto implements Serializable {
 
     private String inOut;
     private String idOrigen;
-    private Long idTipoHora;
+    private String idTipoHora;
     private Boolean icmCkVentaImpuestos;
 
 }

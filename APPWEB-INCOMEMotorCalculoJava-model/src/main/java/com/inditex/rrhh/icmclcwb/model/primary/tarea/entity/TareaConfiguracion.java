@@ -32,8 +32,8 @@ public class TareaConfiguracion {
     private Tarea tarea;
 
     @NotBlank
-    @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)
-    private String idOrganization;
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
+    private String cclIdOrigen;
 
     @NotBlank
     @Column(name = "ICM_ID_CONFIG", nullable = false)
@@ -51,7 +51,7 @@ public class TareaConfiguracion {
 
     @NotNull
     @Column(name = "ICM_ID_TP_HORA", nullable = false)
-    private Long icmIdTpHora;
+    private String icmIdTpHora;
 
     @NotNull
     @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)

@@ -28,11 +28,11 @@ public class TareaConfiguracionRepositoryCustomImpl
     @Override
     public void setParameters(PreparedStatement pstmt, TareaConfiguracion entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getIdOrganization());
+        pstmt.setString(2, entity.getCclIdOrigen());
         pstmt.setLong(3, entity.getIcmIdConfig());
         pstmt.setObject(4, entity.getFechaFin());
         pstmt.setObject(5, entity.getFechaInicio());
-        pstmt.setLong(6, entity.getIcmIdTpHora());
+        pstmt.setString(6, entity.getIcmIdTpHora());
         pstmt.setBoolean(7, entity.getIcmCkVentaImpuestos());
     }
 }

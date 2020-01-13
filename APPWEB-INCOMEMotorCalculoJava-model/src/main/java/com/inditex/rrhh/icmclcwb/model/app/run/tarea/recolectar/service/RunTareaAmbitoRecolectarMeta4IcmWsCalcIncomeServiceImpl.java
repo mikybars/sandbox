@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCade
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaPresenciaManualAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaConfiguracionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionCalcularAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionComisionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionFestivoAsyncService;
@@ -144,6 +145,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     
     @Autowired
     private TareaPersonaAusenciaHistoricoAsyncService tareaPersonaAusenciaHistoricoAsyncService;
+
+    @Autowired
+    private TareaConfiguracionAsyncService tareaConfiguracionAsyncService;
 
     @Override
     public void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
@@ -703,7 +707,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
                         .get(Meta4PropertiesConstants.CONFIGURACION).getFilter().getMaxPersistenceSize());
-                    //TODO [JAVIEREV] Guardar las configuraciones online
+                    CompletableFuture<Void> cfSave = tareaConfiguracionAsyncService.saveConfiguracionItemDto(data, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     hasNext = request.nextPage();
                 }
             } while (hasNext);
