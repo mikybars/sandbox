@@ -29,9 +29,9 @@ public class TareaCalculoAjuste {
     
     @OneToOne
     @JoinColumns({
-        @JoinColumn(name = "ID_TAREA_CALCULO", referencedColumnName = "ID_TAREA_CALCULO", insertable = false, updatable = false),
+        @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA_POLITICA", referencedColumnName = "ID_TAREA_PERSONA_ESTRUCTURA_POLITICA", insertable = false, updatable = false),
         @JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false) })
-    private TareaCalculo tareaCalculo;
+    private TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica;
 
     @NotNull
     @OneToOne
@@ -55,12 +55,4 @@ public class TareaCalculoAjuste {
     @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)
     private BigDecimal importe;
 
-    @NotBlank
-    @Column(name = "ICM_ID_ESTR_POLITICAS", nullable = false)
-    private String idEstructuraPolitica;
-
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_TIPO_POLITICA")
-    private TipoPolitica tipoPolitica;
 }
