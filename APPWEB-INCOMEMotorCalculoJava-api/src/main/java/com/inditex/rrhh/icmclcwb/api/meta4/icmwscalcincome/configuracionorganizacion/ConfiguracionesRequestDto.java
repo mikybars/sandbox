@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFi
 
 import java.io.Serializable;
 
-public class ConfiguracionesOrganizacionRequestDto extends PageableDto<GenericFilterDto>
+public class ConfiguracionesRequestDto extends PageableDto<GenericFilterDto>
         implements Pageable<GenericFilterDto>, Serializable {
 
     private static final long serialVersionUID = 6004857776815885351L;

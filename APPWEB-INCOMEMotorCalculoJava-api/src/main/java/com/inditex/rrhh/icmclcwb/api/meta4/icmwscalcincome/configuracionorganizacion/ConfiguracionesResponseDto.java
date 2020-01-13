@@ -10,8 +10,8 @@ import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ConfiguracionesOrganizacionResponseDto extends PageableListDto<ConfiguracionOrganizacionItemDto>
-        implements PageableList<ConfiguracionOrganizacionItemDto>, Serializable {
+public class ConfiguracionesResponseDto extends PageableListDto<ConfiguracionItemDto>
+        implements PageableList<ConfiguracionItemDto>, Serializable {
 
     private static final long serialVersionUID = 1900274331041555593L;
 

@@ -107,8 +107,8 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     }
 
     @Override
-    public CompletableFuture<Void> configuracionesOrganizacionByRunTarea(RunTareaDto runTarea) {
-        tareaRecolectarMeta4IcmWsCalcIncomeService.configuracionesOrganizacion(runTarea);
+    public CompletableFuture<Void> configuracionesByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarMeta4IcmWsCalcIncomeService.configuraciones(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

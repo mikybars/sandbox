@@ -17,13 +17,13 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "TAREA_ORGANIZACION_CONFIGURACION")
+@Table(name = "TAREA_CONFIGURACION")
 @Data
-public class TareaOrganizacionConfiguracion {
+public class TareaConfiguracion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_SOCIEDAD_CONFIGURACION")
+    @Column(name = "ID_TAREA_CONFIGURACION")
     private Long id;
 
     @NotNull

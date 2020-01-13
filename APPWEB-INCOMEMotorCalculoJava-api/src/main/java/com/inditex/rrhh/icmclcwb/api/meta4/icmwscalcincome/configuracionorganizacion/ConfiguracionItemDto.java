@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class ConfiguracionOrganizacionItemDto implements Serializable {
+public class ConfiguracionItemDto implements Serializable {
 
     private static final long serialVersionUID = -5659137927641835338L;
 

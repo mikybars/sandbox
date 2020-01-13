@@ -109,8 +109,8 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void configuracionesOrganizacion(@NotNull @Valid RunTareaDto runTarea) {
+    public void configuraciones(@NotNull @Valid RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .configuracionOrganizacionByRunTareaAndTareaAmbito(runTarea, item));
+                .configuracionByRunTareaAndTareaAmbito(runTarea, item));
     }
 }

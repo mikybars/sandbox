@@ -28,7 +28,7 @@ public class Meta4PropertiesConstants {
     public static final String ESTRUCTURAS_COM = "getEstructurasCom";
     public static final String ESTRUCTURAS_POL = "getEstructurasPol";
     public static final String AUSENCIAS = "getAusencias";
-    public static final String CONF_ORGANIZACION = "getConfiguracion";
+    public static final String CONFIGURACION = "getConfiguracion";
 
     
 }

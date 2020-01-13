@@ -34,8 +34,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4Ic
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionOrganizacionItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesOrganizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
@@ -683,26 +683,26 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void configuracionOrganizacionByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea,
-            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+    public void configuracionByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea,
+                                                      @NotNull @Valid TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            ConfiguracionesOrganizacionRequestDto request = new ConfiguracionesOrganizacionRequestDto();
-            request.setPage(meta4Properties.get(Meta4PropertiesConstants.CONF_ORGANIZACION).getPage());
+            ConfiguracionesRequestDto request = new ConfiguracionesRequestDto();
+            request.setPage(meta4Properties.get(Meta4PropertiesConstants.CONFIGURACION).getPage());
             request.setData(tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
             boolean hasNext = false;
             do {
-                CompletableFuture<List<ConfiguracionOrganizacionItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                    .getConfiguracionesOrganizacion(request);
+                CompletableFuture<List<ConfiguracionItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                    .getConfiguraciones(request);
                 AsyncUtils.exceptionally(cfData, cf);
-                List<ConfiguracionOrganizacionItemDto> data = AsyncUtils.get(cfData);
+                List<ConfiguracionItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                        .get(Meta4PropertiesConstants.CONF_ORGANIZACION).getFilter().getMaxPersistenceSize());
+                        .get(Meta4PropertiesConstants.CONFIGURACION).getFilter().getMaxPersistenceSize());
                     //TODO [JAVIEREV] Guardar las configuraciones online
                     hasNext = request.nextPage();
                 }
