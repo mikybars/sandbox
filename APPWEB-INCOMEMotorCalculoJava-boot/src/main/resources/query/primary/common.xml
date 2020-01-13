@@ -1552,7 +1552,7 @@ VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 <entry key="TareaPersonaEstructuraPoliticaRepositoryCustom.save">
   <![CDATA[
 INSERT INTO TAREA_PERSONA_ESTRUCTURA_POLITICA (FECHA_FIN, FECHA_INICIO, STD_ID_HR, CCL_ID_PERSON, ICM_ID_ESTR_POLITICAS, ID_TIPO_POLITICA, STD_OR_HR_PERIOD, ID_TAREA, CCL_ID_ORIGEN, ES_EXCLUIDO_DENOMINADOR, ICM_ID_UNIDAD_TIEMPO, ICM_NUM_UNIDADES, ICM_PORCENTAJE, ICM_TRAMO, FECHA_INICIO_PERIODO)
-VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   ]]>
 </entry>
 
