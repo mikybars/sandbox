@@ -36,8 +36,8 @@ public class TareaConfiguracion {
     private String idOrganization;
 
     @NotBlank
-    @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
-    private String icmIdEstrComision;
+    @Column(name = "ICM_ID_CONFIG", nullable = false)
+    private Long icmIdConfig;
 
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
@@ -50,8 +50,8 @@ public class TareaConfiguracion {
     private Date fechaFin;
 
     @NotNull
-    @Column(name = "ID_TIPO_HORA", nullable = false)
-    private Long idTipoHora;
+    @Column(name = "ICM_ID_TP_HORA", nullable = false)
+    private Long icmIdTpHora;
 
     @NotNull
     @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)
