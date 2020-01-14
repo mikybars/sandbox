@@ -72,7 +72,7 @@
                 TPAH.FECHA_INICIO, TPAH.FECHA_FIN, TPEP.ID_TIPO_UNIDAD_TIEMPO
         )
         SELECT TC.FECHA_INICIO_PERIODO, FA.ID_TAREA, TC.FECHA, FA.CCL_ID_PERSON, FA.STD_OR_HR_PERIOD,
-        /*(*/ /*(*/ TC.IMPORTE_SIN_IMPUESTOS /*)*/ * /*(*/ FA.ICM_PORCENTAJE /*)*/ / 100 /*)*/ AS IMPORTE,
+        /*(*/ /*(*/ SUM(TC.IMPORTE_SIN_IMPUESTOS) /*)*/ * /*(*/ FA.ICM_PORCENTAJE /*)*/ / 100 /*)*/ AS IMPORTE,
         FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
         FROM FECHAS_ACUMULADAS FA
         INNER JOIN TAREA_CALCULO TC
@@ -81,8 +81,8 @@
         AND FA.STD_OR_HR_PERIOD = TC.STD_OR_HR_PERIOD 
         AND FA.FECHA_INICIO <= TC.FECHA
         AND FA.FECHA_FIN >= TC.FECHA
-        AND FA.FECHA_INICIO_AUSENCIA <= TC.FECHA
-        AND FA.FECHA_INICIO_AUSENCIA >= FA.FECHA_INICIO
+        AND FA.FECHA_INICIO_AUSENCIA <= FA.FECHA_INICIO
+        GROUP BY TC.FECHA_INICIO_PERIODO, FA.ID_TAREA, TC.FECHA, FA.CCL_ID_PERSON, FA.STD_OR_HR_PERIOD, FA.ICM_PORCENTAJE, FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
     ]]>
 </entry>
 
@@ -240,7 +240,16 @@
 
 <entry key="TareaCalculoPostProcesarRepositoryCustom.maxGarantizado">
     <![CDATA[
-        WITH TOTAL AS (
+        WITH TOTAL_SIN_AJUSTE AS (
+                SELECT SUM( /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ ) AS IMPORTE_SIN_IMPUESTOS, FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD
+                FROM(
+                        SELECT /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ , TC.FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD
+                        FROM TAREA_CALCULO TC
+                        WHERE TC.ID_TAREA = :idTarea
+                        AND TC.ES_MANUAL = :inactivo
+                ) GROUP BY FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD
+        ),
+        TOTAL AS (
                 SELECT T.FECHA_INICIO_PERIODO, 
                         T.ID_TAREA,
                         TCA.CCL_ID_PERSON,
@@ -252,6 +261,8 @@
                 INNER JOIN TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
                 ON T.ID_TAREA = TPEP.ID_TAREA
                 INNER JOIN (
+                      SELECT SUM( /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ ) AS IMPORTE_SIN_IMPUESTOS, FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
+                      FROM(
                         SELECT /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ , TC.FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
                         FROM TAREA_CALCULO TC
                         WHERE TC.ID_TAREA = :idTarea
@@ -264,6 +275,7 @@
                         AND TPEP.FECHA_INICIO_PERIODO = TCA.FECHA_INICIO_PERIODO
                         WHERE TCA.ID_TAREA = :idTarea
                         AND TPEP.ID_TIPO_POLITICA IN (:idTipoPoliticaAjuste)
+                      ) GROUP BY FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
                 ) TCA
                 ON TCA.ID_TAREA = TPEP.ID_TAREA
                 AND TCA.CCL_ID_PERSON = TPEP.CCL_ID_PERSON 
@@ -276,18 +288,22 @@
                           FA.ID_TAREA,
                           TC.CCL_ID_PERSON,
                           TC.STD_OR_HR_PERIOD, 
-                          DEC( /*(*/ TC.IMPORTE_SIN_IMPUESTOS /*)*/ ) / DEC( /*(*/ FA.IMPORTE_SIN_IMPUESTOS /*)*/ ) * DEC( /*(*/ TC.IMPORTE_SIN_IMPUESTOS /*)*/ ) AS IMPORTE,
+                          (DEC( /*(*/ SUM(TC.IMPORTE_SIN_IMPUESTOS) /*)*/ ) / DEC( /*(*/ TSA.IMPORTE_SIN_IMPUESTOS /*)*/ )) * DEC( /*(*/ FA.IMPORTE_SIN_IMPUESTOS /*)*/ )  AS IMPORTE,
                           FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
           FROM TOTAL FA 
           INNER JOIN TAREA_CALCULO TC
           ON FA.ID_TAREA = TC.ID_TAREA
           AND FA.CCL_ID_PERSON = TC.CCL_ID_PERSON 
           AND FA.STD_OR_HR_PERIOD = TC.STD_OR_HR_PERIOD
-          WHERE FA.IMPORTE_SIN_IMPUESTOS > 0
+          INNER JOIN TOTAL_SIN_AJUSTE TSA
+          ON FA.ID_TAREA = TSA.ID_TAREA
+          AND FA.CCL_ID_PERSON = TSA.CCL_ID_PERSON 
+          AND FA.STD_OR_HR_PERIOD = TSA.STD_OR_HR_PERIOD
+          WHERE FA.IMPORTE_SIN_IMPUESTOS < 0
           AND TC.ES_MANUAL = :inactivo
           GROUP BY FA.FECHA_INICIO_PERIODO, TC.FECHA, FA.ID_TAREA, TC.CCL_ID_PERSON, 
                   TC.STD_OR_HR_PERIOD, TC.IMPORTE_SIN_IMPUESTOS, FA.IMPORTE_SIN_IMPUESTOS,
-                  FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
+                  FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA, TSA.IMPORTE_SIN_IMPUESTOS
         )                
         SELECT FA.FECHA_INICIO_PERIODO, FA.ID_TAREA, FA.FECHA, FA.CCL_ID_PERSON, FA.STD_OR_HR_PERIOD,
         FA.IMPORTE, FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
@@ -297,7 +313,16 @@
 
 <entry key="TareaCalculoPostProcesarRepositoryCustom.minGarantizado">
     <![CDATA[
-        WITH TOTAL AS (
+        WITH TOTAL_SIN_AJUSTE AS (
+                SELECT SUM( /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ ) AS IMPORTE_SIN_IMPUESTOS, FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD
+                FROM(
+                        SELECT /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ , TC.FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD
+                        FROM TAREA_CALCULO TC
+                        WHERE TC.ID_TAREA = :idTarea
+                        AND TC.ES_MANUAL = :inactivo
+                ) GROUP BY FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD
+        ),
+        TOTAL AS (
                 SELECT T.FECHA_INICIO_PERIODO, 
                         T.ID_TAREA,
                         TCA.CCL_ID_PERSON,
@@ -309,6 +334,8 @@
                 INNER JOIN TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
                 ON T.ID_TAREA = TPEP.ID_TAREA
                 INNER JOIN (
+                    SELECT SUM( /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ ) AS IMPORTE_SIN_IMPUESTOS, FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
+                    FROM(
                         SELECT /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ , TC.FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
                         FROM TAREA_CALCULO TC
                         WHERE TC.ID_TAREA = :idTarea
@@ -321,6 +348,7 @@
                         AND TPEP.FECHA_INICIO_PERIODO = TCA.FECHA_INICIO_PERIODO
                         WHERE TCA.ID_TAREA = :idTarea
                         AND TPEP.ID_TIPO_POLITICA IN (:idTipoPoliticaAjuste)
+                    ) GROUP BY FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
                 ) TCA
                 ON TCA.ID_TAREA = TPEP.ID_TAREA
                 AND TCA.CCL_ID_PERSON = TPEP.CCL_ID_PERSON 
@@ -333,18 +361,22 @@
                           FA.ID_TAREA,
                           TC.CCL_ID_PERSON,
                           TC.STD_OR_HR_PERIOD, 
-                          DEC( /*(*/ TC.IMPORTE_SIN_IMPUESTOS /*)*/ ) / DEC( /*(*/ FA.IMPORTE_SIN_IMPUESTOS /*)*/ ) * DEC( /*(*/ TC.IMPORTE_SIN_IMPUESTOS /*)*/ ) AS IMPORTE,
+                          (DEC( /*(*/ SUM(TC.IMPORTE_SIN_IMPUESTOS) /*)*/ ) / DEC( /*(*/ TSA.IMPORTE_SIN_IMPUESTOS /*)*/ )) * DEC( /*(*/ FA.IMPORTE_SIN_IMPUESTOS /*)*/ )  AS IMPORTE,
                           FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
           FROM TOTAL FA 
           INNER JOIN TAREA_CALCULO TC
           ON FA.ID_TAREA = TC.ID_TAREA
           AND FA.CCL_ID_PERSON = TC.CCL_ID_PERSON 
           AND FA.STD_OR_HR_PERIOD = TC.STD_OR_HR_PERIOD
+          INNER JOIN TOTAL_SIN_AJUSTE TSA
+          ON FA.ID_TAREA = TSA.ID_TAREA
+          AND FA.CCL_ID_PERSON = TSA.CCL_ID_PERSON 
+          AND FA.STD_OR_HR_PERIOD = TSA.STD_OR_HR_PERIOD
           WHERE FA.IMPORTE_SIN_IMPUESTOS > 0
           AND TC.ES_MANUAL = :inactivo
           GROUP BY FA.FECHA_INICIO_PERIODO, TC.FECHA, FA.ID_TAREA, TC.CCL_ID_PERSON, 
                   TC.STD_OR_HR_PERIOD, TC.IMPORTE_SIN_IMPUESTOS, FA.IMPORTE_SIN_IMPUESTOS,
-                  FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
+                  FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA, TSA.IMPORTE_SIN_IMPUESTOS
         )                
         SELECT FA.FECHA_INICIO_PERIODO, FA.ID_TAREA, FA.FECHA, FA.CCL_ID_PERSON, FA.STD_OR_HR_PERIOD,
         FA.IMPORTE, FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA

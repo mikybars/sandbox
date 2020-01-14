@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoUnidadTiempo;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPoliticaPk;
@@ -56,9 +57,11 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImplTest {
         when(tarea.getId()).thenReturn(900L);
         TareaPersonaEstructuraPolitica entity = mock(TareaPersonaEstructuraPolitica.class);
         TipoPolitica tipoPolitica = mock(TipoPolitica.class);
+        TipoUnidadTiempo tipoUnidadTiempo = mock(TipoUnidadTiempo.class);
         TareaPersonaEstructuraPoliticaPk pk = mock(TareaPersonaEstructuraPoliticaPk.class);
         when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         when(tipoPolitica.getId()).thenReturn(8934893L);
+        when(tipoUnidadTiempo.getId()).thenReturn(1);
         when(entity.getPk()).thenReturn(pk);
         when(entity.getFechaInicio()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         when(entity.getFechaFin()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 12, 1)));
@@ -66,6 +69,7 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImplTest {
         when(entity.getCclIdPerson()).thenReturn("CCL_ID_PERSON");
         when(entity.getIdEstructuraPolitica()).thenReturn("ICM_ID_ESTR_POLITICAS");
         when(entity.getTipoPolitica()).thenReturn(tipoPolitica);
+        when(entity.getTipoUnidadTiempo()).thenReturn(tipoUnidadTiempo);
         when(entity.getStdOrHrPeriod()).thenReturn("STD_OR_HR_PERIOD");
         when(entity.getTarea()).thenReturn(tarea);
         when(entity.getCclIdOrigen()).thenReturn("CCL_ID_ORIGEN");
