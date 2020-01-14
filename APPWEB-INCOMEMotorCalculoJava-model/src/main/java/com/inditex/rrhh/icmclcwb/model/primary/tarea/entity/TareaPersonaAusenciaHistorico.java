@@ -3,8 +3,10 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,8 +25,10 @@ import lombok.Data;
 @Data
 public class TareaPersonaAusenciaHistorico {
     
-    @EmbeddedId
-    private TareaPersonaAusenciaHistoricoPk pk;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREA_PERSONA_AUSENCIA_HISTORICO")
+    private Long id;
     
     @NotNull
     @OneToOne
@@ -48,6 +52,10 @@ public class TareaPersonaAusenciaHistorico {
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
+    
+    @NotNull
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
+    private String cclIdOrigen;
     
     @NotNull
     @OneToOne

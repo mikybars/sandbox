@@ -252,7 +252,7 @@
                 INNER JOIN TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
                 ON T.ID_TAREA = TPEP.ID_TAREA
                 INNER JOIN (
-                        SELECT /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ , ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
+                        SELECT /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ , TC.FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
                         FROM TAREA_CALCULO TC
                         WHERE TC.ID_TAREA = :idTarea
                         AND TC.ES_MANUAL = :inactivo
@@ -309,7 +309,7 @@
                 INNER JOIN TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
                 ON T.ID_TAREA = TPEP.ID_TAREA
                 INNER JOIN (
-                        SELECT /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ , ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
+                        SELECT /*(*/ IMPORTE_SIN_IMPUESTOS /*)*/ , TC.FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
                         FROM TAREA_CALCULO TC
                         WHERE TC.ID_TAREA = :idTarea
                         AND TC.ES_MANUAL = :inactivo
@@ -415,6 +415,8 @@
                     INNER JOIN TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
                     ON TPEP.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA = TCA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
                     AND TPEP.FECHA_INICIO_PERIODO = TCA.FECHA_INICIO_PERIODO
+                    INNER JOIN TIPO_POLITICA TP
+                    ON TP.ID_TIPO_POLITICA = TP.ID_TIPO_POLITICA
                     WHERE TCA.ID_TAREA = :idTarea
                     GROUP BY TCA.ID_TAREA, TCA.CCL_ID_PERSON, TCA.STD_OR_HR_PERIOD, TCA.FECHA, TP.PESO
             ) 

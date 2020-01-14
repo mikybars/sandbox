@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum TipoUnidadTiempoEnum {
 
     ANOS(1, "01"), MESES(2, "02"), SEMANAS(3, "03"),
-    DIAS(4, "04"), NINGUNO(5,"05");
+    DIAS(4, "04"), HORAS(5, "05"), MINUTOS(6, "06"), NINGUNO(7, "07");
     
     private final Integer id;
 

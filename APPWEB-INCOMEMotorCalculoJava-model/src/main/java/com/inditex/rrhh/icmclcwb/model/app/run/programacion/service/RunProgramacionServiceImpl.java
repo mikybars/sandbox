@@ -106,6 +106,9 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
         List<RunProgramacionDto> result = new ArrayList<>();
         programacionService.findPendiente().stream().forEach(programacion -> {
             senderProgramacion.send(IdProgramacionDto.builder().id(programacion.getId()).build());
+            RunProgramacionDto runProgramacion = RunProgramacionDto.builder().programacion(programacion)
+                    .runProgramacionPeriodo(new ArrayList<>()).build();
+            result.add(runProgramacion);
         });
         return result;
     }

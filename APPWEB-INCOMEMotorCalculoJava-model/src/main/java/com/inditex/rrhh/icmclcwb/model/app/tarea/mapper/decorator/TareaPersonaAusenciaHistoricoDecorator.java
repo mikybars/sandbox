@@ -23,10 +23,12 @@ public abstract class TareaPersonaAusenciaHistoricoDecorator extends TareaPerson
         if (src != null) {
             src.stream().forEach(x -> {
                 TareaPersonaAusenciaHistoricoDto entity = delegate.ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(x, tareaDto);
-                //TODO: Modificar esto cuando estén todos mapeados
+                //TODO: Modificar esto cuando estén todos mapeados, se pone 1 por defecto a los que no traen
                 //tipoAusencia.setId(TipoAusenciaEnum.fromIdMeta4(x.getTipo()).getId());
                 TipoAusenciaEnum id = TipoAusenciaEnum.fromIdMeta4(x.getTipo());
                 entity.setIdTipoAusencia((id != null) ? id.getId() : 1);
+                //TODO: Eliminar esto cuando devuelvan los orígenes
+                entity.setCclIdOrigen(tareaDto.getIdOrganization());
                 result.add(entity);
             });
         }

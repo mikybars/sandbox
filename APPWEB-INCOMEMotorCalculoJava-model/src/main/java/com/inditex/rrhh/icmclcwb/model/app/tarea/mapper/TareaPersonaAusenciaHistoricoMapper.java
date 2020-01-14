@@ -20,11 +20,11 @@ public abstract class TareaPersonaAusenciaHistoricoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "src.tarea.id")
-    @Mapping(target = "fechaInicioPeriodo", source = "pk.fechaInicioPeriodo")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "stdOrHrPeriod", source = "src.stdOrHrPeriod")
     @Mapping(target = "cclIdPerson", source = "src.cclIdPerson")
+    @Mapping(target = "cclIdOrigen", source = "src.cclIdOrigen")
     @Mapping(target = "idTipoAusencia", source = "src.tipoAusencia.id")
     public abstract TareaPersonaAusenciaHistoricoDto tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(TareaPersonaAusenciaHistorico src);
 
@@ -42,7 +42,7 @@ public abstract class TareaPersonaAusenciaHistoricoMapper {
     @Mapping(target = "stdOrHrPeriod", source = "src.orEmpleado")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
-    @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
+//    @Mapping(target = "cclIdOrigen", source = "src.cclIdOrigen")
     public abstract TareaPersonaAusenciaHistoricoDto ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(
             AusenciasResultItemDto src, TareaDto tarea);
     

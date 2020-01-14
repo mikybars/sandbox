@@ -33,8 +33,7 @@ public class TareaPersonaAusenciaHistoricoRepositoryCustomImpl
         pstmt.setString(3, entity.getCclIdPerson());
         pstmt.setString(4, entity.getStdOrHrPeriod());
         pstmt.setLong(5, entity.getTipoAusencia().getId());
-        pstmt.setLong(6, entity.getTarea().getId());
-        pstmt.setObject(7, entity.getPk().getFechaInicioPeriodo());
-
+        pstmt.setString(6, entity.getCclIdOrigen());
+        pstmt.setLong(7, entity.getTarea().getId());
     }
 }

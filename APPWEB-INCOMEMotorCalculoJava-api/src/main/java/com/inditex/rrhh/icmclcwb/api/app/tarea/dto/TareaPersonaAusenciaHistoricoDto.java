@@ -27,6 +27,10 @@ public class TareaPersonaAusenciaHistoricoDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Id local de la persona", required = true)
     private String cclIdPerson;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Identificador del origen", required = true)
+    private String cclIdOrigen;
 
     @NotNull
     @ApiModelProperty(value = "Fecha de inicio de la ausencia", required = true)
