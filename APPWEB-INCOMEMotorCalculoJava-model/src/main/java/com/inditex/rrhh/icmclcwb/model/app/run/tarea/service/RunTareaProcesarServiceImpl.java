@@ -42,20 +42,8 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .updateActivoLocalizacionPersonaPresencia(runTarea);
             AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf);
 
-            // Compensar presencia total localizacion persona con las manuales
-            CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = runTareaProcesarPresenciaAsyncService
-                    .compensarLocalizacionPersonaPresencia(runTarea);
-            AsyncUtils.exceptionally(cfCompensarPresenciaPersonaLocalizacion, cf);
-            
-            // Compensar presencia total localizacion con las manuales
-            CompletableFuture<Void> cfCompensarPresenciaLocalizacion = runTareaProcesarPresenciaAsyncService
-                    .compensarLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf);
-
-            // Compensar presencia total localizacion con las manuales para incluido ecommerce
-            CompletableFuture<Void> cfCompensarPresenciaLocalizacionEcommerce = runTareaProcesarPresenciaAsyncService
-                .compensarLocalizacionEcommerce(runTarea);
-            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionEcommerce, cf);
+            //TODO [JAVIEREV] Esto queda por si necesitamos arreglar rápidamente algún caso extraño con presencias 0,
+            // pero no debería darse nunca (y, por tanto, podríamos eliminarlo)
 
 //            /*-------------------------------------------------------------*/
 //            AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -112,6 +100,30 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
+
+            // Actualizar flags de presencias activas
+            cfUpdateSeccionPresenciasActivas = runTareaProcesarPresenciaAsyncService
+                .updateActivoLocalizacionPersonaPresencia(runTarea);
+            AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
+            // Compensar presencia total localizacion persona con las manuales
+            CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = runTareaProcesarPresenciaAsyncService
+                .compensarLocalizacionPersonaPresencia(runTarea);
+            AsyncUtils.exceptionally(cfCompensarPresenciaPersonaLocalizacion, cf);
+
+            // Compensar presencia total localizacion con las manuales
+            CompletableFuture<Void> cfCompensarPresenciaLocalizacion = runTareaProcesarPresenciaAsyncService
+                .compensarLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf);
+
+            // Compensar presencia total localizacion con las manuales para incluido ecommerce
+            CompletableFuture<Void> cfCompensarPresenciaLocalizacionEcommerce = runTareaProcesarPresenciaAsyncService
+                .compensarLocalizacionEcommerce(runTarea);
+            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionEcommerce, cf);
 
             CompletableFuture<Void> cfTotalizarPresenciaLocalizacion = runTareaProcesarPresenciaAsyncService
                 .totalizarLocalizacion(runTarea);
