@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -602,7 +603,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 
     @Override
     public ConfiguracionesResponseDto getConfiguracion(ConfiguracionesRequestDto request) {
-        //TODO [JAVIEREV] Obtener y guardar las configuraciones de las sociedades
-        return null;
+        GetconfiguracionOutput configuracionOutput = meta4ClientPool.getconfiguracion(icmWsCalcIncomeMapper.asIcmParamconfBlock(request));
+        return icmWsCalcIncomeMapper.asConfiguracionesResponseDto(configuracionOutput, request.getIdOrigen());
     }
 }

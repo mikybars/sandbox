@@ -19,7 +19,7 @@ public abstract class TareaConfiguracionMapper {
     @Mapping(source = "src.fechaInicio", target = "fechaInicio")
     @Mapping(source = "src.fechaFin", target = "fechaFin")
     @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
-    @Mapping(target = "icmIdConfig", ignore = true) //TODO [JAVIEREV] a ver si al final hay valor para esto
+    @Mapping(source = "src.idConfiguracion", target = "icmIdConfig")
     @Mapping(source = "src.idTipoHora", target = "icmIdTpHora")
     @Mapping(source = "src.icmCkVentaImpuestos", target = "icmCkVentaImpuestos")
     public abstract TareaConfiguracion getConfiguracionItemDtoToTareaConfiguracion(

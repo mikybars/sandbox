@@ -18,6 +18,7 @@ public class ConfiguracionItemDto implements Serializable {
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
 
+    private String idConfiguracion;
     private String inOut;
     private String idOrigen;
     private String idTipoHora;

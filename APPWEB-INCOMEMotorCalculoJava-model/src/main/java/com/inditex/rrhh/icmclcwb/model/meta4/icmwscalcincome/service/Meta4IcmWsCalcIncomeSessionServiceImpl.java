@@ -219,7 +219,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
 
     @Override
     public List<ConfiguracionItemDto> getConfiguraciones(ConfiguracionesRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONFIGURACION,
-            meta4Properties.get(Meta4PropertiesConstants.CONFIGURACION).getFilter().getMaxPageSize());
+        return meta4IcmWsCalcIncomeService.getConfiguracion(request).getItems();
     }
 }
