@@ -37,7 +37,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.Ausenci
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
@@ -694,14 +693,12 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            ConfiguracionesRequestDto request = new ConfiguracionesRequestDto();
-            request.setIdOrigen(tareaAmbito.getCclIdOrigen());
-            request.setItems(Arrays.asList(ConfiguracionesRequestItemDto
+            ConfiguracionesRequestDto request = ConfiguracionesRequestDto
                 .builder()
-                .fechaInicio(tarea.getFechaInicioPeriodo())
-                .fechaFin(tarea.getFechaFinPeriodo())
-                .build()
-            ));
+                .idOrigen(tareaAmbito.getCclIdOrigen())
+                .fechaInicio(tarea.getFechaInicioPeriodo().atStartOfDay())
+                .fechaFin(tarea.getFechaFinPeriodo().atStartOfDay())
+                .build();
             CompletableFuture<List<ConfiguracionItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                 .getConfiguraciones(request);
             AsyncUtils.exceptionally(cfData, cf);

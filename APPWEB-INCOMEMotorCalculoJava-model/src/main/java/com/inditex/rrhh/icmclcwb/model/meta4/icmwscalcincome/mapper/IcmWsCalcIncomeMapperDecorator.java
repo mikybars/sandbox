@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,10 +12,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDt
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -300,6 +299,15 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             src.getIcmResultadoguardadoRecordSet()
                 .stream()
                 .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
+        return result;
+    }
+
+    @Override
+    public IcmParamconfBlock asIcmParamconfBlock(ConfiguracionesRequestDto src) {
+        IcmParamconfBlock result = delegate.asIcmParamconfBlock(src);
+        if (CollectionUtils.isEmpty(result.getIcmParamconfRecordSet())) {
+            result.getIcmParamconfRecordSet().add(new IcmParamconfRecord());
+        }
         return result;
     }
 

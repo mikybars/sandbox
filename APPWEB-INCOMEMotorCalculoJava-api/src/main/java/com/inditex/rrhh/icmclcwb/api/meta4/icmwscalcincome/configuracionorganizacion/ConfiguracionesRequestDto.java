@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,7 +24,11 @@ public class ConfiguracionesRequestDto extends GenericFilterParametersDto
 
     private String idOrigen;
 
-    //TODO[JAVIEREV] En el servicio ahora pide un listado de rangos de fechas, cambiarlo a fechas
-    // inicio y fin cuando arreglen el servicio
-    private List<ConfiguracionesRequestItemDto> items;
+    private LocalDateTime fechaInicio;
+
+    private LocalDateTime fechaFin;
+
+    // Lista vacia para evitar problemas en la petición, pero realmente no se usa
+    private List<ConfiguracionesRequestItemDto> items = new ArrayList<>();
+
 }

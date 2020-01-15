@@ -591,16 +591,16 @@ public interface IcmWsCalcIncomeMapper {
     @InheritInverseConfiguration
     IcmParamconfBlock asIcmParamconfBlock(ConfiguracionesRequestDto src);
 
-    @Mapping(target = "items", source = "icmParamconfRecordSet")
     @Mapping(target = "idOrigen", source = "idorigen")
-    ConfiguracionesRequestDto asConfiguracionesRequestDto(IcmParamconfBlock src);
-
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE)
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE)
-    ConfiguracionesRequestItemDto asConfiguracionesRequestItemDto(IcmParamconfRecord src);
+    @Mapping(target = "items", source = "icmParamconfRecordSet")
+    ConfiguracionesRequestDto asConfiguracionesRequestDto(IcmParamconfBlock src);
 
     @InheritInverseConfiguration
     IcmParamconfRecord asIcmParamconfRecord(ConfiguracionesRequestItemDto src);
+
+    ConfiguracionesRequestItemDto asConfiguracionesRequestItemDto(IcmParamconfRecord src);
 
     @Mapping(target = "items", ignore = true)
     ConfiguracionesResponseDto asConfiguracionesResponseDto(GetconfiguracionOutput src, String idOrigen);
