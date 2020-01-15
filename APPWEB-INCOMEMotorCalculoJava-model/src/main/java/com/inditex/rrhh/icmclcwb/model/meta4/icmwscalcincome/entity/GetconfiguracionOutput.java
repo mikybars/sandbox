@@ -24,19 +24,18 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para GetflagcalculaOutput complex type.
+ * <p>Clase Java para GetconfiguracionOutput complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="GetflagcalculaOutput">
+ * &lt;complexType name="GetconfiguracionOutput">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Icm_Listatiendas" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/>
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
+ *         &lt;element name="Icm_Listaconf" type="{http://schemas.meta4.com/}Icm_ListaconfBlock"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -46,23 +45,20 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetflagcalculaOutput", propOrder = {
+@XmlType(name = "GetconfiguracionOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmListatiendas",
-    "icmParametrospaginacion"
+    "icmListaconf"
 })
-public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class GetconfiguracionOutput implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     @XmlElement(name = "return")
     protected double _return;
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
-    @XmlElement(name = "Icm_Listatiendas", required = true, nillable = true)
-    protected IcmListatiendasBlock icmListatiendas;
-    @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
-    protected IcmParametrospaginacionBlock icmParametrospaginacion;
+    @XmlElement(name = "Icm_Listaconf", required = true, nillable = true)
+    protected IcmListaconfBlock icmListaconf;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -110,51 +106,27 @@ public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCo
     }
 
     /**
-     * Obtiene el valor de la propiedad icmListatiendas.
+     * Obtiene el valor de la propiedad icmListaconf.
      * 
      * @return
      *     possible object is
-     *     {@link IcmListatiendasBlock }
+     *     {@link IcmListaconfBlock }
      *     
      */
-    public IcmListatiendasBlock getIcmListatiendas() {
-        return icmListatiendas;
+    public IcmListaconfBlock getIcmListaconf() {
+        return icmListaconf;
     }
 
     /**
-     * Define el valor de la propiedad icmListatiendas.
+     * Define el valor de la propiedad icmListaconf.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmListatiendasBlock }
+     *     {@link IcmListaconfBlock }
      *     
      */
-    public void setIcmListatiendas(IcmListatiendasBlock value) {
-        this.icmListatiendas = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad icmParametrospaginacion.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParametrospaginacionBlock }
-     *     
-     */
-    public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
-        return icmParametrospaginacion;
-    }
-
-    /**
-     * Define el valor de la propiedad icmParametrospaginacion.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParametrospaginacionBlock }
-     *     
-     */
-    public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
-        this.icmParametrospaginacion = value;
+    public void setIcmListaconf(IcmListaconfBlock value) {
+        this.icmListaconf = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -164,7 +136,7 @@ public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCo
         if (this == object) {
             return true;
         }
-        final GetflagcalculaOutput that = ((GetflagcalculaOutput) object);
+        final GetconfiguracionOutput that = ((GetconfiguracionOutput) object);
         {
             double lhsReturn;
             lhsReturn = this.getReturn();
@@ -184,20 +156,11 @@ public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCo
             }
         }
         {
-            IcmListatiendasBlock lhsIcmListatiendas;
-            lhsIcmListatiendas = this.getIcmListatiendas();
-            IcmListatiendasBlock rhsIcmListatiendas;
-            rhsIcmListatiendas = that.getIcmListatiendas();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListatiendas", lhsIcmListatiendas), LocatorUtils.property(thatLocator, "icmListatiendas", rhsIcmListatiendas), lhsIcmListatiendas, rhsIcmListatiendas, (this.icmListatiendas!= null), (that.icmListatiendas!= null))) {
-                return false;
-            }
-        }
-        {
-            IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
-            lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
-            rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
+            IcmListaconfBlock lhsIcmListaconf;
+            lhsIcmListaconf = this.getIcmListaconf();
+            IcmListaconfBlock rhsIcmListaconf;
+            rhsIcmListaconf = that.getIcmListaconf();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconf", lhsIcmListaconf), LocatorUtils.property(thatLocator, "icmListaconf", rhsIcmListaconf), lhsIcmListaconf, rhsIcmListaconf, (this.icmListaconf!= null), (that.icmListaconf!= null))) {
                 return false;
             }
         }
@@ -235,14 +198,9 @@ public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCo
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmListatiendasBlock theIcmListatiendas;
-            theIcmListatiendas = this.getIcmListatiendas();
-            strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas, (this.icmListatiendas!= null));
-        }
-        {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
+            IcmListaconfBlock theIcmListaconf;
+            theIcmListaconf = this.getIcmListaconf();
+            strategy.appendField(locator, this, "icmListaconf", buffer, theIcmListaconf, (this.icmListaconf!= null));
         }
         return buffer;
     }
@@ -260,14 +218,9 @@ public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCo
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmListatiendasBlock theIcmListatiendas;
-            theIcmListatiendas = this.getIcmListatiendas();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListatiendas", theIcmListatiendas), currentHashCode, theIcmListatiendas, (this.icmListatiendas!= null));
-        }
-        {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
+            IcmListaconfBlock theIcmListaconf;
+            theIcmListaconf = this.getIcmListaconf();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaconf", theIcmListaconf), currentHashCode, theIcmListaconf, (this.icmListaconf!= null));
         }
         return currentHashCode;
     }
@@ -288,8 +241,8 @@ public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCo
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GetflagcalculaOutput) {
-            final GetflagcalculaOutput copy = ((GetflagcalculaOutput) draftCopy);
+        if (draftCopy instanceof GetconfiguracionOutput) {
+            final GetconfiguracionOutput copy = ((GetconfiguracionOutput) draftCopy);
             {
                 Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -321,28 +274,15 @@ public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCo
                 }
             }
             {
-                Boolean icmListatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListatiendas!= null));
-                if (icmListatiendasShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListatiendasBlock sourceIcmListatiendas;
-                    sourceIcmListatiendas = this.getIcmListatiendas();
-                    IcmListatiendasBlock copyIcmListatiendas = ((IcmListatiendasBlock) strategy.copy(LocatorUtils.property(locator, "icmListatiendas", sourceIcmListatiendas), sourceIcmListatiendas, (this.icmListatiendas!= null)));
-                    copy.setIcmListatiendas(copyIcmListatiendas);
+                Boolean icmListaconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaconf!= null));
+                if (icmListaconfShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaconfBlock sourceIcmListaconf;
+                    sourceIcmListaconf = this.getIcmListaconf();
+                    IcmListaconfBlock copyIcmListaconf = ((IcmListaconfBlock) strategy.copy(LocatorUtils.property(locator, "icmListaconf", sourceIcmListaconf), sourceIcmListaconf, (this.icmListaconf!= null)));
+                    copy.setIcmListaconf(copyIcmListaconf);
                 } else {
-                    if (icmListatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListatiendas = null;
-                    }
-                }
-            }
-            {
-                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
-                if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
-                    sourceIcmParametrospaginacion = this.getIcmParametrospaginacion();
-                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion), sourceIcmParametrospaginacion, (this.icmParametrospaginacion!= null)));
-                    copy.setIcmParametrospaginacion(copyIcmParametrospaginacion);
-                } else {
-                    if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmParametrospaginacion = null;
+                    if (icmListaconfShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaconf = null;
                     }
                 }
             }
@@ -351,7 +291,7 @@ public class GetflagcalculaOutput implements Cloneable, CopyTo2, Equals2, HashCo
     }
 
     public Object createNewInstance() {
-        return new GetflagcalculaOutput();
+        return new GetconfiguracionOutput();
     }
 
 }

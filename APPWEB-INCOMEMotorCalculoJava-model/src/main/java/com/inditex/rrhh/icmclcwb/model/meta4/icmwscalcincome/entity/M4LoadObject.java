@@ -33,6 +33,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="ICM_WS_TOOLS" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/>
+ *         &lt;element name="ICM_LISTACONF" type="{http://schemas.meta4.com/}Icm_ListaconfBlock"/>
+ *         &lt;element name="ICM_PARAMCONF" type="{http://schemas.meta4.com/}Icm_ParamconfBlock"/>
  *         &lt;element name="ICM_LISTACADENAS" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/>
  *         &lt;element name="ICM_LISTATIENDAS" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/>
  *         &lt;element name="ICM_LISTAEMPLEADO" type="{http://schemas.meta4.com/}Icm_ListaempleadoBlock"/>
@@ -65,6 +67,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "icmwstools",
+    "icmlistaconf",
+    "icmparamconf",
     "icmlistacadenas",
     "icmlistatiendas",
     "icmlistaempleado",
@@ -93,6 +97,10 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
 
     @XmlElement(name = "ICM_WS_TOOLS", required = true)
     protected IcmWsToolsBlock icmwstools;
+    @XmlElement(name = "ICM_LISTACONF", required = true)
+    protected IcmListaconfBlock icmlistaconf;
+    @XmlElement(name = "ICM_PARAMCONF", required = true)
+    protected IcmParamconfBlock icmparamconf;
     @XmlElement(name = "ICM_LISTACADENAS", required = true)
     protected IcmListacadenasBlock icmlistacadenas;
     @XmlElement(name = "ICM_LISTATIENDAS", required = true)
@@ -158,6 +166,54 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
      */
     public void setICMWSTOOLS(IcmWsToolsBlock value) {
         this.icmwstools = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistaconf.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaconfBlock }
+     *     
+     */
+    public IcmListaconfBlock getICMLISTACONF() {
+        return icmlistaconf;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaconf.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaconfBlock }
+     *     
+     */
+    public void setICMLISTACONF(IcmListaconfBlock value) {
+        this.icmlistaconf = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmparamconf.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParamconfBlock }
+     *     
+     */
+    public IcmParamconfBlock getICMPARAMCONF() {
+        return icmparamconf;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamconf.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParamconfBlock }
+     *     
+     */
+    public void setICMPARAMCONF(IcmParamconfBlock value) {
+        this.icmparamconf = value;
     }
 
     /**
@@ -682,6 +738,24 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             }
         }
         {
+            IcmListaconfBlock lhsICMLISTACONF;
+            lhsICMLISTACONF = this.getICMLISTACONF();
+            IcmListaconfBlock rhsICMLISTACONF;
+            rhsICMLISTACONF = that.getICMLISTACONF();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaconf", lhsICMLISTACONF), LocatorUtils.property(thatLocator, "icmlistaconf", rhsICMLISTACONF), lhsICMLISTACONF, rhsICMLISTACONF, (this.icmlistaconf!= null), (that.icmlistaconf!= null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamconfBlock lhsICMPARAMCONF;
+            lhsICMPARAMCONF = this.getICMPARAMCONF();
+            IcmParamconfBlock rhsICMPARAMCONF;
+            rhsICMPARAMCONF = that.getICMPARAMCONF();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamconf", lhsICMPARAMCONF), LocatorUtils.property(thatLocator, "icmparamconf", rhsICMPARAMCONF), lhsICMPARAMCONF, rhsICMPARAMCONF, (this.icmparamconf!= null), (that.icmparamconf!= null))) {
+                return false;
+            }
+        }
+        {
             IcmListacadenasBlock lhsICMLISTACADENAS;
             lhsICMLISTACADENAS = this.getICMLISTACADENAS();
             IcmListacadenasBlock rhsICMLISTACADENAS;
@@ -899,6 +973,16 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             strategy.appendField(locator, this, "icmwstools", buffer, theICMWSTOOLS, (this.icmwstools!= null));
         }
         {
+            IcmListaconfBlock theICMLISTACONF;
+            theICMLISTACONF = this.getICMLISTACONF();
+            strategy.appendField(locator, this, "icmlistaconf", buffer, theICMLISTACONF, (this.icmlistaconf!= null));
+        }
+        {
+            IcmParamconfBlock theICMPARAMCONF;
+            theICMPARAMCONF = this.getICMPARAMCONF();
+            strategy.appendField(locator, this, "icmparamconf", buffer, theICMPARAMCONF, (this.icmparamconf!= null));
+        }
+        {
             IcmListacadenasBlock theICMLISTACADENAS;
             theICMLISTACADENAS = this.getICMLISTACADENAS();
             strategy.appendField(locator, this, "icmlistacadenas", buffer, theICMLISTACADENAS, (this.icmlistacadenas!= null));
@@ -1012,6 +1096,16 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             IcmWsToolsBlock theICMWSTOOLS;
             theICMWSTOOLS = this.getICMWSTOOLS();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmwstools", theICMWSTOOLS), currentHashCode, theICMWSTOOLS, (this.icmwstools!= null));
+        }
+        {
+            IcmListaconfBlock theICMLISTACONF;
+            theICMLISTACONF = this.getICMLISTACONF();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaconf", theICMLISTACONF), currentHashCode, theICMLISTACONF, (this.icmlistaconf!= null));
+        }
+        {
+            IcmParamconfBlock theICMPARAMCONF;
+            theICMPARAMCONF = this.getICMPARAMCONF();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamconf", theICMPARAMCONF), currentHashCode, theICMPARAMCONF, (this.icmparamconf!= null));
         }
         {
             IcmListacadenasBlock theICMLISTACADENAS;
@@ -1149,6 +1243,32 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
                 } else {
                     if (icmwstoolsShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmwstools = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistaconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaconf!= null));
+                if (icmlistaconfShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaconfBlock sourceICMLISTACONF;
+                    sourceICMLISTACONF = this.getICMLISTACONF();
+                    IcmListaconfBlock copyICMLISTACONF = ((IcmListaconfBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaconf", sourceICMLISTACONF), sourceICMLISTACONF, (this.icmlistaconf!= null)));
+                    copy.setICMLISTACONF(copyICMLISTACONF);
+                } else {
+                    if (icmlistaconfShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaconf = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamconf!= null));
+                if (icmparamconfShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamconfBlock sourceICMPARAMCONF;
+                    sourceICMPARAMCONF = this.getICMPARAMCONF();
+                    IcmParamconfBlock copyICMPARAMCONF = ((IcmParamconfBlock) strategy.copy(LocatorUtils.property(locator, "icmparamconf", sourceICMPARAMCONF), sourceICMPARAMCONF, (this.icmparamconf!= null)));
+                    copy.setICMPARAMCONF(copyICMPARAMCONF);
+                } else {
+                    if (icmparamconfShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamconf = null;
                     }
                 }
             }
