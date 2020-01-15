@@ -122,11 +122,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASEMPLEADO }
+     * Create an instance of {@link GETTIENDASINCOME }
      * 
      */
-    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
-        return new GETTIENDASEMPLEADO();
+    public GETTIENDASINCOME createGETTIENDASINCOME() {
+        return new GETTIENDASINCOME();
     }
 
     /**
@@ -138,11 +138,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETTIENDASINCOME }
+     * Create an instance of {@link GETTIENDASEMPLEADO }
      * 
      */
-    public GETTIENDASINCOME createGETTIENDASINCOME() {
-        return new GETTIENDASINCOME();
+    public GETTIENDASEMPLEADO createGETTIENDASEMPLEADO() {
+        return new GETTIENDASEMPLEADO();
     }
 
     /**
@@ -634,6 +634,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETCONFIGURACION }
+     * 
+     */
+    public GETCONFIGURACION createGETCONFIGURACION() {
+        return new GETCONFIGURACION();
+    }
+
+    /**
      * Create an instance of {@link GETPRESENCIAMANUALResponse }
      * 
      */
@@ -647,14 +655,6 @@ public class ObjectFactory {
      */
     public GetpresenciamanualOutput createGetpresenciamanualOutput() {
         return new GetpresenciamanualOutput();
-    }
-
-    /**
-     * Create an instance of {@link GETCONFIGURACION }
-     * 
-     */
-    public GETCONFIGURACION createGETCONFIGURACION() {
-        return new GETCONFIGURACION();
     }
 
     /**
@@ -762,19 +762,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GETEMPLEADOSDESPLAZ }
-     * 
-     */
-    public GETEMPLEADOSDESPLAZ createGETEMPLEADOSDESPLAZ() {
-        return new GETEMPLEADOSDESPLAZ();
-    }
-
-    /**
      * Create an instance of {@link GETTIENDASONLINE }
      * 
      */
     public GETTIENDASONLINE createGETTIENDASONLINE() {
         return new GETTIENDASONLINE();
+    }
+
+    /**
+     * Create an instance of {@link GETEMPLEADOSDESPLAZ }
+     * 
+     */
+    public GETEMPLEADOSDESPLAZ createGETEMPLEADOSDESPLAZ() {
+        return new GETEMPLEADOSDESPLAZ();
     }
 
     /**

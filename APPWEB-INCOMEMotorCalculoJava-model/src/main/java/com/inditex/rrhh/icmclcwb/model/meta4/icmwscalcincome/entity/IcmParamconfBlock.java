@@ -33,7 +33,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Icm_ParamconfRecordSet" type="{http://schemas.meta4.com/}Icm_ParamconfRecord" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -45,16 +47,46 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamconfBlock", propOrder = {
+    "fechafin",
     "idorigen",
+    "fechainicio",
     "icmParamconfRecordSet"
 })
 public class IcmParamconfBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     @XmlElement(required = true, nillable = true)
+    protected String fechafin;
+    @XmlElement(required = true, nillable = true)
     protected String idorigen;
+    @XmlElement(required = true, nillable = true)
+    protected String fechainicio;
     @XmlElement(name = "Icm_ParamconfRecordSet", nillable = true)
     protected List<IcmParamconfRecord> icmParamconfRecordSet;
+
+    /**
+     * Obtiene el valor de la propiedad fechafin.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechafin() {
+        return fechafin;
+    }
+
+    /**
+     * Define el valor de la propiedad fechafin.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechafin(String value) {
+        this.fechafin = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad idorigen.
@@ -78,6 +110,30 @@ public class IcmParamconfBlock implements Cloneable, CopyTo2, Equals2, HashCode2
      */
     public void setIdorigen(String value) {
         this.idorigen = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fechainicio.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechainicio() {
+        return fechainicio;
+    }
+
+    /**
+     * Define el valor de la propiedad fechainicio.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechainicio(String value) {
+        this.fechainicio = value;
     }
 
     /**
@@ -118,11 +174,29 @@ public class IcmParamconfBlock implements Cloneable, CopyTo2, Equals2, HashCode2
         }
         final IcmParamconfBlock that = ((IcmParamconfBlock) object);
         {
+            String lhsFechafin;
+            lhsFechafin = this.getFechafin();
+            String rhsFechafin;
+            rhsFechafin = that.getFechafin();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechafin", lhsFechafin), LocatorUtils.property(thatLocator, "fechafin", rhsFechafin), lhsFechafin, rhsFechafin, (this.fechafin!= null), (that.fechafin!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdorigen;
             lhsIdorigen = this.getIdorigen();
             String rhsIdorigen;
             rhsIdorigen = that.getIdorigen();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "idorigen", lhsIdorigen), LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen, (this.idorigen!= null), (that.idorigen!= null))) {
+                return false;
+            }
+        }
+        {
+            String lhsFechainicio;
+            lhsFechainicio = this.getFechainicio();
+            String rhsFechainicio;
+            rhsFechainicio = that.getFechainicio();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainicio", lhsFechainicio), LocatorUtils.property(thatLocator, "fechainicio", rhsFechainicio), lhsFechainicio, rhsFechainicio, (this.fechainicio!= null), (that.fechainicio!= null))) {
                 return false;
             }
         }
@@ -159,9 +233,19 @@ public class IcmParamconfBlock implements Cloneable, CopyTo2, Equals2, HashCode2
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
+            String theFechafin;
+            theFechafin = this.getFechafin();
+            strategy.appendField(locator, this, "fechafin", buffer, theFechafin, (this.fechafin!= null));
+        }
+        {
             String theIdorigen;
             theIdorigen = this.getIdorigen();
             strategy.appendField(locator, this, "idorigen", buffer, theIdorigen, (this.idorigen!= null));
+        }
+        {
+            String theFechainicio;
+            theFechainicio = this.getFechainicio();
+            strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
         }
         {
             List<IcmParamconfRecord> theIcmParamconfRecordSet;
@@ -174,9 +258,19 @@ public class IcmParamconfBlock implements Cloneable, CopyTo2, Equals2, HashCode2
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
+            String theFechafin;
+            theFechafin = this.getFechafin();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin), currentHashCode, theFechafin, (this.fechafin!= null));
+        }
+        {
             String theIdorigen;
             theIdorigen = this.getIdorigen();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen), currentHashCode, theIdorigen, (this.idorigen!= null));
+        }
+        {
+            String theFechainicio;
+            theFechainicio = this.getFechainicio();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
         }
         {
             List<IcmParamconfRecord> theIcmParamconfRecordSet;
@@ -205,6 +299,19 @@ public class IcmParamconfBlock implements Cloneable, CopyTo2, Equals2, HashCode2
         if (draftCopy instanceof IcmParamconfBlock) {
             final IcmParamconfBlock copy = ((IcmParamconfBlock) draftCopy);
             {
+                Boolean fechafinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafin!= null));
+                if (fechafinShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFechafin;
+                    sourceFechafin = this.getFechafin();
+                    String copyFechafin = ((String) strategy.copy(LocatorUtils.property(locator, "fechafin", sourceFechafin), sourceFechafin, (this.fechafin!= null)));
+                    copy.setFechafin(copyFechafin);
+                } else {
+                    if (fechafinShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.fechafin = null;
+                    }
+                }
+            }
+            {
                 Boolean idorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idorigen!= null));
                 if (idorigenShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdorigen;
@@ -214,6 +321,19 @@ public class IcmParamconfBlock implements Cloneable, CopyTo2, Equals2, HashCode2
                 } else {
                     if (idorigenShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idorigen = null;
+                    }
+                }
+            }
+            {
+                Boolean fechainicioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechainicio!= null));
+                if (fechainicioShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFechainicio;
+                    sourceFechainicio = this.getFechainicio();
+                    String copyFechainicio = ((String) strategy.copy(LocatorUtils.property(locator, "fechainicio", sourceFechainicio), sourceFechainicio, (this.fechainicio!= null)));
+                    copy.setFechainicio(copyFechainicio);
+                } else {
+                    if (fechainicioShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.fechainicio = null;
                     }
                 }
             }
