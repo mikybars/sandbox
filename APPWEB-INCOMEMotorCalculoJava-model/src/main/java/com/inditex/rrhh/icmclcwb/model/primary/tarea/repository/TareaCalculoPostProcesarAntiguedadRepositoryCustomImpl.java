@@ -22,7 +22,7 @@ public class TareaCalculoPostProcesarAntiguedadRepositoryCustomImpl
         extends AbstractTareaCalculoPostProcesarBaseRepositoryCustom
         implements TareaCalculoPostProcesarAntiguedadRepositoryCustom {
 
-    @Value("#{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.insert']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.where']} ")
+    @Value("#{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.insert']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.where']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.antiguedad.group']} ")
     @Getter
     private String sqlPostProcesar;
 

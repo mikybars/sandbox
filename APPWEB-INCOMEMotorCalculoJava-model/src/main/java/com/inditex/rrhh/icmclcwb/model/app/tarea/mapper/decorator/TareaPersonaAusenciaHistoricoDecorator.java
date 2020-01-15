@@ -27,8 +27,6 @@ public abstract class TareaPersonaAusenciaHistoricoDecorator extends TareaPerson
                 //tipoAusencia.setId(TipoAusenciaEnum.fromIdMeta4(x.getTipo()).getId());
                 TipoAusenciaEnum id = TipoAusenciaEnum.fromIdMeta4(x.getTipo());
                 entity.setIdTipoAusencia((id != null) ? id.getId() : 1);
-                //TODO: Eliminar esto cuando devuelvan los orígenes
-                entity.setCclIdOrigen(tareaDto.getIdOrganization());
                 result.add(entity);
             });
         }

@@ -19,4 +19,5 @@ public class AusenciasResultItemDto implements Serializable {
     private String idEmpleado;
     private String orEmpleado;
     private String tipo;
+    private String idorigen;
 }

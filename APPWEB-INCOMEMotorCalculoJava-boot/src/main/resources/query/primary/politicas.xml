@@ -30,6 +30,13 @@
     ]]>
 </entry>
 
+<entry key="TareaCalculoPostProcesarRepositoryCustom.antiguedad.group">
+    <![CDATA[
+  GROUP BY TC.FECHA_INICIO_PERIODO, FA.ID_TAREA, TC.FECHA, FA.CCL_ID_PERSON, FA.STD_OR_HR_PERIOD, FA.ICM_PORCENTAJE, FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
+    ]]>
+</entry>
+
+
 <entry key="TareaCalculoPostProcesarRepositoryCustom.antiguedad">
     <![CDATA[
         WITH FECHAS_ACUMULADAS AS (
@@ -83,7 +90,6 @@
         AND FA.FECHA_FIN >= TC.FECHA
         AND FA.FECHA_INICIO_AUSENCIA <= FA.FECHA_INICIO
         AND TC.ES_MANUAL = :inactivo
-        GROUP BY TC.FECHA_INICIO_PERIODO, FA.ID_TAREA, TC.FECHA, FA.CCL_ID_PERSON, FA.STD_OR_HR_PERIOD, FA.ICM_PORCENTAJE, FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
     ]]>
 </entry>
 

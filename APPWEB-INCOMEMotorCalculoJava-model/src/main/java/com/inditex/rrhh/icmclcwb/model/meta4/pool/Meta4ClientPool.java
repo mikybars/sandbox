@@ -91,13 +91,13 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public GetorigenesOutput getorigenes(IcmParamcalsociedadBlock param1,
             IcmParametrospaginacionBlock param2) {
         Meta4ClientPoolable client = claim(pool);
-            try {
-                return client.getIcmWsCalcIncomeService().getorigenes(param1, param2);
-            } catch (Exception e) {
-                catchException(e, client, Arrays.asList(param1, param2));
-                throw new Meta4IcmclcwbException(e.getMessage(), e);
-            } finally {
-                release(client);
+        try {
+            return client.getIcmWsCalcIncomeService().getorigenes(param1, param2);
+        } catch (Exception e) {
+            catchException(e, client, Arrays.asList(param1, param2));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            release(client);
         }
     }
     

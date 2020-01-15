@@ -42,7 +42,7 @@ public abstract class TareaPersonaAusenciaHistoricoMapper {
     @Mapping(target = "stdOrHrPeriod", source = "src.orEmpleado")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
-//    @Mapping(target = "cclIdOrigen", source = "src.cclIdOrigen")
+    @Mapping(target = "cclIdOrigen", source = "src.idorigen")
     public abstract TareaPersonaAusenciaHistoricoDto ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(
             AusenciasResultItemDto src, TareaDto tarea);
     
