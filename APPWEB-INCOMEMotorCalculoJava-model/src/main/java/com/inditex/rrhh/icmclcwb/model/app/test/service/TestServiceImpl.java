@@ -29,7 +29,6 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
-import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
@@ -78,9 +77,6 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private ProgramacionService programacionService;
-
-    @Autowired
-    private RunProgramacionService runProgramacionService;
 
     @Autowired
     @Qualifier("ptrVentaClient")

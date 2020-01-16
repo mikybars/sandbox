@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
@@ -42,8 +42,8 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
     private RunTareaConsolidarByAmbitoPersonaService runTareaConsolidarByAmbitoPersonaService;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaConsolidarService.run.timer", metricGroupName = "RunTareaConsolidarServiceGroup", metricDescription = "RunTareaConsolidarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaConsolidarService.run.counter", metricGroupName = "RunTareaConsolidarServiceGroup", metricDescription = "RunTareaConsolidarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         final TrabajoDto trabajo = runTarea.getTrabajo();

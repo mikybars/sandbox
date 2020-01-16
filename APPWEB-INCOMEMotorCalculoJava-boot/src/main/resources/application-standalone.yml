@@ -25,6 +25,12 @@ amiga:
     metrics:
       enabled: true
       send: false
+      functional:
+        aspect:
+          timer:
+            enabled: true
+          counter:
+            enabled: true
   common:
     core:
       is-production: false

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
@@ -31,8 +31,8 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
     private AlgoritmoService algoritmoService;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaCalcularService.run.timer", metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaCalcularService.run.counter", metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();

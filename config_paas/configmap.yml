@@ -7,6 +7,12 @@ amiga:
     metrics:
       enabled: true
       send: true
+      functional:
+        aspect:
+          timer:
+            enabled: true
+          counter:
+            enabled: true
   common:
     rest:
       client:

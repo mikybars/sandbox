@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoAjusteService;
@@ -22,17 +22,17 @@ import reactor.core.publisher.Flux;
 
 @Service
 @Validated
-public class RunTareaAjustarServiceImpl implements RunTareaAjustarService{
+public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
 
     @Autowired
     private AlgoritmoAjusteService algoritmoAjusteService;
-    
+
     @Autowired
     private RunAjusteFactory runAjusteFactory;
-    
+
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaAjustarService.run.timer", metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaAjustarService.run.counter", metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.counter")
     @Override
     public void run(@NotNull @Valid RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();

@@ -13,6 +13,8 @@ import lombok.Data;
 @Data
 public class TareaPersonaAusenciaHistoricoDto implements Serializable {
 
+    private static final long serialVersionUID = 573166701833849298L;
+
     @ApiModelProperty(value = "Identificador de la persona estructura politica", required = false)
     private Long id;
 

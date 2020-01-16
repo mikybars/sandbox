@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
@@ -27,8 +27,8 @@ public class RunTareaRecolectarByAmbitoServiceImpl implements RunTareaRecolectar
     private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoService.run.timer", metricGroupName = "RunTareaRecolectarByAmbitoServiceGroup", metricDescription = "RunTareaRecolectarByAmbitoService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoService.run.counter", metricGroupName = "RunTareaRecolectarByAmbitoServiceGroup", metricDescription = "RunTareaRecolectarByAmbitoService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();

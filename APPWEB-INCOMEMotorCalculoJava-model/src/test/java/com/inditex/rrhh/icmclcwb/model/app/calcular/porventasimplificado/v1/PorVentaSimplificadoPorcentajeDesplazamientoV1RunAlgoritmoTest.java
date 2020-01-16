@@ -19,8 +19,6 @@ import org.slf4j.Logger;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-
 import java.util.ArrayList;
 import java.util.List;
 
