@@ -118,6 +118,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     
     @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaTipoHora']}")
     private String sqlLimpiezaTareaTipoHora;
+
+    @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaConfiguracion]}")
+    private String sqlLimpiezaTareaConfiguracion;
     
     @Value("${app.envars.limpieza.batch-size.default:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -221,6 +224,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         }
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaTipoHora,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+
+        namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaConfiguracion,
+            idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
     }
 
     @Override
