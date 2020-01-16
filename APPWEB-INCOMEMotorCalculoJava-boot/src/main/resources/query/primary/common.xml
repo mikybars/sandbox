@@ -3223,6 +3223,9 @@ WHERE INDICADOR.ROW = 1
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaTipoHora">
 <![CDATA[DELETE FROM TAREA_TIPO_HORA WHERE ID_TAREA = :idTarea]]>
 </entry>
+<entry key="LimpiezaRepositoryCustom.limpieza.tareaConfiguracion">
+  <![CDATA[DELETE FROM TAREA_CONFIGURACION WHERE ID_TAREA = :idTarea]]>
+</entry>
 
 <entry key="TareaLimpiezaRepositoryCustom.mergeLimpieza">
     <![CDATA[
