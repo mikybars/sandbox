@@ -119,7 +119,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaTipoHora']}")
     private String sqlLimpiezaTareaTipoHora;
 
-    @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaConfiguracion]}")
+    @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaConfiguracion']}")
     private String sqlLimpiezaTareaConfiguracion;
     
     @Value("${app.envars.limpieza.batch-size.default:${app.envars.repository.batch-size.default}}")
