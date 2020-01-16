@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjusteProperti
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
@@ -25,7 +25,7 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom;
+    private TareaCalculoAjusteMaximoGarantizadoRepositoryCustom tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {

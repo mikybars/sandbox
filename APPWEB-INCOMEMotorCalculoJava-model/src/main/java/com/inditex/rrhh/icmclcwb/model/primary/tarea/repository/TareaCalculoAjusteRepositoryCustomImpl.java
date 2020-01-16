@@ -1,29 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
 
 @Repository
-public class TareaCalculoPostProcesarRepositoryCustomImpl implements TareaCalculoPostProcesarRepositoryCustom {
+public class TareaCalculoAjusteRepositoryCustomImpl implements TareaCalculoAjusteRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")

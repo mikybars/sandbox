@@ -14,8 +14,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
 
-public abstract class AbstractTareaCalculoPostProcesarBaseRepositoryCustom
-        implements TareaCalculoPostProcesarBaseRepositoryCustom {
+public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
+        implements TareaCalculoAjusteBaseRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")

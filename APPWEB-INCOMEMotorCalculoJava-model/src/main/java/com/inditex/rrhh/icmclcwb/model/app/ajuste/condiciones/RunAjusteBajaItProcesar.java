@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjusteProperti
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPostProcesarBajaItRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteBajaItRepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
@@ -25,7 +25,7 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoPostProcesarBajaItRepositoryCustom tareaCalculoPostProcesarBajaItRepositoryCustom;
+    private TareaCalculoAjusteBajaItRepositoryCustom tareaCalculoPostProcesarBajaItRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {

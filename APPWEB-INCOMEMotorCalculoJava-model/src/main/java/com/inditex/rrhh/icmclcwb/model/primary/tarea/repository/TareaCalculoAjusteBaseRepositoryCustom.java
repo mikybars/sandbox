@@ -5,7 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-public interface TareaCalculoPostProcesarBaseRepositoryCustom {
+public interface TareaCalculoAjusteBaseRepositoryCustom {
 
     List<TareaCalculoPersonaDto> ids(final TareaDto tarea);
 
