@@ -50,7 +50,7 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
             pstmt.setNull(18, Types.INTEGER);
         }
         pstmt.setString(19, entity.getIdTipoVenta());
-        pstmt.setString(20, entity.getTope());
+        pstmt.setInt(20, entity.getTope());
         pstmt.setBoolean(21, entity.getDiaD());
         pstmt.setBoolean(22, entity.getDiaJ());
         pstmt.setBoolean(23, entity.getDiaL());

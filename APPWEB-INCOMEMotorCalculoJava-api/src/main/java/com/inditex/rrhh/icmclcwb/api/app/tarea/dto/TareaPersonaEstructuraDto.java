@@ -115,9 +115,9 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Id estructura padre", required = true)
     private String icmIdEstrComisionPadre;
     
-    @NotBlank
+    @NotNull
     @ApiModelProperty(value = "Tope", required = true)
-    private String tope;
+    private Integer tope;
     
     @NotNull
     @ApiModelProperty(value = "Id tipo venta ", required = true)

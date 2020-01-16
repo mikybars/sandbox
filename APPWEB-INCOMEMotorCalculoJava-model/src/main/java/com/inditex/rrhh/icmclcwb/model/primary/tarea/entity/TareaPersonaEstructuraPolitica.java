@@ -83,9 +83,9 @@ public class TareaPersonaEstructuraPolitica {
     @Column(name = "ICM_PORCENTAJE", nullable = false, precision = 23,  scale = 8)
     private BigDecimal valor;
 
-    @NotBlank
+    @NotNull
     @Column(name = "ICM_TRAMO", nullable = false)
-    private String tramo;
+    private Integer tramo;
     
     @NotNull
     @Column(name = "ICM_IMPORTE", nullable = true, precision = 23,  scale = 8)

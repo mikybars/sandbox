@@ -123,9 +123,9 @@ public class TareaPersonaEstructura {
     @Column(name = "ICM_ID_ESTR_COMISION_BASE", nullable = false, length = 48)
     private String icmIdEstrComisionBase;
     
-    @NotBlank
+    @NotNull
     @Column(name = "ICM_ORD_TOPE", nullable = false, length = 48)
-    private String tope;
+    private Integer tope;
     
     @NotBlank
     @Column(name = "ICM_ID_TP_VENTA", length = 8, nullable = false)

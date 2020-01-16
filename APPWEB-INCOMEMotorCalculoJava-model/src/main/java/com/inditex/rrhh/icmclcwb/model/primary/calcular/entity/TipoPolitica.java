@@ -16,7 +16,7 @@ public class TipoPolitica {
 
     @Id
     @Column(name = "ID_TIPO_POLITICA")
-    private Long id;
+    private Integer id;
 
     @NotBlank
     @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
@@ -28,5 +28,5 @@ public class TipoPolitica {
 
     @NotNull
     @Column(name = "PESO", nullable = false)
-    private Long peso;
+    private Integer peso;
 }

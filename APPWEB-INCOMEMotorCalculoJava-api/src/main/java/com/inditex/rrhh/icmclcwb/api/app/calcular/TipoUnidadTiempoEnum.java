@@ -23,7 +23,7 @@ public enum TipoUnidadTiempoEnum {
         return TipoUnidadTiempoEnum.NINGUNO;
     }
 
-    public static TipoUnidadTiempoEnum fromId(Long id) {
+    public static TipoUnidadTiempoEnum fromId(Integer id) {
         for (TipoUnidadTiempoEnum tipo : TipoUnidadTiempoEnum.values()) {
             if (tipo.id.equals(id)) {
                 return tipo;

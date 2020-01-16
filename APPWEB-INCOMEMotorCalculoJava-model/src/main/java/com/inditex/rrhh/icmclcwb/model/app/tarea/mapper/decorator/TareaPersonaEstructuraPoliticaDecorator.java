@@ -134,7 +134,7 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
         }
         result.setNumeroUnidades(valores != null && StringUtils.isNotEmpty(valores.getNumeroUnidades()) ? valores.getNumeroUnidades() : "0");
         result.setValor(valores != null && StringUtils.isNotEmpty(valores.getValor()) ? new BigDecimal(valores.getValor()) : new BigDecimal(0));
-        result.setTramo(valores != null && valores.getTramo() != null ? valores.getTramo() : "0");
+        result.setTramo(valores != null && StringUtils.isNotEmpty(valores.getTramo()) ? Integer.valueOf(valores.getTramo()) : 0);
         return result;
     }
 }

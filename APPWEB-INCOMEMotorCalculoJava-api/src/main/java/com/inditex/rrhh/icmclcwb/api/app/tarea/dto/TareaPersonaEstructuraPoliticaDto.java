@@ -68,9 +68,9 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
     @ApiModelProperty(value = "Valor", required = true)
     private String valor;
     
-    @NotBlank
+    @NotNull
     @ApiModelProperty(value = "Tramo", required = true)
-    private String tramo;
+    private Integer tramo;
     
     @ApiModelProperty(value = "Numero meses que servirá para calcular la media de la comisión", required = false)
     private String numMesesCalcMedia;
