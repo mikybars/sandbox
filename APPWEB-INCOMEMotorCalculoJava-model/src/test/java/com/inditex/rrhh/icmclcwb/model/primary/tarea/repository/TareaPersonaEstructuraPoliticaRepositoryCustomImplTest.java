@@ -60,7 +60,7 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImplTest {
         TipoUnidadTiempo tipoUnidadTiempo = mock(TipoUnidadTiempo.class);
         TareaPersonaEstructuraPoliticaPk pk = mock(TareaPersonaEstructuraPoliticaPk.class);
         when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
-        when(tipoPolitica.getId()).thenReturn(8934893L);
+        when(tipoPolitica.getId()).thenReturn(1);
         when(tipoUnidadTiempo.getId()).thenReturn(1);
         when(entity.getPk()).thenReturn(pk);
         when(entity.getFechaInicio()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
