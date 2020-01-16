@@ -201,20 +201,20 @@ amiga:
 #            password: pzuUKBm1ppMGzzOn
             #[BBDD][ITX][DES][GESTION_COMISION][FIN]
             #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
-#            serverName: axdesdb22.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: DESARROLLO_RRHH
-#            user: oincome
-#            password: aMJLp8ahF09w
-            #[BBDD][ITX][DES][DESARROLLO_RRHH][FIN]
-            #[BBDD][VECTOR][DES][INICIO]
-            serverName: 10.202.10.178
+            serverName: axdesdb22.central.inditex.grp
             portNumber: 50000
             databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: db2inst1
-            password: vector.hc
+            currentSchema: DESARROLLO_RRHH
+            user: oincome
+            password: aMJLp8ahF09w
+            #[BBDD][ITX][DES][DESARROLLO_RRHH][FIN]
+            #[BBDD][VECTOR][DES][INICIO]
+#            serverName: 10.202.10.178
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: GESTION_COMISION
+#            user: db2inst1
+#            password: vector.hc
             #[BBDD][VECTOR][DES][FIN]
             #[BBDD][ITX][PRE][GESTION_COMISION][INICIO]
 #            serverName: axpredb22.central.inditex.grp
