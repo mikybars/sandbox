@@ -24,7 +24,7 @@ public class TipoPoliticaEnumTest {
     
     @Test
     public void testFromId() {
-        assertEquals(TipoPoliticaEnum.fromId(4L), TipoPoliticaEnum.ANTIGUEDAD);
+        assertEquals(TipoPoliticaEnum.fromId(4), TipoPoliticaEnum.ANTIGUEDAD);
     }
     
     @Test
@@ -34,7 +34,7 @@ public class TipoPoliticaEnumTest {
     
     @Test
     public void testFromIdMethodReturnsNull() {
-        assertNull(TipoPoliticaEnum.fromId(0L));
+        assertNull(TipoPoliticaEnum.fromId(0));
     }
     
 }
