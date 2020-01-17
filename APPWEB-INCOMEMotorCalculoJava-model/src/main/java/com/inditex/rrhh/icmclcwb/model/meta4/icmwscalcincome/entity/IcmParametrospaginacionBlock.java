@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,22 +30,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParametrospaginacionBlock">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="tipoorden" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="campoorden" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idbusqueda" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="numeropagina" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="numerototalpaginas" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="numeroregistrospagina" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="numerototalresultados" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Icm_ParametrospaginacionRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionRecord" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Icm_ParametrospaginacionBlock"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="tipoorden" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="campoorden" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idbusqueda" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="numeropagina" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="numerototalpaginas" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="numeroregistrospagina" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="numerototalresultados" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="Icm_ParametrospaginacionRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -60,9 +61,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "numerototalresultados",
     "icmParametrospaginacionRecordSet"
 })
-public class IcmParametrospaginacionBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class IcmParametrospaginacionBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(required = true, nillable = true)
     protected String tipoorden;
     @XmlElement(required = true, nillable = true)

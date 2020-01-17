@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,19 +30,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParamcalempleadoBlock">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Icm_ParamcalempleadoRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalempleadoRecord" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Icm_ParamcalempleadoBlock"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="Icm_ParamcalempleadoRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalempleadoRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -54,9 +55,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "fechainicio",
     "icmParamcalempleadoRecordSet"
 })
-public class IcmParamcalempleadoBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(required = true, nillable = true)
     protected String fechafin;
     @XmlElement(required = true, nillable = true)

@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,22 +30,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParamcalprocesoBlock">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="idambito" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idperiodo" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idtrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idusuario" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idorganization" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idtpejeccalculo" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Icm_ParamcalprocesoRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoRecord" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Icm_ParamcalprocesoBlock"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="idambito" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idperiodo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idtrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idusuario" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idorganization" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idtpejeccalculo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="Icm_ParamcalprocesoRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -60,9 +61,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idtpejeccalculo",
     "icmParamcalprocesoRecordSet"
 })
-public class IcmParamcalprocesoBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(required = true, nillable = true)
     protected String idambito;
     @XmlElement(required = true, nillable = true)
