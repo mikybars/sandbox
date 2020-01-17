@@ -22,7 +22,7 @@ public enum TipoAusenciaEnum {
         return null;
     }
 
-    public static TipoAusenciaEnum fromId(Long id) {
+    public static TipoAusenciaEnum fromId(Integer id) {
         for (TipoAusenciaEnum tipo : TipoAusenciaEnum.values()) {
             if (tipo.id.equals(id)) {
                 return tipo;
