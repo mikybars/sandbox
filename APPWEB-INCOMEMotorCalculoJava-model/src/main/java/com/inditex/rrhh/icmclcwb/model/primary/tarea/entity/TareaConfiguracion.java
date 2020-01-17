@@ -37,7 +37,7 @@ public class TareaConfiguracion {
 
     @NotBlank
     @Column(name = "ICM_ID_CONFIG", nullable = false)
-    private Long icmIdConfig;
+    private Integer icmIdConfig;
 
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
@@ -50,7 +50,7 @@ public class TareaConfiguracion {
     private Date fechaFin;
 
     @NotNull
-    @Column(name = "ICM_ID_TP_HORA", nullable = false)
+    @Column(name = "ICM_ID_TP_HORA", length = 16, nullable = false)
     private String icmIdTpHora;
 
     @NotNull

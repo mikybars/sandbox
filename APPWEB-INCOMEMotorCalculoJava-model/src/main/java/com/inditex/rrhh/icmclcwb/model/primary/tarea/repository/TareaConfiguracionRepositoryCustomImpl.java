@@ -29,7 +29,7 @@ public class TareaConfiguracionRepositoryCustomImpl
     public void setParameters(PreparedStatement pstmt, TareaConfiguracion entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
         pstmt.setString(2, entity.getCclIdOrigen());
-        pstmt.setLong(3, entity.getIcmIdConfig());
+        pstmt.setInt(3, entity.getIcmIdConfig());
         pstmt.setObject(4, entity.getFechaInicio());
         pstmt.setObject(5, entity.getFechaFin());
         pstmt.setString(6, entity.getIcmIdTpHora());
