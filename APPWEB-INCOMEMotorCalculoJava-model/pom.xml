@@ -71,7 +71,7 @@
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-features-logging</artifactId>
-      <version>${app.org.apache.cxf.version}</version>
+      <version>${cxf.version}</version>
     </dependency>
     <dependency>
       <groupId>com.github.chrisvest</groupId>
@@ -124,12 +124,12 @@
               <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>${app.org.slf4j.version}</version>
+                <version>${slf4j.version}</version>
               </dependency>
               <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>${app.org.slf4j.version}</version>
+                <version>${slf4j.version}</version>
               </dependency>
             </dependencies>
             <configuration>
