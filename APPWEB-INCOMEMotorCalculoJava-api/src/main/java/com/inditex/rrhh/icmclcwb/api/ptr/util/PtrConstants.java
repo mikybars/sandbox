@@ -11,4 +11,8 @@ public class PtrConstants {
     
     public static final String AGRUPAR_SECCION_FALSE = "0";
 
+    public static final String OPERACION_VENTA = "V";
+
+    public static final String OPERACION_DEVOLUCION = "D";
+
 }

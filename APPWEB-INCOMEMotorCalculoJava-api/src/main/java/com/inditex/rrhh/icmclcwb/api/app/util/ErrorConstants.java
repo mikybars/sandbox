@@ -11,4 +11,6 @@ public class ErrorConstants {
 
     public static final String RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING = "El algoritmo {} no está implementado";
 
+    public static final String OPERATION_NOT_VALID = "La operacion {} no es valida";
+
 }

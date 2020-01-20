@@ -3377,4 +3377,12 @@ WHERE INDICADOR.ROW = 1
   ]]>
 </entry>
 
+<entry key="TareaLocalizacionOperacionPersonaRepositoryCustom.save">
+  <![CDATA[
+  INSERT INTO TAREA_LOCALIZACION_OPERACION_PERSONA (FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, CCL_ID_COD_ORIGEN,
+    CCL_ID_CADENA, CCL_ID_SECCION, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ES_ACTIVO, ID_TIPO_DATO, FECHA)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  ]]>
+</entry>
+
 </properties>
