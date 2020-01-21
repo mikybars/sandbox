@@ -71,3 +71,9 @@
     </memory>
     <expiration max-idle="3600000" />
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_calculo" mode="SYNC" statistics="true">
+    <memory>
+      <object size="1000" />
+    </memory>
+    <expiration max-idle="600000" />
+</replicated-cache>

@@ -158,6 +158,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
 
     public static final String SQL_PARAM_IDS_TIPOS_CALCULO = "tiposCalculo";
+
+    public static final String SQL_PARAM_ID_TIPO_CALCULO = "idTipoCalculo";
     
     public static final String SQL_PARAM_NOMBRE_USUARIO = "nombreUsuario";
 

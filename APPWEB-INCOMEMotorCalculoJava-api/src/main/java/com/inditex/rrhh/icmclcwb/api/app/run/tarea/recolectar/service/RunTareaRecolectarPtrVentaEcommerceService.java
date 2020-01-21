@@ -15,6 +15,8 @@ public interface RunTareaRecolectarPtrVentaEcommerceService {
 
     void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void ventaOnlineIpodLocalizacionPersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
     void updateActivoVentaOnlineIpodByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void updateActivoVentaOnlinePickingByRunTarea(@NotNull @Valid final RunTareaDto runTarea);

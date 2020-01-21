@@ -43,6 +43,12 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
     }
 
     @Override
+    public CompletableFuture<Void> ventaOnlineIpodLocalizacionPersonaByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodLocalizacionPersonaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
     public CompletableFuture<Void> updateActivoVentaOnlineIpodByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEcommerceService.updateActivoVentaOnlineIpodByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

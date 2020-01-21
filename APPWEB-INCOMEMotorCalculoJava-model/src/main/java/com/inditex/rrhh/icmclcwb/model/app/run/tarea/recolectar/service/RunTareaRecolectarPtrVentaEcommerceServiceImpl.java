@@ -51,6 +51,12 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     }
 
     @Override
+    public void ventaOnlineIpodLocalizacionPersonaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+                .ventaOnlineIpodLocalizacionPersonaByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
     public void updateActivoVentaOnlineIpodByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
         tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
     }

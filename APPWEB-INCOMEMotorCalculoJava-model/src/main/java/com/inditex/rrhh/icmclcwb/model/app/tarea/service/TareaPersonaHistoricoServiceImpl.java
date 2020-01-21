@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -81,4 +82,11 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
         return tareaPersonaHistoricoRepository.findIdPersonaLocalByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
     }
 
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_calculo", key = "{#idTarea, #cclIdOrigen, #idTipoCalculo}")
+    public List<IdPersonaLocalDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoCalculoInAmbito(@NotNull @Positive Long idTarea,
+            @NotNull final String cclIdOrigen, @NotNull String idTipoCalculo) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoCalculoInAmbito(
+            idTarea, cclIdOrigen, idTipoCalculo);
+    }
 }

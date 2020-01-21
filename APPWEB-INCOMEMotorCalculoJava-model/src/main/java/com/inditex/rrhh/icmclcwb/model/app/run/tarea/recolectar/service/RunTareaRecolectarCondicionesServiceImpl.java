@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEmpleadoAsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -37,6 +38,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
     @Autowired
     private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
+
+    @Autowired
+    private RunTareaRecolectarPtrVentaEmpleadoAsyncService runTareaRecolectarPtrVentaEmpleadoAsyncService;
 
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaRecolectarCondicionesService.run.timer", metricGroupName = "RunTareaRecolectarCondicionesServiceGroup", metricDescription = "RunTareaRecolectarCondicionesService.run.timer")
@@ -133,6 +137,15 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             CompletableFuture<Void> cfOnlineEntregaTiendaLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
                     .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
+
+            // Ventas individuales, tanto fisicas como iPod
+            CompletableFuture<Void> cfVentaOnlineIpodLocalizacionPersona = runTareaRecolectarPtrVentaEcommerceAsyncService
+                    .ventaOnlineIpodLocalizacionPersonaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfVentaOnlineIpodLocalizacionPersona, cf, cfWait);
+
+            CompletableFuture<Void> cfVentaFisicaLocalizacionPersona = runTareaRecolectarPtrVentaEmpleadoAsyncService
+                .ventaOnlineIpodLocalizacionPersonaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfVentaFisicaLocalizacionPersona, cf, cfWait);
 
             // Persona
             CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = runTareaRecolectarPtrPresenciaAsyncService

@@ -69,6 +69,9 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
         when(entity.getCclIdPerson()).thenReturn("Id persona");
         when(entity.getImporteConImpuestos()).thenReturn(BigDecimal.valueOf(6789L));
         when(entity.getImporteSinImpuestos()).thenReturn(BigDecimal.valueOf(6711L));
+        when(entity.getActivo()).thenReturn(Boolean.FALSE);
+        when(entity.getCclIdCadena()).thenReturn("ZAR");
+        when(entity.getCclIdSeccion()).thenReturn("CAB");
 
         tareaLocalizacionPersonaVentaRepositoryCustom.setParameters(pstmt, entity);
 
@@ -84,6 +87,9 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setDouble(6, td.getId());
         verify(pstmt, times(1)).setLong(7, tarea.getId());
         verify(pstmt, times(1)).setObject(8, pk.getFechaInicioPeriodo());
+        verify(pstmt, times(1)).setString(9, entity.getCclIdSeccion());
+        verify(pstmt, times(1)).setString(10, entity.getCclIdCadena());
+        verify(pstmt, times(1)).setBoolean(11, entity.getActivo());
     }
 
     @Test
