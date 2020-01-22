@@ -34,4 +34,6 @@ public interface RunTareaProcesarVentaService {
 
     void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea);
 
+    void updateImporteEstructuraPoliticas(@Valid RunTareaDto runTarea);
+
 }

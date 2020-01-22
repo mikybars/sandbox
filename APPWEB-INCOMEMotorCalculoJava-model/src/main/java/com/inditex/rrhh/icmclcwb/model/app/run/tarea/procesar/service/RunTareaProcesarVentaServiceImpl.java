@@ -1,5 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -9,13 +18,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRespositoryProcesarCustom;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraPoliticaRepositoryCustom;
 
 @Service
 @Validated
@@ -32,6 +35,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Autowired
     private TareaLocalizacionVentaRepositoryCustom tareaLocalizacionVentaRepositoryCustom;
+    
+    @Autowired
+    private TareaPersonaEstructuraPoliticaRepositoryCustom tareaPersonaEstructuraPoliticaRepositoryCustom;
 
     @Autowired
     private TipoDatoService tipoDatoService;
@@ -113,5 +119,10 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     @Override
     public void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea) {
         tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasTotalizado(runTarea.getTarea(), runTarea.getTrabajo());
+    }
+    
+    @Override
+    public void updateImporteEstructuraPoliticas(@Valid RunTareaDto runTarea) {
+        tareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas(runTarea.getTarea(), runTarea.getTrabajo());
     }
 }

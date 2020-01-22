@@ -1,24 +1,42 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 @Repository
 public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
     extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructuraPolitica>
     implements TareaPersonaEstructuraPoliticaRepositoryCustom {
 
+    @Autowired
+    @Qualifier("primaryNamedParameterJdbcTemplate")
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
     @Value("${app.envars.repository.batch-size.tarea-persona-estructura-politica:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaPersonaEstructuraPoliticaRepositoryCustom.save']}")
     private String sqlSave;
+    
+    @Value("#{primaryQuery['TareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas']}")
+    private String sqlUpdateImporteEstructuraPoliticas;
 
     @Override
     public List<TareaPersonaEstructuraPolitica> save(List<TareaPersonaEstructuraPolitica> src) {
@@ -46,6 +64,15 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
         pstmt.setString(17, entity.getNumMesesCalcMedia());
         pstmt.setString(18, entity.getNumHoras());
         pstmt.setString(19, entity.getIdMotivoBaja());
+    }
+    
+    @Override
+    public void updateImporteEstructuraPoliticas(@NotNull TareaDto tarea, @NotNull TrabajoDto trabajoDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        namedParameterJdbcTemplate.update(sqlUpdateImporteEstructuraPoliticas, parameters);
     }
 
 }

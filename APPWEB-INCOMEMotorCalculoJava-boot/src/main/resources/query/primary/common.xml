@@ -3383,6 +3383,62 @@ WHERE INDICADOR.ROW = 1
   ]]>
 </entry>
 
+<entry key="TareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas">
+  <![CDATA[
+MERGE INTO TAREA_PERSONA_ESTRUCTURA_POLITICA AS POLITICA USING
+(SELECT  
+        T.CCL_ID_ORIGEN, 
+        T.STD_ID_LEG_ENT, 
+        T.CCL_ID_PERSON, 
+        T.STD_OR_HR_PERIOD,
+        SUM(T.IMPORTE) / T.ICM_NUM_MESES_CALC_MEDIA AS IMPORTE  
+        FROM (
+                SELECT  T.FECHA_INICIO_PERIODO, 
+                T.ID_TAREA,
+                T.CCL_ID_ORIGEN, 
+                T.STD_ID_LEG_ENT, 
+                TC.CCL_ID_PERSON, 
+                TC.STD_OR_HR_PERIOD,
+                T.NUMERO_MES, 
+                SUM(TC.IMPORTE) AS IMPORTE, 
+                T.ICM_NUM_MESES_CALC_MEDIA
+                FROM(
+                        SELECT T.FECHA_INICIO_PERIODO, 
+                                        T.ID_TAREA,
+                                        PCP.CCL_ID_ORIGEN, 
+                                        PCP.STD_ID_LEG_ENT,
+                                        ROW_NUMBER() OVER (PARTITION BY PCP.CCL_ID_ORIGEN, PCP.STD_ID_LEG_ENT, TPEP.CCL_ID_PERSON, TPEP.STD_OR_HR_PERIOD ORDER BY T.FECHA_INICIO_PERIODO DESC) AS NUMERO_MES, 
+                                        TPEP.CCL_ID_PERSON, 
+                                        TPEP.STD_OR_HR_PERIOD,
+                                        TPEP.ICM_NUM_MESES_CALC_MEDIA    
+                        FROM TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
+                        INNER JOIN PERIODO_CALCULO_PERSONA PCP
+                        ON PCP.CCL_ID_ORIGEN = TPEP.CCL_ID_ORIGEN
+                        AND PCP.CCL_ID_PERSON = TPEP.CCL_ID_PERSON
+                        AND PCP.STD_OR_HR_PERIOD = TPEP.STD_OR_HR_PERIOD
+                        INNER JOIN TAREA T
+                        ON PCP.ID_TAREA_ACTUAL = T.ID_TAREA
+                        AND T.FECHA_INICIO_PERIODO < TPEP.FECHA_INICIO_PERIODO
+                        WHERE TPEP.ID_TAREA = :idTarea
+                        AND TPEP.ICM_IMPORTE = :inactivo
+                        GROUP BY T.FECHA_INICIO_PERIODO, T.ID_TAREA, PCP.CCL_ID_ORIGEN, PCP.STD_ID_LEG_ENT, TPEP.CCL_ID_PERSON, TPEP.STD_OR_HR_PERIOD, TPEP.ICM_NUM_MESES_CALC_MEDIA
+                ) T 
+        LEFT JOIN TAREA_CALCULO TC
+        ON T.ID_TAREA = TC.ID_TAREA
+        AND T.FECHA_INICIO_PERIODO = TC.FECHA_INICIO_PERIODO
+        AND TC.CCL_ID_PERSON = T.CCL_ID_PERSON
+        AND TC.STD_OR_HR_PERIOD = T.STD_OR_HR_PERIOD
+        GROUP BY T.FECHA_INICIO_PERIODO, T.ID_TAREA, T.CCL_ID_ORIGEN, T.STD_ID_LEG_ENT, TC.CCL_ID_PERSON, TC.STD_OR_HR_PERIOD, T.NUMERO_MES, T.ICM_NUM_MESES_CALC_MEDIA
+) T
+WHERE T.NUMERO_MES <= T.ICM_NUM_MESES_CALC_MEDIA
+GROUP BY T.CCL_ID_ORIGEN, T.STD_ID_LEG_ENT, T.CCL_ID_PERSON, T.STD_OR_HR_PERIOD, T.ICM_NUM_MESES_CALC_MEDIA) AS S   
+ON (S.CCL_ID_ORIGEN = POLITICA.CCL_ID_ORIGEN AND S.STD_OR_HR_PERIOD = POLITICA.STD_OR_HR_PERIOD AND S.CCL_ID_PERSON = POLITICA.CCL_ID_PERSON )
+WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :idTipoPolitica AND POLITICA.ICM_IMPORTE = :inactivo THEN
+    UPDATE SET ICM_IMPORTE = S.IMPORTE
+  ]]>
+</entry>
+
+
 <entry key="TareaConfiguracionRepositoryCustom.save">
   <![CDATA[
   INSERT INTO TAREA_CONFIGURACION (ID_TAREA, CCL_ID_ORIGEN, ICM_ID_CONFIG, FECHA_INICIO, FECHA_FIN, ICM_ID_TP_HORA, ICM_CK_VENTA_IMPUESTOS)
