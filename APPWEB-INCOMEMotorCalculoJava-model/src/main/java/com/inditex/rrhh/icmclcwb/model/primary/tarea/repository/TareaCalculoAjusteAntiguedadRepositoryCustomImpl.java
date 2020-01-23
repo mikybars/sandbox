@@ -22,13 +22,13 @@ public class TareaCalculoAjusteAntiguedadRepositoryCustomImpl
         extends AbstractTareaCalculoAjusteBaseRepositoryCustom
         implements TareaCalculoAjusteAntiguedadRepositoryCustom {
 
-    @Value("#{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.insert']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.where']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.antiguedad.group']} ")
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad.group']} ")
     @Getter
-    private String sqlPostProcesar;
+    private String sqlAjustar;
 
-    @Value("#{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoPostProcesarRepositoryCustom.where']}")
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
     @Getter
-    private String sqlPostProcesarBase;
+    private String sqlAjustarBase;
     
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;

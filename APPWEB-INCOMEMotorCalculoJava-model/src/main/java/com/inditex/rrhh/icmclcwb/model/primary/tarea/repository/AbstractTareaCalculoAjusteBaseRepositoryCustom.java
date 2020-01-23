@@ -21,14 +21,14 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
-    protected abstract String getSqlPostProcesarBase();
+    protected abstract String getSqlAjustarBase();
     
     protected abstract Map<String, Object> getMapValues(TareaDto tarea,
             TareaCalculoPersonaDto persona);
 
     @Override
-    public void postProcesar(TareaDto tarea, List<TareaCalculoPersonaDto> personas) {
-        if (getSqlPostProcesar() != null) {
+    public void ajustar(TareaDto tarea, List<TareaCalculoPersonaDto> personas) {
+        if (getSqlAjustar() != null) {
             List<MapSqlParameterSource> batchArgs = new ArrayList<>();
             personas.forEach(persona -> {
                 Map<String, Object> values = getMapValues(tarea, persona);
@@ -36,14 +36,14 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
                 values.forEach((paramName, value) -> arg.addValue(paramName, value));
                 batchArgs.add(arg);
             });
-            namedParameterJdbcTemplate.batchUpdate(getSqlPostProcesar(),
+            namedParameterJdbcTemplate.batchUpdate(getSqlAjustar(),
                     batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
         }
     }
 
     @Override
-    public String getSqlPostProcesar() {
-        String sql = getSqlPostProcesarBase();
+    public String getSqlAjustar() {
+        String sql = getSqlAjustarBase();
         if (sql != null) {
             sql = SqlParamsUtils.replaceValues(sql, getMapValues(null, null));
         }

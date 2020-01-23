@@ -25,16 +25,16 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoAjusteMaximoGarantizadoRepositoryCustom tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom;
+    private TareaCalculoAjusteMaximoGarantizadoRepositoryCustom tareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
+                tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
+                        tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ajustar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
@@ -45,7 +45,7 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
 
     @Override
     public String getSqlCalcular() {
-        return tareaCalculoPostProcesarMaximoGarantizadoRepositoryCustom.getSqlPostProcesar();
+        return tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.getSqlAjustar();
     }
 
 }

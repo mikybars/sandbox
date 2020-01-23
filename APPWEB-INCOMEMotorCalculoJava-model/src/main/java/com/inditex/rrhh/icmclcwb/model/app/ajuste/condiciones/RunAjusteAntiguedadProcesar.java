@@ -25,16 +25,16 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoAjusteAntiguedadRepositoryCustom tareaCalculoPostProcesarAntiguedadRepositoryCustom;
+    private TareaCalculoAjusteAntiguedadRepositoryCustom tareaCalculoAjusteAntiguedadRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoPostProcesarAntiguedadRepositoryCustom.ids(runTarea.getTarea()),
+                tareaCalculoAjusteAntiguedadRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: RunAjusteAntiguedadProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoPostProcesarAntiguedadRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
+                        tareaCalculoAjusteAntiguedadRepositoryCustom.ajustar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteAntiguedadProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
@@ -45,7 +45,7 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
 
     @Override
     public String getSqlCalcular() {
-        return tareaCalculoPostProcesarAntiguedadRepositoryCustom.getSqlPostProcesar();
+        return tareaCalculoAjusteAntiguedadRepositoryCustom.getSqlAjustar();
     }
 
 }

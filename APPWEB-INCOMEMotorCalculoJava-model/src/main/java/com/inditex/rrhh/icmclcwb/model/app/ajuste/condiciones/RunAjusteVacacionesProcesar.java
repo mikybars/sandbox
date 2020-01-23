@@ -25,16 +25,16 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoAjusteVacacionesRepositoryCustom tareaCalculoPostProcesarVacacionesRepositoryCustom;
+    private TareaCalculoAjusteVacacionesRepositoryCustom tareaCalculoAjusteVacacionesRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoPostProcesarVacacionesRepositoryCustom.ids(runTarea.getTarea()),
+                tareaCalculoAjusteVacacionesRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoPostProcesarVacacionesRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
+                        tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
@@ -45,7 +45,7 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
 
     @Override
     public String getSqlCalcular() {
-        return tareaCalculoPostProcesarVacacionesRepositoryCustom.getSqlPostProcesar();
+        return tareaCalculoAjusteVacacionesRepositoryCustom.getSqlAjustar();
     }
 
 }

@@ -25,16 +25,16 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoAjusteMinimoGarantizadoRepositoryCustom tareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom;
+    private TareaCalculoAjusteMinimoGarantizadoRepositoryCustom tareaCalculoAjusteMinimoGarantizadoRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
+                tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
+                        tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ajustar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
@@ -45,7 +45,7 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
 
     @Override
     public String getSqlCalcular() {
-        return tareaCalculoPostProcesarMinimoGarantizadoRepositoryCustom.getSqlPostProcesar();
+        return tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.getSqlAjustar();
     }
 
 }

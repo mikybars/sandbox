@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.insert">
+<entry key="TareaCalculoAjusteRepositoryCustom.insert">
     <![CDATA[
    INSERT INTO TAREA_CALCULO_AJUSTE (
      FECHA_INICIO_PERIODO,
@@ -16,7 +16,7 @@
     ]]>
 </entry>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.where">
+<entry key="TareaCalculoAjusteRepositoryCustom.where">
     <![CDATA[
   WHERE FA.ID_TAREA = :idTarea
   AND FA.CCL_ID_PERSON = :cclIdPerson
@@ -24,20 +24,20 @@
     ]]>
 </entry>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.where.manual">
+<entry key="TareaCalculoAjusteRepositoryCustom.where.manual">
     <![CDATA[
   AND TC.ES_MANUAL = :inactivo
     ]]>
 </entry>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.antiguedad.group">
+<entry key="TareaCalculoAjusteRepositoryCustom.antiguedad.group">
     <![CDATA[
   GROUP BY TC.FECHA_INICIO_PERIODO, FA.ID_TAREA, TC.FECHA, FA.CCL_ID_PERSON, FA.STD_OR_HR_PERIOD, FA.ICM_PORCENTAJE, FA.ID_TAREA_PERSONA_ESTRUCTURA_POLITICA
     ]]>
 </entry>
 
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.antiguedad">
+<entry key="TareaCalculoAjusteRepositoryCustom.antiguedad">
     <![CDATA[
         WITH DIAS AS (
                 SELECT ID_TAREA, CCL_ID_ORIGEN, CCL_ID_PERSON, ICM_ID_ESTR_POLITICAS, STD_ID_HR, STD_OR_HR_PERIOD , ICM_TRAMO, 
@@ -104,7 +104,7 @@
     ]]>
 </entry>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.bajaIt">
+<entry key="TareaCalculoAjusteRepositoryCustom.bajaIt">
     <![CDATA[
         WITH DIAS AS (
                 SELECT ID_TAREA, CCL_ID_ORIGEN, CCL_ID_PERSON, ICM_ID_ESTR_POLITICAS, STD_ID_HR, STD_OR_HR_PERIOD , ICM_TRAMO, 
@@ -195,7 +195,7 @@
       ]]>
 </entry>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.vacaciones">
+<entry key="TareaCalculoAjusteRepositoryCustom.vacaciones">
     <![CDATA[
         WITH DIAS AS (
                 SELECT ID_TAREA, CCL_ID_ORIGEN, CCL_ID_PERSON, ICM_ID_ESTR_POLITICAS, STD_ID_HR, STD_OR_HR_PERIOD , ICM_TRAMO, 
@@ -286,7 +286,7 @@
     ]]>
 </entry>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.maxGarantizado">
+<entry key="TareaCalculoAjusteRepositoryCustom.maxGarantizado">
     <![CDATA[
 WITH AUSENCIAS_DATE AS (
         SELECT CCL_ID_ORIGEN, CCL_ID_PERSON, SUM(DIAS) AS DIAS, STD_OR_HR_PERIOD, ID_TAREA  FROM(
@@ -383,7 +383,7 @@ WITH AUSENCIAS_DATE AS (
     ]]>
 </entry>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.minGarantizado">
+<entry key="TareaCalculoAjusteRepositoryCustom.minGarantizado">
     <![CDATA[
 WITH AUSENCIAS_DATE AS (
         SELECT CCL_ID_ORIGEN, CCL_ID_PERSON, SUM(DIAS) AS DIAS, STD_OR_HR_PERIOD, ID_TAREA  FROM(
@@ -480,7 +480,7 @@ WITH AUSENCIAS_DATE AS (
     ]]>
 </entry>
 
-<entry key="TareaCalculoPostProcesarRepositoryCustom.carencia">
+<entry key="TareaCalculoAjusteRepositoryCustom.carencia">
     <![CDATA[
         WITH DIAS AS (
                 SELECT ID_TAREA, CCL_ID_ORIGEN, CCL_ID_PERSON, ICM_ID_ESTR_POLITICAS, STD_ID_HR, STD_OR_HR_PERIOD , ICM_TRAMO, 

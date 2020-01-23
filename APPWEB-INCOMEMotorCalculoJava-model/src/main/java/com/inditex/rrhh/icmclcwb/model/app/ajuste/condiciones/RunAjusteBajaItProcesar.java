@@ -25,16 +25,16 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoAjusteBajaItRepositoryCustom tareaCalculoPostProcesarBajaItRepositoryCustom;
+    private TareaCalculoAjusteBajaItRepositoryCustom tareaCalculoAjusteBajaItRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoPostProcesarBajaItRepositoryCustom.ids(runTarea.getTarea()),
+                tareaCalculoAjusteBajaItRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: RunAjusteBajaItProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoPostProcesarBajaItRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
+                        tareaCalculoAjusteBajaItRepositoryCustom.ajustar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteBajaItProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
@@ -45,7 +45,7 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
 
     @Override
     public String getSqlCalcular() {
-        return tareaCalculoPostProcesarBajaItRepositoryCustom.getSqlPostProcesar();
+        return tareaCalculoAjusteBajaItRepositoryCustom.getSqlAjustar();
     }
 
 }

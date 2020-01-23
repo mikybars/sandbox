@@ -25,16 +25,16 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
     private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
-    private TareaCalculoAjusteCarenciaRepositoryCustom tareaCalculoPostProcesarCarenciaRepositoryCustom;
+    private TareaCalculoAjusteCarenciaRepositoryCustom tareaCalculoAjusteCarenciaRepositoryCustom;
 
     @Override
     public void execute(RunTareaDto runTarea) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoPostProcesarCarenciaRepositoryCustom.ids(runTarea.getTarea()),
+                tareaCalculoAjusteCarenciaRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoPostProcesarCarenciaRepositoryCustom.postProcesar(runTarea.getTarea(), personas);
+                        tareaCalculoAjusteCarenciaRepositoryCustom.ajustar(runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
@@ -45,7 +45,7 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
 
     @Override
     public String getSqlCalcular() {
-        return tareaCalculoPostProcesarCarenciaRepositoryCustom.getSqlPostProcesar();
+        return tareaCalculoAjusteCarenciaRepositoryCustom.getSqlAjustar();
     }
 
 }
