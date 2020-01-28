@@ -65,7 +65,7 @@ public abstract class TareaPersonaEstructuraMapper {
     // Valores
     @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "icmIdEstrComision", source = "listaCondicionesBaseResultItem.idEstructuraBase")
-    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesBaseResultItem.idTipoCalculo")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesBaseResultItem.idTipoCalculo", defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesBaseResultItem.idTipoComision")
     @Mapping(target = "diaL", source = "listaCondicionesBaseResultItem.diaL", defaultValue = "true")
     @Mapping(target = "diaM", source = "listaCondicionesBaseResultItem.diaM", defaultValue = "true")
@@ -105,7 +105,7 @@ public abstract class TareaPersonaEstructuraMapper {
     // Valores
     @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "icmIdEstrComision", source = "listaCondicionesBaseResultItem.idEstructuraBase")
-    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesBaseResultItem.idTipoCalculo")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesBaseResultItem.idTipoCalculo", defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesBaseResultItem.idTipoComision")
     @Mapping(target = "diaL", source = "listaCondicionesBaseResultItem.diaL", defaultValue = "true")
     @Mapping(target = "diaM", source = "listaCondicionesBaseResultItem.diaM", defaultValue = "true")
@@ -146,7 +146,7 @@ public abstract class TareaPersonaEstructuraMapper {
     // Valores
     @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
-    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo", defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesDestinoResultItem.idTipoComision")
     @Mapping(target = "diaL", source = "listaCondicionesDestinoResultItem.diaL", defaultValue = "true")
     @Mapping(target = "diaM", source = "listaCondicionesDestinoResultItem.diaM", defaultValue = "true")
@@ -211,7 +211,7 @@ public abstract class TareaPersonaEstructuraMapper {
     // Valores
     @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
-    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo", defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesDestinoResultItem.idTipoComision")
     @Mapping(target = "diaL", source = "listaCondicionesDestinoResultItem.diaL", defaultValue = "true")
     @Mapping(target = "diaM", source = "listaCondicionesDestinoResultItem.diaM", defaultValue = "true")

@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoOpcionCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
@@ -15,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Es
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesBaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoCalculo;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 
@@ -52,6 +56,9 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
             /*-----------------*/
             if (CollectionUtils.isNotEmpty(itemPadre.getIcmListaCondicionesBase())) {
                 ListaCondicionesBaseResultItemDto itemBase = itemPadre.getIcmListaCondicionesBase().get(0);
+                if(StringUtils.isEmpty(itemBase.getIdTipoCalculo())) {
+                    itemBase.setIdTipoCalculo(TipoCalculoEnum.NINGUNO.getId());
+                }
                 if (CollectionUtils.isEmpty(itemPadre.getIcmListaCondicionesBase().get(0).getIcmListaValoresBase())) {
                     result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(itemPadre, itemBase, tarea));
                 } else {
@@ -73,6 +80,9 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                     itemPadre.getIcmListaCondicionesDestino().forEach(itemDesplazamiento -> {
                         AtomicInteger counter = new AtomicInteger(0);
                         TipoOpcionCalculoEnum opcion = TipoOpcionCalculoEnum.fromIdMeta4(itemDesplazamiento.getIdTipoOpCalculo());
+                        if(StringUtils.isEmpty(itemDesplazamiento.getIdTipoCalculo())) {
+                            itemDesplazamiento.setIdTipoCalculo(TipoCalculoEnum.NINGUNO.getId());
+                        }
                         if (CollectionUtils.isEmpty(itemDesplazamiento.getIcmListaValoresDestino())) {
                             if (TipoOpcionCalculoEnum.MEJOR_OPCION.equals(opcion)) {
                                 result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraToTareaPersonaEstructuraDto(itemPadre, itemBase, itemDesplazamiento, tarea, counter.incrementAndGet(), TipoOpcionCalculoEnum.ORIGEN.getId(), opcion.getId(), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasOrigen()), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasDestino())));
