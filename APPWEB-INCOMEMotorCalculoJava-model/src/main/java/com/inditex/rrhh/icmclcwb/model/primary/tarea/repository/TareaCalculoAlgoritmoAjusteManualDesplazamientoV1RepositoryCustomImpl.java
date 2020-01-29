@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
@@ -57,7 +58,8 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoV1RepositoryCustomIm
         map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         map.put(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_COMISION, TipoComisionEnum.AJUSTE_MANUAL.getId());
+
         return map;
     }
 

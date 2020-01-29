@@ -104,7 +104,7 @@ public class TareaCalculoAlgoritmoAjusteManualV1RepositoryCustomImplTest {
         Map<String, Object> result = tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
 
         //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVenta
-        assertEquals(9, result.size());
+        assertEquals(10, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -156,7 +156,7 @@ public class TareaCalculoAlgoritmoAjusteManualV1RepositoryCustomImplTest {
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(9, value.getValues().size());
+            assertEquals(10, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));

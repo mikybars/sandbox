@@ -161,6 +161,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_CALCULO = "idTipoCalculo";
     
+    public static final String SQL_PARAM_ID_TIPO_COMISION = "idTipoComision";
+    
     public static final String SQL_PARAM_NOMBRE_USUARIO = "nombreUsuario";
 
 
