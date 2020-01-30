@@ -36,12 +36,14 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
     @Override
     public void run(@NotNull @Valid RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
-        Flux.fromIterable(algoritmoAjusteService.customFindAjusteIdsByTarea(tarea.getId())).parallel(1)
-                .runOn(ItxSchedulers.elastic()).map(idAlgoritmo -> {
-                    AlgoritmoAjusteDto ajuste = algoritmoAjusteService.findById(idAlgoritmo);
-                    runAjusteFactory.getRunAjuste(ajuste.getNombre()).execute(runTarea);
-                    return Flux.empty();
-                }).sequential().collectList().block();
+        algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId()).stream().forEach(a -> 
+            Flux.fromIterable(algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(), a)).parallel()
+            .runOn(ItxSchedulers.elastic()).map(algoritmo -> {
+                AlgoritmoAjusteDto ajuste = algoritmoAjusteService.findById(algoritmo);
+                runAjusteFactory.getRunAjuste(ajuste.getNombre()).execute(runTarea);
+                return Flux.empty();
+            }).sequential().collectList().block()
+        );
     }
 
 }

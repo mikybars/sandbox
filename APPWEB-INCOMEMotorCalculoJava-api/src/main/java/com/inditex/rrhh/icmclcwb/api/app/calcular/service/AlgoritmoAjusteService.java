@@ -9,8 +9,12 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 
 public interface AlgoritmoAjusteService {
 
-    List<Integer> customFindAjusteIdsByTarea(@NotNull @Positive Long id);
-
+    List<Long> customFindAjustePesosByTarea(@NotNull @Positive Long id);
+    
     AlgoritmoAjusteDto findById(@NotNull @Positive Integer id);
+
+    List<AlgoritmoAjusteDto> findByPeso(@NotNull @Positive Long id);
+
+    List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive Long idTarea, @NotNull @Positive Long peso);
 
 }

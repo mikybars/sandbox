@@ -30,12 +30,22 @@ public class AlgoritmoAjusteServiceImpl implements AlgoritmoAjusteService {
     private AlgoritmoAjusteMapper algoritmoAjusteMapper;
     
     @Override
-    public List<Integer> customFindAjusteIdsByTarea(@NotNull @Positive final Long id) {
-        return algoritmoAjusteRepositoryCustom.customFindAjusteIdsByTarea(id);
+    public List<Long> customFindAjustePesosByTarea(@NotNull @Positive final Long id) {
+        return algoritmoAjusteRepositoryCustom.customFindAjustePesosByTarea(id);
+    }
+    
+    @Override
+    public List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive final Long idTarea, @NotNull @Positive final Long peso) {
+        return algoritmoAjusteRepositoryCustom.customFindAjusteIdsByTareaAndPeso(idTarea, peso);
     }
     
     @Override
     public AlgoritmoAjusteDto findById(@NotNull @Positive final Integer id) {
         return algoritmoAjusteMapper.algoritmoAjusteToAlgoritmoAjusteDto(algoritmoAjusteRepository.findById(id).get());
+    }
+    
+    @Override
+    public List<AlgoritmoAjusteDto> findByPeso(@NotNull @Positive final Long id) {
+        return algoritmoAjusteMapper.algoritmoAjusteToAlgoritmoAjusteDto(algoritmoAjusteRepository.findByPeso(id).get());
     }
 }

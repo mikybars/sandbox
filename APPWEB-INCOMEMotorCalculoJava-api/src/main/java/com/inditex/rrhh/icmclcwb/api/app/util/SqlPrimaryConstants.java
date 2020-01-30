@@ -165,6 +165,7 @@ public class SqlPrimaryConstants {
     
     public static final String SQL_PARAM_NOMBRE_USUARIO = "nombreUsuario";
 
+    public static final String SQL_PARAM_PESO = "peso";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
@@ -228,6 +229,9 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_RESULT_ID_TAREA = "ID_TAREA";
 
+    public static final String SQL_RESULT_PESO = "PESO";
+    
     public static final String SQL_RESULT_ID_ALGORITMO_AJUSTE = "ID_ALGORITMO_AJUSTE";
+
 
 }

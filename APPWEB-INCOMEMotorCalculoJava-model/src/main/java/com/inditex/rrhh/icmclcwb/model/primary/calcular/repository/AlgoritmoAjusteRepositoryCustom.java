@@ -7,6 +7,8 @@ import javax.validation.constraints.Positive;
 
 public interface AlgoritmoAjusteRepositoryCustom {
 
-    List<Integer> customFindAjusteIdsByTarea(@NotNull @Positive Long idTarea);
+    List<Long> customFindAjustePesosByTarea(@NotNull @Positive Long idTarea);
+
+    List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive Long idTarea, @NotNull @Positive Long peso);
 
 }

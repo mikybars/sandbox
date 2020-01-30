@@ -24,22 +24,39 @@ public class AlgoritmoAjusteRepositoryCustomImpl implements AlgoritmoAjusteRepos
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['RunTareaAjustarService.customFindAjusteIdsByTarea']}")
-    private String sqlCustomFindAjusteIdsByTarea;
+    @Value("#{primaryQuery['RunTareaAjustarService.customFindAjustePesosByTarea']}")
+    private String sqlCustomFindAjustePesosByTarea;
+
+    @Value("#{primaryQuery['RunTareaAjustarService.customFindAjusteIdsByTareaAndPeso']}")
+    private String sqlCustomFindAjusteIdsByTareaAndPeso;
 
     @Override
-    public List<Integer> customFindAjusteIdsByTarea(@NotNull @Positive final Long idTarea) {
+    public List<Long> customFindAjustePesosByTarea(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        return namedParameterJdbcTemplate.query(sqlCustomFindAjusteIdsByTarea, parameters,
-                new RowMapper<Integer>() {
-                    @Override
-                    public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        return rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO_AJUSTE);
-                    }
-                });
+        return namedParameterJdbcTemplate.query(sqlCustomFindAjustePesosByTarea, parameters,
+            new RowMapper<Long>() {
+                @Override
+                public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return rs.getLong(SqlPrimaryConstants.SQL_RESULT_PESO);
+                }
+            });
+    }
+    
+    @Override
+    public List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive final Long idTarea, @NotNull @Positive final Long peso) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PESO, peso);
+        return namedParameterJdbcTemplate.query(sqlCustomFindAjusteIdsByTareaAndPeso, parameters,
+            new RowMapper<Integer>() {
+                @Override
+                public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_ALGORITMO_AJUSTE);
+                }
+            });
     }
 
-    
 }
