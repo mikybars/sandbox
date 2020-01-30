@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 public interface RunTareaProcesarVentaService {
 
@@ -35,5 +37,13 @@ public interface RunTareaProcesarVentaService {
     void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea);
 
     void updateImporteEstructuraPoliticas(@Valid RunTareaDto runTarea);
+
+    void totalizarDevolucionLocalizacion(@Valid RunTareaDto tarea);
+
+    void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea, @NotNull TipoCalculoEnum tipoCalculo);
+
+    void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarVentaPersonaLocalizacion(@Valid RunTareaDto tarea);
 
 }

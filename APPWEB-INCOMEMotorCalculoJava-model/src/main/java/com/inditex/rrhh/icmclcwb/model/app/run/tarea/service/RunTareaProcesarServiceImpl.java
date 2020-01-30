@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -69,7 +70,16 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 //            CompletableFuture<Void> cfUpdateSeccionPresenciasActivasVacio = runTareaProcesarPresenciaAsyncService
 //                .updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
 //            AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivasVacio, cf);
-            
+
+            CompletableFuture<Void> cfTotalizarDevolucion = runTareaProcesarVentaAsyncService.totalizarDevolucionLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarDevolucion, cf, cfWait);
+
+            CompletableFuture<Void> cfTotalizarVentaPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarVentaPersonaSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarVentaPersonaSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfTotalizarVentaPersonaLocalizacion = runTareaProcesarVentaAsyncService.totalizarVentaPersonaLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarVentaPersonaLocalizacion, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
@@ -81,6 +91,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             // Calcular localizacion seccion abierta
             CompletableFuture<Void> cfSaveAbiertoSeccion = runTareaProcesarVentaAsyncService.saveAbiertoSeccion(runTarea);
             AsyncUtils.exceptionally(cfSaveAbiertoSeccion, cf, cfWait);
+
+            // Calcular ventas localizacion realizadas por personas por venta simplificado
+            CompletableFuture<Void> cfVentasPorVentaSimplificado = runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVenta(runTarea, TipoCalculoEnum.POR_VENTA_SIMPLIFICADA);
+            AsyncUtils.exceptionally(cfVentasPorVentaSimplificado, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);

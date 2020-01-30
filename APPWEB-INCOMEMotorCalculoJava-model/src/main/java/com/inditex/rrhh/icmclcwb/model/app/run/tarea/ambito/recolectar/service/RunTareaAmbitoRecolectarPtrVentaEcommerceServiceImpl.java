@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -13,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
@@ -315,29 +314,26 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<IdPersonaLocalDto> idsPersona = tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoCalculoInAmbito(runTarea.getTarea().getId(),
-                tareaAmbito.getCclIdOrigen(), TipoCalculoEnum.POR_VENTA.getId());
-            if (CollectionUtils.isNotEmpty(idsPersona)) {
-                LocalizacionesAmbitoDto localizaciones = new LocalizacionesAmbitoDto(
-                    runTarea.getTrabajo().getTipoAmbito().getId());
-
+            List<Integer> localizaciones = tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(tarea.getId(),
+                tareaAmbito.getCclIdOrigen(), TipoCalculoEnum.POR_VENTA.getId()).stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList());
+            if (CollectionUtils.isNotEmpty(localizaciones)) {
                 if (TipoAmbitoEnum.PERSONA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
                     || TipoAmbitoEnum.LOCALIZACION.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
-                    localizaciones.setLocalizaciones(
+                    LocalizacionesAmbitoDto localizacionesAmbito = new LocalizacionesAmbitoDto(
+                        runTarea.getTrabajo().getTipoAmbito().getId());
+                    localizacionesAmbito.setLocalizaciones(
                         tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
                             runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen()));
+                    localizaciones = new ArrayList<>(CollectionUtils.intersection(localizaciones, localizacionesAmbito.getLocalizaciones()));
                 }
 
                 PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpod = tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(
                         trabajo, tarea, tareaAmbito, recolectarProperties);
-                paramVentaOnlineIpod.setTienda(localizaciones.getLocalizaciones());
+                paramVentaOnlineIpod.setTienda(localizaciones);
                 paramVentaOnlineIpod.setProducto(meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream()
                     .map(ConfiguracionProductoVentaResultItemDto::getIdProducto).collect(Collectors.toList()));
-                paramVentaOnlineIpod.setVendedores(
-                    idsPersona.stream().map(IdPersonaLocalDto::getIdPersonaLocal).map(Integer::valueOf)
-                        .collect(Collectors.toList()));
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
                 paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
 

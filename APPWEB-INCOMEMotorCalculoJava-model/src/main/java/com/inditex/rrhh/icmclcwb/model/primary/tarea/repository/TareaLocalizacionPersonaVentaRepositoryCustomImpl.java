@@ -4,7 +4,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
@@ -20,6 +29,16 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.save']}")
     private String sqlSave;
+
+    @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion']}")
+    private String sqlTotalizarVentaPersonaSeccion;
+
+    @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaLocalizacion']}")
+    private String sqlTotalizarVentaPersonaLocalizacion;
+
+    @Autowired
+    @Qualifier("primaryNamedParameterJdbcTemplate")
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public List<TareaLocalizacionPersonaVenta> save(List<TareaLocalizacionPersonaVenta> src) {
@@ -41,4 +60,36 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
         pstmt.setBoolean(11, entity.getActivo());
     }
 
+    @Override
+    public void totalizarVentaPersonaSeccion(TareaDto tarea) {
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        // Parámetros filtro
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        // Parámetros que establecen valores
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonaSeccion, parameters);
+
+    }
+
+    @Override
+    public void totalizarVentaPersonaLocalizacion(TareaDto tarea) {
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        // Parámetros filtro
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        // Parámetros que establecen valores
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+
+        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonaLocalizacion, parameters);
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import org.springframework.scheduling.annotation.Async;
 
@@ -35,5 +36,13 @@ public interface RunTareaProcesarVentaAsyncService {
     CompletableFuture<Void> agruparOnlineSeccionDia(RunTareaDto runTarea);
 
     CompletableFuture<Void> updateActivoTrasladadasTotalizado(RunTareaDto runTarea);
+
+    CompletableFuture<Void> totalizarDevolucionLocalizacion(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaPersonasPorVenta(RunTareaDto tarea, TipoCalculoEnum tipoCalculoEnum);
+
+    CompletableFuture<Void> totalizarVentaPersonaSeccion (RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaPersonaLocalizacion (RunTareaDto tarea);
 
 }

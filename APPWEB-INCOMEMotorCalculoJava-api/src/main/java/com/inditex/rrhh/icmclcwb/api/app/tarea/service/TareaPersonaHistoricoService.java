@@ -32,7 +32,4 @@ public interface TareaPersonaHistoricoService {
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
             @NotNull final String cclIdOrigen);
 
-    List<IdPersonaLocalDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoCalculoInAmbito(@NotNull @Positive final Long idTarea,
-            @NotNull final String cclIdOrigen, @NotNull String idTipoCalculo);
-
 }

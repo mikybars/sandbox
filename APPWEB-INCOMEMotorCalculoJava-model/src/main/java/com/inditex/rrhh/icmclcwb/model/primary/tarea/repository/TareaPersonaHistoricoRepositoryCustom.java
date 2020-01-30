@@ -24,7 +24,4 @@ public interface TareaPersonaHistoricoRepositoryCustom {
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
             @NotBlank String cclIdOrigen);
 
-    List<IdPersonaLocalDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoCalculoInAmbito(@NotNull @Positive final Long idTarea,
-            @NotBlank String cclIdOrigen, @NotBlank String idTipoCalculo);
-
 }
