@@ -39,8 +39,8 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacion']}")
     private String sqlTotalizarDevolucionLocalizacion;
 
-    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta']}")
-    private String sqlTotalizarVentaPersonasPorVenta;
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificado']}")
+    private String sqlTotalizarVentaPersonasPorVentaSimplificado;
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
@@ -125,19 +125,19 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     }
 
     @Override
-    public void totalizarVentaPersonasPorVenta(TareaDto tarea, TipoCalculoEnum tipoCalculo) {
+    public void totalizarVentaPersonasPorVentaSimplificado(TareaDto tarea, TipoCalculoEnum tipoCalculo) {
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         //parametros
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_LOCALIZACION_POR_VENTA.getId());
-        //nuevos valores
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, tipoCalculo.getId());
+        //nuevos valores
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        namedParameterJdbcTemplate.update(sqlTotalizarDevolucionLocalizacion, parameters);
+        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonasPorVentaSimplificado, parameters);
 
     }
 }

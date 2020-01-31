@@ -53,7 +53,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
 
     private final static String SQL_TOTALIZAR_DEVOLUCIONES = "SQL TOTALIZAR DEVOLUCIONES";
 
-    private final static String SQL_TOTALIZAR_PERSONAS_POR_VENTA = "SQL TOTALIZAR PERSONAS POR VENTA";
+    private final static String SQL_TOTALIZAR_PERSONAS_POR_VENTA_SIMPLIFICADO = "SQL TOTALIZAR PERSONAS POR VENTA SIMPLIFICADO";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -81,7 +81,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
             "sqlTotalizarDevolucionLocalizacion", SQL_TOTALIZAR_DEVOLUCIONES, true);
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
-            "sqlTotalizarVentaPersonasPorVenta", SQL_TOTALIZAR_PERSONAS_POR_VENTA, true);
+            "sqlTotalizarVentaPersonasPorVentaSimplificado", SQL_TOTALIZAR_PERSONAS_POR_VENTA_SIMPLIFICADO, true);
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
             "batchSize", 100, true);
     }
@@ -278,10 +278,10 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
 
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(123L);
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta(tarea, TipoCalculoEnum.POR_VENTA_SIMPLIFICADA);
+        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificado(tarea, TipoCalculoEnum.POR_VENTA_SIMPLIFICADA);
 
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_TOTALIZAR_DEVOLUCIONES, sqlCaptor.getValue());
+        assertEquals(SQL_TOTALIZAR_PERSONAS_POR_VENTA_SIMPLIFICADO, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
 
         // Parámetros de la consulta: idTarea, activo, idTipoGrupoDato, idTipoCalculo, nuevoIdTipoDato, nuevoActivo
@@ -297,7 +297,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         assertEquals(TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO));
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // idTipoGrupoDato
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
         assertEquals(TipoGrupoDatoEnum.VENTA_LOCALIZACION_POR_VENTA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));

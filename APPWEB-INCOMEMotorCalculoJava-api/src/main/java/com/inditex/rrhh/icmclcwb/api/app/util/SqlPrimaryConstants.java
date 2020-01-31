@@ -27,6 +27,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_DESPLAZAMIENTO = "desplazamiento";
 
+    public static final String SQL_PARAM_ES_DESPLAZAMIENTO = "esDesplazamiento";
+
+    public static final String SQL_PARAM_ES_DESPLAZAMIENTO_BASE = "esDesplazamientoBase";
+
     public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA = "tipoDatoLocalizacionPersonaPresencia";
 
     public static final String SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA = "tipoDatoPersonaPresencia";
@@ -158,6 +162,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
 
     public static final String SQL_PARAM_IDS_TIPOS_CALCULO = "tiposCalculo";
+
+    public static final String SQL_PARAM_IDS_TIPOS_COMISION = "tiposComision";
 
     public static final String SQL_PARAM_ID_TIPO_CALCULO = "idTipoCalculo";
     

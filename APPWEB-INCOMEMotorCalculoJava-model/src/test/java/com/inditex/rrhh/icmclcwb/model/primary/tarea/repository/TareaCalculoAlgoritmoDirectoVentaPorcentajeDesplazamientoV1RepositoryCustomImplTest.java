@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
@@ -83,6 +85,30 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Reposito
         when(tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(Arrays.asList(new IdTipoDatoDto(101)));
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
+        when(algoritmo.getTipoCalculo()).thenReturn(
+            Arrays.asList(
+                TipoCalculoDto
+                    .builder()
+                    .id("011")
+                    .build(),
+                TipoCalculoDto
+                    .builder()
+                    .id("012")
+                    .build()));
+        when(algoritmo.getTipoComision()).thenReturn(
+            Arrays.asList(
+                TipoComisionDto
+                    .builder()
+                    .id("001")
+                    .build(),
+                TipoComisionDto
+                    .builder()
+                    .id("002")
+                    .build(),
+                TipoComisionDto
+                    .builder()
+                    .id("003")
+                    .build()));
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -95,7 +121,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Reposito
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService, times(1))
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        assertEquals(9, result.size());
+        assertEquals(11, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -123,6 +149,12 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Reposito
         // indicador desplazamiento
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
         assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
+        //tipocomision
+        assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
+        assertEquals(Arrays.asList("001", "002", "003"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
+        //tipocalculo
+        assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(Arrays.asList("011", "012"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
     }
 
     @Test
@@ -133,6 +165,30 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Reposito
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
+        when(algoritmo.getTipoCalculo()).thenReturn(
+            Arrays.asList(
+                TipoCalculoDto
+                    .builder()
+                    .id("011")
+                    .build(),
+                TipoCalculoDto
+                    .builder()
+                    .id("012")
+                    .build()));
+        when(algoritmo.getTipoComision()).thenReturn(
+            Arrays.asList(
+                TipoComisionDto
+                    .builder()
+                    .id("001")
+                    .build(),
+                TipoComisionDto
+                    .builder()
+                    .id("002")
+                    .build(),
+                TipoComisionDto
+                    .builder()
+                    .id("003")
+                    .build()));
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -154,7 +210,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Reposito
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(9, value.getValues().size());
+            assertEquals(11, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -173,6 +229,12 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Reposito
             // calcula
             assertTrue(value.hasValue(SQL_PARAM_CALCULA));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
+            //tipocomision
+            assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
+            assertEquals(Arrays.asList("001", "002", "003"), value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
+            //tipocalculo
+            assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+            assertEquals(Arrays.asList("011", "012"), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));

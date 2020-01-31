@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
@@ -137,8 +138,8 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
 
     @Override
-    public void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea, TipoCalculoEnum tipoCalculo) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta(tarea.getTarea(), tipoCalculo);
+    public void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea, @NotNull TipoCalculoEnum tipoCalculo) {
+        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificado(tarea.getTarea(), tipoCalculo);
     }
 
     @Override

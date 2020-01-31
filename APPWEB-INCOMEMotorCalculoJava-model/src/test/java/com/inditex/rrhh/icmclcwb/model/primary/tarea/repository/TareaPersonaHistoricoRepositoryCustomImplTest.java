@@ -42,8 +42,6 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
 
     private final static String SQL_FIND_ID_PERSONA_HISTORICO_BY_ID_TAREA_AND_ID_ORIGEN = "SQL FIND ID PERSONA HISTORICO BY ID TAREA AND ID ORIGEN";
 
-    private final static String SQL_FIND_ID_PERSONA_BY_ID_TAREA_AND_ID_ORIGEN_AND_ID_TIPO_CALCULO = "SQL FIND ID PERSONA BY ID TAREA AND ID ORIGEN AND ID TIPO CALCULO";
-
     @Mock
     private JdbcTemplate jdbcTemplate;
 
@@ -70,9 +68,6 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
             SQL_FIND_ID_PERSONA_HISTORICO_BY_ID_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO_IN_AMBITO, true);
         FieldUtils.writeField(tareaPersonaHistoricoRepositoryCustom,
             "sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen", SQL_FIND_ID_PERSONA_HISTORICO_BY_ID_TAREA_AND_ID_ORIGEN,
-            true);
-        FieldUtils.writeField(tareaPersonaHistoricoRepositoryCustom,
-            "sqlfindIdPersonaByIdTareaAndIdTipoCalculo", SQL_FIND_ID_PERSONA_BY_ID_TAREA_AND_ID_ORIGEN_AND_ID_TIPO_CALCULO,
             true);
         FieldUtils.writeField(tareaPersonaHistoricoRepositoryCustom,
             "batchSize", 100, true);

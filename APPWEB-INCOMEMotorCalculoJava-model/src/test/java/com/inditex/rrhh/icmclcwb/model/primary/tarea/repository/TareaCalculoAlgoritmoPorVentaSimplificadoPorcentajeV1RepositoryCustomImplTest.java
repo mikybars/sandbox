@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
@@ -25,8 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -83,6 +85,30 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCust
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(8001);
+        when(algoritmo.getTipoCalculo()).thenReturn(
+            Arrays.asList(
+            TipoCalculoDto
+                .builder()
+                .id("011")
+                .build(),
+            TipoCalculoDto
+                .builder()
+                .id("012")
+                .build()));
+        when(algoritmo.getTipoComision()).thenReturn(
+            Arrays.asList(
+                TipoComisionDto
+                    .builder()
+                    .id("001")
+                    .build(),
+                TipoComisionDto
+                    .builder()
+                    .id("002")
+                    .build(),
+                TipoComisionDto
+                    .builder()
+                    .id("003")
+                    .build()));
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -92,8 +118,8 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCust
         Map<String, Object> result = tareaCalculoAlgoritmoPorVentaV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
 
         //Parámetros de la consulta: activo, idTipoGrupoDato, tipoDatoLocalizacionVentaSeccion, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod,
-        //comisionable, calcula
-        assertEquals(9, result.size());
+        //comisionable, calcula, tipocomision, tipocalculo
+        assertEquals(11, result.size());
         //activo
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, result.get(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
@@ -121,6 +147,12 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCust
         //calcula
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_CALCULA));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, result.get(SqlPrimaryConstants.SQL_PARAM_CALCULA));
+        //tipocomision
+        assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
+        assertEquals(Arrays.asList("001", "002", "003"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
+        //tipocalculo
+        assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(Arrays.asList("011", "012"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
 
     }
 
@@ -129,6 +161,30 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCust
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(8001);
+        when(algoritmo.getTipoCalculo()).thenReturn(
+            Arrays.asList(
+                TipoCalculoDto
+                    .builder()
+                    .id("011")
+                    .build(),
+                TipoCalculoDto
+                    .builder()
+                    .id("012")
+                    .build()));
+        when(algoritmo.getTipoComision()).thenReturn(
+            Arrays.asList(
+                TipoComisionDto
+                    .builder()
+                    .id("001")
+                    .build(),
+                TipoComisionDto
+                    .builder()
+                    .id("002")
+                    .build(),
+                TipoComisionDto
+                    .builder()
+                    .id("003")
+                    .build()));
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -142,7 +198,7 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCust
         tareaCalculoAlgoritmoPorVentaV1RepositoryCustom.calcular(algoritmo, tarea, personas);
 
         //Parámetros de la consulta: activo, idTipoGrupoDato, tipoDatoLocalizacionVentaSeccion, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod,
-        //comisionable, calcula
+        //comisionable, calcula, tipocomision, tipocalculo
         verify(namedParameterJdbcTemplate).batchUpdate(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_CALCULAR, sqlCaptor.getValue());
         MapSqlParameterSource[] values = paramsCaptor.getValue();
@@ -150,31 +206,37 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCust
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(9, value.getValues().size());
+            assertEquals(11, value.getValues().size());
             // activo
-            Assert.assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
+            assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
             // idTipoGrupoDato
-            Assert.assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
             assertEquals(TipoGrupoDatoEnum.VENTA_LOCALIZACION_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
             // tipoDatoLocalizacionVentaSeccion
-            Assert.assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
+            assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
             assertEquals(TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO.getId(), value.getValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
             // idAlgoritmo
-            Assert.assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
+            assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
             // idTarea
-            Assert.assertTrue(value.hasValue(SQL_PARAM_ID_TAREA));
+            assertTrue(value.hasValue(SQL_PARAM_ID_TAREA));
             assertEquals(tarea.getId(), value.getValue(SQL_PARAM_ID_TAREA));
             // comisionable
-            Assert.assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
+            assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_COMISIONABLE));
             // calcula
-            Assert.assertTrue(value.hasValue(SQL_PARAM_CALCULA));
+            assertTrue(value.hasValue(SQL_PARAM_CALCULA));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
+            //tipocomision
+            assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
+            assertEquals(Arrays.asList("001", "002", "003"), value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
+            //tipocalculo
+            assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+            assertEquals(Arrays.asList("011", "012"), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
-            Assert.assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
-            Assert.assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
+            assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
+            assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
         }
 
         // cclIdPerson, stdOrHrPeriod - valores del parámetro
