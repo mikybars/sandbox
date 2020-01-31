@@ -111,6 +111,8 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1RepositoryCust
                     .build()));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
+        when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
+        when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -190,6 +192,8 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1RepositoryCust
                     .build()));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
+        when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
+        when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -240,7 +244,6 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1RepositoryCust
             //esDesplazamientoBase
             assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
             assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-            //esDesplazamientoBase
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));

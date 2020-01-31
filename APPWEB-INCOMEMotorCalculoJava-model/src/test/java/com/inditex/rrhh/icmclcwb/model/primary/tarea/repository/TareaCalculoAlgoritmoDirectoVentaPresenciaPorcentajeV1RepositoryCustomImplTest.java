@@ -111,6 +111,8 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1RepositoryCus
                     .builder()
                     .id("003")
                     .build()));
+        when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
+        when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -122,7 +124,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1RepositoryCus
         // Parámetros de la consulta: activo, tipoDatoLocalizacionVentaSeccion, excluido calculo
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        assertEquals(11, result.size());
+        assertEquals(13, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -157,6 +159,12 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1RepositoryCus
         //tipocalculo
         assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
         assertEquals(Arrays.asList("011", "012"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
+        //esDesplazamiento
+        assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
+        //esDesplazamientoBase
+        assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
 
     }
 
@@ -192,6 +200,8 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1RepositoryCus
                     .builder()
                     .id("003")
                     .build()));
+        when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
+        when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -212,7 +222,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1RepositoryCus
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(11, value.getValues().size());
+            assertEquals(13, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -237,6 +247,12 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeV1RepositoryCus
             //tipocalculo
             assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
             assertEquals(Arrays.asList("011", "012"), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+            //esDesplazamiento
+            assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO));
+            assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO));
+            //esDesplazamientoBase
+            assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+            assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
