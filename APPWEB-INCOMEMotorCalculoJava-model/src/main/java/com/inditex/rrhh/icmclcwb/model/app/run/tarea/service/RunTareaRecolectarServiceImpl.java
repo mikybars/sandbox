@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmbitoService;
@@ -26,8 +26,8 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarService.run.timer", metricGroupName = "RunTareaRecolectarServiceGroup", metricDescription = "RunTareaRecolectarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarService.run.counter", metricGroupName = "RunTareaRecolectarServiceGroup", metricDescription = "RunTareaRecolectarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         runTareaRecolectarAmbitoService.run(runTarea);

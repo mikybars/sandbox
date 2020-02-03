@@ -55,7 +55,6 @@ public class DirectoVentaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
         return tareaCalculoAlgoritmoDirectoVentaPorcentajeV1RepositoryCustom.getSqlCalcular(algoritmo);
-
     }
 
 }

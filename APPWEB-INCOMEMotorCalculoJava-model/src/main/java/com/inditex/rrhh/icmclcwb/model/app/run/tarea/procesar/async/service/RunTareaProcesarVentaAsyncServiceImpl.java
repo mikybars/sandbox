@@ -1,14 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 
-import java.util.concurrent.CompletableFuture;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVentaAsyncService {
@@ -97,6 +97,30 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     @Override
     public CompletableFuture<Void> updateActivoTrasladadasTotalizado(RunTareaDto runTarea) {
         tareaProcesarVentaService.updateActivoTrasladadasTotalizado(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaPersonasPorVenta(RunTareaDto tarea, TipoCalculoEnum tipoCalculoEnum) {
+        tareaProcesarVentaService.totalizarVentaPersonasPorVenta(tarea, tipoCalculoEnum);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionLocalizacion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionLocalizacion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaPersonaLocalizacion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaPersonaLocalizacion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

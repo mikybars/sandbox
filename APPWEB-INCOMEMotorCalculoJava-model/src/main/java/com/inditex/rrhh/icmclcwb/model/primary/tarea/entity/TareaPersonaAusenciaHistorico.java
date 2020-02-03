@@ -3,21 +3,25 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoAusencia;
+
 import lombok.Data;
 
 
-//@Entity
-//@Table(name = "TAREA_LOCALIZACION_VENTA")
+@Entity
+@Table(name = "TAREA_PERSONA_AUSENCIA_HISTORICO")
 @Data
 public class TareaPersonaAusenciaHistorico {
     
@@ -49,8 +53,13 @@ public class TareaPersonaAusenciaHistorico {
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
     
-    @NotBlank
-    @Column(name = "ICM_TP_ABSENCE", nullable = false, length = 48)
-    private String icmTpAbsence;
+    @NotNull
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
+    private String cclIdOrigen;
+    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_AUSENCIA")
+    private TipoAusencia tipoAusencia;
 
 }

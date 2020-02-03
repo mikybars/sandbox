@@ -35,7 +35,15 @@ public class TareaLocalizacionPersonaVenta {
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String cclIdCodOrigen;
-    
+
+    @NotBlank
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
+    private String cclIdCadena;
+
+    @NotBlank
+    @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
+    private String cclIdSeccion;
+
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
@@ -51,6 +59,10 @@ public class TareaLocalizacionPersonaVenta {
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
+
+    @NotNull
+    @Column(name = "ES_ACTIVO", nullable = false)
+    private Boolean activo;
 
     @NotNull
     @Column(name = "FECHA", nullable = false)

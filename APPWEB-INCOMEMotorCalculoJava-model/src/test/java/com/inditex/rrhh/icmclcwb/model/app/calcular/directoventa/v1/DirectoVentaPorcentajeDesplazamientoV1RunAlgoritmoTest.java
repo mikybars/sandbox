@@ -50,10 +50,7 @@ public class DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmoTest {
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
-
-        String result = directoVentaPorcentajeDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto());
-
-        assertEquals(SQL_CALCULAR, result);
+        assertEquals(SQL_CALCULAR, directoVentaPorcentajeDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
     }
     
     @Test

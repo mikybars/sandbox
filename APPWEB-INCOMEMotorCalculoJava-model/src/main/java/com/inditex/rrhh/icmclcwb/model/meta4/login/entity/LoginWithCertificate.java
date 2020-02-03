@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -28,16 +29,16 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="ai_sCertificate" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="ai_sSessionContex" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ai_sCertificate" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="ai_sSessionContex" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -48,9 +49,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "aiSSessionContex"
 })
 @XmlRootElement(name = "loginWithCertificate")
-public class LoginWithCertificate implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(name = "ai_sCertificate", required = true)
     protected String aiSCertificate;
     @XmlElement(name = "ai_sSessionContex", required = true)

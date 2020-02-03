@@ -5,11 +5,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -17,10 +23,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
@@ -167,6 +175,24 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
     
     @Override
+    public List<AusenciasResultItemDto> asAusenciasResultItemDtos(List<IcmListaausenciasRecord> src){
+        List<AusenciasResultItemDto> list = new ArrayList<>();
+        for (IcmListaausenciasRecord item : src) {
+            AusenciasResultItemDto mappedEntity = delegate.asAusenciasResultItemDto(item);
+            if (StringUtils.isNotEmpty(item.getFechainicio())) {
+                mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechafin())) {
+                mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            list.add(mappedEntity);
+        }
+        return list;
+    }
+    
+    @Override
     public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(List<IcmListaempleadoRecord> src){
         List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
         for (IcmListaempleadoRecord item : src) {
@@ -193,6 +219,10 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             }
             if (StringUtils.isNotEmpty(item.getFechafinloc())) {
                 presencia.setFechaFinLoc(LocalDateTime.parse(item.getFechafinloc(),
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+            }
+            if (StringUtils.isNotEmpty(item.getFechaantiguedad())) {
+                presencia.setFechaAntiguedad(LocalDateTime.parse(item.getFechaantiguedad(),
                         DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             list.add(presencia);
@@ -269,6 +299,27 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             src.getIcmResultadoguardadoRecordSet()
                 .stream()
                 .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
+        return result;
+    }
+
+    @Override
+    public IcmParamconfBlock asIcmParamconfBlock(ConfiguracionesRequestDto src) {
+        IcmParamconfBlock result = delegate.asIcmParamconfBlock(src);
+        if (CollectionUtils.isEmpty(result.getIcmParamconfRecordSet())) {
+            result.getIcmParamconfRecordSet().add(new IcmParamconfRecord());
+        }
+        return result;
+    }
+
+    @Override
+    public ConfiguracionesResponseDto asConfiguracionesResponseDto(GetconfiguracionOutput src, String idOrigen) {
+        ConfiguracionesResponseDto result = delegate.asConfiguracionesResponseDto(src, idOrigen);
+        if (src.getIcmListaconf() != null && CollectionUtils.isNotEmpty(src.getIcmListaconf().getIcmListaconfRecordSet())) {
+            ArrayList<ConfiguracionItemDto> items = new ArrayList<>();
+            src.getIcmListaconf().getIcmListaconfRecordSet().forEach(x ->
+                items.add(delegate.asConfiguracionItemDto(x, idOrigen)));
+            result.setItems(items);
+        }
         return result;
     }
 }

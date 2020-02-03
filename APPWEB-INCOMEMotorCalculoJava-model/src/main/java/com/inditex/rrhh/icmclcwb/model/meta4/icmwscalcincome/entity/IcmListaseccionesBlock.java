@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,17 +30,17 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="Icm_ListaseccionesBlock">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="fecha" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idempleado" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Icm_ListaseccionesRecordSet" type="{http://schemas.meta4.com/}Icm_ListaseccionesRecord" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Icm_ListaseccionesBlock"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="fecha" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idempleado" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="Icm_ListaseccionesRecordSet" type="{http://schemas.meta4.com/}Icm_ListaseccionesRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -50,9 +51,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idempleado",
     "icmListaseccionesRecordSet"
 })
-public class IcmListaseccionesBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(required = true, nillable = true)
     protected String fecha;
     @XmlElement(required = true, nillable = true)

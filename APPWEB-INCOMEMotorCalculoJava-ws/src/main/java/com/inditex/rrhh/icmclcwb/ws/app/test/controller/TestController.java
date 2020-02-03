@@ -92,4 +92,9 @@ public class TestController {
         return testService.sqlFormatter(sql);
     }
 
+    //TODO [javierev] Borrar este servicio!
+    @PostMapping(path = "/proceso/buscarPorVenta")
+    @ApiOperation("Busca vendedores que tengan importes de ventas o devoluciones en PTR")
+    public void buscarPorVenta(@RequestBody @NotNull @Positive Integer idPais) { testService.buscarPorVenta(idPais); }
+
 }

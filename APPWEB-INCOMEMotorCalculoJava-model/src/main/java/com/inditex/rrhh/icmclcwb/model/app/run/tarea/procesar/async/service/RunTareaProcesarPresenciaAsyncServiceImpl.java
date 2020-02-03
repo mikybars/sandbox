@@ -94,4 +94,15 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> presenciasHorasFijas(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.presenciasHorasFijas(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> presenciasHorasFijasDesplazamientos(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.presenciasHorasFijasDesplazamientos(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
@@ -10,7 +11,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.Li
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraPoliticaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoUnidadTiempo;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -114,13 +118,23 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
         if (TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4().equals(condiciones.getIdTipoPolitica())) {
             result.setImporte(new BigDecimal(condiciones.getImporteMin()));
         }
-        result.setIdMotivoBaja(condiciones.getIdMotivoBaja());
-        result.setNumMesesCalcMedia(condiciones.getNumMesesCalcMedia());
-        result.setNumHoras(condiciones.getNumHoras());
-        result.setIcmIdUnidadTiempo(valores != null && valores.getIdUnidadTiempo() != null ? valores.getIdUnidadTiempo() : "0");
-        result.setNumeroUnidades(valores != null && valores.getNumeroUnidades() != null ? valores.getNumeroUnidades() : "0");
-        result.setValor(valores != null && valores.getValor() != null ? new BigDecimal(valores.getValor()) : new BigDecimal(0));
-        result.setTramo(valores != null && valores.getTramo() != null ? valores.getTramo() : "0");
+        if (!TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4().equals(condiciones.getIdTipoPolitica()) 
+                && !TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(condiciones.getIdTipoPolitica())) {
+            result.setImporte(new BigDecimal(0));
+        }
+        result.setIdMotivoBaja(StringUtils.isNotEmpty(condiciones.getIdMotivoBaja()) ? condiciones.getIdMotivoBaja() : "0");
+        result.setNumMesesCalcMedia(StringUtils.isNotEmpty(condiciones.getNumMesesCalcMedia()) ? condiciones.getNumMesesCalcMedia() : "0");
+        result.setNumHoras(StringUtils.isNotEmpty(condiciones.getNumHoras()) ? condiciones.getNumHoras() : "0");
+        result.setTipoUnidadTiempo(new TipoUnidadTiempo());
+        if (valores != null && StringUtils.isNotEmpty(valores.getIdUnidadTiempo())) {
+            result.getTipoUnidadTiempo()
+                    .setId(TipoUnidadTiempoEnum.fromIdMeta4(valores.getIdUnidadTiempo()).getId());
+        }else {
+            result.getTipoUnidadTiempo().setId(TipoUnidadTiempoEnum.NINGUNO.getId());
+        }
+        result.setNumeroUnidades(valores != null && StringUtils.isNotEmpty(valores.getNumeroUnidades()) ? valores.getNumeroUnidades() : "0");
+        result.setValor(valores != null && StringUtils.isNotEmpty(valores.getValor()) ? new BigDecimal(valores.getValor()) : new BigDecimal(0));
+        result.setTramo(valores != null && StringUtils.isNotEmpty(valores.getTramo()) ? Integer.valueOf(valores.getTramo()) : 0);
         return result;
     }
 }

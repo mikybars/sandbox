@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -28,36 +29,38 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="ICM_WS_TOOLS" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/>
- *         &lt;element name="ICM_LISTACADENAS" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/>
- *         &lt;element name="ICM_LISTATIENDAS" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/>
- *         &lt;element name="ICM_LISTAEMPLEADO" type="{http://schemas.meta4.com/}Icm_ListaempleadoBlock"/>
- *         &lt;element name="ICM_LISTAEMPRESAS" type="{http://schemas.meta4.com/}Icm_ListaempresasBlock"/>
- *         &lt;element name="ICM_LISTAORIGENES" type="{http://schemas.meta4.com/}Icm_ListaorigenesBlock"/>
- *         &lt;element name="ICM_LISTAPERIODOS" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/>
- *         &lt;element name="ICM_LISTAAUSENCIAS" type="{http://schemas.meta4.com/}Icm_ListaausenciasBlock"/>
- *         &lt;element name="ICM_LISTAEMPLEADOS" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/>
- *         &lt;element name="ICM_LISTAPOLITICAS" type="{http://schemas.meta4.com/}Icm_ListapoliticasBlock"/>
- *         &lt;element name="ICM_PARAMCALORIGEN" type="{http://schemas.meta4.com/}Icm_ParamcalorigenBlock"/>
- *         &lt;element name="ICM_LISTAESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ListaestructuraBlock"/>
- *         &lt;element name="ICM_PARAMCALPERIODO" type="{http://schemas.meta4.com/}Icm_ParamcalperiodoBlock"/>
- *         &lt;element name="ICM_PARAMCALPROCESO" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoBlock"/>
- *         &lt;element name="ICM_PARAMCALEMPLEADO" type="{http://schemas.meta4.com/}Icm_ParamcalempleadoBlock"/>
- *         &lt;element name="ICM_PARAMCALSOCIEDAD" type="{http://schemas.meta4.com/}Icm_ParamcalsociedadBlock"/>
- *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/>
- *         &lt;element name="ICM_RESULTADOGUARDADO" type="{http://schemas.meta4.com/}Icm_ResultadoguardadoBlock"/>
- *         &lt;element name="ICM_LISTACONFIGURACION" type="{http://schemas.meta4.com/}Icm_ListaconfiguracionBlock"/>
- *         &lt;element name="ICM_PARAMCALESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ParamcalestructuraBlock"/>
- *         &lt;element name="ICM_WS_CALC_OPERACIONES" type="{http://schemas.meta4.com/}Icm_Ws_Calc_OperacionesBlock"/>
- *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ICM_WS_TOOLS" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/&gt;
+ *         &lt;element name="ICM_LISTACONF" type="{http://schemas.meta4.com/}Icm_ListaconfBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCONF" type="{http://schemas.meta4.com/}Icm_ParamconfBlock"/&gt;
+ *         &lt;element name="ICM_LISTACADENAS" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/&gt;
+ *         &lt;element name="ICM_LISTATIENDAS" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/&gt;
+ *         &lt;element name="ICM_LISTAEMPLEADO" type="{http://schemas.meta4.com/}Icm_ListaempleadoBlock"/&gt;
+ *         &lt;element name="ICM_LISTAEMPRESAS" type="{http://schemas.meta4.com/}Icm_ListaempresasBlock"/&gt;
+ *         &lt;element name="ICM_LISTAORIGENES" type="{http://schemas.meta4.com/}Icm_ListaorigenesBlock"/&gt;
+ *         &lt;element name="ICM_LISTAPERIODOS" type="{http://schemas.meta4.com/}Icm_ListaperiodosBlock"/&gt;
+ *         &lt;element name="ICM_LISTAAUSENCIAS" type="{http://schemas.meta4.com/}Icm_ListaausenciasBlock"/&gt;
+ *         &lt;element name="ICM_LISTAEMPLEADOS" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/&gt;
+ *         &lt;element name="ICM_LISTAPOLITICAS" type="{http://schemas.meta4.com/}Icm_ListapoliticasBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALORIGEN" type="{http://schemas.meta4.com/}Icm_ParamcalorigenBlock"/&gt;
+ *         &lt;element name="ICM_LISTAESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ListaestructuraBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALPERIODO" type="{http://schemas.meta4.com/}Icm_ParamcalperiodoBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALPROCESO" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALEMPLEADO" type="{http://schemas.meta4.com/}Icm_ParamcalempleadoBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALSOCIEDAD" type="{http://schemas.meta4.com/}Icm_ParamcalsociedadBlock"/&gt;
+ *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/&gt;
+ *         &lt;element name="ICM_RESULTADOGUARDADO" type="{http://schemas.meta4.com/}Icm_ResultadoguardadoBlock"/&gt;
+ *         &lt;element name="ICM_LISTACONFIGURACION" type="{http://schemas.meta4.com/}Icm_ListaconfiguracionBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ParamcalestructuraBlock"/&gt;
+ *         &lt;element name="ICM_WS_CALC_OPERACIONES" type="{http://schemas.meta4.com/}Icm_Ws_Calc_OperacionesBlock"/&gt;
+ *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -65,6 +68,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "icmwstools",
+    "icmlistaconf",
+    "icmparamconf",
     "icmlistacadenas",
     "icmlistatiendas",
     "icmlistaempleado",
@@ -88,11 +93,16 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmparametrospaginacion"
 })
 @XmlRootElement(name = "M4LoadObject")
-public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(name = "ICM_WS_TOOLS", required = true)
     protected IcmWsToolsBlock icmwstools;
+    @XmlElement(name = "ICM_LISTACONF", required = true)
+    protected IcmListaconfBlock icmlistaconf;
+    @XmlElement(name = "ICM_PARAMCONF", required = true)
+    protected IcmParamconfBlock icmparamconf;
     @XmlElement(name = "ICM_LISTACADENAS", required = true)
     protected IcmListacadenasBlock icmlistacadenas;
     @XmlElement(name = "ICM_LISTATIENDAS", required = true)
@@ -158,6 +168,54 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
      */
     public void setICMWSTOOLS(IcmWsToolsBlock value) {
         this.icmwstools = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistaconf.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmListaconfBlock }
+     *     
+     */
+    public IcmListaconfBlock getICMLISTACONF() {
+        return icmlistaconf;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaconf.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmListaconfBlock }
+     *     
+     */
+    public void setICMLISTACONF(IcmListaconfBlock value) {
+        this.icmlistaconf = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmparamconf.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParamconfBlock }
+     *     
+     */
+    public IcmParamconfBlock getICMPARAMCONF() {
+        return icmparamconf;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamconf.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParamconfBlock }
+     *     
+     */
+    public void setICMPARAMCONF(IcmParamconfBlock value) {
+        this.icmparamconf = value;
     }
 
     /**
@@ -682,6 +740,24 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             }
         }
         {
+            IcmListaconfBlock lhsICMLISTACONF;
+            lhsICMLISTACONF = this.getICMLISTACONF();
+            IcmListaconfBlock rhsICMLISTACONF;
+            rhsICMLISTACONF = that.getICMLISTACONF();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaconf", lhsICMLISTACONF), LocatorUtils.property(thatLocator, "icmlistaconf", rhsICMLISTACONF), lhsICMLISTACONF, rhsICMLISTACONF, (this.icmlistaconf!= null), (that.icmlistaconf!= null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamconfBlock lhsICMPARAMCONF;
+            lhsICMPARAMCONF = this.getICMPARAMCONF();
+            IcmParamconfBlock rhsICMPARAMCONF;
+            rhsICMPARAMCONF = that.getICMPARAMCONF();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamconf", lhsICMPARAMCONF), LocatorUtils.property(thatLocator, "icmparamconf", rhsICMPARAMCONF), lhsICMPARAMCONF, rhsICMPARAMCONF, (this.icmparamconf!= null), (that.icmparamconf!= null))) {
+                return false;
+            }
+        }
+        {
             IcmListacadenasBlock lhsICMLISTACADENAS;
             lhsICMLISTACADENAS = this.getICMLISTACADENAS();
             IcmListacadenasBlock rhsICMLISTACADENAS;
@@ -899,6 +975,16 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             strategy.appendField(locator, this, "icmwstools", buffer, theICMWSTOOLS, (this.icmwstools!= null));
         }
         {
+            IcmListaconfBlock theICMLISTACONF;
+            theICMLISTACONF = this.getICMLISTACONF();
+            strategy.appendField(locator, this, "icmlistaconf", buffer, theICMLISTACONF, (this.icmlistaconf!= null));
+        }
+        {
+            IcmParamconfBlock theICMPARAMCONF;
+            theICMPARAMCONF = this.getICMPARAMCONF();
+            strategy.appendField(locator, this, "icmparamconf", buffer, theICMPARAMCONF, (this.icmparamconf!= null));
+        }
+        {
             IcmListacadenasBlock theICMLISTACADENAS;
             theICMLISTACADENAS = this.getICMLISTACADENAS();
             strategy.appendField(locator, this, "icmlistacadenas", buffer, theICMLISTACADENAS, (this.icmlistacadenas!= null));
@@ -1012,6 +1098,16 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
             IcmWsToolsBlock theICMWSTOOLS;
             theICMWSTOOLS = this.getICMWSTOOLS();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmwstools", theICMWSTOOLS), currentHashCode, theICMWSTOOLS, (this.icmwstools!= null));
+        }
+        {
+            IcmListaconfBlock theICMLISTACONF;
+            theICMLISTACONF = this.getICMLISTACONF();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaconf", theICMLISTACONF), currentHashCode, theICMLISTACONF, (this.icmlistaconf!= null));
+        }
+        {
+            IcmParamconfBlock theICMPARAMCONF;
+            theICMPARAMCONF = this.getICMPARAMCONF();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamconf", theICMPARAMCONF), currentHashCode, theICMPARAMCONF, (this.icmparamconf!= null));
         }
         {
             IcmListacadenasBlock theICMLISTACADENAS;
@@ -1149,6 +1245,32 @@ public class M4LoadObject implements Cloneable, CopyTo2, Equals2, HashCode2, ToS
                 } else {
                     if (icmwstoolsShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmwstools = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistaconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaconf!= null));
+                if (icmlistaconfShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaconfBlock sourceICMLISTACONF;
+                    sourceICMLISTACONF = this.getICMLISTACONF();
+                    IcmListaconfBlock copyICMLISTACONF = ((IcmListaconfBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaconf", sourceICMLISTACONF), sourceICMLISTACONF, (this.icmlistaconf!= null)));
+                    copy.setICMLISTACONF(copyICMLISTACONF);
+                } else {
+                    if (icmlistaconfShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaconf = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamconf!= null));
+                if (icmparamconfShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamconfBlock sourceICMPARAMCONF;
+                    sourceICMPARAMCONF = this.getICMPARAMCONF();
+                    IcmParamconfBlock copyICMPARAMCONF = ((IcmParamconfBlock) strategy.copy(LocatorUtils.property(locator, "icmparamconf", sourceICMPARAMCONF), sourceICMPARAMCONF, (this.icmparamconf!= null)));
+                    copy.setICMPARAMCONF(copyICMPARAMCONF);
+                } else {
+                    if (icmparamconfShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamconf = null;
                     }
                 }
             }

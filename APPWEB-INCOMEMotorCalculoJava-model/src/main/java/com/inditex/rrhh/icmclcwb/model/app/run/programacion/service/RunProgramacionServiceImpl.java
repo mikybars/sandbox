@@ -12,12 +12,11 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
@@ -55,22 +54,22 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
 
     @Autowired
     private SenderProgramacion senderProgramacion;
-    
+
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
-    
+
     @Autowired
     @Qualifier("meta4Properties")
     private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunProgramacionService.run.timer", metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunProgramacionService.run.counter", metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.counter")
     @Override
     public RunProgramacionDto run(@NotNull @Valid final Long id) {
         ProgramacionDto programacion = programacionService.findPendienteById(id);
         RunProgramacionDto runProgramacion = RunProgramacionDto.builder().programacion(programacion)
-        .runProgramacionPeriodo(new ArrayList<>()).build();
+                .runProgramacionPeriodo(new ArrayList<>()).build();
         programacionService.updateEjecucion(programacion);
         programacion.getAmbito().stream().forEach(programacionAmbito -> {
             PeriodosRequestDto request = new PeriodosRequestDto();
@@ -79,33 +78,32 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
             request.getData().getItem()
                     .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdOrgenization())
-                            .abierto(Meta4Constants.TRUE)
-                            .activo(Meta4Constants.TRUE)
-                            .vigente(Meta4Constants.TRUE).build());
+                            .abierto(Meta4Constants.TRUE).activo(Meta4Constants.TRUE).vigente(Meta4Constants.TRUE)
+                            .build());
             List<PeriodoDto> periodos = periodoMapper
                     .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
             if (CollectionUtils.isNotEmpty(periodos)) {
-                periodos.stream()
-                        .forEach(periodo -> runProgramacion.getRunProgramacionPeriodo()
-                                .add(RunProgramacionPeriodoDto.builder().periodo(periodo)
-                                        .programacionAmbito(programacionAmbito)
-                                        .trabajo(trabajoService.create(
-                                                trabajoService.merge(programacion, programacionAmbito, periodo)))
-                                        .build()));
+                periodos.stream().forEach(periodo -> runProgramacion.getRunProgramacionPeriodo()
+                        .add(RunProgramacionPeriodoDto.builder().periodo(periodo).programacionAmbito(programacionAmbito)
+                                .trabajo(trabajoService
+                                        .create(trabajoService.merge(programacion, programacionAmbito, periodo)))
+                                .build()));
             } else {
-                log.warn("No existen periodos activos para la organización {}",
-                        programacionAmbito.getIdOrgenization());
+                log.warn("No existen periodos activos para la organización {}", programacionAmbito.getIdOrgenization());
             }
         });
         return runProgramacion;
     }
-    
+
     @Transactional
     @Override
     public List<RunProgramacionDto> create() {
         List<RunProgramacionDto> result = new ArrayList<>();
         programacionService.findPendiente().stream().forEach(programacion -> {
             senderProgramacion.send(IdProgramacionDto.builder().id(programacion.getId()).build());
+            RunProgramacionDto runProgramacion = RunProgramacionDto.builder().programacion(programacion)
+                    .runProgramacionPeriodo(new ArrayList<>()).build();
+            result.add(runProgramacion);
         });
         return result;
     }

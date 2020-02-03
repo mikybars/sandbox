@@ -38,17 +38,17 @@ public class TareaCalculo {
     private Algoritmo algoritmo;
 
     @NotNull
-    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, precision = 23, scale = 8)
-    private BigDecimal importeSinImpuestos;
+    @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)
+    private BigDecimal importe;
 
-    @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, precision = 23, scale = 8)
-    private BigDecimal importeConImpuestos;
+    @NotBlank
+    @Column(name = "STD_ID_WORK_LOCAT_PAGO", nullable = false, length = 48)
+    private String stdIdWorkLocatPago;
 
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
     private String stdIdWorkLocat;
-
+    
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
@@ -92,5 +92,9 @@ public class TareaCalculo {
     @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    
+    @NotNull
+    @Column(name = "ES_MANUAL", nullable = false)
+    private Boolean manual;
 
 }

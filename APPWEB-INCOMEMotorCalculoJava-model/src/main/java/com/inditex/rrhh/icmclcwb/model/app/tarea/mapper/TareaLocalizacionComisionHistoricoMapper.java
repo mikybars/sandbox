@@ -43,7 +43,8 @@ public abstract class TareaLocalizacionComisionHistoricoMapper {
             GenericTiendaResultItemDto src, TareaDto srcTarea);
 
     public List<TareaLocalizacionComisionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(
-            List<GenericTiendaResultItemDto> src, TareaDto srcTarea){
+            List<GenericTiendaResultItemDto> src, TareaDto srcTarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    };
+    }
+
 }

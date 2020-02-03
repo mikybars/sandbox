@@ -29,6 +29,12 @@
     </memory>
     <expiration max-idle="600000" />
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_cadena_by_tarea_and_id_persona" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="600000" />
+</replicated-cache>
 <replicated-cache name="itx.icmlcwb.id_producto_by_id_tarea_and_id_origen" mode="SYNC" statistics="true">
     <memory>
         <object size="1000" />

@@ -9,13 +9,24 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEcommerceService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEmpleadoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEcommerceAsyncService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl;
 import org.apache.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
@@ -29,7 +40,6 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
-import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
@@ -64,6 +74,17 @@ public class TestServiceImpl implements TestService {
     private static final String OK = "OK";
     private static final String KO = "KO";
 
+    private static final Map<Integer, List<Integer>> EMPRESAS = new HashMap<Integer, List<Integer>>() {
+        {
+            put(5, Arrays.asList(134, 151, 154, 162, 170, 171, 193, 194, 202, 319, 328, 358, 472, 54)); //Italia
+            put(6, Arrays.asList(146, 153, 159, 205, 431, 440, 46)); //UK
+            put(7, Arrays.asList(191 /*,139, 160, 161, 174, 339, 528*/)); //Irlanda
+            put(404, Arrays.asList(362, 395, 97)); //Canada
+            put(400, Arrays.asList(122, 175, 18, 327, 380, 383, 405, 415, 522)); //EE.UU.
+            put(11, Arrays.asList()); //España
+        }
+    };
+
     @Autowired
     private Logger log;
 
@@ -80,7 +101,10 @@ public class TestServiceImpl implements TestService {
     private ProgramacionService programacionService;
 
     @Autowired
-    private RunProgramacionService runProgramacionService;
+    private RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
+
+    @Autowired
+    private RunTareaAmbitoRecolectarPtrVentaEmpleadoService runTareaAmbitoRecolectarPtrVentaEmpleadoService;
 
     @Autowired
     @Qualifier("ptrVentaClient")
@@ -344,4 +368,25 @@ public class TestServiceImpl implements TestService {
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
     }
 
+    @Override
+    public void buscarPorVenta(@NotNull @Positive Integer idPais) {
+
+        if (!EMPRESAS.containsKey(idPais)) {
+            throw new UnsupportedOperationException("Pais no soportado, usar: [5,6,7,11,400,404]");
+        }
+
+        EMPRESAS.get(idPais).forEach(idEmpresa -> {
+            try {
+                runTareaAmbitoRecolectarPtrVentaEmpleadoService.ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(idPais, idEmpresa);
+            } catch (Exception e) {
+                log.error("Error al obtener ventas fisicas en pais {}, empresa {}", idPais, idEmpresa);
+            }
+            try {
+                runTareaAmbitoRecolectarPtrVentaEcommerceService.ventaOnlineIpodLocalizacionPersonaBusquedaPorVenta(idPais, idEmpresa);
+            } catch (Exception e) {
+                log.error("Error al obtener ventas ipod en pais {}, empresa {}", idPais, idEmpresa);
+            }
+        });
+
+    }
 }

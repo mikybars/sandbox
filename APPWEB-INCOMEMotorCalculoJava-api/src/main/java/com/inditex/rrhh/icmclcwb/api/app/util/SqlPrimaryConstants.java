@@ -27,6 +27,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_DESPLAZAMIENTO = "desplazamiento";
 
+    public static final String SQL_PARAM_ES_DESPLAZAMIENTO = "esDesplazamiento";
+
+    public static final String SQL_PARAM_ES_DESPLAZAMIENTO_BASE = "esDesplazamientoBase";
+
     public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA = "tipoDatoLocalizacionPersonaPresencia";
 
     public static final String SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA = "tipoDatoPersonaPresencia";
@@ -73,6 +77,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
     
+    public static final String SQL_PARAM_ID_TIPO_POLITICA_AJUSTE = "idTipoPoliticaAjuste";
+    
+    public static final String SQL_PARAM_ID_TIPO_AUSENCIA = "idTipoAusencia";
+    
     public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS = "idTipoUnidadTiempoAnos";
     
     public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES = "idTipoUnidadTiempoMeses";
@@ -110,6 +118,10 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION = "idTipoDatoVentaEntregaTiendaLocalizacion";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION = "idTipoDatoVentaEntregaTiendaLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA = "idTipoDatoVentaLocalizacionPersonasPorVenta";
+
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA = "idTipoDatoVentaLocalizacionPersona";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION = "idTipoImporteVentaFisicaAgrupacion";
 
@@ -154,9 +166,16 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
 
     public static final String SQL_PARAM_IDS_TIPOS_CALCULO = "tiposCalculo";
+
+    public static final String SQL_PARAM_IDS_TIPOS_COMISION = "tiposComision";
+
+    public static final String SQL_PARAM_ID_TIPO_CALCULO = "idTipoCalculo";
+    
+    public static final String SQL_PARAM_ID_TIPO_COMISION = "idTipoComision";
     
     public static final String SQL_PARAM_NOMBRE_USUARIO = "nombreUsuario";
 
+    public static final String SQL_PARAM_PESO = "peso";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
@@ -219,5 +238,10 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ID_CADENA = "CCL_ID_CADENA";
 
     public static final String SQL_RESULT_ID_TAREA = "ID_TAREA";
+
+    public static final String SQL_RESULT_PESO = "PESO";
+    
+    public static final String SQL_RESULT_ID_ALGORITMO_AJUSTE = "ID_ALGORITMO_AJUSTE";
+
 
 }

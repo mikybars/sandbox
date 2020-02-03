@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.async.service.RunTareaConsolidarPeriodoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoPersonaService;
@@ -27,8 +27,8 @@ public class RunTareaConsolidarByAmbitoPersonaServiceImpl implements RunTareaCon
     private RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaConsolidarByAmbitoPersonaService.run.timer", metricGroupName = "RunTareaConsolidarByAmbitoPersonaServiceGroup", metricDescription = "RunTareaConsolidarByAmbitoPersonaService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaConsolidarByAmbitoPersonaService.run.counter", metricGroupName = "RunTareaConsolidarByAmbitoPersonaServiceGroup", metricDescription = "RunTareaConsolidarByAmbitoPersonaService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -43,7 +43,7 @@ public class RunTareaConsolidarByAmbitoPersonaServiceImpl implements RunTareaCon
             CompletableFuture<Void> cfPeriodoLocalizacion = runTareaConsolidarPeriodoAsyncService
                     .mergePeriodoLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfPeriodoLocalizacion, cf);
-            
+
             CompletableFuture<Void> cfPeriodoLocalizacionPersona = runTareaConsolidarPeriodoAsyncService
                     .mergePeriodoLocalizacionPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodoLocalizacionPersona, cf);
