@@ -4177,53 +4177,6 @@ WHERE 1 = 0
   ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoPorVentaTopesV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopes
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-
-  <entry key="TareaCalculoAlgoritmoPorVentaAjusteManualV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManual
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
   <entry key="TareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoV1Repository.calcular">
     <![CDATA[
   --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentajeDesplazamiento
@@ -4250,29 +4203,6 @@ WHERE 1 = 0
   <entry key="TareaCalculoAlgoritmoPorVentaPorcentajeDiariaDesplazamientoV1Repository.calcular">
     <![CDATA[
   --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentajeDiariaDesplazamiento
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaTopesDesplazamientoV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamiento
 SELECT * FROM
   (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
 	(VALUES (1)) t1 (ID_TAREA),
@@ -4338,145 +4268,6 @@ SELECT * FROM
 WHERE 1 = 0
   ]]>
   </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamiento
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaTopesDesplazamientoBaseV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaAjusteManualDesplazamientoBaseV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaSimplificadoAjusteManualDesplazamientoBaseV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentajeDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaSimplificadoAjusteManualDesplazamientoV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamiento
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaSimplificadoAjusteManualV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
 
   <entry key="TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
@@ -5119,145 +4910,6 @@ WHERE 1 = 0
     ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoPorVentaSimplificadoTopesDesplazamientoBaseV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaSimplificadoTopesDesplazamientoV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaManualDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaSimplificadoTopesV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaIndividualAjusteManualDesplazamientoBaseV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentajeDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaIndividualAjusteManualDesplazamientoV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamiento
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaIndividualAjusteManualV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-
   <entry key="TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
   --TODO [COMUN] Definir la consulta del cálculo PorVentaPorcentajeDesplazamientoBase
@@ -5283,7 +4935,7 @@ WHERE 1 = 0
 
   <entry key="TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamiento
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaIndividualPorcentajeDesplazamiento
 SELECT * FROM
   (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
 	(VALUES (1)) t1 (ID_TAREA),
@@ -5306,7 +4958,7 @@ WHERE 1 = 0
 
   <entry key="TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamientoBase
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaIndividualPorcentajeDiariaDespl
 SELECT * FROM
   (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
 	(VALUES (1)) t1 (ID_TAREA),
@@ -5352,7 +5004,7 @@ WHERE 1 = 0
 
   <entry key="TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamientoBase
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaIndividualPorcentajeDiariaDesplazamientoBase
 SELECT * FROM
   (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
 	(VALUES (1)) t1 (ID_TAREA),
@@ -5375,76 +5027,7 @@ WHERE 1 = 0
 
   <entry key="TareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1Repository.calcular">
     <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamiento
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaIndividualTopesDesplazamientoBaseV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaTopesDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaIndividualTopesDesplazamientoV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaManualDesplazamientoBase
-SELECT * FROM
-  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
-	(VALUES (1)) t1 (ID_TAREA),
-	(VALUES ('2019-01-01')) t2 (FECHA),
-	(VALUES (7001)) T3 (ID_ALGORITMO),
-	(VALUES (0)) t1 (IMPORTE),
-	(VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
-  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
-	(VALUES (1)) t1 (CCL_ID_PERSON),
-	(VALUES (1001)) t1 (STD_OR_HR_PERIOD),
-	(VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
-	(VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
-  (VALUES (0)) t1 (ES_MANUAL)
-WHERE 1 = 0
-  ]]>
-  </entry>
-
-  <entry key="TareaCalculoAlgoritmoPorVentaIndividualTopesV1Repository.calcular">
-    <![CDATA[
-  --TODO [COMUN] Definir la consulta del cálculo PorVentaAjusteManualDesplazamientoBase
+  --TODO [COMUN] Definir la consulta del cálculo PorVentaIndividualPorcentaje
 SELECT * FROM
   (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
 	(VALUES (1)) t1 (ID_TAREA),
