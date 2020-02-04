@@ -43,6 +43,9 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta']}")
     private String sqlTotalizarVentaPersonasPorVenta;
 
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores']}")
+    private String sqlCalcularImporteComisionVendedores;
+
     @Autowired
     private Logger log;
 
@@ -152,10 +155,30 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         }
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
+        // si el tipo de calculo proporcionado no es válido, no se ejecuta la consulta
         if (nuevoTipoDato != null) {
             parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
             namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonasPorVenta, parameters);
         }
 
+    }
+
+    @Override
+    public void calcularImporteComisionVendedores(TareaDto tarea) {
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        //parametros
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_COMISION, AppConstants.PORCENTAJE_COMISION);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION, TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION, TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION, TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA, TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_EMPLEADOS_POR_VENTA.getId());
+        //nuevos valores
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.IMPORTE_COMISION_VENDEDORES_POR_VENTA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        namedParameterJdbcTemplate.update(sqlCalcularImporteComisionVendedores, parameters);
     }
 }

@@ -146,4 +146,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea) {
         tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion(tarea.getTarea());
     }
+
+    @Override
+    public void calcularImporteComisionVendedores(@Valid RunTareaDto tarea) {
+        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion(tarea.getTarea());
+    }
 }

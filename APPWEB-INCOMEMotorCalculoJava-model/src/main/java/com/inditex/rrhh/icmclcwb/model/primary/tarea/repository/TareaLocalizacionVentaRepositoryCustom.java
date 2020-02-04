@@ -19,4 +19,6 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
     void totalizarVentaPersonasPorVenta(TareaDto tarea, TipoCalculoEnum tipoCalculo);
 
+    void calcularImporteComisionVendedores(TareaDto tarea);
+
 }

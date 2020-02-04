@@ -44,4 +44,6 @@ public interface RunTareaProcesarVentaService {
 
     void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea);
 
+    void calcularImporteComisionVendedores(@Valid RunTareaDto tarea);
+
 }

@@ -133,6 +133,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE = "idTipoPresenciaAgrupacion";
 
+    public static final String SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA = "idTipoDatoPresenciaLocalizacionPersonasPorVenta";
+
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
@@ -178,6 +180,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_NOMBRE_USUARIO = "nombreUsuario";
 
     public static final String SQL_PARAM_PESO = "peso";
+
+    public static final String SQL_PARAM_PORCENTAJE_COMISION = "porcentajeComision";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 

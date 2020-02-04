@@ -53,6 +53,8 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
 
     private final static String SQL_TOTALIZAR_PERSONAS_POR_VENTA = "SQL TOTALIZAR PERSONAS POR VENTA";
 
+    private final static String SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES = "SQL CALCULAR IMPORTE COMISION VENDEDORES";
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -83,6 +85,8 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
             "sqlTotalizarDevolucionLocalizacion", SQL_TOTALIZAR_DEVOLUCIONES, true);
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
             "sqlTotalizarVentaPersonasPorVenta", SQL_TOTALIZAR_PERSONAS_POR_VENTA, true);
+        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
+            "sqlCalcularImporteComisionVendedores", SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, true);
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
             "batchSize", 100, true);
     }
@@ -351,6 +355,51 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
 
         verify(namedParameterJdbcTemplate,never()).update(any(String.class), any(MapSqlParameterSource.class));
         verify(log, times(1)).error(any(String.class), any(Object.class));
+    }
+
+    @Test
+    public void calcularImporteComisionVendedoresTest() {
+
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(123L);
+
+        tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea);
+
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
+        assertEquals(SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, sqlCaptor.getValue());
+        MapSqlParameterSource params = paramsCaptor.getValue();
+
+        // Parámetros de la consulta: idTarea, activo, idTipoDatoPresenciaLocalizacionPersonasPorVenta, idTipoDatoVentaIpodLocalizacionSeccion,
+        // idTipoImporteVentaFisicaLocalizacionSeccion, idTipoPresenciaLocalizacion, porcentajeComision,
+        // nuevoIdTipoDato, nuevoActivo
+        assertEquals(9, params.getValues().size());
+        // idTarea
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        // activo
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+        // idTipoPresenciaLocalizacion
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_EMPLEADOS_POR_VENTA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA));
+        // idTipoDatoVentaIpodLocalizacionSeccion
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION));
+        // idTipoImporteVentaFisicaLocalizacionSeccion
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION));
+        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION));
+        // idTipoPresenciaLocalizacion
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+        // porcentajeComision
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_COMISION));
+        assertEquals(AppConstants.PORCENTAJE_COMISION, params.getValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_COMISION));
+        // nuevoIdTipoDato
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.IMPORTE_COMISION_VENDEDORES_POR_VENTA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        // nuevoActivo
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
     }
 
 }

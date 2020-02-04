@@ -94,12 +94,18 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.exceptionally(cfVentasPorVentaSimplificado, cf, cfWait);
 
             // Calcular ventas localizacion realizadas por personas por venta
-            CompletableFuture<Void> cfVentasPorVenta = runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVenta(runTarea, TipoCalculoEnum.POR_VENTA);
+            CompletableFuture<Void> cfVentasPorVenta =
+                runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVenta(runTarea, TipoCalculoEnum.POR_VENTA);
             AsyncUtils.exceptionally(cfVentasPorVenta, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // Calcular importe comision vendedores por venta
+            CompletableFuture<Void> cfCalcularImporteComisionVendedores =
+                runTareaProcesarVentaAsyncService.calcularImporteComisionVendedores(runTarea);
+            AsyncUtils.exceptionally(cfCalcularImporteComisionVendedores, cf, cfWait);
 
             // Calcular localizacion cerrada
             CompletableFuture<Void> cfSaveCerrado = runTareaProcesarVentaAsyncService.saveCerrado(runTarea);
