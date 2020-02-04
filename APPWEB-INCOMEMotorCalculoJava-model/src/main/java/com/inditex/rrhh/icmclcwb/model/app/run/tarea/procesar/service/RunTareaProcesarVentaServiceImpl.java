@@ -139,7 +139,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea, @NotNull TipoCalculoEnum tipoCalculo) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificado(tarea.getTarea(), tipoCalculo);
+        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta(tarea.getTarea(), tipoCalculo);
     }
 
     @Override

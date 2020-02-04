@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,8 +40,11 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacion']}")
     private String sqlTotalizarDevolucionLocalizacion;
 
-    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificado']}")
-    private String sqlTotalizarVentaPersonasPorVentaSimplificado;
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta']}")
+    private String sqlTotalizarVentaPersonasPorVenta;
+
+    @Autowired
+    private Logger log;
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
@@ -125,7 +129,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     }
 
     @Override
-    public void totalizarVentaPersonasPorVentaSimplificado(TareaDto tarea, TipoCalculoEnum tipoCalculo) {
+    public void totalizarVentaPersonasPorVenta(TareaDto tarea, TipoCalculoEnum tipoCalculo) {
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         //parametros
@@ -134,10 +138,24 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_LOCALIZACION_POR_VENTA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, tipoCalculo.getId());
         //nuevos valores
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO.getId());
+        TipoDatoEnum nuevoTipoDato;
+        switch (tipoCalculo) {
+            case POR_VENTA:
+                nuevoTipoDato = TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA;
+                break;
+            case POR_VENTA_SIMPLIFICADA:
+                nuevoTipoDato = TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO;
+                break;
+            default:
+                nuevoTipoDato = null;
+                log.error("El tipo de calculo {} no esta soportado para totalizar ventas personas por venta", tipoCalculo);
+        }
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonasPorVentaSimplificado, parameters);
+        if (nuevoTipoDato != null) {
+            parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
+            namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonasPorVenta, parameters);
+        }
 
     }
 }
