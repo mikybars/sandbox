@@ -3815,7 +3815,7 @@ WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :i
   ]]>
 </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificado">
+<entry key="TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta">
   <![CDATA[
   MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING (
     SELECT
