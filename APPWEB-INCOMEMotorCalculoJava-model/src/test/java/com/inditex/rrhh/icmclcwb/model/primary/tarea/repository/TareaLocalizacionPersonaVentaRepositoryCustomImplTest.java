@@ -149,36 +149,4 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
     }
 
-    @Test
-    public void totalizarVentaPersonaLocalizacionTest() {
-
-        TareaDto tarea = mock(TareaDto.class);
-        when(tarea.getId()).thenReturn(9392L);
-
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaLocalizacion(tarea);
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_TOTALIZAR_VENTA_PERSONA_LOCALIZACION, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
-        // Parámetros de la consulta: nuevoIdSeccion, nuevoIdTipoDato, nuevoActivo, idTarea, idTipoGrupoDato, activo
-        assertEquals(6, params.getValues().size());
-        // nuevoIdSeccion
-        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
-        assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
-        // nuevoIdTipoDato
-        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        // nuevoActivo
-        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
-        // idTarea
-        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
-        // idTipoGrupoDato
-        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        // idTarea
-        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
-
-    }
 }

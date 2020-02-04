@@ -33,9 +33,6 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion']}")
     private String sqlTotalizarVentaPersonaSeccion;
 
-    @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaLocalizacion']}")
-    private String sqlTotalizarVentaPersonaLocalizacion;
-
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -73,23 +70,6 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
         namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonaSeccion, parameters);
-
-    }
-
-    @Override
-    public void totalizarVentaPersonaLocalizacion(TareaDto tarea) {
-
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        // Parámetros filtro
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        // Parámetros que establecen valores
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
-
-        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonaLocalizacion, parameters);
 
     }
 }

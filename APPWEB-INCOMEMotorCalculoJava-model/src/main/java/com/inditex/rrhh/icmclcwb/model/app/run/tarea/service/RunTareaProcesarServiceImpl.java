@@ -77,9 +77,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfTotalizarVentaPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarVentaPersonaSeccion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarVentaPersonaSeccion, cf, cfWait);
 
-            CompletableFuture<Void> cfTotalizarVentaPersonaLocalizacion = runTareaProcesarVentaAsyncService.totalizarVentaPersonaLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfTotalizarVentaPersonaLocalizacion, cf, cfWait);
-
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/

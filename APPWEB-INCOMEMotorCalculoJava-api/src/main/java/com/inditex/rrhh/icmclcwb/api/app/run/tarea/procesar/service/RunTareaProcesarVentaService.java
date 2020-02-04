@@ -44,6 +44,4 @@ public interface RunTareaProcesarVentaService {
 
     void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea);
 
-    void totalizarVentaPersonaLocalizacion(@Valid RunTareaDto tarea);
-
 }

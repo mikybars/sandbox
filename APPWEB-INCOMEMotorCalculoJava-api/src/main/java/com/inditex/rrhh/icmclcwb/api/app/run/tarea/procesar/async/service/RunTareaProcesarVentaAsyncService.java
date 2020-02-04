@@ -43,6 +43,4 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> totalizarVentaPersonaSeccion (RunTareaDto tarea);
 
-    CompletableFuture<Void> totalizarVentaPersonaLocalizacion (RunTareaDto tarea);
-
 }

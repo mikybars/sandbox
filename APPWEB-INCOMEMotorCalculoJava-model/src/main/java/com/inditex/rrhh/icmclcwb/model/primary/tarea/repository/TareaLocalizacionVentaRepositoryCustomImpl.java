@@ -135,7 +135,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         //parametros
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_LOCALIZACION_POR_VENTA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, tipoCalculo.getId());
         //nuevos valores
         TipoDatoEnum nuevoTipoDato;
