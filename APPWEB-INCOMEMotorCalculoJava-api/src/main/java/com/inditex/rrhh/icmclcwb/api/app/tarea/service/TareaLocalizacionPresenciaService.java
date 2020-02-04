@@ -15,4 +15,6 @@ public interface TareaLocalizacionPresenciaService {
 
     void totalizarEcommerce(@NotNull final RunTareaDto runTareaDto);
 
+    void totalizarEmpleadosPorVenta(@NotNull final RunTareaDto runTareaDto);
+
 }

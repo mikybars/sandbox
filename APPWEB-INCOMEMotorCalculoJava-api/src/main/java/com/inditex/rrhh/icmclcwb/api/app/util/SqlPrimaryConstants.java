@@ -145,6 +145,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_INCLUIDO_ECOMMERCE = "incluidoEcommerce";
 
+    public static final String SQL_PARAM_INCLUIDO_VENTA = "incluidoVenta";
+
     public static final String SQL_PARAM_EXCLUIDO_CALCULO = "excluidoCalculo";
 
     public static final String SQL_PARAM_ABIERTO = "abierto";

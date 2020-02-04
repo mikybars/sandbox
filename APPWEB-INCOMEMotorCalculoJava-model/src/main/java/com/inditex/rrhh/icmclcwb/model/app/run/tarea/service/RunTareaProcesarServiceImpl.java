@@ -158,6 +158,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .totalizarEcommerceLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarPresenciaEcommerceLocalizacion, cf, cfWait);
 
+            // Empleados por venta
+            CompletableFuture<Void> cfTotalizarEmpleadosPorVenta = runTareaProcesarPresenciaAsyncService.totalizarEmpleadosPorVenta(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarEmpleadosPorVenta, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
