@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TipoPoliticaEnum {
 
-    HORAS_FIJAS(1, "001"), EXCLUIDO_DENOMINADOR(2, "002"), CARENCIA(3, "003"),
+    SIN_ASIGNAR(0, "000"), HORAS_FIJAS(1, "001"), EXCLUIDO_DENOMINADOR(2, "002"), CARENCIA(3, "003"),
     ANTIGUEDAD(4, "004"), BAJA_IT(5, "005"), VACACIONES(6, "006"),
     MINIMO_GARANTIZADO(7, "007"), MAXIMO_GARANTIZADO(8, "008");
 
