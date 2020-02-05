@@ -15,7 +15,7 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
     void updateActivoTrasladadas(TareaDto tarea);
 
-    void totalizarDevolucionLocalizacion(TareaDto tarea);
+    void totalizarOperacionesLocalizacionSeccion(TareaDto tarea, boolean devolucion);
 
     void totalizarVentaPersonasPorVenta(TareaDto tarea, TipoCalculoEnum tipoCalculo);
 

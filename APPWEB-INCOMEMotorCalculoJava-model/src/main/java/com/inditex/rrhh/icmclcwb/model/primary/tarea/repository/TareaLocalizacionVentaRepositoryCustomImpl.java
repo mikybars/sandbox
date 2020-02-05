@@ -37,8 +37,8 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas']}")
     private String sqlUpdateActivoTrasladadas;
 
-    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacion']}")
-    private String sqlTotalizarDevolucionLocalizacion;
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacionSeccion']}")
+    private String sqlTotalizarOperacionesLocalizacionSeccion;
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta']}")
     private String sqlTotalizarVentaPersonasPorVenta;
@@ -117,18 +117,29 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     }
 
     @Override
-    public void totalizarDevolucionLocalizacion(TareaDto tarea) {
+    public void totalizarOperacionesLocalizacionSeccion(TareaDto tarea, boolean devolucion) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+        // datos a sumar dependientes del flag devolucion
+        TipoDatoEnum nuevoTipoDato;
+        TipoGrupoDatoEnum idTipoGrupoDato;
+        if (devolucion) {
+            idTipoGrupoDato = TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA;
+            nuevoTipoDato = TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION;
+        } else {
+            idTipoGrupoDato = TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA;
+            nuevoTipoDato = TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION;
+        }
+
         //parametros
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, idTipoGrupoDato.getId());
         //nuevos valores
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        namedParameterJdbcTemplate.update(sqlTotalizarDevolucionLocalizacion, parameters);
+        namedParameterJdbcTemplate.update(sqlTotalizarOperacionesLocalizacionSeccion, parameters);
     }
 
     @Override

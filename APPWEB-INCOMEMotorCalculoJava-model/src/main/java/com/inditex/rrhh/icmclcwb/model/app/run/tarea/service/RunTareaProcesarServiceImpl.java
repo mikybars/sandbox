@@ -71,8 +71,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 //                .updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
 //            AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivasVacio, cf);
 
-            CompletableFuture<Void> cfTotalizarDevolucion = runTareaProcesarVentaAsyncService.totalizarDevolucionLocalizacion(runTarea);
+            CompletableFuture<Void> cfTotalizarDevolucion = runTareaProcesarVentaAsyncService.totalizarDevolucionLocalizacionSeccion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarDevolucion, cf, cfWait);
+
+            CompletableFuture<Void> cfTotalizarVentaSinDevolucion = runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionLocalizacionSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarVentaSinDevolucion, cf, cfWait);
 
             CompletableFuture<Void> cfTotalizarVentaPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarVentaPersonaSeccion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarVentaPersonaSeccion, cf, cfWait);
@@ -90,12 +93,12 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.exceptionally(cfSaveAbiertoSeccion, cf, cfWait);
 
             // Calcular ventas localizacion realizadas por personas por venta simplificado
-            CompletableFuture<Void> cfVentasPorVentaSimplificado = runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVenta(runTarea, TipoCalculoEnum.POR_VENTA_SIMPLIFICADA);
+            CompletableFuture<Void> cfVentasPorVentaSimplificado = runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVentaSimplificada(runTarea);
             AsyncUtils.exceptionally(cfVentasPorVentaSimplificado, cf, cfWait);
 
             // Calcular ventas localizacion realizadas por personas por venta
             CompletableFuture<Void> cfVentasPorVenta =
-                runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVenta(runTarea, TipoCalculoEnum.POR_VENTA);
+                runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVenta(runTarea);
             AsyncUtils.exceptionally(cfVentasPorVenta, cf, cfWait);
 
             /*-------------------------------------------------------------*/

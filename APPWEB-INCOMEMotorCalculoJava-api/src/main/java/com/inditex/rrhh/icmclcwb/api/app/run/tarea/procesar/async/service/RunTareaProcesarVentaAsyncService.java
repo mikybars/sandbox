@@ -37,9 +37,13 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> updateActivoTrasladadasTotalizado(RunTareaDto runTarea);
 
-    CompletableFuture<Void> totalizarDevolucionLocalizacion(RunTareaDto tarea);
+    CompletableFuture<Void> totalizarDevolucionLocalizacionSeccion(RunTareaDto tarea);
 
-    CompletableFuture<Void> totalizarVentaPersonasPorVenta(RunTareaDto tarea, TipoCalculoEnum tipoCalculoEnum);
+    CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacionSeccion(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaPersonasPorVenta(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaPersonasPorVentaSimplificada(RunTareaDto tarea);
 
     CompletableFuture<Void> totalizarVentaPersonaSeccion (RunTareaDto tarea);
 
