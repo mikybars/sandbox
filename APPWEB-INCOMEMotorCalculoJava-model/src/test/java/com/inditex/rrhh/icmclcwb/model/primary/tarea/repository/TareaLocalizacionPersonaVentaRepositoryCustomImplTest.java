@@ -47,8 +47,6 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
 
     private final static String SQL_TOTALIZAR_VENTA_PERSONA_SECCION = "SQL_TOTALIZAR_VENTA_PERSONA_SECCION";
 
-    private final static String SQL_TOTALIZAR_VENTA_PERSONA_LOCALIZACION = "SQL_TOTALIZAR_VENTA_PERSONA_LOCALIZACION";
-
     @Mock
     private JdbcTemplate jdbcTemplate;
 
@@ -67,7 +65,6 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaLocalizacionPersonaVentaRepositoryCustom, "sqlTotalizarVentaPersonaSeccion", SQL_TOTALIZAR_VENTA_PERSONA_SECCION, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaVentaRepositoryCustom, "sqlTotalizarVentaPersonaLocalizacion", SQL_TOTALIZAR_VENTA_PERSONA_LOCALIZACION, true);
         FieldUtils.writeField(tareaLocalizacionPersonaVentaRepositoryCustom, "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(tareaLocalizacionPersonaVentaRepositoryCustom, "batchSize", 100, true);
     }
