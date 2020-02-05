@@ -135,4 +135,10 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
         tareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> calcularImporteComisionVentaODevolucion(RunTareaDto tarea) {
+        tareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

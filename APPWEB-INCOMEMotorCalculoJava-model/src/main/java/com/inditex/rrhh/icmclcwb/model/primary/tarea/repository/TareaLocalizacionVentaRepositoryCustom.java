@@ -21,4 +21,6 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
     void calcularImporteComisionVendedores(TareaDto tarea);
 
+    void calcularImporteComisionVentaODevolucion(TareaDto tarea);
+
 }

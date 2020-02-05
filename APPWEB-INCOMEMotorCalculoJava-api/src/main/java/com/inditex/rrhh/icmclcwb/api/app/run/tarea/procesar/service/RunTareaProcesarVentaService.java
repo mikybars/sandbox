@@ -50,4 +50,6 @@ public interface RunTareaProcesarVentaService {
 
     void calcularImporteComisionVendedores(@Valid RunTareaDto tarea);
 
+    void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea);
+
 }

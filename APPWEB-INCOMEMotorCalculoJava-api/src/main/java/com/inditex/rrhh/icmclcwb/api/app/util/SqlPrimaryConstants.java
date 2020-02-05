@@ -135,6 +135,16 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA = "idTipoDatoPresenciaLocalizacionPersonasPorVenta";
 
+    public static final String SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION = "idTipoDatoDevolucionLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION = "idTipoDatoImporteComisionDevolucion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION = "idTipoDatoVentaSinDevolucionLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA = "idTipoDatoImporteComisionVenta";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENDEDORES = "idTipoDatoImporteComisionVendedores";
+
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
