@@ -440,7 +440,7 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea);
 
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, sqlCaptor.getValue());
+        assertEquals(SQL_CALCULAR_IMPORTE_COMISION_VENTA_DEVOLUCION, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
 
         // Parámetros de la consulta: idTarea, activo, idTipoDatoDevolucionLocalizacionSeccion, idTipoGrupo,
