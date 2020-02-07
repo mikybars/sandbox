@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
@@ -28,13 +29,13 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
     private TareaCalculoAjusteVacacionesRepositoryCustom tareaCalculoAjusteVacacionesRepositoryCustom;
 
     @Override
-    public void execute(RunTareaDto runTarea) {
+    public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAjusteVacacionesRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(runTarea.getTarea(), personas);
+                        tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
@@ -44,8 +45,8 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
     }
 
     @Override
-    public String getSqlCalcular() {
-        return tareaCalculoAjusteVacacionesRepositoryCustom.getSqlAjustar();
+    public String getSqlCalcular(AlgoritmoAjusteDto algoritmoAjuste) {
+        return tareaCalculoAjusteVacacionesRepositoryCustom.getSqlAjustar(algoritmoAjuste);
     }
 
 }

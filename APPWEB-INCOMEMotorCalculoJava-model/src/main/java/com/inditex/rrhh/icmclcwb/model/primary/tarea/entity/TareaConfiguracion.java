@@ -50,8 +50,8 @@ public class TareaConfiguracion {
     private Date fechaFin;
 
     @NotNull
-    @Column(name = "ICM_ID_TP_HORA", length = 16, nullable = false)
-    private String icmIdTpHora;
+    @Column(name = "COD_TIPO_HORA", nullable = false)
+    private Integer codTipoHora;
 
     @NotNull
     @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)

@@ -20,7 +20,7 @@ public abstract class TareaConfiguracionMapper {
     @Mapping(source = "src.fechaFin", target = "fechaFin")
     @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
     @Mapping(source = "src.idConfiguracion", target = "icmIdConfig")
-    @Mapping(source = "src.idTipoHora", target = "icmIdTpHora")
+    @Mapping(source = "src.idTipoHora", target = "codTipoHora")
     @Mapping(source = "src.icmCkVentaImpuestos", target = "icmCkVentaImpuestos")
     public abstract TareaConfiguracion getConfiguracionItemDtoToTareaConfiguracion(
         ConfiguracionItemDto src, TareaDto tarea);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
@@ -28,13 +29,13 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
     private TareaCalculoAjusteAntiguedadRepositoryCustom tareaCalculoAjusteAntiguedadRepositoryCustom;
 
     @Override
-    public void execute(RunTareaDto runTarea) {
+    public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAjusteAntiguedadRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
                     log.info("Inicio :: RunAjusteAntiguedadProcesar :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoAjusteAntiguedadRepositoryCustom.ajustar(runTarea.getTarea(), personas);
+                        tareaCalculoAjusteAntiguedadRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteAntiguedadProcesar :: KO :: Personas: {}", personas.size(), e);
                     }
@@ -44,8 +45,8 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
     }
 
     @Override
-    public String getSqlCalcular() {
-        return tareaCalculoAjusteAntiguedadRepositoryCustom.getSqlAjustar();
+    public String getSqlCalcular(AlgoritmoAjusteDto algoritmoAjuste) {
+        return tareaCalculoAjusteAntiguedadRepositoryCustom.getSqlAjustar(algoritmoAjuste);
     }
 
 }

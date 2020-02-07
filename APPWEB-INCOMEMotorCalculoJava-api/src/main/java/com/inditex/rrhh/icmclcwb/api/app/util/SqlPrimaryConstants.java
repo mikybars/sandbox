@@ -74,6 +74,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR = "idEstadoPeriodoPersonaCalculadoError";
 
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
+    
+    public static final String SQL_PARAM_ID_ALGORITMO_AJUSTE = "idAlgoritmoAjuste";
 
     public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
     
