@@ -23,7 +23,7 @@ public class TareaTipoHora {
 	private Long id;
 
 	@NotNull
-	@Column(name = "ID_TIPO_HORA", nullable = false)
+	@Column(name = "COD_TIPO_HORA", nullable = false)
 	private Integer idTipoHora;
 	
 	@Column(name = "ES_EXCLUIDO_CALCULO", nullable = false)
