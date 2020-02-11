@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
@@ -21,6 +22,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
 
 @Repository
 public class TareaLocalizacionVentaRepositoryCustomImpl extends
@@ -49,6 +52,9 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion']}")
     private String sqlCalcularImporteComisionVentaODevolucion;
+    
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado']}")
+    private String sqlUpdateActivoNegativoTotalizado;
 
     @Autowired
     private Logger log;
@@ -222,5 +228,16 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
 
         namedParameterJdbcTemplate.update(sqlCalcularImporteComisionVentaODevolucion, parameters);
 
+    }
+    
+    @Override
+    public void updateActivoNegativoTotalizado(@NotNull TareaDto tarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+        
+        namedParameterJdbcTemplate.update(sqlUpdateActivoNegativoTotalizado, parameters);
     }
 }

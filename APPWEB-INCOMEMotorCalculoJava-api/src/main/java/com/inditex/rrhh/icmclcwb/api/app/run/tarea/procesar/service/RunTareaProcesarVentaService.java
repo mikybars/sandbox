@@ -52,4 +52,6 @@ public interface RunTareaProcesarVentaService {
 
     void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea);
 
+    void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea);
+
 }

@@ -49,6 +49,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
                 .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(genericEmpleadoResultItemDto, tarea);
     }
 
+    //TODO: No se está usando
     @Override
     @Cacheable(value = "itx.icmlcwb.id_persona_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
     public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
@@ -70,12 +71,14 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
         return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
     }
 
+    //TODO: No se está usando
     @Override
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String cclIdOrigen) {
         return tareaPersonaHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
     }
 
+    //TODO: No se está usando
     @Override
     public List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String cclIdOrigen) {

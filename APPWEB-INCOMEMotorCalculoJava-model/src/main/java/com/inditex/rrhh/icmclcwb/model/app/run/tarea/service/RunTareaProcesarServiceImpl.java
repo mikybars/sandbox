@@ -272,9 +272,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.exceptionally(cfCalcularImporteComisoinVentaODevolucion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
-
+            
+            CompletableFuture<Void> cfUpdateActivoNegativoTotalizado = runTareaProcesarVentaAsyncService.updateActivoNegativoTotalizado(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoNegativoTotalizado, cf, cfWait);
+            
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
 
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
