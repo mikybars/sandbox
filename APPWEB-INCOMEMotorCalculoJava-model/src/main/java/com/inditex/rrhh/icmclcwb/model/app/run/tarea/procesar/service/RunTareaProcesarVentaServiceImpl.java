@@ -166,4 +166,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea) {
         tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
     }
+    
+    @Override
+    public void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado(tarea.getTarea());
+    }
 }
