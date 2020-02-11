@@ -45,12 +45,12 @@ public class TareaPersonaCoeficiente {
     private String cclIdPerson;
     
     @NotNull
-    @Column(name = "FECHA_INICIO", nullable = false)
+    @Column(name = "FECHA_INICIO_PARCIAL", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaInicioPar;
 
     @NotNull
-    @Column(name = "FECHA_FIN", nullable = false)
+    @Column(name = "FECHA_FIN_PARCIAL", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaFinPar;
     
