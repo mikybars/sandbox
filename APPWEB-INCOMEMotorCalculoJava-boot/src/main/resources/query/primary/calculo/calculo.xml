@@ -5618,4 +5618,212 @@ WHERE 1 = 0
       ]]>
   </entry>
 
+  <entry key="TareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo ChallengePrecioHora
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (12001)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>
+
+  <entry key="TareaCalculoAlgoritmoChallengePrecioHoraDesplazamientoV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo ChallengePrecioHoraDesplazamiento
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (12006)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>
+  
+    <entry key="TareaCalculoAlgoritmoChallengePrecioHoraDesplazamientoBaseV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo ChallengePrecioHoraDesplazamientoBase
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (12011)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>
+  
+    <entry key="TareaCalculoAlgoritmoChallengeImporteV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo ChallengeImporte
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (13001)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>
+  
+      <entry key="TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo ChallengeImporteDesplazamiento
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (13006)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>
+  
+        <entry key="TareaCalculoAlgoritmoChallengeImporteDesplazamientoBaseV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo ChallengeImporteDesplazamientoBase
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (13011)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>
+  
+<entry key="TareaCalculoAlgoritmoPrecioHoraV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo PrecioHora
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (14001)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>
+  
+  <entry key="TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo PrecioHoraDesplazamiento
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (14006)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>
+  
+  <entry key="TareaCalculoAlgoritmoPrecioHoraDesplazamientoBaseV1RepositoryCustom.calcular">
+    <![CDATA[
+  --TODO [COMUN] Definir la consulta del cálculo PrecioHoraDesplazamientoBase
+SELECT * FROM
+  (VALUES ('2019-01-01')) t2 (FECHA_INICIO_PERIODO),
+  (VALUES (1)) t1 (ID_TAREA),
+  (VALUES ('2019-01-01')) t2 (FECHA),
+  (VALUES (14011)) T3 (ID_ALGORITMO),
+  (VALUES (0)) t1 (IMPORTE),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT_PAGO),
+  (VALUES (100)) t1 (STD_ID_WORK_LOCAT),
+  (VALUES (1)) t1 (CCL_ID_PERSON),
+  (VALUES (1001)) t1 (STD_OR_HR_PERIOD),
+  (VALUES (1)) t1 (ID_TAREA_PERSONA_ESTRUCTURA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_VENTA),
+  (VALUES (1)) t1 (ID_TAREA_LOCALIZACION_PERSONA_VENTA),
+  (VALUES (0)) t1 (ES_MANUAL)
+WHERE 1 = 0
+  ]]>
+  </entry>  
+
+
 </properties>
