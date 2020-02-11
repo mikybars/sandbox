@@ -136,41 +136,4 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
             throw e;
         }
     }
-
-    @Override
-    public CompletableFuture<Void> ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(@NotNull @Positive Integer idPais, @NotNull @Positive Integer idEmpresa) {
-
-        log.warn("BUSQUEDA DE POR VENTA: Inicio pais {}, Empresa {}", idPais, idEmpresa);
-
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        PtrVentaIndividualDetalleRequestDto paramVentaOnlineIpod = new PtrVentaIndividualDetalleRequestDto();
-        paramVentaOnlineIpod.setProducto(Arrays.asList(1,2,3,4,5));
-        paramVentaOnlineIpod.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
-        paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-        paramVentaOnlineIpod.setEmpresa(idEmpresa);
-        paramVentaOnlineIpod.setFechaDesde("2019-12-01");
-        paramVentaOnlineIpod.setFechaHasta("2019-12-31");
-        paramVentaOnlineIpod.setPais(idPais);
-
-        CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData =
-            ptrVentaEmpleadoAsyncService.ventaIndividualDetalle(paramVentaOnlineIpod);
-        AsyncUtils.exceptionally(cfData, cf);
-
-        PtrVentaIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-        TareaDto tarea = new TareaDto();
-        tarea.setId(4353L);
-        tarea.setFechaInicioPeriodo(LocalDate.of(2019, 12, 1));
-
-        if (CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle()) &&
-            data.getVentaIndividualDetalle().stream().anyMatch(x -> x.getVendedor() != 0 && x.getVendedor() != -1)) {
-            log.warn("Hay empleados con ventas en el pais {} y empresa {}", idPais, idEmpresa);
-            tareaLocalizacionPersonaVentaRepositoryCustom.save(tareaLocalizacionPersonaVentaMapper.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(data.getVentaIndividualDetalle(), tarea));
-            tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion(tarea);
-            tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaLocalizacion(tarea);
-        }
-
-        log.warn("BUSQUEDA DE POR VENTA: Fin pais {}, Empresa {}", idPais, idEmpresa);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-
-    }
 }

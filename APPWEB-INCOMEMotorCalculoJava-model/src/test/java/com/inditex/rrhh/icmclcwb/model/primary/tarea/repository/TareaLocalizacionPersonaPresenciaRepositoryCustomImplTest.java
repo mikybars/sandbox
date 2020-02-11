@@ -357,7 +357,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(entity.getStdIdLegEnt()).thenReturn("Id empresa");
         when(entity.getCclIdPerson()).thenReturn("Id persona");
         when(entity.getCclIdSeccion()).thenReturn("Id seccion");
-        when(entity.getIcmIdTpHora()).thenReturn("Id tipo hora");
+        when(entity.getCodTipoHora()).thenReturn(1);
         when(entity.getPk()).thenReturn(pk);
         when(entity.getMinutos()).thenReturn(123);
         when(entity.getTarea()).thenReturn(tarea);
@@ -376,7 +376,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setString(5, entity.getCclIdSeccion());
         verify(pstmt, times(1)).setObject(6, entity.getFecha());
         verify(pstmt, times(1)).setLong(7, entity.getMinutos());
-        verify(pstmt, times(1)).setString(8, entity.getIcmIdTpHora());
+        verify(pstmt, times(1)).setInt(8, entity.getCodTipoHora());
         verify(pstmt, times(1)).setBoolean(9, entity.getActivo());
         verify(pstmt, times(1)).setLong(10, td.getId());
         verify(pstmt, times(1)).setLong(11, tarea.getId());

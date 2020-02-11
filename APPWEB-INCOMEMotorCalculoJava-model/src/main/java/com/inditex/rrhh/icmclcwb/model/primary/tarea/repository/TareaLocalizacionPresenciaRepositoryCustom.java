@@ -21,4 +21,6 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void totalizarEcommerce(@NotNull RunTareaDto runTareaDto);
 
+    void totalizarEmpleadosPorVenta(@NotNull RunTareaDto runTareaDto);
+
 }

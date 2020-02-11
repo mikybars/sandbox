@@ -57,7 +57,7 @@ public class TareaConfiguracionRepositoryCustomImplTest {
         when(entity.getIcmIdConfig()).thenReturn(87654);
         when(entity.getFechaInicio()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         when(entity.getFechaFin()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 31)));
-        when(entity.getIcmIdTpHora()).thenReturn("ID TP HORA");
+        when(entity.getCodTipoHora()).thenReturn(1);
         when(entity.getIcmCkVentaImpuestos()).thenReturn(Boolean.TRUE);
 
         tareaConfiguracionRepositoryCustom.setParameters(pstmt, entity);
@@ -69,7 +69,7 @@ public class TareaConfiguracionRepositoryCustomImplTest {
         verify(pstmt, times(1)).setInt(3, entity.getIcmIdConfig());
         verify(pstmt, times(1)).setObject(4, entity.getFechaInicio());
         verify(pstmt, times(1)).setObject(5, entity.getFechaFin());
-        verify(pstmt, times(1)).setString(6, entity.getIcmIdTpHora());
+        verify(pstmt, times(1)).setInt(6, entity.getCodTipoHora());
         verify(pstmt, times(1)).setBoolean(7, entity.getIcmCkVentaImpuestos());
 
     }

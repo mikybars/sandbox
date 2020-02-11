@@ -34,4 +34,6 @@ public class AppConstants {
     
     public static final List<Integer> PRODUCTOS_COMISIONABLES = Arrays.asList(1, 2, 3, 4, 5);
 
+    public static final Float PORCENTAJE_COMISION = 0.01F;
+
 }

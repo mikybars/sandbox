@@ -13,7 +13,4 @@ public interface RunTareaAmbitoRecolectarPtrVentaEmpleadoService {
     void ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
-    //TODO [javierev] Eliminar esta prueba!
-    CompletableFuture<Void> ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(@NotNull @Positive Integer idPais, @NotNull @Positive Integer idEmpresa);
-
 }

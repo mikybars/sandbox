@@ -40,7 +40,7 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
             Flux.fromIterable(algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(), a)).parallel()
             .runOn(ItxSchedulers.elastic()).map(algoritmo -> {
                 AlgoritmoAjusteDto ajuste = algoritmoAjusteService.findById(algoritmo);
-                runAjusteFactory.getRunAjuste(ajuste.getNombre()).execute(runTarea);
+                runAjusteFactory.getRunAjuste(ajuste.getNombre()).execute(runTarea, ajuste);
                 return Flux.empty();
             }).sequential().collectList().block()
         );

@@ -28,7 +28,5 @@ public interface TestService {
     String sqlFormatter(@NotBlank String sql);
 
     Boolean testUrl(@NotBlank String sql);
-
-    void buscarPorVenta(@NotNull @Positive final Integer idPais);
     
 }

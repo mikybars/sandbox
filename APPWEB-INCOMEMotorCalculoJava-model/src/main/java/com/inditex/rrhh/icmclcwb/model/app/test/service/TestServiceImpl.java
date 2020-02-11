@@ -74,17 +74,6 @@ public class TestServiceImpl implements TestService {
     private static final String OK = "OK";
     private static final String KO = "KO";
 
-    private static final Map<Integer, List<Integer>> EMPRESAS = new HashMap<Integer, List<Integer>>() {
-        {
-            put(5, Arrays.asList(134, 151, 154, 162, 170, 171, 193, 194, 202, 319, 328, 358, 472, 54)); //Italia
-            put(6, Arrays.asList(146, 153, 159, 205, 431, 440, 46)); //UK
-            put(7, Arrays.asList(191 /*,139, 160, 161, 174, 339, 528*/)); //Irlanda
-            put(404, Arrays.asList(362, 395, 97)); //Canada
-            put(400, Arrays.asList(122, 175, 18, 327, 380, 383, 405, 415, 522)); //EE.UU.
-            put(11, Arrays.asList()); //España
-        }
-    };
-
     @Autowired
     private Logger log;
 
@@ -99,12 +88,6 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private ProgramacionService programacionService;
-
-    @Autowired
-    private RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
-
-    @Autowired
-    private RunTareaAmbitoRecolectarPtrVentaEmpleadoService runTareaAmbitoRecolectarPtrVentaEmpleadoService;
 
     @Autowired
     @Qualifier("ptrVentaClient")
@@ -366,27 +349,5 @@ public class TestServiceImpl implements TestService {
         trabajoAmbitoPersona.setStdIdLegEnt(empresa);
         trabajoAmbitoPersona.setCclIdOrigen(origen);
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
-    }
-
-    @Override
-    public void buscarPorVenta(@NotNull @Positive Integer idPais) {
-
-        if (!EMPRESAS.containsKey(idPais)) {
-            throw new UnsupportedOperationException("Pais no soportado, usar: [5,6,7,11,400,404]");
-        }
-
-        EMPRESAS.get(idPais).forEach(idEmpresa -> {
-            try {
-                runTareaAmbitoRecolectarPtrVentaEmpleadoService.ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(idPais, idEmpresa);
-            } catch (Exception e) {
-                log.error("Error al obtener ventas fisicas en pais {}, empresa {}", idPais, idEmpresa);
-            }
-            try {
-                runTareaAmbitoRecolectarPtrVentaEcommerceService.ventaOnlineIpodLocalizacionPersonaBusquedaPorVenta(idPais, idEmpresa);
-            } catch (Exception e) {
-                log.error("Error al obtener ventas ipod en pais {}, empresa {}", idPais, idEmpresa);
-            }
-        });
-
     }
 }

@@ -101,14 +101,26 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaPersonasPorVenta(RunTareaDto tarea, TipoCalculoEnum tipoCalculoEnum) {
-        tareaProcesarVentaService.totalizarVentaPersonasPorVenta(tarea, tipoCalculoEnum);
+    public CompletableFuture<Void> totalizarVentaPersonasPorVenta(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaPersonasPorVenta(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarDevolucionLocalizacion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarDevolucionLocalizacion(tarea);
+    public CompletableFuture<Void> totalizarVentaPersonasPorVentaSimplificada(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaPersonasPorVentaSimplificada(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionLocalizacionSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionLocalizacionSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacionSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
@@ -119,8 +131,14 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaPersonaLocalizacion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentaPersonaLocalizacion(tarea);
+    public CompletableFuture<Void> calcularImporteComisionVendedores(RunTareaDto tarea) {
+        tareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> calcularImporteComisionVentaODevolucion(RunTareaDto tarea) {
+        tareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

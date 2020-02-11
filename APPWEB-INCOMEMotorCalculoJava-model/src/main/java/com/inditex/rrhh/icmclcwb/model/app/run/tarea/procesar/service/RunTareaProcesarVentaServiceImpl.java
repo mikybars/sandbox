@@ -133,13 +133,23 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
 
     @Override
-    public void totalizarDevolucionLocalizacion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacion(tarea.getTarea());
+    public void totalizarDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacionSeccion(runTarea.getTarea(), false);
     }
 
     @Override
-    public void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea, @NotNull TipoCalculoEnum tipoCalculo) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificado(tarea.getTarea(), tipoCalculo);
+    public void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacionSeccion(runTarea.getTarea(), true);
+    }
+
+    @Override
+    public void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta(tarea.getTarea(), TipoCalculoEnum.POR_VENTA);
+    }
+
+    @Override
+    public void totalizarVentaPersonasPorVentaSimplificada(@Valid RunTareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta(tarea.getTarea(), TipoCalculoEnum.POR_VENTA_SIMPLIFICADA);
     }
 
     @Override
@@ -148,7 +158,12 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
 
     @Override
-    public void totalizarVentaPersonaLocalizacion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaLocalizacion(tarea.getTarea());
+    public void calcularImporteComisionVendedores(@Valid RunTareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea.getTarea());
+    }
+
+    @Override
+    public void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
     }
 }

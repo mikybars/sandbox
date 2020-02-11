@@ -29,12 +29,14 @@ public class TipoPoliticaEnumTest {
     
     @Test
     public void testFromIdMeta4MethodReturnsNull() {
-        assertNull(TipoPoliticaEnum.fromIdMeta4("000"));
+        //No debería existir un tipo de política con id negativo
+        assertNull(TipoPoliticaEnum.fromIdMeta4("-001"));
     }
     
     @Test
     public void testFromIdMethodReturnsNull() {
-        assertNull(TipoPoliticaEnum.fromId(0));
+        //No debería existir un tipo de política con id negativo
+        assertNull(TipoPoliticaEnum.fromId(-1));
     }
     
 }

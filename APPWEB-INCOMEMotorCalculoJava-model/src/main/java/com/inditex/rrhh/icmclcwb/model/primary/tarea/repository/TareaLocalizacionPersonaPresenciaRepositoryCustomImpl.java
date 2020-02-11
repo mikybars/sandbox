@@ -202,7 +202,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         pstmt.setString(5, entity.getCclIdSeccion());
         pstmt.setObject(6, entity.getFecha());
         pstmt.setLong(7, entity.getMinutos());
-        pstmt.setString(8, entity.getIcmIdTpHora());
+        pstmt.setInt(8, entity.getCodTipoHora());
         pstmt.setBoolean(9, entity.getActivo());
         pstmt.setLong(10, entity.getTipoDato().getId());
         pstmt.setLong(11, entity.getTarea().getId());

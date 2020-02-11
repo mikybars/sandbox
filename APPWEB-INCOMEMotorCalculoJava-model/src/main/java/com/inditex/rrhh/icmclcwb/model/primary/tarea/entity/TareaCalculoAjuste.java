@@ -15,6 +15,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.AlgoritmoAjuste;
+
 import lombok.Data;
 
 @Entity
@@ -52,5 +55,10 @@ public class TareaCalculoAjuste {
     @NotNull
     @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)
     private BigDecimal importe;
+    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_ALGORITMO_AJUSTE", nullable = false)
+    private AlgoritmoAjuste algoritmoAjuste;
 
 }

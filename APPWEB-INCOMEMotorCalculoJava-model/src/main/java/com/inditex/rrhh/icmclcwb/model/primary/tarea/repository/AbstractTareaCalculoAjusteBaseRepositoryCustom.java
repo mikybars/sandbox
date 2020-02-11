@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
@@ -21,17 +22,19 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
+    protected abstract String getSqlAjustar();
+
     protected abstract String getSqlAjustarBase();
     
-    protected abstract Map<String, Object> getMapValues(TareaDto tarea,
+    protected abstract Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
             TareaCalculoPersonaDto persona);
 
     @Override
-    public void ajustar(TareaDto tarea, List<TareaCalculoPersonaDto> personas) {
+    public void ajustar(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea, List<TareaCalculoPersonaDto> personas) {
         if (getSqlAjustar() != null) {
             List<MapSqlParameterSource> batchArgs = new ArrayList<>();
             personas.forEach(persona -> {
-                Map<String, Object> values = getMapValues(tarea, persona);
+                Map<String, Object> values = getMapValues(algoritmoAjuste, tarea, persona);
                 MapSqlParameterSource arg = new MapSqlParameterSource();
                 values.forEach((paramName, value) -> arg.addValue(paramName, value));
                 batchArgs.add(arg);
@@ -42,10 +45,10 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
     }
 
     @Override
-    public String getSqlAjustar() {
+    public String getSqlAjustar(AlgoritmoAjusteDto algoritmoAjuste) {
         String sql = getSqlAjustarBase();
         if (sql != null) {
-            sql = SqlParamsUtils.replaceValues(sql, getMapValues(null, null));
+            sql = SqlParamsUtils.replaceValues(sql, getMapValues(algoritmoAjuste, null, null));
         }
         return StringUtils.normalizeSpace(sql);
     }

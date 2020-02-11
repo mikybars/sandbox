@@ -60,8 +60,8 @@ public class TareaLocalizacionPersonaPresencia  {
     private Integer minutos;
     
     @NotNull
-    @Column(name = "ICM_ID_TP_HORA", nullable = false, length = 48)
-    private String icmIdTpHora;
+    @Column(name = "COD_TIPO_HORA", nullable = false)
+    private Integer codTipoHora;
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)

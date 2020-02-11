@@ -41,6 +41,11 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     }
 
     @Override
+    public void totalizarEmpleadosPorVenta(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.totalizarEmpleadosPorVenta(runTarea);
+    }
+
+    @Override
     public void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
     }

@@ -38,12 +38,18 @@ public interface RunTareaProcesarVentaService {
 
     void updateImporteEstructuraPoliticas(@Valid RunTareaDto runTarea);
 
-    void totalizarDevolucionLocalizacion(@Valid RunTareaDto tarea);
+    void totalizarDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
 
-    void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea, @NotNull TipoCalculoEnum tipoCalculo);
+    void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
+
+    void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea);
+
+    void totalizarVentaPersonasPorVentaSimplificada(@Valid RunTareaDto tarea);
 
     void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea);
 
-    void totalizarVentaPersonaLocalizacion(@Valid RunTareaDto tarea);
+    void calcularImporteComisionVendedores(@Valid RunTareaDto tarea);
+
+    void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea);
 
 }

@@ -32,7 +32,7 @@ public class TareaTipoHoraRepositoryCustomImpl extends JdbcBatchPrimaryRepositor
         pstmt.setObject(3, entity.getIncluidoVenta());
         pstmt.setObject(4, entity.getIncluidoChallenge());
         pstmt.setObject(5, entity.getIncluidoEcommerce());
-        pstmt.setLong(6, entity.getIdTipoHora());
+        pstmt.setInt(6, entity.getIdTipoHora());
         pstmt.setLong(7, entity.getTarea().getId());
     }
 

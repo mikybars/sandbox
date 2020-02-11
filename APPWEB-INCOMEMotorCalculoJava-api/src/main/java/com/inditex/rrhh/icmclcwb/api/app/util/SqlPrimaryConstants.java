@@ -74,6 +74,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR = "idEstadoPeriodoPersonaCalculadoError";
 
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
+    
+    public static final String SQL_PARAM_ID_ALGORITMO_AJUSTE = "idAlgoritmoAjuste";
 
     public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
     
@@ -133,6 +135,18 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE = "idTipoPresenciaAgrupacion";
 
+    public static final String SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA = "idTipoDatoPresenciaLocalizacionPersonasPorVenta";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION = "idTipoDatoDevolucionLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION = "idTipoDatoImporteComisionDevolucion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION = "idTipoDatoVentaSinDevolucionLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA = "idTipoDatoImporteComisionVenta";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENDEDORES = "idTipoDatoImporteComisionVendedores";
+
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
@@ -144,6 +158,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_EXCLUIDO_DENOMINADOR = "excluidoDenominador";
 
     public static final String SQL_PARAM_INCLUIDO_ECOMMERCE = "incluidoEcommerce";
+
+    public static final String SQL_PARAM_INCLUIDO_VENTA = "incluidoVenta";
 
     public static final String SQL_PARAM_EXCLUIDO_CALCULO = "excluidoCalculo";
 
@@ -176,6 +192,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_NOMBRE_USUARIO = "nombreUsuario";
 
     public static final String SQL_PARAM_PESO = "peso";
+
+    public static final String SQL_PARAM_PORCENTAJE_COMISION = "porcentajeComision";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
