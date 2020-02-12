@@ -29,7 +29,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.save']}")
     private String sqlSave;
 
-    @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccionPorVenta']}")
+    @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion']}")
     private String sqlTotalizarVentaPersonaSeccion;
 
     @Autowired
