@@ -38,4 +38,8 @@ public interface RunTareaProcesarPresenciaService {
 
     void presenciasHorasFijasDesplazamientos(@Valid RunTareaDto runTarea);
 
+    void indicadorPersonaPorVenta(@Valid RunTareaDto runTarea);
+
+    void indicadorPersonaPorVentaSimplificada(@Valid RunTareaDto runTarea);
+
 }

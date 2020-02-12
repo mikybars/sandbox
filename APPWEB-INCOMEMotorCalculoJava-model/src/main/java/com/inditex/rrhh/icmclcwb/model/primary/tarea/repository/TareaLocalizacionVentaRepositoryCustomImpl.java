@@ -1,11 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
@@ -127,60 +125,66 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     }
 
     @Override
-    public void totalizarOperacionesLocalizacionSeccion(TareaDto tarea, boolean devolucion) {
+    public void totalizarVentasSinDevolucionLocalizacionSeccion(TareaDto tarea) {
+
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-
-        // datos a sumar dependientes del flag devolucion
-        TipoDatoEnum nuevoTipoDato;
-        TipoGrupoDatoEnum idTipoGrupoDato;
-        if (devolucion) {
-            idTipoGrupoDato = TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA;
-            nuevoTipoDato = TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION;
-        } else {
-            idTipoGrupoDato = TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA;
-            nuevoTipoDato = TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION;
-        }
-
         //parametros
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, idTipoGrupoDato.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
         //nuevos valores
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
         namedParameterJdbcTemplate.update(sqlTotalizarOperacionesLocalizacionSeccion, parameters);
+
     }
 
     @Override
-    public void totalizarVentaPersonasPorVenta(TareaDto tarea, TipoCalculoEnum tipoCalculo) {
+    public void totalizarDevolucionLocalizacionSeccion(TareaDto tarea) {
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         //parametros
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, tipoCalculo.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
         //nuevos valores
-        TipoDatoEnum nuevoTipoDato;
-        switch (tipoCalculo) {
-            case POR_VENTA:
-                nuevoTipoDato = TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA;
-                break;
-            case POR_VENTA_SIMPLIFICADA:
-                nuevoTipoDato = TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO;
-                break;
-            default:
-                nuevoTipoDato = null;
-                log.error("El tipo de calculo {} no esta soportado para totalizar ventas personas por venta", tipoCalculo);
-        }
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        // si el tipo de calculo proporcionado no es válido, no se ejecuta la consulta
-        if (nuevoTipoDato != null) {
-            parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
-            namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonasPorVenta, parameters);
-        }
+        namedParameterJdbcTemplate.update(sqlTotalizarOperacionesLocalizacionSeccion, parameters);
+
+    }
+
+    @Override
+    public void totalizarVentaPersonasPorVentaSimplificada(TareaDto tarea) {
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        //parametros
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA.getId());
+        //nuevos valores
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO.getId());
+        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonasPorVenta, parameters);
+
+    }
+
+    @Override
+    public void totalizarVentaSinDevolucionPersonasPorVenta(TareaDto tarea) {
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        //parametros
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
+        //nuevos valores
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId());
+        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonasPorVenta, parameters);
 
     }
 
@@ -222,7 +226,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
             Arrays.asList(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(), TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENDEDORES,
-            TipoDatoEnum.IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA.getId());
+            TipoDatoEnum.IMPORTE_COMISION_VENDEDORES_POR_VENTA.getId());
 
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 

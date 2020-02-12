@@ -11,4 +11,8 @@ public interface TareaLocalizacionPersonaVentaRepositoryCustom {
 
     void totalizarVentaPersonaSeccion(TareaDto tarea);
 
+    void totalizarDevolucionPersonaSeccion(TareaDto tarea);
+
+    void totalizarVentaSinDevolucionPersonaSeccion(TareaDto tarea);
+
 }

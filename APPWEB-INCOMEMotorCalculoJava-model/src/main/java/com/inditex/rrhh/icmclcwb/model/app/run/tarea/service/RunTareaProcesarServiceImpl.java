@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -80,6 +79,12 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfTotalizarVentaPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarVentaPersonaSeccion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarVentaPersonaSeccion, cf, cfWait);
 
+            CompletableFuture<Void> cfTotalizarVentaSinDevolucionPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonaSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarVentaSinDevolucionPersonaSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfTotalizarDevolucionPersona = runTareaProcesarVentaAsyncService.totalizarDevolucionPersonaSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarDevolucionPersona, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
@@ -98,7 +103,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
             // Calcular ventas localizacion realizadas por personas por venta
             CompletableFuture<Void> cfVentasPorVenta =
-                runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVenta(runTarea);
+                runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonasPorVenta(runTarea);
             AsyncUtils.exceptionally(cfVentasPorVenta, cf, cfWait);
 
             /*-------------------------------------------------------------*/
@@ -135,6 +140,13 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // Indicadores de presencia de por venta simplificada y por venta
+            CompletableFuture<Void> cfIndicadorPersonasPorVentaSimplificada = runTareaProcesarPresenciaAsyncService.indicadorPersonaPorVentaSimplificada(runTarea);
+            AsyncUtils.exceptionally(cfIndicadorPersonasPorVentaSimplificada, cf, cfWait);
+
+            CompletableFuture<Void> cfIndicadorPersonasPorVenta = runTareaProcesarPresenciaAsyncService.indicadorPersonaPorVenta(runTarea);
+            AsyncUtils.exceptionally(cfIndicadorPersonasPorVenta, cf, cfWait);
 
             // Actualizar flags de presencias activas
             cfUpdateSeccionPresenciasActivas = runTareaProcesarPresenciaAsyncService

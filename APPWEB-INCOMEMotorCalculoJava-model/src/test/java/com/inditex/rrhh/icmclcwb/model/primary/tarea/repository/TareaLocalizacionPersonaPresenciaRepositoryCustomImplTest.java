@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -55,6 +56,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     private final static String SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "INDICADOR PRESENCIA DESPLAZAMIENTO";
     private final static String SQL_PRESENCIAS_HORAS_FIJAS = "PRESENCIAS HORAS FIJAS";
     private final static String SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO = "PRESENCIAS HORAS FIJAS DESPLAZAMIENTO";
+    private final static String SQL_INDICADOR_PERSONA_POR_VENTA = "SQL INDICADOR PERSONA POR VENTA";
+    private final static String SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA = "SQL INDICADOR PERSONA POR VENTA SIMPLIFICADA";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -90,6 +93,10 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
             SQL_PRESENCIAS_HORAS_FIJAS, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlProcesarPresenciasHorasFijasDesplazamientos",
             SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVenta",
+            SQL_INDICADOR_PERSONA_POR_VENTA, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVentaSimplificada",
+            SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
     }
 
@@ -340,6 +347,85 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     }
 
     @Test
+    public void indicadorPersonaPorVentaTest() {
+
+        RunTareaDto runTarea = mock(RunTareaDto.class);
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(199L);
+        when(runTarea.getTarea()).thenReturn(tarea);
+
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta(runTarea);
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
+        assertEquals(SQL_INDICADOR_PERSONA_POR_VENTA, sqlCaptor.getValue());
+        MapSqlParameterSource params = paramsCaptor.getValue();
+        // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, nuevoIdSeccion, idTarea, idTipoCalculo,
+        // activo, idTipoGrupoDato, idTipoGrupoDatoVenta
+        assertEquals(8, params.getValues().size());
+        // nuevoIdTipoDato
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        // nuevoActivo
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
+        // nuevoIdSeccion
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
+        // idTarea
+        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+        // idTipoCalculo
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_CALCULO));
+        assertEquals(TipoCalculoEnum.POR_VENTA.getId(), params.getValue(SQL_PARAM_ID_TIPO_CALCULO));
+        // activo
+        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+        // idTipoGrupoDato
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        // idTipoGrupoDatoVenta
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+        assertEquals(TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+    }
+
+    @Test
+    public void indicadorPersonaPorVentaSimplificadaTest() {
+
+        RunTareaDto runTarea = mock(RunTareaDto.class);
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(199L);
+        when(runTarea.getTarea()).thenReturn(tarea);
+
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada(runTarea);
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
+        assertEquals(SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, sqlCaptor.getValue());
+        MapSqlParameterSource params = paramsCaptor.getValue();
+        // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, nuevoIdSeccion, idTarea, idTipoCalculo,
+        // activo, idTipoGrupoDatoVenta
+        assertEquals(7, params.getValues().size());
+        // nuevoIdTipoDato
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        // nuevoActivo
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
+        // nuevoIdSeccion
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
+        // idTarea
+        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+        // idTipoCalculo
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_CALCULO));
+        assertEquals(TipoCalculoEnum.POR_VENTA.getId(), params.getValue(SQL_PARAM_ID_TIPO_CALCULO));
+        // activo
+        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+        // idTipoGrupoDatoVenta
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+        assertEquals(TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+    }
+
+    @Test
     public void setParametersTest() throws SQLException {
 
         PreparedStatement pstmt = mock(PreparedStatement.class);
@@ -387,7 +473,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     @Test
     public void saveTest() {
 
-        List<TareaLocalizacionPersonaPresencia> items = Arrays.asList(mock(TareaLocalizacionPersonaPresencia.class));
+        List<TareaLocalizacionPersonaPresencia> items = Collections.singletonList(mock(TareaLocalizacionPersonaPresencia.class));
         tareaLocalizacionPersonaPresenciaRepositoryCustom.save(items);
         verify(jdbcTemplate).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
