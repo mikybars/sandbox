@@ -11,15 +11,13 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAgrupacionVentaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionVenta;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper
+@Mapper(imports = { TipoDato.class, TipoDatoEnum.class, AppConstants.class })
 @DecoratedWith(TareaAgrupacionVentaDecorator.class)
 public abstract class TareaAgrupacionVentaMapper {
 
@@ -30,20 +28,11 @@ public abstract class TareaAgrupacionVentaMapper {
     @Mapping(target = "importeSinImpuestos", ignore = true)
     @Mapping(target = "importeConImpuestos", ignore = true)
     @Mapping(target = "icmIdAgrupacionOnline", ignore = true)
-    @Mapping(target = "cclIdSeccion", ignore = true)
-    @Mapping(target = "activo", ignore = true)
-    @Mapping(target = "tipoDato", ignore = true)
+    @Mapping(target = "cclIdSeccion", expression = "java(AppConstants.SECCION_4.toString())")
+    @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
+    @Mapping(target = "tipoDato", expression = "java(TipoDato.builder().id(TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId()).build())")
     public abstract TareaAgrupacionVenta ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
         PtrVentaTotalizadoResultItemDto src, TareaDto tarea);
-
-    @AfterMapping
-    public void ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
-        @MappingTarget TareaAgrupacionVenta dest, PtrVentaTotalizadoResultItemDto src, TareaDto tarea) {
-        dest.setActivo(Boolean.TRUE);
-        dest.setTipoDato(new TipoDato());
-        dest.getTipoDato().setId(TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId());
-        dest.setCclIdSeccion(AppConstants.SECCION_4.toString());
-    }
 
     public List<TareaAgrupacionVenta> ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
         List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {
@@ -57,20 +46,11 @@ public abstract class TareaAgrupacionVentaMapper {
     @Mapping(target = "importeSinImpuestos", ignore = true)
     @Mapping(target = "importeConImpuestos", ignore = true)
     @Mapping(target = "icmIdAgrupacionOnline", ignore = true)
-    @Mapping(target = "cclIdSeccion", ignore = true)
-    @Mapping(target = "activo", ignore = true)
-    @Mapping(target = "tipoDato", ignore = true)
+    @Mapping(target = "cclIdSeccion", expression = "java(AppConstants.SECCION_4.toString())")
+    @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
+    @Mapping(target = "tipoDato", expression = "java(TipoDato.builder().id(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId()).build())")
     public abstract TareaAgrupacionVenta ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
         PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea);
-
-    @AfterMapping
-    public void ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
-        @MappingTarget TareaAgrupacionVenta dest, PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea) {
-        dest.setActivo(Boolean.TRUE);
-        dest.setTipoDato(new TipoDato());
-        dest.getTipoDato().setId(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
-        dest.setCclIdSeccion(AppConstants.SECCION_4.toString());
-    }
 
     public List<TareaAgrupacionVenta> ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
         List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {

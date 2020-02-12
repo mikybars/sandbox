@@ -7,11 +7,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "TIPO_DATO")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TipoDato {
 
     @Id

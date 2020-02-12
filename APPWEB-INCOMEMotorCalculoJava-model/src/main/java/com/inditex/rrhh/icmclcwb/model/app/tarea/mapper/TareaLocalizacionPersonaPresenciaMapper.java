@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizac
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
 
-@Mapper
+@Mapper(imports = { TipoDato.class, TipoDatoEnum.class })
 @DecoratedWith(TareaLocalizacionPersonaPresenciaDecorator.class)
 public abstract class TareaLocalizacionPersonaPresenciaMapper {
 
@@ -48,10 +48,12 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(source = "src.minutos", target = "minutos")
     @Mapping(source = "src.idTipoHora", target = "codTipoHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
+    @Mapping(target = "tipoDato", expression = "java(TipoDato.builder().id(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()).build())")
+    @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
     @Mapping(target = "pk.id", ignore = true)
     @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionPersonaPresencia genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
-            GenericEmpleadoResultItemDto src, TareaDto tareaDto);
+        GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionPersonaPresencia> genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
             List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
@@ -68,6 +70,7 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(source = "src.minutos", target = "minutos")
     @Mapping(source = "src.tipo", target = "codTipoHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
+    @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
     @Mapping(target = "pk.id", ignore = true)
     @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionPersonaPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
@@ -76,21 +79,6 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     public List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
             List<PtrPresenciaDetalleResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
-
-    @AfterMapping
-    void afterMapping(@MappingTarget TareaLocalizacionPersonaPresencia tareaLocalizacionPersonaPresencia,
-            GenericEmpleadoResultItemDto src) {
-        tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
-        tareaLocalizacionPersonaPresencia.setTipoDato(new TipoDato());
-        tareaLocalizacionPersonaPresencia.getTipoDato()
-                .setId(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-    }
-
-    @AfterMapping
-    void afterMapping(@MappingTarget TareaLocalizacionPersonaPresencia tareaLocalizacionPersonaPresencia,
-            PtrPresenciaDetalleResultItemDto src) {
-        tareaLocalizacionPersonaPresencia.setActivo(Boolean.TRUE);
     }
 
 }
