@@ -14,10 +14,10 @@ HAVING COUNT(*) > 1
 
 <entry key="RunTareaValidarService.checkDuplicatedTiposHora">
     <![CDATA[
-SELECT COD_TIPO_HORA 
+SELECT ID_TIPO_HORA 
 FROM TAREA_TIPO_HORA 
 WHERE ID_TAREA = :idTarea
-GROUP BY COD_TIPO_HORA
+GROUP BY ID_TIPO_HORA
 HAVING COUNT(*) > 1
     ]]>
 </entry>

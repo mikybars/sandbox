@@ -60,10 +60,10 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
         pstmt.setBigDecimal(13, entity.getValor());
         pstmt.setInt(14, entity.getTramo());
         pstmt.setObject(15, entity.getPk().getFechaInicioPeriodo());
-//        pstmt.setBigDecimal(16, entity.getImporte());
-//        pstmt.setString(17, entity.getNumMesesCalcMedia());
-//        pstmt.setString(18, entity.getNumHoras());
-//        pstmt.setString(19, entity.getIdMotivoBaja());
+        pstmt.setBigDecimal(16, entity.getImporte());
+        pstmt.setString(17, entity.getNumMesesCalcMedia());
+        pstmt.setString(18, entity.getNumHoras());
+        pstmt.setString(19, entity.getIdMotivoBaja());
     }
     
     @Override
