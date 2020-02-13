@@ -114,4 +114,10 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea) {
         tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasTotalizado(runTarea.getTarea(), runTarea.getTrabajo());
     }
+    
+    @Override
+    public void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado(tarea.getTarea());
+    }
+    
 }
