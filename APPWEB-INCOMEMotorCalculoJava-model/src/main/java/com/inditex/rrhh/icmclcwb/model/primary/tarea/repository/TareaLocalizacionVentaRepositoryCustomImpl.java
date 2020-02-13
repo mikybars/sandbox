@@ -1,13 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,10 +13,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 
 @Repository
 public class TareaLocalizacionVentaRepositoryCustomImpl extends
@@ -35,6 +36,9 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas']}")
     private String sqlUpdateActivoTrasladadas;
+    
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado']}")
+    private String sqlUpdateActivoNegativoTotalizado;
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
@@ -103,5 +107,15 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         namedParameterJdbcTemplate.update(sqlUpdateActivoTrasladadas, parameters);
     }
     
-
+    @Override
+    public void updateActivoNegativoTotalizado(@NotNull TareaDto tarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+        
+        namedParameterJdbcTemplate.update(sqlUpdateActivoNegativoTotalizado, parameters);
+    }
+    
 }
