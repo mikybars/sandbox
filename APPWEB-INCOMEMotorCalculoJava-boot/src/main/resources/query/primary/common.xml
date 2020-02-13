@@ -1917,6 +1917,13 @@ WITH VENTA_TOTALIZADO AS (
         ON TLVT.ID_TAREA = TTV.ID_TAREA
         AND TLVT.CCL_ID_COD_ORIGEN = TTV.CCL_ID_COD_ORIGEN
         AND TLVT.FECHA = TTV.FECHA
+        AND 
+          CASE 
+            WHEN TTV.ID_TIPO_DATO = :idTipoDatoVentaEntregaTiendaLocalizacion AND TLVT.ID_TIPO_DATO IN (2007, 2008) THEN 1    
+            WHEN TTV.ID_TIPO_DATO = :idTipoDatoVentaSINTLocalizacion AND TLVT.ID_TIPO_DATO IN (2005, 2006) THEN 1 
+            WHEN TTV.ID_TIPO_DATO = :idTipoDatoVentaIpodLocalizacion AND TLVT.ID_TIPO_DATO IN (2003, 2004) THEN 1 
+            WHEN TTV.ID_TIPO_DATO = :idTipoDatoVentaEntregaDomicilioLocalizacion AND TLVT.ID_TIPO_DATO IN (3001, 3002) THEN 1 
+          END = 1
         WHERE TTV.ID_TIPO_DATO IN (:tiposDato)
         AND TLVT.ID_TIPO_DATO IN (:tiposDato)
         AND TTV.ID_TAREA = :idTarea
