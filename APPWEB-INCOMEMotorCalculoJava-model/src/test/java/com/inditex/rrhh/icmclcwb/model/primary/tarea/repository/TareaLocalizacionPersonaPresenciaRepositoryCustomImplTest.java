@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -29,6 +28,7 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -94,9 +94,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlProcesarPresenciasHorasFijasDesplazamientos",
             SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVenta",
-            SQL_INDICADOR_PERSONA_POR_VENTA, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVentaSimplificada",
-            SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, true);
+                SQL_INDICADOR_PERSONA_POR_VENTA, true);
+            FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVentaSimplificada",
+                SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
     }
 
@@ -424,7 +424,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
         assertEquals(TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
     }
-
+    
     @Test
     public void setParametersTest() throws SQLException {
 
@@ -473,9 +473,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     @Test
     public void saveTest() {
 
-        List<TareaLocalizacionPersonaPresencia> items = Collections.singletonList(mock(TareaLocalizacionPersonaPresencia.class));
+        List<TareaLocalizacionPersonaPresencia> items = Arrays.asList(mock(TareaLocalizacionPersonaPresencia.class));
         tareaLocalizacionPersonaPresenciaRepositoryCustom.save(items);
-        verify(jdbcTemplate).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
+        verify(namedParameterJdbcTemplate).batchUpdate(sqlCaptor.capture(), any(SqlParameterSource[].class));
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
 
     }
