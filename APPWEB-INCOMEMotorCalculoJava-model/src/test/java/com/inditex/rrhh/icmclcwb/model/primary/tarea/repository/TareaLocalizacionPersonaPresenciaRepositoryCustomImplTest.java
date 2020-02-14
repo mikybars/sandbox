@@ -416,7 +416,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
         // idTipoCalculo
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_CALCULO));
-        assertEquals(TipoCalculoEnum.POR_VENTA.getId(), params.getValue(SQL_PARAM_ID_TIPO_CALCULO));
+        assertEquals(TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(), params.getValue(SQL_PARAM_ID_TIPO_CALCULO));
         // activo
         assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
