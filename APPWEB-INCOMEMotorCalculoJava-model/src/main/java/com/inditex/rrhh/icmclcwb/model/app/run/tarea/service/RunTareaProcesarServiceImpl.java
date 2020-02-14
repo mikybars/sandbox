@@ -97,23 +97,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfSaveAbiertoSeccion = runTareaProcesarVentaAsyncService.saveAbiertoSeccion(runTarea);
             AsyncUtils.exceptionally(cfSaveAbiertoSeccion, cf, cfWait);
 
-            // Calcular ventas localizacion realizadas por personas por venta simplificado
-            CompletableFuture<Void> cfVentasPorVentaSimplificado = runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVentaSimplificada(runTarea);
-            AsyncUtils.exceptionally(cfVentasPorVentaSimplificado, cf, cfWait);
-
-            // Calcular ventas localizacion realizadas por personas por venta
-            CompletableFuture<Void> cfVentasPorVenta =
-                runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonasPorVenta(runTarea);
-            AsyncUtils.exceptionally(cfVentasPorVenta, cf, cfWait);
-
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
-
-            // Calcular importe comision vendedores por venta
-            CompletableFuture<Void> cfCalcularImporteComisionVendedores =
-                runTareaProcesarVentaAsyncService.calcularImporteComisionVendedores(runTarea);
-            AsyncUtils.exceptionally(cfCalcularImporteComisionVendedores, cf, cfWait);
 
             // Calcular localizacion cerrada
             CompletableFuture<Void> cfSaveCerrado = runTareaProcesarVentaAsyncService.saveCerrado(runTarea);
@@ -140,13 +126,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
-
-            // Indicadores de presencia de por venta simplificada y por venta
-            CompletableFuture<Void> cfIndicadorPersonasPorVentaSimplificada = runTareaProcesarPresenciaAsyncService.indicadorPersonaPorVentaSimplificada(runTarea);
-            AsyncUtils.exceptionally(cfIndicadorPersonasPorVentaSimplificada, cf, cfWait);
-
-            CompletableFuture<Void> cfIndicadorPersonasPorVenta = runTareaProcesarPresenciaAsyncService.indicadorPersonaPorVenta(runTarea);
-            AsyncUtils.exceptionally(cfIndicadorPersonasPorVenta, cf, cfWait);
 
             // Actualizar flags de presencias activas
             cfUpdateSeccionPresenciasActivas = runTareaProcesarPresenciaAsyncService
@@ -208,6 +187,13 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                     .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion, cf, cfWait);
 
+            // Indicadores de presencia de por venta simplificada y por venta
+            CompletableFuture<Void> cfIndicadorPersonasPorVentaSimplificada = runTareaProcesarPresenciaAsyncService.indicadorPersonaPorVentaSimplificada(runTarea);
+            AsyncUtils.exceptionally(cfIndicadorPersonasPorVentaSimplificada, cf, cfWait);
+
+            CompletableFuture<Void> cfIndicadorPersonasPorVenta = runTareaProcesarPresenciaAsyncService.indicadorPersonaPorVenta(runTarea);
+            AsyncUtils.exceptionally(cfIndicadorPersonasPorVenta, cf, cfWait);
+
             // Presencias totales de agrupaciones
             CompletableFuture<Void> cfCalcularPresenciasTotalesAgrupacion = runTareaProcesarPresenciaAsyncService
                 .calcularPresenciasTotalesAgrupacion(runTarea);
@@ -216,6 +202,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // Calcular ventas localizacion realizadas por personas por venta simplificado
+            CompletableFuture<Void> cfVentasPorVentaSimplificado = runTareaProcesarVentaAsyncService.totalizarVentaPersonasPorVentaSimplificada(runTarea);
+            AsyncUtils.exceptionally(cfVentasPorVentaSimplificado, cf, cfWait);
+
+            // Calcular ventas localizacion realizadas por personas por venta
+            CompletableFuture<Void> cfVentasPorVenta =
+                runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonasPorVenta(runTarea);
+            AsyncUtils.exceptionally(cfVentasPorVenta, cf, cfWait);
 
             // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -
             // por ventas
@@ -232,6 +227,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // Calcular importe comision vendedores por venta
+            CompletableFuture<Void> cfCalcularImporteComisionVendedores =
+                runTareaProcesarVentaAsyncService.calcularImporteComisionVendedores(runTarea);
+            AsyncUtils.exceptionally(cfCalcularImporteComisionVendedores, cf, cfWait);
 
             // Reparto de ventas online entrega domicilio por sección
             CompletableFuture<Void> cfRepartoVentaOnlineEntregaDomicilioSeccion = runTareaProcesarVentaAsyncService
@@ -280,8 +280,8 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            CompletableFuture<Void> cfCalcularImporteComisoinVentaODevolucion = runTareaProcesarVentaAsyncService.calcularImporteComisionVentaODevolucion(runTarea);
-            AsyncUtils.exceptionally(cfCalcularImporteComisoinVentaODevolucion, cf, cfWait);
+            CompletableFuture<Void> cfCalcularImporteComisionVentaODevolucion = runTareaProcesarVentaAsyncService.calcularImporteComisionVentaODevolucion(runTarea);
+            AsyncUtils.exceptionally(cfCalcularImporteComisionVentaODevolucion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);

@@ -107,7 +107,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
 
     @Override
     @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_persona", key = "{#idTarea, #cclCodOrigen, #idTipoCalculo}")
-    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(@NotNull @Positive Long idTarea, @NotBlank String cclCodOrigen, @NotBlank String idTipoCalculo) {
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(@NotNull @Positive Long idTarea, @NotBlank String cclCodOrigen, @NotNull List<String> idTipoCalculo) {
         return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(idTarea, cclCodOrigen, idTipoCalculo);
     }
 }

@@ -275,10 +275,12 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
     public void findIdLocalizacionLocalDtoByIdTareaAndCclIdsPersonaInAmbitoLocalizacion() {
 
         Long idTarea = 23L;
-        String idTipoCalculo = "ID TIPO CALCULO";
+        String idTipoCalculo1 = "ID TIPO CALCULO";
+        String idTipoCalculo2 = "ID TIPO CALCULO 2";
         String idOrigen = "ID ORIGEN";
 
-        tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(idTarea, idOrigen, idTipoCalculo);
+        tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(idTarea, idOrigen,
+            Arrays.asList(idTipoCalculo1, idTipoCalculo2));
         verify(namedParameterJdbcTemplate, times(1))
             .query(sql.capture(), params.capture(), any(RowMapper.class));
         assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO, sql.getValue());
@@ -291,8 +293,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         assertTrue(params.getValue().hasValue(SQL_PARAM_CCL_ID_ORIGEN));
         assertEquals(idOrigen, params.getValue().getValue(SQL_PARAM_CCL_ID_ORIGEN));
         // idTipoCalculo
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TIPO_CALCULO));
-        assertEquals(idTipoCalculo, params.getValue().getValue(SQL_PARAM_ID_TIPO_CALCULO));
+        assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(Arrays.asList(idTipoCalculo1, idTipoCalculo2), params.getValue().getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
         // cclIdOrigen
         assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
