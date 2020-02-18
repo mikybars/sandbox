@@ -35,6 +35,7 @@ public class TareaConfiguracion {
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
 
+    //TODO: Hay que eliminar este campo en la siguiente version
     @NotBlank
     @Column(name = "ICM_ID_CONFIG", nullable = false)
     private Integer icmIdConfig;
