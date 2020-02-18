@@ -10,6 +10,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_IDS_TIPOS_DATO = "tiposDato";
     
     public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO = "idTipoGrupoDato";
+
+    public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA = "idTipoGrupoDatoVenta";
     
     public static final String SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS = "idsTiposGrupoDatoTrasladados";
     
@@ -38,6 +40,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION = "tipoDatoLocalizacionVentaSeccion";
 
     public static final String SQL_PARAM_CCL_ID_PERSON = "cclIdPerson";
+
+    public static final String SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0 = "cclIdPersonVendedor0";
 
     public static final String SQL_PARAM_STD_OR_HR_PERIOD = "stdOrHrPeriod";
 
@@ -125,6 +129,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA = "idTipoDatoVentaLocalizacionPersona";
 
+    public static final String SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA = "idTipoDatoDevolucionLocalizacionPersona";
+
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION = "idTipoImporteVentaFisicaAgrupacion";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION = "idTipoImporteVentaEntregaDomicilioAgrupacion";
@@ -148,6 +154,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENDEDORES = "idTipoDatoImporteComisionVendedores";
 
     public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
+
+    public static final String SQL_PARAM_FECHA_INICIO_PERIODO = "fechaInicioPeriodo";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
     

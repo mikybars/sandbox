@@ -42,11 +42,15 @@ public interface RunTareaProcesarVentaService {
 
     void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
 
-    void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea);
+    void totalizarVentaSinDevolucionPersonasPorVenta(@Valid RunTareaDto tarea);
 
     void totalizarVentaPersonasPorVentaSimplificada(@Valid RunTareaDto tarea);
 
     void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarVentaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
 
     void calcularImporteComisionVendedores(@Valid RunTareaDto tarea);
 

@@ -95,7 +95,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<Integer> localizaciones = tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(tarea.getId(),
-                tareaAmbito.getCclIdOrigen(), TipoCalculoEnum.POR_VENTA.getId()).stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList());
+                tareaAmbito.getCclIdOrigen(), Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(), TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(), TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId()))
+                .stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList());
             if (CollectionUtils.isNotEmpty(localizaciones)) {
 
                 if (TipoAmbitoEnum.PERSONA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())

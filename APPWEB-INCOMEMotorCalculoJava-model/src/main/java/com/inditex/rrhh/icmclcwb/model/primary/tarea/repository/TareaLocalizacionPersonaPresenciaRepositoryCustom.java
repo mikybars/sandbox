@@ -29,4 +29,8 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
     void presenciasHorasFijasDesplazamiento(@NotNull RunTareaDto runTareaDto);
 
+    void indicadorPersonaPorVenta(@NotNull RunTareaDto runTareaDto);
+
+    void indicadorPersonaPorVentaSimplificada(@NotNull RunTareaDto runTareaDto);
+
 }

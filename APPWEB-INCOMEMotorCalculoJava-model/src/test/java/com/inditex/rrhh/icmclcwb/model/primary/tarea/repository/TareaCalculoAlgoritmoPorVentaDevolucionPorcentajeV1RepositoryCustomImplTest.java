@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,20 +21,21 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
+public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
 
@@ -52,13 +54,13 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
     private ArgumentCaptor<String> sqlCaptor;
 
     @InjectMocks
-    private TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImpl
-        tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImpl
+        tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom;
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
     }
 
     @Test
@@ -74,7 +76,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 
         List<TareaCalculoPersonaDto> ids =
-            tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.ids(algoritmo, tarea);
+            tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom.ids(algoritmo, tarea);
 
         assertEquals(2, ids.size());
         assertEquals(personas, ids);
@@ -113,35 +115,39 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 3, 1));
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
 
-        //Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia, idTipoDatoVentaLocalizacionPersona,
-        // idTipoDatoVentaSinDevolucionLocalizacionSeccion, idTipoDatoVentaLocalizacionPersonasPorVenta, idTipoDatoImporteComisionVenta,
+        //Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia, idTipoDatoDevolucionLocalizacionPersona,
+        // idTipoDatoDevolucionLocalizacion, fechaInicioPeriodo, idTipoDatoImporteComisionDevolucion, cclIdPersonVendedor0,
         // idSeccion, tiposDatoPersonaPresencia, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
         // esDesplazamientoBase, comisionable, calcula
-        assertEquals(18, result.size());
+        assertEquals(19, result.size());
         //activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
         //idTipoDatoIndicadorPresencia
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
         assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
-        //idTipoDatoVentaLocalizacionPersona
-        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA));
-        assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId(), result.get(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA));
-        //idTipoDatoVentaSinDevolucionLocalizacionSeccion
-        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
-        assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
-        //idTipoDatoVentaLocalizacionPersonasPorVenta
-        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA));
-        assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_EMPLEADOS_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA));
-        //idTipoDatoImporteComisionVenta
-        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
-        assertEquals(TipoDatoEnum.IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
+        //idTipoDatoDevolucionLocalizacionPersona
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
+        assertEquals(TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId(), result.get(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
+        //idTipoDatoDevolucionLocalizacion
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
+        assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
+        //fechaInicioPeriodo
+        assertTrue(result.containsKey(SQL_PARAM_FECHA_INICIO_PERIODO));
+        assertEquals(tarea.getFechaInicioPeriodo(), result.get(SQL_PARAM_FECHA_INICIO_PERIODO));
+        //idTipoDatoImporteComisionDevolucion
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
+        assertEquals(TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
+        //cclIdPersonVendedor0
+        assertTrue(result.containsKey(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
+        assertEquals(PtrConstants.VENDEDOR_0, result.get(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
         //idSeccion
         assertTrue(result.containsKey(SQL_PARAM_ID_SECCION));
         assertEquals(AppConstants.SECCION_4, result.get(SQL_PARAM_ID_SECCION));
@@ -178,14 +184,13 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         //esDesplazamientoBase
         assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-
     }
 
     @Test
     public void calcularTest() {
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
-        when(algoritmo.getId()).thenReturn(1001);
+        when(algoritmo.getId()).thenReturn(8001);
         when(algoritmo.getTipoCalculo()).thenReturn(
             Arrays.asList(
                 TipoCalculoDto
@@ -214,6 +219,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 3, 1));
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -222,10 +228,10 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         when(persona2.getStdOrHrPeriod()).thenReturn("02");
         List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
 
-        tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.calcular(algoritmo, tarea, personas);
+        tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom.calcular(algoritmo, tarea, personas);
 
-        //Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia, idTipoDatoVentaLocalizacionPersona,
-        // idTipoDatoVentaSinDevolucionLocalizacionSeccion, idTipoDatoVentaLocalizacionPersonasPorVenta, idTipoDatoImporteComisionVenta,
+        //Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia, idTipoDatoDevolucionLocalizacionPersona,
+        // idTipoDatoDevolucionLocalizacion, fechaInicioPeriodo, idTipoDatoImporteComisionDevolucion, cclIdPersonVendedor0,
         // idSeccion, tiposDatoPersonaPresencia, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
         // esDesplazamientoBase, comisionable, calcula
         verify(namedParameterJdbcTemplate).batchUpdate(sqlCaptor.capture(), paramsCaptor.capture());
@@ -234,25 +240,28 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         //2 elementos, porque se envían dos personas
         assertEquals(2, values.length);
         for (MapSqlParameterSource value : values) {
-            assertEquals(18, value.getValues().size());
+            assertEquals(19, value.getValues().size());
             //activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
             //idTipoDatoIndicadorPresencia
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
             assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
-            //idTipoDatoVentaLocalizacionPersona
-            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA));
-            assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId(), value.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA));
-            //idTipoDatoVentaSinDevolucionLocalizacionSeccion
-            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
-            assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
-            //idTipoDatoVentaLocalizacionPersonasPorVenta
-            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA));
-            assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_EMPLEADOS_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA));
-            //idTipoDatoImporteComisionVenta
-            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
-            assertEquals(TipoDatoEnum.IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
+            //idTipoDatoDevolucionLocalizacionPersona
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
+            assertEquals(TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId(), value.getValue(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
+            //idTipoDatoDevolucionLocalizacion
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
+            assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
+            //fechaInicioPeriodo
+            assertTrue(value.hasValue(SQL_PARAM_FECHA_INICIO_PERIODO));
+            assertEquals(tarea.getFechaInicioPeriodo(), value.getValue(SQL_PARAM_FECHA_INICIO_PERIODO));
+            //idTipoDatoImporteComisionDevolucion
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
+            assertEquals(TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
+            //cclIdPersonVendedor0
+            assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
+            assertEquals(PtrConstants.VENDEDOR_0, value.getValue(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
             //idSeccion
             assertTrue(value.hasValue(SQL_PARAM_ID_SECCION));
             assertEquals(AppConstants.SECCION_4, value.getValue(SQL_PARAM_ID_SECCION));
@@ -304,7 +313,6 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
 
                 .toArray()
                 .length);
-
     }
 
     @Test
@@ -313,7 +321,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(21);
 
-        String result = tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom
+        String result = tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
             .getSqlCalcular(algoritmo);
         assertEquals(SQL_BASE, result);
 

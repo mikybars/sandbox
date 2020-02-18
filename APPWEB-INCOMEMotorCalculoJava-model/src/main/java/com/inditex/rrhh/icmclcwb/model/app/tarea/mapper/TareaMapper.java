@@ -67,30 +67,6 @@ public abstract class TareaMapper {
     public abstract TareaDto mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(
             TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa, TrabajoDto srcTrabajo);
 
-    @AfterMapping
-    protected void mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa,
-            TrabajoDto srcTrabajo, @MappingTarget TareaDto tarea) {
-        List<TareaAmbitoDto> ambito = new ArrayList<>();
-        srcTrabajo.getOrigen().forEach(item -> ambito.add(TareaAmbitoDto.builder().cclIdOrigen(item.getCclIdOrigen())
-                .build()));
-        tarea.setAmbito(ambito);
-
-        List<TareaAmbitoLocalizacionDto> localizacion = new ArrayList<>();
-        srcTrabajo.getLocalizacion().stream()
-                .filter(item -> item.getStdIdLegEnt().equals(srcTrabajoAmbitoEmpresa.getStdIdLegEnt()))
-                .collect(Collectors.toList()).forEach(item -> localizacion.add(TareaAmbitoLocalizacionDto.builder()
-                        .stdIdWorkLocat(item.getStdIdWorkLocat()).cclIdOrigen(item.getCclIdOrigen()).build()));
-        tarea.setLocalizacion(localizacion);
-
-        List<TareaAmbitoPersonaDto> persona = new ArrayList<>();
-        srcTrabajo.getPersona().stream()
-                .filter(item -> item.getStdIdLegEnt().equals(srcTrabajoAmbitoEmpresa.getStdIdLegEnt()))
-                .collect(Collectors.toList())
-                .forEach(item -> persona.add(TareaAmbitoPersonaDto.builder().cclIdPerson(item.getCclIdPerson())
-                        .stdOrHrPeriod(item.getStdOrHrPeriod()).cclIdOrigen(item.getCclIdOrigen()).build()));
-        tarea.setPersona(persona);
-    }
-
     public List<TareaDto> mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(
             List<TrabajoAmbitoEmpresaDto> srcTrabajoAmbitoEmpresa, TrabajoDto srcTrabajo) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
@@ -163,16 +139,6 @@ public abstract class TareaMapper {
     public abstract PtrPresenciaEmpleadosTiendaRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, List<IdLocalizacionLocalDto> srcLocalizaciones);
     
-    @AfterMapping
-    public void mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(
-            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
-            List<IdLocalizacionLocalDto> srcLocalizaciones, @MappingTarget PtrPresenciaEmpleadosTiendaRequestDto result) {
-        if (result != null && srcLocalizaciones != null) {
-            List<Integer> localizaciones = srcLocalizaciones.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList());
-            result.setTienda(localizaciones);
-        }
-    }
-
     @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")

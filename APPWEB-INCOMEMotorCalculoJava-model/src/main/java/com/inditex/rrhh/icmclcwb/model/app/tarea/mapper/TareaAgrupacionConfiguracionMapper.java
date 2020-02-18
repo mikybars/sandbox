@@ -16,7 +16,7 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper
+@Mapper(imports = { TipoVentaConcepto.class, TipoVentaConceptoEnum.class })
 @DecoratedWith(TareaAgrupacionAgrupacionConfiguracionDecorator.class)
 public abstract class TareaAgrupacionConfiguracionMapper {
 
@@ -27,7 +27,7 @@ public abstract class TareaAgrupacionConfiguracionMapper {
     @Mapping(source = "src.idAgrupacion", target = "icmIdAgrupacionOnline")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tipoVentaConcepto", ignore = true)
+    @Mapping(target = "tipoVentaConcepto", expression = "java(TipoVentaConcepto.builder().id(TipoVentaConceptoEnum.fromIdMeta4(src.getIdConcepto()).getId()).build())")
     public abstract TareaAgrupacionConfiguracion getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
         ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto);
 
@@ -36,23 +36,10 @@ public abstract class TareaAgrupacionConfiguracionMapper {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    @AfterMapping
-    public void getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
-        @MappingTarget TareaAgrupacionConfiguracion dest, ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto) {
-        dest.setTipoVentaConcepto(new TipoVentaConcepto());
-        dest.getTipoVentaConcepto().setId(TipoVentaConceptoEnum.fromIdMeta4(src.getIdConcepto()).getId());
-    }
-
     @Mapping(source = "src.tarea.id", target = "idTarea")
-    @Mapping(target = "tipoVentaConcepto", ignore = true)
+    @Mapping(target = "tipoVentaConcepto", expression = "java(TipoVentaConceptoEnum.fromId(src.getTipoVentaConcepto().getId()))")
     public abstract TareaAgrupacionConfiguracionDto getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
         TareaAgrupacionConfiguracion src);
-
-    @AfterMapping
-    public void getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-        @MappingTarget TareaAgrupacionConfiguracionDto dest, TareaAgrupacionConfiguracion src) {
-        dest.setTipoVentaConcepto(TipoVentaConceptoEnum.fromId(src.getTipoVentaConcepto().getId()));
-    }
 
     public List<TareaAgrupacionConfiguracionDto> getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
         List<TareaAgrupacionConfiguracion> src) {

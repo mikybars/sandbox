@@ -104,4 +104,14 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void presenciasHorasFijasDesplazamientos(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.presenciasHorasFijasDesplazamientos(runTarea);
     }
+
+    @Override
+    public void indicadorPersonaPorVenta(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVenta(runTarea);
+    }
+
+    @Override
+    public void indicadorPersonaPorVentaSimplificada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
+    }
 }

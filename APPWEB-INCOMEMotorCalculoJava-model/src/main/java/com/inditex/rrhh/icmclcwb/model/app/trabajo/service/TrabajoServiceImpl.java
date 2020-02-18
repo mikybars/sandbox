@@ -119,10 +119,6 @@ public class TrabajoServiceImpl implements TrabajoService {
         if (CollectionUtils.isNotEmpty(periodos)) {
             trabajo.setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo());
             trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo());
-        } else {
-            //TODO [JAVIEREV] Solo para pruebas por venta... ¡BORRAR ESTE CODIGO!
-            trabajo.setFechaInicioPeriodo(LocalDate.of(2019, 12, 1));
-            trabajo.setFechaFinPeriodo(LocalDate.of(2019, 12, 31));
         }
         TrabajoDto result = trabajoMapper
                 .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));

@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -134,27 +132,37 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void totalizarDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacionSeccion(runTarea.getTarea(), false);
+        tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacionSeccion(runTarea.getTarea());
     }
 
     @Override
     public void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacionSeccion(runTarea.getTarea(), true);
+        tareaLocalizacionVentaRepositoryCustom.totalizarVentasSinDevolucionLocalizacionSeccion(runTarea.getTarea());
     }
 
     @Override
-    public void totalizarVentaPersonasPorVenta(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta(tarea.getTarea(), TipoCalculoEnum.POR_VENTA);
+    public void totalizarVentaSinDevolucionPersonasPorVenta(@Valid RunTareaDto tarea) {
+        tareaLocalizacionVentaRepositoryCustom.totalizarVentaSinDevolucionPersonasPorVenta(tarea.getTarea());
     }
 
     @Override
     public void totalizarVentaPersonasPorVentaSimplificada(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta(tarea.getTarea(), TipoCalculoEnum.POR_VENTA_SIMPLIFICADA);
+        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificada(tarea.getTarea());
     }
 
     @Override
     public void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea) {
         tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion(tarea.getTarea());
+    }
+
+    @Override
+    public void totalizarVentaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
+        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaSinDevolucionPersonaSeccion(tarea.getTarea());
+    }
+
+    @Override
+    public void totalizarDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
+        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionPersonaSeccion(tarea.getTarea());
     }
 
     @Override

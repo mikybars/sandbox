@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
@@ -101,8 +100,8 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaPersonasPorVenta(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentaPersonasPorVenta(tarea);
+    public CompletableFuture<Void> totalizarVentaSinDevolucionPersonasPorVenta(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaSinDevolucionPersonasPorVenta(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
@@ -127,6 +126,18 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     @Override
     public CompletableFuture<Void> totalizarVentaPersonaSeccion(RunTareaDto tarea) {
         tareaProcesarVentaService.totalizarVentaPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaSinDevolucionPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaSinDevolucionPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionPersonaSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
