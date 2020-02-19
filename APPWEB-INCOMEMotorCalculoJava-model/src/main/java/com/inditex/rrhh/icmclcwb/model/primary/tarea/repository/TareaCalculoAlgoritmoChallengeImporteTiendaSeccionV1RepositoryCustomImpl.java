@@ -21,17 +21,17 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import lombok.Getter;
 
 @Repository
-public class TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustomImpl
+public class TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustomImpl
         extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
-        implements TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom {
+        implements TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom {
     
-//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom.calcular']}")
+//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']}")
     @Getter
     private String sqlCalcular;
 
-//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom.calcular']}")
+//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']}")
     @Getter
     private String sqlCalcularBase;
     

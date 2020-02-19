@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular.challengeimporte.v1;
+package com.inditex.rrhh.icmclcwb.model.app.calcular.challengepreciohoratienda.v1;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
-@Component("challengeImporteDesplazamientoV1")
-public class ChallengeImporteDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
+@Component("challengePrecioHoraTiendaDesplazamientoBaseV1")
+public class ChallengePrecioHoraTiendaDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired
     private Logger log;
@@ -28,7 +28,7 @@ public class ChallengeImporteDesplazamientoV1RunAlgoritmo implements RunAlgoritm
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom;
+    private TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustom;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -36,25 +36,25 @@ public class ChallengeImporteDesplazamientoV1RunAlgoritmo implements RunAlgoritm
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+                tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: ChallengeImporteDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                    log.info("Inicio :: ChallengePrecioHoraTiendaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom.calcular(algoritmo,
+                        tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
                                 runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        log.error("ChallengeImporteDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                        log.error("ChallengePrecioHoraTiendaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                         tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
                                 EstadoTareaCalculoPersonaEnum.KO.getDto());
                     }
-                    log.info("Fin :: ChallengeImporteDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                    log.info("Fin :: ChallengePrecioHoraTiendaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
                     return Flux.empty();
                 }).sequential().collectList().block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoChallengeImporteDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }

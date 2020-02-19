@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular.challengeimporte.v1;
+package com.inditex.rrhh.icmclcwb.model.app.calcular.challengeimportetiendaseccion.v1;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengeImporteV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoBaseV1RepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
-@Component("challengeImporteV1")
-public class ChallengeImporteV1RunAlgoritmo implements RunAlgoritmo {
+@Component("challengeImporteTiendaSeccionDesplazamientoBaseV1")
+public class ChallengeImporteTiendaSeccionDesplazamientoBaseV1RunAlgoritmo  implements RunAlgoritmo {
 
     @Autowired
     private Logger log;
@@ -28,7 +28,7 @@ public class ChallengeImporteV1RunAlgoritmo implements RunAlgoritmo {
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoChallengeImporteV1RepositoryCustom tareaCalculoAlgoritmoChallengeImporteV1RepositoryCustom;
+    private TareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoBaseV1RepositoryCustom;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -36,25 +36,25 @@ public class ChallengeImporteV1RunAlgoritmo implements RunAlgoritmo {
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoChallengeImporteV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+                tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: ChallengeImporteV1RunAlgoritmo :: Personas: {}", personas.size());
+                    log.info("Inicio :: ChallengeImporteTiendaSeccionDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoAlgoritmoChallengeImporteV1RepositoryCustom.calcular(algoritmo,
+                        tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
                                 runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        log.error("ChallengeImporteV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                        log.error("ChallengeImporteTiendaSeccionDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                         tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
                                 EstadoTareaCalculoPersonaEnum.KO.getDto());
                     }
-                    log.info("Fin :: ChallengeImporteV1RunAlgoritmo :: Personas: {}", personas.size());
+                    log.info("Fin :: ChallengeImporteTiendaSeccionDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
                     return Flux.empty();
                 }).sequential().collectList().block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoChallengeImporteV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }

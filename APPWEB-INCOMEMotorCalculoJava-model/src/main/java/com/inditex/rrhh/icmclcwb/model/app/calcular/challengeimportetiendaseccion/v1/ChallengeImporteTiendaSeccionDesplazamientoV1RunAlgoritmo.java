@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular.challengepreciohora.v1;
+package com.inditex.rrhh.icmclcwb.model.app.calcular.challengeimportetiendaseccion.v1;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom;
 
 import reactor.core.publisher.Flux;
 
-@Component("challengePrecioHoraV1")
-public class ChallengePrecioHoraV1RunAlgoritmo implements RunAlgoritmo {
+@Component("challengeImporteTiendaSeccionDesplazamientoV1")
+public class ChallengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired
     private Logger log;
@@ -28,7 +28,7 @@ public class ChallengePrecioHoraV1RunAlgoritmo implements RunAlgoritmo {
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom tareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom;
+    private TareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -36,25 +36,25 @@ public class ChallengePrecioHoraV1RunAlgoritmo implements RunAlgoritmo {
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+                tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: ChallengePrecioHoraV1RunAlgoritmo :: Personas: {}", personas.size());
+                    log.info("Inicio :: ChallengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
                     try {
-                        tareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom.calcular(algoritmo,
+                        tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom.calcular(algoritmo,
                                 runTarea.getTarea(), personas);
                     } catch (Exception e) {
-                        log.error("ChallengePrecioHoraV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                        log.error("ChallengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                         tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
                                 EstadoTareaCalculoPersonaEnum.KO.getDto());
                     }
-                    log.info("Fin :: ChallengePrecioHoraV1RunAlgoritmo :: Personas: {}", personas.size());
+                    log.info("Fin :: ChallengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
                     return Flux.empty();
                 }).sequential().collectList().block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }
