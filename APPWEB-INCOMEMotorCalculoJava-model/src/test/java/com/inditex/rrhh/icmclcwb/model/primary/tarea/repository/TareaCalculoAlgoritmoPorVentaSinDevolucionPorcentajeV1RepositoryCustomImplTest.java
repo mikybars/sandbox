@@ -7,7 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +20,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
+public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
 
@@ -52,13 +50,13 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
     private ArgumentCaptor<String> sqlCaptor;
 
     @InjectMocks
-    private TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImpl
-        tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustomImpl
+        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
     }
 
     @Test
@@ -74,7 +72,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 
         List<TareaCalculoPersonaDto> ids =
-            tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.ids(algoritmo, tarea);
+            tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.ids(algoritmo, tarea);
 
         assertEquals(2, ids.size());
         assertEquals(personas, ids);
@@ -117,13 +115,13 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
 
         //Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia, idTipoDatoVentaLocalizacionPersona,
         // idTipoDatoVentaSinDevolucionLocalizacionSeccion, idTipoDatoVentaLocalizacionPersonasPorVenta, idTipoDatoImporteComisionVenta,
-        // idSeccion, tiposDatoPersonaPresencia, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
+        // idTipoPresenciaLocalizacion, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
         // esDesplazamientoBase, comisionable, calcula
-        assertEquals(18, result.size());
+        assertEquals(17, result.size());
         //activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -142,12 +140,9 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         //idTipoDatoImporteComisionVenta
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
         assertEquals(TipoDatoEnum.IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
-        //idSeccion
-        assertTrue(result.containsKey(SQL_PARAM_ID_SECCION));
-        assertEquals(AppConstants.SECCION_4, result.get(SQL_PARAM_ID_SECCION));
-        //tiposDatoPersonaPresencia
-        assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
-        assertEquals(Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()), result.get(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
+        //idTipoPresenciaLocalizacion
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), result.get(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
         //idAlgoritmo
         assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
         assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
@@ -222,7 +217,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         when(persona2.getStdOrHrPeriod()).thenReturn("02");
         List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
 
-        tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.calcular(algoritmo, tarea, personas);
+        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.calcular(algoritmo, tarea, personas);
 
         //Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia, idTipoDatoVentaLocalizacionPersona,
         // idTipoDatoVentaSinDevolucionLocalizacionSeccion, idTipoDatoVentaLocalizacionPersonasPorVenta, idTipoDatoImporteComisionVenta,
@@ -234,7 +229,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         //2 elementos, porque se envían dos personas
         assertEquals(2, values.length);
         for (MapSqlParameterSource value : values) {
-            assertEquals(18, value.getValues().size());
+            assertEquals(17, value.getValues().size());
             //activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -253,12 +248,9 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
             //idTipoDatoImporteComisionVenta
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
             assertEquals(TipoDatoEnum.IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
-            //idSeccion
-            assertTrue(value.hasValue(SQL_PARAM_ID_SECCION));
-            assertEquals(AppConstants.SECCION_4, value.getValue(SQL_PARAM_ID_SECCION));
-            //tiposDatoPersonaPresencia
-            assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
-            assertEquals(Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()), value.getValue(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
+            //idTipoPresenciaLocalizacion
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+            assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), value.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
             //idAlgoritmo
             assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
@@ -313,7 +305,7 @@ public class TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustomImplTest {
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(21);
 
-        String result = tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom
+        String result = tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .getSqlCalcular(algoritmo);
         assertEquals(SQL_BASE, result);
 

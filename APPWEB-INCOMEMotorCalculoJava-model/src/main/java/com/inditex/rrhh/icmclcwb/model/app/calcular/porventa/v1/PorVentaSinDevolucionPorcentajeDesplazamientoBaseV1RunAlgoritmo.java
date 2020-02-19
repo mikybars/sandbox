@@ -8,15 +8,15 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoBaseV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
-@Component("porVentaPorcentajeDesplazamientoBaseV1")
-public class PorVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {
+@Component("porVentaSinDevolucionPorcentajeDesplazamientoBaseV1")
+public class PorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired
     private Logger log;
@@ -26,8 +26,8 @@ public class PorVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements RunAl
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoBaseV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoBaseV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom
+        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -35,24 +35,24 @@ public class PorVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements RunAl
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+            tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
             runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-            log.info("Inicio :: PorVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+            log.info("Inicio :: PorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
             try {
-                tareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
+                tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
                     runTarea.getTarea(), personas);
             } catch (Exception e) {
-                log.error("PorVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                log.error("PorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
                 tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
             }
-            log.info("Fin :: PorVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+            log.info("Fin :: PorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
             return Flux.empty();
         }).sequential().collectList().block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoPorVentaPorcentajeDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }

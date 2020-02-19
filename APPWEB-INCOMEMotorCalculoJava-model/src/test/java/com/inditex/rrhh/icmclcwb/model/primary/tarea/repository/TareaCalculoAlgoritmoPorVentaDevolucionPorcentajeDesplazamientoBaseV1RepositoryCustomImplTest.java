@@ -7,7 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
@@ -23,19 +22,18 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImplTest {
+public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
 
@@ -54,13 +52,13 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
     private ArgumentCaptor<String> sqlCaptor;
 
     @InjectMocks
-    private TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImpl
-        tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustomImpl
+        tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom;
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom, "sqlCalcular", SQL_CALCULAR, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom, "sqlCalcularBase", SQL_BASE, true);
     }
 
     @Test
@@ -76,7 +74,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 
         List<TareaCalculoPersonaDto> ids =
-            tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom.ids(algoritmo, tarea);
+            tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, tarea);
 
         assertEquals(2, ids.size());
         assertEquals(personas, ids);
@@ -120,13 +118,13 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
 
         //Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia, idTipoDatoDevolucionLocalizacionPersona,
         // idTipoDatoDevolucionLocalizacion, fechaInicioPeriodo, idTipoDatoImporteComisionDevolucion, cclIdPersonVendedor0,
         // idTipoPresencia, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
-        // esDesplazamientoBase, comisionable, calcula
-        assertEquals(18, result.size());
+        // esDesplazamientoBase, comisionable, calcula, idTipoDatoIndicadorPresenciaDesplazamientoBase
+        assertEquals(19, result.size());
         //activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -181,6 +179,9 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
         //esDesplazamientoBase
         assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+        //idTipoDatoIndicadorPresenciaDesplazamientoBase
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE));
+        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE));
     }
 
     @Test
@@ -225,19 +226,19 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
         when(persona2.getStdOrHrPeriod()).thenReturn("02");
         List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
 
-        tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom.calcular(algoritmo, tarea, personas);
+        tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo, tarea, personas);
 
         //Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia, idTipoDatoDevolucionLocalizacionPersona,
         // idTipoDatoDevolucionLocalizacion, fechaInicioPeriodo, idTipoDatoImporteComisionDevolucion, cclIdPersonVendedor0,
-        // idSeccion, tiposDatoPersonaPresencia, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
-        // esDesplazamientoBase, comisionable, calcula
+        // idTipoPresencia, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
+        // esDesplazamientoBase, comisionable, calcula, idTipoDatoIndicadorPresenciaDesplazamientoBase
         verify(namedParameterJdbcTemplate).batchUpdate(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_CALCULAR, sqlCaptor.getValue());
         MapSqlParameterSource[] values = paramsCaptor.getValue();
         //2 elementos, porque se envían dos personas
         assertEquals(2, values.length);
         for (MapSqlParameterSource value : values) {
-            assertEquals(18, value.getValues().size());
+            assertEquals(19, value.getValues().size());
             //activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -286,6 +287,9 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
             //esDesplazamientoBase
             assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
             assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+            //idTipoDatoIndicadorPresenciaDesplazamiento
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE));
+            assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
@@ -304,7 +308,6 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
                 .filter(value ->
                     persona2.getCclIdPerson().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
                         && persona2.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
-
                 .toArray()
                 .length);
     }
@@ -315,7 +318,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(21);
 
-        String result = tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
+        String result = tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom
             .getSqlCalcular(algoritmo);
         assertEquals(SQL_BASE, result);
 
