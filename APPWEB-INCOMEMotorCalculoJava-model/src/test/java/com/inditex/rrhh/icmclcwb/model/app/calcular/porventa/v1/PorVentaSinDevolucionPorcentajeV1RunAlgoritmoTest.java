@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular.porventaindividual.v1;
+package com.inditex.rrhh.icmclcwb.model.app.calcular.porventa.v1;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
+public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
 
     private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
@@ -31,30 +31,30 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
     private Logger log;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Mock
-    private TareaCalculoPersonaService tareaCalculoPersonaService;
+    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
+        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
 
     @Mock
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
 
     @InjectMocks
-    PorVentaIndividualPorcentajeV1RunAlgoritmo porVentaIndividualPorcentajeV1RunAlgoritmo;
+    PorVentaSinDevolucionPorcentajeV1RunAlgoritmo PorVentaSinDevolucionPorcentajeV1RunAlgoritmo;
 
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
 
-        String result = porVentaIndividualPorcentajeV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto());
+        String result = tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.getSqlCalcular(new AlgoritmoDto());
 
         assertEquals(SQL_CALCULAR, result);
     }
 
     @Test
-    public void calcularTest() {
+    public void executeTest() {
 
         when(runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(10);
 
@@ -71,20 +71,21 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
         when(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
+        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        AlgoritmoDto algoritmo = new AlgoritmoDto();
         RunTareaDto runTarea = new RunTareaDto();
         TareaDto tarea = new TareaDto();
         runTarea.setTarea(tarea);
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
-        porVentaIndividualPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
+        PorVentaSinDevolucionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info("Inicio :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info("Fin :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
     }
 
     @Test
-    public void calcularExceptionTest() {
+    public void executeExceptionTest() {
 
         List<TareaCalculoPersonaDto> personas = new ArrayList<>();
         TareaCalculoPersonaDto p1 = new TareaCalculoPersonaDto();
@@ -105,10 +106,10 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
         TareaDto tarea = new TareaDto();
         runTarea.setTarea(tarea);
         AlgoritmoDto algoritmo = new AlgoritmoDto();
-        porVentaIndividualPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
+        PorVentaSinDevolucionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(log, times(1))
-            .error("PorVentaIndividualPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
+            .error("PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
     }

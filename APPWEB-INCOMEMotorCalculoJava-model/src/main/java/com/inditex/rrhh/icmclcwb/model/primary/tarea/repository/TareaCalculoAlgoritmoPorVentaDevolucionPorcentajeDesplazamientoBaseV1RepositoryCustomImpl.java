@@ -7,7 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import lombok.Getter;
@@ -15,22 +14,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
-public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImpl
+public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustomImpl
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
-    implements TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom {
+    implements TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom {
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
     @Getter
     private String sqlCalcular;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
     @Getter
     private String sqlCalcularBase;
 
@@ -63,11 +61,14 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
         map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDto::getId).collect(Collectors.toList()));
         map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase() ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, algoritmo.getDesplazamiento() ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE, TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId());
         return map;
+
     }
 
     @Override
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
         return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
     }
+
 }
