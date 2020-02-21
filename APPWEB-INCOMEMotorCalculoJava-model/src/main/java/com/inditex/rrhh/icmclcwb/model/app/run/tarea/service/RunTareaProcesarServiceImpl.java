@@ -82,6 +82,18 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfTotalizarVentaSinDevolucionPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonaSeccion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarVentaSinDevolucionPersonaSeccion, cf, cfWait);
 
+            CompletableFuture<Void> cfTotalizarVentaFisicaSinDevolucionPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarVentaFisicaSinDevolucionPersonaSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarVentaFisicaSinDevolucionPersonaSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfTotalizarVentaOnlineIpodSinDevolucionPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarVentaOnlineIpodSinDevolucionPersonaSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfTotalizarDevolucionFisicaPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarDevolucionFisicaPersonaSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarDevolucionFisicaPersonaSeccion, cf, cfWait);
+
+            CompletableFuture<Void> cfTotalizarDevolucionOnlineIpodPersonaSeccion = runTareaProcesarVentaAsyncService.totalizarDevolucionOnlineIpodPersonaSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarDevolucionOnlineIpodPersonaSeccion, cf, cfWait);
+
             CompletableFuture<Void> cfTotalizarDevolucionPersona = runTareaProcesarVentaAsyncService.totalizarDevolucionPersonaSeccion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarDevolucionPersona, cf, cfWait);
 

@@ -24,7 +24,6 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -384,7 +383,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
         // idTipoGrupoDatoVenta
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-        assertEquals(TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+        assertEquals(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
     }
 
     @Test
@@ -422,7 +421,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
         // idTipoGrupoDatoVenta
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-        assertEquals(TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+        assertEquals(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
     }
     
     @Test

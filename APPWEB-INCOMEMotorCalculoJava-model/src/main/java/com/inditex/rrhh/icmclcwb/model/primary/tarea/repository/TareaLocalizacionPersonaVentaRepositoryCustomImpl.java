@@ -2,8 +2,12 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -36,6 +40,9 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Autowired
+    private TipoDatoService tipoDatoService;
+
     @Override
     public List<TareaLocalizacionPersonaVenta> save(List<TareaLocalizacionPersonaVenta> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
@@ -59,48 +66,78 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     @Override
     public void totalizarVentaPersonaSeccion(TareaDto tarea) {
 
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        // Parámetros filtro
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        // Parámetros que establecen valores
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-
-        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonaSeccion, parameters);
+        List<IdTipoDatoDto> tiposDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+        totalizarVentaPersonaSeccion(tarea, tiposDato, TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION_SECCION);
 
     }
 
     @Override
     public void totalizarVentaSinDevolucionPersonaSeccion(TareaDto tarea) {
 
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        // Parámetros filtro
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        // Parámetros que establecen valores
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-
-        namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonaSeccion, parameters);
+        List<IdTipoDatoDto> tiposDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
+        totalizarVentaPersonaSeccion(tarea, tiposDato, TipoDatoEnum.VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION);
 
     }
 
     @Override
     public void totalizarDevolucionPersonaSeccion(TareaDto tarea) {
 
+        List<IdTipoDatoDto> tiposDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
+        totalizarVentaPersonaSeccion(tarea, tiposDato, TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION);
+
+    }
+
+    @Override
+    public void totalizarVentaFisicaSinDevolucionPersonaSeccion(TareaDto tarea) {
+
+        totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.VENTA_FISICA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION,
+            Collections.singletonList(TipoDatoEnum.OPERACION_VENTA_FISICA_LOCALIZACION_SECCION.getId()));
+
+    }
+
+    @Override
+    public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(TareaDto tarea) {
+
+        totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.VENTA_ONLINE_IPOD_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION,
+            Collections.singletonList(TipoDatoEnum.OPERACION_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
+
+    }
+
+    @Override
+    public void totalizarDevolucionFisicaPersonaSeccion(TareaDto tarea) {
+
+        totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.DEVOLUCION_FISICA_INDIVIDUAL_LOCALIZACION_SECCION,
+            Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_FISICA_LOCALIZACION_SECCION.getId()));
+
+    }
+
+    @Override
+    public void totalizarDevolucionOnlineIpodPersonaSeccion(TareaDto tarea) {
+
+        totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.DEVOLUCION_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_SECCION,
+            Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
+
+    }
+
+    private void totalizarVentaPersonaSeccion(TareaDto tarea, TipoDatoEnum nuevoTipoDato, List<Integer> tiposDato) {
+
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         // Parámetros filtro
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, tiposDato);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         // Parámetros que establecen valores
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
         namedParameterJdbcTemplate.update(sqlTotalizarVentaPersonaSeccion, parameters);
 
     }
+
+    private void totalizarVentaPersonaSeccion(TareaDto tarea, List<IdTipoDatoDto> tiposDato, TipoDatoEnum nuevoTipoDato) {
+
+        totalizarVentaPersonaSeccion(tarea, nuevoTipoDato, tiposDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+
+    }
+
 }

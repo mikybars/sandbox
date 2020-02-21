@@ -359,35 +359,4 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             throw e;
         }
     }
-
-    @Override
-    public CompletableFuture<Void> ventaOnlineIpodLocalizacionPersonaBusquedaPorVenta(@NotNull @Positive Integer idPais, @NotNull @Positive Integer idEmpresa) {
-
-        log.warn("BUSQUEDA DE POR VENTA: Inicio pais {}, Empresa {}", idPais, idEmpresa);
-
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpod = new PtrVentaOnlineIpodIndividualDetalleRequestDto();
-        paramVentaOnlineIpod.setProducto(Arrays.asList(1,2,3,4,5));
-        paramVentaOnlineIpod.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
-        paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-        paramVentaOnlineIpod.setEmpresa(idEmpresa);
-        paramVentaOnlineIpod.setFechaDesde("2019-12-01");
-        paramVentaOnlineIpod.setFechaHasta("2019-12-31");
-        paramVentaOnlineIpod.setPais(idPais);
-
-        CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> cfData =
-            ptrVentaEcommerceAsyncService.ventaOnlineiPodIndividualDetalle(paramVentaOnlineIpod);
-        AsyncUtils.exceptionally(cfData, cf);
-
-        PtrVentaOnlineIpodIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-
-        if (CollectionUtils.isNotEmpty(data.getVentaOnlineIpodIndividual())) {
-            data.getVentaOnlineIpodIndividual().stream().filter(x -> x.getVendedor() != 0 && x.getVendedor() != -1)
-                .forEach(x -> log.warn("BUSQUEDA DE POR VENTA: El empleado {} tiene operaciones en la tienda {} el día {}.", x.getVendedor(), x.getTienda(), x.getFecha()));
-        }
-
-        log.warn("BUSQUEDA DE POR VENTA: Fin pais {}, Empresa {}", idPais, idEmpresa);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-
-    }
 }
