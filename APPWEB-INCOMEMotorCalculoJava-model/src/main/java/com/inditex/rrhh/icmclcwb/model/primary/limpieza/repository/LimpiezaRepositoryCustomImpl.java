@@ -132,26 +132,28 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         List<MapSqlParameterSource> stdIdWorkLocatBatchArgs = getParametersMeta4(tarea, ambito);
         List<MapSqlParameterSource> idTareaBatchArgs = getParametersTarea(tarea);
         
-        for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
-            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaCalculo,
-                    iter.toArray(new MapSqlParameterSource[iter.size()]));
-        }
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAgrupacionCadena,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAgrupacionConfiguracion,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAgrupacionPresencia,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAgrupacionVenta,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAmbitoGlobalLocalizacion,
                 iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAmbitoGlobalLocalizacionPersona,
                 iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAmbitoGlobalLozalizacionPersonaDesplazamiento,
                 iter.toArray(new MapSqlParameterSource[iter.size()]));
@@ -174,14 +176,17 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionAbierta,
                 iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionCalcular,
                 iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionComisionHistorico,
                 iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionFestivo,
                 iter.toArray(new MapSqlParameterSource[iter.size()]));
@@ -197,24 +202,31 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionPersonaPresencia,
                     iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodOrigenBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionPersonaVenta,
                     iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodOrigenBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionPresencia,
                     iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodOrigenBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionVenta,
                     iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaPersonaCoeficiente,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaEstructura,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaEstructuraDesplazamiento,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaEstructuraPolitica,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
         
@@ -222,11 +234,17 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaPersonaHistorico,
                     iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaTipoHora,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
 
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaConfiguracion,
             idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
+        
+        for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
+            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaCalculo,
+                    iter.toArray(new MapSqlParameterSource[iter.size()]));
+        }
     }
 
     @Override
