@@ -132,6 +132,11 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         List<MapSqlParameterSource> stdIdWorkLocatBatchArgs = getParametersMeta4(tarea, ambito);
         List<MapSqlParameterSource> idTareaBatchArgs = getParametersTarea(tarea);
         
+        for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
+            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaCalculo,
+                    iter.toArray(new MapSqlParameterSource[iter.size()]));
+        }
+        
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAgrupacionCadena,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
         
@@ -241,10 +246,6 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaConfiguracion,
             idTareaBatchArgs.toArray(new MapSqlParameterSource[idTareaBatchArgs.size()]));
         
-        for (List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, batchSize)) {
-            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaCalculo,
-                    iter.toArray(new MapSqlParameterSource[iter.size()]));
-        }
     }
 
     @Override
