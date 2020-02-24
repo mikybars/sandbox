@@ -142,6 +142,30 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     }
 
     @Override
+    public CompletableFuture<Void> totalizarVentaFisicaSinDevolucionPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionFisicaPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionFisicaPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionOnlineIpodPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionFisicaPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
     public CompletableFuture<Void> calcularImporteComisionVendedores(RunTareaDto tarea) {
         tareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

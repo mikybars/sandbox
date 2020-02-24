@@ -4,6 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import org.springframework.scheduling.annotation.Async;
 
+import javax.validation.Valid;
 import java.util.concurrent.CompletableFuture;
 
 @Async
@@ -50,6 +51,14 @@ public interface RunTareaProcesarVentaAsyncService {
     CompletableFuture<Void> totalizarVentaSinDevolucionPersonaSeccion(RunTareaDto tarea);
 
     CompletableFuture<Void> totalizarDevolucionPersonaSeccion (RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea);
 
     CompletableFuture<Void> calcularImporteComisionVendedores(RunTareaDto tarea);
 

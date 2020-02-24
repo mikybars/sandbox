@@ -41,12 +41,6 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
             log.warn(ErrorConstants.OPERATION_NOT_VALID, src.getOperacion());
         }
 
-        //TODO [JAVIEREV] Este codigo se debe eliminar, es para pruebas por venta
-//        if (PtrConstants.VENDEDORES_0.contains(Integer.valueOf(result.getCclIdPerson()))) {
-//            result.setCclIdPerson();
-//        }
-
-        //TODO [JAVIEREV] Este codigo se debe descomentar cuando se elimine el bloque anterior
         if (PtrConstants.VENDEDORES_0.contains(Integer.valueOf(result.getCclIdPerson()))) {
             result.setCclIdPerson(PtrConstants.VENDEDOR_0.toString());
         }

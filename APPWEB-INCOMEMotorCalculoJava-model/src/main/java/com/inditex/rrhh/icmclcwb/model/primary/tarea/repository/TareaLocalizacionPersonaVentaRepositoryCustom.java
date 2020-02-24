@@ -15,4 +15,12 @@ public interface TareaLocalizacionPersonaVentaRepositoryCustom {
 
     void totalizarVentaSinDevolucionPersonaSeccion(TareaDto tarea);
 
+    void totalizarVentaFisicaSinDevolucionPersonaSeccion(TareaDto tarea);
+
+    void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(TareaDto tarea);
+
+    void totalizarDevolucionFisicaPersonaSeccion(TareaDto tarea);
+
+    void totalizarDevolucionOnlineIpodPersonaSeccion(TareaDto tarea);
+
 }

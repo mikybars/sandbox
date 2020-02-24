@@ -166,6 +166,26 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
 
     @Override
+    public void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
+        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea.getTarea());
+    }
+
+    @Override
+    public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
+        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea.getTarea());
+    }
+
+    @Override
+    public void totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea) {
+        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
+    }
+
+    @Override
+    public void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea) {
+        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
+    }
+
+    @Override
     public void calcularImporteComisionVendedores(@Valid RunTareaDto tarea) {
         tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea.getTarea());
     }
