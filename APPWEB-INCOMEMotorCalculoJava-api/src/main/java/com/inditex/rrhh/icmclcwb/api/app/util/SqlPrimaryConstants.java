@@ -45,6 +45,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_STD_OR_HR_PERIOD = "stdOrHrPeriod";
 
+    public static final String SQL_PARAM_STD_ID_HR = "STD_ID_HR";
+
     public static final String SQL_PARAM_ID_TAREA = "idTarea";
 
     public static final String SQL_PARAM_ID_TRABAJO = "idTrabajo";

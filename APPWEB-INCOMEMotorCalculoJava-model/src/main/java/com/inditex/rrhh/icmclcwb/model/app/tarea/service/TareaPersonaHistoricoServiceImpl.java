@@ -77,11 +77,4 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
             @NotNull final String cclIdOrigen) {
         return tareaPersonaHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
     }
-
-    //TODO: No se está usando
-    @Override
-    public List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigen(@NotNull final Long idTarea,
-            @NotNull final String cclIdOrigen) {
-        return tareaPersonaHistoricoRepository.findIdPersonaLocalByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
-    }
 }

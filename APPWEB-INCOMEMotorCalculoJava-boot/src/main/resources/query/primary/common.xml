@@ -65,6 +65,34 @@
     ]]>
 </entry>
 
+<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona">
+  <![CDATA[
+    SELECT PH.CCL_ID_PERSON, PH.STD_OR_HR_PERIOD
+    FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
+    INNER JOIN (
+            SELECT
+             CP.ID_TAREA,
+             LP.STD_ID_WORK_LOCAT
+            FROM TAREA_CALCULO_PERSONA CP
+            INNER JOIN TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
+             ON CP.CCL_ID_PERSON = LP.CCL_ID_PERSON
+             AND CP.CCL_ID_ORIGEN = LP.CCL_ID_ORIGEN
+            WHERE LP.ID_TAREA = :idTarea
+            AND LP.CCL_ID_ORIGEN = :cclIdOrigen
+            GROUP BY CP.ID_TAREA, LP.STD_ID_WORK_LOCAT
+    ) AS D
+    ON LP.ID_TAREA = D.ID_TAREA
+    AND LP.STD_ID_WORK_LOCAT = D.STD_ID_WORK_LOCAT
+    INNER JOIN TAREA_PERSONA_HISTORICO PH
+    ON LP.ID_TAREA = PH.ID_TAREA
+    AND LP.CCL_ID_PERSON = PH.CCL_ID_PERSON
+    AND LP.CCL_ID_ORIGEN = PH.CCL_ID_ORIGEN
+    WHERE LP.ID_TAREA = :idTarea
+    AND LP.CCL_ID_ORIGEN = :cclIdOrigen
+    GROUP BY PH.CCL_ID_PERSON, PH.STD_OR_HR_PERIOD
+  ]]>
+</entry>
+
 <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdTipoCalculo">
   <![CDATA[
   SELECT P.CCL_ID_PERSON FROM TAREA_PERSONA_HISTORICO P
@@ -3597,7 +3625,7 @@ WHERE INDICADOR.ROW = 1
 </entry>
 
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculo">
-<![CDATA[DELETE FROM TAREA_CALCULO WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
+<![CDATA[DELETE FROM TAREA_CALCULO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionCadena">
 <![CDATA[DELETE FROM TAREA_AGRUPACION_CADENA WHERE ID_TAREA = :idTarea]]>
@@ -3615,19 +3643,19 @@ WHERE INDICADOR.ROW = 1
 <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLocalizacionPersona">
-<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
+<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLozalizacionPersonaDesplazamiento">
-<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_DESPLAZAMIENTO WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
+<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_DESPLAZAMIENTO WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLocalizacionPersonaPresencia">
-<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLocalizacionPersonaPresenciaManual">
-<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA_MANUAL WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
+<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA_MANUAL WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalPersona">
-<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_PERSONA WHERE ID_TAREA = :idTarea]]>
+<![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_PERSONA WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionAbierta">
 <![CDATA[DELETE FROM TAREA_LOCALIZACION_ABIERTA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
@@ -3648,31 +3676,31 @@ WHERE INDICADOR.ROW = 1
 <![CDATA[DELETE FROM TAREA_LOCALIZACION_ONLINE_HISTORICO WHERE ID_TAREA = :idTarea]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPersonaPresencia">
-<![CDATA[DELETE FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+<![CDATA[DELETE FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPersonaVenta">
-<![CDATA[DELETE FROM TAREA_LOCALIZACION_PERSONA_VENTA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+<![CDATA[DELETE FROM TAREA_LOCALIZACION_PERSONA_VENTA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresencia">
-<![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESENCIA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+<![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESENCIA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionVenta">
-<![CDATA[DELETE FROM TAREA_LOCALIZACION_VENTA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+<![CDATA[DELETE FROM TAREA_LOCALIZACION_VENTA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaPersonaCoeficiente">
-<![CDATA[DELETE FROM TAREA_PERSONA_COEFICIENTE WHERE ID_TAREA = :idTarea]]>
+<![CDATA[DELETE FROM TAREA_PERSONA_COEFICIENTE WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaEstructura">
-<![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA WHERE ID_TAREA = :idTarea]]>
+<![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaEstructuraDesplazamiento">
-<![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO WHERE ID_TAREA = :idTarea]]>
+<![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaEstructuraPolitica">
-<![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA_POLITICA WHERE ID_TAREA = :idTarea]]>
+<![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA_POLITICA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaPersonaHistorico">
-<![CDATA[DELETE FROM TAREA_PERSONA_HISTORICO WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+<![CDATA[DELETE FROM TAREA_PERSONA_HISTORICO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
 </entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaTipoHora">
 <![CDATA[DELETE FROM TAREA_TIPO_HORA WHERE ID_TAREA = :idTarea]]>
