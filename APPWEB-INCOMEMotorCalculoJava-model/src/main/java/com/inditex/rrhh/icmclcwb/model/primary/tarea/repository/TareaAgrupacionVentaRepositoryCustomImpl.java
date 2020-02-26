@@ -35,15 +35,15 @@ public class TareaAgrupacionVentaRepositoryCustomImpl extends JdbcBatchPrimaryRe
 
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAgrupacionVenta entity) throws SQLException {
-        pstmt.setObject(1, entity.getFecha());
-        pstmt.setLong(2, entity.getIcmIdAgrupacionOnline());
-        pstmt.setLong(3, entity.getTarea().getId());
-        pstmt.setLong(4, entity.getTipoDato().getId());
-        pstmt.setString(5, entity.getCclIdSeccion());
-        pstmt.setString(6, entity.getCclIdOrigen());
-        pstmt.setBigDecimal(7, entity.getImporteSinImpuestos());
-        pstmt.setBigDecimal(8, entity.getImporteConImpuestos());
-        pstmt.setBoolean(9, entity.getActivo());
+        pstmt.setBoolean(1, entity.getActivo());
+        pstmt.setObject(2, entity.getFecha());
+        pstmt.setLong(3, entity.getIcmIdAgrupacionOnline());
+        pstmt.setString(4, entity.getCclIdSeccion());
+        pstmt.setString(5, entity.getCclIdOrigen());
+        pstmt.setBigDecimal(6, entity.getImporteSinImpuestos());
+        pstmt.setBigDecimal(7, entity.getImporteConImpuestos());
+        pstmt.setLong(8, entity.getTarea().getId());
+        pstmt.setLong(9, entity.getTipoDato().getId());
     }
 
     @Override
