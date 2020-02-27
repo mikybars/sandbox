@@ -3627,6 +3627,9 @@ WHERE INDICADOR.ROW = 1
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculo">
 <![CDATA[DELETE FROM TAREA_CALCULO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
 </entry>
+<entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculoAjuste">
+  <![CDATA[DELETE FROM TAREA_CALCULO_AJUSTE WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+</entry>
 <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionCadena">
 <![CDATA[DELETE FROM TAREA_AGRUPACION_CADENA WHERE ID_TAREA = :idTarea]]>
 </entry>

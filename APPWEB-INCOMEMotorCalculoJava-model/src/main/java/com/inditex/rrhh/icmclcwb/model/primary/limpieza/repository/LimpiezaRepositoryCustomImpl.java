@@ -48,6 +48,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
     @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculo']}")
     private String sqlLimpiezaTareaCalculo;
+
+    @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculoAjuste']}")
+    private String sqlLimpiezaTareaCalculoAjuste;
     
     @Value("#{primaryQuery['LimpiezaRepositoryCustom.limpieza.tareaAgrupacionCadena']}")
     private String sqlLimpiezaTareaAgrupacionCadena;
@@ -144,6 +147,11 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         for (List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodPersonaLocalBatchArgs, batchSize)) {
             namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaCalculo,
                     iter.toArray(new MapSqlParameterSource[iter.size()]));
+        }
+
+        for (List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodPersonaLocalBatchArgs, batchSize)) {
+            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaCalculoAjuste,
+                iter.toArray(new MapSqlParameterSource[iter.size()]));
         }
         
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAgrupacionCadena,
