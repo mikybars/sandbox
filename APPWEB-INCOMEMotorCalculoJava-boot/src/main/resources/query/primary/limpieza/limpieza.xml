@@ -2,8 +2,51 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+  <entry key="LimpiezaRepositoryCustom.personas.tareaCalculo">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_CALCULO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaCalculoAjuste">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_CALCULO_AJUSTE WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalLocalizacionPersona">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalLocalizacionPersonaDesplazamiento">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_DESPLAZAMIENTO WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalLocalizacionPersonaPresencia">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalLocalizacionPersonaPresenciaManual">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA_MANUAL WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalPersona">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_PERSONA WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaLocalizacionPersonaPresencia">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaLocalizacionPersonaVenta">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_LOCALIZACION_PERSONA_VENTA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaPersonaCoeficiente">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_PERSONA_COEFICIENTE WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaEstructura">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_PERSONA_ESTRUCTURA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaEstructuraPolitica">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_PERSONA_ESTRUCTURA_POLITICA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaPersonaHistorico">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_PERSONA_HISTORICO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculo">
     <![CDATA[DELETE FROM TAREA_CALCULO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculoAjuste">
+    <![CDATA[DELETE FROM TAREA_CALCULO_AJUSTE WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
   </entry>
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionCadena">
     <![CDATA[DELETE FROM TAREA_AGRUPACION_CADENA WHERE ID_TAREA = :idTarea]]>
