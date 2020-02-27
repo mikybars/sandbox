@@ -93,7 +93,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         return trabajo;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo){
         trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());

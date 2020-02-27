@@ -5,6 +5,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.Message;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
@@ -19,7 +20,7 @@ public class ReceiverTarea {
     private RunService runService;
 
     @CircuitBreaker(name = "tarea")
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @JmsListener(id = "tareaListener", destination = "${amiga.service.jms.tarea-queue.destination-fqdn}", containerFactory = "tareaContainerFactoryListener")
     public void onMessageTareaListener(
             Message<TareaDto> message /* TareaDto message */ /* TareaDto message, @Headers Map headers */) {

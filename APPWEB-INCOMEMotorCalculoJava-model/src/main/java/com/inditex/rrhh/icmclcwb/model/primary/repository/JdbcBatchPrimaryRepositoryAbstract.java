@@ -49,6 +49,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
             } catch (DataAccessException e) {
                 log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error: {}", e);
                 iter.stream().forEach(a -> log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a));
+                throw e;
             }
         }
         return src;
@@ -65,6 +66,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
             } catch (DataAccessException e) {
                 log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error: {}", e);
                 iter.stream().forEach(a -> log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a));
+                throw e;
             }
         }
         return src;
@@ -75,6 +77,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
             namedParameterJdbcTemplate.update(sql, parameters);
         } catch (DataAccessException e) {
             log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error insertando: {} :: Items: {}", e, parameters.toString());
+            throw e;
         }
     }
 
