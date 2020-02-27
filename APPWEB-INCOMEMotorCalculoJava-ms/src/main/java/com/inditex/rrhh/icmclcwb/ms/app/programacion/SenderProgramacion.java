@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.ms.app.programacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.aqsw.framework.data.jms.JmsClient;
@@ -15,7 +16,7 @@ public class SenderProgramacion {
     @Qualifier("programacionJmsClient")
     private JmsClient programacionJmsClient;
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void send(IdProgramacionDto programacion) {
         programacionJmsClient.convertAndSend(programacion);
     }
