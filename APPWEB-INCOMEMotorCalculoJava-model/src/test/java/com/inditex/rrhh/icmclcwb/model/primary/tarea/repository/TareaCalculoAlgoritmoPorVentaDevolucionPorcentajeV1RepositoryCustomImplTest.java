@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -141,7 +142,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
         assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
         //fechaInicioPeriodo
         assertTrue(result.containsKey(SQL_PARAM_FECHA_INICIO_PERIODO));
-        assertEquals(tarea.getFechaInicioPeriodo(), result.get(SQL_PARAM_FECHA_INICIO_PERIODO));
+        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), result.get(SQL_PARAM_FECHA_INICIO_PERIODO));
         //idTipoDatoImporteComisionDevolucion
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
         assertEquals(TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
@@ -252,7 +253,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
             assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
             //fechaInicioPeriodo
             assertTrue(value.hasValue(SQL_PARAM_FECHA_INICIO_PERIODO));
-            assertEquals(tarea.getFechaInicioPeriodo(), value.getValue(SQL_PARAM_FECHA_INICIO_PERIODO));
+            assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), value.getValue(SQL_PARAM_FECHA_INICIO_PERIODO));
             //idTipoDatoImporteComisionDevolucion
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
             assertEquals(TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
