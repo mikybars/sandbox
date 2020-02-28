@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
-@Component("porVentaDevolucionPorcentajeV1RunAlgoritmo")
+@Component("porVentaDevolucionPorcentajeV1")
 public class PorVentaDevolucionPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
     @Autowired

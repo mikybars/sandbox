@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,7 +44,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustom
         HashMap<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-            map.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, tarea.getFechaInicioPeriodo());
+            map.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
         }
         if (persona != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getCclIdPerson());
