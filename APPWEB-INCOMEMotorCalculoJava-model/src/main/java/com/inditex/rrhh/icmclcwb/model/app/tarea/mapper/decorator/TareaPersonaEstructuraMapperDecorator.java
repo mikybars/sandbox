@@ -77,8 +77,8 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                 /* Estructura desplazamiento */
                 /*---------------------------*/
                 if (CollectionUtils.isNotEmpty(itemPadre.getIcmListaCondicionesDestino())) {
+                    AtomicInteger counter = new AtomicInteger(0);
                     itemPadre.getIcmListaCondicionesDestino().forEach(itemDesplazamiento -> {
-                        AtomicInteger counter = new AtomicInteger(0);
                         TipoOpcionCalculoEnum opcion = TipoOpcionCalculoEnum.fromIdMeta4(itemDesplazamiento.getIdTipoOpCalculo());
                         if(StringUtils.isEmpty(itemDesplazamiento.getIdTipoCalculo())) {
                             itemDesplazamiento.setIdTipoCalculo(TipoCalculoEnum.NINGUNO.getId());
