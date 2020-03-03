@@ -41,6 +41,11 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     }
 
     @Override
+    public void totalizarEmpleadosPorVenta(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresenciaService.totalizarEmpleadosPorVenta(runTarea);
+    }
+
+    @Override
     public void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
     }
@@ -90,4 +95,23 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
     }
 
+    @Override
+    public void presenciasHorasFijas(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.presenciasHorasFijas(runTarea);
+    }
+
+    @Override
+    public void presenciasHorasFijasDesplazamientos(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.presenciasHorasFijasDesplazamientos(runTarea);
+    }
+
+    @Override
+    public void indicadorPersonaPorVenta(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVenta(runTarea);
+    }
+
+    @Override
+    public void indicadorPersonaPorVentaSimplificada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
+    }
 }

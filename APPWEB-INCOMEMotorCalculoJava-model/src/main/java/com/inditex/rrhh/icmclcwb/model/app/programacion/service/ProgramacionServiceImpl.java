@@ -7,7 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbito
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
 

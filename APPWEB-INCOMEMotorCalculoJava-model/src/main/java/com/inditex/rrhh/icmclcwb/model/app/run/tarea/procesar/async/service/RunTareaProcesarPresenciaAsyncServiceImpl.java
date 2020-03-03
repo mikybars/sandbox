@@ -41,6 +41,12 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
     }
 
     @Override
+    public CompletableFuture<Void> totalizarEmpleadosPorVenta(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.totalizarEmpleadosPorVenta(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
     public CompletableFuture<Void> updateActivoLocalizacionPersonaPresencia(RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresencia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
@@ -94,4 +100,27 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> presenciasHorasFijas(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.presenciasHorasFijas(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> presenciasHorasFijasDesplazamientos(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.presenciasHorasFijasDesplazamientos(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> indicadorPersonaPorVenta(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.indicadorPersonaPorVenta(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> indicadorPersonaPorVentaSimplificada(RunTareaDto runTarea) {
+        runTareaProcesarPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -116,9 +115,9 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Id estructura padre", required = true)
     private String icmIdEstrComisionPadre;
     
-    @NotBlank
+    @NotNull
     @ApiModelProperty(value = "Tope", required = true)
-    private String tope;
+    private Integer tope;
     
     @NotNull
     @ApiModelProperty(value = "Id tipo venta ", required = true)

@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -65,8 +65,8 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     private Logger log;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.timer", metricGroupName = "RunTareaRecolectarValidarServiceeGroup", metricDescription = "RunTareaRecolectarValidarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.counter", metricGroupName = "RunTareaRecolectarValidarServiceGroup", metricDescription = "RunTareaRecolectarValidarService.run.counter")
     @Override
     public void run(@NotNull @Valid RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();

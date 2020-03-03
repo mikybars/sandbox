@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,16 +30,16 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="Icm_Ws_Calc_OperacionesBlock">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="icm_P_Trace" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Icm_Ws_Calc_OperacionesRecordSet" type="{http://schemas.meta4.com/}Icm_Ws_Calc_OperacionesRecord" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Icm_Ws_Calc_OperacionesBlock"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="icm_P_Trace" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="Icm_Ws_Calc_OperacionesRecordSet" type="{http://schemas.meta4.com/}Icm_Ws_Calc_OperacionesRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -48,9 +49,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmPTrace",
     "icmWsCalcOperacionesRecordSet"
 })
-public class IcmWsCalcOperacionesBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(name = "icm_P_Trace", required = true, nillable = true)
     protected String icmPTrace;
     @XmlElement(name = "Icm_Ws_Calc_OperacionesRecordSet", nillable = true)

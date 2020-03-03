@@ -3,9 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.porventaindividual.v1;
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +27,8 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmo implements RunAlgoritmo 
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
+        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -37,11 +36,11 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmo implements RunAlgoritmo 
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+            tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
             runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
             log.info("Inicio :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
             try {
-                tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.calcular(algoritmo,
+                tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.calcular(algoritmo,
                     runTarea.getTarea(), personas);
             } catch (Exception e) {
                 log.error("PorVentaIndividualPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
@@ -54,7 +53,7 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmo implements RunAlgoritmo 
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoPorVentaPorcentajeV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }

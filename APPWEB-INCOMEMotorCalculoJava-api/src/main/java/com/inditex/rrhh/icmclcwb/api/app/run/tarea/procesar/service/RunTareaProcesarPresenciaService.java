@@ -32,4 +32,14 @@ public interface RunTareaProcesarPresenciaService {
 
     void totalizarEcommerceLocalizacion(@Valid RunTareaDto runTarea);
 
+    void totalizarEmpleadosPorVenta(@Valid RunTareaDto runTarea);
+
+    void presenciasHorasFijas(@Valid RunTareaDto runTarea);
+
+    void presenciasHorasFijasDesplazamientos(@Valid RunTareaDto runTarea);
+
+    void indicadorPersonaPorVenta(@Valid RunTareaDto runTarea);
+
+    void indicadorPersonaPorVentaSimplificada(@Valid RunTareaDto runTarea);
+
 }

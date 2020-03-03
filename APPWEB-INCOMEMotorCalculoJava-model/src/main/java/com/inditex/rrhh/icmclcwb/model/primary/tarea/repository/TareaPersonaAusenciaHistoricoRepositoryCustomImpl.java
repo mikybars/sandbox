@@ -4,10 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
@@ -18,10 +15,6 @@ public class TareaPersonaAusenciaHistoricoRepositoryCustomImpl
     extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaAusenciaHistorico>
         implements TareaPersonaAusenciaHistoricoRepositoryCustom {
 
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
     @Value("${app.envars.repository.batch-size.tarea-persona-ausencia-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
@@ -39,7 +32,8 @@ public class TareaPersonaAusenciaHistoricoRepositoryCustomImpl
         pstmt.setObject(2, entity.getFechaInicio());
         pstmt.setString(3, entity.getCclIdPerson());
         pstmt.setString(4, entity.getStdOrHrPeriod());
-        pstmt.setString(5, entity.getIcmTpAbsence());
-        pstmt.setLong(6, entity.getTarea().getId());
+        pstmt.setLong(5, entity.getTipoAusencia().getId());
+        pstmt.setString(6, entity.getCclIdOrigen());
+        pstmt.setLong(7, entity.getTarea().getId());
     }
 }

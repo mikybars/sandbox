@@ -29,6 +29,7 @@ public class QueryPrimaryConfig {
 
     private static final String RESOURCE_COMMON = "classpath*:/query/primary/*.xml";
     private static final String RESOURCE_CALCULO = "classpath*:/query/primary/calculo/*.xml";
+    private static final String RESOURCE_LIMPIEZA = "classpath*:/query/primary/limpieza/*.xml";
     private static final String CAST_REPLACE_INICIO = "/*(*/";
     private static final String CAST_REPLACE_FIN = "/*)*/";
     private static final String CAST_RESULT_INICIO = "CAST(";
@@ -43,6 +44,11 @@ public class QueryPrimaryConfig {
     @Bean(name = "calculoPrimaryQuery")
     public PropertiesFactoryBean calculoPrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
         return loadBean(resourceLoader, RESOURCE_CALCULO, precisionCalculo, castCalculo);
+    }
+
+    @Bean(name = "limpiezaPrimaryQuery")
+    public PropertiesFactoryBean limpiezaPrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
+        return loadBean(resourceLoader, RESOURCE_LIMPIEZA, precisionCalculo, castCalculo);
     }
 
     private PropertiesFactoryBean loadBean(final ResourceLoader resourceLoader, final String resource,

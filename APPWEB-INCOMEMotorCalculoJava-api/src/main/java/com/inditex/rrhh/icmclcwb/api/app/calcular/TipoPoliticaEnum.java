@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TipoPoliticaEnum {
 
-    HORAS_FIJAS(1L, "001"), EXCLUIDO_DENOMINADOR(2L, "002"), CARENCIA(3L, "003"),
-    ANTIGUEDAD(4L, "004"), BAJA_IT(5L, "005"), VACACIONES(6L, "006"),
-    MINIMO_GARANTIZADO(7L, "007"), MAXIMO_GARANTIZADO(8L, "008");
+    SIN_ASIGNAR(0, "000"), HORAS_FIJAS(1, "001"), EXCLUIDO_DENOMINADOR(2, "002"), CARENCIA(3, "003"),
+    ANTIGUEDAD(4, "004"), BAJA_IT(5, "005"), VACACIONES(6, "006"),
+    MINIMO_GARANTIZADO(7, "007"), MAXIMO_GARANTIZADO(8, "008");
 
-    private final Long id;
+    private final Integer id;
 
     private final String idMeta4;
 
@@ -24,7 +24,7 @@ public enum TipoPoliticaEnum {
         return null;
     }
 
-    public static TipoPoliticaEnum fromId(Long id) {
+    public static TipoPoliticaEnum fromId(Integer id) {
         for (TipoPoliticaEnum tipo : TipoPoliticaEnum.values()) {
             if (tipo.id.equals(id)) {
                 return tipo;

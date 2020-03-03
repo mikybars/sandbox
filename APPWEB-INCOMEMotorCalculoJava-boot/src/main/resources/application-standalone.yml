@@ -19,12 +19,18 @@ metadata:
   platform: Openshift-Intranet Arteixo
   slot: develop
   tenant: global
-  version: 1.1.3
+  version: 2.0.2
 amiga:
   monitoring:
     metrics:
       enabled: true
       send: false
+      functional:
+        aspect:
+          timer:
+            enabled: true
+          counter:
+            enabled: true
   common:
     core:
       is-production: false
@@ -252,7 +258,7 @@ app:
         algoritmo:
           config:
             batch-size: 25
-      post-procesar:
+      ajuste:
         config:
           batch-size: 25
     repository:
@@ -557,4 +563,13 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 200
-              maxPersistenceSize: 3              
+              maxPersistenceSize: 3
+          getConfiguracion:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3

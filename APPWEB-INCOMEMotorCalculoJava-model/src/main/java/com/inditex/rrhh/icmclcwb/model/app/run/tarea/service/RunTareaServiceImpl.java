@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPostProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
@@ -43,16 +43,16 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private RunTareaRecolectarValidarService runTareaRecolectarValidarService;
-    
+
     @Autowired
     private RunTareaRegularizarService runTareaRegularizarService;
-    
+
     @Autowired
-    private RunTareaPostProcesarService runTareaPostProcesarService;
+    private RunTareaAjustarService runTareaAjustarService;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup", metricDescription = "RunTareaService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaService.run.counter", metricGroupName = "RunTareaServiceGroup", metricDescription = "RunTareaService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {
@@ -62,7 +62,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             runTareaProcesarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
             runTareaRegularizarService.run(runTarea);
-            runTareaPostProcesarService.run(runTarea);
+            runTareaAjustarService.run(runTarea);
             runTareaConsolidarService.run(runTarea);
         } catch (Exception e) {
             tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());

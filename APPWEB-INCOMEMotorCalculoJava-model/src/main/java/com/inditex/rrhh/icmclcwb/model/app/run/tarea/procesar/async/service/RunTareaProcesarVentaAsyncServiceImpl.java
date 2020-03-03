@@ -1,14 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 
-import java.util.concurrent.CompletableFuture;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVentaAsyncService {
@@ -97,6 +96,84 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     @Override
     public CompletableFuture<Void> updateActivoTrasladadasTotalizado(RunTareaDto runTarea) {
         tareaProcesarVentaService.updateActivoTrasladadasTotalizado(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaSinDevolucionPersonasPorVenta(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaSinDevolucionPersonasPorVenta(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaPersonasPorVentaSimplificada(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaPersonasPorVentaSimplificada(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionLocalizacionSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionLocalizacionSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacionSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaSinDevolucionPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaSinDevolucionPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaFisicaSinDevolucionPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionFisicaPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionFisicaPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarDevolucionOnlineIpodPersonaSeccion(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarDevolucionFisicaPersonaSeccion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> calcularImporteComisionVendedores(RunTareaDto tarea) {
+        tareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> calcularImporteComisionVentaODevolucion(RunTareaDto tarea) {
+        tareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

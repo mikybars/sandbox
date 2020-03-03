@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.async.service.RunTareaRegularizarCalculoAsyncService;
@@ -27,21 +27,23 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
     private RunTareaRegularizarCalculoAsyncService runTareaRegularizarAsyncService;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaRegularizarService.run.timer", metricGroupName = "RunTareaRegularizarServiceGroup", metricDescription = "RunTareaRegularizarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRegularizarService.run.counter", metricGroupName = "RunTareaRegularizarServiceGroup", metricDescription = "RunTareaRegularizarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            CompletableFuture<Void> cfPostProcesarCalculo = runTareaRegularizarAsyncService.regularizarCalculoMejorOpcion(runTarea);
+            CompletableFuture<Void> cfPostProcesarCalculo = runTareaRegularizarAsyncService
+                    .regularizarCalculoMejorOpcion(runTarea);
             AsyncUtils.exceptionally(cfPostProcesarCalculo, cf);
-            
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/            
+            /*-------------------------------------------------------------*/
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
     }
+
 }

@@ -9,13 +9,24 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEcommerceService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEmpleadoService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEcommerceAsyncService;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl;
 import org.apache.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
@@ -29,7 +40,6 @@ import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
-import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
@@ -78,9 +88,6 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private ProgramacionService programacionService;
-
-    @Autowired
-    private RunProgramacionService runProgramacionService;
 
     @Autowired
     @Qualifier("ptrVentaClient")
@@ -343,5 +350,4 @@ public class TestServiceImpl implements TestService {
         trabajoAmbitoPersona.setCclIdOrigen(origen);
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
     }
-
 }

@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,21 +30,21 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParametrosentradaBlock">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="ambito" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idcadena" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Icm_ParametrosentradaRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrosentradaRecord" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Icm_ParametrosentradaBlock"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="ambito" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idcadena" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="Icm_ParametrosentradaRecordSet" type="{http://schemas.meta4.com/}Icm_ParametrosentradaRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -58,9 +59,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "fechainicio",
     "icmParametrosentradaRecordSet"
 })
-public class IcmParametrosentradaBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(required = true, nillable = true)
     protected String ambito;
     @XmlElement(required = true, nillable = true)

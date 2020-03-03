@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 public interface RunTareaProcesarVentaService {
 
@@ -34,6 +36,36 @@ public interface RunTareaProcesarVentaService {
 
     void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea);
     
+    void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea);
+
+    void updateImporteEstructuraPoliticas(@Valid RunTareaDto runTarea);
+
+    void totalizarDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
+
+    void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
+
+    void totalizarVentaSinDevolucionPersonasPorVenta(@Valid RunTareaDto tarea);
+
+    void totalizarVentaPersonasPorVentaSimplificada(@Valid RunTareaDto tarea);
+
+    void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarVentaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea);
+
+    void calcularImporteComisionVendedores(@Valid RunTareaDto tarea);
+
+    void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea);
+
     void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea);
 
 }

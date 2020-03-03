@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoLocalizac
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoAmbitoLocalizacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -26,7 +27,7 @@ public class TrabajoAmbitoLocalizacionServiceImpl implements TrabajoAmbitoLocali
     @Autowired
     private TrabajoAmbitoLocalizacionMapper trabajoAmbitoLocalizacionMapper;
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<TrabajoAmbitoLocalizacionDto> create(
             @Valid @NotNull @NotEmpty final List<TrabajoAmbitoLocalizacionDto> trabajoAmbitoLocalizacion,

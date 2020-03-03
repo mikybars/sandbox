@@ -36,6 +36,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +93,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         return trabajo;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo){
         trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());

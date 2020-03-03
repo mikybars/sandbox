@@ -5,6 +5,7 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -42,13 +43,13 @@ public class RunServiceImpl implements RunService {
     @Autowired
     private RunProgramacionService runProgramacionService;
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runTrabajo(@NotNull @Positive final Long id) {
         runTrabajoService.run(RunTrabajoDto.builder().trabajo(trabajoService.find(id)).build());
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runTarea(@NotNull @Positive final Long id) {
         TareaDto tarea = tareaService.find(id);
@@ -56,13 +57,13 @@ public class RunServiceImpl implements RunService {
                 .run(RunTareaDto.builder().trabajo(trabajoService.find(tarea.getIdTrabajo())).tarea(tarea).build());
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runLimpieza(@NotNull @Positive final Long id) {
         runLimpiezaService.run(RunLimpiezaDto.builder().tarea(tareaService.find(id)).build());
     }
     
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runProgramacion(@NotNull @Positive final Long id) {
         runProgramacionService.run(id);

@@ -44,6 +44,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         "SQL FIND ID LOCALIZACION LOCAL BY ID TAREA ID ORIGEN TIPO DATO IN AMBITO TEST";
     private static final String SQL_CADENAS_FILTRO_TIPO_DATO = "SQL CADENAS FILTRO TIPO DATO TEST";
     private static final String SQL_CADENAS = "CADENAS TEST";
+    private static final String SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO = "SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -80,6 +81,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
             "sqlCadenasFiltroTipoDato", SQL_CADENAS_FILTRO_TIPO_DATO, true);
         FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
             "sqlCadenas", SQL_CADENAS, true);
+        FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
+            "sqlFindIdLocalizacionByIdTareaAndCclIdPersonInAmbito", SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO, true);
         FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
             "batchSize", 100, true);
     }
@@ -265,6 +268,37 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         // cclIdOrigen
         assertTrue(params.getValue().hasValue(SQL_PARAM_CCL_ID_ORIGEN));
         assertEquals(idOrigen, params.getValue().getValue(SQL_PARAM_CCL_ID_ORIGEN));
+
+    }
+
+    @Test
+    public void findIdLocalizacionLocalDtoByIdTareaAndCclIdsPersonaInAmbitoLocalizacion() {
+
+        Long idTarea = 23L;
+        String idTipoCalculo1 = "ID TIPO CALCULO";
+        String idTipoCalculo2 = "ID TIPO CALCULO 2";
+        String idOrigen = "ID ORIGEN";
+
+        tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(idTarea, idOrigen,
+            Arrays.asList(idTipoCalculo1, idTipoCalculo2));
+        verify(namedParameterJdbcTemplate, times(1))
+            .query(sql.capture(), params.capture(), any(RowMapper.class));
+        assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO, sql.getValue());
+        // parametros de la consulta: idTarea, cclIdOrigen, idTipoCalculo, activo
+        assertEquals(4, params.getValue().getValues().size());
+        // idTarea
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        // cclIdOrigen
+        assertTrue(params.getValue().hasValue(SQL_PARAM_CCL_ID_ORIGEN));
+        assertEquals(idOrigen, params.getValue().getValue(SQL_PARAM_CCL_ID_ORIGEN));
+        // idTipoCalculo
+        assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(Arrays.asList(idTipoCalculo1, idTipoCalculo2), params.getValue().getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+        // cclIdOrigen
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
+
 
     }
 }

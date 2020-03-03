@@ -68,7 +68,7 @@ public class TareaServiceImpl implements TareaService {
         return tarea;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public TareaDto create(@Valid final TareaDto tarea) {
         tarea.setFechaHoraCreacion(LocalDateTime.now());
@@ -87,7 +87,7 @@ public class TareaServiceImpl implements TareaService {
         return null;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
         List<TareaDto> result = new ArrayList<>();

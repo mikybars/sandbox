@@ -17,7 +17,7 @@ public class TareaTipoHoraDto implements Serializable {
 	
 	@NotBlank
 	@ApiModelProperty(value = "Id de tipo de hora", required = true)
-	private Long idTipoHora;
+	private Integer idTipoHora;
 
 	@NotNull
 	@ApiModelProperty(value = "Flag excluido calculo", required = true)

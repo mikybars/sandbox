@@ -20,4 +20,7 @@ public class IdPersonaLocalDto implements Serializable {
     @NotBlank
     private String idPersonaLocal;
 
+    @NotBlank
+    private String stdOrHrPeriod;
+
 }

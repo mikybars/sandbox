@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.limpieza.service;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
@@ -20,8 +20,8 @@ public class RunLimpiezaServiceImpl implements RunLimpiezaService {
     private LimpiezaService limpiezaService;
 
     @Auditoria
-    @CounterMetric 
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunLimpiezaService.run.timer", metricGroupName = "RunLimpiezaServiceGroup", metricDescription = "RunLimpiezaService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunLimpiezaService.run.counter", metricGroupName = "RunLimpiezaServiceGroup", metricDescription = "RunLimpiezaService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunLimpiezaDto runLimpieza) {
         limpiezaService.runTarea(runLimpieza.getTarea());

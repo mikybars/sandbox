@@ -7,6 +7,12 @@ amiga:
     metrics:
       enabled: true
       send: true
+      functional:
+        aspect:
+          timer:
+            enabled: true
+          counter:
+            enabled: true
   common:
     rest:
       client:
@@ -159,7 +165,7 @@ app:
         algoritmo:
           config:
             batch-size: 25
-      post-procesar:
+      ajuste:
         config:
           batch-size: 25            
     repository:
@@ -467,3 +473,12 @@ app:
             filter:
               maxPageSize: 200
               maxPersistenceSize: 3
+          getConfiguracion:
+              page:
+                  numeroPagina: 1
+                  numeroRegistrosPagina: 50
+                  tipoOrden: DESC
+                  campoOrden: idOrigen
+              filter:
+                  maxPageSize: 50
+                  maxPersistenceSize: 3

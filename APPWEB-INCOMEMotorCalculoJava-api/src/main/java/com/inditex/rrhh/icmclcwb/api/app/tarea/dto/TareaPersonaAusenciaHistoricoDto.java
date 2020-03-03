@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -11,6 +12,8 @@ import lombok.Data;
 
 @Data
 public class TareaPersonaAusenciaHistoricoDto implements Serializable {
+
+    private static final long serialVersionUID = 573166701833849298L;
 
     @ApiModelProperty(value = "Identificador de la persona estructura politica", required = false)
     private Long id;
@@ -26,6 +29,10 @@ public class TareaPersonaAusenciaHistoricoDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Id local de la persona", required = true)
     private String cclIdPerson;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Identificador del origen", required = true)
+    private String cclIdOrigen;
 
     @NotNull
     @ApiModelProperty(value = "Fecha de inicio de la ausencia", required = true)
@@ -36,6 +43,10 @@ public class TareaPersonaAusenciaHistoricoDto implements Serializable {
     private Date fechaFin;
     
     @ApiModelProperty(value = "Id tipo ausencia", required = false)
-    private String icmTpAbsence;
+    private Integer idTipoAusencia;
+    
+    @NotNull
+    @ApiModelProperty(value = "Fecha inicio periodo", required = true)
+    private LocalDate fechaInicioPeriodo;
 
 }

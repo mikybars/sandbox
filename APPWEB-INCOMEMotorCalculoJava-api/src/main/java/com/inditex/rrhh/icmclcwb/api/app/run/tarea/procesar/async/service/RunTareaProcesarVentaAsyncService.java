@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import org.springframework.scheduling.annotation.Async;
 
+import javax.validation.Valid;
 import java.util.concurrent.CompletableFuture;
 
 @Async
@@ -36,6 +38,34 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> updateActivoTrasladadasTotalizado(RunTareaDto runTarea);
     
+    CompletableFuture<Void> updateActivoNegativoTotalizado(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarDevolucionLocalizacionSeccion(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacionSeccion(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaSinDevolucionPersonasPorVenta(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaPersonasPorVentaSimplificada(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaPersonaSeccion (RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaSinDevolucionPersonaSeccion(RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarDevolucionPersonaSeccion (RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea);
+
+    CompletableFuture<Void> totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea);
+
+    CompletableFuture<Void> calcularImporteComisionVendedores(RunTareaDto tarea);
+
+    CompletableFuture<Void> calcularImporteComisionVentaODevolucion(RunTareaDto tarea);
+
     CompletableFuture<Void> updateActivoNegativoTotalizado(RunTareaDto tarea);
 
 }

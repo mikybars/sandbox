@@ -35,6 +35,8 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class TareaAgrupacionVentaRepositoryCustomImplTest {
 
+    private final static String SQL_SAVE = "SQL SAVE";
+
     @Mock
     private JdbcTemplate template;
 
@@ -47,9 +49,12 @@ public class TareaAgrupacionVentaRepositoryCustomImplTest {
     @Captor
     private ArgumentCaptor<MapSqlParameterSource> params;
 
+    @Captor
+    private ArgumentCaptor<String> sql;
+
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaAgrupacionVentaRepositoryCustom, "sqlSave", "", true);
+        FieldUtils.writeField(tareaAgrupacionVentaRepositoryCustom, "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(tareaAgrupacionVentaRepositoryCustom, "sqlUpdateActivo", "", true);
         FieldUtils.writeField(tareaAgrupacionVentaRepositoryCustom, "batchSize", 100, true);
     }
@@ -61,7 +66,9 @@ public class TareaAgrupacionVentaRepositoryCustomImplTest {
         items.add(mock(TareaAgrupacionVenta.class));
 
         tareaAgrupacionVentaRepositoryCustom.save(items);
-        verify(template).batchUpdate(any(String.class), any(BatchPreparedStatementSetter.class));
+        verify(template).batchUpdate(sql.capture(), any(BatchPreparedStatementSetter.class));
+
+        assertEquals(SQL_SAVE, sql.getValue());
 
     }
 
@@ -84,15 +91,15 @@ public class TareaAgrupacionVentaRepositoryCustomImplTest {
         PreparedStatement pstmt = mock(PreparedStatement.class);
 
         tareaAgrupacionVentaRepositoryCustom.setParameters(pstmt, tav);
-        verify(pstmt, times(1)).setObject(1, tav.getFecha());
-        verify(pstmt, times(1)).setLong(2, tav.getIcmIdAgrupacionOnline());
-        verify(pstmt, times(1)).setLong(3, tarea.getId());
-        verify(pstmt, times(1)).setLong(4, tipo.getId());
-        verify(pstmt, times(1)).setString(5, tav.getCclIdSeccion());
-        verify(pstmt, times(1)).setString(6, tav.getCclIdOrigen());
-        verify(pstmt, times(1)).setBigDecimal(7, tav.getImporteSinImpuestos());
-        verify(pstmt, times(1)).setBigDecimal(8, tav.getImporteConImpuestos());
-        verify(pstmt, times(1)).setBoolean(9, tav.getActivo());
+        verify(pstmt, times(1)).setBoolean(1, tav.getActivo());
+        verify(pstmt, times(1)).setObject(2, tav.getFecha());
+        verify(pstmt, times(1)).setLong(3, tav.getIcmIdAgrupacionOnline());
+        verify(pstmt, times(1)).setString(4, tav.getCclIdSeccion());
+        verify(pstmt, times(1)).setString(5, tav.getCclIdOrigen());
+        verify(pstmt, times(1)).setBigDecimal(6, tav.getImporteSinImpuestos());
+        verify(pstmt, times(1)).setBigDecimal(7, tav.getImporteConImpuestos());
+        verify(pstmt, times(1)).setLong(8, tarea.getId());
+        verify(pstmt, times(1)).setLong(9, tipo.getId());
 
     }
 

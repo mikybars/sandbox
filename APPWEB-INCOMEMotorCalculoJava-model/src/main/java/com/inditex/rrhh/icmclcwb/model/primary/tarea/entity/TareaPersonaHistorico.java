@@ -85,6 +85,10 @@ public class TareaPersonaHistorico {
     @Column(name = "FECHA_FIN_LOCALIZACION", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaFinLocalizacion;
+    
+    @Column(name = "FECHA_ANTIGUEDAD", nullable = true)
+    @Temporal(TemporalType.DATE)
+    private Date fechaAntiguedad;
 
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false)

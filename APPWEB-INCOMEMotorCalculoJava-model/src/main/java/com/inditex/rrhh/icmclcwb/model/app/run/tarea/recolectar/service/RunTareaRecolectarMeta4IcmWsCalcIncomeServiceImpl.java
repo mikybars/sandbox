@@ -107,4 +107,10 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .ausenciasByRunTareaAndTareaAmbito(runTarea, item));
     }
+
+    @Override
+    public void configuraciones(@NotNull @Valid RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .configuracionByRunTareaAndTareaAmbito(runTarea, item));
+    }
 }

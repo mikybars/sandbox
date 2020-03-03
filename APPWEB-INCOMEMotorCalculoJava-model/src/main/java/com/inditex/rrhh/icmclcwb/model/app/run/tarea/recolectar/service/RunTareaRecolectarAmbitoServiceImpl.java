@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.CounterMetric;
-import com.inditex.aqsw.libmonitoringcenter.metrics.aop.annotations.TimerMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
@@ -53,13 +53,13 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionAsyncService tareaAmbitoGlobalLocalizacionAsyncService;
-    
+
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaAsyncService tareaAmbitoGlobalLocalizacionPersonaAsyncService;
 
     @Auditoria
-    @CounterMetric
-    @TimerMetric
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarAmbitoService.run.timer", metricGroupName = "RunTareaRecolectarAmbitoServiceGroup", metricDescription = "RunTareaRecolectarAmbitoService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarAmbitoService.run.counter", metricGroupName = "RunTareaRecolectarAmbitoServiceGroup", metricDescription = "RunTareaRecolectarAmbitoService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -96,7 +96,7 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             CompletableFuture<Void> cfEmpleadosDesplazamiento = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .empleadosDesplazamientoByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEmpleadosDesplazamiento, cf);
-            
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

@@ -39,4 +39,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> ausenciasByRunTarea(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> configuracionesByRunTarea(final RunTareaDto runTarea);
+
 }

@@ -8,6 +8,7 @@ import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 
 public interface TareaPersonaHistoricoRepositoryCustom {
@@ -15,6 +16,9 @@ public interface TareaPersonaHistoricoRepositoryCustom {
     List<TareaPersonaHistorico> save(List<TareaPersonaHistorico> src);
 
     List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
+            @NotNull @Positive String cclIdOrigen);
+
+    List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona(@NotNull @Positive Long idTarea,
             @NotNull @Positive String cclIdOrigen);
 
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive Long idTarea,

@@ -29,4 +29,12 @@ public interface TareaLocalizacionPersonaPresenciaService {
     
     void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@NotNull RunTareaDto runTareaDto);
 
+    void presenciasHorasFijas(@NotNull RunTareaDto runTareaDto);
+
+    void presenciasHorasFijasDesplazamientos(@NotNull RunTareaDto runTareaDto);
+
+    void indicadorPersonaPorVenta(@NotNull RunTareaDto runTareaDto);
+
+    void indicadorPersonaPorVentaSimplificada(@NotNull RunTareaDto runTareaDto);
+
 }

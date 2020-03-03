@@ -74,4 +74,23 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTareaDto);
     }
 
+    @Override
+    public void presenciasHorasFijas(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasHorasFijas(runTareaDto);
+    }
+
+    @Override
+    public void presenciasHorasFijasDesplazamientos(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasHorasFijasDesplazamiento(runTareaDto);
+    }
+
+    @Override
+    public void indicadorPersonaPorVenta(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta(runTareaDto);
+    }
+
+    @Override
+    public void indicadorPersonaPorVentaSimplificada(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada(runTareaDto);
+    }
 }

@@ -5,10 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoCalculo;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,7 +51,10 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
    
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
     private String sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen;
-    
+
+    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
+    private String sqlFindIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona;
+
     @Override
     public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
@@ -69,6 +78,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setString(14, entity.getCclIdSeccion());
         pstmt.setLong(15, entity.getTarea().getId());
         pstmt.setObject(16, entity.getPk().getFechaInicioPeriodo());
+        pstmt.setObject(17, entity.getFechaAntiguedad());
     }
     
     @Override
@@ -84,7 +94,20 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
             }
         });
     }
-    
+
+    @Override
+    public List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona(@NotNull @Positive Long idTarea, @NotNull @Positive String cclIdOrigen) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona, parameters, (rs, rowNum)  ->
+            IdPersonaLocalDto
+                .builder()
+                .idPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
+                .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
+                .build());
+    }
+
     @Override
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();

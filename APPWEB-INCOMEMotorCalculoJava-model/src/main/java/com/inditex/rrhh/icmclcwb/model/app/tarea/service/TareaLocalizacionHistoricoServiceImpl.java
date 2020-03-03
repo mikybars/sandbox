@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,8 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
                 cclIdOrigen);
     }
 
+    
+    //TODO: No se está usando.
     @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_tipo_dato_in_ambito", key = "{#idTarea, #cclIdOrigen, #idsTipoDato}")
     public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
@@ -65,6 +68,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
                 .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
     }
 
+    //TODO: No se está usando.
     @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_tipo_dato_in_ambito", key = "{#idTarea, #cclIdOrigen, #idsTipoDato}")
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
@@ -99,5 +103,11 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
     public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NotNull Long idTarea, @NotNull String cclIdOrigen) {
         return tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, cclIdOrigen);
+    }
+
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_persona", key = "{#idTarea, #cclCodOrigen, #idTipoCalculo}")
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(@NotNull @Positive Long idTarea, @NotBlank String cclCodOrigen, @NotNull List<String> idTipoCalculo) {
+        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(idTarea, cclCodOrigen, idTipoCalculo);
     }
 }

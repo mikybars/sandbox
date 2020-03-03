@@ -34,38 +34,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Logout }
-     * 
-     */
-    public Logout createLogout() {
-        return new Logout();
-    }
-
-    /**
-     * Create an instance of {@link LoginResponse }
-     * 
-     */
-    public LoginResponse createLoginResponse() {
-        return new LoginResponse();
-    }
-
-    /**
-     * Create an instance of {@link M4LoginOutput }
-     * 
-     */
-    public M4LoginOutput createM4LoginOutput() {
-        return new M4LoginOutput();
-    }
-
-    /**
-     * Create an instance of {@link LogoutResponse }
-     * 
-     */
-    public LogoutResponse createLogoutResponse() {
-        return new LogoutResponse();
-    }
-
-    /**
      * Create an instance of {@link LoginWithCertificate }
      * 
      */
@@ -74,11 +42,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RetrieveM4Session }
+     * Create an instance of {@link LoginWithCertificateResponse }
      * 
      */
-    public RetrieveM4Session createRetrieveM4Session() {
-        return new RetrieveM4Session();
+    public LoginWithCertificateResponse createLoginWithCertificateResponse() {
+        return new LoginWithCertificateResponse();
+    }
+
+    /**
+     * Create an instance of {@link M4LoginOutput }
+     * 
+     */
+    public M4LoginOutput createM4LoginOutput() {
+        return new M4LoginOutput();
     }
 
     /**
@@ -114,6 +90,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link LoginResponse }
+     * 
+     */
+    public LoginResponse createLoginResponse() {
+        return new LoginResponse();
+    }
+
+    /**
+     * Create an instance of {@link Logout }
+     * 
+     */
+    public Logout createLogout() {
+        return new Logout();
+    }
+
+    /**
+     * Create an instance of {@link LogoutResponse }
+     * 
+     */
+    public LogoutResponse createLogoutResponse() {
+        return new LogoutResponse();
+    }
+
+    /**
+     * Create an instance of {@link RetrieveM4Session }
+     * 
+     */
+    public RetrieveM4Session createRetrieveM4Session() {
+        return new RetrieveM4Session();
+    }
+
+    /**
      * Create an instance of {@link RetrieveM4SessionResponse }
      * 
      */
@@ -122,16 +130,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LoginWithCertificateResponse }
+     * Create an instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
      * 
-     */
-    public LoginWithCertificateResponse createLoginWithCertificateResponse() {
-        return new LoginWithCertificateResponse();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}}
-     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
      */
     @XmlElementDecl(namespace = "http://schemas.meta4.com/", name = "fault")
     public JAXBElement<M4SoapException> createFault(M4SoapException value) {

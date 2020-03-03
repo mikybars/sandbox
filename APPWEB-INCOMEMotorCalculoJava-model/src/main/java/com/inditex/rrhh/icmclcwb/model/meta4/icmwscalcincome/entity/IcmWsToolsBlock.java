@@ -1,6 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,29 +30,29 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="Icm_Ws_ToolsBlock">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="sys_Param" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="icm_Prp_Copy" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="sys_Sentence" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="icm_M4_Object" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="icm_Have_Paging" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="icm_Parent_Node" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="icm_Share_Policy" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="icm_Close_Channel" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="icm_Prp_Copy_Type" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="icm_Prp_Load_Type" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="icm_Prp_Last_Level" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="icm_Prp_Load_Depth" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="icm_Have_Validation" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="icm_Have_Idexecution" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="Icm_Ws_ToolsRecordSet" type="{http://schemas.meta4.com/}Icm_Ws_ToolsRecord" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Icm_Ws_ToolsBlock"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="sys_Param" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="icm_Prp_Copy" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="sys_Sentence" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="icm_M4_Object" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="icm_Have_Paging" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="icm_Parent_Node" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="icm_Share_Policy" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="icm_Close_Channel" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="icm_Prp_Copy_Type" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="icm_Prp_Load_Type" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="icm_Prp_Last_Level" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="icm_Prp_Load_Depth" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="icm_Have_Validation" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="icm_Have_Idexecution" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="Icm_Ws_ToolsRecordSet" type="{http://schemas.meta4.com/}Icm_Ws_ToolsRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -74,9 +75,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmHaveIdexecution",
     "icmWsToolsRecordSet"
 })
-public class IcmWsToolsBlock implements Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
+    private final static long serialVersionUID = 1L;
     @XmlElement(name = "sys_Param", required = true, nillable = true)
     protected String sysParam;
     @XmlElement(name = "icm_Prp_Copy", required = true, type = Double.class, nillable = true)
