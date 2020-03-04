@@ -47,8 +47,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacade
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionespoliticaRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconforigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasRecord;
@@ -60,6 +60,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatien
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavalorespoliticaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
@@ -72,8 +74,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
@@ -589,18 +589,18 @@ public interface IcmWsCalcIncomeMapper {
     SaveResultErrorDto asSaveResultErrorDto(IcmErroresguardadoRecord src);
 
     @InheritInverseConfiguration
-    IcmParamconfBlock asIcmParamconfBlock(ConfiguracionesRequestDto src);
+    IcmParamcalconforigenBlock asIcmParamconfBlock(ConfiguracionesRequestDto src);
 
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE)
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE)
-    @Mapping(target = "items", source = "icmParamconfRecordSet")
-    ConfiguracionesRequestDto asConfiguracionesRequestDto(IcmParamconfBlock src);
+    @Mapping(target = "items", source = "icmParamcalconforigenRecordSet")
+    ConfiguracionesRequestDto asConfiguracionesRequestDto(IcmParamcalconforigenBlock src);
 
     @InheritInverseConfiguration
-    IcmParamconfRecord asIcmParamconfRecord(ConfiguracionesRequestItemDto src);
+    IcmParamcalconforigenRecord asIcmParamconfRecord(ConfiguracionesRequestItemDto src);
 
-    ConfiguracionesRequestItemDto asConfiguracionesRequestItemDto(IcmParamconfRecord src);
+    ConfiguracionesRequestItemDto asConfiguracionesRequestItemDto(IcmParamcalconforigenRecord src);
 
     @Mapping(target = "items", ignore = true)
     ConfiguracionesResponseDto asConfiguracionesResponseDto(GetconfiguracionOutput src, String idOrigen);
@@ -612,7 +612,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idTipoHora", source = "src.idtphorafija")
     @Mapping(target = "idOrigen", source = "idOrigen")
     @Mapping(target = "icmCkVentaImpuestos", source = "src.chkventaimpuestos")
-    @Mapping(target = "idConfiguracion", defaultValue = "0")
-    ConfiguracionItemDto asConfiguracionItemDto(IcmListaconfRecord src, String idOrigen);
+    ConfiguracionItemDto asConfiguracionItemDto(IcmListaconforigenRecord src, String idOrigen);
 
 }
