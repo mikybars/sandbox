@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import org.springframework.scheduling.annotation.Async;
 

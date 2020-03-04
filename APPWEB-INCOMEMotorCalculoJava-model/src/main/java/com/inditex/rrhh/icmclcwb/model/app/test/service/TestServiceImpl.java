@@ -9,24 +9,12 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEcommerceService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEmpleadoService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEcommerceAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
-import com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl;
 import org.apache.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
@@ -293,7 +281,7 @@ public class TestServiceImpl implements TestService {
                 trabajo.setTipoAmbito(TipoAmbitoEnum.LOCALIZACION.getDto());
                 break;
             case 5:
-                testPersona(sociedad, origen, empresa, localizacion, persona, orPersona, trabajo);
+                testPersona(sociedad, origen, empresa, persona, orPersona, trabajo);
                 trabajo.setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
                 break;
             default:
@@ -340,7 +328,7 @@ public class TestServiceImpl implements TestService {
         trabajo.setLocalizacion(Arrays.asList(trabajoAmbitoLocalizacion));
     }
 
-    private void testPersona(String sociedad, String origen, String empresa, String localizacion, String persona,
+    private void testPersona(String sociedad, String origen, String empresa, String persona,
             String orPersona, TrabajoDto trabajo) {
         testEmpresa(sociedad, origen, empresa, trabajo);
         TrabajoAmbitoPersonaDto trabajoAmbitoPersona = new TrabajoAmbitoPersonaDto();
