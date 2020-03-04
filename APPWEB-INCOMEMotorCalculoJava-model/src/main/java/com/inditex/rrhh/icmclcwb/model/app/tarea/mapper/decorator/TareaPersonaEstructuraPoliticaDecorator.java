@@ -88,20 +88,18 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
     public List<TareaPersonaEstructuraPolitica> estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
             List<EstructurasPolResultItemDto> src, TareaDto tarea) {
         List<TareaPersonaEstructuraPolitica> result = new ArrayList<>();
-        src.forEach(x -> {
+        src.forEach(x ->
                x.getIcmListaCondicionesPolitica().forEach(y -> {
                    if(!TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getIdMeta4().equals(y.getIdTipoPolitica()) || y.getExcDenominador().equals(Meta4Constants.TRUE)) {
-                       y.getIcmListaValoresPoliticas().forEach(z -> {
-                           result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, z, tarea));
-                       });
+                       y.getIcmListaValoresPoliticas().forEach(z -> result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, z, tarea)));
                        if(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica()) 
                                || TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica())
                                || TipoPoliticaEnum.HORAS_FIJAS.getIdMeta4().equals(y.getIdTipoPolitica())){
                            result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, null, tarea));
                        }
                    }
-               }); 
-        });
+               })
+        );
         return result;
     }
     

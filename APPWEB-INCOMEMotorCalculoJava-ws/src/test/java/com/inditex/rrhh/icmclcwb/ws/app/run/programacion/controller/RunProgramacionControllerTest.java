@@ -35,7 +35,7 @@ public class RunProgramacionControllerTest {
     
     @Ignore
     @Test
-    //TODO: Generar nuevo test
+    //TODO [COMUN] Generar nuevo test
     public void run() throws Exception {
 //        when(runProgramacionServiceMock.run()).thenReturn(new ArrayList<RunProgramacionDto>());
         mockMvc.perform(get("/run/programacion")).andReturn();

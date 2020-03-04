@@ -49,7 +49,7 @@ public class Meta4ClientPoolBase {
                 logSession(poolable.getSession());
             } else {
                 log.error("Error :: Meta4ClientPoolBase :: pool.claim() :: null");
-                throw new Meta4IcmclcwbException("Session caducada (Pool)");
+                throw new Meta4IcmclcwbException(EXPIRE_SESSION_MESSAGE_LOG);
             }
         } catch (PoolException | InterruptedException e) {
             String msg = "Error :: Meta4ClientPoolBase :: pool.claim()";

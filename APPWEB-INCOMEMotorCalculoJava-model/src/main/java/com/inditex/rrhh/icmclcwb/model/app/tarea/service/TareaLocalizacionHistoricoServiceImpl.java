@@ -59,7 +59,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
 
     
-    //TODO: No se está usando.
+    //TODO [COMUN] No se está usando.
     @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_tipo_dato_in_ambito", key = "{#idTarea, #cclIdOrigen, #idsTipoDato}")
     public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
@@ -68,7 +68,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
                 .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
     }
 
-    //TODO: No se está usando.
+    //TODO [COMUN] No se está usando.
     @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_tipo_dato_in_ambito", key = "{#idTarea, #cclIdOrigen, #idsTipoDato}")
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(

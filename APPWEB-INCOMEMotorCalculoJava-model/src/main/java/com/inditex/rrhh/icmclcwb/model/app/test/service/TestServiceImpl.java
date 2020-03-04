@@ -169,7 +169,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    //TODO: Rehacer este test
+    //TODO [COMUN] Rehacer este test
     public void programacionBatch() {
         programacionService.activa();
         for (int x = 1; x <= 100; x++) {

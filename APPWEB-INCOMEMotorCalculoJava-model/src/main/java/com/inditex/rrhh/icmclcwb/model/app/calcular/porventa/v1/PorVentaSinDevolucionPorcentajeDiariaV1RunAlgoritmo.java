@@ -47,7 +47,8 @@ public class PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo implements RunA
             }
             log.info("Fin :: PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", personas.size());
             return Flux.empty();
-        }).sequential().collectList().block();    }
+        }).sequential().collectList().block();
+    }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
