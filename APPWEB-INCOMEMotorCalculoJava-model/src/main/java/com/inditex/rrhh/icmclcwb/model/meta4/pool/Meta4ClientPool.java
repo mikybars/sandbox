@@ -12,7 +12,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getagruponli
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetausenciasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfpreciohoraOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
@@ -26,14 +29,21 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getflagcalcu
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -398,5 +408,72 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         } finally {
             release(client);
         }
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public GetconfchdiasminimosOutput getconfchdiasminimos(IcmParamcalconfchdiasBlock param) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getconfchdiasminimos(param);
+        } catch (Exception e) {
+            catchException(e, client, Arrays.asList(param));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            release(client);
+        }
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public GetpresupuestoswlocOutput getpresupuestoswloc(IcmParamcalpresupuestoswlocBlock param1,
+            IcmParametrospaginacionBlock param2) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getpresupuestoswloc(param1, param2);
+        } catch (Exception e) {
+            catchException(e, client, Arrays.asList(param1, param2));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            release(client);
+        }
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public GetconfpreciohoraOutput getconfpreciohora(IcmParamcalconfpreciohoraBlock param) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getconfpreciohora(param);
+        } catch (Exception e) {
+            catchException(e, client, Arrays.asList(param));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            release(client);
+        }
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public GetconfchtpventaOutput getconfchtpventa(IcmParamcalconfchventaBlock param) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getconfchtpventa(param);
+        } catch (Exception e) {
+            catchException(e, client, Arrays.asList(param));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            release(client);
+        }        
+    }
+    
+    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    public GetpresupuestosrangoOutput getpresupuestosrango(IcmParametrospaginacionBlock param1,
+            IcmParamcalpresupuestosrangoBlock param2) {
+        Meta4ClientPoolable client = claim(pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getpresupuestosrango(param1, param2);
+        } catch (Exception e) {
+            catchException(e, client, Arrays.asList(param1, param2));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            release(client);
+        }                
     }
 }

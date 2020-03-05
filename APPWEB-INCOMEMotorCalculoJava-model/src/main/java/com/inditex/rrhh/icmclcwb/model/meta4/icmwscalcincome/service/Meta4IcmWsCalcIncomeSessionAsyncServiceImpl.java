@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +12,18 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4Ic
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -36,6 +42,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
@@ -162,4 +172,29 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     public CompletableFuture<List<ConfiguracionItemDto>> getConfiguraciones(ConfiguracionesRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfiguraciones(request));
     }
+    
+    @Override
+    public CompletableFuture<List<ConfChDiasMinimosResultItemDto>> getConfChallengeDiasMinimos(ConfChDiasMinimosRequestDto request) {
+        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfChallengeDiasMinimos(request));
+    }
+    
+    @Override
+    public CompletableFuture<List<PresupuestosWlocResultItemDto>> getPresupuestosWloc(PresupuestosWlocRequestDto request) {
+        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getPresupuestosWloc(request));
+    }
+    
+    @Override
+    public CompletableFuture<List<ConfPrecioHoraResultItemDto>> getConfPrecioHora(ConfPrecioHoraRequestDto request) {
+        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfPrecioHora(request));
+    }
+    
+    @Override
+    public CompletableFuture<List<ConfChTpVentaResultItemDto>> getConfChallengeTpVenta(ConfChTpVentaRequestDto request) {
+        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfChallengeTpVenta(request));
+    }
+    
+    @Override
+    public CompletableFuture<List<PresupuestosRangoResultItemDto>> getPresupuestosRango(PresupuestosRangoRequestDto request) {
+        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getPresupuestosRango(request));
+    }    
 }

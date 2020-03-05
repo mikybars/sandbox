@@ -7,12 +7,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -109,5 +109,11 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_persona", key = "{#idTarea, #cclCodOrigen, #idTipoCalculo}")
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(@NotNull @Positive Long idTarea, @NotBlank String cclCodOrigen, @NotNull List<String> idTipoCalculo) {
         return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(idTarea, cclCodOrigen, idTipoCalculo);
+    }
+    
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_localizacion_local_presupuestos_by_tarea", key = "{#idTarea}")
+    public List<IdLocalizacionLocalDto> findTiendasPresupuestosByIdTarea(@NotNull @Positive Long idTarea) {
+        return tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoPresupuestosByIdTarea(idTarea);
     }
 }

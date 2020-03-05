@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +19,8 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
@@ -50,6 +51,12 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
     private String sqlFindIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona;
 
+    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea']}")
+    private String sqlFindPeriodoDtoByIdTarea;
+
+    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea']}")
+    private String sqlFindIdPersonaHistoricoDtoGrupoFechasByIdTarea;
+    
     @Override
     public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
@@ -135,5 +142,34 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
             }
         });
     }
+    
+    @Override
+    public PeriodoDto findPeriodoDtoByIdTarea(@NotNull @Positive final Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+
+        return namedParameterJdbcTemplate.queryForObject(sqlFindPeriodoDtoByIdTarea, parameters, new RowMapper<PeriodoDto>() {
+            public PeriodoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                PeriodoDto dto = new PeriodoDto();
+                dto.setFechaInicioPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO_PERIODO).toLocalDate());
+                dto.setFechaFinPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN_PERIODO).toLocalDate());
+                return dto;
+            }
+        });
+    }
+    
+    @Override
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull @Positive Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoDtoGrupoFechasByIdTarea, parameters, (rs, rowNum)  ->
+        IdPersonaHistoricoDto
+                .builder()
+                .stdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4))
+                .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
+                .build());
+    }
+
 
 }

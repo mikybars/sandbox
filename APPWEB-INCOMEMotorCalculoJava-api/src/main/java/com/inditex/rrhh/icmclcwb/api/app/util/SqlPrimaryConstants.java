@@ -273,5 +273,8 @@ public class SqlPrimaryConstants {
     
     public static final String SQL_RESULT_ID_ALGORITMO_AJUSTE = "ID_ALGORITMO_AJUSTE";
 
+    public static final String SQL_RESULT_FECHA_INICIO_PERIODO = "FECHA_INICIO_PERIODO";
+
+    public static final String SQL_RESULT_FECHA_FIN_PERIODO = "FECHA_FIN_PERIODO";
 
 }

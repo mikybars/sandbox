@@ -1,7 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.util.List;
+
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -24,11 +32,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaMapperDec
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import java.util.List;
 
 @Mapper(imports = { PtrConstants.class, RunUtils.class, TimeUtils.class })
 @DecoratedWith(value = TareaMapperDecorator.class)
@@ -72,6 +75,14 @@ public abstract class TareaMapper {
     @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    public abstract GenericFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
+            TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
 
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")

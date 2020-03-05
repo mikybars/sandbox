@@ -4097,6 +4097,95 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
   ]]>
 </entry>
 
+<entry key="TareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea">
+  <![CDATA[
+      SELECT TR.FECHA_INICIO_PERIODO, TR.FECHA_FIN_PERIODO
+      FROM TAREA T
+      INNER JOIN TRABAJO TR
+      ON TR.ID_TRABAJO = T.ID_TRABAJO
+      WHERE T.ID_TAREA = :idTarea
+    ]]>
+</entry>
+
+<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByIdTarea">
+  <![CDATA[
+      SELECT TPH.CCL_ID_COD_ORIGEN
+      FROM TAREA T
+      INNER JOIN TRABAJO TR
+      ON TR.ID_TRABAJO = T.ID_TRABAJO
+      INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
+      ON TPE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+      AND TPE.ID_TAREA = T.ID_TAREA
+      AND TPE.ES_ACTIVO = :activo
+      AND TPE.ICM_VALOR > 0
+      INNER JOIN TAREA_PERSONA_HISTORICO TPH
+      ON TPH.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
+      AND TPH.ID_TAREA = TPE.ID_TAREA
+      AND TPH.CCL_ID_PERSON = TPE.CCL_ID_PERSON        
+      WHERE T.ID_TAREA = :idTarea
+      AND TPE.ICM_ID_TP_COMISION IN (:idTipoComision)
+      GROUP BY TPH.CCL_ID_COD_ORIGEN
+  ]]>
+</entry>
+
+<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionGrupoFechasByIdTarea">
+  <![CDATA[
+        SELECT --CASE
+          --WHEN P.FECHA_INICIO < TR.FECHA_INICIO_PERIODO THEN P.FECHA_INICIO
+          --ELSE 
+          TR.FECHA_INICIO_PERIODO
+          --END AS FECHA_INICIO_PERIODO 
+          ,TR.FECHA_FIN_PERIODO, TPH.CCL_ID_COD_ORIGEN
+        FROM TAREA T
+        INNER JOIN TRABAJO TR
+        ON TR.ID_TRABAJO = T.ID_TRABAJO
+        INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
+        ON TPE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+        AND TPE.ID_TAREA = T.ID_TAREA
+        AND TPE.ES_ACTIVO = :activo
+        AND TPE.ICM_VALOR > 0      
+        INNER JOIN TAREA_PERSONA_HISTORICO TPH
+        ON TPH.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
+        AND TPH.ID_TAREA = TPE.ID_TAREA
+        AND TPH.CCL_ID_PERSON = TPE.CCL_ID_PERSON     
+--        INNER JOIN *PRESUPUESTO* P 
+--        ON P.ID_TAREA = T.ID_TAREA
+--        AND P.CCL_ID_COD_ORIGEN = TPE.CCL_ID_COD_ORIGEN
+--        AND ...             
+        WHERE T.ID_TAREA = :idTarea
+        GROUP BY TR.FECHA_INICIO_PERIODO, TR.FECHA_FIN_PERIODO, TPH.CCL_ID_COD_ORIGEN
+  ]]>
+</entry>
+
+<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea">
+  <![CDATA[
+        SELECT --CASE
+          --WHEN P.FECHA_INICIO < TR.FECHA_INICIO_PERIODO THEN P.FECHA_INICIO
+          --ELSE 
+          TR.FECHA_INICIO_PERIODO
+          --END AS FECHA_INICIO_PERIODO 
+          ,TR.FECHA_FIN_PERIODO, TPH.STD_ID_HR, TPH.STD_OR_HR_PERIOD
+        FROM TAREA T
+        INNER JOIN TRABAJO TR
+        ON TR.ID_TRABAJO = T.ID_TRABAJO
+        INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
+        ON TPE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+        AND TPE.ID_TAREA = T.ID_TAREA
+        AND TPE.ES_ACTIVO = :activo
+        AND TPE.ICM_VALOR > 0      
+        INNER JOIN TAREA_PERSONA_HISTORICO TPH
+        ON TPH.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
+        AND TPH.ID_TAREA = TPE.ID_TAREA
+        AND TPH.CCL_ID_PERSON = TPE.CCL_ID_PERSON     
+--        INNER JOIN *PRESUPUESTO* P 
+--        ON P.ID_TAREA = T.ID_TAREA
+--        AND P.CCL_ID_COD_ORIGEN = TPE.CCL_ID_COD_ORIGEN
+--        AND ...             
+        WHERE T.ID_TAREA = :idTarea
+        GROUP BY TR.FECHA_INICIO_PERIODO, TR.FECHA_FIN_PERIODO, TPH.STD_ID_HR, TPH.STD_OR_HR_PERIOD
+  ]]>
+</entry>
+
 <entry key="TareaPersonaEstructuraRepositoryCustom.updateActivoTopes">
   -- TODO [JAVIEREV] Definir la consulta que active las estructuras topes
   UPDATE TAREA_PERSONA_ESTRUCTURA
