@@ -4187,12 +4187,14 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
 </entry>
 
 <entry key="TareaPersonaEstructuraRepositoryCustom.updateActivoTopes">
+  <![CDATA[
   -- TODO [JAVIEREV] Definir la consulta que active las estructuras topes
   UPDATE TAREA_PERSONA_ESTRUCTURA
   SET ES_ACTIVO = :activo
   WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo
   AND ID_TAREA = :idTarea
   AND ICM_ORD_TOPE > :icmOrdTope
+  ]]>
 </entry>
 
 <entry key="TareaPresupuestoRepositoryCustom.save">
