@@ -111,31 +111,31 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         tareaRecolectarMeta4IcmWsCalcIncomeService.configuraciones(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> confChallengeDiasMinimosByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.confChallengeDiasMinimosByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> presupuestosWlocByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.presupuestosWlocByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> confPrecioHoraByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.confPrecioHoraByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> confChallengeTipoVentaByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.confChallengeTipoVentaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> presupuestosRangoByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.presupuestosRangoByRunTarea(runTarea);

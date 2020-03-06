@@ -113,35 +113,35 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .configuracionByRunTareaAndTareaAmbito(runTarea, item));
     }
-    
+
     @Override
     public void confChallengeDiasMinimosByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .confChallengeDiasMinimosByRunTareaAndTareaAmbito(runTarea, item));
     }
-    
+
     @Override
     public void presupuestosWlocByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .presupuestosWlocByRunTareaAndTareaAmbito(runTarea, item));
     }
-    
+
     @Override
     public void confPrecioHoraByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .confPrecioHoraByRunTareaAndTareaAmbito(runTarea, item));
     }
-    
+
     @Override
     public void confChallengeTipoVentaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .confChallengeTipoVentaByRunTareaAndTareaAmbito(runTarea, item));
     }
-    
+
     @Override
     public void presupuestosRangoByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .presupuestosRangoByRunTareaAndTareaAmbito(runTarea, item));
-    } 
-    
+    }
+
 }
