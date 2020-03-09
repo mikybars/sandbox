@@ -195,24 +195,6 @@ public class Meta4ServiceTest {
     }
 
     @Test
-    public void getTiendasEmpleado() {
-        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
-        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
-        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
-        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
-        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
-        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
-        param1.getIcmParametrosentradaRecordSet().add(record);
-        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
-        param2.setNumeroregistrospagina(Meta4TestConstants.NUM_REGISTROS_PAGINA);
-        param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
-        param2.setIdbusqueda(StringUtils.EMPTY);
-        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
-        GettiendasempleadoOutput gettiendasempleadoOutput = meta4ClientPool.gettiendasempleado(param1, param2);
-        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(gettiendasempleadoOutput.getReturn()));
-    }
-
-    @Test
     public void searchTiendas() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
         record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);

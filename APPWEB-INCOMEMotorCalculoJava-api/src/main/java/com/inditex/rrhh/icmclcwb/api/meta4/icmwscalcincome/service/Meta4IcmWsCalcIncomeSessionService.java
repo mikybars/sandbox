@@ -56,8 +56,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 
 public interface Meta4IcmWsCalcIncomeSessionService {
 
-    List<GenericTiendaResultItemDto> getTiendasEmpleado(TiendasEmpleadoRequestDto request);
-
     List<GenericTiendaResultItemDto> searchTiendas(SearchTiendasRequestDto request);
 
     List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request);

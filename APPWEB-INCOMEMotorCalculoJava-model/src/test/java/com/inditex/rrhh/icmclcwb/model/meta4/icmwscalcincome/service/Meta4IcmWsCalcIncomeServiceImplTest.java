@@ -555,64 +555,6 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         meta4IcmWsCalcIncomeServiceImpl.getPeriodos(request);
         verify(meta4ClientPool, times(1)).getperiodos(any(IcmParamcalperiodoBlock.class), any(IcmParametrospaginacionBlock.class));
     }
-    
-    @Test
-    public void getTiendasEmpleado() {
-        IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        IcmListatiendasBlock block = new IcmListatiendasBlock(); 
-        GettiendasempleadoOutput output = new GettiendasempleadoOutput();
-        block.getIcmListatiendasRecordSet().add(new IcmListatiendasRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmParametrospaginacion(paginacion);
-        output.setIcmListatiendas(block);
-        
-        when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.gettiendasempleado(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(output);
-
-        TiendasEmpleadoRequestDto request = new TiendasEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getTiendasEmpleado(request);
-        verify(meta4ClientPool, times(1)).gettiendasempleado(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class));
-    }
-    
-    @Test
-    public void getTiendasEmpleadoNullOutput() {
-        IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        
-        when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.gettiendasempleado(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(null);
-
-        TiendasEmpleadoRequestDto request = new TiendasEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getTiendasEmpleado(request);
-        verify(meta4ClientPool, times(1)).gettiendasempleado(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class));
-    }
-
-    @Test
-    public void getTiendasEmpleadoNullPageNullData() {
-        IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        GettiendasempleadoOutput output = new GettiendasempleadoOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmParametrospaginacion(null);
-        output.setIcmListatiendas(null);
-        
-        when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.gettiendasempleado(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(output);
-
-        TiendasEmpleadoRequestDto request = new TiendasEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getTiendasEmpleado(request);
-        verify(meta4ClientPool, times(1)).gettiendasempleado(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class));
-    }
 
     @Test
     public void searchTiendas() {

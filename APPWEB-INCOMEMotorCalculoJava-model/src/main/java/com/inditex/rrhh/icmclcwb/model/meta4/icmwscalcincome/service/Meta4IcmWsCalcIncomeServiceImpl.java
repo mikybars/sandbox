@@ -296,30 +296,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     }
 
     @Override
-    public TiendasEmpleadoResponseDto getTiendasEmpleado(TiendasEmpleadoRequestDto request) {
-        TiendasEmpleadoResponseDto result = new TiendasEmpleadoResponseDto();
-        IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());
-        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
-        GettiendasempleadoOutput gettiendasempleadoOutput = meta4ClientPool.gettiendasempleado(param1, param2);
-        if (gettiendasempleadoOutput != null
-                && Double.compare(NumberUtils.DOUBLE_ZERO, gettiendasempleadoOutput.getReturn()) == 0) {
-            if (gettiendasempleadoOutput.getIcmParametrospaginacion() != null) {
-                PageDto page = icmWsCalcIncomeMapper.asPageDto(gettiendasempleadoOutput.getIcmParametrospaginacion());
-                result.setPage(page);
-            }
-            if (gettiendasempleadoOutput.getIcmListatiendas() != null
-                    && gettiendasempleadoOutput.getIcmListatiendas().getIcmListatiendasRecordSet() != null
-                    && CollectionUtils
-                            .isNotEmpty(gettiendasempleadoOutput.getIcmListatiendas().getIcmListatiendasRecordSet())) {
-                List<GenericTiendaResultItemDto> items = icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(
-                        gettiendasempleadoOutput.getIcmListatiendas().getIcmListatiendasRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
-    @Override
     public SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request) {
         SearchTiendasResponseDto result = new SearchTiendasResponseDto();
         IcmParametrosentradaBlock param1 = icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(request.getData());

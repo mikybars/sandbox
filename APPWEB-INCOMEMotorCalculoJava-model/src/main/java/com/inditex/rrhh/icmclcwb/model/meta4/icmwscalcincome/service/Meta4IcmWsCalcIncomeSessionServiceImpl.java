@@ -113,12 +113,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     }
 
     @Override
-    public List<GenericTiendaResultItemDto> getTiendasEmpleado(final TiendasEmpleadoRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.TIENDAS_EMPLEADO,
-                meta4Properties.get(Meta4PropertiesConstants.TIENDAS_EMPLEADO).getFilter().getMaxPageSize());
-    }
-
-    @Override
     public List<GenericTiendaResultItemDto> searchTiendas(final SearchTiendasRequestDto request) {
         return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.SEARCH_TIENDAS,
                 meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getFilter().getMaxPageSize());

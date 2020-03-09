@@ -152,20 +152,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getPeriodos(ArgumentMatchers.any(PeriodosRequestDto.class));
 
     }
-    
-    @Test
-    public void getTiendasEmpleado() {
-        when(meta4IcmWsCalcIncomeSessionService.getTiendasEmpleado(any(TiendasEmpleadoRequestDto.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());
-
-        TiendasEmpleadoRequestDto request = new TiendasEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendasEmpleado(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getTiendasEmpleado(ArgumentMatchers.any(TiendasEmpleadoRequestDto.class));
-
-    }
-    
+       
     @Test
     public void searchTiendas() {
         when(meta4IcmWsCalcIncomeSessionService.searchTiendas(any(SearchTiendasRequestDto.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());

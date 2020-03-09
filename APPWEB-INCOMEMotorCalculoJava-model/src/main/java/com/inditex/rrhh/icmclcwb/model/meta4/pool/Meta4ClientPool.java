@@ -302,19 +302,6 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
-            IcmParametrospaginacionBlock param2) {
-        Meta4ClientPoolable client = claim(pool);
-        try {
-            return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
-        } catch (Exception e) {
-            catchException(e, client, Arrays.asList(param1, param2));
-            throw new Meta4IcmclcwbException(e.getMessage(), e);
-        } finally {
-            release(client);
-        }
-    }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {

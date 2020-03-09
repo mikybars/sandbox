@@ -54,8 +54,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.T
 @Async("meta4Executor")
 public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 
-    CompletableFuture<List<GenericTiendaResultItemDto>> getTiendasEmpleado(TiendasEmpleadoRequestDto request);
-
     CompletableFuture<List<GenericTiendaResultItemDto>> searchTiendas(SearchTiendasRequestDto request);
 
     CompletableFuture<List<GenericTiendaResultItemDto>> getTiendas(TiendasRequestDto request);
