@@ -46,6 +46,10 @@ public class TareaPresupuesto {
     private String stdIdWorkLocat;
 
     @NotBlank
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
+    private String cclIdCodOrigen;
+
+    @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
     private String cclIdSeccion;
 
@@ -82,5 +86,9 @@ public class TareaPresupuesto {
     @NotNull
     @Column(name = "ICM_ID_TP_PRESUPUESTO", nullable = false)
     private String idTpPresupuesto;
+
+    @NotNull
+    @Column(name = "ES_ACTIVO", nullable = false)
+    private Boolean activo;
 
 }

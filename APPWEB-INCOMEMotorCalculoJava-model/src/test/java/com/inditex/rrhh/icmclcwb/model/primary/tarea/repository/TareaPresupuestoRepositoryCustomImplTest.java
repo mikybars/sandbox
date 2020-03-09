@@ -71,6 +71,7 @@ public class TareaPresupuestoRepositoryCustomImplTest {
         when(presupuesto.getCclIdOrigen()).thenReturn("ORIGEN");
         when(presupuesto.getStdIdLegEnt()).thenReturn("STD_LEG_ENT");
         when(presupuesto.getStdIdWorkLocat()).thenReturn("STD_ID_WORK_LOCAT");
+        when(presupuesto.getCclIdCodOrigen()).thenReturn("CCL_ID_COD_ORIGEN");
         when(presupuesto.getCclIdSeccion()).thenReturn("SECCION");
         when(presupuesto.getFechaInicio()).thenReturn(TimeUtils.nowDate());
         when(presupuesto.getFechaFin()).thenReturn(TimeUtils.nowDate());
@@ -80,22 +81,25 @@ public class TareaPresupuestoRepositoryCustomImplTest {
         when(presupuesto.getOrdinal()).thenReturn(43);
         when(presupuesto.getExcepcion()).thenReturn(Boolean.FALSE);
         when(presupuesto.getIdTpPresupuesto()).thenReturn("TP PRESUPUESTO");
+        when(presupuesto.getActivo()).thenReturn(Boolean.FALSE);
         PreparedStatement pstmt = mock(PreparedStatement.class);
 
         tareaPresupuestoRepositoryCustom.setParameters(pstmt, presupuesto);
         verify(pstmt, times(1)).setLong(1, tarea.getId());
         verify(pstmt, times(1)).setString(2, presupuesto.getCclIdOrigen());
         verify(pstmt, times(1)).setString(3, presupuesto.getStdIdLegEnt());
-        verify(pstmt, times(1)).setString(4, presupuesto.getStdIdWorkLocat());
-        verify(pstmt, times(1)).setString(5, presupuesto.getCclIdSeccion());
-        verify(pstmt, times(1)).setObject(6, presupuesto.getFechaInicio());
-        verify(pstmt, times(1)).setObject(7, presupuesto.getFechaFin());
-        verify(pstmt, times(1)).setDouble(8, presupuesto.getImporteSinImpuestos());
-        verify(pstmt, times(1)).setDouble(9, presupuesto.getImporteConImpuestos());
-        verify(pstmt, times(1)).setInt(10, presupuesto.getBanda());
-        verify(pstmt, times(1)).setInt(11, presupuesto.getOrdinal());
-        verify(pstmt, times(1)).setBoolean(12, presupuesto.getExcepcion());
-        verify(pstmt, times(1)).setString(13, presupuesto.getIdTpPresupuesto());
+        verify(pstmt, times(1)).setString(4, presupuesto.getCclIdCodOrigen());
+        verify(pstmt, times(1)).setString(5, presupuesto.getStdIdWorkLocat());
+        verify(pstmt, times(1)).setString(6, presupuesto.getCclIdSeccion());
+        verify(pstmt, times(1)).setObject(7, presupuesto.getFechaInicio());
+        verify(pstmt, times(1)).setObject(8, presupuesto.getFechaFin());
+        verify(pstmt, times(1)).setDouble(9, presupuesto.getImporteSinImpuestos());
+        verify(pstmt, times(1)).setDouble(10, presupuesto.getImporteConImpuestos());
+        verify(pstmt, times(1)).setInt(11, presupuesto.getBanda());
+        verify(pstmt, times(1)).setInt(12, presupuesto.getOrdinal());
+        verify(pstmt, times(1)).setBoolean(13, presupuesto.getExcepcion());
+        verify(pstmt, times(1)).setString(14, presupuesto.getIdTpPresupuesto());
+        verify(pstmt, times(1)).setBoolean(15, presupuesto.getExcepcion());
 
     }
 }

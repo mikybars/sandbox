@@ -31,15 +31,17 @@ public class TareaPresupuestoRepositoryCustomImpl extends JdbcBatchPrimaryReposi
         pstmt.setLong(1, src.getTarea().getId());
         pstmt.setString(2, src.getCclIdOrigen());
         pstmt.setString(3, src.getStdIdLegEnt());
-        pstmt.setString(4, src.getStdIdWorkLocat());
-        pstmt.setString(5, src.getCclIdSeccion());
-        pstmt.setObject(6, src.getFechaInicio());
-        pstmt.setObject(7, src.getFechaFin());
-        pstmt.setDouble(8, src.getImporteSinImpuestos());
-        pstmt.setDouble(9, src.getImporteConImpuestos());
-        pstmt.setInt(10, src.getBanda());
-        pstmt.setInt(11, src.getOrdinal());
-        pstmt.setBoolean(12, src.getExcepcion());
-        pstmt.setString(13, src.getIdTpPresupuesto());
+        pstmt.setString(4, src.getCclIdCodOrigen());
+        pstmt.setString(5, src.getStdIdWorkLocat());
+        pstmt.setString(6, src.getCclIdSeccion());
+        pstmt.setObject(7, src.getFechaInicio());
+        pstmt.setObject(8, src.getFechaFin());
+        pstmt.setDouble(9, src.getImporteSinImpuestos());
+        pstmt.setDouble(10, src.getImporteConImpuestos());
+        pstmt.setInt(11, src.getBanda());
+        pstmt.setInt(12, src.getOrdinal());
+        pstmt.setBoolean(13, src.getExcepcion());
+        pstmt.setString(14, src.getIdTpPresupuesto());
+        pstmt.setBoolean(15, src.getActivo());
     }
 }
