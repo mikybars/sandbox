@@ -58,7 +58,7 @@ public class SqlParamsUtils {
         if (value == null) {
             return new NullValueCreator();
         } else if (value instanceof Collection) {
-            return new ListValueCreator((Collection) value);
+            return new ListValueCreator((Collection<?>) value);
         } else if (value instanceof String) {
             return new StringValueCreator((String) value);
         } else {
@@ -102,7 +102,7 @@ public class SqlParamsUtils {
     @AllArgsConstructor
     private static class ListValueCreator implements ValueCreator {
 
-        Collection list;
+        Collection<?> list;
 
         @Override
         public String createValue() {

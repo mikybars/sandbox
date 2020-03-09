@@ -77,3 +77,27 @@
     </memory>
     <expiration max-idle="3600000" />
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.periodo_by_tarea" mode="SYNC" statistics="true">
+    <memory>
+        <object size="1000" />
+    </memory>
+    <expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea" mode="SYNC" statistics="true">
+    <memory>
+        <object size="1000" />
+    </memory>
+    <expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_localizacion_local_presupuestos_by_tarea" mode="SYNC" statistics="true">
+    <memory>
+        <object size="1000" />
+    </memory>
+    <expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_persona_local_challenge_by_tarea" mode="SYNC" statistics="true">
+    <memory>
+      <object size="1000" />
+    </memory>
+    <expiration max-idle="600000" />
+</replicated-cache>

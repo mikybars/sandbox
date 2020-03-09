@@ -184,22 +184,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getPeriodos(ArgumentMatchers.any(PeriodosRequestDto.class));
     }
     
-    @Test
-    public void getTiendasEmpleado() {
-        Meta4PropertiesDto properties = new Meta4PropertiesDto();
-        Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-        filter.setMaxPageSize(1);
-        properties.setFilter(filter);
-        when(meta4IcmWsCalcIncomeService.getTiendasEmpleado(any(TiendasEmpleadoRequestDto.class))).thenReturn(new TiendasEmpleadoResponseDto());
-        when(meta4Properties.get(Meta4PropertiesConstants.TIENDAS_EMPLEADO)).thenReturn(properties);
-
-        TiendasEmpleadoRequestDto request = new TiendasEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeSessionServiceImpl.getTiendasEmpleado(request);
-
-        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getTiendasEmpleado(ArgumentMatchers.any(TiendasEmpleadoRequestDto.class));
-    }
     
     @Test
     public void searchTiendas() {

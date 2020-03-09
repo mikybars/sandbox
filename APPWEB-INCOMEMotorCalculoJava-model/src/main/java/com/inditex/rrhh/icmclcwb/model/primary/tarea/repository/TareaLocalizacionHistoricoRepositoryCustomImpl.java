@@ -3,12 +3,14 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoComision;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
@@ -65,6 +68,12 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTareaAndCclIdPersonInAmbito']}")
     private String sqlFindIdLocalizacionByIdTareaAndCclIdPersonInAmbito;
+    
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByIdTarea']}")
+    private String sqlFindIdLocalizacionPresupuestosByIdTarea;
+    
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionGrupoFechasByIdTarea']}")
+    private String sqlFindIdLocalizacionGrupoFechasByIdTarea;
 
     @Override
     public List<TareaLocalizacionHistorico> save(final List<TareaLocalizacionHistorico> src) {
@@ -220,5 +229,26 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionByIdTareaAndCclIdPersonInAmbito, parameters, (rs, rowNum) -> IdLocalizacionLocalDto.builder()
             .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
             .build());
+    }
+    
+    @Override
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoPresupuestosByIdTarea(@NotNull @Positive Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays.asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
+        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionPresupuestosByIdTarea, parameters, (rs, rowNum) -> IdLocalizacionLocalDto.builder()
+                .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
+                .build());
+    }
+    
+    @Override
+    public List<IdLocalizacionLocalDto> findTiendasGrupoFechasByIdTarea(@NotNull @Positive Long idTarea) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        return namedParameterJdbcTemplate.query(sqlFindIdLocalizacionGrupoFechasByIdTarea, parameters, (rs, rowNum) -> IdLocalizacionLocalDto.builder()
+                .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
+                .build());
     }
 }

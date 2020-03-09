@@ -9,6 +9,8 @@ import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteCarenciaRepositoryCustom;
@@ -28,6 +30,9 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
     @Autowired
     private TareaCalculoAjusteCarenciaRepositoryCustom tareaCalculoAjusteCarenciaRepositoryCustom;
 
+    @Autowired
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
+    
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
         Flux.fromIterable(StreamUtils.partition(
@@ -38,6 +43,8 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
                         tareaCalculoAjusteCarenciaRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
                     } catch (Exception e) {
                         log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
+                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                                EstadoTareaCalculoPersonaEnum.KO.getDto());
                     }
                     log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
                     return Flux.empty();

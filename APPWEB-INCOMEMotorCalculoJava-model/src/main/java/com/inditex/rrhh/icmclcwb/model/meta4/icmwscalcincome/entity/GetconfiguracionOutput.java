@@ -36,7 +36,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence&gt;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Listaconf" type="{http://schemas.meta4.com/}Icm_ListaconfBlock"/&gt;
+ *         &lt;element name="Icm_Listaconforigen" type="{http://schemas.meta4.com/}Icm_ListaconforigenBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -49,7 +49,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "GetconfiguracionOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmListaconf"
+    "icmListaconforigen"
 })
 public class GetconfiguracionOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
@@ -59,8 +59,8 @@ public class GetconfiguracionOutput implements Serializable, Cloneable, CopyTo2,
     protected double _return;
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
-    @XmlElement(name = "Icm_Listaconf", required = true, nillable = true)
-    protected IcmListaconfBlock icmListaconf;
+    @XmlElement(name = "Icm_Listaconforigen", required = true, nillable = true)
+    protected IcmListaconforigenBlock icmListaconforigen;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -108,27 +108,27 @@ public class GetconfiguracionOutput implements Serializable, Cloneable, CopyTo2,
     }
 
     /**
-     * Obtiene el valor de la propiedad icmListaconf.
+     * Obtiene el valor de la propiedad icmListaconforigen.
      * 
      * @return
      *     possible object is
-     *     {@link IcmListaconfBlock }
+     *     {@link IcmListaconforigenBlock }
      *     
      */
-    public IcmListaconfBlock getIcmListaconf() {
-        return icmListaconf;
+    public IcmListaconforigenBlock getIcmListaconforigen() {
+        return icmListaconforigen;
     }
 
     /**
-     * Define el valor de la propiedad icmListaconf.
+     * Define el valor de la propiedad icmListaconforigen.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmListaconfBlock }
+     *     {@link IcmListaconforigenBlock }
      *     
      */
-    public void setIcmListaconf(IcmListaconfBlock value) {
-        this.icmListaconf = value;
+    public void setIcmListaconforigen(IcmListaconforigenBlock value) {
+        this.icmListaconforigen = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -158,11 +158,11 @@ public class GetconfiguracionOutput implements Serializable, Cloneable, CopyTo2,
             }
         }
         {
-            IcmListaconfBlock lhsIcmListaconf;
-            lhsIcmListaconf = this.getIcmListaconf();
-            IcmListaconfBlock rhsIcmListaconf;
-            rhsIcmListaconf = that.getIcmListaconf();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconf", lhsIcmListaconf), LocatorUtils.property(thatLocator, "icmListaconf", rhsIcmListaconf), lhsIcmListaconf, rhsIcmListaconf, (this.icmListaconf!= null), (that.icmListaconf!= null))) {
+            IcmListaconforigenBlock lhsIcmListaconforigen;
+            lhsIcmListaconforigen = this.getIcmListaconforigen();
+            IcmListaconforigenBlock rhsIcmListaconforigen;
+            rhsIcmListaconforigen = that.getIcmListaconforigen();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconforigen", lhsIcmListaconforigen), LocatorUtils.property(thatLocator, "icmListaconforigen", rhsIcmListaconforigen), lhsIcmListaconforigen, rhsIcmListaconforigen, (this.icmListaconforigen!= null), (that.icmListaconforigen!= null))) {
                 return false;
             }
         }
@@ -200,9 +200,9 @@ public class GetconfiguracionOutput implements Serializable, Cloneable, CopyTo2,
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmListaconfBlock theIcmListaconf;
-            theIcmListaconf = this.getIcmListaconf();
-            strategy.appendField(locator, this, "icmListaconf", buffer, theIcmListaconf, (this.icmListaconf!= null));
+            IcmListaconforigenBlock theIcmListaconforigen;
+            theIcmListaconforigen = this.getIcmListaconforigen();
+            strategy.appendField(locator, this, "icmListaconforigen", buffer, theIcmListaconforigen, (this.icmListaconforigen!= null));
         }
         return buffer;
     }
@@ -220,9 +220,9 @@ public class GetconfiguracionOutput implements Serializable, Cloneable, CopyTo2,
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmListaconfBlock theIcmListaconf;
-            theIcmListaconf = this.getIcmListaconf();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaconf", theIcmListaconf), currentHashCode, theIcmListaconf, (this.icmListaconf!= null));
+            IcmListaconforigenBlock theIcmListaconforigen;
+            theIcmListaconforigen = this.getIcmListaconforigen();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaconforigen", theIcmListaconforigen), currentHashCode, theIcmListaconforigen, (this.icmListaconforigen!= null));
         }
         return currentHashCode;
     }
@@ -276,15 +276,15 @@ public class GetconfiguracionOutput implements Serializable, Cloneable, CopyTo2,
                 }
             }
             {
-                Boolean icmListaconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaconf!= null));
-                if (icmListaconfShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListaconfBlock sourceIcmListaconf;
-                    sourceIcmListaconf = this.getIcmListaconf();
-                    IcmListaconfBlock copyIcmListaconf = ((IcmListaconfBlock) strategy.copy(LocatorUtils.property(locator, "icmListaconf", sourceIcmListaconf), sourceIcmListaconf, (this.icmListaconf!= null)));
-                    copy.setIcmListaconf(copyIcmListaconf);
+                Boolean icmListaconforigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaconforigen!= null));
+                if (icmListaconforigenShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaconforigenBlock sourceIcmListaconforigen;
+                    sourceIcmListaconforigen = this.getIcmListaconforigen();
+                    IcmListaconforigenBlock copyIcmListaconforigen = ((IcmListaconforigenBlock) strategy.copy(LocatorUtils.property(locator, "icmListaconforigen", sourceIcmListaconforigen), sourceIcmListaconforigen, (this.icmListaconforigen!= null)));
+                    copy.setIcmListaconforigen(copyIcmListaconforigen);
                 } else {
-                    if (icmListaconfShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListaconf = null;
+                    if (icmListaconforigenShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaconforigen = null;
                     }
                 }
             }

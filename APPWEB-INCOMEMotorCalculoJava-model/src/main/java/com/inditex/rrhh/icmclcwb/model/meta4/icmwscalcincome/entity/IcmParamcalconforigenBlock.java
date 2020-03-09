@@ -25,19 +25,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ParamconfBlock complex type.
+ * <p>Clase Java para Icm_ParamcalconforigenBlock complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="Icm_ParamconfBlock"&gt;
+ * &lt;complexType name="Icm_ParamcalconforigenBlock"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="Icm_ParamconfRecordSet" type="{http://schemas.meta4.com/}Icm_ParamconfRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="Icm_ParamcalconforigenRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalconforigenRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -47,13 +47,13 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Icm_ParamconfBlock", propOrder = {
+@XmlType(name = "Icm_ParamcalconforigenBlock", propOrder = {
     "fechafin",
     "idorigen",
     "fechainicio",
-    "icmParamconfRecordSet"
+    "icmParamcalconforigenRecordSet"
 })
-public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class IcmParamcalconforigenBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     private final static long serialVersionUID = 1L;
@@ -63,8 +63,8 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
     protected String idorigen;
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
-    @XmlElement(name = "Icm_ParamconfRecordSet", nillable = true)
-    protected List<IcmParamconfRecord> icmParamconfRecordSet;
+    @XmlElement(name = "Icm_ParamcalconforigenRecordSet", nillable = true)
+    protected List<IcmParamcalconforigenRecord> icmParamcalconforigenRecordSet;
 
     /**
      * Obtiene el valor de la propiedad fechafin.
@@ -139,32 +139,32 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
     }
 
     /**
-     * Gets the value of the icmParamconfRecordSet property.
+     * Gets the value of the icmParamcalconforigenRecordSet property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmParamconfRecordSet property.
+     * This is why there is not a <CODE>set</CODE> method for the icmParamcalconforigenRecordSet property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getIcmParamconfRecordSet().add(newItem);
+     *    getIcmParamcalconforigenRecordSet().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link IcmParamconfRecord }
+     * {@link IcmParamcalconforigenRecord }
      * 
      * 
      */
-    public List<IcmParamconfRecord> getIcmParamconfRecordSet() {
-        if (icmParamconfRecordSet == null) {
-            icmParamconfRecordSet = new ArrayList<IcmParamconfRecord>();
+    public List<IcmParamcalconforigenRecord> getIcmParamcalconforigenRecordSet() {
+        if (icmParamcalconforigenRecordSet == null) {
+            icmParamcalconforigenRecordSet = new ArrayList<IcmParamcalconforigenRecord>();
         }
-        return this.icmParamconfRecordSet;
+        return this.icmParamcalconforigenRecordSet;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -174,7 +174,7 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
         if (this == object) {
             return true;
         }
-        final IcmParamconfBlock that = ((IcmParamconfBlock) object);
+        final IcmParamcalconforigenBlock that = ((IcmParamcalconforigenBlock) object);
         {
             String lhsFechafin;
             lhsFechafin = this.getFechafin();
@@ -203,11 +203,11 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
             }
         }
         {
-            List<IcmParamconfRecord> lhsIcmParamconfRecordSet;
-            lhsIcmParamconfRecordSet = (((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty()))?this.getIcmParamconfRecordSet():null);
-            List<IcmParamconfRecord> rhsIcmParamconfRecordSet;
-            rhsIcmParamconfRecordSet = (((that.icmParamconfRecordSet!= null)&&(!that.icmParamconfRecordSet.isEmpty()))?that.getIcmParamconfRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamconfRecordSet", lhsIcmParamconfRecordSet), LocatorUtils.property(thatLocator, "icmParamconfRecordSet", rhsIcmParamconfRecordSet), lhsIcmParamconfRecordSet, rhsIcmParamconfRecordSet, ((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty())), ((that.icmParamconfRecordSet!= null)&&(!that.icmParamconfRecordSet.isEmpty())))) {
+            List<IcmParamcalconforigenRecord> lhsIcmParamcalconforigenRecordSet;
+            lhsIcmParamcalconforigenRecordSet = (((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty()))?this.getIcmParamcalconforigenRecordSet():null);
+            List<IcmParamcalconforigenRecord> rhsIcmParamcalconforigenRecordSet;
+            rhsIcmParamcalconforigenRecordSet = (((that.icmParamcalconforigenRecordSet!= null)&&(!that.icmParamcalconforigenRecordSet.isEmpty()))?that.getIcmParamcalconforigenRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalconforigenRecordSet", lhsIcmParamcalconforigenRecordSet), LocatorUtils.property(thatLocator, "icmParamcalconforigenRecordSet", rhsIcmParamcalconforigenRecordSet), lhsIcmParamcalconforigenRecordSet, rhsIcmParamcalconforigenRecordSet, ((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty())), ((that.icmParamcalconforigenRecordSet!= null)&&(!that.icmParamcalconforigenRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -250,9 +250,9 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
             strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
         }
         {
-            List<IcmParamconfRecord> theIcmParamconfRecordSet;
-            theIcmParamconfRecordSet = (((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty()))?this.getIcmParamconfRecordSet():null);
-            strategy.appendField(locator, this, "icmParamconfRecordSet", buffer, theIcmParamconfRecordSet, ((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty())));
+            List<IcmParamcalconforigenRecord> theIcmParamcalconforigenRecordSet;
+            theIcmParamcalconforigenRecordSet = (((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty()))?this.getIcmParamcalconforigenRecordSet():null);
+            strategy.appendField(locator, this, "icmParamcalconforigenRecordSet", buffer, theIcmParamcalconforigenRecordSet, ((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -275,9 +275,9 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
         }
         {
-            List<IcmParamconfRecord> theIcmParamconfRecordSet;
-            theIcmParamconfRecordSet = (((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty()))?this.getIcmParamconfRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamconfRecordSet", theIcmParamconfRecordSet), currentHashCode, theIcmParamconfRecordSet, ((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty())));
+            List<IcmParamcalconforigenRecord> theIcmParamcalconforigenRecordSet;
+            theIcmParamcalconforigenRecordSet = (((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty()))?this.getIcmParamcalconforigenRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalconforigenRecordSet", theIcmParamcalconforigenRecordSet), currentHashCode, theIcmParamcalconforigenRecordSet, ((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -298,8 +298,8 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof IcmParamconfBlock) {
-            final IcmParamconfBlock copy = ((IcmParamconfBlock) draftCopy);
+        if (draftCopy instanceof IcmParamcalconforigenBlock) {
+            final IcmParamcalconforigenBlock copy = ((IcmParamcalconforigenBlock) draftCopy);
             {
                 Boolean fechafinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafin!= null));
                 if (fechafinShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -340,20 +340,20 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
                 }
             }
             {
-                Boolean icmParamconfRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty())));
-                if (icmParamconfRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
-                    List<IcmParamconfRecord> sourceIcmParamconfRecordSet;
-                    sourceIcmParamconfRecordSet = (((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty()))?this.getIcmParamconfRecordSet():null);
+                Boolean icmParamcalconforigenRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty())));
+                if (icmParamcalconforigenRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
+                    List<IcmParamcalconforigenRecord> sourceIcmParamcalconforigenRecordSet;
+                    sourceIcmParamcalconforigenRecordSet = (((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty()))?this.getIcmParamcalconforigenRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamconfRecord> copyIcmParamconfRecordSet = ((List<IcmParamconfRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamconfRecordSet", sourceIcmParamconfRecordSet), sourceIcmParamconfRecordSet, ((this.icmParamconfRecordSet!= null)&&(!this.icmParamconfRecordSet.isEmpty()))));
-                    copy.icmParamconfRecordSet = null;
-                    if (copyIcmParamconfRecordSet!= null) {
-                        List<IcmParamconfRecord> uniqueIcmParamconfRecordSetl = copy.getIcmParamconfRecordSet();
-                        uniqueIcmParamconfRecordSetl.addAll(copyIcmParamconfRecordSet);
+                    List<IcmParamcalconforigenRecord> copyIcmParamcalconforigenRecordSet = ((List<IcmParamcalconforigenRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalconforigenRecordSet", sourceIcmParamcalconforigenRecordSet), sourceIcmParamcalconforigenRecordSet, ((this.icmParamcalconforigenRecordSet!= null)&&(!this.icmParamcalconforigenRecordSet.isEmpty()))));
+                    copy.icmParamcalconforigenRecordSet = null;
+                    if (copyIcmParamcalconforigenRecordSet!= null) {
+                        List<IcmParamcalconforigenRecord> uniqueIcmParamcalconforigenRecordSetl = copy.getIcmParamcalconforigenRecordSet();
+                        uniqueIcmParamcalconforigenRecordSetl.addAll(copyIcmParamcalconforigenRecordSet);
                     }
                 } else {
-                    if (icmParamconfRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmParamconfRecordSet = null;
+                    if (icmParamcalconforigenRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmParamcalconforigenRecordSet = null;
                     }
                 }
             }
@@ -362,7 +362,7 @@ public class IcmParamconfBlock implements Serializable, Cloneable, CopyTo2, Equa
     }
 
     public Object createNewInstance() {
-        return new IcmParamconfBlock();
+        return new IcmParamcalconforigenBlock();
     }
 
 }

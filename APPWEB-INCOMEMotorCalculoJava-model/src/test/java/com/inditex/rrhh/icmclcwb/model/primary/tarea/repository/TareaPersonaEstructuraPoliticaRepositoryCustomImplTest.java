@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.AlgoritmoAjuste;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoUnidadTiempo;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;

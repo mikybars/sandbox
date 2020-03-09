@@ -52,19 +52,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
         try {
             /*-----------------------------------------------------------------*/
             /*
-             * Carga inicial de estructuras, datos por origen, datos comunes (tienda
+             * Carga inicial de datos por origen, datos comunes (tienda
              * comisionable, etc), configuraciones
              */
             /*-----------------------------------------------------------------*/
-            // Estructuras (Tramado estructuras (ApV) Detalle comision (Meta4))
-            CompletableFuture<Void> cfEstructurasCom = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .estructurasComByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfEstructurasCom, cf, cfWait);
-            
-            CompletableFuture<Void> cfEstructurasPol = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .estructurasPolByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfEstructurasPol, cf, cfWait);
-            
+
             CompletableFuture<Void> cfAusencias = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                     .ausenciasByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfAusencias, cf, cfWait);

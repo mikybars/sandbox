@@ -120,7 +120,7 @@ public class TestServiceImplTest {
     }
     
     @Test
-    //TODO: Rehacer este test
+    //TODO [COMUN] Rehacer este test
     public void programacionBatch() {
         testServiceImpl.programacionBatch();
         verify(programacionService, timeout(1000).times(1)).activa();
