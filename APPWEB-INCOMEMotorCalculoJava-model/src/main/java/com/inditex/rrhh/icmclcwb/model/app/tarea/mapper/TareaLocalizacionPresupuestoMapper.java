@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPresupuestoDecorator;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPresupuesto;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionLocalizacionPresupuestoDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,8 +12,8 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(imports = {org.apache.commons.lang3.math.NumberUtils.class})
-@DecoratedWith(value = TareaPresupuestoDecorator.class)
-public abstract class TareaPresupuestoMapper {
+@DecoratedWith(value = TareaLocalizacionLocalizacionPresupuestoDecorator.class)
+public abstract class TareaLocalizacionPresupuestoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
@@ -31,10 +31,10 @@ public abstract class TareaPresupuestoMapper {
     @Mapping(target = "excepcion", source = "src.excepcion")
     @Mapping(target = "idTpPresupuesto", source = "src.idTpPresupuesto")
     @Mapping(target = "activo", constant = "false")
-    public abstract TareaPresupuesto presupuestosWlocResultItemDtoToTareaPresupuesto(
+    public abstract TareaLocalizacionPresupuesto presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
         PresupuestosWlocResultItemDto src, TareaDto tarea);
 
-    public List<TareaPresupuesto> presupuestosWlocResultItemDtoToTareaPresupuesto(
+    public List<TareaLocalizacionPresupuesto> presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
         List<PresupuestosWlocResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }

@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPresupuesto;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TareaPresupuestoRepositoryCustomImplTest {
+public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
 
     private final static String SQL_SAVE = "SQL SAVE";
 
@@ -34,7 +34,7 @@ public class TareaPresupuestoRepositoryCustomImplTest {
     private JdbcTemplate template;
 
     @InjectMocks
-    private TareaPresupuestoRepositoryCustomImpl tareaPresupuestoRepositoryCustom;
+    private TareaLocalizacionLocalizacionPresupuestoRepositoryCustomImpl tareaPresupuestoRepositoryCustom;
 
     @Captor
     private ArgumentCaptor<String> sql;
@@ -50,7 +50,7 @@ public class TareaPresupuestoRepositoryCustomImplTest {
     @Test
     public void saveTest() {
 
-        List<TareaPresupuesto> items = Collections.singletonList(mock(TareaPresupuesto.class));
+        List<TareaLocalizacionPresupuesto> items = Collections.singletonList(mock(TareaLocalizacionPresupuesto.class));
 
         tareaPresupuestoRepositoryCustom.save(items);
         verify(template).batchUpdate(sql.capture(), any(BatchPreparedStatementSetter.class));
@@ -66,7 +66,7 @@ public class TareaPresupuestoRepositoryCustomImplTest {
 
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(809L);
-        TareaPresupuesto presupuesto = mock(TareaPresupuesto.class);
+        TareaLocalizacionPresupuesto presupuesto = mock(TareaLocalizacionPresupuesto.class);
         when(presupuesto.getTarea()).thenReturn(tarea);
         when(presupuesto.getCclIdOrigen()).thenReturn("ORIGEN");
         when(presupuesto.getStdIdLegEnt()).thenReturn("STD_LEG_ENT");

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Async("repositoryPrimaryExecutor")
-public interface TareaPresupuestoAsyncService {
+public interface TareaLocalizacionPresupuestoAsyncService {
 
     CompletableFuture<Void> save(List<PresupuestosWlocResultItemDto> src, TareaDto tarea);
 

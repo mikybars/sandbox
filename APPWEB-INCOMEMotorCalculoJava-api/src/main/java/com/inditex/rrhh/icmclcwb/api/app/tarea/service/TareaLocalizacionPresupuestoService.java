@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.
 import javax.validation.Valid;
 import java.util.List;
 
-public interface TareaPresupuestoService {
+public interface TareaLocalizacionPresupuestoService {
 
     void save(@Valid final List<PresupuestosWlocResultItemDto> src, @Valid final TareaDto tarea);
 

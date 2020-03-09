@@ -19,13 +19,13 @@ import java.util.Date;
 @Entity
 @Table(name = "TAREA_PRESUPUESTO")
 @Data
-public class TareaPresupuesto {
+public class TareaLocalizacionPresupuesto {
 
     //TODO [JAVIEREV] Introducir campos, si es que procede: cumplida
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_PRESUPUESTO")
+    @Column(name = "ID_TAREA_LOCALIZACION_PRESUPUESTO")
     private Long id;
 
     @NotNull
