@@ -4204,4 +4204,15 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
   ]]>
 </entry>
 
+<entry key="TareaPersonaEstructura.findPersonasChallenge">
+  <![CDATA[
+  SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD
+  FROM TAREA_PERSONA_ESTRUCTURA
+  WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo
+  AND ID_TAREA = :idTarea
+  AND ICM_ID_TP_CALCULO IN (:tiposCalculo)
+  GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD
+  ]]>
+</entry>
+
 </properties>

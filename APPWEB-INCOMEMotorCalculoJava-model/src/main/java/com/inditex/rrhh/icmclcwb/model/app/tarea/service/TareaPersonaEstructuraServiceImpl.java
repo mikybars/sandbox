@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -64,4 +66,9 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
                 .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
     }
 
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_persona_local_challenge_by_tarea", key = "{#tarea}")
+    public List<IdPersonaLocalDto> findPersonasChallenge(@Valid TareaDto tarea) {
+        return tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
+    }
 }

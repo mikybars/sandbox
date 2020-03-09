@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -185,6 +187,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaPresupuestoAsyncService tareaPresupuestoAsyncService;
+
+    @Autowired
+    private TareaPersonaEstructuraService tareaPersonaEstructuraService;
 
     @Override
     public void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
@@ -794,23 +799,26 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
-            request.setPage(meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getPage());
-            request.setData(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(trabajo, tarea, tareaAmbito));
-            request.getData().setItem(Collections.singletonList(new PresupuestosWlocFilterParametersDto()));
-            boolean hasNext;
-            do {
-                CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService.getPresupuestosWloc(request);
-                AsyncUtils.exceptionally(cfData, cf);
-                List<PresupuestosWlocResultItemDto> data = AsyncUtils.get(cfData);
-                if (CollectionUtils.isNotEmpty(data)) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                        .get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getFilter().getMaxPersistenceSize());
-                    CompletableFuture<Void> cfSave = tareaPresupuestoAsyncService.save(data, tarea);
-                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                }
-                hasNext = request.nextPage();
-            } while (hasNext);
+            List<IdPersonaLocalDto> personasChallenge = tareaPersonaEstructuraService.findPersonasChallenge(tarea);
+            if (CollectionUtils.isNotEmpty(personasChallenge)) {
+                PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
+                request.setPage(meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getPage());
+                request.setData(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(trabajo, tarea, tareaAmbito));
+                request.getData().setItem(Collections.singletonList(new PresupuestosWlocFilterParametersDto()));
+                boolean hasNext;
+                do {
+                    CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService.getPresupuestosWloc(request);
+                    AsyncUtils.exceptionally(cfData, cf);
+                    List<PresupuestosWlocResultItemDto> data = AsyncUtils.get(cfData);
+                    if (CollectionUtils.isNotEmpty(data)) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
+                            .get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getFilter().getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSave = tareaPresupuestoAsyncService.save(data, tarea);
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    }
+                    hasNext = request.nextPage();
+                } while (hasNext);
+            }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -13,10 +14,12 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -26,6 +29,7 @@ import static org.mockito.Mockito.*;
 public class TareaPersonaEstructuraRepositoryCustomImplTest {
 
     private static final String SQL_UPDATE_ACTIVO_TOPES = "SQL UPDATE ACTIVO TOPES";
+    private static final String SQL_FIND_PERSONAS_CHALLENGE = "SQL FIND PERSONAS CHALLENGE";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -42,6 +46,7 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlUpdateActivoTopes", SQL_UPDATE_ACTIVO_TOPES, true);
+        FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlFindPersonasChallenge", SQL_FIND_PERSONAS_CHALLENGE, true);
     }
 
     @Test
@@ -69,6 +74,32 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
         // icmOrdTope
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ICM_ORD_TOPE));
         assertEquals(AppConstants.TOPE_DEFAULT, params.getValue(SqlPrimaryConstants.SQL_PARAM_ICM_ORD_TOPE));
+    }
+
+    @Test
+    public void findPersonasChallengeTest() {
+
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(8209L);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 12, 1));
+
+        tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
+        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(), any(RowMapper.class));
+        assertEquals(SQL_FIND_PERSONAS_CHALLENGE, sqlCaptor.getValue());
+        MapSqlParameterSource map = paramsCaptor.getValue();
+        // Parámetros de la consulta: fechaInicioPeriodo, idTarea, tiposCalculo
+        assertEquals(3, map.getValues().size());
+        // fechaInicio
+        assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), map.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+        // idTarea
+        assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), map.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        // fechaInicio
+        assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()), map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+
     }
 
 }
