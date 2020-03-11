@@ -33,7 +33,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="GETTIENDASEMPLEADOReturn" type="{http://schemas.meta4.com/}GettiendasempleadoOutput"/&gt;
+ *         &lt;element name="GETVENTACONGELADAReturn" type="{http://schemas.meta4.com/}GetventacongeladaOutput"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -44,38 +44,38 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "gettiendasempleadoReturn"
+    "getventacongeladaReturn"
 })
-@XmlRootElement(name = "GETTIENDASEMPLEADOResponse")
-public class GETTIENDASEMPLEADOResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETVENTACONGELADAResponse")
+public class GETVENTACONGELADAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(name = "GETTIENDASEMPLEADOReturn", required = true)
-    protected GettiendasempleadoOutput gettiendasempleadoReturn;
+    @XmlElement(name = "GETVENTACONGELADAReturn", required = true)
+    protected GetventacongeladaOutput getventacongeladaReturn;
 
     /**
-     * Obtiene el valor de la propiedad gettiendasempleadoReturn.
+     * Obtiene el valor de la propiedad getventacongeladaReturn.
      * 
      * @return
      *     possible object is
-     *     {@link GettiendasempleadoOutput }
+     *     {@link GetventacongeladaOutput }
      *     
      */
-    public GettiendasempleadoOutput getGETTIENDASEMPLEADOReturn() {
-        return gettiendasempleadoReturn;
+    public GetventacongeladaOutput getGETVENTACONGELADAReturn() {
+        return getventacongeladaReturn;
     }
 
     /**
-     * Define el valor de la propiedad gettiendasempleadoReturn.
+     * Define el valor de la propiedad getventacongeladaReturn.
      * 
      * @param value
      *     allowed object is
-     *     {@link GettiendasempleadoOutput }
+     *     {@link GetventacongeladaOutput }
      *     
      */
-    public void setGETTIENDASEMPLEADOReturn(GettiendasempleadoOutput value) {
-        this.gettiendasempleadoReturn = value;
+    public void setGETVENTACONGELADAReturn(GetventacongeladaOutput value) {
+        this.getventacongeladaReturn = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -85,13 +85,13 @@ public class GETTIENDASEMPLEADOResponse implements Serializable, Cloneable, Copy
         if (this == object) {
             return true;
         }
-        final GETTIENDASEMPLEADOResponse that = ((GETTIENDASEMPLEADOResponse) object);
+        final GETVENTACONGELADAResponse that = ((GETVENTACONGELADAResponse) object);
         {
-            GettiendasempleadoOutput lhsGETTIENDASEMPLEADOReturn;
-            lhsGETTIENDASEMPLEADOReturn = this.getGETTIENDASEMPLEADOReturn();
-            GettiendasempleadoOutput rhsGETTIENDASEMPLEADOReturn;
-            rhsGETTIENDASEMPLEADOReturn = that.getGETTIENDASEMPLEADOReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "gettiendasempleadoReturn", lhsGETTIENDASEMPLEADOReturn), LocatorUtils.property(thatLocator, "gettiendasempleadoReturn", rhsGETTIENDASEMPLEADOReturn), lhsGETTIENDASEMPLEADOReturn, rhsGETTIENDASEMPLEADOReturn, (this.gettiendasempleadoReturn!= null), (that.gettiendasempleadoReturn!= null))) {
+            GetventacongeladaOutput lhsGETVENTACONGELADAReturn;
+            lhsGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
+            GetventacongeladaOutput rhsGETVENTACONGELADAReturn;
+            rhsGETVENTACONGELADAReturn = that.getGETVENTACONGELADAReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getventacongeladaReturn", lhsGETVENTACONGELADAReturn), LocatorUtils.property(thatLocator, "getventacongeladaReturn", rhsGETVENTACONGELADAReturn), lhsGETVENTACONGELADAReturn, rhsGETVENTACONGELADAReturn, (this.getventacongeladaReturn!= null), (that.getventacongeladaReturn!= null))) {
                 return false;
             }
         }
@@ -119,9 +119,9 @@ public class GETTIENDASEMPLEADOResponse implements Serializable, Cloneable, Copy
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            GettiendasempleadoOutput theGETTIENDASEMPLEADOReturn;
-            theGETTIENDASEMPLEADOReturn = this.getGETTIENDASEMPLEADOReturn();
-            strategy.appendField(locator, this, "gettiendasempleadoReturn", buffer, theGETTIENDASEMPLEADOReturn, (this.gettiendasempleadoReturn!= null));
+            GetventacongeladaOutput theGETVENTACONGELADAReturn;
+            theGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
+            strategy.appendField(locator, this, "getventacongeladaReturn", buffer, theGETVENTACONGELADAReturn, (this.getventacongeladaReturn!= null));
         }
         return buffer;
     }
@@ -129,9 +129,9 @@ public class GETTIENDASEMPLEADOResponse implements Serializable, Cloneable, Copy
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            GettiendasempleadoOutput theGETTIENDASEMPLEADOReturn;
-            theGETTIENDASEMPLEADOReturn = this.getGETTIENDASEMPLEADOReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "gettiendasempleadoReturn", theGETTIENDASEMPLEADOReturn), currentHashCode, theGETTIENDASEMPLEADOReturn, (this.gettiendasempleadoReturn!= null));
+            GetventacongeladaOutput theGETVENTACONGELADAReturn;
+            theGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getventacongeladaReturn", theGETVENTACONGELADAReturn), currentHashCode, theGETVENTACONGELADAReturn, (this.getventacongeladaReturn!= null));
         }
         return currentHashCode;
     }
@@ -152,18 +152,18 @@ public class GETTIENDASEMPLEADOResponse implements Serializable, Cloneable, Copy
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETTIENDASEMPLEADOResponse) {
-            final GETTIENDASEMPLEADOResponse copy = ((GETTIENDASEMPLEADOResponse) draftCopy);
+        if (draftCopy instanceof GETVENTACONGELADAResponse) {
+            final GETVENTACONGELADAResponse copy = ((GETVENTACONGELADAResponse) draftCopy);
             {
-                Boolean gettiendasempleadoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.gettiendasempleadoReturn!= null));
-                if (gettiendasempleadoReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    GettiendasempleadoOutput sourceGETTIENDASEMPLEADOReturn;
-                    sourceGETTIENDASEMPLEADOReturn = this.getGETTIENDASEMPLEADOReturn();
-                    GettiendasempleadoOutput copyGETTIENDASEMPLEADOReturn = ((GettiendasempleadoOutput) strategy.copy(LocatorUtils.property(locator, "gettiendasempleadoReturn", sourceGETTIENDASEMPLEADOReturn), sourceGETTIENDASEMPLEADOReturn, (this.gettiendasempleadoReturn!= null)));
-                    copy.setGETTIENDASEMPLEADOReturn(copyGETTIENDASEMPLEADOReturn);
+                Boolean getventacongeladaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getventacongeladaReturn!= null));
+                if (getventacongeladaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetventacongeladaOutput sourceGETVENTACONGELADAReturn;
+                    sourceGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
+                    GetventacongeladaOutput copyGETVENTACONGELADAReturn = ((GetventacongeladaOutput) strategy.copy(LocatorUtils.property(locator, "getventacongeladaReturn", sourceGETVENTACONGELADAReturn), sourceGETVENTACONGELADAReturn, (this.getventacongeladaReturn!= null)));
+                    copy.setGETVENTACONGELADAReturn(copyGETVENTACONGELADAReturn);
                 } else {
-                    if (gettiendasempleadoReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.gettiendasempleadoReturn = null;
+                    if (getventacongeladaReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getventacongeladaReturn = null;
                     }
                 }
             }
@@ -172,7 +172,7 @@ public class GETTIENDASEMPLEADOResponse implements Serializable, Cloneable, Copy
     }
 
     public Object createNewInstance() {
-        return new GETTIENDASEMPLEADOResponse();
+        return new GETVENTACONGELADAResponse();
     }
 
 }

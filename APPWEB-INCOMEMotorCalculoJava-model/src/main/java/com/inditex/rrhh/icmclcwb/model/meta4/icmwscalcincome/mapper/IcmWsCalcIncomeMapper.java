@@ -419,7 +419,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tope", source = "tope")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "idSeccion", source = "idseccion")
-    @Mapping(target = "idTipoVenta", source = "idtipoventa")
     ListaValoresBaseResultItemDto asListaValoresBaseResultItemDto(IcmListavaloresbaseRecord src);
 
     @InheritInverseConfiguration
@@ -462,7 +461,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tope", source = "tope")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "idSeccion", source = "idseccion")
-    @Mapping(target = "idTipoVenta", source = "idtipoventa")
     ListaValoresDestinoResultItemDto asListaValoresDestinoResultItemDto(IcmListavaloresdestinoRecord src);
 
     @InheritInverseConfiguration
@@ -671,10 +669,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "banda", source = "banda")
-    @Mapping(target = "ordinal", source = "ordinal")
     @Mapping(target = "idEmpresa", source = "idempresa")
-    @Mapping(target = "idSeccion", source = "idseccion")
     @Mapping(target = "item", source = "icmParamcalpresupuestoswlocRecordSet")
     PresupuestosWlocFilterDto asPresupuestosWlocFilterDto(IcmParamcalpresupuestoswlocBlock src);
     
