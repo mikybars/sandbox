@@ -4680,7 +4680,7 @@ SELECT
   ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1Repository.calcular">
+  <entry key="TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoV1Repository.calcular">
     <![CDATA[
       SELECT
         VENTA_INDIVIDUAL.FECHA_INICIO_PERIODO,
