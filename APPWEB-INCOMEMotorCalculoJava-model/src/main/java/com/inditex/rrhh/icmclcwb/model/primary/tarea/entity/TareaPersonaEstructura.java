@@ -128,10 +128,6 @@ public class TareaPersonaEstructura {
     private Integer tope;
     
     @NotBlank
-    @Column(name = "ICM_ID_TP_VENTA", length = 8, nullable = false)
-    private String idTipoVenta;
-    
-    @NotBlank
     @Column(name = "ICM_ID_TP_ESTRUCTURA", nullable = false, length = 48)
     private String icmIdTpEstructura;
 

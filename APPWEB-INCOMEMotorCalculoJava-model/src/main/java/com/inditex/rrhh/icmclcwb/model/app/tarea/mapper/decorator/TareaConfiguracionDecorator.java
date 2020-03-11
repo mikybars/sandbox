@@ -20,9 +20,7 @@ public abstract class TareaConfiguracionDecorator extends TareaConfiguracionMapp
         List<TareaConfiguracion> result = new ArrayList<>();
         if (src != null) {
             src.forEach(x -> {
-                TareaConfiguracion item = delegate.getConfiguracionItemDtoToTareaConfiguracion(x, tarea);
-                item.setIcmIdConfig(0);
-                result.add(item);
+                result.add(delegate.getConfiguracionItemDtoToTareaConfiguracion(x, tarea));
             });
         }
         return result;

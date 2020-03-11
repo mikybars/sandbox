@@ -78,7 +78,6 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "valor", constant = "0")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
     @Mapping(target = "cclIdSeccionEstructura", constant = "0")
-    @Mapping(target = "idTipoVenta", constant = "01")
     @Mapping(target = "tope", constant = "0")
     // Datos del desplazamiento
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
@@ -118,7 +117,6 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
     @Mapping(target = "valor", source = "listaValoresBaseResultItem.valor", defaultValue = "0")
     @Mapping(target = "cclIdSeccionEstructura", source = "listaValoresBaseResultItem.idSeccion", defaultValue = "0")
-    @Mapping(target = "idTipoVenta", source = "listaValoresBaseResultItem.idTipoVenta", defaultValue = "01")
     @Mapping(target = "tope", source = "listaValoresBaseResultItem.tope", defaultValue = "0")
     // Datos del desplazamiento
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
@@ -159,7 +157,6 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "valor", constant = "0")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
     @Mapping(target = "cclIdSeccionEstructura", constant = "0")
-    @Mapping(target = "idTipoVenta", constant = "01")
     @Mapping(target = "tope", constant = "0")
     // Datos del desplazamiento
     @Mapping(target = "estructuraDesplazamiento.idTarea", source = "tarea.id")
@@ -224,7 +221,6 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
     @Mapping(target = "valor", source = "listaValoresDestinoResultItem.valor", defaultValue = "0")
     @Mapping(target = "cclIdSeccionEstructura", source = "listaValoresDestinoResultItem.idSeccion", defaultValue = "0")
-    @Mapping(target = "idTipoVenta", source = "listaValoresDestinoResultItem.idTipoVenta", defaultValue = "01")
     @Mapping(target = "tope", source = "listaValoresDestinoResultItem.tope", defaultValue = "0")
     // Datos del desplazamiento
     @Mapping(target = "estructuraDesplazamiento.idTarea", source = "tarea.id")

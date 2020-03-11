@@ -16,6 +16,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoCalculo;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoComision;
 
 import lombok.Data;
 
@@ -36,6 +38,16 @@ public class TareaCalculo {
     @OneToOne
     @JoinColumn(name = "ID_ALGORITMO", nullable = false)
     private Algoritmo algoritmo;
+    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_CALCULO", nullable = false)
+    private TipoCalculo tipoCalculo;
+    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_COMISION", nullable = false)
+    private TipoComision tipoComision;
 
     @NotNull
     @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)

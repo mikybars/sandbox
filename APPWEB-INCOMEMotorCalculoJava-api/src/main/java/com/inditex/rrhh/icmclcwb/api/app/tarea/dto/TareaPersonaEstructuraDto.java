@@ -122,10 +122,6 @@ public class TareaPersonaEstructuraDto implements Serializable {
     private Integer tope;
     
     @NotNull
-    @ApiModelProperty(value = "Id tipo venta ", required = true)
-    private String idTipoVenta;
-    
-    @NotNull
     @ApiModelProperty(value = "Id tipo estructura ", required = true)
     private String icmIdTpEstructura;
 
