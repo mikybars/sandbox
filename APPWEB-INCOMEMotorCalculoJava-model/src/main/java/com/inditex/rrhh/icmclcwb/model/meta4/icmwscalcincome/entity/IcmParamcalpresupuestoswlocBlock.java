@@ -34,12 +34,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="banda" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="ordinal" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idseccion" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="Icm_ParamcalpresupuestoswlocRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalpresupuestoswlocRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -52,12 +49,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalpresupuestoswlocBlock", propOrder = {
-    "banda",
-    "ordinal",
     "fechafin",
     "idorigen",
     "idempresa",
-    "idseccion",
     "fechainicio",
     "icmParamcalpresupuestoswlocRecordSet"
 })
@@ -66,69 +60,15 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
 
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true, nillable = true)
-    protected String banda;
-    @XmlElement(required = true, nillable = true)
-    protected String ordinal;
-    @XmlElement(required = true, nillable = true)
     protected String fechafin;
     @XmlElement(required = true, nillable = true)
     protected String idorigen;
     @XmlElement(required = true, nillable = true)
     protected String idempresa;
     @XmlElement(required = true, nillable = true)
-    protected String idseccion;
-    @XmlElement(required = true, nillable = true)
     protected String fechainicio;
     @XmlElement(name = "Icm_ParamcalpresupuestoswlocRecordSet", nillable = true)
     protected List<IcmParamcalpresupuestoswlocRecord> icmParamcalpresupuestoswlocRecordSet;
-
-    /**
-     * Obtiene el valor de la propiedad banda.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getBanda() {
-        return banda;
-    }
-
-    /**
-     * Define el valor de la propiedad banda.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setBanda(String value) {
-        this.banda = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad ordinal.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getOrdinal() {
-        return ordinal;
-    }
-
-    /**
-     * Define el valor de la propiedad ordinal.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setOrdinal(String value) {
-        this.ordinal = value;
-    }
 
     /**
      * Obtiene el valor de la propiedad fechafin.
@@ -203,30 +143,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
     }
 
     /**
-     * Obtiene el valor de la propiedad idseccion.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdseccion() {
-        return idseccion;
-    }
-
-    /**
-     * Define el valor de la propiedad idseccion.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdseccion(String value) {
-        this.idseccion = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad fechainicio.
      * 
      * @return
@@ -288,24 +204,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
         }
         final IcmParamcalpresupuestoswlocBlock that = ((IcmParamcalpresupuestoswlocBlock) object);
         {
-            String lhsBanda;
-            lhsBanda = this.getBanda();
-            String rhsBanda;
-            rhsBanda = that.getBanda();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "banda", lhsBanda), LocatorUtils.property(thatLocator, "banda", rhsBanda), lhsBanda, rhsBanda, (this.banda!= null), (that.banda!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsOrdinal;
-            lhsOrdinal = this.getOrdinal();
-            String rhsOrdinal;
-            rhsOrdinal = that.getOrdinal();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "ordinal", lhsOrdinal), LocatorUtils.property(thatLocator, "ordinal", rhsOrdinal), lhsOrdinal, rhsOrdinal, (this.ordinal!= null), (that.ordinal!= null))) {
-                return false;
-            }
-        }
-        {
             String lhsFechafin;
             lhsFechafin = this.getFechafin();
             String rhsFechafin;
@@ -329,15 +227,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
             String rhsIdempresa;
             rhsIdempresa = that.getIdempresa();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "idempresa", lhsIdempresa), LocatorUtils.property(thatLocator, "idempresa", rhsIdempresa), lhsIdempresa, rhsIdempresa, (this.idempresa!= null), (that.idempresa!= null))) {
-                return false;
-            }
-        }
-        {
-            String lhsIdseccion;
-            lhsIdseccion = this.getIdseccion();
-            String rhsIdseccion;
-            rhsIdseccion = that.getIdseccion();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idseccion", lhsIdseccion), LocatorUtils.property(thatLocator, "idseccion", rhsIdseccion), lhsIdseccion, rhsIdseccion, (this.idseccion!= null), (that.idseccion!= null))) {
                 return false;
             }
         }
@@ -383,16 +272,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            String theBanda;
-            theBanda = this.getBanda();
-            strategy.appendField(locator, this, "banda", buffer, theBanda, (this.banda!= null));
-        }
-        {
-            String theOrdinal;
-            theOrdinal = this.getOrdinal();
-            strategy.appendField(locator, this, "ordinal", buffer, theOrdinal, (this.ordinal!= null));
-        }
-        {
             String theFechafin;
             theFechafin = this.getFechafin();
             strategy.appendField(locator, this, "fechafin", buffer, theFechafin, (this.fechafin!= null));
@@ -406,11 +285,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
             String theIdempresa;
             theIdempresa = this.getIdempresa();
             strategy.appendField(locator, this, "idempresa", buffer, theIdempresa, (this.idempresa!= null));
-        }
-        {
-            String theIdseccion;
-            theIdseccion = this.getIdseccion();
-            strategy.appendField(locator, this, "idseccion", buffer, theIdseccion, (this.idseccion!= null));
         }
         {
             String theFechainicio;
@@ -428,16 +302,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            String theBanda;
-            theBanda = this.getBanda();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "banda", theBanda), currentHashCode, theBanda, (this.banda!= null));
-        }
-        {
-            String theOrdinal;
-            theOrdinal = this.getOrdinal();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "ordinal", theOrdinal), currentHashCode, theOrdinal, (this.ordinal!= null));
-        }
-        {
             String theFechafin;
             theFechafin = this.getFechafin();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin), currentHashCode, theFechafin, (this.fechafin!= null));
@@ -451,11 +315,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
             String theIdempresa;
             theIdempresa = this.getIdempresa();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempresa", theIdempresa), currentHashCode, theIdempresa, (this.idempresa!= null));
-        }
-        {
-            String theIdseccion;
-            theIdseccion = this.getIdseccion();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idseccion", theIdseccion), currentHashCode, theIdseccion, (this.idseccion!= null));
         }
         {
             String theFechainicio;
@@ -488,32 +347,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
         final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmParamcalpresupuestoswlocBlock) {
             final IcmParamcalpresupuestoswlocBlock copy = ((IcmParamcalpresupuestoswlocBlock) draftCopy);
-            {
-                Boolean bandaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.banda!= null));
-                if (bandaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceBanda;
-                    sourceBanda = this.getBanda();
-                    String copyBanda = ((String) strategy.copy(LocatorUtils.property(locator, "banda", sourceBanda), sourceBanda, (this.banda!= null)));
-                    copy.setBanda(copyBanda);
-                } else {
-                    if (bandaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.banda = null;
-                    }
-                }
-            }
-            {
-                Boolean ordinalShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.ordinal!= null));
-                if (ordinalShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceOrdinal;
-                    sourceOrdinal = this.getOrdinal();
-                    String copyOrdinal = ((String) strategy.copy(LocatorUtils.property(locator, "ordinal", sourceOrdinal), sourceOrdinal, (this.ordinal!= null)));
-                    copy.setOrdinal(copyOrdinal);
-                } else {
-                    if (ordinalShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.ordinal = null;
-                    }
-                }
-            }
             {
                 Boolean fechafinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafin!= null));
                 if (fechafinShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -550,19 +383,6 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
                 } else {
                     if (idempresaShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.idempresa = null;
-                    }
-                }
-            }
-            {
-                Boolean idseccionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idseccion!= null));
-                if (idseccionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdseccion;
-                    sourceIdseccion = this.getIdseccion();
-                    String copyIdseccion = ((String) strategy.copy(LocatorUtils.property(locator, "idseccion", sourceIdseccion), sourceIdseccion, (this.idseccion!= null)));
-                    copy.setIdseccion(copyIdseccion);
-                } else {
-                    if (idseccionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idseccion = null;
                     }
                 }
             }

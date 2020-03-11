@@ -1,12 +1,14 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 @Data
 public class TareaPersonaEstructuraDto implements Serializable {
@@ -39,11 +41,11 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Id local de la persona", required = true)
     private String cclIdPerson;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
     private String icmIdEstrComision;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id tipo calculo asociado a la estructura", required = true)
     private String icmIdTpCalculo;
 

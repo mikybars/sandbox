@@ -43,6 +43,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idseccion" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idcodorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idlugartrabajo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idtppresupuesto" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="importeconimpuestos" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
@@ -68,6 +69,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idempresa",
     "idseccion",
     "fechainicio",
+    "idcodorigen",
     "idlugartrabajo",
     "idtppresupuesto",
     "importeconimpuestos",
@@ -98,6 +100,8 @@ public class IcmListapresupuestoswlocRecord implements Serializable, Cloneable, 
     protected String idseccion;
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
+    @XmlElement(required = true, nillable = true)
+    protected String idcodorigen;
     @XmlElement(required = true, nillable = true)
     protected String idlugartrabajo;
     @XmlElement(required = true, nillable = true)
@@ -364,6 +368,30 @@ public class IcmListapresupuestoswlocRecord implements Serializable, Cloneable, 
     }
 
     /**
+     * Obtiene el valor de la propiedad idcodorigen.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdcodorigen() {
+        return idcodorigen;
+    }
+
+    /**
+     * Define el valor de la propiedad idcodorigen.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdcodorigen(String value) {
+        this.idcodorigen = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idlugartrabajo.
      * 
      * @return
@@ -567,6 +595,15 @@ public class IcmListapresupuestoswlocRecord implements Serializable, Cloneable, 
             }
         }
         {
+            String lhsIdcodorigen;
+            lhsIdcodorigen = this.getIdcodorigen();
+            String rhsIdcodorigen;
+            rhsIdcodorigen = that.getIdcodorigen();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idcodorigen", lhsIdcodorigen), LocatorUtils.property(thatLocator, "idcodorigen", rhsIdcodorigen), lhsIdcodorigen, rhsIdcodorigen, (this.idcodorigen!= null), (that.idcodorigen!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdlugartrabajo;
             lhsIdlugartrabajo = this.getIdlugartrabajo();
             String rhsIdlugartrabajo;
@@ -681,6 +718,11 @@ public class IcmListapresupuestoswlocRecord implements Serializable, Cloneable, 
             strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
         }
         {
+            String theIdcodorigen;
+            theIdcodorigen = this.getIdcodorigen();
+            strategy.appendField(locator, this, "idcodorigen", buffer, theIdcodorigen, (this.idcodorigen!= null));
+        }
+        {
             String theIdlugartrabajo;
             theIdlugartrabajo = this.getIdlugartrabajo();
             strategy.appendField(locator, this, "idlugartrabajo", buffer, theIdlugartrabajo, (this.idlugartrabajo!= null));
@@ -759,6 +801,11 @@ public class IcmListapresupuestoswlocRecord implements Serializable, Cloneable, 
             String theFechainicio;
             theFechainicio = this.getFechainicio();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
+        }
+        {
+            String theIdcodorigen;
+            theIdcodorigen = this.getIdcodorigen();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idcodorigen", theIdcodorigen), currentHashCode, theIdcodorigen, (this.idcodorigen!= null));
         }
         {
             String theIdlugartrabajo;
@@ -940,6 +987,19 @@ public class IcmListapresupuestoswlocRecord implements Serializable, Cloneable, 
                 } else {
                     if (fechainicioShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.fechainicio = null;
+                    }
+                }
+            }
+            {
+                Boolean idcodorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idcodorigen!= null));
+                if (idcodorigenShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdcodorigen;
+                    sourceIdcodorigen = this.getIdcodorigen();
+                    String copyIdcodorigen = ((String) strategy.copy(LocatorUtils.property(locator, "idcodorigen", sourceIdcodorigen), sourceIdcodorigen, (this.idcodorigen!= null)));
+                    copy.setIdcodorigen(copyIdcodorigen);
+                } else {
+                    if (idcodorigenShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idcodorigen = null;
                     }
                 }
             }
