@@ -28,9 +28,12 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCadenaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionChallengeTipoVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaPresenciaManualAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaConfiguracionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaConfiguracionChallengeDiasMinimosAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaConfiguracionPrecioHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionCalcularAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionComisionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionFestivoAsyncService;
@@ -45,6 +48,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistori
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresupuestoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionConfiguracionChallengeTipoVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -92,6 +96,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaConfiguracionChallengeDiasMinimosRepositoryCustom;
 
 import java.util.Collections;
 
@@ -170,7 +175,16 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaLocalizacionPresupuestoAsyncService tareaLocalizacionPresupuestoAsyncService;
+    
+    @Autowired
+    private TareaConfiguracionChallengeDiasMinimosAsyncService tareaConfiguracionChallengeDiasMinimosAsyncService;
 
+    @Autowired
+    private TareaConfiguracionPrecioHoraAsyncService tareaConfiguracionPrecioHoraAsyncService;
+
+    @Autowired
+    private TareaAgrupacionConfiguracionChallengeTipoVentaAsyncService tareaAgrupacionConfiguracionChallengeTipoVentaAsyncService;
+    
     @Autowired
     private TareaPersonaEstructuraService tareaPersonaEstructuraService;
 
@@ -765,7 +779,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             if (CollectionUtils.isNotEmpty(data)) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                     meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS).getFilter().getMaxPersistenceSize());
-                //TODO: Aqui persistir
+                CompletableFuture<Void> cfSave = tareaConfiguracionChallengeDiasMinimosAsyncService.saveConfChDiasMinimosResultItemDto(data, tarea);
+                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
@@ -828,7 +843,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             if (CollectionUtils.isNotEmpty(data)) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                     meta4Properties.get(Meta4PropertiesConstants.CONFPRECIOHORA).getFilter().getMaxPersistenceSize());
-                //TODO: Aqui persistir
+                CompletableFuture<Void> cfSave = tareaConfiguracionPrecioHoraAsyncService.saveConfPrecioHoraResultItemDto(data, tarea);
+                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
             }
 
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -857,7 +873,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             if (CollectionUtils.isNotEmpty(data)) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                     meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA).getFilter().getMaxPersistenceSize());
-                //TODO: Aqui persistir
+                CompletableFuture<Void> cfSave = tareaAgrupacionConfiguracionChallengeTipoVentaAsyncService.saveConfChTpVentaResultItemDto(data, tarea);
+                AsyncUtils.exceptionally(cfSave, cf, cfPersist);            
             }
 
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -887,7 +904,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
                         meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getFilter().getMaxPersistenceSize());
-                    //TODO: Aqui persistir
                     hasNext = request.nextPage();
                 }
             } while (hasNext);
