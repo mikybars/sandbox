@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -84,11 +86,11 @@ public class TareaLocalizacionPresupuesto {
     private Boolean excepcion;
 
     @NotNull
-    @Column(name = "ICM_ID_TP_PRESUPUESTO", nullable = false)
-    private String idTpPresupuesto;
-
-    @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
+    private TipoPresupuesto tipoPresupuesto;
 
 }

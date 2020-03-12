@@ -29,7 +29,7 @@ public abstract class TareaLocalizacionPresupuestoMapper {
     @Mapping(target = "banda", source = "src.banda")
     @Mapping(target = "ordinal", source = "src.ordinal")
     @Mapping(target = "excepcion", source = "src.excepcion")
-    @Mapping(target = "idTpPresupuesto", source = "src.idTpPresupuesto")
+    @Mapping(target = "tipoPresupuesto", ignore = true)
     @Mapping(target = "activo", constant = "false")
     public abstract TareaLocalizacionPresupuesto presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
         PresupuestosWlocResultItemDto src, TareaDto tarea);

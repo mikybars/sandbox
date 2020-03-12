@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -72,6 +73,8 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
 
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(809L);
+        TipoPresupuesto tipoPresupuesto = mock(TipoPresupuesto.class);
+        tipoPresupuesto.setId(1);
         TareaLocalizacionPresupuesto presupuesto = mock(TareaLocalizacionPresupuesto.class);
         when(presupuesto.getTarea()).thenReturn(tarea);
         when(presupuesto.getCclIdOrigen()).thenReturn("ORIGEN");
@@ -86,7 +89,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         when(presupuesto.getBanda()).thenReturn(11);
         when(presupuesto.getOrdinal()).thenReturn(43);
         when(presupuesto.getExcepcion()).thenReturn(Boolean.FALSE);
-        when(presupuesto.getIdTpPresupuesto()).thenReturn("TP PRESUPUESTO");
+        when(presupuesto.getTipoPresupuesto()).thenReturn(tipoPresupuesto);
         when(presupuesto.getActivo()).thenReturn(Boolean.FALSE);
         PreparedStatement pstmt = mock(PreparedStatement.class);
 
@@ -104,7 +107,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         verify(pstmt, times(1)).setInt(11, presupuesto.getBanda());
         verify(pstmt, times(1)).setInt(12, presupuesto.getOrdinal());
         verify(pstmt, times(1)).setBoolean(13, presupuesto.getExcepcion());
-        verify(pstmt, times(1)).setString(14, presupuesto.getIdTpPresupuesto());
+        verify(pstmt, times(1)).setInt(14, tipoPresupuesto.getId());
         verify(pstmt, times(1)).setBoolean(15, presupuesto.getExcepcion());
 
     }

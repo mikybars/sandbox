@@ -37,6 +37,7 @@ public class TareaLocalizacionLocalizacionPresupuestoRepositoryCustomImpl extend
     @Override
     public List<TareaLocalizacionPresupuesto> save(List<TareaLocalizacionPresupuesto> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
+//        return src;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class TareaLocalizacionLocalizacionPresupuestoRepositoryCustomImpl extend
         pstmt.setInt(11, src.getBanda());
         pstmt.setInt(12, src.getOrdinal());
         pstmt.setBoolean(13, src.getExcepcion());
-        pstmt.setString(14, src.getIdTpPresupuesto());
+        pstmt.setInt(14, src.getTipoPresupuesto().getId());
         pstmt.setBoolean(15, src.getActivo());
     }
 
