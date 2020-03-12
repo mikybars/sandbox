@@ -277,4 +277,14 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_RESULT_FECHA_FIN_PERIODO = "FECHA_FIN_PERIODO";
 
+    public static final String SQL_RESULT_FECHA_INICIO = "FECHA_INICIO";
+
+    public static final String SQL_RESULT_FECHA_FIN = "FECHA_FIN";
+
+    public static final String SQL_RESULT_EMPRESA = "STD_ID_LEG_ENT";
+
+    public static final String SQL_RESULT_SECCION = "CCL_ID_SECCION";
+
+    public static final String SQL_RESULT_ID_ORIGEN = "CCL_ID_ORIGEN";
+
 }

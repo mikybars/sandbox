@@ -19,12 +19,15 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service.AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,8 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +48,9 @@ import java.util.stream.Collectors;
 
 @Service
 @Validated
-public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTareaAmbitoRecolectarPtrPresenciaService {
+public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
+    extends AbstractRunTareaAmbitoRecolectarPtrPresenciaService
+    implements RunTareaAmbitoRecolectarPtrPresenciaService {
 
     @Autowired
     private Logger log;
@@ -61,9 +68,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
     private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
 
     @Autowired
-    private TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
-
-    @Autowired
     private TareaMapper tareaMapper;
 
     @Autowired
@@ -73,6 +77,11 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
     @Autowired
     @Qualifier(value = "recolectarProperties")
     private RecolectarPropertiesDto recolectarProperties;
+
+    @Override
+    protected String getFechaInicioPeriodo(TareaDto tarea) {
+        return tarea.getFechaInicioPeriodo().format(DateTimeFormatter.ofPattern(PtrConstants.DATE_FORMAT));
+    }
 
     @Override
     public void tiposHorasByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
@@ -137,39 +146,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl implements RunTarea
             throw e;
         }
 
-    }
-
-    @Override
-    public void presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        final TrabajoDto trabajo = runTarea.getTrabajo();
-        final TareaDto tarea = runTarea.getTarea();
-        for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(tarea.getId(),
-                        tareaAmbito.getCclIdOrigen()),
-                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getFilter()
-                        .getMaxPageSize())) {
-            List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-
-            PtrPresenciaEmpleadosTiendaRequestDto request = tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(trabajo, tarea,
-                            tareaAmbito, iter);
-
-            request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
-            request.setAgrupacion(PtrGroupTypeEnum.PERSONA_TIENDA.getValue());
-            CompletableFuture<PtrPresenciaEmpleadosTiendaResponseDto> cfData = ptrPresenciaAsyncService
-                    .presenciasEmpleadosTienda(request);
-            AsyncUtils.exceptionally(cfData, cf, cfPersist);
-            PtrPresenciaEmpleadosTiendaResponseDto data = AsyncUtils.get(cfData);
-            if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasTiendasEmpleado())) {
-                AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                        .get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService
-                        .savePtrPresenciaEmpleadosTiendaResponse(data, tarea), cf, cfPersist);
-            }
-        }
-        AsyncUtils.waitAllOfIsOk(cf, cf);
     }
 
 }

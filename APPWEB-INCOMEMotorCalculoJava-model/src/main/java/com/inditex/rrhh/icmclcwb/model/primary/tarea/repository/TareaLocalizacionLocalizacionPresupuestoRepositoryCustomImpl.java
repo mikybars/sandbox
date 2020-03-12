@@ -1,12 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -16,14 +25,18 @@ public class TareaLocalizacionLocalizacionPresupuestoRepositoryCustomImpl extend
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.save']}")
     private String sqlSave;
 
+    @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos']}")
+    private String sqlFindPresupuestos;
+
     @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @Override
     public List<TareaLocalizacionPresupuesto> save(List<TareaLocalizacionPresupuesto> src) {
-        //TODO [JAVIEREV] Activar guardado cuando tengamos la tabla 100% definida
-//        return saveJdbcBatchList(src, sqlSave, batchSize);
-        return src;
+        return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 
     @Override
@@ -43,5 +56,23 @@ public class TareaLocalizacionLocalizacionPresupuestoRepositoryCustomImpl extend
         pstmt.setBoolean(13, src.getExcepcion());
         pstmt.setString(14, src.getIdTpPresupuesto());
         pstmt.setBoolean(15, src.getActivo());
+    }
+
+    @Override
+    public List<TareaLocalizacionPresupuestoDto> findPresupuestos(TareaDto tarea) {
+
+        MapSqlParameterSource maps = new MapSqlParameterSource();
+        maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        return namedParameterJdbcTemplate.query(sqlFindPresupuestos, maps, (rs, rowNum) ->
+            TareaLocalizacionPresupuestoDto
+                .builder()
+                .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
+                .cclIdCodOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
+                .fechaFin(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
+                .fechaInicio(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
+                .stdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA).toLowerCase())
+                .cclIdSeccion(rs.getString(SqlPrimaryConstants.SQL_RESULT_SECCION).toLowerCase())
+                .build()
+        );
     }
 }

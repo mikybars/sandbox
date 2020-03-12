@@ -331,6 +331,54 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         
     }
 
+
+    @Override
+    public void limpiezaTareaPersonaHistorico(@NotNull @Valid TareaDto tarea) {
+        List<MapSqlParameterSource> parametersPersonaTareaPersonaHistorico =
+            getParametersPersonaLocalStdOrPeriod(tarea, sqlPersonasTareaPersonaHistorico);
+        for (List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaPersonaHistorico, batchSize)) {
+            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaPersonaHistorico,
+                iter.toArray(new MapSqlParameterSource[0]));
+        }
+    }
+
+    @Override
+    public void limpiezaTareaLocalizacionHistorico(@NotNull @Valid TareaDto tarea) {
+        List<MapSqlParameterSource> idTareaBatchArgs = getParametersTarea(tarea);
+        namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionHistorico,
+            idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
+    }
+
+    @Override
+    public void limpiezaTareaGlobalLocalizacionPersona(@NotNull @Valid TareaDto tarea) {
+        List<MapSqlParameterSource> parametersPersonaTareaAmbitoGlobalLocalizacionPersona =
+            getParametersPersonaLocal(tarea, sqlPersonasTareaAmbitoGlobalLocalizacionPersona);
+        for (List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaAmbitoGlobalLocalizacionPersona, batchSize)) {
+            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAmbitoGlobalLocalizacionPersona,
+                iter.toArray(new MapSqlParameterSource[0]));
+        }
+    }
+
+    @Override
+    public void limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(@NotNull @Valid TareaDto tarea) {
+        List<MapSqlParameterSource> parametersPersonaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento =
+            getParametersPersonaLocal(tarea, sqlPersonasTareaAmbitoGlobalLocalizacionPersonaDesplazamiento);
+        for (List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento, batchSize)) {
+            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAmbitoGlobalLozalizacionPersonaDesplazamiento,
+                iter.toArray(new MapSqlParameterSource[0]));
+        }
+    }
+
+    @Override
+    public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid TareaDto tarea) {
+        List<MapSqlParameterSource> parametersPersonaTareaAmbitoGlobalLocalizacionPersonaPresencia =
+            getParametersPersonaLocal(tarea, sqlPersonasTareaAmbitoGlobalLocalizacionPersonaPresencia);
+        for (List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaAmbitoGlobalLocalizacionPersonaPresencia, batchSize)) {
+            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia,
+                iter.toArray(new MapSqlParameterSource[0]));
+        }
+    }
+
     @Override
     public void consolidar(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TrabajoDto trabajo) {
         tareaLimpiezaRepositoryCustom.mergeLimpieza(tarea, trabajo);

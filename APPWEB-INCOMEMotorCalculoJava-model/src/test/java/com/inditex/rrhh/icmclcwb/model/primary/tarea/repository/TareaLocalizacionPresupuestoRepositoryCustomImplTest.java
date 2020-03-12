@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
@@ -15,6 +16,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -33,11 +37,17 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
     @Mock
     private JdbcTemplate template;
 
+    @Mock
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @InjectMocks
     private TareaLocalizacionLocalizacionPresupuestoRepositoryCustomImpl tareaPresupuestoRepositoryCustom;
 
     @Captor
-    private ArgumentCaptor<String> sql;
+    private ArgumentCaptor<String> sqlCaptor;
+
+    @Captor
+    private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
 
     @Before
     public void setup() throws IllegalAccessException {
@@ -45,22 +55,18 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "batchSize", 100, true);
     }
 
-    //TODO [JAVIEREV] Reactivar test
-    @Ignore
     @Test
     public void saveTest() {
 
         List<TareaLocalizacionPresupuesto> items = Collections.singletonList(mock(TareaLocalizacionPresupuesto.class));
 
         tareaPresupuestoRepositoryCustom.save(items);
-        verify(template).batchUpdate(sql.capture(), any(BatchPreparedStatementSetter.class));
+        verify(template).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
 
-        assertEquals(SQL_SAVE, sql.getValue());
+        assertEquals(SQL_SAVE, sqlCaptor.getValue());
 
     }
 
-    //TODO [JAVIEREV] Reactivar test
-    @Ignore
     @Test
     public void setParametersTest() throws SQLException {
 
@@ -100,6 +106,17 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         verify(pstmt, times(1)).setBoolean(13, presupuesto.getExcepcion());
         verify(pstmt, times(1)).setString(14, presupuesto.getIdTpPresupuesto());
         verify(pstmt, times(1)).setBoolean(15, presupuesto.getExcepcion());
+
+    }
+
+    @Test
+    public void findPresupuestosTest() {
+
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(809L);
+
+        tareaPresupuestoRepositoryCustom.findPresupuestos(tarea);
+        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(), any(RowMapper.class));
 
     }
 }

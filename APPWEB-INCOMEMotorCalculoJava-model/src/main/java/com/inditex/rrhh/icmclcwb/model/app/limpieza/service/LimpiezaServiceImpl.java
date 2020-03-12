@@ -28,4 +28,28 @@ public class LimpiezaServiceImpl implements LimpiezaService {
         limpiezaRepositoryCustom.consolidar(tarea, trabajoService.find(tarea.getIdTrabajo()));
     }
 
+    @Override
+    public void limpiezaTareaPersonaHistorico(@NotNull @Valid TareaDto tarea) {
+        limpiezaRepositoryCustom.limpiezaTareaPersonaHistorico(tarea);
+    }
+
+    @Override
+    public void limpiezaTareaLocalizacionHistorico(@NotNull @Valid TareaDto tarea) {
+        limpiezaRepositoryCustom.limpiezaTareaLocalizacionHistorico(tarea);
+    }
+
+    @Override
+    public void limpiezaTareaGlobalLocalizacionPersona(@NotNull @Valid TareaDto tarea) {
+        limpiezaRepositoryCustom.limpiezaTareaGlobalLocalizacionPersona(tarea);
+    }
+
+    @Override
+    public void limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(@NotNull @Valid TareaDto tarea) {
+        limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(tarea);
+    }
+
+    @Override
+    public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid TareaDto tarea) {
+        limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(tarea);
+    }
 }

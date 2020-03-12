@@ -101,3 +101,9 @@
     </memory>
     <expiration max-idle="600000" />
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.presupuestos_by_tarea" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="600000" />
+</replicated-cache>
