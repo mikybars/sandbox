@@ -72,7 +72,9 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getPage());
             request.setData(tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
-            request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
+            if (request.getData() != null) {
+                request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
+            }
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -106,7 +108,9 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getPage());
             request.setData(tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
-            request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
+            if (request.getData() != null) {
+                request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
+            }
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -138,7 +142,9 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA).getPage());
             request.setData(
                 tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
-            request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
+            if (request.getData() != null) {
+                request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
+            }
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -170,7 +176,9 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO).getPage());
             request.setData(tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
-            request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
+            if (request.getData() != null) {
+                request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
+            }
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService

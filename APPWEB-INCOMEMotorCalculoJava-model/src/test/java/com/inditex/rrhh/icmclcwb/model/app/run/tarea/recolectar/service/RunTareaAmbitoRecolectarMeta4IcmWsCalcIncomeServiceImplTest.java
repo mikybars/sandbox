@@ -1,10 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -224,7 +223,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
     @Test
     public void empleadosPresenciaByRunTareaAndTareaAmbito() {
         RunTareaDto runTarea = new RunTareaDto();
-        runTarea.setTarea(new TareaDto());
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 3, 1));
+        runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
         PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
@@ -889,7 +890,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
     @Test
     public void empleadosDesplazamientoByRunTareaAndTareaAmbito() {
         RunTareaDto runTarea = new RunTareaDto();
-        runTarea.setTarea(new TareaDto());
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 3, 1));
+        runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
         PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
@@ -923,7 +926,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
     @Test
     public void empleadosDesplazamientoByRunTareaAndTareaAmbitoEmpty() {
         RunTareaDto runTarea = new RunTareaDto();
-        runTarea.setTarea(new TareaDto());
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 3, 1));
+        runTarea.setTarea(tarea);
         runTarea.setTrabajo(new TrabajoDto());
         PageDto page = new PageDto(1, 100);
         TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
