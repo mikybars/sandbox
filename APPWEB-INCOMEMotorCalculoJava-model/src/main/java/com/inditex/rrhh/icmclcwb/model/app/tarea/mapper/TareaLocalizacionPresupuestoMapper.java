@@ -20,7 +20,7 @@ public abstract class TareaLocalizacionPresupuestoMapper {
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     @Mapping(target = "stdIdLegEnt", source = "src.idEmpresa")
     @Mapping(target = "stdIdWorkLocat", source = "src.idLugarTrabajo")
-    @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajo") //TODO [javierev] Usar el id local
+    @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajoMtu")
     @Mapping(target = "cclIdSeccion", source = "src.idSeccion")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")

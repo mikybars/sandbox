@@ -692,6 +692,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "banda", source = "banda")
     @Mapping(target = "ordinal", source = "ordinal")
     @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
+    @Mapping(target = "idLugarTrabajoMtu", source = "idcodorigen")
     @Mapping(target = "idTpPresupuesto", source = "idtppresupuesto")
     @Mapping(target = "importeConImpuestos", source = "importeconimpuestos")
     @Mapping(target = "importeSinImpuestos", source = "importesinimpuestos")
