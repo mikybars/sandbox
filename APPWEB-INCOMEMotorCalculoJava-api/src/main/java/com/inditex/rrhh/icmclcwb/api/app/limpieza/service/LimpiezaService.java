@@ -18,4 +18,10 @@ public interface LimpiezaService {
 
     void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid final TareaDto tarea);
 
+    void limpiezaTareaAmbitoLocalizacion(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea);
+
 }

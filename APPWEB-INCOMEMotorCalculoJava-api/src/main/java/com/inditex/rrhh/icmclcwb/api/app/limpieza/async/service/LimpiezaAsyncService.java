@@ -20,4 +20,10 @@ public interface LimpiezaAsyncService {
 
     CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid final TareaDto tarea);
 
+    CompletableFuture<Void> limpiezaTareaAmbitoLocalizacion(@NotNull @Valid final TareaDto tarea);
+
+    CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid final TareaDto tarea);
+
+    CompletableFuture<Void> limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea);
+
 }

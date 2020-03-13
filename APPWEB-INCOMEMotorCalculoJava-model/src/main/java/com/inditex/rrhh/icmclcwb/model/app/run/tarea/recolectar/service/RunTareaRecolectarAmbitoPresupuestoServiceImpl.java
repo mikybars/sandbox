@@ -17,11 +17,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByA
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalPersonaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoListDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -102,8 +101,8 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            List<TareaLocalizacionPresupuestoDto> presupuestos = tareaLocalizacionPresupuestoService.findPresupuestos(runTarea.getTarea());
-            if (CollectionUtils.isNotEmpty(presupuestos)) {
+            TareaLocalizacionPresupuestoListDto presupuestos = tareaLocalizacionPresupuestoService.findPresupuestos(runTarea.getTarea());
+            if (presupuestos.esAmbitoAmpliado(runTarea.getTarea())) {
 
                 final TrabajoDto trabajo = runTarea.getTrabajo();
                 /*-----------------------------------------------------------------*/
@@ -111,6 +110,12 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
                  * Limpieza del ámbito anterior
                  */
                 /*-----------------------------------------------------------------*/
+
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalPersona = limpiezaAsyncService.limpiezaTareaAmbitoGlobalPersona(runTarea.getTarea());
+                AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoGlobalPersona, cf);
+
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoLocalizacion = limpiezaAsyncService.limpiezaTareaAmbitoLocalizacion(runTarea.getTarea());
+                AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoLocalizacion, cf);
 
                 CompletableFuture<Void> cfLimpiezaTareaPersonaHistorico = limpiezaAsyncService.limpiezaTareaPersonaHistorico(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaPersonaHistorico, cf);
@@ -127,13 +132,17 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
                 CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia = limpiezaAsyncService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia, cf);
 
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual = limpiezaAsyncService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(runTarea.getTarea());
+                AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual, cf);
+
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
 
                 /*-----------------------------------------------------------------*/
                 /*
-                 * Obtención del ámbito de nuevo
+                 * Obtención del ámbito de nuevo con el nuevo rango de fechas procedente
+                 * de los presupuestos.
                  */
                 /*-----------------------------------------------------------------*/
 
@@ -180,6 +189,10 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
+
+                //Nota: las acciones a continuación no dependen de un rango de fechas, por lo que no se crean
+                //servicios específicos para Presupuestos, se reutilizan los ya existentes de la recolección
+                //del ámbito.
 
                 CompletableFuture<Void> cfMergePersona = tareaAmbitoGlobalPersonaAsyncService.mergePersona(runTarea);
                 AsyncUtils.exceptionally(cfMergePersona, cf);

@@ -24,7 +24,7 @@ public class LimpiezaServiceImpl implements LimpiezaService {
 
     @Override
     public void runTarea(@NotNull @Valid final TareaDto tarea) {
-        tarea.getAmbito().stream().forEach(item -> limpiezaRepositoryCustom.limpieza(tarea, item));
+        tarea.getAmbito().forEach(item -> limpiezaRepositoryCustom.limpieza(tarea, item));
         limpiezaRepositoryCustom.consolidar(tarea, trabajoService.find(tarea.getIdTrabajo()));
     }
 
@@ -51,5 +51,21 @@ public class LimpiezaServiceImpl implements LimpiezaService {
     @Override
     public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid TareaDto tarea) {
         limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(tarea);
+    }
+
+    @Override
+    public void limpiezaTareaAmbitoLocalizacion(@NotNull @Valid TareaDto tarea) {
+        tarea.getAmbito().forEach(ambito ->
+            limpiezaRepositoryCustom.limpiezaTareaAmbitoLocalizacion(tarea, ambito));
+    }
+
+    @Override
+    public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid TareaDto tarea) {
+        limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(tarea);
+    }
+
+    @Override
+    public void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid TareaDto tarea) {
+        limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalPersona(tarea);
     }
 }

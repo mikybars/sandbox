@@ -48,4 +48,22 @@ public class LimpiezaAsyncServiceImpl implements LimpiezaAsyncService {
         limpiezaService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> limpiezaTareaAmbitoLocalizacion(@NotNull @Valid TareaDto tarea) {
+        limpiezaService.limpiezaTareaAmbitoLocalizacion(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid TareaDto tarea) {
+        limpiezaService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid TareaDto tarea) {
+        limpiezaService.limpiezaTareaAmbitoGlobalPersona(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

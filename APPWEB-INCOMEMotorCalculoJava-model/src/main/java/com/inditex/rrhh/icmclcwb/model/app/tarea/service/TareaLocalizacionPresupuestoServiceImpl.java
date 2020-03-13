@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoListDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresupuestoMapper;
@@ -32,7 +32,10 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
 
     @Override
     @Cacheable(value = "itx.icmlcwb.presupuestos_by_tarea", key = "{#tarea}")
-    public List<TareaLocalizacionPresupuestoDto> findPresupuestos(@Valid TareaDto tarea) {
-        return tareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos(tarea);
+    public TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid TareaDto tarea) {
+        return TareaLocalizacionPresupuestoListDto
+            .builder()
+            .presupuestos(tareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos(tarea))
+            .build();
     }
 }
