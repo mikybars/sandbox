@@ -13,8 +13,8 @@ jobs:
       - name: Docker build
         run: docker build -t app .
 
-      - name: Publish to DockerHub
+      - name: Publish to GitHub Packages
         run: |
-          docker login --username ${{ github.actor }} --password ${{ secrets.DOCKER_HUB_TOKEN }}
-          docker tag app ${{ github.actor }}/sandbox:${GITHUB_REF:11}
-          docker push ${{ github.actor }}/sandbox:${GITHUB_REF:11}
+          docker login docker.pkg.github.com --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
+          docker tag app docker.pkg.github.com/${{ github.repository }}/sandbox:${GITHUB_REF:10}
+          docker push docker.pkg.github.com/${{ github.repository }}/sandbox:${GITHUB_REF:10}
