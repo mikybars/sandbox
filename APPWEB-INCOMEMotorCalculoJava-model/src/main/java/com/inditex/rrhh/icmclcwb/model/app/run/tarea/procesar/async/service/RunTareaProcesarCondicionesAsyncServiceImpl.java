@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarCondicionesService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,12 @@ public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProc
     @Override
     public CompletableFuture<Void> updateActivoPresupuestosBandasSinExcepcion(RunTareaDto runTarea) {
         tareaProcesarCondicionesService.updateActivoPresupuestosBandasSinExcepcion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> updateActivoEstructurasTopes(TareaDto tarea) {
+        tareaProcesarCondicionesService.updateActivoEstructuraTopes(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 }

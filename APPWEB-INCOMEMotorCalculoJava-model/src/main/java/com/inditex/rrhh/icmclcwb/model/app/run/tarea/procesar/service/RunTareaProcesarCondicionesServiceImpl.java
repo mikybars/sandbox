@@ -2,17 +2,24 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarCondicionesService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 
 @Service
 @Validated
 public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarCondicionesService {
 
     @Autowired
-    private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
+    private TareaLocalizacionPresupuestoRepositoryCustom tareaLocalizacionPresupuestoService;
+
+    @Autowired
+    private TareaPersonaEstructuraRepositoryCustom tareaPersonaEstructuraRepositoryCustom;
 
     @Override
     public void updateActivoPresupuestosBandaExcepcion(RunTareaDto runTarea) {
@@ -22,5 +29,10 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
     @Override
     public void updateActivoPresupuestosBandasSinExcepcion(RunTareaDto runTarea) {
         tareaLocalizacionPresupuestoService.updateActivoBandasSinExcepcion(runTarea.getTarea());
+    }
+
+    @Override
+    public void updateActivoEstructuraTopes(@Valid TareaDto tarea) {
+        tareaPersonaEstructuraRepositoryCustom.updateActivoTopes(tarea);
     }
 }

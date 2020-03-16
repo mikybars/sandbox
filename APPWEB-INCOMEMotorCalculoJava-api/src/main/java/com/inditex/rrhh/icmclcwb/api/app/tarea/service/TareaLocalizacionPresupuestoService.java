@@ -13,8 +13,4 @@ public interface TareaLocalizacionPresupuestoService {
 
     TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid final TareaDto tarea);
 
-    void updateActivoBandaExcepcion(@Valid final TareaDto tarea);
-
-    void updateActivoBandasSinExcepcion(@Valid final TareaDto tarea);
-
 }
