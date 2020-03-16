@@ -12,4 +12,8 @@ public interface TareaLocalizacionPresupuestoRepositoryCustom {
 
     List<TareaLocalizacionPresupuestoDto> findPresupuestos(TareaDto tarea);
 
+    void updateActivoBandaExcepcion(TareaDto tarea);
+
+    void updateActivoBandasSinExcepcion(TareaDto tarea);
+
 }

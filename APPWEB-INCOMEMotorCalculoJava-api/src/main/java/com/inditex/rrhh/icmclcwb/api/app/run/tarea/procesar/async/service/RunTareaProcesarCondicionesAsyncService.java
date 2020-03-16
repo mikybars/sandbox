@@ -11,4 +11,8 @@ public interface RunTareaProcesarCondicionesAsyncService {
 
     CompletableFuture<Void> updateImporteEstructuraPoliticas(RunTareaDto runTarea);
 
+    CompletableFuture<Void> updateActivoPresupuestosBandaExcepcion(RunTareaDto runTarea);
+
+    CompletableFuture<Void> updateActivoPresupuestosBandasSinExcepcion(RunTareaDto runTarea);
+
 }

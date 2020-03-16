@@ -207,6 +207,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ICM_ORD_TOPE = "icmOrdTope";
 
+    public static final String SQL_PARAM_ICM_CK_EXCEPCION = "icmCkExcepcion";
+
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
     public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";

@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -24,6 +25,12 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos']}")
     private String sqlFindPresupuestos;
+
+    @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandaExcepcion']}")
+    private String sqlUpdateActivoBandaExcepcion;
+
+    @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandasSinExcepcion']}")
+    private String sqlUpdateActivoBandasSinExcepcion;
 
     @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -71,5 +78,27 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
                 .cclIdSeccion(rs.getString(SqlPrimaryConstants.SQL_RESULT_SECCION).toLowerCase())
                 .build()
         );
+    }
+
+    @Override
+    public void updateActivoBandaExcepcion(TareaDto tarea) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        namedParameterJdbcTemplate.update(sqlUpdateActivoBandaExcepcion, map);
+    }
+
+    @Override
+    public void updateActivoBandasSinExcepcion(TareaDto tarea) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        namedParameterJdbcTemplate.update(sqlUpdateActivoBandasSinExcepcion, map);
     }
 }

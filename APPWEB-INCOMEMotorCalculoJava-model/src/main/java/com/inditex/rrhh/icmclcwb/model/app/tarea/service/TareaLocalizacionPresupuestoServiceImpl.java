@@ -38,4 +38,14 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
             .presupuestos(tareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos(tarea))
             .build();
     }
+
+    @Override
+    public void updateActivoBandaExcepcion(@Valid TareaDto tarea) {
+        tareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandaExcepcion(tarea);
+    }
+
+    @Override
+    public void updateActivoBandasSinExcepcion(@Valid TareaDto tarea) {
+        tareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandasSinExcepcion(tarea);
+    }
 }
