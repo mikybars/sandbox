@@ -32,7 +32,6 @@ public abstract class TareaAgrupacionConfiguracionChallengeTipoVentaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
     @Mapping(target = "icmIdAgrupacionOnline", source = "src.idAgrupacion")
-    @Mapping(target = "icmIdConceptoVenta", source = "src.idConceptoVenta")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")

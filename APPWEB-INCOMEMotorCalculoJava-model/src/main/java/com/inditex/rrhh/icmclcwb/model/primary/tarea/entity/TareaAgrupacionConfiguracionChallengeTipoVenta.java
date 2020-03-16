@@ -15,6 +15,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConceptoChallenge;
+
 import lombok.Data;
 
 @Entity
@@ -36,9 +38,10 @@ public class TareaAgrupacionConfiguracionChallengeTipoVenta {
     @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
     private Long icmIdAgrupacionOnline;
     
-    @NotBlank
-    @Column(name = "ICM_ID_CONCEPTO_VENTA", nullable = false, length = 48)
-    private String icmIdConceptoVenta;
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO_CHALLENGE", nullable = false)
+    private TipoVentaConceptoChallenge tipoVentaConceptoChallenge;
     
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)

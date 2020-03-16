@@ -31,7 +31,7 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl
             throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
         pstmt.setLong(2, entity.getIcmIdAgrupacionOnline());
-        pstmt.setString(3, entity.getIcmIdConceptoVenta());
+        pstmt.setLong(3, entity.getTipoVentaConceptoChallenge().getId());
         pstmt.setObject(4, entity.getFechaInicio());
         pstmt.setObject(5, entity.getFechaFin());
         pstmt.setString(6, entity.getCclIdOrigen());  
