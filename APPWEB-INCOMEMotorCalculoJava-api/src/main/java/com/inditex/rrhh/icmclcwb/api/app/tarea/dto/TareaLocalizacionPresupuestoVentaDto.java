@@ -49,10 +49,14 @@ public class TareaLocalizacionPresupuestoVentaDto implements Serializable {
     private String icmIdConceptoVenta;
     
     @NotBlank
-    @ApiModelProperty(value = "Id de o", required = true)
+    @ApiModelProperty(value = "Id de origen", required = true)
     private String cclIdOrigen;
     
     @NotNull
     @ApiModelProperty(value = "Flag activo", required = true)
     private Boolean activo;
+
+    @NotNull
+    @ApiModelProperty(value = "Id de tipo de dato", required = true)
+    private Integer idTipoDato;
 }

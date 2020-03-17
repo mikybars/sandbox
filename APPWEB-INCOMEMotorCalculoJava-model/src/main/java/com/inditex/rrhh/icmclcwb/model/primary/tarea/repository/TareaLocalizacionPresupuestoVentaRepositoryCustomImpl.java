@@ -39,6 +39,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl extends JdbcB
         pstmt.setString(9, entity.getIcmIdConceptoVenta());
         pstmt.setString(10, entity.getCclIdOrigen());
         pstmt.setBoolean(11, entity.getActivo());
+        pstmt.setInt(12, entity.getTipoDato().getId());
 
     }
 

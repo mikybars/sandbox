@@ -6,11 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
 
 import lombok.Data;
@@ -66,6 +68,10 @@ public class TareaLocalizacionPresupuestoVenta {
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
+    private TipoDato tipoDato;
     
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
