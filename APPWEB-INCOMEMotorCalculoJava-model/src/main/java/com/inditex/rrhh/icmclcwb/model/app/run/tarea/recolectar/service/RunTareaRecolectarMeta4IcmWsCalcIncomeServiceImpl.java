@@ -144,5 +144,11 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .presupuestosRangoByRunTareaAndTareaAmbito(runTarea, item));
     }
+    
+    @Override
+    public void ventaCongeladaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .ventaCongeladaByRunTareaAndTareaAmbito(runTarea, item));
+    }
 
 }

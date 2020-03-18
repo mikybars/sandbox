@@ -36,7 +36,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl extends JdbcB
         pstmt.setDouble(6, entity.getImporteSinImpuestos());
         pstmt.setDouble(7, entity.getImporteConImpuestos());
         pstmt.setLong(8, entity.getTipoPresupuesto().getId());
-        pstmt.setString(9, entity.getIcmIdConceptoVenta());
+        pstmt.setLong(9, entity.getTipoVentaConceptoChallenge().getId());
         pstmt.setString(10, entity.getCclIdOrigen());
         pstmt.setBoolean(11, entity.getActivo());
         pstmt.setInt(12, entity.getTipoDato().getId());

@@ -58,6 +58,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.T
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
 
 public interface Meta4IcmWsCalcIncomeService {
 
@@ -116,5 +118,7 @@ public interface Meta4IcmWsCalcIncomeService {
     ConfChTpVentaResponseDto getConfChallengeTpVenta(ConfChTpVentaRequestDto request);
 
     PresupuestosRangoResponseDto getPresupuestosRango(PresupuestosRangoRequestDto request);
+
+    VentaCongeladaResponseDto getVentaCongelada(VentaCongeladaRequestDto request);
 
 }

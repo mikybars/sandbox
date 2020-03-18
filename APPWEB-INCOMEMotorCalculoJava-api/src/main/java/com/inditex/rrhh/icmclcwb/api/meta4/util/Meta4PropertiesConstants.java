@@ -34,6 +34,7 @@ public class Meta4PropertiesConstants {
     public static final String CONFPRECIOHORA = "getConfPrecioHora";
     public static final String CONFCHALLENGETPVENTA = "getConfChallengeTpVenta";
     public static final String PRESUPUESTOSRANGO = "getPresupuestosRango";    
+    public static final String VENTACONGELADA = "getVentaCongelada";    
 
     
 }

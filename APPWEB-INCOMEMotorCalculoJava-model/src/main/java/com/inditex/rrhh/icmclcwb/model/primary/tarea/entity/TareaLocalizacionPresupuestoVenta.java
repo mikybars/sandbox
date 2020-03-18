@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConceptoChallenge;
 
 import lombok.Data;
 
@@ -31,6 +36,16 @@ public class TareaLocalizacionPresupuestoVenta {
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
+
+    @NotNull
+    @Column(name = "FECHA_INICIO", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaInicio;
+
+    @NotNull
+    @Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaFin;
 
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
@@ -61,9 +76,11 @@ public class TareaLocalizacionPresupuestoVenta {
     @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
     private TipoPresupuesto tipoPresupuesto;
 
-    @NotBlank
-    @Column(name = "ICM_ID_CONCEPTO_VENTA", nullable = false)
-    private String icmIdConceptoVenta;
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO_CHALLENGE", nullable = false)
+    private TipoVentaConceptoChallenge tipoVentaConceptoChallenge;
+    
     
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)

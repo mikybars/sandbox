@@ -5,11 +5,15 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.scheduling.annotation.Async;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoVentaDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 
 @Async("repositoryPrimaryExecutor")
 public interface TareaLocalizacionPresupuestoVentaAsyncService {
 
     CompletableFuture<Void> save(List<TareaLocalizacionPresupuestoVentaDto> dto);
+
+    CompletableFuture<Void> saveVentaCongeladaResultItemDto(List<VentaCongeladaResultItemDto> src, TareaDto tarea);
 
 }

@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TipoVentaConceptoChallengeEnum {
 
-    IPOD(1L, "01"), SINT(2L, "02"),
-    ENTREGA_TIENDA(3L, "03"), ENTREGA_DOMICILIO_POR_VENTA(4L, "04"),
-    ENTREGA_DOMICILIO_POR_PRESENCIAS(5L, "05");
+    VENTA_CAJA(1L, "01"), DEVOLUCIONES_OTRAS_TIENDAS(2L, "02"),
+    IPOD(3L, "03"), SINT(4L, "04"),
+    ENTREGA_TIENDA(5L, "05"), ENTREGA_DOMICILIO(6L, "06");
 
     private final Long id;
     private final String idMeta4;
