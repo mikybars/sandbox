@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +33,11 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl extends JdbcB
         pstmt.setString(2, entity.getStdIdWorkLocat());
         pstmt.setString(3, entity.getCclIdCodOrigen());
         pstmt.setString(4, entity.getCclIdSeccion());
-        pstmt.setInt(5, entity.getOrdinal());
+        if (entity.getOrdinal() != null) {
+            pstmt.setInt(5, entity.getOrdinal());
+        }else{
+            pstmt.setNull(5, Types.INTEGER);
+        }
         pstmt.setDouble(6, entity.getImporteSinImpuestos());
         pstmt.setDouble(7, entity.getImporteConImpuestos());
         pstmt.setLong(8, entity.getTipoPresupuesto().getId());

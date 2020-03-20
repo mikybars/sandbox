@@ -288,5 +288,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_SECCION = "CCL_ID_SECCION";
 
     public static final String SQL_RESULT_ID_ORIGEN = "CCL_ID_ORIGEN";
+    
+    public static final String SQL_RESULT_ID_TIPO_PRESUPUESTO = "ID_TIPO_PRESUPUESTO";
+
 
 }

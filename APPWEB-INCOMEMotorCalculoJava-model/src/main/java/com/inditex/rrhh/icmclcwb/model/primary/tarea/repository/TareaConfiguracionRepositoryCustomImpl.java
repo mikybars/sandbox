@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +33,11 @@ public class TareaConfiguracionRepositoryCustomImpl
         pstmt.setString(2, entity.getCclIdOrigen());
         pstmt.setObject(3, entity.getFechaInicio());
         pstmt.setObject(4, entity.getFechaFin());
-        pstmt.setInt(5, entity.getCodTipoHora());
+        if(entity.getCodTipoHora() != null) {
+            pstmt.setInt(5, entity.getCodTipoHora());    
+        }else {
+            pstmt.setNull(5, Types.INTEGER);
+        }
         pstmt.setBoolean(6, entity.getIcmCkVentaImpuestos());
     }
 }

@@ -25,4 +25,12 @@ public interface RunTareaRecolectarPtrVentaEcommerceService {
 
     void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void ventaRangoOnlineSintLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }

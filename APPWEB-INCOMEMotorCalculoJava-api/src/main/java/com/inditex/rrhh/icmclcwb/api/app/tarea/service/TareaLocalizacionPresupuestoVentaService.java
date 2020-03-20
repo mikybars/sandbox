@@ -7,6 +7,11 @@ import javax.validation.Valid;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoVentaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
 public interface TareaLocalizacionPresupuestoVentaService {
 
@@ -15,5 +20,20 @@ public interface TareaLocalizacionPresupuestoVentaService {
 
     List<TareaLocalizacionPresupuestoVentaDto> save(@Valid List<VentaCongeladaResultItemDto> ventaCongelada,
             TareaDto tarea);
+
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(@Valid PtrVentaTotalizadoResponseDto dto,
+            @Valid TareaDto tarea);
+
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(@Valid PtrVentaOnlineIpodResponseDto dto,
+            @Valid TareaDto tarea);
+
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlinePickingResponse(
+            @Valid PtrVentaOnlinePickingResponseDto dto, @Valid TareaDto tarea);
+
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
+            @Valid PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid TareaDto tarea);
+
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(
+            @Valid PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid TareaDto tarea);
 
 }

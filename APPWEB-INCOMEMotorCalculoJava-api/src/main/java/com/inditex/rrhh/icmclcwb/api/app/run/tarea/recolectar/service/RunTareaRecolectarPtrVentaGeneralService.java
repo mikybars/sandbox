@@ -11,4 +11,6 @@ public interface RunTareaRecolectarPtrVentaGeneralService {
 
     void ventaFisicaCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void ventaRangoFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }

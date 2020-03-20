@@ -23,4 +23,16 @@ public interface RunTareaAmbitoRecolectarPtrVentaEcommerceService {
     void ventaOnlineIpodLocalizacionPersonaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
+    void ventaRangoOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito);
+
+    void ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito);
+
+    void ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito);
+
+    void ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito);
+
 }

@@ -59,8 +59,7 @@ public class TareaLocalizacionPresupuestoVenta {
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
     private String cclIdSeccion;
     
-    @NotNull
-    @Column(name = "ICM_ORDINAL", nullable = false)
+    @Column(name = "ICM_ORDINAL", nullable = true)
     private Integer ordinal;
 
     @NotNull
@@ -80,8 +79,7 @@ public class TareaLocalizacionPresupuestoVenta {
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO_CHALLENGE", nullable = false)
     private TipoVentaConceptoChallenge tipoVentaConceptoChallenge;
-    
-    
+        
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;

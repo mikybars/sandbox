@@ -29,6 +29,8 @@ public class PtrVentaTotalizadoResultItemDto implements Serializable, CadenaVent
 	private Integer producto;
 	
 	private Integer empresa;
+	
+	private String operacion;
 
 	private BigDecimal importeSinIVA;
 
