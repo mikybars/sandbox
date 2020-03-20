@@ -577,7 +577,7 @@ WITH AUSENCIAS_DATE AS (
         :idAlgoritmoAjuste as ID_ALGORITMO_AJUSTE
         FROM FECHAS_ACUMULADAS FA
         INNER JOIN ( 
-            SELECT /*(*/ SUM(IMPORTE) as IMPORTE /*)*/, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
+            SELECT SUM( /*(*/ IMPORTE /*)*/ ) AS IMPORTE, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA
             FROM TAREA_CALCULO TC
             WHERE TC.ID_TAREA = :idTarea
             AND TC.ES_MANUAL = :inactivo
