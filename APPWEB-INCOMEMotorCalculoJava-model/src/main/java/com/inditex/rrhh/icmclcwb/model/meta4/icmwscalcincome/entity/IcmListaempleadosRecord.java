@@ -48,7 +48,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idseccion" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idempleado" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idtipohora" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idtipohora" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="orempleado" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="coefjornada" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="fechafincom" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
@@ -150,8 +150,8 @@ public class IcmListaempleadosRecord implements Serializable, Cloneable, CopyTo2
     protected String idseccion;
     @XmlElement(required = true, nillable = true)
     protected String idempleado;
-    @XmlElement(required = true, nillable = true)
-    protected String idtipohora;
+    @XmlElement(required = true, type = Double.class, nillable = true)
+    protected Double idtipohora;
     @XmlElement(required = true, nillable = true)
     protected String orempleado;
     @XmlElement(required = true, nillable = true)
@@ -572,10 +572,10 @@ public class IcmListaempleadosRecord implements Serializable, Cloneable, CopyTo2
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Double }
      *     
      */
-    public String getIdtipohora() {
+    public Double getIdtipohora() {
         return idtipohora;
     }
 
@@ -584,10 +584,10 @@ public class IcmListaempleadosRecord implements Serializable, Cloneable, CopyTo2
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Double }
      *     
      */
-    public void setIdtipohora(String value) {
+    public void setIdtipohora(Double value) {
         this.idtipohora = value;
     }
 
@@ -1200,9 +1200,9 @@ public class IcmListaempleadosRecord implements Serializable, Cloneable, CopyTo2
             }
         }
         {
-            String lhsIdtipohora;
+            Double lhsIdtipohora;
             lhsIdtipohora = this.getIdtipohora();
-            String rhsIdtipohora;
+            Double rhsIdtipohora;
             rhsIdtipohora = that.getIdtipohora();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "idtipohora", lhsIdtipohora), LocatorUtils.property(thatLocator, "idtipohora", rhsIdtipohora), lhsIdtipohora, rhsIdtipohora, (this.idtipohora!= null), (that.idtipohora!= null))) {
                 return false;
@@ -1483,7 +1483,7 @@ public class IcmListaempleadosRecord implements Serializable, Cloneable, CopyTo2
             strategy.appendField(locator, this, "idempleado", buffer, theIdempleado, (this.idempleado!= null));
         }
         {
-            String theIdtipohora;
+            Double theIdtipohora;
             theIdtipohora = this.getIdtipohora();
             strategy.appendField(locator, this, "idtipohora", buffer, theIdtipohora, (this.idtipohora!= null));
         }
@@ -1668,7 +1668,7 @@ public class IcmListaempleadosRecord implements Serializable, Cloneable, CopyTo2
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempleado", theIdempleado), currentHashCode, theIdempleado, (this.idempleado!= null));
         }
         {
-            String theIdtipohora;
+            Double theIdtipohora;
             theIdtipohora = this.getIdtipohora();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idtipohora", theIdtipohora), currentHashCode, theIdtipohora, (this.idtipohora!= null));
         }
@@ -1998,9 +1998,9 @@ public class IcmListaempleadosRecord implements Serializable, Cloneable, CopyTo2
             {
                 Boolean idtipohoraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idtipohora!= null));
                 if (idtipohoraShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdtipohora;
+                    Double sourceIdtipohora;
                     sourceIdtipohora = this.getIdtipohora();
-                    String copyIdtipohora = ((String) strategy.copy(LocatorUtils.property(locator, "idtipohora", sourceIdtipohora), sourceIdtipohora, (this.idtipohora!= null)));
+                    Double copyIdtipohora = ((Double) strategy.copy(LocatorUtils.property(locator, "idtipohora", sourceIdtipohora), sourceIdtipohora, (this.idtipohora!= null)));
                     copy.setIdtipohora(copyIdtipohora);
                 } else {
                     if (idtipohoraShouldBeCopiedAndSet == Boolean.FALSE) {
