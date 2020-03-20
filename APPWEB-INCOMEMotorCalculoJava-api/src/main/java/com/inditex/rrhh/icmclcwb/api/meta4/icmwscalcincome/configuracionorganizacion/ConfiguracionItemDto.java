@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import lombok.Builder;
+import lombok.Data;
 
 @Data
 @Builder
@@ -21,7 +21,7 @@ public class ConfiguracionItemDto implements Serializable {
     private String idConfiguracion;
     private String inOut;
     private String idOrigen;
-    private String idTipoHora;
+    private Integer idTipoHora;
     private Boolean icmCkVentaImpuestos;
 
 }
