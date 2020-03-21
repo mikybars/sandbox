@@ -1,12 +1,12 @@
 name: Publish
 
 on:
-  release:
-    types:
-      - created
+  push:
+    tags:
+      - 'v*'
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,20 +24,36 @@ jobs:
           pip install -r scripts/requirements.txt
 
       - name: Build package
-        run: poetry build
+        id: build_package
+        run: |
+          poetry build
+          echo "::set-output name=file::$(ls dist/*.tar.gz)"
 
-      - name: Publish to PyPI
-        run: poetry publish --username ${{ secrets.PYPI_USER }} --password ${{ secrets.PYPI_PASS }}
+      # - name: Publish to PyPI
+        # run: poetry publish --username ${{ secrets.PYPI_USER }} --password ${{ secrets.PYPI_PASS }}
 
-      - name: Get release version
-        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF:10}
+      - name: Build brew package
+        id: build_brew_package
+        run: |
+          scripts/create_brew_package.py ${{ steps.build_package.outputs.file }})
+          echo "::set-output name=file::$(ls dist/*-brew.tar.gz)"
 
-      - name: Create brew package
-        run: scripts/create_brew_package.py $(ls dist/*.tar.gz)
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
 
-      - name: Upload release ${{ env.RELEASE_VERSION }} asset
-        run: scripts/upload_github_release_asset.sh
-            ${{ github.repository }}
-            $RELEASE_VERSION
-            $(ls dist/*-brew.tar.gz)
-            ${{ github.token }}
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: $(ls dist/*-brew.tar.gz)
+          asset_content_type: application/gzip
