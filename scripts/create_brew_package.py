@@ -61,7 +61,7 @@ def main():
         lambda in_bytes: toml_remove_section(in_bytes, 'build-system')
     ).patch()
 
-    print(f'Created {out_filename}')
+    print(out_filename)
 
 
 if __name__ == '__main__':
