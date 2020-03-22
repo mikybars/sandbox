@@ -40,7 +40,7 @@ jobs:
             . venv/bin/activate
             python workflow-build.py -o generated workflow
 
-      - run:
+        run:
           name: Creating GitHub Release
           command: |
             mkdir bin
