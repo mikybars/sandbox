@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -164,12 +165,13 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_UPDATE_ACTIVO_BANDAS_SIN_EXCEPCION, sqlCaptor.getValue());
 
-        // Parámetros de la consulta: idTipoGupoDato, idTarea, icmCkExcepcion, activo, nuevoActivo
+        // Parámetros de la consulta: idTipoImporteVenta, idTarea, icmCkExcepcion, activo, nuevoActivo
         MapSqlParameterSource params = paramsCaptor.getValue();
         assertEquals(5, params.getValues().size());
         // idTipoGrupoDato
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
+        //TODO [JAVIEREV] Usar el tipo correcto de venta
+        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));

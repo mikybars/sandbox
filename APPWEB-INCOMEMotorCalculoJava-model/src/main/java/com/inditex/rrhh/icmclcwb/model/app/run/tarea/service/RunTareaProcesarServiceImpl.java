@@ -308,10 +308,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
-            
+
+            CompletableFuture<Void> cfRelacionarPresupuestosEstructurasSinDesplazamiento = runTareaProcesarCondicionesAsyncService.relacionarPresupuestosEstructurasSinDesplazamiento(runTarea.getTarea());
+            AsyncUtils.exceptionally(cfRelacionarPresupuestosEstructurasSinDesplazamiento, cf, cfWait);
+
+            CompletableFuture<Void> cfRelacionarPresupuestosEstructurasDesplazamiento = runTareaProcesarCondicionesAsyncService.relacionarPresupuestosEstructurasDesplazamiento(runTarea.getTarea());
+            AsyncUtils.exceptionally(cfRelacionarPresupuestosEstructurasDesplazamiento, cf, cfWait);
+
             CompletableFuture<Void> cfUpdateActivoNegativoTotalizado = runTareaProcesarVentaAsyncService.updateActivoNegativoTotalizado(runTarea);
             AsyncUtils.exceptionally(cfUpdateActivoNegativoTotalizado, cf, cfWait);
-            
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
