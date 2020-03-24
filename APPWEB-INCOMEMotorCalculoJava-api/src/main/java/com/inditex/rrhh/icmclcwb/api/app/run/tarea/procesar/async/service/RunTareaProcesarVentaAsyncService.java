@@ -1,10 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import org.springframework.scheduling.annotation.Async;
+import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
-import java.util.concurrent.CompletableFuture;
+
+import org.springframework.scheduling.annotation.Async;
+
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 @Async
 public interface RunTareaProcesarVentaAsyncService {
@@ -59,10 +61,12 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea);
 
-    CompletableFuture<Void> calcularImporteComisionVendedores(RunTareaDto tarea);
+    CompletableFuture<Void> calcularImporteComisionVendedores(@Valid RunTareaDto tarea);
 
-    CompletableFuture<Void> calcularImporteComisionVentaODevolucion(RunTareaDto tarea);
+    CompletableFuture<Void> calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea);
 
-    CompletableFuture<Void> updateActivoNegativoTotalizado(RunTareaDto tarea);
+    CompletableFuture<Void> updateActivoNegativoTotalizado(@Valid RunTareaDto tarea);
+
+    CompletableFuture<Void> updateActivoPresupuesto(@Valid RunTareaDto runTarea);
 
 }

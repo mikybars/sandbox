@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoVentaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
@@ -21,19 +22,19 @@ public interface TareaLocalizacionPresupuestoVentaService {
     List<TareaLocalizacionPresupuestoVentaDto> save(@Valid List<VentaCongeladaResultItemDto> ventaCongelada,
             TareaDto tarea);
 
-    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(@Valid PtrVentaTotalizadoResponseDto dto,
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(@Valid PtrVentaTotalizadoResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
             @Valid TareaDto tarea);
 
-    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(@Valid PtrVentaOnlineIpodResponseDto dto,
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(@Valid PtrVentaOnlineIpodResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
             @Valid TareaDto tarea);
 
     List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlinePickingResponse(
-            @Valid PtrVentaOnlinePickingResponseDto dto, @Valid TareaDto tarea);
+            @Valid PtrVentaOnlinePickingResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter, @Valid TareaDto tarea);
 
     List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
-            @Valid PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid TareaDto tarea);
+            @Valid PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter, @Valid TareaDto tarea);
 
     List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(
-            @Valid PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid TareaDto tarea);
+            @Valid PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter, @Valid TareaDto tarea);
 
 }

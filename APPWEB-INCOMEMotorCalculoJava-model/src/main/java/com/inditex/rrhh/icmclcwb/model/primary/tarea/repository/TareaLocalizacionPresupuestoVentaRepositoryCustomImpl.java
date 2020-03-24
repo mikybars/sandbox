@@ -5,9 +5,17 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuestoVenta;
 
@@ -16,11 +24,26 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPre
 public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPresupuestoVenta>
         implements TareaLocalizacionPresupuestoVentaRepositoryCustom {
 
+    @Autowired
+    @Qualifier("primaryNamedParameterJdbcTemplate")
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
     @Value("${app.envars.repository.batch-size.tarea-localizacion-presupuesto-venta:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoVentaRepositoryCustom.save']}")
     private String sqlSave;
+    
+    @Value("#{primaryQuery['TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacio']}")
+    private String sqlUpdateActivo;
+    
+    @Override
+    public void updateActivo(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        namedParameterJdbcTemplate.update(sqlUpdateActivo, parameters);
+    }
     
     @Override
     public List<TareaLocalizacionPresupuestoVenta> save(List<TareaLocalizacionPresupuestoVenta> src) {
@@ -45,6 +68,8 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl extends JdbcB
         pstmt.setString(10, entity.getCclIdOrigen());
         pstmt.setBoolean(11, entity.getActivo());
         pstmt.setInt(12, entity.getTipoDato().getId());
+        pstmt.setObject(13, entity.getFechaFin());
+        pstmt.setObject(14, entity.getFechaInicio());
 
     }
 

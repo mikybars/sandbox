@@ -1,13 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVentaAsyncService {
@@ -78,6 +79,12 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     @Override
     public CompletableFuture<Void> updateActivoTrasladadas(RunTareaDto runTarea) {
         tareaProcesarVentaService.updateActivoTrasladadas(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> updateActivoPresupuesto(RunTareaDto runTarea) {
+        tareaProcesarVentaService.updateActivoPresupuesto(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

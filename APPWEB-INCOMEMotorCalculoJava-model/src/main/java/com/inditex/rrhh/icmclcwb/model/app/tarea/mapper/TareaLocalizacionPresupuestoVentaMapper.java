@@ -6,6 +6,7 @@ import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -50,48 +51,48 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
-    @Mapping(target = "fechaInicio", source = "tarea.fechaInicioPeriodo")
-    @Mapping(target = "fechaFin", source = "tarea.fechaFinPeriodo")
+    @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
+    @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
     @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
-    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaTotalizadoResultItemDto src, TareaDto tarea);
+    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaTotalizadoResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
-    @Mapping(target = "fechaInicio", source = "tarea.fechaInicioPeriodo")
-    @Mapping(target = "fechaFin", source = "tarea.fechaFinPeriodo")
+    @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
+    @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
     @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
-    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineIpodResultItemDto src, TareaDto tarea);
+    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineIpodResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
    
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
-    @Mapping(target = "fechaInicio", source = "tarea.fechaInicioPeriodo")
-    @Mapping(target = "fechaFin", source = "tarea.fechaFinPeriodo")
+    @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
+    @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
     @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
-    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlinePickingResultItemDto src, TareaDto tarea);
+    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlinePickingResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
-    @Mapping(target = "fechaInicio", source = "tarea.fechaInicioPeriodo")
-    @Mapping(target = "fechaFin", source = "tarea.fechaFinPeriodo")
+    @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
+    @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
     @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
-    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineEntregaTiendaResultItemDto src, TareaDto tarea);
+    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineEntregaTiendaResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
-    @Mapping(target = "fechaInicio", source = "tarea.fechaInicioPeriodo")
-    @Mapping(target = "fechaFin", source = "tarea.fechaFinPeriodo")
+    @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
+    @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
     @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
-    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea);
+    public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineEntregaDomicilioResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
     
     public List<TareaLocalizacionPresupuestoVenta> ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(
             List<VentaCongeladaResultItemDto> src, TareaDto tarea) {
@@ -99,27 +100,27 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
     }
     
     public List<TareaLocalizacionPresupuestoVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaTotalizadoResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlineIpodResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlineIpodResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlineIpodResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlinePickingResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlinePickingResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlinePickingResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter,TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

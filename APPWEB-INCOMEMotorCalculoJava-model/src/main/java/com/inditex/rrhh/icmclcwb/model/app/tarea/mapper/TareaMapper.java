@@ -167,7 +167,42 @@ public abstract class TareaMapper {
     public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, IdLocalizacionLocalPresupuestoDto srcPresupuesto,
             RecolectarPropertiesDto srcRecolectarProperties);
+    
+    @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
+    @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    public abstract PtrVentaOnlineEntregaDomicilioRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, IdLocalizacionLocalPresupuestoDto srcPresupuesto,
+            RecolectarPropertiesDto srcRecolectarProperties);
+    
+    @Mapping(target = "tienda", ignore = true)
+    @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
+    @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    public abstract PtrVentaOnlineEntregaTiendaRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaTiendaRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, IdLocalizacionLocalPresupuestoDto srcPresupuesto,
+            RecolectarPropertiesDto srcRecolectarProperties);
+    
+    @Mapping(target = "tienda", ignore = true)
+    @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
+    @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    public abstract PtrVentaOnlinePickingRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlinePickingRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, IdLocalizacionLocalPresupuestoDto srcPresupuesto,
+            RecolectarPropertiesDto srcRecolectarProperties);
 
+    @Mapping(target = "tienda", ignore = true)
+    @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
+    @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    public abstract PtrVentaOnlineIpodRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineIpodRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, IdLocalizacionLocalPresupuestoDto srcPresupuesto,
+            RecolectarPropertiesDto srcRecolectarProperties);
+    
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "fechaHasta", expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")

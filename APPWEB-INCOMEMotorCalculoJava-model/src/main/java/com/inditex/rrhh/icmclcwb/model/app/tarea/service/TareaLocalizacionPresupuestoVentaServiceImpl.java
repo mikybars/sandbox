@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoVentaService;
@@ -47,61 +48,61 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(@Valid PtrVentaTotalizadoResponseDto dto,
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(@Valid PtrVentaTotalizadoResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
             @Valid TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
                     tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaTotalizadoResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaTotalizado(), tarea))));
+                            .ventaTotalizadoResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaTotalizado(), iter, tarea))));
         }
         return result;
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(@Valid PtrVentaOnlineIpodResponseDto dto,
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(@Valid PtrVentaOnlineIpodResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
             @Valid TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
                     tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaOnlineIpodResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(), tarea))));
+                            .ventaOnlineIpodResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(), iter, tarea))));
         }
         return result;
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlinePickingResponse(@Valid PtrVentaOnlinePickingResponseDto dto,
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlinePickingResponse(@Valid PtrVentaOnlinePickingResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
             @Valid TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
                     tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaOnlinePickingResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(), tarea))));
+                            .ventaOnlinePickingResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(), iter, tarea))));
         }
         return result;
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid PtrVentaOnlineEntregaTiendaResponseDto dto,
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
             @Valid TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
                     tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(), tarea))));
+                            .ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(), iter, tarea))));
         }
         return result;
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(@Valid PtrVentaOnlineEntregaDomicilioResponseDto dto,
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(@Valid PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
             @Valid TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
                     tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(), tarea))));
+                            .ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(), iter, tarea))));
         }
         return result;
     }

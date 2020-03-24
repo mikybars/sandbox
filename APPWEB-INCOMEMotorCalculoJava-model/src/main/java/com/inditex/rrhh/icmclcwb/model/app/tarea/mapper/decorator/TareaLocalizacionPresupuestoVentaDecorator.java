@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.util.concurrent.AtomicDouble;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoChallengeEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPresupuestoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -88,17 +89,19 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
     
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaTotalizadoResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
         AtomicDouble importeSinIva = new AtomicDouble(0);
         AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
+                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
                     if(item.getOperacion().equals(AppConstants.OPERACION_VENTA)) {
                         tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId()).build());
                         tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_FISICA_CAJA_LOCALIZACION_SECCION.getId()).build());
@@ -111,9 +114,13 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
+                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
+                tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
+
                 if(item.getOperacion().equals(AppConstants.OPERACION_VENTA)) {
                     tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_FISICA_CAJA_LOCALIZACION.getId()).build());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId()).build());    
@@ -130,29 +137,34 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
 
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlineIpodResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlineIpodResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlineIpodResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
         AtomicDouble importeSinIva = new AtomicDouble(0);
         AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.IPOD.getId()).build());    
                     tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_IPOD_LOCALIZACION_SECCION.getId()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
 
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.IPOD.getId()).build());    
                 tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_IPOD_LOCALIZACION.getId()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
+                tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
                 dtoList.add(tareaLocalizacionPresupuestoVenta);
             });
@@ -162,29 +174,34 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
 
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlinePickingResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlinePickingResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlinePickingResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
         AtomicDouble importeSinIva = new AtomicDouble(0);
         AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.SINT.getId()).build());    
                     tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_SINT_LOCALIZACION_SECCION.getId()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
 
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.SINT.getId()).build());    
                 tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_SINT_LOCALIZACION.getId()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
+                tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
                 dtoList.add(tareaLocalizacionPresupuestoVenta);
             });
@@ -194,29 +211,34 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
     
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
         AtomicDouble importeSinIva = new AtomicDouble(0);
         AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getId()).build());    
                     tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
 
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getId()).build());    
                 tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGATIENDA_LOCALIZACION.getId()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
+                tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
                 dtoList.add(tareaLocalizacionPresupuestoVenta);
             });
@@ -226,29 +248,34 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
 
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
         List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
         AtomicDouble importeSinIva = new AtomicDouble(0);
         AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getId()).build());    
                     tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
 
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getId()).build());    
                 tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
+                tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
                 dtoList.add(tareaLocalizacionPresupuestoVenta);
             });

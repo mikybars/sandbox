@@ -188,7 +188,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
                 AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties
                         .get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea),
+                AsyncUtils.exceptionally(tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaTotalizadoResponse(data, iter, tarea),
                         cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
