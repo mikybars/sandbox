@@ -2,11 +2,13 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -130,5 +132,8 @@ public class TareaPersonaEstructura {
     @NotBlank
     @Column(name = "ICM_ID_TP_ESTRUCTURA", nullable = false, length = 48)
     private String icmIdTpEstructura;
+
+    @ManyToMany(mappedBy = "estructura")
+    private List<TareaLocalizacionPresupuesto> presupuesto;
 
 }

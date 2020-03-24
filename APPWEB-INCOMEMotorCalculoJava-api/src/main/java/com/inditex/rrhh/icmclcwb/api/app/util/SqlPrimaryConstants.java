@@ -169,6 +169,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_INCLUIDO_ECOMMERCE = "incluidoEcommerce";
 
+    public static final String SQL_PARAM_INCLUIDO_CHALLENGE = "incluidoChallenge";
+
     public static final String SQL_PARAM_INCLUIDO_VENTA = "incluidoVenta";
 
     public static final String SQL_PARAM_EXCLUIDO_CALCULO = "excluidoCalculo";
@@ -192,6 +194,10 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_FECHA_SIGUIENTE_EJECUCION = "fechaSiguienteEjecucion";
 
     public static final String SQL_PARAM_IDS_TIPOS_CALCULO = "tiposCalculo";
+
+    public static final String SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION = "tiposCalculoChallengeLocalizacion";
+
+    public static final String SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_PRECIO_HORA = "tiposCalculoChallengePrecioHora";
 
     public static final String SQL_PARAM_IDS_TIPOS_COMISION = "tiposComision";
 

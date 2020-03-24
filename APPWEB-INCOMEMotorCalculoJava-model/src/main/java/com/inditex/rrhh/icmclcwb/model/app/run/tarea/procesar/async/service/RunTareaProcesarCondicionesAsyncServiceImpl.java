@@ -44,4 +44,16 @@ public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProc
         tareaProcesarCondicionesService.updateActivoEstructuraTopes(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> relacionarPresupuestosEstructurasSinDesplazamiento(TareaDto tarea) {
+        tareaProcesarCondicionesService.relacionarPresupuestosEstructurasSinDesplazamiento(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> relacionarPresupuestosEstructurasDesplazamiento(TareaDto tarea) {
+        tareaProcesarCondicionesService.relacionarPresupuestosEstructurasDesplazamiento(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

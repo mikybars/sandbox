@@ -18,4 +18,8 @@ public interface RunTareaProcesarCondicionesAsyncService {
 
     CompletableFuture<Void> updateActivoEstructurasTopes(final TareaDto tarea);
 
+    CompletableFuture<Void> relacionarPresupuestosEstructurasSinDesplazamiento(final TareaDto tarea);
+
+    CompletableFuture<Void> relacionarPresupuestosEstructurasDesplazamiento(final TareaDto tarea);
+
 }

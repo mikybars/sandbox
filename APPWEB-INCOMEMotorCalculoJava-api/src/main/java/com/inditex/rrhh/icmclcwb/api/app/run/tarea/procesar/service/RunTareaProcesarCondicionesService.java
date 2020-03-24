@@ -14,4 +14,8 @@ public interface RunTareaProcesarCondicionesService {
 
     void updateActivoEstructuraTopes(@Valid final TareaDto tarea);
 
+    void relacionarPresupuestosEstructurasSinDesplazamiento(@Valid final TareaDto tarea);
+
+    void relacionarPresupuestosEstructurasDesplazamiento(@Valid final TareaDto tarea);
+
 }

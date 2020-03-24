@@ -5,10 +5,13 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,9 +20,10 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "TAREA_PRESUPUESTO")
+@Table(name = "TAREA_LOCALIZACION_PRESUPUESTO")
 @Data
 public class TareaLocalizacionPresupuesto {
 
@@ -92,5 +96,11 @@ public class TareaLocalizacionPresupuesto {
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
     private TipoPresupuesto tipoPresupuesto;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA", joinColumns = {
+        @JoinColumn(name = "ID_TAREA_LOCALIZACION_PRESUPUESTO") }, inverseJoinColumns = {
+        @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA"), @JoinColumn(name = "TAREA_PERSONA_ESTRUCTURA")})
+    private Set<TareaPersonaEstructura> estructura;
 
 }
