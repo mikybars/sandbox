@@ -45,7 +45,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     private TareaLocalizacionPersonaVentaRepositoryCustom tareaLocalizacionPersonaVentaRepositoryCustom;
     
     @Autowired
-    private TareaLocalizacionPresupuestoVentaRepositoryCustom TareaLocalizacionPresupuestoVentaRepositoryCustom;
+    private TareaLocalizacionPresupuestoVentaRepositoryCustom tareaLocalizacionPresupuestoVentaRepositoryCustom;
 
 
     @Autowired
@@ -116,8 +116,18 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
 
     @Override
-    public void updateActivoPresupuesto(@Valid RunTareaDto runTarea) {
-        TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivo(runTarea);
+    public void updateActivoExcepcionada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoExcepcionada(runTarea);
+    }
+    
+    @Override
+    public void updateActivoCongelada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoCongelada(runTarea);
+    }
+    
+    @Override
+    public void totalizarPresupuesto(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar(runTarea);
     }
     
     @Override

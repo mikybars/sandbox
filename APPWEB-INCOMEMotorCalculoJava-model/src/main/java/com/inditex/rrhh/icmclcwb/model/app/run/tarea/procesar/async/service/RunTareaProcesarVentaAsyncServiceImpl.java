@@ -83,8 +83,20 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     }
     
     @Override
-    public CompletableFuture<Void> updateActivoPresupuesto(RunTareaDto runTarea) {
-        tareaProcesarVentaService.updateActivoPresupuesto(runTarea);
+    public CompletableFuture<Void> updateActivoExcepcionada(RunTareaDto runTarea) {
+        tareaProcesarVentaService.updateActivoExcepcionada(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> updateActivoCongelada(RunTareaDto runTarea) {
+        tareaProcesarVentaService.updateActivoCongelada(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> totalizarPresupuesto(RunTareaDto runTarea) {
+        tareaProcesarVentaService.totalizarPresupuesto(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
     

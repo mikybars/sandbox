@@ -11,6 +11,10 @@ public interface TareaLocalizacionPresupuestoVentaRepositoryCustom {
 
     List<TareaLocalizacionPresupuestoVenta> save(List<TareaLocalizacionPresupuestoVenta> src);
 
-    void updateActivo(@NotNull RunTareaDto runTareaDto);
+    void updateActivoExcepcionada(@NotNull RunTareaDto runTareaDto);
+
+    void updateActivoCongelada(@NotNull RunTareaDto runTareaDto);
+
+    void totalizar(@NotNull RunTareaDto runTareaDto);
 
 }

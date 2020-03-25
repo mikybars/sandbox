@@ -64,6 +64,10 @@ public interface RunTareaProcesarVentaService {
 
     void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea);
 
-    void updateActivoPresupuesto(@Valid RunTareaDto runTarea);
+    void updateActivoExcepcionada(@Valid RunTareaDto runTarea);
+
+    void updateActivoCongelada(@Valid RunTareaDto runTarea);
+
+    void totalizarPresupuesto(@Valid RunTareaDto runTarea);
 
 }

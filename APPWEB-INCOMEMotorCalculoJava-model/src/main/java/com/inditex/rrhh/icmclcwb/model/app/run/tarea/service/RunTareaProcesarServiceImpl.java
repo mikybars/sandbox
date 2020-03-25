@@ -320,6 +320,24 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfTotalizarPresupuesto = runTareaProcesarVentaAsyncService.totalizarPresupuesto(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarPresupuesto, cf, cfWait);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfUpdateActivoPresupuesto = runTareaProcesarVentaAsyncService.updateActivoExcepcionada(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoPresupuesto, cf, cfWait);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfUpdateActivoCongelada = runTareaProcesarVentaAsyncService.updateActivoCongelada(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoCongelada, cf, cfWait);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
 
         } catch (Exception e) {
             AsyncUtils.cancel(cf);

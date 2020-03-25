@@ -13,6 +13,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA = "idTipoGrupoDatoVenta";
     
+    public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA = "idTipoGrupoDatoVentaCongelada";
+
+    public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL = "idTipoGrupoDatoVentaReal";
+    
     public static final String SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS = "idsTiposGrupoDatoTrasladados";
     
     public static final String SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS_TOTALIZADOS = "idsTiposGrupoDatoTrasladadosTotalizados";
@@ -102,6 +106,14 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION = "idTipoImporteVentaFisicaLocalizacion";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION = "idTipoImporteVentaFisicaLocalizacionSeccion";
+    
+    public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION = "idtipoVentaRangoCongeladaLocalizacion";
+    
+    public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION = "idtipoVentaRangoCongeladaLocalizacionSeccion";
+    
+    public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION = "idtipoVentaRangoLocalizacion";
+    
+    public static final String  SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION = "idtipoVentaRangoLocalizacionSeccion";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA = "idTipoDatoIndicadorPresencia";
 
