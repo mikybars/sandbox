@@ -15,6 +15,8 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
     void compensar(@NotNull RunTareaDto runTareaDto);
 
+    void presenciasIncluidoVenta(@NotNull RunTareaDto runTareaDto);
+
     void updateActivoVacio(@NotNull RunTareaDto runTareaDto);
 
     void indicadorPresencia(@NotNull RunTareaDto runTareaDto);

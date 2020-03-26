@@ -71,6 +71,11 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     }
 
     @Override
+    public void presenciasIncluidoVentaPersona(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPersonaPresenciaService.presenciasIncluidoVenta(runTarea);
+    }
+
+    @Override
     public void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea) {
         tareaAgrupacionPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea.getTarea());
     }

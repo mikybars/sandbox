@@ -183,6 +183,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfTotalizarEmpleadosPorVenta = runTareaProcesarPresenciaAsyncService.totalizarEmpleadosPorVenta(runTarea);
             AsyncUtils.exceptionally(cfTotalizarEmpleadosPorVenta, cf, cfWait);
 
+            // Obtener la presencia incluido venta por empleado
+            CompletableFuture<Void> cfPresenciasIncluidoVentaPersona = runTareaProcesarPresenciaAsyncService.presenciasIncluidoVentaPersona(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasIncluidoVentaPersona, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
