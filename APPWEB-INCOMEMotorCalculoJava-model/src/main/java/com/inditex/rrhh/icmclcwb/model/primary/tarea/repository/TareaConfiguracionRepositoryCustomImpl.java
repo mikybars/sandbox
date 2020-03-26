@@ -32,7 +32,11 @@ public class TareaConfiguracionRepositoryCustomImpl
         pstmt.setInt(3, entity.getIcmIdConfig());
         pstmt.setObject(4, entity.getFechaInicio());
         pstmt.setObject(5, entity.getFechaFin());
-        pstmt.setInt(6, entity.getCodTipoHora());
+        if(entity.getCodTipoHora() != null) {
+            pstmt.setInt(6, entity.getCodTipoHora());    
+        }else {
+            pstmt.setNull(6, Types.INTEGER);
+        }
         pstmt.setBoolean(7, entity.getIcmCkVentaImpuestos());
     }
 }
