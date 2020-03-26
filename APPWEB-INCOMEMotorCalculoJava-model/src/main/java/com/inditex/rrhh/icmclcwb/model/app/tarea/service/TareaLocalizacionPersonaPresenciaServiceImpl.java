@@ -55,6 +55,11 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
     }
 
     @Override
+    public void presenciasIncluidoVenta(@NotNull RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta(runTareaDto);
+    }
+
+    @Override
     public void indicadorPresencia(@NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia(runTareaDto);
     }
