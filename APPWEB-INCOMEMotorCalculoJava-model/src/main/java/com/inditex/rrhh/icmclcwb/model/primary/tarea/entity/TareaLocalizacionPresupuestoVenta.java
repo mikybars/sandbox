@@ -75,7 +75,6 @@ public class TareaLocalizacionPresupuestoVenta {
     @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
     private TipoPresupuesto tipoPresupuesto;
 
-    @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO_CHALLENGE", nullable = false)
     private TipoVentaConceptoChallenge tipoVentaConceptoChallenge;
