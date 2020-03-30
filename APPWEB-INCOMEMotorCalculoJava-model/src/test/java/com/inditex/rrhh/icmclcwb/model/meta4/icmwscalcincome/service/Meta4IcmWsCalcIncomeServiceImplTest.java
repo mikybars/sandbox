@@ -17,14 +17,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -38,10 +32,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFi
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -50,9 +40,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfpreciohoraOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
@@ -66,20 +53,12 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getflagcalcu
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchdiasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchdiasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchventaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchventaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosBlock;
@@ -94,21 +73,12 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaperi
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaperiodosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapoliticasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapoliticasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestosrangoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestosrangoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestoswlocBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestoswlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -1310,273 +1280,5 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         verify(meta4ClientPool, times(1)).saveproceso(any(IcmParamcalprocesoBlock.class));
     }
 
-    @Test
-    public void getConfChallengeDiasMinimos() {
-        IcmParamcalconfchdiasBlock entrada = new IcmParamcalconfchdiasBlock(); 
-        GetconfchdiasminimosOutput output = new GetconfchdiasminimosOutput();
-        IcmListaconfchdiasBlock block = new IcmListaconfchdiasBlock(); 
-        block.getIcmListaconfchdiasRecordSet().add(new IcmListaconfchdiasRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaconfchdias(block);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfchdiasBlock(any(ConfChDiasMinimosFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class))).thenReturn(output);
-
-        ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
-        request.setData(new ConfChDiasMinimosFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfChallengeDiasMinimos(request);
-        verify(meta4ClientPool, times(1)).getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class));
-    }
-    
-    @Test
-    public void getConfChallengeDiasMinimosNullOutput() {
-        IcmParamcalconfchdiasBlock entrada = new IcmParamcalconfchdiasBlock(); 
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfchdiasBlock(any(ConfChDiasMinimosFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class))).thenReturn(null);
-
-        ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
-        request.setData(new ConfChDiasMinimosFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfChallengeDiasMinimos(request);
-        verify(meta4ClientPool, times(1)).getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class));
-    }
-    
-    @Test
-    public void getConfChallengeDiasMinimosNullPageNullData() {
-        IcmParamcalconfchdiasBlock entrada = new IcmParamcalconfchdiasBlock(); 
-        GetconfchdiasminimosOutput output = new GetconfchdiasminimosOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaconfchdias(null);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfchdiasBlock(any(ConfChDiasMinimosFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class))).thenReturn(output);
-
-        ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
-        request.setData(new ConfChDiasMinimosFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfChallengeDiasMinimos(request);
-        verify(meta4ClientPool, times(1)).getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class));
-    }
-    
-    @Test
-    public void getPresupuestosWloc() {
-        IcmParamcalpresupuestoswlocBlock entrada = new IcmParamcalpresupuestoswlocBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        GetpresupuestoswlocOutput output = new GetpresupuestoswlocOutput();
-        IcmListapresupuestoswlocBlock block = new IcmListapresupuestoswlocBlock(); 
-        block.getIcmListapresupuestoswlocRecordSet().add(new IcmListapresupuestoswlocRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmParametrospaginacion(paginacion);
-        output.setIcmListapresupuestoswloc(block);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalpresupuestoswlocBlock(any(PresupuestosWlocFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(output);
-
-        PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
-        request.setData(new PresupuestosWlocFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getPresupuestosWloc(request);
-        verify(meta4ClientPool, times(1)).getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class), any(IcmParametrospaginacionBlock.class));
-    }
-    
-    @Test
-    public void getPresupuestosWlocNullOutput() {
-        IcmParamcalpresupuestoswlocBlock entrada = new IcmParamcalpresupuestoswlocBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalpresupuestoswlocBlock(any(PresupuestosWlocFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(null);
-
-        PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
-        request.setData(new PresupuestosWlocFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getPresupuestosWloc(request);
-        verify(meta4ClientPool, times(1)).getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class), any(IcmParametrospaginacionBlock.class));
-    }
-    
-    @Test
-    public void getPresupuestosWlocNullPageNullData() {
-        IcmParamcalpresupuestoswlocBlock entrada = new IcmParamcalpresupuestoswlocBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        GetpresupuestoswlocOutput output = new GetpresupuestoswlocOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmParametrospaginacion(null);
-        output.setIcmListapresupuestoswloc(null);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalpresupuestoswlocBlock(any(PresupuestosWlocFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(output);
-
-        PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
-        request.setData(new PresupuestosWlocFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getPresupuestosWloc(request);
-        verify(meta4ClientPool, times(1)).getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class), any(IcmParametrospaginacionBlock.class));
-    }
-
-    @Test
-    public void getConfPrecioHora() {
-        IcmParamcalconfpreciohoraBlock entrada = new IcmParamcalconfpreciohoraBlock(); 
-        GetconfpreciohoraOutput output = new GetconfpreciohoraOutput();
-        IcmListaconfpreciohoraBlock block = new IcmListaconfpreciohoraBlock(); 
-        block.getIcmListaconfpreciohoraRecordSet().add(new IcmListaconfpreciohoraRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaconfpreciohora(block);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfpreciohoraBlock(any(ConfPrecioHoraFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class))).thenReturn(output);
-
-        ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
-        request.setData(new ConfPrecioHoraFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfPrecioHora(request);
-        verify(meta4ClientPool, times(1)).getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class));
-    }
-    
-    @Test
-    public void getConfPrecioHoraNullOutput() {
-        IcmParamcalconfpreciohoraBlock entrada = new IcmParamcalconfpreciohoraBlock(); 
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfpreciohoraBlock(any(ConfPrecioHoraFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class))).thenReturn(null);
-
-        ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
-        request.setData(new ConfPrecioHoraFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfPrecioHora(request);
-        verify(meta4ClientPool, times(1)).getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class));
-    }
-    
-    @Test
-    public void getConfPrecioHoraNullPageNullData() {
-        IcmParamcalconfpreciohoraBlock entrada = new IcmParamcalconfpreciohoraBlock(); 
-        GetconfpreciohoraOutput output = new GetconfpreciohoraOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaconfpreciohora(null);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfpreciohoraBlock(any(ConfPrecioHoraFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class))).thenReturn(output);
-
-        ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
-        request.setData(new ConfPrecioHoraFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfPrecioHora(request);
-        verify(meta4ClientPool, times(1)).getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class));
-    }
-    
-    @Test
-    public void getConfChallengeTpVenta() {
-        IcmParamcalconfchventaBlock entrada = new IcmParamcalconfchventaBlock(); 
-        GetconfchtpventaOutput output = new GetconfchtpventaOutput();
-        IcmListaconfchventaBlock block = new IcmListaconfchventaBlock(); 
-        block.getIcmListaconfchventaRecordSet().add(new IcmListaconfchventaRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaconfchventa(block);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfchventaBlock(any(ConfChTpVentaFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfchtpventa(any(IcmParamcalconfchventaBlock.class))).thenReturn(output);
-
-        ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
-        request.setData(new ConfChTpVentaFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfChallengeTpVenta(request);
-        verify(meta4ClientPool, times(1)).getconfchtpventa(any(IcmParamcalconfchventaBlock.class));
-    }
-    
-    @Test
-    public void getConfChallengeTpVentaNullOutput() {
-        IcmParamcalconfchventaBlock entrada = new IcmParamcalconfchventaBlock(); 
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfchventaBlock(any(ConfChTpVentaFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfchtpventa(any(IcmParamcalconfchventaBlock.class))).thenReturn(null);
-
-        ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
-        request.setData(new ConfChTpVentaFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfChallengeTpVenta(request);
-        verify(meta4ClientPool, times(1)).getconfchtpventa(any(IcmParamcalconfchventaBlock.class));
-    }
-    
-    @Test
-    public void getConfChallengeTpVentaNullPageNullData() {
-        IcmParamcalconfchventaBlock entrada = new IcmParamcalconfchventaBlock(); 
-        GetconfchtpventaOutput output = new GetconfchtpventaOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaconfchventa(null);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalconfchventaBlock(any(ConfChTpVentaFilterDto.class))).thenReturn(entrada);
-        when(meta4ClientPool.getconfchtpventa(any(IcmParamcalconfchventaBlock.class))).thenReturn(output);
-
-        ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
-        request.setData(new ConfChTpVentaFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getConfChallengeTpVenta(request);
-        verify(meta4ClientPool, times(1)).getconfchtpventa(any(IcmParamcalconfchventaBlock.class));
-    }
-    
-    /**/
-    
-    @Test
-    public void getPresupuestosRango() {
-        IcmParamcalpresupuestosrangoBlock entrada = new IcmParamcalpresupuestosrangoBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        GetpresupuestosrangoOutput output = new GetpresupuestosrangoOutput();
-        IcmListapresupuestosrangoBlock block = new IcmListapresupuestosrangoBlock(); 
-        block.getIcmListapresupuestosrangoRecordSet().add(new IcmListapresupuestosrangoRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmParametrospaginacion(paginacion);
-        output.setIcmListapresupuestosrango(block);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalpresupuestosrangoBlock(any(PresupuestosRangoFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.getpresupuestosrango(any(IcmParametrospaginacionBlock.class), any(IcmParamcalpresupuestosrangoBlock.class))).thenReturn(output);
-
-        PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
-        request.setData(new PresupuestosRangoFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getPresupuestosRango(request);
-        verify(meta4ClientPool, times(1)).getpresupuestosrango(any(IcmParametrospaginacionBlock.class), any(IcmParamcalpresupuestosrangoBlock.class));
-    }
-    
-    @Test
-    public void getPresupuestosRangoNullOutput() {
-        IcmParamcalpresupuestosrangoBlock entrada = new IcmParamcalpresupuestosrangoBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalpresupuestosrangoBlock(any(PresupuestosRangoFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.getpresupuestosrango(any(IcmParametrospaginacionBlock.class), any(IcmParamcalpresupuestosrangoBlock.class))).thenReturn(null);
-
-        PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
-        request.setData(new PresupuestosRangoFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getPresupuestosRango(request);
-        verify(meta4ClientPool, times(1)).getpresupuestosrango(any(IcmParametrospaginacionBlock.class), any(IcmParamcalpresupuestosrangoBlock.class));
-    }
-    
-    @Test
-    public void getPresupuestosRangoNullPageNullData() {
-        IcmParamcalpresupuestosrangoBlock entrada = new IcmParamcalpresupuestosrangoBlock(); 
-        IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-        GetpresupuestosrangoOutput output = new GetpresupuestosrangoOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmParametrospaginacion(null);
-        output.setIcmListapresupuestosrango(null);
-        
-        when(icmWsCalcIncomeMapper.asIcmParamcalpresupuestosrangoBlock(any(PresupuestosRangoFilterDto.class))).thenReturn(entrada);
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(meta4ClientPool.getpresupuestosrango(any(IcmParametrospaginacionBlock.class), any(IcmParamcalpresupuestosrangoBlock.class))).thenReturn(output);
-
-        PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
-        request.setData(new PresupuestosRangoFilterDto());
-        request.setPage(new PageDto(1, 100));
-        meta4IcmWsCalcIncomeServiceImpl.getPresupuestosRango(request);
-        verify(meta4ClientPool, times(1)).getpresupuestosrango(any(IcmParametrospaginacionBlock.class), any(IcmParamcalpresupuestosrangoBlock.class));
-    }
-    
-    
+  
 }

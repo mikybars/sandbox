@@ -33,7 +33,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="GETCONFCHTPVENTAReturn" type="{http://schemas.meta4.com/}GetconfchtpventaOutput"/&gt;
+ *         &lt;element name="GETTIENDASEMPLEADOReturn" type="{http://schemas.meta4.com/}GettiendasempleadoOutput"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -44,38 +44,38 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getconfchtpventaReturn"
+    "gettiendasempleadoReturn"
 })
-@XmlRootElement(name = "GETCONFCHTPVENTAResponse")
-public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+@XmlRootElement(name = "GETTIENDASEMPLEADOResponse")
+public class GETTIENDASEMPLEADOResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(name = "GETCONFCHTPVENTAReturn", required = true)
-    protected GetconfchtpventaOutput getconfchtpventaReturn;
+    @XmlElement(name = "GETTIENDASEMPLEADOReturn", required = true)
+    protected GettiendasempleadoOutput gettiendasempleadoReturn;
 
     /**
-     * Obtiene el valor de la propiedad getconfchtpventaReturn.
+     * Obtiene el valor de la propiedad gettiendasempleadoReturn.
      * 
      * @return
      *     possible object is
-     *     {@link GetconfchtpventaOutput }
+     *     {@link GettiendasempleadoOutput }
      *     
      */
-    public GetconfchtpventaOutput getGETCONFCHTPVENTAReturn() {
-        return getconfchtpventaReturn;
+    public GettiendasempleadoOutput getGETTIENDASEMPLEADOReturn() {
+        return gettiendasempleadoReturn;
     }
 
     /**
-     * Define el valor de la propiedad getconfchtpventaReturn.
+     * Define el valor de la propiedad gettiendasempleadoReturn.
      * 
      * @param value
      *     allowed object is
-     *     {@link GetconfchtpventaOutput }
+     *     {@link GettiendasempleadoOutput }
      *     
      */
-    public void setGETCONFCHTPVENTAReturn(GetconfchtpventaOutput value) {
-        this.getconfchtpventaReturn = value;
+    public void setGETTIENDASEMPLEADOReturn(GettiendasempleadoOutput value) {
+        this.gettiendasempleadoReturn = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -85,13 +85,13 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
         if (this == object) {
             return true;
         }
-        final GETCONFCHTPVENTAResponse that = ((GETCONFCHTPVENTAResponse) object);
+        final GETTIENDASEMPLEADOResponse that = ((GETTIENDASEMPLEADOResponse) object);
         {
-            GetconfchtpventaOutput lhsGETCONFCHTPVENTAReturn;
-            lhsGETCONFCHTPVENTAReturn = this.getGETCONFCHTPVENTAReturn();
-            GetconfchtpventaOutput rhsGETCONFCHTPVENTAReturn;
-            rhsGETCONFCHTPVENTAReturn = that.getGETCONFCHTPVENTAReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfchtpventaReturn", lhsGETCONFCHTPVENTAReturn), LocatorUtils.property(thatLocator, "getconfchtpventaReturn", rhsGETCONFCHTPVENTAReturn), lhsGETCONFCHTPVENTAReturn, rhsGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn!= null), (that.getconfchtpventaReturn!= null))) {
+            GettiendasempleadoOutput lhsGETTIENDASEMPLEADOReturn;
+            lhsGETTIENDASEMPLEADOReturn = this.getGETTIENDASEMPLEADOReturn();
+            GettiendasempleadoOutput rhsGETTIENDASEMPLEADOReturn;
+            rhsGETTIENDASEMPLEADOReturn = that.getGETTIENDASEMPLEADOReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "gettiendasempleadoReturn", lhsGETTIENDASEMPLEADOReturn), LocatorUtils.property(thatLocator, "gettiendasempleadoReturn", rhsGETTIENDASEMPLEADOReturn), lhsGETTIENDASEMPLEADOReturn, rhsGETTIENDASEMPLEADOReturn, (this.gettiendasempleadoReturn!= null), (that.gettiendasempleadoReturn!= null))) {
                 return false;
             }
         }
@@ -119,9 +119,9 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            GetconfchtpventaOutput theGETCONFCHTPVENTAReturn;
-            theGETCONFCHTPVENTAReturn = this.getGETCONFCHTPVENTAReturn();
-            strategy.appendField(locator, this, "getconfchtpventaReturn", buffer, theGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn!= null));
+            GettiendasempleadoOutput theGETTIENDASEMPLEADOReturn;
+            theGETTIENDASEMPLEADOReturn = this.getGETTIENDASEMPLEADOReturn();
+            strategy.appendField(locator, this, "gettiendasempleadoReturn", buffer, theGETTIENDASEMPLEADOReturn, (this.gettiendasempleadoReturn!= null));
         }
         return buffer;
     }
@@ -129,9 +129,9 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            GetconfchtpventaOutput theGETCONFCHTPVENTAReturn;
-            theGETCONFCHTPVENTAReturn = this.getGETCONFCHTPVENTAReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfchtpventaReturn", theGETCONFCHTPVENTAReturn), currentHashCode, theGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn!= null));
+            GettiendasempleadoOutput theGETTIENDASEMPLEADOReturn;
+            theGETTIENDASEMPLEADOReturn = this.getGETTIENDASEMPLEADOReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "gettiendasempleadoReturn", theGETTIENDASEMPLEADOReturn), currentHashCode, theGETTIENDASEMPLEADOReturn, (this.gettiendasempleadoReturn!= null));
         }
         return currentHashCode;
     }
@@ -152,18 +152,18 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETCONFCHTPVENTAResponse) {
-            final GETCONFCHTPVENTAResponse copy = ((GETCONFCHTPVENTAResponse) draftCopy);
+        if (draftCopy instanceof GETTIENDASEMPLEADOResponse) {
+            final GETTIENDASEMPLEADOResponse copy = ((GETTIENDASEMPLEADOResponse) draftCopy);
             {
-                Boolean getconfchtpventaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfchtpventaReturn!= null));
-                if (getconfchtpventaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    GetconfchtpventaOutput sourceGETCONFCHTPVENTAReturn;
-                    sourceGETCONFCHTPVENTAReturn = this.getGETCONFCHTPVENTAReturn();
-                    GetconfchtpventaOutput copyGETCONFCHTPVENTAReturn = ((GetconfchtpventaOutput) strategy.copy(LocatorUtils.property(locator, "getconfchtpventaReturn", sourceGETCONFCHTPVENTAReturn), sourceGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn!= null)));
-                    copy.setGETCONFCHTPVENTAReturn(copyGETCONFCHTPVENTAReturn);
+                Boolean gettiendasempleadoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.gettiendasempleadoReturn!= null));
+                if (gettiendasempleadoReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GettiendasempleadoOutput sourceGETTIENDASEMPLEADOReturn;
+                    sourceGETTIENDASEMPLEADOReturn = this.getGETTIENDASEMPLEADOReturn();
+                    GettiendasempleadoOutput copyGETTIENDASEMPLEADOReturn = ((GettiendasempleadoOutput) strategy.copy(LocatorUtils.property(locator, "gettiendasempleadoReturn", sourceGETTIENDASEMPLEADOReturn), sourceGETTIENDASEMPLEADOReturn, (this.gettiendasempleadoReturn!= null)));
+                    copy.setGETTIENDASEMPLEADOReturn(copyGETTIENDASEMPLEADOReturn);
                 } else {
-                    if (getconfchtpventaReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.getconfchtpventaReturn = null;
+                    if (gettiendasempleadoReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.gettiendasempleadoReturn = null;
                     }
                 }
             }
@@ -172,7 +172,7 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
     }
 
     public Object createNewInstance() {
-        return new GETCONFCHTPVENTAResponse();
+        return new GETTIENDASEMPLEADOResponse();
     }
 
 }

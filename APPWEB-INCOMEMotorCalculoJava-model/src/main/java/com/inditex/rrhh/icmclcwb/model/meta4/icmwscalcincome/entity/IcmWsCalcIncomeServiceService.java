@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "Icm_Ws_Calc_IncomeServiceService", targetNamespace = "http://schemas.meta4.com/", wsdlLocation = "http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME?wsdl=1")
+@WebServiceClient(name = "Icm_Ws_Calc_IncomeServiceService", targetNamespace = "http://schemas.meta4.com/", wsdlLocation = "https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME?wsdl=1")
 public class IcmWsCalcIncomeServiceService
     extends Service
 {
@@ -30,7 +30,7 @@ public class IcmWsCalcIncomeServiceService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME?wsdl=1");
+            url = new URL("https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME?wsdl=1");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

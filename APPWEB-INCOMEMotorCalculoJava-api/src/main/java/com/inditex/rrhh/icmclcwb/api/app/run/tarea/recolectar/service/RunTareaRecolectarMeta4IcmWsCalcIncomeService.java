@@ -39,14 +39,4 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void configuraciones(@NotNull @Valid final RunTareaDto runTarea);
 
-    void confChallengeDiasMinimosByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void presupuestosWlocByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void confPrecioHoraByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void confChallengeTipoVentaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
-    void presupuestosRangoByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
 }

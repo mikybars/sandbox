@@ -19,19 +19,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -52,17 +43,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 
@@ -321,65 +305,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
 
     }
-    
-    @Test
-    public void getConfChallengeDiasMinimos() {
-        when(meta4IcmWsCalcIncomeSessionService.getConfChallengeDiasMinimos(any(ConfChDiasMinimosRequestDto.class))).thenReturn(new ArrayList<ConfChDiasMinimosResultItemDto>());
-
-        ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
-        request.setData(new ConfChDiasMinimosFilterDto());
-        request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfChallengeDiasMinimos(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getConfChallengeDiasMinimos(ArgumentMatchers.any(ConfChDiasMinimosRequestDto.class));
-    }
-    
-    @Test
-    public void getPresupuestosWloc() {
-        when(meta4IcmWsCalcIncomeSessionService.getPresupuestosWloc(any(PresupuestosWlocRequestDto.class))).thenReturn(new ArrayList<PresupuestosWlocResultItemDto>());
-
-        PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
-        request.setData(new PresupuestosWlocFilterDto());
-        request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresupuestosWloc(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getPresupuestosWloc(ArgumentMatchers.any(PresupuestosWlocRequestDto.class));
-    }
-    
-    @Test
-    public void getConfPrecioHora() {
-        when(meta4IcmWsCalcIncomeSessionService.getConfPrecioHora(any(ConfPrecioHoraRequestDto.class))).thenReturn(new ArrayList<ConfPrecioHoraResultItemDto>());
-
-        ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
-        request.setData(new ConfPrecioHoraFilterDto());
-        request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfPrecioHora(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getConfPrecioHora(ArgumentMatchers.any(ConfPrecioHoraRequestDto.class));
-    }
-    
-    @Test
-    public void getConfChallengeTpVenta() {
-        when(meta4IcmWsCalcIncomeSessionService.getConfChallengeTpVenta(any(ConfChTpVentaRequestDto.class))).thenReturn(new ArrayList<ConfChTpVentaResultItemDto>());
-
-        ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
-        request.setData(new ConfChTpVentaFilterDto());
-        request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfChallengeTpVenta(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getConfChallengeTpVenta(ArgumentMatchers.any(ConfChTpVentaRequestDto.class));
-    }
-    
-    @Test
-    public void getPresupuestosRango() {
-        when(meta4IcmWsCalcIncomeSessionService.getPresupuestosRango(any(PresupuestosRangoRequestDto.class))).thenReturn(new ArrayList<PresupuestosRangoResultItemDto>());
-
-        PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
-        request.setData(new PresupuestosRangoFilterDto());
-        request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresupuestosRango(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getPresupuestosRango(ArgumentMatchers.any(PresupuestosRangoRequestDto.class));
-    }
+ 
     
 }

@@ -41,14 +41,4 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> configuracionesByRunTarea(final RunTareaDto runTarea);
 
-    CompletableFuture<Void> confChallengeDiasMinimosByRunTarea(final RunTareaDto runTarea);
-
-    CompletableFuture<Void> presupuestosWlocByRunTarea(final RunTareaDto runTarea);
-
-    CompletableFuture<Void> confPrecioHoraByRunTarea(final RunTareaDto runTarea);
-
-    CompletableFuture<Void> confChallengeTipoVentaByRunTarea(final RunTareaDto runTarea);
-
-    CompletableFuture<Void> presupuestosRangoByRunTarea(final RunTareaDto runTarea);
-
 }

@@ -11,20 +11,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterParametersDto;
@@ -42,12 +33,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFi
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultErrorDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
@@ -61,11 +46,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacade
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionespoliticaRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchdiasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchventaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconforigenRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasRecord;
@@ -73,19 +54,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestr
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaperiodosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapoliticasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestosrangoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestoswlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavalorespoliticaRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
@@ -94,14 +66,12 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalo
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
@@ -615,185 +585,21 @@ public interface IcmWsCalcIncomeMapper {
     SaveResultErrorDto asSaveResultErrorDto(IcmErroresguardadoRecord src);
 
     @InheritInverseConfiguration
-    IcmParamcalconforigenBlock asIcmParamconfBlock(ConfiguracionesRequestDto src);
+    IcmParamconfBlock asIcmParamconfBlock(ConfiguracionesRequestDto src);
 
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE)
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE)
-    @Mapping(target = "items", source = "icmParamcalconforigenRecordSet")
-    ConfiguracionesRequestDto asConfiguracionesRequestDto(IcmParamcalconforigenBlock src);
+    @Mapping(target = "items", source = "icmParamconfRecordSet")
+    ConfiguracionesRequestDto asConfiguracionesRequestDto(IcmParamconfBlock src);
 
     @InheritInverseConfiguration
-    IcmParamcalconforigenRecord asIcmParamconfRecord(ConfiguracionesRequestItemDto src);
+    IcmParamconfRecord asIcmParamconfRecord(ConfiguracionesRequestItemDto src);
 
-    ConfiguracionesRequestItemDto asConfiguracionesRequestItemDto(IcmParamcalconforigenRecord src);
+    ConfiguracionesRequestItemDto asConfiguracionesRequestItemDto(IcmParamconfRecord src);
 
     @Mapping(target = "items", ignore = true)
     ConfiguracionesResponseDto asConfiguracionesResponseDto(GetconfiguracionOutput src, String idOrigen);
 
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "src.m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "src.m4AutoGeneratedToDelete")
-    @Mapping(target = "fechaInicio", source = "src.fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaFin", source = "src.fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idTipoHora", source = "src.idtphorafija")
-    @Mapping(target = "idOrigen", source = "idOrigen")
-    @Mapping(target = "icmCkVentaImpuestos", source = "src.chkventaimpuestos")
-    ConfiguracionItemDto asConfiguracionItemDto(IcmListaconforigenRecord src, String idOrigen);
-    
-    @InheritInverseConfiguration
-    IcmParamcalconfchdiasBlock asIcmParamcalconfchdiasBlock(ConfChDiasMinimosFilterDto src);
-
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "item", source = "icmParamcalconfchdiasRecordSet")
-    ConfChDiasMinimosFilterDto asConfChDiasMinimosFilterDto(IcmParamcalconfchdiasBlock src);
-    
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idTipoCalculo", source = "idtpcalculo")
-    @Mapping(target = "numDias", source = "numdias")
-    ConfChDiasMinimosResultItemDto asConfChDiasMinimosResultItemDto(IcmListaconfchdiasRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaconfchdiasRecord asIcmListapoliticasRecord(ConfChDiasMinimosResultItemDto src);
-
-    List<ConfChDiasMinimosResultItemDto> asConfChDiasMinimosResultItemDto(List<IcmListaconfchdiasRecord> src);
-    
-    @InheritInverseConfiguration
-    IcmParamcalpresupuestoswlocBlock asIcmParamcalpresupuestoswlocBlock(PresupuestosWlocFilterDto src);
-
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idEmpresa", source = "idempresa")
-    @Mapping(target = "item", source = "icmParamcalpresupuestoswlocRecordSet")
-    PresupuestosWlocFilterDto asPresupuestosWlocFilterDto(IcmParamcalpresupuestoswlocBlock src);
-    
-    @InheritInverseConfiguration
-    IcmParamcalpresupuestoswlocRecord asIcmParamcalpresupuestoswlocRecord(PresupuestosWlocFilterParametersDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
-    @Mapping(target = "idTpPresupuesto", source = "idtppresupuesto")
-    PresupuestosWlocFilterParametersDto asPresupuestosWlocFilterParametersDto(IcmParamcalpresupuestoswlocRecord src);
-    
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idSeccion", source = "idseccion")
-    @Mapping(target = "idEmpresa", source = "idempresa")
-    @Mapping(target = "banda", source = "banda")
-    @Mapping(target = "ordinal", source = "ordinal")
-    @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
-    @Mapping(target = "idTpPresupuesto", source = "idtppresupuesto")
-    @Mapping(target = "importeConImpuestos", source = "importeconimpuestos")
-    @Mapping(target = "importeSinImpuestos", source = "importesinimpuestos")
-    PresupuestosWlocResultItemDto asPresupuestosWlocResultItemDto(IcmListapresupuestoswlocRecord src);
-
-    @InheritInverseConfiguration
-    IcmListapresupuestoswlocRecord asIcmListapresupuestoswlocRecord(PresupuestosWlocResultItemDto src);
-
-    List<PresupuestosWlocResultItemDto> asPresupuestosWlocResultItemDto(List<IcmListapresupuestoswlocRecord> src);
-    
-    @InheritInverseConfiguration
-    IcmParamcalconfpreciohoraBlock asIcmParamcalconfpreciohoraBlock(ConfPrecioHoraFilterDto src);
-
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "item", source = "icmParamcalconfpreciohoraRecordSet")
-    ConfPrecioHoraFilterDto asConfPrecioHoraFilterDto(IcmParamcalconfpreciohoraBlock src);
-    
-    @InheritInverseConfiguration
-    IcmParamcalconfpreciohoraRecord asIcmParamcalpresupuestoswlocRecord(ConfPrecioHoraFilterParametersDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    ConfPrecioHoraFilterParametersDto asConfPrecioHoraFilterParametersDto(IcmParamcalconfpreciohoraRecord src);
-    
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idTipoHoraComis", source = "tipohoracomis")
-    @Mapping(target = "idTipoHoraIncptpo", source = "tipohoraincptpo")
-    ConfPrecioHoraResultItemDto asConfPrecioHoraResultItemDto(IcmListaconfpreciohoraRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaconfpreciohoraRecord asIcmListaconfpreciohoraRecord(ConfPrecioHoraResultItemDto src);
-
-    List<ConfPrecioHoraResultItemDto> asConfPrecioHoraResultItemDto(List<IcmListaconfpreciohoraRecord> src);
-    
-    @InheritInverseConfiguration
-    IcmParamcalconfchventaBlock asIcmParamcalconfchventaBlock(ConfChTpVentaFilterDto src);
-
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idCadena", source = "idcadena")
-    @Mapping(target = "idEmpresa", source = "idempresa")
-    @Mapping(target = "item", source = "icmParamcalconfchventaRecordSet")
-    ConfChTpVentaFilterDto asConfChTpVentaFilterDto(IcmParamcalconfchventaBlock src);
-    
-    @InheritInverseConfiguration
-    IcmParamcalconfchventaRecord asIcmParamcalconfchventaRecord(ConfChTpVentaFilterParametersDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    ConfChTpVentaFilterParametersDto asConfChTpVentaFilterParametersDto(IcmParamcalconfchventaRecord src);
-    
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idAgrupacion", source = "idagrupacion")
-    @Mapping(target = "idConceptoVenta", source = "idconceptoventa")
-    ConfChTpVentaResultItemDto asConfPrecioHoraResultItemDto(IcmListaconfchventaRecord src);   
-    
-    @InheritInverseConfiguration
-    IcmListaconfchventaRecord asIcmListaconfchventaRecord(ConfChTpVentaResultItemDto src);
-
-    List<ConfChTpVentaResultItemDto> asConfChTpVentaResultItemDto(List<IcmListaconfchventaRecord> src);
-    
-    @InheritInverseConfiguration
-    IcmParamcalpresupuestosrangoBlock asIcmParamcalpresupuestosrangoBlock(PresupuestosRangoFilterDto src);
-
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idEmpresa", source = "idempresa")
-    @Mapping(target = "item", source = "icmParamcalpresupuestosrangoRecordSet")
-    PresupuestosRangoFilterDto asPresupuestosRangoFilterDto(IcmParamcalpresupuestosrangoBlock src);
-    
-    @InheritInverseConfiguration
-    IcmParamcalpresupuestosrangoRecord asIcmParamcalpresupuestosrangoRecord(PresupuestosRangoFilterParametersDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "idTpPresupuesto", source = "idtppresupuesto")
-    PresupuestosRangoFilterParametersDto asPresupuestosRangoFilterParametersDto(IcmParamcalpresupuestosrangoRecord src);
-    
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idEmpresa", source = "idempresa")
-    @Mapping(target = "idTpPresupuesto", source = "idtppresupuesto")
-    PresupuestosRangoResultItemDto asPresupuestosRangoResultItemDto(IcmListapresupuestosrangoRecord src);   
-    
-    @InheritInverseConfiguration
-    IcmListapresupuestosrangoRecord asIcmListapresupuestosrangoRecord(PresupuestosRangoResultItemDto src);    
-    
-    List<PresupuestosRangoResultItemDto> asPresupuestosRangoResultItemDto(List<IcmListapresupuestosrangoRecord> src);
 
 }
