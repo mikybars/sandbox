@@ -300,14 +300,44 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            CompletableFuture<Void> cfCalcularImporteComisionVentaODevolucion = runTareaProcesarVentaAsyncService.calcularImporteComisionVentaODevolucion(runTarea);
+            AsyncUtils.exceptionally(cfCalcularImporteComisionVentaODevolucion, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            CompletableFuture<Void> cfUpdateActivoNegativoTotalizado = runTareaProcesarVentaAsyncService.updateActivoNegativoTotalizado(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoNegativoTotalizado, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+            
+            CompletableFuture<Void> cfTotalizarPresupuesto = runTareaProcesarVentaAsyncService.totalizarPresupuesto(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarPresupuesto, cf, cfWait);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            CompletableFuture<Void> cfUpdateActivoPresupuesto = runTareaProcesarVentaAsyncService.updateActivoExcepcionada(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoPresupuesto, cf, cfWait);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            CompletableFuture<Void> cfUpdateActivoCongelada = runTareaProcesarVentaAsyncService.updateActivoCongelada(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoCongelada, cf, cfWait);
+
             CompletableFuture<Void> cfUpdateActivoPresupuestoBandaExcepcion = runTareaProcesarCondicionesAsyncService.updateActivoPresupuestosBandaExcepcion(runTarea);
             AsyncUtils.exceptionally(cfUpdateActivoPresupuestoBandaExcepcion, cf, cfWait);
 
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
             CompletableFuture<Void> cfUpdateActivoPresupuestoBandasSinExcepcion = runTareaProcesarCondicionesAsyncService.updateActivoPresupuestosBandasSinExcepcion(runTarea);
             AsyncUtils.exceptionally(cfUpdateActivoPresupuestoBandasSinExcepcion, cf, cfWait);
-
-            CompletableFuture<Void> cfCalcularImporteComisionVentaODevolucion = runTareaProcesarVentaAsyncService.calcularImporteComisionVentaODevolucion(runTarea);
-            AsyncUtils.exceptionally(cfCalcularImporteComisionVentaODevolucion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
@@ -319,26 +349,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfRelacionarPresupuestosEstructurasDesplazamiento = runTareaProcesarCondicionesAsyncService.relacionarPresupuestosEstructurasDesplazamiento(runTarea.getTarea());
             AsyncUtils.exceptionally(cfRelacionarPresupuestosEstructurasDesplazamiento, cf, cfWait);
 
-            CompletableFuture<Void> cfUpdateActivoNegativoTotalizado = runTareaProcesarVentaAsyncService.updateActivoNegativoTotalizado(runTarea);
-            AsyncUtils.exceptionally(cfUpdateActivoNegativoTotalizado, cf, cfWait);
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-            
-            CompletableFuture<Void> cfTotalizarPresupuesto = runTareaProcesarVentaAsyncService.totalizarPresupuesto(runTarea);
-            AsyncUtils.exceptionally(cfTotalizarPresupuesto, cf, cfWait);
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-            
-            CompletableFuture<Void> cfUpdateActivoPresupuesto = runTareaProcesarVentaAsyncService.updateActivoExcepcionada(runTarea);
-            AsyncUtils.exceptionally(cfUpdateActivoPresupuesto, cf, cfWait);
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-            
-            CompletableFuture<Void> cfUpdateActivoCongelada = runTareaProcesarVentaAsyncService.updateActivoCongelada(runTarea);
-            AsyncUtils.exceptionally(cfUpdateActivoCongelada, cf, cfWait);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/

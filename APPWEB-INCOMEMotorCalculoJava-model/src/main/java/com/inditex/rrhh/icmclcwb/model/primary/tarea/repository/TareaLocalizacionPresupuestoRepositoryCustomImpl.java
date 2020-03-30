@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -94,8 +95,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
     @Override
     public void updateActivoBandasSinExcepcion(TareaDto tarea) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        //TODO [JAVIEREV] ahora mismo esta utilizando la venta general, pero en el futuro deberia usarse la venta congelada
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

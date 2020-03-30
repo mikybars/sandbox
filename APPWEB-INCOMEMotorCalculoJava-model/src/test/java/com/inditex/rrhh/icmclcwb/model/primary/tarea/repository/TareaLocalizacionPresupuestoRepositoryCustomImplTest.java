@@ -25,6 +25,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -165,13 +166,12 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_UPDATE_ACTIVO_BANDAS_SIN_EXCEPCION, sqlCaptor.getValue());
 
-        // Parámetros de la consulta: idTipoImporteVenta, idTarea, icmCkExcepcion, activo, nuevoActivo
+        // Parámetros de la consulta: idTipoGrupoDato, idTarea, icmCkExcepcion, activo, nuevoActivo
         MapSqlParameterSource params = paramsCaptor.getValue();
         assertEquals(5, params.getValues().size());
         // idTipoGrupoDato
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
-        //TODO [JAVIEREV] Usar el tipo correcto de venta
-        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));

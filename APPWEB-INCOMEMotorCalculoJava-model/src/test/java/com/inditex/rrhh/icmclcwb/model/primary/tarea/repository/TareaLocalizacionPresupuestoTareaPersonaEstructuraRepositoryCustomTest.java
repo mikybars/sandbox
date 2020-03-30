@@ -57,9 +57,9 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomT
         assertEquals(SQL_RELACIONAR_ESTRUCTURA_SIN_DESPLAZAMIENTO, sqlCaptor.getValue());
 
         //Parámetros de la consulta: idTarea, incluidoChallenge, tiposCalculo, tiposCalculoChallengeLocalizacion,
-        // tiposCalculoChallengePrecioHora, activo, tiposDato
+        // tiposCalculoChallengePrecioHora, activo
         MapSqlParameterSource params = paramsCaptor.getValue();
-        assertEquals(7, params.getValues().size());
+        assertEquals(6, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -81,11 +81,6 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomT
         // activo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-        // tiposDato
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-            TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-            TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()), params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO));
     }
 
     @Test
@@ -98,9 +93,9 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomT
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_RELACIONAR_ESTRUCTURA_DESPLAZAMIENTO, sqlCaptor.getValue());
 
-        //Parámetros de la consulta: idTarea, incluidoChallenge, tiposCalculo, activo, tiposDato
+        //Parámetros de la consulta: idTarea, incluidoChallenge, tiposCalculo, activo
         MapSqlParameterSource params = paramsCaptor.getValue();
-        assertEquals(6, params.getValues().size());
+        assertEquals(5, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -118,11 +113,6 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomT
         // activo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-        // tiposDato
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-            TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-            TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()), params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO));
     }
 
 }
