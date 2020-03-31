@@ -178,7 +178,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
             tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-            TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId());
+            TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUDIOVENTA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
