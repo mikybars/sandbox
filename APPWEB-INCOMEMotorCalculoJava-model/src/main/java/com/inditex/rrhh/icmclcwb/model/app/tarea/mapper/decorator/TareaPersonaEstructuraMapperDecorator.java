@@ -62,7 +62,9 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                 } else {
                     itemBase.getIcmListaValoresBase().forEach(itemBaseValor -> {
                         Integer itemBaseValorSeccion = Integer.valueOf(itemBaseValor.getIdSeccion());
-                        if (AppConstants.SECCION_4.equals(itemBaseValorSeccion)) {
+                        if (AppConstants.SECCION_4.equals(itemBaseValorSeccion) 
+                                && !itemBase.getIdTipoCalculo().equals(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId())
+                                && !itemBase.getIdTipoCalculo().equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())) {
                             for (Integer itemBaseValorSeccionFicticia : AppConstants.SECCIONES) {
                                 result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(itemPadre, itemBase, itemBaseValor, itemBaseValorSeccionFicticia, tarea));
                             }
@@ -91,7 +93,9 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                         } else {
                             itemDesplazamiento.getIcmListaValoresDestino().forEach(itemDesplazamientoValor -> {
                                 Integer itemDesplazamientoValorSeccion = Integer.valueOf(itemDesplazamientoValor.getIdSeccion());
-                                if (AppConstants.SECCION_4.equals(itemDesplazamientoValorSeccion)) {
+                                if (AppConstants.SECCION_4.equals(itemDesplazamientoValorSeccion)
+                                        && !itemBase.getIdTipoCalculo().equals(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId())
+                                        && !itemBase.getIdTipoCalculo().equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())) {
                                     for (Integer itemBaseValorSeccionFicticia : AppConstants.SECCIONES) {
                                         if (TipoOpcionCalculoEnum.MEJOR_OPCION.equals(opcion)) {
                                             result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(itemPadre, itemBase, itemDesplazamiento, itemDesplazamientoValor, tarea, counter.incrementAndGet(), TipoOpcionCalculoEnum.ORIGEN.getId(), opcion.getId(), itemBaseValorSeccionFicticia, Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasOrigen()), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasDestino())));
