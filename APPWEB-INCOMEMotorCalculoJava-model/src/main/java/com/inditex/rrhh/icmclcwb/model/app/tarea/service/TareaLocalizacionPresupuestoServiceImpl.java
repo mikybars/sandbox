@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoListDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -37,5 +39,11 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
             .builder()
             .presupuestos(tareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos(tarea))
             .build();
+    }
+
+    @Override
+    @Cacheable(value = "itx.icmlcwb.periodo_presupuestos_by_id_tarea", key = "{#idTarea}")
+    public PeriodoDto findPeriodoPresupuestoYTrabajo(@NotNull Long idTarea) {
+        return tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(idTarea);
     }
 }

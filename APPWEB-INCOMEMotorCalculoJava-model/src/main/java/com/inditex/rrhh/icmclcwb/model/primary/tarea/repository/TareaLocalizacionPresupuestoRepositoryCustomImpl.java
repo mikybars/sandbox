@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -27,6 +26,9 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos']}")
     private String sqlFindPresupuestos;
+
+    @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo']}")
+    private String sqlFindPeriodoPresupuestoYTrabajo;
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandaExcepcion']}")
     private String sqlUpdateActivoBandaExcepcion;
@@ -80,6 +82,20 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
                 .cclIdSeccion(rs.getString(SqlPrimaryConstants.SQL_RESULT_SECCION).toLowerCase())
                 .build()
         );
+    }
+
+    @Override
+    public PeriodoDto findPeriodoPresupuestoYTrabajo(Long idTarea) {
+
+        MapSqlParameterSource maps = new MapSqlParameterSource();
+        maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        return namedParameterJdbcTemplate.queryForObject(sqlFindPeriodoPresupuestoYTrabajo, maps, (rs, rowNum) ->
+            PeriodoDto
+                .builder()
+                .fechaFinPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
+                .fechaInicioPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
+                .build()
+            );
     }
 
     @Override
