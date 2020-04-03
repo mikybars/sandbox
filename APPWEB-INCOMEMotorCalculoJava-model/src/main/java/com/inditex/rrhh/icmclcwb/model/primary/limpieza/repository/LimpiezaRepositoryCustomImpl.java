@@ -9,10 +9,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,11 +16,15 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepositoryCustom;
 
@@ -169,6 +169,21 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaConfiguracion']}")
     private String sqlLimpiezaTareaConfiguracion;
     
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuesto']}")
+    private String sqlLimpiezaTareaLocalizacionPresupuesto;
+    
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuestoVenta']}")
+    private String sqlLimpiezaTareaLocalizacionPresupuestoVenta;
+    
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaConfiguracionChallengeDiasMinimos']}")
+    private String sqlLimpiezaTareaConfiguracionChallengeDiasMinimos;
+    
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaConfiguracionPrecioHora']}")
+    private String sqlLimpiezaTareaConfiguracionPrecioHora;
+    
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaAgrupacionConfiguracionChallengeTipoVenta']}")
+    private String sqlLimpiezaTareaAgrupacionConfiguracionChallengeTipoVenta;
+    
     @Value("${app.envars.limpieza.batch-size.default:${app.envars.repository.batch-size.default}}")
     private int batchSize;
     
@@ -295,6 +310,23 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
         namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaConfiguracion,
             idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
+        
+        namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionPresupuesto,
+                idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
+        
+        for (List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodOrigenBatchArgs, batchSize)) {
+            namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaLocalizacionPresupuestoVenta,
+                    iter.toArray(new MapSqlParameterSource[0]));
+        }
+        
+        namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaConfiguracionChallengeDiasMinimos,
+                idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
+        
+        namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaConfiguracionPrecioHora,
+                idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
+        
+        namedParameterJdbcTemplate.batchUpdate(sqlLimpiezaTareaAgrupacionConfiguracionChallengeTipoVenta,
+                idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
         
     }
 

@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
@@ -80,6 +81,11 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     @Cacheable(value = "itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea", key = "{#idTarea}")
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull final Long idTarea) {
         return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
+    }
+    
+    @Override
+    public List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NotNull final Long idTarea) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
     }
 
     //TODO [COMUN] No se está usando.

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
@@ -32,5 +33,7 @@ public interface TareaPersonaHistoricoService {
     PeriodoDto findPeriodoByIdTareaDto(@NotNull final Long idTarea);
 
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull final Long idTarea);
+
+    List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NotNull final Long idTarea);
 
 }

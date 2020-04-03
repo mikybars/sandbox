@@ -129,5 +129,21 @@
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaConfiguracion">
     <![CDATA[DELETE FROM TAREA_CONFIGURACION WHERE ID_TAREA = :idTarea]]>
   </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuesto">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESUPUESTO WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuestoVenta">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESUPUESTO_VENTA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaConfiguracionChallengeDiasMinimos">
+    <![CDATA[DELETE FROM TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaConfiguracionPrecioHora">
+    <![CDATA[DELETE FROM TAREA_CONFIGURACION_PRECIO_HORA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionConfiguracionChallengeTipoVenta">
+    <![CDATA[DELETE FROM TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+
 
 </properties>

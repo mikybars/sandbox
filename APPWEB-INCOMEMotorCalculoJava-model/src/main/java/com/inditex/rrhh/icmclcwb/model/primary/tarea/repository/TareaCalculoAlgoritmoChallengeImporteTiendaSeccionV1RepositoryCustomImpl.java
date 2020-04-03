@@ -25,13 +25,11 @@ public class TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCusto
         extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         implements TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom {
     
-//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.minimos.where']}")
     @Getter
     private String sqlCalcular;
 
-//    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.minimos.where']}")
     @Getter
     private String sqlCalcularBase;
     
@@ -59,6 +57,8 @@ public class TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCusto
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, algoritmo.getTipoComision().stream().map(TipoComisionDto::getId).collect(Collectors.toList()));
         map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDto::getId).collect(Collectors.toList()));
