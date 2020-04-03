@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -85,6 +86,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
     }
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository", key = "{#idTarea}")
     public PeriodoDto findPeriodoPresupuestoYTrabajo(Long idTarea) {
 
         MapSqlParameterSource maps = new MapSqlParameterSource();
