@@ -9,4 +9,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class PtrFilterPropertiesDto extends GenericFilterPropertiesDto {
 
+    public Integer periodSize;
+
+    public PtrPageEnum periodType;
+
 }

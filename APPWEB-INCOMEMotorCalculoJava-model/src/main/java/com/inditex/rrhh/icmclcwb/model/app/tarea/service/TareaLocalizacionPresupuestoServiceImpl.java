@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoListDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresupuestoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustom;
@@ -55,16 +55,16 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
     }
 
     @Override
-    @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page", key = "{#idTarea, #page}")
-    public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrPageDto page) {
-        return findListaPeriodosPresupestoYTrabajo(idTarea, page, 0);
+    @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page", key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType}")
+    public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrFilterPropertiesDto filterProperties) {
+        return findListaPeriodosPresupestoYTrabajo(idTarea, filterProperties, 0);
     }
 
     @Override
-    @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days", key = "{#idTarea, #page, #recolectarProperies}")
-    public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrPageDto page,
+    @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days", key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType, #recolectarProperties.daysNumber}")
+    public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrFilterPropertiesDto filterProperties,
         RecolectarPropertiesDto recolectarProperties) {
-        return findListaPeriodosPresupestoYTrabajo(idTarea, page, recolectarProperties.getDaysNumber());
+        return findListaPeriodosPresupestoYTrabajo(idTarea, filterProperties, recolectarProperties.getDaysNumber());
     }
 
     private List<PeriodoDto> findListaPeriodosPresupestoYTrabajoMonths(PeriodoDto periodo, Integer numMonths) {
@@ -99,17 +99,17 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
         return periodos;
     }
 
-    private List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(Long idTarea, @NotNull PtrPageDto page, Integer daysToAdd) {
+    private List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(Long idTarea, @NotNull PtrFilterPropertiesDto filterProperties, Integer daysToAdd) {
         PeriodoDto periodo = tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(idTarea);
 
         List<PeriodoDto> periodos = Collections.singletonList(periodo);
-        if (page.getSize() > 0) {
-            switch (page.getType()) {
+        if (filterProperties.getPeriodSize() > 0) {
+            switch (filterProperties.getPeriodType()) {
                 case DAYS:
-                    periodos = findListaPeriodosPresupestoYTrabajoDays(periodo, page.getSize());
+                    periodos = findListaPeriodosPresupestoYTrabajoDays(periodo, filterProperties.getPeriodSize());
                     break;
                 case MONTHS:
-                    periodos = findListaPeriodosPresupestoYTrabajoMonths(periodo, page.getSize());
+                    periodos = findListaPeriodosPresupestoYTrabajoMonths(periodo, filterProperties.getPeriodSize());
             }
         }
 

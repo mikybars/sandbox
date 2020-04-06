@@ -5,7 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPro
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -19,9 +19,9 @@ public interface TareaLocalizacionPresupuestoService {
 
     PeriodoDto findPeriodoPresupuestoYTrabajo(@NotNull final Long idTarea);
 
-    List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrPageDto page,
+    List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrFilterPropertiesDto filterProperties,
             RecolectarPropertiesDto recolectarProperties);
 
-    List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrPageDto page);
+    List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrFilterPropertiesDto filterProperties);
 
 }

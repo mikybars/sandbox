@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustomImpl;
 import org.junit.Test;
@@ -36,12 +36,10 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
         when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class))).thenReturn(periodo);
 
-        PtrPageDto page = PtrPageDto
-            .builder()
-            .size(1)
-            .type(PtrPageEnum.MONTHS)
-            .build();
-        List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L, page);
+        PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+        filter.setPeriodSize(1);
+        filter.setPeriodType(PtrPageEnum.MONTHS);
+        List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L, filter);
 
         // Periodos: 3 meses
         assertEquals(3, periodos.size());
@@ -66,13 +64,11 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
 
         RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
         recolectarProperties.setDaysNumber(3);
-        PtrPageDto page = PtrPageDto
-            .builder()
-            .size(1)
-            .type(PtrPageEnum.MONTHS)
-            .build();
+        PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+        filter.setPeriodSize(1);
+        filter.setPeriodType(PtrPageEnum.MONTHS);
         List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
-            page, recolectarProperties);
+            filter, recolectarProperties);
 
         // Periodos: 3 meses, el último con 3 días extra
         assertEquals(3, periodos.size());
@@ -95,12 +91,10 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
         when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class))).thenReturn(periodo);
 
-        PtrPageDto page = PtrPageDto
-            .builder()
-            .size(15)
-            .type(PtrPageEnum.DAYS)
-            .build();
-        List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L, page);
+        PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+        filter.setPeriodSize(15);
+        filter.setPeriodType(PtrPageEnum.DAYS);
+        List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L, filter);
 
         // Periodos: 6 quincenas y un resto
         assertEquals(7, periodos.size());
@@ -137,13 +131,11 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
 
         RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
         recolectarProperties.setDaysNumber(3);
-        PtrPageDto page = PtrPageDto
-            .builder()
-            .size(15)
-            .type(PtrPageEnum.DAYS)
-            .build();
+        PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+        filter.setPeriodSize(15);
+        filter.setPeriodType(PtrPageEnum.DAYS);
         List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
-            page, recolectarProperties);
+            filter, recolectarProperties);
 
         // Periodos: 6 quincenas y un resto
         assertEquals(7, periodos.size());

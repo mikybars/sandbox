@@ -11,8 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
-import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
@@ -112,17 +111,13 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            PtrPageDto page = PtrPageDto
-                .builder()
-                .size(1)
-                .type(PtrPageEnum.MONTHS)
-                .build();
+            PtrFilterPropertiesDto filter = presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
                             tarea.getId(), tareaAmbito.getCclIdOrigen()),
-                    presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPageSize())) {
+                    filter.getMaxPageSize())) {
                 for (PeriodoDto periodo : tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(
-                            tarea.getId(), page, recolectarProperties)) {
+                            tarea.getId(), filter, recolectarProperties)) {
                     List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                     PtrPresenciaDetalleRequestDto paramPresenciasDetalle = tareaMapper
                         .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(tarea,
@@ -137,8 +132,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
 
                     PtrPresenciaDetalleResponseDto data = AsyncUtils.get(cfData);
                     if (data != null && CollectionUtils.isNotEmpty(data.getPresenciasDetalle())) {
-                        AsyncUtils.checkAsyncAvaliable(cfPersist, presenciasProperties
-                            .get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter().getMaxPersistenceSize());
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, filter.getMaxPersistenceSize());
                         AsyncUtils.exceptionally(tareaLocalizacionPersonaPresenciaAsyncService
                             .savePtrPresenciaDetalle(data.getPresenciasDetalle(), tarea), cf, cfPersist);
                     }
