@@ -62,11 +62,8 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
     @Override
     public List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
             @Valid final List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid final TareaDto tarea) {
-        //TODO [JAVIEREV] eliminar esto y  dejarlo como estaba
-        List<TareaPersonaEstructuraDto> tareaPersonaEstructuraDtos = tareaPersonaEstructuraMapper
+        return tareaPersonaEstructuraMapper
             .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
-        tareaPersonaEstructuraDtos.get(0).setIcmIdTpCalculo("010");
-        return tareaPersonaEstructuraDtos;
     }
 
     @Override

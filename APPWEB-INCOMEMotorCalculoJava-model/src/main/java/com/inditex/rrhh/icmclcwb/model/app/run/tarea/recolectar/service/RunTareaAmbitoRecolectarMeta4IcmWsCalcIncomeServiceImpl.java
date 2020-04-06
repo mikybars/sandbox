@@ -673,8 +673,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService.getPresupuestosWloc(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<PresupuestosWlocResultItemDto> data = AsyncUtils.get(cfData);
-                    //TODO [javierev] ELIMINAR ESTE MOCK!
-                    data.add(crearPresupuestoMock(trabajo, tarea));
                     if (CollectionUtils.isNotEmpty(data)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
                             .get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getFilter().getMaxPersistenceSize());
@@ -822,28 +820,4 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             throw e;
         }
     }
-
-    //TODO [javierev] ELIMINAR ESTE MOCK!
-    private PresupuestosWlocResultItemDto crearPresupuestoMock(TrabajoDto trabajo, TareaDto tarea) {
-
-        PresupuestosWlocResultItemDto result = new PresupuestosWlocResultItemDto();
-
-        result.setFechaInicio(trabajo.getFechaInicioPeriodo().minusYears(1).atStartOfDay());
-        result.setFechaFin(trabajo.getFechaFinPeriodo().atStartOfDay());
-        result.setExcepcion("0");
-        result.setBanda("1");
-        result.setIdLugarTrabajoMtu("3175");
-        result.setIdSeccion("4");
-        result.setIdTpPresupuesto("07");
-        result.setOrdinal("1");
-        result.setIdOrigen(tarea.getIdOrganization());
-        result.setIdEmpresa(tarea.getStdIdLegEnt());
-        result.setImporteConImpuestos("555.55");
-        result.setImporteSinImpuestos("500.55");
-        result.setIdLugarTrabajo("T3175");
-
-        return result;
-
-    }
-
 }
