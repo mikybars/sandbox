@@ -3,12 +3,15 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoPresupuestoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoVentaConceptoChallengeDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoPresupuestoService;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoVentaConceptoChallengeService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.util.concurrent.AtomicDouble;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoChallengeEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPresupuestoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -30,6 +33,12 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
     @Autowired
     private TareaLocalizacionPresupuestoVentaMapper delegate;
 
+    @Autowired
+    private TipoPresupuestoService tipoPresupuestoService;
+
+    @Autowired
+    private TipoVentaConceptoChallengeService tipoVentaConceptoChallengeService;
+
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(
             List<VentaCongeladaResultItemDto> src, TareaDto tarea) {
@@ -37,9 +46,11 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
         if (src != null) {
             src.forEach(x -> {
                 TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(x, tarea);
+                TipoPresupuestoDto presupuesto = tipoPresupuestoService.findByIcmIdTpPresupuesto(x.getIdTpPresupuesto());
+                TipoVentaConceptoChallengeDto concepto = tipoVentaConceptoChallengeService.findByIcmIdConceptoVenta(x.getIdConceptoVenta());
                 tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
-                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(TipoPresupuestoEnum.fromIdMeta4(x.getIdTpPresupuesto()).getId()).build());
-                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.fromIdMeta4(x.getIdConceptoVenta()).getId()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(presupuesto.getId()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(concepto.getId()).build());
                 if(x.getIdSeccion().equals(AppConstants.SECCION_4.toString())) {
                     if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getIdMeta4())) {
                         tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_CAJA_LOCALIZACION.getId()).build());

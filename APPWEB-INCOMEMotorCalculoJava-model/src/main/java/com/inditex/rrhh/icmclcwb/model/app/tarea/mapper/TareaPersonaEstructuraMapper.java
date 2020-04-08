@@ -41,7 +41,7 @@ public abstract class TareaPersonaEstructuraMapper {
     }
    
     public List<TareaPersonaEstructuraDto> estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(
-            final List<EstructurasComResultItemDto> estructurasComResultItem, final TareaDto tarea) {
+        final List<EstructurasComResultItemDto> estructurasComResultItem, final TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
     

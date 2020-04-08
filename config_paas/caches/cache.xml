@@ -131,3 +131,81 @@
 </memory>
 <expiration max-idle="600000" />
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_ausencia_by_icm_tp_absence" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_ausencia_by_id" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_opcion_calculo_by_id_meta4" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_politica_by_id_meta4" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_politica_by_id" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_presupuesto_by_icm_id_tp_presupuesto" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_presupuesto_by_id" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_unidad_tiempo_by_icm_id_unidad_tiempo" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_unidad_tiempo_by_id" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_venta_concepto_by_id_meta4" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_venta_concepto_by_id" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_venta_concepto_challenge_by_icm_id_concepto_venta" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.tipo_venta_concepto_challenge_by_id" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>

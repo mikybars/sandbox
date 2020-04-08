@@ -14,22 +14,4 @@ public enum TipoVentaConceptoEnum {
     private final Long id;
     private final String idMeta4;
 
-    public static TipoVentaConceptoEnum fromIdMeta4(String text) {
-        for (TipoVentaConceptoEnum tipo : TipoVentaConceptoEnum.values()) {
-            if (tipo.idMeta4.equals(text)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
-    public static TipoVentaConceptoEnum fromId(Long id) {
-        for (TipoVentaConceptoEnum tipo : TipoVentaConceptoEnum.values()) {
-            if (tipo.id.equals(id)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
 }

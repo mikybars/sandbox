@@ -2,6 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoPoliticaDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoUnidadTiempoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoPoliticaService;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoUnidadTiempoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
@@ -26,12 +30,19 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
     @Autowired
     private TareaPersonaEstructuraPoliticaMapper delegate;
 
+    @Autowired
+    private TipoPoliticaService tipoPoliticaService;
+
+    @Autowired
+    private TipoUnidadTiempoService tipoUnidadTiempoService;
+
     @Override
     public TareaPersonaEstructuraPolitica tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
             TareaPersonaEstructuraPoliticaDto src) {
         TareaPersonaEstructuraPolitica result = delegate.tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(src);
+        TipoPoliticaDto politica = tipoPoliticaService.findByIdMeta4(src.getIdTipoPolitica());
         result.setTipoPolitica(new TipoPolitica());
-        result.getTipoPolitica().setId(TipoPoliticaEnum.fromIdMeta4(src.getIdTipoPolitica()).getId());
+        result.getTipoPolitica().setId(politica.getId());
         return result;
     }
 
@@ -47,7 +58,8 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
     public TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
             TareaPersonaEstructuraPolitica src) {
         TareaPersonaEstructuraPoliticaDto  result = delegate.tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(src);
-        result.setIdTipoPolitica(TipoPoliticaEnum.fromId(src.getTipoPolitica().getId()).getIdMeta4());
+        TipoPoliticaDto politica = tipoPoliticaService.findById(src.getTipoPolitica().getId());
+        result.setIdTipoPolitica(politica.getIcmIdTpPolitica());
         return result;
     }
 
@@ -63,8 +75,9 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
     public TareaPersonaEstructuraPolitica comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(
             ComisionEmpleadoResultItemDto src, TareaDto tarea) {
         TareaPersonaEstructuraPolitica result = delegate.comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(src, tarea);
+        TipoPoliticaDto politica = tipoPoliticaService.findByIdMeta4(src.getIdTipoPolitica());
         result.setTipoPolitica(new TipoPolitica());
-        result.getTipoPolitica().setId(TipoPoliticaEnum.fromIdMeta4(src.getIdTipoPolitica()).getId());
+        result.getTipoPolitica().setId(politica.getId());
         result.setExcluidoDenominador(Meta4Constants.TRUE.equals(src.getExcDenominador()));
         return result;
     }
@@ -107,8 +120,9 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
     public TareaPersonaEstructuraPolitica estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
             EstructurasPolResultItemDto src, ListaCondicionesPoliticasResultItemDto condiciones, ListaValoresPoliticasResultItemDto valores, TareaDto tarea) {
         TareaPersonaEstructuraPolitica result = delegate.estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(src, tarea);
+        TipoPoliticaDto politica = tipoPoliticaService.findByIdMeta4(condiciones.getIdTipoPolitica());
         result.setTipoPolitica(new TipoPolitica());
-        result.getTipoPolitica().setId(TipoPoliticaEnum.fromIdMeta4(condiciones.getIdTipoPolitica()).getId());
+        result.getTipoPolitica().setId(politica.getId());
         result.setExcluidoDenominador(Meta4Constants.TRUE.equals(condiciones.getExcDenominador()));
         if (TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(condiciones.getIdTipoPolitica())) {
             result.setImporte(new BigDecimal(condiciones.getImporteMax()));
@@ -125,8 +139,9 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
         result.setNumHoras(StringUtils.isNotEmpty(condiciones.getNumHoras()) ? condiciones.getNumHoras() : "0");
         result.setTipoUnidadTiempo(new TipoUnidadTiempo());
         if (valores != null && StringUtils.isNotEmpty(valores.getIdUnidadTiempo())) {
+            TipoUnidadTiempoDto unidadTiempo = tipoUnidadTiempoService.findByIcmIdUnidadTiempo(valores.getIdUnidadTiempo());
             result.getTipoUnidadTiempo()
-                    .setId(TipoUnidadTiempoEnum.fromIdMeta4(valores.getIdUnidadTiempo()).getId());
+                    .setId(unidadTiempo.getId());
         }else {
             result.getTipoUnidadTiempo().setId(TipoUnidadTiempoEnum.NINGUNO.getId());
         }

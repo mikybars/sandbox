@@ -24,7 +24,7 @@ public abstract class TareaAgrupacionConfiguracionMapper {
     @Mapping(source = "src.idAgrupacion", target = "icmIdAgrupacionOnline")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tipoVentaConcepto", expression = "java(TipoVentaConcepto.builder().id(TipoVentaConceptoEnum.fromIdMeta4(src.getIdConcepto()).getId()).build())")
+    @Mapping(target = "tipoVentaConcepto", ignore = true)
     public abstract TareaAgrupacionConfiguracion getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
         ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto);
 
@@ -34,7 +34,7 @@ public abstract class TareaAgrupacionConfiguracionMapper {
     }
 
     @Mapping(source = "src.tarea.id", target = "idTarea")
-    @Mapping(target = "tipoVentaConcepto", expression = "java(TipoVentaConceptoEnum.fromId(src.getTipoVentaConcepto().getId()))")
+    @Mapping(target = "tipoVentaConcepto", ignore = true)
     public abstract TareaAgrupacionConfiguracionDto getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
         TareaAgrupacionConfiguracion src);
 
