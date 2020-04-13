@@ -1,5 +1,23 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
@@ -77,22 +95,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -280,11 +282,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             .getFlagCalcula(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA)
-                            .getFilter().getMaxPersistenceSize());
-                    CompletableFuture<Void> cfSave = tareaLocalizacionCalcularAsyncService.save(data, tarea);
-                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                    hasNext = request.nextPage();
+                    if (CollectionUtils.isNotEmpty(data)) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA)
+                                .getFilter().getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSave = tareaLocalizacionCalcularAsyncService.save(data, tarea);
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        hasNext = request.nextPage();
+                    }
                 } while (hasNext);
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }
@@ -321,12 +325,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             .getPresenciaManual(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                            .get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPersistenceSize());
-                    CompletableFuture<Void> cfSave = tareaLocalizacionPersonaSeccionPresenciaAsyncService.save(data,
-                            tarea);
-                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                    hasNext = request.nextPage();
+                    if (CollectionUtils.isNotEmpty(data)) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
+                                .get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSave = tareaLocalizacionPersonaSeccionPresenciaAsyncService.save(data,
+                                tarea);
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        hasNext = request.nextPage();
+                    }
                 } while (hasNext);
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }

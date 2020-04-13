@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class TareaCalculoServiceImpl implements TareaCalculoService{
     private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
     @Override
-    public void regularizarChallenge(RunTareaDto runTareaDto, @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto) {
+    public void regularizarChallenge(@Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto) {
         tareaCalculoRepositoryCustom.regularizarChallenge(runTareaDto.getTarea(), idPersonaLocalChallengeDto);
     }
     

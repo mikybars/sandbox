@@ -28,7 +28,7 @@ public class TareaAmbitoGlobalLocalizacionDto implements Serializable {
     @ApiModelProperty(value = "Identificador del origen", required = true)
     private String cclIdOrigen;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
-    private Long stdIdLegEnt;
+    private String stdIdLegEnt;
 }

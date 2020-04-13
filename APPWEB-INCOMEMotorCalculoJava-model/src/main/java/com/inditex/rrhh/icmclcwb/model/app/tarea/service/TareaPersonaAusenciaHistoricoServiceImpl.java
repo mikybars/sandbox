@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,14 +29,14 @@ public class TareaPersonaAusenciaHistoricoServiceImpl implements TareaPersonaAus
     
     @Override
     public List<TareaPersonaAusenciaHistoricoDto> save(
-            @Valid final List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusenciaHistorico) {
+            @Valid @NotNull @NotEmpty final List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusenciaHistorico) {
         return tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
                 tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(tareaPersonaAusenciaHistorico)));
     }
     
     @Override
     public List<TareaPersonaAusenciaHistoricoDto> saveAusenciaResultItemDto(
-            @Valid final List<AusenciasResultItemDto> src, @Valid final TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<AusenciasResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
         return tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
                 tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(
                         tareaPersonaAusenciaHistoricoMapper.ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(src, tarea))));

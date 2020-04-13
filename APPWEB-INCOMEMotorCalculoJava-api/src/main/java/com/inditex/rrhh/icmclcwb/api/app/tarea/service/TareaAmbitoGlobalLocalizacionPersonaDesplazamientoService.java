@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -9,6 +11,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 
 public interface TareaAmbitoGlobalLocalizacionPersonaDesplazamientoService {
 
-    void save(@NotNull List<GenericEmpleadoResultItemDto> src, @NotNull TareaDto tareaDto);
+    void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src, @Valid @NotNull final TareaDto tareaDto);
 
 }

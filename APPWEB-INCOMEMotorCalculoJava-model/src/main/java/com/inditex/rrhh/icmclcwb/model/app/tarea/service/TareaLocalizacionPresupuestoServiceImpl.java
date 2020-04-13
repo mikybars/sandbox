@@ -1,5 +1,20 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -10,18 +25,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresupuestoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustom;
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Service
 @Validated
@@ -34,14 +37,14 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
     private TareaLocalizacionPresupuestoMapper tareaLocalizacionPresupuestoMapper;
 
     @Override
-    public void save(List<PresupuestosWlocResultItemDto> src, TareaDto tarea) {
+    public void save(@Valid @NotNull @NotEmpty final List<PresupuestosWlocResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
         tareaLocalizacionPresupuestoRepositoryCustom.save(
             tareaLocalizacionPresupuestoMapper.presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(src, tarea));
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.presupuestos_by_tarea", key = "{#tarea}")
-    public TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid TareaDto tarea) {
+    public TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid @NotNull final TareaDto tarea) {
         return TareaLocalizacionPresupuestoListDto
             .builder()
             .presupuestos(tareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos(tarea))

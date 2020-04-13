@@ -41,23 +41,23 @@ public class TareaPersonaEstructuraDesplazamiento {
     @JoinColumn(name = "ID_TIPO_OPCION_CALCULO_ESTRUCTURA", nullable = false)
     private TipoOpcionCalculo tipoOpcionCalculoEstructura;
 
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN_DESTINO", nullable = false)
     private String cclIdCodOrigenDestino;
 
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_PUESTO_DESTINO", nullable = false)
     private String cclIdPuestoDestino;
     
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_SECCION_DESTINO", nullable = false)
     private String cclIdSeccionDestino;
     
-    @NotNull
+    @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
     private String icmIdEstrComision;
     
-    @NotNull
+    @NotBlank
     @Column(name = "ICM_ID_TP_REQ_COMISION")
     private String icmIdTpReqCom;
 

@@ -24,7 +24,7 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaDto implements Serial
     @ApiModelProperty(value = "Id agrupación online", required = true)
     private Long icmIdAgrupacionOnline;
     
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id concepto venta", required = true)
     private String icmIdConceptoVenta;
     

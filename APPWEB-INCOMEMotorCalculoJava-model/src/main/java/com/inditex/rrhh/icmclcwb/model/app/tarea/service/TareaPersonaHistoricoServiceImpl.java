@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     private TareaPersonaHistoricoMapper tareaPersonaHistoricoMapper;
 
     @Override
-    public List<TareaPersonaHistoricoDto> save(@Valid final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico) {
+    public List<TareaPersonaHistoricoDto> save(@Valid @NotNull @NotEmpty final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico) {
         return tareaPersonaHistoricoMapper
                 .tareaPersonaHistoricoToTareaPersonaHistoricoDto(
                         tareaPersonaHistoricoRepositoryCustom.save(tareaPersonaHistoricoMapper.tareaPersonaHistoricoDtoToTareaPersonaHistorico(tareaEmpleadoHistorico)));
@@ -44,7 +45,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
 
     @Override
     public List<TareaPersonaHistoricoDto> merge(
-            @Valid final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid @NotNull final TareaDto tarea) {
         return tareaPersonaHistoricoMapper
                 .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(genericEmpleadoResultItemDto, tarea);
     }

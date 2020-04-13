@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
@@ -16,9 +17,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 public interface TareaPersonaHistoricoService {
 
     List<TareaPersonaHistoricoDto> merge(
-            @Valid final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea);
+            @Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid @NotNull final TareaDto tarea);
 
-    List<TareaPersonaHistoricoDto> save(@Valid final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico);
+    List<TareaPersonaHistoricoDto> save(@Valid @NotNull @NotEmpty final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico);
 
     List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea, @NotNull final String cclIdOrigen);
     

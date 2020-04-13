@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +37,21 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
     
     @Override
     public List<TareaLocalizacionPresupuestoVentaDto> save(
-            @Valid final List<TareaLocalizacionPresupuestoVentaDto> tareaLocalizacionPresupuestoVenta) {
+            @Valid @NotNull @NotEmpty final List<TareaLocalizacionPresupuestoVentaDto> tareaLocalizacionPresupuestoVenta) {
         return tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
                 tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaDtoToTareaLocalizacionPresupuestoVenta(tareaLocalizacionPresupuestoVenta)));
     }
     
     @Override
     public List<TareaLocalizacionPresupuestoVentaDto> save(
-            @Valid final List<VentaCongeladaResultItemDto> ventaCongelada, TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<VentaCongeladaResultItemDto> ventaCongelada, @Valid @NotNull final TareaDto tarea) {
         return tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
                 tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper.ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(ventaCongelada, tarea)));
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(@Valid PtrVentaTotalizadoResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
-            @Valid TareaDto tarea){
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(@Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
+            @Valid @NotNull final TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
@@ -60,8 +62,8 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(@Valid PtrVentaOnlineIpodResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
-            @Valid TareaDto tarea){
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(@Valid @NotNull final PtrVentaOnlineIpodResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
+            @Valid @NotNull final TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
@@ -72,8 +74,8 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlinePickingResponse(@Valid PtrVentaOnlinePickingResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
-            @Valid TareaDto tarea){
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlinePickingResponse(@Valid @NotNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
+            @Valid @NotNull final TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
@@ -84,8 +86,8 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
-            @Valid TareaDto tarea){
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaTiendaResponse(@Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
+            @Valid @NotNull final TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
@@ -96,8 +98,8 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
     }
     
     @Override
-    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(@Valid PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid IdLocalizacionLocalPresupuestoDto iter,
-            @Valid TareaDto tarea){
+    public List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(@Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
+            @Valid @NotNull final TareaDto tarea){
         List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
         if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
             result.addAll(tareaLocalizacionPresupuestoVentaMapper.tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(

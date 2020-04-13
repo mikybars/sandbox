@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import lombok.Data;
@@ -14,10 +11,8 @@ import lombok.Data;
 @Data
 public class PtrVentaIndividualDetalleResultItemDto implements Serializable {
 	
-	
 	private static final long serialVersionUID = -801740758955645983L;
 
-	@NotBlank
 	private String fecha;
 
 	private Integer pais;
@@ -26,7 +21,6 @@ public class PtrVentaIndividualDetalleResultItemDto implements Serializable {
 	
     private Integer empresa;
 
-	@NotBlank
 	private Integer tienda;
 
 	private Integer seccion;
@@ -35,10 +29,8 @@ public class PtrVentaIndividualDetalleResultItemDto implements Serializable {
 
 	private Integer producto;
 
-	@NotNull
 	private BigDecimal importeSinIVA;
 
-	@NotNull
 	private BigDecimal importeConIVA;
 	
 	private Integer vendedor;

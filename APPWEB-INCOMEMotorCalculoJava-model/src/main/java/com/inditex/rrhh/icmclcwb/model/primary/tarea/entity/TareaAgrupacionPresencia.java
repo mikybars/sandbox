@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-import lombok.Data;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +13,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "TAREA_AGRUPACION_PRESENCIA")
@@ -41,11 +44,11 @@ public class TareaAgrupacionPresencia {
     @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable  = false)
     private Long icmIdAgrupacionOnline;
 
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 4)
     private String cclIdSeccion;
 
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
 

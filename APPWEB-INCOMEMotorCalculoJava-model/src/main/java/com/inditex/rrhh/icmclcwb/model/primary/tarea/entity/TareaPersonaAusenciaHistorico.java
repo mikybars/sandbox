@@ -53,7 +53,7 @@ public class TareaPersonaAusenciaHistorico {
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
     
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
     

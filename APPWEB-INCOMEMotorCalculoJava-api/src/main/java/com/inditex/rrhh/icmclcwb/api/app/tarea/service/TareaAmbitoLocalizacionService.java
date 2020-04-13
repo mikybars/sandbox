@@ -15,6 +15,6 @@ public interface TareaAmbitoLocalizacionService {
     
     List<TareaAmbitoLocalizacionDto> create(
             @Valid @NotNull @NotEmpty final List<TareaAmbitoLocalizacionDto> tareaAmbitoLocalizacion,
-            @NotNull final TareaDto tarea);
+            @Valid @NotNull final TareaDto tarea);
 
 }

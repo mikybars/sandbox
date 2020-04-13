@@ -13,6 +13,8 @@ import lombok.Data;
 @Data
 public class TareaConfiguracionPrecioHoraDto implements Serializable {
 
+    private static final long serialVersionUID = 4336409770546732390L;
+
     @ApiModelProperty(value = "Identificador de la entidad", required = false, accessMode = AccessMode.READ_ONLY)
     private Long id;
     
