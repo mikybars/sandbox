@@ -202,11 +202,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         .getFestivos(request);
                 AsyncUtils.exceptionally(cfData, cf);
                 List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaLocalizacionFestivoAsyncService.save(data, tarea);
-                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                hasNext = request.nextPage();
+                if (CollectionUtils.isNotEmpty(data)) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getFilter().getMaxPersistenceSize());
+                    CompletableFuture<Void> cfSave = tareaLocalizacionFestivoAsyncService.save(data, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    hasNext = request.nextPage();
+                }
             } while (hasNext);
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
@@ -241,11 +243,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             .getCoefJornada(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA)
-                            .getFilter().getMaxPersistenceSize());
-                    CompletableFuture<Void> cfSave = tareaPersonaCoeficienteAsyncService.save(data, tarea);
-                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                    hasNext = request.nextPage();
+                    if (CollectionUtils.isNotEmpty(data)) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA)
+                                .getFilter().getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSave = tareaPersonaCoeficienteAsyncService.save(data, tarea);
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        hasNext = request.nextPage();
+                    }
                 } while (hasNext);
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }

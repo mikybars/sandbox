@@ -289,7 +289,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         when(meta4Properties.get(Meta4PropertiesConstants.FESTIVOS)).thenReturn(properties);
         when(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class), any(TareaAmbitoDto.class) )).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getFestivos(any(FestivosRequestDto.class))).thenReturn(cf);
-        when(tareaLocalizacionFestivoAsyncService.save(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
          
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.festivosByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getFestivos(ArgumentMatchers.any(FestivosRequestDto.class));
@@ -334,7 +333,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest{
         when(tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(any(Long.class), any(String.class), (List<Integer>) any(List.class))).thenReturn(new ArrayList<>(Arrays.asList(new IdPersonaHistoricoDto("1", "1"))));
         when(tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(any(TareaDto.class), any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
         when(meta4IcmWsCalcIncomeSessionAsyncService.getCoefJornada(any(CoefJornadaRequestDto.class))).thenReturn(cf);
-        when(tareaPersonaCoeficienteAsyncService.save(any(List.class), any(TareaDto.class))).thenReturn(cfNull);
          
         runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.coefJornadaByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1)).getCoefJornada(ArgumentMatchers.any(CoefJornadaRequestDto.class));
