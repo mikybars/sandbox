@@ -15,22 +15,4 @@ public enum TipoPoliticaEnum {
 
     private final String idMeta4;
 
-    public static TipoPoliticaEnum fromIdMeta4(String idMeta4) {
-        for (TipoPoliticaEnum tipo : TipoPoliticaEnum.values()) {
-            if (tipo.idMeta4.equals(idMeta4)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
-    public static TipoPoliticaEnum fromId(Integer id) {
-        for (TipoPoliticaEnum tipo : TipoPoliticaEnum.values()) {
-            if (tipo.id.equals(id)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
 }

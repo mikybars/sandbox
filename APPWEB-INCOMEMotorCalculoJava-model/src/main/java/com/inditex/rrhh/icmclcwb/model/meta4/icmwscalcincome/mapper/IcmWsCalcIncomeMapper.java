@@ -828,6 +828,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "ordinal", source = "ordinal")
     @Mapping(target = "idSeccion", source = "idseccion")
+    @Mapping(target = "idCadena", source = "idcadena")
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
     @Mapping(target = "idLugarTrabajoMtu", source = "idlugartrabajomtu")

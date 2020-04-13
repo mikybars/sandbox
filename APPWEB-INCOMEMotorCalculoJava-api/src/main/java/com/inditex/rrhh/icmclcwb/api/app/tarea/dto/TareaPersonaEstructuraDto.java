@@ -49,19 +49,19 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Id tipo calculo asociado a la estructura", required = true)
     private String icmIdTpCalculo;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id tipo comisión asociado a la estructura ", required = true)
     private String icmIdTpComision;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "valor asociado a la seccion", required = true)
     private String valor;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Seccion usada en el calculo", required = true)
     private String cclIdSeccionEfectiva;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Seccion usada en la estructura", required = true)
     private String cclIdSeccionEstructura;
 
@@ -109,11 +109,11 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Flag dia / domingo", required = false)
     private Boolean diaD;
     
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
     private String icmIdEstrComisionBase;
     
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id estructura padre", required = true)
     private String icmIdEstrComisionPadre;
     
@@ -121,7 +121,7 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Tope", required = true)
     private Integer tope;
     
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Id tipo estructura ", required = true)
     private String icmIdTpEstructura;
 

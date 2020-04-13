@@ -13,21 +13,4 @@ public enum TipoAusenciaEnum {
 
     private final String idMeta4;
     
-    public static TipoAusenciaEnum fromIdMeta4(String idMeta4) {
-        for (TipoAusenciaEnum tipo : TipoAusenciaEnum.values()) {
-            if (tipo.idMeta4.equals(idMeta4)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
-    public static TipoAusenciaEnum fromId(Integer id) {
-        for (TipoAusenciaEnum tipo : TipoAusenciaEnum.values()) {
-            if (tipo.id.equals(id)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
 }

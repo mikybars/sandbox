@@ -24,7 +24,8 @@ public class VentaCongeladaResultItemDto implements Serializable {
     private String idConceptoVenta;
     private String idTpPresupuesto;
     private String ordinal;
-    
+    private String idCadena;
+
     private BigDecimal importeConImpuestos;
     private BigDecimal importeSinImpuestos;
     

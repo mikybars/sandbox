@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarSer
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
@@ -46,6 +47,9 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private RunTareaRegularizarService runTareaRegularizarService;
+    
+    @Autowired
+    private RunTareaRegularizarChallengeService runTareaRegularizarChallengeService;
 
     @Autowired
     private RunTareaAjustarService runTareaAjustarService;
@@ -61,6 +65,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             runTareaRecolectarValidarService.run(runTarea);
             runTareaProcesarService.run(runTarea);
             runTareaCalcularService.run(runTarea);
+            runTareaRegularizarChallengeService.run(runTarea);
             runTareaRegularizarService.run(runTarea);
             runTareaAjustarService.run(runTarea);
             runTareaConsolidarService.run(runTarea);

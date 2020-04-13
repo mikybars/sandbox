@@ -1,13 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresenciaRepositoryCustom;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresenciaRepositoryCustom;
 
 @Service
 @Validated
@@ -17,32 +19,32 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     private TareaLocalizacionPresenciaRepositoryCustom tareaLocalizacionPresenciaRepositoryCustom;
     
     @Override
-    public void updateActivoVacio(@NotNull final RunTareaDto runTareaDto) {
+    public void updateActivoVacio(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio(runTareaDto);
     }
     
     @Override
-    public void compensar(@NotNull final RunTareaDto runTareaDto) {
+    public void compensar(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensar(runTareaDto);
     }
 
     @Override
-    public void totalizar(@NotNull final RunTareaDto runTareaDto) {
+    public void totalizar(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTareaDto);
     }
     
     @Override
-    public void totalizarEcommerce(@NotNull final RunTareaDto runTareaDto) {
+    public void totalizarEcommerce(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerce(runTareaDto);
     }
 
     @Override
-    public void compensarEcommerce(@NotNull final RunTareaDto runTareaDto) {
+    public void compensarEcommerce(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce(runTareaDto);
     }
 
     @Override
-    public void totalizarEmpleadosPorVenta(@NotNull RunTareaDto runTareaDto) {
+    public void totalizarEmpleadosPorVenta(@Valid @NotNull RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta(runTareaDto);
     }
 }

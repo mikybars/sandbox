@@ -279,43 +279,59 @@ app:
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaOnlineEntregaDomicilio:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaDomicilio
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaOnlineiPod:
               endpoint: /ventaEcommerce/getVentaOnlineiPod
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaOnlineIpodIndividualDetalle:
               endpoint: /ventaEcommerce/getVentaOnlineIpodIndividualDetalle
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getOrdersByCountrySectionProductHour:
               endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaOnlinePicking:
               endpoint: /ventaEcommerce/getVentaOnlinePicking
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
           ventaEmpleado:
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
           ventaGeneral:
             getVentaTotalizado:
               endpoint: /ventaGeneral/getVentaTotalizado
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
       presencia:
         service:
           version: 1.0.16-rc.5
@@ -325,26 +341,36 @@ app:
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getPresenciasDetalle:
               endpoint: /presenciasService/presenciasDetalle
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getPresenciasTiendasEmpleado:
               endpoint: /presenciasService/presenciasTiendasEmpleado
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getPresenciasEmpleadosTienda:
               endpoint: /presenciasService/presenciasEmpleadosTienda
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getTiposHoras:
               endpoint: /presenciasService/tiposHoras
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
     meta4:
       config:
         max-attempts: 20
@@ -626,4 +652,4 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3              
+              maxPersistenceSize: 3

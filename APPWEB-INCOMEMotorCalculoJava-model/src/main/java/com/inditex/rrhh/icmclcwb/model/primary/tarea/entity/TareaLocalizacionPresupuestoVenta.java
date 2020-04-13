@@ -48,12 +48,12 @@ public class TareaLocalizacionPresupuestoVenta {
     private Date fechaFin;
 
     @NotBlank
-    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-    private String stdIdWorkLocat;
-
-    @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String cclIdCodOrigen;
+    
+    @NotBlank
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
+    private String cclIdCadena;
 
     @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
@@ -75,7 +75,6 @@ public class TareaLocalizacionPresupuestoVenta {
     @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
     private TipoPresupuesto tipoPresupuesto;
 
-    @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO_CHALLENGE", nullable = false)
     private TipoVentaConceptoChallenge tipoVentaConceptoChallenge;

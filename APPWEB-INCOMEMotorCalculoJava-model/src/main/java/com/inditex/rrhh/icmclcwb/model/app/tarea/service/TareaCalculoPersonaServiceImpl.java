@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,27 +35,27 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     private TareaCalculoPersonaRepositoryCustom tareaCalculoPersonaRepositoryCustom;
 
     @Override
-    public void updateWithEstadoAndidPersona(final List<TareaCalculoPersonaDto> personas, RunTareaDto runTareaDto , final EstadoTareaPersonaDto estado) {
+    public void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<TareaCalculoPersonaDto> personas, @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado) {
         tareaCalculoPersonaRepositoryCustom.updateWithEstadoAndidPersona(personas.stream().map(e->e.getCclIdPerson()).collect(Collectors.toList()), runTareaDto, estado);
     }
     
     @Override
-    public void updateWithEstado(RunTareaDto runTareaDto, final EstadoTareaPersonaDto estadoActual, final EstadoTareaPersonaDto estadoNuevo) {
+    public void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estadoActual, @Valid @NotNull final EstadoTareaPersonaDto estadoNuevo) {
         tareaCalculoPersonaRepositoryCustom.updateWithEstado(runTareaDto, estadoActual, estadoNuevo);
     }
     
     @Override
-    public void mergePersonaCalculoByAmbito(RunTareaDto runTareaDto) {
+    public void mergePersonaCalculoByAmbito(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito(runTareaDto);
     }
     
     @Override
-    public void mergePersonaCalculoByAmbitoLocalizacion(final RunTareaDto runTareaDto) {
+    public void mergePersonaCalculoByAmbitoLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoLocalizacion(runTareaDto);
     }
     
     @Override
-    public void mergePersonaCalculoByAmbitoPersona(final RunTareaDto runTareaDto) {
+    public void mergePersonaCalculoByAmbitoPersona(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoPersona(runTareaDto);
     }
 

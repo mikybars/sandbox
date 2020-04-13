@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,9 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos']}")
     private String sqlFindPresupuestos;
+
+    @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo']}")
+    private String sqlFindPeriodoPresupuestoYTrabajo;
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandaExcepcion']}")
     private String sqlUpdateActivoBandaExcepcion;
@@ -82,6 +86,21 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
     }
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository", key = "{#idTarea}")
+    public PeriodoDto findPeriodoPresupuestoYTrabajo(Long idTarea) {
+
+        MapSqlParameterSource maps = new MapSqlParameterSource();
+        maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        return namedParameterJdbcTemplate.queryForObject(sqlFindPeriodoPresupuestoYTrabajo, maps, (rs, rowNum) ->
+            PeriodoDto
+                .builder()
+                .fechaFinPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
+                .fechaInicioPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
+                .build()
+            );
+    }
+
+    @Override
     public void updateActivoBandaExcepcion(TareaDto tarea) {
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -94,8 +113,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
     @Override
     public void updateActivoBandasSinExcepcion(TareaDto tarea) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        //TODO [JAVIEREV] ahora mismo esta utilizando la venta general, pero en el futuro deberia usarse la venta congelada
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

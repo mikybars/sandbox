@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -42,6 +41,10 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
 
     private final static String SQL_UPDATE_ACTIVO_BANDAS_SIN_EXCEPCION = "SQL UPDATE ACTIVO BANDAS SIN EXCEPCION";
 
+    private final static String SQL_FIND_PRESUPUESTOS = "SQL FIND PRESUPUESTOS";
+
+    private final static String SQL_FIND_RANGO_FECHAS_PRESUPUESTOS = "SQL FIND RANGO FECHA PRESUPUESTOS";
+
     @Mock
     private JdbcTemplate template;
 
@@ -62,6 +65,8 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlUpdateActivoBandaExcepcion", SQL_UPDATE_ACTIVO_BANDA_EXCEPCION, true);
         FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlUpdateActivoBandasSinExcepcion", SQL_UPDATE_ACTIVO_BANDAS_SIN_EXCEPCION, true);
+        FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlFindPresupuestos", SQL_FIND_PRESUPUESTOS, true);
+        FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlFindPeriodoPresupuestoYTrabajo", SQL_FIND_RANGO_FECHAS_PRESUPUESTOS, true);
         FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "batchSize", 100, true);
     }
 
@@ -130,6 +135,29 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         tareaPresupuestoRepositoryCustom.findPresupuestos(tarea);
         verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(), any(RowMapper.class));
 
+        assertEquals(SQL_FIND_PRESUPUESTOS, sqlCaptor.getValue());
+        MapSqlParameterSource params = paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    public void findPeriodoPresupuestoYTrabajo() {
+
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(8989L);
+
+        tareaPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(tarea.getId());
+        verify(namedParameterJdbcTemplate, times(1)).queryForObject(sqlCaptor.capture(), paramsCaptor.capture(), any(RowMapper.class));
+
+        assertEquals(SQL_FIND_RANGO_FECHAS_PRESUPUESTOS, sqlCaptor.getValue());
+        MapSqlParameterSource params = paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
     }
 
     @Test
@@ -165,13 +193,12 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_UPDATE_ACTIVO_BANDAS_SIN_EXCEPCION, sqlCaptor.getValue());
 
-        // Parámetros de la consulta: idTipoImporteVenta, idTarea, icmCkExcepcion, activo, nuevoActivo
+        // Parámetros de la consulta: idTipoGrupoDato, idTarea, icmCkExcepcion, activo, nuevoActivo
         MapSqlParameterSource params = paramsCaptor.getValue();
         assertEquals(5, params.getValues().size());
         // idTipoGrupoDato
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
-        //TODO [JAVIEREV] Usar el tipo correcto de venta
-        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));

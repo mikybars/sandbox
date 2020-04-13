@@ -41,7 +41,7 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
     @Mapping(target = "fechaFin", source = "src.fechaFin")
     @Mapping(target = "cclIdSeccion", source = "src.idSeccion")
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
-    @Mapping(target = "stdIdWorkLocat", source = "src.idLugarTrabajo")
+    @Mapping(target = "cclIdCadena", source = "src.idCadena")
     @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajoMtu")
     @Mapping(target = "ordinal", source = "src.ordinal")
     @Mapping(target = "importeConImpuestos", source = "src.importeConImpuestos")
@@ -54,7 +54,7 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
     @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
     @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
-    @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
+    @Mapping(target = "cclIdCadena", source = "src.cadena")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
     public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaTotalizadoResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
     
@@ -63,7 +63,7 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
     @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
     @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
-    @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
+    @Mapping(target = "cclIdCadena", source = "src.cadena")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
     public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineIpodResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
    
@@ -72,7 +72,7 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
     @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
     @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
-    @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
+    @Mapping(target = "cclIdCadena", source = "src.cadena")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
     public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlinePickingResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
     
@@ -81,7 +81,7 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
     @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
     @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
-    @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
+    @Mapping(target = "cclIdCadena", source = "src.cadena")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
     public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineEntregaTiendaResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
 
@@ -90,7 +90,7 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
     @Mapping(target = "fechaInicio", source = "iter.fechaInicio")
     @Mapping(target = "fechaFin", source = "iter.fechaFin")
     @Mapping(target = "cclIdOrigen", source = "src.pais")
-    @Mapping(target = "stdIdWorkLocat", source = "src.tienda")
+    @Mapping(target = "cclIdCadena", source = "src.cadena")
     @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
     public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(PtrVentaOnlineEntregaDomicilioResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
     

@@ -31,11 +31,11 @@ public class TareaLocalizacionVenta {
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
     
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String cclIdCodOrigen;
     
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String cclIdCadena;
     

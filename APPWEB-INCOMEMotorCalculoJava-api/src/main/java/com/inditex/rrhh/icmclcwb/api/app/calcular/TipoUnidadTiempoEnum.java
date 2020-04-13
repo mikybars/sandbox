@@ -14,21 +14,4 @@ public enum TipoUnidadTiempoEnum {
 
     private final String idMeta4;
     
-    public static TipoUnidadTiempoEnum fromIdMeta4(String idMeta4) {
-        for (TipoUnidadTiempoEnum tipo : TipoUnidadTiempoEnum.values()) {
-            if (tipo.idMeta4.equals(idMeta4)) {
-                return tipo;
-            }
-        }
-        return TipoUnidadTiempoEnum.NINGUNO;
-    }
-
-    public static TipoUnidadTiempoEnum fromId(Integer id) {
-        for (TipoUnidadTiempoEnum tipo : TipoUnidadTiempoEnum.values()) {
-            if (tipo.id.equals(id)) {
-                return tipo;
-            }
-        }
-        return TipoUnidadTiempoEnum.NINGUNO;
-    }
 }

@@ -57,6 +57,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     private final static String SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO = "PRESENCIAS HORAS FIJAS DESPLAZAMIENTO";
     private final static String SQL_INDICADOR_PERSONA_POR_VENTA = "SQL INDICADOR PERSONA POR VENTA";
     private final static String SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA = "SQL INDICADOR PERSONA POR VENTA SIMPLIFICADA";
+    private final static String SQL_PRESENCIAS_INCLUIDO_VENTA = "PRESENCIAS INCLUIDO VENTA";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -96,6 +97,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
                 SQL_INDICADOR_PERSONA_POR_VENTA, true);
             FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVentaSimplificada",
                 SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlPresenciasIncluidoVenta",
+            SQL_PRESENCIAS_INCLUIDO_VENTA, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
     }
 
@@ -271,6 +274,44 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         // idTipoPolitica
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_POLITICA));
         assertEquals(TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId(), params.getValue(SQL_PARAM_ID_TIPO_POLITICA));
+        // tiposDato
+        assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertEquals(Arrays.asList(12, 89), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
+        // activo
+        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+    }
+
+    @Test
+    public void presenciasIncluidoVentaTest() {
+
+        RunTareaDto runTarea = mock(RunTareaDto.class);
+        TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(199L);
+        when(runTarea.getTarea()).thenReturn(tarea);
+
+        when(tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
+            .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
+        tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta(runTarea);
+        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
+        assertEquals(SQL_PRESENCIAS_INCLUIDO_VENTA, sqlCaptor.getValue());
+        MapSqlParameterSource params = paramsCaptor.getValue();
+        // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato, incluidoVenta, tiposDato, activo
+        assertEquals(6, params.getValues().size());
+        // idTarea
+        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+        // nuevoIdSeccion
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
+        // nuevoIdTipoDato
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA.getId(),
+            params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        // excluidoDenominador
+        assertTrue(params.hasValue(SQL_PARAM_INCLUIDO_VENTA));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_INCLUIDO_VENTA));
         // tiposDato
         assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
         assertEquals(Arrays.asList(12, 89), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));

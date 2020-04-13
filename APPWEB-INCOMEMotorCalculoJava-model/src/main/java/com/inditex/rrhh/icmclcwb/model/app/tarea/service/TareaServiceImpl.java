@@ -55,7 +55,7 @@ public class TareaServiceImpl implements TareaService {
     private SenderTarea senderTarea;
 
     @Override
-    public TareaDto save(@Valid final TareaDto tarea) {
+    public TareaDto save(@Valid @NotNull final TareaDto tarea) {
         return tareaMapper.tareaToTareaDto(tareaRepository.save(tareaMapper.tareaDtoToTarea(tarea)));
     }
 
@@ -70,7 +70,7 @@ public class TareaServiceImpl implements TareaService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public TareaDto create(@Valid final TareaDto tarea) {
+    public TareaDto create(@Valid @NotNull final TareaDto tarea) {
         tarea.setFechaHoraCreacion(LocalDateTime.now());
         tarea.setEstado(EstadoTareaEnum.PENDIENTE.getDto());
         TareaDto result = save(tarea);
@@ -97,31 +97,31 @@ public class TareaServiceImpl implements TareaService {
     }
 
     @Override
-    public List<TareaDto> findByTrabajoId(@Valid final Long id) {
+    public List<TareaDto> findByTrabajoId(@NotNull @Positive final Long id) {
         return tareaMapper.tareaToTareaDto(tareaRepository.findByTrabajoId(id));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateFechaFin(@NotNull final TareaDto tarea) {
+    public void updateFechaFin(@Valid @NotNull final TareaDto tarea) {
         tareaRepositoryCustom.updateFechaFin(tarea);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
+    public void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado) {
         tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
-    public void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
+    public void updateEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado) {
         tareaRepositoryCustom.updateEstado(tarea, estado);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateEstadoFinal(@Valid final TareaDto tarea) {
+    public void updateEstadoFinal(@Valid @NotNull final TareaDto tarea) {
         tareaRepositoryCustom.updateEstadoFinal(tarea);
     }
 
@@ -131,7 +131,7 @@ public class TareaServiceImpl implements TareaService {
     }
     
     @Override
-    public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea) {
+    public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
         return tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
     }
 

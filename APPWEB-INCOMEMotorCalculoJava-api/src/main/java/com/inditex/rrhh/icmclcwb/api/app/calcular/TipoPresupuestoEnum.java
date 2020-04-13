@@ -15,21 +15,4 @@ public enum TipoPresupuestoEnum {
 
     private final String idMeta4;
 
-    public static TipoPresupuestoEnum fromIdMeta4(String idMeta4) {
-        for (TipoPresupuestoEnum tipo : TipoPresupuestoEnum.values()) {
-            if (tipo.idMeta4.equals(idMeta4)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
-    public static TipoPresupuestoEnum fromId(Integer id) {
-        for (TipoPresupuestoEnum tipo : TipoPresupuestoEnum.values()) {
-            if (tipo.id.equals(id)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
 }

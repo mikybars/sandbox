@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoOpcionCalculoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoOpcionCalculoService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
 
     @Autowired
     private TareaPersonaEstructuraMapper delegate;
+
+    @Autowired
+    private TipoOpcionCalculoService tipoOpcionCalculoService;
 
     @Override
     public TareaPersonaEstructura tareaPersonaEstructuraDtoToTareaPersonaEstructura(
@@ -62,7 +67,9 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                 } else {
                     itemBase.getIcmListaValoresBase().forEach(itemBaseValor -> {
                         Integer itemBaseValorSeccion = Integer.valueOf(itemBaseValor.getIdSeccion());
-                        if (AppConstants.SECCION_4.equals(itemBaseValorSeccion)) {
+                        if (AppConstants.SECCION_4.equals(itemBaseValorSeccion) 
+                                && !itemBase.getIdTipoCalculo().equals(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId())
+                                && !itemBase.getIdTipoCalculo().equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())) {
                             for (Integer itemBaseValorSeccionFicticia : AppConstants.SECCIONES) {
                                 result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(itemPadre, itemBase, itemBaseValor, itemBaseValorSeccionFicticia, tarea));
                             }
@@ -77,12 +84,12 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                 if (CollectionUtils.isNotEmpty(itemPadre.getIcmListaCondicionesDestino())) {
                     AtomicInteger counter = new AtomicInteger(0);
                     itemPadre.getIcmListaCondicionesDestino().forEach(itemDesplazamiento -> {
-                        TipoOpcionCalculoEnum opcion = TipoOpcionCalculoEnum.fromIdMeta4(itemDesplazamiento.getIdTipoOpCalculo());
+                        TipoOpcionCalculoDto opcion = tipoOpcionCalculoService.findByIdMeta4(itemDesplazamiento.getIdTipoOpCalculo());
                         if(StringUtils.isEmpty(itemDesplazamiento.getIdTipoCalculo())) {
                             itemDesplazamiento.setIdTipoCalculo(TipoCalculoEnum.NINGUNO.getId());
                         }
                         if (CollectionUtils.isEmpty(itemDesplazamiento.getIcmListaValoresDestino())) {
-                            if (TipoOpcionCalculoEnum.MEJOR_OPCION.equals(opcion)) {
+                            if (TipoOpcionCalculoEnum.MEJOR_OPCION.getId().equals(opcion.getId())) {
                                 result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraToTareaPersonaEstructuraDto(itemPadre, itemBase, itemDesplazamiento, tarea, counter.incrementAndGet(), TipoOpcionCalculoEnum.ORIGEN.getId(), opcion.getId(), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasOrigen()), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasDestino())));
                                 result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraToTareaPersonaEstructuraDto(itemPadre, itemBase, itemDesplazamiento, tarea, counter.incrementAndGet(), TipoOpcionCalculoEnum.DESTINO.getId(), opcion.getId(), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasOrigen()), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasDestino())));
                             } else {
@@ -91,9 +98,11 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                         } else {
                             itemDesplazamiento.getIcmListaValoresDestino().forEach(itemDesplazamientoValor -> {
                                 Integer itemDesplazamientoValorSeccion = Integer.valueOf(itemDesplazamientoValor.getIdSeccion());
-                                if (AppConstants.SECCION_4.equals(itemDesplazamientoValorSeccion)) {
+                                if (AppConstants.SECCION_4.equals(itemDesplazamientoValorSeccion)
+                                        && !itemBase.getIdTipoCalculo().equals(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId())
+                                        && !itemBase.getIdTipoCalculo().equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())) {
                                     for (Integer itemBaseValorSeccionFicticia : AppConstants.SECCIONES) {
-                                        if (TipoOpcionCalculoEnum.MEJOR_OPCION.equals(opcion)) {
+                                        if (TipoOpcionCalculoEnum.MEJOR_OPCION.getId().equals(opcion.getId())) {
                                             result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(itemPadre, itemBase, itemDesplazamiento, itemDesplazamientoValor, tarea, counter.incrementAndGet(), TipoOpcionCalculoEnum.ORIGEN.getId(), opcion.getId(), itemBaseValorSeccionFicticia, Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasOrigen()), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasDestino())));
                                             result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(itemPadre, itemBase, itemDesplazamiento, itemDesplazamientoValor, tarea, counter.incrementAndGet(), TipoOpcionCalculoEnum.DESTINO.getId(), opcion.getId(), itemBaseValorSeccionFicticia, Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasOrigen()), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasDestino())));
                                         } else {
@@ -101,7 +110,7 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                                         }
                                     }
                                 } else {
-                                    if (TipoOpcionCalculoEnum.MEJOR_OPCION.equals(opcion)) {
+                                    if (TipoOpcionCalculoEnum.MEJOR_OPCION.getId().equals(opcion.getId())) {
                                         result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(itemPadre, itemBase, itemDesplazamiento, itemDesplazamientoValor, tarea, counter.incrementAndGet(), TipoOpcionCalculoEnum.ORIGEN.getId(), opcion.getId(), itemDesplazamientoValorSeccion, Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasOrigen()), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasDestino())));
                                         result.add(delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(itemPadre, itemBase, itemDesplazamiento, itemDesplazamientoValor, tarea, counter.incrementAndGet(), TipoOpcionCalculoEnum.DESTINO.getId(), opcion.getId(), itemDesplazamientoValorSeccion, Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasOrigen()), Meta4Constants.TRUE.equals(itemDesplazamiento.getHorasDestino())));
                                     } else {

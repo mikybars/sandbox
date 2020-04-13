@@ -92,7 +92,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl extends JdbcB
     @Override
     public void setParameters(PreparedStatement pstmt, TareaLocalizacionPresupuestoVenta entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getStdIdWorkLocat());
+        pstmt.setString(2, entity.getCclIdCadena());
         pstmt.setString(3, entity.getCclIdCodOrigen());
         pstmt.setString(4, entity.getCclIdSeccion());
         if (entity.getOrdinal() != null) {
