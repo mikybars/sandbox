@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -114,6 +115,51 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setString(3, presupuesto.getCclIdCodOrigen());
         verify(pstmt, times(1)).setString(4, presupuesto.getCclIdSeccion());
         verify(pstmt, times(1)).setInt(5, presupuesto.getOrdinal());
+        verify(pstmt, times(1)).setDouble(6, presupuesto.getImporteSinImpuestos());
+        verify(pstmt, times(1)).setDouble(7, presupuesto.getImporteConImpuestos());
+        verify(pstmt, times(1)).setLong(8, presupuesto.getTipoPresupuesto().getId());
+        verify(pstmt, times(1)).setLong(9, presupuesto.getTipoVentaConceptoChallenge().getId());
+        verify(pstmt, times(1)).setString(10, presupuesto.getCclIdOrigen());
+        verify(pstmt, times(1)).setBoolean(11, presupuesto.getActivo());
+        verify(pstmt, times(1)).setInt(12, presupuesto.getTipoDato().getId());
+        verify(pstmt, times(1)).setObject(13, presupuesto.getFechaFin());
+        verify(pstmt, times(1)).setObject(14, presupuesto.getFechaInicio());
+    }
+    
+    @Test
+    public void setParametersTestNullFields() throws SQLException {
+            
+        Tarea tarea = mock(Tarea.class);
+        when(tarea.getId()).thenReturn(809L);
+        TipoPresupuesto tipoPresupuesto = mock(TipoPresupuesto.class);
+        tipoPresupuesto.setId(1);
+        TipoDato tipoDato = mock(TipoDato.class);
+        tipoDato.setId(1);
+        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class); 
+        tipoVentaConceptoChallenge.setId(1L);
+        TareaLocalizacionPresupuestoVenta presupuesto = mock(TareaLocalizacionPresupuestoVenta.class);
+        when(presupuesto.getTarea()).thenReturn(tarea);
+        when(presupuesto.getCclIdCadena()).thenReturn("CCL_ID_CADENA");
+        when(presupuesto.getCclIdCodOrigen()).thenReturn("CCL_ID_COD_ORIGEN");
+        when(presupuesto.getCclIdSeccion()).thenReturn("CCL_ID_SECCION");
+        when(presupuesto.getOrdinal()).thenReturn(null);
+        when(presupuesto.getImporteConImpuestos()).thenReturn(1234.1);
+        when(presupuesto.getImporteSinImpuestos()).thenReturn(1222.1);
+        when(presupuesto.getTipoPresupuesto()).thenReturn(tipoPresupuesto);
+        when(presupuesto.getTipoVentaConceptoChallenge()).thenReturn(tipoVentaConceptoChallenge);
+        when(presupuesto.getCclIdOrigen()).thenReturn("CCL_ID_ORIGEN");
+        when(presupuesto.getActivo()).thenReturn(Boolean.FALSE);
+        when(presupuesto.getTipoDato()).thenReturn(tipoDato);
+        when(presupuesto.getFechaFin()).thenReturn(new Date());
+        when(presupuesto.getFechaInicio()).thenReturn(new Date());
+        PreparedStatement pstmt = mock(PreparedStatement.class);
+
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.setParameters(pstmt, presupuesto);
+        verify(pstmt, times(1)).setLong(1, tarea.getId());
+        verify(pstmt, times(1)).setString(2, presupuesto.getCclIdCadena());
+        verify(pstmt, times(1)).setString(3, presupuesto.getCclIdCodOrigen());
+        verify(pstmt, times(1)).setString(4, presupuesto.getCclIdSeccion());
+        verify(pstmt, times(1)).setNull(5, Types.INTEGER);
         verify(pstmt, times(1)).setDouble(6, presupuesto.getImporteSinImpuestos());
         verify(pstmt, times(1)).setDouble(7, presupuesto.getImporteConImpuestos());
         verify(pstmt, times(1)).setLong(8, presupuesto.getTipoPresupuesto().getId());
