@@ -113,6 +113,8 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
                     break;
                 case MONTHS:
                     periodos = findListaPeriodosPresupestoYTrabajoMonths(periodo, filterProperties.getPeriodSize());
+                    break;
+                default:
             }
         }
 
