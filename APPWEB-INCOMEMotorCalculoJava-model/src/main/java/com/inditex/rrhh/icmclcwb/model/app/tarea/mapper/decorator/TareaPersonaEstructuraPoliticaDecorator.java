@@ -1,5 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoPoliticaDto;
@@ -17,13 +24,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraPo
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoUnidadTiempo;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPersonaEstructuraPoliticaMapper {
 
@@ -105,7 +105,8 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
                x.getIcmListaCondicionesPolitica().forEach(y -> {
                    if(!TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getIdMeta4().equals(y.getIdTipoPolitica()) || y.getExcDenominador().equals(Meta4Constants.TRUE)) {
                        y.getIcmListaValoresPoliticas().forEach(z -> result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, z, tarea)));
-                       if(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica()) 
+                       if(TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getIdMeta4().equals(y.getIdTipoPolitica()) 
+                               ||TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica()) 
                                || TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica())
                                || TipoPoliticaEnum.HORAS_FIJAS.getIdMeta4().equals(y.getIdTipoPolitica())){
                            result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, null, tarea));
