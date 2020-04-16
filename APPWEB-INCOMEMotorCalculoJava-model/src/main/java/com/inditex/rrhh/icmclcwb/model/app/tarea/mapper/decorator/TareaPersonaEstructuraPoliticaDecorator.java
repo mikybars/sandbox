@@ -92,7 +92,8 @@ public abstract class TareaPersonaEstructuraPoliticaDecorator extends TareaPerso
                x.getIcmListaCondicionesPolitica().forEach(y -> {
                    if(!TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getIdMeta4().equals(y.getIdTipoPolitica()) || y.getExcDenominador().equals(Meta4Constants.TRUE)) {
                        y.getIcmListaValoresPoliticas().forEach(z -> result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, z, tarea)));
-                       if(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica()) 
+                       if(TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getIdMeta4().equals(y.getIdTipoPolitica()) 
+                               ||TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica()) 
                                || TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4().equals(y.getIdTipoPolitica())
                                || TipoPoliticaEnum.HORAS_FIJAS.getIdMeta4().equals(y.getIdTipoPolitica())){
                            result.add(estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(x, y, null, tarea));
