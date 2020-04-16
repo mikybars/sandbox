@@ -21,9 +21,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4TestConstants;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosdesplazOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
@@ -75,6 +78,20 @@ public class Meta4ServiceTest {
         GetorigenesOutput getorigenesOutput = meta4ClientPool.getorigenes(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getorigenesOutput.getReturn()));
     }
+       
+    @Test
+    public void getEmpleadosDesplaz() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetempleadosdesplazOutput getempleadosdesplazOutput = meta4ClientPool.getempleadosdesplaz(param2, param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getempleadosdesplazOutput.getReturn()));
+    }
     
     @Test
     public void getEmpresas() {
@@ -86,6 +103,34 @@ public class Meta4ServiceTest {
         param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
         GetempresasOutput getempresasOutput = meta4ClientPool.getempresas(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getempresasOutput.getReturn()));
+    }
+    
+    @Test
+    public void getCadena() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetcadenaOutput getcadenaOutput = meta4ClientPool.getcadena(param1, param2);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getcadenaOutput.getReturn()));
+    }
+    
+    @Test
+    public void getConfProdVenta() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetconfprodventaOutput getconfprodventaOutput = meta4ClientPool.getconfprodventa(param1, param2);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getconfprodventaOutput.getReturn()));
     }
     
     @Test
