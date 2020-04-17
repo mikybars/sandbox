@@ -21,8 +21,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4TestConstants;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetausenciasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfpreciohoraOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
@@ -36,9 +42,21 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getflagcalcu
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
@@ -47,12 +65,21 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalo
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
@@ -78,7 +105,7 @@ public class Meta4ServiceTest {
         GetorigenesOutput getorigenesOutput = meta4ClientPool.getorigenes(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getorigenesOutput.getReturn()));
     }
-       
+
     @Test
     public void getEmpleadosDesplaz() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
@@ -92,7 +119,7 @@ public class Meta4ServiceTest {
         GetempleadosdesplazOutput getempleadosdesplazOutput = meta4ClientPool.getempleadosdesplaz(param2, param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getempleadosdesplazOutput.getReturn()));
     }
-    
+
     @Test
     public void getEmpresas() {
         IcmParamcalorigenRecord record = new IcmParamcalorigenRecord();
@@ -104,7 +131,7 @@ public class Meta4ServiceTest {
         GetempresasOutput getempresasOutput = meta4ClientPool.getempresas(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getempresasOutput.getReturn()));
     }
-    
+
     @Test
     public void getCadena() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
@@ -118,7 +145,7 @@ public class Meta4ServiceTest {
         GetcadenaOutput getcadenaOutput = meta4ClientPool.getcadena(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getcadenaOutput.getReturn()));
     }
-    
+
     @Test
     public void getConfProdVenta() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
@@ -132,7 +159,7 @@ public class Meta4ServiceTest {
         GetconfprodventaOutput getconfprodventaOutput = meta4ClientPool.getconfprodventa(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getconfprodventaOutput.getReturn()));
     }
-    
+
     @Test
     public void getConfVentaOnline() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
@@ -146,7 +173,19 @@ public class Meta4ServiceTest {
         GetconfventaonlineOutput getconfventaonlineoutput = meta4ClientPool.getconfventaonline(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getconfventaonlineoutput.getReturn()));
     }
-    
+
+    @Test
+    public void getAgrupOnline() {
+        IcmParamcalorigenRecord record = new IcmParamcalorigenRecord();
+        record.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        IcmParamcalorigenBlock param1 = new IcmParamcalorigenBlock();
+        param1.getIcmParamcalorigenRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetagruponlineOutput getagrupOnlineOutput = meta4ClientPool.getagruponline(param1, param2);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getagrupOnlineOutput.getReturn()));
+    }
+
     @Test
     public void getCoefJornada() {
         IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
@@ -275,6 +314,24 @@ public class Meta4ServiceTest {
     }
 
     @Test
+    public void getTiendasOnline() {
+        IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
+        IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
+        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParametrosentradaRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.setNumeroregistrospagina(Meta4TestConstants.NUM_REGISTROS_PAGINA);
+        param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
+        param2.setIdbusqueda(StringUtils.EMPTY);
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GettiendasonlineOutput getTiendasOnlineIncome = meta4ClientPool.gettiendasonline(param2, param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getTiendasOnlineIncome.getReturn()));
+    }
+
+    @Test
     public void searchEmpleados() {
         IcmParamcalempleadoRecord record = new IcmParamcalempleadoRecord();
         record.setIdempleado(Meta4TestConstants.ID_PERSONA);
@@ -293,7 +350,127 @@ public class Meta4ServiceTest {
     }
 
     @Test
-    public void getComisionEmpleado() {
+    public void getAusencias() {
+        IcmParamcalempleadoRecord record = new IcmParamcalempleadoRecord();
+        record.setIdempleado(Meta4TestConstants.ID_PERSONA);
+        IcmParamcalempleadoBlock param1 = new IcmParamcalempleadoBlock();
+        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParamcalempleadoRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.setNumeroregistrospagina(Meta4TestConstants.NUM_REGISTROS_PAGINA);
+        param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
+        param2.setIdbusqueda(StringUtils.EMPTY);
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetausenciasOutput getAusenciasOutput = meta4ClientPool.getausencias(param2, param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getAusenciasOutput.getReturn()));
+    }
+    
+    @Test
+    public void getConfChDiasMinimos() {
+        IcmParamcalconfchdiasRecord record = new IcmParamcalconfchdiasRecord();
+        IcmParamcalconfchdiasBlock param1 = new IcmParamcalconfchdiasBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParamcalconfchdiasRecordSet().add(record);
+        GetconfchdiasminimosOutput getAusenciasOutput = meta4ClientPool.getconfchdiasminimos(param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getAusenciasOutput.getReturn()));
+    }
+
+    @Test
+    public void getPresupuestosWloc() {
+        IcmParamcalpresupuestoswlocRecord record = new IcmParamcalpresupuestoswlocRecord();
+        IcmParamcalpresupuestoswlocBlock param1 = new IcmParamcalpresupuestoswlocBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParamcalpresupuestoswlocRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.setNumeroregistrospagina(Meta4TestConstants.NUM_REGISTROS_PAGINA);
+        param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
+        param2.setIdbusqueda(StringUtils.EMPTY);
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetpresupuestoswlocOutput getpresupuestoswlocOutput = meta4ClientPool.getpresupuestoswloc(param1, param2);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getpresupuestoswlocOutput.getReturn()));
+    }
+    
+    @Test
+    public void getConfPrecioHora() {
+        IcmParamcalconfpreciohoraRecord record = new IcmParamcalconfpreciohoraRecord();
+        IcmParamcalconfpreciohoraBlock param1 = new IcmParamcalconfpreciohoraBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParamcalconfpreciohoraRecordSet().add(record);
+        GetconfpreciohoraOutput getconfpreciohoraOutput = meta4ClientPool.getconfpreciohora(param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getconfpreciohoraOutput.getReturn()));
+    }
+
+    @Test
+    public void getConfChTpVenta() {
+        IcmParamcalconfchventaRecord record = new IcmParamcalconfchventaRecord();
+        IcmParamcalconfchventaBlock param1 = new IcmParamcalconfchventaBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParamcalconfchventaRecordSet().add(record);
+        GetconfchtpventaOutput getconfchtpventaOutput = meta4ClientPool.getconfchtpventa(param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getconfchtpventaOutput.getReturn()));
+    }
+    
+    @Test
+    public void getPresupuestosRango() {
+        IcmParamcalpresupuestosrangoRecord record = new IcmParamcalpresupuestosrangoRecord();
+        IcmParamcalpresupuestosrangoBlock param1 = new IcmParamcalpresupuestosrangoBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParamcalpresupuestosrangoRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.setNumeroregistrospagina(Meta4TestConstants.NUM_REGISTROS_PAGINA);
+        param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
+        param2.setIdbusqueda(StringUtils.EMPTY);
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetpresupuestosrangoOutput getpresupuestosrangoOutput = meta4ClientPool.getpresupuestosrango(param2, param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getpresupuestosrangoOutput.getReturn()));
+    }
+    
+    @Test
+    public void getVentaCongelada() {
+        IcmParamcalventacongeladaRecord record = new IcmParamcalventacongeladaRecord();
+        IcmParamcalventacongeladaBlock param1 = new IcmParamcalventacongeladaBlock();
+        param1.setFechafin(Meta4TestConstants.FECHA_FIN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParamcalventacongeladaRecordSet().add(record);
+        IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+        param2.setNumeroregistrospagina(Meta4TestConstants.NUM_REGISTROS_PAGINA);
+        param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
+        param2.setIdbusqueda(StringUtils.EMPTY);
+        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+        GetventacongeladaOutput getventacongeladaOutput = meta4ClientPool.getventacongelada(param2, param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getventacongeladaOutput.getReturn()));
+    }
+
+    @Test
+    public void getConfiguracion() {
+        IcmParamcalconforigenRecord record = new IcmParamcalconforigenRecord();
+        IcmParamcalconforigenBlock param1 = new IcmParamcalconforigenBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        param1.getIcmParamcalconforigenRecordSet().add(record);
+        GetconfiguracionOutput getConfiguracionOutput = meta4ClientPool.getconfiguracion(param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getConfiguracionOutput.getReturn()));
+    }
+    
+    @Test
+    public void saveProceso() {
+        IcmParamcalprocesoRecord record = new IcmParamcalprocesoRecord();
+        IcmParamcalprocesoBlock param1 = new IcmParamcalprocesoBlock();
+        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        param1.getIcmParamcalprocesoRecordSet().add(record);
+        SaveprocesoOutput saveProcesoOutput = meta4ClientPool.saveproceso(param1);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(saveProcesoOutput.getReturn()));
+    }
+    
+    @Test
+    public void getEstructurasCom() {
         IcmParamcalestructuraRecord record = new IcmParamcalestructuraRecord();
         record.setIdempleado("AT1010154");
         record.setOrempleado("1");
@@ -305,6 +482,7 @@ public class Meta4ServiceTest {
         GetestructurascomOutput getComisionEmpleadoOutput = meta4ClientPool.getestructurascom(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getComisionEmpleadoOutput.getReturn()));
     }
+    
 
     @Test
 //    @Ignore("Sirve para buscar e imprimir en consola estructuras a partir de localizacion / origen")
@@ -372,9 +550,9 @@ public class Meta4ServiceTest {
         GetempleadosOutput getEmpleadosOutput = meta4ClientPool.getempleados(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getEmpleadosOutput.getReturn()));
     }
-
+    
     @Test
-    public void getPoliticas() {
+    public void getEstructurasPol() {
         IcmParamcalestructuraRecord record = new IcmParamcalestructuraRecord();
         record.setIdempleado("AT1010154");
         record.setOrempleado("1");
@@ -386,5 +564,6 @@ public class Meta4ServiceTest {
         GetestructuraspolOutput getestrpoliticas = meta4ClientPool.getestructuraspol(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getestrpoliticas.getReturn()));
     }
+
 
 }
