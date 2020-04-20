@@ -43,7 +43,6 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
         TareaPersonaEstructuraDto estructura =
             delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
                 estructurasComResultItem, listaCondicionesBaseResultItem, tarea);
-        setActivo(estructura);
         return estructura;
     }
 
@@ -52,7 +51,6 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
         TareaPersonaEstructuraDto estructura =
             delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(
                 estructurasComResultItem, listaCondicionesBaseResultItem, listaValoresBaseResultItem, idSeccion, tarea);
-        setActivo(estructura);
         return estructura;
     }
 
@@ -62,7 +60,6 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
         TareaPersonaEstructuraDto estructura =
             delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraToTareaPersonaEstructuraDto(
                 estructurasComResultItem, listaCondicionesBaseResultItem, listaCondicionesDestinoResultItem, tarea, ordinalEstructura, idTipoOpcionCalculoEfectiva, idTipoOpcionCalculoEstructura, horasOrigen, horasDestino);
-        setActivo(estructura);
         return estructura;
     }
 
@@ -70,13 +67,7 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
     public TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(EstructurasComResultItemDto estructurasComResultItem, ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, ListaValoresDestinoResultItemDto listaValoresDestinoResultItem, TareaDto tarea, Integer ordinalEstructura, Integer idTipoOpcionCalculoEfectiva, Integer idTipoOpcionCalculoEstructura, Integer idSeccion, Boolean horasOrigen, Boolean horasDestino) {
         TareaPersonaEstructuraDto estructura = delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             estructurasComResultItem, listaCondicionesBaseResultItem, listaCondicionesDestinoResultItem, listaValoresDestinoResultItem, tarea, ordinalEstructura, idTipoOpcionCalculoEfectiva, idTipoOpcionCalculoEstructura, idSeccion, horasOrigen, horasDestino);
-        setActivo(estructura);
         return estructura;
-    }
-
-    private void setActivo(TareaPersonaEstructuraDto estructura) {
-        //Por defecto se desactivan todas aquellas estructuras que sean tramadas (las que tengan topes)
-        estructura.setActivo(AppConstants.TOPE_DEFAULT.equals(estructura.getTope()));
     }
 
     @Override

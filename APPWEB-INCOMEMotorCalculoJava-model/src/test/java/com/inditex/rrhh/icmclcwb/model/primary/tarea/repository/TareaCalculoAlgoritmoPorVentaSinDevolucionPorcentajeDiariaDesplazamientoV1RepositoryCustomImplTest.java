@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -16,6 +18,7 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -42,6 +45,9 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazam
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Mock
+    private TipoDatoService tipoDatoService;
 
     @Captor
     private ArgumentCaptor<MapSqlParameterSource[]> paramsCaptor;
@@ -80,6 +86,17 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazam
 
     @Test
     public void getMapValuesTest() {
+
+        when(tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(
+            Arrays.asList(
+                IdTipoDatoDto
+                    .builder()
+                    .id(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId())
+                    .build(),
+                IdTipoDatoDto
+                    .builder()
+                    .id(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId())
+                    .build()));
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(8001);
@@ -145,7 +162,9 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazam
         assertEquals(TipoDatoEnum.IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
         //idTipoPresenciaLocalizacion
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), result.get(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+        assertEquals(
+            Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()),
+            result.get(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
         //idAlgoritmo
         assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
         assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
@@ -184,6 +203,17 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazam
 
     @Test
     public void calcularTest() {
+
+        when(tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(
+            Arrays.asList(
+                IdTipoDatoDto
+                    .builder()
+                    .id(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId())
+                    .build(),
+                IdTipoDatoDto
+                    .builder()
+                    .id(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId())
+                    .build()));
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
@@ -259,8 +289,9 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazam
             assertEquals(TipoDatoEnum.IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA));
             //idTipoPresenciaLocalizacion
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-            assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), value.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-            //idAlgoritmo
+            assertEquals(
+                Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()),
+                value.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));            //idAlgoritmo
             assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
             //idTarea
