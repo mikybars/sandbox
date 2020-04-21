@@ -9544,7 +9544,7 @@
       </eAnnotations>
     </constraints>
   </LUW:LUWTable>
-  <LUW:LUWIndex xmi:id="_8KtdkHmSEeqUUfBVIbK6Xw" name="IX_TIPO_VENTA_CONCEPTO_CHALLENGE_TIPO_VENTA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_HMW00HmNEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_8KtdkHmSEeqUUfBVIbK6Xw" name="IX_TIPO_VENTA_CONCEPTO_CHALLENGE_TIPO_VENTA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_HMW00HmNEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="__1DoYHmSEeqUUfBVIbK6Xw" column="_SiWKwHmPEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
   <LUW:LUWTable xmi:id="_xaBFsHmTEeqUUfBVIbK6Xw" name="TAREA_LOCALIZACION_PRESUPUESTO" description="Tabla con las bandas de presupuestos para localizaciones del cálculo challenge." schema="__lSHYJbPEemAxpJcl17jJg" index="_C_PvoHmXEeqUUfBVIbK6Xw _eT7x4H1SEeqFtpGdIR8vHg _h9kyEH1SEeqFtpGdIR8vHg" referencingForeignKeys="_338RQH1KEeqFtpGdIR8vHg" organizeBy="ROW" indexDataTableSpace="_0eyBwKoPEemKheY15FG_jQ" LOBDataTableSpace="_8g6FIKoPEemKheY15FG_jQ" regularDataTableSpace="_34X7IKoMEemKheY15FG_jQ">
@@ -9634,7 +9634,7 @@
     </columns>
     <constraints xsi:type="SQLConstraints:PrimaryKey" xmi:id="_cUFtcHmWEeqUUfBVIbK6Xw" name="PK_TIPO_PRESUPUESTO" members="_aDHwYHmWEeqUUfBVIbK6Xw" ForeignKey="_0Gi2AHmWEeqUUfBVIbK6Xw _Ufx8QHmZEeqUUfBVIbK6Xw"/>
   </LUW:LUWTable>
-  <LUW:LUWIndex xmi:id="_C_PvoHmXEeqUUfBVIbK6Xw" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xaBFsHmTEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_C_PvoHmXEeqUUfBVIbK6Xw" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xaBFsHmTEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_H7ws8HmXEeqUUfBVIbK6Xw" column="_xqA0EHmUEeqUUfBVIbK6Xw"/>
     <members xmi:id="_H7_9gHmXEeqUUfBVIbK6Xw" column="_ToN-8HmVEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
@@ -9826,7 +9826,7 @@
       </eAnnotations>
     </constraints>
   </LUW:LUWTable>
-  <LUW:LUWIndex xmi:id="_DGrdwH1PEeqFtpGdIR8vHg" name="IX_TAREA_CONFIGURACION_PRECIO_HORA_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_8lbCIH1MEeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_DGrdwH1PEeqFtpGdIR8vHg" name="IX_TAREA_CONFIGURACION_PRECIO_HORA_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_8lbCIH1MEeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_IZYtgH1PEeqFtpGdIR8vHg" column="_k1qy0H1NEeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
   <LUW:LUWTable xmi:id="_JxCLAH1REeqFtpGdIR8vHg" name="TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA" description="Tabla de agrupaciones configuración para el challenge" schema="__lSHYJbPEemAxpJcl17jJg" index="_uz0AgH1ZEeqFtpGdIR8vHg _31hRkH1ZEeqFtpGdIR8vHg _9Qj98H1ZEeqFtpGdIR8vHg" organizeBy="ROW" indexDataTableSpace="_0eyBwKoPEemKheY15FG_jQ" LOBDataTableSpace="_8g6FIKoPEemKheY15FG_jQ" regularDataTableSpace="_34X7IKoMEemKheY15FG_jQ">
@@ -9873,58 +9873,58 @@
       </eAnnotations>
     </constraints>
   </LUW:LUWTable>
-  <LUW:LUWIndex xmi:id="_eT7x4H1SEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xaBFsHmTEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_eT7x4H1SEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xaBFsHmTEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_g6-FkH1SEeqFtpGdIR8vHg" column="_xqA0EHmUEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_h9kyEH1SEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TIPO_PRESUPUESTO" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xaBFsHmTEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_h9kyEH1SEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TIPO_PRESUPUESTO" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xaBFsHmTEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_l6ALYH1SEeqFtpGdIR8vHg" column="_0HVgMHmWEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_v2AFAH1TEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_VENTA_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_v2AFAH1TEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_VENTA_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_zK8AgH1TEeqFtpGdIR8vHg" column="_vKNCYHmXEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_3HqUwH1TEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_VENTA_TIPO_PRESUPUESTO" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_3HqUwH1TEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_VENTA_TIPO_PRESUPUESTO" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_6U2pgH1TEeqFtpGdIR8vHg" column="_UgixQHmZEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_7SZP0H1TEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_VENTA_TIPO_VENTA_CONCEPTO_CHALLENGE" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_7SZP0H1TEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_VENTA_TIPO_VENTA_CONCEPTO_CHALLENGE" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="__po84H1TEeqFtpGdIR8vHg" column="_Y-7oIHmZEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_BRgSkH1UEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TIPO_DATO" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_BRgSkH1UEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TIPO_DATO" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_FoJisH1UEeqFtpGdIR8vHg" column="_q3_UYHmZEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_HPPKYH1WEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_VENTA_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_HPPKYH1WEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_VENTA_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_O15NgHmXEeqUUfBVIbK6Xw" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_bYTxcH1WEeqFtpGdIR8vHg" column="_vKNCYHmXEeqUUfBVIbK6Xw"/>
     <members xmi:id="_bYTxcX1WEeqFtpGdIR8vHg" column="_9jWcwHmYEeqUUfBVIbK6Xw"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_dkL9sH1XEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA_TAREA_LOCALIZACION_PRESUPUESTO" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xL0-kH1KEeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_dkL9sH1XEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA_TAREA_LOCALIZACION_PRESUPUESTO" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xL0-kH1KEeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_dkopoH1XEeqFtpGdIR8vHg" column="_34PMMH1KEeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_mWsVIH1XEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA_TAREA_PERSONA_ESTRUCTURA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xL0-kH1KEeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_mWsVIH1XEeqFtpGdIR8vHg" name="IX_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA_TAREA_PERSONA_ESTRUCTURA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_xL0-kH1KEeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_p3jMwH1XEeqFtpGdIR8vHg" column="_EiHd0H1LEeqFtpGdIR8vHg"/>
     <members xmi:id="_p3sWsH1XEeqFtpGdIR8vHg" column="_EiQnwH1LEeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_PUNbgH1YEeqFtpGdIR8vHg" name="IX_TAREA_CONFIGURACION_PRECIO_HORA_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_8lbCIH1MEeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_PUNbgH1YEeqFtpGdIR8vHg" name="IX_TAREA_CONFIGURACION_PRECIO_HORA_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_8lbCIH1MEeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_T9U7sH1YEeqFtpGdIR8vHg" column="_k1qy0H1NEeqFtpGdIR8vHg"/>
     <members xmi:id="_T9essH1YEeqFtpGdIR8vHg" column="_k5aN4H1OEeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_tOYJMH1YEeqFtpGdIR8vHg" name="IX_TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_4s5mgH1OEeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_tOYJMH1YEeqFtpGdIR8vHg" name="IX_TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_4s5mgH1OEeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_vpWW0H1YEeqFtpGdIR8vHg" column="_c5R5IH1PEeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_-vq1sH1YEeqFtpGdIR8vHg" name="IX_TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_4s5mgH1OEeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_-vq1sH1YEeqFtpGdIR8vHg" name="IX_TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_4s5mgH1OEeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_B_1l8H1ZEeqFtpGdIR8vHg" column="_c5R5IH1PEeqFtpGdIR8vHg"/>
     <members xmi:id="_B_-v4H1ZEeqFtpGdIR8vHg" column="_aoTfkH1QEeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_uz0AgH1ZEeqFtpGdIR8vHg" name="IX_TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_JxCLAH1REeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_uz0AgH1ZEeqFtpGdIR8vHg" name="IX_TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA_TAREA" Schema="__lSHYJbPEemAxpJcl17jJg" table="_JxCLAH1REeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_x3ArwH1ZEeqFtpGdIR8vHg" column="_WMAd8H1REeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_31hRkH1ZEeqFtpGdIR8vHg" name="IX_TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA_TIPO_VENTA_CONCEPTO_CHALLENGE" Schema="__lSHYJbPEemAxpJcl17jJg" table="_JxCLAH1REeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_31hRkH1ZEeqFtpGdIR8vHg" name="IX_TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA_TIPO_VENTA_CONCEPTO_CHALLENGE" Schema="__lSHYJbPEemAxpJcl17jJg" table="_JxCLAH1REeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_8HQMgH1ZEeqFtpGdIR8vHg" column="_p_M7oH1REeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_9Qj98H1ZEeqFtpGdIR8vHg" name="IX_TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_JxCLAH1REeqFtpGdIR8vHg" reverseScan="true" notPartitioned="true">
+  <LUW:LUWIndex xmi:id="_9Qj98H1ZEeqFtpGdIR8vHg" name="IX_TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA_01" Schema="__lSHYJbPEemAxpJcl17jJg" table="_JxCLAH1REeqFtpGdIR8vHg" PCTFree="5" reverseScan="true" notPartitioned="true">
     <members xmi:id="_JUSOgH1aEeqFtpGdIR8vHg" column="_WMAd8H1REeqFtpGdIR8vHg"/>
     <members xmi:id="_JUbYcH1aEeqFtpGdIR8vHg" column="_z_zd4H1REeqFtpGdIR8vHg"/>
     <members xmi:id="_JUSOgX1aEeqFtpGdIR8vHg" column="_p_M7oH1REeqFtpGdIR8vHg"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_FWcTUH4zEeqFtpGdIR8vHg" name="IX_TAREA_CALCULO_03" Schema="__lSHYJbPEemAxpJcl17jJg" table="__lSHqZbPEemAxpJcl17jJg" reverseScan="true">
+  <LUW:LUWIndex xmi:id="_FWcTUH4zEeqFtpGdIR8vHg" name="IX_TAREA_CALCULO_03" Schema="__lSHYJbPEemAxpJcl17jJg" table="__lSHqZbPEemAxpJcl17jJg" PCTFree="5" reverseScan="true">
     <members xmi:id="_K4C6sH4zEeqFtpGdIR8vHg" column="_7SF58DIJEeq5uZmPvXQJxg"/>
     <members xmi:id="_K3mOwH4zEeqFtpGdIR8vHg" column="__lSHwZbPEemAxpJcl17jJg"/>
     <members xmi:id="_K3v_wH4zEeqFtpGdIR8vHg" column="_-_7skKb_Eemy87tguorV8Q"/>
@@ -9933,7 +9933,7 @@
     <members xmi:id="_K4V1oH4zEeqFtpGdIR8vHg" column="_1GpyUH4vEeqFtpGdIR8vHg"/>
     <members xmi:id="_4i9asH7rEeqFtpGdIR8vHg" column="_RDm2MEUpEeqaSZWpWRrajQ"/>
   </LUW:LUWIndex>
-  <LUW:LUWIndex xmi:id="_N6pwEH4zEeqFtpGdIR8vHg" name="IX_TAREA_CALCULO_04" Schema="__lSHYJbPEemAxpJcl17jJg" table="__lSHqZbPEemAxpJcl17jJg" reverseScan="true">
+  <LUW:LUWIndex xmi:id="_N6pwEH4zEeqFtpGdIR8vHg" name="IX_TAREA_CALCULO_04" Schema="__lSHYJbPEemAxpJcl17jJg" table="__lSHqZbPEemAxpJcl17jJg" PCTFree="5" reverseScan="true">
     <members xmi:id="_T7ssgH4zEeqFtpGdIR8vHg" column="_7SF58DIJEeq5uZmPvXQJxg"/>
     <members xmi:id="_T7QAkH4zEeqFtpGdIR8vHg" column="__lSHwZbPEemAxpJcl17jJg"/>
     <members xmi:id="_T7ZxkH4zEeqFtpGdIR8vHg" column="_-_7skKb_Eemy87tguorV8Q"/>
