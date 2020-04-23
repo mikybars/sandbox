@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
 
+    /** @deprecated Se debe usar NamedParameterJdbcTemplate */
     @Deprecated
     @Autowired
     @Qualifier("primaryJdbcTemplate")
@@ -31,6 +32,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
     @Autowired
     private Logger log;
 
+    /** @deprecated Se debe usar saveNamedJdbcBatchList */
     @Deprecated
     public List<Z> saveJdbcBatchList(final List<Z> src, String sql, int batchSize) {
         for (List<Z> iter : StreamUtils.partition(src, batchSize)) {
@@ -55,6 +57,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
         return src;
     }
     
+    /** @deprecated Se debe usar saveNamedJdbcBatchList */
     @Deprecated
     public abstract void setParameters(PreparedStatement pstmt, Z entity) throws SQLException;
     

@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +12,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4Ic
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -40,7 +40,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 
@@ -78,11 +77,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     @Override
     public CompletableFuture<List<PeriodosResultItemDto>> getPeriodos(PeriodosRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
-    }
-    
-    @Override
-    public CompletableFuture<List<GenericTiendaResultItemDto>> getTiendasEmpleado(TiendasEmpleadoRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getTiendasEmpleado(request));
     }
     
     @Override
@@ -157,9 +151,10 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
             EmpleadosDesplazamientoRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEmpleadosDesplazamiento(request));
     }
-
+    
     @Override
     public CompletableFuture<List<ConfiguracionItemDto>> getConfiguraciones(ConfiguracionesRequestDto request) {
         return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfiguraciones(request));
     }
+
 }

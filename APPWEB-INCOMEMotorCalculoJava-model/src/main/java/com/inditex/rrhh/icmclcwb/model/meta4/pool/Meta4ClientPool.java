@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.retry.annotation.Retryable;
@@ -14,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getagruponli
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetausenciasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
@@ -27,7 +26,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getflagcalcu
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasempleadoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
@@ -36,6 +34,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalo
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamconfBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
@@ -292,19 +291,6 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
     
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
-    public GettiendasempleadoOutput gettiendasempleado(IcmParametrosentradaBlock param1,
-            IcmParametrospaginacionBlock param2) {
-        Meta4ClientPoolable client = claim(pool);
-        try {
-            return client.getIcmWsCalcIncomeService().gettiendasempleado(param1, param2);
-        } catch (Exception e) {
-            catchException(e, client, Arrays.asList(param1, param2));
-            throw new Meta4IcmclcwbException(e.getMessage(), e);
-        } finally {
-            release(client);
-        }
-    }
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
@@ -386,7 +372,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-
+    
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetconfiguracionOutput getconfiguracion(IcmParamconfBlock param) {
         Meta4ClientPoolable client = claim(pool);
@@ -399,4 +385,5 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
+
 }

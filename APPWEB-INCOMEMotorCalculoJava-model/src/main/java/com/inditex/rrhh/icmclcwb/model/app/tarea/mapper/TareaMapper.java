@@ -1,17 +1,29 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
@@ -26,16 +38,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaMapperDec
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(imports = { PtrConstants.class, RunUtils.class, TimeUtils.class })
 @DecoratedWith(value = TareaMapperDecorator.class)
@@ -79,6 +81,52 @@ public abstract class TareaMapper {
     @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    public abstract ConfChDiasMinimosFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToConfChDiasMinimosFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    public abstract PresupuestosWlocFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    public abstract ConfPrecioHoraFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToConfPrecioHoraFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    public abstract ConfChTpVentaFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToConfChTpVentaFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    public abstract PresupuestosRangoFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosRangoFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+    
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    public abstract GenericFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
+            TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
 
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")

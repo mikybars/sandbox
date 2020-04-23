@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
@@ -32,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaInd
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -45,7 +44,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 @Service
 @Validated
@@ -94,26 +92,15 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<Integer> localizaciones = tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(tarea.getId(),
-                tareaAmbito.getCclIdOrigen(), Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(), TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(), TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId()))
-                .stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList());
-            if (CollectionUtils.isNotEmpty(localizaciones)) {
-
-                if (TipoAmbitoEnum.PERSONA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
-                    || TipoAmbitoEnum.LOCALIZACION.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
-                    LocalizacionesAmbitoDto localizacionesAmbito = new LocalizacionesAmbitoDto(
-                        runTarea.getTrabajo().getTipoAmbito().getId());
-                    localizacionesAmbito.setLocalizaciones(
-                        tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
-                            runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen()));
-                    localizaciones = new ArrayList<>(CollectionUtils.intersection(localizaciones, localizacionesAmbito.getLocalizaciones()));
-                }
+            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(tareaLocalizacionHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(tarea.getId(),
+                tareaAmbito.getCclIdOrigen(), Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(), TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(), TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId())),
+                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getFilter().getMaxPageSize())) {
 
                 PtrVentaIndividualDetalleRequestDto paramVentaFisica =
                     tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(trabajo, tarea, tareaAmbito, recolectarProperties);
                 paramVentaFisica.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
                 paramVentaFisica.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaFisica.setTienda(localizaciones);
+                paramVentaFisica.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaFisica.setProducto(meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen()).stream()
                     .map(ConfiguracionProductoVentaResultItemDto::getIdProducto).collect(Collectors.toList()));

@@ -28,7 +28,7 @@ public class TareaLocalizacionOnlineHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionOnlineHistoricoRepositoryCustom.save']}")
     private String sqlSave;
 
-    //TODO: No se está usando
+    //TODO [COMUN] No se está usando
     @Value("#{primaryQuery['TareaLocalizacionOnlineHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
 

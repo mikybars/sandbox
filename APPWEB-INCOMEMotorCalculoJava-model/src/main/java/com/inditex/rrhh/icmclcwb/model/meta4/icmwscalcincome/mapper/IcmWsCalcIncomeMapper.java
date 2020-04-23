@@ -391,7 +391,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tope", source = "tope")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "idSeccion", source = "idseccion")
-    @Mapping(target = "idTipoVenta", source = "idtipoventa")
     ListaValoresBaseResultItemDto asListaValoresBaseResultItemDto(IcmListavaloresbaseRecord src);
 
     @InheritInverseConfiguration
@@ -434,7 +433,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tope", source = "tope")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "idSeccion", source = "idseccion")
-    @Mapping(target = "idTipoVenta", source = "idtipoventa")
     ListaValoresDestinoResultItemDto asListaValoresDestinoResultItemDto(IcmListavaloresdestinoRecord src);
 
     @InheritInverseConfiguration
@@ -612,7 +610,6 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idTipoHora", source = "src.idtphorafija")
     @Mapping(target = "idOrigen", source = "idOrigen")
     @Mapping(target = "icmCkVentaImpuestos", source = "src.chkventaimpuestos")
-    @Mapping(target = "idConfiguracion", defaultValue = "0")
     ConfiguracionItemDto asConfiguracionItemDto(IcmListaconfRecord src, String idOrigen);
-
+    
 }

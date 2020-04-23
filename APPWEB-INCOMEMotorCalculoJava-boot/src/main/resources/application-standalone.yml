@@ -573,3 +573,48 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
+          getConfChallengeDiasMinimos:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          getPresupuestosWloc:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3      
+          getConfPrecioHora:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3    
+          getConfChallengeTpVenta:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3 
+          getPresupuestosRango:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3

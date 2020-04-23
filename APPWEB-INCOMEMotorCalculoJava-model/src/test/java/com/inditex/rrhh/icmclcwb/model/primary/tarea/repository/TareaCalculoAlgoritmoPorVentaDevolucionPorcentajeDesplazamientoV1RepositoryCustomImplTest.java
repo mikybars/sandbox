@@ -3,11 +3,12 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -24,7 +25,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +47,9 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Mock
+    private TipoDatoService tipoDatoService;
 
     @Captor
     private ArgumentCaptor<MapSqlParameterSource[]> paramsCaptor;
@@ -85,6 +88,17 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
 
     @Test
     public void getMapValuesTest() {
+
+        when(tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(
+            Arrays.asList(
+                IdTipoDatoDto
+                    .builder()
+                    .id(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId())
+                    .build(),
+                IdTipoDatoDto
+                    .builder()
+                    .id(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId())
+                    .build()));
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(8001);
@@ -127,13 +141,16 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
         // idTipoDatoDevolucionLocalizacion, fechaInicioPeriodo, idTipoDatoImporteComisionDevolucion, cclIdPersonVendedor0,
         // idTipoPresencia, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
         // esDesplazamientoBase, comisionable, calcula, idTipoDatoIndicadorPresenciaDesplazamiento
-        assertEquals(19, result.size());
+        assertEquals(20, result.size());
         //activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
         //idTipoDatoIndicadorPresencia
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
         assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+        //tipoDatoLocalizacionPersonaPresencia
+        assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA.getId(), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
         //idTipoDatoDevolucionLocalizacionPersona
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
         assertEquals(TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId(), result.get(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
@@ -151,7 +168,9 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
         assertEquals(PtrConstants.VENDEDOR_0, result.get(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
         //idTipoPresencia
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), result.get(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+        assertEquals(
+            Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()),
+            result.get(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
         //idAlgoritmo
         assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
         assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
@@ -189,6 +208,17 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
 
     @Test
     public void calcularTest() {
+
+        when(tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(
+            Arrays.asList(
+                IdTipoDatoDto
+                    .builder()
+                    .id(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId())
+                    .build(),
+                IdTipoDatoDto
+                    .builder()
+                    .id(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId())
+                    .build()));
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(8001);
@@ -241,13 +271,16 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
         //2 elementos, porque se envían dos personas
         assertEquals(2, values.length);
         for (MapSqlParameterSource value : values) {
-            assertEquals(19, value.getValues().size());
+            assertEquals(20, value.getValues().size());
             //activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
             //idTipoDatoIndicadorPresencia
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
             assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+            //tipoDatoLocalizacionPersonaPresencia
+            assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
+            assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA.getId(), value.getValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
             //idTipoDatoDevolucionLocalizacionPersona
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
             assertEquals(TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId(), value.getValue(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
@@ -265,7 +298,9 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
             assertEquals(PtrConstants.VENDEDOR_0, value.getValue(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
             //idTipoPresencia
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-            assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), value.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+            assertEquals(
+                Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(), TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()),
+                value.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
             //idAlgoritmo
             assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));

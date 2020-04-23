@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
@@ -49,7 +48,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
                 .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(genericEmpleadoResultItemDto, tarea);
     }
 
-    //TODO: No se está usando
+    //TODO [COMUN] No se está usando.
     @Override
     @Cacheable(value = "itx.icmlcwb.id_persona_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
     public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
@@ -70,8 +69,20 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
             @NotNull final String cclIdOrigen, @NotNull final List<Integer> idsTipoDato) {
         return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
     }
+    
+    @Override
+    @Cacheable(value = "itx.icmlcwb.periodo_by_tarea", key = "{#idTarea}")
+    public PeriodoDto findPeriodoByIdTareaDto(@NotNull final Long idTarea) {
+        return tareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea(idTarea);
+    }
+    
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea", key = "{#idTarea}")
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull final Long idTarea) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
+    }
 
-    //TODO: No se está usando
+    //TODO [COMUN] No se está usando.
     @Override
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String cclIdOrigen) {

@@ -68,6 +68,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada']}")
     private String sqlIndicadorPersonaPorVentaSimplificada;
+
+    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta']}")
+    private String sqlPresenciasIncluidoVenta;
       
     @Autowired
     private TipoDatoService tipoDatoService;
@@ -106,7 +109,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId(), TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA.getId(),
-                TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId(), TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA_Y_REDUCCION_DE_JORNADA.getId()));
+                TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId(), TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_PRESENCIA_Y_REDUCCION_DE_JORNADA.getId(),
+                TipoCalculoEnum.POR_VENTA.getId(), TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(), TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         update(sqlIndicadorPresenciaDesplazamientoBase, parameters);
     }
@@ -162,6 +166,23 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
                 TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
 
         update(sqlCompensar, parameters);
+    }
+
+    @Override
+    public void presenciasIncluidoVenta(@NotNull RunTareaDto runTareaDto) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_VENTA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+            tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+            TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        update(sqlPresenciasIncluidoVenta, parameters);
     }
 
     @Override

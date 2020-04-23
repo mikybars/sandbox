@@ -47,7 +47,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 
@@ -137,20 +136,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getPeriodos(ArgumentMatchers.any(PeriodosRequestDto.class));
 
     }
-    
-    @Test
-    public void getTiendasEmpleado() {
-        when(meta4IcmWsCalcIncomeSessionService.getTiendasEmpleado(any(TiendasEmpleadoRequestDto.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());
-
-        TiendasEmpleadoRequestDto request = new TiendasEmpleadoRequestDto();
-        request.setData(new GenericFilterDto());
-        request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendasEmpleado(request));
-
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getTiendasEmpleado(ArgumentMatchers.any(TiendasEmpleadoRequestDto.class));
-
-    }
-    
+       
     @Test
     public void searchTiendas() {
         when(meta4IcmWsCalcIncomeSessionService.searchTiendas(any(SearchTiendasRequestDto.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());
@@ -319,4 +305,6 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
 
     }
+ 
+    
 }

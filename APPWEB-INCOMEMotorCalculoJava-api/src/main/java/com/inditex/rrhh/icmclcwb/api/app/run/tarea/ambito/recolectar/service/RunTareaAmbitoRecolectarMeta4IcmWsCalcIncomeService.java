@@ -54,5 +54,6 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void configuracionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-                                               @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
 }

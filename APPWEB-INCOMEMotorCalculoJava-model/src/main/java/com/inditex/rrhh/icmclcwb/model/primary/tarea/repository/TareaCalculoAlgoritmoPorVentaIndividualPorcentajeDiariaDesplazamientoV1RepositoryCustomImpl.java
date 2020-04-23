@@ -18,7 +18,7 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamien
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     implements TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoV1RepositoryCustom {
 
-    //TODO [Comun] Substituir las consultas de las anotaciones @Value
+    //TODO [COMUN] Substituir las consultas de las anotaciones @Value
 
     //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoV1Repository.calcular']}")

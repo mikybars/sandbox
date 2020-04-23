@@ -48,7 +48,8 @@ public class GlobalTiendaSeccionPorcentajeDiariaDesplazamientoV1RunAlgoritmo imp
                     }
                     log.info("Fin :: GlobalTiendaSeccionPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
                     return Flux.empty();
-            }).sequential().collectList().block();    }
+            }).sequential().collectList().block();
+    }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {

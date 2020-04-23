@@ -29,6 +29,11 @@ public class Meta4PropertiesConstants {
     public static final String ESTRUCTURAS_POL = "getEstructurasPol";
     public static final String AUSENCIAS = "getAusencias";
     public static final String CONFIGURACION = "getConfiguracion";
+    public static final String CONFCHALLENGEDIASMINIMOS = "getConfChallengeDiasMinimos";
+    public static final String PRESUPUESTOSWLOC = "getPresupuestosWloc";
+    public static final String CONFPRECIOHORA = "getConfPrecioHora";
+    public static final String CONFCHALLENGETPVENTA = "getConfChallengeTpVenta";
+    public static final String PRESUPUESTOSRANGO = "getPresupuestosRango";    
 
     
 }

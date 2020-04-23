@@ -1,5 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
@@ -11,26 +20,19 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import lombok.Getter;
 
 @Repository
 public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1RepositoryCustomImpl
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     implements TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1RepositoryCustom {
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular']} ")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Getter
     private String sqlCalcular;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular.where']} ")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
     @Getter
     private String sqlCalcularBase;
 

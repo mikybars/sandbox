@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarEstructurasAsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -33,6 +34,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
     
     @Autowired
     private RunTareaProcesarCondicionesAsyncService runTareaProcesarCondicionesAsyncService;
+
+    @Autowired
+    private RunTareaProcesarEstructurasAsyncService runTareaProcesarEstructurasAsyncService;
 
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaProcesarService.run.timer", metricGroupName = "RunTareaProcesarServiceGroup", metricDescription = "RunTareaProcesarService.run.timer")
@@ -100,7 +104,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
-            
+
+            // Activar estructuras topes
+            CompletableFuture<Void> cfActivoTopes = runTareaProcesarEstructurasAsyncService.updateActivoTopes(runTarea.getTarea());
+            AsyncUtils.exceptionally(cfActivoTopes, cf, cfWait);
+
             // Calcular localizacion abierta
             CompletableFuture<Void> cfSaveAbierto = runTareaProcesarVentaAsyncService.saveAbierto(runTarea);
             AsyncUtils.exceptionally(cfSaveAbierto, cf, cfWait);
@@ -174,6 +182,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             // Empleados por venta
             CompletableFuture<Void> cfTotalizarEmpleadosPorVenta = runTareaProcesarPresenciaAsyncService.totalizarEmpleadosPorVenta(runTarea);
             AsyncUtils.exceptionally(cfTotalizarEmpleadosPorVenta, cf, cfWait);
+
+            // Obtener la presencia incluido venta por empleado
+            CompletableFuture<Void> cfPresenciasIncluidoVentaPersona = runTareaProcesarPresenciaAsyncService.presenciasIncluidoVentaPersona(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasIncluidoVentaPersona, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
