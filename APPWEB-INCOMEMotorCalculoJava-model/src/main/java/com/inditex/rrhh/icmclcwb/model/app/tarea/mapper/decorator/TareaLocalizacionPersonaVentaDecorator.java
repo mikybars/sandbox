@@ -1,5 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -11,12 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
-import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocalizacionPersonaVentaMapper {
 
@@ -139,13 +141,21 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
                     s.setSeccion(idSeccion);
                     TareaLocalizacionPersonaVenta item = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea, s);
                     if (item.getTipoDato() != null) {
-                        result.add(item);
+                        if(StringUtils.isNotEmpty(item.getCclIdPerson())) {
+                            result.add(item);    
+                        }else {
+                            log.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
+                        }
                     }
                 }
             } else {
                 TareaLocalizacionPersonaVenta item = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea, seccion);
                 if (item.getTipoDato() != null) {
-                    result.add(item);
+                    if(StringUtils.isNotEmpty(item.getCclIdPerson())) {
+                        result.add(item);    
+                    }else {
+                        log.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
+                    }
                 }
             }
         });
