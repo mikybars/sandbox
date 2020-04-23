@@ -55,7 +55,7 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
                             .filter(x -> x.getCadenas().stream().anyMatch(y -> y.equals(item.getCadena().toString())))
                             .findFirst();
                     if (!optionalAgrupacion.isPresent()) {
-                        log.warn("No hay agrupacion para la cadena: {}", item.getCadena());
+                        log.warn("No hay agrupacion para la cadena: {}, id de tarea: {}", item.getCadena(), tarea.getId());
                     }else {
                         idAgrupaciones.put(item.getCadena(), optionalAgrupacion.get().getId());    
                     }

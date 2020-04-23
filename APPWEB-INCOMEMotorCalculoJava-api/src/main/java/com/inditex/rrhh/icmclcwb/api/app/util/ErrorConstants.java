@@ -13,4 +13,6 @@ public class ErrorConstants {
 
     public static final String OPERATION_NOT_VALID = "La operacion {} no es valida";
 
+    public static final String EMPTY_CCL_ID_PERSON = "El registro {} no tiene vendedor asociado";
+
 }
