@@ -23,8 +23,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarAmbitoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarEstructurasAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiposHoraAsyncService;
@@ -117,8 +117,8 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
 
                 if (CollectionUtils.isNotEmpty(runTareaValidarDuplicated)) {
                     if (validarProperties.isLogging()) {
-                        log.warn("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
-                                runTareaValidarDuplicated);
+                        log.warn("Trabajo[{}]Tarea[{}] :: RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
+                                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), runTareaValidarDuplicated);
                     }
                     if (validarProperties.isException()) {
                         throw new IcmclcwbException("Valores duplicados");
