@@ -50,7 +50,6 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBase
         HashMap<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-            map.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
         }
         if (persona != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getCclIdPerson());
@@ -62,7 +61,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBase
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA, TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION, TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION, TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0, PtrConstants.VENDEDOR_0);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_REPARTO_VENDEDOR_0, TipoDatoEnum.REPARTO_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION,
             tiposDatoPresenciaLocalizacion.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());

@@ -201,4 +201,16 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
         tareaProcesarVentaService.updateActivoNegativoTotalizado(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> totalizarVentasVendedor0(RunTareaDto tarea) {
+        tareaProcesarVentaService.totalizarVentasVendedor0(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> repartoDevolucionVendedor0(RunTareaDto tarea) {
+        tareaProcesarVentaService.repartoDevolucionVendedor0(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

@@ -1,27 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_REPARTO_VENDEDOR_0;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -153,7 +133,6 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamien
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
-        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 3, 1));
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -164,7 +143,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamien
         // idTipoDatoDevolucionLocalizacion, fechaInicioPeriodo, idTipoDatoImporteComisionDevolucion, cclIdPersonVendedor0,
         // idTipoPresencia, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision, esDesplazamiento,
         // esDesplazamientoBase, comisionable, calcula, idTipoDatoIndicadorPresenciaDesplazamiento
-        assertEquals(20, result.size());
+        assertEquals(19, result.size());
         //activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -180,15 +159,12 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamien
         //idTipoDatoDevolucionLocalizacion
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
         assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
-        //fechaInicioPeriodo
-        assertTrue(result.containsKey(SQL_PARAM_FECHA_INICIO_PERIODO));
-        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), result.get(SQL_PARAM_FECHA_INICIO_PERIODO));
         //idTipoDatoImporteComisionDevolucion
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
         assertEquals(TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
         //cclIdPersonVendedor0
-        assertTrue(result.containsKey(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
-        assertEquals(PtrConstants.VENDEDOR_0, result.get(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_REPARTO_VENDEDOR_0));
+        assertEquals(TipoDatoEnum.REPARTO_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId(), result.get(SQL_PARAM_ID_TIPO_DATO_REPARTO_VENDEDOR_0));
         //idTipoPresencia
         assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
         assertEquals(
@@ -273,7 +249,6 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamien
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
-        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2015, 3, 1));
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -294,7 +269,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamien
         //2 elementos, porque se envían dos personas
         assertEquals(2, values.length);
         for (MapSqlParameterSource value : values) {
-            assertEquals(20, value.getValues().size());
+            assertEquals(19, value.getValues().size());
             //activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -310,15 +285,12 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamien
             //idTipoDatoDevolucionLocalizacion
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
             assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
-            //fechaInicioPeriodo
-            assertTrue(value.hasValue(SQL_PARAM_FECHA_INICIO_PERIODO));
-            assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), value.getValue(SQL_PARAM_FECHA_INICIO_PERIODO));
             //idTipoDatoImporteComisionDevolucion
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
             assertEquals(TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
             //cclIdPersonVendedor0
-            assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
-            assertEquals(PtrConstants.VENDEDOR_0, value.getValue(SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_REPARTO_VENDEDOR_0));
+            assertEquals(TipoDatoEnum.REPARTO_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId(), value.getValue(SQL_PARAM_ID_TIPO_DATO_REPARTO_VENDEDOR_0));
             //idTipoPresencia
             assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
             assertEquals(
