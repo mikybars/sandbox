@@ -19,7 +19,7 @@ metadata:
   platform: Openshift-Intranet Arteixo
   slot: develop
   tenant: global
-  version: 2.0.2
+  version: 2.1.0
 amiga:
   monitoring:
     metrics:
