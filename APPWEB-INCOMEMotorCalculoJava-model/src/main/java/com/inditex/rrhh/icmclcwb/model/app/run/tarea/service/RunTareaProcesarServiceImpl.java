@@ -236,6 +236,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonasPorVenta(runTarea);
             AsyncUtils.exceptionally(cfVentasPorVenta, cf, cfWait);
 
+            // Calcular ventas localizacion realizadas por vendedor 0 (personas no venta)
+            CompletableFuture<Void> cfVentasVendedor0 = runTareaProcesarVentaAsyncService.totalizarVentasVendedor0(runTarea);
+            AsyncUtils.exceptionally(cfVentasVendedor0, cf, cfWait);
+
             // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -
             // por ventas
             CompletableFuture<Void> cfRepartoAgrupaciones = runTareaProcesarVentaAsyncService
@@ -251,6 +255,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // Reparto devoluciones vendedor 0 entre el numero de vendedores de la tienda
+            CompletableFuture<Void> cfRepartoVendedor0 = runTareaProcesarVentaAsyncService.repartoDevolucionVendedor0(runTarea);
+            AsyncUtils.exceptionally(cfRepartoVendedor0, cf, cfWait);
 
             // Calcular importe comision vendedores por venta
             CompletableFuture<Void> cfCalcularImporteComisionVendedores =
