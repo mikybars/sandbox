@@ -1,11 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 import org.slf4j.Logger;
@@ -53,6 +55,12 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado']}")
     private String sqlUpdateActivoNegativoTotalizado;
+
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0']}")
+    private String sqlTotalizarVentasVendedor0;
+
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0']}")
+    private String sqlRepartoDevolucionVendedor0;
 
     @Autowired
     private Logger log;
@@ -243,5 +251,37 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
         
         namedParameterJdbcTemplate.update(sqlUpdateActivoNegativoTotalizado, parameters);
+    }
+
+    @Override
+    public void totalizarVentasVendedor0(@NotNull TareaDto tarea) {
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_DEVOLUCION, TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA, TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.POR_VENTA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0, PtrConstants.VENDEDOR_0);
+
+        namedParameterJdbcTemplate.update(sqlTotalizarVentasVendedor0, parameters);
+
+    }
+
+    @Override
+    public void repartoDevolucionVendedor0(@NotNull TareaDto tarea) {
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.REPARTO_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA, TipoDatoEnum.DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId());
+
+        namedParameterJdbcTemplate.update(sqlRepartoDevolucionVendedor0, parameters);
+
     }
 }

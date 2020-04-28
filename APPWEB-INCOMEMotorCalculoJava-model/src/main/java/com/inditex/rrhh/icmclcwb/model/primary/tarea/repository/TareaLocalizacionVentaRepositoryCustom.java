@@ -30,4 +30,8 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
     void updateActivoNegativoTotalizado(@NotNull TareaDto tarea);
 
+    void totalizarVentasVendedor0(@NotNull TareaDto tarea);
+
+    void repartoDevolucionVendedor0(@NotNull TareaDto tarea);
+
 }
