@@ -49,8 +49,8 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
                     }
                 });
             } catch (DataAccessException e) {
-                log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error: {}", e);
-                iter.stream().forEach(a -> log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a));
+                log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error ", e);
+                iter.stream().forEach(a -> log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a, e));
                 throw e;
             }
         }
@@ -67,8 +67,8 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
                 SqlParameterSource[] itemList = SqlParameterSourceUtils.createBatch(iter.toArray());
                 namedParameterJdbcTemplate.batchUpdate(sql, itemList);
             } catch (DataAccessException e) {
-                log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error: {}", e);
-                iter.stream().forEach(a -> log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a));
+                log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error ", e);
+                iter.stream().forEach(a -> log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a, e));
                 throw e;
             }
         }
@@ -79,7 +79,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
         try {
             namedParameterJdbcTemplate.update(sql, parameters);
         } catch (DataAccessException e) {
-            log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error insertando: {} :: Items: {}", e, parameters.toString());
+            log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error insertando :: Items: {}", parameters, e);
             throw e;
         }
     }
