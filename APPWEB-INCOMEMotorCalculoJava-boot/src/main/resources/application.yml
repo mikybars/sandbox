@@ -28,37 +28,39 @@ amiga:
           name-format: async-reactor-executor-%d
           core-pool-size: 10
           maximum-pool-size: 100
-          queue-size: 200
+          queue-size: 2000
+          rejected-execution-policy: ABORT
+          keep-alive-time: 600000
     async:
       default-executor:
         core-pool-size: 10
         maximum-pool-size: 100
-        queue-size: 200
+        queue-size: 2000
     executor:
       meta4-executor:
         name: async-meta4-executor
         name-format: async-meta4-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
-        queue-size: 200
+        queue-size: 2000
       ptr-venta-executor:
         name: async-ptr-venta-executor
         name-format: async-ptr-venta-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
-        queue-size: 200
+        queue-size: 2000
       ptr-presencia-executor:
         name: async-ptr-presencia-executor
         name-format: async-ptr-presencia-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
-        queue-size: 200
+        queue-size: 2000
       repository-primary-executor:
         name: async-repository-primary-executor
         name-format: async-repository-primary-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
-        queue-size: 200
+        queue-size: 2000
   service:
     session:
       session-type: REMOTE
