@@ -145,7 +145,8 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
                             result.add(item);    
                         }else {
                             log.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
-                        }                    }
+                        }
+                    }
                 }
             } else {
                 TareaLocalizacionPersonaVenta item = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea, seccion);

@@ -14,6 +14,6 @@ public interface TareaAmbitoPersonaService {
     List<TareaAmbitoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea);
 
     List<TareaAmbitoPersonaDto> create(@Valid @NotNull @NotEmpty final List<TareaAmbitoPersonaDto> tareaAmbitoPersona,
-            @NotNull final TareaDto tarea);
+            @Valid @NotNull final TareaDto tarea);
 
 }

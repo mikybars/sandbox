@@ -13,4 +13,19 @@ public interface LimpiezaRepositoryCustom {
 
     void consolidar(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TrabajoDto trabajo);
 
+    void limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaTareaLocalizacionHistorico(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaTareaGlobalLocalizacionPersona(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaTareaAmbitoLocalizacion(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito);
+
+    void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea);
 }

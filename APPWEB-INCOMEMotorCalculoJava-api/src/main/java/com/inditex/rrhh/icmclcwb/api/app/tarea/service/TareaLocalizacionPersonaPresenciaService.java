@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -11,32 +13,32 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 
 public interface TareaLocalizacionPersonaPresenciaService {
 
-    void save(@NotNull List<GenericEmpleadoResultItemDto> src, @NotNull TareaDto tareaDto);
+    void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src, @Valid @NotNull final TareaDto tareaDto);
 
-    void updateActivo(@NotNull RunTareaDto tareaDto);
-
-    void savePtrPresenciaDetalle(@NotNull List<PtrPresenciaDetalleResultItemDto> src, @NotNull TareaDto tareaDto);
-
-    void compensar(@NotNull RunTareaDto runTareaDto);
-
-    void presenciasIncluidoVenta(@NotNull RunTareaDto runTareaDto);
-
-    void updateActivoVacio(@NotNull RunTareaDto runTareaDto);
-
-    void indicadorPresencia(@NotNull RunTareaDto runTareaDto);
-
-    void indicadorPresenciaDesplazamiento(@NotNull RunTareaDto runTareaDto);
+    void savePtrPresenciaDetalle(@Valid @NotNull @NotEmpty final List<PtrPresenciaDetalleResultItemDto> src, @Valid @NotNull final TareaDto tareaDto);
     
-    void indicadorPresenciaDesplazamientoBase(@NotNull RunTareaDto runTareaDto);
+    void updateActivo(@Valid @NotNull final RunTareaDto tareaDto);
     
-    void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@NotNull RunTareaDto runTareaDto);
+    void updateActivoVacio(@Valid @NotNull final RunTareaDto runTareaDto);
 
-    void presenciasHorasFijas(@NotNull RunTareaDto runTareaDto);
+    void compensar(@Valid @NotNull final RunTareaDto runTareaDto);
 
-    void presenciasHorasFijasDesplazamientos(@NotNull RunTareaDto runTareaDto);
+    void presenciasIncluidoVenta(@Valid @NotNull final RunTareaDto runTareaDto);
 
-    void indicadorPersonaPorVenta(@NotNull RunTareaDto runTareaDto);
+    void indicadorPresencia(@Valid @NotNull final RunTareaDto runTareaDto);
 
-    void indicadorPersonaPorVentaSimplificada(@NotNull RunTareaDto runTareaDto);
+    void indicadorPresenciaDesplazamiento(@Valid @NotNull final RunTareaDto runTareaDto);
+    
+    void indicadorPresenciaDesplazamientoBase(@Valid @NotNull final RunTareaDto runTareaDto);
+    
+    void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto);
+
+    void presenciasHorasFijas(@Valid @NotNull final RunTareaDto runTareaDto);
+
+    void presenciasHorasFijasDesplazamientos(@Valid @NotNull final RunTareaDto runTareaDto);
+
+    void indicadorPersonaPorVenta(@Valid @NotNull final RunTareaDto runTareaDto);
+
+    void indicadorPersonaPorVentaSimplificada(@Valid @NotNull final RunTareaDto runTareaDto);
 
 }

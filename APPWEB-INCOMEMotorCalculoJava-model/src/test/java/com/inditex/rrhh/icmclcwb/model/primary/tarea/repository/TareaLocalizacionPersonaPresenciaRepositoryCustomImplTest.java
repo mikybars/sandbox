@@ -95,10 +95,10 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
             SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVenta",
                 SQL_INDICADOR_PERSONA_POR_VENTA, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVentaSimplificada",
+            FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVentaSimplificada",
                 SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlPresenciasIncluidoVenta",
-                SQL_PRESENCIAS_INCLUIDO_VENTA, true);
+            SQL_PRESENCIAS_INCLUIDO_VENTA, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
     }
 
@@ -319,7 +319,6 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
     }
-
 
     @Test
     public void presenciasHorasFijasTest() {

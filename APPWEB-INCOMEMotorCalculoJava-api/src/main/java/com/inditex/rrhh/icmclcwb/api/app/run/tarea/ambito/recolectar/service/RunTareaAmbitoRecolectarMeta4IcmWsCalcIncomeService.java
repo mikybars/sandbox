@@ -70,4 +70,7 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
 
     void presupuestosRangoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
+    void ventaCongeladaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 }

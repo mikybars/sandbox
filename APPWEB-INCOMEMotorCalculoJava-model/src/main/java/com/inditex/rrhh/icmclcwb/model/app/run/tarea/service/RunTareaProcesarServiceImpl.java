@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarEstructurasAsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -34,9 +33,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
     
     @Autowired
     private RunTareaProcesarCondicionesAsyncService runTareaProcesarCondicionesAsyncService;
-
-    @Autowired
-    private RunTareaProcesarEstructurasAsyncService runTareaProcesarEstructurasAsyncService;
 
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaProcesarService.run.timer", metricGroupName = "RunTareaProcesarServiceGroup", metricDescription = "RunTareaProcesarService.run.timer")
@@ -106,7 +102,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
 
             // Activar estructuras topes
-            CompletableFuture<Void> cfActivoTopes = runTareaProcesarEstructurasAsyncService.updateActivoTopes(runTarea.getTarea());
+            CompletableFuture<Void> cfActivoTopes = runTareaProcesarCondicionesAsyncService.updateActivoEstructurasTopes(runTarea.getTarea());
             AsyncUtils.exceptionally(cfActivoTopes, cf, cfWait);
 
             // Calcular localizacion abierta
@@ -318,10 +314,49 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
-            
+
             CompletableFuture<Void> cfUpdateActivoNegativoTotalizado = runTareaProcesarVentaAsyncService.updateActivoNegativoTotalizado(runTarea);
             AsyncUtils.exceptionally(cfUpdateActivoNegativoTotalizado, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
             
+            CompletableFuture<Void> cfTotalizarPresupuesto = runTareaProcesarVentaAsyncService.totalizarPresupuesto(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarPresupuesto, cf, cfWait);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            CompletableFuture<Void> cfUpdateActivoPresupuesto = runTareaProcesarVentaAsyncService.updateActivoExcepcionada(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoPresupuesto, cf, cfWait);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            CompletableFuture<Void> cfUpdateActivoCongelada = runTareaProcesarVentaAsyncService.updateActivoCongelada(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoCongelada, cf, cfWait);
+
+            CompletableFuture<Void> cfUpdateActivoPresupuestoBandaExcepcion = runTareaProcesarCondicionesAsyncService.updateActivoPresupuestosBandaExcepcion(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoPresupuestoBandaExcepcion, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            CompletableFuture<Void> cfUpdateActivoPresupuestoBandasSinExcepcion = runTareaProcesarCondicionesAsyncService.updateActivoPresupuestosBandasSinExcepcion(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoPresupuestoBandasSinExcepcion, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            CompletableFuture<Void> cfRelacionarPresupuestosEstructurasSinDesplazamiento = runTareaProcesarCondicionesAsyncService.relacionarPresupuestosEstructurasSinDesplazamiento(runTarea.getTarea());
+            AsyncUtils.exceptionally(cfRelacionarPresupuestosEstructurasSinDesplazamiento, cf, cfWait);
+
+            CompletableFuture<Void> cfRelacionarPresupuestosEstructurasDesplazamiento = runTareaProcesarCondicionesAsyncService.relacionarPresupuestosEstructurasDesplazamiento(runTarea.getTarea());
+            AsyncUtils.exceptionally(cfRelacionarPresupuestosEstructurasDesplazamiento, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/

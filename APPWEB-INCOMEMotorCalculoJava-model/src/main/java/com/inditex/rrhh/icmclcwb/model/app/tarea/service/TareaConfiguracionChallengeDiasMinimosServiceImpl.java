@@ -2,6 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -25,13 +29,13 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImpl
     private TareaConfiguracionChallengeDiasMinimosRepositoryCustom tareaConfiguracionChallengeDiasMinimosRepositoryCustom;
     
     @Override
-    public void save(List<TareaConfiguracionChallengeDiasMinimosDto> src, TareaDto tarea) {
+    public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src, @Valid @NotNull final TareaDto tarea) {
         tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
                 tareaConfiguracionChallengeDiasMinimosMapper.tareaConfiguracionChallengeDiasMinimosDtoToTareaConfiguracionChallengeDiasMinimos(src));
     }
     
     @Override
-    public void saveConfChDiasMinimosResultItemDto(List<ConfChDiasMinimosResultItemDto> src, TareaDto tarea) {
+    public void saveConfChDiasMinimosResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
         tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
                 tareaConfiguracionChallengeDiasMinimosMapper.confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(src, tarea));
     }

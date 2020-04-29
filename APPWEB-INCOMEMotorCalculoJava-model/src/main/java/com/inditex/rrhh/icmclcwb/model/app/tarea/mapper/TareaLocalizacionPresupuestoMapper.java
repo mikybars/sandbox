@@ -20,7 +20,7 @@ public abstract class TareaLocalizacionPresupuestoMapper {
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     @Mapping(target = "stdIdLegEnt", source = "src.idEmpresa")
     @Mapping(target = "stdIdWorkLocat", source = "src.idLugarTrabajo")
-    @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajo") //TODO [javierev] Usar el id local
+    @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajoMtu")
     @Mapping(target = "cclIdSeccion", source = "src.idSeccion")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
@@ -29,7 +29,7 @@ public abstract class TareaLocalizacionPresupuestoMapper {
     @Mapping(target = "banda", source = "src.banda")
     @Mapping(target = "ordinal", source = "src.ordinal")
     @Mapping(target = "excepcion", source = "src.excepcion")
-    @Mapping(target = "idTpPresupuesto", source = "src.idTpPresupuesto")
+    @Mapping(target = "tipoPresupuesto", ignore = true)
     @Mapping(target = "activo", constant = "false")
     public abstract TareaLocalizacionPresupuesto presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
         PresupuestosWlocResultItemDto src, TareaDto tarea);

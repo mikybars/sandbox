@@ -53,6 +53,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasempleado.dto.TiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 
 public interface Meta4IcmWsCalcIncomeSessionService {
 
@@ -113,5 +115,7 @@ public interface Meta4IcmWsCalcIncomeSessionService {
     List<ConfChTpVentaResultItemDto> getConfChallengeTpVenta(ConfChTpVentaRequestDto request);
 
     List<PresupuestosRangoResultItemDto> getPresupuestosRango(PresupuestosRangoRequestDto request);
+
+    List<VentaCongeladaResultItemDto> getVentaCongelada(VentaCongeladaRequestDto request);
 
 }

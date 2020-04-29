@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRespositoryProcesarCustom;
@@ -42,6 +43,10 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Autowired
     private TareaLocalizacionPersonaVentaRepositoryCustom tareaLocalizacionPersonaVentaRepositoryCustom;
+    
+    @Autowired
+    private TareaLocalizacionPresupuestoVentaRepositoryCustom tareaLocalizacionPresupuestoVentaRepositoryCustom;
+
 
     @Autowired
     private TipoDatoService tipoDatoService;
@@ -104,10 +109,25 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void repartoVentaEntregaDomicilioSeccion(@Valid RunTareaDto runTarea) {
         tareaTiendaVentaSeccionRepository.procesarRepartoEntregaDomicilio(runTarea.getTarea());
     }
-
+    
     @Override
     public void updateActivoTrasladadas(@Valid RunTareaDto runTarea) {
         tareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas(runTarea.getTarea());
+    }
+
+    @Override
+    public void updateActivoExcepcionada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoExcepcionada(runTarea);
+    }
+    
+    @Override
+    public void updateActivoCongelada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoCongelada(runTarea);
+    }
+    
+    @Override
+    public void totalizarPresupuesto(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar(runTarea);
     }
     
     @Override

@@ -54,7 +54,6 @@ public class TareaConfiguracionRepositoryCustomImplTest {
         TareaConfiguracion entity = mock(TareaConfiguracion.class);
         when(entity.getTarea()).thenReturn(tarea);
         when(entity.getCclIdOrigen()).thenReturn("ID ORIGEN");
-        when(entity.getIcmIdConfig()).thenReturn(87654);
         when(entity.getFechaInicio()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
         when(entity.getFechaFin()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 31)));
         when(entity.getCodTipoHora()).thenReturn(1);
@@ -66,11 +65,10 @@ public class TareaConfiguracionRepositoryCustomImplTest {
         // ICM_ID_TP_HORA, ICM_CK_VENTA_IMPUESTOS
         verify(pstmt, times(1)).setLong(1, tarea.getId());
         verify(pstmt, times(1)).setString(2, entity.getCclIdOrigen());
-        verify(pstmt, times(1)).setInt(3, entity.getIcmIdConfig());
-        verify(pstmt, times(1)).setObject(4, entity.getFechaInicio());
-        verify(pstmt, times(1)).setObject(5, entity.getFechaFin());
-        verify(pstmt, times(1)).setInt(6, entity.getCodTipoHora());
-        verify(pstmt, times(1)).setBoolean(7, entity.getIcmCkVentaImpuestos());
+        verify(pstmt, times(1)).setObject(3, entity.getFechaInicio());
+        verify(pstmt, times(1)).setObject(4, entity.getFechaFin());
+        verify(pstmt, times(1)).setInt(5, entity.getCodTipoHora());
+        verify(pstmt, times(1)).setBoolean(6, entity.getIcmCkVentaImpuestos());
 
     }
 

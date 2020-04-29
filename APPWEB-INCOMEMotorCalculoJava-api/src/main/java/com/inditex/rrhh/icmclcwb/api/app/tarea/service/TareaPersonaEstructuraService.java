@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -11,12 +13,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Es
 
 public interface TareaPersonaEstructuraService {
    
-    List<TareaPersonaEstructuraDto> save(@Valid List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
-            @Valid TareaDto tarea);
+    List<TareaPersonaEstructuraDto> save(@Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+            @Valid @NotNull final TareaDto tarea);
 
     List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
-            @Valid final List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid final TareaDto tarea);
+            @Valid @NotNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid @NotNull final TareaDto tarea);
 
-    List<IdPersonaLocalDto> findPersonasChallenge(@Valid final TareaDto tarea);
+    List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NotNull final TareaDto tarea);
 
 }

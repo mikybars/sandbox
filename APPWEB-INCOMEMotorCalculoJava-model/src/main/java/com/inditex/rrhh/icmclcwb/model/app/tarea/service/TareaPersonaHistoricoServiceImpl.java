@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
@@ -35,7 +37,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     private TareaPersonaHistoricoMapper tareaPersonaHistoricoMapper;
 
     @Override
-    public List<TareaPersonaHistoricoDto> save(@Valid final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico) {
+    public List<TareaPersonaHistoricoDto> save(@Valid @NotNull @NotEmpty final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico) {
         return tareaPersonaHistoricoMapper
                 .tareaPersonaHistoricoToTareaPersonaHistoricoDto(
                         tareaPersonaHistoricoRepositoryCustom.save(tareaPersonaHistoricoMapper.tareaPersonaHistoricoDtoToTareaPersonaHistorico(tareaEmpleadoHistorico)));
@@ -43,7 +45,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
 
     @Override
     public List<TareaPersonaHistoricoDto> merge(
-            @Valid final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid final TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, @Valid @NotNull final TareaDto tarea) {
         return tareaPersonaHistoricoMapper
                 .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(genericEmpleadoResultItemDto, tarea);
     }
@@ -80,6 +82,11 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     @Cacheable(value = "itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea", key = "{#idTarea}")
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull final Long idTarea) {
         return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
+    }
+    
+    @Override
+    public List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NotNull final Long idTarea) {
+        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
     }
 
     //TODO [COMUN] No se está usando.

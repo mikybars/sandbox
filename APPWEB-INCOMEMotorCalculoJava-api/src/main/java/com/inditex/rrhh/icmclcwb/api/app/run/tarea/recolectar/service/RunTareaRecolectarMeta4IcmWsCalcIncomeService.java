@@ -49,4 +49,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void presupuestosRangoByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void ventaCongeladaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }

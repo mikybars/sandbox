@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
@@ -44,11 +45,11 @@ public class TareaAgrupacionVenta {
     @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
     private Long icmIdAgrupacionOnline;
 
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 4)
     private String cclIdSeccion;
 
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
     

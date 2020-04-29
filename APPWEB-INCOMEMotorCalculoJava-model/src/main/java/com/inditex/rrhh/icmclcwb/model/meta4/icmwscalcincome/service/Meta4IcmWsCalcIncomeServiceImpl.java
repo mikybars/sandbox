@@ -84,6 +84,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetausenciasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
@@ -109,6 +112,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getpresupues
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
@@ -119,6 +123,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
@@ -692,6 +697,27 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
                     .isNotEmpty(getPresupuestosRangoOutput.getIcmListapresupuestosrango().getIcmListapresupuestosrangoRecordSet())) {
                 List<PresupuestosRangoResultItemDto> items = icmWsCalcIncomeMapper.asPresupuestosRangoResultItemDto(
                         getPresupuestosRangoOutput.getIcmListapresupuestosrango().getIcmListapresupuestosrangoRecordSet());
+                result.setData(items);
+            }
+        }
+        return result;
+    }
+    
+    @Override
+    public VentaCongeladaResponseDto getVentaCongelada(VentaCongeladaRequestDto request) {
+        VentaCongeladaResponseDto result = new VentaCongeladaResponseDto();
+        IcmParamcalventacongeladaBlock param1 = icmWsCalcIncomeMapper.asIcmParamcalventacongeladaBlock(request.getData());
+        IcmParametrospaginacionBlock param2 = icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(request.getPage());
+        GetventacongeladaOutput getVentaCongeladaOutput = meta4ClientPool.getventacongelada(param2, param1);
+        if (getVentaCongeladaOutput != null) {
+            if (getVentaCongeladaOutput.getIcmParametrospaginacion() != null) {
+                PageDto page = icmWsCalcIncomeMapper.asPageDto(getVentaCongeladaOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+            if (getVentaCongeladaOutput.getIcmListaventacongelada() != null && CollectionUtils
+                    .isNotEmpty(getVentaCongeladaOutput.getIcmListaventacongelada().getIcmListaventacongeladaRecordSet())) {
+                List<VentaCongeladaResultItemDto> items = icmWsCalcIncomeMapper.asVentaCongeladaResultItemDto(
+                        getVentaCongeladaOutput.getIcmListaventacongelada().getIcmListaventacongeladaRecordSet());
                 result.setData(items);
             }
         }

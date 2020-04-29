@@ -1,14 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracion;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracion;
 
 @Repository
 public class TareaConfiguracionRepositoryCustomImpl
@@ -30,14 +31,13 @@ public class TareaConfiguracionRepositoryCustomImpl
     public void setParameters(PreparedStatement pstmt, TareaConfiguracion entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
         pstmt.setString(2, entity.getCclIdOrigen());
-        pstmt.setInt(3, entity.getIcmIdConfig());
-        pstmt.setObject(4, entity.getFechaInicio());
-        pstmt.setObject(5, entity.getFechaFin());
+        pstmt.setObject(3, entity.getFechaInicio());
+        pstmt.setObject(4, entity.getFechaFin());
         if(entity.getCodTipoHora() != null) {
-            pstmt.setInt(6, entity.getCodTipoHora());    
+            pstmt.setInt(5, entity.getCodTipoHora());    
         }else {
-            pstmt.setNull(6, Types.INTEGER);
+            pstmt.setNull(5, Types.INTEGER);
         }
-        pstmt.setBoolean(7, entity.getIcmCkVentaImpuestos());
+        pstmt.setBoolean(6, entity.getIcmCkVentaImpuestos());
     }
 }

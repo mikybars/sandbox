@@ -40,15 +40,15 @@ public class TareaLocalizacionHistorico {
 	@Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
 	private String stdIdWorkLocat;
 
-	 @NotBlank
+	@NotBlank
 	@Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
 	private String stdIdCountry;
 
-	 @NotBlank
+	@NotBlank
 	@Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
 	private String cclIdOrigen;
 
-	 @NotBlank
+	@NotBlank
 	@Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
 	private String stdIdLegEnt;
 

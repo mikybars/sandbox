@@ -2,14 +2,18 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaConfiguracionChallengeDiasMinimosDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 
 public interface TareaConfiguracionChallengeDiasMinimosService {
 
-    void save(List<TareaConfiguracionChallengeDiasMinimosDto> src, TareaDto tarea);
+    void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src, @Valid @NotNull final TareaDto tarea);
 
-    void saveConfChDiasMinimosResultItemDto(List<ConfChDiasMinimosResultItemDto> src, TareaDto tarea);
+    void saveConfChDiasMinimosResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src, @Valid @NotNull final TareaDto tarea);
 
 }

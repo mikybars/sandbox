@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -45,6 +44,30 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
     @Override
     public CompletableFuture<Void> ventaOnlineIpodLocalizacionPersonaByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEcommerceService.ventaOnlineIpodLocalizacionPersonaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> ventaRangoOnlineSintLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaRangoOnlineSintLocalizacionSeccionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+    
+    @Override
+    public CompletableFuture<Void> ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaEcommerceService.ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

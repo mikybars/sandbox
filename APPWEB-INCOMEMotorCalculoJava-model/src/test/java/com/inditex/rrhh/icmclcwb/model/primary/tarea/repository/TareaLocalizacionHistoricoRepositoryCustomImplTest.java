@@ -1,8 +1,28 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,17 +38,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
-
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
@@ -45,6 +59,10 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
     private static final String SQL_CADENAS_FILTRO_TIPO_DATO = "SQL CADENAS FILTRO TIPO DATO TEST";
     private static final String SQL_CADENAS = "CADENAS TEST";
     private static final String SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO = "SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO";
+    private static final String SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION = "SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION";
+    private static final String SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION = "SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION";
+    private static final String SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA = "SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA";
+    private static final String SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA = "SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -83,6 +101,14 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
             "sqlCadenas", SQL_CADENAS, true);
         FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
             "sqlFindIdLocalizacionByIdTareaAndCclIdPersonInAmbito", SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO, true);
+        FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
+                "sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion", SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION, true);
+        FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
+                "sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbitoLocalizacion", SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION, true);
+        FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
+                "sqlFindIdLocalizacionPresupuestosByIdTarea", SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA, true);
+        FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
+                "sqlFindIdLocalizacionGrupoFechasByIdTarea", SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA, true);
         FieldUtils.writeField(tareaLocalizacionHistoricoRepositoryCustom,
             "batchSize", 100, true);
     }
@@ -273,7 +299,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
 
     @Test
     public void findIdLocalizacionLocalDtoByIdTareaAndCclIdsPersonaInAmbitoLocalizacion() {
-
         Long idTarea = 23L;
         String idTipoCalculo1 = "ID TIPO CALCULO";
         String idTipoCalculo2 = "ID TIPO CALCULO 2";
@@ -298,7 +323,77 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         // cclIdOrigen
         assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
-
-
     }
+    
+    @Test
+    public void findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacionTest() {
+        Long idTarea = 23L;
+        String idOrigen = "ID ORIGEN";
+        tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(idTarea, idOrigen);
+        verify(namedParameterJdbcTemplate, times(1)).query(sql.capture(), params.capture(), any(RowMapper.class));
+        assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION, sql.getValue());
+        // parametros de la consulta: idTarea, cclIdOrigen, idTipoCalculo, activo
+        assertEquals(2, params.getValue().getValues().size());
+        // idTarea
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        // cclIdOrigen
+        assertTrue(params.getValue().hasValue(SQL_PARAM_CCL_ID_ORIGEN));
+        assertEquals(idOrigen, params.getValue().getValue(SQL_PARAM_CCL_ID_ORIGEN));
+    }
+    
+    @Test
+    public void findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacionTest() {
+        Long idTarea = 23L;
+        String idOrigen = "ID ORIGEN";
+        tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(idTarea, idOrigen);
+        verify(namedParameterJdbcTemplate, times(1)).query(sql.capture(), params.capture(), any(RowMapper.class));
+        assertEquals(SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION, sql.getValue());
+        // parametros de la consulta: idTarea, cclIdOrigen
+        assertEquals(2, params.getValue().getValues().size());
+        // idTarea
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        // cclIdOrigen
+        assertTrue(params.getValue().hasValue(SQL_PARAM_CCL_ID_ORIGEN));
+        assertEquals(idOrigen, params.getValue().getValue(SQL_PARAM_CCL_ID_ORIGEN));
+    }
+    
+    @Test
+    public void findIdLocalizacionLocalDtoPresupuestosByIdTareaTest() {
+        Long idTarea = 23L;
+        Integer activo = SQL_VALUE_BOOLEAN_TRUE;
+        tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoPresupuestosByIdTarea(idTarea);
+        verify(namedParameterJdbcTemplate, times(1)).query(sql.capture(), params.capture(), any(RowMapper.class));
+        assertEquals(SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA, sql.getValue());
+        // parametros de la consulta: idTarea
+        assertEquals(3, params.getValue().getValues().size());
+        // idTarea
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        // activo
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
+        // tiposComision
+        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
+        assertEquals(Arrays.asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()), params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
+    }
+    
+    @Test
+    public void findTiendasGrupoFechasByIdTareaTest() {
+        Long idTarea = 23L;
+        Integer activo = SQL_VALUE_BOOLEAN_TRUE;
+        tareaLocalizacionHistoricoRepositoryCustom.findTiendasGrupoFechasByIdTarea(idTarea);
+        verify(namedParameterJdbcTemplate, times(1)).query(sql.capture(), params.capture(), any(RowMapper.class));
+        assertEquals(SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA, sql.getValue());
+        // parametros de la consulta: idTarea
+        assertEquals(2, params.getValue().getValues().size());
+        // idTarea
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        // activo
+        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
+    }
+    
 }

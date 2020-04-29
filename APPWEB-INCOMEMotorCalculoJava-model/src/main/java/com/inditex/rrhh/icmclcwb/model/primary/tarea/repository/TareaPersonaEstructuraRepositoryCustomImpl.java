@@ -70,18 +70,17 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         } else {
             pstmt.setNull(18, Types.INTEGER);
         }
-        pstmt.setString(19, entity.getIdTipoVenta());
-        pstmt.setInt(20, entity.getTope());
-        pstmt.setBoolean(21, entity.getDiaD());
-        pstmt.setBoolean(22, entity.getDiaJ());
-        pstmt.setBoolean(23, entity.getDiaL());
-        pstmt.setBoolean(24, entity.getDiaM());
-        pstmt.setBoolean(25, entity.getDiaS());
-        pstmt.setBoolean(26, entity.getDiaV());
-        pstmt.setBoolean(27, entity.getDiaX());
-        pstmt.setString(28, entity.getIcmIdTpEstructura());
-        pstmt.setString(29, entity.getIcmIdEstrComisionPadre());
-        pstmt.setObject(30, entity.getPk().getFechaInicioPeriodo());
+        pstmt.setInt(19, entity.getTope());
+        pstmt.setBoolean(20, entity.getDiaD());
+        pstmt.setBoolean(21, entity.getDiaJ());
+        pstmt.setBoolean(22, entity.getDiaL());
+        pstmt.setBoolean(23, entity.getDiaM());
+        pstmt.setBoolean(24, entity.getDiaS());
+        pstmt.setBoolean(25, entity.getDiaV());
+        pstmt.setBoolean(26, entity.getDiaX());
+        pstmt.setString(27, entity.getIcmIdTpEstructura());
+        pstmt.setString(28, entity.getIcmIdEstrComisionPadre());
+        pstmt.setObject(29, entity.getPk().getFechaInicioPeriodo());
     }
 
     @Override
