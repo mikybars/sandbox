@@ -67,4 +67,8 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> updateActivoNegativoTotalizado(RunTareaDto tarea);
 
+    CompletableFuture<Void> totalizarVentasVendedor0(RunTareaDto tarea);
+
+    CompletableFuture<Void> repartoDevolucionVendedor0(RunTareaDto tarea);
+
 }
