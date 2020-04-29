@@ -113,7 +113,7 @@ public class TareaServiceImpl implements TareaService {
         tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
     public void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
         tareaRepositoryCustom.updateEstado(tarea, estado);
