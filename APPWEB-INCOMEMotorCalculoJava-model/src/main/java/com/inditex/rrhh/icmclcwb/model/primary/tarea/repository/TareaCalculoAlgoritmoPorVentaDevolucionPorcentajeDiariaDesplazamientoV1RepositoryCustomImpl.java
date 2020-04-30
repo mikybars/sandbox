@@ -80,5 +80,5 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamien
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
         return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
     }
-    
+
 }

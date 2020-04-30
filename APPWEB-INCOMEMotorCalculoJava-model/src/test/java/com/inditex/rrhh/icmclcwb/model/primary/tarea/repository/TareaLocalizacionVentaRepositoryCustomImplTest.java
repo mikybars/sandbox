@@ -94,6 +94,10 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
             "sqlTotalizarVentaPersonasPorVenta", SQL_TOTALIZAR_PERSONAS_POR_VENTA, true);
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
             "sqlCalcularImporteComisionVendedores", SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, true);
+        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarVentasVendedor0",
+            SQL_TOTALIZAR_VENTAS_VENDEDOR_0, true);
+        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlRepartoDevolucionVendedor0",
+            SQL_REPARTO_DEVOLUCION_VENDEDOR_0, true);
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlCalcularImporteComisionVentaODevolucion",
             SQL_CALCULAR_IMPORTE_COMISION_VENTA_DEVOLUCION, true);
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarVentasVendedor0",
