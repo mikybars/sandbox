@@ -119,13 +119,13 @@
 </memory>
 <expiration max-idle="600000" />
 </replicated-cache>
-<replicated-cache name="itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_pages" mode="SYNC" statistics="true">
+<replicated-cache name="itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page" mode="SYNC" statistics="true">
 <memory>
   <object size="1000" />
 </memory>
 <expiration max-idle="600000" />
 </replicated-cache>
-<replicated-cache name="itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_pages_and_days" mode="SYNC" statistics="true">
+<replicated-cache name="itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days" mode="SYNC" statistics="true">
 <memory>
   <object size="1000" />
 </memory>
