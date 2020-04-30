@@ -1,20 +1,24 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TareaLocalizacionPresupuestoDto {
+public class TareaLocalizacionPresupuestoDto implements Serializable {
+
+    private static final long serialVersionUID = -7248640494629053287L;
 
     @NotNull
     @ApiModelProperty(value = "Tarea", required = true)
