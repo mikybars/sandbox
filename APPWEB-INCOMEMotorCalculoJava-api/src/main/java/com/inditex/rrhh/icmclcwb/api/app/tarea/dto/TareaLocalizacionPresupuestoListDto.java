@@ -1,26 +1,27 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.constraints.NotNull;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TareaLocalizacionPresupuestoListDto {
+public class TareaLocalizacionPresupuestoListDto implements Serializable{
 
+    private static final long serialVersionUID = -2620521240704402267L;
+    
     @NotNull
     @ApiModelProperty(value = "Presupuestos", required = true)
     private List<TareaLocalizacionPresupuestoDto> presupuestos;
