@@ -211,7 +211,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
+        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionOnlineIpodPersonaSeccion(tarea.getTarea());
     }
 
     @Override
