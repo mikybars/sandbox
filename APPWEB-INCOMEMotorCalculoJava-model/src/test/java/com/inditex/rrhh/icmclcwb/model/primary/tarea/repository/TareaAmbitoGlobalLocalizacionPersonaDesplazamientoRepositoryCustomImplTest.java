@@ -32,7 +32,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustomI
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom, "sqlSave", "", true);
-        FieldUtils.writeField(tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom, "batchSize", 100, true);
+        FieldUtils.writeField(tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom, "batchSize", 100,
+                true);
     }
 
     @Test
@@ -49,7 +50,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustomI
     @Test
     public void setParametersTest() throws SQLException {
 
-        TareaAmbitoGlobalLocalizacionPersonaDesplazamiento taglpd = mock(TareaAmbitoGlobalLocalizacionPersonaDesplazamiento.class);
+        TareaAmbitoGlobalLocalizacionPersonaDesplazamiento taglpd = mock(
+                TareaAmbitoGlobalLocalizacionPersonaDesplazamiento.class);
         when(taglpd.getCclIdOrigen()).thenReturn("90II9");
         when(taglpd.getCclIdPerson()).thenReturn("dfs98");
         when(taglpd.getStdIdLegEnt()).thenReturn("FDS90");
@@ -69,4 +71,5 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustomI
         verify(pstmt, times(1)).setLong(5, tarea.getId());
 
     }
+
 }

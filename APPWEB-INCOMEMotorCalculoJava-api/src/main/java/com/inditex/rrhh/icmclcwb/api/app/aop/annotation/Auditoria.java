@@ -14,7 +14,7 @@ public @interface Auditoria {
     boolean logEnd() default true;
 
     boolean logArgs() default false;
-    
+
     Class<?>[] argsLogClass() default {};
 
     boolean logResult() default false;

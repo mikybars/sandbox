@@ -9,6 +9,7 @@ public interface TareaCalculoRepositoryCustom {
 
     void regularizarMejorOpcion(@NotNull TareaDto tareaDto);
 
-    void regularizarChallenge(@NotNull TareaDto tareaDto, @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto);
+    void regularizarChallenge(@NotNull TareaDto tareaDto,
+            @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto);
 
 }

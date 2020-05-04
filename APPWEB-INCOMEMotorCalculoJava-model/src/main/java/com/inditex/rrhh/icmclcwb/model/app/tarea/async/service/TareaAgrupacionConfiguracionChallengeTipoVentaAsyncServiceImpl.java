@@ -25,12 +25,12 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaAsyncServiceImpl
         tareaAgrupacionConfiguracionChallengeTipoVentaService.save(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
-    public CompletableFuture<Void> saveConfChTpVentaResultItemDto(List<ConfChTpVentaResultItemDto> src, TareaDto tarea) {
+    public CompletableFuture<Void> saveConfChTpVentaResultItemDto(List<ConfChTpVentaResultItemDto> src,
+            TareaDto tarea) {
         tareaAgrupacionConfiguracionChallengeTipoVentaService.saveConfChTpVentaResultItemDto(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
-    
+
 }

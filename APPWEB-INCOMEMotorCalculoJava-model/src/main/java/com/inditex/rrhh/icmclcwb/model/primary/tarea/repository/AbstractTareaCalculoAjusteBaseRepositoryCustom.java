@@ -21,11 +21,11 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     protected abstract String getSqlAjustar();
 
     protected abstract String getSqlAjustarBase();
-    
+
     protected abstract Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
             TareaCalculoPersonaDto persona);
 

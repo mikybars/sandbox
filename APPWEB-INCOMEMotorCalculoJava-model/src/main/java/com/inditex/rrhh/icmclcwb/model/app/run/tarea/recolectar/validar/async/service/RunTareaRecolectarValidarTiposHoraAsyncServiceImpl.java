@@ -22,4 +22,5 @@ public class RunTareaRecolectarValidarTiposHoraAsyncServiceImpl
     public CompletableFuture<List<RunTareaValidarDto>> run(RunTareaDto runTarea) {
         return CompletableFuture.completedFuture(runTareaRecolectarValidarTiposHoraService.run(runTarea));
     }
+
 }

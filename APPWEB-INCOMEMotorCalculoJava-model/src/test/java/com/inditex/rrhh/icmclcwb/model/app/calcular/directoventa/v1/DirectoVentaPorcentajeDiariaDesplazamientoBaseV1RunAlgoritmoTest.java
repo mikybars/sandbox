@@ -39,21 +39,21 @@ public class DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
 
     @Mock
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
-    
+
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @InjectMocks
     private DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo directoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo;
 
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
-                .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
+            .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
 
-            String result = directoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto());
+        String result = directoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto());
 
-            assertEquals(SQL_CALCULAR, result);
+        assertEquals(SQL_CALCULAR, result);
     }
 
     @Test
@@ -79,12 +79,14 @@ public class DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         directoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Fin :: DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -112,7 +114,7 @@ public class DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
 
 }

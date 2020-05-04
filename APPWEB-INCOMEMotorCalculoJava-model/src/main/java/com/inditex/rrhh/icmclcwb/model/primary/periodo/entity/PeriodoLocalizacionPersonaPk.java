@@ -29,7 +29,7 @@ public class PeriodoLocalizacionPersonaPk implements Serializable {
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
     private String stdIdWorkLocat;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;

@@ -29,14 +29,22 @@ public class TareaLocalizacionPersonaVentaServiceImpl implements TareaLocalizaci
 
 
     @Override
-    public void savePtrVentaIndividualDetalleResultItem(@Valid @NotNull @NotEmpty final List<PtrVentaIndividualDetalleResultItemDto> operaciones, @Valid @NotNull final TareaDto tarea) {
+    public void savePtrVentaIndividualDetalleResultItem(
+            @Valid @NotNull @NotEmpty final List<PtrVentaIndividualDetalleResultItemDto> operaciones,
+            @Valid @NotNull final TareaDto tarea) {
         tareaLocalizacionPersonaVentaRepositoryCustom.save(
-            tareaLocalizacionPersonaVentaMapper.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones, tarea));
+                tareaLocalizacionPersonaVentaMapper
+                    .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones, tarea));
     }
 
     @Override
-    public void savePtrVentaOnlineIpodIndividualDetalleResultItem(@Valid @NotNull @NotEmpty final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, @Valid @NotNull final TareaDto tarea) {
+    public void savePtrVentaOnlineIpodIndividualDetalleResultItem(
+            @Valid @NotNull @NotEmpty final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones,
+            @Valid @NotNull final TareaDto tarea) {
         tareaLocalizacionPersonaVentaRepositoryCustom.save(
-            tareaLocalizacionPersonaVentaMapper.ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones, tarea));
+                tareaLocalizacionPersonaVentaMapper
+                    .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones,
+                            tarea));
     }
+
 }

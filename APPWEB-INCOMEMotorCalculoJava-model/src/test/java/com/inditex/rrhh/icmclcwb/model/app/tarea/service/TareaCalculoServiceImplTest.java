@@ -18,13 +18,13 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepo
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaCalculoServiceImplTest {
-    
+
     @Mock
     private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
-    
+
     @InjectMocks
     private TareaCalculoServiceImpl tareaCalculoServiceImpl;
-    
+
     @Test
     public void regularizarChallengeTest() {
         RunTareaDto runTarea = new RunTareaDto();
@@ -33,6 +33,8 @@ public class TareaCalculoServiceImplTest {
         IdPersonaLocalChallengeDto persona = mock(IdPersonaLocalChallengeDto.class);
         tareaCalculoServiceImpl.regularizarChallenge(runTarea, persona);
 
-        verify(tareaCalculoRepositoryCustom, times(1)).regularizarChallenge(any(TareaDto.class), any(IdPersonaLocalChallengeDto.class));
+        verify(tareaCalculoRepositoryCustom, times(1)).regularizarChallenge(any(TareaDto.class),
+                any(IdPersonaLocalChallengeDto.class));
     }
+
 }

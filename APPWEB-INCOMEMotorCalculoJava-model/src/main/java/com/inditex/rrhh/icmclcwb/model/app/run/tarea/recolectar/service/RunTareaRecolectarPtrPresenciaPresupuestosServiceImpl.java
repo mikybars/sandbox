@@ -12,14 +12,19 @@ import javax.validation.constraints.NotNull;
 
 @Service
 @Validated
-public class RunTareaRecolectarPtrPresenciaPresupuestosServiceImpl implements RunTareaRecolectarPtrPresenciaPresupuestosService {
+public class RunTareaRecolectarPtrPresenciaPresupuestosServiceImpl
+        implements RunTareaRecolectarPtrPresenciaPresupuestosService {
 
     @Autowired
     private RunTareaAmbitoRecolectarPtrPresenciaPresupuestosService runTareaAmbitoRecolectarPtrPresenciaPresupuestosService;
 
     @Override
     public void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaPresupuestosService
-            .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> runTareaAmbitoRecolectarPtrPresenciaPresupuestosService
+                .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
     }
+
 }

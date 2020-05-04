@@ -23,19 +23,23 @@ public class TareaConfiguracionPrecioHoraServiceImpl implements TareaConfiguraci
 
     @Autowired
     private TareaConfiguracionPrecioHoraMapper tareaConfiguracionPrecioHoraMapper;
-   
+
     @Autowired
     private TareaConfiguracionPrecioHoraRepositoryCustom tareaConfiguracionPrecioHoraRepositoryCustom;
-    
+
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src, @Valid @NotNull final TareaDto tarea) {
+    public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src,
+            @Valid @NotNull final TareaDto tarea) {
         tareaConfiguracionPrecioHoraRepositoryCustom.save(
                 tareaConfiguracionPrecioHoraMapper.tareaConfiguracionPrecioHoraDtoToTareaConfiguracionPrecioHora(src));
     }
-    
+
     @Override
-    public void saveConfPrecioHoraResultItemDto(@Valid @NotNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
+    public void saveConfPrecioHoraResultItemDto(@Valid @NotNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src,
+            @Valid @NotNull final TareaDto tarea) {
         tareaConfiguracionPrecioHoraRepositoryCustom.save(
-                tareaConfiguracionPrecioHoraMapper.confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(src, tarea));
+                tareaConfiguracionPrecioHoraMapper.confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(src,
+                        tarea));
     }
+
 }

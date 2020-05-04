@@ -41,7 +41,7 @@ public class TareaAgrupacionPresencia {
     private Date fecha;
 
     @NotNull
-    @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable  = false)
+    @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
     private Long icmIdAgrupacionOnline;
 
     @NotBlank
@@ -63,4 +63,5 @@ public class TareaAgrupacionPresencia {
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
+
 }

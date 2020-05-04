@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 public class PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmoTest {
 
     private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
-    
+
     @Mock
     private Logger log;
 
@@ -34,8 +34,7 @@ public class PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmoTest {
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom;
 
     @Mock
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
@@ -71,17 +70,19 @@ public class PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmoTest {
         when(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
-        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         RunTareaDto runTarea = new RunTareaDto();
         TareaDto tarea = new TareaDto();
         runTarea.setTarea(tarea);
         porVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info("Fin :: PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                3);
     }
 
     @Test
@@ -111,6 +112,7 @@ public class PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("PorVentaSinDevolucionPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

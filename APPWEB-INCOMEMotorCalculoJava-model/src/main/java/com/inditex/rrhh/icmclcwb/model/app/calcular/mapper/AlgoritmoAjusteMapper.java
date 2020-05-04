@@ -15,9 +15,10 @@ public abstract class AlgoritmoAjusteMapper {
 
     @InheritInverseConfiguration
     public abstract AlgoritmoAjuste algoritmoAjusteDtoToAlgoritmo(AlgoritmoAjusteDto src);
-    
+
     public abstract List<AlgoritmoAjusteDto> algoritmoAjusteToAlgoritmoAjusteDto(List<AlgoritmoAjuste> src);
 
     @InheritInverseConfiguration
     public abstract List<AlgoritmoAjuste> algoritmoAjusteDtoToAlgoritmo(List<AlgoritmoAjusteDto> src);
+
 }

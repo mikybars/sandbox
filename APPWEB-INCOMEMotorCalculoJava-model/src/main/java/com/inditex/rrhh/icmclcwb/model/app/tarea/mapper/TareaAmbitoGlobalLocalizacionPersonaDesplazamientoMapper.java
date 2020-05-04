@@ -31,14 +31,14 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper {
 
     public abstract List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> tareaAmbitoGlobalLocalizacionPersonaDesplazamientoDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
             List<TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto> src);
-    
+
     @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
     @Mapping(source = "src.idLugarTrabajo", target = "stdIdWorkLocat")
     @Mapping(source = "src.idEmpresa", target = "stdIdLegEnt")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(source = "src.idEmpleadoLocal", target = "cclIdPerson")
     @Mapping(target = "id", ignore = true)
-    public abstract TareaAmbitoGlobalLocalizacionPersonaDesplazamiento genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento( 
+    public abstract TareaAmbitoGlobalLocalizacionPersonaDesplazamiento genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
             GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
     public List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(

@@ -56,7 +56,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private TrabajoMapper trabajoMapper;
-    
+
     @Autowired
     private PeriodoMapper periodoMapper;
 
@@ -77,11 +77,11 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Autowired
     private SenderTrabajo senderTrabajo;
-    
+
     @Autowired
     @Qualifier("meta4Properties")
     private Map<String, Meta4PropertiesDto> meta4Properties;
-    
+
     @Override
     public TrabajoDto find(@NotNull @Positive final Long id) {
         TrabajoDto trabajo = trabajoMapper.trabajoToTrabajoDto(trabajoRepository.findById(id).get());
@@ -94,7 +94,7 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo){
+    public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo) {
         trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
         trabajo.setEstado(EstadoTrabajoEnum.PENDIENTE.getDto());
         if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
@@ -103,24 +103,28 @@ public class TrabajoServiceImpl implements TrabajoService {
                 trabajo.setNombreUsuario(userSSO.getUser());
             }
         }
-        
+
         PeriodosRequestDto request = new PeriodosRequestDto();
         request.setData(new GenericFilterDto());
         request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
         request.setPage(meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
-        request.getData().getItem()
-                .add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization())
-                        .abierto(Meta4Constants.TRUE)
-                        .vigente(Meta4Constants.TRUE).idPeriodo(trabajo.getIcmIdPeriodo().toString()).build());
-        
+        request.getData()
+            .getItem()
+            .add(GenericFilterParametersDto.builder()
+                .idSociedadReg(trabajo.getIdOrganization())
+                .abierto(Meta4Constants.TRUE)
+                .vigente(Meta4Constants.TRUE)
+                .idPeriodo(trabajo.getIcmIdPeriodo().toString())
+                .build());
+
         List<PeriodoDto> periodos = periodoMapper
-                .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
+            .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
         if (CollectionUtils.isNotEmpty(periodos)) {
             trabajo.setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo());
             trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo());
         }
         TrabajoDto result = trabajoMapper
-                .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
+            .trabajoToTrabajoDto(trabajoRepository.save(trabajoMapper.trabajoDtoToTrabajo(trabajo)));
         if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
             result.setOrigen(trabajoAmbitoOrigenService.create(trabajo.getOrigen(), result));
         }
@@ -159,4 +163,5 @@ public class TrabajoServiceImpl implements TrabajoService {
         trabajo.setEstado(estado);
         trabajoRepositoryCustom.updateEstado(trabajo, estado);
     }
+
 }

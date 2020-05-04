@@ -6,18 +6,18 @@ import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 
 public interface TestService {
-	
-	RelojDto reloj();
-	
-	SsoDto sso();
-	
-	void errorSync();
-	
-	void errorAsync();
-	
-	void sesion();
-	
-	void programacionBatch();
+
+    RelojDto reloj();
+
+    SsoDto sso();
+
+    void errorSync();
+
+    void errorAsync();
+
+    void sesion();
+
+    void programacionBatch();
 
     void testBloqueos(@NotNull final Long limit);
 
@@ -26,5 +26,5 @@ public interface TestService {
     String sqlFormatter(@NotBlank String sql);
 
     Boolean testUrl(@NotBlank String sql);
-    
+
 }

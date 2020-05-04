@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncServiceImpl
-    implements RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncService {
+        implements RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncService {
 
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService runTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService;
@@ -39,4 +39,5 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncServiceImpl
         runTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService.empleadosDesplazamientoByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

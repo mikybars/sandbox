@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public class TareaAgrupacionConfiguracionRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionConfiguracion>
-    implements TareaAgrupacionConfiguracionRepositoryCustom {
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionConfiguracion>
+        implements TareaAgrupacionConfiguracionRepositoryCustom {
 
     @Value("${app.envars.repository.batch-size.tarea-configuracion-venta-online:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -35,4 +35,5 @@ public class TareaAgrupacionConfiguracionRepositoryCustomImpl
         pstmt.setBigDecimal(6, entity.getPorcentajeInclusion());
         pstmt.setLong(7, entity.getTipoVentaConcepto().getId());
     }
+
 }

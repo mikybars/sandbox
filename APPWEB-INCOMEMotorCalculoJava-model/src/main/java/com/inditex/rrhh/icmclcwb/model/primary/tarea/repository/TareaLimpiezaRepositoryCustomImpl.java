@@ -23,10 +23,10 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.mergeLimpieza']}")
     private String sqlMergeLimpieza;
-    
+
     @Override
     public void mergeLimpieza(@NotNull TareaDto tareaDto, @NotNull TrabajoDto trabajoDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -38,10 +38,11 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
         UserSSO userSSO = SsoUtils.getUserSSO();
         if (userSSO != null && StringUtils.isNotBlank(userSSO.getUser())) {
             params.addValue(SqlPrimaryConstants.SQL_PARAM_NOMBRE_USUARIO, userSSO.getUser());
-        }else{
+        } else {
             params.addValue(SqlPrimaryConstants.SQL_PARAM_NOMBRE_USUARIO, trabajoDto.getNombreUsuario());
         }
-        
+
         namedParameterJdbcTemplate.update(sqlMergeLimpieza, params);
     }
+
 }

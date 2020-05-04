@@ -19,10 +19,12 @@ public class TrabajoAmbitoPersonaDto implements Serializable {
 
     private static final long serialVersionUID = 3468264496961245295L;
 
-    @ApiModelProperty(value = "Identificador del ambito persona del trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Identificador del ambito persona del trabajo", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long id;
 
-    @ApiModelProperty(value = "Identificador del ambito del trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Identificador del ambito del trabajo", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idTrabajo;
 
     @NotBlank

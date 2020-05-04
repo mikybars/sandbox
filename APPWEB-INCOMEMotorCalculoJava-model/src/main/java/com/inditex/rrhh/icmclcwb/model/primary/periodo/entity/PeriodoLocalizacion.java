@@ -13,4 +13,5 @@ public class PeriodoLocalizacion {
 
     @EmbeddedId
     private PeriodoLocalizacionPk pk;
+
 }

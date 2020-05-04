@@ -66,7 +66,8 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     @Override
     public void totalizarVentaPersonaSeccion(TareaDto tarea) {
 
-        List<IdTipoDatoDto> tiposDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+        List<IdTipoDatoDto> tiposDato = tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
         totalizarVentaPersonaSeccion(tarea, tiposDato, TipoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION_SECCION);
 
     }
@@ -74,15 +75,18 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     @Override
     public void totalizarVentaSinDevolucionPersonaSeccion(TareaDto tarea) {
 
-        List<IdTipoDatoDto> tiposDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
-        totalizarVentaPersonaSeccion(tarea, tiposDato, TipoDatoEnum.VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION);
+        List<IdTipoDatoDto> tiposDato = tipoDatoService.findTipoDatoByTipoGrupoDato(
+                TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
+        totalizarVentaPersonaSeccion(tarea, tiposDato,
+                TipoDatoEnum.VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION);
 
     }
 
     @Override
     public void totalizarDevolucionPersonaSeccion(TareaDto tarea) {
 
-        List<IdTipoDatoDto> tiposDato = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
+        List<IdTipoDatoDto> tiposDato = tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
         totalizarVentaPersonaSeccion(tarea, tiposDato, TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION);
 
     }
@@ -91,15 +95,16 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     public void totalizarVentaFisicaSinDevolucionPersonaSeccion(TareaDto tarea) {
 
         totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.VENTA_FISICA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION,
-            Collections.singletonList(TipoDatoEnum.OPERACION_VENTA_FISICA_LOCALIZACION_SECCION.getId()));
+                Collections.singletonList(TipoDatoEnum.OPERACION_VENTA_FISICA_LOCALIZACION_SECCION.getId()));
 
     }
 
     @Override
     public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(TareaDto tarea) {
 
-        totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.VENTA_ONLINE_IPOD_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION,
-            Collections.singletonList(TipoDatoEnum.OPERACION_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
+        totalizarVentaPersonaSeccion(tarea,
+                TipoDatoEnum.VENTA_ONLINE_IPOD_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION,
+                Collections.singletonList(TipoDatoEnum.OPERACION_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
 
     }
 
@@ -107,7 +112,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     public void totalizarDevolucionFisicaPersonaSeccion(TareaDto tarea) {
 
         totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.DEVOLUCION_FISICA_INDIVIDUAL_LOCALIZACION_SECCION,
-            Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_FISICA_LOCALIZACION_SECCION.getId()));
+                Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_FISICA_LOCALIZACION_SECCION.getId()));
 
     }
 
@@ -115,7 +120,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     public void totalizarDevolucionOnlineIpodPersonaSeccion(TareaDto tarea) {
 
         totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.DEVOLUCION_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_SECCION,
-            Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
+                Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
 
     }
 
@@ -134,9 +139,11 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
     }
 
-    private void totalizarVentaPersonaSeccion(TareaDto tarea, List<IdTipoDatoDto> tiposDato, TipoDatoEnum nuevoTipoDato) {
+    private void totalizarVentaPersonaSeccion(TareaDto tarea, List<IdTipoDatoDto> tiposDato,
+            TipoDatoEnum nuevoTipoDato) {
 
-        totalizarVentaPersonaSeccion(tarea, nuevoTipoDato, tiposDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        totalizarVentaPersonaSeccion(tarea, nuevoTipoDato,
+                tiposDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
 
     }
 

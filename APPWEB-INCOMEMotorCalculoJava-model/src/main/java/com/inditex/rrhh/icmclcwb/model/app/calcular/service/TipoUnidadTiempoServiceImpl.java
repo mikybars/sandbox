@@ -23,13 +23,14 @@ public class TipoUnidadTiempoServiceImpl implements TipoUnidadTiempoService {
     @Cacheable(value = "itx.icmlcwb.tipo_unidad_tiempo_by_icm_id_unidad_tiempo", key = "#icmIdUnidadTiempo")
     public TipoUnidadTiempoDto findByIcmIdUnidadTiempo(String icmIdUnidadTiempo) {
         return tipoUnidadTiempoMapper.tipoUnidadTiempoToTipoUnidadTiempoDto(
-            tipoUnidadTiempoRepository.findByIcmIdUnidadTiempo(icmIdUnidadTiempo));
+                tipoUnidadTiempoRepository.findByIcmIdUnidadTiempo(icmIdUnidadTiempo));
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.tipo_unidad_tiempo_by_id", key = "#id")
     public TipoUnidadTiempoDto findById(Integer id) {
         return tipoUnidadTiempoMapper.tipoUnidadTiempoToTipoUnidadTiempoDto(
-            tipoUnidadTiempoRepository.findById(id).get());
+                tipoUnidadTiempoRepository.findById(id).get());
     }
+
 }

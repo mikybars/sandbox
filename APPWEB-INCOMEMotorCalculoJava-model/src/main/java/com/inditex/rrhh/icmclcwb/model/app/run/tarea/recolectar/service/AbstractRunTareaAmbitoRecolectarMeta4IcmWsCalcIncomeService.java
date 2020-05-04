@@ -64,7 +64,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
     protected abstract LocalDateTime getFechaInicioPeriodo(TareaDto tarea);
 
     public void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-                                                @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
@@ -73,7 +73,8 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getPage());
             request.setData(tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                        tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
             if (request.getData() != null) {
                 request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
             }
@@ -84,8 +85,10 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                 AsyncUtils.exceptionally(cfData, cf);
                 List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)
-                        .getFilter().getMaxPersistenceSize());
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)
+                                .getFilter()
+                                .getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaPersonaHistoricoAsyncService
                         .saveGenericEmpleadoResultItemDto(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -102,7 +105,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
     }
 
     public void localizacionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-                                                     @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
@@ -111,7 +114,8 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             SearchTiendasRequestDto request = new SearchTiendasRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getPage());
             request.setData(tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                        tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
             if (request.getData() != null) {
                 request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
             }
@@ -122,8 +126,10 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                 AsyncUtils.exceptionally(cfData, cf);
                 List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS)
-                        .getFilter().getMaxPersistenceSize());
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS)
+                                .getFilter()
+                                .getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaLocalizacionHistoricoAsyncService
                         .saveGenericTiendaResultItemDto(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -138,7 +144,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
     }
 
     public void empleadosPresenciaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-                                                           @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
@@ -147,7 +153,8 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA).getPage());
             request.setData(
-                tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito));
+                    tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea,
+                            tareaAmbito));
             if (request.getData() != null) {
                 request.getData().setFechaInicio(getFechaInicioPeriodo(tarea));
             }
@@ -158,8 +165,10 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                 AsyncUtils.exceptionally(cfData, cf);
                 List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA)
-                        .getFilter().getMaxPersistenceSize());
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA)
+                                .getFilter()
+                                .getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaAmbitoGlobalLocalizacionPersonaPresenciaManualAsyncService
                         .saveGenericEmpleadoResultItemDto(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -174,7 +183,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
     }
 
     public void empleadosDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-                                                                @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
@@ -195,7 +204,9 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                 List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                        .get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO).getFilter().getMaxPersistenceSize());
+                        .get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO)
+                        .getFilter()
+                        .getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService
                         .saveGenericEmpleadoResultItemDto(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);

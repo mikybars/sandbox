@@ -14,10 +14,10 @@ import lombok.Data;
 public class RunAlgoritmoPropertiesConfig {
 
     private RunAlgoritmoPropertiesDto config;
-    
+
     @Bean(name = "runAlgoritmoProperties")
     public RunAlgoritmoPropertiesDto config() {
         return config;
     }
-    
+
 }

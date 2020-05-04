@@ -71,5 +71,5 @@ public class TareaLocalizacionFestivoRepositoryCustomImplTest {
         assertEquals(SQL_SAVE, sql.getValue());
 
     }
-    
+
 }

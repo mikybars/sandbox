@@ -11,9 +11,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class EstructurasPolResponseDto extends PageableListDto<EstructurasPolResultItemDto>
-		implements PageableList<EstructurasPolResultItemDto>, Serializable {
-    
-    private static final long serialVersionUID = -787638725250650715L;
+        implements PageableList<EstructurasPolResultItemDto>, Serializable {
 
+    private static final long serialVersionUID = -787638725250650715L;
 
 }

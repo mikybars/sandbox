@@ -17,7 +17,7 @@ public class FileUtils {
 
     public static Resource getResource(ResourceLoader resourceLoader, String path) {
         Resource resource = ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
-                .getResource("classpath:" + path);
+            .getResource("classpath:" + path);
         if (!resource.exists()) {
             throw new IcmclcwbException("No existe el path " + path);
         }
@@ -26,7 +26,7 @@ public class FileUtils {
 
     public static Resource[] getResources(ResourceLoader resourceLoader, String path) throws IOException {
         Resource[] resource = ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
-                .getResources("classpath:" + path);
+            .getResources("classpath:" + path);
         if (resource.length == 0) {
             throw new IcmclcwbException("No existe el path " + path);
         }

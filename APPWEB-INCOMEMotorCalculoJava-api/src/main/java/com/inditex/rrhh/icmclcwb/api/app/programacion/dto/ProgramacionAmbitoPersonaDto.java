@@ -13,10 +13,12 @@ public class ProgramacionAmbitoPersonaDto implements Serializable {
 
     private static final long serialVersionUID = 7782028838666356181L;
 
-    @ApiModelProperty(value = "Identificador del ambito persona de la programación", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Identificador del ambito persona de la programación", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long id;
 
-    @ApiModelProperty(value = "Identificador del ambito de la programación", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Identificador del ambito de la programación", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idProgramacionAmbito;
 
     @NotBlank

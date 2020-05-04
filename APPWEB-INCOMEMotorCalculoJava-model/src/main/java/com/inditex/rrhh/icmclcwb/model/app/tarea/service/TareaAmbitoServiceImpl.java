@@ -30,7 +30,7 @@ public class TareaAmbitoServiceImpl implements TareaAmbitoService {
     public List<TareaAmbitoDto> create(@Valid @NotNull @NotEmpty final List<TareaAmbitoDto> tareaAmbito,
             @Valid @NotNull final TareaDto tarea) {
         return tareaAmbitoMapper.tareaAmbitoToTareaAmbitoDto(tareaAmbitoRepository
-                .saveAll(tareaAmbitoMapper.mergeTareaAmbitoDtoAndTareaDtoToTareaAmbito(tareaAmbito, tarea)));
+            .saveAll(tareaAmbitoMapper.mergeTareaAmbitoDtoAndTareaDtoToTareaAmbito(tareaAmbito, tarea)));
     }
 
     @Override

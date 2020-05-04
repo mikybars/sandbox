@@ -12,29 +12,29 @@ import lombok.Data;
 @Data
 public class PtrPresenciaDetalleResultItemDto implements Serializable {
 
-	private static final long serialVersionUID = -2286264737159679411L;
+    private static final long serialVersionUID = -2286264737159679411L;
 
-	@NotNull
-	private Integer tienda;
+    @NotNull
+    private Integer tienda;
 
-	private Integer seccion;
+    private Integer seccion;
 
-	@NotNull
-	private Integer persona;
+    @NotNull
+    private Integer persona;
 
-	@NotNull
-	private String fecha;
+    @NotNull
+    private String fecha;
 
-	private Integer minutos;
+    private Integer minutos;
 
-	private Integer tipo;
+    private Integer tipo;
 
-	private Integer cadena;
+    private Integer cadena;
 
-	private Integer origen;
-	
+    private Integer origen;
+
     private Integer empresa;
-	
-	private List<PtrSeccionPresenciasGenericType> listaSeccion;
+
+    private List<PtrSeccionPresenciasGenericType> listaSeccion;
 
 }

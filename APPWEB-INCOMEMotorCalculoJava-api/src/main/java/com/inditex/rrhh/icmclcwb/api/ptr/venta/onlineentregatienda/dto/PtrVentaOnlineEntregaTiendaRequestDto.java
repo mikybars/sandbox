@@ -13,13 +13,13 @@ import lombok.Data;
 
 @Data
 public class PtrVentaOnlineEntregaTiendaRequestDto implements Serializable {
-    
+
     private static final long serialVersionUID = -4496142993891917293L;
 
     @ApiModelProperty(value = "Fecha inicio rango de busqueda", required = true, example = "2017-01-01")
     @NotNull
     private String fechaDesde;
-    
+
     @ApiModelProperty(value = "Fecha fin rango de busqueda", required = true, example = "2017-12-31")
     @NotNull
     private String fechaHasta;
@@ -29,25 +29,26 @@ public class PtrVentaOnlineEntregaTiendaRequestDto implements Serializable {
 
     @ApiModelProperty(value = "Id cadena", required = false, example = "1")
     private List<Integer> cadena;
-    
+
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
     private Integer empresa;
-    
+
     @ApiModelProperty(value = "Listado de ids de tiendas online", required = false, example = "['4091', '9724']")
     private List<Integer> tiendaOnline = new ArrayList<>();
 
     @ApiModelProperty(value = "Listado de ids de tiendas", required = false, example = "['57', '691']")
     private List<Integer> tienda = new ArrayList<>();
-    
+
     @ApiModelProperty(value = "Listado de ids de producto", required = false, example = "[1,2,3]")
     private List<Integer> producto = new ArrayList<>();
-    
+
     @ApiModelProperty(value = "Id seccion", required = false, example = "1")
     private List<Integer> seccion;
-    
+
     @ApiModelProperty(value = "Agrupación de datos", required = false, example = "FECHA_TIENDA")
     private PtrGroupTypeEnum agrupacion;
-    
+
     @ApiModelProperty(value = "Agrupar seccion flag (pivotado)", required = false, example = "1")
     private Integer agruparSeccion;
+
 }

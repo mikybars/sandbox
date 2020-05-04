@@ -28,14 +28,18 @@ public class RunTareaRecolectarByAmbitoLocalizacionServiceImpl
     private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoLocalizacionService.run.timer", metricGroupName = "RunTareaRecolectarByAmbitoLocalizacionServiceGroup", metricDescription = "RunTareaRecolectarByAmbitoLocalizacionService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoLocalizacionService.run.counter", metricGroupName = "RunTareaRecolectarByAmbitoLocalizacionServiceGroup", metricDescription = "RunTareaRecolectarByAmbitoLocalizacionService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoLocalizacionService.run.timer",
+            metricGroupName = "RunTareaRecolectarByAmbitoLocalizacionServiceGroup",
+            metricDescription = "RunTareaRecolectarByAmbitoLocalizacionService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoLocalizacionService.run.counter",
+            metricGroupName = "RunTareaRecolectarByAmbitoLocalizacionServiceGroup",
+            metricDescription = "RunTareaRecolectarByAmbitoLocalizacionService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService
-                    .mergePersonaCalculoByAmbitoLocalizacion(runTarea);
+                .mergePersonaCalculoByAmbitoLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaCalculo, cf);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

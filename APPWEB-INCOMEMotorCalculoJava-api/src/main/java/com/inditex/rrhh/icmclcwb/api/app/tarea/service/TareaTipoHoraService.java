@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTi
 
 public interface TareaTipoHoraService {
 
-    List<TareaTipoHoraDto> save(@Valid @NotNull @NotEmpty final List<PtrPresenciaTiposHorasResultItemDto> item, @Valid @NotNull final TareaDto tarea);
+    List<TareaTipoHoraDto> save(@Valid @NotNull @NotEmpty final List<PtrPresenciaTiposHorasResultItemDto> item,
+            @Valid @NotNull final TareaDto tarea);
 
 }

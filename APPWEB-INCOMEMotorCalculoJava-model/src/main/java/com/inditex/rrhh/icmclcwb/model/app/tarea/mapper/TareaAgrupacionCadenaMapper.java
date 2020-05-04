@@ -24,21 +24,25 @@ public abstract class TareaAgrupacionCadenaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "multiple", ignore = true)
     public abstract TareaAgrupacionCadena getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(
-        AgrupOnlineResultItemDto src, TareaDto tarea);
+            AgrupOnlineResultItemDto src, TareaDto tarea);
 
     public List<TareaAgrupacionCadena> getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(
-        List<AgrupOnlineResultItemDto> src, TareaDto tarea) {
+            List<AgrupOnlineResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     @Mapping(source = "tarea.id", target = "idTarea")
-    public abstract TareaAgrupacionCadenaDto getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(TareaAgrupacionCadena src);
+    public abstract TareaAgrupacionCadenaDto getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
+            TareaAgrupacionCadena src);
 
-    public List<TareaAgrupacionCadenaDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(List<TareaAgrupacionCadena> src) {
+    public List<TareaAgrupacionCadenaDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
+            List<TareaAgrupacionCadena> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    public List<TareaAgrupacionCadenasDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(List<TareaAgrupacionCadena> src) {
+    public List<TareaAgrupacionCadenasDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(
+            List<TareaAgrupacionCadena> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

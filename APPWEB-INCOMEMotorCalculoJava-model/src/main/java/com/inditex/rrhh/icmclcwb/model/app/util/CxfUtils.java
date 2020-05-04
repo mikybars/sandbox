@@ -28,7 +28,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
 public class CxfUtils {
 
     private static final Logger log = LoggerFactory.getLogger(CxfUtils.class);
-    
+
     private CxfUtils() {
     }
 
@@ -77,18 +77,20 @@ public class CxfUtils {
 
     public static Map<String, List<String>> mapJSessionID(final String jSessionID) {
         return CxfUtils.mapCookie(Collections.singletonList(new StringBuilder(CxfConstants.JSESSIONID)
-                .append(CxfConstants.SEPARADOR).append(jSessionID).toString()));
+            .append(CxfConstants.SEPARADOR)
+            .append(jSessionID)
+            .toString()));
     }
 
     public static Map<String, List<String>> mapCookie(final List<String> list) {
         return Stream.of(new AbstractMap.SimpleEntry<>(CxfConstants.COOKIE, list))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public static Map<String, Cookie> cookieJSessionID(final String jSessionID) {
         return Stream
-                .of(new AbstractMap.SimpleEntry<>(CxfConstants.COOKIE, new Cookie(CxfConstants.JSESSIONID, jSessionID)))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            .of(new AbstractMap.SimpleEntry<>(CxfConstants.COOKIE, new Cookie(CxfConstants.JSESSIONID, jSessionID)))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public static void putCookies(final Object service, final Map<String, Cookie> cookies) {
@@ -98,8 +100,10 @@ public class CxfUtils {
 
     public static void putCookie(final Object service, final String jSessionID) {
         HTTPConduit http = CxfUtils.getHTTPConduit(service);
-        http.getClient().setCookie(new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR)
-                .append(jSessionID).toString());
+        http.getClient()
+            .setCookie(new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR)
+                .append(jSessionID)
+                .toString());
     }
 
     public static Map<String, Cookie> getCookies(final Object service) {

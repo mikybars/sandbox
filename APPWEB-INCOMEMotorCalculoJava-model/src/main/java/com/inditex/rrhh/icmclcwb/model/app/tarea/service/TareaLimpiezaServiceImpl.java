@@ -15,15 +15,16 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRep
 @Service
 @Validated
 public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
-  
+
     @Autowired
     private TareaLimpiezaRepositoryCustom tareaLimpiezaRepositoryCustom;
 
     @Autowired
     private TrabajoService trabajoService;
-    
+
     @Override
     public void save(@Valid @NotNull final TareaDto tarea) {
         tareaLimpiezaRepositoryCustom.mergeLimpieza(tarea, trabajoService.find(tarea.getIdTrabajo()));
     }
+
 }

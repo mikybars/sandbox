@@ -28,29 +28,30 @@ public class TareaTipoHoraServiceImplTest {
 
     @Mock
     private TareaTipoHoraRepositoryCustom tareaTipoHoraRepositoryCustom;
-    
+
     @Mock
     private TareaTipoHoraRepository tareaTipoHoraRepository;
-    
+
     @InjectMocks
     private TareaTipoHoraServiceImpl tareaTipoHoraServiceImpl;
-    
+
     @Mock
     private TareaTipoHoraMapper tareaTipoHoraMapper;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
         List<PtrPresenciaTiposHorasResultItemDto> tiposHora = mock(List.class);
-        when(tareaTipoHoraMapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(any(List.class), any(TareaDto.class))).thenReturn(new ArrayList<TareaTipoHora>());
+        when(tareaTipoHoraMapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(any(List.class),
+                any(TareaDto.class))).thenReturn(new ArrayList<TareaTipoHora>());
 
         tareaTipoHoraServiceImpl.save(tiposHora, tarea);
-        
+
         verify(tareaTipoHoraRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
 }

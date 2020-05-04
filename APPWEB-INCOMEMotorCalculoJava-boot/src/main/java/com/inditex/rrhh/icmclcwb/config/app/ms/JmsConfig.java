@@ -39,7 +39,9 @@ public class JmsConfig {
             @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
-                .connectionFactory(cf).sessionTransacted(true).build();
+            .connectionFactory(cf)
+            .sessionTransacted(true)
+            .build();
     }
 
     @Bean
@@ -48,7 +50,9 @@ public class JmsConfig {
             @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
-                .connectionFactory(cf).sessionTransacted(true).build();
+            .connectionFactory(cf)
+            .sessionTransacted(true)
+            .build();
     }
 
     @Bean
@@ -57,16 +61,20 @@ public class JmsConfig {
             @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
-                .connectionFactory(cf).sessionTransacted(true).build();
+            .connectionFactory(cf)
+            .sessionTransacted(true)
+            .build();
     }
-    
+
     @Bean
     @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.programacion")
     public JmsListenerContainerFactory programacionContainerFactoryListener(
             @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
-                .connectionFactory(cf).sessionTransacted(true).build();
+            .connectionFactory(cf)
+            .sessionTransacted(true)
+            .build();
     }
 
 
@@ -99,7 +107,7 @@ public class JmsConfig {
         jmsClient.setConnectionFactory(cf);
         return jmsClient;
     }
-    
+
     @Bean
     @Qualifier("programacionJmsClient")
     @ConfigurationProperties(prefix = "amiga.data.jms.client.programacion")

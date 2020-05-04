@@ -41,9 +41,9 @@ public class TareaLocalizacionOnlineHistoricoRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaLocalizacionOnlineHistoricoRepositoryCustom,
-            "sqlSave", SQL_SAVE, true);
+                "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(tareaLocalizacionOnlineHistoricoRepositoryCustom,
-            "batchSize", 100, true);
+                "batchSize", 100, true);
     }
 
     @Test

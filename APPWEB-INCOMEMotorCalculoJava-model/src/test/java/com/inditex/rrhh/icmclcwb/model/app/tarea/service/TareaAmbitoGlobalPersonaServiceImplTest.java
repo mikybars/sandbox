@@ -30,4 +30,5 @@ public class TareaAmbitoGlobalPersonaServiceImplTest {
 
         verify(tareaAmbitoGlobalPersonaRepositoryCustom, times(1)).mergePersona(any(RunTareaDto.class));
     }
+
 }

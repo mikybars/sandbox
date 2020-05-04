@@ -15,10 +15,11 @@ public class PtrVentaGeneralAsyncServiceImpl implements PtrVentaGeneralAsyncServ
     @Autowired
     private PtrVentaGeneralService ptrVentaGeneralService;
 
-    
+
     @Override
     public CompletableFuture<PtrVentaTotalizadoResponseDto> ventaTotalizado(
             final PtrVentaTotalizadoRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaGeneralService.ventaTotalizado(request));
     }
+
 }

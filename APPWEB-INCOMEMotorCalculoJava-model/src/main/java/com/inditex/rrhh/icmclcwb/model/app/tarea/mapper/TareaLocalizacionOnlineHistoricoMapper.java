@@ -25,19 +25,19 @@ public abstract class TareaLocalizacionOnlineHistoricoMapper {
     @Mapping(source = "src.fechaInicio", target = "fechaInicio")
     @Mapping(source = "src.fechaFin", target = "fechaFin")
     public abstract TareaLocalizacionOnlineHistorico getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(
-        TiendaOnlineResultItemDto src, TareaDto tarea);
+            TiendaOnlineResultItemDto src, TareaDto tarea);
 
     public List<TareaLocalizacionOnlineHistorico> getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(
-        List<TiendaOnlineResultItemDto> src, TareaDto tarea) {
+            List<TiendaOnlineResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     @Mapping(target = "id", source = "cclIdCodOrigen")
     public abstract LocalizacionOnlineDto getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
-        TareaLocalizacionOnlineHistorico src);
+            TareaLocalizacionOnlineHistorico src);
 
     public List<LocalizacionOnlineDto> getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
-        List<TareaLocalizacionOnlineHistorico> src) {
+            List<TareaLocalizacionOnlineHistorico> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

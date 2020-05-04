@@ -24,10 +24,12 @@ public class TareaLocalizacionPresupuestoDto implements Serializable {
     @ApiModelProperty(value = "Tarea", required = true)
     private Long idTarea;
 
-    @ApiModelProperty(value = "Fecha de inicio del presupuesto", required = true, accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Fecha de inicio del presupuesto", required = true,
+            accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private LocalDate fechaInicio;
 
-    @ApiModelProperty(value = "Fecha de fin del presupuesto", required = true, accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Fecha de fin del presupuesto", required = true,
+            accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private LocalDate fechaFin;
 
     @NotBlank

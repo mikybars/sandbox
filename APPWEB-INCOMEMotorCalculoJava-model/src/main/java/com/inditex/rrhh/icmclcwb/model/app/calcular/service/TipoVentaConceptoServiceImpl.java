@@ -23,13 +23,14 @@ public class TipoVentaConceptoServiceImpl implements TipoVentaConceptoService {
     @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_by_id_meta4", key = "#idMeta4")
     public TipoVentaConceptoDto findByIdMeta4(String idMeta4) {
         return tipoVentaConceptoMapper.tipoVentaConceptoToTipoVentaConceptoDto(
-            tipoVentaConceptoRepository.findByIcmIdConceptoVenta(idMeta4));
+                tipoVentaConceptoRepository.findByIcmIdConceptoVenta(idMeta4));
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_by_id", key = "#id")
     public TipoVentaConceptoDto findById(Long id) {
         return tipoVentaConceptoMapper.tipoVentaConceptoToTipoVentaConceptoDto(
-            tipoVentaConceptoRepository.findById(id).get());
+                tipoVentaConceptoRepository.findById(id).get());
     }
+
 }

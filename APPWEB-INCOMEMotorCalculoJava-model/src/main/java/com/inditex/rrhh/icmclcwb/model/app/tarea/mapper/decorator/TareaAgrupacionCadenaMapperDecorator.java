@@ -19,12 +19,17 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
     private TareaAgrupacionCadenaMapper delegate;
 
     @Override
-    public List<TareaAgrupacionCadena> getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(List<AgrupOnlineResultItemDto> src, TareaDto tarea) {
+    public List<TareaAgrupacionCadena> getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(
+            List<AgrupOnlineResultItemDto> src, TareaDto tarea) {
         List<TareaAgrupacionCadena> result = new ArrayList<>();
         if (src != null) {
             src.forEach(x -> {
-                TareaAgrupacionCadena agrupacion = delegate.getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(x, tarea);
-                boolean multiple = src.stream().filter(y -> y.getIdOrigen().equals(x.getIdOrigen()) && y.getIdAgrupacion().equals(x.getIdAgrupacion())).count() > 1;
+                TareaAgrupacionCadena agrupacion = delegate.getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(x,
+                        tarea);
+                boolean multiple = src.stream()
+                    .filter(y -> y.getIdOrigen().equals(x.getIdOrigen())
+                            && y.getIdAgrupacion().equals(x.getIdAgrupacion()))
+                    .count() > 1;
                 agrupacion.setMultiple(multiple);
                 result.add(agrupacion);
             });
@@ -33,7 +38,8 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
     }
 
     @Override
-    public List<TareaAgrupacionCadenaDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(List<TareaAgrupacionCadena> src) {
+    public List<TareaAgrupacionCadenaDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
+            List<TareaAgrupacionCadena> src) {
         List<TareaAgrupacionCadenaDto> result = new ArrayList<>();
         if (src != null) {
             src.forEach(x -> result.add(delegate.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(x)));
@@ -42,7 +48,8 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
     }
 
     @Override
-    public List<TareaAgrupacionCadenasDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(List<TareaAgrupacionCadena> src) {
+    public List<TareaAgrupacionCadenasDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(
+            List<TareaAgrupacionCadena> src) {
         Map<Long, List<String>> cadenas = new HashMap<>();
         if (src != null) {
             src.forEach(x -> {
@@ -54,8 +61,10 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
         }
 
         List<TareaAgrupacionCadenasDto> result = new ArrayList<>();
-        cadenas.forEach((idAgrupacion, idCadenas) -> result.add(new TareaAgrupacionCadenasDto(idAgrupacion, idCadenas)));
+        cadenas
+            .forEach((idAgrupacion, idCadenas) -> result.add(new TareaAgrupacionCadenasDto(idAgrupacion, idCadenas)));
 
         return result;
     }
+
 }

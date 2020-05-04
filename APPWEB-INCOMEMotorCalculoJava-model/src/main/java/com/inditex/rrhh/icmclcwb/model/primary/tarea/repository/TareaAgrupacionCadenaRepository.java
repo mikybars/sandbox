@@ -9,4 +9,5 @@ import java.util.List;
 public interface TareaAgrupacionCadenaRepository extends BaseRepository<TareaAgrupacionCadena, Long> {
 
     List<TareaAgrupacionCadena> findByTareaId(@NotNull final Long id);
+
 }

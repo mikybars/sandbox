@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class PresenciaManualResponseDto extends PageableListDto<GenericEmpleadoResultItemDto>
         implements PageableList<GenericEmpleadoResultItemDto>, Serializable {
-    
+
     private static final long serialVersionUID = -2818013550614689223L;
 
 }

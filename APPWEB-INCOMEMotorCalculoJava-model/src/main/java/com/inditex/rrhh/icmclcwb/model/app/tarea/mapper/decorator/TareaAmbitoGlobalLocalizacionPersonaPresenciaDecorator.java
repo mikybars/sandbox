@@ -11,22 +11,25 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacionPersonaPresencia;
 
-public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator extends TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
+public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator
+        extends TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper delegate;
-    
+
     @Override
     public List<TareaAmbitoGlobalLocalizacionPersonaPresencia> presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
-            List<PtrPresenciaEmpleadosTiendaResultItemDto> src, TareaDto tareaDto)  {
+            List<PtrPresenciaEmpleadosTiendaResultItemDto> src, TareaDto tareaDto) {
         List<TareaAmbitoGlobalLocalizacionPersonaPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            for(PtrPresenciaEmpleadosTiendaResultItemDto item : src) {
-                for(Integer persona : item.getPersonas()) {
-                    result.add(delegate.presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(persona, item, tareaDto));                    
+            for (PtrPresenciaEmpleadosTiendaResultItemDto item : src) {
+                for (Integer persona : item.getPersonas()) {
+                    result.add(delegate.presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
+                            persona, item, tareaDto));
                 }
             }
         }
         return result;
     }
+
 }

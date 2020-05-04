@@ -45,13 +45,14 @@ public class GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
 
     @InjectMocks
     private GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo globalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo;
-    
+
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
 
-        String result = globalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto());
+        String result = globalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo
+            .getSqlCalcular(new AlgoritmoDto());
 
         assertEquals(SQL_CALCULAR, result);
     }
@@ -80,12 +81,14 @@ public class GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         globalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Fin :: GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -113,8 +116,7 @@ public class GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
-
 
 }

@@ -21,22 +21,30 @@ public interface TareaLocalizacionPresupuestoVentaService {
     List<TareaLocalizacionPresupuestoVentaDto> save(
             @Valid @NotNull @NotEmpty final List<TareaLocalizacionPresupuestoVentaDto> tareaLocalizacionPresupuestoVenta);
 
-    List<TareaLocalizacionPresupuestoVentaDto> save(@Valid @NotNull @NotEmpty final List<VentaCongeladaResultItemDto> ventaCongelada,
+    List<TareaLocalizacionPresupuestoVentaDto> save(
+            @Valid @NotNull @NotEmpty final List<VentaCongeladaResultItemDto> ventaCongelada,
             @Valid @NotNull final TareaDto tarea);
 
-    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(@Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(
+            @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
+            @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
             @Valid @NotNull final TareaDto tarea);
 
-    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(@Valid @NotNull final PtrVentaOnlineIpodResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
+    List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(
+            @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
+            @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
             @Valid @NotNull final TareaDto tarea);
 
     List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlinePickingResponse(
-            @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
+            @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto,
+            @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
 
     List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
-            @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
+            @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto,
+            @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
 
     List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(
-            @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
+            @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
+            @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
 
 }

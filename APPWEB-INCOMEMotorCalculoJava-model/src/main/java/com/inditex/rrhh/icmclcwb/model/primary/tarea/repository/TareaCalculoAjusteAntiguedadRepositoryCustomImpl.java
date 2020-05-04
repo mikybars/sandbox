@@ -30,17 +30,19 @@ public class TareaCalculoAjusteAntiguedadRepositoryCustomImpl
     @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
     @Getter
     private String sqlAjustarBase;
-    
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
     public List<TareaCalculoPersonaDto> ids(TareaDto tarea) {
-        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4());
+        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+                TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4());
     }
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea, TareaCalculoPersonaDto persona) {
+    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
+            TareaCalculoPersonaDto persona) {
         Map<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());

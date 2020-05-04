@@ -57,9 +57,13 @@ import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 public class TestServiceImpl implements TestService {
 
     private static final String CONTROLLED_TIMEOUT = "Controlled timeout";
+
     private static final String CODE = "Code";
+
     private static final String EXCEPTION = "Exception";
+
     private static final String OK = "OK";
+
     private static final String KO = "KO";
 
     @Autowired
@@ -169,15 +173,15 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    //TODO [COMUN] Rehacer este test
+    // TODO [COMUN] Rehacer este test
     public void programacionBatch() {
         programacionService.activa();
         for (int x = 1; x <= 100; x++) {
             programacionService.reset();
-//            runProgramacionService.run();
+            // runProgramacionService.run();
         }
     }
-    
+
     @Override
     public Boolean testUrl(@NotBlank String url) {
         int code = HttpStatus.SC_OK;
@@ -188,31 +192,44 @@ public class TestServiceImpl implements TestService {
             connection.setConnectTimeout(30000);
             connection.connect();
             code = connection.getResponseCode();
-            
+
             switch (code) {
                 case HttpStatus.SC_REQUEST_TIMEOUT:
                 case HttpStatus.SC_GATEWAY_TIMEOUT:
                 case 598:
                 case 524:
                     log.error(new StringBuilder(url).append(": ")
-                            .append(KO).append(", ")
-                            .append(CONTROLLED_TIMEOUT).append(", ")
-                            .append(CODE).append(": ").append(code).toString());
+                        .append(KO)
+                        .append(", ")
+                        .append(CONTROLLED_TIMEOUT)
+                        .append(", ")
+                        .append(CODE)
+                        .append(": ")
+                        .append(code)
+                        .toString());
                     return Boolean.FALSE;
-            default:
-                break;
+                default:
+                    break;
             }
-            
+
         } catch (Exception e) {
             log.error(new StringBuilder(url).append(": ")
-                    .append(KO).append(", ")
-                    .append(EXCEPTION).append(": ").append(e).toString());
+                .append(KO)
+                .append(", ")
+                .append(EXCEPTION)
+                .append(": ")
+                .append(e)
+                .toString());
             return Boolean.FALSE;
         }
-        
+
         log.info(new StringBuilder(url).append(": ")
-                .append(OK).append(", ")
-                .append(CODE).append(": ").append(code).toString());
+            .append(OK)
+            .append(", ")
+            .append(CODE)
+            .append(": ")
+            .append(code)
+            .toString());
         return Boolean.TRUE;
     }
 
@@ -225,12 +242,14 @@ public class TestServiceImpl implements TestService {
             String empresa = values[2];
             for (int x = 0; x < 70; x++) {
                 TrabajoDto trabajo = new TrabajoDto();
-                LocalDate fechaInicio = TimeUtils.nowLocalDate().minusMonths(x)
-                        .with(TemporalAdjusters.firstDayOfMonth())
-                        .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
-                LocalDate fechaFin = TimeUtils.nowLocalDate().minusMonths(x)
-                        .with(TemporalAdjusters.lastDayOfMonth())
-                        .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
+                LocalDate fechaInicio = TimeUtils.nowLocalDate()
+                    .minusMonths(x)
+                    .with(TemporalAdjusters.firstDayOfMonth())
+                    .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
+                LocalDate fechaFin = TimeUtils.nowLocalDate()
+                    .minusMonths(x)
+                    .with(TemporalAdjusters.lastDayOfMonth())
+                    .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
                 trabajo.setIcmIdPeriodo(0L);
                 trabajo.setFechaInicioPeriodo(fechaInicio);
                 trabajo.setFechaFinPeriodo(fechaFin);
@@ -264,34 +283,34 @@ public class TestServiceImpl implements TestService {
             Integer tipo = rand.nextInt(5) + 1;
             TrabajoDto trabajo = new TrabajoDto();
             switch (tipo) {
-            case 1:
-                testSociedad(sociedad, trabajo);
-                trabajo.setTipoAmbito(TipoAmbitoEnum.SOCIEDAD.getDto());
-                break;
-            case 2:
-                testOrigen(sociedad, origen, trabajo);
-                trabajo.setTipoAmbito(TipoAmbitoEnum.ORIGEN.getDto());
-                break;
-            case 3:
-                testEmpresa(sociedad, origen, empresa, trabajo);
-                trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
-                break;
-            case 4:
-                testLocalizacion(sociedad, origen, empresa, localizacion, trabajo);
-                trabajo.setTipoAmbito(TipoAmbitoEnum.LOCALIZACION.getDto());
-                break;
-            case 5:
-                testPersona(sociedad, origen, empresa, persona, orPersona, trabajo);
-                trabajo.setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
-                break;
-            default:
-                break;
+                case 1:
+                    testSociedad(sociedad, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.SOCIEDAD.getDto());
+                    break;
+                case 2:
+                    testOrigen(sociedad, origen, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.ORIGEN.getDto());
+                    break;
+                case 3:
+                    testEmpresa(sociedad, origen, empresa, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
+                    break;
+                case 4:
+                    testLocalizacion(sociedad, origen, empresa, localizacion, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.LOCALIZACION.getDto());
+                    break;
+                case 5:
+                    testPersona(sociedad, origen, empresa, persona, orPersona, trabajo);
+                    trabajo.setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
+                    break;
+                default:
+                    break;
             }
 
             trabajoService.create(trabajo);
         });
     }
-    
+
     @Override
     public String sqlFormatter(@NotBlank String sql) {
         return new BasicFormatterImpl().format(StringUtils.normalizeSpace(StringUtils.trim(sql)));
@@ -338,4 +357,5 @@ public class TestServiceImpl implements TestService {
         trabajoAmbitoPersona.setCclIdOrigen(origen);
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
     }
+
 }

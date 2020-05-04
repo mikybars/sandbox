@@ -20,13 +20,13 @@ public class TareaLocalizacionPresenciaServiceImplTest {
 
     @Mock
     private TareaLocalizacionPresenciaRepositoryCustom tareaLocalizacionPresenciaRepositoryCustom;
-    
+
     @InjectMocks
     private TareaLocalizacionPresenciaServiceImpl tareaLocalizacionPresenciaServiceImpl;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Test
     public void updateActivoVacioTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -34,7 +34,7 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         tareaLocalizacionPresenciaServiceImpl.updateActivoVacio(runTarea);
         verify(tareaLocalizacionPresenciaRepositoryCustom, times(1)).updateActivoVacio(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void compensarTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -42,7 +42,7 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         tareaLocalizacionPresenciaServiceImpl.compensar(runTarea);
         verify(tareaLocalizacionPresenciaRepositoryCustom, times(1)).compensar(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void totalizarTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -50,7 +50,7 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         tareaLocalizacionPresenciaServiceImpl.totalizar(runTarea);
         verify(tareaLocalizacionPresenciaRepositoryCustom, times(1)).totalizar(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void totalizarEcommerceTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -58,7 +58,7 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         tareaLocalizacionPresenciaServiceImpl.totalizarEcommerce(runTarea);
         verify(tareaLocalizacionPresenciaRepositoryCustom, times(1)).totalizarEcommerce(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void compensarEcommerceTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -66,7 +66,7 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         tareaLocalizacionPresenciaServiceImpl.compensarEcommerce(runTarea);
         verify(tareaLocalizacionPresenciaRepositoryCustom, times(1)).compensarEcommerce(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void totalizarEmpleadosPorVentaTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -74,4 +74,5 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         tareaLocalizacionPresenciaServiceImpl.totalizarEmpleadosPorVenta(runTarea);
         verify(tareaLocalizacionPresenciaRepositoryCustom, times(1)).totalizarEmpleadosPorVenta(any(RunTareaDto.class));
     }
+
 }

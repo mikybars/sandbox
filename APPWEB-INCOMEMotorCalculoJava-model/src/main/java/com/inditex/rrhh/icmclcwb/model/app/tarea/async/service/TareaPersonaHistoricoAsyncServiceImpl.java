@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -21,15 +20,15 @@ public class TareaPersonaHistoricoAsyncServiceImpl implements TareaPersonaHistor
 
     @Autowired
     private TareaPersonaHistoricoService tareaPersonaHistoricoService;
-    
+
     @Override
     public CompletableFuture<Void> save(final List<TareaPersonaHistoricoDto> tareaPersonaHistorico,
-           final TareaDto tarea) {
+            final TareaDto tarea) {
         tareaPersonaHistoricoService.save(tareaPersonaHistorico);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    
+
     @Override
     public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(
             final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, final TareaDto tarea) {

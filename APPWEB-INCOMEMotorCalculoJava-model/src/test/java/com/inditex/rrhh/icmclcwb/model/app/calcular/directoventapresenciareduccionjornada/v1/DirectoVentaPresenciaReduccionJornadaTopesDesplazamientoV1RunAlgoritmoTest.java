@@ -25,9 +25,10 @@ public class DirectoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgori
 
     @Test
     public void getSqlCalcularTest() {
-        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
         AlgoritmoDto algoritmo = new AlgoritmoDto();
-        String result = directoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgoritmo.getSqlCalcular(algoritmo);
+        String result = directoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgoritmo
+            .getSqlCalcular(algoritmo);
 
         assertEquals(ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT, result);
         verify(log, times(1)).warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
@@ -35,11 +36,12 @@ public class DirectoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgori
 
     @Test
     public void executeTest() {
-        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         RunTareaDto runTarea = new RunTareaDto();
         directoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(log, times(1)).warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
     }
+
 }

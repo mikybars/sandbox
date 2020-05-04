@@ -33,8 +33,8 @@ public class TrabajoAmbitoPersonaServiceImpl implements TrabajoAmbitoPersonaServ
             @Valid @NotNull @NotEmpty final List<TrabajoAmbitoPersonaDto> trabajoAmbitoPersona,
             @NotNull final TrabajoDto trabajo) {
         return trabajoAmbitoPersonaMapper.trabajoAmbitoPersonaToTrabajoAmbitoPersonaDto(trabajoAmbitoPersonaRepository
-                .saveAll(trabajoAmbitoPersonaMapper.mergeTrabajoAmbitoPersonaDtoAndTrabajoDtoToTrabajoAmbitoPersona(
-                        trabajoAmbitoPersona, trabajo)));
+            .saveAll(trabajoAmbitoPersonaMapper.mergeTrabajoAmbitoPersonaDtoAndTrabajoDtoToTrabajoAmbitoPersona(
+                    trabajoAmbitoPersona, trabajo)));
     }
 
     @Override

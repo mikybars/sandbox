@@ -8,4 +8,5 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 public interface TareaAgrupacionPresenciaService {
 
     void calcularPresenciasTotalesAgrupacion(@Valid @NotNull final TareaDto tarea);
+
 }

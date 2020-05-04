@@ -23,19 +23,19 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstr
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaPersonaEstructuraPoliticaServiceImplTest {
-    
+
     @Mock
     private TareaPersonaEstructuraPoliticaRepositoryCustom tareaPersonaEstructuraPoliticaRepositoryCustom;
-    
+
     @InjectMocks
     private TareaPersonaEstructuraPoliticaServiceImpl tareaPersonaEstructuraPoliticaServiceImpl;
-    
+
     @Mock
     private TareaPersonaEstructuraPoliticaMapper tareaPersonaEstructuraPoliticaMapper;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -45,7 +45,7 @@ public class TareaPersonaEstructuraPoliticaServiceImplTest {
         tareaPersonaEstructuraPoliticaServiceImpl.save(comisionEmpleado, tarea);
         verify(tareaPersonaEstructuraPoliticaRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void saveEstructurasPolResultItemDtoTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -55,4 +55,5 @@ public class TareaPersonaEstructuraPoliticaServiceImplTest {
         tareaPersonaEstructuraPoliticaServiceImpl.saveEstructurasPolResultItemDto(estructurasPol, tarea);
         verify(tareaPersonaEstructuraPoliticaRepositoryCustom, times(1)).save(any(List.class));
     }
+
 }

@@ -36,24 +36,37 @@ public class GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo imple
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                log.info("Inicio :: GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+                tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 try {
-                    tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
-                        runTarea.getTarea(), personas);
+                    tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(
+                            algoritmo,
+                            runTarea.getTarea(), personas);
                 } catch (Exception e) {
-                    log.error("GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
+                    log.error("GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
-                log.info("Fin :: GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+                log.info("Fin :: GlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 return Flux.empty();
-        }).sequential().collectList().block();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

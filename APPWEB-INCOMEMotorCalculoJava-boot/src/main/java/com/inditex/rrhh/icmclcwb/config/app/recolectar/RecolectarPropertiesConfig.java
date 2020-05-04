@@ -14,7 +14,7 @@ import lombok.Data;
 public class RecolectarPropertiesConfig {
 
     private RecolectarPropertiesDto recolectar;
-    
+
     @Bean(name = "recolectarProperties")
     public RecolectarPropertiesDto recolectar() {
         return recolectar;

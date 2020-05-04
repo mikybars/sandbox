@@ -23,7 +23,7 @@ public interface PtrPresenciaService {
             @Valid final PtrPresenciaTiendasEmpleadoRequestDto request);
 
     PtrPresenciaTotalizadoResponseDto presenciasTotalizado(@Valid final PtrPresenciaTotalizadoRequestDto request);
-    
+
     PtrPresenciaEmpleadosTiendaResponseDto presenciasEmpleadosTienda(
             @Valid final PtrPresenciaEmpleadosTiendaRequestDto request);
 

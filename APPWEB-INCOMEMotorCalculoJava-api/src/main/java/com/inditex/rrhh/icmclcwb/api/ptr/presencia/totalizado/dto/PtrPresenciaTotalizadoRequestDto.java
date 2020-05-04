@@ -27,38 +27,38 @@ public class PtrPresenciaTotalizadoRequestDto implements Serializable {
 
     @ApiModelProperty(value = "Fecha fin rango", required = false, example = "2018-10-31")
     private String fechaHasta;
-    
+
     @ApiModelProperty(value = "Id tipo", required = false, example = "1")
     private Integer tipo;
 
-	@ApiModelProperty(value = "Id cadena", required = false, example = "4")
-	private List<Integer> cadena;
-	
-	@NotNull
-	@ApiModelProperty(value = "Id origen", required = true, example = "11")
-	private Integer origen;
-	
-	@ApiModelProperty(value = "Id empresa", required = false, example = "1")
-	private Integer empresa;
-    
+    @ApiModelProperty(value = "Id cadena", required = false, example = "4")
+    private List<Integer> cadena;
+
+    @NotNull
+    @ApiModelProperty(value = "Id origen", required = true, example = "11")
+    private Integer origen;
+
+    @ApiModelProperty(value = "Id empresa", required = false, example = "1")
+    private Integer empresa;
+
     @ApiModelProperty(value = "Flag incluido venta", required = false, example = "true")
     private Boolean incluidoVenta;
-    
+
     @ApiModelProperty(value = "Flag incluido challenge", required = false, example = "true")
     private Boolean incluidoChallenge;
-    
+
     @ApiModelProperty(value = "Flag incluido ecommerce", required = false, example = "true")
     private Boolean incluidoEcommerce;
-    
+
     @ApiModelProperty(value = "Flag excluido calculo", required = false, example = "true")
     private Boolean excluidoCalculo;
-    
+
     @ApiModelProperty(value = "Flag excluido denominador", required = false, example = "true")
     private Boolean excluidoDenom;
-    
+
     @ApiModelProperty(value = "Agrupacion", required = false, allowableValues = "TIENDA, TIENDA_PERSONA")
     private String agrupacion;
-    
+
     @ApiModelProperty(value = "Pivotado seccion (1/0)", required = true, example = "1")
     private Integer agruparSeccion;
 

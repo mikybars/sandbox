@@ -22,9 +22,9 @@ public class TipoComision {
     private String id;
 
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
-    
+
     @ManyToMany(mappedBy = "tipoComision")
     private List<Algoritmo> algoritmo = new ArrayList<Algoritmo>();
 

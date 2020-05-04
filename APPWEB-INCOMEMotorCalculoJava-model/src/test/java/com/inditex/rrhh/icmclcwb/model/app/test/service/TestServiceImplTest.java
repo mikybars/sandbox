@@ -42,31 +42,31 @@ public class TestServiceImplTest {
 
     @Mock
     private Logger log;
-    
+
     @Mock
     private TareaMapper tareaMapper;
-    
+
     @Mock
     private TrabajoService trabajoService;
-    
+
     @Mock
     private TestExceptionService testExceptionService;
-    
+
     @Mock
     private TestExceptionAsyncService testExceptionAsyncService;
-    
+
     @Mock
     private ProgramacionService programacionService;
-    
+
     @Mock
     private RunProgramacionService runProgramacionService;
-    
+
     @Mock
     private Meta4ClientPool meta4ClientPool;
-    
+
     @Mock
     private HttpURLConnection connection;
-    
+
     @InjectMocks
     private TestServiceImpl testServiceImpl;
 
@@ -94,57 +94,61 @@ public class TestServiceImplTest {
         testServiceImpl.errorSync();
         verify(testExceptionService, timeout(1000).times(1)).icmclcwbException();
     }
-    
+
     @Test
     public void errorAsync() {
         CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
             return null;
         });
-        
+
         when(testExceptionAsyncService.icmclcwbException()).thenReturn(cfNull);
         testServiceImpl.errorAsync();
         verify(testExceptionAsyncService, timeout(1000).times(2)).icmclcwbException();
     }
-    
+
     @Test
     public void sesion() {
         GetempleadosOutput outputEmpleados = new GetempleadosOutput();
         SearchtiendasOutput outputTiendas = new SearchtiendasOutput();
         outputEmpleados.setReturn(0.0);
         outputTiendas.setReturn(0.0);
-        when(meta4ClientPool.getempleados(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(outputEmpleados);
-        when(meta4ClientPool.searchtiendas(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(outputTiendas);
+        when(meta4ClientPool.getempleados(any(IcmParametrosentradaBlock.class),
+                any(IcmParametrospaginacionBlock.class))).thenReturn(outputEmpleados);
+        when(meta4ClientPool.searchtiendas(any(IcmParametrosentradaBlock.class),
+                any(IcmParametrospaginacionBlock.class))).thenReturn(outputTiendas);
         testServiceImpl.sesion();
-        verify(meta4ClientPool, timeout(1000).times(3)).getempleados(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class));
-        verify(meta4ClientPool, timeout(1000).times(3)).searchtiendas(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class));
+        verify(meta4ClientPool, timeout(1000).times(3)).getempleados(any(IcmParametrosentradaBlock.class),
+                any(IcmParametrospaginacionBlock.class));
+        verify(meta4ClientPool, timeout(1000).times(3)).searchtiendas(any(IcmParametrosentradaBlock.class),
+                any(IcmParametrospaginacionBlock.class));
     }
-    
+
     @Test
-    //TODO [COMUN] Rehacer este test
+    // TODO [COMUN] Rehacer este test
     public void programacionBatch() {
         testServiceImpl.programacionBatch();
         verify(programacionService, timeout(1000).times(1)).activa();
         verify(programacionService, timeout(1000).times(100)).reset();
-//        verify(runProgramacionService, timeout(1000).times(100)).run();
+        // verify(runProgramacionService, timeout(1000).times(100)).run();
     }
-    
+
     @Test
     public void testUrl() throws IOException {
         assertFalse(testServiceImpl.testUrl("testUrl"));
         assertTrue(testServiceImpl.testUrl("http://www.test.com"));
 
     }
-    
+
     @Test
     public void testBloqueos() {
         testServiceImpl.testBloqueos(2L);
         verify(trabajoService, timeout(1000).times(2)).create(any(TrabajoDto.class));
     }
-    
+
     @Test
     public void sqlFormatter() {
         testServiceImpl.sqlFormatter("test");
         assertNotNull(testServiceImpl.sqlFormatter("test"));
     }
-    
+
 }

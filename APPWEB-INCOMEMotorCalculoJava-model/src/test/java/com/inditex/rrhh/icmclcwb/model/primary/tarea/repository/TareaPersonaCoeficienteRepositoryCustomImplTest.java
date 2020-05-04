@@ -41,9 +41,9 @@ public class TareaPersonaCoeficienteRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaPersonaCoeficienteRepositoryCustom,
-            "sqlSave", SQL_SAVE, true);
+                "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(tareaPersonaCoeficienteRepositoryCustom,
-            "batchSize", 100, true);
+                "batchSize", 100, true);
     }
 
     @Test
@@ -65,7 +65,8 @@ public class TareaPersonaCoeficienteRepositoryCustomImplTest {
 
         tareaPersonaCoeficienteRepositoryCustom.setParameters(pstmt, entity);
 
-        // Parámetros de la consulta: coeficiente, stdIdHr, cclIdPerson, stdOrHrPeriod, fechaInicioPar, fechaFinPar, fechaInicioCom, fechaFinCom, idTarea
+        // Parámetros de la consulta: coeficiente, stdIdHr, cclIdPerson, stdOrHrPeriod, fechaInicioPar,
+        // fechaFinPar, fechaInicioCom, fechaFinCom, idTarea
         verify(pstmt, times(1)).setObject(1, entity.getCoeficiente());
         verify(pstmt, times(1)).setString(2, entity.getStdIdHr());
         verify(pstmt, times(1)).setString(3, entity.getCclIdPerson());
@@ -85,4 +86,5 @@ public class TareaPersonaCoeficienteRepositoryCustomImplTest {
         verify(jdbcTemplate).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
     }
+
 }

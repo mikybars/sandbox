@@ -12,12 +12,14 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 
 public interface TareaPersonaEstructuraService {
-   
-    List<TareaPersonaEstructuraDto> save(@Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+
+    List<TareaPersonaEstructuraDto> save(
+            @Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
             @Valid @NotNull final TareaDto tarea);
 
     List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
-            @Valid @NotNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid @NotNull final TareaDto tarea);
+            @Valid @NotNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto,
+            @Valid @NotNull final TareaDto tarea);
 
     List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NotNull final TareaDto tarea);
 

@@ -27,16 +27,16 @@ public class TareaAmbitoLocalizacionServiceImplTest {
 
     @Mock
     private TareaAmbitoLocalizacionRepository tareaAmbitoLocalizacionRepository;
-    
+
     @InjectMocks
     private TareaAmbitoLocalizacionServiceImpl tareaAmbitoLocalizacionServiceImpl;
-    
+
     @Mock
     private TareaAmbitoLocalizacionMapper tareaAmbitoLocalizacionMapper;
-    
+
     @Mock
     private TareaAmbitoLocalizacionMapperDecorator tareaAmbitoLocalizacionMapperDecorator;
-    
+
     @Test
     public void createTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -47,7 +47,7 @@ public class TareaAmbitoLocalizacionServiceImplTest {
 
         verify(tareaAmbitoLocalizacionRepository, times(1)).saveAll(any(List.class));
     }
-    
+
     @Test
     public void findByTarea() {
         TareaDto tarea = mock(TareaDto.class);
@@ -58,4 +58,5 @@ public class TareaAmbitoLocalizacionServiceImplTest {
 
         verify(tareaAmbitoLocalizacionRepository, times(1)).findByTareaId(any(Long.class));
     }
+
 }

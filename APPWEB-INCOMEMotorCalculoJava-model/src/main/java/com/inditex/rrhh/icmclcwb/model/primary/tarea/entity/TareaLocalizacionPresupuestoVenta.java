@@ -50,7 +50,7 @@ public class TareaLocalizacionPresupuestoVenta {
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String cclIdCodOrigen;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String cclIdCadena;
@@ -58,7 +58,7 @@ public class TareaLocalizacionPresupuestoVenta {
     @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
     private String cclIdSeccion;
-    
+
     @Column(name = "ICM_ORDINAL", nullable = true)
     private Integer ordinal;
 
@@ -78,7 +78,7 @@ public class TareaLocalizacionPresupuestoVenta {
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO_CHALLENGE", nullable = false)
     private TipoVentaConceptoChallenge tipoVentaConceptoChallenge;
-        
+
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
@@ -86,9 +86,9 @@ public class TareaLocalizacionPresupuestoVenta {
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
-    
+
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
-    
+
 }

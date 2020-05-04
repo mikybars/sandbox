@@ -22,4 +22,5 @@ public class RunTareaRecolectarPtrVentaEmpleadoAsyncServiceImpl
         tareaRecolectarPtrVentaEmpleadoService.ventaFisicaLocalizacionPersonaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

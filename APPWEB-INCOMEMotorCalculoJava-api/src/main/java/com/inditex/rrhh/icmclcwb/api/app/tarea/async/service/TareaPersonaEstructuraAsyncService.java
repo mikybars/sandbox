@@ -13,7 +13,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Es
 public interface TareaPersonaEstructuraAsyncService {
 
     CompletableFuture<Void> save(final List<TareaPersonaEstructuraDto> tareaPersonaEstructura, final TareaDto tareaDto);
-    
+
     CompletableFuture<Void> saveEstructurasComResultItemDto(
             final List<EstructurasComResultItemDto> estructurasComResultItemDto, final TareaDto tareaDto);
+
 }

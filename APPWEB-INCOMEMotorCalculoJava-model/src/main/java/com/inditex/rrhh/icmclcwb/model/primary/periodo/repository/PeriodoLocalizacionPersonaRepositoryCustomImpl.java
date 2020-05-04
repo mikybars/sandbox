@@ -34,14 +34,14 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlMergePeriodoLocalizacionPersona, params);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoLocalizacionPersona entity) throws SQLException {
         pstmt.setLong(1, entity.getPk().getIcmIdPeriodo());
         pstmt.setString(2, entity.getPk().getCclIdOrigen());
         pstmt.setString(3, entity.getPk().getStdIdLegEnt());
         pstmt.setString(4, entity.getPk().getStdIdWorkLocat());
-        pstmt.setString(5, entity.getPk().getCclIdPerson());        
+        pstmt.setString(5, entity.getPk().getCclIdPerson());
     }
 
 }

@@ -23,13 +23,14 @@ public class TipoAusenciaServiceImpl implements TipoAusenciaService {
     @Cacheable(value = "itx.icmlcwb.tipo_ausencia_by_icm_tp_absence", key = "#icmTpAbsence")
     public TipoAusenciaDto findByIcmTpAbsence(String icmTpAbsence) {
         return tipoAusenciaMapper.tipoAusenciaToTipoAusenciaDto(
-            tipoAusenciaRepository.findByIcmTpAbsence(icmTpAbsence));
+                tipoAusenciaRepository.findByIcmTpAbsence(icmTpAbsence));
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.tipo_ausencia_by_id", key = "#id")
     public TipoAusenciaDto findById(Integer id) {
         return tipoAusenciaMapper.tipoAusenciaToTipoAusenciaDto(
-            tipoAusenciaRepository.findById(id).get());
+                tipoAusenciaRepository.findById(id).get());
     }
+
 }

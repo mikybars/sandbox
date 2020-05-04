@@ -60,7 +60,7 @@ public class Programacion {
     @NotNull
     @Column(name = "FECHA_HORA_SIGUIENTE_EJECUCION", nullable = false)
     private LocalDateTime fechaHoraSiguienteEjecucion;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)

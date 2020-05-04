@@ -52,6 +52,7 @@ public class TareaValidarRepositoryCustomImpl implements TareaValidarRepositoryC
 
     @Value("#{primaryQuery['RunTareaValidarService.EmpleadoHistoricoEmptyFields']}")
     private String sqlEmpleadoHistoricoEmptyFields;
+
     // ---
     @Value("#{primaryQuery['RunTareaValidarService.AmbitoLocalizacion']}")
     private String sqlValidacionAmbitoLocalizacion;

@@ -33,7 +33,7 @@ public class PeriodoLocalizacionRepositoryCustomImpl extends JdbcBatchPrimaryRep
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlMergePeriodoLocalizacion, params);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoLocalizacion entity) throws SQLException {
         pstmt.setLong(1, entity.getPk().getIcmIdPeriodo());

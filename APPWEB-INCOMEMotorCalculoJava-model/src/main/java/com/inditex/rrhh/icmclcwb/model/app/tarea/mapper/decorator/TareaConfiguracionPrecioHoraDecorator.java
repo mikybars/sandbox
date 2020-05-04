@@ -15,13 +15,14 @@ public abstract class TareaConfiguracionPrecioHoraDecorator extends TareaConfigu
 
     @Autowired
     private TareaConfiguracionPrecioHoraMapper delegate;
-    
+
     @Override
     public List<TareaConfiguracionPrecioHora> confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(
             List<ConfPrecioHoraResultItemDto> src, TareaDto tarea) {
         ArrayList<TareaConfiguracionPrecioHora> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> result.add(delegate.confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(item, tarea)));
+            src.forEach(item -> result
+                .add(delegate.confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(item, tarea)));
         }
         return result;
     }

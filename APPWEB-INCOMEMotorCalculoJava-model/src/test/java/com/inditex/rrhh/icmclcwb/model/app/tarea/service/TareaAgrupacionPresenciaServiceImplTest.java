@@ -19,14 +19,16 @@ public class TareaAgrupacionPresenciaServiceImplTest {
 
     @Mock
     private TareaAgrupacionPresenciaRepositoryCustomImpl tareaAgrupacionPresenciaRepositoryCustomImpl;
-    
+
     @InjectMocks
     private TareaAgrupacionPresenciaServiceImpl tareaAgrupacionPresenciaServiceImpl;
-    
+
     @Test
     public void calcularPresenciasTotalesAgrupacion() {
         TareaDto runTarea = mock(TareaDto.class);
         tareaAgrupacionPresenciaServiceImpl.calcularPresenciasTotalesAgrupacion(runTarea);
-        verify(tareaAgrupacionPresenciaRepositoryCustomImpl, times(1)).calcularPresenciasTotalesAgrupacion(any(TareaDto.class));
+        verify(tareaAgrupacionPresenciaRepositoryCustomImpl, times(1))
+            .calcularPresenciasTotalesAgrupacion(any(TareaDto.class));
     }
+
 }

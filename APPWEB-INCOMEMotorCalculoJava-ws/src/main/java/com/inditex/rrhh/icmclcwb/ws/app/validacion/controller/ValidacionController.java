@@ -25,7 +25,7 @@ import io.swagger.annotations.Authorization;
 @RequestMapping(path = "/validacion")
 @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
 public class ValidacionController {
-    
+
     @Autowired
     private TareaValidarService tareaValidarService;
 
@@ -34,10 +34,11 @@ public class ValidacionController {
     public @Valid Map<String, Object> validateByIdTarea(@PathVariable @Valid @NotNull @Positive final Long idTarea) {
         return tareaValidarService.validateByIdTarea(idTarea);
     }
-    
+
     @GetMapping("/trabajo/{idTrabajo}")
     @ApiOperation("Realiza validaciones para un trabajo")
-    public @Valid List<Map<String, Object>> validateByIdTrabajo(@PathVariable @Valid @NotNull @Positive final Long idTrabajo) {
+    public @Valid List<Map<String, Object>> validateByIdTrabajo(
+            @PathVariable @Valid @NotNull @Positive final Long idTrabajo) {
         return tareaValidarService.validateByIdTrabajo(idTrabajo);
     }
 

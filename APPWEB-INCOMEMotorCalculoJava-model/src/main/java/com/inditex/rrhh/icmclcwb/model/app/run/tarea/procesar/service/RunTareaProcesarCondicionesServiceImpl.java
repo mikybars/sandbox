@@ -49,4 +49,5 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
     public void relacionarPresupuestosEstructurasDesplazamiento(@Valid TareaDto tarea) {
         tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraDesplazamiento(tarea);
     }
+
 }

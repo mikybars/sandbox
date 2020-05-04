@@ -26,19 +26,19 @@ public class TareaLocalizacionFestivo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_LOCALIZACION_FESTIVO")
     private Long id;
-    
+
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
     private String stdIdWorkLocat;
-    
+
     @NotNull
     @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-    
+
 }

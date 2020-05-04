@@ -20,7 +20,7 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Identificador del tarea", required = true)
     private Long idTarea;
-    
+
     @NotNull
     @ApiModelProperty(value = "Fecha de inicio en la estructura", required = true)
     private LocalDateTime fechaInicio;
@@ -68,7 +68,7 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Incluir horas en destino", required = true)
     private Boolean horasDestino;
-    
+
     @NotNull
     @ApiModelProperty(value = "Flag activo/inactivo", required = true)
     private Boolean activo;
@@ -88,15 +88,15 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Id local de la persona", required = true)
     private String cclIdPerson;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
     private String icmIdEstrComisionBase;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id estructura destino", required = true)
     private String icmIdEstrComision;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id estructura padre", required = true)
     private String icmIdEstrComisionPadre;
@@ -104,7 +104,7 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Oridnal de la estructura")
     private Integer ordinalEstructura;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id estructura del ambito", required = true)
     private String icmIdEstructuraAmbito;
@@ -113,6 +113,4 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
     @ApiModelProperty(value = "Fecha inicio periodo", required = true)
     private LocalDate fechaInicioPeriodo;
 
-
-    
 }

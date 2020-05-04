@@ -17,7 +17,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalPersona;
 
 @Repository
-public class TareaAmbitoGlobalPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaAmbitoGlobalPersona>
+public class TareaAmbitoGlobalPersonaRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaAmbitoGlobalPersona>
         implements TareaAmbitoGlobalPersonaRepositoryCustom {
 
     @Autowired
@@ -26,17 +27,17 @@ public class TareaAmbitoGlobalPersonaRepositoryCustomImpl extends JdbcBatchPrima
 
     @Value("#{primaryQuery['TareaAmbitoGlobalPersonaRepositoryCustom.mergePersona']}")
     private String sqlMergePersona;
-    
+
     @Override
     public void mergePersona(@NotNull RunTareaDto tareaDto) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlMergePersona, params);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalPersona entity) throws SQLException {
-        pstmt.setLong(1, entity.getTarea().getId());        
+        pstmt.setLong(1, entity.getTarea().getId());
         pstmt.setString(2, entity.getCclIdOrigen());
         pstmt.setString(3, entity.getCclIdPerson());
         pstmt.setString(4, entity.getStdIdLegEnt());

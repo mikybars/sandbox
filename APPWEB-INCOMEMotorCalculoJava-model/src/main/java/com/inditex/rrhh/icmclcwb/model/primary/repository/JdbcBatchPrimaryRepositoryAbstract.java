@@ -19,20 +19,24 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
 
-    /** @deprecated Se debe usar NamedParameterJdbcTemplate */
+    /**
+     * @deprecated Se debe usar NamedParameterJdbcTemplate
+     */
     @Deprecated
     @Autowired
     @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
-    
+
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Autowired
     private Logger log;
 
-    /** @deprecated Se debe usar saveNamedJdbcBatchList */
+    /**
+     * @deprecated Se debe usar saveNamedJdbcBatchList
+     */
     @Deprecated
     public List<Z> saveJdbcBatchList(final List<Z> src, String sql, int batchSize) {
         for (List<Z> iter : StreamUtils.partition(src, batchSize)) {
@@ -50,17 +54,22 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
                 });
             } catch (DataAccessException e) {
                 log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error ", e);
-                iter.stream().forEach(a -> log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a, e));
+                iter.stream()
+                    .forEach(a -> log.error(
+                            "JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a,
+                            e));
                 throw e;
             }
         }
         return src;
     }
-    
-    /** @deprecated Se debe usar saveNamedJdbcBatchList */
+
+    /**
+     * @deprecated Se debe usar saveNamedJdbcBatchList
+     */
     @Deprecated
     public abstract void setParameters(PreparedStatement pstmt, Z entity) throws SQLException;
-    
+
     public List<Z> saveNamedJdbcBatchList(final List<Z> src, String sql, int batchSize) {
         for (List<Z> iter : StreamUtils.partition(src, batchSize)) {
             try {
@@ -68,13 +77,16 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
                 namedParameterJdbcTemplate.batchUpdate(sql, itemList);
             } catch (DataAccessException e) {
                 log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error ", e);
-                iter.stream().forEach(a -> log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a, e));
+                iter.stream()
+                    .forEach(a -> log.error(
+                            "JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a,
+                            e));
                 throw e;
             }
         }
         return src;
     }
-    
+
     public void update(String sql, final MapSqlParameterSource parameters) {
         try {
             namedParameterJdbcTemplate.update(sql, parameters);

@@ -19,5 +19,5 @@ public class SaveProcesoParametersDto extends GenericFilterParametersDto impleme
     private static final long serialVersionUID = -8046321991280127076L;
 
     private String idEmpresa;
-    
+
 }

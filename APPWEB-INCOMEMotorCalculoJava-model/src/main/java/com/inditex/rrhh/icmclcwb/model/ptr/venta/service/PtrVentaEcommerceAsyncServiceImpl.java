@@ -21,42 +21,43 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEcommerceService;
 
 @Service
 public class PtrVentaEcommerceAsyncServiceImpl implements PtrVentaEcommerceAsyncService {
-    
+
     @Autowired
     private PtrVentaEcommerceService ptrVentaEcommerceService;
-    
-    
+
+
     @Override
     public CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> ventaOnlineEntregaDomicilio(
             final PtrVentaOnlineEntregaDomicilioRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaEcommerceService.ventaOnlineEntregaDomicilio(request));
     }
-    
-    
+
+
     @Override
     public CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> ventaOnlineEntregaTienda(
             final PtrVentaOnlineEntregaTiendaRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaEcommerceService.ventaOnlineEntregaTienda(request));
     }
-    
-    
+
+
     @Override
     public CompletableFuture<PtrVentaOnlineIpodResponseDto> ventaOnlineiPod(
             final PtrVentaOnlineIpodRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaEcommerceService.ventaOnlineiPod(request));
     }
-    
-    
+
+
     @Override
     public CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> ventaOnlineiPodIndividualDetalle(
             final PtrVentaOnlineIpodIndividualDetalleRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaEcommerceService.ventaOnlineiPodIndividualDetalle(request));
     }
-    
-    
+
+
     @Override
     public CompletableFuture<PtrVentaOnlinePickingResponseDto> ventaOnlinePicking(
             final PtrVentaOnlinePickingRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaEcommerceService.ventaOnlinePicking(request));
     }
+
 }

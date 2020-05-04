@@ -42,24 +42,24 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
         if (ambito != null) {
             result.setIdAmbito(ambito.getIcmIdAmbitoEjec());
             switch (ambito) {
-            case EMPRESA:
-                result.setItem(trabajoAmbitoEmpresaMapper
+                case EMPRESA:
+                    result.setItem(trabajoAmbitoEmpresaMapper
                         .trabajoAmbitoEmpresaDtoToSaveProcesoParametersDto(trabajo.getEmpresa()));
-                break;
-            case LOCALIZACION:
-                result.setItem(trabajoAmbitoLocalizacionMapper
+                    break;
+                case LOCALIZACION:
+                    result.setItem(trabajoAmbitoLocalizacionMapper
                         .trabajoAmbitoLocalizacionDtoToSaveProcesoParametersDto(trabajo.getLocalizacion()));
-                break;
-            case PERSONA:
-                result.setItem(trabajoAmbitoPersonaMapper
+                    break;
+                case PERSONA:
+                    result.setItem(trabajoAmbitoPersonaMapper
                         .trabajoAmbitoPersonaDtoToSaveProcesoParametersDto(trabajo.getPersona()));
-                break;
-            case SOCIEDAD:
-                result.setIdOrganization(trabajo.getIdOrganization());
-                result.setItem(new ArrayList<>());
-                break;
-            default:
-                result.setItem(new ArrayList<>());
+                    break;
+                case SOCIEDAD:
+                    result.setIdOrganization(trabajo.getIdOrganization());
+                    result.setItem(new ArrayList<>());
+                    break;
+                default:
+                    result.setItem(new ArrayList<>());
             }
         }
         return result;

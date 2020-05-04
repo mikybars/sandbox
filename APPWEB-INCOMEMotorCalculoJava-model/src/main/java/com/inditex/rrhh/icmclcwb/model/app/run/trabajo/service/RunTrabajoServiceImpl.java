@@ -54,8 +54,10 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTrabajoService.run.timer", metricGroupName = "RunTrabajoServiceGroup", metricDescription = "RunTrabajoService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTrabajoService.run.counter", metricGroupName = "RunTrabajoServiceGroup", metricDescription = "RunTrabajoService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTrabajoService.run.timer", metricGroupName = "RunTrabajoServiceGroup",
+            metricDescription = "RunTrabajoService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTrabajoService.run.counter", metricGroupName = "RunTrabajoServiceGroup",
+            metricDescription = "RunTrabajoService.run.counter")
     @Override
     public RunTrabajoDto run(@NotNull @Valid @TrabajoValidator final RunTrabajoDto runTrabajo) {
         final TrabajoDto trabajo = runTrabajo.getTrabajo();
@@ -66,12 +68,17 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                 request.setData(new GenericFilterDto());
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.ORIGEN).getPage());
                 request.getData().setItem(new ArrayList<>());
-                request.getData().getItem()
-                        .add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization()).build());
+                request.getData()
+                    .getItem()
+                    .add(GenericFilterParametersDto.builder().idSociedadReg(trabajo.getIdOrganization()).build());
                 List<OrigenResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getOrigen(request);
-                List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream().map(e -> TrabajoAmbitoOrigenDto
-                        .builder().cclIdOrigen(e.getIdOrigen()).idTrabajo(trabajo.getId()).build())
-                        .collect(Collectors.toList());
+                List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen = origen.stream()
+                    .map(e -> TrabajoAmbitoOrigenDto
+                        .builder()
+                        .cclIdOrigen(e.getIdOrigen())
+                        .idTrabajo(trabajo.getId())
+                        .build())
+                    .collect(Collectors.toList());
                 runTrabajo.getTrabajo().setOrigen(trabajoAmbitoOrigen);
             }
             if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
@@ -80,12 +87,19 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
                 request.setData(new GenericFilterDto());
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.EMPRESA).getPage());
                 request.getData().setItem(new ArrayList<>());
-                trabajo.getOrigen().stream().forEach(e -> request.getData().getItem()
+                trabajo.getOrigen()
+                    .stream()
+                    .forEach(e -> request.getData()
+                        .getItem()
                         .add(GenericFilterParametersDto.builder().idOrigenReg(e.getCclIdOrigen()).build()));
                 List<EmpresaResultItemDto> origen = meta4IcmWsCalcIncomeSessionService.getEmpresa(request);
-                List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa = origen.stream().map(e -> TrabajoAmbitoEmpresaDto
-                        .builder().stdIdLegEnt(e.getIdEmpresa()).idTrabajo(trabajo.getId()).build())
-                        .collect(Collectors.toList());
+                List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa = origen.stream()
+                    .map(e -> TrabajoAmbitoEmpresaDto
+                        .builder()
+                        .stdIdLegEnt(e.getIdEmpresa())
+                        .idTrabajo(trabajo.getId())
+                        .build())
+                    .collect(Collectors.toList());
                 runTrabajo.getTrabajo().setEmpresa(trabajoAmbitoEmpresa);
             }
             runTrabajo.setTarea(tareaService.create(runTrabajo.getTrabajo()));

@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 @Async("repositoryPrimaryExecutor")
 public interface TareaAmbitoGlobalLocalizacionPersonaPresenciaManualAsyncService {
 
-    CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto);
+    CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src,
+            final TareaDto tareaDto);
 
 }

@@ -63,13 +63,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.Ve
 
 public interface Meta4IcmWsCalcIncomeService {
 
-	SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request);
+    SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request);
 
-	TiendasResponseDto getTiendas(TiendasRequestDto request);
+    TiendasResponseDto getTiendas(TiendasRequestDto request);
 
-	SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request);
+    SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request);
 
-	EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request);
+    EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request);
 
     PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request);
 

@@ -32,9 +32,11 @@ public class PtrVentaGeneralServiceImpl implements PtrVentaGeneralService {
     @Override
     public PtrVentaTotalizadoResponseDto ventaTotalizado(@Valid final PtrVentaTotalizadoRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
+                ptrVentaClient.postForEntity(
+                        ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
                         request, PtrVentaTotalizadoResponseDto.class),
-                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(), request);
+                ptrVentaClient, ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
+                request);
     }
 
 }

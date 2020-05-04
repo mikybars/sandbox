@@ -13,13 +13,13 @@ public class PresupuestosRangoFilterDto implements Serializable {
     private static final long serialVersionUID = 5924519730735658156L;
 
     private LocalDateTime fechaInicio;
-    
+
     private LocalDateTime fechaFin;
 
     private String idOrigen;
-    
+
     private String idEmpresa;
 
     private List<PresupuestosRangoFilterParametersDto> item = new ArrayList<>();
-    
+
 }

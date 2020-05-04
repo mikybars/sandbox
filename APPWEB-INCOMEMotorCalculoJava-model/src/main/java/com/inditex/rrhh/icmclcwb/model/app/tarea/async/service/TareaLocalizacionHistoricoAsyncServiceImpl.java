@@ -30,7 +30,8 @@ public class TareaLocalizacionHistoricoAsyncServiceImpl implements TareaLocaliza
     @Override
     public CompletableFuture<Void> saveGenericTiendaResultItemDto(
             final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, final TareaDto tarea) {
-        tareaLocalizacionHistoricoService.save(tareaLocalizacionHistoricoService.merge(genericTiendaResultItemDto, tarea));
+        tareaLocalizacionHistoricoService
+            .save(tareaLocalizacionHistoricoService.merge(genericTiendaResultItemDto, tarea));
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

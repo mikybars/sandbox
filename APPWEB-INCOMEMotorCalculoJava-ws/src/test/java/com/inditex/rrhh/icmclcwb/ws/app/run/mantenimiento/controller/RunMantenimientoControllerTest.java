@@ -22,20 +22,20 @@ import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimie
 public class RunMantenimientoControllerTest {
 
     private MockMvc mockMvc;
-    
+
     @Mock
     private RunMantenimientoService runMantenimientoServiceMock;
-    
+
     @InjectMocks
     private RunMantenimientoController runMantenimientoController;
-    
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(runMantenimientoController)
-                .build();
+            .build();
     }
-    
+
     @Test
     public void run() throws Exception {
         when(runMantenimientoServiceMock.run()).thenReturn(new RunMantenimientoDto());

@@ -25,4 +25,5 @@ public abstract class TareaLocalizacionAbiertaMapper {
 
     public abstract List<TareaLocalizacionAbierta> tareaLocalizacionAbiertaDtoToLocalizacionAbierta(
             List<TareaLocalizacionAbiertaDto> src);
+
 }

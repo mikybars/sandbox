@@ -64,31 +64,42 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunProgramacionService.run.timer", metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunProgramacionService.run.counter", metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunProgramacionService.run.timer",
+            metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunProgramacionService.run.counter",
+            metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.counter")
     @Override
     public RunProgramacionDto run(@NotNull @Valid final Long id) {
         ProgramacionDto programacion = programacionService.findPendienteById(id);
-        RunProgramacionDto runProgramacion = RunProgramacionDto.builder().programacion(programacion)
-                .runProgramacionPeriodo(new ArrayList<>()).build();
+        RunProgramacionDto runProgramacion = RunProgramacionDto.builder()
+            .programacion(programacion)
+            .runProgramacionPeriodo(new ArrayList<>())
+            .build();
         programacionService.updateEjecucion(programacion);
         programacion.getAmbito().stream().forEach(programacionAmbito -> {
             PeriodosRequestDto request = new PeriodosRequestDto();
             request.setData(new GenericFilterDto());
             request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
-            request.getData().getItem()
-                    .add(GenericFilterParametersDto.builder().idSociedadReg(programacionAmbito.getIdOrgenization())
-                            .abierto(Meta4Constants.TRUE).activo(Meta4Constants.TRUE).vigente(Meta4Constants.TRUE)
-                            .build());
+            request.getData()
+                .getItem()
+                .add(GenericFilterParametersDto.builder()
+                    .idSociedadReg(programacionAmbito.getIdOrgenization())
+                    .abierto(Meta4Constants.TRUE)
+                    .activo(Meta4Constants.TRUE)
+                    .vigente(Meta4Constants.TRUE)
+                    .build());
             List<PeriodoDto> periodos = periodoMapper
-                    .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
+                .periodoResultItemDtoToPeriodoDto(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
             if (CollectionUtils.isNotEmpty(periodos)) {
-                periodos.stream().forEach(periodo -> runProgramacion.getRunProgramacionPeriodo()
-                        .add(RunProgramacionPeriodoDto.builder().periodo(periodo).programacionAmbito(programacionAmbito)
-                                .trabajo(trabajoService
-                                        .create(trabajoService.merge(programacion, programacionAmbito, periodo)))
-                                .build()));
+                periodos.stream()
+                    .forEach(periodo -> runProgramacion.getRunProgramacionPeriodo()
+                        .add(RunProgramacionPeriodoDto.builder()
+                            .periodo(periodo)
+                            .programacionAmbito(programacionAmbito)
+                            .trabajo(trabajoService
+                                .create(trabajoService.merge(programacion, programacionAmbito, periodo)))
+                            .build()));
             } else {
                 log.warn("No existen periodos activos para la organización {}", programacionAmbito.getIdOrgenization());
             }
@@ -102,8 +113,10 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
         List<RunProgramacionDto> result = new ArrayList<>();
         programacionService.findPendiente().stream().forEach(programacion -> {
             senderProgramacion.send(IdProgramacionDto.builder().id(programacion.getId()).build());
-            RunProgramacionDto runProgramacion = RunProgramacionDto.builder().programacion(programacion)
-                    .runProgramacionPeriodo(new ArrayList<>()).build();
+            RunProgramacionDto runProgramacion = RunProgramacionDto.builder()
+                .programacion(programacion)
+                .runProgramacionPeriodo(new ArrayList<>())
+                .build();
             result.add(runProgramacion);
         });
         return result;

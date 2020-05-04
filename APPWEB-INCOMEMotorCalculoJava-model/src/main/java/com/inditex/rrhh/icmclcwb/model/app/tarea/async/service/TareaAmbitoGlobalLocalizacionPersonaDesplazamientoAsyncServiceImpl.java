@@ -13,14 +13,17 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 
 @Service
-public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncServiceImpl implements TareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService{
+public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncServiceImpl
+        implements TareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService {
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoService tareaAmbitoGlobalLocalizacionPersonaDesplazamientoService;
-    
+
     @Override
-    public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto)  {
+    public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src,
+            final TareaDto tareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaDesplazamientoService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

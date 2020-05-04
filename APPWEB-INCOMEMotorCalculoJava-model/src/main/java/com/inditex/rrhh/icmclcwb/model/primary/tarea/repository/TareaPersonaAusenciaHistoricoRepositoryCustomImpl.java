@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaAusencia
 
 @Repository
 public class TareaPersonaAusenciaHistoricoRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaAusenciaHistorico>
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaAusenciaHistorico>
         implements TareaPersonaAusenciaHistoricoRepositoryCustom {
 
     @Value("${app.envars.repository.batch-size.tarea-persona-ausencia-historico:${app.envars.repository.batch-size.default}}")
@@ -20,7 +20,7 @@ public class TareaPersonaAusenciaHistoricoRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaPersonaAusenciaHistoricoRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Override
     public List<TareaPersonaAusenciaHistorico> save(final List<TareaPersonaAusenciaHistorico> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
@@ -36,4 +36,5 @@ public class TareaPersonaAusenciaHistoricoRepositoryCustomImpl
         pstmt.setString(6, entity.getCclIdOrigen());
         pstmt.setLong(7, entity.getTarea().getId());
     }
+
 }

@@ -78,14 +78,15 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     public void close() {
         log.info("Inicio :: Meta4ClientPool :: close()");
         try {
-            pool.shutdown().await(new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(),
-                    TimeUnit.MILLISECONDS));
+            pool.shutdown()
+                .await(new Timeout(meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(),
+                        TimeUnit.MILLISECONDS));
         } catch (InterruptedException e) {
             throw new Meta4IcmclcwbException(e.getMessage(), e);
         }
         log.info("Fin :: Meta4ClientPool :: close()");
     }
-      
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetempleadosdesplazOutput getempleadosdesplaz(IcmParametrospaginacionBlock param1,
             IcmParametrosentradaBlock param2) {
@@ -99,7 +100,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetorigenesOutput getorigenes(IcmParamcalsociedadBlock param1,
             IcmParametrospaginacionBlock param2) {
@@ -113,7 +114,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetempresasOutput getempresas(IcmParamcalorigenBlock param1,
             IcmParametrospaginacionBlock param2) {
@@ -127,8 +128,8 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
-    
+
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetcadenaOutput getcadena(IcmParametrosentradaBlock param1,
             IcmParametrospaginacionBlock param2) {
@@ -142,7 +143,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetconfprodventaOutput getconfprodventa(IcmParametrosentradaBlock param1,
             IcmParametrospaginacionBlock param2) {
@@ -302,7 +303,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
+
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public SearchtiendasOutput searchtiendas(IcmParametrosentradaBlock param1, IcmParametrospaginacionBlock param2) {
@@ -333,7 +334,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GettiendasonlineOutput gettiendasonline(IcmParametrospaginacionBlock param1,
-                                                   IcmParametrosentradaBlock param2) {
+            IcmParametrosentradaBlock param2) {
         Meta4ClientPoolable client = claim(pool);
         try {
             return client.getIcmWsCalcIncomeService().gettiendasonline(param1, param2);
@@ -397,7 +398,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetconfchdiasminimosOutput getconfchdiasminimos(IcmParamcalconfchdiasBlock param) {
         Meta4ClientPoolable client = claim(pool);
@@ -410,7 +411,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetpresupuestoswlocOutput getpresupuestoswloc(IcmParamcalpresupuestoswlocBlock param1,
             IcmParametrospaginacionBlock param2) {
@@ -424,7 +425,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetconfpreciohoraOutput getconfpreciohora(IcmParamcalconfpreciohoraBlock param) {
         Meta4ClientPoolable client = claim(pool);
@@ -437,7 +438,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             release(client);
         }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetconfchtpventaOutput getconfchtpventa(IcmParamcalconfchventaBlock param) {
         Meta4ClientPoolable client = claim(pool);
@@ -448,9 +449,9 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             throw new Meta4IcmclcwbException(e.getMessage(), e);
         } finally {
             release(client);
-        }        
+        }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetpresupuestosrangoOutput getpresupuestosrango(IcmParametrospaginacionBlock param1,
             IcmParamcalpresupuestosrangoBlock param2) {
@@ -462,9 +463,9 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             throw new Meta4IcmclcwbException(e.getMessage(), e);
         } finally {
             release(client);
-        }                
+        }
     }
-    
+
     @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
     public GetventacongeladaOutput getventacongelada(IcmParametrospaginacionBlock param1,
             IcmParamcalventacongeladaBlock param2) {
@@ -476,6 +477,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             throw new Meta4IcmclcwbException(e.getMessage(), e);
         } finally {
             release(client);
-        }                
+        }
     }
+
 }

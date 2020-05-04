@@ -19,27 +19,27 @@ import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacio
 public class RunProgramacionControllerTest {
 
     private MockMvc mockMvc;
-    
+
     @Mock
     private RunProgramacionService runProgramacionServiceMock;
-    
+
     @InjectMocks
     private RunProgramacionController runProgramacionController;
-    
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(runProgramacionController)
-                .build();
+            .build();
     }
-    
+
     @Ignore
     @Test
-    //TODO [COMUN] Generar nuevo test
+    // TODO [COMUN] Generar nuevo test
     public void run() throws Exception {
-//        when(runProgramacionServiceMock.run()).thenReturn(new ArrayList<RunProgramacionDto>());
+        // when(runProgramacionServiceMock.run()).thenReturn(new ArrayList<RunProgramacionDto>());
         mockMvc.perform(get("/run/programacion")).andReturn();
-//        verify(runProgramacionServiceMock, times(1)).run();
+        // verify(runProgramacionServiceMock, times(1)).run();
     }
 
 }

@@ -19,10 +19,12 @@ public class TareaAmbitoLocalizacionDto implements Serializable {
 
     private static final long serialVersionUID = 872769150714543322L;
 
-    @ApiModelProperty(value = "Identificador del ambito localizacion del trabajo", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Identificador del ambito localizacion del trabajo", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long id;
 
-    @ApiModelProperty(value = "Identificador del ambito de la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Identificador del ambito de la tarea", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idTarea;
 
     @NotBlank

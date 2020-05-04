@@ -18,10 +18,12 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualAsyncServiceImpl
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualService tareaAmbitoGlobalLocalizacionPersonaPresenciaManualService;
-    
+
     @Override
-    public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto)  {
+    public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> src,
+            final TareaDto tareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaPresenciaManualService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

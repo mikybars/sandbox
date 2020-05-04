@@ -23,7 +23,7 @@ public class RunProgramacionDto implements Serializable {
 
     @NotNull
     private ProgramacionDto programacion;
-    
+
     @NotNull
     @NotEmpty
     private List<RunProgramacionPeriodoDto> runProgramacionPeriodo;

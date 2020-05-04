@@ -68,7 +68,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return result;
     }
-    
+
     @Override
     public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(GenericFilterDto src) {
         IcmParamcalempleadoBlock result = delegate.asIcmParamcalempleadoBlock(src);
@@ -86,7 +86,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return result;
     }
-    
+
     @Override
     public IcmParamcalconfchdiasBlock asIcmParamcalconfchdiasBlock(ConfChDiasMinimosFilterDto src) {
         IcmParamcalconfchdiasBlock result = delegate.asIcmParamcalconfchdiasBlock(src);
@@ -95,7 +95,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return result;
     }
-    
+
     @Override
     public IcmParamcalpresupuestoswlocBlock asIcmParamcalpresupuestoswlocBlock(PresupuestosWlocFilterDto src) {
         IcmParamcalpresupuestoswlocBlock result = delegate.asIcmParamcalpresupuestoswlocBlock(src);
@@ -104,7 +104,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return result;
     }
-    
+
     @Override
     public IcmParamcalconfpreciohoraBlock asIcmParamcalconfpreciohoraBlock(ConfPrecioHoraFilterDto src) {
         IcmParamcalconfpreciohoraBlock result = delegate.asIcmParamcalconfpreciohoraBlock(src);
@@ -113,7 +113,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return result;
     }
-    
+
     @Override
     public IcmParamcalconfchventaBlock asIcmParamcalconfchventaBlock(ConfChTpVentaFilterDto src) {
         IcmParamcalconfchventaBlock result = delegate.asIcmParamcalconfchventaBlock(src);
@@ -122,7 +122,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return result;
     }
-    
+
     @Override
     public IcmParamcalpresupuestosrangoBlock asIcmParamcalpresupuestosrangoBlock(PresupuestosRangoFilterDto src) {
         IcmParamcalpresupuestosrangoBlock result = delegate.asIcmParamcalpresupuestosrangoBlock(src);
@@ -137,7 +137,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         GenericTiendaResultItemDto mappedEntity = delegate.asGenericTiendaResultItemDto(src);
         mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(src.getEscomisionable().trim()));
         mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(src.getCalcula().trim()));
-        
+
         if (StringUtils.isNotEmpty(src.getFechainicio())) {
             mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
                     DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
@@ -233,9 +233,9 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return list;
     }
-    
+
     @Override
-    public List<AusenciasResultItemDto> asAusenciasResultItemDtos(List<IcmListaausenciasRecord> src){
+    public List<AusenciasResultItemDto> asAusenciasResultItemDtos(List<IcmListaausenciasRecord> src) {
         List<AusenciasResultItemDto> list = new ArrayList<>();
         for (IcmListaausenciasRecord item : src) {
             AusenciasResultItemDto mappedEntity = delegate.asAusenciasResultItemDto(item);
@@ -251,9 +251,10 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return list;
     }
-    
+
     @Override
-    public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(List<IcmListaempleadoRecord> src){
+    public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(
+            List<IcmListaempleadoRecord> src) {
         List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
         for (IcmListaempleadoRecord item : src) {
             GenericEmpleadoResultItemDto presencia = delegate.asGenericEmpleadoResultItemDtosSearchEmpleados(item);
@@ -352,13 +353,13 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     public SaveResultDto asSaveResultDto(IcmResultadoguardadoBlock src) {
         SaveResultDto result = delegate.asSaveResultDto(src);
         result.setResultadoOk(
-            !src.getIcmResultadoguardadoRecordSet()
-                .stream()
-                .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmAvisosguardado().getResultado())));
+                !src.getIcmResultadoguardadoRecordSet()
+                    .stream()
+                    .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmAvisosguardado().getResultado())));
         result.setResultadoError(
-            src.getIcmResultadoguardadoRecordSet()
-                .stream()
-                .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
+                src.getIcmResultadoguardadoRecordSet()
+                    .stream()
+                    .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
         return result;
     }
 
@@ -374,12 +375,15 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     @Override
     public ConfiguracionesResponseDto asConfiguracionesResponseDto(GetconfiguracionOutput src, String idOrigen) {
         ConfiguracionesResponseDto result = delegate.asConfiguracionesResponseDto(src, idOrigen);
-        if (src.getIcmListaconforigen() != null && CollectionUtils.isNotEmpty(src.getIcmListaconforigen().getIcmListaconforigenRecordSet())) {
+        if (src.getIcmListaconforigen() != null
+                && CollectionUtils.isNotEmpty(src.getIcmListaconforigen().getIcmListaconforigenRecordSet())) {
             ArrayList<ConfiguracionItemDto> items = new ArrayList<>();
-            src.getIcmListaconforigen().getIcmListaconforigenRecordSet().forEach(x ->
-                items.add(delegate.asConfiguracionItemDto(x, idOrigen)));
+            src.getIcmListaconforigen()
+                .getIcmListaconforigenRecordSet()
+                .forEach(x -> items.add(delegate.asConfiguracionItemDto(x, idOrigen)));
             result.setItems(items);
         }
         return result;
     }
+
 }

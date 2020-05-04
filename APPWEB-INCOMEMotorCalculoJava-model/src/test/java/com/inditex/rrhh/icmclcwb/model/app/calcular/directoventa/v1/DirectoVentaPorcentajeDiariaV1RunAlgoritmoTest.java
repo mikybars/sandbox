@@ -33,13 +33,13 @@ public class DirectoVentaPorcentajeDiariaV1RunAlgoritmoTest {
 
     @Mock
     private Logger log;
-    
+
     @Mock
     private TareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustom;
 
     @InjectMocks
     private DirectoVentaPorcentajeDiariaV1RunAlgoritmo directoVentaPorcentajeDiariaV1RunAlgoritmo;
-    
+
     @Mock
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
 
@@ -49,7 +49,7 @@ public class DirectoVentaPorcentajeDiariaV1RunAlgoritmoTest {
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustom
-                .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
+            .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
         assertEquals(SQL_CALCULAR, directoVentaPorcentajeDiariaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
     }
 
@@ -81,7 +81,7 @@ public class DirectoVentaPorcentajeDiariaV1RunAlgoritmoTest {
             .calcular(algoritmo, tarea, personas);
         verify(log, times(1)).info("Fin :: DirectoVentaPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -109,8 +109,7 @@ public class DirectoVentaPorcentajeDiariaV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("DirectoVentaPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
-
 
 }

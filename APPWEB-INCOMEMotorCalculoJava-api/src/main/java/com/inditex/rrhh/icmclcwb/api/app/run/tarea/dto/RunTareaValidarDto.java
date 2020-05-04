@@ -15,7 +15,7 @@ public class RunTareaValidarDto implements Serializable {
     private Set<String> duplicated;
 
     private Integer count;
-    
+
     private String type;
-    
+
 }

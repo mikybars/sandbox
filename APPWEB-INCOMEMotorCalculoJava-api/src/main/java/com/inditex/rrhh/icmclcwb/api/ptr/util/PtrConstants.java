@@ -9,9 +9,9 @@ public class PtrConstants {
     }
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
-    
+
     public static final String AGRUPAR_SECCION_TRUE = "1";
-    
+
     public static final String AGRUPAR_SECCION_FALSE = "0";
 
     public static final String OPERACION_VENTA = "V";

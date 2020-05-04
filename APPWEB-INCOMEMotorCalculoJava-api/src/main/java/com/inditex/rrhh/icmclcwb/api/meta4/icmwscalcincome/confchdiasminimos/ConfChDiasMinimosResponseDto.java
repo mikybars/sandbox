@@ -11,8 +11,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ConfChDiasMinimosResponseDto extends PageableListDto<ConfChDiasMinimosResultItemDto>
-implements PageableList<ConfChDiasMinimosResultItemDto>, Serializable {
-    
+        implements PageableList<ConfChDiasMinimosResultItemDto>, Serializable {
+
     private static final long serialVersionUID = 8035701197756654783L;
 
 }

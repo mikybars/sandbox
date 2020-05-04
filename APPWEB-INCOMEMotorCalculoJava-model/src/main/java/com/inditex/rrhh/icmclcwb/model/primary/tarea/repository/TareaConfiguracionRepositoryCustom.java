@@ -7,4 +7,5 @@ import java.util.List;
 public interface TareaConfiguracionRepositoryCustom {
 
     List<TareaConfiguracion> save(final List<TareaConfiguracion> src);
+
 }

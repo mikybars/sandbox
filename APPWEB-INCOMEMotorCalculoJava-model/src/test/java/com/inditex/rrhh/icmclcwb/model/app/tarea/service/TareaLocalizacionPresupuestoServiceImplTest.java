@@ -34,12 +34,14 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         PeriodoDto periodo = mock(PeriodoDto.class);
         when(periodo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 1, 31));
         when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
-        when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class))).thenReturn(periodo);
+        when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
+            .thenReturn(periodo);
 
         PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
         filter.setPeriodSize(1);
         filter.setPeriodType(PtrPageEnum.MONTHS);
-        List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L, filter);
+        List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
+                filter);
 
         // Periodos: 3 meses
         assertEquals(3, periodos.size());
@@ -60,7 +62,8 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         PeriodoDto periodo = mock(PeriodoDto.class);
         when(periodo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 1, 31));
         when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
-        when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class))).thenReturn(periodo);
+        when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
+            .thenReturn(periodo);
 
         RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
         recolectarProperties.setDaysNumber(3);
@@ -68,7 +71,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         filter.setPeriodSize(1);
         filter.setPeriodType(PtrPageEnum.MONTHS);
         List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
-            filter, recolectarProperties);
+                filter, recolectarProperties);
 
         // Periodos: 3 meses, el último con 3 días extra
         assertEquals(3, periodos.size());
@@ -89,12 +92,14 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         PeriodoDto periodo = mock(PeriodoDto.class);
         when(periodo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 1, 31));
         when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
-        when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class))).thenReturn(periodo);
+        when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
+            .thenReturn(periodo);
 
         PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
         filter.setPeriodSize(15);
         filter.setPeriodType(PtrPageEnum.DAYS);
-        List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L, filter);
+        List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
+                filter);
 
         // Periodos: 6 quincenas y un resto
         assertEquals(7, periodos.size());
@@ -127,7 +132,8 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         PeriodoDto periodo = mock(PeriodoDto.class);
         when(periodo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 1, 31));
         when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
-        when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class))).thenReturn(periodo);
+        when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
+            .thenReturn(periodo);
 
         RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
         recolectarProperties.setDaysNumber(3);
@@ -135,7 +141,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         filter.setPeriodSize(15);
         filter.setPeriodType(PtrPageEnum.DAYS);
         List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
-            filter, recolectarProperties);
+                filter, recolectarProperties);
 
         // Periodos: 6 quincenas y un resto
         assertEquals(7, periodos.size());
@@ -161,6 +167,5 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         assertEquals(LocalDate.of(2020, 1, 30), periodos.get(6).getFechaInicioPeriodo());
         assertEquals(LocalDate.of(2020, 2, 3), periodos.get(6).getFechaFinPeriodo());
     }
-
 
 }

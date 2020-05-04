@@ -26,20 +26,21 @@ public abstract class TareaAgrupacionConfiguracionMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tipoVentaConcepto", ignore = true)
     public abstract TareaAgrupacionConfiguracion getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
-        ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto);
+            ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto);
 
     public List<TareaAgrupacionConfiguracion> getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
-        List<ConfiguracionVentaOnlineResultItemDto> src, TareaDto tareaDto) {
+            List<ConfiguracionVentaOnlineResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     @Mapping(source = "src.tarea.id", target = "idTarea")
     @Mapping(target = "tipoVentaConcepto", ignore = true)
     public abstract TareaAgrupacionConfiguracionDto getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-        TareaAgrupacionConfiguracion src);
+            TareaAgrupacionConfiguracion src);
 
     public List<TareaAgrupacionConfiguracionDto> getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-        List<TareaAgrupacionConfiguracion> src) {
+            List<TareaAgrupacionConfiguracion> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

@@ -32,7 +32,7 @@ public class TareaCalculoPersona {
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
-    
+
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
     private String stdOrHrPeriod;
@@ -40,9 +40,9 @@ public class TareaCalculoPersona {
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
-    
+
     @ManyToOne
     @JoinColumn(name = "ID_ESTADO", nullable = false)
     private EstadoTareaPersona estado;
-    
+
 }

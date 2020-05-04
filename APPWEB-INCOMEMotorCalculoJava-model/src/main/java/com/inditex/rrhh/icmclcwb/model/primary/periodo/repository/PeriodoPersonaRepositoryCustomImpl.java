@@ -33,13 +33,13 @@ public class PeriodoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryReposito
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlMergePeriodoPersona, params);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, PeriodoPersona entity) throws SQLException {
         pstmt.setLong(1, entity.getPk().getIcmIdPeriodo());
         pstmt.setString(2, entity.getPk().getCclIdOrigen());
         pstmt.setString(3, entity.getPk().getStdIdLegEnt());
-        pstmt.setString(4, entity.getPk().getCclIdPerson());        
+        pstmt.setString(4, entity.getPk().getCclIdPerson());
     }
 
 }

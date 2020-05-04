@@ -12,8 +12,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 
 public interface TareaConfiguracionChallengeDiasMinimosService {
 
-    void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src, @Valid @NotNull final TareaDto tarea);
+    void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src,
+            @Valid @NotNull final TareaDto tarea);
 
-    void saveConfChDiasMinimosResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src, @Valid @NotNull final TareaDto tarea);
+    void saveConfChDiasMinimosResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src,
+            @Valid @NotNull final TareaDto tarea);
 
 }

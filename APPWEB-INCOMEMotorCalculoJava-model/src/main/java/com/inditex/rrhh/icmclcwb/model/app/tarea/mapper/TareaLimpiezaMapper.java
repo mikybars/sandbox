@@ -21,5 +21,5 @@ public abstract class TareaLimpiezaMapper {
     public abstract List<TareaLimpiezaDto> tareaLimpiezaToTareaLimpiezaDto(List<TareaLimpieza> src);
 
     public abstract List<TareaLimpieza> tareaLimpiezaDtoToTareaLimpieza(List<TareaLimpiezaDto> src);
-    
+
 }

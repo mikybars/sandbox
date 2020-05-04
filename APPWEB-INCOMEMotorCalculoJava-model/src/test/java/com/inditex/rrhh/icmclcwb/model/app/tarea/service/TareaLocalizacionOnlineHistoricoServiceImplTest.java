@@ -25,16 +25,16 @@ public class TareaLocalizacionOnlineHistoricoServiceImplTest {
 
     @Mock
     private TareaLocalizacionOnlineHistoricoRepositoryCustom tareaLocalizacionOnlineHistoricoRepositoryCustom;
-    
+
     @InjectMocks
     private TareaLocalizacionOnlineHistoricoServiceImpl tareaLocalizacionOnlineHistoricoServiceImpl;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Mock
     private TareaLocalizacionOnlineHistoricoMapper tareaLocalizacionOnlineHistoricoMapper;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -42,9 +42,12 @@ public class TareaLocalizacionOnlineHistoricoServiceImplTest {
         List<TiendaOnlineResultItemDto> genericTiendaResultItemDto = new ArrayList<>();
 
         tareaLocalizacionOnlineHistoricoServiceImpl.save(genericTiendaResultItemDto, tarea);
-        
-        verify(tareaLocalizacionOnlineHistoricoMapper, times(1)).getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(any(List.class), any(TareaDto.class));
-        verify(tareaLocalizacionOnlineHistoricoMapper, times(1)).getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(any(List.class));
+
+        verify(tareaLocalizacionOnlineHistoricoMapper, times(1))
+            .getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(any(List.class), any(TareaDto.class));
+        verify(tareaLocalizacionOnlineHistoricoMapper, times(1))
+            .getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(any(List.class));
         verify(tareaLocalizacionOnlineHistoricoRepositoryCustom, times(1)).save(any(List.class));
     }
+
 }

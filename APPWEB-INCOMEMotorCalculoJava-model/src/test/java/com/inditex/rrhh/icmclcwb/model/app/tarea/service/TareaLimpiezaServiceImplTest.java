@@ -23,16 +23,16 @@ public class TareaLimpiezaServiceImplTest {
 
     @Mock
     private TareaLimpiezaRepositoryCustom tareaLimpiezaRepositoryCustom;
-    
+
     @InjectMocks
     private TareaLimpiezaServiceImpl tareaLimpiezaServiceImpl;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Mock
     private TareaLimpiezaMapper tareaLimpiezaMapper;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -44,4 +44,5 @@ public class TareaLimpiezaServiceImplTest {
         tareaLimpiezaServiceImpl.save(tarea);
         verify(tareaLimpiezaRepositoryCustom, times(1)).mergeLimpieza(any(TareaDto.class), any(TrabajoDto.class));
     }
+
 }

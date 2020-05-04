@@ -52,13 +52,13 @@ public class TareaConfiguracionPrecioHoraRepositoryCustomImplTest {
 
     @Captor
     private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
-    
+
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaConfiguracionPrecioHoraRepositoryCustomImpl, "batchSize", 100, true);
         FieldUtils.writeField(tareaConfiguracionPrecioHoraRepositoryCustomImpl, "sqlSave", SQL_SAVE, true);
     }
-    
+
     @Test
     public void save() {
         List<TareaConfiguracionPrecioHora> items = Collections.singletonList(mock(TareaConfiguracionPrecioHora.class));
@@ -66,17 +66,17 @@ public class TareaConfiguracionPrecioHoraRepositoryCustomImplTest {
         verify(template).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
     }
-    
+
     @Test
     public void setParametersTest() throws SQLException {
-            
+
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(809L);
         TipoPresupuesto tipoPresupuesto = mock(TipoPresupuesto.class);
         tipoPresupuesto.setId(1);
         TipoDato tipoDato = mock(TipoDato.class);
         tipoDato.setId(1);
-        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class); 
+        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class);
         tipoVentaConceptoChallenge.setId(1L);
         TareaConfiguracionPrecioHora presupuesto = mock(TareaConfiguracionPrecioHora.class);
         when(presupuesto.getTarea()).thenReturn(tarea);
@@ -96,4 +96,5 @@ public class TareaConfiguracionPrecioHoraRepositoryCustomImplTest {
         verify(pstmt, times(1)).setObject(5, presupuesto.getFechaFin());
         verify(pstmt, times(1)).setString(6, presupuesto.getCclIdOrigen());
     }
+
 }

@@ -21,13 +21,14 @@ public class IdLocalizacionLocalPresupuestoDto implements Serializable {
 
     @NotBlank
     private String id;
-    
+
     @NotNull
     private Integer idTipoPresupuesto;
-    
+
     @NotNull
     private LocalDate fechaInicio;
 
     @NotNull
     private LocalDate fechaFin;
+
 }

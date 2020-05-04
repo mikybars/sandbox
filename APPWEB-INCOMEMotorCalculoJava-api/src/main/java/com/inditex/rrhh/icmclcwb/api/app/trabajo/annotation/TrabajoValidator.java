@@ -20,7 +20,9 @@ import javax.validation.Payload;
 public @interface TrabajoValidator {
 
     String message() default "Error validando trabajo";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 
 }

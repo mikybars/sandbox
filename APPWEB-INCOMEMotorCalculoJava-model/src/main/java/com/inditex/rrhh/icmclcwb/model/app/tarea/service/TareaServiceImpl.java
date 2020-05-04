@@ -92,7 +92,7 @@ public class TareaServiceImpl implements TareaService {
     public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
         List<TareaDto> result = new ArrayList<>();
         tareaMapper.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajo.getEmpresa(), trabajo)
-                .forEach(item -> result.add(create(item)));
+            .forEach(item -> result.add(create(item)));
         return result;
     }
 
@@ -109,7 +109,8 @@ public class TareaServiceImpl implements TareaService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado) {
+    public void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea,
+            @Valid @NotNull final EstadoTareaDto estado) {
         tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
 
@@ -129,7 +130,7 @@ public class TareaServiceImpl implements TareaService {
     public List<IdTareaDto> findLimpieza() {
         return tareaRepositoryCustom.findLimpieza();
     }
-    
+
     @Override
     public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
         return tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);

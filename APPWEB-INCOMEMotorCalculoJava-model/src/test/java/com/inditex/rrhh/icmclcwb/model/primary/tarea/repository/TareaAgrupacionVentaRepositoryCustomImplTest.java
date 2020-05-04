@@ -119,15 +119,15 @@ public class TareaAgrupacionVentaRepositoryCustomImplTest {
         // idTipoImporte
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId(),
-            params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
+                params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         // porcentaje inclusion
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO,
-            params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION));
+                params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION));
         // nuevo activo
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
-            params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
+                params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
 
     }
 

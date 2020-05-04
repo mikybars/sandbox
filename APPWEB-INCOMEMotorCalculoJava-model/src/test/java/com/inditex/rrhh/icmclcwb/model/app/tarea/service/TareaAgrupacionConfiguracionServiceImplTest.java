@@ -26,20 +26,21 @@ public class TareaAgrupacionConfiguracionServiceImplTest {
 
     @Mock
     private TareaAgrupacionConfiguracionRepositoryCustomImpl tareaAgrupacionConfiguracionRepositoryCustomImpl;
-    
+
     @InjectMocks
     private TareaAgrupacionConfiguracionServiceImpl tareaAgrupacionConfiguracionServiceImpl;
-    
+
     @Mock
     private TareaAgrupacionConfiguracionMapper tareaAgrupacionConfiguracionMapper;
-    
+
     @Mock
     private TareaAgrupacionAgrupacionConfiguracionDecorator tareaAgrupacionConfiguracionMapperDecorator;
-    
+
     @Test
     public void saveConfiguracionVentaOnlineTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
-        ConfiguracionVentaOnlineResultItemDto configuracionVentaOnlineResultItemDto = mock(ConfiguracionVentaOnlineResultItemDto.class);
+        ConfiguracionVentaOnlineResultItemDto configuracionVentaOnlineResultItemDto = mock(
+                ConfiguracionVentaOnlineResultItemDto.class);
         List<ConfiguracionVentaOnlineResultItemDto> list = new ArrayList<ConfiguracionVentaOnlineResultItemDto>();
         list.add(configuracionVentaOnlineResultItemDto);
         when(tareaAgrupacionConfiguracionRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
@@ -48,4 +49,5 @@ public class TareaAgrupacionConfiguracionServiceImplTest {
 
         verify(tareaAgrupacionConfiguracionRepositoryCustomImpl, times(1)).save(any(List.class));
     }
+
 }

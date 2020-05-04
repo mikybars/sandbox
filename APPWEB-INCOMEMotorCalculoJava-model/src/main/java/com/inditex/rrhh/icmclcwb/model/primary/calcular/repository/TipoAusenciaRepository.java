@@ -6,4 +6,5 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 public interface TipoAusenciaRepository extends BaseRepository<TipoAusencia, Integer> {
 
     TipoAusencia findByIcmTpAbsence(String icmTpAbsence);
+
 }

@@ -20,16 +20,18 @@ public class TipoVentoConceptoChallengeServiceImpl implements TipoVentaConceptoC
     private TipoVentaConceptoChallengeMapper tipoVentaConceptoChallengeMapper;
 
     @Override
-    @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_challenge_by_icm_id_concepto_venta", key = "#icmIdConceptoVenta")
+    @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_challenge_by_icm_id_concepto_venta",
+            key = "#icmIdConceptoVenta")
     public TipoVentaConceptoChallengeDto findByIcmIdConceptoVenta(String icmIdConceptoVenta) {
         return tipoVentaConceptoChallengeMapper.tipoVentaConceptoChallengeToTipoVentaConceptoChallengeDto(
-            tipoVentaConceptoChallengeRespository.findByIcmIdConceptoVenta(icmIdConceptoVenta));
+                tipoVentaConceptoChallengeRespository.findByIcmIdConceptoVenta(icmIdConceptoVenta));
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_challenge_by_id", key = "#id")
     public TipoVentaConceptoChallengeDto findById(Long id) {
         return tipoVentaConceptoChallengeMapper.tipoVentaConceptoChallengeToTipoVentaConceptoChallengeDto(
-            tipoVentaConceptoChallengeRespository.findById(id).get());
+                tipoVentaConceptoChallengeRespository.findById(id).get());
     }
+
 }

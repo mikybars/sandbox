@@ -21,7 +21,7 @@ public class PtrVentaOnlineIpodIndividualDetalleResultItemDto implements Seriali
     private Integer pais;
 
     private Integer cadena;
-    
+
     private Integer empresa;
 
     @NotBlank
@@ -30,13 +30,13 @@ public class PtrVentaOnlineIpodIndividualDetalleResultItemDto implements Seriali
     private Integer seccion;
 
     private Integer vendedor;
-    
+
     private String operacion;
-    
+
     private BigDecimal importeSinIVA;
 
     private BigDecimal importeConIVA;
-    
+
     private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
-        
+
 }

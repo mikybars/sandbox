@@ -24,20 +24,25 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImpl
 
     @Autowired
     private TareaConfiguracionChallengeDiasMinimosMapper tareaConfiguracionChallengeDiasMinimosMapper;
-    
+
     @Autowired
     private TareaConfiguracionChallengeDiasMinimosRepositoryCustom tareaConfiguracionChallengeDiasMinimosRepositoryCustom;
-    
+
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src, @Valid @NotNull final TareaDto tarea) {
+    public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src,
+            @Valid @NotNull final TareaDto tarea) {
         tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
-                tareaConfiguracionChallengeDiasMinimosMapper.tareaConfiguracionChallengeDiasMinimosDtoToTareaConfiguracionChallengeDiasMinimos(src));
+                tareaConfiguracionChallengeDiasMinimosMapper
+                    .tareaConfiguracionChallengeDiasMinimosDtoToTareaConfiguracionChallengeDiasMinimos(src));
     }
-    
+
     @Override
-    public void saveConfChDiasMinimosResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
+    public void saveConfChDiasMinimosResultItemDto(
+            @Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src,
+            @Valid @NotNull final TareaDto tarea) {
         tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
-                tareaConfiguracionChallengeDiasMinimosMapper.confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(src, tarea));
+                tareaConfiguracionChallengeDiasMinimosMapper
+                    .confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(src, tarea));
     }
-    
+
 }

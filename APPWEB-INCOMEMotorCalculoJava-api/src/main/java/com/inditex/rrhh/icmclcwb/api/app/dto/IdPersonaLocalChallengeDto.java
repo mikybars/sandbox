@@ -11,19 +11,20 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class IdPersonaLocalChallengeDto implements Serializable{
+public class IdPersonaLocalChallengeDto implements Serializable {
 
     private static final long serialVersionUID = -716693133637918351L;
 
     private String cclIdPerson;
-    
+
     private String stdOrHrPeriod;
-    
+
     private String icmIdTpCalculo;
-    
+
     private String icmIdTpComision;
-    
+
     private Boolean esDesplazamiento;
-    
+
     private Boolean esDesplazamientoBase;
+
 }

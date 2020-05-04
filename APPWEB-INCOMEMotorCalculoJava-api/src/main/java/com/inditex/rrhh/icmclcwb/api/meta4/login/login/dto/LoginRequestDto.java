@@ -17,15 +17,15 @@ import lombok.ToString;
 @ToString
 public class LoginRequestDto implements Serializable {
 
-	private static final long serialVersionUID = 8224685868544251698L;
+    private static final long serialVersionUID = 8224685868544251698L;
 
-	@NotBlank
-	private String username;
-	
-	@NotBlank
-	private String password;
-	
-	@NotBlank
-	private String language;
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
+
+    @NotBlank
+    private String language;
 
 }

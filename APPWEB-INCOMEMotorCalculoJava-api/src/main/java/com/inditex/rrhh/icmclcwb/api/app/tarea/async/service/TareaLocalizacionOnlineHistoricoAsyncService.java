@@ -11,4 +11,5 @@ import java.util.concurrent.CompletableFuture;
 public interface TareaLocalizacionOnlineHistoricoAsyncService {
 
     CompletableFuture<Void> save(final List<TiendaOnlineResultItemDto> src, final TareaDto tarea);
+
 }

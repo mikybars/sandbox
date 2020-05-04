@@ -52,7 +52,7 @@ public class ManualV1RunAlgoritmoTest {
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
         assertEquals(SQL_CALCULAR, manualV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
     }
-    
+
     @Test
     public void calcularTest() {
 
@@ -82,7 +82,7 @@ public class ManualV1RunAlgoritmoTest {
             .calcular(algoritmo, tarea, personas);
         verify(log, times(1)).info("Fin :: ManualV1RunAlgoritmo :: Personas: {}", 3);
     }
- 
+
     @Test
     public void calcularExceptionTest() {
 
@@ -110,6 +110,7 @@ public class ManualV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("ManualV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

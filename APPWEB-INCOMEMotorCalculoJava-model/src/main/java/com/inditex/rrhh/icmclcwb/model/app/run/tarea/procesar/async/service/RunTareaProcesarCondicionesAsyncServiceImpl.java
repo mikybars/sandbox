@@ -56,4 +56,5 @@ public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProc
         tareaProcesarCondicionesService.relacionarPresupuestosEstructurasDesplazamiento(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

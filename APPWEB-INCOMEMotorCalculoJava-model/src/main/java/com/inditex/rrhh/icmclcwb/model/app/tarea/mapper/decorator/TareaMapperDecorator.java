@@ -27,26 +27,37 @@ public abstract class TareaMapperDecorator extends TareaMapper {
 
     @Override
     public TareaDto mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(
-        TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa, TrabajoDto srcTrabajo) {
-        TareaDto tarea = delegate.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(srcTrabajoAmbitoEmpresa, srcTrabajo);
+            TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa, TrabajoDto srcTrabajo) {
+        TareaDto tarea = delegate.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(srcTrabajoAmbitoEmpresa,
+                srcTrabajo);
         List<TareaAmbitoDto> ambito = new ArrayList<>();
-        srcTrabajo.getOrigen().forEach(item -> ambito.add(TareaAmbitoDto.builder().cclIdOrigen(item.getCclIdOrigen())
-            .build()));
+        srcTrabajo.getOrigen()
+            .forEach(item -> ambito.add(TareaAmbitoDto.builder()
+                .cclIdOrigen(item.getCclIdOrigen())
+                .build()));
         tarea.setAmbito(ambito);
 
         List<TareaAmbitoLocalizacionDto> localizacion = new ArrayList<>();
-        srcTrabajo.getLocalizacion().stream()
+        srcTrabajo.getLocalizacion()
+            .stream()
             .filter(item -> item.getStdIdLegEnt().equals(srcTrabajoAmbitoEmpresa.getStdIdLegEnt()))
-            .collect(Collectors.toList()).forEach(item -> localizacion.add(TareaAmbitoLocalizacionDto.builder()
-            .stdIdWorkLocat(item.getStdIdWorkLocat()).cclIdOrigen(item.getCclIdOrigen()).build()));
+            .collect(Collectors.toList())
+            .forEach(item -> localizacion.add(TareaAmbitoLocalizacionDto.builder()
+                .stdIdWorkLocat(item.getStdIdWorkLocat())
+                .cclIdOrigen(item.getCclIdOrigen())
+                .build()));
         tarea.setLocalizacion(localizacion);
 
         List<TareaAmbitoPersonaDto> persona = new ArrayList<>();
-        srcTrabajo.getPersona().stream()
+        srcTrabajo.getPersona()
+            .stream()
             .filter(item -> item.getStdIdLegEnt().equals(srcTrabajoAmbitoEmpresa.getStdIdLegEnt()))
             .collect(Collectors.toList())
-            .forEach(item -> persona.add(TareaAmbitoPersonaDto.builder().cclIdPerson(item.getCclIdPerson())
-                .stdOrHrPeriod(item.getStdOrHrPeriod()).cclIdOrigen(item.getCclIdOrigen()).build()));
+            .forEach(item -> persona.add(TareaAmbitoPersonaDto.builder()
+                .cclIdPerson(item.getCclIdPerson())
+                .stdOrHrPeriod(item.getStdOrHrPeriod())
+                .cclIdOrigen(item.getCclIdOrigen())
+                .build()));
         tarea.setPersona(persona);
         return tarea;
     }
@@ -63,33 +74,48 @@ public abstract class TareaMapperDecorator extends TareaMapper {
     }
 
     @Override
-    public PtrVentaOnlineEntregaDomicilioRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas) {
-        PtrVentaOnlineEntregaDomicilioRequestDto ptrVentaOnlineEntregaDomicilioRequestDto =
-            delegate.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
-                srcTrabajo, srcTarea, srcTareaAmbito, srcRecolectarProperties, cadenas);
-        ptrVentaOnlineEntregaDomicilioRequestDto.setCadena(cadenas.stream().map(IdCadenaDto::getId)
-            .map(Integer::valueOf).collect(Collectors.toList()));
+    public PtrVentaOnlineEntregaDomicilioRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+            RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas) {
+        PtrVentaOnlineEntregaDomicilioRequestDto ptrVentaOnlineEntregaDomicilioRequestDto = delegate
+            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoAndIdCadenaDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
+                    srcTrabajo, srcTarea, srcTareaAmbito, srcRecolectarProperties, cadenas);
+        ptrVentaOnlineEntregaDomicilioRequestDto.setCadena(cadenas.stream()
+            .map(IdCadenaDto::getId)
+            .map(Integer::valueOf)
+            .collect(Collectors.toList()));
         return ptrVentaOnlineEntregaDomicilioRequestDto;
     }
 
     @Override
-    public PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas) {
-        PtrVentaTotalizadoRequestDto ptrVentaTotalizadoRequestDto =
-            delegate.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(
-            srcTrabajo, srcTarea, srcTareaAmbito, srcRecolectarProperties, cadenas);
-        ptrVentaTotalizadoRequestDto.setCadena(cadenas.stream().map(IdCadenaDto::getId)
-            .map(Integer::valueOf).collect(Collectors.toList()));
+    public PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+            RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas) {
+        PtrVentaTotalizadoRequestDto ptrVentaTotalizadoRequestDto = delegate
+            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(
+                    srcTrabajo, srcTarea, srcTareaAmbito, srcRecolectarProperties, cadenas);
+        ptrVentaTotalizadoRequestDto.setCadena(cadenas.stream()
+            .map(IdCadenaDto::getId)
+            .map(Integer::valueOf)
+            .collect(Collectors.toList()));
         return ptrVentaTotalizadoRequestDto;
     }
 
     @Override
-    public PtrPresenciaEmpleadosTiendaRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, List<IdLocalizacionLocalDto> srcLocalizaciones) {
-        PtrPresenciaEmpleadosTiendaRequestDto result =
-            delegate.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(srcTrabajo, srcTarea, srcTareaAmbito, srcLocalizaciones);
+    public PtrPresenciaEmpleadosTiendaRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
+            List<IdLocalizacionLocalDto> srcLocalizaciones) {
+        PtrPresenciaEmpleadosTiendaRequestDto result = delegate
+            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrPresenciaEmpleadosTiendaRequestDto(srcTrabajo, srcTarea,
+                    srcTareaAmbito, srcLocalizaciones);
         if (result != null && srcLocalizaciones != null) {
-            List<Integer> localizaciones = srcLocalizaciones.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf).collect(Collectors.toList());
+            List<Integer> localizaciones = srcLocalizaciones.stream()
+                .map(IdLocalizacionLocalDto::getId)
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
             result.setTienda(localizaciones);
         }
         return result;
     }
+
 }

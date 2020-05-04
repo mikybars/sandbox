@@ -30,17 +30,18 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImplTest {
 
     @InjectMocks
     private TareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl tareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl;
-    
+
     @Mock
     private TareaAgrupacionConfiguracionChallengeTipoVentaMapper tareaAgrupacionConfiguracionChallengeTipoVentaMapper;
-    
+
     @Mock
     private TareaAgrupacionConfiguracionChallengeTipoVentaDecorator tareaAgrupacionConfiguracionChallengeTipoVentaDecorator;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
-        TareaAgrupacionConfiguracionChallengeTipoVentaDto tareaAgrupacionConfiguracionChallengeTipoVentaDto = mock(TareaAgrupacionConfiguracionChallengeTipoVentaDto.class);
+        TareaAgrupacionConfiguracionChallengeTipoVentaDto tareaAgrupacionConfiguracionChallengeTipoVentaDto = mock(
+                TareaAgrupacionConfiguracionChallengeTipoVentaDto.class);
         List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> list = new ArrayList<TareaAgrupacionConfiguracionChallengeTipoVentaDto>();
         list.add(tareaAgrupacionConfiguracionChallengeTipoVentaDto);
         when(tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
@@ -49,7 +50,7 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImplTest {
 
         verify(tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void saveConfChTpVentaResultItemDtoTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -62,4 +63,5 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImplTest {
 
         verify(tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
+
 }

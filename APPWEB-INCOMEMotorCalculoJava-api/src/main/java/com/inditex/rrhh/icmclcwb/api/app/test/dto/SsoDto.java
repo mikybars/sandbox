@@ -7,6 +7,6 @@ import lombok.Data;
 @Builder
 public class SsoDto {
 
-	String result;
+    String result;
 
 }

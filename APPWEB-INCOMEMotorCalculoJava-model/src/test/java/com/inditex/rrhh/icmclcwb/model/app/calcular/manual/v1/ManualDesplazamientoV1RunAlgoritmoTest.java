@@ -28,7 +28,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgo
 
 @RunWith(MockitoJUnitRunner.class)
 public class ManualDesplazamientoV1RunAlgoritmoTest {
-    
+
     private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
     @Mock
@@ -52,7 +52,7 @@ public class ManualDesplazamientoV1RunAlgoritmoTest {
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
         assertEquals(SQL_CALCULAR, manualDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
     }
-    
+
     @Test
     public void calcularTest() {
 
@@ -82,7 +82,7 @@ public class ManualDesplazamientoV1RunAlgoritmoTest {
             .calcular(algoritmo, tarea, personas);
         verify(log, times(1)).info("Fin :: ManualDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
     }
- 
+
     @Test
     public void calcularExceptionTest() {
 
@@ -110,6 +110,7 @@ public class ManualDesplazamientoV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("ManualDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

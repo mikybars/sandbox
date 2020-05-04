@@ -24,13 +24,13 @@ public interface TareaService {
     List<TareaDto> findByTrabajoId(@NotNull @Positive final Long id);
 
     void updateFechaFin(@Valid @NotNull final TareaDto tarea);
-    
+
     void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado);
 
     void updateEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado);
 
     void updateEstadoFinal(@Valid @NotNull final TareaDto tarea);
-    
+
     List<IdTareaDto> findLimpieza();
 
     List<IdTareaDto> findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea);

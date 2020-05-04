@@ -11,18 +11,18 @@ import org.apache.cxf.transport.http.Cookie;
 @Data
 public class Meta4ClientSession implements Serializable {
 
-	private static final long serialVersionUID = -3473147313502370674L;
+    private static final long serialVersionUID = -3473147313502370674L;
 
-	private String id;
-	
-	private Map<String, Cookie> cookies;
+    private String id;
 
-	private LocalDateTime fechaCreacion;
+    private Map<String, Cookie> cookies;
 
-	private LocalDateTime fechaUso;
-	
-	private long uso;
-	
-	private boolean login;
+    private LocalDateTime fechaCreacion;
+
+    private LocalDateTime fechaUso;
+
+    private long uso;
+
+    private boolean login;
 
 }

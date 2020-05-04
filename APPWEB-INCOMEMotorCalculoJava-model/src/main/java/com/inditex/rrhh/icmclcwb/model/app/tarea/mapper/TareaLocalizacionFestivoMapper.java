@@ -31,16 +31,17 @@ public abstract class TareaLocalizacionFestivoMapper {
 
     public abstract List<TareaLocalizacionFestivo> tareaLocalizacionFestivoDtoToLocalizacionFestivo(
             List<TareaLocalizacionFestivoDto> src);
-    
+
     @Mapping(source = "src.idLugarTrabajo", target = "stdIdWorkLocat")
     @Mapping(source = "src.fechaFestivo", target = "fecha")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    public abstract TareaLocalizacionFestivo genericTiendaResultItemDtoToTareaLocalizacionFestivo( 
+    public abstract TareaLocalizacionFestivo genericTiendaResultItemDtoToTareaLocalizacionFestivo(
             GenericTiendaResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionFestivo> genericTiendaResultItemDtoToTareaLocalizacionFestivo(
             List<GenericTiendaResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

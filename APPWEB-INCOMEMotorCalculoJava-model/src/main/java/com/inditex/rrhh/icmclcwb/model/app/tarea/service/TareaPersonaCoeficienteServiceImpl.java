@@ -22,14 +22,15 @@ public class TareaPersonaCoeficienteServiceImpl implements TareaPersonaCoeficien
 
     @Autowired
     private TareaPersonaCoeficienteRepositoryCustom tareaPersonaCoeficienteRepositoryCustom;
-    
+
     @Autowired
     private TareaPersonaCoeficienteMapper tareaPersonaCoeficienteMapper;
 
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src, @Valid @NotNull final TareaDto tareaDto) {
+    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
         tareaPersonaCoeficienteRepositoryCustom.save(tareaPersonaCoeficienteMapper
-                .genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(src, tareaDto));
+            .genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(src, tareaDto));
     }
-    
+
 }

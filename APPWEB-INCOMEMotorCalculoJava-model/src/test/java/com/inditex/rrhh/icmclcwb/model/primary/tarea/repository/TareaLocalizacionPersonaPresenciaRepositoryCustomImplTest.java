@@ -48,15 +48,25 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPer
 public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
     private final static String SQL_SAVE = "SAVE";
+
     private final static String SQL_UPDATE_ACTIVO = "UPDATE ACTIVO";
+
     private final static String SQL_UPDATE_ACTIVO_VACIO = "UPDATE ACTIVO VACIO";
+
     private final static String SQL_COMPENSAR = "COMPENSAR";
+
     private final static String SQL_INDICADOR_PRESENCIA = "INDICADOR PRESENCIA";
+
     private final static String SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "INDICADOR PRESENCIA DESPLAZAMIENTO";
+
     private final static String SQL_PRESENCIAS_HORAS_FIJAS = "PRESENCIAS HORAS FIJAS";
+
     private final static String SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO = "PRESENCIAS HORAS FIJAS DESPLAZAMIENTO";
+
     private final static String SQL_INDICADOR_PERSONA_POR_VENTA = "SQL INDICADOR PERSONA POR VENTA";
+
     private final static String SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA = "SQL INDICADOR PERSONA POR VENTA SIMPLIFICADA";
+
     private final static String SQL_PRESENCIAS_INCLUIDO_VENTA = "PRESENCIAS INCLUIDO VENTA";
 
     @Mock
@@ -90,15 +100,17 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPresenciaDesplazamiento",
                 SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlProcesarPresenciasHorasFijas",
-            SQL_PRESENCIAS_HORAS_FIJAS, true);
-        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlProcesarPresenciasHorasFijasDesplazamientos",
-            SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO, true);
+                SQL_PRESENCIAS_HORAS_FIJAS, true);
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
+                "sqlProcesarPresenciasHorasFijasDesplazamientos",
+                SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVenta",
                 SQL_INDICADOR_PERSONA_POR_VENTA, true);
-            FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVentaSimplificada",
+        FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom,
+                "sqlIndicadorPersonaPorVentaSimplificada",
                 SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlPresenciasIncluidoVenta",
-            SQL_PRESENCIAS_INCLUIDO_VENTA, true);
+                SQL_PRESENCIAS_INCLUIDO_VENTA, true);
         FieldUtils.writeField(tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
     }
 
@@ -203,7 +215,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_VALUE_MINUTOS_CERO, params.getValue(SQL_PARAM_MINUTOS));
         // Grupo dato
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.PRESENCIA_PERSONA_TIPOHORA.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_PERSONA_TIPOHORA.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
     }
 
     @Test
@@ -215,8 +228,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(runTarea.getTarea()).thenReturn(tarea);
 
         when(tipoDatoService
-                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-                        .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
+                .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
 
         tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo(runTarea);
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
@@ -249,8 +262,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         when(runTarea.getTarea()).thenReturn(tarea);
 
         when(tipoDatoService
-                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-                        .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
+                .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
         tareaLocalizacionPersonaPresenciaRepositoryCustom.compensar(runTarea);
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_COMPENSAR, sqlCaptor.getValue());
@@ -292,12 +305,13 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
         when(tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
+                .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
         tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta(runTarea);
         verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
         assertEquals(SQL_PRESENCIAS_INCLUIDO_VENTA, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
-        // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato, incluidoVenta, tiposDato, activo
+        // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato, incluidoVenta, tiposDato,
+        // activo
         assertEquals(6, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
@@ -308,7 +322,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA.getId(),
-            params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // excluidoDenominador
         assertTrue(params.hasValue(SQL_PARAM_INCLUIDO_VENTA));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_INCLUIDO_VENTA));
@@ -337,7 +351,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(5, params.getValues().size());
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // nuevoActivo
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
@@ -370,7 +385,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(5, params.getValues().size());
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // nuevoActivo
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
@@ -403,7 +419,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(8, params.getValues().size());
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(),
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // nuevoActivo
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
@@ -421,10 +438,12 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
         // idTipoGrupoDato
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
         // idTipoGrupoDatoVenta
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-        assertEquals(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+        assertEquals(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
     }
 
     @Test
@@ -444,7 +463,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(7, params.getValues().size());
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA.getId(),
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // nuevoActivo
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
@@ -462,9 +482,10 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
         // idTipoGrupoDatoVenta
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-        assertEquals(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId(), params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+        assertEquals(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
     }
-    
+
     @Test
     public void setParametersTest() throws SQLException {
 
@@ -519,4 +540,5 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
 
     }
+
 }

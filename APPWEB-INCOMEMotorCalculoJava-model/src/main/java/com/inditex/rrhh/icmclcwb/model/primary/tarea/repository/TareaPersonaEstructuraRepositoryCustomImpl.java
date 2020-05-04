@@ -88,7 +88,8 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
 
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_ORD_TOPE, AppConstants.TOPE_DEFAULT);
         namedParameterJdbcTemplate.update(sqlUpdateActivoTopes, map);
@@ -100,16 +101,18 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
 
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
         map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
-            TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
+                TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+                TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
 
-        return namedParameterJdbcTemplate.query(sqlFindPersonasChallenge, map, (rs, rowNum) ->
-            IdPersonaLocalDto
-                .builder()
-                .idPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
-                .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
-                .build());
+        return namedParameterJdbcTemplate.query(sqlFindPersonasChallenge, map, (rs, rowNum) -> IdPersonaLocalDto
+            .builder()
+            .idPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
+            .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
+            .build());
     }
+
 }

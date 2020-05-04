@@ -13,12 +13,13 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 public interface TareaAgrupacionVentaService {
 
     void savePtrVentaTotalizadoResponse(
-        @Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final TareaDto tarea,
-        @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones);
+            @Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final TareaDto tarea,
+            @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones);
 
     void savePtrVentaOnlineEntregaDomicilioResponse(
-        @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NotNull final TareaDto tarea,
-        @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones);
+            @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NotNull final TareaDto tarea,
+            @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones);
 
     void updateActivoVentaOnlineEntregaDomicilio(@Valid @NotNull final TareaDto tarea);
+
 }

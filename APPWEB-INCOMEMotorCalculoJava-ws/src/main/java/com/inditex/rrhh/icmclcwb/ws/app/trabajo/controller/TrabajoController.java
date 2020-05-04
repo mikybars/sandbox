@@ -42,11 +42,11 @@ public class TrabajoController {
     public @Valid TrabajoDto create(@Valid @RequestBody final TrabajoDto trabajo) {
         return trabajoService.create(trabajo);
     }
-    
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
         List<String> exceptions = new ArrayList<>();
-        for(ConstraintViolation<?> a : ex.getConstraintViolations()) {
+        for (ConstraintViolation<?> a : ex.getConstraintViolations()) {
             exceptions.add(a.getPropertyPath().toString() + ": " + a.getMessage());
         }
         return new ResponseEntity<Object>(exceptions, new HttpHeaders(), HttpStatus.BAD_REQUEST);

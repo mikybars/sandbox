@@ -15,4 +15,5 @@ public interface CadenaVentaResultItemDto {
     Integer getSeccion();
 
     Integer getPais();
+
 }

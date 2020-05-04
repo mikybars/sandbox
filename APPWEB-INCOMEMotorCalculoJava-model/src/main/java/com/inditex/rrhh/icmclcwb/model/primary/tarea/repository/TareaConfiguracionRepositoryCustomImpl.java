@@ -13,8 +13,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracion;
 
 @Repository
 public class TareaConfiguracionRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaConfiguracion>
-    implements TareaConfiguracionRepositoryCustom {
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaConfiguracion>
+        implements TareaConfiguracionRepositoryCustom {
 
     @Value("${app.envars.repository.batch-size.tarea-configuracion-venta-online:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -33,11 +33,12 @@ public class TareaConfiguracionRepositoryCustomImpl
         pstmt.setString(2, entity.getCclIdOrigen());
         pstmt.setObject(3, entity.getFechaInicio());
         pstmt.setObject(4, entity.getFechaFin());
-        if(entity.getCodTipoHora() != null) {
-            pstmt.setInt(5, entity.getCodTipoHora());    
-        }else {
+        if (entity.getCodTipoHora() != null) {
+            pstmt.setInt(5, entity.getCodTipoHora());
+        } else {
             pstmt.setNull(5, Types.INTEGER);
         }
         pstmt.setBoolean(6, entity.getIcmCkVentaImpuestos());
     }
+
 }

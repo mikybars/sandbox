@@ -32,23 +32,29 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAjusteBajaItRepositoryCustom.ids(runTarea.getTarea()),
-                runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: RunAjusteBajaItProcesar :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAjusteBajaItRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("RunAjusteBajaItProcesar :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                                EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: RunAjusteBajaItProcesar :: Personas: {}", personas.size());
-                    return Flux.empty();
-                }).sequential().collectList().block();   
+                runAjusteProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: RunAjusteBajaItProcesar :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAjusteBajaItRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("RunAjusteBajaItProcesar :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: RunAjusteBajaItProcesar :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

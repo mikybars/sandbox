@@ -10,37 +10,37 @@ import lombok.Data;
 
 @Data
 public class PtrVentaIndividualDetalleResultItemDto implements Serializable {
-	
-	private static final long serialVersionUID = -801740758955645983L;
 
-	private String fecha;
+    private static final long serialVersionUID = -801740758955645983L;
 
-	private Integer pais;
+    private String fecha;
 
-	private Integer cadena;
-	
+    private Integer pais;
+
+    private Integer cadena;
+
     private Integer empresa;
 
-	private Integer tienda;
+    private Integer tienda;
 
-	private Integer seccion;
+    private Integer seccion;
 
-	private Integer temporada;
+    private Integer temporada;
 
-	private Integer producto;
+    private Integer producto;
 
-	private BigDecimal importeSinIVA;
+    private BigDecimal importeSinIVA;
 
-	private BigDecimal importeConIVA;
-	
-	private Integer vendedor;
-	
-	private String fechaVentaInicial;
-	
-	private Integer cajero;
-	
-	private String operacion;
-	
-	private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
-	
+    private BigDecimal importeConIVA;
+
+    private Integer vendedor;
+
+    private String fechaVentaInicial;
+
+    private Integer cajero;
+
+    private String operacion;
+
+    private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
+
 }

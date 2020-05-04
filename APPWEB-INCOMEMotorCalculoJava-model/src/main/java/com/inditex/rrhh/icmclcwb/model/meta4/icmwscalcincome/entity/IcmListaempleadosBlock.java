@@ -25,10 +25,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListaempleadosBlock complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para Icm_ListaempleadosBlock complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="Icm_ListaempleadosBlock"&gt;
  *   &lt;complexContent&gt;
@@ -40,41 +42,40 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaempleadosBlock", propOrder = {
-    "icmListaempleadosRecordSet"
+        "icmListaempleadosRecordSet"
 })
-public class IcmListaempleadosBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListaempleadosBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListaempleadosRecordSet", nillable = true)
     protected List<IcmListaempleadosRecord> icmListaempleadosRecordSet;
 
     /**
      * Gets the value of the icmListaempleadosRecordSet property.
-     * 
+     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListaempleadosRecordSet property.
-     * 
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListaempleadosRecordSet property.
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListaempleadosRecordSet().add(newItem);
+     * getIcmListaempleadosRecordSet().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListaempleadosRecord }
-     * 
-     * 
+     * Objects of the following type(s) are allowed in the list {@link IcmListaempleadosRecord }
+     *
+     *
      */
     public List<IcmListaempleadosRecord> getIcmListaempleadosRecordSet() {
         if (icmListaempleadosRecordSet == null) {
@@ -83,8 +84,9 @@ public class IcmListaempleadosBlock implements Serializable, Cloneable, CopyTo2,
         return this.icmListaempleadosRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -93,10 +95,17 @@ public class IcmListaempleadosBlock implements Serializable, Cloneable, CopyTo2,
         final IcmListaempleadosBlock that = ((IcmListaempleadosBlock) object);
         {
             List<IcmListaempleadosRecord> lhsIcmListaempleadosRecordSet;
-            lhsIcmListaempleadosRecordSet = (((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty()))?this.getIcmListaempleadosRecordSet():null);
+            lhsIcmListaempleadosRecordSet = (((this.icmListaempleadosRecordSet != null)
+                    && (!this.icmListaempleadosRecordSet.isEmpty())) ? this.getIcmListaempleadosRecordSet() : null);
             List<IcmListaempleadosRecord> rhsIcmListaempleadosRecordSet;
-            rhsIcmListaempleadosRecordSet = (((that.icmListaempleadosRecordSet!= null)&&(!that.icmListaempleadosRecordSet.isEmpty()))?that.getIcmListaempleadosRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaempleadosRecordSet", lhsIcmListaempleadosRecordSet), LocatorUtils.property(thatLocator, "icmListaempleadosRecordSet", rhsIcmListaempleadosRecordSet), lhsIcmListaempleadosRecordSet, rhsIcmListaempleadosRecordSet, ((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty())), ((that.icmListaempleadosRecordSet!= null)&&(!that.icmListaempleadosRecordSet.isEmpty())))) {
+            rhsIcmListaempleadosRecordSet = (((that.icmListaempleadosRecordSet != null)
+                    && (!that.icmListaempleadosRecordSet.isEmpty())) ? that.getIcmListaempleadosRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListaempleadosRecordSet", lhsIcmListaempleadosRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListaempleadosRecordSet", rhsIcmListaempleadosRecordSet),
+                    lhsIcmListaempleadosRecordSet, rhsIcmListaempleadosRecordSet,
+                    ((this.icmListaempleadosRecordSet != null) && (!this.icmListaempleadosRecordSet.isEmpty())),
+                    ((that.icmListaempleadosRecordSet != null) && (!that.icmListaempleadosRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -125,8 +134,10 @@ public class IcmListaempleadosBlock implements Serializable, Cloneable, CopyTo2,
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListaempleadosRecord> theIcmListaempleadosRecordSet;
-            theIcmListaempleadosRecordSet = (((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty()))?this.getIcmListaempleadosRecordSet():null);
-            strategy.appendField(locator, this, "icmListaempleadosRecordSet", buffer, theIcmListaempleadosRecordSet, ((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty())));
+            theIcmListaempleadosRecordSet = (((this.icmListaempleadosRecordSet != null)
+                    && (!this.icmListaempleadosRecordSet.isEmpty())) ? this.getIcmListaempleadosRecordSet() : null);
+            strategy.appendField(locator, this, "icmListaempleadosRecordSet", buffer, theIcmListaempleadosRecordSet,
+                    ((this.icmListaempleadosRecordSet != null) && (!this.icmListaempleadosRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -135,8 +146,12 @@ public class IcmListaempleadosBlock implements Serializable, Cloneable, CopyTo2,
         int currentHashCode = 1;
         {
             List<IcmListaempleadosRecord> theIcmListaempleadosRecordSet;
-            theIcmListaempleadosRecordSet = (((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty()))?this.getIcmListaempleadosRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaempleadosRecordSet", theIcmListaempleadosRecordSet), currentHashCode, theIcmListaempleadosRecordSet, ((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty())));
+            theIcmListaempleadosRecordSet = (((this.icmListaempleadosRecordSet != null)
+                    && (!this.icmListaempleadosRecordSet.isEmpty())) ? this.getIcmListaempleadosRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListaempleadosRecordSet", theIcmListaempleadosRecordSet),
+                    currentHashCode, theIcmListaempleadosRecordSet,
+                    ((this.icmListaempleadosRecordSet != null) && (!this.icmListaempleadosRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -156,19 +171,27 @@ public class IcmListaempleadosBlock implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListaempleadosBlock) {
             final IcmListaempleadosBlock copy = ((IcmListaempleadosBlock) draftCopy);
             {
-                Boolean icmListaempleadosRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty())));
+                Boolean icmListaempleadosRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListaempleadosRecordSet != null) && (!this.icmListaempleadosRecordSet.isEmpty())));
                 if (icmListaempleadosRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaempleadosRecord> sourceIcmListaempleadosRecordSet;
-                    sourceIcmListaempleadosRecordSet = (((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty()))?this.getIcmListaempleadosRecordSet():null);
+                    sourceIcmListaempleadosRecordSet = (((this.icmListaempleadosRecordSet != null)
+                            && (!this.icmListaempleadosRecordSet.isEmpty())) ? this.getIcmListaempleadosRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaempleadosRecord> copyIcmListaempleadosRecordSet = ((List<IcmListaempleadosRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaempleadosRecordSet", sourceIcmListaempleadosRecordSet), sourceIcmListaempleadosRecordSet, ((this.icmListaempleadosRecordSet!= null)&&(!this.icmListaempleadosRecordSet.isEmpty()))));
+                    List<IcmListaempleadosRecord> copyIcmListaempleadosRecordSet = ((List<IcmListaempleadosRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListaempleadosRecordSet",
+                                sourceIcmListaempleadosRecordSet), sourceIcmListaempleadosRecordSet,
+                                ((this.icmListaempleadosRecordSet != null)
+                                        && (!this.icmListaempleadosRecordSet.isEmpty()))));
                     copy.icmListaempleadosRecordSet = null;
-                    if (copyIcmListaempleadosRecordSet!= null) {
-                        List<IcmListaempleadosRecord> uniqueIcmListaempleadosRecordSetl = copy.getIcmListaempleadosRecordSet();
+                    if (copyIcmListaempleadosRecordSet != null) {
+                        List<IcmListaempleadosRecord> uniqueIcmListaempleadosRecordSetl = copy
+                            .getIcmListaempleadosRecordSet();
                         uniqueIcmListaempleadosRecordSetl.addAll(copyIcmListaempleadosRecordSet);
                     }
                 } else {

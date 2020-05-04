@@ -38,13 +38,15 @@ public class LimpiezaAsyncServiceImpl implements LimpiezaAsyncService {
     }
 
     @Override
-    public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(@NotNull @Valid TareaDto tarea) {
+    public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
+            @NotNull @Valid TareaDto tarea) {
         limpiezaService.limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid TareaDto tarea) {
+    public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(
+            @NotNull @Valid TareaDto tarea) {
         limpiezaService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -56,7 +58,8 @@ public class LimpiezaAsyncServiceImpl implements LimpiezaAsyncService {
     }
 
     @Override
-    public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid TareaDto tarea) {
+    public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
+            @NotNull @Valid TareaDto tarea) {
         limpiezaService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -66,4 +69,5 @@ public class LimpiezaAsyncServiceImpl implements LimpiezaAsyncService {
         limpiezaService.limpiezaTareaAmbitoGlobalPersona(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

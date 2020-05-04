@@ -85,7 +85,7 @@ public class GlobalTiendaPorcentajeDesplazamientoV1RunAlgoritmoTest {
             .calcular(algoritmo, tarea, personas);
         verify(log, times(1)).info("Fin :: GlobalTiendaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -113,6 +113,7 @@ public class GlobalTiendaPorcentajeDesplazamientoV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("GlobalTiendaPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

@@ -38,7 +38,7 @@ public class ProgramacionRepositoryCustomImpl implements ProgramacionRepositoryC
     public void reset() {
         MapSqlParameterSource arg = new MapSqlParameterSource();
         arg.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_SIGUIENTE_EJECUCION, TimeUtils
-                .toDate(TimeUtils.toInstant(LocalDateTime.of(LocalDate.of(1800, Month.JANUARY, 1), LocalTime.MIN))));
+            .toDate(TimeUtils.toInstant(LocalDateTime.of(LocalDate.of(1800, Month.JANUARY, 1), LocalTime.MIN))));
         arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         namedParameterJdbcTemplate.update(sqlCustomReset, arg);
     }

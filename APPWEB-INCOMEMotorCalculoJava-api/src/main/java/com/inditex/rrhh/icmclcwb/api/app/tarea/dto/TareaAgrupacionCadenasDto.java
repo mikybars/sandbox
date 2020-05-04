@@ -17,4 +17,5 @@ public class TareaAgrupacionCadenasDto implements Serializable {
     private Long id;
 
     private List<String> cadenas;
+
 }

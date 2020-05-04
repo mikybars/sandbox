@@ -93,7 +93,7 @@ public class Meta4ServiceTest {
     @Autowired
     @Qualifier("meta4ClientPool")
     private Meta4ClientPool meta4ClientPool;
-    
+
     @Test
     public void getOrigenes() {
         IcmParamcalsociedadRecord record = new IcmParamcalsociedadRecord();
@@ -366,7 +366,7 @@ public class Meta4ServiceTest {
         GetausenciasOutput getAusenciasOutput = meta4ClientPool.getausencias(param2, param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getAusenciasOutput.getReturn()));
     }
-    
+
     @Test
     public void getConfChDiasMinimos() {
         IcmParamcalconfchdiasRecord record = new IcmParamcalconfchdiasRecord();
@@ -393,7 +393,7 @@ public class Meta4ServiceTest {
         GetpresupuestoswlocOutput getpresupuestoswlocOutput = meta4ClientPool.getpresupuestoswloc(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getpresupuestoswlocOutput.getReturn()));
     }
-    
+
     @Test
     public void getConfPrecioHora() {
         IcmParamcalconfpreciohoraRecord record = new IcmParamcalconfpreciohoraRecord();
@@ -415,7 +415,7 @@ public class Meta4ServiceTest {
         GetconfchtpventaOutput getconfchtpventaOutput = meta4ClientPool.getconfchtpventa(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getconfchtpventaOutput.getReturn()));
     }
-    
+
     @Test
     public void getPresupuestosRango() {
         IcmParamcalpresupuestosrangoRecord record = new IcmParamcalpresupuestosrangoRecord();
@@ -431,7 +431,7 @@ public class Meta4ServiceTest {
         GetpresupuestosrangoOutput getpresupuestosrangoOutput = meta4ClientPool.getpresupuestosrango(param2, param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getpresupuestosrangoOutput.getReturn()));
     }
-    
+
     @Test
     public void getVentaCongelada() {
         IcmParamcalventacongeladaRecord record = new IcmParamcalventacongeladaRecord();
@@ -458,7 +458,7 @@ public class Meta4ServiceTest {
         GetconfiguracionOutput getConfiguracionOutput = meta4ClientPool.getconfiguracion(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getConfiguracionOutput.getReturn()));
     }
-    
+
     @Test
     public void saveProceso() {
         IcmParamcalprocesoRecord record = new IcmParamcalprocesoRecord();
@@ -468,7 +468,7 @@ public class Meta4ServiceTest {
         SaveprocesoOutput saveProcesoOutput = meta4ClientPool.saveproceso(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(saveProcesoOutput.getReturn()));
     }
-    
+
     @Test
     public void getEstructurasCom() {
         IcmParamcalestructuraRecord record = new IcmParamcalestructuraRecord();
@@ -482,10 +482,10 @@ public class Meta4ServiceTest {
         GetestructurascomOutput getComisionEmpleadoOutput = meta4ClientPool.getestructurascom(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getComisionEmpleadoOutput.getReturn()));
     }
-    
+
 
     @Test
-//    @Ignore("Sirve para buscar e imprimir en consola estructuras a partir de localizacion / origen")
+    // @Ignore("Sirve para buscar e imprimir en consola estructuras a partir de localizacion / origen")
     public void comprobarEstructurasTiendasOrigen() {
 
         IcmParamcalestructuraBlock paramEstructura = new IcmParamcalestructuraBlock();
@@ -523,7 +523,7 @@ public class Meta4ServiceTest {
             if (emprec.size() > 0) {
                 GetestructurascomOutput getComisionEmpleadoOutput = meta4ClientPool.getestructurascom(paramEstructura);
                 List<IcmListaestructuraRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructura()
-                        .getIcmListaestructuraRecordSet();
+                    .getIcmListaestructuraRecordSet();
                 for (IcmListaestructuraRecord record2 : recordset) {
                     System.out.println("tienda:" + tienda + " idempleado: " + record2.getIdempleado()
                             + " idempleadolocal: " + record2.getIdempleadolocal() + " estructura: "
@@ -550,7 +550,7 @@ public class Meta4ServiceTest {
         GetempleadosOutput getEmpleadosOutput = meta4ClientPool.getempleados(param1, param2);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getEmpleadosOutput.getReturn()));
     }
-    
+
     @Test
     public void getEstructurasPol() {
         IcmParamcalestructuraRecord record = new IcmParamcalestructuraRecord();
@@ -564,6 +564,5 @@ public class Meta4ServiceTest {
         GetestructuraspolOutput getestrpoliticas = meta4ClientPool.getestructuraspol(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getestrpoliticas.getReturn()));
     }
-
 
 }

@@ -27,7 +27,7 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
     @Value("#{primaryQuery['TrabajoRepositoryCustom.updateFechaFin']}")
     private String sqlUpdateFechaFin;
 
-    
+
     @Override
     public void updateEstado(@NotNull TrabajoDto trabajo, @NotNull EstadoTrabajoDto estado) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -36,7 +36,7 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         namedParameterJdbcTemplate.update(sqlUpdateFechaInicioAndEstado, parameters);
     }
-    
+
     @Override
     public void updateFechaFin(@NotNull TrabajoDto trabajo) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -44,4 +44,5 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         namedParameterJdbcTemplate.update(sqlUpdateFechaFin, parameters);
     }
+
 }

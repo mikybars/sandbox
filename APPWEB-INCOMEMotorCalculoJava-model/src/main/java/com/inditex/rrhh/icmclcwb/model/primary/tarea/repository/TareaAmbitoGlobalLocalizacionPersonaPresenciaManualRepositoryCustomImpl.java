@@ -22,7 +22,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom
     private String sqlSave;
 
     @Override
-    public List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> save(final List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> src) {
+    public List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> save(
+            final List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
 

@@ -31,25 +31,26 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TrabajoControllerTest {
-    
+
     private MockMvc mockMvc;
-    
+
     @Mock
     private Validator validator;
 
     @Mock
     private TrabajoService trabajoServiceMock;
-    
+
     @InjectMocks
     private TrabajoController trabajoController;
-    
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(trabajoController).setValidator(validator)
-                .build();
+        mockMvc = MockMvcBuilders.standaloneSetup(trabajoController)
+            .setValidator(validator)
+            .build();
     }
-    
+
     @Test
     public void create() throws Exception {
         TrabajoDto trabajo = new TrabajoDto();
@@ -62,15 +63,14 @@ public class TrabajoControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-  
+
         mapper.setSerializationInclusion(Include.NON_NULL);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(trabajo);
-        
+
         when(trabajoServiceMock.create(any(TrabajoDto.class))).thenReturn(new TrabajoDto());
         mockMvc.perform(post("/trabajo").contentType(MediaType.APPLICATION_JSON).content(requestJson)).andReturn();
         verify(trabajoServiceMock, times(1)).create(any(TrabajoDto.class));
     }
-    
 
 }

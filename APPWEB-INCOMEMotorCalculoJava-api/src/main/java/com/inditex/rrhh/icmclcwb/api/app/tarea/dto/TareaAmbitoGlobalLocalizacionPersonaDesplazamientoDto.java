@@ -19,20 +19,21 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto implements Se
     @NotNull
     @ApiModelProperty(value = "Identificador del tarea", required = true)
     private Long idTarea;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Identificador de la tienda", required = true)
     private String cclIdCodOrigen;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Identificador de la persona", required = true)
     private String cclIdPerson;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Identificador del origen", required = true)
     private String cclIdOrigen;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
     private String stdIdLegEnt;
+
 }

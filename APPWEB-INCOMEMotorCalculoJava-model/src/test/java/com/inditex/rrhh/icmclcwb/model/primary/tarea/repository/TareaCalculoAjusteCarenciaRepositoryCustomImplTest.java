@@ -34,11 +34,12 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 public class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
 
     private final static String SQL_AJUSTAR_BASE = "SQL CALCULAR BASE";
+
     private final static String SQL_AJUSTAR = "SQL CALCULAR";
-    
+
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
-    
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -47,16 +48,16 @@ public class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
 
     @Captor
     private ArgumentCaptor<String> sqlCaptor;
-    
+
     @InjectMocks
     private TareaCalculoAjusteCarenciaRepositoryCustomImpl tareaCalculoAjusteCarenciaRepositoryCustomImpl;
-    
+
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaCalculoAjusteCarenciaRepositoryCustomImpl, "sqlAjustar", SQL_AJUSTAR, true);
         FieldUtils.writeField(tareaCalculoAjusteCarenciaRepositoryCustomImpl, "sqlAjustarBase", SQL_AJUSTAR_BASE, true);
     }
-    
+
     @Test
     public void idsTest() {
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -66,12 +67,11 @@ public class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
             .thenReturn(personas);
 
         TareaDto tarea = mock(TareaDto.class);
-        List<TareaCalculoPersonaDto> ids =
-                tareaCalculoAjusteCarenciaRepositoryCustomImpl.ids(tarea);
+        List<TareaCalculoPersonaDto> ids = tareaCalculoAjusteCarenciaRepositoryCustomImpl.ids(tarea);
 
         assertEquals(personas, ids);
-    }   
-    
+    }
+
     @Test
     public void getMapValuesTest() {
         AlgoritmoAjusteDto algoritmoAjuste = mock(AlgoritmoAjusteDto.class);
@@ -82,7 +82,8 @@ public class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(algoritmoAjuste, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(algoritmoAjuste, tarea,
+                persona1);
         assertEquals(10, result.size());
 
         // idTarea
@@ -105,15 +106,20 @@ public class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, result.get(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         // idTipoUnidadtiempoAnos
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
-        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
         // idTipoUnidadtiempoMeses
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
-        assertEquals(TipoUnidadTiempoEnum.MESES.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+        assertEquals(TipoUnidadTiempoEnum.MESES.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
         // idTipoUnidadtiempoSemanas
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
-        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
         // idTipoUnidadtiempoDias
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
-        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
     }
+
 }

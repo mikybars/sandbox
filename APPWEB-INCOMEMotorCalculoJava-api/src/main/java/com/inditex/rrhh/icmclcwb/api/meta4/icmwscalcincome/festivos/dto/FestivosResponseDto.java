@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class FestivosResponseDto extends PageableListDto<GenericTiendaResultItemDto>
         implements PageableList<GenericTiendaResultItemDto>, Serializable {
-    
+
     private static final long serialVersionUID = -1703959072183777457L;
 
 }

@@ -12,5 +12,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 
 public interface TareaAgrupacionConfiguracionService {
 
-    List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(@Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data, @Valid @NotNull final RunTareaDto tarea);
+    List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
+            @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
+            @Valid @NotNull final RunTareaDto tarea);
+
 }

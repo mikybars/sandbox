@@ -35,9 +35,12 @@ public class TareaAgrupacionCadenaServiceImpl implements TareaAgrupacionCadenaSe
     private TareaAgrupacionCadenaRepository tareaAgrupacionCadenaRepository;
 
     @Override
-    public List<TareaAgrupacionCadenaDto> save(@Valid @NotNull @NotEmpty final List<AgrupOnlineResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
-        List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaMapper.getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(src, tarea);
-        return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(tareaAgrupacionCadenaRepositoryCustom.save(agrupaciones));
+    public List<TareaAgrupacionCadenaDto> save(@Valid @NotNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
+            @Valid @NotNull final TareaDto tarea) {
+        List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaMapper
+            .getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(src, tarea);
+        return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
+                tareaAgrupacionCadenaRepositoryCustom.save(agrupaciones));
     }
 
     @Override
@@ -45,4 +48,5 @@ public class TareaAgrupacionCadenaServiceImpl implements TareaAgrupacionCadenaSe
         List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaRepository.findByTareaId(tarea.getId());
         return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(agrupaciones);
     }
+
 }

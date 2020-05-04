@@ -31,18 +31,16 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmoTest {
     private Logger log;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom 
-        tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom;
-    
+    private TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom;
+
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Mock
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
 
     @InjectMocks
-    private PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo 
-        porVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo;
+    private PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo porVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo;
 
     @Test
     public void getSqlCalcularTest() {
@@ -78,10 +76,12 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         porVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info("Fin :: PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                3);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
-    
+
 }

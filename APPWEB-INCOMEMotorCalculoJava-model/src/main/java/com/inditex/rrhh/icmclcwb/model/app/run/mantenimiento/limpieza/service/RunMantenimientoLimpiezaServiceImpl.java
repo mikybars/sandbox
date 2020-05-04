@@ -33,7 +33,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
         idTarea.stream().forEach(senderLimpieza::send);
         return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
     }
-    
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {

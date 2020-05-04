@@ -17,5 +17,5 @@ public interface ProgramacionAmbitoEmpresaService {
 
     List<ProgramacionAmbitoEmpresaDto> findByProgramacionAmbito(
             @NotNull final ProgramacionAmbitoDto programacionAmbito);
-    
+
 }

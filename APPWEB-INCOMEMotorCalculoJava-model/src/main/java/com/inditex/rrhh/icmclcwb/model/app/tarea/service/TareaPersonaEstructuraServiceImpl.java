@@ -36,34 +36,39 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
 
     @Autowired
     private TareaPersonaEstructuraMapper tareaPersonaEstructuraMapper;
-    
+
     @Autowired
     private TareaPersonaEstructuraDesplazamientoMapper tareaPersonaEstructuraDesplazamientoMapper;
 
     @Override
-    public List<TareaPersonaEstructuraDto> save(@Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+    public List<TareaPersonaEstructuraDto> save(
+            @Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
             @Valid @NotNull final TareaDto tarea) {
         // Guardado de estructuras
-        List<TareaPersonaEstructuraDto> result = tareaPersonaEstructuraMapper.tareaPersonaEstructuraToTareaPersonaEstructuraDto(
-            tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
-                .tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructura)));
+        List<TareaPersonaEstructuraDto> result = tareaPersonaEstructuraMapper
+            .tareaPersonaEstructuraToTareaPersonaEstructuraDto(
+                    tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
+                        .tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructura)));
         // Guardado de desplazamientos
         List<TareaPersonaEstructuraDesplazamiento> desplazamientos = new ArrayList<TareaPersonaEstructuraDesplazamiento>();
         tareaPersonaEstructura.stream().forEach(item -> {
             if (item.getEstructuraDesplazamiento() != null) {
-                desplazamientos.add(tareaPersonaEstructuraDesplazamientoMapper.tareaPersonaEstructuraDesplazamientoDtoToTareaPersonaEstructuraDesplazamiento(item.getEstructuraDesplazamiento()));
+                desplazamientos.add(tareaPersonaEstructuraDesplazamientoMapper
+                    .tareaPersonaEstructuraDesplazamientoDtoToTareaPersonaEstructuraDesplazamiento(
+                            item.getEstructuraDesplazamiento()));
             }
         });
-        if (CollectionUtils.isNotEmpty(desplazamientos)) { 
+        if (CollectionUtils.isNotEmpty(desplazamientos)) {
             tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(desplazamientos);
         }
         return result;
     }
 
-    
+
     @Override
     public List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
-            @Valid @NotNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid @NotNull final TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto,
+            @Valid @NotNull final TareaDto tarea) {
         return tareaPersonaEstructuraMapper
             .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
     }
@@ -73,4 +78,5 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
     public List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NotNull final TareaDto tarea) {
         return tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
     }
+
 }

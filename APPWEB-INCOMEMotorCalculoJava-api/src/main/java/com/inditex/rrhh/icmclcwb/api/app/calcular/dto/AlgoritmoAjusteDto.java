@@ -13,11 +13,11 @@ public class AlgoritmoAjusteDto {
 
     @ApiModelProperty(value = "Si el ajuste está [activo|inactivo]", required = true, example = "true")
     private Boolean activo;
-    
+
     @ApiModelProperty(value = "Nombre del ajuste", required = true, example = "true")
     private String nombre;
-    
+
     @ApiModelProperty(value = "Peso del ajuste", required = true, example = "true")
     private Integer peso;
-    
+
 }

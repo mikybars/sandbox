@@ -28,8 +28,8 @@ public class SqlParamsUtils {
     }
 
     /**
-     * <b>Importante:</b> Este metodo no debe usarse para ejeuctar SQL, es para
-     * imprimir en el log las consultas.
+     * <b>Importante:</b> Este metodo no debe usarse para ejeuctar SQL, es para imprimir en el log las
+     * consultas.
      */
     public static String replaceValues(String sql, Map<String, ? extends Object> params) {
 
@@ -39,8 +39,9 @@ public class SqlParamsUtils {
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 String value = createValueCreator(params.get(key)).createValue();
-                String paramRegexp = new StringBuilder(REGEXP_GROUP_1_REGEXP).append(key).append(REGEXP_GROUP_3_REGEXP)
-                        .toString();
+                String paramRegexp = new StringBuilder(REGEXP_GROUP_1_REGEXP).append(key)
+                    .append(REGEXP_GROUP_3_REGEXP)
+                    .toString();
                 Pattern pattern = Pattern.compile(paramRegexp);
                 Matcher matcher = pattern.matcher(result);
                 if (matcher.find()) {
@@ -67,7 +68,9 @@ public class SqlParamsUtils {
     }
 
     private interface ValueCreator {
+
         String createValue();
+
     }
 
     @Data

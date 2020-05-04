@@ -63,10 +63,13 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlSave", SQL_SAVE, true);
-        FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlUpdateActivoBandaExcepcion", SQL_UPDATE_ACTIVO_BANDA_EXCEPCION, true);
-        FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlUpdateActivoBandasSinExcepcion", SQL_UPDATE_ACTIVO_BANDAS_SIN_EXCEPCION, true);
+        FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlUpdateActivoBandaExcepcion",
+                SQL_UPDATE_ACTIVO_BANDA_EXCEPCION, true);
+        FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlUpdateActivoBandasSinExcepcion",
+                SQL_UPDATE_ACTIVO_BANDAS_SIN_EXCEPCION, true);
         FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlFindPresupuestos", SQL_FIND_PRESUPUESTOS, true);
-        FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlFindPeriodoPresupuestoYTrabajo", SQL_FIND_RANGO_FECHAS_PRESUPUESTOS, true);
+        FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "sqlFindPeriodoPresupuestoYTrabajo",
+                SQL_FIND_RANGO_FECHAS_PRESUPUESTOS, true);
         FieldUtils.writeField(tareaPresupuestoRepositoryCustom, "batchSize", 100, true);
     }
 
@@ -133,7 +136,8 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         when(tarea.getId()).thenReturn(809L);
 
         tareaPresupuestoRepositoryCustom.findPresupuestos(tarea);
-        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(), any(RowMapper.class));
+        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(),
+                any(RowMapper.class));
 
         assertEquals(SQL_FIND_PRESUPUESTOS, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
@@ -150,7 +154,8 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         when(tarea.getId()).thenReturn(8989L);
 
         tareaPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(tarea.getId());
-        verify(namedParameterJdbcTemplate, times(1)).queryForObject(sqlCaptor.capture(), paramsCaptor.capture(), any(RowMapper.class));
+        verify(namedParameterJdbcTemplate, times(1)).queryForObject(sqlCaptor.capture(), paramsCaptor.capture(),
+                any(RowMapper.class));
 
         assertEquals(SQL_FIND_RANGO_FECHAS_PRESUPUESTOS, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
@@ -177,10 +182,12 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         // icmCkExcepcion
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION));
         // nuevoActivo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
     }
 
     @Test
@@ -198,19 +205,23 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         assertEquals(5, params.getValues().size());
         // idTipoGrupoDato
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         // icmCkException
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION));
         // activo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         // nuevoActivo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
 
     }
+
 }

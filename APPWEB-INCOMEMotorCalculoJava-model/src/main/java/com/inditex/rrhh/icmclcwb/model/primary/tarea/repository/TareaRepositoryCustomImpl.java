@@ -42,11 +42,11 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
 
     @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']}")
     private String sqlFindLimpieza;
-    
+
     @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.byIdTarea']}")
     private String sqlFindLimpiezaByIdTarea;
-    
-    
+
+
     @Override
     public void updateFechaFin(@NotNull final TareaDto tarea) {
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -97,7 +97,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
             }
         });
     }
-    
+
     @Override
     public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -112,6 +112,5 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
             }
         });
     }
-
 
 }

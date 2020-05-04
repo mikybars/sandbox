@@ -69,8 +69,12 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
     private LimpiezaAsyncService limpiezaAsyncService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaRecolectarAmbitoPresupuestoService.run.timer", metricGroupName = "RunTareaRecolectarAmbitoPresupuestoServiceGroup", metricDescription = "RunTareaRecolectarAmbitoPresupuestoService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaRecolectarAmbitoPresupuestoService.run.counter", metricGroupName = "RunTareaRecolectarAmbitoPresupuestoServiceGroup", metricDescription = "RunTareaRecolectarAmbitoPresupuestoService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarAmbitoPresupuestoService.run.timer",
+            metricGroupName = "RunTareaRecolectarAmbitoPresupuestoServiceGroup",
+            metricDescription = "RunTareaRecolectarAmbitoPresupuestoService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarAmbitoPresupuestoService.run.counter",
+            metricGroupName = "RunTareaRecolectarAmbitoPresupuestoServiceGroup",
+            metricDescription = "RunTareaRecolectarAmbitoPresupuestoService.run.counter")
     @Override
     public void run(@NotNull @Valid RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -94,14 +98,16 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            CompletableFuture<Void> cfPresupuestos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.presupuestosWlocByRunTarea(runTarea);
+            CompletableFuture<Void> cfPresupuestos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .presupuestosWlocByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresupuestos, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            TareaLocalizacionPresupuestoListDto presupuestos = tareaLocalizacionPresupuestoService.findPresupuestos(runTarea.getTarea());
+            TareaLocalizacionPresupuestoListDto presupuestos = tareaLocalizacionPresupuestoService
+                .findPresupuestos(runTarea.getTarea());
             if (presupuestos.esAmbitoAmpliado(runTarea.getTarea())) {
 
                 final TrabajoDto trabajo = runTarea.getTrabajo();
@@ -111,28 +117,36 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
                  */
                 /*-----------------------------------------------------------------*/
 
-                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalPersona = limpiezaAsyncService.limpiezaTareaAmbitoGlobalPersona(runTarea.getTarea());
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalPersona = limpiezaAsyncService
+                    .limpiezaTareaAmbitoGlobalPersona(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoGlobalPersona, cf);
 
-                CompletableFuture<Void> cfLimpiezaTareaAmbitoLocalizacion = limpiezaAsyncService.limpiezaTareaAmbitoLocalizacion(runTarea.getTarea());
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoLocalizacion = limpiezaAsyncService
+                    .limpiezaTareaAmbitoLocalizacion(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoLocalizacion, cf);
 
-                CompletableFuture<Void> cfLimpiezaTareaPersonaHistorico = limpiezaAsyncService.limpiezaTareaPersonaHistorico(runTarea.getTarea());
+                CompletableFuture<Void> cfLimpiezaTareaPersonaHistorico = limpiezaAsyncService
+                    .limpiezaTareaPersonaHistorico(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaPersonaHistorico, cf);
 
-                CompletableFuture<Void> cfLimpiezaTareaLocalizacionHistorico = limpiezaAsyncService.limpiezaTareaLocalizacionHistorico(runTarea.getTarea());
+                CompletableFuture<Void> cfLimpiezaTareaLocalizacionHistorico = limpiezaAsyncService
+                    .limpiezaTareaLocalizacionHistorico(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaLocalizacionHistorico, cf);
 
-                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersona = limpiezaAsyncService.limpiezaTareaGlobalLocalizacionPersona(runTarea.getTarea());
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersona = limpiezaAsyncService
+                    .limpiezaTareaGlobalLocalizacionPersona(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoGlobalLocalizacionPersona, cf);
 
-                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento = limpiezaAsyncService.limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(runTarea.getTarea());
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento = limpiezaAsyncService
+                    .limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento, cf);
 
-                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia = limpiezaAsyncService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(runTarea.getTarea());
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia = limpiezaAsyncService
+                    .limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia, cf);
 
-                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual = limpiezaAsyncService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(runTarea.getTarea());
+                CompletableFuture<Void> cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual = limpiezaAsyncService
+                    .limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(runTarea.getTarea());
                 AsyncUtils.exceptionally(cfLimpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual, cf);
 
                 /*-------------------------------------------------------------*/
@@ -141,8 +155,7 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
 
                 /*-----------------------------------------------------------------*/
                 /*
-                 * Obtención del ámbito de nuevo con el nuevo rango de fechas procedente
-                 * de los presupuestos.
+                 * Obtención del ámbito de nuevo con el nuevo rango de fechas procedente de los presupuestos.
                  */
                 /*-----------------------------------------------------------------*/
 
@@ -190,9 +203,9 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
 
-                //Nota: las acciones a continuación no dependen de un rango de fechas, por lo que no se crean
-                //servicios específicos para Presupuestos, se reutilizan los ya existentes de la recolección
-                //del ámbito.
+                // Nota: las acciones a continuación no dependen de un rango de fechas, por lo que no se crean
+                // servicios específicos para Presupuestos, se reutilizan los ya existentes de la recolección
+                // del ámbito.
 
                 CompletableFuture<Void> cfMergePersona = tareaAmbitoGlobalPersonaAsyncService.mergePersona(runTarea);
                 AsyncUtils.exceptionally(cfMergePersona, cf);
@@ -205,8 +218,8 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
                 if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
-                    || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
-                    || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
+                        || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
+                        || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
                     runTareaRecolectarByAmbitoService.run(runTarea);
                 } else if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
                     runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
@@ -222,4 +235,5 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
             throw e;
         }
     }
+
 }

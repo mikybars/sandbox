@@ -23,8 +23,9 @@ public abstract class ProgramacionAmbitoLocalizacionMapperDecorator extends Prog
         List<ProgramacionAmbitoLocalizacion> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcProgramacionAmbitoLocalizacion)) {
             srcProgramacionAmbitoLocalizacion.forEach(item -> result
-                    .add(delegate.mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(item,
-                            srcProgramacionAmbito)));
+                .add(delegate.mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
+                        item,
+                        srcProgramacionAmbito)));
         }
         return result;
     }

@@ -20,7 +20,8 @@ public class TareaLocalizacionPersonaVentaDto implements Serializable {
     @ApiModelProperty(value = "Tarea", required = true)
     private Long idTarea;
 
-    @ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true, accessMode = AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true,
+            accessMode = AccessMode.READ_ONLY)
     private LocalDate fecha;
 
     @NotBlank
@@ -41,4 +42,5 @@ public class TareaLocalizacionPersonaVentaDto implements Serializable {
 
     @ApiModelProperty(value = "Tipo importe venta", required = true)
     private Long idTipoImporteVenta;
+
 }

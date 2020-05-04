@@ -20,4 +20,5 @@ public class PtrVentaEmpleadoAsyncServiceImpl implements PtrVentaEmpleadoAsyncSe
             final PtrVentaIndividualDetalleRequestDto request) {
         return CompletableFuture.completedFuture(ptrVentaEmpleadoService.ventaIndividualDetalle(request));
     }
+
 }

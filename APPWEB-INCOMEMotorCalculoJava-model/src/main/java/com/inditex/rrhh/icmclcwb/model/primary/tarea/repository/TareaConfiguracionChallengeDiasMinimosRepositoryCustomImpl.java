@@ -17,15 +17,15 @@ public class TareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl
 
     @Value("${app.envars.repository.batch-size.tarea-configuracion-challenge-dias-minimos:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaConfiguracionChallengeDiasMinimosRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Override
     public List<TareaConfiguracionChallengeDiasMinimos> save(List<TareaConfiguracionChallengeDiasMinimos> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaConfiguracionChallengeDiasMinimos entity)
             throws SQLException {

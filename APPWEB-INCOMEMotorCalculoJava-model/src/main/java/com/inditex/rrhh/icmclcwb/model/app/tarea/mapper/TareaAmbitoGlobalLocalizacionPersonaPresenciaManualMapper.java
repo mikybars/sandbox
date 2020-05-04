@@ -30,14 +30,14 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper 
 
     public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> tareaAmbitoGlobalLocalizacionPersonaPresenciaManualDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
             List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto> src);
-    
+
     @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
     @Mapping(source = "src.idLugarTrabajo", target = "stdIdWorkLocat")
     @Mapping(source = "src.idEmpresa", target = "stdIdLegEnt")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(source = "src.idEmpleadoLocal", target = "cclIdPerson")
     @Mapping(target = "id", ignore = true)
-    public abstract TareaAmbitoGlobalLocalizacionPersonaPresenciaManual genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual( 
+    public abstract TareaAmbitoGlobalLocalizacionPersonaPresenciaManual genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
             GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
     public List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
@@ -45,5 +45,4 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper 
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
-    
 }

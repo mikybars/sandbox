@@ -22,4 +22,5 @@ public class TareaAgrupacionPresenciaServiceImpl implements TareaAgrupacionPrese
     public void calcularPresenciasTotalesAgrupacion(@Valid @NotNull final TareaDto tarea) {
         tareaAgrupacionPresenciaRepositoryCustom.calcularPresenciasTotalesAgrupacion(tarea);
     }
+
 }

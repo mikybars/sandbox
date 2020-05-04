@@ -78,12 +78,13 @@ public class TareaPersonaEstructuraDto implements Serializable {
     private Boolean desplazamiento;
 
     @NotNull
-    @ApiModelProperty(value = "Flag que indica si es una estructura de desplazamiento, pero es la base", required = true)
+    @ApiModelProperty(value = "Flag que indica si es una estructura de desplazamiento, pero es la base",
+            required = true)
     private Boolean desplazamientoBase;
 
     @ApiModelProperty(value = "Estructura de desplazamiento", required = false)
     private TareaPersonaEstructuraDesplazamientoDto estructuraDesplazamiento;
-    
+
     @NotNull
     @ApiModelProperty(value = "Flag activo/inactivo", required = true)
     private Boolean activo;
@@ -93,34 +94,34 @@ public class TareaPersonaEstructuraDto implements Serializable {
 
     @ApiModelProperty(value = "Flag dia / martes", required = false)
     private Boolean diaM;
-    
+
     @ApiModelProperty(value = "Flag dia / miercoles", required = false)
     private Boolean diaX;
-    
+
     @ApiModelProperty(value = "Flag dia / jueves", required = false)
     private Boolean diaJ;
-    
+
     @ApiModelProperty(value = "Flag dia / viernes", required = false)
     private Boolean diaV;
-    
+
     @ApiModelProperty(value = "Flag dia / sabado", required = false)
     private Boolean diaS;
-    
+
     @ApiModelProperty(value = "Flag dia / domingo", required = false)
     private Boolean diaD;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id estructura asociada al empleado por APV", required = true)
     private String icmIdEstrComisionBase;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id estructura padre", required = true)
     private String icmIdEstrComisionPadre;
-    
+
     @NotNull
     @ApiModelProperty(value = "Tope", required = true)
     private Integer tope;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id tipo estructura ", required = true)
     private String icmIdTpEstructura;
@@ -128,5 +129,5 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Fecha inicio periodo", required = true)
     private LocalDate fechaInicioPeriodo;
-    
+
 }

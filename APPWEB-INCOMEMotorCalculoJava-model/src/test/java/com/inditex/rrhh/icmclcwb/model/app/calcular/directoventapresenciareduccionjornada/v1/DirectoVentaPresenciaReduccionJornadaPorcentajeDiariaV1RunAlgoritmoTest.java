@@ -33,10 +33,10 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo
 
     @Mock
     private Logger log;
-    
+
     @Mock
     private TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RepositoryCustom;
-    
+
     @InjectMocks
     private DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo directoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo;
 
@@ -45,12 +45,13 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RepositoryCustom
-                .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
-            assertEquals(SQL_CALCULAR, directoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
+            .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
+        assertEquals(SQL_CALCULAR,
+                directoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
     }
 
     @Test
@@ -77,12 +78,14 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         directoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -98,7 +101,8 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo
 
         when(runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
         RuntimeException exception = new RuntimeException("EEEE");
-        doThrow(exception).when(tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RepositoryCustom)
+        doThrow(exception)
+            .when(tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RepositoryCustom)
             .calcular(any(AlgoritmoDto.class), any(TareaDto.class), any(List.class));
 
         RunTareaDto runTarea = new RunTareaDto();
@@ -108,9 +112,10 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo
         directoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(log, times(1))
-            .error("DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
+            .error("DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}", 2,
+                    exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
-    
+
 }

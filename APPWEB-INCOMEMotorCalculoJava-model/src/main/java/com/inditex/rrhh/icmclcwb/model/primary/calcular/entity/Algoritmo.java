@@ -37,7 +37,7 @@ public class Algoritmo {
     private Boolean desplazamientoBase;
 
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -49,9 +49,10 @@ public class Algoritmo {
     @JoinTable(name = "ALGORITMO_TIPO_CALCULO", joinColumns = {
             @JoinColumn(name = "ID_ALGORITMO") }, inverseJoinColumns = { @JoinColumn(name = "ID_TIPO_CALCULO") })
     private Set<TipoCalculo> tipoCalculo;
-    
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ALGORITMO_TIPO_DATO", joinColumns = {
             @JoinColumn(name = "ID_ALGORITMO") }, inverseJoinColumns = { @JoinColumn(name = "ID_TIPO_DATO") })
     private Set<TipoDato> tipoDato;
+
 }

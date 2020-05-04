@@ -14,11 +14,13 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
 public interface TareaLocalizacionVentaService {
-    
-    List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(@Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
+
+    List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(
+            @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
             @Valid @NotNull final TareaDto tarea);
-    
-    List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(@Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
+
+    List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(
+            @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
             @Valid @NotNull final TareaDto tarea);
 
     List<TareaLocalizacionVentaDto> savePtrVentaOnlinePickingResponse(

@@ -58,8 +58,12 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
     private TareaAmbitoGlobalLocalizacionPersonaAsyncService tareaAmbitoGlobalLocalizacionPersonaAsyncService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaRecolectarAmbitoService.run.timer", metricGroupName = "RunTareaRecolectarAmbitoServiceGroup", metricDescription = "RunTareaRecolectarAmbitoService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaRecolectarAmbitoService.run.counter", metricGroupName = "RunTareaRecolectarAmbitoServiceGroup", metricDescription = "RunTareaRecolectarAmbitoService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarAmbitoService.run.timer",
+            metricGroupName = "RunTareaRecolectarAmbitoServiceGroup",
+            metricDescription = "RunTareaRecolectarAmbitoService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarAmbitoService.run.counter",
+            metricGroupName = "RunTareaRecolectarAmbitoServiceGroup",
+            metricDescription = "RunTareaRecolectarAmbitoService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -67,12 +71,12 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             final TrabajoDto trabajo = runTarea.getTrabajo();
             // Personas asociadas al origen y empresa
             CompletableFuture<Void> cfPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .personaByRunTarea(runTarea);
+                .personaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPersonaByRunTarea, cf);
 
             // Localizaciones asociadas al origen y empresa
             CompletableFuture<Void> cfLocalizacionByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .localizacionByRunTarea(runTarea);
+                .localizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf);
 
             /*-------------------------------------------------------------*/
@@ -82,19 +86,19 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             // Relacion de personas con localizaciones en presencias ptr
             // asociadas al origen y empresa
             CompletableFuture<Void> cfPresenciaEmpleadoTienda = runTareaRecolectarPtrPresenciaAsyncService
-                    .presenciaEmpleadoTiendaByRunTarea(runTarea);
+                .presenciaEmpleadoTiendaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciaEmpleadoTienda, cf);
 
             // Relacion de personas con localizaciones en presencias manuales
             // asociadas al origen y empresa
             CompletableFuture<Void> cfEmpleadosPresencia = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .empleadosPresenciaByRunTarea(runTarea);
+                .empleadosPresenciaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEmpleadosPresencia, cf);
 
             // Relacion de personas con localizaciones en desplazamientos
             // asociadas al origen y empresa
             CompletableFuture<Void> cfEmpleadosDesplazamiento = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .empleadosDesplazamientoByRunTarea(runTarea);
+                .empleadosDesplazamientoByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEmpleadosDesplazamiento, cf);
 
             /*-------------------------------------------------------------*/
@@ -102,7 +106,7 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             /*-------------------------------------------------------------*/
 
             CompletableFuture<Void> cfMergePersonaLocalizacion = tareaAmbitoGlobalLocalizacionPersonaAsyncService
-                    .mergePersonaLocalizacion(runTarea);
+                .mergePersonaLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaLocalizacion, cf);
 
             /*-------------------------------------------------------------*/
@@ -113,7 +117,7 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             AsyncUtils.exceptionally(cfMergePersona, cf);
 
             CompletableFuture<Void> cfMergeLocalizacion = tareaAmbitoGlobalLocalizacionAsyncService
-                    .mergeLocalizacion(runTarea);
+                .mergeLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergeLocalizacion, cf);
 
             /*-------------------------------------------------------------*/
